@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -120046454)
+@com.runwaysdk.business.ClassSignature(hash = 1170781138)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public class AggregatedCaseSearchViewQueryDTO extends dss.vector.solutions.surveillance.AggregatedCaseViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -120046454;
+private static final long serialVersionUID = 1170781138;
 
   protected AggregatedCaseSearchViewQueryDTO(String type)
   {

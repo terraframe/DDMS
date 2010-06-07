@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 1933627448)
+@com.runwaysdk.business.ClassSignature(hash = 1449438208)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class AggregatedCaseSearchViewQueryBase extends dss.vector.solutions.surveillance.AggregatedCaseViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1933627448;
+private static final long serialVersionUID = 1449438208;
 
   public AggregatedCaseSearchViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,59 @@ private static final long serialVersionUID = 1933627448;
   {
     return dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS;
   }
+  public com.runwaysdk.query.SelectableInteger getPeriod()
+  {
+    return getPeriod(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPeriod(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.PERIOD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPeriod(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.PERIOD, alias, displayLabel);
+
+  }
+ 
+  public dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF getPeriodType()
+  {
+    return getPeriodType(null);
+
+  }
+ 
+  public dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF getPeriodType(String alias)
+  {
+    return (dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.PERIODTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF getPeriodType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.PERIODTYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getPeriodYear()
+  {
+    return getPeriodYear(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPeriodYear(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.PERIODYEAR, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPeriodYear(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseSearchView.PERIODYEAR, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableBoolean getSearchType()
   {
     return getSearchType(null);

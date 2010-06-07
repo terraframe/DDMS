@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 327984235)
+@com.runwaysdk.business.ClassSignature(hash = -539524650)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  class AggregatedCaseQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 327984235;
+private static final long serialVersionUID = -539524650;
 
   public AggregatedCaseQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -79,91 +79,6 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASES, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getCasesFemale()
-  {
-    return getCasesFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getCasesMale()
-  {
-    return getCasesMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant()
-  {
-    return getCasesPregnant(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed()
-  {
-    return getClinicallyDiagnosed(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath()
-  {
-    return getClinicallyDiagnosedDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -204,23 +119,6 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.AggregatedCase.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock()
-  {
-    return getDaysOutOfStock(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getDeaths()
   {
     return getDeaths(null);
@@ -238,106 +136,27 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale()
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
   {
-    return getDeathsFemale(null);
+    return getDisease(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias)
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, null);
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.surveillance.AggregatedCase.DISEASE);
+
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DISEASE, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias, String displayLabel)
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, displayLabel);
 
-  }
-  public com.runwaysdk.query.SelectableInteger getDeathsMale()
-  {
-    return getDeathsMale(null);
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.surveillance.AggregatedCase.DISEASE);
 
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant()
-  {
-    return getDeathsPregnant(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed()
-  {
-    return getDefinitivelyDiagnosed(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath()
-  {
-    return getDefinitivelyDiagnosedDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getEndAge()
-  {
-    return getEndAge(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEndAge(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEndAge(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, displayLabel);
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.AggregatedCase.DISEASE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getEndDate()
@@ -420,193 +239,6 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.ID, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getInPatients()
-  {
-    return getInPatients(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatients(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatients(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia()
-  {
-    return getInPatientsAnemia(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically()
-  {
-    return getInPatientsClinically(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive()
-  {
-    return getInPatientsDefinitive(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged()
-  {
-    return getInPatientsDischarged(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale()
-  {
-    return getInPatientsFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale()
-  {
-    return getInPatientsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated()
-  {
-    return getInPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia()
-  {
-    return getInPatientsPregnantAnemia(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis()
-  {
-    return getInPatientsPregnantDianosis(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal()
-  {
-    return getInPatientsTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -687,89 +319,21 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.AggregatedCase.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getOutPatients()
+  public com.runwaysdk.query.SelectableInteger getNegativeCases()
   {
-    return getOutPatients(null);
+    return getNegativeCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getOutPatients(String alias)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.NEGATIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getOutPatients(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale()
-  {
-    return getOutPatientsFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale()
-  {
-    return getOutPatientsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated()
-  {
-    return getOutPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal()
-  {
-    return getOutPatientsTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.NEGATIVECASES, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -795,106 +359,21 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.surveillance.AggregatedCase.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated()
+  public com.runwaysdk.query.SelectableInteger getPositiveCases()
   {
-    return getPatientsNotTreated(null);
+    return getPositiveCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.POSITIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis()
-  {
-    return getPregnantDiagnosis(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath()
-  {
-    return getPregnantDiagnosisDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived()
-  {
-    return getPregnantReferralsReceived(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived()
-  {
-    return getReferralsReceived(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getReferralsSent()
-  {
-    return getReferralsSent(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.POSITIVECASES, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -931,23 +410,6 @@ private static final long serialVersionUID = 327984235;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getStartAge()
-  {
-    return getStartAge(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStartAge(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStartAge(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableMoment getStartDate()
   {
     return getStartDate(null);
@@ -963,23 +425,6 @@ private static final long serialVersionUID = 327984235;
   public com.runwaysdk.query.SelectableMoment getStartDate(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getStillBirths()
-  {
-    return getStillBirths(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -1010,6 +455,10 @@ private static final long serialVersionUID = 327984235;
     else if (name.equals(dss.vector.solutions.surveillance.AggregatedCase.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.surveillance.AggregatedCase.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.surveillance.AggregatedCase.ENTITYDOMAIN)) 
     {
@@ -1063,586 +512,6 @@ private static final long serialVersionUID = 327984235;
   }
 
 
-  public com.runwaysdk.query.Condition diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.getBusinessQuery().isParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.getBusinessQuery().isParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.getBusinessQuery().isParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.getBusinessQuery().isParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.getBusinessQuery().isParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.getBusinessQuery().isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -1656,51 +525,18 @@ private static final long serialVersionUID = 327984235;
     public com.runwaysdk.query.SelectableInteger getCases();
     public com.runwaysdk.query.SelectableInteger getCases(String alias);
     public com.runwaysdk.query.SelectableInteger getCases(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getCasesFemale();
-    public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias);
-    public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getCasesMale();
-    public com.runwaysdk.query.SelectableInteger getCasesMale(String alias);
-    public com.runwaysdk.query.SelectableInteger getCasesMale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getCasesPregnant();
-    public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias);
-    public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed();
-    public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias);
-    public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath();
-    public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias);
-    public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getDaysOutOfStock();
-    public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias);
-    public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getDeaths();
     public com.runwaysdk.query.SelectableInteger getDeaths(String alias);
     public com.runwaysdk.query.SelectableInteger getDeaths(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getDeathsFemale();
-    public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias);
-    public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getDeathsMale();
-    public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias);
-    public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getDeathsPregnant();
-    public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias);
-    public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed();
-    public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias);
-    public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath();
-    public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias);
-    public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getEndAge();
-    public com.runwaysdk.query.SelectableInteger getEndAge(String alias);
-    public com.runwaysdk.query.SelectableInteger getEndAge(String alias, String displayLabel);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease();
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias);
+    public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getEndDate();
     public com.runwaysdk.query.SelectableMoment getEndDate(String alias);
     public com.runwaysdk.query.SelectableMoment getEndDate(String alias, String displayLabel);
@@ -1713,39 +549,6 @@ private static final long serialVersionUID = 327984235;
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatients();
-    public com.runwaysdk.query.SelectableInteger getInPatients(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatients(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsAnemia();
-    public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsClinically();
-    public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive();
-    public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsDischarged();
-    public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsFemale();
-    public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsMale();
-    public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated();
-    public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia();
-    public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis();
-    public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInPatientsTotal();
-    public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias);
-    public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getKeyName();
     public com.runwaysdk.query.SelectableChar getKeyName(String alias);
     public com.runwaysdk.query.SelectableChar getKeyName(String alias, String displayLabel);
@@ -1758,57 +561,24 @@ private static final long serialVersionUID = 327984235;
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getOutPatients();
-    public com.runwaysdk.query.SelectableInteger getOutPatients(String alias);
-    public com.runwaysdk.query.SelectableInteger getOutPatients(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsFemale();
-    public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsMale();
-    public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated();
-    public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsTotal();
-    public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias);
-    public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getNegativeCases();
+    public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias);
+    public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getPatientsNotTreated();
-    public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias);
-    public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis();
-    public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias);
-    public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath();
-    public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias);
-    public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived();
-    public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias);
-    public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getReferralsReceived();
-    public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias);
-    public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getReferralsSent();
-    public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias);
-    public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getPositiveCases();
+    public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias);
+    public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getStartAge();
-    public com.runwaysdk.query.SelectableInteger getStartAge(String alias);
-    public com.runwaysdk.query.SelectableInteger getStartAge(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getStartDate();
     public com.runwaysdk.query.SelectableMoment getStartDate(String alias);
     public com.runwaysdk.query.SelectableMoment getStartDate(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getStillBirths();
-    public com.runwaysdk.query.SelectableInteger getStillBirths(String alias);
-    public com.runwaysdk.query.SelectableInteger getStillBirths(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1816,146 +586,6 @@ private static final long serialVersionUID = 327984235;
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase);
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase);
-
-
-  public com.runwaysdk.query.Condition diagnosticMethod();
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod();
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
-
-
-  public com.runwaysdk.query.Condition referral();
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral();
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
-
-
-  public com.runwaysdk.query.Condition treatment();
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment();
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
-
-
-  public com.runwaysdk.query.Condition treatmentMethod();
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod();
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
-
-
-  public com.runwaysdk.query.Condition treatmentStock();
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock();
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
-
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod();
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod();
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery);
-
-
-  public com.runwaysdk.query.Condition NOT_IN_referral();
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral();
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery);
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment();
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment();
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery);
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod();
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod();
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery);
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock();
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock();
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery);
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery);
 
   }
 
@@ -1967,7 +597,7 @@ private static final long serialVersionUID = 327984235;
  implements AggregatedCaseQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 910212237;
+private static final long serialVersionUID = -1368119180;
 
   public AggregatedCaseQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2020,91 +650,6 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASES, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getCasesFemale()
-  {
-    return getCasesFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getCasesMale()
-  {
-    return getCasesMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant()
-  {
-    return getCasesPregnant(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CASESPREGNANT, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed()
-  {
-    return getClinicallyDiagnosed(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath()
-  {
-    return getClinicallyDiagnosedDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -2139,23 +684,6 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.CREATEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock()
-  {
-    return getDaysOutOfStock(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DAYSOUTOFSTOCK, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getDeaths()
   {
     return getDeaths(null);
@@ -2173,106 +701,21 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHS, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale()
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease()
   {
-    return getDeathsFemale(null);
+    return getDisease(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias)
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, null);
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.DISEASE, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias, String displayLabel)
+  public dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF getDisease(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDeathsMale()
-  {
-    return getDeathsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant()
-  {
-    return getDeathsPregnant(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEATHSPREGNANT, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed()
-  {
-    return getDefinitivelyDiagnosed(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath()
-  {
-    return getDefinitivelyDiagnosedDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getEndAge()
-  {
-    return getEndAge(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEndAge(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEndAge(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.ENDAGE, alias, displayLabel);
+    return (dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.DISEASE,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getEndDate()
@@ -2343,193 +786,6 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.ID, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getInPatients()
-  {
-    return getInPatients(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatients(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatients(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia()
-  {
-    return getInPatientsAnemia(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSANEMIA, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically()
-  {
-    return getInPatientsClinically(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSCLINICALLY, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive()
-  {
-    return getInPatientsDefinitive(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDEFINITIVE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged()
-  {
-    return getInPatientsDischarged(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSDISCHARGED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale()
-  {
-    return getInPatientsFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale()
-  {
-    return getInPatientsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated()
-  {
-    return getInPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSNOTTREATED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia()
-  {
-    return getInPatientsPregnantAnemia(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis()
-  {
-    return getInPatientsPregnantDianosis(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal()
-  {
-    return getInPatientsTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.INPATIENTSTOTAL, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getKeyName()
   {
     return getKeyName(null);
@@ -2598,89 +854,21 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.LOCKEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getOutPatients()
+  public com.runwaysdk.query.SelectableInteger getNegativeCases()
   {
-    return getOutPatients(null);
+    return getNegativeCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getOutPatients(String alias)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.NEGATIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getOutPatients(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale()
-  {
-    return getOutPatientsFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSFEMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale()
-  {
-    return getOutPatientsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSMALE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated()
-  {
-    return getOutPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSNOTTREATED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal()
-  {
-    return getOutPatientsTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.OUTPATIENTSTOTAL, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.NEGATIVECASES, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -2700,106 +888,21 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.surveillance.AggregatedCase.OWNER,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated()
+  public com.runwaysdk.query.SelectableInteger getPositiveCases()
   {
-    return getPatientsNotTreated(null);
+    return getPositiveCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.POSITIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PATIENTSNOTTREATED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis()
-  {
-    return getPregnantDiagnosis(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSIS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath()
-  {
-    return getPregnantDiagnosisDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived()
-  {
-    return getPregnantReferralsReceived(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived()
-  {
-    return getReferralsReceived(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSRECEIVED, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getReferralsSent()
-  {
-    return getReferralsSent(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.REFERRALSSENT, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.POSITIVECASES, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()
@@ -2836,23 +939,6 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.SITEMASTER, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getStartAge()
-  {
-    return getStartAge(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStartAge(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStartAge(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTAGE, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableMoment getStartDate()
   {
     return getStartDate(null);
@@ -2868,23 +954,6 @@ private static final long serialVersionUID = 910212237;
   public com.runwaysdk.query.SelectableMoment getStartDate(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.surveillance.AggregatedCase.STARTDATE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getStillBirths()
-  {
-    return getStillBirths(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.surveillance.AggregatedCase.STILLBIRTHS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -2904,586 +973,6 @@ private static final long serialVersionUID = 910212237;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.surveillance.AggregatedCase.TYPE, alias, displayLabel);
 
   }
-
-  public com.runwaysdk.query.Condition diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.isParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.isParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.isParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.isParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.isParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.isParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.isParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.isParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.isParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.isParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.isParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.isParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.isParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.isParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.isParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.isParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.isParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.isParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.isParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.isParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.isNotParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    return this.isNotParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.isNotParentIn(caseDiagnosticQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_diagnosticMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseDiagnosticQuery caseDiagnosticQuery)
-  {
-    caseDiagnosticQuery.AND(caseDiagnosticQuery.hasChild(termQuery));
-    return this.isNotParentIn_SUBSELECT(caseDiagnosticQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.isNotParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    return this.isNotParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.isNotParentIn(caseReferralQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_referral(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseReferralQuery caseReferralQuery)
-  {
-    caseReferralQuery.AND(caseReferralQuery.hasChild(termQuery));
-    return this.isNotParentIn_SUBSELECT(caseReferralQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.isNotParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    return this.isNotParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.isNotParentIn(caseTreatmentQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatment(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentQuery caseTreatmentQuery)
-  {
-    caseTreatmentQuery.AND(caseTreatmentQuery.hasChild(termQuery));
-    return this.isNotParentIn_SUBSELECT(caseTreatmentQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.isNotParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    return this.isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.isNotParentIn(caseTreatmentMethodQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentMethod(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentMethodQuery caseTreatmentMethodQuery)
-  {
-    caseTreatmentMethodQuery.AND(caseTreatmentMethodQuery.hasChild(termQuery));
-    return this.isNotParentIn_SUBSELECT(caseTreatmentMethodQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock()
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.isNotParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    return this.isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery)
-  {
-    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
-    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    relationshipQuery.AND(relationshipQuery.hasChild(termQuery));
-
-    return this.isNotParentIn_SUBSELECT(relationshipQuery);
-  }
-
-  public com.runwaysdk.query.Condition NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.isNotParentIn(caseTreatmentStockQuery);
-  }
-
-  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_treatmentStock(dss.vector.solutions.ontology.TermQuery termQuery, dss.vector.solutions.surveillance.CaseTreatmentStockQuery caseTreatmentStockQuery)
-  {
-    caseTreatmentStockQuery.AND(caseTreatmentStockQuery.hasChild(termQuery));
-    return this.isNotParentIn_SUBSELECT(caseTreatmentStockQuery);
-  }
-
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -3495,6 +984,10 @@ private static final long serialVersionUID = 910212237;
     else if (name.equals(dss.vector.solutions.surveillance.AggregatedCase.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.surveillance.AggregatedCase.DISEASE)) 
+    {
+       return new dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.surveillance.AggregatedCase.ENTITYDOMAIN)) 
     {

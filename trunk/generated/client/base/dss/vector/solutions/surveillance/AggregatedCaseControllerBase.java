@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -1194479199)
+@com.runwaysdk.business.ClassSignature(hash = -1007022433)
 public class AggregatedCaseControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseController";
@@ -10,7 +10,7 @@ public class AggregatedCaseControllerBase implements com.runwaysdk.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1194479199;
+  private static final long serialVersionUID = -1007022433;
   
   public AggregatedCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -81,15 +81,15 @@ public class AggregatedCaseControllerBase implements com.runwaysdk.generation.lo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failCancel");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto, [Ldss.vector.solutions.surveillance.CaseTreatmentDTO;:treatments, [Ldss.vector.solutions.surveillance.CaseTreatmentMethodDTO;:treatmentMethods, [Ldss.vector.solutions.surveillance.CaseTreatmentStockDTO;:stock, [Ldss.vector.solutions.surveillance.CaseDiagnosticDTO;:diagnosticMethods, [Ldss.vector.solutions.surveillance.CaseReferralDTO;:referrals", post=true)
-  public void create(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto, dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto", post=true)
+  public void create(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.create");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto, [Ldss.vector.solutions.surveillance.CaseTreatmentDTO;:treatments, [Ldss.vector.solutions.surveillance.CaseTreatmentMethodDTO;:treatmentMethods, [Ldss.vector.solutions.surveillance.CaseTreatmentStockDTO;:stock, [Ldss.vector.solutions.surveillance.CaseDiagnosticDTO;:diagnosticMethods, [Ldss.vector.solutions.surveillance.CaseReferralDTO;:referrals", post=true)
-  public void failCreate(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto, dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto", post=true)
+  public void failCreate(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failCreate");
@@ -123,15 +123,15 @@ public class AggregatedCaseControllerBase implements com.runwaysdk.generation.lo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failEdit");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO:ageGroup", post=true)
-  public void newInstance(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.newInstance");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO:ageGroup", post=true)
-  public void failNewInstance(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
+  public void failNewInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failNewInstance");
@@ -151,57 +151,29 @@ public class AggregatedCaseControllerBase implements com.runwaysdk.generation.lo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failSearch");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:periodType, java.lang.Integer:period, java.lang.Integer:year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO:ageGroup", post=true)
-  public void searchByGeoIdAndEpiWeek(java.lang.String geoId, java.lang.String periodType, java.lang.Integer period, java.lang.Integer year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.searchByGeoIdAndEpiWeek");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:periodType, java.lang.String:period, java.lang.String:year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO:ageGroup", post=true)
-  public void failSearchByGeoIdAndEpiWeek(java.lang.String geoId, java.lang.String periodType, java.lang.String period, java.lang.String year, dss.vector.solutions.surveillance.AggregatedAgeGroupDTO ageGroup) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failSearchByGeoIdAndEpiWeek");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO:dto", post=true)
-  public void searchByView(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO:view", post=true)
+  public void searchByView(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO view) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.searchByView");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO:dto", post=true)
-  public void failSearchByView(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO:view", post=true)
+  public void failSearchByView(dss.vector.solutions.surveillance.AggregatedCaseSearchViewDTO view) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failSearchByView");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:periodType, java.lang.Integer:period, java.lang.Integer:year", post=false)
-  public void selectAgeGroup(java.lang.String geoId, java.lang.String periodType, java.lang.Integer period, java.lang.Integer year) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.selectAgeGroup");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:geoId, java.lang.String:periodType, java.lang.String:period, java.lang.String:year", post=false)
-  public void failSelectAgeGroup(java.lang.String geoId, java.lang.String periodType, java.lang.String period, java.lang.String year) throws java.io.IOException, javax.servlet.ServletException
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
-    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failSelectAgeGroup");
-  }
-  
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto, [Ldss.vector.solutions.surveillance.CaseTreatmentDTO;:treatments, [Ldss.vector.solutions.surveillance.CaseTreatmentMethodDTO;:treatmentMethods, [Ldss.vector.solutions.surveillance.CaseTreatmentStockDTO;:stock, [Ldss.vector.solutions.surveillance.CaseDiagnosticDTO;:diagnosticMethods, [Ldss.vector.solutions.surveillance.CaseReferralDTO;:referrals", post=true)
-  public void update(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto, dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto", post=true)
+  public void update(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.update");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto, [Ldss.vector.solutions.surveillance.CaseTreatmentDTO;:treatments, [Ldss.vector.solutions.surveillance.CaseTreatmentMethodDTO;:treatmentMethods, [Ldss.vector.solutions.surveillance.CaseTreatmentStockDTO;:stock, [Ldss.vector.solutions.surveillance.CaseDiagnosticDTO;:diagnosticMethods, [Ldss.vector.solutions.surveillance.CaseReferralDTO;:referrals", post=true)
-  public void failUpdate(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto, dss.vector.solutions.surveillance.CaseTreatmentDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralDTO[] referrals) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.surveillance.AggregatedCaseViewDTO:dto", post=true)
+  public void failUpdate(dss.vector.solutions.surveillance.AggregatedCaseViewDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failUpdate");

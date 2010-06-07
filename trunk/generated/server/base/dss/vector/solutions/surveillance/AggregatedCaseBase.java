@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 2017682306)
+@com.runwaysdk.business.ClassSignature(hash = 1714092639)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,59 +13,26 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCase";
   public static java.lang.String AGEGROUP = "ageGroup";
   public static java.lang.String CASES = "cases";
-  public static java.lang.String CASESFEMALE = "casesFemale";
-  public static java.lang.String CASESMALE = "casesMale";
-  public static java.lang.String CASESPREGNANT = "casesPregnant";
-  public static java.lang.String CLINICALLYDIAGNOSED = "clinicallyDiagnosed";
-  public static java.lang.String CLINICALLYDIAGNOSEDDEATH = "clinicallyDiagnosedDeath";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DAYSOUTOFSTOCK = "daysOutOfStock";
   public static java.lang.String DEATHS = "deaths";
-  public static java.lang.String DEATHSFEMALE = "deathsFemale";
-  public static java.lang.String DEATHSMALE = "deathsMale";
-  public static java.lang.String DEATHSPREGNANT = "deathsPregnant";
-  public static java.lang.String DEFINITIVELYDIAGNOSED = "definitivelyDiagnosed";
-  public static java.lang.String DEFINITIVELYDIAGNOSEDDEATH = "definitivelyDiagnosedDeath";
-  public static java.lang.String ENDAGE = "endAge";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENDDATE = "endDate";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String INPATIENTS = "inPatients";
-  public static java.lang.String INPATIENTSANEMIA = "inPatientsAnemia";
-  public static java.lang.String INPATIENTSCLINICALLY = "inPatientsClinically";
-  public static java.lang.String INPATIENTSDEFINITIVE = "inPatientsDefinitive";
-  public static java.lang.String INPATIENTSDISCHARGED = "inPatientsDischarged";
-  public static java.lang.String INPATIENTSFEMALE = "inPatientsFemale";
-  public static java.lang.String INPATIENTSMALE = "inPatientsMale";
-  public static java.lang.String INPATIENTSNOTTREATED = "inPatientsNotTreated";
-  public static java.lang.String INPATIENTSPREGNANTANEMIA = "inPatientsPregnantAnemia";
-  public static java.lang.String INPATIENTSPREGNANTDIANOSIS = "inPatientsPregnantDianosis";
-  public static java.lang.String INPATIENTSTOTAL = "inPatientsTotal";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String OUTPATIENTS = "outPatients";
-  public static java.lang.String OUTPATIENTSFEMALE = "outPatientsFemale";
-  public static java.lang.String OUTPATIENTSMALE = "outPatientsMale";
-  public static java.lang.String OUTPATIENTSNOTTREATED = "outPatientsNotTreated";
-  public static java.lang.String OUTPATIENTSTOTAL = "outPatientsTotal";
+  public static java.lang.String NEGATIVECASES = "negativeCases";
   public static java.lang.String OWNER = "owner";
-  public static java.lang.String PATIENTSNOTTREATED = "patientsNotTreated";
-  public static java.lang.String PREGNANTDIAGNOSIS = "pregnantDiagnosis";
-  public static java.lang.String PREGNANTDIAGNOSISDEATH = "pregnantDiagnosisDeath";
-  public static java.lang.String PREGNANTREFERRALSRECEIVED = "pregnantReferralsReceived";
-  public static java.lang.String REFERRALSRECEIVED = "referralsReceived";
-  public static java.lang.String REFERRALSSENT = "referralsSent";
+  public static java.lang.String POSITIVECASES = "positiveCases";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String STARTAGE = "startAge";
   public static java.lang.String STARTDATE = "startDate";
-  public static java.lang.String STILLBIRTHS = "stillBirths";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2017682306;
+  private static final long serialVersionUID = 1714092639;
   
   public AggregatedCaseBase()
   {
@@ -135,146 +102,6 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     }
   }
   
-  public Integer getCasesFemale()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESFEMALE));
-  }
-  
-  public void validateCasesFemale()
-  {
-    this.validateAttribute(CASESFEMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasesFemaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(CASESFEMALE);
-  }
-  
-  public void setCasesFemale(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(CASESFEMALE, "");
-    }
-    else
-    {
-      setValue(CASESFEMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getCasesMale()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESMALE));
-  }
-  
-  public void validateCasesMale()
-  {
-    this.validateAttribute(CASESMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasesMaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(CASESMALE);
-  }
-  
-  public void setCasesMale(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(CASESMALE, "");
-    }
-    else
-    {
-      setValue(CASESMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getCasesPregnant()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASESPREGNANT));
-  }
-  
-  public void validateCasesPregnant()
-  {
-    this.validateAttribute(CASESPREGNANT);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasesPregnantMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(CASESPREGNANT);
-  }
-  
-  public void setCasesPregnant(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(CASESPREGNANT, "");
-    }
-    else
-    {
-      setValue(CASESPREGNANT, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getClinicallyDiagnosed()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSED));
-  }
-  
-  public void validateClinicallyDiagnosed()
-  {
-    this.validateAttribute(CLINICALLYDIAGNOSED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClinicallyDiagnosedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(CLINICALLYDIAGNOSED);
-  }
-  
-  public void setClinicallyDiagnosed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(CLINICALLYDIAGNOSED, "");
-    }
-    else
-    {
-      setValue(CLINICALLYDIAGNOSED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getClinicallyDiagnosedDeath()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CLINICALLYDIAGNOSEDDEATH));
-  }
-  
-  public void validateClinicallyDiagnosedDeath()
-  {
-    this.validateAttribute(CLINICALLYDIAGNOSEDDEATH);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClinicallyDiagnosedDeathMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(CLINICALLYDIAGNOSEDDEATH);
-  }
-  
-  public void setClinicallyDiagnosedDeath(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(CLINICALLYDIAGNOSEDDEATH, "");
-    }
-    else
-    {
-      setValue(CLINICALLYDIAGNOSEDDEATH, java.lang.Integer.toString(value));
-    }
-  }
-  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -314,34 +141,6 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     return mdClassIF.definesAttribute(CREATEDBY);
   }
   
-  public Integer getDaysOutOfStock()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DAYSOUTOFSTOCK));
-  }
-  
-  public void validateDaysOutOfStock()
-  {
-    this.validateAttribute(DAYSOUTOFSTOCK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDaysOutOfStockMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(DAYSOUTOFSTOCK);
-  }
-  
-  public void setDaysOutOfStock(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(DAYSOUTOFSTOCK, "");
-    }
-    else
-    {
-      setValue(DAYSOUTOFSTOCK, java.lang.Integer.toString(value));
-    }
-  }
-  
   public Integer getDeaths()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHS));
@@ -370,171 +169,38 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     }
   }
   
-  public Integer getDeathsFemale()
+  public dss.vector.solutions.general.Disease getDisease()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSFEMALE));
-  }
-  
-  public void validateDeathsFemale()
-  {
-    this.validateAttribute(DEATHSFEMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDeathsFemaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(DEATHSFEMALE);
-  }
-  
-  public void setDeathsFemale(Integer value)
-  {
-    if(value == null)
+    if (getValue(DISEASE).trim().equals(""))
     {
-      setValue(DEATHSFEMALE, "");
+      return null;
     }
     else
     {
-      setValue(DEATHSFEMALE, java.lang.Integer.toString(value));
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
   }
   
-  public Integer getDeathsMale()
+  public void validateDisease()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSMALE));
+    this.validateAttribute(DISEASE);
   }
   
-  public void validateDeathsMale()
-  {
-    this.validateAttribute(DEATHSMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDeathsMaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(DEATHSMALE);
+    return mdClassIF.definesAttribute(DISEASE);
   }
   
-  public void setDeathsMale(Integer value)
+  public void setDisease(dss.vector.solutions.general.Disease value)
   {
     if(value == null)
     {
-      setValue(DEATHSMALE, "");
+      setValue(DISEASE, "");
     }
     else
     {
-      setValue(DEATHSMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getDeathsPregnant()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHSPREGNANT));
-  }
-  
-  public void validateDeathsPregnant()
-  {
-    this.validateAttribute(DEATHSPREGNANT);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDeathsPregnantMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(DEATHSPREGNANT);
-  }
-  
-  public void setDeathsPregnant(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(DEATHSPREGNANT, "");
-    }
-    else
-    {
-      setValue(DEATHSPREGNANT, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getDefinitivelyDiagnosed()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSED));
-  }
-  
-  public void validateDefinitivelyDiagnosed()
-  {
-    this.validateAttribute(DEFINITIVELYDIAGNOSED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefinitivelyDiagnosedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(DEFINITIVELYDIAGNOSED);
-  }
-  
-  public void setDefinitivelyDiagnosed(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(DEFINITIVELYDIAGNOSED, "");
-    }
-    else
-    {
-      setValue(DEFINITIVELYDIAGNOSED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getDefinitivelyDiagnosedDeath()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEFINITIVELYDIAGNOSEDDEATH));
-  }
-  
-  public void validateDefinitivelyDiagnosedDeath()
-  {
-    this.validateAttribute(DEFINITIVELYDIAGNOSEDDEATH);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDefinitivelyDiagnosedDeathMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(DEFINITIVELYDIAGNOSEDDEATH);
-  }
-  
-  public void setDefinitivelyDiagnosedDeath(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(DEFINITIVELYDIAGNOSEDDEATH, "");
-    }
-    else
-    {
-      setValue(DEFINITIVELYDIAGNOSEDDEATH, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getEndAge()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ENDAGE));
-  }
-  
-  public void validateEndAge()
-  {
-    this.validateAttribute(ENDAGE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEndAgeMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(ENDAGE);
-  }
-  
-  public void setEndAge(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(ENDAGE, "");
-    }
-    else
-    {
-      setValue(ENDAGE, java.lang.Integer.toString(value));
+      setValue(DISEASE, value.getId());
     }
   }
   
@@ -652,314 +318,6 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     return mdClassIF.definesAttribute(ID);
   }
   
-  public Integer getInPatients()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTS));
-  }
-  
-  public void validateInPatients()
-  {
-    this.validateAttribute(INPATIENTS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTS);
-  }
-  
-  public void setInPatients(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTS, "");
-    }
-    else
-    {
-      setValue(INPATIENTS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsAnemia()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSANEMIA));
-  }
-  
-  public void validateInPatientsAnemia()
-  {
-    this.validateAttribute(INPATIENTSANEMIA);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsAnemiaMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSANEMIA);
-  }
-  
-  public void setInPatientsAnemia(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSANEMIA, "");
-    }
-    else
-    {
-      setValue(INPATIENTSANEMIA, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsClinically()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSCLINICALLY));
-  }
-  
-  public void validateInPatientsClinically()
-  {
-    this.validateAttribute(INPATIENTSCLINICALLY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsClinicallyMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSCLINICALLY);
-  }
-  
-  public void setInPatientsClinically(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSCLINICALLY, "");
-    }
-    else
-    {
-      setValue(INPATIENTSCLINICALLY, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsDefinitive()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDEFINITIVE));
-  }
-  
-  public void validateInPatientsDefinitive()
-  {
-    this.validateAttribute(INPATIENTSDEFINITIVE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsDefinitiveMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSDEFINITIVE);
-  }
-  
-  public void setInPatientsDefinitive(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSDEFINITIVE, "");
-    }
-    else
-    {
-      setValue(INPATIENTSDEFINITIVE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsDischarged()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSDISCHARGED));
-  }
-  
-  public void validateInPatientsDischarged()
-  {
-    this.validateAttribute(INPATIENTSDISCHARGED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsDischargedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSDISCHARGED);
-  }
-  
-  public void setInPatientsDischarged(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSDISCHARGED, "");
-    }
-    else
-    {
-      setValue(INPATIENTSDISCHARGED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsFemale()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSFEMALE));
-  }
-  
-  public void validateInPatientsFemale()
-  {
-    this.validateAttribute(INPATIENTSFEMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsFemaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSFEMALE);
-  }
-  
-  public void setInPatientsFemale(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSFEMALE, "");
-    }
-    else
-    {
-      setValue(INPATIENTSFEMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsMale()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSMALE));
-  }
-  
-  public void validateInPatientsMale()
-  {
-    this.validateAttribute(INPATIENTSMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsMaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSMALE);
-  }
-  
-  public void setInPatientsMale(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSMALE, "");
-    }
-    else
-    {
-      setValue(INPATIENTSMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsNotTreated()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSNOTTREATED));
-  }
-  
-  public void validateInPatientsNotTreated()
-  {
-    this.validateAttribute(INPATIENTSNOTTREATED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsNotTreatedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSNOTTREATED);
-  }
-  
-  public void setInPatientsNotTreated(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSNOTTREATED, "");
-    }
-    else
-    {
-      setValue(INPATIENTSNOTTREATED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsPregnantAnemia()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTANEMIA));
-  }
-  
-  public void validateInPatientsPregnantAnemia()
-  {
-    this.validateAttribute(INPATIENTSPREGNANTANEMIA);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsPregnantAnemiaMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSPREGNANTANEMIA);
-  }
-  
-  public void setInPatientsPregnantAnemia(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSPREGNANTANEMIA, "");
-    }
-    else
-    {
-      setValue(INPATIENTSPREGNANTANEMIA, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsPregnantDianosis()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSPREGNANTDIANOSIS));
-  }
-  
-  public void validateInPatientsPregnantDianosis()
-  {
-    this.validateAttribute(INPATIENTSPREGNANTDIANOSIS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsPregnantDianosisMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSPREGNANTDIANOSIS);
-  }
-  
-  public void setInPatientsPregnantDianosis(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSPREGNANTDIANOSIS, "");
-    }
-    else
-    {
-      setValue(INPATIENTSPREGNANTDIANOSIS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInPatientsTotal()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INPATIENTSTOTAL));
-  }
-  
-  public void validateInPatientsTotal()
-  {
-    this.validateAttribute(INPATIENTSTOTAL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInPatientsTotalMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(INPATIENTSTOTAL);
-  }
-  
-  public void setInPatientsTotal(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INPATIENTSTOTAL, "");
-    }
-    else
-    {
-      setValue(INPATIENTSTOTAL, java.lang.Integer.toString(value));
-    }
-  }
-  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -1050,143 +408,31 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
-  public Integer getOutPatients()
+  public Integer getNegativeCases()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTS));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NEGATIVECASES));
   }
   
-  public void validateOutPatients()
+  public void validateNegativeCases()
   {
-    this.validateAttribute(OUTPATIENTS);
+    this.validateAttribute(NEGATIVECASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutPatientsMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNegativeCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(OUTPATIENTS);
+    return mdClassIF.definesAttribute(NEGATIVECASES);
   }
   
-  public void setOutPatients(Integer value)
+  public void setNegativeCases(Integer value)
   {
     if(value == null)
     {
-      setValue(OUTPATIENTS, "");
+      setValue(NEGATIVECASES, "");
     }
     else
     {
-      setValue(OUTPATIENTS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getOutPatientsFemale()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSFEMALE));
-  }
-  
-  public void validateOutPatientsFemale()
-  {
-    this.validateAttribute(OUTPATIENTSFEMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutPatientsFemaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(OUTPATIENTSFEMALE);
-  }
-  
-  public void setOutPatientsFemale(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OUTPATIENTSFEMALE, "");
-    }
-    else
-    {
-      setValue(OUTPATIENTSFEMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getOutPatientsMale()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSMALE));
-  }
-  
-  public void validateOutPatientsMale()
-  {
-    this.validateAttribute(OUTPATIENTSMALE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutPatientsMaleMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(OUTPATIENTSMALE);
-  }
-  
-  public void setOutPatientsMale(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OUTPATIENTSMALE, "");
-    }
-    else
-    {
-      setValue(OUTPATIENTSMALE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getOutPatientsNotTreated()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSNOTTREATED));
-  }
-  
-  public void validateOutPatientsNotTreated()
-  {
-    this.validateAttribute(OUTPATIENTSNOTTREATED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutPatientsNotTreatedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(OUTPATIENTSNOTTREATED);
-  }
-  
-  public void setOutPatientsNotTreated(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OUTPATIENTSNOTTREATED, "");
-    }
-    else
-    {
-      setValue(OUTPATIENTSNOTTREATED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getOutPatientsTotal()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTPATIENTSTOTAL));
-  }
-  
-  public void validateOutPatientsTotal()
-  {
-    this.validateAttribute(OUTPATIENTSTOTAL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOutPatientsTotalMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(OUTPATIENTSTOTAL);
-  }
-  
-  public void setOutPatientsTotal(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OUTPATIENTSTOTAL, "");
-    }
-    else
-    {
-      setValue(OUTPATIENTSTOTAL, java.lang.Integer.toString(value));
+      setValue(NEGATIVECASES, java.lang.Integer.toString(value));
     }
   }
   
@@ -1225,171 +471,31 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     }
   }
   
-  public Integer getPatientsNotTreated()
+  public Integer getPositiveCases()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PATIENTSNOTTREATED));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POSITIVECASES));
   }
   
-  public void validatePatientsNotTreated()
+  public void validatePositiveCases()
   {
-    this.validateAttribute(PATIENTSNOTTREATED);
+    this.validateAttribute(POSITIVECASES);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientsNotTreatedMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPositiveCasesMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(PATIENTSNOTTREATED);
+    return mdClassIF.definesAttribute(POSITIVECASES);
   }
   
-  public void setPatientsNotTreated(Integer value)
+  public void setPositiveCases(Integer value)
   {
     if(value == null)
     {
-      setValue(PATIENTSNOTTREATED, "");
+      setValue(POSITIVECASES, "");
     }
     else
     {
-      setValue(PATIENTSNOTTREATED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getPregnantDiagnosis()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSIS));
-  }
-  
-  public void validatePregnantDiagnosis()
-  {
-    this.validateAttribute(PREGNANTDIAGNOSIS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPregnantDiagnosisMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(PREGNANTDIAGNOSIS);
-  }
-  
-  public void setPregnantDiagnosis(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(PREGNANTDIAGNOSIS, "");
-    }
-    else
-    {
-      setValue(PREGNANTDIAGNOSIS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getPregnantDiagnosisDeath()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTDIAGNOSISDEATH));
-  }
-  
-  public void validatePregnantDiagnosisDeath()
-  {
-    this.validateAttribute(PREGNANTDIAGNOSISDEATH);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPregnantDiagnosisDeathMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(PREGNANTDIAGNOSISDEATH);
-  }
-  
-  public void setPregnantDiagnosisDeath(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(PREGNANTDIAGNOSISDEATH, "");
-    }
-    else
-    {
-      setValue(PREGNANTDIAGNOSISDEATH, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getPregnantReferralsReceived()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREGNANTREFERRALSRECEIVED));
-  }
-  
-  public void validatePregnantReferralsReceived()
-  {
-    this.validateAttribute(PREGNANTREFERRALSRECEIVED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPregnantReferralsReceivedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(PREGNANTREFERRALSRECEIVED);
-  }
-  
-  public void setPregnantReferralsReceived(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(PREGNANTREFERRALSRECEIVED, "");
-    }
-    else
-    {
-      setValue(PREGNANTREFERRALSRECEIVED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getReferralsReceived()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSRECEIVED));
-  }
-  
-  public void validateReferralsReceived()
-  {
-    this.validateAttribute(REFERRALSRECEIVED);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReferralsReceivedMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(REFERRALSRECEIVED);
-  }
-  
-  public void setReferralsReceived(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(REFERRALSRECEIVED, "");
-    }
-    else
-    {
-      setValue(REFERRALSRECEIVED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getReferralsSent()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(REFERRALSSENT));
-  }
-  
-  public void validateReferralsSent()
-  {
-    this.validateAttribute(REFERRALSSENT);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReferralsSentMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(REFERRALSSENT);
-  }
-  
-  public void setReferralsSent(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(REFERRALSSENT, "");
-    }
-    else
-    {
-      setValue(REFERRALSSENT, java.lang.Integer.toString(value));
+      setValue(POSITIVECASES, java.lang.Integer.toString(value));
     }
   }
   
@@ -1425,34 +531,6 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     return mdClassIF.definesAttribute(SITEMASTER);
   }
   
-  public Integer getStartAge()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STARTAGE));
-  }
-  
-  public void validateStartAge()
-  {
-    this.validateAttribute(STARTAGE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStartAgeMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(STARTAGE);
-  }
-  
-  public void setStartAge(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(STARTAGE, "");
-    }
-    else
-    {
-      setValue(STARTAGE, java.lang.Integer.toString(value));
-    }
-  }
-  
   public java.util.Date getStartDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(STARTDATE));
@@ -1478,34 +556,6 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     else
     {
       setValue(STARTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public Integer getStillBirths()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(STILLBIRTHS));
-  }
-  
-  public void validateStillBirths()
-  {
-    this.validateAttribute(STILLBIRTHS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getStillBirthsMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCase.CLASS);
-    return mdClassIF.definesAttribute(STILLBIRTHS);
-  }
-  
-  public void setStillBirths(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(STILLBIRTHS, "");
-    }
-    else
-    {
-      setValue(STILLBIRTHS, java.lang.Integer.toString(value));
     }
   }
   
@@ -1537,221 +587,6 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     return query;
   }
   
-  public dss.vector.solutions.surveillance.CaseDiagnostic addDiagnosticMethod(dss.vector.solutions.ontology.Term term)
-  {
-    return (dss.vector.solutions.surveillance.CaseDiagnostic) addChild(term, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  public void removeDiagnosticMethod(dss.vector.solutions.ontology.Term term)
-  {
-    removeAllChildren(term, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term> getAllDiagnosticMethod()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term>) getChildren(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic> getAllDiagnosticMethodRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic>) getChildRelationships(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseDiagnostic getDiagnosticMethodRel(dss.vector.solutions.ontology.Term term)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic>) getRelationshipsWithChild(term, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseReferral addReferral(dss.vector.solutions.ontology.Term term)
-  {
-    return (dss.vector.solutions.surveillance.CaseReferral) addChild(term, dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  public void removeReferral(dss.vector.solutions.ontology.Term term)
-  {
-    removeAllChildren(term, dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term> getAllReferral()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term>) getChildren(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral> getAllReferralRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral>) getChildRelationships(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseReferral getReferralRel(dss.vector.solutions.ontology.Term term)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral>) getRelationshipsWithChild(term, dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatment addTreatment(dss.vector.solutions.ontology.Term term)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatment) addChild(term, dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  public void removeTreatment(dss.vector.solutions.ontology.Term term)
-  {
-    removeAllChildren(term, dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term> getAllTreatment()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term>) getChildren(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment> getAllTreatmentRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment>) getChildRelationships(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseTreatment getTreatmentRel(dss.vector.solutions.ontology.Term term)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment>) getRelationshipsWithChild(term, dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentMethod addTreatmentMethod(dss.vector.solutions.ontology.Term term)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentMethod) addChild(term, dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  public void removeTreatmentMethod(dss.vector.solutions.ontology.Term term)
-  {
-    removeAllChildren(term, dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term> getAllTreatmentMethod()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term>) getChildren(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod> getAllTreatmentMethodRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod>) getChildRelationships(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseTreatmentMethod getTreatmentMethodRel(dss.vector.solutions.ontology.Term term)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod>) getRelationshipsWithChild(term, dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentStock addTreatmentStock(dss.vector.solutions.ontology.Term term)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentStock) addChild(term, dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  public void removeTreatmentStock(dss.vector.solutions.ontology.Term term)
-  {
-    removeAllChildren(term, dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term> getAllTreatmentStock()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.ontology.Term>) getChildren(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock> getAllTreatmentStockRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock>) getChildRelationships(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseTreatmentStock getTreatmentStockRel(dss.vector.solutions.ontology.Term term)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock>) getRelationshipsWithChild(term, dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
   public static AggregatedCase get(String id)
   {
     return (AggregatedCase) com.runwaysdk.business.Business.get(id);
@@ -1762,82 +597,46 @@ public abstract class AggregatedCaseBase extends com.runwaysdk.business.Business
     return (AggregatedCase) com.runwaysdk.business.Business.get(CLASS, key);
   }
   
-  public void applyAll(dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static final void applyAll(java.lang.String id, dss.vector.solutions.surveillance.CaseTreatment[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethod[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStock[] stock, dss.vector.solutions.surveillance.CaseDiagnostic[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferral[] referrals)
-  {
-    AggregatedCase _instance = AggregatedCase.get(id);
-    _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
-  }
-  
-  public static java.io.InputStream exportQueryToCSV(java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static java.io.InputStream exportQueryToExcel(java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
   public static java.lang.Byte[] generateReport(java.lang.String file)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseView getView(java.lang.String id)
+  public dss.vector.solutions.surveillance.AggregatedCaseView getView()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static java.lang.String[] getVisibleAttributeNames()
+  public static final dss.vector.solutions.surveillance.AggregatedCaseView getView(java.lang.String id)
+  {
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.getView();
+  }
+  
+  public dss.vector.solutions.surveillance.AggregatedCaseView lockView()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedCaseView lockView(java.lang.String id)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseView lockView(java.lang.String id)
+  {
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.lockView();
+  }
+  
+  public dss.vector.solutions.surveillance.AggregatedCaseView unlockView()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static com.runwaysdk.query.ValueQuery queryAggregatedCase(java.lang.String queryXML, java.lang.String config, java.lang.Integer pageNumber, java.lang.Integer pageSize)
+  public static final dss.vector.solutions.surveillance.AggregatedCaseView unlockView(java.lang.String id)
   {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static dss.vector.solutions.surveillance.AggregatedCase searchByGeoEntityAndDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, java.util.Date startDate, java.util.Date endDate, dss.vector.solutions.surveillance.AggregatedAgeGroup ageGroup)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static dss.vector.solutions.surveillance.AggregatedCaseView searchByGeoEntityAndEpiDate(dss.vector.solutions.geo.generated.GeoEntity geoEntity, dss.vector.solutions.surveillance.PeriodType periodType, java.lang.Integer period, java.lang.Integer year, dss.vector.solutions.surveillance.AggregatedAgeGroup ageGroup)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static dss.vector.solutions.surveillance.AggregatedCaseView unlockView(java.lang.String id)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static com.runwaysdk.query.ValueQuery xmlToValueQuery(java.lang.String xml, java.lang.String[] selectedUniversals, java.lang.Boolean includeGeometry)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCase.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+    AggregatedCase _instance = AggregatedCase.get(id);
+    return _instance.unlockView();
   }
   
   public static AggregatedCase lock(java.lang.String id)

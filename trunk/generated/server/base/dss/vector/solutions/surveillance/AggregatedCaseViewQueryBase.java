@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -1395654950)
+@com.runwaysdk.business.ClassSignature(hash = 1210100652)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class AggregatedCaseViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1395654950;
+private static final long serialVersionUID = 1210100652;
 
   public AggregatedCaseViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -45,21 +45,152 @@ private static final long serialVersionUID = -1395654950;
     return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.AGEGROUP, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getCaseId()
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic()
   {
-    return getCaseId(null);
+    return getCaseDiagnostic(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCaseId(String alias)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, null);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDIAGNOSTIC, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getCaseId(String alias, String displayLabel)
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEID, alias, displayLabel);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDIAGNOSTIC, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals()
+  {
+    return getCaseReferrals(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEREFERRALS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEREFERRALS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks()
+  {
+    return getCaseStocks(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASESTOCKS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASESTOCKS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatmentMethod()
+  {
+    return getCaseTreatmentMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatmentMethod(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASETREATMENTMETHOD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatmentMethod(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASETREATMENTMETHOD, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatments()
+  {
+    return getCaseTreatments(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatments(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASETREATMENTS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseTreatments(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASETREATMENTS, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getCases()
+  {
+    return getCases(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCases(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getCases(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getConcreteId()
+  {
+    return getConcreteId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getConcreteId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CONCRETEID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getConcreteId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CONCRETEID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDeaths()
+  {
+    return getDeaths(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDeaths(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.DEATHS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDeaths(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.DEATHS, alias, displayLabel);
 
   }
  
@@ -118,56 +249,39 @@ private static final long serialVersionUID = -1395654950;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPeriod()
+  public com.runwaysdk.query.SelectableInteger getNegativeCases()
   {
-    return getPeriod(null);
+    return getNegativeCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPeriod(String alias)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIOD, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.NEGATIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getPeriod(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIOD, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.NEGATIVECASES, alias, displayLabel);
 
   }
  
-  public dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF getPeriodType()
+  public com.runwaysdk.query.SelectableInteger getPositiveCases()
   {
-    return getPeriodType(null);
+    return getPositiveCases(null);
 
   }
  
-  public dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF getPeriodType(String alias)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias)
   {
-    return (dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODTYPE, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.POSITIVECASES, alias, null);
 
   }
  
-  public dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF getPeriodType(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias, String displayLabel)
   {
-    return (dss.vector.solutions.surveillance.PeriodTypeMasterQuery.PeriodTypeQueryIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODTYPE, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getPeriodYear()
-  {
-    return getPeriodYear(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPeriodYear(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPeriodYear(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.PERIODYEAR, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.POSITIVECASES, alias, displayLabel);
 
   }
  

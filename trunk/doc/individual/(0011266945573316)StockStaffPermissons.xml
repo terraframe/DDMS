@@ -53,19 +53,6 @@
               name="DELETE" />
           </mdRelationshipPermission>
           <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.AggregatedCase">
-            <mdMethodPermission
-              methodName="queryAggregatedCase">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-            <mdMethodPermission
-              methodName="xmlToValueQuery">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdBusinessPermission>
-          <mdBusinessPermission
             type="com.runwaysdk.system.VaultFile">
             <operation
               name="CREATE" />

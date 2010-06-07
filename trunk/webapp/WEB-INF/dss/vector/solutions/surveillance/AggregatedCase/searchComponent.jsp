@@ -21,7 +21,7 @@
 
 <mjl:form name="search" method="POST" id ="searchAggregatedCase">
   <dl>
-    <mjl:component item="${item}" param="dto">
+    <mjl:component item="${item}" param="view">
       <mjl:dt attribute="searchType">
         <mjl:boolean param="searchType" id="searchType"/>
       </mjl:dt>

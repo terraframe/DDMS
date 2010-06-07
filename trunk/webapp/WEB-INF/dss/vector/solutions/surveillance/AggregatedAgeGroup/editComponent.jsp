@@ -11,6 +11,7 @@
     <%@ include file="form.jsp"%>
 
     <mjl:command value="Update" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.update.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.update.button" />
+    <mjl:command value="Delete" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.delete.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.delete.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.cancel.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.cancel.button" />
   </dl>
 </mjl:form>

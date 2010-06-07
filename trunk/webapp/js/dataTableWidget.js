@@ -459,7 +459,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
 
       this.myDataTable.subscribe("editorSaveEvent", this._saveHandler, null, this);
-          
+      
       this._setUpButtons(data);
 
       this._model.addListener(Mojo.Util.bind(this, this._modelEventHandler));
@@ -552,6 +552,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
     getColumnDefinitions : function() {
       return this._columnDefs;
+    },
+    
+    getParameters : function() {
+      return this.getModel().getParameters();
     },
     
     setData : function(row, col, value) {

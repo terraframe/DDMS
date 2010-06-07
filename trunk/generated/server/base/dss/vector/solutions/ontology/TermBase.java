@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -921055885)
+@com.runwaysdk.business.ClassSignature(hash = 1538331038)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -921055885;
+  private static final long serialVersionUID = 1538331038;
   
   public TermBase()
   {
@@ -864,49 +864,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
-  public dss.vector.solutions.surveillance.CaseDiagnostic addDiagnosticAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    return (dss.vector.solutions.surveillance.CaseDiagnostic) addParent(aggregatedCase, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  public void removeDiagnosticAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    removeAllParents(aggregatedCase, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase> getAllDiagnosticAggregatedCases()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase>) getParents(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic> getAllDiagnosticAggregatedCasesRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic>) getParentRelationships(dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseDiagnostic getDiagnosticAggregatedCasesRel(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnostic>) getRelationshipsWithParent(aggregatedCase, dss.vector.solutions.surveillance.CaseDiagnostic.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
   public dss.vector.solutions.intervention.monitor.IPTDose addDoseAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)
   {
     return (dss.vector.solutions.intervention.monitor.IPTDose) addParent(aggregatedIPT, dss.vector.solutions.intervention.monitor.IPTDose.CLASS);
@@ -1466,135 +1423,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
-  public dss.vector.solutions.surveillance.CaseReferral addReferralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    return (dss.vector.solutions.surveillance.CaseReferral) addParent(aggregatedCase, dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  public void removeReferralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    removeAllParents(aggregatedCase, dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase> getAllReferralAggregatedCase()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase>) getParents(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral> getAllReferralAggregatedCaseRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral>) getParentRelationships(dss.vector.solutions.surveillance.CaseReferral.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseReferral getReferralAggregatedCaseRel(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseReferral>) getRelationshipsWithParent(aggregatedCase, dss.vector.solutions.surveillance.CaseReferral.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentStock addStockAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentStock) addParent(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  public void removeStockAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    removeAllParents(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase> getAllStockAggregatedCases()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase>) getParents(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock> getAllStockAggregatedCasesRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock>) getParentRelationships(dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseTreatmentStock getStockAggregatedCasesRel(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentStock>) getRelationshipsWithParent(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatmentStock.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatment addTreatmentAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatment) addParent(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  public void removeTreatmentAggregatedCases(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    removeAllParents(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase> getAllTreatmentAggregatedCases()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase>) getParents(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment> getAllTreatmentAggregatedCasesRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment>) getParentRelationships(dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseTreatment getTreatmentAggregatedCasesRel(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatment>) getRelationshipsWithParent(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatment.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
   public dss.vector.solutions.intervention.monitor.IPTTreatment addTreatmentAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)
   {
     return (dss.vector.solutions.intervention.monitor.IPTTreatment) addParent(aggregatedIPT, dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS);
@@ -1621,49 +1449,6 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   public dss.vector.solutions.intervention.monitor.IPTTreatment getTreatmentAggregatedIPTsRel(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)
   {
     com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IPTTreatment> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.intervention.monitor.IPTTreatment>) getRelationshipsWithParent(aggregatedIPT, dss.vector.solutions.intervention.monitor.IPTTreatment.CLASS);
-    try
-    {
-      if (iterator.hasNext())
-      {
-        return iterator.next();
-      }
-      else
-      {
-        return null;
-      }
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentMethod addTreatmentMethodAggregatedCase(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentMethod) addParent(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  public void removeTreatmentMethodAggregatedCase(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    removeAllParents(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase> getAllTreatmentMethodAggregatedCase()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.AggregatedCase>) getParents(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod> getAllTreatmentMethodAggregatedCaseRel()
-  {
-    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod>) getParentRelationships(dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public dss.vector.solutions.surveillance.CaseTreatmentMethod getTreatmentMethodAggregatedCaseRel(dss.vector.solutions.surveillance.AggregatedCase aggregatedCase)
-  {
-    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseTreatmentMethod>) getRelationshipsWithParent(aggregatedCase, dss.vector.solutions.surveillance.CaseTreatmentMethod.CLASS);
     try
     {
       if (iterator.hasNext())

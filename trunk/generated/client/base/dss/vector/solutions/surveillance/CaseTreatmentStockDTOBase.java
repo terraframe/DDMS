@@ -1,26 +1,25 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 354987753)
-public abstract class CaseTreatmentStockDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -1445445748)
+public abstract class CaseTreatmentStockDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.CaseTreatmentStock";
-  private static final long serialVersionUID = 354987753;
+  private static final long serialVersionUID = -1445445748;
   
-  public CaseTreatmentStockDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
+  protected CaseTreatmentStockDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
-    super(clientRequest, parentId, childId);
-    
+    super(clientRequest);
   }
   
   /**
-  * Copy Constructor: Duplicates the values and attributes of the given RelationshipDTO into a new DTO.
+  * Copy Constructor: Duplicates the values and attributes of the given BusinessDTO into a new DTO.
   * 
-  * @param relationshipDTO The RelationshipDTO to duplicate
+  * @param businessDTO The BusinessDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected CaseTreatmentStockDTOBase(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected CaseTreatmentStockDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
-    super(relationshipDTO, clientRequest);
+    super(businessDTO, clientRequest);
   }
   
   protected java.lang.String getDeclaredType()
@@ -28,6 +27,7 @@ public abstract class CaseTreatmentStockDTOBase extends com.runwaysdk.business.R
     return CLASS;
   }
   
+  public static java.lang.String AGGREGATEDCASE = "aggregatedCase";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -40,7 +40,52 @@ public abstract class CaseTreatmentStockDTOBase extends com.runwaysdk.business.R
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
+  public dss.vector.solutions.surveillance.AggregatedCaseDTO getAggregatedCase()
+  {
+    if(getValue(AGGREGATEDCASE) == null || getValue(AGGREGATEDCASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.surveillance.AggregatedCaseDTO.get(getRequest(), getValue(AGGREGATEDCASE));
+    }
+  }
+  
+  public void setAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(AGGREGATEDCASE, "");
+    }
+    else
+    {
+      setValue(AGGREGATEDCASE, value.getId());
+    }
+  }
+  
+  public boolean isAggregatedCaseWritable()
+  {
+    return isWritable(AGGREGATEDCASE);
+  }
+  
+  public boolean isAggregatedCaseReadable()
+  {
+    return isReadable(AGGREGATEDCASE);
+  }
+  
+  public boolean isAggregatedCaseModified()
+  {
+    return isModified(AGGREGATEDCASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getAggregatedCaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(AGGREGATEDCASE).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -399,40 +444,62 @@ public abstract class CaseTreatmentStockDTOBase extends com.runwaysdk.business.R
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public dss.vector.solutions.surveillance.AggregatedCaseDTO getParent()
+  public dss.vector.solutions.ontology.TermDTO getTerm()
   {
-    return dss.vector.solutions.surveillance.AggregatedCaseDTO.get(getRequest(), super.getParentId());
+    if(getValue(TERM) == null || getValue(TERM).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TERM));
+    }
   }
   
-    public dss.vector.solutions.ontology.TermDTO getChild()
+  public void setTerm(dss.vector.solutions.ontology.TermDTO value)
   {
-    return dss.vector.solutions.ontology.TermDTO.get(getRequest(), super.getChildId());
+    if(value == null)
+    {
+      setValue(TERM, "");
+    }
+    else
+    {
+      setValue(TERM, value.getId());
+    }
+  }
+  
+  public boolean isTermWritable()
+  {
+    return isWritable(TERM);
+  }
+  
+  public boolean isTermReadable()
+  {
+    return isReadable(TERM);
+  }
+  
+  public boolean isTermModified()
+  {
+    return isModified(TERM);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTermMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TERM).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.surveillance.CaseTreatmentStockDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    com.runwaysdk.business.RelationshipDTO dto = (com.runwaysdk.business.RelationshipDTO) clientRequest.get(id);
+    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
     
     return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) dto;
   }
   
-  public static dss.vector.solutions.surveillance.CaseTreatmentStockQueryDTO parentQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId)
-  {
-    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-    queryDTO.addCondition("parent_id", "EQ", parentId);
-    return (dss.vector.solutions.surveillance.CaseTreatmentStockQueryDTO) clientRequest.queryRelationships(queryDTO);
-  }
-  public static dss.vector.solutions.surveillance.CaseTreatmentStockQueryDTO childQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String childId)
-  {
-    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-    queryDTO.addCondition("child_id", "EQ", childId);
-    return (dss.vector.solutions.surveillance.CaseTreatmentStockQueryDTO) clientRequest.queryRelationships(queryDTO);
-  }
   public void apply()
   {
     if(isNewInstance())
     {
-      getRequest().createRelationship(this);
+      getRequest().createBusiness(this);
     }
     else
     {

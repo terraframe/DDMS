@@ -52,12 +52,6 @@
           roleName="Administrator" />
       </method>
       <method
-        methodName="queryAggregatedCase"
-        type="dss.vector.solutions.surveillance.AggregatedCase">
-        <assignedRole
-          roleName="Administrator" />
-      </method>
-      <method
         methodName="checkFacilityThresholdViolation"
         type="dss.vector.solutions.general.ThresholdData">
         <assignedRole
@@ -122,12 +116,6 @@
         <superRole
           roleName="Administrator" />
       </role>
-      <method
-        methodName="xmlToValueQuery"
-        type="dss.vector.solutions.surveillance.AggregatedCase">
-        <assignedRole
-          roleName="Administrator" />
-      </method>
       <method
         methodName="setUnitsPerDay"
         type="dss.vector.solutions.Property">

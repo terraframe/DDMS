@@ -17,27 +17,8 @@
               order="1" type="java.lang.String[]" />
             <mdParameter name="includeGeometry" label="Include Geometry"
               order="2" type="java.lang.Boolean" />
-            <mdParameter name="thematicLayer" label="Thematic Layer"
-              order="3" type="dss.vector.solutions.query.ThematicLayer" />
             <mdParameter name="dobCriteria" label="Dob Criteria"
               order="4" type="java.lang.String" />
-          </mdMethod>
-        </create>
-      </mdBusiness>
-
-      <mdBusiness name="dss.vector.solutions.surveillance.AggregatedCase">
-        <create>
-          <mdMethod name="xmlToValueQuery" label="XML To ValueQuery"
-            description="Xml To ValueQuery" returnType="com.runwaysdk.query.ValueQuery"
-            static="true">
-            <mdParameter name="xml" label="xml" order="0"
-              type="java.lang.String" />
-            <mdParameter name="selectedUniversals" label="Selected Universals"
-              order="1" type="java.lang.String[]" />
-            <mdParameter name="includeGeometry" label="Include Geometry"
-              order="2" type="java.lang.Boolean" />
-            <mdParameter name="thematicLayer" label="Thematic Layer"
-              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>
@@ -53,8 +34,6 @@
               order="1" type="java.lang.String[]" />
             <mdParameter name="includeGeometry" label="Include Geometry"
               order="2" type="java.lang.Boolean" />
-            <mdParameter name="thematicLayer" label="Thematic Layer"
-              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>
@@ -71,8 +50,6 @@
               order="1" type="java.lang.String[]" />
             <mdParameter name="includeGeometry" label="Include Geometry"
               order="2" type="java.lang.Boolean" />
-            <mdParameter name="thematicLayer" label="Thematic Layer"
-              order="3" type="dss.vector.solutions.query.ThematicLayer" />
           </mdMethod>
         </create>
       </mdBusiness>

@@ -1,32 +1,14 @@
 package dss.vector.solutions.surveillance;
 
-import dss.vector.solutions.ontology.Term;
+import com.runwaysdk.generation.loader.Reloadable;
 
-public class CaseTreatmentStock extends CaseTreatmentStockBase implements ChildOption, com.runwaysdk.generation.loader.Reloadable
+public class CaseTreatmentStock extends CaseTreatmentStockBase implements Reloadable
 {
-  private static final long serialVersionUID = 1238693145662L;
-  
-  public CaseTreatmentStock(String parentId, String childId)
-  {
-    super(parentId, childId);
-  }
-  
-  public CaseTreatmentStock(AggregatedCase parent, Term child)
-  {
-    this(parent.getId(), child.getId());
-  }
+  private static final long serialVersionUID = -1923978452;
 
-  public CaseTreatmentStock clone(AggregatedCase parent)
+  public CaseTreatmentStock()
   {
-    CaseTreatmentStock clone = new CaseTreatmentStock(parent, this.getChild());
-    clone.setOutOfStock(this.getOutOfStock());
-
-    return clone;
+    super();
   }
   
-  @Override
-  protected String buildKey()
-  {
-    return this.getParent().getKey() + "." + this.getChild().getKey();
-  }
 }

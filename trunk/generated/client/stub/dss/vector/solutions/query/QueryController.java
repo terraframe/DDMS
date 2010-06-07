@@ -2,9 +2,7 @@ package dss.vector.solutions.query;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
@@ -20,8 +18,6 @@ import com.runwaysdk.ApplicationException;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.transport.attributes.AttributeDTO;
-import com.runwaysdk.transport.attributes.AttributeStructDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
@@ -73,69 +69,53 @@ import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
-import dss.vector.solutions.surveillance.AdultCaseViewDTO;
-import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
-import dss.vector.solutions.surveillance.AggregatedCaseDTO;
-import dss.vector.solutions.surveillance.AggregatedCaseViewDTO;
-import dss.vector.solutions.surveillance.AncientCaseViewDTO;
-import dss.vector.solutions.surveillance.CaseDiagnosticDTO;
-import dss.vector.solutions.surveillance.CaseReferralDTO;
-import dss.vector.solutions.surveillance.CaseTreatmentDTO;
-import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
-import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
-import dss.vector.solutions.surveillance.ChildCaseViewDTO;
-import dss.vector.solutions.surveillance.ElderCaseViewDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
-import dss.vector.solutions.surveillance.InfiantCaseViewDTO;
-import dss.vector.solutions.surveillance.TeenCaseViewDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.QueryUtil;
 
-public class QueryController extends QueryControllerBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class QueryController extends QueryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long   serialVersionUID                 = 1237863171352L;
+  private static final long   serialVersionUID                    = 1237863171352L;
 
-  private static final String QUERY_ENTOMOLOGY                 = "/WEB-INF/queryScreens/queryEntomology.jsp";
+  private static final String QUERY_ENTOMOLOGY                    = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
-  private static final String QUERY_RESISTANCE                 = "/WEB-INF/queryScreens/queryResistance.jsp";
+  private static final String QUERY_RESISTANCE                    = "/WEB-INF/queryScreens/queryResistance.jsp";
 
-  private static final String QUERY_IRS                        = "/WEB-INF/queryScreens/queryIRS.jsp";
+  private static final String QUERY_IRS                           = "/WEB-INF/queryScreens/queryIRS.jsp";
 
-  private static final String QUERY_AGGREGATED_CASES           = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
+  private static final String QUERY_AGGREGATED_CASES              = "/WEB-INF/queryScreens/queryAggregatedCases.jsp";
 
-  private static final String QUERY_AGGREGATED_IPT             = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
+  private static final String QUERY_AGGREGATED_IPT                = "/WEB-INF/queryScreens/queryAggregatedIPT.jsp";
 
-  private static final String QUERY_INDIVIDUAL_IPT             = "/WEB-INF/queryScreens/queryIndividualIPT.jsp";
+  private static final String QUERY_INDIVIDUAL_IPT                = "/WEB-INF/queryScreens/queryIndividualIPT.jsp";
 
-  private static final String QUERY_INDIVIDUAL_CASES           = "/WEB-INF/queryScreens/queryIndividualCases.jsp";
+  private static final String QUERY_INDIVIDUAL_CASES              = "/WEB-INF/queryScreens/queryIndividualCases.jsp";
 
-  private static final String QUERY_SURVEY                     = "/WEB-INF/queryScreens/querySurvey.jsp";
+  private static final String QUERY_SURVEY                        = "/WEB-INF/queryScreens/querySurvey.jsp";
 
-  private static final String QUERY_STOCK                      = "/WEB-INF/queryScreens/queryStock.jsp";
+  private static final String QUERY_STOCK                         = "/WEB-INF/queryScreens/queryStock.jsp";
 
-  private static final String QUERY_LARVACIDE                  = "/WEB-INF/queryScreens/queryLarvacide.jsp";
+  private static final String QUERY_LARVACIDE                     = "/WEB-INF/queryScreens/queryLarvacide.jsp";
 
   private static final String QUERY_IMMATURE_CONTAINER_COLLECTION = "/WEB-INF/queryScreens/queryImmatureContainerCollections.jsp";
 
-  private static final String QUERY_PUPAL_CONTAINER_COLLECTION = "/WEB-INF/queryScreens/queryPupalContainerCollections.jsp";
+  private static final String QUERY_PUPAL_CONTAINER_COLLECTION    = "/WEB-INF/queryScreens/queryPupalContainerCollections.jsp";
 
-  private static final String NEW_QUERY                        = "/WEB-INF/queryScreens/newQuery.jsp";
+  private static final String NEW_QUERY                           = "/WEB-INF/queryScreens/newQuery.jsp";
 
-  private static final String QUERY_EFFICACY_ASSAY             = "/WEB-INF/queryScreens/queryEfficacyAssay.jsp";
+  private static final String QUERY_EFFICACY_ASSAY                = "/WEB-INF/queryScreens/queryEfficacyAssay.jsp";
 
-  private static final String QUERY_ITN_COMMUNITY_DISTRIBUTION = "/WEB-INF/queryScreens/queryITNCommunityDistribution.jsp";
+  private static final String QUERY_ITN_COMMUNITY_DISTRIBUTION    = "/WEB-INF/queryScreens/queryITNCommunityDistribution.jsp";
 
-  private static final String QUERY_ITN_FACILITY_DISTRIBUTION  = "/WEB-INF/queryScreens/queryITNFacilityDistribution.jsp";
+  private static final String QUERY_ITN_FACILITY_DISTRIBUTION     = "/WEB-INF/queryScreens/queryITNFacilityDistribution.jsp";
 
-  private static final String QUERY_AGGREGATED_ITN             = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
+  private static final String QUERY_AGGREGATED_ITN                = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
 
-  private static final String QUERY_MOSQUITO_COLLECTIONS       = "/WEB-INF/queryScreens/queryMosquitoCollections.jsp";
+  private static final String QUERY_MOSQUITO_COLLECTIONS          = "/WEB-INF/queryScreens/queryMosquitoCollections.jsp";
 
-  public QueryController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
@@ -148,8 +128,7 @@ public class QueryController extends QueryControllerBase implements
    * @param queryType
    * @throws JSONException
    */
-  private void loadQuerySpecifics(String queryClass, QueryConstants.QueryType queryType)
-      throws JSONException
+  private void loadQuerySpecifics(String queryClass, QueryConstants.QueryType queryType) throws JSONException
   {
     ClientRequestIF request = this.getClientRequest();
     String namespacedType = QueryConstants.namespaceQuery(queryClass, queryType);
@@ -189,8 +168,7 @@ public class QueryController extends QueryControllerBase implements
       // location.put("label", MDSSProperties.getObject("Locations"));
       location.put("relType", SurveyedPersonTreatmentLocationDTO.CLASS);
       location.put("relAttribute", QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE);
-      location.put("options", getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS,
-          SurveyedPersonViewDTO.DISPLAYLOCATIONS));
+      location.put("options", getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYLOCATIONS));
       ordered.put("locations", location);
 
       // Treatment
@@ -199,8 +177,7 @@ public class QueryController extends QueryControllerBase implements
       // treatment.put("label", MDSSProperties.getObject("Treatments"));
       treatment.put("relType", SurveyedPersonTreatmentDTO.CLASS);
       treatment.put("relAttribute", QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE);
-      treatment.put("options", getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS,
-          SurveyedPersonViewDTO.DISPLAYTREATMENTS));
+      treatment.put("options", getAllTermsForGrid(request, SurveyedPersonViewDTO.CLASS, SurveyedPersonViewDTO.DISPLAYTREATMENTS));
       ordered.put("treatments", treatment);
 
       req.setAttribute("orderedGrids", ordered.toString());
@@ -257,8 +234,7 @@ public class QueryController extends QueryControllerBase implements
       ClientRequestIF request = this.getClientRequest();
       if (savedSearchIdValue == null || savedSearchIdValue.trim().length() == 0)
       {
-        SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(request, req
-            .getLocale());
+        SavedSearchRequiredExceptionDTO ex = new SavedSearchRequiredExceptionDTO(request, req.getLocale());
         message = ex.getLocalizedMessage();
         return;
       }
@@ -310,160 +286,9 @@ public class QueryController extends QueryControllerBase implements
   @Override
   public void queryAggregatedCases() throws IOException, ServletException
   {
-    try
-    {
-      loadQuerySpecifics(AggregatedCaseDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_CASE);
-
-      AggregatedAgeGroupDTO[] ageGroups = AggregatedAgeGroupDTO.getAll(this.getClientRequest());
-      JSONArray groups = new JSONArray();
-      for (AggregatedAgeGroupDTO ageGroup : ageGroups)
-      // Age groups
-      {
-        JSONObject group = new JSONObject();
-        group.put("id", ageGroup.getId());
-        group.put("startAge", ageGroup.getStartAge().intValue());
-        group.put("endAge", ageGroup.getEndAge().intValue());
-
-        groups.put(group);
-      }
-
-      req.setAttribute("ageGroups", groups.toString());
-
-      // Visible attributes
-      String[] visibleAttributes = AggregatedCaseDTO.getVisibleAttributeNames(this.getClientRequest());
-
-      ClassQueryDTO classQuery = this.getClientRequest().getQuery(AggregatedCaseDTO.CLASS);
-
-      JSONArray visible = new JSONArray();
-      for (String visibleAttribute : visibleAttributes)
-      {
-        AttributeDTO attributeDTO = classQuery.getAttributeDTO(visibleAttribute);
-
-        if (attributeDTO.isReadable()
-            && ! ( attributeDTO instanceof AttributeStructDTO )
-//            && !attributeDTO.getName().equals(AggregatedCaseDTO.GEOENTITY)
-            && !attributeDTO.getName().equals(AggregatedCaseDTO.AGEGROUP)
-            && !attributeDTO.getName().equals(AggregatedCaseDTO.ID))
-        {
-          JSONObject json = new JSONObject();
-          json.put("attributeName", visibleAttribute);
-          json.put("displayLabel", attributeDTO.getAttributeMdDTO().getDisplayLabel());
-          json.put("type", AggregatedCaseDTO.CLASS);
-
-          visible.put(json);
-        }
-      }
-
-      req.setAttribute("visibleAttributes", visible.toString());
-
-      // OR the read permissions for GUI Visibility by checking
-      // each age group view
-      Map<String, Boolean> gridReads = new HashMap<String, Boolean>();
-      gridReads.put(ChildCaseViewDTO.CASEREFERRALS, false);
-      gridReads.put(ChildCaseViewDTO.CASEDIAGNOSTIC, false);
-      gridReads.put(ChildCaseViewDTO.CASETREATMENTMETHOD, false);
-      gridReads.put(ChildCaseViewDTO.CASETREATMENTS, false);
-      gridReads.put(ChildCaseViewDTO.CASESTOCKS, false);
-
-      AggregatedCaseViewDTO[] views = new AggregatedCaseViewDTO[] {
-          new AncientCaseViewDTO(this.getClientRequest()),
-          new ElderCaseViewDTO(this.getClientRequest()), new AdultCaseViewDTO(this.getClientRequest()),
-          new TeenCaseViewDTO(this.getClientRequest()), new ChildCaseViewDTO(this.getClientRequest()),
-          new InfiantCaseViewDTO(this.getClientRequest()) };
-
-      for (String attrib : gridReads.keySet())
-      {
-        for (AggregatedCaseViewDTO view : views)
-        {
-          boolean readable = view.isReadable(attrib);
-          if (readable)
-          {
-            gridReads.put(attrib, readable);
-            break;
-          }
-        }
-      }
-
-      JSONArray ordered = new JSONArray();
-
-      if (gridReads.get(ChildCaseViewDTO.CASEREFERRALS))
-      {
-        // Referral
-        JSONObject referral = new JSONObject();
-        referral.put("type", TermDTO.CLASS);
-        referral.put("label", MDSSProperties.getObject("Facility_referred"));
-        referral.put("relType", CaseReferralDTO.CLASS);
-        referral.put("relAttribute", CaseReferralDTO.AMOUNT);
-        referral.put("options", new JSONArray());
-        loadGrid(CaseReferralDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASEREFERRALS,
-            referral, ordered);
-      }
-
-      if (gridReads.get(ChildCaseViewDTO.CASEDIAGNOSTIC))
-      {
-        // Diagnostic
-        JSONObject diagnostic = new JSONObject();
-        diagnostic.put("type", TermDTO.CLASS);
-        diagnostic.put("label", MDSSProperties.getObject("Diagnostic_methods"));
-        diagnostic.put("relType", CaseDiagnosticDTO.CLASS);
-        diagnostic.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
-        diagnostic.put("relAttributeTwo", CaseDiagnosticDTO.AMOUNTPOSITIVE);
-        diagnostic.put("options", new JSONArray());
-        loadGrid(CaseDiagnosticDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASEDIAGNOSTIC,
-            diagnostic, ordered);
-      }
-
-      if (gridReads.get(ChildCaseViewDTO.CASETREATMENTMETHOD))
-      {
-        // TreatmentMethod
-        JSONObject treatmentMethod = new JSONObject();
-        treatmentMethod.put("type", TermDTO.CLASS);
-        treatmentMethod.put("label", MDSSProperties.getObject("Treatment_methods"));
-        treatmentMethod.put("relType", CaseTreatmentMethodDTO.CLASS);
-        treatmentMethod.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
-        treatmentMethod.put("options", new JSONArray());
-        loadGrid(CaseTreatmentMethodDTO.CLASS, ChildCaseViewDTO.CLASS,
-            ChildCaseViewDTO.CASETREATMENTMETHOD, treatmentMethod, ordered);
-      }
-
-      if (gridReads.get(ChildCaseViewDTO.CASETREATMENTS))
-      {
-        // Treatment
-        JSONObject treatment = new JSONObject();
-        treatment.put("type", TermDTO.CLASS);
-        treatment.put("label", MDSSProperties.getObject("Treatments"));
-        treatment.put("relType", CaseTreatmentDTO.CLASS);
-        treatment.put("relAttribute", CaseTreatmentDTO.AMOUNT);
-        treatment.put("options", new JSONArray());
-        loadGrid(CaseTreatmentDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTS,
-            treatment, ordered);
-      }
-
-      if (gridReads.get(ChildCaseViewDTO.CASESTOCKS))
-      {
-        // CaseTreatmentStock
-        JSONObject caseTreatmentStock = new JSONObject();
-        caseTreatmentStock.put("type", TermDTO.CLASS);
-        caseTreatmentStock.put("label", MDSSProperties.getObject("Treatment_out_of_Stock"));
-        caseTreatmentStock.put("relType", CaseTreatmentStockDTO.CLASS);
-        caseTreatmentStock.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
-        caseTreatmentStock.put("options", new JSONArray());
-        loadGrid(CaseTreatmentStockDTO.CLASS, ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASESTOCKS,
-            caseTreatmentStock, ordered);
-      }
-
-      req.setAttribute("orderedGrids", ordered.toString());
-
-      req.getRequestDispatcher(QUERY_AGGREGATED_CASES).forward(req, resp);
-    }
-    catch (Throwable t)
-    {
-      throw new ApplicationException(t);
-    }
   }
 
-  private void loadGrid(String relationshipClass, String className, String attributeName,
-      JSONObject gridMeta, JSONArray ordered)
+  private void loadGrid(String relationshipClass, String className, String attributeName, JSONObject gridMeta, JSONArray ordered)
   {
     ordered.put(gridMeta);
 
@@ -489,8 +314,7 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  private JSONArray getAllTermsForGrid(ClientRequestIF request, String klass, String attribute)
-      throws JSONException
+  private JSONArray getAllTermsForGrid(ClientRequestIF request, String klass, String attribute) throws JSONException
   {
     JSONArray array = new JSONArray();
     for (TermDTO term : TermDTO.getAllTermsForField(request, klass, attribute))
@@ -551,8 +375,7 @@ public class QueryController extends QueryControllerBase implements
       patients.put("label", MDSSProperties.getObject("Facility_referred"));
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
-      patients.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYPATIENTS));
+      patients.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS));
       ordered.put("patients", patients);
 
       // Doses
@@ -561,8 +384,7 @@ public class QueryController extends QueryControllerBase implements
       doses.put("label", MDSSProperties.getObject("Diagnostic_methods"));
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
-      doses.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYDOSE));
+      doses.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE));
       ordered.put("doses", doses);
 
       // Visits
@@ -571,8 +393,7 @@ public class QueryController extends QueryControllerBase implements
       visits.put("label", MDSSProperties.getObject("Treatment_methods"));
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
-      visits.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYVISITS));
+      visits.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS));
       ordered.put("visits", visits);
 
       // Treatment
@@ -581,8 +402,7 @@ public class QueryController extends QueryControllerBase implements
       treatment.put("label", MDSSProperties.getObject("Treatments"));
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
-      treatment.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS,
-          AggregatedIPTViewDTO.DISPLAYTREATMENTS));
+      treatment.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS));
       ordered.put("treatments", treatment);
 
       req.setAttribute("orderedGrids", ordered.toString());
@@ -615,8 +435,7 @@ public class QueryController extends QueryControllerBase implements
       patients.put("label", itn.getDisplayNetsMd().getDisplayLabel());
       patients.put("relType", ITNNetDTO.CLASS);
       patients.put("relAttribute", ITNNetDTO.AMOUNT);
-      patients.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS,
-          ITNDataViewDTO.DISPLAYNETS));
+      patients.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYNETS));
       ordered.put("nets", patients);
 
       // Target Groups
@@ -625,8 +444,7 @@ public class QueryController extends QueryControllerBase implements
       doses.put("label", itn.getDisplayTargetGroupsMd().getDisplayLabel());
       doses.put("relType", ITNTargetGroupDTO.CLASS);
       doses.put("relAttribute", ITNTargetGroupDTO.AMOUNT);
-      doses.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS,
-          ITNDataViewDTO.DISPLAYTARGETGROUPS));
+      doses.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYTARGETGROUPS));
       ordered.put("targetGroups", doses);
 
       // Visits
@@ -635,8 +453,7 @@ public class QueryController extends QueryControllerBase implements
       visits.put("label", itn.getDisplayServicesMd().getDisplayLabel());
       visits.put("relType", ITNServiceDTO.CLASS);
       visits.put("relAttribute", ITNServiceDTO.AMOUNT);
-      visits.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS,
-          ITNDataViewDTO.DISPLAYSERVICES));
+      visits.put("options", getAllTermsForGrid(request, ITNDataViewDTO.CLASS, ITNDataViewDTO.DISPLAYSERVICES));
       ordered.put("services", visits);
 
       req.setAttribute("orderedGrids", ordered.toString());
@@ -655,8 +472,7 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      loadQuerySpecifics(ITNCommunityDistributionDTO.CLASS,
-          QueryConstants.QueryType.QUERY_ITN_COMMUNITY_DISTRIBUTION);
+      loadQuerySpecifics(ITNCommunityDistributionDTO.CLASS, QueryConstants.QueryType.QUERY_ITN_COMMUNITY_DISTRIBUTION);
 
       ClientRequestIF request = this.getClientRequest();
 
@@ -675,8 +491,7 @@ public class QueryController extends QueryControllerBase implements
       patients.put("label", itnView.getDisplayNetsMd().getDisplayLabel());
       patients.put("relType", ITNCommunityNetDTO.CLASS);
       patients.put("relAttribute", ITNCommunityNetDTO.AMOUNT);
-      patients.put("options", getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS,
-          ITNCommunityDistributionViewDTO.DISPLAYNETS));
+      patients.put("options", getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYNETS));
       ordered.put("nets", patients);
 
       // Target Groups
@@ -685,8 +500,7 @@ public class QueryController extends QueryControllerBase implements
       doses.put("label", itnView.getDisplayTargetGroupsMd().getDisplayLabel());
       doses.put("relType", ITNCommunityTargetGroupDTO.CLASS);
       doses.put("relAttribute", ITNCommunityTargetGroupDTO.AMOUNT);
-      doses.put("options", getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS,
-          ITNCommunityDistributionViewDTO.DISPLAYTARGETGROUPS));
+      doses.put("options", getAllTermsForGrid(request, ITNCommunityDistributionViewDTO.CLASS, ITNCommunityDistributionViewDTO.DISPLAYTARGETGROUPS));
       ordered.put("targetGroups", doses);
 
       req.setAttribute("orderedGrids", ordered.toString());
@@ -705,8 +519,7 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      loadQuerySpecifics(ITNDistributionDTO.CLASS,
-          QueryConstants.QueryType.QUERY_ITN_FACILITY_DISTRIBUTION);
+      loadQuerySpecifics(ITNDistributionDTO.CLASS, QueryConstants.QueryType.QUERY_ITN_FACILITY_DISTRIBUTION);
 
       ClientRequestIF request = this.getClientRequest();
 
@@ -725,8 +538,7 @@ public class QueryController extends QueryControllerBase implements
       doses.put("label", itnView.getTargetGroupsMd().getDisplayLabel());
       doses.put("relType", ITNDistributionTargetGroupDTO.CLASS);
       doses.put("relAttribute", ITNDistributionTargetGroupDTO.AMOUNT);
-      doses.put("options", getAllTermsForGrid(request, ITNDistributionViewDTO.CLASS,
-          ITNDistributionViewDTO.TARGETGROUPS));
+      doses.put("options", getAllTermsForGrid(request, ITNDistributionViewDTO.CLASS, ITNDistributionViewDTO.TARGETGROUPS));
       ordered.put("targetGroups", doses);
 
       req.setAttribute("orderedGrids", ordered.toString());
@@ -744,8 +556,7 @@ public class QueryController extends QueryControllerBase implements
   {
     try
     {
-      loadQuerySpecifics(MosquitoCollectionDTO.CLASS,
-          QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS);
+      loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_MOSQUITO_COLLECTIONS);
 
       ClientRequestIF request = this.getClientRequest();
 
@@ -841,7 +652,6 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
-  
   /**
    * Creates the screen to query contaner collections
    */
@@ -866,9 +676,7 @@ public class QueryController extends QueryControllerBase implements
       throw new ApplicationException(t);
     }
   }
-  
-  
-  
+
   /**
    * Creates the screen to query contaner collections
    */
@@ -888,7 +696,7 @@ public class QueryController extends QueryControllerBase implements
       ClassQueryDTO container = request.getQuery(PupalContainerDTO.CLASS);
       String container_map = Halp.getDropDownMaps(container, request, ", ");
       req.setAttribute("containerMap", container_map);
-      
+
       
       JSONObject ordered = new JSONObject();
 
@@ -914,7 +722,7 @@ public class QueryController extends QueryControllerBase implements
       throw new ApplicationException(t);
     }
   }
-  
+
   /**
    * Creates the screen to query
    */
@@ -942,8 +750,7 @@ public class QueryController extends QueryControllerBase implements
       symptoms.put("relAttribute", IndividualCaseSymptomDTO.HASSYMPTOM);
       symptoms.put("options", new JSONArray());
 
-      TermDTO[] allSymptoms = TermDTO.getRootChildren(request, IndividualInstanceDTO.CLASS,
-          IndividualInstanceDTO.SYMPTOM, false);
+      TermDTO[] allSymptoms = TermDTO.getRootChildren(request, IndividualInstanceDTO.CLASS, IndividualInstanceDTO.SYMPTOM, false);
 
       for (TermDTO term : allSymptoms)
       {
@@ -1104,13 +911,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   // @Override
-  public void exportQueryToCSV(String className, String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportQueryToCSV(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = QueryBuilderDTO.exportQueryToCSV(this.getClientRequest(), className,
-          queryXML, config, savedSearchId);
+      InputStream stream = QueryBuilderDTO.exportQueryToCSV(this.getClientRequest(), className, queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -1123,13 +928,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   // @Override
-  public void exportQueryToExcel(String className, String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportQueryToExcel(String className, String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = QueryBuilderDTO.exportQueryToExcel(this.getClientRequest(), className,
-          queryXML, config, savedSearchId);
+      InputStream stream = QueryBuilderDTO.exportQueryToExcel(this.getClientRequest(), className, queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -1141,14 +944,46 @@ public class QueryController extends QueryControllerBase implements
     }
   }
 
+//  @Override
+//  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
+//  {
+//    try
+//    {
+//      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
+//
+//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+//
+//      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
+//    }
+//    catch (Throwable t)
+//    {
+//      resp.getWriter().write(t.getLocalizedMessage());
+//    }
+//  }
+//
+//  @Override
+//  public void exportAggregatedCaseQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
+//  {
+//    try
+//    {
+//      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
+//
+//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
+//
+//      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
+//    }
+//    catch (Throwable t)
+//    {
+//      resp.getWriter().write(t.getLocalizedMessage());
+//    }
+//  }
+
   @Override
-  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config,
-          savedSearchId);
+      InputStream stream = SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
@@ -1161,51 +996,11 @@ public class QueryController extends QueryControllerBase implements
   }
 
   @Override
-  public void exportAggregatedCaseQueryToExcel(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
+  public void exportSurveyQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
   {
     try
     {
-      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML,
-          config, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config,
-          savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportSurveyQueryToExcel(String queryXML, String config, String savedSearchId)
-      throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config,
-          savedSearchId);
+      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 

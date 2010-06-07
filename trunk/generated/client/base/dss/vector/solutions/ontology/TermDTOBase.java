@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1142722291)
+@com.runwaysdk.business.ClassSignature(hash = -2094677986)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 1142722291;
+  private static final long serialVersionUID = -2094677986;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1316,60 +1316,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllDiagnosticAggregatedCases()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO> getAllDiagnosticAggregatedCasesRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO> getAllDiagnosticAggregatedCasesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosticDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseDiagnosticDTO addDiagnosticAggregatedCases(dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseDiagnosticDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.surveillance.CaseDiagnosticDTO addDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseDiagnosticDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  public void removeDiagnosticAggregatedCases(dss.vector.solutions.surveillance.CaseDiagnosticDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiagnosticDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllDiagnosticAggregatedCases()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  public static void removeAllDiagnosticAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseDiagnosticDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
   public java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllDoseAggregatedIPTs()
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.IPTDoseDTO.CLASS);
@@ -2072,168 +2018,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllReferralAggregatedCase()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO> getAllReferralAggregatedCaseRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO> getAllReferralAggregatedCaseRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseReferralDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseReferralDTO addReferralAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseReferralDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.surveillance.CaseReferralDTO addReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseReferralDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  public void removeReferralAggregatedCase(dss.vector.solutions.surveillance.CaseReferralDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseReferralDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllReferralAggregatedCase()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  public static void removeAllReferralAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseReferralDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllStockAggregatedCases()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO> getAllStockAggregatedCasesRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO> getAllStockAggregatedCasesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentStockDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentStockDTO addStockAggregatedCases(dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.surveillance.CaseTreatmentStockDTO addStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentStockDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  public void removeStockAggregatedCases(dss.vector.solutions.surveillance.CaseTreatmentStockDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentStockDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllStockAggregatedCases()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  public static void removeAllStockAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseTreatmentStockDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentAggregatedCases()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO> getAllTreatmentAggregatedCasesRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO> getAllTreatmentAggregatedCasesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentDTO addTreatmentAggregatedCases(dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.surveillance.CaseTreatmentDTO addTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  public void removeTreatmentAggregatedCases(dss.vector.solutions.surveillance.CaseTreatmentDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllTreatmentAggregatedCases()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  public static void removeAllTreatmentAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseTreatmentDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
   public java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO> getAllTreatmentAggregatedIPTs()
   {
     return (java.util.List<? extends dss.vector.solutions.intervention.monitor.AggregatedIPTDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
@@ -2285,60 +2069,6 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllTreatmentAggregatedIPTs(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.IPTTreatmentDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentMethodAggregatedCase()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO> getAllTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.AggregatedCaseDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO> getAllTreatmentMethodAggregatedCaseRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO> getAllTreatmentMethodAggregatedCaseRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseTreatmentMethodDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.surveillance.CaseTreatmentMethodDTO addTreatmentMethodAggregatedCase(dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.surveillance.CaseTreatmentMethodDTO addTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.AggregatedCaseDTO parent)
-  {
-    return (dss.vector.solutions.surveillance.CaseTreatmentMethodDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  public void removeTreatmentMethodAggregatedCase(dss.vector.solutions.surveillance.CaseTreatmentMethodDTO relationship)
-  {
-    getRequest().deleteParent(relationship.getId());
-  }
-  
-  public static void removeTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO relationship)
-  {
-    clientRequestIF.deleteParent(relationship.getId());
-  }
-  
-  public void removeAllTreatmentMethodAggregatedCase()
-  {
-    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
-  }
-  
-  public static void removeAllTreatmentMethodAggregatedCase(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseTreatmentMethodDTO.CLASS);
   }
   
   public static dss.vector.solutions.ontology.TermDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

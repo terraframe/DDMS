@@ -2,42 +2,7 @@
   xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-    <create>
-      <mdView
-        name="dss.vector.solutions.surveillance.AggregatedCaseSearchView"
-        label="Aggregated Case Search"
-        extends="dss.vector.solutions.surveillance.AggregatedCaseView">
-        <attributes>
-          <boolean
-            name="searchType"
-            label="Search Type"
-            defaultValue="true"
-            required="true"
-            positiveLabel="Dates"
-            negativeLabel="Period" />
-        </attributes>
-        <mdMethod
-          name="searchByView"
-          label="Search By View"
-          returnType="dss.vector.solutions.surveillance.AggregatedCaseView"
-          static="false">
-        </mdMethod>
-      </mdView>
-    </create>
     <update>
-      <mdView
-        name="dss.vector.solutions.surveillance.AggregatedCaseView">
-        <create>
-          <attributes>
-            <virtual
-              concrete="startDate"
-              type="dss.vector.solutions.surveillance.AggregatedCase" />
-            <virtual
-              concrete="endDate"
-              type="dss.vector.solutions.surveillance.AggregatedCase" />
-          </attributes>
-        </create>
-      </mdView>
       <mdView
         name="dss.vector.solutions.intervention.monitor.ITNDataView">
         <create>
@@ -90,22 +55,6 @@
           </mdMethod>
         </create>
       </mdView>
-      <mdController
-        name="dss.vector.solutions.surveillance.AggregatedCaseController">
-        <create>
-          <mdAction
-            name="searchByView"
-            isPost="true"
-            label="Search by View"
-            isQuery="false">
-            <mdParameter
-              name="dto"
-              label="dto"
-              order="0"
-              type="dss.vector.solutions.surveillance.AggregatedCaseSearchView" />
-          </mdAction>
-        </create>
-      </mdController>
       <mdController
         name="dss.vector.solutions.intervention.monitor.AggregatedIPTController">
         <create>
@@ -171,18 +120,6 @@
         type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.intervention.monitor.AggregatedIPTView.searchType"
-        type="com.runwaysdk.system.metadata.MdAttribute" />
-      <object
-        key="dss.vector.solutions.surveillance.AggregatedCaseController.searchByView"
-        type="com.runwaysdk.system.metadata.MdAction" />
-      <object
-        key="dss.vector.solutions.surveillance.AggregatedCaseSearchView"
-        type="com.runwaysdk.system.metadata.MdView" />
-      <object
-        key="dss.vector.solutions.surveillance.AggregatedCaseView.startDate"
-        type="com.runwaysdk.system.metadata.MdAttribute" />
-      <object
-        key="dss.vector.solutions.surveillance.AggregatedCaseView.endDate"
         type="com.runwaysdk.system.metadata.MdAttribute" />
     </delete>
   </undoIt>

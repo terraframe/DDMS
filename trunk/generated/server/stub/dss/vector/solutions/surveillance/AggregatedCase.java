@@ -3,9 +3,7 @@ package dss.vector.solutions.surveillance;
 import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,14 +14,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.business.rbac.Operation;
-import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.MdViewDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
-import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
@@ -35,15 +26,11 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryCSVExporter;
 import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.session.SessionFacade;
-import com.runwaysdk.session.SessionIF;
-import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.CurrentDateProblem;
-import dss.vector.solutions.general.EpiDate;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
@@ -51,8 +38,7 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
-public class AggregatedCase extends AggregatedCaseBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1238693161773L;
 
@@ -75,93 +61,16 @@ public class AggregatedCase extends AggregatedCaseBase implements
   @Override
   protected String buildKey()
   {
-    if (this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null
-        && this.getStartAge() != null && this.getEndAge() != null)
+    if (this.getGeoEntity() != null && this.getStartDate() != null && this.getEndDate() != null && this.getAgeGroup() != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
 
       String period = format.format(this.getStartDate()) + "-" + format.format(this.getEndDate());
-      String ageRange = this.getStartAge() + "-" + this.getEndAge();
+      String ageRange = this.getAgeGroup().getKey();
 
       return this.getGeoEntity().getGeoId() + ", " + period + ", " + ageRange;
     }
     return this.getId();
-  }
-
-  @StartSession
-  public static java.lang.String[] getVisibleAttributeNames()
-  {
-    MdBusinessDAOIF aggregateCaseMdBusiness = MdBusinessDAO.getMdBusinessDAO(AggregatedCase.CLASS);
-    List<? extends MdAttributeConcreteDAOIF> aggregateCaseAttributes = aggregateCaseMdBusiness
-        .getAllDefinedMdAttributes();
-
-    MdViewDAOIF aggregatedCaseMdView = MdViewDAO.getMdViewDAO(AggregatedCaseView.CLASS);
-
-    List<MdViewDAOIF> aggregatedCaseViewSubClasses = aggregatedCaseMdView.getSubClasses();
-
-    // Key is the class name, value is a map of attributes
-    Map<String, Map<String, ? extends MdAttributeDAOIF>> subClassAttrMap = new HashMap<String, Map<String, ? extends MdAttributeDAOIF>>();
-
-    for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
-    {
-      subClassAttrMap.put(mdViewDAOIF.definesType(), mdViewDAOIF.getAllDefinedMdAttributeMap());
-    }
-
-    LinkedList<String> visibleAttributeNameList = new LinkedList<String>();
-
-    for (MdAttributeConcreteDAOIF mdAttribute : aggregateCaseAttributes)
-    {
-      for (MdViewDAOIF mdViewDAOIF : aggregatedCaseViewSubClasses)
-      {
-        boolean hasVisibility = hasVisibility(mdAttribute.definesAttribute(), subClassAttrMap
-            .get(mdViewDAOIF.definesType()));
-        if (hasVisibility)
-        {
-          visibleAttributeNameList.add(mdAttribute.definesAttribute());
-          break;
-        }
-      }
-    }
-
-    Collections.sort(visibleAttributeNameList);
-    String[] visibleAttributeNames = new String[visibleAttributeNameList.size()];
-
-    visibleAttributeNameList.toArray(visibleAttributeNames);
-
-    return visibleAttributeNames;
-  }
-
-  /**
-   * Returns true if the given attribute is defined by a
-   * <code>MdAttributeDAOIF</code> in the given map and the current user has
-   * permission to view the attribute, false otherwise.
-   * 
-   * <br>
-   * Precondition:</br> <code>Session.getCurrentSession()</code> does not return
-   * null.
-   * 
-   * @param attributeName
-   * @param viewCaseAttributeMap
-   * @return true if the given attribute is defined by a
-   *         <code>MdAttributeDAOIF</code> in the given map and the current user
-   *         has permission to view the attribute, false otherwise.
-   */
-  private static boolean hasVisibility(String attributeName,
-      Map<String, ? extends MdAttributeDAOIF> viewCaseAttributeMap)
-  {
-    String attrNameLowerCase = attributeName.toLowerCase();
-
-    boolean hasVisibility = false;
-
-    SessionIF session = Session.getCurrentSession();
-
-    if (viewCaseAttributeMap.containsKey(attrNameLowerCase))
-    {
-      MdAttributeDAOIF mdAttributeDAOIF = viewCaseAttributeMap.get(attrNameLowerCase);
-      hasVisibility = SessionFacade.checkAttributeAccess(session.getId(), Operation.READ,
-          mdAttributeDAOIF);
-    }
-    return hasVisibility;
   }
 
   @Override
@@ -216,10 +125,53 @@ public class AggregatedCase extends AggregatedCaseBase implements
     validateStartDate();
     validateEndDate();
 
-    this.setStartAge(this.getAgeGroup().getStartAge());
-    this.setEndAge(this.getAgeGroup().getEndAge());
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
 
     super.apply();
+  }
+  
+  @Override
+  public void delete()
+  {
+    List<CaseTreatmentMethod> methods = this.getTreatmentMethods();
+    
+    for(CaseTreatmentMethod method : methods)
+    {
+      method.delete();
+    }
+    
+    List<CaseTreatment> treatments = this.getTreatments();
+    
+    for(CaseTreatment treatment : treatments)
+    {
+      treatment.delete();
+    }
+    
+    List<CaseTreatmentStock> stocks = this.getTreatmentStocks();
+    
+    for(CaseTreatmentStock stock : stocks)
+    {
+      stock.delete();
+    }
+    
+    List<CaseDiagnostic> diagnostics = this.getDiagnosticMethods();
+
+    for(CaseDiagnostic method : diagnostics)
+    {
+      method.delete();
+    }
+    
+    List<CaseReferral> referrals = this.getReferrals();
+    
+    for(CaseReferral referral : referrals)
+    {
+      referral.delete();
+    }    
+
+    super.delete();
   }
 
   @Override
@@ -227,216 +179,215 @@ public class AggregatedCase extends AggregatedCaseBase implements
   public void lock()
   {
     super.lock();
-
-    // Lock the grid relationship also, this must be in the same transaction
-    for (CaseDiagnostic diagnostic : this.getAllDiagnosticMethodRel())
-    {
-      diagnostic.lock();
-    }
-
-    for (CaseReferral referral : this.getAllReferralRel())
-    {
-      referral.lock();
-    }
-
-    for (CaseTreatment treatment : this.getAllTreatmentRel())
-    {
-      treatment.lock();
-    }
-
-    for (CaseTreatmentMethod method : this.getAllTreatmentMethodRel())
+    
+    List<CaseTreatmentMethod> methods = this.getTreatmentMethods();
+    
+    for(CaseTreatmentMethod method : methods)
     {
       method.lock();
     }
-
-    for (CaseTreatmentStock stock : this.getAllTreatmentStockRel())
+    
+    List<CaseTreatment> treatments = this.getTreatments();
+    
+    for(CaseTreatment treatment : treatments)
+    {
+      treatment.lock();
+    }
+    
+    List<CaseTreatmentStock> stocks = this.getTreatmentStocks();
+    
+    for(CaseTreatmentStock stock : stocks)
     {
       stock.lock();
     }
+    
+    List<CaseDiagnostic> diagnostics = this.getDiagnosticMethods();
+
+    for(CaseDiagnostic method : diagnostics)
+    {
+      method.lock();
+    }
+    
+    List<CaseReferral> referrals = this.getReferrals();
+    
+    for(CaseReferral referral : referrals)
+    {
+      referral.lock();
+    }    
   }
 
   @Override
   @Transaction
   public void unlock()
   {
-    // Unlock the grid relationship also, this must be in the same transaction
-    for (CaseDiagnostic diagnostic : this.getAllDiagnosticMethodRel())
-    {
-      diagnostic.unlock();
-    }
-
-    for (CaseReferral referral : this.getAllReferralRel())
-    {
-      referral.unlock();
-    }
-
-    for (CaseTreatment treatment : this.getAllTreatmentRel())
-    {
-      treatment.unlock();
-    }
-
-    for (CaseTreatmentMethod method : this.getAllTreatmentMethodRel())
+    super.unlock();
+    
+    List<CaseTreatmentMethod> methods = this.getTreatmentMethods();
+    
+    for(CaseTreatmentMethod method : methods)
     {
       method.unlock();
     }
-
-    for (CaseTreatmentStock stock : this.getAllTreatmentStockRel())
+    
+    List<CaseTreatment> treatments = this.getTreatments();
+    
+    for(CaseTreatment treatment : treatments)
+    {
+      treatment.unlock();
+    }
+    
+    List<CaseTreatmentStock> stocks = this.getTreatmentStocks();
+    
+    for(CaseTreatmentStock stock : stocks)
     {
       stock.unlock();
     }
+    
+    List<CaseDiagnostic> diagnostics = this.getDiagnosticMethods();
 
-    super.unlock();
+    for(CaseDiagnostic method : diagnostics)
+    {
+      method.unlock();
+    }
+    
+    List<CaseReferral> referrals = this.getReferrals();
+    
+    for(CaseReferral referral : referrals)
+    {
+      referral.unlock();
+    }    
   }
 
-  @Override
-  @Transaction
-  public void applyAll(CaseTreatment[] treatments, CaseTreatmentMethod[] treatmentMethods,
-      CaseTreatmentStock[] stock, CaseDiagnostic[] diagnosticMethods, CaseReferral[] referrals)
+  public List<CaseTreatmentMethod> getTreatmentMethods()
   {
-    this.apply();
+    List<CaseTreatmentMethod> list = new LinkedList<CaseTreatmentMethod>();
 
-    for (CaseDiagnostic method : diagnosticMethods)
-    {
-      method.overwriteParentId(this.getId());
-      method.apply();
-    }
+    CaseTreatmentMethodQuery query = new CaseTreatmentMethodQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
 
-    for (CaseReferral referral : referrals)
-    {
-      referral.overwriteParentId(this.getId());
-      referral.apply();
-    }
-
-    for (CaseTreatment treatment : treatments)
-    {
-      treatment.overwriteParentId(this.getId());
-      treatment.apply();
-    }
-
-    for (CaseTreatmentMethod method : treatmentMethods)
-    {
-      method.overwriteParentId(this.getId());
-      method.apply();
-    }
-
-    for (CaseTreatmentStock s : stock)
-    {
-      s.overwriteParentId(this.getId());
-      s.apply();
-    }
-
-  }
-
-  public static AggregatedCase searchByGeoEntityAndDate(GeoEntity geoEntity, Date startDate,
-      Date endDate, AggregatedAgeGroup ageGroup)
-  {
-    AggregatedCaseQuery query = new AggregatedCaseQuery(new QueryFactory());
-    query.WHERE(query.getGeoEntity().EQ(geoEntity));
-    query.AND(query.getStartDate().EQ(startDate));
-    query.AND(query.getEndDate().EQ(endDate));
-    query.AND(query.getStartAge().EQ(ageGroup.getStartAge()));
-    query.AND(query.getEndAge().EQ(ageGroup.getEndAge()));
-
-    OIterator<? extends AggregatedCase> it = query.getIterator();
+    OIterator<? extends CaseTreatmentMethod> it = query.getIterator();
 
     try
     {
-      if (it.hasNext())
-      {
-        return it.next();
-      }
-
-      return null;
+      list.addAll(it.getAll());
     }
     finally
     {
       it.close();
     }
+
+    return list;
   }
 
+  public List<CaseTreatment> getTreatments()
+  {
+    List<CaseTreatment> list = new LinkedList<CaseTreatment>();
+    
+    CaseTreatmentQuery query = new CaseTreatmentQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+    
+    OIterator<? extends CaseTreatment> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return list;
+  }
+  
+  public List<CaseDiagnostic> getDiagnosticMethods()
+  {
+    List<CaseDiagnostic> list = new LinkedList<CaseDiagnostic>();
+    
+    CaseDiagnosticQuery query = new CaseDiagnosticQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+    
+    OIterator<? extends CaseDiagnostic> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return list;
+  }
+  
+  public List<CaseReferral> getReferrals()
+  {
+    List<CaseReferral> list = new LinkedList<CaseReferral>();
+    
+    CaseReferralQuery query = new CaseReferralQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+    
+    OIterator<? extends CaseReferral> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return list;
+  }
+  
+  public List<CaseTreatmentStock> getTreatmentStocks()
+  {
+    List<CaseTreatmentStock> list = new LinkedList<CaseTreatmentStock>();
+    
+    CaseTreatmentStockQuery query = new CaseTreatmentStockQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+    
+    OIterator<? extends CaseTreatmentStock> it = query.getIterator();
+    
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+    
+    return list;
+  }
+  
+  
+  
   public AggregatedCaseView getView()
   {
-    AggregatedCaseView view = this.getAgeGroup().getView();
+    AggregatedCaseView view = new AggregatedCaseView();
 
     view.populateView(this);
 
     return view;
   }
 
-  @Transaction
-  public static AggregatedCaseView searchByGeoEntityAndEpiDate(GeoEntity geoEntity,
-      PeriodType periodType, Integer period, Integer year, AggregatedAgeGroup ageGroup)
+  @Override
+  public AggregatedCaseView lockView()
   {
-    // IMPORTANT: WEEK is 0 based while MONTH and QUARTER are 1 based. Thus we
-    // need to offset the 'period' for WEEK
-    Integer _period = ( periodType.equals(PeriodType.WEEK) ? period - 1 : period );
+    this.lock();
 
-    EpiDate.validate(periodType, _period, year);
-
-    EpiDate date = EpiDate.getInstanceByPeriod(periodType, _period, year);
-
-    Date startDate = date.getStartDate();
-    Date endDate = date.getEndDate();
-
-    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
-
-    if (c != null)
-    {
-      AggregatedCaseView view = c.getView();
-      view.setAgeGroup(ageGroup);
-      view.setCaseId(c.getId());
-
-      return view;
-    }
-
-    AggregatedCaseView view = ageGroup.getView();
-    view.setGeoEntity(geoEntity);
-    view.setPeriod(period);
-    view.addPeriodType(periodType);
-    view.setPeriodYear(year);
-    view.setAgeGroup(ageGroup);
-    view.setStartDate(startDate);
-    view.setEndDate(endDate);
-
-    return view;
+    return this.getView();
   }
 
-  public static AggregatedCaseView searchByDates(GeoEntity geoEntity, Date startDate, Date endDate,
-      AggregatedAgeGroup ageGroup)
+  @Override
+  public AggregatedCaseView unlockView()
   {
-    AggregatedCase c = AggregatedCase.searchByGeoEntityAndDate(geoEntity, startDate, endDate, ageGroup);
+    this.unlock();
 
-    if (c != null)
-    {
-      AggregatedCaseView view = c.getView();
-      view.setAgeGroup(ageGroup);
-      view.setCaseId(c.getId());
-
-      return view;
-    }
-
-    AggregatedCaseView view = ageGroup.getView();
-    view.setGeoEntity(geoEntity);
-    view.setStartDate(startDate);
-    view.setEndDate(endDate);
-    view.setAgeGroup(ageGroup);
-
-    return view;
-  }
-
-  public static AggregatedCaseView getView(String id)
-  {
-    return AggregatedCase.get(id).getView();
-  }
-
-  public static AggregatedCaseView lockView(String id)
-  {
-    return AggregatedCase.lock(id).getView();
-  }
-
-  public static AggregatedCaseView unlockView(String id)
-  {
-    return AggregatedCase.unlock(id).getView();
+    return this.getView();
   }
 
   /**
@@ -463,60 +414,34 @@ public class AggregatedCase extends AggregatedCaseBase implements
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
-    for (String gridAlias : queryMap.keySet())
+    // for (String gridAlias : queryMap.keySet())
+    // {
+    // GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
+    //
+    // String termAlias = gridAlias + "_Term";
+    // TermQuery termQuery = (TermQuery) queryMap.get(termAlias);
+    //
+    // }
+
+    if (valueQuery.hasSelectableRef("sqldouble__cfr"))
     {
-      GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
-
-      String termAlias = gridAlias + "_Term";
-      TermQuery termQuery = (TermQuery) queryMap.get(termAlias);
-
-      if (generatedQuery instanceof CaseTreatmentStockQuery)
-      {
-        CaseTreatmentStockQuery ctsq = (CaseTreatmentStockQuery) generatedQuery;
-        valueQuery.AND(aggregatedCaseQuery.treatmentStock(ctsq));
-        valueQuery.AND(ctsq.hasChild(termQuery));
-      }
-      else if (generatedQuery instanceof CaseTreatmentQuery)
-      {
-        CaseTreatmentQuery ctq = (CaseTreatmentQuery) generatedQuery;
-        valueQuery.AND(aggregatedCaseQuery.treatment(ctq));
-        valueQuery.AND(ctq.hasChild(termQuery));
-      }
-      else if (generatedQuery instanceof CaseReferralQuery)
-      {
-        CaseReferralQuery crq = (CaseReferralQuery) generatedQuery;
-        valueQuery.AND(aggregatedCaseQuery.referral(crq));
-        valueQuery.AND(crq.hasChild(termQuery));
-      }
-      else if (generatedQuery instanceof CaseDiagnosticQuery)
-      {
-        CaseDiagnosticQuery cdq = (CaseDiagnosticQuery) generatedQuery;
-        valueQuery.AND(aggregatedCaseQuery.diagnosticMethod(cdq));
-        valueQuery.AND(cdq.hasChild(termQuery));
-      }
-      else if (generatedQuery instanceof CaseTreatmentMethodQuery)
-      {
-        CaseTreatmentMethodQuery ctmq = (CaseTreatmentMethodQuery) generatedQuery;
-        valueQuery.AND(aggregatedCaseQuery.treatmentMethod(ctmq));
-        valueQuery.AND(ctmq.hasChild(termQuery));
-      }
+      // String deathsCol =
+      // QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(),
+      // AggregatedCase.DEATHS);
+      // String casesCol =
+      // QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(),
+      // AggregatedCase.CASES);
+      //
+      // SelectableSQLDouble calc = (SelectableSQLDouble)
+      // valueQuery.getSelectableRef("sqldouble__cfr");
+      // String sql = "(SUM(" + deathsCol + "::FLOAT)/NULLIF(SUM(" + casesCol +
+      // "),0))*100.0";
+      // calc.setSQL(sql);
     }
-
-    if(valueQuery.hasSelectableRef("sqldouble__cfr"))
-    {
-      String deathsCol = QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(), AggregatedCase.DEATHS);
-      String casesCol = QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(), AggregatedCase.CASES);
-      
-      SelectableSQLDouble calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__cfr");
-      String sql = "(SUM("+deathsCol+"::FLOAT)/NULLIF(SUM("+casesCol+"),0))*100.0";
-      calc.setSQL(sql);
-    }
-
 
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100);
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000);
@@ -525,16 +450,14 @@ public class AggregatedCase extends AggregatedCaseBase implements
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000000);
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
-    QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, 
-        aggregatedCaseQuery.getStartDate(), aggregatedCaseQuery.getEndDate());
+    QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, aggregatedCaseQuery.getStartDate(), aggregatedCaseQuery.getEndDate());
 
     QueryUtil.validateQuery(valueQuery);
 
     return valueQuery;
   }
 
-  private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery,
-      JSONObject queryConfig, String xml, Integer multiplier)
+  private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery, JSONObject queryConfig, String xml, Integer multiplier)
   {
     SelectableSQLDouble calc;
     if (valueQuery.hasSelectableRef("sqldouble__incidence_" + multiplier))
@@ -559,8 +482,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
         attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0
-            && attributeKey.equals(AggregatedCase.CLASS + '.' + AggregatedCase.GEOENTITY))
+        if (universals.length() > 0 && attributeKey.equals(AggregatedCase.CLASS + '.' + AggregatedCase.GEOENTITY))
         {
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
@@ -600,10 +522,9 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String columnAlias = s.getDbQualifiedName();
     String casesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.CASES);
     String startDateCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.STARTDATE);
-    
-    String sql = "(SUM("+casesCol+"::FLOAT)/";
-    sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
-        + startDateCol + ")),0))*" + multiplier;
+
+    String sql = "(SUM(" + casesCol + "::FLOAT)/";
+    sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + startDateCol + ")),0))*" + multiplier;
 
     calc.setSQL(sql);
   }
@@ -615,8 +536,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
    */
   @Transaction
   @Authenticate
-  public static com.runwaysdk.query.ValueQuery queryAggregatedCase(String xml, String config,
-      Integer pageNumber, Integer pageSize)
+  public static com.runwaysdk.query.ValueQuery queryAggregatedCase(String xml, String config, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
 
@@ -655,8 +575,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     ValueQuery query = xmlToValueQuery(queryXML, config, null);
 
-    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session
-        .getCurrentLocale());
+    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
 

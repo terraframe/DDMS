@@ -1,7 +1,6 @@
 package dss.vector.solutions.util.yui;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -18,7 +17,6 @@ import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.entomology.InfectionAssayViewDTO;
-import dss.vector.solutions.surveillance.ChildCaseViewDTO;
 
 public class YUIColumnTest extends TestCase implements DoNotWeave
 {

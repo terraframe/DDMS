@@ -7,7 +7,7 @@
   <dt> <label> <fmt:message key="Change_age_group"/> </label> </dt>
   <dd>
     <mjl:form name="search.form.name" id="search.form" method="POST">
-      <mjl:component item="${search}" param="dto">
+      <mjl:component item="${search}" param="view">
         <mjl:input type="hidden" param="searchType" value="${search.searchType}" />
         <mjl:input type="hidden" param="geoEntity" value="${search.geoEntity.id}" />
         <mjl:input type="hidden" param="period" value="${search.period}" />

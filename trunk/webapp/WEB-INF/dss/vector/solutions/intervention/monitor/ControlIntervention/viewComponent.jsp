@@ -250,10 +250,6 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       this._grid = grid;
     },
 
-    initializeDelete : function() {
-      this._deleteButton = new YAHOO.widget.Button("delete.button");
-    },
-
     deleteConcrete : function(){
       var hasConcrete = this.hasConcreteId();
 

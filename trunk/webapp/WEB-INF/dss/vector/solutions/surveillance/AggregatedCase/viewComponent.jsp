@@ -2,7 +2,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<mjl:messages>
+
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="dss.vector.solutions.surveillance.AggregatedCaseViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseTreatmentViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseTreatmentStockViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseReferralViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseDiagnosticViewDTO"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 
@@ -13,9 +21,9 @@
 
 <div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
 
-<mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
-  <dl>
-    <mjl:input value="${item.caseId}" type="hidden" param="id" />
+<dl>
+  <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
+    <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
       <mjl:dt attribute="geoEntity">
         ${item.geoEntity.displayString} 
@@ -26,208 +34,103 @@
       <mjl:dt attribute="endDate">
         <span class="formatDate">${item.endDate}</span>      
       </mjl:dt>      
-<!--       
-      <mjl:dt attribute="periodType">
-        <ul>
-          <c:forEach var="enumName" items="${item.periodTypeEnumNames}">
-            <li>${item.periodTypeMd.enumItems[enumName]}</li>
-          </c:forEach>
-        </ul>      
-      </mjl:dt>
-      <mjl:dt attribute="period">
-        ${item.period}
-      </mjl:dt>
-      <mjl:dt attribute="periodYear">
-        ${item.periodYear}
-      </mjl:dt>
- -->  
       <mjl:dt attribute="ageGroup">
         ${item.ageGroup.displayLabel}
       </mjl:dt>          
     
       <mjl:dt attribute="cases"> ${item.cases} </mjl:dt>
-      <mjl:dt attribute="casesFemale"> ${item.casesFemale} </mjl:dt>
-      <mjl:dt attribute="casesMale"> ${item.casesMale} </mjl:dt>
-      <mjl:dt attribute="casesPregnant"> ${item.casesPregnant} </mjl:dt>
-      <mjl:dt attribute="clinicallyDiagnosed"> ${item.clinicallyDiagnosed} </mjl:dt>
-      <mjl:dt attribute="clinicallyDiagnosedDeath"> ${item.clinicallyDiagnosedDeath} </mjl:dt>
-      <mjl:dt attribute="daysOutOfStock"> ${item.daysOutOfStock} </mjl:dt>
+      <mjl:dt attribute="positiveCases"> ${item.positiveCases} </mjl:dt>
+      <mjl:dt attribute="negativeCases"> ${item.negativeCases} </mjl:dt>
       <mjl:dt attribute="deaths"> ${item.deaths} </mjl:dt>
-      <mjl:dt attribute="deathsFemale"> ${item.deathsFemale} </mjl:dt>
-      <mjl:dt attribute="deathsMale"> ${item.deathsMale} </mjl:dt>
-      <mjl:dt attribute="deathsPregnant"> ${item.deathsPregnant} </mjl:dt>
-      <mjl:dt attribute="definitivelyDiagnosed"> ${item.definitivelyDiagnosed} </mjl:dt>
-      <mjl:dt attribute="definitivelyDiagnosedDeath"> ${item.definitivelyDiagnosedDeath} </mjl:dt>
-      <mjl:dt attribute="inPatients"> ${item.inPatients} </mjl:dt>
-      <mjl:dt attribute="inPatientsAnemia"> ${item.inPatientsAnemia} </mjl:dt>
-      <mjl:dt attribute="inPatientsClinically"> ${item.inPatientsClinically} </mjl:dt>
-      <mjl:dt attribute="inPatientsDefinitive"> ${item.inPatientsDefinitive} </mjl:dt>
-      <mjl:dt attribute="inPatientsDischarged"> ${item.inPatientsDischarged} </mjl:dt>
-      <mjl:dt attribute="inPatientsFemale"> ${item.inPatientsFemale} </mjl:dt>
-      <mjl:dt attribute="inPatientsMale"> ${item.inPatientsMale} </mjl:dt>
-      <mjl:dt attribute="inPatientsNotTreated"> ${item.inPatientsNotTreated} </mjl:dt>
-      <mjl:dt attribute="inPatientsPregnantAnemia"> ${item.inPatientsPregnantAnemia} </mjl:dt>
-      <mjl:dt attribute="inPatientsPregnantDianosis"> ${item.inPatientsPregnantDianosis} </mjl:dt>
-      <mjl:dt attribute="inPatientsTotal"> ${item.inPatientsTotal} </mjl:dt>
-      <mjl:dt attribute="outPatients"> ${item.outPatients} </mjl:dt>
-      <mjl:dt attribute="outPatientsFemale"> ${item.outPatientsFemale} </mjl:dt>
-      <mjl:dt attribute="outPatientsMale"> ${item.outPatientsMale} </mjl:dt>
-      <mjl:dt attribute="outPatientsNotTreated"> ${item.outPatientsNotTreated} </mjl:dt>
-      <mjl:dt attribute="outPatientsTotal"> ${item.outPatientsTotal} </mjl:dt>
-      <mjl:dt attribute="patientsNotTreated"> ${item.patientsNotTreated} </mjl:dt>
-      <mjl:dt attribute="pregnantDiagnosis"> ${item.pregnantDiagnosis} </mjl:dt>
-      <mjl:dt attribute="pregnantDiagnosisDeath"> ${item.pregnantDiagnosisDeath} </mjl:dt>
-      <mjl:dt attribute="pregnantReferralsReceived"> ${item.pregnantReferralsReceived} </mjl:dt>
-      <mjl:dt attribute="referralsReceived"> ${item.referralsReceived} </mjl:dt>
-      <mjl:dt attribute="referralsSent"> ${item.referralsSent} </mjl:dt>
-      <mjl:dt attribute="stillBirths"> ${item.stillBirths} </mjl:dt>
     </mjl:component>
 
-    <c:if test="${item.isCaseStocksReadable}">
-    <dt>
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr> 
-          <th><fmt:message key="Treatment_out_of_Stock"/></th>
-          <th><fmt:message key="Out_of_Stock"/></th>
-        </tr>      
-      
-        <mjl:components items="${stock}" param="stock" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.child.displayLabel}
-            </td>
-            <td>
-              ${current.outOfStock ? current.outOfStockMd.positiveDisplayLabel :current.outOfStockMd.negativeDisplayLabel}
-              <mjl:messages attribute="outOfStock">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
-    </c:if>
-
-    <c:if test="${item.isCaseReferralsReadable}">
-    <dt>
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr> 
-          <th><fmt:message key="Facility_referred"/></th>      
-          <th><fmt:message key="Amount"/></th>
-        </tr>      
-      
-        <mjl:components items="${referrals}" param="referrals" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.child.displayLabel}
-            </td>
-            <td class="integerColumn">
-              ${current.amount}
-              <mjl:messages attribute="amount">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
-    </c:if>
-
-    <c:if test="${item.isCaseDiagnosticReadable}">
-    <dt>
-      
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr> 
-          <th><fmt:message key="Diagnostic_methods"/></th>      
-          <th><fmt:message key="Total_Tests"/></th>
-          <th><fmt:message key="Positive"/></th>
-        </tr>      
-      
-        <mjl:components items="${diagnostics}" param="diagnosticMethods" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.child.displayLabel}
-            </td>
-            <td class="integerColumn">
-              ${current.amount}
-              <mjl:messages attribute="amount">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-            <td class="integerColumn">
-              ${current.amountPositive}
-              <mjl:messages attribute="amountPositive">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
-    </c:if>
-
-    <c:if test="${item.isCaseTreatmentMethodReadable}">
-    <dt>
-      
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr> 
-          <th><fmt:message key="Treatment_methods"/></th>      
-          <th><fmt:message key="Amount"/></th>
-        </tr>            
-        <mjl:components items="${treatmentMethods}" param="treatmentMethods" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.child.displayLabel}
-            </td>
-            <td class="integerColumn">
-              ${current.amount}
-              <mjl:messages attribute="amount">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
-    </c:if>
-
-    <c:if test="${item.isCaseTreatmentsReadable}">
-    <dt>
-      
-    </dt>
-    <dd>
-      <table class="displayTable">
-        <tr> 
-          <th><fmt:message key="Treatments"/></th>      
-          <th><fmt:message key="Amount"/></th>
-        </tr>            
-      
-        <mjl:components items="${treatments}" param="treatments" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.child.displayLabel}
-            </td>
-            <td class="integerColumn">
-              ${current.amount}
-              <mjl:messages attribute="amount">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    </dd>
-    </c:if>
+    <div id="treatment"></div>
+    <div id="method"></div>
+    <div id="stock"></div>
+    <div id="referral"></div>
+    <div id="diagnostic"></div>
+    
+    <hr />
 
     <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AggregatedCaseController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.form.edit.button" />
     <mjl:command value="Create_New_Aggregated_Case_Button" action="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" name="AggregatedCaseController.search" />
-  </dl>
-</mjl:form>
+  </mjl:form>
+</dl>
+
+<%
+  DataGrid treatment = (DataGrid) request.getAttribute("treatment");
+  DataGrid method = (DataGrid) request.getAttribute("method");
+  DataGrid stock = (DataGrid) request.getAttribute("stock");
+  DataGrid referral = (DataGrid) request.getAttribute("referral");
+  DataGrid diagnostic = (DataGrid) request.getAttribute("diagnostic");
+%>
+
+<%=Halp.loadTypes(new String[]{AggregatedCaseViewDTO.CLASS, CaseTreatmentViewDTO.CLASS, CaseTreatmentMethodViewDTO.CLASS, CaseTreatmentStockViewDTO.CLASS, CaseDiagnosticViewDTO.CLASS, CaseReferralViewDTO.CLASS}) %>
+
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+
+    // SETUP THE TREATMENT DATA GRID
+    var treatmentData = {
+      columnDefs:<%=treatment.getColumns()%>,
+      defaults:<%=treatment.getDefaultValues()%>,
+      div_id: "treatment",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var treatmentGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=treatment.getMetadata()%>), <%=treatment.getData()%>, null), treatmentData);
+
+    // SETUP THE method DATA GRID
+    var methodData = {
+      columnDefs:<%=method.getColumns()%>,
+      defaults:<%=method.getDefaultValues()%>,
+      div_id: "method",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var methodGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=method.getMetadata()%>), <%=method.getData()%>, null), methodData);
+
+    // SETUP THE STOCK DATA GRID
+    var stockData = {
+      columnDefs:<%=stock.getColumns()%>,
+      defaults:<%=stock.getDefaultValues()%>,
+      div_id: "stock",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var stockGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=stock.getMetadata()%>), <%=stock.getData()%>, null), stockData);
+
+    // SETUP THE referral DATA GRID
+    var referralData = {
+      columnDefs:<%=referral.getColumns()%>,
+      defaults:<%=referral.getDefaultValues()%>,
+      div_id: "referral",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var referralGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=referral.getMetadata()%>), <%=referral.getData()%>, null), referralData);
+
+    // SETUP THE diagnostic DATA GRID
+    var diagnosticData = {
+      columnDefs:<%=diagnostic.getColumns()%>,
+      defaults:<%=diagnostic.getDefaultValues()%>,
+      div_id: "diagnostic",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var diagnosticGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diagnostic.getMetadata()%>), <%=diagnostic.getData()%>, null), diagnosticData);
+  });
+})();
+        
+</script>

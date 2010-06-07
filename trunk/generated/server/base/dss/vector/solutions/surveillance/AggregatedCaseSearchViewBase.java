@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -1917237887)
+@com.runwaysdk.business.ClassSignature(hash = -998332663)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,12 +11,109 @@ package dss.vector.solutions.surveillance;
 public abstract class AggregatedCaseSearchViewBase extends dss.vector.solutions.surveillance.AggregatedCaseView implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseSearchView";
+  public static java.lang.String PERIOD = "period";
+  public static java.lang.String PERIODTYPE = "periodType";
+  public static java.lang.String PERIODYEAR = "periodYear";
   public static java.lang.String SEARCHTYPE = "searchType";
-  private static final long serialVersionUID = -1917237887;
+  private static final long serialVersionUID = -998332663;
   
   public AggregatedCaseSearchViewBase()
   {
     super();
+  }
+  
+  public Integer getPeriod()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIOD));
+  }
+  
+  public void validatePeriod()
+  {
+    this.validateAttribute(PERIOD);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
+    return mdClassIF.definesAttribute(PERIOD);
+  }
+  
+  public void setPeriod(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PERIOD, "");
+    }
+    else
+    {
+      setValue(PERIOD, java.lang.Integer.toString(value));
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.surveillance.PeriodType> getPeriodType()
+  {
+    return (java.util.List<dss.vector.solutions.surveillance.PeriodType>) getEnumValues(PERIODTYPE);
+  }
+  
+  public void addPeriodType(dss.vector.solutions.surveillance.PeriodType value)
+  {
+    if(value != null)
+    {
+      addEnumItem(PERIODTYPE, value.getId());
+    }
+  }
+  
+  public void removePeriodType(dss.vector.solutions.surveillance.PeriodType value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(PERIODTYPE, value.getId());
+    }
+  }
+  
+  public void clearPeriodType()
+  {
+    clearEnum(PERIODTYPE);
+  }
+  
+  public void validatePeriodType()
+  {
+    this.validateAttribute(PERIODTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
+    return mdClassIF.definesAttribute(PERIODTYPE);
+  }
+  
+  public Integer getPeriodYear()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PERIODYEAR));
+  }
+  
+  public void validatePeriodYear()
+  {
+    this.validateAttribute(PERIODYEAR);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPeriodYearMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseSearchView.CLASS);
+    return mdClassIF.definesAttribute(PERIODYEAR);
+  }
+  
+  public void setPeriodYear(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PERIODYEAR, "");
+    }
+    else
+    {
+      setValue(PERIODYEAR, java.lang.Integer.toString(value));
+    }
   }
   
   public Boolean getSearchType()

@@ -99,19 +99,6 @@
             </mdMethodPermission>
           </mdBusinessPermission>
           <mdBusinessPermission
-            type="dss.vector.solutions.surveillance.AggregatedCase">
-            <mdMethodPermission
-              methodName="queryAggregatedCase">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-            <mdMethodPermission
-              methodName="xmlToValueQuery">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdBusinessPermission>
-          <mdBusinessPermission
             type="dss.vector.solutions.irs.ZoneSpray">
             <mdMethodPermission
               methodName="queryIRS">

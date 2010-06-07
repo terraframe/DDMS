@@ -213,17 +213,13 @@
   </dl>
   <dl>
     <dt><label><f:message key="Aggregated_Cases_Management"/></label></dt>
-    <c:forEach items="${ageGroups}" varStatus="status" var="ageGroup">
-      <c:if test="${ageGroup.active == true}">
-        <dd>
-          <mjl:commandLink
-            name="${ageGroup.mdView.typeName}"
-            action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.${ageGroup.mdView.typeName}">
-            <f:message key="Age_Group"/> <c:out value="${ageGroup.displayLabel}"/>
-          </mjl:commandLink>    
-        </dd>    
-      </c:if>
-    </c:forEach>
+    <dd>
+      <mjl:commandLink
+        name="AggregatedCaseView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.AggregatedCaseSearchView">
+        <f:message key="Aggregated_Case"/>
+      </mjl:commandLink>    
+    </dd>
     <dd>
       <mjl:commandLink
         name="EpiDate"

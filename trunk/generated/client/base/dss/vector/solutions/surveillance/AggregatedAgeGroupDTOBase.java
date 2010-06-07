@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 158072576)
+@com.runwaysdk.business.ClassSignature(hash = -1587064443)
 public abstract class AggregatedAgeGroupDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedAgeGroup";
-  private static final long serialVersionUID = 158072576;
+  private static final long serialVersionUID = -1587064443;
   
   protected AggregatedAgeGroupDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -30,6 +30,7 @@ public abstract class AggregatedAgeGroupDTOBase extends com.runwaysdk.business.B
   public static java.lang.String ACTIVE = "active";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ENDAGE = "endAge";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -38,7 +39,6 @@ public abstract class AggregatedAgeGroupDTOBase extends com.runwaysdk.business.B
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String MDVIEW = "mdView";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
@@ -136,6 +136,50 @@ public abstract class AggregatedAgeGroupDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.DiseaseDTO getDisease()
+  {
+    if(getValue(DISEASE) == null || getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
+    }
+  }
+  
+  public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
+  }
+  
+  public boolean isDiseaseWritable()
+  {
+    return isWritable(DISEASE);
+  }
+  
+  public boolean isDiseaseReadable()
+  {
+    return isReadable(DISEASE);
+  }
+  
+  public boolean isDiseaseModified()
+  {
+    return isModified(DISEASE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiseaseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
   public String getDisplayLabel()
@@ -382,50 +426,6 @@ public abstract class AggregatedAgeGroupDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public com.runwaysdk.system.metadata.MdViewDTO getMdView()
-  {
-    if(getValue(MDVIEW) == null || getValue(MDVIEW).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return com.runwaysdk.system.metadata.MdViewDTO.get(getRequest(), getValue(MDVIEW));
-    }
-  }
-  
-  public void setMdView(com.runwaysdk.system.metadata.MdViewDTO value)
-  {
-    if(value == null)
-    {
-      setValue(MDVIEW, "");
-    }
-    else
-    {
-      setValue(MDVIEW, value.getId());
-    }
-  }
-  
-  public boolean isMdViewWritable()
-  {
-    return isWritable(MDVIEW);
-  }
-  
-  public boolean isMdViewReadable()
-  {
-    return isReadable(MDVIEW);
-  }
-  
-  public boolean isMdViewModified()
-  {
-    return isModified(MDVIEW);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getMdViewMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(MDVIEW).getAttributeMdDTO();
-  }
-  
   public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -565,12 +565,12 @@ public abstract class AggregatedAgeGroupDTOBase extends com.runwaysdk.business.B
     return (dss.vector.solutions.surveillance.AggregatedAgeGroupDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.surveillance.AggregatedAgeGroupDTO getDefault(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
-    String[] _declaredTypes = new String[]{};
-    Object[] _parameters = new Object[]{};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO.CLASS, "getDefault", _declaredTypes);
-    return (dss.vector.solutions.surveillance.AggregatedAgeGroupDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedAgeGroupDTO.CLASS, "getPage", _declaredTypes);
+    return (dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.surveillance.AggregatedAgeGroupDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -745308800)
+@com.runwaysdk.business.ClassSignature(hash = -1952403451)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class AggregatedAgeGroupBase extends com.runwaysdk.business.Busi
   public static java.lang.String ACTIVE = "active";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ENDAGE = "endAge";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
@@ -22,13 +23,12 @@ public abstract class AggregatedAgeGroupBase extends com.runwaysdk.business.Busi
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String MDVIEW = "mdView";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTAGE = "startAge";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -745308800;
+  private static final long serialVersionUID = -1952403451;
   
   public AggregatedAgeGroupBase()
   {
@@ -100,6 +100,41 @@ public abstract class AggregatedAgeGroupBase extends com.runwaysdk.business.Busi
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedAgeGroup.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public dss.vector.solutions.general.Disease getDisease()
+  {
+    if (getValue(DISEASE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
+    }
+  }
+  
+  public void validateDisease()
+  {
+    this.validateAttribute(DISEASE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedAgeGroup.CLASS);
+    return mdClassIF.definesAttribute(DISEASE);
+  }
+  
+  public void setDisease(dss.vector.solutions.general.Disease value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASE, "");
+    }
+    else
+    {
+      setValue(DISEASE, value.getId());
+    }
   }
   
   public String getDisplayLabel()
@@ -299,41 +334,6 @@ public abstract class AggregatedAgeGroupBase extends com.runwaysdk.business.Busi
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
-  public com.runwaysdk.system.metadata.MdView getMdView()
-  {
-    if (getValue(MDVIEW).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return com.runwaysdk.system.metadata.MdView.get(getValue(MDVIEW));
-    }
-  }
-  
-  public void validateMdView()
-  {
-    this.validateAttribute(MDVIEW);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdViewMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedAgeGroup.CLASS);
-    return mdClassIF.definesAttribute(MDVIEW);
-  }
-  
-  public void setMdView(com.runwaysdk.system.metadata.MdView value)
-  {
-    if(value == null)
-    {
-      setValue(MDVIEW, "");
-    }
-    else
-    {
-      setValue(MDVIEW, value.getId());
-    }
-  }
-  
   public com.runwaysdk.system.Actor getOwner()
   {
     if (getValue(OWNER).trim().equals(""))
@@ -473,7 +473,7 @@ public abstract class AggregatedAgeGroupBase extends com.runwaysdk.business.Busi
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.surveillance.AggregatedAgeGroup getDefault()
+  public static dss.vector.solutions.surveillance.AggregatedAgeGroupQuery getPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedAgeGroup.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

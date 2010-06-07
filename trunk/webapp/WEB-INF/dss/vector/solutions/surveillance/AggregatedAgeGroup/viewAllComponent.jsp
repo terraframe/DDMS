@@ -79,3 +79,6 @@
   </mjl:pagination>
 </mjl:table>
 </dd>
+<mjl:commandLink name="Create" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.newInstance.mojo">
+  <fmt:message key="Create_new_age_group"/>
+</mjl:commandLink>

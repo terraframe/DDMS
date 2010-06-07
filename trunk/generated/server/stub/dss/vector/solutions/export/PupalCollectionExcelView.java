@@ -11,14 +11,11 @@ import com.runwaysdk.query.QueryFactory;
 import dss.vector.solutions.entomology.PupalCollection;
 import dss.vector.solutions.entomology.PupalCollectionQuery;
 import dss.vector.solutions.entomology.PupalCollectionView;
-import dss.vector.solutions.entomology.PupalCollectionViewQuery;
 import dss.vector.solutions.entomology.PupalContainerAmountView;
 import dss.vector.solutions.entomology.PupalContainerView;
-import dss.vector.solutions.entomology.PupalPremise;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.CaseTreatment;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PupalCollectionExcelView extends PupalCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable

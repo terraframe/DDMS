@@ -2,25 +2,14 @@ package dss.vector.solutions.export;
 
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
-import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttribute;
-
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.CaseDiagnostic;
-import dss.vector.solutions.surveillance.CaseReferral;
-import dss.vector.solutions.surveillance.CaseTreatment;
-import dss.vector.solutions.surveillance.CaseTreatmentMethod;
-import dss.vector.solutions.surveillance.CaseTreatmentStock;
-import dss.vector.solutions.surveillance.ChildCaseView;
 
 public class AggregatedCaseListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -34,40 +23,6 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     
-    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
-    {
-      String outOfStock = MdAttribute.get(CaseTreatmentStock.getOutOfStockMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(STOCK + grid.getTermId(), grid.getName().toString() + " " + outOfStock));
-    }
-    
-    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseTreatmentsMd()))
-    {
-      String amount = MdAttribute.get(CaseTreatment.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(TREATMENT + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-    
-    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
-    {
-      String amount = MdAttribute.get(CaseTreatmentMethod.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(METHOD + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
-    
-    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
-    {
-      String attributeName = DIAGNOSTIC + grid.getTermId();
-      String total = MdAttribute.get(CaseDiagnostic.getAmountMd().getId()).getDisplayLabel().toString();
-      String positive = MdAttribute.get(CaseDiagnostic.getAmountPositiveMd().getId()).getDisplayLabel().toString();
-      String gridLabel = grid.getName().toString();
-      
-      extraColumns.add(new ExcelColumn(attributeName, gridLabel + " " + total));
-      extraColumns.add(new ExcelColumn(attributeName + POSITIVE, gridLabel + " " + positive));
-    }
-    
-    for (Term grid : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
-    {
-      String amount = MdAttribute.get(CaseReferral.getAmountMd().getId()).getDisplayLabel().toString();
-      extraColumns.add(new ExcelColumn(REFERRAL + grid.getTermId(), grid.getName().toString() + " " + amount));
-    }
   }
 
   public void preHeader(ExcelColumn columnInfo)
@@ -82,96 +37,5 @@ public class AggregatedCaseListener implements ExcelExportListener, ImportListen
   {
     AggregatedCaseExcelView aggregatedCase = (AggregatedCaseExcelView) instance;
     
-    for (Term term : Term.getRootChildren(ChildCaseView.getCaseStocksMd()))
-    {
-      for (ExcelColumn column : extraColumns)
-      {
-        if (column.getAttributeName().equals(STOCK + term.getTermId()))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  Boolean inStock = ExcelUtil.getBoolean(cell);
-        	  aggregatedCase.addStock(term, inStock);
-          }
-        }
-      }
-    }
-    
-    for (Term term : Term.getRootChildren(ChildCaseView.getCaseTreatmentsMd()))
-    {
-      for (ExcelColumn column : extraColumns)
-      {
-        if (column.getAttributeName().equals(TREATMENT + term.getTermId()))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  int count = new Double(cell.getNumericCellValue()).intValue();
-        	  aggregatedCase.addTreatment(term, count);
-          }
-        }
-      }
-    }
-    
-    for (Term term : Term.getRootChildren(ChildCaseView.getCaseTreatmentMethodMd()))
-    {
-      for (ExcelColumn column : extraColumns)
-      {
-        if (column.getAttributeName().equals(METHOD + term.getTermId()))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  int count = new Double(cell.getNumericCellValue()).intValue();
-        	  aggregatedCase.addMethod(term, count);
-          }
-        }
-      }
-    }
-    
-    for (Term term : Term.getRootChildren(ChildCaseView.getCaseDiagnosticMd()))
-    {
-      Integer amount = null;
-      Integer amountPositive = null;
-      
-      // Iterate over all extra columns, looking for matches to this DiagnosticGrid
-      for (ExcelColumn column : extraColumns)
-      {
-        String diagnosticName = DIAGNOSTIC + term.getTermId();
-        if (column.getAttributeName().equals(diagnosticName))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  amount = new Double(cell.getNumericCellValue()).intValue();
-          }
-        }
-        if (column.getAttributeName().equals(diagnosticName + POSITIVE))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  amountPositive = new Double(cell.getNumericCellValue()).intValue();
-          }
-        }
-      }
-      
-      // Don't add any associations if either attribute is unspecified
-      if (amount!=null && amountPositive!=null)
-      {
-        aggregatedCase.addDiagnostic(term, amount, amountPositive);
-      }
-    }
-    
-    for (Term term : Term.getRootChildren(ChildCaseView.getCaseReferralsMd()))
-    {
-      for (ExcelColumn column : extraColumns)
-      {
-        if (column.getAttributeName().equals(REFERRAL + term.getTermId()))
-        {
-          HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  int count = new Double(cell.getNumericCellValue()).intValue();
-        	  aggregatedCase.addReferral(term, count);
-          }
-        }
-      }
-    }
   }
 }

@@ -12,9 +12,8 @@
 
 <div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
 
-<mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="form.id" method="POST">
   <dl>
     <%@ include file="writeForm.jsp"%>
-    <mjl:command value="Create" action="dss.vector.solutions.surveillance.AggregatedCaseController.create.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.form.create.button" />
   </dl>
 </mjl:form>

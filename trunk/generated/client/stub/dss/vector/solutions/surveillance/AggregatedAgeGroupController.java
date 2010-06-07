@@ -44,7 +44,7 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
@@ -191,7 +191,7 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
     new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
     ClientRequestIF clientRequest = super.getClientRequest();
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
+    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getPage(clientRequest, null, true, 20, 1);
     PropertyQueryDTO properties = PropertyDTO.getAllByPackage(clientRequest, PropertyInfo.MONITOR_PACKAGE);
 
     req.setAttribute("properties", properties);

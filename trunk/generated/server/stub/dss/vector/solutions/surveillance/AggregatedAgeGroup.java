@@ -3,8 +3,10 @@ package dss.vector.solutions.surveillance;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectablePrimitive;
+
+import dss.vector.solutions.general.Disease;
 
 public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -14,35 +16,47 @@ public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.ru
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getDisplayLabel() != null)
+    else if (this.getDisplayLabel() != null)
     {
       return this.getDisplayLabel();
     }
-    
+
     return super.toString();
   }
 
   protected String buildKey()
   {
-    return this.getMdView().definesType();
+    return this.getDisease().getKey() + ": " + this.getStartAge() + " - " + this.getEndAge();
+  }
+
+  @Override
+  public void apply()
+  {
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+
+    super.apply();
   }
 
   public static AggregatedAgeGroup[] getAll()
   {
     List<AggregatedAgeGroup> list = new LinkedList<AggregatedAgeGroup>();
     AggregatedAgeGroupQuery query = new AggregatedAgeGroupQuery(new QueryFactory());
-    query.WHERE(query.getActive().EQ(true));
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+    query.AND(query.getActive().EQ(true));
     query.ORDER_BY_ASC(query.getEndAge());
 
-    for(AggregatedAgeGroup d : query.getIterator())
+    for (AggregatedAgeGroup d : query.getIterator())
     {
       list.add(d);
     }
@@ -50,24 +64,28 @@ public class AggregatedAgeGroup extends AggregatedAgeGroupBase implements com.ru
     return list.toArray(new AggregatedAgeGroup[list.size()]);
   }
 
-  public AggregatedCaseView getView()
+  public static AggregatedAgeGroupQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
-    Class<?> clazz = LoaderDecorator.load(this.getMdView().definesType());
+    AggregatedAgeGroupQuery query = new AggregatedAgeGroupQuery(new QueryFactory());
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
 
-    try
-    {
-      AggregatedCaseView newInstance = (AggregatedCaseView) clazz.newInstance();
-      newInstance.setAgeGroup(this);
+    SelectablePrimitive selectablePrimitive = (SelectablePrimitive) query.get(AggregatedAgeGroup.STARTAGE);
 
-      return newInstance;
-    }
-    catch (InstantiationException e)
+    if (sortAttribute != null)
     {
-      throw new RuntimeException(e);
+      selectablePrimitive = (SelectablePrimitive) query.get(sortAttribute);
+
     }
-    catch (IllegalAccessException e)
+
+    if (isAscending)
     {
-      throw new RuntimeException(e);
+      query.ORDER_BY_ASC(selectablePrimitive, sortAttribute);
     }
+    else
+    {
+      query.ORDER_BY_DESC(selectablePrimitive, sortAttribute);
+    }
+
+    return query;
   }
 }

@@ -249,41 +249,6 @@
           key="dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.boughtProvider" />
       </object>
       <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseDiagnostic"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.surveillance.ChildCaseView.caseDiagnostic" />
-      </object>
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseReferrals"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.surveillance.ChildCaseView.caseReferrals" />
-      </object>
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseStocks"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.surveillance.ChildCaseView.caseStocks" />
-      </object>
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseTreatmentMethod"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.surveillance.ChildCaseView.caseTreatmentMethod" />
-      </object>
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseTreatments"
-        type="dss.vector.solutions.ontology.BrowserField">
-        <attributeReference
-          name="mdAttribute"
-          key="dss.vector.solutions.surveillance.ChildCaseView.caseTreatments" />
-      </object>
-      <object
         key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayNets"
         type="dss.vector.solutions.ontology.BrowserField">
         <attributeReference
@@ -496,21 +461,6 @@
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.ITNHouseholdSurveyView.boughtProvider"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseDiagnostic"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseReferrals"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseStocks"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseTreatmentMethod"
-        type="dss.vector.solutions.ontology.BrowserField" />
-      <object
-        key="Ontology__dss.vector.solutions.surveillance.ChildCaseView.caseTreatments"
         type="dss.vector.solutions.ontology.BrowserField" />
       <object
         key="Ontology__dss.vector.solutions.intervention.monitor.ITNDataView.displayNets"
