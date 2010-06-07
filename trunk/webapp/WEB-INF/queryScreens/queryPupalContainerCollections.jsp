@@ -114,68 +114,67 @@ YAHOO.util.Event.onDOMReady(function(){
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:'_cont', dropDownMaps:containerMaps});
 
     var taxonAmmountsColumns = orderedGrids.pupaeAmmount.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.pupaeAmmount);
-
     
-/*
-    mapMo : function(term,index){
-    	 var row = {};
-        //row.attributeName = this.relAttribute;
-        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-        //row.type = this.relType;
-        row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
-        
-        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
-        row.type = 'sqlinteger';
-        row.attributeName = 'term' + term.MOID.replace(':','');
-        
-       return row;
-     },
+   
 
-     */
-    var calculations = ([
-/*
-                         {
-                           key:"pupae_ammount",
-                           type:"sqlfloat",
-                           attributeName:"pupae_ammount",
-                           isAggregate:true
-                         },
-                         */
-                         {
-                           key:"percent_pupae_contribution",
-                           type:"sqlfloat",
-                           attributeName:"percent_pupae_contribution",
-                           isAggregate:true
-                         },
-                         {
-                           key:"pupae_per_premise_by_taxon",
-                           type:"sqlfloat",
-                           attributeName:"pupae_per_premise_by_taxon",
-                           isAggregate:true
-                         },
-                         {
-                           key:"pupae_per_hectare_by_taxon",
-                           type:"sqlfloat",
-                           attributeName:"pupae_per_hectare_by_taxon",
-                           isAggregate:true
-                         },
-                         {
-                           key:"pupae_per_person_per_taxon",
-                           type:"sqlfloat",
-                           attributeName:"pupae_per_person_per_taxon",
-                           isAggregate:true
-                         },
 
-                        ]);
+    mapterm = function(term,index){
+     
+       var row = {};
+       row.dtoType = "AttributeIntegerDTO";
+       row.displayLabel = term.displayLabel;
+       
+       row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
+       row.type = 'sqlinteger';
+       row.attributeName = 'term' + term.MOID.replace(':','');
 
+       MDSS.Localized[row.attributeName]= term.displayLabel;
+
+       var calculations = ([
+                            
+                            row,                        
+                            {
+                              key:"percent_pupae_contribution",
+                              type:"sqlfloat",
+                              attributeName:"percent_pupae_contributionrow__"+row.attributeName,
+                              isAggregate:true
+                            },
+                            {
+                              key:"pupae_per_premise_by_taxon",
+                              type:"sqlfloat",
+                              attributeName:"pupae_per_premise_by_taxonrow__"+row.attributeName,
+                              isAggregate:true
+                            },
+                            {
+                              key:"pupae_per_hectare_by_taxon",
+                              type:"sqlfloat",
+                              attributeName:"pupae_per_hectare_by_taxonrow__"+row.attributeName,
+                              isAggregate:true
+                            },
+                            {
+                              key:"pupae_per_person_per_taxon",
+                              type:"sqlfloat",
+                              attributeName:"pupae_per_person_per_taxonrow__"+row.attributeName,
+                              isAggregate:true
+                            },
+
+                           ]);
+       
+       var group = {title:row.attributeName, values:calculations, group:"c", klass:collection.CLASS};
+    	 
+      return group;      
+    }
+
+    var taxonCalcGroups = orderedGrids.pupaeAmmount.options.map(mapterm, orderedGrids.pupaeAmmount);
 
       var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"c", klass:collection.CLASS},
                 {title:"Container", values:containerColumns, group:"c", klass:collection.CLASS},
-                {title:"Pupae_Amount", values:taxonAmmountsColumns, group:"c",klass:collection.CLASS},
-                {title:"Container_Calculations", values:calculations, group:"c", klass:collection.CLASS},
+                //{title:"Pupae_Amount", values:taxonAmmountsColumns, group:"c",klass:collection.CLASS},
+                //{title:"Container_Calculations", values:calculations, group:"c", klass:collection.CLASS},
       ];
+
+      selectableGroups = selectableGroups.concat(taxonCalcGroups);
 
     
     var query = new MDSS.QueryPupalContainerCollection(selectableGroups, queryList);
