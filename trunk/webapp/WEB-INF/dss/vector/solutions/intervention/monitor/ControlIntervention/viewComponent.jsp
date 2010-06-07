@@ -49,31 +49,41 @@
        </mjl:dt>
        
        <mjl:dt attribute="individulPremiseUniversal">
+       <dl>
+       	 <label><fmt:message key="Aggregation_Universal"/></label>
          <mjl:select param="individulPremiseUniversal" id="individulPremiseUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
            <mjl:option selected="${(individulPremiseUniversal != null && individulPremiseUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
              ${current.displayLabel}
            </mjl:option>
          </mjl:select>
          
-         <button type="button" id="individulPremiseUniversal.button"> <fmt:message key="Edit"/> </button>         
+         <br /><br /><button type="button" id="individulPremiseUniversal.button"> <fmt:message key="Edit_Intervention_Individual_Premises_Data"/> </button>         
+       </dl>
        </mjl:dt>
        
        <mjl:dt attribute="aggregatedPremiseUniversal">
+       <dl>
+       	 <label><fmt:message key="Aggregation_Universal"/></label>
          <mjl:select param="aggregatedPremiseUniversal" id="aggregatedPremiseUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
            <mjl:option selected="${(aggregatedPremiseUniversal != null && aggregatedPremiseUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
              ${current.displayLabel}
            </mjl:option>
          </mjl:select>
          
-         <button type="button" id="aggregatedPremiseUniversal.button"> <fmt:message key="Edit"/> </button>         
+         <br /><br /><button type="button" id="aggregatedPremiseUniversal.button"> <fmt:message key="Edit_Intervention_Aggregated_Premises_Data"/> </button>         
+       </dl>
        </mjl:dt>
              
        <mjl:dt attribute="personIntervention">
-         <button type="button" id="personIntervention.button" class="editButtons"> <fmt:message key="Edit"/> </button>         
+         <dl>
+         <button type="button" id="personIntervention.button" class="editButtons"> <fmt:message key="Edit_Intervention_Person_Days_Data"/> </button>
+         </dl>         
        </mjl:dt>
              
        <mjl:dt attribute="insecticideIntervention">
-         <button type="button" id="insecticideIntervention.button" class="editButtons"> <fmt:message key="Edit"/> </button>         
+       <dl>
+         <button type="button" id="insecticideIntervention.button" class="editButtons"> <fmt:message key="Edit_Intervention_Insecticide_Data"/> </button>
+       </dl>         
        </mjl:dt>
              
     </mjl:component>    
