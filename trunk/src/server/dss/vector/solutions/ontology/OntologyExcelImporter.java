@@ -161,7 +161,15 @@ public class OntologyExcelImporter
     }
     
     // By here, we know that index >=4, and should contain the name
-    node.setName(ExcelUtil.getString(cell));
+    String nodeName = ExcelUtil.getString(cell);
+    
+    // It's possible there are blank cells.  Ignore them.
+    while (nodeName.length()==0)
+    {
+      cell = iterator.next();
+      nodeName = ExcelUtil.getString(cell);
+    }
+    node.setName(nodeName);
     node.setIndent(index);
     
     // Pop the stack until the top has an indent less than the current row.
