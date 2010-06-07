@@ -111,56 +111,56 @@ YAHOO.util.Event.onDOMReady(function(){
     var containerAttribs = [ "containerId","containerLength", "containerType", "diameter","drawdownFrequency","drawdownPercent","fillFrequency","fillMethod","height",
                              "lid","openingDiameter","openingLength","openingWidth","roof","shading","shape","width"];
 
-
-    
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:'_cont', dropDownMaps:containerMaps});
 
     var taxonAmmountsColumns = orderedGrids.pupaeAmmount.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.pupaeAmmount);
 
     
+/*
+    mapMo : function(term,index){
+    	 var row = {};
+        //row.attributeName = this.relAttribute;
+        //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
+        //row.type = this.relType;
+        row.dtoType = "AttributeIntegerDTO";
+        row.displayLabel = term.displayLabel;
+        
+        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
+        row.type = 'sqlinteger';
+        row.attributeName = 'term' + term.MOID.replace(':','');
+        
+       return row;
+     },
+
+     */
     var calculations = ([
-                                       
+/*
                          {
-                           
+                           key:"pupae_ammount",
+                           type:"sqlfloat",
+                           attributeName:"pupae_ammount",
+                           isAggregate:true
+                         },
+                         */
+                         {
                            key:"percent_pupae_contribution",
                            type:"sqlfloat",
                            attributeName:"percent_pupae_contribution",
                            isAggregate:true
                          },
-
                          {
-                           
-                           key:"percent_lidclass_contribution",
-                           type:"sqlfloat",
-                           attributeName:"percent_lidclass_contribution",
-                           isAggregate:true
-                         },
-
-                         {
-                           
-                           key:"percent_drawdown_contribution",
-                           type:"sqlfloat",
-                           attributeName:"percent_drawdown_contribution",
-                           isAggregate:true
-                         },
-                         
-                         {
-                           
                            key:"pupae_per_premise_by_taxon",
                            type:"sqlfloat",
                            attributeName:"pupae_per_premise_by_taxon",
                            isAggregate:true
                          },
-                         
                          {
-                           
                            key:"pupae_per_hectare_by_taxon",
                            type:"sqlfloat",
                            attributeName:"pupae_per_hectare_by_taxon",
                            isAggregate:true
                          },
                          {
-                           
                            key:"pupae_per_person_per_taxon",
                            type:"sqlfloat",
                            attributeName:"pupae_per_person_per_taxon",
@@ -173,8 +173,8 @@ YAHOO.util.Event.onDOMReady(function(){
       var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"c", klass:collection.CLASS},
                 {title:"Container", values:containerColumns, group:"c", klass:collection.CLASS},
-                {title:"Container_Calculations", values:calculations, group:"cc", klass:collection.CLASS},
-                {title:"Pupae_Amount", values:taxonAmmountsColumns, group:"c",klass:collection.CLASS}
+                {title:"Pupae_Amount", values:taxonAmmountsColumns, group:"c",klass:collection.CLASS},
+                {title:"Container_Calculations", values:calculations, group:"c", klass:collection.CLASS},
       ];
 
     
