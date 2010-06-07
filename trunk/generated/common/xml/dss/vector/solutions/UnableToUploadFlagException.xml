@@ -6,5 +6,5 @@ xsi:noNamespaceSchemaLocation="../../../exceptions.xsd"
     - {id} id
     - {reason} reason
     -->
-  <locale language="en">The system is unable to update the flag image at this time because: {reason}</locale>
+  <locale language="default">The system is unable to update the flag image at this time because: {reason}</locale>
 </exception>
