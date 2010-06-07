@@ -82,7 +82,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionMaps = {<%=(String) request.getAttribute("collectionMap")%>};
     var containerMaps = {<%=(String) request.getAttribute("containerMap")%>};
     
-    var orderedGrids = {} ;//<%=(String) request.getAttribute("orderedGrids")%>;
+    var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var collection = new dss.vector.solutions.entomology.PupalCollection;
     var pt = new dss.vector.solutions.entomology.PupalPremise;
@@ -100,7 +100,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_col', dropDownMaps:collectionMaps});
 
-    var premiseTaxonAttribs = [ "taxon"];
+    var premiseTaxonAttribs = [ ];
     
     var collectionColumns =   collectionColumns.concat(premiseTaxonAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pt, suffix:'_col', dropDownMaps:collectionMaps}));
 
@@ -110,8 +110,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var containerAttribs = [ "containerId","containerLength", "containerType", "diameter","drawdownFrequency","drawdownPercent","fillFrequency","fillMethod","height",
                              "lid","openingDiameter","openingLength","openingWidth","roof","shading","shape","width"];
+
+
     
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:'_cont', dropDownMaps:containerMaps});
+
+    var taxonAmmountsColumns = orderedGrids.pupaeAmmount.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.pupaeAmmount);
 
     
     var calculations = ([
@@ -164,12 +168,13 @@ YAHOO.util.Event.onDOMReady(function(){
                          },
 
                         ]);
-    
+
 
       var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"c", klass:collection.CLASS},
                 {title:"Container", values:containerColumns, group:"c", klass:collection.CLASS},
                 {title:"Container_Calculations", values:calculations, group:"cc", klass:collection.CLASS},
+                {title:"Pupae_Amount", values:taxonAmmountsColumns, group:"c",klass:collection.CLASS}
       ];
 
     
