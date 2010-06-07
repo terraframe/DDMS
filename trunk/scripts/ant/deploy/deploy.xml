@@ -685,6 +685,17 @@
 
 	</target>
 	
+	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
+		<java classname="dss.vector.solutions.util.MdssLocalizationImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportLocalization">
+			<jvmarg value="-Xmx1024m" />
+			<jvmarg value="-javaagent:C:/galileo/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+			<arg value="../../../doc/DiseaseLocalizationDefaults.xls" />
+		</java>
+	</target>
+	
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
 		<java classname="dss.vector.solutions.ontology.OntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
