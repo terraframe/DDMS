@@ -261,22 +261,23 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     String numberExamined = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBEREXAMINED);
     String premiseSize = QueryUtil.getColumnName(premiseMd, CollectionPremise.PREMISESIZE);
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberimmatures+")/SUM("+numberWithImmatures+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/SUM("+numberWithImmatures+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/SUM("+numberWithImmatures+")*100")|| needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberimmatures+")/NULLIF(SUM("+numberWithImmatures+"), 0.0)*100.0") || needsJoin;
+    //     ((SUM(number_larvae)/ NULLIF(SUM(number_with_immatures)*100.0, 0.0))) AS 
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/NULLIF(SUM("+numberWithImmatures+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/NULLIF(SUM("+numberWithImmatures+"), 0.0)*100.0")|| needsJoin;
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberlarvae+")/SUM("+numberwithwater+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberimmatures+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberlarvae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberpupae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM("+numberimmatures+")/SUM("+numberExamined+"*100)") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM("+numberlarvae+")/SUM("+numberExamined+"*100)") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "(SUM("+numberimmatures+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "(SUM("+numberlarvae+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "(SUM("+numberpupae+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM("+numberpupae+")/SUM("+numberExamined+"*100)") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM("+numberpupae+")/SUM("+numberExamined+")") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM("+numberpupae+")/SUM("+premiseSize+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM("+numberpupae+")/SUM("+numberInhabitants+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pi", "(SUM("+numberpupae+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM("+numberpupae+")/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM("+numberpupae+")/NULLIF(SUM("+premiseSize+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM("+numberpupae+")/NULLIF(SUM("+numberInhabitants+"), 0.0)*100.0") || needsJoin;
     
     
     if(valueQuery.hasSelectableRef("container_term"))
@@ -284,21 +285,15 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
        needsJoin = true;
     }
     
-    if(valueQuery.hasSelectableRef("container_term"))
-    {
-      needsJoin = true;
-    }
-    
-    
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM("+numberimmatures+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
     //Percentage of water-holding containers with larvae by container type:
       //Number with larvae/Number with water*100
 
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM("+numberpupae+")/SUM("+numberwithwater+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+numberimmatures+")/SUM("+numberwithwater+")*100") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM("+numberlarvae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM("+numberpupae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "SUM("+numberimmatures+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM("+numberlarvae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+numberpupae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
     
     if(needsJoin)
     {
@@ -331,6 +326,8 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       String sql = "SELECT "+ Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt."+idCol+" = " +collectionContainerQuery.getTableAlias()+"."+RelationshipDAOIF.CHILD_ID_COLUMN;
       QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
     }
+    
+    String sql = valueQuery.getSQL();
     
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
 
