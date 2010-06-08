@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1961502036)
+@com.runwaysdk.business.ClassSignature(hash = -597869463)
 public abstract class ElevatedImmatureIndexAlertDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ElevatedImmatureIndexAlert";
-  private static final long serialVersionUID = 1961502036;
+  private static final long serialVersionUID = -597869463;
   
   public ElevatedImmatureIndexAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -16,17 +16,54 @@ public abstract class ElevatedImmatureIndexAlertDTOBase extends com.runwaysdk.bu
     return CLASS;
   }
   
+  public static java.lang.String ACTUALVALUE = "actualValue";
   public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String ENDDATE = "endDate";
-  public static java.lang.String ENTITYLABEL = "entityLabel";
+  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String INDEXVALUE = "indexValue";
   public static java.lang.String PREMISETYPE = "premiseType";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
+  public java.math.BigDecimal getActualValue()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ACTUALVALUE));
+  }
+  
+  public void setActualValue(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALVALUE, "");
+    }
+    else
+    {
+      setValue(ACTUALVALUE, value.toString());
+    }
+  }
+  
+  public boolean isActualValueWritable()
+  {
+    return isWritable(ACTUALVALUE);
+  }
+  
+  public boolean isActualValueReadable()
+  {
+    return isReadable(ACTUALVALUE);
+  }
+  
+  public boolean isActualValueModified()
+  {
+    return isModified(ACTUALVALUE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualValueMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALVALUE).getAttributeMdDTO();
+  }
+  
   public String getAlertType()
   {
     return getValue(ALERTTYPE);
@@ -138,78 +175,41 @@ public abstract class ElevatedImmatureIndexAlertDTOBase extends com.runwaysdk.bu
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(ENDDATE).getAttributeMdDTO();
   }
   
-  public String getEntityLabel()
+  public String getGeoEntity()
   {
-    return getValue(ENTITYLABEL);
+    return getValue(GEOENTITY);
   }
   
-  public void setEntityLabel(String value)
+  public void setGeoEntity(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYLABEL, "");
+      setValue(GEOENTITY, "");
     }
     else
     {
-      setValue(ENTITYLABEL, value);
+      setValue(GEOENTITY, value);
     }
   }
   
-  public boolean isEntityLabelWritable()
+  public boolean isGeoEntityWritable()
   {
-    return isWritable(ENTITYLABEL);
+    return isWritable(GEOENTITY);
   }
   
-  public boolean isEntityLabelReadable()
+  public boolean isGeoEntityReadable()
   {
-    return isReadable(ENTITYLABEL);
+    return isReadable(GEOENTITY);
   }
   
-  public boolean isEntityLabelModified()
+  public boolean isGeoEntityModified()
   {
-    return isModified(ENTITYLABEL);
+    return isModified(GEOENTITY);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoEntityMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
-  }
-  
-  public java.math.BigDecimal getIndexValue()
-  {
-    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(INDEXVALUE));
-  }
-  
-  public void setIndexValue(java.math.BigDecimal value)
-  {
-    if(value == null)
-    {
-      setValue(INDEXVALUE, "");
-    }
-    else
-    {
-      setValue(INDEXVALUE, value.toString());
-    }
-  }
-  
-  public boolean isIndexValueWritable()
-  {
-    return isWritable(INDEXVALUE);
-  }
-  
-  public boolean isIndexValueReadable()
-  {
-    return isReadable(INDEXVALUE);
-  }
-  
-  public boolean isIndexValueModified()
-  {
-    return isModified(INDEXVALUE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIndexValueMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(INDEXVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getPremiseType()

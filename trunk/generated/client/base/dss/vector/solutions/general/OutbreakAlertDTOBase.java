@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1161374296)
+@com.runwaysdk.business.ClassSignature(hash = -1732045866)
 public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = 1161374296;
+  private static final long serialVersionUID = -1732045866;
   
   public OutbreakAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -16,13 +16,50 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return CLASS;
   }
   
+  public static java.lang.String ACTUALVALUE = "actualValue";
   public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String EMAILFAILURE = "emailFailure";
-  public static java.lang.String ENTITYLABEL = "entityLabel";
+  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String THRESHOLD = "threshold";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
-  public static java.lang.String TOTALCASES = "totalCases";
+  public static java.lang.String THRESHOLDVALUE = "thresholdValue";
+  public Long getActualValue()
+  {
+    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(ACTUALVALUE));
+  }
+  
+  public void setActualValue(Long value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALVALUE, "");
+    }
+    else
+    {
+      setValue(ACTUALVALUE, java.lang.Long.toString(value));
+    }
+  }
+  
+  public boolean isActualValueWritable()
+  {
+    return isWritable(ACTUALVALUE);
+  }
+  
+  public boolean isActualValueReadable()
+  {
+    return isReadable(ACTUALVALUE);
+  }
+  
+  public boolean isActualValueModified()
+  {
+    return isModified(ACTUALVALUE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualValueMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALVALUE).getAttributeMdDTO();
+  }
+  
   public String getAlertType()
   {
     return getValue(ALERTTYPE);
@@ -97,78 +134,41 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EMAILFAILURE).getAttributeMdDTO();
   }
   
-  public String getEntityLabel()
+  public String getGeoEntity()
   {
-    return getValue(ENTITYLABEL);
+    return getValue(GEOENTITY);
   }
   
-  public void setEntityLabel(String value)
+  public void setGeoEntity(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYLABEL, "");
+      setValue(GEOENTITY, "");
     }
     else
     {
-      setValue(ENTITYLABEL, value);
+      setValue(GEOENTITY, value);
     }
   }
   
-  public boolean isEntityLabelWritable()
+  public boolean isGeoEntityWritable()
   {
-    return isWritable(ENTITYLABEL);
+    return isWritable(GEOENTITY);
   }
   
-  public boolean isEntityLabelReadable()
+  public boolean isGeoEntityReadable()
   {
-    return isReadable(ENTITYLABEL);
+    return isReadable(GEOENTITY);
   }
   
-  public boolean isEntityLabelModified()
+  public boolean isGeoEntityModified()
   {
-    return isModified(ENTITYLABEL);
+    return isModified(GEOENTITY);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoEntityMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
-  }
-  
-  public Integer getThreshold()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
-  }
-  
-  public void setThreshold(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(THRESHOLD, "");
-    }
-    else
-    {
-      setValue(THRESHOLD, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isThresholdWritable()
-  {
-    return isWritable(THRESHOLD);
-  }
-  
-  public boolean isThresholdReadable()
-  {
-    return isReadable(THRESHOLD);
-  }
-  
-  public boolean isThresholdModified()
-  {
-    return isModified(THRESHOLD);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
   public String getThresholdType()
@@ -208,41 +208,41 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THRESHOLDTYPE).getAttributeMdDTO();
   }
   
-  public Long getTotalCases()
+  public Integer getThresholdValue()
   {
-    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(TOTALCASES));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
   }
   
-  public void setTotalCases(Long value)
+  public void setThresholdValue(Integer value)
   {
     if(value == null)
     {
-      setValue(TOTALCASES, "");
+      setValue(THRESHOLDVALUE, "");
     }
     else
     {
-      setValue(TOTALCASES, java.lang.Long.toString(value));
+      setValue(THRESHOLDVALUE, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isTotalCasesWritable()
+  public boolean isThresholdValueWritable()
   {
-    return isWritable(TOTALCASES);
+    return isWritable(THRESHOLDVALUE);
   }
   
-  public boolean isTotalCasesReadable()
+  public boolean isThresholdValueReadable()
   {
-    return isReadable(TOTALCASES);
+    return isReadable(THRESHOLDVALUE);
   }
   
-  public boolean isTotalCasesModified()
+  public boolean isThresholdValueModified()
   {
-    return isModified(TOTALCASES);
+    return isModified(THRESHOLDVALUE);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTotalCasesMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdValueMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TOTALCASES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
   }
   
 }

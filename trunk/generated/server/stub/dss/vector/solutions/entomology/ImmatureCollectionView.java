@@ -24,6 +24,7 @@ import dss.vector.solutions.general.SystemAlert;
 import dss.vector.solutions.general.SystemAlertType;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.util.MDSSProperties;
 
 public class ImmatureCollectionView extends ImmatureCollectionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -279,15 +280,20 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
         if (systemAlert.getIsEmailActive())
         {
           HashMap<String, Object> data = new HashMap<String, Object>();
-          data.put("threshold", SystemAlertType.ELEVATED_IMMATURE_INDEX_NOTIFICATION.getDisplayLabel());
-          data.put("alertType", threshold.getDisplayLabel());
-          data.put("entityLabel", this.getGeoEntity().getLabel());
+          data.put("alertType", SystemAlertType.ELEVATED_IMMATURE_INDEX_NOTIFICATION.getDisplayLabel());
+			if (systemAlert.getDisease() != null) {
+				data.put("disease", systemAlert.getDisease().getDisplayLabel());
+			} else {
+				data.put("disease", MDSSProperties.getString("All_Diseases"));
+			}
+          data.put("thresholdType", threshold.getDisplayLabel());
+          data.put("thresholdValue", threshold.getThresholdValue());
+          data.put("actualValue", value);
+          data.put("geoEntity", this.getGeoEntity().getLabel());
           data.put("premiseType", this.getPremiseType().toString());
           data.put("taxon", this.getTaxon().toString());
           data.put("startDate", this.getStartDate().toString());
           data.put("endDate", this.getEndDate().toString());
-          data.put("thresholdValue", threshold.getThresholdValue());
-          data.put("indexValue", value);
           emailSent = systemAlert.sendEmail(data);
         }
 
@@ -296,13 +302,13 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
           ElevatedImmatureIndexAlert alert = new ElevatedImmatureIndexAlert();
           alert.setAlertType(threshold.getDisplayLabel().toString());
           alert.setThresholdType(SystemAlertType.ELEVATED_IMMATURE_INDEX_NOTIFICATION.getDisplayLabel());
-          alert.setEntityLabel(this.getGeoEntity().getLabel());
+          alert.setThresholdValue(threshold.getThresholdValue());
+          alert.setActualValue(value);
+          alert.setGeoEntity(this.getGeoEntity().getLabel());
           alert.setPremiseType(this.getPremiseType().toString());
           alert.setTaxon(this.getTaxon().toString());
           alert.setStartDate(this.getStartDate());
           alert.setEndDate(this.getEndDate());
-          alert.setThresholdValue(threshold.getThresholdValue());
-          alert.setIndexValue(value);
           if (systemAlert.getIsEmailActive() & !emailSent)
           {
             alert.setEmailFailure(true);

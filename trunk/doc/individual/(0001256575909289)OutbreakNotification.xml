@@ -65,15 +65,15 @@
             label="Threshold Type"
             size="255" />
           <char
-            name="entityLabel"
-            label="Entity Label"
+            name="geoEntity"
+            label="GeoEntity Label"
             size="255" />
           <integer
-            name="threshold"
-            label="Threshold" />
+            name="thresholdValue"
+            label="Threshold Value" />
           <long
-            name="totalCases"
-            label="Total Cases" />
+            name="actualValue"
+            label="Actual Value" />
         </attributes>
       </mdInformation>
     </create>

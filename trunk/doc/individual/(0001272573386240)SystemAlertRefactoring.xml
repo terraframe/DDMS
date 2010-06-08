@@ -56,7 +56,7 @@
 					name="emailTemplateVariables">
 					<attribute
 						name="defaultLocale"
-						value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
 				</attributeStruct>
 			</object>
 
@@ -76,7 +76,7 @@
 					name="emailTemplateVariables">
 					<attribute
 						name="defaultLocale"
-						value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
 				</attributeStruct>
 			</object>
 
@@ -96,7 +96,7 @@
 					name="emailTemplateVariables">
 					<attribute
 						name="defaultLocale"
-						value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
 				</attributeStruct>
 			</object>
 
@@ -116,7 +116,7 @@
 					name="emailTemplateVariables">
 					<attribute
 						name="defaultLocale"
-						value="thresholdType, alertType, entityLabel, totalCases, threshold" />
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity" />
 				</attributeStruct>
 			</object>
 
@@ -136,7 +136,7 @@
 					name="emailTemplateVariables">
 					<attribute
 						name="defaultLocale"
-						value="thresholdType, alertType, entityLabel, premiseType, taxon, startDate, endDate, thresholdValue, indexValue" />
+						value="alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, premiseType, taxon, startDate, endDate" />
 				</attributeStruct>
 			</object>
 
@@ -196,10 +196,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Source Identification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -227,10 +227,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Source Identification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -258,10 +258,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Source Notification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -289,10 +289,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Source Notification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -320,10 +320,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Facility Identification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -351,10 +351,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Facility Identification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -382,10 +382,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Facility Notification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 			<object
@@ -413,10 +413,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Facility Notification email:  $alertType at [$entityLabel].  Total Cases: [$totalCases], Threshold: [$threshold]" />
+					value="Source Identification email:  $alertType at [$geoEntity].  Total Cases: [$actualValue], Threshold: [$thresholdValue]" />
 			</object>
 
 
@@ -445,10 +445,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Elevated Immature Index Notification email:  Threshold for $alertType was exceeded in $entityLabel for $premiseType and $taxon during the period from $startDate to $endDate." />
+					value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
 			</object>
 
 			<object
@@ -476,10 +476,10 @@
 					value="mdsstest@gmail.com" />
 				<attribute
 					name="emailSubject"
-					value="Test Email ($thresholdType)" />
+					value="Test Email ($alertType)" />
 				<attribute
 					name="emailBody"
-					value="Elevated Immature Index Notification email:  Threshold for $alertType was exceeded in $entityLabel for $premiseType and $taxon during the period from $startDate to $endDate." />
+					value="Elevated Immature Index Notification email:  Threshold for $thresholdType was exceeded in $geoEntity for $premiseType and $taxon during the period from $startDate to $endDate." />
 			</object>
 		</create>
 	</doIt>

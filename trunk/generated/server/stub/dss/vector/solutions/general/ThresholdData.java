@@ -369,24 +369,26 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		if (systemAlert.getIsEmailActive()) {
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			data.put("alertType", alertType.getDisplayLabel());
-			data.put("entityLabel", label);
-			data.put("threshold", threshold);
-			data.put("totalCases", count);
 			if (systemAlert.getDisease() != null) {
 				data.put("disease", systemAlert.getDisease().getDisplayLabel());
 			} else {
 				data.put("disease", MDSSProperties.getString("All_Diseases"));
 			}
+			data.put("thresholdType", accessor);
+			data.put("thresholdValue", threshold);
+			data.put("actualValue", count);
+			data.put("geoEntity", label);
+
 			emailSent = systemAlert.sendEmail(data);
 		}
 
 		if (systemAlert.getIsOnscreenActive()) {
 			OutbreakAlert alert = new OutbreakAlert();
 			alert.setAlertType(alertType.getDisplayLabel());
-			// alert.setThresholdType(thresholdType);
-			alert.setEntityLabel(label);
-			alert.setThreshold(threshold);
-			alert.setTotalCases(count);
+			alert.setThresholdType(accessor);
+			alert.setThresholdValue(threshold);
+			alert.setActualValue(count);
+			alert.setGeoEntity(label);
 			if (systemAlert.getIsEmailActive() & !emailSent) {
 				alert.setEmailFailure(true);
 			}

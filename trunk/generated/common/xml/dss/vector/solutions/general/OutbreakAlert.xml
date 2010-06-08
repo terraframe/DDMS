@@ -3,13 +3,13 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.OutbreakAlert">
   <!--
+    - {actualValue} actualValue
     - {alertType} alertType
     - {emailFailure} emailFailure
-    - {entityLabel} entityLabel
+    - {geoEntity} geoEntity
     - {id} id
-    - {threshold} threshold
     - {thresholdType} thresholdType
-    - {totalCases} totalCases
+    - {thresholdValue} thresholdValue
     -->
-  <locale language="defaultLocale">{alertType} at [{entityLabel}].  Total Cases: [{totalCases}], Threshold: [{threshold}].  {emailFailure}</locale>
+  <locale language="defaultLocale">{alertType} at [{geoEntity}].  Total Cases: [{actualValue}], Threshold: [{thresholdValue}].  {emailFailure}</locale>
 </exception>

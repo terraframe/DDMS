@@ -3,17 +3,17 @@
 xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
   name="dss.vector.solutions.general.ElevatedImmatureIndexAlert">
   <!--
+    - {actualValue} actualValue
     - {alertType} alertType
     - {emailFailure} emailFailure
     - {endDate} endDate
-    - {entityLabel} entityLabel
+    - {geoEntity} geoEntity
     - {id} id
-    - {indexValue} indexValue
     - {premiseType} premiseType
     - {startDate} startDate
     - {taxon} taxon
     - {thresholdType} thresholdType
     - {thresholdValue} thresholdValue
     -->
-  <locale language="defaultLocale">Threshold for {alertType} was exceeded in {entityLabel} for {premiseType} and {taxon} during the period from {startDate} to {endDate}.</locale>
+  <locale language="defaultLocale">Threshold for {alertType} was exceeded in {geoEntity} for {premiseType} and {taxon} during the period from {startDate} to {endDate}.</locale>
 </exception>

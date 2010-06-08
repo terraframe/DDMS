@@ -15,9 +15,21 @@
 						name="thresholdType"
 						label="Threshold Type"
 						size="255" />
+					<decimal
+						name="thresholdValue"
+						label="Threshold Value"
+						length="32"
+						decimal="2"
+						required="true" />
+					<decimal
+						name="actualValue"
+						label="Actual Value"
+						length="32"
+						decimal="2"
+						required="true" />
 					<char
-						name="entityLabel"
-						label="Entity Label"
+						name="geoEntity"
+						label="GeoEntity Label"
 						size="255" />
 					<char
 						name="premiseType"
@@ -33,18 +45,6 @@
 					<date
 						name="endDate"
 						label="End Date" />
-					<decimal
-						name="thresholdValue"
-						label="Threshold RValue"
-						length="32"
-						decimal="2"
-						required="true" />
-					<decimal
-						name="indexValue"
-						label="Index Value"
-						length="32"
-						decimal="2"
-						required="true" />
 					<boolean
 						name="emailFailure"
 						label="Email not sent"

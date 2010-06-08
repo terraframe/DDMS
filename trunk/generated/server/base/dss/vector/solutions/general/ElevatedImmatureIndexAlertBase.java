@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1929135060)
+@com.runwaysdk.business.ClassSignature(hash = -598913559)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,22 +11,50 @@ package dss.vector.solutions.general;
 public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.business.Information implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ElevatedImmatureIndexAlert";
+  public static java.lang.String ACTUALVALUE = "actualValue";
   public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String ENDDATE = "endDate";
-  public static java.lang.String ENTITYLABEL = "entityLabel";
+  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String INDEXVALUE = "indexValue";
   public static java.lang.String PREMISETYPE = "premiseType";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
-  private static final long serialVersionUID = 1929135060;
+  private static final long serialVersionUID = -598913559;
   
   public ElevatedImmatureIndexAlertBase()
   {
     super();
+  }
+  
+  public java.math.BigDecimal getActualValue()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(ACTUALVALUE));
+  }
+  
+  public void validateActualValue()
+  {
+    this.validateAttribute(ACTUALVALUE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualValueMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
+    return mdClassIF.definesAttribute(ACTUALVALUE);
+  }
+  
+  public void setActualValue(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(ACTUALVALUE, "");
+    }
+    else
+    {
+      setValue(ACTUALVALUE, value.toString());
+    }
   }
   
   public String getAlertType()
@@ -113,31 +141,31 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
     }
   }
   
-  public String getEntityLabel()
+  public String getGeoEntity()
   {
-    return getValue(ENTITYLABEL);
+    return getValue(GEOENTITY);
   }
   
-  public void validateEntityLabel()
+  public void validateGeoEntity()
   {
-    this.validateAttribute(ENTITYLABEL);
+    this.validateAttribute(GEOENTITY);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(ENTITYLABEL);
+    return mdClassIF.definesAttribute(GEOENTITY);
   }
   
-  public void setEntityLabel(String value)
+  public void setGeoEntity(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYLABEL, "");
+      setValue(GEOENTITY, "");
     }
     else
     {
-      setValue(ENTITYLABEL, value);
+      setValue(GEOENTITY, value);
     }
   }
   
@@ -155,34 +183,6 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
     return mdClassIF.definesAttribute(ID);
-  }
-  
-  public java.math.BigDecimal getIndexValue()
-  {
-    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(INDEXVALUE));
-  }
-  
-  public void validateIndexValue()
-  {
-    this.validateAttribute(INDEXVALUE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIndexValueMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ElevatedImmatureIndexAlert.CLASS);
-    return mdClassIF.definesAttribute(INDEXVALUE);
-  }
-  
-  public void setIndexValue(java.math.BigDecimal value)
-  {
-    if(value == null)
-    {
-      setValue(INDEXVALUE, "");
-    }
-    else
-    {
-      setValue(INDEXVALUE, value.toString());
-    }
   }
   
   public String getPremiseType()
@@ -358,12 +358,12 @@ public abstract class ElevatedImmatureIndexAlertBase extends com.runwaysdk.busin
   protected java.lang.String localize(java.util.Locale locale, java.lang.String message)
   {
     message = super.localize(locale, message);
+    message = replace(message, "{actualValue}", this.getActualValue());
     message = replace(message, "{alertType}", this.getAlertType());
     message = replace(message, "{emailFailure}", this.getEmailFailure());
     message = replace(message, "{endDate}", this.getEndDate());
-    message = replace(message, "{entityLabel}", this.getEntityLabel());
+    message = replace(message, "{geoEntity}", this.getGeoEntity());
     message = replace(message, "{id}", this.getId());
-    message = replace(message, "{indexValue}", this.getIndexValue());
     message = replace(message, "{premiseType}", this.getPremiseType());
     message = replace(message, "{startDate}", this.getStartDate());
     message = replace(message, "{taxon}", this.getTaxon());

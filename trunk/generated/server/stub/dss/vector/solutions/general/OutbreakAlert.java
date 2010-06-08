@@ -19,14 +19,15 @@ public class OutbreakAlert extends OutbreakAlertBase implements com.runwaysdk.ge
     if (this.getEmailFailure()) {
     	emailFailure = ( (MdAttributeBooleanDAOIF) getEmailFailureMd() ).getPositiveDisplayLabel(locale);
     }
-    message = replace(message, "{emailFailure}", emailFailure);
+
+    message = replace(message, "{id}", this.getId());
 
     message = replace(message, "{alertType}", this.getAlertType());
-    message = replace(message, "{entityLabel}", this.getEntityLabel());
-    message = replace(message, "{id}", this.getId());
-    message = replace(message, "{threshold}", this.getThreshold());
     message = replace(message, "{thresholdType}", this.getThresholdType());
-    message = replace(message, "{totalCases}", this.getTotalCases());
+    message = replace(message, "{thresholdValue}", this.getThresholdValue());
+    message = replace(message, "{actualValue}", this.getActualValue());
+    message = replace(message, "{geoEntity}", this.getGeoEntity());
+    message = replace(message, "{emailFailure}", emailFailure);
     
     return message;
   }
