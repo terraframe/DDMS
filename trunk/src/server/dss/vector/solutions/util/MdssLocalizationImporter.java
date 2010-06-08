@@ -109,13 +109,13 @@ public class MdssLocalizationImporter implements Reloadable
     
     checkLocales();
 
+    updateLabels();
+    updateExceptions();
     updateProperties("MDSS", propertySheet);
     updateProperties("serverExceptions", serverSheet);
     updateProperties("commonExceptions", commonSheet);
     updateProperties("clientExceptions", clientSheet);
     updateProperties("MdssControlPanel", controlPanelSheet);
-    updateExceptions();
-    updateLabels();
     
     for (LocaleDimension ld : getColumnHeaders(propertySheet))
     {
