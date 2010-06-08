@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 954618593)
+@com.runwaysdk.business.ClassSignature(hash = -1953279308)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class ImmatureCollectionExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 954618593;
+private static final long serialVersionUID = -1953279308;
 
   public ImmatureCollectionExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -297,6 +297,42 @@ private static final long serialVersionUID = 954618593;
 
   }
  
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures()
+  {
+    return getNumberWithImmatures(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHIMMATURES, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithImmatures(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHIMMATURES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae()
+  {
+    return getNumberWithLarvae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHLARVAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithLarvae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHLARVAE, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableInteger getNumberWithLarvicide()
   {
     return getNumberWithLarvicide(null);
@@ -312,6 +348,24 @@ private static final long serialVersionUID = 954618593;
   public com.runwaysdk.query.SelectableInteger getNumberWithLarvicide(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHLARVICIDE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae()
+  {
+    return getNumberWithPupae(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHPUPAE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getNumberWithPupae(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ImmatureCollectionExcelView.NUMBERWITHPUPAE, alias, displayLabel);
 
   }
  

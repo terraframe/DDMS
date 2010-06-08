@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1867158536)
+@com.runwaysdk.business.ClassSignature(hash = 977216331)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,13 +26,16 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String NUMBERLARVAECOLLECTED = "numberLarvaeCollected";
   public static java.lang.String NUMBERPUPAE = "numberPupae";
   public static java.lang.String NUMBERPUPAECOLLECTED = "numberPupaeCollected";
+  public static java.lang.String NUMBERWITHIMMATURES = "numberWithImmatures";
+  public static java.lang.String NUMBERWITHLARVAE = "numberWithLarvae";
   public static java.lang.String NUMBERWITHLARVICIDE = "numberWithLarvicide";
+  public static java.lang.String NUMBERWITHPUPAE = "numberWithPupae";
   public static java.lang.String NUMBERWITHWATER = "numberWithWater";
   public static java.lang.String PREMISESIZE = "premiseSize";
   public static java.lang.String PREMISETYPE = "premiseType";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TAXON = "taxon";
-  private static final long serialVersionUID = -1867158536;
+  private static final long serialVersionUID = 977216331;
   
   public ImmatureCollectionExcelViewBase()
   {
@@ -454,6 +457,62 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     }
   }
   
+  public Integer getNumberWithImmatures()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHIMMATURES));
+  }
+  
+  public void validateNumberWithImmatures()
+  {
+    this.validateAttribute(NUMBERWITHIMMATURES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithImmaturesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBERWITHIMMATURES);
+  }
+  
+  public void setNumberWithImmatures(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHIMMATURES, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHIMMATURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberWithLarvae()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHLARVAE));
+  }
+  
+  public void validateNumberWithLarvae()
+  {
+    this.validateAttribute(NUMBERWITHLARVAE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithLarvaeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBERWITHLARVAE);
+  }
+  
+  public void setNumberWithLarvae(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHLARVAE, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHLARVAE, java.lang.Integer.toString(value));
+    }
+  }
+  
   public Integer getNumberWithLarvicide()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHLARVICIDE));
@@ -479,6 +538,34 @@ public abstract class ImmatureCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(NUMBERWITHLARVICIDE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNumberWithPupae()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NUMBERWITHPUPAE));
+  }
+  
+  public void validateNumberWithPupae()
+  {
+    this.validateAttribute(NUMBERWITHPUPAE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNumberWithPupaeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ImmatureCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(NUMBERWITHPUPAE);
+  }
+  
+  public void setNumberWithPupae(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NUMBERWITHPUPAE, "");
+    }
+    else
+    {
+      setValue(NUMBERWITHPUPAE, java.lang.Integer.toString(value));
     }
   }
   

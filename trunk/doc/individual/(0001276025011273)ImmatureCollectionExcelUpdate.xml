@@ -1,0 +1,36 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.ImmatureCollectionExcelView"
+        label="Immature Collection Excel View">
+        <create>
+          <attributes>
+            <virtual
+              concrete="numberWithLarvae"
+              type="dss.vector.solutions.entomology.CollectionPremise" />
+            <virtual
+              concrete="numberWithPupae"
+              type="dss.vector.solutions.entomology.CollectionPremise" />
+            <virtual
+              concrete="numberWithImmatures"
+              type="dss.vector.solutions.entomology.CollectionPremise" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.ImmatureCollectionExcelView.numberWithLarvae"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object
+        key="dss.vector.solutions.export.ImmatureCollectionExcelView.numberWithPupae"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object
+        key="dss.vector.solutions.export.ImmatureCollectionExcelView.numberWithImmatures"
+        type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+    </delete>
+  </undoIt>
+</version>

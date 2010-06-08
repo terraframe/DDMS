@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1950739279)
+@com.runwaysdk.business.ClassSignature(hash = -700155358)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class ImmatureCollectionExcelViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1950739279;
+private static final long serialVersionUID = -700155358;
 
   protected ImmatureCollectionExcelViewQueryDTO(String type)
   {

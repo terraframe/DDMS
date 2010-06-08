@@ -50,6 +50,9 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
       i.setCollectionId(this.getCollectionId());
       i.setNotes(this.getNotes());
       i.setNumberExamined(this.getNumberExamined());
+      i.setNumberWithLarvae(this.getNumberWithLarvae());
+      i.setNumberWithPupae(this.getNumberWithPupae());
+      i.setNumberWithImmatures(this.getNumberWithImmatures());
       i.setPremiseSize(this.getPremiseSize());
       i.setNumberInhabitants(this.getNumberInhabitants());
     }
