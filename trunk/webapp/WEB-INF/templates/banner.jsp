@@ -6,7 +6,14 @@
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ page import="dss.vector.solutions.util.Halp"%>
 <% Halp.getDateFormatString(request);  //we set the date format here, incase we are using non-inside out rendering%>
-<fmt:setBundle basename="MDSS-${diseaseName}" scope="session"/>
+<c:choose>
+  <c:when test='${diseaseName != null}'>
+    <fmt:setBundle basename="MDSS-${diseaseName}" scope="session"/>
+  </c:when>
+  <c:otherwise>
+	<fmt:setBundle basename="MDSS" scope="session"/>
+  </c:otherwise>
+</c:choose>
 <html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
