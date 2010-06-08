@@ -52,7 +52,6 @@
    %>
    <br>
    Your current disease is ${diseaseName}.
-   <fmt:setBundle basename="MDSS-${diseaseName}" scope="session"/>
    <br>
 <pre>
 
