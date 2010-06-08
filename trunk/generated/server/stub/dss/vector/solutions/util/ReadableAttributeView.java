@@ -165,7 +165,7 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         continue;
       }
 
-      MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
+      MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getMdAttributeConcrete().getId());
       String oldValue = mdAttribute.getDisplayLabel().getValue();
       String newLabel = view.getDisplayLabel();
 
