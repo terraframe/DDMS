@@ -120,10 +120,9 @@ public class OntologyExcelImporter
     Iterator<HSSFCell> iterator = row.cellIterator();
     
     HSSFCell cell = iterator.next();
-    int index = cell.getColumnIndex();
     
     // The first item should be the term Id.  If it's not present, we need to skip the row
-    if (index!=0)
+    if (cell.getColumnIndex()!=0)
     {
       return;
     }
@@ -136,28 +135,24 @@ public class OntologyExcelImporter
       node.setId(id);
     }
     cell = iterator.next();
-    index = cell.getColumnIndex();
     
-    if (index==1)
+    if (cell.getColumnIndex()==1)
     {
       node.setActiveMalaria(ExcelUtil.getBoolean(cell));
       cell = iterator.next();
-      index = cell.getColumnIndex();
     }
     
-    if (index==2)
+    if (cell.getColumnIndex()==2)
     {
       node.setActiveDengue(ExcelUtil.getBoolean(cell));
       cell = iterator.next();
-      index = cell.getColumnIndex();
     }
     
     TermNode parentNode = null;
-    if (index==3)
+    if (cell.getColumnIndex()==3)
     {
       parentNode = getNodeById(ExcelUtil.getString(cell));
       cell = iterator.next();
-      index = cell.getColumnIndex();
     }
     
     // By here, we know that index >=4, and should contain the name
@@ -170,11 +165,11 @@ public class OntologyExcelImporter
       nodeName = ExcelUtil.getString(cell);
     }
     node.setName(nodeName);
-    node.setIndent(index);
+    node.setIndent(cell.getColumnIndex());
     
     // Pop the stack until the top has an indent less than the current row.
     TermNode peek = stack.peek();
-    while (OntologyExcelImporter.greaterIndent(peek, index))
+    while (OntologyExcelImporter.greaterIndent(peek, cell.getColumnIndex()))
     {
       stack.removeFirst();
       peek = stack.peek();
