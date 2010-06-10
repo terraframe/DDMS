@@ -1,0 +1,26 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.EfficacyAssayExcelView"
+        label="Efficacy Assay Excel View"
+        description="Excel View for Efficacy Assays">
+        <create>
+          <attributes>
+            <char
+              name="surfaceType"
+              label="Surface Type"
+              size="255" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.EfficacyAssayExcelView.surfaceType"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>

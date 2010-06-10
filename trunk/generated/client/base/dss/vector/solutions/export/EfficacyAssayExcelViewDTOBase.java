@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1156773096)
+@com.runwaysdk.business.ClassSignature(hash = 2010125175)
 public abstract class EfficacyAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.EfficacyAssayExcelView";
-  private static final long serialVersionUID = 1156773096;
+  private static final long serialVersionUID = 2010125175;
   
   protected EfficacyAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -32,6 +32,7 @@ public abstract class EfficacyAssayExcelViewDTOBase extends com.runwaysdk.busine
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String SURFACEPOSITION = "surfacePosition";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
@@ -583,6 +584,43 @@ public abstract class EfficacyAssayExcelViewDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSurfacePositionMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SURFACEPOSITION).getAttributeMdDTO();
+  }
+  
+  public String getSurfaceType()
+  {
+    return getValue(SURFACETYPE);
+  }
+  
+  public void setSurfaceType(String value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value);
+    }
+  }
+  
+  public boolean isSurfaceTypeWritable()
+  {
+    return isWritable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeReadable()
+  {
+    return isReadable(SURFACETYPE);
+  }
+  
+  public boolean isSurfaceTypeModified()
+  {
+    return isModified(SURFACETYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSurfaceTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SURFACETYPE).getAttributeMdDTO();
   }
   
   public java.util.Date getTestDate()
