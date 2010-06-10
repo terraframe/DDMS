@@ -65,6 +65,7 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(SURFACETYPE);
     list.add(TESTDATE);
     list.add(TESTMETHOD);
     list.add(SPECIE);
