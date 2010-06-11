@@ -10,7 +10,7 @@
 						name="seasonName"
 						label="Season Name"
 						required="true"
-						indexType="no index"
+						indexType="unique index"
 						size="255"
 						description="The name or display label for this season" />
 				</attributes>
@@ -72,6 +72,7 @@
 			</mdView>
 
 		</update>
+		<!--  Restore this when they want to go back to names only being unique within season, and change line 13 to be no index
 		<create>
 			<mdIndex
 				type="dss.vector.solutions.general.MalariaSeason"
@@ -87,6 +88,7 @@
 					name="seasonName" />
 			</mdIndex>
 		</create>
+		 -->
 	</doIt>
 	<undoIt>
 		<delete>
@@ -103,19 +105,5 @@
 				key="dss.vector.solutions.general.MalariaSeason.getAllInstancesForDisease"
 				type="com.runwaysdk.system.metadata.MdMethod" />
 		</delete>
-		<update>
-			<mdBusiness
-				name="dss.vector.solutions.general.MalariaSeason">
-				<attributes>
-					<char
-						name="seasonName"
-						label="Season Name"
-						required="true"
-						indexType="unique index"
-						size="255"
-						description="The name or display label for this season" />
-				</attributes>
-			</mdBusiness>
-		</update>
 	</undoIt>
 </version>
