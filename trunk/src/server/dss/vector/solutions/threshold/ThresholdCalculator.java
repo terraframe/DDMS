@@ -15,6 +15,7 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Statistics;
 import dss.vector.solutions.general.CalculationInProgressException;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
@@ -374,9 +375,10 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 		// System.out.println("From: " + initialWeek.getStartDate());
 		// System.out.println("  To: " + finalWeek.getEndDate());
 		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "cases"));
-		valueQuery.WHERE(caseQuery.getGeoEntity().EQ(entityQuery));
-		valueQuery.WHERE(caseQuery.getStartDate().GE(initialDate));
-		valueQuery.WHERE(caseQuery.getEndDate().LE(finalDate));
+		valueQuery.WHERE(caseQuery.getDisease().EQ(Disease.getCurrent()));
+		valueQuery.AND(caseQuery.getGeoEntity().EQ(entityQuery));
+		valueQuery.AND(caseQuery.getStartDate().GE(initialDate));
+		valueQuery.AND(caseQuery.getEndDate().LE(finalDate));
 		// Make sure we only grab epi week periods
 		valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate", caseQuery.getStartDate().getDbQualifiedName() + "+ interval '6 days'")));
 		valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(), caseQuery.getStartDate().getDefiningTableAlias());

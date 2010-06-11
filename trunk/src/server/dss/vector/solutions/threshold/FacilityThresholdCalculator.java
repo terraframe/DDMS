@@ -7,6 +7,7 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -30,12 +31,12 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 	@Transaction
 	protected long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
 		IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
-
-		Condition condition = query.getHealthFacility().EQ(entityQuery);
-		condition = AND.get(condition, query.getFacilityVisit().GE(initialDate));
-		condition = AND.get(condition, query.getFacilityVisit().LE(finalDate));
-		condition = AND.get(condition, query.getActivelyDetected().EQ(false));
-		query.WHERE(condition);
+		
+		query.WHERE(query.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
+		query.AND(query.getHealthFacility().EQ(entityQuery));
+		query.AND(query.getFacilityVisit().GE(initialDate));
+		query.AND(query.getFacilityVisit().LE(finalDate));
+		query.AND(query.getActivelyDetected().EQ(false));
 
 		return query.getCount();
 	}

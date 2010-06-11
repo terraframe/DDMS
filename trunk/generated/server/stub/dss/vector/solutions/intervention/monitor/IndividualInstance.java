@@ -15,6 +15,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.CurrentDateProblem;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
@@ -82,13 +83,11 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
     QueryFactory factory = new QueryFactory();
 
     IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
-
-    Condition condition = query.getHealthFacility().EQ(facility);
-    condition = AND.get(condition, query.getActivelyDetected().EQ(false));
-    condition = AND.get(condition, query.getFacilityVisit().GE(startDate));
-    condition = AND.get(condition, query.getFacilityVisit().LE(endDate));
-
-    query.WHERE(condition);
+	query.WHERE(query.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
+    query.AND(query.getHealthFacility().EQ(facility));
+    query.AND(query.getActivelyDetected().EQ(false));
+    query.AND(query.getFacilityVisit().GE(startDate));
+    query.AND(query.getFacilityVisit().LE(endDate));
 
     return query.getCount();
   }

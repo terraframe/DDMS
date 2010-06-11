@@ -8,6 +8,7 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -31,10 +32,10 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 	protected long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
 		IndividualCaseQuery query = new IndividualCaseQuery(factory);
 
-		Condition condition = query.getProbableSource().EQ(entityQuery);
-		condition = AND.get(condition, query.getDiagnosisDate().GE(initialDate));
-		condition = AND.get(condition, query.getDiagnosisDate().LE(finalDate));
-		query.WHERE(condition);
+		query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+		query.AND(query.getProbableSource().EQ(entityQuery));
+		query.AND(query.getDiagnosisDate().GE(initialDate));
+		query.AND(query.getDiagnosisDate().LE(finalDate));
 
 		return query.getCount();
 	}

@@ -33,6 +33,7 @@ import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdData;
@@ -73,6 +74,10 @@ public class IndividualCase extends IndividualCaseBase implements
     validateDiagnosisDate();
     validateCaseEntryDate();
     validateCaseReportDate();
+    
+    if (this.isNew() && this.getDisease() == null) {
+    	this.setDisease(Disease.getCurrent());
+    }
 
     if (this.getProbableSource() == null)
     {
@@ -194,12 +199,10 @@ public class IndividualCase extends IndividualCaseBase implements
     GeoEntityQuery entityQuery = entity.getPoliticalDecendants(factory);
 
     IndividualCaseQuery query = new IndividualCaseQuery(factory);
-
-    Condition condition = query.getProbableSource().EQ(entityQuery);
-    condition = AND.get(condition, query.getDiagnosisDate().GE(startDate));
-    condition = AND.get(condition, query.getDiagnosisDate().LE(endDate));
-
-    query.WHERE(condition);
+	query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+    query.AND(query.getProbableSource().EQ(entityQuery));
+    query.AND( query.getDiagnosisDate().GE(startDate));
+    query.AND(query.getDiagnosisDate().LE(endDate));
 
     return query.getCount();
   }
@@ -225,11 +228,10 @@ public class IndividualCase extends IndividualCaseBase implements
     if (patient != null)
     {
       IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
-
-      Condition condition = AND.get(query.getDiagnosisDate().GE(newCasePeriodCutoff), query
-          .getDiagnosisDate().LE(diagnosisDate), query.getPatient().EQ(patient));
-
-      query.WHERE(condition);
+  	  query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+      query.AND(query.getDiagnosisDate().GE(newCasePeriodCutoff));
+      query.AND(query.getDiagnosisDate().LE(diagnosisDate));
+      query.AND(query.getPatient().EQ(patient));
       query.ORDER_BY_DESC(query.getDiagnosisDate());
 
       OIterator<? extends IndividualCase> iterator = query.getIterator();
