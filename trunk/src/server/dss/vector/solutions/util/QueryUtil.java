@@ -26,6 +26,7 @@ import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.AttributeReference;
@@ -563,7 +564,7 @@ public class QueryUtil implements Reloadable
           
           String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
           String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
-//          valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
+//        valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
           
           valueQuery.AND(((AttributeReference) attributeQuery.get(attrib_name)).EQ(apQuery.getChildTerm()));
         }
@@ -724,12 +725,15 @@ public class QueryUtil implements Reloadable
     }
     
     String localeColumns = "";
+    
+    
     for (int i = localeString.length(); i > 0; i = localeString.lastIndexOf('_', i - 1))
     {
       String subLocale = localeString.substring(0, i).toLowerCase();
       
       if(list.contains(subLocale))
-      {
+      {   
+        localeColumns += MetadataDAO.convertCamelCaseToUnderscore(Session.getCurrentDimension().getLocaleAttributeName(subLocale))+ ", ";
         localeColumns += subLocale + ", ";
       }
       
@@ -738,7 +742,11 @@ public class QueryUtil implements Reloadable
     String key = MetadataDisplayLabel.CLASS+"."+MetadataDisplayLabel.DEFAULTLOCALE;
     String defaultLocaleColumn = MdAttributeConcrete.getByKey(key).getColumnName();
     
-    localeColumns = "COALESCE(" + localeColumns + prefix + defaultLocaleColumn + ")";
+    String dim_key = Session.getCurrentDimension().getDefaultLocaleAttributeName();
+    String defaultDimensionLocaleColumn = MetadataDAO.convertCamelCaseToUnderscore(dim_key) ;
+    
+    
+    localeColumns = "COALESCE(" + localeColumns + prefix + defaultDimensionLocaleColumn + ", " + prefix + defaultLocaleColumn + ")";
     return localeColumns;
   }
 
