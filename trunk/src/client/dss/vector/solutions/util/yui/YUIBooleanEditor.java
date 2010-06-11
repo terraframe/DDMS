@@ -13,21 +13,21 @@ public class YUIBooleanEditor extends YUIEditor implements Reloadable
   private AttributeBooleanMdDTO attributeMd;
 
   public YUIBooleanEditor(AttributeBooleanMdDTO attributeMd) throws Exception
-  {    
+  {
     super();
-        
-    this.attributeMd = attributeMd;    
+
+    this.attributeMd = attributeMd;
   }
-  
+
   public String getType()
   {
     return DROPDOWN_EDITOR;
   }
-  
+
   public List<String> getOptions()
   {
     List<String> options = new LinkedList<String>();
-    
+
     String positiveLabel = attributeMd.getPositiveDisplayLabel().replaceAll("'", "\\\\'");
     String negativeLabel = attributeMd.getNegativeDisplayLabel().replaceAll("'", "\\\\'");
 
@@ -36,10 +36,10 @@ public class YUIBooleanEditor extends YUIEditor implements Reloadable
     radioOptions.add("{label:'" + negativeLabel + "', value:'false'}");
 
     options.add("dropdownOptions:[" + Halp.join(radioOptions) + "]");
-    
+
     return options;
-  }  
-  
+  }
+
   @Override
   public String getDefaultValue(Object object)
   {
@@ -54,5 +54,14 @@ public class YUIBooleanEditor extends YUIEditor implements Reloadable
     }
 
     return "{'value':'" + objectValue + "','label':'" + objectLabel + "'}";
+  }
+
+  @Override
+  public String getValue(Object object)
+  {
+    Boolean value = (Boolean) object;
+    String label = ( value ? attributeMd.getPositiveDisplayLabel() : attributeMd.getNegativeDisplayLabel() );
+
+    return Halp.getLabeledValue(label, value.toString());
   }
 }

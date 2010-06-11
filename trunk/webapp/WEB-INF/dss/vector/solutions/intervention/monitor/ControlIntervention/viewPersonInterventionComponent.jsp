@@ -9,7 +9,11 @@
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-<div id="premises"></div>
+<mjl:component item="${view}" param="dto">
+  <mjl:dt attribute="personIntervention">
+    <div id="premises"></div>
+  </mjl:dt>
+</mjl:component>
 
 <hr />
 

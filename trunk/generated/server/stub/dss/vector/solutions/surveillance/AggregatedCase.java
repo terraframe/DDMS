@@ -132,44 +132,72 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
 
     super.apply();
   }
-  
+
   @Override
   public void delete()
   {
     List<CaseTreatmentMethod> methods = this.getTreatmentMethods();
-    
-    for(CaseTreatmentMethod method : methods)
+
+    for (CaseTreatmentMethod method : methods)
     {
       method.delete();
     }
-    
+
     List<CaseTreatment> treatments = this.getTreatments();
-    
-    for(CaseTreatment treatment : treatments)
+
+    for (CaseTreatment treatment : treatments)
     {
       treatment.delete();
     }
-    
+
     List<CaseTreatmentStock> stocks = this.getTreatmentStocks();
-    
-    for(CaseTreatmentStock stock : stocks)
+
+    for (CaseTreatmentStock stock : stocks)
     {
       stock.delete();
     }
-    
+
     List<CaseDiagnostic> diagnostics = this.getDiagnosticMethods();
 
-    for(CaseDiagnostic method : diagnostics)
+    for (CaseDiagnostic method : diagnostics)
     {
       method.delete();
     }
-    
+
     List<CaseReferral> referrals = this.getReferrals();
-    
-    for(CaseReferral referral : referrals)
+
+    for (CaseReferral referral : referrals)
     {
       referral.delete();
-    }    
+    }
+
+    List<CaseStockReferral> stockReferrals = this.getStockReferrals();
+
+    for (CaseStockReferral referral : stockReferrals)
+    {
+      referral.delete();
+    }
+
+    List<CaseDiagnosisType> types = this.getDiagnosisTypes();
+
+    for (CaseDiagnosisType type : types)
+    {
+      type.delete();
+    }
+
+    List<CaseDiseaseManifestation> manifestations = this.getDiseaseManifestations();
+
+    for (CaseDiseaseManifestation manifestation : manifestations)
+    {
+      manifestation.delete();
+    }
+    
+    List<CasePatientType> patientTypes = this.getPatientTypes();
+    
+    for (CasePatientType patientType : patientTypes)
+    {
+      patientType.delete();
+    }
 
     super.delete();
   }
@@ -179,41 +207,69 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
   public void lock()
   {
     super.lock();
-    
+
     List<CaseTreatmentMethod> methods = this.getTreatmentMethods();
-    
-    for(CaseTreatmentMethod method : methods)
+
+    for (CaseTreatmentMethod method : methods)
     {
       method.lock();
     }
-    
+
     List<CaseTreatment> treatments = this.getTreatments();
-    
-    for(CaseTreatment treatment : treatments)
+
+    for (CaseTreatment treatment : treatments)
     {
       treatment.lock();
     }
-    
+
     List<CaseTreatmentStock> stocks = this.getTreatmentStocks();
-    
-    for(CaseTreatmentStock stock : stocks)
+
+    for (CaseTreatmentStock stock : stocks)
     {
       stock.lock();
     }
-    
+
     List<CaseDiagnostic> diagnostics = this.getDiagnosticMethods();
 
-    for(CaseDiagnostic method : diagnostics)
+    for (CaseDiagnostic method : diagnostics)
     {
       method.lock();
     }
-    
+
     List<CaseReferral> referrals = this.getReferrals();
-    
-    for(CaseReferral referral : referrals)
+
+    for (CaseReferral referral : referrals)
     {
       referral.lock();
-    }    
+    }
+
+    List<CaseStockReferral> stockReferrals = this.getStockReferrals();
+
+    for (CaseStockReferral referral : stockReferrals)
+    {
+      referral.lock();
+    }
+
+    List<CaseDiagnosisType> types = this.getDiagnosisTypes();
+
+    for (CaseDiagnosisType type : types)
+    {
+      type.lock();
+    }
+
+    List<CaseDiseaseManifestation> manifestations = this.getDiseaseManifestations();
+
+    for (CaseDiseaseManifestation manifestation : manifestations)
+    {
+      manifestation.lock();
+    }
+    
+    List<CasePatientType> patientTypes = this.getPatientTypes();
+    
+    for (CasePatientType patientType : patientTypes)
+    {
+      patientType.lock();
+    }
   }
 
   @Override
@@ -221,41 +277,69 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
   public void unlock()
   {
     super.unlock();
-    
+
     List<CaseTreatmentMethod> methods = this.getTreatmentMethods();
-    
-    for(CaseTreatmentMethod method : methods)
+
+    for (CaseTreatmentMethod method : methods)
     {
       method.unlock();
     }
-    
+
     List<CaseTreatment> treatments = this.getTreatments();
-    
-    for(CaseTreatment treatment : treatments)
+
+    for (CaseTreatment treatment : treatments)
     {
       treatment.unlock();
     }
-    
+
     List<CaseTreatmentStock> stocks = this.getTreatmentStocks();
-    
-    for(CaseTreatmentStock stock : stocks)
+
+    for (CaseTreatmentStock stock : stocks)
     {
       stock.unlock();
     }
-    
+
     List<CaseDiagnostic> diagnostics = this.getDiagnosticMethods();
 
-    for(CaseDiagnostic method : diagnostics)
+    for (CaseDiagnostic method : diagnostics)
     {
       method.unlock();
     }
-    
+
     List<CaseReferral> referrals = this.getReferrals();
-    
-    for(CaseReferral referral : referrals)
+
+    for (CaseReferral referral : referrals)
     {
       referral.unlock();
-    }    
+    }
+
+    List<CaseStockReferral> stockReferrals = this.getStockReferrals();
+
+    for (CaseStockReferral referral : stockReferrals)
+    {
+      referral.unlock();
+    }
+
+    List<CaseDiagnosisType> types = this.getDiagnosisTypes();
+
+    for (CaseDiagnosisType type : types)
+    {
+      type.unlock();
+    }
+
+    List<CaseDiseaseManifestation> manifestations = this.getDiseaseManifestations();
+
+    for (CaseDiseaseManifestation manifestation : manifestations)
+    {
+      manifestation.unlock();
+    }
+    
+    List<CasePatientType> patientTypes = this.getPatientTypes();
+    
+    for (CasePatientType patientType : patientTypes)
+    {
+      patientType.unlock();
+    }
   }
 
   public List<CaseTreatmentMethod> getTreatmentMethods()
@@ -282,12 +366,12 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
   public List<CaseTreatment> getTreatments()
   {
     List<CaseTreatment> list = new LinkedList<CaseTreatment>();
-    
+
     CaseTreatmentQuery query = new CaseTreatmentQuery(new QueryFactory());
     query.WHERE(query.getAggregatedCase().EQ(this));
-    
+
     OIterator<? extends CaseTreatment> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -296,19 +380,40 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       it.close();
     }
-    
+
     return list;
   }
-  
+
+  public List<CaseStockReferral> getStockReferrals()
+  {
+    List<CaseStockReferral> list = new LinkedList<CaseStockReferral>();
+
+    CaseStockReferralQuery query = new CaseStockReferralQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+
+    OIterator<? extends CaseStockReferral> it = query.getIterator();
+
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return list;
+  }
+
   public List<CaseDiagnostic> getDiagnosticMethods()
   {
     List<CaseDiagnostic> list = new LinkedList<CaseDiagnostic>();
-    
+
     CaseDiagnosticQuery query = new CaseDiagnosticQuery(new QueryFactory());
     query.WHERE(query.getAggregatedCase().EQ(this));
-    
+
     OIterator<? extends CaseDiagnostic> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -317,19 +422,19 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       it.close();
     }
-    
+
     return list;
   }
-  
+
   public List<CaseReferral> getReferrals()
   {
     List<CaseReferral> list = new LinkedList<CaseReferral>();
-    
+
     CaseReferralQuery query = new CaseReferralQuery(new QueryFactory());
     query.WHERE(query.getAggregatedCase().EQ(this));
-    
+
     OIterator<? extends CaseReferral> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -338,18 +443,81 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       it.close();
     }
-    
+
     return list;
   }
-  
+
   public List<CaseTreatmentStock> getTreatmentStocks()
   {
     List<CaseTreatmentStock> list = new LinkedList<CaseTreatmentStock>();
-    
+
     CaseTreatmentStockQuery query = new CaseTreatmentStockQuery(new QueryFactory());
     query.WHERE(query.getAggregatedCase().EQ(this));
-    
+
     OIterator<? extends CaseTreatmentStock> it = query.getIterator();
+
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return list;
+  }
+
+  public List<CaseDiagnosisType> getDiagnosisTypes()
+  {
+    List<CaseDiagnosisType> list = new LinkedList<CaseDiagnosisType>();
+
+    CaseDiagnosisTypeQuery query = new CaseDiagnosisTypeQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+
+    OIterator<? extends CaseDiagnosisType> it = query.getIterator();
+
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return list;
+  }
+
+  public List<CaseDiseaseManifestation> getDiseaseManifestations()
+  {
+    List<CaseDiseaseManifestation> list = new LinkedList<CaseDiseaseManifestation>();
+
+    CaseDiseaseManifestationQuery query = new CaseDiseaseManifestationQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+
+    OIterator<? extends CaseDiseaseManifestation> it = query.getIterator();
+
+    try
+    {
+      list.addAll(it.getAll());
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return list;
+  }
+
+  public List<CasePatientType> getPatientTypes()
+  {
+    List<CasePatientType> list = new LinkedList<CasePatientType>();
+    
+    CasePatientTypeQuery query = new CasePatientTypeQuery(new QueryFactory());
+    query.WHERE(query.getAggregatedCase().EQ(this));
+    
+    OIterator<? extends CasePatientType> it = query.getIterator();
     
     try
     {
@@ -362,8 +530,6 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     
     return list;
   }
-  
-  
   
   public AggregatedCaseView getView()
   {

@@ -225,6 +225,7 @@ public class ControlInterventionController extends ControlInterventionController
 
       DataGrid grid = new IndividualPremiseGridBuilder(request, view).build();
 
+      req.setAttribute("view", view);
       req.setAttribute("grid", grid);
 
       render("viewIndividualPremiseComponent.jsp");
@@ -255,6 +256,7 @@ public class ControlInterventionController extends ControlInterventionController
 
       DataGrid grid = new AggregatedPremiseGridBuilder(request, view).build();
 
+      req.setAttribute("view", view);
       req.setAttribute("grid", grid);
 
       render("viewAggregatedPremiseComponent.jsp");
@@ -285,6 +287,7 @@ public class ControlInterventionController extends ControlInterventionController
 
       DataGrid grid = new PersonInterventionGridBuilder(request, view).build();
 
+      req.setAttribute("view", view);
       req.setAttribute("grid", grid);
 
       render("viewPersonInterventionComponent.jsp");
@@ -315,6 +318,7 @@ public class ControlInterventionController extends ControlInterventionController
 
       DataGrid grid = new InsecticideInterventionGridBuilder(request, view).build();
 
+      req.setAttribute("view", view);
       req.setAttribute("grid", grid);
 
       render("viewInsecticideInterventionComponent.jsp");

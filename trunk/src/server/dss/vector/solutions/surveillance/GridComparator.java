@@ -8,6 +8,6 @@ public class GridComparator implements Comparator<ChildOption>, Reloadable
 {
   public int compare(ChildOption o1, ChildOption o2)
   {
-    return new OptionComparator().compare(o1.getChild(), o2.getChild());
+    return new OptionComparator(true).compare(o1.getChild(), o2.getChild());
   }
 }

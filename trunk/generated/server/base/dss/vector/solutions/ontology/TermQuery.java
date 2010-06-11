@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1645008391)
+@com.runwaysdk.business.ClassSignature(hash = -1759877781)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.ontology;
 public  class TermQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1645008391;
+private static final long serialVersionUID = -1759877781;
 
   public TermQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -1189,6 +1189,354 @@ private static final long serialVersionUID = 1645008391;
   {
     aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
     return this.getBusinessQuery().isNotChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.getBusinessQuery().isChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.getBusinessQuery().isNotChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.getBusinessQuery().isChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.getBusinessQuery().isNotChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.getBusinessQuery().isChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(casePatientTypeAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.getBusinessQuery().isNotChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(casePatientTypeAmountQuery);
   }
 
 
@@ -3249,6 +3597,42 @@ private static final long serialVersionUID = 1645008391;
   public com.runwaysdk.query.Condition SUBSELECT_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery);
 
 
+  public com.runwaysdk.query.Condition caseDiagnosisTypes();
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery);
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes();
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery);
+
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations();
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery);
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations();
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery);
+
+
+  public com.runwaysdk.query.Condition casePatientTypes();
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery);
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes();
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery);
+
+
   public com.runwaysdk.query.Condition doseAggregatedIPTs();
   public com.runwaysdk.query.Condition doseAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPTQuery aggregatedIPTQuery);
 
@@ -3489,6 +3873,42 @@ private static final long serialVersionUID = 1645008391;
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_aggregatedPremiseReasons(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery);
 
 
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes();
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations();
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes();
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_doseAggregatedIPTs();
   public com.runwaysdk.query.Condition NOT_IN_doseAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPTQuery aggregatedIPTQuery);
 
@@ -3666,7 +4086,7 @@ private static final long serialVersionUID = 1645008391;
  implements TermQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -620999383;
+private static final long serialVersionUID = -1148337267;
 
   public TermQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -4603,6 +5023,180 @@ private static final long serialVersionUID = -620999383;
   {
     aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
     return this.isChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.isChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.isChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.isChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.isChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.isChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.isChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.isChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.isChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.isChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.isChildIn_SUBSELECT(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.isChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.isChildIn_SUBSELECT(casePatientTypeAmountQuery);
   }
 
 
@@ -5763,6 +6357,180 @@ private static final long serialVersionUID = -620999383;
   {
     aggregatedPremiseReasonQuery.AND(aggregatedPremiseReasonQuery.hasParent(aggregatedPremiseVisitQuery));
     return this.isNotChildIn_SUBSELECT(aggregatedPremiseReasonQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.isNotChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiagnosisTypeQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.isNotChildIn(caseDiagnosisTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeQuery caseDiagnosisTypeQuery, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountQuery caseDiagnosisTypeAmountQuery)
+  {
+    caseDiagnosisTypeAmountQuery.AND(caseDiagnosisTypeAmountQuery.hasParent(caseDiagnosisTypeQuery));
+    return this.isNotChildIn_SUBSELECT(caseDiagnosisTypeAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.isNotChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(caseDiseaseManifestationQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.isNotChildIn(caseDiseaseManifestationAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_caseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationQuery caseDiseaseManifestationQuery, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountQuery caseDiseaseManifestationAmountQuery)
+  {
+    caseDiseaseManifestationAmountQuery.AND(caseDiseaseManifestationAmountQuery.hasParent(caseDiseaseManifestationQuery));
+    return this.isNotChildIn_SUBSELECT(caseDiseaseManifestationAmountQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.isNotChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(casePatientTypeQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.isNotChildIn(casePatientTypeAmountQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_casePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeQuery casePatientTypeQuery, dss.vector.solutions.surveillance.CasePatientTypeAmountQuery casePatientTypeAmountQuery)
+  {
+    casePatientTypeAmountQuery.AND(casePatientTypeAmountQuery.hasParent(casePatientTypeQuery));
+    return this.isNotChildIn_SUBSELECT(casePatientTypeAmountQuery);
   }
 
 

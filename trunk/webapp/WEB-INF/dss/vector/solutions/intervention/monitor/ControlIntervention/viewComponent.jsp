@@ -297,8 +297,6 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
           details.innerHTML = html;
 
           eval(executable);
-
-          this.that.initializeDelete();
         }
       });
 

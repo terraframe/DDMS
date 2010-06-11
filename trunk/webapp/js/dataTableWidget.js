@@ -29,14 +29,14 @@ Mojo.Meta.newClass('MDSS.ArrayMetadata', {
 Mojo.Meta.newClass('MDSS.CellValidator', {
   Static : {    
     validatePercentage : function(oData) {
-	  var number = oData * 1;
-	  
+      var number = oData * 1;
+  
       if(Mojo.Util.isNumber(number)) {
-  	    if(number >= 0 && number <= 100) {
-  	      return oData;
-  	    }
+        if(number >= 0 && number <= 100) {
+          return oData;
+        }
       }
-	  	
+  
       return undefined;
     }
   }
@@ -458,6 +458,8 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
          
       this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
 
+      this.myDataTable.subscribe("tableKeyEvent", this.tableKeyEvent, null, this);
+
       this.myDataTable.subscribe("editorSaveEvent", this._saveHandler, null, this);
       
       this._setUpButtons(data);
@@ -571,17 +573,17 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           var optionValue = editor.dropdownOptions[i].value;
           var label = editor.dropdownOptions[i].label;
             
-          if (value === optionValue){
-            record.setData(col, label);
+          if (value === optionValue) {
+            this.getDataTable().updateCell(record, col, label);
           }
         }
       }      
       else if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
         var date = MDSS.Calendar.parseDate(record.getData(field.key));
-        this.myDataTable.updateCell(record, field.key, date);
+        this.getDataTable().updateCell(record, field.key, date);
       }
       else {
-        record.setData(col, value);
+    this.getDataTable().updateCell(record, col, value);
       }
     },
     
@@ -742,79 +744,52 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         }
       }
       else {
-        var editor = field.editor;
+        var initialized = this._initializeLabeledValue(index, field.key, record);
         
-        if(!editor) {
-          var column = this.myDataTable.getColumn(field.key);
-          
-          editor = column.editor;
-        }
-
-        if (field.save_as_id) {
-          var label = this._getLabelFromId(field.key, record.getData(field.key));
-          record.setData(field.key, label);
-        }        
-        else if(editor != null){
-          if (editor instanceof YAHOO.widget.DropdownCellEditor){           
-            //data comes in as value instead of label, so we fix this.
+        if(!initialized) {
       
-            for( var i = 0; i < editor.dropdownOptions.length; i++) {
-              var recordValue = record.getData(field.key);
+          var editor = field.editor;
+        
+          if(!editor) {
+            var column = this.myDataTable.getColumn(field.key);
            
-              var optionValue = editor.dropdownOptions[i].value;
-              var label = editor.dropdownOptions[i].label;
-              
-              if (recordValue === optionValue){
-                record.setData(field.key, label);
-              }
-            }
+            editor = column.editor;
           }
         
-          if (editor instanceof YAHOO.widget.OntologyTermEditor ) {  
-            var data = record.getData(field.key);
-      
-            if(data){
-              var id = data.split('^^^^')[1];
-              var displayLabel = data.split('^^^^')[0];
-              
-              if(this._model.hasRow(index)) {
-                this._model.setData(index, field.key, id);
-                record.setData(field.key, displayLabel);
-              }
-            }
-          }
-        
-          if (editor instanceof YAHOO.widget.DateCellEditor) {
+          if (field.save_as_id) {
+            var label = this._getLabelFromId(field.key, record.getData(field.key));
+            record.setData(field.key, label);
+          }        
+          else if(editor != null && editor instanceof YAHOO.widget.DateCellEditor) {
             var date = MDSS.Calendar.parseDate(record.getData(field.key));
+
             this.myDataTable.updateCell(record, field.key, date);
           }
         }
-        else {
-          var data = record.getData(field.key);
-
-          if(data){
-            var split = data.split('^^^^');
-            
-            if(split.length == 2) {
-              var id = split[1];
-              var displayLabel = split[0];
-              
-              if(this._model.hasRow(index)) {
-                this._model.setData(index, field.key, id);
-                record.setData(field.key, displayLabel);
-              }
-            }
-          }
-        }
-
-        if (field.title) {
-          var th = this.myDataTable.getThEl(this.myDataTable.getColumn(field.key));
+      }
+    },
+    
+    _initializeLabeledValue : function(row, col, record) {
+      var data = record.getData(col);
+      
+      if(data) {
+        var split = data.split('^^^^');
         
-          if(th) {
-            th.title = field.title;
+        if(split.length == 2) {
+          var id = split[1];
+          var displayLabel = split[0];
+          
+          if(this._model.hasRow(row)) {
+            this._model.setData(row, col, id);
+          
+            record.setData(col, displayLabel);
           }
+        
+          return true;
         }
       }
+      
+      return false;
     },
     
     _setUpButtons : function(data) {
@@ -881,34 +856,37 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       }     
     },
     
-    findNext : function(cell,e) {
-      var newCell = null;
-      var nKey = e.keyCode ;
+    _getNextCell : function(cell, e) {
+      var nKey = e.keyCode;
+      
       if(nKey === 13 )//Enter
       {
         if(e.shiftKey) {
-          newCell = this.myDataTable.getAboveTdEl(cell);
+          return this.myDataTable.getAboveTdEl(cell);
         }
-        else{ 
-          newCell = this.myDataTable.getBelowTdEl(cell);
+        else { 
+          return this.myDataTable.getBelowTdEl(cell);
         }
       }
-      else if(nKey === 9)//Tab
+      else if(nKey === 9) //Tab
       {
         if (e.shiftKey) {
-          newCell = this.myDataTable.getPreviousTdEl(cell);
-        } else {
-          newCell = this.myDataTable.getNextTdEl(cell);
+          return this.myDataTable.getPreviousTdEl(cell);
         }
-        while (newCell !== null && (this.myDataTable.getColumn(newCell).editor === null || this.myDataTable.getColumn(newCell).hidden === true)) {
-          if (e.shiftKey) {
-            newCell = this.myDataTable.getPreviousTdEl(newCell);
-          } else {
-            newCell = this.myDataTable.getNextTdEl(newCell);
-          }
+        else {
+          return this.myDataTable.getNextTdEl(cell);
         }
       }
-      return (newCell);
+    },
+    
+    findNext : function(cell, e, includeCurrent) {
+      var nextCell = (includeCurrent ? cell : this._getNextCell(cell, e));
+ 
+      while (nextCell !== null && (this.myDataTable.getColumn(nextCell).editor === null || this.myDataTable.getColumn(nextCell).hidden === true)) {
+        nextCell = this._getNextCell(nextCell, e);
+      }
+      
+      return nextCell;
     },
     
     /***************************************************************************
@@ -916,7 +894,6 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
      * open Enter will close the editor and move down Tab will close the editor
      * and move right. Use the handleTableKeyEvent() to handle the moving Open a
      * new cell editor on the newly focused cell */
-
     editorKeyEvent : function(obj) {
 
       var e = obj.event;
@@ -939,8 +916,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
         try
         {
-          var cell = this.myDataTable.getCellEditor().getTdEl();
-          var nextCell = this.findNext(cell,e);
+          var editor = this.myDataTable.getCellEditor();
+          var cell = editor.getTdEl();
+          
+          var nextCell = this.findNext(cell, e, false);
 
           this.myDataTable.saveCellEditor();
           if (nextCell) {
@@ -954,12 +933,55 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           MojoGrid.cellLock = false;
         }
       }
-
+    },
+    
+    tableKeyEvent : function(obj) {    
+      var e = obj.event;
+    
+      // 9 = tab, 13 = enter
+      if (e.keyCode === 9  || e.keyCode === 13) {    
+        e.preventDefault();
+        YAHOO.util.Event.stopEvent(e);
+    
+        if(MojoGrid.cellLock) {
+          // Avoids multiple Tabs in rapid succession.
+          return;
+        }
+        else {
+          MojoGrid.cellLock = true;
+        }
+    
+        try {
+          var cell = this.getDataTable().getLastSelectedCell();
+    
+          var nextCell = this.findNext(cell, e, true);
+    
+          if (nextCell) {
+            this.myDataTable.unselectAllCells();
+            this.myDataTable.showCellEditor(nextCell);
+            this.myDataTable.selectCell(nextCell);
+          }
+        }
+        finally {
+          MojoGrid.cellLock = false;
+        }
+      }
     },
 
+    _saveHandler : function(oArgs) {
+
+      // Get the current selected cell
+      var cell = this.getDataTable().getLastSelectedCell();
+      
+      this.saveCell(oArgs);
+   
+      // Refocus on the selected cell
+      this.getDataTable().focus();
+      this.getDataTable().selectCell(cell);
+    },
 
     // Save edits back to the original data array
-    _saveHandler : function(oArgs) {
+    saveCell : function(oArgs) {
 
       var record = oArgs.editor.getRecord();
       var editor = oArgs.editor;
@@ -1116,7 +1138,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       var column = this.myDataTable.getColumn(target);
 
       // don't allow editing if column is hidden
-      if(column.hidden)
+      if(column == null || column.hidden)
       {
         return;
       }

@@ -30,7 +30,7 @@ public class DynamicTermDataGrid extends AbstractCompositeGrid implements Reload
 
     ViewDTO[][] t = transpose(data);
 
-    this.terms = TermDTO.getRootChildren(request, className, attributeName, true);
+    this.terms = TermDTO.getSortedRootChildren(request, className, attributeName, true);
     this.attributeName = attributeName;
     this.label = label;
     this.generators = new ViewDataGrid[terms.length];
@@ -55,16 +55,22 @@ public class DynamicTermDataGrid extends AbstractCompositeGrid implements Reload
   @Override
   public List<String> getColumns()
   {
-    List<String> columns = new LinkedList<String>();
-
     List<String> sub = super.getColumns();
 
-    if(sub.size() > 0)
+    if(label != null)
     {
-      columns.add("{label:\"" + label + "\", children:[" + Halp.join(sub, ",") + "]}");
-    }
+      List<String> columns = new LinkedList<String>();
 
-    return columns;
+
+      if(sub.size() > 0)
+      {
+        columns.add("{label:\"" + label + "\", children:[" + Halp.join(sub, ",") + "]}");
+      }
+
+      return columns;
+    }
+    
+    return sub;
   }
 
   @Override

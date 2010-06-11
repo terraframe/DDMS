@@ -146,7 +146,7 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
     List<PupalContainerAmountView> list = new LinkedList<PupalContainerAmountView>();
     Set<PupalContainerAmount> set = new TreeSet<PupalContainerAmount>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
+    for (Term d : Term.getSortedRootChildren(PupalContainerView.getPupaeAmountMd()))
     {
       set.add(new PupalContainerAmount(this.getId(), d.getId()));
     }

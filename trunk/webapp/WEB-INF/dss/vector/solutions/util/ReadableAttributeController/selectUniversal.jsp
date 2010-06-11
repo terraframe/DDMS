@@ -222,12 +222,25 @@
     </dd>
     <dd>
       <mjl:commandLink
-        name="EpiDate"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiDate">
-        <f:message key="Epi_Date"/>
+        name="CaseDiagnosisTypeView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CaseDiagnosisTypeView">
+        <f:message key="Case_Diagnosis_Type"/>
       </mjl:commandLink>    
-    </dd>    
-    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="CaseDiseaseManifestationView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CaseDiseaseManifestationView">
+        <f:message key="Case_Disease_Manifestation"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="CasePatientTypeView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CasePatientTypeView">
+        <f:message key="Case_Patient_Type"/>
+      </mjl:commandLink>    
+    </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Indicator_Survey_Management"/></label></dt>

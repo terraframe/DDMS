@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 2129503848)
+@com.runwaysdk.business.ClassSignature(hash = 476947703)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -29,10 +29,11 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String SURFACEPOSITION = "surfacePosition";
+  public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 2129503848;
+  private static final long serialVersionUID = 476947703;
   
   public EfficacyAssayExcelViewBase()
   {
@@ -468,6 +469,34 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(SURFACEPOSITION, value);
+    }
+  }
+  
+  public String getSurfaceType()
+  {
+    return getValue(SURFACETYPE);
+  }
+  
+  public void validateSurfaceType()
+  {
+    this.validateAttribute(SURFACETYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurfaceTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(SURFACETYPE);
+  }
+  
+  public void setSurfaceType(String value)
+  {
+    if(value == null)
+    {
+      setValue(SURFACETYPE, "");
+    }
+    else
+    {
+      setValue(SURFACETYPE, value);
     }
   }
   

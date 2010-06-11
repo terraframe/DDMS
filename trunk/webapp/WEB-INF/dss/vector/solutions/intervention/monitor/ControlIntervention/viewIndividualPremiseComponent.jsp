@@ -11,9 +11,11 @@
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodViewDTO"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-<c:set var="page_title" value="premises_units_visit"  scope="request"/>
-
-<div id="premises"></div>
+<mjl:component item="${view}" param="dto">
+  <mjl:dt attribute="individulPremiseUniversal">
+    <div id="premises"></div>
+  </mjl:dt>
+</mjl:component>
 
 <hr />
 

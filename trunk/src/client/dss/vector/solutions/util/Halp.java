@@ -277,9 +277,14 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
     String label = term.getTermDisplayLabel().getValue();
     String id = term.getId();
 
-    return label + "^^^^" + id;
+    return Halp.getLabeledValue(label, id);
   }
 
+  public static String getLabeledValue(String label, String value)
+  {
+    return label + "^^^^" + value;
+  }
+  
   private static JSONObject getLabeledPair(String label, String value)
   {
     JSONObject object = new JSONObject();

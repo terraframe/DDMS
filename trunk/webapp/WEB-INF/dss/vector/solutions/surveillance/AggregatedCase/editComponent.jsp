@@ -11,7 +11,14 @@
 <%@page import="dss.vector.solutions.surveillance.CaseTreatmentViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CaseDiagnosticViewDTO"%>
-<%@page import="dss.vector.solutions.surveillance.CaseReferralViewDTO"%><mjl:messages>
+<%@page import="dss.vector.solutions.surveillance.CaseReferralViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseStockReferralViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CasePatientTypeAmountViewDTO"%>
+<%@page import="dss.vector.solutions.surveillance.CasePatientTypeViewDTO"%><mjl:messages>
   <mjl:message />
 </mjl:messages>
 
@@ -63,9 +70,13 @@
       
     </mjl:component>
 
+    <div id="diagnosisType"></div>
+    <div id="diseaseManifestation"></div>
+    <div id="patientType"></div>
     <div id="treatment"></div>
     <div id="method"></div>
     <div id="stock"></div>
+    <div id="stockReferral"></div>
     <div id="referral"></div>
     <div id="diagnostic"></div>
     
@@ -83,9 +94,13 @@
   DataGrid stock = (DataGrid) request.getAttribute("stock");
   DataGrid referral = (DataGrid) request.getAttribute("referral");
   DataGrid diagnostic = (DataGrid) request.getAttribute("diagnostic");
+  DataGrid stockReferral = (DataGrid) request.getAttribute("stockReferral");
+  DataGrid diagnosisType = (DataGrid) request.getAttribute("diagnosisType");
+  DataGrid diseaseManifestation = (DataGrid) request.getAttribute("diseaseManifestation");
+  DataGrid patientType = (DataGrid) request.getAttribute("patientType");
 %>
 
-<%=Halp.loadTypes(new String[]{AggregatedCaseViewDTO.CLASS, CaseTreatmentViewDTO.CLASS, CaseTreatmentMethodViewDTO.CLASS, CaseTreatmentStockViewDTO.CLASS, CaseDiagnosticViewDTO.CLASS, CaseReferralViewDTO.CLASS}) %>
+<%=Halp.loadTypes(new String[]{AggregatedCaseViewDTO.CLASS, CaseTreatmentViewDTO.CLASS, CaseTreatmentMethodViewDTO.CLASS, CaseTreatmentStockViewDTO.CLASS, CaseDiagnosticViewDTO.CLASS, CaseReferralViewDTO.CLASS, CaseStockReferralViewDTO.CLASS, CaseDiagnosisTypeViewDTO.CLASS, CaseDiagnosisTypeAmountViewDTO.CLASS, CaseDiseaseManifestationViewDTO.CLASS, CaseDiseaseManifestationAmountViewDTO.CLASS, CasePatientTypeViewDTO.CLASS, CasePatientTypeAmountViewDTO.CLASS}) %>
 
 <script type="text/javascript">
 Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
@@ -167,8 +182,14 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
       }
     },
 
+    lock : function() {
+      this._saveButton.set("disabled", true);
+      this._cancelButton.set("disabled", true);      
+      this._deleteButton.set("disabled", true);      
+    },
+
     view : function() {
-      this._saveButton.set("disabled", true);        
+      this.lock();
       this.submitForm("dss.vector.solutions.surveillance.AggregatedCaseController.view.mojo");
     },
 
@@ -195,10 +216,13 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
       for(var i in this._grids) {
         var grid = this._grids[i];
 
-        params.push(grid.getParameters()[0]);
+        var parameters = grid.getParameters();
+        for(var j in parameters) {
+          params.push(parameters[j]);
+        }
       }
 
-      component.applyAll(request, params[0], params[1], params[2], params[3], params[4]);
+      component.applyAll(request, params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9], params[10], params[11]);
     }
   }
 });
@@ -266,7 +290,55 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
         
     var diagnosticGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diagnostic.getMetadata()%>), <%=diagnostic.getData()%>, null), diagnosticData);
 
-    var grids = [treatmentGrid, methodGrid, stockGrid, diagnosticGrid, referralGrid];
+    // SETUP THE stockReferral DATA GRID
+    var stockReferralData = {
+      columnDefs:<%=stockReferral.getColumns()%>,
+      defaults:<%=stockReferral.getDefaultValues()%>,
+      div_id: "stockReferral",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var stockReferralGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=stockReferral.getMetadata()%>), <%=stockReferral.getData()%>, null), stockReferralData);
+
+    // SETUP THE diagnosisType DATA GRID
+    var diagnosisTypeData = {
+      columnDefs:<%=diagnosisType.getColumns()%>,
+      defaults:<%=diagnosisType.getDefaultValues()%>,
+      div_id: "diagnosisType",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var diagnosisTypeGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diagnosisType.getMetadata()%>), <%=diagnosisType.getData()%>, null), diagnosisTypeData);
+
+    // SETUP THE diseaseManifestation DATA GRID
+    var diseaseManifestationData = {
+      columnDefs:<%=diseaseManifestation.getColumns()%>,
+      defaults:<%=diseaseManifestation.getDefaultValues()%>,
+      div_id: "diseaseManifestation",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var diseaseManifestationGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diseaseManifestation.getMetadata()%>), <%=diseaseManifestation.getData()%>, null), diseaseManifestationData);
+
+    // SETUP THE patientType DATA GRID
+    var patientTypeData = {
+      columnDefs:<%=patientType.getColumns()%>,
+      defaults:<%=patientType.getDefaultValues()%>,
+      div_id: "patientType",
+      excelButtons:false,
+      addButton:false,
+      saveButton:false
+    };
+        
+    var patientTypeGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=patientType.getMetadata()%>), <%=patientType.getData()%>, null), patientTypeData);
+
+    var grids = [treatmentGrid, methodGrid, stockGrid, diagnosticGrid, referralGrid, stockReferralGrid, diagnosisTypeGrid, diseaseManifestationGrid, patientTypeGrid];
       
     var _form = new MDSS.AggregatedCaseForm(grids);    
   });

@@ -278,7 +278,6 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
         if(data.col == 'Shape') {
           var row = data.row;
           var value = data.value;
-          var dataTable = grid.getDataTable();
 
           if(value == '') {              
             grid.setData(row, 'Height', '');
@@ -295,8 +294,6 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
             grid.setData(row, 'OpeningWidth', '');
             grid.setData(row, 'OpeningLength', '');
           }
-
-          dataTable.render();
         }
       }
     };

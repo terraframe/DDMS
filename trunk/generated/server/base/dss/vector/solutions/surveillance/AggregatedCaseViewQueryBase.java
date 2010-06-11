@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 1210100652)
+@com.runwaysdk.business.ClassSignature(hash = -1949012980)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.surveillance;
 public  abstract  class AggregatedCaseViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1210100652;
+private static final long serialVersionUID = -1949012980;
 
   public AggregatedCaseViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -45,6 +45,25 @@ private static final long serialVersionUID = 1210100652;
     return (dss.vector.solutions.surveillance.AggregatedAgeGroupQuery.AggregatedAgeGroupQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.AGEGROUP, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnosisType()
+  {
+    return getCaseDiagnosisType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnosisType(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDIAGNOSISTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnosisType(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDIAGNOSISTYPE, alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiagnostic()
   {
     return getCaseDiagnostic(null);
@@ -64,6 +83,44 @@ private static final long serialVersionUID = 1210100652;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDIAGNOSTIC, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiseaseManifestation()
+  {
+    return getCaseDiseaseManifestation(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiseaseManifestation(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDISEASEMANIFESTATION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseDiseaseManifestation(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEDISEASEMANIFESTATION, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCasePatientType()
+  {
+    return getCasePatientType(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCasePatientType(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEPATIENTTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCasePatientType(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEPATIENTTYPE, alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseReferrals()
   {
     return getCaseReferrals(null);
@@ -81,6 +138,25 @@ private static final long serialVersionUID = 1210100652;
   {
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASEREFERRALS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStockReferral()
+  {
+    return getCaseStockReferral(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStockReferral(String alias)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASESTOCKREFERRAL, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStockReferral(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.surveillance.AggregatedCaseView.CASESTOCKREFERRAL, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getCaseStocks()

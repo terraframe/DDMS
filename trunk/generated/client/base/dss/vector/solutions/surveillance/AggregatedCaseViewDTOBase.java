@@ -1,10 +1,10 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -1768717707)
+@com.runwaysdk.business.ClassSignature(hash = 1802563861)
 public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseView";
-  private static final long serialVersionUID = -1768717707;
+  private static final long serialVersionUID = 1802563861;
   
   protected AggregatedCaseViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,8 +17,12 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
   }
   
   public static java.lang.String AGEGROUP = "ageGroup";
+  public static java.lang.String CASEDIAGNOSISTYPE = "caseDiagnosisType";
   public static java.lang.String CASEDIAGNOSTIC = "caseDiagnostic";
+  public static java.lang.String CASEDISEASEMANIFESTATION = "caseDiseaseManifestation";
+  public static java.lang.String CASEPATIENTTYPE = "casePatientType";
   public static java.lang.String CASEREFERRALS = "caseReferrals";
+  public static java.lang.String CASESTOCKREFERRAL = "caseStockReferral";
   public static java.lang.String CASESTOCKS = "caseStocks";
   public static java.lang.String CASETREATMENTMETHOD = "caseTreatmentMethod";
   public static java.lang.String CASETREATMENTS = "caseTreatments";
@@ -75,6 +79,50 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(AGEGROUP).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getCaseDiagnosisType()
+  {
+    if(getValue(CASEDIAGNOSISTYPE) == null || getValue(CASEDIAGNOSISTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEDIAGNOSISTYPE));
+    }
+  }
+  
+  public void setCaseDiagnosisType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CASEDIAGNOSISTYPE, "");
+    }
+    else
+    {
+      setValue(CASEDIAGNOSISTYPE, value.getId());
+    }
+  }
+  
+  public boolean isCaseDiagnosisTypeWritable()
+  {
+    return isWritable(CASEDIAGNOSISTYPE);
+  }
+  
+  public boolean isCaseDiagnosisTypeReadable()
+  {
+    return isReadable(CASEDIAGNOSISTYPE);
+  }
+  
+  public boolean isCaseDiagnosisTypeModified()
+  {
+    return isModified(CASEDIAGNOSISTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCaseDiagnosisTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEDIAGNOSISTYPE).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.ontology.TermDTO getCaseDiagnostic()
   {
     if(getValue(CASEDIAGNOSTIC) == null || getValue(CASEDIAGNOSTIC).trim().equals(""))
@@ -119,6 +167,94 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEDIAGNOSTIC).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getCaseDiseaseManifestation()
+  {
+    if(getValue(CASEDISEASEMANIFESTATION) == null || getValue(CASEDISEASEMANIFESTATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEDISEASEMANIFESTATION));
+    }
+  }
+  
+  public void setCaseDiseaseManifestation(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CASEDISEASEMANIFESTATION, "");
+    }
+    else
+    {
+      setValue(CASEDISEASEMANIFESTATION, value.getId());
+    }
+  }
+  
+  public boolean isCaseDiseaseManifestationWritable()
+  {
+    return isWritable(CASEDISEASEMANIFESTATION);
+  }
+  
+  public boolean isCaseDiseaseManifestationReadable()
+  {
+    return isReadable(CASEDISEASEMANIFESTATION);
+  }
+  
+  public boolean isCaseDiseaseManifestationModified()
+  {
+    return isModified(CASEDISEASEMANIFESTATION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCaseDiseaseManifestationMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEDISEASEMANIFESTATION).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getCasePatientType()
+  {
+    if(getValue(CASEPATIENTTYPE) == null || getValue(CASEPATIENTTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASEPATIENTTYPE));
+    }
+  }
+  
+  public void setCasePatientType(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CASEPATIENTTYPE, "");
+    }
+    else
+    {
+      setValue(CASEPATIENTTYPE, value.getId());
+    }
+  }
+  
+  public boolean isCasePatientTypeWritable()
+  {
+    return isWritable(CASEPATIENTTYPE);
+  }
+  
+  public boolean isCasePatientTypeReadable()
+  {
+    return isReadable(CASEPATIENTTYPE);
+  }
+  
+  public boolean isCasePatientTypeModified()
+  {
+    return isModified(CASEPATIENTTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCasePatientTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEPATIENTTYPE).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.ontology.TermDTO getCaseReferrals()
   {
     if(getValue(CASEREFERRALS) == null || getValue(CASEREFERRALS).trim().equals(""))
@@ -161,6 +297,50 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCaseReferralsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASEREFERRALS).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getCaseStockReferral()
+  {
+    if(getValue(CASESTOCKREFERRAL) == null || getValue(CASESTOCKREFERRAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CASESTOCKREFERRAL));
+    }
+  }
+  
+  public void setCaseStockReferral(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CASESTOCKREFERRAL, "");
+    }
+    else
+    {
+      setValue(CASESTOCKREFERRAL, value.getId());
+    }
+  }
+  
+  public boolean isCaseStockReferralWritable()
+  {
+    return isWritable(CASESTOCKREFERRAL);
+  }
+  
+  public boolean isCaseStockReferralReadable()
+  {
+    return isReadable(CASESTOCKREFERRAL);
+  }
+  
+  public boolean isCaseStockReferralModified()
+  {
+    return isModified(CASESTOCKREFERRAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCaseStockReferralMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CASESTOCKREFERRAL).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getCaseStocks()
@@ -598,18 +778,18 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(STARTDATE).getAttributeMdDTO();
   }
   
-  public final void applyAll(dss.vector.solutions.surveillance.CaseTreatmentViewDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockViewDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticViewDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralViewDTO[] referrals)
+  public final void applyAll(dss.vector.solutions.surveillance.CaseTreatmentViewDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockViewDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticViewDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralViewDTO[] referrals, dss.vector.solutions.surveillance.CaseStockReferralViewDTO[] stockReferrals, dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO[] diagnosticTypes, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountViewDTO[][] diagnosticTypeAmounts, dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO[] diseaseManifestations, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountViewDTO[][] diseaseManifestationAmounts, dss.vector.solutions.surveillance.CasePatientTypeViewDTO[] patientTypes, dss.vector.solutions.surveillance.CasePatientTypeAmountViewDTO[][] patientTypeAmounts)
   {
-    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.surveillance.CaseTreatmentView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentMethodView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentStockView;", "[Ldss.vector.solutions.surveillance.CaseDiagnosticView;", "[Ldss.vector.solutions.surveillance.CaseReferralView;"};
-    Object[] _parameters = new Object[]{treatments, treatmentMethods, stock, diagnosticMethods, referrals};
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.surveillance.CaseTreatmentView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentMethodView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentStockView;", "[Ldss.vector.solutions.surveillance.CaseDiagnosticView;", "[Ldss.vector.solutions.surveillance.CaseReferralView;", "[Ldss.vector.solutions.surveillance.CaseStockReferralView;", "[Ldss.vector.solutions.surveillance.CaseDiagnosisTypeView;", "[[Ldss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView;", "[Ldss.vector.solutions.surveillance.CaseDiseaseManifestationView;", "[[Ldss.vector.solutions.surveillance.CaseDiseaseManifestationAmountView;", "[Ldss.vector.solutions.surveillance.CasePatientTypeView;", "[[Ldss.vector.solutions.surveillance.CasePatientTypeAmountView;"};
+    Object[] _parameters = new Object[]{treatments, treatmentMethods, stock, diagnosticMethods, referrals, stockReferrals, diagnosticTypes, diagnosticTypeAmounts, diseaseManifestations, diseaseManifestationAmounts, patientTypes, patientTypeAmounts};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "applyAll", _declaredTypes);
     getRequest().invokeMethod(_metadata, this, _parameters);
   }
   
-  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.surveillance.CaseTreatmentViewDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockViewDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticViewDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralViewDTO[] referrals)
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.surveillance.CaseTreatmentViewDTO[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockViewDTO[] stock, dss.vector.solutions.surveillance.CaseDiagnosticViewDTO[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralViewDTO[] referrals, dss.vector.solutions.surveillance.CaseStockReferralViewDTO[] stockReferrals, dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO[] diagnosticTypes, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountViewDTO[][] diagnosticTypeAmounts, dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO[] diseaseManifestations, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountViewDTO[][] diseaseManifestationAmounts, dss.vector.solutions.surveillance.CasePatientTypeViewDTO[] patientTypes, dss.vector.solutions.surveillance.CasePatientTypeAmountViewDTO[][] patientTypeAmounts)
   {
-    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.surveillance.CaseTreatmentView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentMethodView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentStockView;", "[Ldss.vector.solutions.surveillance.CaseDiagnosticView;", "[Ldss.vector.solutions.surveillance.CaseReferralView;"};
-    Object[] _parameters = new Object[]{id, treatments, treatmentMethods, stock, diagnosticMethods, referrals};
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.surveillance.CaseTreatmentView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentMethodView;", "[Ldss.vector.solutions.surveillance.CaseTreatmentStockView;", "[Ldss.vector.solutions.surveillance.CaseDiagnosticView;", "[Ldss.vector.solutions.surveillance.CaseReferralView;", "[Ldss.vector.solutions.surveillance.CaseStockReferralView;", "[Ldss.vector.solutions.surveillance.CaseDiagnosisTypeView;", "[[Ldss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView;", "[Ldss.vector.solutions.surveillance.CaseDiseaseManifestationView;", "[[Ldss.vector.solutions.surveillance.CaseDiseaseManifestationAmountView;", "[Ldss.vector.solutions.surveillance.CasePatientTypeView;", "[[Ldss.vector.solutions.surveillance.CasePatientTypeAmountView;"};
+    Object[] _parameters = new Object[]{id, treatments, treatmentMethods, stock, diagnosticMethods, referrals, stockReferrals, diagnosticTypes, diagnosticTypeAmounts, diseaseManifestations, diseaseManifestationAmounts, patientTypes, patientTypeAmounts};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "applyAll", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
@@ -646,6 +826,54 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     return (dss.vector.solutions.surveillance.CaseDiagnosticViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public final dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO[] getDiagnosticTypes()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getDiagnosticTypes", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO[] getDiagnosticTypes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getDiagnosticTypes", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO[] getDiseaseManifestations()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getDiseaseManifestations", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO[] getDiseaseManifestations(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getDiseaseManifestations", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.CasePatientTypeViewDTO[] getPatientTypes()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getPatientTypes", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CasePatientTypeViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CasePatientTypeViewDTO[] getPatientTypes(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getPatientTypes", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CasePatientTypeViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public final dss.vector.solutions.surveillance.CaseReferralViewDTO[] getReferrals()
   {
     String[] _declaredTypes = new String[]{};
@@ -660,6 +888,22 @@ public abstract class AggregatedCaseViewDTOBase extends com.runwaysdk.business.V
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getReferrals", _declaredTypes);
     return (dss.vector.solutions.surveillance.CaseReferralViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.surveillance.CaseStockReferralViewDTO[] getStockReferrals()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getStockReferrals", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseStockReferralViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseStockReferralViewDTO[] getStockReferrals(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.surveillance.AggregatedCaseViewDTO.CLASS, "getStockReferrals", _declaredTypes);
+    return (dss.vector.solutions.surveillance.CaseStockReferralViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO[] getTreatmentMethods()

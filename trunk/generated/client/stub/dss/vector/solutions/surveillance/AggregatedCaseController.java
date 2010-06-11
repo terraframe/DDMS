@@ -284,6 +284,10 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     req.setAttribute("stock", new CaseStockGridBuilder(clientRequest, view, readonly).build());
     req.setAttribute("referral", new CaseReferralGridBuilder(clientRequest, view, readonly).build());
     req.setAttribute("diagnostic", new CaseDiagnosticGridBuilder(clientRequest, view, readonly).build());
+    req.setAttribute("stockReferral", new CaseStockReferralGridBuilder(clientRequest, view, readonly).build());
+    req.setAttribute("diagnosisType", new CaseDiagnosisTypeGridBuilder(clientRequest, view, readonly).build());
+    req.setAttribute("diseaseManifestation", new CaseDiseaseManifestationGridBuilder(clientRequest, view, readonly).build());
+    req.setAttribute("patientType", new CasePatientTypeGridBuilder(clientRequest, view, readonly).build());
   }
 
   @Override

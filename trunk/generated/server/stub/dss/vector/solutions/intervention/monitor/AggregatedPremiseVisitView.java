@@ -118,7 +118,7 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
     List<AggregatedPremiseReasonView> list = new LinkedList<AggregatedPremiseReasonView>();
     Set<AggregatedPremiseReason> set = new TreeSet<AggregatedPremiseReason>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd()))
+    for (Term d : Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd()))
     {
       set.add(new AggregatedPremiseReason(this.getId(), d.getId()));
     }
@@ -156,7 +156,7 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
     List<AggregatedPremiseMethodView> list = new LinkedList<AggregatedPremiseMethodView>();
     Set<AggregatedPremiseMethod> set = new TreeSet<AggregatedPremiseMethod>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd()))
+    for (Term d : Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd()))
     {
       set.add(new AggregatedPremiseMethod(this.getId(), d.getId()));
     }

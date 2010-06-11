@@ -13,6 +13,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
+import dss.vector.solutions.util.Halp;
 
 public class YUILabeledEditor extends YUIEditor implements Reloadable
 {
@@ -60,7 +61,7 @@ public class YUILabeledEditor extends YUIEditor implements Reloadable
   {
     LabeledDTO labeled = (LabeledDTO) object;
 
-    return labeled.getOptionId();
+    return Halp.getLabeledValue(labeled.getLabel(), labeled.getOptionId());
   }
 
   @Override

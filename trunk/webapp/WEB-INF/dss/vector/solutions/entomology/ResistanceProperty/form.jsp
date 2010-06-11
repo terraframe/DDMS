@@ -5,9 +5,11 @@
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="displayLabel">
     ${item.displayLabel}
+    <mjl:input type="hidden" param="displayLabel" value="${item.displayLabel}" />
   </mjl:dt>
   <mjl:dt attribute="description">
     ${item.description}
+    <mjl:input type="hidden" param="description" value="${item.description}" />
   </mjl:dt>
   <mjl:dt attribute="propertyValue">
     <mjl:input param="propertyValue" type="text" />

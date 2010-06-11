@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1538331038)
+@com.runwaysdk.business.ClassSignature(hash = -631998078)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1538331038;
+  private static final long serialVersionUID = -631998078;
   
   public TermBase()
   {
@@ -864,6 +864,135 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
+  public dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount addCaseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisType caseDiagnosisType)
+  {
+    return (dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount) addParent(caseDiagnosisType, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+  }
+  
+  public void removeCaseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisType caseDiagnosisType)
+  {
+    removeAllParents(caseDiagnosisType, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnosisType> getAllCaseDiagnosisTypes()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnosisType>) getParents(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount> getAllCaseDiagnosisTypesRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount>) getParentRelationships(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount getCaseDiagnosisTypesRel(dss.vector.solutions.surveillance.CaseDiagnosisType caseDiagnosisType)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount>) getRelationshipsWithParent(caseDiagnosisType, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmount.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount addCaseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestation caseDiseaseManifestation)
+  {
+    return (dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount) addParent(caseDiseaseManifestation, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+  }
+  
+  public void removeCaseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestation caseDiseaseManifestation)
+  {
+    removeAllParents(caseDiseaseManifestation, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestation> getAllCaseDiseaseManifestations()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestation>) getParents(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount> getAllCaseDiseaseManifestationsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount>) getParentRelationships(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount getCaseDiseaseManifestationsRel(dss.vector.solutions.surveillance.CaseDiseaseManifestation caseDiseaseManifestation)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount>) getRelationshipsWithParent(caseDiseaseManifestation, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmount.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.surveillance.CasePatientTypeAmount addCasePatientTypes(dss.vector.solutions.surveillance.CasePatientType casePatientType)
+  {
+    return (dss.vector.solutions.surveillance.CasePatientTypeAmount) addParent(casePatientType, dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+  }
+  
+  public void removeCasePatientTypes(dss.vector.solutions.surveillance.CasePatientType casePatientType)
+  {
+    removeAllParents(casePatientType, dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CasePatientType> getAllCasePatientTypes()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CasePatientType>) getParents(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CasePatientTypeAmount> getAllCasePatientTypesRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CasePatientTypeAmount>) getParentRelationships(dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.surveillance.CasePatientTypeAmount getCasePatientTypesRel(dss.vector.solutions.surveillance.CasePatientType casePatientType)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CasePatientTypeAmount> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.surveillance.CasePatientTypeAmount>) getRelationshipsWithParent(casePatientType, dss.vector.solutions.surveillance.CasePatientTypeAmount.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
   public dss.vector.solutions.intervention.monitor.IPTDose addDoseAggregatedIPTs(dss.vector.solutions.intervention.monitor.AggregatedIPT aggregatedIPT)
   {
     return (dss.vector.solutions.intervention.monitor.IPTDose) addParent(aggregatedIPT, dss.vector.solutions.intervention.monitor.IPTDose.CLASS);
@@ -1585,6 +1714,12 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   }
   
   public static dss.vector.solutions.ontology.TermViewQuery getRoots(java.lang.String relationshipType)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.ontology.Term[] getSortedRootChildren(java.lang.String className, java.lang.String attributeName, java.lang.Boolean returnOnlySelectable)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

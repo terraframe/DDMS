@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -2094677986)
+@com.runwaysdk.business.ClassSignature(hash = 263710722)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = -2094677986;
+  private static final long serialVersionUID = 263710722;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -811,6 +811,14 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final dss.vector.solutions.ontology.TermDTO[] getSortedRootChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName, java.lang.Boolean returnOnlySelectable)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{className, attributeName, returnOnlySelectable};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "getSortedRootChildren", _declaredTypes);
+    return (dss.vector.solutions.ontology.TermDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final dss.vector.solutions.ontology.TermViewDTO getTermById(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String termId, java.lang.String[] parameters)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "[Ljava.lang.String;"};
@@ -1313,6 +1321,168 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
   public static void removeAllAggregatedPremiseReasons(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO> getAllCaseDiagnosisTypes()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO> getAllCaseDiagnosisTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO> getAllCaseDiagnosisTypesRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO> getAllCaseDiagnosisTypesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO addCaseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO addCaseDiagnosisTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  public void removeCaseDiagnosisTypes(dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeCaseDiagnosisTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllCaseDiagnosisTypes()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  public static void removeAllCaseDiagnosisTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO> getAllCaseDiseaseManifestations()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO> getAllCaseDiseaseManifestations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO> getAllCaseDiseaseManifestationsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO> getAllCaseDiseaseManifestationsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO addCaseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO addCaseDiseaseManifestations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  public void removeCaseDiseaseManifestations(dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeCaseDiseaseManifestations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllCaseDiseaseManifestations()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  public static void removeAllCaseDiseaseManifestations(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeDTO> getAllCasePatientTypes()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeDTO> getAllCasePatientTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeDTO>) clientRequestIF.getParents(id, dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeAmountDTO> getAllCasePatientTypesRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeAmountDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeAmountDTO> getAllCasePatientTypesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.surveillance.CasePatientTypeAmountDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.surveillance.CasePatientTypeAmountDTO addCasePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.CasePatientTypeAmountDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.surveillance.CasePatientTypeAmountDTO addCasePatientTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.surveillance.CasePatientTypeDTO parent)
+  {
+    return (dss.vector.solutions.surveillance.CasePatientTypeAmountDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  public void removeCasePatientTypes(dss.vector.solutions.surveillance.CasePatientTypeAmountDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeCasePatientTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.surveillance.CasePatientTypeAmountDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllCasePatientTypes()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
+  }
+  
+  public static void removeAllCasePatientTypes(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.surveillance.CasePatientTypeAmountDTO.CLASS);
   }
   
   @SuppressWarnings("unchecked")

@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = 1012752629)
+@com.runwaysdk.business.ClassSignature(hash = 1862823829)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,8 +12,12 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
 {
   public final static String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseView";
   public static java.lang.String AGEGROUP = "ageGroup";
+  public static java.lang.String CASEDIAGNOSISTYPE = "caseDiagnosisType";
   public static java.lang.String CASEDIAGNOSTIC = "caseDiagnostic";
+  public static java.lang.String CASEDISEASEMANIFESTATION = "caseDiseaseManifestation";
+  public static java.lang.String CASEPATIENTTYPE = "casePatientType";
   public static java.lang.String CASEREFERRALS = "caseReferrals";
+  public static java.lang.String CASESTOCKREFERRAL = "caseStockReferral";
   public static java.lang.String CASESTOCKS = "caseStocks";
   public static java.lang.String CASETREATMENTMETHOD = "caseTreatmentMethod";
   public static java.lang.String CASETREATMENTS = "caseTreatments";
@@ -26,7 +30,7 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
   public static java.lang.String NEGATIVECASES = "negativeCases";
   public static java.lang.String POSITIVECASES = "positiveCases";
   public static java.lang.String STARTDATE = "startDate";
-  private static final long serialVersionUID = 1012752629;
+  private static final long serialVersionUID = 1862823829;
   
   public AggregatedCaseViewBase()
   {
@@ -68,6 +72,41 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public dss.vector.solutions.ontology.Term getCaseDiagnosisType()
+  {
+    if (getValue(CASEDIAGNOSISTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASEDIAGNOSISTYPE));
+    }
+  }
+  
+  public void validateCaseDiagnosisType()
+  {
+    this.validateAttribute(CASEDIAGNOSISTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseDiagnosisTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
+    return mdClassIF.definesAttribute(CASEDIAGNOSISTYPE);
+  }
+  
+  public void setCaseDiagnosisType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(CASEDIAGNOSISTYPE, "");
+    }
+    else
+    {
+      setValue(CASEDIAGNOSISTYPE, value.getId());
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getCaseDiagnostic()
   {
     if (getValue(CASEDIAGNOSTIC).trim().equals(""))
@@ -103,6 +142,76 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public dss.vector.solutions.ontology.Term getCaseDiseaseManifestation()
+  {
+    if (getValue(CASEDISEASEMANIFESTATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASEDISEASEMANIFESTATION));
+    }
+  }
+  
+  public void validateCaseDiseaseManifestation()
+  {
+    this.validateAttribute(CASEDISEASEMANIFESTATION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseDiseaseManifestationMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
+    return mdClassIF.definesAttribute(CASEDISEASEMANIFESTATION);
+  }
+  
+  public void setCaseDiseaseManifestation(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(CASEDISEASEMANIFESTATION, "");
+    }
+    else
+    {
+      setValue(CASEDISEASEMANIFESTATION, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getCasePatientType()
+  {
+    if (getValue(CASEPATIENTTYPE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASEPATIENTTYPE));
+    }
+  }
+  
+  public void validateCasePatientType()
+  {
+    this.validateAttribute(CASEPATIENTTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasePatientTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
+    return mdClassIF.definesAttribute(CASEPATIENTTYPE);
+  }
+  
+  public void setCasePatientType(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(CASEPATIENTTYPE, "");
+    }
+    else
+    {
+      setValue(CASEPATIENTTYPE, value.getId());
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getCaseReferrals()
   {
     if (getValue(CASEREFERRALS).trim().equals(""))
@@ -135,6 +244,41 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(CASEREFERRALS, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getCaseStockReferral()
+  {
+    if (getValue(CASESTOCKREFERRAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CASESTOCKREFERRAL));
+    }
+  }
+  
+  public void validateCaseStockReferral()
+  {
+    this.validateAttribute(CASESTOCKREFERRAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseStockReferralMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.surveillance.AggregatedCaseView.CLASS);
+    return mdClassIF.definesAttribute(CASESTOCKREFERRAL);
+  }
+  
+  public void setCaseStockReferral(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(CASESTOCKREFERRAL, "");
+    }
+    else
+    {
+      setValue(CASESTOCKREFERRAL, value.getId());
     }
   }
   
@@ -500,16 +644,16 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     return (AggregatedCaseView) com.runwaysdk.business.View.get(id);
   }
   
-  public void applyAll(dss.vector.solutions.surveillance.CaseTreatmentView[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodView[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockView[] stock, dss.vector.solutions.surveillance.CaseDiagnosticView[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralView[] referrals)
+  public void applyAll(dss.vector.solutions.surveillance.CaseTreatmentView[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodView[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockView[] stock, dss.vector.solutions.surveillance.CaseDiagnosticView[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralView[] referrals, dss.vector.solutions.surveillance.CaseStockReferralView[] stockReferrals, dss.vector.solutions.surveillance.CaseDiagnosisTypeView[] diagnosticTypes, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView[][] diagnosticTypeAmounts, dss.vector.solutions.surveillance.CaseDiseaseManifestationView[] diseaseManifestations, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountView[][] diseaseManifestationAmounts, dss.vector.solutions.surveillance.CasePatientTypeView[] patientTypes, dss.vector.solutions.surveillance.CasePatientTypeAmountView[][] patientTypeAmounts)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final void applyAll(java.lang.String id, dss.vector.solutions.surveillance.CaseTreatmentView[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodView[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockView[] stock, dss.vector.solutions.surveillance.CaseDiagnosticView[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralView[] referrals)
+  public static final void applyAll(java.lang.String id, dss.vector.solutions.surveillance.CaseTreatmentView[] treatments, dss.vector.solutions.surveillance.CaseTreatmentMethodView[] treatmentMethods, dss.vector.solutions.surveillance.CaseTreatmentStockView[] stock, dss.vector.solutions.surveillance.CaseDiagnosticView[] diagnosticMethods, dss.vector.solutions.surveillance.CaseReferralView[] referrals, dss.vector.solutions.surveillance.CaseStockReferralView[] stockReferrals, dss.vector.solutions.surveillance.CaseDiagnosisTypeView[] diagnosticTypes, dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView[][] diagnosticTypeAmounts, dss.vector.solutions.surveillance.CaseDiseaseManifestationView[] diseaseManifestations, dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountView[][] diseaseManifestationAmounts, dss.vector.solutions.surveillance.CasePatientTypeView[] patientTypes, dss.vector.solutions.surveillance.CasePatientTypeAmountView[][] patientTypeAmounts)
   {
     AggregatedCaseView _instance = AggregatedCaseView.get(id);
-    _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals);
+    _instance.applyAll(treatments, treatmentMethods, stock, diagnosticMethods, referrals, stockReferrals, diagnosticTypes, diagnosticTypeAmounts, diseaseManifestations, diseaseManifestationAmounts, patientTypes, patientTypeAmounts);
   }
   
   public void deleteConcrete()
@@ -536,6 +680,42 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
     return _instance.getDiagnosticMethods();
   }
   
+  public dss.vector.solutions.surveillance.CaseDiagnosisTypeView[] getDiagnosticTypes()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseDiagnosisTypeView[] getDiagnosticTypes(java.lang.String id)
+  {
+    AggregatedCaseView _instance = AggregatedCaseView.get(id);
+    return _instance.getDiagnosticTypes();
+  }
+  
+  public dss.vector.solutions.surveillance.CaseDiseaseManifestationView[] getDiseaseManifestations()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseDiseaseManifestationView[] getDiseaseManifestations(java.lang.String id)
+  {
+    AggregatedCaseView _instance = AggregatedCaseView.get(id);
+    return _instance.getDiseaseManifestations();
+  }
+  
+  public dss.vector.solutions.surveillance.CasePatientTypeView[] getPatientTypes()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CasePatientTypeView[] getPatientTypes(java.lang.String id)
+  {
+    AggregatedCaseView _instance = AggregatedCaseView.get(id);
+    return _instance.getPatientTypes();
+  }
+  
   public dss.vector.solutions.surveillance.CaseReferralView[] getReferrals()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
@@ -546,6 +726,18 @@ public abstract class AggregatedCaseViewBase extends com.runwaysdk.business.View
   {
     AggregatedCaseView _instance = AggregatedCaseView.get(id);
     return _instance.getReferrals();
+  }
+  
+  public dss.vector.solutions.surveillance.CaseStockReferralView[] getStockReferrals()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.surveillance.CaseStockReferralView[] getStockReferrals(java.lang.String id)
+  {
+    AggregatedCaseView _instance = AggregatedCaseView.get(id);
+    return _instance.getStockReferrals();
   }
   
   public dss.vector.solutions.surveillance.CaseTreatmentMethodView[] getTreatmentMethods()

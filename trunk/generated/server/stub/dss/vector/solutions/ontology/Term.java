@@ -1083,6 +1083,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, attributeName);
     Set<Term> children = new TreeSet<Term>(new TermComparator());
+
     for (BrowserRootView view : roots)
     {
       Term term = Term.get(view.getTermId());
@@ -1103,14 +1104,71 @@ public class Term extends TermBase implements Reloadable, OptionIF
       {
         children.add(child);
       }
+      
     }
 
     List<Term> sorted = new ArrayList<Term>(children);
-    Collections.sort(sorted, new OptionComparator());
+    Collections.sort(sorted, new OptionComparator(false));
 
     return sorted.toArray(new Term[sorted.size()]);
   }
+  
+  public static Term[] getSortedRootChildren(MdAttributeDAOIF mdAttribute)
+  {
+    String className = mdAttribute.definedByClass().definesType();
 
+    return Term.getSortedRootChildren(className, mdAttribute.definesAttribute(), true);
+  }
+
+
+
+  /**
+   * Returns the directly selectable children of the all roots sorted by (BrowserRoot, TermId)
+   * 
+   * @param className Fully qualified class name which defines the MdAttribute
+   * @param attributeName Name of the MdAttribute
+   * @param returnOnlySelectable Flag denoting if this should only return selectable terms
+   * 
+   * @return
+   */
+  public static Term[] getSortedRootChildren(String className, String attributeName, Boolean returnOnlySelectable)
+  {
+    List<Term> list = new ArrayList<Term>();
+    BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, attributeName);
+    
+    for (BrowserRootView view : roots)
+    {
+      Set<Term> children = new TreeSet<Term>(new TermComparator());
+      
+      Term term = Term.get(view.getTermId());
+      
+      if (returnOnlySelectable)
+      {
+        if (view.getSelectable())
+        {
+          children.add(term);
+        }
+      }
+      else
+      {
+        children.add(term);
+      }
+      
+      for (Term child : term.getAllChildTerm())
+      {
+        children.add(child);
+      }
+      
+      List<Term> sorted = new ArrayList<Term>(children);
+      Collections.sort(sorted, new OptionComparator(false));
+      
+      list.addAll(sorted);
+    }
+    
+    
+    return list.toArray(new Term[list.size()]);
+  }
+  
   /**
    * @param mdAttribute
    * @return Returns selectable roots and every roots direct descendants for a
@@ -1125,9 +1183,14 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   public String getOptionName()
   {
-    return this.getName();
+    return this.getTermDisplayLabel().getValue();
   }
-
+  
+  public String getOptionId()
+  {
+    return this.getTermId();
+  }
+  
   public boolean isLeaf()
   {
     return this.getAllChildTerm().getAll().size() == 0;

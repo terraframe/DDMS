@@ -9,7 +9,11 @@
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-<div id="premises"></div>
+<mjl:component item="${view}" param="dto">
+  <mjl:dt attribute="insecticideIntervention">
+    <div id="premises"></div>
+  </mjl:dt>
+</mjl:component>
 
 <hr />
 
@@ -38,7 +42,7 @@
       grid.setData(index, 'ActiveIngredient', obj.activeIngredient);
       grid.setData(index, 'Amount', obj.amount);
 
-      grid.refresh();
+      grid.focus();
     };
 
     var loadInsecticideLabels = function(index, id) {
@@ -57,7 +61,7 @@
 
             this.cache[this.id] = obj;
 
-            setLabels(this.index, obj);            
+            setLabels(this.index, obj);   
           }
         });
 

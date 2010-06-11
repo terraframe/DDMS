@@ -140,7 +140,7 @@ public class AggregatedCaseView extends AggregatedCaseViewBase implements com.ru
   
   @Override
   @Transaction
-  public void applyAll(CaseTreatmentView[] treatments, CaseTreatmentMethodView[] treatmentMethods, CaseTreatmentStockView[] stock, CaseDiagnosticView[] diagnosticMethods, CaseReferralView[] referrals)
+  public void applyAll(CaseTreatmentView[] treatments, CaseTreatmentMethodView[] treatmentMethods, CaseTreatmentStockView[] stock, CaseDiagnosticView[] diagnosticMethods, CaseReferralView[] referrals, CaseStockReferralView[] stockReferrals, CaseDiagnosisTypeView[] diagnosticTypes, CaseDiagnosisTypeAmountView[][] diagnosticTypeAmounts, CaseDiseaseManifestationView[] diseaseManifestations, CaseDiseaseManifestationAmountView[][] diseaseManifestationAmounts, CasePatientTypeView[] patientTypes, CasePatientTypeAmountView[][] patientTypeAmounts)
   {
     this.apply();
     
@@ -175,6 +175,36 @@ public class AggregatedCaseView extends AggregatedCaseViewBase implements com.ru
       view.setAggregatedCase(concrete);
       view.apply();
     }
+
+    for (CaseStockReferralView view : stockReferrals)
+    {
+      view.setAggregatedCase(concrete);
+      view.apply();
+    }
+
+    for (int i = 0; i < diagnosticTypes.length; i++)
+    {
+      CaseDiagnosisTypeView view = diagnosticTypes[i];
+      view.setAggregatedCase(concrete);
+      
+      view.applyAll(diagnosticTypeAmounts[i]);
+    }
+    
+    for (int i = 0; i < diseaseManifestations.length; i++)
+    {
+      CaseDiseaseManifestationView view = diseaseManifestations[i];
+      view.setAggregatedCase(concrete);
+      
+      view.applyAll(diseaseManifestationAmounts[i]);
+    }
+    
+    for (int i = 0; i < patientTypes.length; i++)
+    {
+      CasePatientTypeView view = patientTypes[i];
+      view.setAggregatedCase(concrete);
+      
+      view.applyAll(patientTypeAmounts[i]);
+    }
   }
 
   public CaseDiagnosticView[] getDiagnosticMethods()
@@ -202,5 +232,28 @@ public class AggregatedCaseView extends AggregatedCaseViewBase implements com.ru
   {
     return CaseTreatmentStockView.getTreatmentStocks(this);
   }
+  
+  @Override
+  public CaseStockReferralView[] getStockReferrals()
+  {
+    return CaseStockReferralView.getReferrals(this);
+  }
+  
+  @Override
+  public CaseDiagnosisTypeView[] getDiagnosticTypes()
+  {
+    return CaseDiagnosisTypeView.getDiagnosisTypes(this);
+  }
+  
+  @Override
+  public CaseDiseaseManifestationView[] getDiseaseManifestations()
+  {
+    return CaseDiseaseManifestationView.getDiseaseManifestations(this);
+  }
 
+  @Override
+  public CasePatientTypeView[] getPatientTypes()
+  {
+    return CasePatientTypeView.getPatientTypes(this);
+  }
 }

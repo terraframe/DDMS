@@ -109,7 +109,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
     List<IndividualPremiseVisitMethodView> list = new LinkedList<IndividualPremiseVisitMethodView>();
     Set<IndividualPremiseVisitMethod> set = new TreeSet<IndividualPremiseVisitMethod>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(IndividualPremiseVisitView.getInterventionMethodMd()))
+    for (Term d : Term.getSortedRootChildren(IndividualPremiseVisitView.getInterventionMethodMd()))
     {
       set.add(new IndividualPremiseVisitMethod(this.getId(), d.getId()));
     }
