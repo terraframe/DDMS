@@ -8,9 +8,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     {
       this.$initialize(queryList);
 
-
-      this._browserClassOverrides = {};
-      
       // list of columns that have bee_visibleAttributeHandlern added before a call to render()
       this._preconfiguredColumns = [];
 
@@ -53,7 +50,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     _getBrowserRootClass : function(attribute)
     {
-      return attribute.getType();
+      return attribute.getType()+'View';
     },
 
     /**
@@ -289,11 +286,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           	
           	if(terms.length > 0)
           	{
-          		
-          		if(this._typeOverride && this._typeOverride[selectable.attribute.getKey()])
-          		{
-          			t = this._typeOverride[selectable.attribute.getKey()];
-          		}
           		//create a new where clause for allpaths
 	          	var termClass = 'dss.vector.solutions.ontology.AllPaths';
 	          	var termAlias = n +'__'+ t.replace(/[.]/g,'_') +'__'+ selectable.attribute.getKey();
@@ -885,6 +877,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       that._toggleVisibility(toggleDiv, visibleUl);
 
       that._attachSelectAll(visibleUl,checkClass);
+var mos = [];
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
@@ -997,22 +990,17 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         if(attribute.getTerm())
         {
           var browserRootClass = this._getBrowserRootClass(attribute);
+          mos.push('['+divName+'] ('+attribute.getDisplayLabel()+') '+attribute.getType()+':'+attribute.getAttributeName());
           
         	li.id = attribute.getKey()+'_li';
         	var n =  attribute.getAttributeName().replace(/.name/,'');
-        	if(this._moUsesView !== false)
-        	{
-        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass + "View", n, true);
-        	}
-        	else
-        	{
-        			this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass , n, true);
-        	}
+          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass, n, true);
         }
 
         visibleUl.appendChild(li);
       }
-
+if(mos.length > 0)
+console.log(mos.join('\n'));
       visibleDiv.appendChild(visibleUl);
       return visibleDiv;
     },

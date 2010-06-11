@@ -46,6 +46,19 @@ Mojo.Meta.newClass('MDSS.QueryImmatureContainerCollection', {
       picker.setSprayTargetAllowed(false);
       },
      
+      _getBrowserRootClass : function(attribute)
+      {
+        var type = attribute.getType();
+        if(type === 'dss.vector.solutions.entomology.PremiseTaxon' ||
+            type === 'dss.vector.solutions.entomology.CollectionPremise')
+        {
+          return 'dss.vector.solutions.entomology.ImmatureCollectionView';
+        }
+        else
+        {
+          return this.$_getBrowserRootClass(attribute);
+        }
+      }
 
     }
 });

@@ -37,8 +37,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       
       this._queryType = this._mainQueryClass;
       
-      this._moUsesView = false;
-
       this.$initialize(selectableGroups, queryList);   
       
       //remove collection from exclusion classes so collection selectables will not be unchecked when switching assay types
@@ -62,7 +60,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         }
         else
         {
-          return type;
+          return attribute.getType();
         }
       },
 				

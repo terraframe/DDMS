@@ -55,6 +55,19 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       var picker = this.getGeoPicker();      
       picker.setPolitical(false);
       picker.setSprayTargetAllowed(true);
+    },
+    
+    _getBrowserRootClass : function(attribute)
+    {
+      var type = attribute.getType();
+      if(type === 'dss.vector.solutions.irs.AbstractSpray')
+      {
+        return 'dss.vector.solutions.irs.OperatorSprayView';
+      }
+      else
+      {
+        return this.$_getBrowserRootClass(attribute);
+      }
     }
 	}
     

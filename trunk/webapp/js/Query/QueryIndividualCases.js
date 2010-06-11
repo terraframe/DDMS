@@ -94,9 +94,6 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
       
       this._queryType = this._mainQueryClass;
       
-      //indivdialinstance does not use a view
-      this._moUsesView = false;
-
       this.$initialize(selectableGroups, queryList);
       
       var picker = this.getGeoPicker();      
@@ -106,7 +103,19 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
  
       },
       
-      
+      _getBrowserRootClass : function(attribute)
+      {
+        var type = attribute.getType();
+        if(type === 'dss.vector.solutions.Person')
+        {
+          return 'dss.vector.solutions.PersonView';
+        }
+        else
+        {
+          return attribute.getType();
+        }
+      }
+
       
 	}
 });

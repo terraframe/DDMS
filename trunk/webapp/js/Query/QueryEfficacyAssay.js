@@ -22,9 +22,6 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       this._dataQueryFunction = dss.vector.solutions.query.QueryBuilder.getQueryResults;
       this._mapQueryFunction  = dss.vector.solutions.query.QueryBuilder.mapQuery;
       
-      this._typeOverride = {'specie_efficacy':dss.vector.solutions.entomology.assay.AbstractAssay.CLASS};
-      
-      
       var efficacyInstance = new this._efficacyAssay();
       
       
@@ -55,6 +52,19 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       var picker = this.getGeoPicker();      
       picker.setPolitical(false);
       picker.setSprayTargetAllowed(false);
+      },
+      
+      _getBrowserRootClass : function(attribute)
+      {
+        var type = attribute.getType();
+        if(type === 'dss.vector.solutions.general.Insecticide')
+        {
+          return type;
+        }
+        else
+        {
+          return this.$_getBrowserRootClass(attribute);
+        }
       }
     }
 });

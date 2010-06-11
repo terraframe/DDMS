@@ -28,6 +28,8 @@ import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.util.QueryUtil;
+
 public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1255379414351L;
@@ -138,7 +140,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attribute);
+    String attrCol = QueryUtil.getColumnName(klass, attribute);
+    SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attrCol);
 
     COUNT count = F.COUNT(attribSelectable, "attributeCount");
 

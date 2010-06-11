@@ -353,12 +353,13 @@ public class IndividualCase extends IndividualCaseBase implements
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualCase.CLASS, caseQuery);
 
-    QueryUtil.leftJoinTermDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery, instanceQuery.getTableAlias()+".id");
+    String idCol = QueryUtil.getIdColumn();
+    QueryUtil.leftJoinTermDisplayLabels(valueQuery, instanceQuery, instanceQuery.getTableAlias()+"."+idCol);
       
     if(valueQuery.hasSelectableRef("healthFacility"))
     {
       SelectableSQLCharacter hf = (SelectableSQLCharacter) valueQuery.getSelectableRef("healthFacility");
-      QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias()+".id");
+      QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias()+"."+idCol);
     }
     
     QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);

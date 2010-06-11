@@ -278,7 +278,7 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
         // left join against the person is person is in this query
         LeftJoinEq leftJoin = personQuery.getSleptUnderNet().LEFT_JOIN_EQ(itnQuery);
         valueQuery.WHERE(leftJoin);
-        QueryUtil.leftJoinTermDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery, itnQuery.getId().getColumnAlias());
+        QueryUtil.leftJoinTermDisplayLabels(valueQuery, itnQuery, itnQuery.getId().getColumnAlias());
         QueryUtil.leftJoinEnumerationDisplayLabels(valueQuery, ITNInstance.CLASS, itnQuery, itnQuery.getId().getColumnAlias());
       }
 

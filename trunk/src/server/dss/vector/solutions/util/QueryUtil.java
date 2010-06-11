@@ -352,21 +352,25 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
+  public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, GeneratedEntityQuery query, String attributeId)
   {
 
-    SelectableSQL[] termAttributes = filterSelectedSelectables(valueQuery, Term.getTermAttributes(klass));
+    MdEntityDAOIF mdEntity = query.getMdClassIF();
+    String type = mdEntity.definesType();
+    SelectableSQL[] termAttributes = filterSelectedSelectables(valueQuery, Term.getTermAttributes(type));
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-    String tableName = MdBusiness.getMdBusiness(klass).getTableName();
+    String tableName = mdEntity.getTableName();
+    String idCol = getIdColumn();
 
     for (SelectableSQL s : Arrays.asList(termAttributes))
     {
       String attrib = s.getColumnAlias();
       attrib = attrib.substring(0, attrib.length() - DISPLAY_LABEL_SUFFIX.length());
-
+      String attrCol = getColumnName(mdEntity, attrib);
+      
       String sql = "SELECT term." + Term.NAME + "  FROM " + tableName + " as t";
-      sql += " LEFT JOIN " + termTable + " as term  on t." + attrib + " = term.id";
-      sql += " WHERE t.id = " + attributeId + "";
+      sql += " LEFT JOIN " + termTable + " as term  on t." + attrCol + " = term."+idCol;
+      sql += " WHERE t."+idCol+" = " + attributeId + "";
 
       s.setSQL(sql);
     }
@@ -551,17 +555,22 @@ public class QueryUtil implements Reloadable
         String table = MdRelationship.getMdEntity(klass).getTableName();
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
+          dss.vector.solutions.ontology.AllPathsQuery apQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+          
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
           String allPathsTable = MdRelationship.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
           
           String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
           String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
-          valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
+//          valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
+          
+          valueQuery.AND(((AttributeReference) attributeQuery.get(attrib_name)).EQ(apQuery.getChildTerm()));
         }
       }
 
     }
+    String sql = valueQuery.getSQL();
     return null;
   }
 
