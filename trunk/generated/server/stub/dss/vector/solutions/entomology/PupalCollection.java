@@ -190,13 +190,15 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-        
+      
+    /*
     boolean needsJoin = false; 
     
     if(pupalContainerQuery == null)
     {
       pupalContainerQuery = new PupalContainerQuery(queryFactory);   
     }
+    */
     
        
     MdEntityDAOIF premiseMd = MdEntityDAO.getMdEntityDAO(PupalPremise.CLASS);
@@ -215,6 +217,10 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     String pupalContainerTable = MdBusiness.getMdBusiness(PupalContainer.CLASS).getTableName();
     String pupalContainerAmmountTable = MdBusiness.getMdEntity(PupalContainerAmount.CLASS).getTableName();
     
+    boolean needsJoin = false; 
+    
+    boolean needsView = false; 
+    
     String taxonSql = "SELECT pc."+id+" ";
     for (Term taxon : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
     {
@@ -224,18 +230,29 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
       
       taxonSql += ",(SELECT "+amount+" FROM "+pupalContainerAmmountTable+" pca WHERE "+child_id+" = '"+taxon.getId()+"'  AND "+parent_id+"  = pc."+id+"  ) AS "+taxonAmmountCol+" ";
            
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+taxonAmmountCol+")/(SELECT SUM("+taxonAmmountCol+") FROM taxonAmountsView )*100.0") || needsJoin;
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_premise_by_taxon", "SUM("+taxonAmmountCol+")/(SUM("+numberExamined+")*100.0") || needsJoin;
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_hectare_by_taxon", "SUM("+taxonAmmountCol+")/(SUM("+premiseSize+")*100.0") || needsJoin;
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_person_per_taxon", "SUM("+taxonAmmountCol+")/(SUM("+numberInhabitants+")*100.0") || needsJoin;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM("+taxonAmmountCol+")/NULLIF(SUM(SUM("+taxonAmmountCol+")) OVER (), 0.0)*100.0") || needsView;
+      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_premise_by_taxon", "SUM("+taxonAmmountCol+")/NULLIF(SUM("+numberExamined+"), 0.0)*100.0") || needsJoin;
+      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_hectare_by_taxon", "SUM("+taxonAmmountCol+")/NULLIF(SUM("+premiseSize+"), 0.0)*100.0") || needsJoin;
+      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_person_per_taxon", "SUM("+taxonAmmountCol+")/NULLIF(SUM("+numberInhabitants+"), 0.0)*100.0") || needsJoin;
     }
     taxonSql +=" FROM "+pupalContainerTable+" AS pc";
     
-    if(needsJoin)
+    if(needsJoin || needsView)
     {
       valueQuery.setSqlPrefix("WITH "+taxonAmountsView+" AS (" + taxonSql + ")");
       valueQuery.AND(new InnerJoinEq("id", pupalContainerTable, pupalContainerQuery.getTableAlias(), "id", taxonAmountsView, taxonAmountsView));
     }
+    
+    
+    if(needsJoin && premiseQuery == null)
+    {
+      
+      premiseQuery = new PupalPremiseQuery(valueQuery);
+      valueQuery.WHERE(premiseQuery.getCollection().EQ(collectionQuery));
+      
+      
+    }
+    
     
     QueryUtil.getSingleAttribteGridSql(valueQuery, pupalContainerQuery.getTableAlias());
     
