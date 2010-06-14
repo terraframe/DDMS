@@ -15,8 +15,6 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryException;
@@ -416,6 +414,9 @@ public class IndividualCase extends IndividualCaseBase implements
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
 
+    Disease disease = Disease.getCurrent();
+    valueQuery.AND(caseQuery.getDisease().EQ(disease));
+    
     return valueQuery;
 
   }

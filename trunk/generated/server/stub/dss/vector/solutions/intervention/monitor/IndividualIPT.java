@@ -20,6 +20,7 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -212,6 +213,9 @@ public class IndividualIPT extends IndividualIPTBase implements com.runwaysdk.ge
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    
+    Disease disease = Disease.getCurrent();
+    valueQuery.AND(individualIPTCaseQuery.getDisease().EQ(disease));
     
     return valueQuery;
 
