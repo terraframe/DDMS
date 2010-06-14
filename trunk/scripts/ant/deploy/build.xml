@@ -1,4 +1,4 @@
-	<project name="MDSS" default="fast_build">
+<project name="MDSS" default="fast_build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/ant/ant-contrib-1.0b3.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="../../../lib/ant/svnant.jar;../../../lib/ant/svnClientAdapter.jar;../../../lib/ant/svnkit.jar;../../../lib/ant/svnjavahl.jar;../../../lib/ant/ganymed.jar;" />
 
@@ -13,7 +13,7 @@
 	<property name="root.user" value="postgres" />
 	<property name="root.pass" value="postgres" />
 	<property name="root.db" value="template_postgis" />
-	<property name="max_memory_use" value="1024m" />
+	<property name="max_memory_use" value="2048M" />
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
@@ -39,7 +39,7 @@
 	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="Build part 1 complete, please refresh and clean" />
 	</target>
-		
+
 	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_menuitems,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
@@ -91,7 +91,7 @@
 			<arg value="deploy_all_application_files" />
 		</java>
 	</target>
-<!--
+	<!--
 	<target name="deploy_incremental_schema_update" depends="" description="Deploy Step 3 - Import Most Recent Schema">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Import Most Recent Schema">
 			<jvmarg value="-Xmx${max_memory_use}" />
@@ -115,7 +115,7 @@
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
-    		<arg value="-Dprofile.name=deploy" />
+			<arg value="-Dprofile.name=deploy" />
 			<arg value="import_most_recent" />
 			<arg value="install_db_procedures" />
 		</java>
@@ -250,18 +250,18 @@
 	</target>
 
 	<target name="deploy_redo_last_schema_change" depends="" description="Undo and Redo the last schmea update">
-			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
-				<jvmarg value="-Xmx${max_memory_use}" />
-				<jvmarg value="-Dmojo.keepSource=true" />
-				<jvmarg value="-DversionNumber=${versionNumber}" />
-				<classpath>
-					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-				</classpath>
-				<arg value="-buildfile" />
-				<arg file="deploy.xml" />
-				<arg value="redo_last_import" />
-			</java>
-		</target>
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<jvmarg value="-DversionNumber=${versionNumber}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="redo_last_import" />
+		</java>
+	</target>
 
 
 	<target name="deploy_change_schema_version" depends="" description="Updates the schema to the given version">
@@ -307,32 +307,52 @@
 		</exec>
 		<delete file="./dump.sql" />
 	</target>
-		
-  <target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema" >
-    <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
-      <jvmarg value="-Xmx${max_memory_use}" />
-      <jvmarg value="-Dmojo.keepSource=true" />
-      <classpath>
-        <pathelement location="${ant.home}/lib/ant-launcher.jar" />
-      </classpath>
-      <arg value="-buildfile" />
-      <arg file="deploy.xml" />
-      <arg value="-Droot.user=${root.user}" />
-      <arg value="-Droot.pass=${root.pass}" />
-      <arg value="-Droot.db=${root.db}" />
 
-      <arg value="rebuild_db" />
-      <arg value="rebuild_model" />
-      <arg value="install_db_procedures" />  	
-    </java>    	
- 	</target>
+	<target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Droot.db=${root.db}" />
+
+			<arg value="rebuild_db" />
+			<arg value="rebuild_model" />
+			<arg value="install_db_procedures" />
+		</java>
+	</target>
+
+	<target name="rebuild_db" description="Rebuilds the database">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Droot.db=${root.db}" />
+
+			<arg value="rebuild_db" />
+		</java>
+	</target>
 
 	<target name="develop_rebuild_import" depends="" description="Development Rebuild All">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=128M" />
 			<jvmarg value="-XX:MaxPermSize=256M" />
+			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" ></pathelement>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar">
+				</pathelement>
 			</classpath>
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
@@ -355,6 +375,19 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="import_working_set" />
+		</java>
+	</target>
+
+	<target name="unimport_working_set" depends="" description="Import Working Set">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-Dmojo.keepSource=true" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="unimport_working_set" />
 		</java>
 	</target>
 
@@ -439,7 +472,7 @@
 	</target>
 
 
-	<target name="write_revision"  description="Writes the current svn revision info to an html file">
+	<target name="write_revision" description="Writes the current svn revision info to an html file">
 		<svn>
 			<info target="../../../" verbose="true" />
 		</svn>
@@ -478,44 +511,44 @@
 		</java>
 	</target>
 
-		<target name="import_ontology" description="imports ontology into the develop db">
-			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
-				<jvmarg value="-Xmx${max_memory_use}" />
-				<classpath>
-					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-				</classpath>
-				<arg value="-buildfile" />
-				<arg file="deploy.xml" />
-				<arg value="-Droot.user=${root.user}" />
-				<arg value="-Droot.pass=${root.pass}" />
-				<arg value="-Dgeodata.db=${geodata.db}" />
-				<arg value="import_ontology" />
-			</java>
-		</target>
+	<target name="import_ontology" description="imports ontology into the develop db">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Dgeodata.db=${geodata.db}" />
+			<arg value="import_ontology" />
+		</java>
+	</target>
 
-		<target name="import_ontology_roots" description="imports ontology roots into the develop db">
-			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
-				<jvmarg value="-Xmx${max_memory_use}" />
-				<classpath>
-					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-				</classpath>
-				<arg value="-buildfile" />
-				<arg file="deploy.xml" />
-				<arg value="import_ontology_roots" />
-			</java>
-		</target>
+	<target name="import_ontology_roots" description="imports ontology roots into the develop db">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="import_ontology_roots" />
+		</java>
+	</target>
 
-		<target name="import_menuitems" description="imports default MenuItems into the develop db">
-			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import_menuitems">
-				<jvmarg value="-Xmx${max_memory_use}" />
-				<classpath>
-					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-				</classpath>
-				<arg value="-buildfile" />
-				<arg file="deploy.xml" />
-				<arg value="import_menuitems" />
-			</java>
-		</target>
+	<target name="import_menuitems" description="imports default MenuItems into the develop db">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import_menuitems">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="import_menuitems" />
+		</java>
+	</target>
 
 	<target name="develop_build_all_paths_geodata" depends="kill_tomcat" description="builds the all paths geo entity table for development">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="develop_build_all_paths_geodata">
@@ -556,7 +589,7 @@
 			<arg value="create_universal_queries" />
 		</java>
 	</target>
-		
+
 	<target name="import_geodata_deploy" depends="" description="imports geodata.db of geodata into the deploy db">
 		<!--<diagnostics/>-->
 		<echo message="NOTICE: your develop/server/database.properties  is backed up as database.properties.bak, if this script does not complete sucessfully you will need to restore it manualy" />

@@ -326,19 +326,19 @@
 	</target>
 
 	<target name="compile_generated">
-		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</iajc>
-		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
@@ -491,7 +491,7 @@
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
 		<!-- You can comment this section out to speed up deploy if you want to use the class files produced by eclipse -->
-		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.5" target="1.5" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${client.bin}" />
@@ -516,7 +516,7 @@
 	</target>
 
 	<target name="export_tomcat_classloader" description="Exports the Tomcat webapp classloader">
-		<copy file="terraframeTomcatLoader.jar" tofile="${deploy.classloader.jar}" />
+		<copy file="runwaySDKTomcatLoader.jar" tofile="${deploy.classloader.jar}" />
 	</target>
 
 	<target name="prepare_web_service" description="Publishes web services to Apache Axis">
@@ -549,31 +549,65 @@
 		<property name="${version.number}" value="0" />
 	</target>
 	
-	<target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema" >
-		
-    <delete>
-        <fileset dir="${model.dir}" includes="**/*.xml" />
-    </delete>   
-		
-		<echo message="Merging model" />
-		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true">
-			<arg value="-dir" />
+	<target name="merge_model_v2_8" description="Creates a freshly merged schema for release 2.8">
+		<echo message="Merging Pre Country Schema (v2.8): (0001238646706000)" />
+		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true" fork="true">
+			<arg value="-timestamp" />
 			<arg value="${version.dir}" />
-			<arg value="${profile.root}/version_gis.xsd"/>
-			<arg value="${model.dir}(0001238646706000)Merge.xml"/>
+			<arg value="${profile.root}/version_gis.xsd" />
+			<arg value="${model.dir}(0001238646706000)Pre_V_Two_Eight.xml" />
+			<arg value="0001238646706001" />
+			<arg value="0001238646707000" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 		</java>
+		<echo message="Merging Post Country Schema (v2.8): (0001238646707003)" />
+		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true"  fork="true">
+			<arg value="-timestamp" />
+			<arg value="${version.dir}" />
+			<arg value="${profile.root}/version_gis.xsd" />
+			<arg value="${model.dir}(0001238646707003)Post_V_Two_Eight.xml" />
+			<arg value="0001238646707002" />
+			<arg value="0001276205063723" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="setup_model" description="Sets up the model directory for importing">
+		<echo message="Cleaning up of model directory" />
+		<delete>
+			<fileset dir="${model.dir}" includes="**/*.xml" excludes="**/*Two_Eight.xml" />
+		</delete>
+		<echo message="Copying over country specific files." />
+		<copy todir="${model.dir}">
+			<fileset dir="${version.dir}" includes="schema(0001238646707001).xml" />
+		</copy>		
+		<echo message="Merging Post Country Schema (v3): ${model.dir}(0001238646707003)PostUniversal.xml" />
+		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true"  fork="true">
+			<arg value="-timestamp" />
+			<arg value="${version.dir}" />
+			<arg value="${profile.root}/version_gis.xsd" />
+			<arg value="${model.dir}(0001238646707004)ReleaseUpdates.xml" />
+			<arg value="0001276205063724" />
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</java>
+	</target>
+	
+	<target name="rebuild_model" depends="setup_model" description="Rebuilds the entire domain model using a freshly merged schema">
 		<echo message="Update domain to the most recent schema" />
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<arg value="${model.dir}" />
-			<arg value="${version.xsd}"/>
+			<arg value="${version.xsd}" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 		</java>
-  </target>
+	</target>
 
 	<target name="import_most_recent" description="Updates the domain model to the most recent schema" depends="get_version_number">
 		<echo message="Update domain to the most recent schema" />
@@ -635,7 +669,6 @@
 	<target name="push_source" depends="">
 		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -651,6 +684,7 @@
 		<diagnostics/>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -674,7 +708,6 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -699,7 +732,6 @@
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
 		<java classname="dss.vector.solutions.ontology.OntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -717,7 +749,6 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -734,7 +765,6 @@
 		-->
 		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -753,7 +783,6 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -774,7 +803,6 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -792,7 +820,6 @@
 		-->
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx1024m" />
-      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -811,7 +838,6 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx1024m" />
-	      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -831,7 +857,6 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx1024m" />
-	      
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -843,7 +868,7 @@
 	<!-- Jar Heavy Client Control Pannel                                     -->
 	<!-- =================================================================== -->
 	<target name="buildControllPannelJar" depends="" description="Builds the controll pannel jar">
-		<javac srcdir="${local.src}" destDir="${local.bin}" source="1.5" target="1.5">
+		<javac srcdir="${local.src}" destDir="${local.bin}" source="1.6" target="1.6">
 			<include name="**/MdssControlPanel.java"/>
 		</javac>
 
