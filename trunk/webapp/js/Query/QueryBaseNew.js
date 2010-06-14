@@ -877,7 +877,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       that._toggleVisibility(toggleDiv, visibleUl);
 
       that._attachSelectAll(visibleUl,checkClass);
-var mos = [];
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
@@ -990,7 +989,6 @@ var mos = [];
         if(attribute.getTerm())
         {
           var browserRootClass = this._getBrowserRootClass(attribute);
-          mos.push('['+divName+'] ('+attribute.getDisplayLabel()+') '+attribute.getType()+':'+attribute.getAttributeName());
           
         	li.id = attribute.getKey()+'_li';
         	var n =  attribute.getAttributeName().replace(/.name/,'');
@@ -999,8 +997,6 @@ var mos = [];
 
         visibleUl.appendChild(li);
       }
-if(mos.length > 0)
-console.log(mos.join('\n'));
       visibleDiv.appendChild(visibleUl);
       return visibleDiv;
     },
