@@ -44,23 +44,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 	private static GeoEntity MUNGULE = GeoEntity.searchByGeoId("23230329");
 
 	private static final boolean CALCULATE_ALL_THRESHOLDS = false;
-
-	MalariaSeason malariaSeason = null;
-	Patient patient = null;
-
-	public void xtestDataCreation() {
-		assertNotNull(patient);
-		assertEquals(496, this.getCaseCount(EGYPT, createDate(2009, Calendar.JANUARY, 1), createDate(2009, Calendar.DECEMBER, 31)));
-		assertEquals(496, this.getCaseCount(EGYPT, createDate(2009, Calendar.AUGUST, 1), createDate(2009, Calendar.AUGUST, 31)));
-		assertEquals(9, this.getCaseCount(EGYPT, createDate(2009, Calendar.AUGUST, 2), createDate(2009, Calendar.AUGUST, 4)));
-	}
-
-	public void xtestMalariaSeasons() {
-		EpiDate[] epiWeeks = malariaSeason.getEpiWeeks();
-		for (int i = 0; i < epiWeeks.length; i++) {
-			System.out.println("" + epiWeeks[i].getPeriod() + ":" + epiWeeks[i].getEpiYear() + " (" + epiWeeks[i].getStartDate() + " -> " + epiWeeks[i].getEndDate() + ") = " + this.getCaseCount(EGYPT, epiWeeks[i].getStartDate(), epiWeeks[i].getEndDate()));
-		}
-	}
+	private static final boolean CREATE_DATA_ONCE = true;
 
 	@Transaction
 	private long getCaseCount(GeoEntity geoEntity, Date startDate, Date endDate) {
@@ -78,7 +62,151 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 		return query.getCount();
 	}
+	
+	private ThresholdCalculationType createCalculationType(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
+		double[] weights = { 2.0d, 1.0d, 0.5d };
+		return this.createCalculationType(caseTypes, t1, t2, 1, 1, 3, weights);
+	}
 
+	private ThresholdCalculationType createCalculationType212(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
+		double[] weights = { 1.0d, 0.5d };
+		return this.createCalculationType(caseTypes, t1, t2, 2, 1, 2, weights);
+	}
+
+	private ThresholdCalculationType createCalculationType224(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
+		double[] weights = { 1.0d, 1.0d, 1.0d, 1.0d };
+		return this.createCalculationType(caseTypes, t1, t2, 2, 2, 4, weights);
+	}
+
+	@Transaction
+	private ThresholdCalculationType createCalculationType(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2, int weeksBefore, int weeksAfter, int priorYears, double[] weights) {
+		ThresholdCalculationType calcType = new ThresholdCalculationType();
+
+		calcType.addCaseTypes(caseTypes);
+		calcType.addT1Method(t1);
+		calcType.addT2Method(t2);
+		calcType.setWeeksBefore(weeksBefore);
+		calcType.setWeeksAfter(weeksAfter);
+		calcType.setPriorYears(priorYears);
+		calcType.setWeights(weights);
+
+		calcType.apply();
+
+		return calcType;
+	}
+
+	private void createIndividualCases(int caseCount, int instanceCount, Date date, Patient patient, GeoEntity geoEntity) {
+		this.createIndividualCases(Disease.getCurrent(), caseCount, instanceCount, date, patient, geoEntity);
+	}
+	
+	private void createIndividualCases(Disease disease, int caseCount, int instanceCount, Date date, Patient patient, GeoEntity geoEntity) {
+		for (int i = 0; i < caseCount; i++) {
+			IndividualCase caseData = this.createIndividualCase(disease, date, patient, geoEntity);
+			this.createIndividualInstance(caseData, date, geoEntity, true);
+			for (int j = 0; j < instanceCount; j++) {
+				this.createIndividualInstance(caseData, date, geoEntity, false);
+			}
+		}
+	}
+
+	private IndividualCase createIndividualCase(Disease disease, Date date, Patient patient, GeoEntity geoEntity) {
+		IndividualCase caseData = new IndividualCase();
+		caseData.setDisease(disease);
+		caseData.setDiagnosisDate(date);
+		caseData.setPatient(patient);
+		caseData.setProbableSource(geoEntity);
+		caseData.setResidence(geoEntity);
+		caseData.apply();
+		return caseData;
+	}
+
+	private IndividualInstance createIndividualInstance(IndividualCase caseData, Date date, GeoEntity geoEntity, boolean active) {
+		IndividualInstance instanceData = new IndividualInstance();
+		instanceData.setIndividualCase(caseData);
+		if (geoEntity instanceof HealthFacility) {
+			instanceData.setHealthFacility((HealthFacility) geoEntity);
+		}
+		instanceData.setActivelyDetected(active);
+		instanceData.setFacilityVisit(date);
+		instanceData.apply();
+		return instanceData;
+	}
+
+	private void createAggregatedCases(int count, Date startDate, Date endDate, GeoEntity geoEntity) {
+		this.createAggregatedCases(Disease.getCurrent(), count, startDate, endDate, geoEntity);
+	}
+	
+	private void createAggregatedCases(Disease disease, int count, Date startDate, Date endDate, GeoEntity geoEntity) {
+		this.createAggregatedCases(disease, 0, count, 0, startDate, endDate, geoEntity);
+	}
+	
+	private void createAggregatedCases(Disease disease, int clinicalCount, int confirmedPositiveCount, int confirmedNegativeCount, Date startDate, Date endDate, GeoEntity geoEntity) {
+		AggregatedCase data = new AggregatedCase();
+		data.setDisease(disease);
+		data.setStartDate(startDate);
+		data.setEndDate(endDate);
+		data.setGeoEntity(geoEntity);
+		data.setAgeGroup(AggregatedAgeGroup.getAll()[0]);
+		data.setCases(clinicalCount);
+		data.setPositiveCases(confirmedPositiveCount);
+		data.setNegativeCases(confirmedNegativeCount);
+		data.apply();
+	}
+
+	@Transaction
+	private void deleteAllTableRecords(String className) {
+		MdEntity biz = MdEntity.getMdEntity(className);
+		biz.deleteAllTableRecords();
+	}
+
+	private static Date createRelativeDate(int year, int month, int day) {
+		return createRelativeCalendar(year, month, day).getTime();
+	}
+
+	private static Date createDate(int year, int month, int day) {
+		return createCalendar(year, month, day).getTime();
+	}
+
+	private static Calendar createCalendar(int year, int month, int day) {
+		Calendar c = Calendar.getInstance();
+		c.clear();
+		c.set(year, month, day);
+		return c;
+	}
+
+	private static Calendar createRelativeCalendar(int year, int month, int day) {
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.YEAR, year);
+		c.add(Calendar.MONTH, month);
+		c.add(Calendar.DAY_OF_MONTH, day);
+		return c;
+	}
+
+	private void assertThresholds(boolean checkPolitical, int week, int year, ThresholdData td, int t1, int t2) {
+		assertNotNull(td);
+		WeeklyThreshold weeklyThreshold = td.getEpiWeeksRel(EpiWeek.getEpiWeek(week, year));
+		assertNotNull(weeklyThreshold);
+		if (checkPolitical) {
+			assertNotNull(weeklyThreshold.getIdentification());
+			assertEquals(t1, (int) weeklyThreshold.getNotification());
+			assertNotNull(weeklyThreshold.getNotification());
+			assertEquals(t2, (int) weeklyThreshold.getIdentification());
+		} else {
+			assertNotNull(weeklyThreshold.getFacilityIdentification());
+			assertEquals(t1, (int) weeklyThreshold.getFacilityNotification());
+			assertNotNull(weeklyThreshold.getFacilityNotification());
+			assertEquals(t2, (int) weeklyThreshold.getFacilityIdentification());
+		}
+	}
+	
+	private void output(String message) {
+		System.out.println(new Date() + ": " + message);
+	}
+	
+/******************************************************************************/
+/*                   TEST DATA CREATION METHODS START HERE                    */
+/******************************************************************************/
+	
 	@Transaction
 	private void createData() {
 		output("Creating Data...");
@@ -103,7 +231,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		this.deleteAllTableRecords(ThresholdCalculationType.CLASS);
 		this.deleteAllTableRecords(WeeklyThreshold.CLASS);
 
-		malariaSeason = new MalariaSeason();
+		MalariaSeason malariaSeason = new MalariaSeason();
 		malariaSeason.setSeasonName("Threshold Calculation Test Season");
 		malariaSeason.setStartDate(createDate(2010, Calendar.NOVEMBER, 1));
 		malariaSeason.setEndDate(createDate(2010, Calendar.DECEMBER, 31));
@@ -116,7 +244,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		person.setDateOfBirth(createDate(1968, Calendar.OCTOBER, 25));
 		person.apply();
 
-		patient = new Patient();
+		Patient patient = new Patient();
 		patient.setPerson(person);
 		patient.apply();
 
@@ -244,7 +372,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		this.deleteAllTableRecords(ThresholdCalculationType.CLASS);
 		this.deleteAllTableRecords(WeeklyThreshold.CLASS);
 
-		malariaSeason = new MalariaSeason();
+		MalariaSeason malariaSeason = new MalariaSeason();
 		malariaSeason.setSeasonName("Threshold Calculation Test Season");
 		malariaSeason.setStartDate(createDate(2010, Calendar.JANUARY, 1));
 		malariaSeason.setEndDate(createDate(2010, Calendar.FEBRUARY, 28));
@@ -257,7 +385,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		person.setDateOfBirth(createDate(1968, Calendar.OCTOBER, 25));
 		person.apply();
 
-		patient = new Patient();
+		Patient patient = new Patient();
 		patient.setPerson(person);
 		patient.apply();
 
@@ -304,7 +432,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		this.deleteAllTableRecords(ThresholdCalculationType.CLASS);
 		this.deleteAllTableRecords(WeeklyThreshold.CLASS);
 
-		malariaSeason = new MalariaSeason();
+		MalariaSeason malariaSeason = new MalariaSeason();
 		malariaSeason.setSeasonName("Season 2009");
 		malariaSeason.setStartDate(createDate(2009, Calendar.OCTOBER, 1));
 		malariaSeason.setEndDate(createDate(2010, Calendar.MAY, 31));
@@ -317,7 +445,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		person.setDateOfBirth(createDate(1968, Calendar.OCTOBER, 25));
 		person.apply();
 
-		patient = new Patient();
+		Patient patient = new Patient();
 		patient.setPerson(person);
 		patient.apply();
 
@@ -402,6 +530,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
+/******************************************************************************/
+/*                         OLD TESTS START HERE                               */
+/******************************************************************************/
 	@Transaction
 	public void xtestCalculateBenPoliticalIndividualMeanThresholds() {
 		output("Calculating Ben's Political Individual Mean Thresholds...");
@@ -482,153 +613,24 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		// And to allow manual testing
 	}
 
-	private ThresholdCalculationType createCalculationType(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
-		double[] weights = { 2.0d, 1.0d, 0.5d };
-		return this.createCalculationType(caseTypes, t1, t2, 1, 1, 3, weights);
-	}
-
-	private ThresholdCalculationType createCalculationType212(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
-		double[] weights = { 1.0d, 0.5d };
-		return this.createCalculationType(caseTypes, t1, t2, 2, 1, 2, weights);
-	}
-
-	private ThresholdCalculationType createCalculationType224(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
-		double[] weights = { 1.0d, 1.0d, 1.0d, 1.0d };
-		return this.createCalculationType(caseTypes, t1, t2, 2, 2, 4, weights);
-	}
-
-	private ThresholdCalculationType createCalculationType(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2, int weeksBefore, int weeksAfter, int priorYears, double[] weights) {
-		ThresholdCalculationType calcType = new ThresholdCalculationType();
-
-		calcType.addCaseTypes(caseTypes);
-		calcType.addT1Method(t1);
-		calcType.addT2Method(t2);
-		calcType.setWeeksBefore(weeksBefore);
-		calcType.setWeeksAfter(weeksAfter);
-		calcType.setPriorYears(priorYears);
-		calcType.setWeights(weights);
-
-		calcType.apply();
-
-		return calcType;
-	}
-
-	private void assertThresholds(boolean checkPolitical, int week, int year, ThresholdData td, int t1, int t2) {
-		assertNotNull(td);
-		WeeklyThreshold weeklyThreshold = td.getEpiWeeksRel(EpiWeek.getEpiWeek(week, year));
-		assertNotNull(weeklyThreshold);
-		if (checkPolitical) {
-			assertNotNull(weeklyThreshold.getIdentification());
-			assertEquals(t1, (int) weeklyThreshold.getNotification());
-			assertNotNull(weeklyThreshold.getNotification());
-			assertEquals(t2, (int) weeklyThreshold.getIdentification());
-		} else {
-			assertNotNull(weeklyThreshold.getFacilityIdentification());
-			assertEquals(t1, (int) weeklyThreshold.getFacilityNotification());
-			assertNotNull(weeklyThreshold.getFacilityNotification());
-			assertEquals(t2, (int) weeklyThreshold.getFacilityIdentification());
-		}
-	}
-
-	private void createIndividualCases(int caseCount, int instanceCount, Date date, Patient patient, GeoEntity geoEntity) {
-		this.createIndividualCases(Disease.getCurrent(), caseCount, instanceCount, date, patient, geoEntity);
-	}
-	
-	private void createIndividualCases(Disease disease, int caseCount, int instanceCount, Date date, Patient patient, GeoEntity geoEntity) {
-		for (int i = 0; i < caseCount; i++) {
-			IndividualCase caseData = this.createIndividualCase(disease, date, patient, geoEntity);
-			this.createIndividualInstance(caseData, date, geoEntity, true);
-			for (int j = 0; j < instanceCount; j++) {
-				this.createIndividualInstance(caseData, date, geoEntity, false);
-			}
-		}
-	}
-
-	private IndividualCase createIndividualCase(Disease disease, Date date, Patient patient, GeoEntity geoEntity) {
-		IndividualCase caseData = new IndividualCase();
-		caseData.setDisease(disease);
-		caseData.setDiagnosisDate(date);
-		caseData.setPatient(patient);
-		caseData.setProbableSource(geoEntity);
-		caseData.setResidence(geoEntity);
-		caseData.apply();
-		return caseData;
-	}
-
-	private IndividualInstance createIndividualInstance(IndividualCase caseData, Date date, GeoEntity geoEntity, boolean active) {
-		IndividualInstance instanceData = new IndividualInstance();
-		instanceData.setIndividualCase(caseData);
-		if (geoEntity instanceof HealthFacility) {
-			instanceData.setHealthFacility((HealthFacility) geoEntity);
-		}
-		instanceData.setActivelyDetected(active);
-		instanceData.setFacilityVisit(date);
-		instanceData.apply();
-		return instanceData;
-	}
-
-	private void createAggregatedCases(Disease disease, int count, Date startDate, Date endDate, GeoEntity geoEntity) {
-		AggregatedCase data = new AggregatedCase();
-		data.setDisease(disease);
-		data.setStartDate(startDate);
-		data.setEndDate(endDate);
-		data.setGeoEntity(geoEntity);
-		data.setAgeGroup(AggregatedAgeGroup.getAll()[0]);
-		data.setCases(count);
-		data.setPositiveCases(count);
-		data.apply();
-	}
-	
-	private void createAggregatedCases(int count, Date startDate, Date endDate, GeoEntity geoEntity) {
-		this.createAggregatedCases(Disease.getCurrent(), count, startDate, endDate, geoEntity);
-	}
-
-	@Transaction
-	private void deleteAllTableRecords(String className) {
-		MdEntity biz = MdEntity.getMdEntity(className);
-		biz.deleteAllTableRecords();
-	}
-
-	private static Date createRelativeDate(int year, int month, int day) {
-		return createRelativeCalendar(year, month, day).getTime();
-	}
-
-	private static Date createDate(int year, int month, int day) {
-		return createCalendar(year, month, day).getTime();
-	}
-
-	private static Calendar createCalendar(int year, int month, int day) {
-		Calendar c = Calendar.getInstance();
-		c.clear();
-		c.set(year, month, day);
-		return c;
-	}
-
-	private static Calendar createRelativeCalendar(int year, int month, int day) {
-		Calendar c = Calendar.getInstance();
-		c.add(Calendar.YEAR, year);
-		c.add(Calendar.MONTH, month);
-		c.add(Calendar.DAY_OF_MONTH, day);
-		return c;
-	}
-
-	private void output(String message) {
-		System.out.println(new Date() + ": " + message);
-	}
-
-	/******************************************************************************/
-	/* TESTS START HERE */
-	/******************************************************************************/
+/******************************************************************************/
+/*                            TESTS START HERE                                */
+/******************************************************************************/
 
 	@StartSession 
 	public void testCreateData(String sessionId) {
+		
 		System.out.println(Disease.getCurrent());
-		this.createData();
+		if (CREATE_DATA_ONCE) {
+			this.createData();
+		}
 	}
 	
 	@StartSession
 	public void testCalculatePoliticalIndividualMeanThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Political Individual Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -643,7 +645,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculatePoliticalIndividualQuartileThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Political Individual Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -658,7 +662,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculatePoliticalIndividualBinomialThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Political Individual Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -673,7 +679,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculatePoliticalAggregatedMeanThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Political Aggregated Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -688,7 +696,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculatePoliticalAggregatedQuartileThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Political Aggregated Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -703,7 +713,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculatePoliticalAggregatedBinomialThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Political Aggregated Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -718,7 +730,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculateFacilityIndividualMeanThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Facility Individual Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -733,7 +747,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculateFacilityIndividualQuartileThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Facility Individual Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -748,7 +764,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculateFacilityIndividualBinomialThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Facility Individual Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -763,7 +781,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculateFacilityAggregatedMeanThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Facility Aggregated Mean Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -778,7 +798,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculateFacilityAggregatedQuartileThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Facility Aggregated Quartile Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE, ThresholdCalculationMethod.UPPER_THIRD_QUARTILE);
 		if (!CALCULATE_ALL_THRESHOLDS) {
@@ -793,7 +815,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	@StartSession
 	public void testCalculateFacilityAggregatedBinomialThresholds(String sessionId) {
-		//this.createData();
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
 		output("Calculating Facility Aggregated Binomial Thresholds...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.AGGREGATED, ThresholdCalculationMethod.BINOMIAL_95, ThresholdCalculationMethod.BINOMIAL_99);
 		if (!CALCULATE_ALL_THRESHOLDS) {

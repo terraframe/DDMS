@@ -29,7 +29,7 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 	}
 
 	@Transaction
-	protected long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
+	protected double getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
 		IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
 		
 		query.WHERE(query.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
@@ -38,7 +38,7 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 		query.AND(query.getFacilityVisit().LE(finalDate));
 		query.AND(query.getActivelyDetected().EQ(false));
 
-		return query.getCount();
+		return (double) query.getCount();
 	}
 	
 	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {

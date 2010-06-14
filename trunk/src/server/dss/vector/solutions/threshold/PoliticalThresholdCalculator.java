@@ -29,7 +29,7 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 	}
 
 	@Transaction
-	protected long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
+	protected double getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
 		IndividualCaseQuery query = new IndividualCaseQuery(factory);
 
 		query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
@@ -37,7 +37,7 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		query.AND(query.getDiagnosisDate().GE(initialDate));
 		query.AND(query.getDiagnosisDate().LE(finalDate));
 
-		return query.getCount();
+		return (double) query.getCount();
 	}
 
 	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {

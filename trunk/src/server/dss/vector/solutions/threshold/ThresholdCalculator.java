@@ -123,7 +123,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 
 	protected abstract GeoEntityQuery getRelatedEntitiesQuery(GeoEntity geoEntity, QueryFactory factory);
 
-	protected abstract long getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
+	protected abstract double getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
 
 	protected abstract void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2);
 
@@ -160,8 +160,8 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 
 	@Transaction
 	protected void calculateThresholds(ThresholdCalculationPeriod calculationPeriod, GeoEntity geoEntity) {
-		ThresholdCalculationMethod t1Method = calculationType.getT1Method().get(0);
-		ThresholdCalculationMethod t2Method = calculationType.getT2Method().get(0);
+		ThresholdCalculationMethod t1Method = this.calculationType.getT1Method().get(0);
+		ThresholdCalculationMethod t2Method = this.calculationType.getT2Method().get(0);
 
 		System.out.println("Calculating thresholds: " + calculationPeriod.startingEpiWeek.getActualPeriod() + "/" + calculationPeriod.startingEpiWeek.getActualYear() + " - " + calculationPeriod.endingEpiWeek.getActualPeriod() + "/" + calculationPeriod.endingEpiWeek.getActualYear());
 		if (!calculationPeriod.startingEpiWeek.getEndDate().after(calculationPeriod.endingEpiWeek.getEndDate())) {
@@ -171,20 +171,20 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 				int year = currentEpiWeek.getActualYear();
 
 				// Find the start and end dates for each year
-				Date[] yearlyInitialDates = new Date[calculationType.getPriorYears()];
-				Date[] yearlyFinalDates = new Date[calculationType.getPriorYears()];
-				for (int i = 0; i < calculationType.getPriorYears(); i++) {
+				Date[] yearlyInitialDates = new Date[this.calculationType.getPriorYears()];
+				Date[] yearlyFinalDates = new Date[this.calculationType.getPriorYears()];
+				for (int i = 0; i < this.calculationType.getPriorYears(); i++) {
 					int thisYear = year - i - 1;
 					EpiDate selectedWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, thisYear);
 
 					EpiDate initialWeek = selectedWeek;
-					for (int j = 0; j < calculationType.getWeeksBefore(); j++) {
+					for (int j = 0; j < this.calculationType.getWeeksBefore(); j++) {
 						initialWeek = initialWeek.getPrevious();
 					}
 					yearlyInitialDates[i] = initialWeek.getStartDate();
 
 					EpiDate finalWeek = selectedWeek;
-					for (int j = 0; j < calculationType.getWeeksAfter(); j++) {
+					for (int j = 0; j < this.calculationType.getWeeksAfter(); j++) {
 						finalWeek = finalWeek.getNext();
 					}
 					yearlyFinalDates[i] = finalWeek.getEndDate();
@@ -246,26 +246,26 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 
 	@Transaction
 	protected double[] calculateWeightedSeasonalMeans(GeoEntity geoEntity, Date[] yearlyInitialDates, Date[] yearlyFinalDates) {
-		double[] weightedSeasonalMeans = new double[calculationType.getPriorYears()];
+		double[] weightedSeasonalMeans = new double[this.calculationType.getPriorYears()];
 		double sumOfWeights = 0d;
-		for (int i = 0; i < calculationType.getPriorYears(); i++) {
-			sumOfWeights += calculationType.getWeights()[i];
+		for (int i = 0; i < this.calculationType.getPriorYears(); i++) {
+			sumOfWeights += this.calculationType.getWeights()[i];
 		}
 
 		QueryFactory factory = new QueryFactory();
 		GeoEntityQuery entityQuery = this.getRelatedEntitiesQuery(geoEntity, factory);
 
 		// For EACH year from now-1 to now-1-priorYears
-		for (int i = 0; i < calculationType.getPriorYears(); i++) {
-			long totalCases = 0;
-			if (calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.INDIVIDUAL) || calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.BOTH)) {
+		for (int i = 0; i < this.calculationType.getPriorYears(); i++) {
+			double totalCases = 0.0d;
+			if (this.calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.INDIVIDUAL) || this.calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.BOTH)) {
 				totalCases += this.getIndividualCount(factory, entityQuery, yearlyInitialDates[i], yearlyFinalDates[i]);
 			}
-			if (calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.AGGREGATED) || calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.BOTH)) {
+			if (this.calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.AGGREGATED) || this.calculationType.getCaseTypes().contains(ThresholdCalculationCaseTypes.BOTH)) {
 				totalCases += this.getAggregatedCount(factory, entityQuery, yearlyInitialDates[i], yearlyFinalDates[i]);
 			}
-			double seasonalMean = (double) totalCases / (double) (calculationType.getWeeksBefore() + calculationType.getWeeksAfter() + 1);
-			weightedSeasonalMeans[i] = seasonalMean * calculationType.getWeights()[i] * (double) calculationType.getPriorYears() / sumOfWeights;
+			double seasonalMean = totalCases / (double) (this.calculationType.getWeeksBefore() + this.calculationType.getWeeksAfter() + 1);
+			weightedSeasonalMeans[i] = seasonalMean * this.calculationType.getWeights()[i] * (double) this.calculationType.getPriorYears() / sumOfWeights;
 
 			// System.out.println("COUNT for " + thisYear + " (" +
 			// initialWeek.getStartDate() + "-" + finalWeek.getEndDate() +
@@ -347,7 +347,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 
 		if (weeklyThreshold != null) {
 			this.setThresholdValues(weeklyThreshold, t1, t2);
-			weeklyThreshold.setCalculationType(calculationType);
+			weeklyThreshold.setCalculationType(this.calculationType);
 			weeklyThreshold.apply();
 		}
 	}
@@ -368,13 +368,15 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 	}
 
 	@Transaction
-	protected long getAggregatedCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
+	protected double getAggregatedCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
 		ValueQuery valueQuery = new ValueQuery(factory);
 		AggregatedCaseQuery caseQuery = new AggregatedCaseQuery(factory);
 
 		// System.out.println("From: " + initialWeek.getStartDate());
 		// System.out.println("  To: " + finalWeek.getEndDate());
-		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "cases"));
+		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));
+		valueQuery.SELECT(F.SUM(caseQuery.getPositiveCases(), "positiveCases"));
+		valueQuery.SELECT(F.SUM(caseQuery.getNegativeCases(), "negativeCases"));
 		valueQuery.WHERE(caseQuery.getDisease().EQ(Disease.getCurrent()));
 		valueQuery.AND(caseQuery.getGeoEntity().EQ(entityQuery));
 		valueQuery.AND(caseQuery.getStartDate().GE(initialDate));
@@ -383,15 +385,30 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 		valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate", caseQuery.getStartDate().getDbQualifiedName() + "+ interval '6 days'")));
 		valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(), caseQuery.getStartDate().getDefiningTableAlias());
 
-		long sum = 0;
+		long sumClinicalCases = 0l;
+		long sumPositiveCases = 0l;
+		long sumNegativeCases = 0l;
 		for (ValueObject valueObject : valueQuery.getIterator()) {
-			String valueString = valueObject.getValue("cases");
-			if (valueString.length() > 0) {
-				long value = Long.parseLong(valueString);
-				// System.out.println(value);
-				sum += value;
-			}
+			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
+			sumPositiveCases += this.getValue(valueObject, "positiveCases");
+			sumNegativeCases += this.getValue(valueObject, "negativeCases");
 		}
-		return sum;
+		
+		double ratio = 1.0d;
+		
+		if (sumPositiveCases + sumNegativeCases > 0) {
+			ratio = ((double) (sumPositiveCases)) / ((double) (sumPositiveCases + sumNegativeCases));
+		}
+		
+		return (double) sumPositiveCases + ((double) sumClinicalCases * ratio);
+	}
+	
+	private long getValue(ValueObject valueObject, String key) {
+		long value = 0;
+		String valueString = valueObject.getValue(key);
+		if (valueString.length() > 0) {
+			value = Long.parseLong(valueString);
+		}
+		return value;
 	}
 }
