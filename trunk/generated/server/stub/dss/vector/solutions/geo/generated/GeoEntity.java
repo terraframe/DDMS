@@ -1960,32 +1960,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     return toString;
   }
 
-  public String getOutbreakAlert()
-  {
-    try
-    {
-      GeoHierarchyProperty property = (GeoHierarchyProperty) GeoHierarchyProperty.get(GeoHierarchyProperty.CLASS, PropertyInfo.EPIDEMIC_UNIVERSAL);
-
-      GeoHierarchy hierarchy = property.getGeoHierarchy();
-
-      if (hierarchy != null)
-      {
-        String universalType = hierarchy.getGeoEntityClass().definesType();
-
-        if (GeoHierarchy.isAncestor(this.getType(), universalType))
-        {
-          return MDSSProperties.getString("Epidemic");
-        }
-      }
-    }
-    catch (DataNotFoundException e)
-    {
-      // Do nothing
-    }
-
-    return MDSSProperties.getString("Outbreak");
-  }
-
   /**
    * Returns all attributes that reference the GeoEntity class.
    * 
