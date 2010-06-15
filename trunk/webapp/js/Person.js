@@ -107,7 +107,9 @@ Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
     
         var id = this._concrete.value;
     
-        this.controller.editRecipient(request, id);
+        var action = this.getAction();
+        
+        action(request, id);
       }
     },
     
@@ -118,7 +120,7 @@ Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
     
       this._currentModal = new YAHOO.widget.Panel(this._id,  {
          width: '400px',
-         height: '600px',
+         height: '770px',
          fixedcenter:true,
          close:false,
          draggable:false,
