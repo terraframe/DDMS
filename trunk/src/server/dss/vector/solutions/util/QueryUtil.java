@@ -98,6 +98,8 @@ public class QueryUtil implements Reloadable
   public static final String  DATEGROUP_SEASON             = "dategroup_season";
 
   public static final String  DUMMY_RELATIONSHIP_VALUE_ONE = "one";
+  
+  public static final String  DUMMY_RELATIONSHIP_VALUE_COL = "1";
 
   public static final String  START_DATE_RANGE             = "start_date_range";
 
@@ -523,7 +525,7 @@ public class QueryUtil implements Reloadable
           // here we make a dummy value when the relationship has no ammount
           if (attrib.equals(DUMMY_RELATIONSHIP_VALUE_ONE))
           {
-            attrib = "1";
+            attrib = DUMMY_RELATIONSHIP_VALUE_COL;
           }
 
           String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
@@ -531,7 +533,16 @@ public class QueryUtil implements Reloadable
 
           MdEntityDAOIF mdRel = MdEntityDAO.getMdEntityDAO(klass);
           String table = mdRel.getTableName();
-          String attrCol = getColumnName(mdRel, attrib);
+          
+          String attrCol;
+          if(attrib.equals(DUMMY_RELATIONSHIP_VALUE_COL))
+          {
+            attrCol = DUMMY_RELATIONSHIP_VALUE_COL;
+          }
+          else
+          {
+            attrCol = getColumnName(mdRel, attrib);
+          }
           
           String sql = "SELECT " + attrCol + " FROM " + table + " WHERE "+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + term_id + "' " 
             + "AND "+RelationshipDAOIF.PARENT_ID_COLUMN+" = " + tableAlias + ".id";
