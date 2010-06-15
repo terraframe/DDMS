@@ -1198,14 +1198,6 @@
               name="DELETE" />
           </mdViewPermission>
           <mdViewPermission
-            type="dss.vector.solutions.general.ThresholdDataView">
-            <mdMethodPermission
-              methodName="setThresholdConfiguration">
-              <operation
-                name="EXECUTE" />
-            </mdMethodPermission>
-          </mdViewPermission>
-          <mdViewPermission
             type="dss.vector.solutions.util.ReadableAttributeView">
             <operation
               name="CREATE" />

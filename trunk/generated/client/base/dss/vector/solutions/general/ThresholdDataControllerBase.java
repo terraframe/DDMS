@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 66262653)
+@com.runwaysdk.business.ClassSignature(hash = 307450889)
 public class ThresholdDataControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.general.ThresholdDataController";
@@ -10,7 +10,7 @@ public class ThresholdDataControllerBase implements com.runwaysdk.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 66262653;
+  private static final long serialVersionUID = 307450889;
   
   public ThresholdDataControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -179,15 +179,15 @@ public class ThresholdDataControllerBase implements com.runwaysdk.generation.loa
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failSearchForThresholdData");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation", post=true)
-  public void setThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation", post=true)
+  public void setThresholdConfiguration(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:universal, java.lang.String:calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation", post=true)
-  public void failSetThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod, dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.general.ThresholdCalculationTypeViewDTO:thresholdCalculation", post=true)
+  public void failSetThresholdConfiguration(dss.vector.solutions.general.ThresholdCalculationTypeViewDTO thresholdCalculation) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.general.ThresholdDataController.failSetThresholdConfiguration");

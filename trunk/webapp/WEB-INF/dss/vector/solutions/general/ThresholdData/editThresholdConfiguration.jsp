@@ -16,23 +16,23 @@
 
 <mjl:form name="ThresholdData.search.mojo" method="POST" id="threshold.form">
   <dl>
-    <dt>
-      <label>${thresholdCalculation.countingMethodMd.displayLabel}</label>
-    </dt>
-    <dd>
-      <mjl:group type="radio" var="current" valueAttribute="enumName" varStatus="status" items="${methods}" param="calulationMethod">
-       <mjl:groupOption checked="${((status.index == 0 && thresholdCalculation.countingMethod) || (status.index == 1 && !thresholdCalculation.countingMethod)) ? 'checked' : 'false'}">
-          ${current.displayLabel}
-       </mjl:groupOption>
-      </mjl:group>
-    </dd>
     <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">    
-      <mjl:dt attribute="epidemicUniversal">
-        <mjl:select var="current" valueAttribute="geoHierarchyId" param="epidemicUniversal" items="${views}">
-          <mjl:option selected="${epidemicUniversal != null && epidemicUniversal.id == current.geoHierarchyId ? 'selected' : 'false'}">
+      <mjl:dt attribute="method">
+        <mjl:group type="radio" param="method" items="${methods}" var="current" valueAttribute="enumName">
+          <mjl:groupOption checked="${(thresholdCalculation.method[0]==current.enumName) ? 'checked' : 'false'}">
+             ${current.displayLabel}
+          </mjl:groupOption>
+        </mjl:group>    
+      </mjl:dt> 
+      <mjl:dt attribute="universal">
+        <mjl:select var="current" valueAttribute="geoHierarchyId" param="universal" items="${views}">
+          <mjl:option selected="${universal != null && universal.id == current.geoHierarchyId ? 'selected' : 'false'}">
             ${current.displayLabel}
           </mjl:option>    
         </mjl:select>
+      </mjl:dt>
+      <mjl:dt attribute="clinicalPositivePercentage">
+        <mjl:input type="text" param="clinicalPositivePercentage"/>
       </mjl:dt>
       <mjl:dt attribute="caseTypes">
         <mjl:select valueAttribute="enumName" param="caseTypes" items="${thresholdCalculationCaseTypes}" var="current">

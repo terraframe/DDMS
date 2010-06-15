@@ -258,7 +258,6 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     req.setAttribute("views", universals);
 
     req.setAttribute("thresholdCalculation", item);
-    req.setAttribute("epidemicUniversal", item.getEpidemicUniversal());
     req.setAttribute("active", percentComplete != -1);
 
     render("editThresholdConfiguration.jsp");
@@ -291,13 +290,12 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   }
 
   @Override
-  public void setThresholdConfiguration(String universal, String calulationMethod, ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException
+  public void setThresholdConfiguration(ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF request = this.getClientRequest();
 
-      ThresholdDataViewDTO.setThresholdConfiguration(request, universal, calulationMethod);
       thresholdCalculation.apply();
       this.editThresholdConfiguration();
     }
@@ -307,13 +305,13 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       if (!redirect)
       {
-        this.failSetThresholdConfiguration(universal, calulationMethod, thresholdCalculation);
+        this.failSetThresholdConfiguration(thresholdCalculation);
       }
     }
   }
 
   @Override
-  public void failSetThresholdConfiguration(String universal, String calculationMethod, ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException
+  public void failSetThresholdConfiguration(ThresholdCalculationTypeViewDTO thresholdCalculation) throws IOException, ServletException
   {
     this.editThresholdConfiguration(thresholdCalculation);
   }

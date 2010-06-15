@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 806069066)
+@com.runwaysdk.business.ClassSignature(hash = -1786719548)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -123,7 +123,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
   public static java.lang.String OUTBREAK_9 = "outbreak_9";
   public static java.lang.String SEASON = "season";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
-  private static final long serialVersionUID = 806069066;
+  private static final long serialVersionUID = -1786719548;
   
   public ThresholdDataViewBase()
   {
@@ -3314,12 +3314,6 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
   }
   
   public static dss.vector.solutions.general.ThresholdDataView[] getViews(java.lang.String geoId, dss.vector.solutions.general.MalariaSeason season)
-  {
-    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataView.java";
-    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
-  }
-  
-  public static void setThresholdConfiguration(java.lang.String universal, java.lang.String calulationMethod)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

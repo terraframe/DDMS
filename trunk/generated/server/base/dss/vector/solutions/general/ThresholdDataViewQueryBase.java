@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 200531827)
+@com.runwaysdk.business.ClassSignature(hash = -1157695109)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdDataViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 200531827;
+private static final long serialVersionUID = -1157695109;
 
   public ThresholdDataViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

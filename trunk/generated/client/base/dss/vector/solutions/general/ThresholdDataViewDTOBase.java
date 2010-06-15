@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1972482506)
+@com.runwaysdk.business.ClassSignature(hash = -1338182588)
 public abstract class ThresholdDataViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdDataView";
-  private static final long serialVersionUID = 1972482506;
+  private static final long serialVersionUID = -1338182588;
   
   protected ThresholdDataViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -4304,14 +4304,6 @@ public abstract class ThresholdDataViewDTOBase extends com.runwaysdk.business.Vi
     Object[] _parameters = new Object[]{geoId, season};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataViewDTO.CLASS, "getViews", _declaredTypes);
     return (dss.vector.solutions.general.ThresholdDataViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
-  }
-  
-  public static final void setThresholdConfiguration(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String universal, java.lang.String calulationMethod)
-  {
-    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{universal, calulationMethod};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataViewDTO.CLASS, "setThresholdConfiguration", _declaredTypes);
-    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static ThresholdDataViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -82,12 +82,6 @@
           roleName="Administrator" />
       </method>
       <method
-        methodName="setThresholdConfiguration"
-        type="dss.vector.solutions.general.ThresholdDataView">
-        <assignedRole
-          roleName="Administrator" />
-      </method>
-      <method
         methodName="querySurvey"
         type="dss.vector.solutions.intervention.monitor.SurveyPoint">
         <assignedRole

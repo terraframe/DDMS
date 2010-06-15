@@ -25,6 +25,7 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 	@Transaction
 	public static ThresholdCalculationType getCurrent() {
 		ThresholdCalculationTypeQuery query = new ThresholdCalculationTypeQuery(new QueryFactory());
+		query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
 		query.ORDER_BY_DESC(query.getCreateDate());
 
 		OIterator<? extends ThresholdCalculationType> iterator = query.getIterator();
@@ -46,6 +47,9 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 	public void apply() {
 		if (this.isDifferent()) {
 			this.validateWeights();
+		    if (this.isNew() && this.getDisease() == null) {
+		    	this.setDisease(Disease.getCurrent());
+		    }
 			super.apply();
 		}
 	}
