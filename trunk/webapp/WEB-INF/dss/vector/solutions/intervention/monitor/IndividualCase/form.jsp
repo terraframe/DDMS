@@ -24,4 +24,16 @@
   <mjl:dt attribute="workplaceText">
     <mjl:textarea param="workplaceText" cols="3" rows="3"/>
   </mjl:dt>
+  <mjl:dt attribute="otherSettlements">
+    <mjl:textarea param="otherSettlements" cols="3" rows="3"/>
+  </mjl:dt>
+  <mjl:dt attribute="origin">
+    <mdss:mo param="origin" value="${origin}" />
+  </mjl:dt>
+  <mjl:dt attribute="plasmaLeakageOnset">
+    <mjl:input type="text" param="plasmaLeakageOnset" id="plasmaLeakageOnset" classes="DatePick NoFuture" />
+  </mjl:dt>
+  <mjl:dt attribute="hemorrhagicOnset">
+    <mjl:input type="text" param="hemorrhagicOnset" id="hemorrhagicOnset" classes="DatePick NoFuture" />
+  </mjl:dt>
 </mjl:component>

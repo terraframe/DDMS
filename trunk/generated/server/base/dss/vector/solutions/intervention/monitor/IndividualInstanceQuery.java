@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -17222309)
+@com.runwaysdk.business.ClassSignature(hash = 936229425)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class IndividualInstanceQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -17222309;
+private static final long serialVersionUID = 936229425;
 
   public IndividualInstanceQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -90,21 +90,84 @@ private static final long serialVersionUID = -17222309;
     return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.ANAEMIAPATIENT, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis()
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier()
   {
-    return getClinicalDiagnosis(null);
+    return getCaseIdentifier(null);
 
   }
  
-  public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis(String alias)
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias)
   {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.CLINICALDIAGNOSIS, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.CASEIDENTIFIER, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.CLINICALDIAGNOSIS, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.CASEIDENTIFIER, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification()
+  {
+    return getClassification(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis()
+  {
+    return getConfirmedDiagnosis(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate()
+  {
+    return getConfirmedDiagnosisDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSISDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSISDATE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -133,7 +196,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY, mdAttributeIF, this, alias, null);
 
@@ -142,9 +205,26 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath()
+  {
+    return getDateOfDeath(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.DATEOFDEATH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.DATEOFDEATH, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy()
@@ -156,7 +236,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("detectedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY, mdAttributeIF, this, alias, null);
 
@@ -165,9 +245,55 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("detectedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis()
+  {
+    return getDiagnosis(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType()
+  {
+    return getDiagnosisType(null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE);
+
+    return (dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE);
+
+    return (dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getDiedInFacility()
@@ -196,7 +322,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.ENTITYDOMAIN, mdAttributeIF, this, alias, null);
 
@@ -205,7 +331,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
@@ -236,7 +362,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF getHealthFacility(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("healthFacility");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.HEALTHFACILITY);
 
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.HEALTHFACILITY, mdAttributeIF, this, alias, null);
 
@@ -245,7 +371,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF getHealthFacility(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("healthFacility");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.HEALTHFACILITY);
 
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.HEALTHFACILITY, mdAttributeIF, this, alias, displayLabel);
 
@@ -276,7 +402,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.intervention.monitor.IndividualCaseQuery.IndividualCaseQueryReferenceIF getIndividualCase(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("individualCase");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.INDIVIDUALCASE);
 
     return (dss.vector.solutions.intervention.monitor.IndividualCaseQuery.IndividualCaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.INDIVIDUALCASE, mdAttributeIF, this, alias, null);
 
@@ -285,7 +411,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.intervention.monitor.IndividualCaseQuery.IndividualCaseQueryReferenceIF getIndividualCase(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("individualCase");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.INDIVIDUALCASE);
 
     return (dss.vector.solutions.intervention.monitor.IndividualCaseQuery.IndividualCaseQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.INDIVIDUALCASE, mdAttributeIF, this, alias, displayLabel);
 
@@ -316,7 +442,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getLabTest(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("labTest");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.LABTEST);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.LABTEST, mdAttributeIF, this, alias, null);
 
@@ -325,7 +451,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getLabTest(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("labTest");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.LABTEST);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.LABTEST, mdAttributeIF, this, alias, displayLabel);
 
@@ -373,7 +499,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.LASTUPDATEDBY, mdAttributeIF, this, alias, null);
 
@@ -382,7 +508,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -396,7 +522,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.LOCKEDBY, mdAttributeIF, this, alias, null);
 
@@ -405,7 +531,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -419,7 +545,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaType(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("malariaType");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.MALARIATYPE);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.MALARIATYPE, mdAttributeIF, this, alias, null);
 
@@ -428,7 +554,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getMalariaType(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("malariaType");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.MALARIATYPE);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.MALARIATYPE, mdAttributeIF, this, alias, displayLabel);
 
@@ -442,7 +568,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.OWNER, mdAttributeIF, this, alias, null);
 
@@ -451,7 +577,7 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.OWNER, mdAttributeIF, this, alias, displayLabel);
 
@@ -465,7 +591,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientCategory(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("patientCategory");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY, mdAttributeIF, this, alias, null);
 
@@ -474,9 +600,32 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientCategory(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("patientCategory");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician()
+  {
+    return getPhysician(null);
+
+  }
+ 
+  public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN);
+
+    return (dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN);
+
+    return (dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getPregnant()
@@ -494,6 +643,29 @@ private static final long serialVersionUID = -17222309;
   public com.runwaysdk.query.SelectableBoolean getPregnant(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.PREGNANT, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection()
+  {
+    return getPrimaryInfection(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getProperlyRelease()
@@ -522,7 +694,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReferralReason(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("referralReason");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.REFERRALREASON);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.REFERRALREASON, mdAttributeIF, this, alias, null);
 
@@ -531,7 +703,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getReferralReason(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("referralReason");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.REFERRALREASON);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.REFERRALREASON, mdAttributeIF, this, alias, displayLabel);
 
@@ -596,7 +768,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSampleType(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sampleType");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.SAMPLETYPE);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.SAMPLETYPE, mdAttributeIF, this, alias, null);
 
@@ -605,7 +777,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSampleType(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sampleType");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.SAMPLETYPE);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.SAMPLETYPE, mdAttributeIF, this, alias, displayLabel);
 
@@ -653,7 +825,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSymptom(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("symptom");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOM);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOM, mdAttributeIF, this, alias, null);
 
@@ -662,7 +834,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSymptom(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("symptom");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOM);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOM, mdAttributeIF, this, alias, displayLabel);
 
@@ -701,6 +873,29 @@ private static final long serialVersionUID = -17222309;
     return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMONSET, alias, displayLabel);
 
   }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult()
+  {
+    return getTestResult(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT);
+
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getTestSampleDate()
   {
     return getTestSampleDate(null);
@@ -727,7 +922,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTreatment(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("treatment");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENT);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENT, mdAttributeIF, this, alias, null);
 
@@ -736,7 +931,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTreatment(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("treatment");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENT);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENT, mdAttributeIF, this, alias, displayLabel);
 
@@ -750,7 +945,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTreatmentMethod(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("treatmentMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENTMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENTMETHOD, mdAttributeIF, this, alias, null);
 
@@ -759,7 +954,7 @@ private static final long serialVersionUID = -17222309;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTreatmentMethod(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("treatmentMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENTMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENTMETHOD, mdAttributeIF, this, alias, displayLabel);
 
@@ -802,69 +997,108 @@ private static final long serialVersionUID = -17222309;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
-    {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("detectedBy")) 
+    if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("healthFacility")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.HEALTHFACILITY)) 
     {
        return new dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("individualCase")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.INDIVIDUALCASE)) 
     {
        return new dss.vector.solutions.intervention.monitor.IndividualCaseQuery.IndividualCaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("labTest")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.LABTEST)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("malariaType")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.MALARIATYPE)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("patientCategory")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("referralReason")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN)) 
+    {
+       return new dss.vector.solutions.PhysicianQuery.PhysicianQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("sampleType")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.REFERRALREASON)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("symptom")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.SAMPLETYPE)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("treatment")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOM)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("treatmentMethod")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENTMETHOD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE)) 
+    {
+       return new dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -1030,18 +1264,36 @@ private static final long serialVersionUID = -17222309;
     public com.runwaysdk.query.SelectableBoolean getAnaemiaPatient();
     public com.runwaysdk.query.SelectableBoolean getAnaemiaPatient(String alias);
     public com.runwaysdk.query.SelectableBoolean getAnaemiaPatient(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis();
-    public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis(String alias);
-    public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getCaseIdentifier();
+    public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias);
+    public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate();
+    public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias);
+    public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getDateOfDeath();
+    public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias);
+    public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis(String alias, String displayLabel);
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType();
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType(String alias);
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getDiedInFacility();
     public com.runwaysdk.query.SelectableBoolean getDiedInFacility(String alias);
     public com.runwaysdk.query.SelectableBoolean getDiedInFacility(String alias, String displayLabel);
@@ -1087,9 +1339,15 @@ private static final long serialVersionUID = -17222309;
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientCategory();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientCategory(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPatientCategory(String alias, String displayLabel);
+    public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician();
+    public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician(String alias);
+    public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getPregnant();
     public com.runwaysdk.query.SelectableBoolean getPregnant(String alias);
     public com.runwaysdk.query.SelectableBoolean getPregnant(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getProperlyRelease();
     public com.runwaysdk.query.SelectableBoolean getProperlyRelease(String alias);
     public com.runwaysdk.query.SelectableBoolean getProperlyRelease(String alias, String displayLabel);
@@ -1123,6 +1381,9 @@ private static final long serialVersionUID = -17222309;
     public com.runwaysdk.query.SelectableMoment getSymptomOnset();
     public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias);
     public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult();
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias);
+    public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getTestSampleDate();
     public com.runwaysdk.query.SelectableMoment getTestSampleDate(String alias);
     public com.runwaysdk.query.SelectableMoment getTestSampleDate(String alias, String displayLabel);
@@ -1181,7 +1442,7 @@ private static final long serialVersionUID = -17222309;
  implements IndividualInstanceQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1878541831;
+private static final long serialVersionUID = 679624271;
 
   public IndividualInstanceQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1251,21 +1512,72 @@ private static final long serialVersionUID = -1878541831;
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.ANAEMIAPATIENT, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis()
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier()
   {
-    return getClinicalDiagnosis(null);
+    return getCaseIdentifier(null);
 
   }
  
-  public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis(String alias)
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias)
   {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CLINICALDIAGNOSIS, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CASEIDENTIFIER, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableBoolean getClinicalDiagnosis(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CLINICALDIAGNOSIS, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CASEIDENTIFIER, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification()
+  {
+    return getClassification(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getClassification(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis()
+  {
+    return getConfirmedDiagnosis(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getConfirmedDiagnosis(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate()
+  {
+    return getConfirmedDiagnosisDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSISDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSISDATE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -1302,6 +1614,23 @@ private static final long serialVersionUID = -1878541831;
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath()
+  {
+    return getDateOfDeath(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DATEOFDEATH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DATEOFDEATH, alias, displayLabel);
+
+  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy()
   {
     return getDetectedBy(null);
@@ -1317,6 +1646,40 @@ private static final long serialVersionUID = -1878541831;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDetectedBy(String alias, String displayLabel)
   {
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis()
+  {
+    return getDiagnosis(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getDiagnosis(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType()
+  {
+    return getDiagnosisType(null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType(String alias)
+  {
+    return (dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF getDiagnosisType(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQueryIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getDiedInFacility()
@@ -1574,6 +1937,23 @@ private static final long serialVersionUID = -1878541831;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY,  alias, displayLabel);
 
   }
+  public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician()
+  {
+    return getPhysician(null);
+
+  }
+ 
+  public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician(String alias)
+  {
+    return (dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF getPhysician(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.PhysicianQuery.PhysicianQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableBoolean getPregnant()
   {
     return getPregnant(null);
@@ -1589,6 +1969,23 @@ private static final long serialVersionUID = -1878541831;
   public com.runwaysdk.query.SelectableBoolean getPregnant(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.PREGNANT, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection()
+  {
+    return getPrimaryInfection(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getPrimaryInfection(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getProperlyRelease()
@@ -1776,6 +2173,23 @@ private static final long serialVersionUID = -1878541831;
   public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMONSET, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult()
+  {
+    return getTestResult(null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getTestSampleDate()
@@ -1983,69 +2397,108 @@ private static final long serialVersionUID = -1878541831;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("createdBy")) 
-    {
-       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals("detectedBy")) 
+    if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASSIFICATION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.CONFIRMEDDIAGNOSIS)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.CREATEDBY)) 
+    {
+       return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.DETECTEDBY)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSIS)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("healthFacility")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.HEALTHFACILITY)) 
     {
        return new dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("individualCase")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.INDIVIDUALCASE)) 
     {
        return new dss.vector.solutions.intervention.monitor.IndividualCaseQuery.IndividualCaseQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("labTest")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.LABTEST)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("malariaType")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.MALARIATYPE)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("patientCategory")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.PATIENTCATEGORY)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("referralReason")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.PHYSICIAN)) 
+    {
+       return new dss.vector.solutions.PhysicianQuery.PhysicianQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.PRIMARYINFECTION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("sampleType")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.REFERRALREASON)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("symptom")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.SAMPLETYPE)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("treatment")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOM)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("treatmentMethod")) 
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.TESTRESULT)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENT)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.TREATMENTMETHOD)) 
+    {
+       return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeEnumeration enumerationFactory( com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  String mdEnumerationTableName, com.runwaysdk.dataaccess.MdBusinessDAOIF masterListMdBusinessIF, String masterListTalbeAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.intervention.monitor.IndividualInstance.DIAGNOSISTYPE)) 
+    {
+       return new dss.vector.solutions.intervention.monitor.DiagnosisTypeMasterQuery.DiagnosisTypeQuery((com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdEnumerationTableName, masterListMdBusinessIF, masterListTalbeAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

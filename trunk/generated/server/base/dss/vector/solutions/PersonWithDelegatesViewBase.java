@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 395113148)
+@com.runwaysdk.business.ClassSignature(hash = 1156407229)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,11 +14,12 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
   public static java.lang.String IPTRECIPIENTDELEGATE = "iptRecipientDelegate";
   public static java.lang.String ITNRECIPIENTDELEGATE = "itnRecipientDelegate";
   public static java.lang.String PATIENTDELEGATE = "patientDelegate";
+  public static java.lang.String PHYSICIANDELEGATE = "physicianDelegate";
   public static java.lang.String STOCKSTAFFDELEGATE = "stockStaffDelegate";
   public static java.lang.String SUPERVISORDELEGATE = "supervisorDelegate";
   public static java.lang.String TEAMMEMBERDELEGATE = "teamMemberDelegate";
   public static java.lang.String USERDELEGATE = "userDelegate";
-  private static final long serialVersionUID = 395113148;
+  private static final long serialVersionUID = 1156407229;
   
   public PersonWithDelegatesViewBase()
   {
@@ -127,6 +128,41 @@ public abstract class PersonWithDelegatesViewBase extends dss.vector.solutions.P
     else
     {
       setValue(PATIENTDELEGATE, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.Physician getPhysicianDelegate()
+  {
+    if (getValue(PHYSICIANDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.Physician.get(getValue(PHYSICIANDELEGATE));
+    }
+  }
+  
+  public void validatePhysicianDelegate()
+  {
+    this.validateAttribute(PHYSICIANDELEGATE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianDelegateMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonWithDelegatesView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANDELEGATE);
+  }
+  
+  public void setPhysicianDelegate(dss.vector.solutions.Physician value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANDELEGATE, "");
+    }
+    else
+    {
+      setValue(PHYSICIANDELEGATE, value.getId());
     }
   }
   

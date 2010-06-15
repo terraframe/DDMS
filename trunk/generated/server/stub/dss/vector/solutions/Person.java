@@ -144,6 +144,11 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     {
       this.getSupervisorDelegate().delete();
     }
+    
+    if (this.getPhysicianDelegate() != null)
+    {
+      this.getPhysicianDelegate().delete();
+    }
   }
 
   @Transaction
@@ -193,6 +198,11 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     {
       this.getSupervisorDelegate().lock();
     }
+    
+    if (this.getPhysicianDelegate() != null)
+    {
+      this.getPhysicianDelegate().lock();
+    }
   }
 
   @Transaction
@@ -233,6 +243,11 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     if (this.getSupervisorDelegate() != null)
     {
       this.getSupervisorDelegate().unlock();
+    }
+    
+    if (this.getSupervisorDelegate() != null)
+    {
+      this.getPhysicianDelegate().unlock();
     }
   }
 

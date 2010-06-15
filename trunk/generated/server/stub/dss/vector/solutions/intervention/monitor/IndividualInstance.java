@@ -9,8 +9,6 @@ import java.util.Set;
 import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
@@ -83,7 +81,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
     QueryFactory factory = new QueryFactory();
 
     IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
-	query.WHERE(query.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
+    query.WHERE(query.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
     query.AND(query.getHealthFacility().EQ(facility));
     query.AND(query.getActivelyDetected().EQ(false));
     query.AND(query.getFacilityVisit().GE(startDate));
@@ -189,7 +187,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
       p.throwIt();
     }
   }
-  
+
   @Transaction
   @Override
   public void applyAll(Term[] symptoms)
@@ -200,7 +198,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
     this.clearSymptoms(list);
     this.setSymptoms(list);
   }
-  
+
   private void clearSymptoms(List<Term> symptoms)
   {
     // First delete all of the exiting relationships where the Term is not in
@@ -215,7 +213,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
       }
     }
   }
-  
+
   private void setSymptoms(List<Term> symptoms)
   {
     Set<Term> set = new TreeSet<Term>(new TermComparator());
@@ -269,11 +267,11 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
   public Term[] getSymptoms()
   {
     OIterator<? extends Term> it = this.getAllSymptoms();
-    
+
     try
     {
       List<? extends Term> results = it.getAll();
-      
+
       return results.toArray(new Term[results.size()]);
     }
     finally
@@ -287,14 +285,16 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
   {
     Date admissionDate = this.getAdmissionDate();
     Date facilityVisit = this.getFacilityVisit();
-    Boolean clinicalDiagnosis = this.getClinicalDiagnosis();
+    List<DiagnosisType> diagnosisType = this.getDiagnosisType();
     Term labTest = this.getLabTest();
     Term treatment = this.getTreatment();
-    if (admissionDate != null && facilityVisit != null && clinicalDiagnosis != null && labTest != null && treatment != null)
+
+    if (admissionDate != null && facilityVisit != null && diagnosisType.size() > 0 && labTest != null && treatment != null)
     {
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      String diagnosisTypeName = diagnosisType.get(0).getEnumName();
 
-      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + clinicalDiagnosis + "." + labTest.getName() + "." + treatment.getName();
+      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + diagnosisTypeName + "." + labTest.getName() + "." + treatment.getName();
     }
     return this.getId();
   }

@@ -12,6 +12,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.PhysicianDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
@@ -173,13 +174,26 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   private void renderEdit(IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
+    ClientRequestIF clientRequest = this.getClientRequest();
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+
+    PhysicianDTO physician = dto.getPhysician();
+    
+    if(physician != null)
+    {
+      PersonViewDTO view = physician.getView();
+
+      req.setAttribute("physicianId", physician.getId());
+      req.setAttribute("physicianLabel", view.getFirstName() + " " + view.getLastName());
+    }
+
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);
+    req.setAttribute("diagnosisType", DiagnosisTypeDTO.allItems(clientRequest));
 
     render("editComponent.jsp");
   }
@@ -219,6 +233,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     {
       ClientRequestIF clientRequest = super.getClientRequest();
       IndividualInstanceDTO dto = new IndividualInstanceDTO(clientRequest);
+      dto.setActivelyDetected(false);
       dto.setValue(IndividualInstanceDTO.INDIVIDUALCASE, caseId);
       renderCreate(dto, dto.getSymptoms(), caseId);
     }
@@ -270,9 +285,12 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
 
   private void prepareCreateReq(IndividualInstanceDTO dto, TermDTO[] symptoms)
   {
+    ClientRequestIF clientRequest = this.getClientRequest();
+
     req.setAttribute("item", dto);
     req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
+    req.setAttribute("diagnosisType", DiagnosisTypeDTO.allItems(clientRequest));
   }
 
   public void failNewInstance(String caseId) throws IOException, ServletException
@@ -332,7 +350,9 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+    PersonViewDTO physician = dto.getPhysician().getView();
 
+    req.setAttribute("physician", physician);
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);

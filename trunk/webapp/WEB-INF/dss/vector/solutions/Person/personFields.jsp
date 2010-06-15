@@ -239,6 +239,24 @@
           </div>
         </dd>
       </c:if>      
+      <c:if test="${item.isPhysicianReadable}">      
+        <dt>
+          <label>
+            ${item.isPhysicianMd.displayLabel}
+            <span id="physicianSwitch" class="clickable">
+              <c:choose>
+                <c:when test="${item.isPhysician}"><fmt:message key="Click_to_Remove" /></c:when>
+                <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+              </c:choose>
+            </span>
+          </label>
+        </dt>
+        <dd>
+          <mjl:input id="physicianInput" type="hidden" value="${item.isPhysician}" param="isPhysician" />
+          <div id="physicianDiv" style="display: ${item.isPhysician ? 'block' : 'none'}">
+          </div>
+        </dd>
+      </c:if>      
   </mjl:component>
 
 <script type="text/javascript">  

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1575067330)
+@com.runwaysdk.business.ClassSignature(hash = -37691572)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,6 +26,7 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENTDELEGATE = "patientDelegate";
+  public static java.lang.String PHYSICIANDELEGATE = "physicianDelegate";
   public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String RESIDENTIALINFORMATION = "residentialInformation";
   public static java.lang.String SEQ = "seq";
@@ -38,7 +39,7 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = 1575067330;
+  private static final long serialVersionUID = -37691572;
   
   public PersonBase()
   {
@@ -446,6 +447,41 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
     else
     {
       setValue(PATIENTDELEGATE, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.Physician getPhysicianDelegate()
+  {
+    if (getValue(PHYSICIANDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.Physician.get(getValue(PHYSICIANDELEGATE));
+    }
+  }
+  
+  public void validatePhysicianDelegate()
+  {
+    this.validateAttribute(PHYSICIANDELEGATE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianDelegateMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Person.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANDELEGATE);
+  }
+  
+  public void setPhysicianDelegate(dss.vector.solutions.Physician value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANDELEGATE, "");
+    }
+    else
+    {
+      setValue(PHYSICIANDELEGATE, value.getId());
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 744364132)
+@com.runwaysdk.business.ClassSignature(hash = -1975659654)
 public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualInstance";
-  private static final long serialVersionUID = 744364132;
+  private static final long serialVersionUID = -1975659654;
   
   protected IndividualInstanceDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -30,10 +30,16 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public static java.lang.String ACTIVELYDETECTED = "activelyDetected";
   public static java.lang.String ADMISSIONDATE = "admissionDate";
   public static java.lang.String ANAEMIAPATIENT = "anaemiaPatient";
-  public static java.lang.String CLINICALDIAGNOSIS = "clinicalDiagnosis";
+  public static java.lang.String CASEIDENTIFIER = "caseIdentifier";
+  public static java.lang.String CLASSIFICATION = "classification";
+  public static java.lang.String CONFIRMEDDIAGNOSIS = "confirmedDiagnosis";
+  public static java.lang.String CONFIRMEDDIAGNOSISDATE = "confirmedDiagnosisDate";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DATEOFDEATH = "dateOfDeath";
   public static java.lang.String DETECTEDBY = "detectedBy";
+  public static java.lang.String DIAGNOSIS = "diagnosis";
+  public static java.lang.String DIAGNOSISTYPE = "diagnosisType";
   public static java.lang.String DIEDINFACILITY = "diedInFacility";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FACILITYVISIT = "facilityVisit";
@@ -49,7 +55,9 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public static java.lang.String MALARIATYPE = "malariaType";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENTCATEGORY = "patientCategory";
+  public static java.lang.String PHYSICIAN = "physician";
   public static java.lang.String PREGNANT = "pregnant";
+  public static java.lang.String PRIMARYINFECTION = "primaryInfection";
   public static java.lang.String PROPERLYRELEASE = "properlyRelease";
   public static java.lang.String REFERRALREASON = "referralReason";
   public static java.lang.String REFERREDFROM = "referredFrom";
@@ -61,6 +69,7 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public static java.lang.String SYMPTOM = "symptom";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
   public static java.lang.String SYMPTOMONSET = "symptomOnset";
+  public static java.lang.String TESTRESULT = "testResult";
   public static java.lang.String TESTSAMPLEDATE = "testSampleDate";
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
@@ -177,41 +186,166 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ANAEMIAPATIENT).getAttributeMdDTO();
   }
   
-  public Boolean getClinicalDiagnosis()
+  public String getCaseIdentifier()
   {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLINICALDIAGNOSIS));
+    return getValue(CASEIDENTIFIER);
   }
   
-  public void setClinicalDiagnosis(Boolean value)
+  public void setCaseIdentifier(String value)
   {
     if(value == null)
     {
-      setValue(CLINICALDIAGNOSIS, "");
+      setValue(CASEIDENTIFIER, "");
     }
     else
     {
-      setValue(CLINICALDIAGNOSIS, java.lang.Boolean.toString(value));
+      setValue(CASEIDENTIFIER, value);
     }
   }
   
-  public boolean isClinicalDiagnosisWritable()
+  public boolean isCaseIdentifierWritable()
   {
-    return isWritable(CLINICALDIAGNOSIS);
+    return isWritable(CASEIDENTIFIER);
   }
   
-  public boolean isClinicalDiagnosisReadable()
+  public boolean isCaseIdentifierReadable()
   {
-    return isReadable(CLINICALDIAGNOSIS);
+    return isReadable(CASEIDENTIFIER);
   }
   
-  public boolean isClinicalDiagnosisModified()
+  public boolean isCaseIdentifierModified()
   {
-    return isModified(CLINICALDIAGNOSIS);
+    return isModified(CASEIDENTIFIER);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getClinicalDiagnosisMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCaseIdentifierMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CLINICALDIAGNOSIS).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CASEIDENTIFIER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getClassification()
+  {
+    if(getValue(CLASSIFICATION) == null || getValue(CLASSIFICATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CLASSIFICATION));
+    }
+  }
+  
+  public void setClassification(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CLASSIFICATION, "");
+    }
+    else
+    {
+      setValue(CLASSIFICATION, value.getId());
+    }
+  }
+  
+  public boolean isClassificationWritable()
+  {
+    return isWritable(CLASSIFICATION);
+  }
+  
+  public boolean isClassificationReadable()
+  {
+    return isReadable(CLASSIFICATION);
+  }
+  
+  public boolean isClassificationModified()
+  {
+    return isModified(CLASSIFICATION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getClassificationMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CLASSIFICATION).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getConfirmedDiagnosis()
+  {
+    if(getValue(CONFIRMEDDIAGNOSIS) == null || getValue(CONFIRMEDDIAGNOSIS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(CONFIRMEDDIAGNOSIS));
+    }
+  }
+  
+  public void setConfirmedDiagnosis(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMEDDIAGNOSIS, "");
+    }
+    else
+    {
+      setValue(CONFIRMEDDIAGNOSIS, value.getId());
+    }
+  }
+  
+  public boolean isConfirmedDiagnosisWritable()
+  {
+    return isWritable(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public boolean isConfirmedDiagnosisReadable()
+  {
+    return isReadable(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public boolean isConfirmedDiagnosisModified()
+  {
+    return isModified(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getConfirmedDiagnosisMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CONFIRMEDDIAGNOSIS).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getConfirmedDiagnosisDate()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIRMEDDIAGNOSISDATE));
+  }
+  
+  public void setConfirmedDiagnosisDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMEDDIAGNOSISDATE, "");
+    }
+    else
+    {
+      setValue(CONFIRMEDDIAGNOSISDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isConfirmedDiagnosisDateWritable()
+  {
+    return isWritable(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public boolean isConfirmedDiagnosisDateReadable()
+  {
+    return isReadable(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public boolean isConfirmedDiagnosisDateModified()
+  {
+    return isModified(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getConfirmedDiagnosisDateMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CONFIRMEDDIAGNOSISDATE).getAttributeMdDTO();
   }
   
   public java.util.Date getCreateDate()
@@ -271,6 +405,43 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
+  public java.util.Date getDateOfDeath()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATEOFDEATH));
+  }
+  
+  public void setDateOfDeath(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATEOFDEATH, "");
+    }
+    else
+    {
+      setValue(DATEOFDEATH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isDateOfDeathWritable()
+  {
+    return isWritable(DATEOFDEATH);
+  }
+  
+  public boolean isDateOfDeathReadable()
+  {
+    return isReadable(DATEOFDEATH);
+  }
+  
+  public boolean isDateOfDeathModified()
+  {
+    return isModified(DATEOFDEATH);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getDateOfDeathMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(DATEOFDEATH).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.ontology.TermDTO getDetectedBy()
   {
     if(getValue(DETECTEDBY) == null || getValue(DETECTEDBY).trim().equals(""))
@@ -313,6 +484,96 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDetectedByMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DETECTEDBY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getDiagnosis()
+  {
+    if(getValue(DIAGNOSIS) == null || getValue(DIAGNOSIS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(DIAGNOSIS));
+    }
+  }
+  
+  public void setDiagnosis(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(DIAGNOSIS, "");
+    }
+    else
+    {
+      setValue(DIAGNOSIS, value.getId());
+    }
+  }
+  
+  public boolean isDiagnosisWritable()
+  {
+    return isWritable(DIAGNOSIS);
+  }
+  
+  public boolean isDiagnosisReadable()
+  {
+    return isReadable(DIAGNOSIS);
+  }
+  
+  public boolean isDiagnosisModified()
+  {
+    return isModified(DIAGNOSIS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getDiagnosisMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DIAGNOSIS).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.intervention.monitor.DiagnosisTypeDTO> getDiagnosisType()
+  {
+    return (java.util.List<dss.vector.solutions.intervention.monitor.DiagnosisTypeDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.intervention.monitor.DiagnosisTypeDTO.CLASS, getEnumNames(DIAGNOSISTYPE));
+  }
+  
+  public java.util.List<String> getDiagnosisTypeEnumNames()
+  {
+    return getEnumNames(DIAGNOSISTYPE);
+  }
+  
+  public void addDiagnosisType(dss.vector.solutions.intervention.monitor.DiagnosisTypeDTO enumDTO)
+  {
+    addEnumItem(DIAGNOSISTYPE, enumDTO.toString());
+  }
+  
+  public void removeDiagnosisType(dss.vector.solutions.intervention.monitor.DiagnosisTypeDTO enumDTO)
+  {
+    removeEnumItem(DIAGNOSISTYPE, enumDTO.toString());
+  }
+  
+  public void clearDiagnosisType()
+  {
+    clearEnum(DIAGNOSISTYPE);
+  }
+  
+  public boolean isDiagnosisTypeWritable()
+  {
+    return isWritable(DIAGNOSISTYPE);
+  }
+  
+  public boolean isDiagnosisTypeReadable()
+  {
+    return isReadable(DIAGNOSISTYPE);
+  }
+  
+  public boolean isDiagnosisTypeModified()
+  {
+    return isModified(DIAGNOSISTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getDiagnosisTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(DIAGNOSISTYPE).getAttributeMdDTO();
   }
   
   public Boolean getDiedInFacility()
@@ -860,6 +1121,50 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTCATEGORY).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.PhysicianDTO getPhysician()
+  {
+    if(getValue(PHYSICIAN) == null || getValue(PHYSICIAN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.PhysicianDTO.get(getRequest(), getValue(PHYSICIAN));
+    }
+  }
+  
+  public void setPhysician(dss.vector.solutions.PhysicianDTO value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIAN, "");
+    }
+    else
+    {
+      setValue(PHYSICIAN, value.getId());
+    }
+  }
+  
+  public boolean isPhysicianWritable()
+  {
+    return isWritable(PHYSICIAN);
+  }
+  
+  public boolean isPhysicianReadable()
+  {
+    return isReadable(PHYSICIAN);
+  }
+  
+  public boolean isPhysicianModified()
+  {
+    return isModified(PHYSICIAN);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPhysicianMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PHYSICIAN).getAttributeMdDTO();
+  }
+  
   public Boolean getPregnant()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PREGNANT));
@@ -895,6 +1200,50 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getPregnantMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(PREGNANT).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getPrimaryInfection()
+  {
+    if(getValue(PRIMARYINFECTION) == null || getValue(PRIMARYINFECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PRIMARYINFECTION));
+    }
+  }
+  
+  public void setPrimaryInfection(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(PRIMARYINFECTION, "");
+    }
+    else
+    {
+      setValue(PRIMARYINFECTION, value.getId());
+    }
+  }
+  
+  public boolean isPrimaryInfectionWritable()
+  {
+    return isWritable(PRIMARYINFECTION);
+  }
+  
+  public boolean isPrimaryInfectionReadable()
+  {
+    return isReadable(PRIMARYINFECTION);
+  }
+  
+  public boolean isPrimaryInfectionModified()
+  {
+    return isModified(PRIMARYINFECTION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPrimaryInfectionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PRIMARYINFECTION).getAttributeMdDTO();
   }
   
   public Boolean getProperlyRelease()
@@ -1299,6 +1648,50 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getSymptomOnsetMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SYMPTOMONSET).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getTestResult()
+  {
+    if(getValue(TESTRESULT) == null || getValue(TESTRESULT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TESTRESULT));
+    }
+  }
+  
+  public void setTestResult(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(TESTRESULT, "");
+    }
+    else
+    {
+      setValue(TESTRESULT, value.getId());
+    }
+  }
+  
+  public boolean isTestResultWritable()
+  {
+    return isWritable(TESTRESULT);
+  }
+  
+  public boolean isTestResultReadable()
+  {
+    return isReadable(TESTRESULT);
+  }
+  
+  public boolean isTestResultModified()
+  {
+    return isModified(TESTRESULT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestResultMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTRESULT).getAttributeMdDTO();
   }
   
   public java.util.Date getTestSampleDate()

@@ -73,7 +73,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setActivelyDetected(this.getActivelyDetected());
     instance.setHealthFacility(this.getHealthFacility());
     instance.setDetectedBy(Term.validateByDisplayLabel(this.getDetectedBy(), IndividualInstance.getDetectedByMd()));
-    instance.setClinicalDiagnosis(this.getClinicalDiagnosis());
+//    instance.setClinicalDiagnosis(this.getClinicalDiagnosis());
     instance.setSymptomOnset(this.getSymptomOnset());
     instance.setFacilityVisit(this.getFacilityVisit());
     instance.setPatientCategory(Term.validateByDisplayLabel(this.getPatientCategory(), IndividualInstance.getPatientCategoryMd()));
@@ -157,7 +157,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     list.add(ACTIVELYDETECTED);
     list.add(HEALTHFACILITY);
     list.add(DETECTEDBY);
-    list.add(CLINICALDIAGNOSIS);
+    list.add(DIAGNOSISDATE);
     list.add(SYMPTOMONSET);
     list.add(FACILITYVISIT);
     list.add(PATIENTCATEGORY);

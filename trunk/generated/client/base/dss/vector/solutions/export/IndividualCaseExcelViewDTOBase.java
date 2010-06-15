@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1142892149)
+@com.runwaysdk.business.ClassSignature(hash = -1360233290)
 public abstract class IndividualCaseExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.IndividualCaseExcelView";
-  private static final long serialVersionUID = -1142892149;
+  private static final long serialVersionUID = -1360233290;
   
   protected IndividualCaseExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -21,7 +21,6 @@ public abstract class IndividualCaseExcelViewDTOBase extends com.runwaysdk.busin
   public static java.lang.String AGE = "age";
   public static java.lang.String ANAEMIAPATIENT = "anaemiaPatient";
   public static java.lang.String CASEREPORTDATE = "caseReportDate";
-  public static java.lang.String CLINICALDIAGNOSIS = "clinicalDiagnosis";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String DETECTEDBY = "detectedBy";
   public static java.lang.String DIAGNOSISDATE = "diagnosisDate";
@@ -235,43 +234,6 @@ public abstract class IndividualCaseExcelViewDTOBase extends com.runwaysdk.busin
   public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getCaseReportDateMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(CASEREPORTDATE).getAttributeMdDTO();
-  }
-  
-  public Boolean getClinicalDiagnosis()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLINICALDIAGNOSIS));
-  }
-  
-  public void setClinicalDiagnosis(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(CLINICALDIAGNOSIS, "");
-    }
-    else
-    {
-      setValue(CLINICALDIAGNOSIS, java.lang.Boolean.toString(value));
-    }
-  }
-  
-  public boolean isClinicalDiagnosisWritable()
-  {
-    return isWritable(CLINICALDIAGNOSIS);
-  }
-  
-  public boolean isClinicalDiagnosisReadable()
-  {
-    return isReadable(CLINICALDIAGNOSIS);
-  }
-  
-  public boolean isClinicalDiagnosisModified()
-  {
-    return isModified(CLINICALDIAGNOSIS);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getClinicalDiagnosisMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CLINICALDIAGNOSIS).getAttributeMdDTO();
   }
   
   public java.util.Date getDateOfBirth()

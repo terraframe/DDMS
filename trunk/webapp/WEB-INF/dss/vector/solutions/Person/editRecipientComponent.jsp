@@ -15,36 +15,37 @@
 <dl>
   <mjl:form name="IndividualIPT.form.name" id="form.id" method="POST">
     <mjl:component item="${item}" param="patient">
-      <mjl:input type="hidden" param="personId"/>
+      <mjl:input type="hidden" param="personId" id="personId" classes="component"/>
       <mjl:dt attribute="firstName">
-        <mjl:input type="text" param="firstName" id="firstName" />
+        <mjl:input type="text" param="firstName" id="firstName" classes="component"/>
       </mjl:dt>
       <mjl:dt attribute="lastName">
-        <mjl:input type="text" param="lastName" id="lastName"/>
+        <mjl:input type="text" param="lastName" id="lastName" classes="component"/>
       </mjl:dt>
       <mjl:dt attribute="dateOfBirth" >
-        <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture"/>
+        <mjl:input type="text" param="dateOfBirth" id="dateOfBirth" classes="DatePick NoFuture component"/>
       </mjl:dt>
       <mjl:dt attribute="age" >
-        <mjl:input type="text" param="age" size="3" maxlength="3" />
+        <mjl:input type="text" param="age" size="3" maxlength="3" id="age" classes="component" />
       </mjl:dt>
       <mjl:dt attribute="sex">
-        <mdss:mo param="sex" value="${sex}"/>
+        <mdss:mo param="sex" value="${sex}" id="sex" classes="component" />
       </mjl:dt>            
       <mjl:dt attribute="residentialGeoId" >
-        <mdss:geo param="residentialGeoId" concrete="false" value="${item.residentialGeoId}" />      
+        <mdss:geo param="residentialGeoId" id="residentialGeoId" classes="component" concrete="false" value="${item.residentialGeoId}" />
       </mjl:dt>
       <mjl:dt attribute="residentialInformation">
-        <mjl:input type="text" param="residentialInformation" />
+        <mjl:input type="text" param="residentialInformation" id="residentialInformation" classes="component" />
       </mjl:dt>
       <mjl:dt attribute="workGeoId" >
-        <mdss:geo param="workGeoId" concrete="false" value="${item.workGeoId}" />      
+        <mdss:geo param="workGeoId" id="workGeoId" classes="component" concrete="false" value="${item.workGeoId}" />      
       </mjl:dt>
       <mjl:dt attribute="workInformation">
-        <mjl:input type="text" param="workInformation" />
+        <mjl:input type="text" param="workInformation" id="workInformation" classes="component" />
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Confirm" action="dss.vector.solutions.PersonController.updateRecipient.mojo" name="confirm" />
-    <mjl:command value="Cancel" action="dss.vector.solutions.PersonController.viewAll.mojo" name="cancel" />
+    
+    <button id="button.confirm"><fmt:message key="Confirm" /></button>
+    <button id="button.cancel"><fmt:message key="Cancel" /></button>
   </mjl:form>
 </dl>

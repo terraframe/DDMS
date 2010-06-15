@@ -17,6 +17,7 @@
     MDSS.Effect.toggleVisibility('sprayOperatorDiv', 'sprayOperatorSwitch', 'sprayOperatorInput');
     MDSS.Effect.toggleVisibility('stockStaffDiv', 'stockStaffSwitch', 'stockStaffInput');
     MDSS.Effect.toggleVisibility('supervisorDiv', 'supervisorSwitch', 'supervisorInput');
+    MDSS.Effect.toggleVisibility('physicianDiv', 'physicianSwitch', 'physicianInput');
 
   });
 

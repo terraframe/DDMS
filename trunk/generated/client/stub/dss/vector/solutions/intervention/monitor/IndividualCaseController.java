@@ -67,6 +67,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
         individualCase.setDiagnosisDate(diagnosisDate);
         individualCase.setCaseReportDate(caseReportDate);
+        
         renderCreate(individualCase, personId);
       }
       else
@@ -113,6 +114,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   private void renderCreate(IndividualCaseDTO individualCase, String personId) throws IOException, ServletException
   {
     IndividualInstanceDTO dto = new IndividualInstanceDTO(getClientRequest());
+    dto.setActivelyDetected(false);
     TermDTO[] symptoms = dto.getSymptoms();
 
     renderCreate(individualCase, personId, dto, symptoms);
@@ -120,7 +122,9 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderCreate(IndividualCaseDTO individualCase, String personId, IndividualInstanceDTO dto, TermDTO[] symptoms) throws IOException, ServletException
   {
-    PersonViewDTO person = PersonDTO.getView(this.getClientRequest(), personId);
+    ClientRequestIF clientRequest = this.getClientRequest();
+
+    PersonViewDTO person = PersonDTO.getView(clientRequest, personId);
     // Case stuff
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
@@ -128,8 +132,9 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     req.setAttribute("personId", personId);
 
     // Instance Stuff
-    req.setAttribute("item", dto);
+    req.setAttribute("item", dto);    
     req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
+    req.setAttribute("diagnosisType", DiagnosisTypeDTO.allItems(clientRequest));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
     req.setAttribute("caseId", individualCase.getId());
     req.setAttribute("HEALTH_FACILITY", HealthFacilityDTO.CLASS);

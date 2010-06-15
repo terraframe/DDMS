@@ -278,6 +278,7 @@ public class PersonController extends PersonControllerBase implements Reloadable
     this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSPRAYLEADER, "sprayLeaderLabel");
     this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSTOCKSTAFF, "stockStaffLabel");
     this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISSUPERVISOR, "supervisorLabel");
+    this.setupQueryLabel(query, PersonWithDelegatesViewDTO.ISPHYSICIAN, "physicianLabel");
   }
 
   private void setupQueryLabel(PersonWithDelegatesViewQueryDTO query, String accessor, String label)
@@ -438,16 +439,22 @@ public class PersonController extends PersonControllerBase implements Reloadable
   @Override
   public void editRecipient(String id) throws IOException, ServletException
   {
+    ClientRequestIF request = this.getClientRequest();
+    PersonViewDTO dto = new PersonViewDTO(request);
+    
+    if (id != null && !id.equals(""))
+    {
+      dto = PersonDTO.getView(request, id);
+    }
+    
+    this.editRecipient(dto);
+  }
+
+  private void editRecipient(PersonViewDTO dto) throws IOException, ServletException
+  {
     try
     {
-      ClientRequestIF request = this.getClientRequest();
 
-      PersonViewDTO dto = new PersonViewDTO(request);
-
-      if (id != null && !id.equals(""))
-      {
-        dto = PersonDTO.getView(request, id);
-      }
 
       req.setAttribute("sex", dto.getSex());
       req.setAttribute("item", dto);
@@ -563,6 +570,20 @@ public class PersonController extends PersonControllerBase implements Reloadable
     req.getSession().setAttribute("menus", menus);
 
     req.getRequestDispatcher("index.jsp").forward(req, resp);
+  }
+  
+  @Override
+  public void editPhysician(String id) throws IOException, ServletException
+  {
+    ClientRequestIF request = this.getClientRequest();
+    PersonViewDTO dto = new PersonViewDTO(request);
+    
+    if (id != null && !id.equals(""))
+    {
+      dto = PhysicianDTO.getView(request, id);
+    }
+    
+    this.editRecipient(dto);
   }
 
 }

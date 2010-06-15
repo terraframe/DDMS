@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -2083751925)
+@com.runwaysdk.business.ClassSignature(hash = 1190935350)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,6 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
   public static java.lang.String AGE = "age";
   public static java.lang.String ANAEMIAPATIENT = "anaemiaPatient";
   public static java.lang.String CASEREPORTDATE = "caseReportDate";
-  public static java.lang.String CLINICALDIAGNOSIS = "clinicalDiagnosis";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String DETECTEDBY = "detectedBy";
   public static java.lang.String DIAGNOSISDATE = "diagnosisDate";
@@ -47,7 +46,7 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String WORKPLACE = "workplace";
-  private static final long serialVersionUID = -2083751925;
+  private static final long serialVersionUID = 1190935350;
   
   public IndividualCaseExcelViewBase()
   {
@@ -191,34 +190,6 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(CASEREPORTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public Boolean getClinicalDiagnosis()
-  {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLINICALDIAGNOSIS));
-  }
-  
-  public void validateClinicalDiagnosis()
-  {
-    this.validateAttribute(CLINICALDIAGNOSIS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClinicalDiagnosisMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
-    return mdClassIF.definesAttribute(CLINICALDIAGNOSIS);
-  }
-  
-  public void setClinicalDiagnosis(Boolean value)
-  {
-    if(value == null)
-    {
-      setValue(CLINICALDIAGNOSIS, "");
-    }
-    else
-    {
-      setValue(CLINICALDIAGNOSIS, java.lang.Boolean.toString(value));
     }
   }
   

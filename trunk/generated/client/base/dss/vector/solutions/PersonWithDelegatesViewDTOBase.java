@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1341909956)
+@com.runwaysdk.business.ClassSignature(hash = -122909123)
 public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solutions.PersonViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonWithDelegatesView";
-  private static final long serialVersionUID = -1341909956;
+  private static final long serialVersionUID = -122909123;
   
   protected PersonWithDelegatesViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -19,6 +19,7 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
   public static java.lang.String IPTRECIPIENTDELEGATE = "iptRecipientDelegate";
   public static java.lang.String ITNRECIPIENTDELEGATE = "itnRecipientDelegate";
   public static java.lang.String PATIENTDELEGATE = "patientDelegate";
+  public static java.lang.String PHYSICIANDELEGATE = "physicianDelegate";
   public static java.lang.String STOCKSTAFFDELEGATE = "stockStaffDelegate";
   public static java.lang.String SUPERVISORDELEGATE = "supervisorDelegate";
   public static java.lang.String TEAMMEMBERDELEGATE = "teamMemberDelegate";
@@ -153,6 +154,50 @@ public abstract class PersonWithDelegatesViewDTOBase extends dss.vector.solution
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPatientDelegateMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTDELEGATE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.PhysicianDTO getPhysicianDelegate()
+  {
+    if(getValue(PHYSICIANDELEGATE) == null || getValue(PHYSICIANDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.PhysicianDTO.get(getRequest(), getValue(PHYSICIANDELEGATE));
+    }
+  }
+  
+  public void setPhysicianDelegate(dss.vector.solutions.PhysicianDTO value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANDELEGATE, "");
+    }
+    else
+    {
+      setValue(PHYSICIANDELEGATE, value.getId());
+    }
+  }
+  
+  public boolean isPhysicianDelegateWritable()
+  {
+    return isWritable(PHYSICIANDELEGATE);
+  }
+  
+  public boolean isPhysicianDelegateReadable()
+  {
+    return isReadable(PHYSICIANDELEGATE);
+  }
+  
+  public boolean isPhysicianDelegateModified()
+  {
+    return isModified(PHYSICIANDELEGATE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPhysicianDelegateMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PHYSICIANDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.stock.StockStaffDTO getStockStaffDelegate()

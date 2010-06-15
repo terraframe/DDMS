@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1485870820)
+@com.runwaysdk.business.ClassSignature(hash = -246287878)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,10 +14,16 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
   public static java.lang.String ACTIVELYDETECTED = "activelyDetected";
   public static java.lang.String ADMISSIONDATE = "admissionDate";
   public static java.lang.String ANAEMIAPATIENT = "anaemiaPatient";
-  public static java.lang.String CLINICALDIAGNOSIS = "clinicalDiagnosis";
+  public static java.lang.String CASEIDENTIFIER = "caseIdentifier";
+  public static java.lang.String CLASSIFICATION = "classification";
+  public static java.lang.String CONFIRMEDDIAGNOSIS = "confirmedDiagnosis";
+  public static java.lang.String CONFIRMEDDIAGNOSISDATE = "confirmedDiagnosisDate";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DATEOFDEATH = "dateOfDeath";
   public static java.lang.String DETECTEDBY = "detectedBy";
+  public static java.lang.String DIAGNOSIS = "diagnosis";
+  public static java.lang.String DIAGNOSISTYPE = "diagnosisType";
   public static java.lang.String DIEDINFACILITY = "diedInFacility";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FACILITYVISIT = "facilityVisit";
@@ -33,7 +39,9 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
   public static java.lang.String MALARIATYPE = "malariaType";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENTCATEGORY = "patientCategory";
+  public static java.lang.String PHYSICIAN = "physician";
   public static java.lang.String PREGNANT = "pregnant";
+  public static java.lang.String PRIMARYINFECTION = "primaryInfection";
   public static java.lang.String PROPERLYRELEASE = "properlyRelease";
   public static java.lang.String REFERRALREASON = "referralReason";
   public static java.lang.String REFERREDFROM = "referredFrom";
@@ -45,12 +53,13 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
   public static java.lang.String SYMPTOM = "symptom";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
   public static java.lang.String SYMPTOMONSET = "symptomOnset";
+  public static java.lang.String TESTRESULT = "testResult";
   public static java.lang.String TESTSAMPLEDATE = "testSampleDate";
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1485870820;
+  private static final long serialVersionUID = -246287878;
   
   public IndividualInstanceBase()
   {
@@ -141,31 +150,129 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     }
   }
   
-  public Boolean getClinicalDiagnosis()
+  public String getCaseIdentifier()
   {
-    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CLINICALDIAGNOSIS));
+    return getValue(CASEIDENTIFIER);
   }
   
-  public void validateClinicalDiagnosis()
+  public void validateCaseIdentifier()
   {
-    this.validateAttribute(CLINICALDIAGNOSIS);
+    this.validateAttribute(CASEIDENTIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClinicalDiagnosisMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseIdentifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
-    return mdClassIF.definesAttribute(CLINICALDIAGNOSIS);
+    return mdClassIF.definesAttribute(CASEIDENTIFIER);
   }
   
-  public void setClinicalDiagnosis(Boolean value)
+  public void setCaseIdentifier(String value)
   {
     if(value == null)
     {
-      setValue(CLINICALDIAGNOSIS, "");
+      setValue(CASEIDENTIFIER, "");
     }
     else
     {
-      setValue(CLINICALDIAGNOSIS, java.lang.Boolean.toString(value));
+      setValue(CASEIDENTIFIER, value);
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getClassification()
+  {
+    if (getValue(CLASSIFICATION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CLASSIFICATION));
+    }
+  }
+  
+  public void validateClassification()
+  {
+    this.validateAttribute(CLASSIFICATION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClassificationMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(CLASSIFICATION);
+  }
+  
+  public void setClassification(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(CLASSIFICATION, "");
+    }
+    else
+    {
+      setValue(CLASSIFICATION, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getConfirmedDiagnosis()
+  {
+    if (getValue(CONFIRMEDDIAGNOSIS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(CONFIRMEDDIAGNOSIS));
+    }
+  }
+  
+  public void validateConfirmedDiagnosis()
+  {
+    this.validateAttribute(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConfirmedDiagnosisMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public void setConfirmedDiagnosis(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMEDDIAGNOSIS, "");
+    }
+    else
+    {
+      setValue(CONFIRMEDDIAGNOSIS, value.getId());
+    }
+  }
+  
+  public java.util.Date getConfirmedDiagnosisDate()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIRMEDDIAGNOSISDATE));
+  }
+  
+  public void validateConfirmedDiagnosisDate()
+  {
+    this.validateAttribute(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConfirmedDiagnosisDateMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public void setConfirmedDiagnosisDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMEDDIAGNOSISDATE, "");
+    }
+    else
+    {
+      setValue(CONFIRMEDDIAGNOSISDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -208,6 +315,34 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     return mdClassIF.definesAttribute(CREATEDBY);
   }
   
+  public java.util.Date getDateOfDeath()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATEOFDEATH));
+  }
+  
+  public void validateDateOfDeath()
+  {
+    this.validateAttribute(DATEOFDEATH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateOfDeathMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(DATEOFDEATH);
+  }
+  
+  public void setDateOfDeath(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATEOFDEATH, "");
+    }
+    else
+    {
+      setValue(DATEOFDEATH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public dss.vector.solutions.ontology.Term getDetectedBy()
   {
     if (getValue(DETECTEDBY).trim().equals(""))
@@ -241,6 +376,79 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     {
       setValue(DETECTEDBY, value.getId());
     }
+  }
+  
+  public dss.vector.solutions.ontology.Term getDiagnosis()
+  {
+    if (getValue(DIAGNOSIS).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(DIAGNOSIS));
+    }
+  }
+  
+  public void validateDiagnosis()
+  {
+    this.validateAttribute(DIAGNOSIS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiagnosisMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(DIAGNOSIS);
+  }
+  
+  public void setDiagnosis(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(DIAGNOSIS, "");
+    }
+    else
+    {
+      setValue(DIAGNOSIS, value.getId());
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.intervention.monitor.DiagnosisType> getDiagnosisType()
+  {
+    return (java.util.List<dss.vector.solutions.intervention.monitor.DiagnosisType>) getEnumValues(DIAGNOSISTYPE);
+  }
+  
+  public void addDiagnosisType(dss.vector.solutions.intervention.monitor.DiagnosisType value)
+  {
+    if(value != null)
+    {
+      addEnumItem(DIAGNOSISTYPE, value.getId());
+    }
+  }
+  
+  public void removeDiagnosisType(dss.vector.solutions.intervention.monitor.DiagnosisType value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(DIAGNOSISTYPE, value.getId());
+    }
+  }
+  
+  public void clearDiagnosisType()
+  {
+    clearEnum(DIAGNOSISTYPE);
+  }
+  
+  public void validateDiagnosisType()
+  {
+    this.validateAttribute(DIAGNOSISTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiagnosisTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(DIAGNOSISTYPE);
   }
   
   public Boolean getDiedInFacility()
@@ -678,6 +886,41 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public dss.vector.solutions.Physician getPhysician()
+  {
+    if (getValue(PHYSICIAN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.Physician.get(getValue(PHYSICIAN));
+    }
+  }
+  
+  public void validatePhysician()
+  {
+    this.validateAttribute(PHYSICIAN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIAN);
+  }
+  
+  public void setPhysician(dss.vector.solutions.Physician value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIAN, "");
+    }
+    else
+    {
+      setValue(PHYSICIAN, value.getId());
+    }
+  }
+  
   public Boolean getPregnant()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PREGNANT));
@@ -703,6 +946,41 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     else
     {
       setValue(PREGNANT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getPrimaryInfection()
+  {
+    if (getValue(PRIMARYINFECTION).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(PRIMARYINFECTION));
+    }
+  }
+  
+  public void validatePrimaryInfection()
+  {
+    this.validateAttribute(PRIMARYINFECTION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPrimaryInfectionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(PRIMARYINFECTION);
+  }
+  
+  public void setPrimaryInfection(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(PRIMARYINFECTION, "");
+    }
+    else
+    {
+      setValue(PRIMARYINFECTION, value.getId());
     }
   }
   
@@ -1008,6 +1286,41 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     else
     {
       setValue(SYMPTOMONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getTestResult()
+  {
+    if (getValue(TESTRESULT).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(TESTRESULT));
+    }
+  }
+  
+  public void validateTestResult()
+  {
+    this.validateAttribute(TESTRESULT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestResultMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
+    return mdClassIF.definesAttribute(TESTRESULT);
+  }
+  
+  public void setTestResult(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(TESTRESULT, "");
+    }
+    else
+    {
+      setValue(TESTRESULT, value.getId());
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 119008132)
+@com.runwaysdk.business.ClassSignature(hash = 2017409373)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,13 +19,17 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
   public static java.lang.String DIAGNOSISDATE = "diagnosisDate";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String HEMORRHAGICONSET = "hemorrhagicOnset";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String ORIGIN = "origin";
+  public static java.lang.String OTHERSETTLEMENTS = "otherSettlements";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENT = "patient";
+  public static java.lang.String PLASMALEAKAGEONSET = "plasmaLeakageOnset";
   public static java.lang.String PROBABLESOURCE = "probableSource";
   public static java.lang.String PROBABLESOURCETEXT = "probableSourceText";
   public static java.lang.String RESIDENCE = "residence";
@@ -35,7 +39,7 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
   public static java.lang.String TYPE = "type";
   public static java.lang.String WORKPLACE = "workplace";
   public static java.lang.String WORKPLACETEXT = "workplaceText";
-  private static final long serialVersionUID = 119008132;
+  private static final long serialVersionUID = 2017409373;
   
   public IndividualCaseBase()
   {
@@ -263,6 +267,34 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
     }
   }
   
+  public java.util.Date getHemorrhagicOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(HEMORRHAGICONSET));
+  }
+  
+  public void validateHemorrhagicOnset()
+  {
+    this.validateAttribute(HEMORRHAGICONSET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHemorrhagicOnsetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(HEMORRHAGICONSET);
+  }
+  
+  public void setHemorrhagicOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(HEMORRHAGICONSET, "");
+    }
+    else
+    {
+      setValue(HEMORRHAGICONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -369,6 +401,69 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
+  public dss.vector.solutions.ontology.Term getOrigin()
+  {
+    if (getValue(ORIGIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(ORIGIN));
+    }
+  }
+  
+  public void validateOrigin()
+  {
+    this.validateAttribute(ORIGIN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOriginMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(ORIGIN);
+  }
+  
+  public void setOrigin(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(ORIGIN, "");
+    }
+    else
+    {
+      setValue(ORIGIN, value.getId());
+    }
+  }
+  
+  public String getOtherSettlements()
+  {
+    return getValue(OTHERSETTLEMENTS);
+  }
+  
+  public void validateOtherSettlements()
+  {
+    this.validateAttribute(OTHERSETTLEMENTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOtherSettlementsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(OTHERSETTLEMENTS);
+  }
+  
+  public void setOtherSettlements(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERSETTLEMENTS, "");
+    }
+    else
+    {
+      setValue(OTHERSETTLEMENTS, value);
+    }
+  }
+  
   public com.runwaysdk.system.Actor getOwner()
   {
     if (getValue(OWNER).trim().equals(""))
@@ -436,6 +531,34 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
     else
     {
       setValue(PATIENT, value.getId());
+    }
+  }
+  
+  public java.util.Date getPlasmaLeakageOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(PLASMALEAKAGEONSET));
+  }
+  
+  public void validatePlasmaLeakageOnset()
+  {
+    this.validateAttribute(PLASMALEAKAGEONSET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPlasmaLeakageOnsetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(PLASMALEAKAGEONSET);
+  }
+  
+  public void setPlasmaLeakageOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(PLASMALEAKAGEONSET, "");
+    }
+    else
+    {
+      setValue(PLASMALEAKAGEONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   

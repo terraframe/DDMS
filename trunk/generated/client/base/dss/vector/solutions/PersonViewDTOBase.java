@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1241120552)
+@com.runwaysdk.business.ClassSignature(hash = -1172198806)
 public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
-  private static final long serialVersionUID = 1241120552;
+  private static final long serialVersionUID = -1172198806;
   
   protected PersonViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -25,6 +25,7 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
   public static java.lang.String ISMDSSUSER = "isMDSSUser";
   public static java.lang.String ISPATIENT = "isPatient";
+  public static java.lang.String ISPHYSICIAN = "isPhysician";
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
   public static java.lang.String ISSTOCKSTAFF = "isStockStaff";
@@ -340,6 +341,43 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsPatientMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISPATIENT).getAttributeMdDTO();
+  }
+  
+  public Boolean getIsPhysician()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISPHYSICIAN));
+  }
+  
+  public void setIsPhysician(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISPHYSICIAN, "");
+    }
+    else
+    {
+      setValue(ISPHYSICIAN, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isIsPhysicianWritable()
+  {
+    return isWritable(ISPHYSICIAN);
+  }
+  
+  public boolean isIsPhysicianReadable()
+  {
+    return isReadable(ISPHYSICIAN);
+  }
+  
+  public boolean isIsPhysicianModified()
+  {
+    return isModified(ISPHYSICIAN);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getIsPhysicianMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ISPHYSICIAN).getAttributeMdDTO();
   }
   
   public Boolean getIsSprayLeader()
@@ -881,6 +919,22 @@ public abstract class PersonViewDTOBase extends com.runwaysdk.business.ViewDTO i
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "applyAsITNRecipient", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.PersonWithDelegatesViewDTO applyAsPhysician()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "applyAsPhysician", _declaredTypes);
+    return (dss.vector.solutions.PersonWithDelegatesViewDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.PersonWithDelegatesViewDTO applyAsPhysician(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.PersonViewDTO.CLASS, "applyAsPhysician", _declaredTypes);
+    return (dss.vector.solutions.PersonWithDelegatesViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void applyNonDelegates()

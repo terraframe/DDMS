@@ -5,7 +5,6 @@ import java.util.Date;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
 import dss.vector.solutions.intervention.monitor.ITNRecipient;
@@ -115,6 +114,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
 
     this.setIsStockStaff(concrete.getStockStaffDelegate() != null);
     this.setIsSupervisor(concrete.getSupervisorDelegate() != null);
+    this.setIsPhysician(concrete.getPhysicianDelegate() != null);
   }
 
   @Override
@@ -255,6 +255,28 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       }
     }
 
+    
+    Physician physician = person.getPhysicianDelegate();
+    
+    if (this.getIsPhysician() != null && this.getIsPhysician())
+    {
+      if (physician == null)
+      {
+        physician = new Physician();
+      }
+      
+      physician.setPerson(person);
+      physician.apply();
+    }
+    else
+    {
+      if (physician != null)
+      {
+        physician.delete();
+        physician = null;
+      }
+    }
+    
     // Update the person delegates
     person = Person.lockPerson(person.getId());
     person.setUserDelegate(user);
@@ -264,6 +286,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     person.setPatientDelegate(patient);
     person.setStockStaffDelegate(staff);
     person.setSupervisorDelegate(supervisor);
+    person.setPhysicianDelegate(physician);
 
     // Do not validate the person again because a second problem will be
     // generated for every validation problem that occurs. The person has
@@ -298,12 +321,53 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     return itnRecipient;
   }
   
+  private Physician applyPhysician(Person person)
+  {
+    Physician physician = person.getPhysicianDelegate();
+    if (this.getIsPhysician())
+    {
+      if (physician == null)
+      {
+        physician = new Physician();
+      }
+      
+      physician.setPerson(person);
+      physician.apply();
+    }
+    else
+    {
+      if (physician != null)
+      {
+        physician.delete();
+        physician = null;
+      }
+    }
+    return physician;
+  }
+  
   @Override
+  @Transaction
   public void applyAsITNRecipient()
   {
     this.applyPerson();
     
     this.applyITNRecipient(Person.get(this.getPersonId()));
+  }
+  
+  @Override
+  @Transaction
+  public PersonWithDelegatesView applyAsPhysician()
+  {
+    this.setIsPhysician(true);
+    
+    Person person = this.applyPerson();    
+
+    Physician physician = this.applyPhysician(person);
+    
+    person.setPhysicianDelegate(physician);
+    person.apply();
+
+    return PersonWithDelegatesView.getView(person.getId());
   }
 
   @Override

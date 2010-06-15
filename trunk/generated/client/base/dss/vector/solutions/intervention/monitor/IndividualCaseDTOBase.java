@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -207226364)
+@com.runwaysdk.business.ClassSignature(hash = -1218705443)
 public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCase";
-  private static final long serialVersionUID = -207226364;
+  private static final long serialVersionUID = -1218705443;
   
   protected IndividualCaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -35,13 +35,17 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
   public static java.lang.String DIAGNOSISDATE = "diagnosisDate";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String HEMORRHAGICONSET = "hemorrhagicOnset";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String ORIGIN = "origin";
+  public static java.lang.String OTHERSETTLEMENTS = "otherSettlements";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENT = "patient";
+  public static java.lang.String PLASMALEAKAGEONSET = "plasmaLeakageOnset";
   public static java.lang.String PROBABLESOURCE = "probableSource";
   public static java.lang.String PROBABLESOURCETEXT = "probableSourceText";
   public static java.lang.String RESIDENCE = "residence";
@@ -344,6 +348,43 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
+  public java.util.Date getHemorrhagicOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(HEMORRHAGICONSET));
+  }
+  
+  public void setHemorrhagicOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(HEMORRHAGICONSET, "");
+    }
+    else
+    {
+      setValue(HEMORRHAGICONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isHemorrhagicOnsetWritable()
+  {
+    return isWritable(HEMORRHAGICONSET);
+  }
+  
+  public boolean isHemorrhagicOnsetReadable()
+  {
+    return isReadable(HEMORRHAGICONSET);
+  }
+  
+  public boolean isHemorrhagicOnsetModified()
+  {
+    return isModified(HEMORRHAGICONSET);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getHemorrhagicOnsetMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(HEMORRHAGICONSET).getAttributeMdDTO();
+  }
+  
   public String getKeyName()
   {
     return getValue(KEYNAME);
@@ -470,6 +511,87 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public dss.vector.solutions.ontology.TermDTO getOrigin()
+  {
+    if(getValue(ORIGIN) == null || getValue(ORIGIN).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ORIGIN));
+    }
+  }
+  
+  public void setOrigin(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(ORIGIN, "");
+    }
+    else
+    {
+      setValue(ORIGIN, value.getId());
+    }
+  }
+  
+  public boolean isOriginWritable()
+  {
+    return isWritable(ORIGIN);
+  }
+  
+  public boolean isOriginReadable()
+  {
+    return isReadable(ORIGIN);
+  }
+  
+  public boolean isOriginModified()
+  {
+    return isModified(ORIGIN);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOriginMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ORIGIN).getAttributeMdDTO();
+  }
+  
+  public String getOtherSettlements()
+  {
+    return getValue(OTHERSETTLEMENTS);
+  }
+  
+  public void setOtherSettlements(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERSETTLEMENTS, "");
+    }
+    else
+    {
+      setValue(OTHERSETTLEMENTS, value);
+    }
+  }
+  
+  public boolean isOtherSettlementsWritable()
+  {
+    return isWritable(OTHERSETTLEMENTS);
+  }
+  
+  public boolean isOtherSettlementsReadable()
+  {
+    return isReadable(OTHERSETTLEMENTS);
+  }
+  
+  public boolean isOtherSettlementsModified()
+  {
+    return isModified(OTHERSETTLEMENTS);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getOtherSettlementsMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(OTHERSETTLEMENTS).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -556,6 +678,43 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPatientMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENT).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getPlasmaLeakageOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(PLASMALEAKAGEONSET));
+  }
+  
+  public void setPlasmaLeakageOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(PLASMALEAKAGEONSET, "");
+    }
+    else
+    {
+      setValue(PLASMALEAKAGEONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isPlasmaLeakageOnsetWritable()
+  {
+    return isWritable(PLASMALEAKAGEONSET);
+  }
+  
+  public boolean isPlasmaLeakageOnsetReadable()
+  {
+    return isReadable(PLASMALEAKAGEONSET);
+  }
+  
+  public boolean isPlasmaLeakageOnsetModified()
+  {
+    return isModified(PLASMALEAKAGEONSET);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getPlasmaLeakageOnsetMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(PLASMALEAKAGEONSET).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getProbableSource()

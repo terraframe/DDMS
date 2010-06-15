@@ -74,3 +74,14 @@
         </mjl:row>
       </mjl:freeColumn>
     </c:if>      
+    <c:if test="${physicianLabel != null}">
+      <mjl:freeColumn>
+        <mjl:header>${physicianLabel}</mjl:header>
+        <mjl:row>
+          <c:choose>
+            <c:when test="${item.physicianDelegate != null}"><fmt:message key="Yes" /></c:when>
+            <c:otherwise><fmt:message key="No" /></c:otherwise>
+          </c:choose>
+        </mjl:row>
+      </mjl:freeColumn>
+    </c:if>      

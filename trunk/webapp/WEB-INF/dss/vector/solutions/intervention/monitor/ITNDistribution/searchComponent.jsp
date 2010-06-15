@@ -86,7 +86,7 @@
       button : 'button.id'
     };
   
-    MDSS.PersonModal.setUpPersonModal(prop);
+    new MDSS.PersonModal(prop);
   });
 })();
 </script>

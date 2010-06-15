@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
@@ -14,6 +13,36 @@ public class PersonWithDelegatesView extends PersonWithDelegatesViewBase impleme
   public PersonWithDelegatesView()
   {
     super();
+  }
+  
+  public static PersonWithDelegatesView getView(String id)
+  {
+    return PersonWithDelegatesView.getView(Person.get(id));
+  }
+  
+  public static PersonWithDelegatesView getView(Person concrete)
+  {
+    PersonWithDelegatesView view = new PersonWithDelegatesView();
+    
+    view.populateView(concrete);
+    
+    return view;
+  }
+  
+  @Override
+  public void populateView(Person concrete)
+  {
+    super.populateView(concrete);
+   
+    this.setPatientDelegate(concrete.getPatientDelegate());
+    this.setIptRecipientDelegate(concrete.getIptRecipientDelegate());
+    this.setItnRecipientDelegate(concrete.getItnRecipientDelegate());
+    this.setUserDelegate(concrete.getUserDelegate());
+    this.setPatientDelegate(concrete.getPatientDelegate());
+    this.setPhysicianDelegate(concrete.getPhysicianDelegate());
+    this.setTeamMemberDelegate(concrete.getTeamMemberDelegate());
+    this.setStockStaffDelegate(concrete.getStockStaffDelegate());
+    this.setSupervisorDelegate(concrete.getSupervisorDelegate());
   }
 
   public static PersonWithDelegatesViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)

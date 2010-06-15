@@ -16,13 +16,35 @@
       <mjl:dt attribute="healthFacility">
         ${item.healthFacility}
       </mjl:dt>
+      <mjl:dt attribute="caseIdentifier">
+        ${item.caseIdentifier}
+      </mjl:dt>      
+      <mjl:dt attribute="physician">
+        ${physician.firstName} ${physician.lastName}
+      </mjl:dt>      
+            
       <mjl:dt attribute="detectedBy">
         ${item.detectedBy.displayLabel}
       </mjl:dt>
       
       <h2><fmt:message key="Basic_Case_Information" /></h2>
-      <mjl:dt attribute="clinicalDiagnosis">
-        ${item.clinicalDiagnosis ? item.clinicalDiagnosisMd.positiveDisplayLabel : item.clinicalDiagnosisMd.negativeDisplayLabel}
+      <mjl:dt attribute="diagnosisType">
+        <c:forEach items="${item.diagnosisTypeEnumNames}" var="enumName">
+          <li>
+            ${item.diagnosisTypeMd.enumItems[enumName]}
+          </li>
+        </c:forEach>        
+      </mjl:dt>
+      <mjl:dt attribute="diagnosis">
+        ${item.diagnosis.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="confirmedDiagnosis">
+        ${item.confirmedDiagnosis.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="confirmedDiagnosisDate">
+        <span class="formatDate">
+          ${item.confirmedDiagnosisDate}
+        </span>      
       </mjl:dt>
       <mjl:dt attribute="symptomOnset">
         <span class="formatDate">
@@ -56,6 +78,11 @@
       <mjl:dt attribute="diedInFacility">
         ${item.diedInFacility ? item.diedInFacilityMd.positiveDisplayLabel : item.diedInFacilityMd.negativeDisplayLabel}
       </mjl:dt>
+      <mjl:dt attribute="dateOfDeath">
+        <span class="formatDate">
+          ${item.dateOfDeath}
+        </span>
+      </mjl:dt>
       
       <h2><fmt:message key="Administrative_Information" /></h2>
       <mjl:dt attribute="properlyRelease">
@@ -72,6 +99,9 @@
       </mjl:dt>
       
       <h2><fmt:message key="Laboratory_Testing" /></h2>
+      <mjl:dt attribute="classification">
+        ${item.classification.displayLabel}
+      </mjl:dt>      
       <mjl:dt attribute="sampleType">
         ${item.sampleType.displayLabel}
       </mjl:dt>
@@ -88,9 +118,16 @@
           ${item.labTestDate}
         </span>
       </mjl:dt>
+      <mjl:dt attribute="testResult">
+        ${item.testResult.displayLabel}
+      </mjl:dt>      
       <mjl:dt attribute="malariaType">
         ${item.malariaType.displayLabel}
       </mjl:dt>
+      <mjl:dt attribute="primaryInfection">
+        ${item.primaryInfection.displayLabel}
+      </mjl:dt>
+      
       
       <h2><fmt:message key="Treatment" /></h2>
       <mjl:dt attribute="treatmentMethod">

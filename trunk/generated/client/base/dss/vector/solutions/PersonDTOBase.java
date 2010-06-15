@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1788051522)
+@com.runwaysdk.business.ClassSignature(hash = 579292620)
 public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Person";
-  private static final long serialVersionUID = 1788051522;
+  private static final long serialVersionUID = 579292620;
   
   protected PersonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -42,6 +42,7 @@ public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO i
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PATIENTDELEGATE = "patientDelegate";
+  public static java.lang.String PHYSICIANDELEGATE = "physicianDelegate";
   public static java.lang.String RESIDENTIALGEOENTITY = "residentialGeoEntity";
   public static java.lang.String RESIDENTIALINFORMATION = "residentialInformation";
   public static java.lang.String SEQ = "seq";
@@ -566,6 +567,50 @@ public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPatientDelegateMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PATIENTDELEGATE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.PhysicianDTO getPhysicianDelegate()
+  {
+    if(getValue(PHYSICIANDELEGATE) == null || getValue(PHYSICIANDELEGATE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.PhysicianDTO.get(getRequest(), getValue(PHYSICIANDELEGATE));
+    }
+  }
+  
+  public void setPhysicianDelegate(dss.vector.solutions.PhysicianDTO value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANDELEGATE, "");
+    }
+    else
+    {
+      setValue(PHYSICIANDELEGATE, value.getId());
+    }
+  }
+  
+  public boolean isPhysicianDelegateWritable()
+  {
+    return isWritable(PHYSICIANDELEGATE);
+  }
+  
+  public boolean isPhysicianDelegateReadable()
+  {
+    return isReadable(PHYSICIANDELEGATE);
+  }
+  
+  public boolean isPhysicianDelegateModified()
+  {
+    return isModified(PHYSICIANDELEGATE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getPhysicianDelegateMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PHYSICIANDELEGATE).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getResidentialGeoEntity()

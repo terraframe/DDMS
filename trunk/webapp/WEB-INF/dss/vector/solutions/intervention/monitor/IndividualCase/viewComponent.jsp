@@ -31,6 +31,22 @@
       <mjl:dt attribute="probableSource">
         ${item.probableSource.displayString}
       </mjl:dt>
+      <mjl:dt attribute="otherSettlements">
+        ${item.otherSettlements}
+      </mjl:dt>
+      <mjl:dt attribute="origin">
+        ${item.origin.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="plasmaLeakageOnset">
+        <span class="formatDate">
+          ${item.plasmaLeakageOnset}
+        </span>
+      </mjl:dt>
+      <mjl:dt attribute="hemorrhagicOnset">
+        <span class="formatDate">
+          ${item.hemorrhagicOnset}
+        </span>
+      </mjl:dt>      
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.form.edit.button" />
   </mjl:form>
@@ -51,62 +67,15 @@
         <fmt:formatDate value="${row.symptomOnset}" pattern="${dateFormatPattern}" />
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="clinicalDiagnosis">
-    </mjl:attributeColumn>
-    <%--
-    <mjl:attributeColumn attributeName="admissionDate">
+    <mjl:attributeColumn attributeName="diagnosisType">
       <mjl:row>
-        <fmt:formatDate value="${row.admissionDate}" pattern="${dateFormatPattern}" />
+        <c:forEach items="${row.diagnosisTypeEnumNames}" var="enumName">
+          <li>
+            ${row.diagnosisTypeMd.enumItems[enumName]}
+          </li>
+        </c:forEach>        
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="anaemiaPatient">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="diedInFacility">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="labTest">
-      <mjl:row>
-        ${row.labTest.displayLabel}
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="labTestDate">
-      <mjl:row>
-        <fmt:formatDate value="${row.labTestDate}" pattern="${dateFormatPattern}" />
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="patientCategory">
-      <mjl:row>
-        ${row.patientCategory.displayLabel}
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="pregnant">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="properlyRelease">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="referralReason">
-      <mjl:row>
-        ${row.referralReason.displayLabel}
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="referredFrom">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="referredTo">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="releaseDate">
-      <mjl:row>
-        <fmt:formatDate value="${row.releaseDate}" pattern="${dateFormatPattern}" />
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="testSampleDate">
-      <mjl:row>
-        <fmt:formatDate value="${row.testSampleDate}" pattern="${dateFormatPattern}" />
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="treatment">
-      <mjl:row>
-        ${row.treatment.displayLabel}
-      </mjl:row>
-    </mjl:attributeColumn>
-    --%>
     <mjl:freeColumn>
       <mjl:header>
         

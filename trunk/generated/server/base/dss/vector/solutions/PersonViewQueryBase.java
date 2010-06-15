@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1772035233)
+@com.runwaysdk.business.ClassSignature(hash = -1621649247)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class PersonViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1772035233;
+private static final long serialVersionUID = -1621649247;
 
   public PersonViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -186,6 +186,24 @@ private static final long serialVersionUID = -1772035233;
   public com.runwaysdk.query.SelectableBoolean getIsPatient(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.PersonView.ISPATIENT, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsPhysician()
+  {
+    return getIsPhysician(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsPhysician(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.PersonView.ISPHYSICIAN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getIsPhysician(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.PersonView.ISPHYSICIAN, alias, displayLabel);
 
   }
  

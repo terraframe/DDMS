@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -709337688)
+@com.runwaysdk.business.ClassSignature(hash = 263653610)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,6 +20,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
   public static java.lang.String ISMDSSUSER = "isMDSSUser";
   public static java.lang.String ISPATIENT = "isPatient";
+  public static java.lang.String ISPHYSICIAN = "isPhysician";
   public static java.lang.String ISSPRAYLEADER = "isSprayLeader";
   public static java.lang.String ISSPRAYOPERATOR = "isSprayOperator";
   public static java.lang.String ISSTOCKSTAFF = "isStockStaff";
@@ -34,7 +35,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -709337688;
+  private static final long serialVersionUID = 263653610;
   
   public PersonViewBase()
   {
@@ -285,6 +286,34 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     else
     {
       setValue(ISPATIENT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public Boolean getIsPhysician()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ISPHYSICIAN));
+  }
+  
+  public void validateIsPhysician()
+  {
+    this.validateAttribute(ISPHYSICIAN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIsPhysicianMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return mdClassIF.definesAttribute(ISPHYSICIAN);
+  }
+  
+  public void setIsPhysician(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ISPHYSICIAN, "");
+    }
+    else
+    {
+      setValue(ISPHYSICIAN, java.lang.Boolean.toString(value));
     }
   }
   
@@ -707,6 +736,18 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   {
     PersonView _instance = PersonView.get(id);
     _instance.applyAsITNRecipient();
+  }
+  
+  public dss.vector.solutions.PersonWithDelegatesView applyAsPhysician()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PersonView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.PersonWithDelegatesView applyAsPhysician(java.lang.String id)
+  {
+    PersonView _instance = PersonView.get(id);
+    return _instance.applyAsPhysician();
   }
   
   public void applyNonDelegates()

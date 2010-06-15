@@ -55,6 +55,7 @@ private static final long serialVersionUID = 978492195;
       vQuery.map(PersonWithDelegatesView.ITNRECIPIENTDELEGATE, query.getItnRecipientDelegate());
       vQuery.map(PersonWithDelegatesView.SUPERVISORDELEGATE, query.getSupervisorDelegate());
       vQuery.map(PersonWithDelegatesView.USERDELEGATE, query.getUserDelegate());
+      vQuery.map(PersonWithDelegatesView.PHYSICIANDELEGATE, query.getPhysicianDelegate());
     }
 
     /**

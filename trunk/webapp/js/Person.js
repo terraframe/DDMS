@@ -1,29 +1,23 @@
 // Author: Justin Smethie
-Mojo.Meta.newClass('MDSS.PersonModal', {
+Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
+  IsAbstract : true,
   Instance: {
     initialize : function(prop) {
-      this._recipientIdEl = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);      
+      this._concrete = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);      
       this._clickable = (Mojo.Util.isString(prop.clickable) ? document.getElementById(prop.clickable) : prop.clickable);
-      this._button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
+      this._createLink = (Mojo.Util.isString(prop.createLink) ? document.getElementById(prop.createLink) : prop.createLink);
+      this._editLink = (Mojo.Util.isString(prop.editLink) ? document.getElementById(prop.editLink) : prop.editLink);
       this._elements = prop.elements;
-      
+            
       // Make it so the clickable span is in the tab index
       YAHOO.util.Dom.setAttribute(this._clickable, 'tabindex', '0');
   
-      // IMPORTANT: calendarIdEl may not be in the DOM yet because it should appear on the modal page
+      // IMPORTANT: Modal DOM elements do not exist yet
       this._calendarIdEl = prop.calendar;
-      this._firstName = prop.firstName;
-      this._lastName = prop.lastName;
+      this._attributes = [];
 
       this._currentModal = null;
       this._id = new String(Math.random()).substring(2);    
-      this.controller = Mojo.$.dss.vector.solutions.PersonController;
-  
-      var updateListener = Mojo.Util.bind(this, this.updateListener);
-      var cancelListener = Mojo.Util.bind(this, this.cancelListener);
-
-      this.controller.setUpdateRecipientListener(updateListener);
-      this.controller.setViewAllListener(cancelListener);
   
       // Setup the element events
       YAHOO.util.Event.on(this._clickable, 'click', this.handleClick, null, this);
@@ -33,38 +27,60 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
       this._selectSearch = new MDSS.SingleSelectSearch();
       
       this._residentialGeoSearch = null;
-      this._workGeoSearch = null;
+      this._workGeoSearch = null;      
+    },
+
+    populateModal : {
+      IsAbstract : true
+    },
+
+    apply :  {
+      IsAbstract : true
     },
     
-    updateListener : function(params) {
-      var request = new MDSS.Request({
-        that : this,
-        onSuccess: function(personId) {
-          this.that.destroyModal();
-          
-          // Set the id of the newly created person
-          var id = Mojo.Util.trim(personId);
-          this.that._recipientIdEl.value = id;
-          
-          // Submit the form
-          this.that._button.onclick();
-        }
-      });
-
-      return request;
+    
+    getAction :  {
+    	IsAbstract : true
     },
     
-    cancelListener : function(params) {
-      var request = new MDSS.Request({
-        that : this,
-        onSuccess: function() {
-          this.that.destroyModal();
-        }
-      });
+    populateComponent : function() {
+      var component = new Mojo.$.dss.vector.solutions.PersonView();
 
-      return request;
-     },
+      for each (el in this._attributes) {
+        var key = el.id;
+        var value = el.value;
+          
+        this.setValue(component, key, value);
+      }
+
+      return component;  
+    },
+
+    setValue : function(component, attributeName, value) {
+      var attributeDTO = component.getAttributeDTO(attributeName);
+
+      if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
+        var date = MDSS.Calendar.parseDate(value);
+
+        attributeDTO.setValue(date);        
+      }
+      else {
+        attributeDTO.setValue(value);
+      }
+    },
     
+    confirmHandler : function(e) {
+      YAHOO.util.Event.preventDefault(e);
+      
+      this.apply();
+    },
+   
+    cancelHandler : function(e) {
+      YAHOO.util.Event.preventDefault(e);
+
+      this.destroyModal();
+    },
+        
     handleClick : function (e) {
       var request = new MDSS.Request({
         that : this,
@@ -73,9 +89,11 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
         }
       });
         
-      var id = this._recipientIdEl.value;
-
-      this.controller.editRecipient(request, id);
+      var id = this._concrete.value;
+      
+      var action = this.getAction();
+      
+      action(request, id);
     },
     
     handleKeyup : function (e) {
@@ -87,7 +105,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
           }
         });
     
-        var id = this._recipientIdEl.value;
+        var id = this._concrete.value;
     
         this.controller.editRecipient(request, id);
       }
@@ -129,106 +147,149 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
        */
       this._currentModal._removeFocusHandlers();
       
-      // Populate the first and last name values
-      if(this._recipientIdEl != '') {
-        document.getElementById(this._firstName).value = document.getElementById(this._elements[0]).value;
-        document.getElementById(this._lastName).value = document.getElementById(this._elements[1]).value;
-      }
+      this.populateModal();
+      
+      this._attributes = YAHOO.util.Dom.getElementsByClassName("component");
+      
+      // Setup the click handlers for the buttons
+      YAHOO.util.Event.on('button.confirm', 'click', this.confirmHandler, this, this);
+      YAHOO.util.Event.on('button.cancel', 'click', this.cancelHandler, this, this);      
     },
     
     destroyModal : function()
     {
+      this._attributes = [];
+      
       this._currentModal.destroy();
       this._currentModal = null;
-    }
-  },
-  
-  Static : {
-    setUpPersonModal : function(prop) {
-      prop.concrete = (Mojo.Util.isString(prop.concrete) ? document.getElementById(prop.concrete) : prop.concrete);
-      prop.createLink = (Mojo.Util.isString(prop.createLink) ? document.getElementById(prop.createLink) : prop.createLink);
-      prop.editLink = (Mojo.Util.isString(prop.editLink) ? document.getElementById(prop.editLink) : prop.editLink);
-      prop.button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
- 
-      var listFunction = function(valueObject) {
-        var firstName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME);
-        var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.LASTNAME);
-        var dateOfBirth = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH);
-        var sex = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.SEX);
-        var residential = valueObject.getValue('residentialGeoEntity_displayLabel');
-
-        var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(dateOfBirth);
-        
-        if(residential != null && residential != '') {
-          return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth + ', ' + residential;
-        }
-
-        return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth;
-     };
-
-     var idFunction = function(valueObject) {
-       var id = Mojo.$.dss.vector.solutions.PersonView.ID;
-
-       return valueObject.getValue(id);
-     };
-
-     var displayFunction = function(valueObject) {
-       var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
-       var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
-       var firstNameKey = prop.elements[0];
-       var lastNameKey = prop.elements[1];
+    },
+    
+    selectEventHandler : function() {
+      this._createLink.style.display = "none";      
+      this._editLink.style.display = "inline";
+    },
+   
+    showCreatePatient : function(e) {
+      this._editLink.style.display = "none";
+      this._createLink.style.display = "inline";
+    },
        
-       var map = {};
-              
-       map[firstNameKey] = valueObject.getValue(firstName);
-       map[lastNameKey] = valueObject.getValue(lastName);
+    eventHandler : function(e) {
+      if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
+        this.showCreatePatient();
+      }    
+    }    
+  }  
+});
 
-       return map;
-     };
-
-     var searchFunction = Mojo.$.dss.vector.solutions.Person.searchForPerson;
-
-     var selectEventHandler = function() {
-       prop.createLink.style.display = "none";      
-       prop.editLink.style.display = "inline";
-       prop.button.disabled=false;
-     };
-
-     var showCreatePatient = function(e) {
-       prop.editLink.style.display = "none";
-       prop.createLink.style.display = "inline";
-       prop.button.disabled=true;
-     }
+Mojo.Meta.newClass('MDSS.PersonModal', {
+  Extends : MDSS.AbstractPersonModal,
+  Instance: {
+    initialize : function(prop) {
+      this.$initialize(prop);
+      
+      this._firstName = prop.firstName;
+      this._lastName = prop.lastName;      
+      this._button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
+      
+      var autocomplete = {
+        elements:prop.elements,
+        concrete:prop.concrete, 
+        list:Mojo.Util.bind(this, this.listFunction), 
+        display:Mojo.Util.bind(this, this.displayFunction),
+        id:Mojo.Util.bind(this, this.idFunction), 
+        search:Mojo.$.dss.vector.solutions.Person.searchForPerson,
+        selectEventHandler:Mojo.Util.bind(this, this.selectEventHandler),
+        minLength:2
+      };
      
-     var eventHandler = function(e) {
-       if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
-         showCreatePatient();
-       }    
-     }
-     
-     var autocomplete = {
-       elements:prop.elements,
-       concrete:prop.concrete, 
-       list:listFunction, 
-       display:displayFunction, 
-       id:idFunction, 
-       search:searchFunction,
-       selectEventHandler:selectEventHandler,
-       minLength:2
-     };
- 
-     var search = new MDSS.MultiInputAutoComplete(autocomplete);
-     search.addListener(eventHandler);
+      this.search = new MDSS.MultiInputAutoComplete(autocomplete);
+      this.search.addListener(Mojo.Util.bind(this, this.eventHandler));
+      
+      if(this._concrete.value != '') {
+        this.selectEventHandler();
+      }
+      else {
+        this.showCreatePatient();  
+      }
+    },
+    
+    apply : function() {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess: function(returnedValue, returnedObject) {
+          var personId = returnedObject.getPersonId();
 
-     
-     var modal = new MDSS.PersonModal(prop);
+          this.that.destroyModal();
+          this.that._concrete.value = personId;
+          
+          this.that._button.onclick();
+        }
+      });
+      
+      var component = this.populateComponent();
 
-     if(prop.concrete.value != '') {
-       selectEventHandler();
-     }
-     else {
-       showCreatePatient();  
-     }
-   }
+      component.applyNonDelegates(request);
+    },
+    
+    getAction : function() {
+      return Mojo.$.dss.vector.solutions.PersonController.editRecipient;
+    },
+      
+    selectEventHandler : function() {
+      this.$selectEventHandler();
+     
+      this._button.disabled = false;
+    },
+     
+    showCreatePatient : function(e) {
+      this.$showCreatePatient();
+      
+      this._button.disabled = true;
+    },    
+    
+    populateModal : function() {
+      // Populate the first and last name values
+      if(this._concrete != '') {
+        document.getElementById(this._firstName).value = document.getElementById(this._elements[0]).value;
+        document.getElementById(this._lastName).value = document.getElementById(this._elements[1]).value;
+      }    
+    },
+
+    listFunction : function(valueObject) {
+      var firstName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME);
+      var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.LASTNAME);
+      var dateOfBirth = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH);
+      var sex = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.SEX);
+      var residential = valueObject.getValue('residentialGeoEntity_displayLabel');
+
+      var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(dateOfBirth);
+          
+      if(residential != null && residential != '') {
+        return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth + ', ' + residential;
+      }
+
+      return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth;
+    },
+
+    idFunction : function(valueObject) {
+      var id = Mojo.$.dss.vector.solutions.PersonView.ID;
+
+      return valueObject.getValue(id);
+    },
+
+    displayFunction : function(valueObject) {
+      var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
+      var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
+      var firstNameKey = this._elements[0];
+      var lastNameKey = this._elements[1];
+         
+      var map = {};
+               
+      map[firstNameKey] = valueObject.getValue(firstName);
+      map[lastNameKey] = valueObject.getValue(lastName);
+
+      return map;
+    }    
   }
 });
