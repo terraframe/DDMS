@@ -15,12 +15,14 @@ public class ThresholdAlertCalculationType extends ThresholdAlertCalculationType
 		super.apply();
 	}
 
-	  
-	  @Override
-	  protected String buildKey()
-	  {
-		  String key = this.getDisease().getKeyName();
-		  
-	    return this.getDisease().getKeyName();
-	  }
+	@Override
+	protected String buildKey() {
+		String key = this.getDisease().getKeyName();
+
+		return this.getDisease().getKeyName();
+	}
+
+	public static ThresholdAlertCalculationType getCurrent() {
+		return getByKey(Disease.getCurrent().getKeyName());
+	}
 }

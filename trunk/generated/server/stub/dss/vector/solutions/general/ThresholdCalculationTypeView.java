@@ -161,7 +161,7 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 	
 	public ThresholdAlertCalculationType saveAlertCalculationType() {
 		
-		ThresholdAlertCalculationType alertCalculationType = ThresholdAlertCalculationType.getByKey(Disease.getCurrent().getKeyName());
+		ThresholdAlertCalculationType alertCalculationType = ThresholdAlertCalculationType.getCurrent();
 
 		alertCalculationType.lock();
 
