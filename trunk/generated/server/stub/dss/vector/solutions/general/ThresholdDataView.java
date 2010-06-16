@@ -375,16 +375,6 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     return ThresholdData.getThresholds(entity, date);
   }
 
-  @Transaction
-  @Authenticate
-  public static void setThresholdConfiguration(String universal, String calulationMethod)
-  {
-    Property isEpiProperty = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE, PropertyInfo.IS_EPI_WEEK);
-    isEpiProperty.lock();
-    isEpiProperty.setPropertyValue(calulationMethod);
-    isEpiProperty.apply();
-  }
-
   @Override
   public Integer[] getCalculatedThresholds()
   {
