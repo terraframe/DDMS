@@ -34,6 +34,7 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
+import dss.vector.solutions.general.ThresholdAlertCalculationType;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -170,24 +171,22 @@ public class IndividualCase extends IndividualCaseBase implements
 
   protected static Date[] getWindow(Date date)
   {
-    Property property = Property.getByPackageAndName(PropertyInfo.GENERAL_PACKAGE,
-        PropertyInfo.IS_EPI_WEEK);
+	  ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
 
-    OutbreakCalculation method = OutbreakCalculation.valueOf(property.getPropertyValue());
-
-    if (method.equals(OutbreakCalculation.EPI_WEEK))
+    if (config.getCountingMethod().contains(OutbreakCalculation.SLIDING_WEEK))
     {
-      EpiDate week = EpiDate.getEpiWeek(date);
+        // Use the sliding window approach
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        calendar.set(Calendar.DAY_OF_YEAR, -6);
 
-      return new Date[] { week.getStartDate(), week.getEndDate() };
+        return new Date[] { calendar.getTime(), date };
     }
 
-    // Use the sliding window approach
-    Calendar calendar = Calendar.getInstance();
-    calendar.setTime(date);
-    calendar.set(Calendar.DAY_OF_YEAR, -6);
+    // Use the Epi week approach
+    EpiDate week = EpiDate.getEpiWeek(date);
 
-    return new Date[] { calendar.getTime(), date };
+    return new Date[] { week.getStartDate(), week.getEndDate() };
   }
 
   private static long getCount(GeoEntity entity, Date startDate, Date endDate)

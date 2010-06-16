@@ -45,8 +45,4 @@ public interface PropertyInfo
   public static final String SHORT_ID_SEGMENTS       = "SHORT_ID_SEGMENTS";
 
   public static final String DEFAULT_UNITS           = "sprayedUnitsPerDay";
-
-  public static final String EPIDEMIC_UNIVERSAL      = "epidemicUniversal";
-
-  public static final String IS_EPI_WEEK             = "isEpiWeek";
 }
