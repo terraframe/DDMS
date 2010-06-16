@@ -30,6 +30,7 @@
 			<mdBusiness
 				name="dss.vector.solutions.general.ThresholdAlertCalculationType"
 				label="Threshold Alert Calculation Type"
+				cacheAlgorithm="everything"
 				generateController="false">
 				<attributes>
 					<reference
