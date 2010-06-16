@@ -3,6 +3,7 @@ package dss.vector.solutions;
 import java.util.Date;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
@@ -68,6 +69,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     if (validate)
     {
       validateDateOfBirth();
+      validateIdentifier();
     }
 
     super.apply();
@@ -107,6 +109,23 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
           p.apply();
           p.throwIt();
         }
+      }
+    }
+  }
+
+  @Override
+  public void validateIdentifier()
+  {
+    if (this.getIdentifier() != null && this.getIdentifier().length() > 0)
+    {
+      PersonQuery query = new PersonQuery(new QueryFactory());
+      query.WHERE(AND.get(query.getIdentifier().EQ(this.getIdentifier()), query.getId().NE(this.getId())));
+      
+      long count = query.getCount();
+
+      if (count > 0)
+      {
+        throw new UniqueLeaderIdException();
       }
     }
   }
@@ -346,7 +365,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     if (value != null && !value.equals(""))
     {
       String[] tokens = value.split(" ");
-      SelectablePrimitive[] searchables = new SelectablePrimitive[] {personQuery.getIdentifier(PersonView.IDENTIFIER), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME) };
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] { personQuery.getIdentifier(PersonView.IDENTIFIER), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME) };
 
       QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, new Condition[] {});
 
@@ -368,7 +387,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     valueQuery.SELECT(residentialSelectable);
 
     valueQuery.restrictRows(20, 1);
-    
+
     System.out.println(valueQuery.getSQL());
 
     return valueQuery;
