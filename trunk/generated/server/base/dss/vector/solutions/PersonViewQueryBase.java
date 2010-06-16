@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1621649247)
+@com.runwaysdk.business.ClassSignature(hash = -781252823)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  abstract  class PersonViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1621649247;
+private static final long serialVersionUID = -781252823;
 
   public PersonViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -41,6 +41,42 @@ private static final long serialVersionUID = -1621649247;
   public com.runwaysdk.query.SelectableInteger getAge(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.PersonView.AGE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthEntity()
+  {
+    return getBirthEntity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthEntity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.BIRTHENTITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthEntity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.BIRTHENTITY, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation()
+  {
+    return getBirthLocation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.BIRTHLOCATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.BIRTHLOCATION, alias, displayLabel);
 
   }
  
@@ -114,6 +150,24 @@ private static final long serialVersionUID = -1621649247;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier()
+  {
+    return getIdentifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.IDENTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.PersonView.IDENTIFIER, alias, displayLabel);
 
   }
  

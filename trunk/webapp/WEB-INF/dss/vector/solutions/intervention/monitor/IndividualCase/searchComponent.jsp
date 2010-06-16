@@ -41,11 +41,15 @@
   <dd>
 	<table>
 		<tr>
+			<td> <label class="sublabel"> ${person.identifierMd.displayLabel}  </label></td>
 			<td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
 			<td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
 			<td>&nbsp;</td>
 		</tr>
 		<tr>
+			<td>
+      			<mjl:input type="text" param="identifier.search" id="identifier.search" value="${person != null ? person.identifier : ''}" />
+			</td>
 			<td>
       			<mjl:input type="text" param="firstName.search" id="firstName.search" value="${person != null ? person.firstName : ''}" />
 			</td>
@@ -84,7 +88,7 @@
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
     var prop = {
-      elements : ['firstName.search', 'lastName.search'],
+      elements : ['identifier.search', 'firstName.search', 'lastName.search'],
       concrete : 'patient',
       createLink : 'createPatient',
       editLink : 'editPatient', 
@@ -92,6 +96,7 @@
       calendar : 'dateOfBirth', 
       firstName: 'firstName', 
       lastName: 'lastName',
+      identifier: 'identifier',
       button : 'button.id'
     };
   

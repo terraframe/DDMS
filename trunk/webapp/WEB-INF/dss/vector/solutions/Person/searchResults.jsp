@@ -35,6 +35,7 @@
 <mjl:form name="dss.vector.solutions.Person.form.name" id="dss.vector.solutions.Person.form.id" method="POST">
   <mjl:component item="${newPerson}" param="person">
     <mjl:input type="hidden" param="personId" value="${newPerson.personId}" />
+    <mjl:input type="hidden" param="identifier" value="${newPerson.identifier}"/>
     <mjl:input type="hidden" param="firstName" value="${newPerson.firstName}"/>
     <mjl:input type="hidden" param="lastName" value="${newPerson.lastName}"/>
     <mjl:input type="hidden" param="residentialGeoId" value="${newPerson.residentialGeoId}"/>

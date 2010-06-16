@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -37691572)
+@com.runwaysdk.business.ClassSignature(hash = -2110245840)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,12 +11,15 @@ package dss.vector.solutions;
 public abstract class PersonBase extends com.runwaysdk.business.Business implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Person";
+  public static java.lang.String BIRTHENTITY = "birthEntity";
+  public static java.lang.String BIRTHLOCATION = "birthLocation";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFIER = "identifier";
   public static java.lang.String IPTRECIPIENTDELEGATE = "iptRecipientDelegate";
   public static java.lang.String ITNRECIPIENTDELEGATE = "itnRecipientDelegate";
   public static java.lang.String KEYNAME = "keyName";
@@ -39,11 +42,74 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = -37691572;
+  private static final long serialVersionUID = -2110245840;
   
   public PersonBase()
   {
     super();
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getBirthEntity()
+  {
+    if (getValue(BIRTHENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(BIRTHENTITY));
+    }
+  }
+  
+  public void validateBirthEntity()
+  {
+    this.validateAttribute(BIRTHENTITY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBirthEntityMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Person.CLASS);
+    return mdClassIF.definesAttribute(BIRTHENTITY);
+  }
+  
+  public void setBirthEntity(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(BIRTHENTITY, "");
+    }
+    else
+    {
+      setValue(BIRTHENTITY, value.getId());
+    }
+  }
+  
+  public String getBirthLocation()
+  {
+    return getValue(BIRTHLOCATION);
+  }
+  
+  public void validateBirthLocation()
+  {
+    this.validateAttribute(BIRTHLOCATION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBirthLocationMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Person.CLASS);
+    return mdClassIF.definesAttribute(BIRTHLOCATION);
+  }
+  
+  public void setBirthLocation(String value)
+  {
+    if(value == null)
+    {
+      setValue(BIRTHLOCATION, "");
+    }
+    else
+    {
+      setValue(BIRTHLOCATION, value);
+    }
   }
   
   public java.util.Date getCreateDate()
@@ -190,6 +256,34 @@ public abstract class PersonBase extends com.runwaysdk.business.Business impleme
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Person.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getIdentifier()
+  {
+    return getValue(IDENTIFIER);
+  }
+  
+  public void validateIdentifier()
+  {
+    this.validateAttribute(IDENTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Person.CLASS);
+    return mdClassIF.definesAttribute(IDENTIFIER);
+  }
+  
+  public void setIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFIER, "");
+    }
+    else
+    {
+      setValue(IDENTIFIER, value);
+    }
   }
   
   public dss.vector.solutions.intervention.monitor.IPTRecipient getIptRecipientDelegate()

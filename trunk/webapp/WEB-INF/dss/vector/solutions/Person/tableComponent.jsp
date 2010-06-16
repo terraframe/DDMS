@@ -5,6 +5,8 @@
 <%@page import="com.runwaysdk.business.ComponentQueryDTO"%>
 <%@page import="dss.vector.solutions.PersonWithDelegatesViewDTO"%>
     
+    <mjl:attributeColumn attributeName="identifier">
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="firstName">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="lastName">

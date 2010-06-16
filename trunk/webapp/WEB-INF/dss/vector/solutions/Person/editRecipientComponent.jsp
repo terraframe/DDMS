@@ -16,6 +16,9 @@
   <mjl:form name="IndividualIPT.form.name" id="form.id" method="POST">
     <mjl:component item="${item}" param="patient">
       <mjl:input type="hidden" param="personId" id="personId" classes="component"/>
+      <mjl:dt attribute="identifier">
+        <mjl:input type="text" param="identifier" id="identifier" classes="component"/>
+      </mjl:dt>
       <mjl:dt attribute="firstName">
         <mjl:input type="text" param="firstName" id="firstName" classes="component"/>
       </mjl:dt>
@@ -35,13 +38,19 @@
         <mdss:geo param="residentialGeoId" id="residentialGeoId" classes="component" concrete="false" value="${item.residentialGeoId}" />
       </mjl:dt>
       <mjl:dt attribute="residentialInformation">
-        <mjl:input type="text" param="residentialInformation" id="residentialInformation" classes="component" />
+        <mjl:textarea param="residentialInformation" id="residentialInformation" classes="component" />
       </mjl:dt>
       <mjl:dt attribute="workGeoId" >
         <mdss:geo param="workGeoId" id="workGeoId" classes="component" concrete="false" value="${item.workGeoId}" />      
       </mjl:dt>
       <mjl:dt attribute="workInformation">
-        <mjl:input type="text" param="workInformation" id="workInformation" classes="component" />
+        <mjl:textarea param="workInformation" id="workInformation" classes="component" />
+      </mjl:dt>
+      <mjl:dt attribute="birthEntity" >
+        <mdss:geo param="birthEntity" id="birthEntity" classes="component" concrete="false" value="${item.birthEntity}" />      
+      </mjl:dt>
+      <mjl:dt attribute="birthLocation">
+        <mjl:textarea param="birthLocation" id="birthLocation" classes="component" />
       </mjl:dt>
     </mjl:component>
     

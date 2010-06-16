@@ -5,7 +5,6 @@ import java.util.Date;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
@@ -49,6 +48,11 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
   protected String buildKey()
   {
     // Person class has no attributes that can form a unique identifier
+    if (this.getIdentifier() != null && this.getIdentifier().length() > 0)
+    {
+      return this.getIdentifier();
+    }
+
     return this.getId();
   }
 
@@ -139,12 +143,12 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     {
       this.getStockStaffDelegate().delete();
     }
-    
+
     if (this.getSupervisorDelegate() != null)
     {
       this.getSupervisorDelegate().delete();
     }
-    
+
     if (this.getPhysicianDelegate() != null)
     {
       this.getPhysicianDelegate().delete();
@@ -198,7 +202,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     {
       this.getSupervisorDelegate().lock();
     }
-    
+
     if (this.getPhysicianDelegate() != null)
     {
       this.getPhysicianDelegate().lock();
@@ -244,7 +248,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     {
       this.getSupervisorDelegate().unlock();
     }
-    
+
     if (this.getSupervisorDelegate() != null)
     {
       this.getPhysicianDelegate().unlock();
@@ -335,42 +339,37 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
 
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
 
-    SelectableChar orderBy = personQuery.getFirstName(PersonView.FIRSTNAME);
-
-    SelectableChar idReference = personQuery.getId(PersonView.ID);
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
-        idReference,
-        orderBy, personQuery.getLastName(PersonView.LASTNAME),
-        personQuery.getDateOfBirth(PersonView.DATEOFBIRTH),
-        personQuery.getSex().getName(PersonView.SEX)};
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { personQuery.getId(PersonView.ID), personQuery.getIdentifier(PersonView.IDENTIFIER), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME), personQuery.getDateOfBirth(PersonView.DATEOFBIRTH), personQuery.getSex().getName(PersonView.SEX) };
 
     SelectableSQLCharacter residentialSelectable = valueQuery.aSQLCharacter(residentialLabel, residentialLabel);
 
     if (value != null && !value.equals(""))
     {
       String[] tokens = value.split(" ");
-      SelectablePrimitive[] searchables = new SelectablePrimitive[]{
-        orderBy, personQuery.getLastName(PersonView.LASTNAME)          
-      };
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] {personQuery.getIdentifier(PersonView.IDENTIFIER), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME) };
 
       QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, new Condition[] {});
 
       // IMPORTANT: This only works because there is an inner query
-      // FIXME: Get the actual reference to the correct query alias and column alias      
-      QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY, idReference.getColumnAlias());
+      // FIXME: Get the actual reference to the correct query alias and column
+      // alias
+      QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY, personQuery.getId(PersonView.ID).getColumnAlias());
     }
     else
     {
-      QueryBuilder.orderedLookup(valueQuery, factory, orderBy, selectables, new Condition[] {});
-      
+      QueryBuilder.orderedLookup(valueQuery, factory, personQuery.getFirstName(PersonView.FIRSTNAME), selectables, new Condition[] {});
+
       // IMPORTANT: This only works because there is no inner query
-      // FIXME: Get the actual reference to the correct query alias and column alias
-      QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY, idReference.getDefiningTableAlias() + "." + Person.ID);
+      // FIXME: Get the actual reference to the correct query alias and column
+      // alias
+      QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY, personQuery.getId(PersonView.ID).getDefiningTableAlias() + "." + Person.ID);
     }
 
     valueQuery.SELECT(residentialSelectable);
-    
+
     valueQuery.restrictRows(20, 1);
+    
+    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }

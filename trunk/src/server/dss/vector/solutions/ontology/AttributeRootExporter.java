@@ -4,8 +4,7 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -17,6 +16,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
@@ -65,6 +65,8 @@ public class AttributeRootExporter
   public void exportTemplate()
   {
     BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
+    query.ORDER_BY(query.getKeyName(), SortOrder.ASC);
+    
     OIterator<? extends BrowserField> iterator = query.getIterator();
 
     int rowCount = 0;
@@ -80,7 +82,6 @@ public class AttributeRootExporter
       MdAttribute mdAttribute = field.getMdAttribute();
       MdClass mdClass = mdAttribute.getAllDefiningClass().next();
       String attributeLabel = mdAttribute.getDisplayLabel().getDefaultValue();
-      Set<String> exportedTerms = new TreeSet<String>();
 
       if (attributeLabel.length() == 0 && mdAttribute instanceof MdAttributeVirtual)
       {
@@ -99,23 +100,20 @@ public class AttributeRootExporter
       MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
       String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
       String defaultTermValue = new String();
+
       if (defaultTermId.length() > 0)
       {
         defaultTermValue = Term.get(defaultTermId).getTermId();
       }
       createAndSet(row, cellCount++, defaultTermValue);
 
-      for (BrowserRoot root : field.getAllroot())
+      List<ExportData> roots = ExportData.getRoots(field);
+
+      for (ExportData root : roots)
       {
-        String termId = root.getTerm().getId();
-
-        if (!exportedTerms.contains(termId))
-        {
-          createAndSet(row, cellCount++, root.getTerm().getTermId());
-          row.createCell(cellCount++).setCellValue(root.getSelectable().booleanValue());
-
-          exportedTerms.add(termId);
-        }
+        createAndSet(row, cellCount++, root.getTermId());
+        row.createCell(cellCount++).setCellValue(root.getSelectable());
+        createAndSet(row, cellCount++, root.getDisease());
       }
       if (cellCount > maxCellCount)
       {
@@ -123,17 +121,17 @@ public class AttributeRootExporter
       }
     }
 
-    for (short s = 0; s < maxCellCount; s++)
+    for (short s = 4; s < maxCellCount; s += 3)
     {
-      if (s > 3 && s % 2 == 0)
-      {
-        createAndSet(header, s, "Root ID #" + ( s / 2 - 1 ));
-      }
-      if (s > 3 && s % 2 == 1)
-      {
-        createAndSet(header, s, "Selectable #" + ( s / 2 - 1 ));
-      }
+      int index = ( s - 3 ) / 3;
 
+      createAndSet(header, s, "Root ID #" + index);
+      createAndSet(header, s + 1, "Selectable #" + index);
+      createAndSet(header, s + 2, "Disease #" + index);
+    }
+    
+    for (short s = 0; s < maxCellCount; s ++)
+    {
       sheet.autoSizeColumn(s);
     }
   }

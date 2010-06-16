@@ -75,10 +75,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       ProgrammingErrorException ex = new ProgrammingErrorException(t);
       throw ex;
     }
-    
+
     return valueQuery;
   }
-  
+
   /**
    * Queries
    * 
@@ -125,7 +125,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     }
 
     ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
-    
+
     DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
@@ -164,9 +164,9 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
   public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
-    QueryBuilder.textLookup(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray, new Join[]{});
+    QueryBuilder.textLookup(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray, new Join[] {});
   }
-  
+
   public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins)
   {
     long WEIGHT = 256;
@@ -197,31 +197,31 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     {
       selectClauseArray[k] = uQ.get(selectableArray[k].getResultAttributeName());
     }
-    
+
     selectClauseArray[selectableArray.length] = F.COUNT(uQ.get("weight"), "weight");
     selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.get("weight"), "sum");
-    
+
     valueQuery.SELECT(selectClauseArray);
     valueQuery.ORDER_BY_DESC(F.COUNT(uQ.get("weight"), "weight"));
     valueQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
-    
+
     for (SelectablePrimitive selectable : selectableArray)
     {
       valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.get(selectable.getResultAttributeName()));
     }
-    
+
     valueQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
 
-//    for (ValueObject valueObject : valueQuery.getIterator())
-//    {
-//      valueObject.printAttributes();
-//    }
+    // for (ValueObject valueObject : valueQuery.getIterator())
+    // {
+    // valueObject.printAttributes();
+    // }
   }
 
   private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
   {
     ValueQuery vQ = qf.valueQuery();
-    
+
     token = token.replace("%", "!%");
 
     // Build select clause. This would be cleaner if the API supported
@@ -232,10 +232,10 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    
+
     String sql = Database.instance().escapeSQLCharacters(token);
-    
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql  + "'),0))");
+
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql + "'),0))");
     vQ.SELECT_DISTINCT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + sql + "%"));
 
@@ -243,12 +243,12 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     {
       vQ.AND(condition);
     }
-    
+
     for (Join join : joins)
     {
       vQ.AND(join);
     }
-    
+
     return vQ;
   }
 
@@ -256,41 +256,47 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   {
     StringBuilder sb = new StringBuilder();
     sb.append("LOWER(' ' || ");
+
     for (int i = 0; i < selectableArray.length; i++)
     {
       if (i > 0)
       {
         sb.append(" || ' ' || ");
       }
-      sb.append(selectableArray[i].getDbQualifiedName());
+
+      // IMPORTANT: The selectable may not be required, as such we must COALESCE
+      // the selectable with the empty string in order for rows with NULL values
+      // to work.
+      sb.append("COALESCE(" + selectableArray[i].getDbQualifiedName() + ",'')");
     }
+
     sb.append(")");
     return sb.toString();
   }
 
   public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions)
   {
-    QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions, new Join[]{});
+    QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions, new Join[] {});
   }
-  
+
   public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions, Join[] joins)
   {
     Condition condition = null;
-    
+
     for (Condition cond : conditions)
     {
-      condition = (condition == null) ? cond : AND.get(condition, cond);
+      condition = ( condition == null ) ? cond : AND.get(condition, cond);
     }
-    
+
     query.SELECT(selectables);
-    query.WHERE(condition);    
-    
+    query.WHERE(condition);
+
     for (Join join : joins)
     {
       query.AND(join);
     }
-    
+
     query.ORDER_BY_ASC(orderBy);
   }
-  
+
 }

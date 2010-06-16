@@ -25,10 +25,10 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
   public void populateView(Person concrete)
   {
     this.setPersonId(concrete.getId());
+    this.setIdentifier(concrete.getIdentifier());
     this.setFirstName(concrete.getFirstName());
     this.setLastName(concrete.getLastName());
     this.setSex(concrete.getSex());
-
     this.setDateOfBirth(concrete.getDateOfBirth());
 
     if (concrete.getDateOfBirth() != null)
@@ -50,8 +50,15 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
 
     this.setWorkInformation(concrete.getWorkInformation());
 
+    if (concrete.getBirthEntity() != null)
+    {
+      this.setBirthEntity(concrete.getBirthEntity().getGeoId());
+    }
+    
+    this.setBirthLocation(concrete.getBirthLocation());
+    
+    
     // Set the person's delegate attributes
-
     MDSSUser user = concrete.getUserDelegate();
     if (user == null)
     {
@@ -406,6 +413,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
 
   private void populateConcrete(Person person)
   {
+    person.setIdentifier(this.getIdentifier());
     person.setFirstName(this.getFirstName());
     person.setLastName(this.getLastName());
     person.setSex(this.getSex());
@@ -445,16 +453,36 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       person.setWorkGeoEntity(null);
     }
 
-    person.setResidentialInformation(this.getResidentialInformation());
+    person.setWorkInformation(this.getWorkInformation());
+
+    
+    String birthGeoId = this.getBirthEntity();
+    
+    if (birthGeoId != null && !birthGeoId.equals(""))
+    {
+      person.setBirthEntity(GeoEntity.searchByGeoId(birthGeoId));
+    }
+    else
+    {
+      person.setBirthEntity(null);
+    }
+    
+    person.setBirthLocation(this.getBirthLocation());
   }
 
   private void populateAttributeMapping(Person person)
   {
+    new AttributeNotificationMap(person, Person.IDENTIFIER, this, PersonView.IDENTIFIER);
     new AttributeNotificationMap(person, Person.DATEOFBIRTH, this, PersonView.DATEOFBIRTH);
     new AttributeNotificationMap(person, Person.FIRSTNAME, this, PersonView.FIRSTNAME);
     new AttributeNotificationMap(person, Person.LASTNAME, this, PersonView.LASTNAME);
     new AttributeNotificationMap(person, Person.SEX, this, PersonView.SEX);
     new AttributeNotificationMap(person, Person.RESIDENTIALGEOENTITY, this, PersonView.RESIDENTIALGEOID);
+    new AttributeNotificationMap(person, Person.RESIDENTIALINFORMATION, this, PersonView.RESIDENTIALINFORMATION);
+    new AttributeNotificationMap(person, Person.WORKGEOENTITY, this, PersonView.WORKGEOID);
+    new AttributeNotificationMap(person, Person.WORKINFORMATION, this, PersonView.WORKINFORMATION);
+    new AttributeNotificationMap(person, Person.BIRTHENTITY, this, PersonView.BIRTHENTITY);
+    new AttributeNotificationMap(person, Person.BIRTHLOCATION, this, PersonView.BIRTHLOCATION);
   }
 
   @Override

@@ -140,9 +140,33 @@ public class AttributeRootImporter implements Reloadable
       String termId = ExcelUtil.getString(row.getCell(i++));
       Term term = Term.getByTermId(termId);
       Boolean selectable = ExcelUtil.getBoolean(row.getCell(i++));
+      String diseaseName = ExcelUtil.getString(row.getCell(i++));
 
-      for (Disease disease : diseases)
+      if (diseaseName == null || diseaseName.length() == 0)
       {
+        for (Disease disease : diseases)
+        {
+          BrowserRoot browserRoot = new BrowserRoot();
+          browserRoot.setTerm(term);
+          browserRoot.setDisease(disease);
+
+          int index = allRoots.indexOf(browserRoot);
+          if (index != -1)
+          {
+            browserRoot = allRoots.get(index);
+            browserRoot.setSelectable(selectable);
+            browserRoot.apply();
+          }
+          else
+          {
+            browserRoot.setSelectable(selectable);
+            browserField.addBrowserRoot(browserRoot);
+          }
+        }
+      }
+      else
+      {
+        Disease disease = Disease.getByKey(diseaseName);
         BrowserRoot browserRoot = new BrowserRoot();
         browserRoot.setTerm(term);
         browserRoot.setDisease(disease);

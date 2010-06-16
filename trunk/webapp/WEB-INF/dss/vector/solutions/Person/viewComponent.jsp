@@ -11,6 +11,9 @@
   <mjl:input value="${item.personId}" type="hidden" param="id" />
   <dl>
     <mjl:component item="${item}" param="item">
+    <mjl:dt attribute="identifier">
+      ${item.identifier}
+    </mjl:dt>    
     <mjl:dt attribute="firstName">
       ${item.firstName}
     </mjl:dt>

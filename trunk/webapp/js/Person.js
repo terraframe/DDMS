@@ -190,6 +190,7 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
     initialize : function(prop) {
       this.$initialize(prop);
       
+      this._identifier = prop.identifier;
       this._firstName = prop.firstName;
       this._lastName = prop.lastName;      
       this._button = (Mojo.Util.isString(prop.button) ? document.getElementById(prop.button) : prop.button);
@@ -253,12 +254,14 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
     populateModal : function() {
       // Populate the first and last name values
       if(this._concrete != '') {
-        document.getElementById(this._firstName).value = document.getElementById(this._elements[0]).value;
-        document.getElementById(this._lastName).value = document.getElementById(this._elements[1]).value;
+        document.getElementById(this._identifier).value = document.getElementById(this._elements[0]).value;
+        document.getElementById(this._firstName).value = document.getElementById(this._elements[1]).value;
+        document.getElementById(this._lastName).value = document.getElementById(this._elements[2]).value;
       }    
     },
 
     listFunction : function(valueObject) {
+      var identifier = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.IDENTIFIER);    	
       var firstName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME);
       var lastName = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.LASTNAME);
       var dateOfBirth = valueObject.getValue(Mojo.$.dss.vector.solutions.PersonView.DATEOFBIRTH);
@@ -266,12 +269,18 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
       var residential = valueObject.getValue('residentialGeoEntity_displayLabel');
 
       var formattedDateOfBirth = MDSS.Calendar.getLocalizedString(dateOfBirth);
+      
+      var label = firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth;
+      
+      if(identifier != null && identifier != '') {
+        label = identifier + ' ' + label;
+      }
           
       if(residential != null && residential != '') {
-        return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth + ', ' + residential;
+        label = label + ', ' + residential;
       }
 
-      return  firstName + ' ' + lastName  + ' (' + sex + '), DOB: ' + formattedDateOfBirth;
+      return label;
     },
 
     idFunction : function(valueObject) {
@@ -281,13 +290,17 @@ Mojo.Meta.newClass('MDSS.PersonModal', {
     },
 
     displayFunction : function(valueObject) {
+      var identifier = Mojo.$.dss.vector.solutions.PersonView.IDENTIFIER;
       var firstName = Mojo.$.dss.vector.solutions.PersonView.FIRSTNAME;
       var lastName = Mojo.$.dss.vector.solutions.PersonView.LASTNAME;
-      var firstNameKey = this._elements[0];
-      var lastNameKey = this._elements[1];
+      
+      var identifierKey = this._elements[0];
+      var firstNameKey = this._elements[1];
+      var lastNameKey = this._elements[2];
          
       var map = {};
                
+      map[identifierKey] = valueObject.getValue(identifier);
       map[firstNameKey] = valueObject.getValue(firstName);
       map[lastNameKey] = valueObject.getValue(lastName);
 

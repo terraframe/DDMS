@@ -32,36 +32,41 @@
         <mjl:input type="text" param="batchNumber" />
       </mjl:dt>
       <mjl:dt attribute="person">
-        	<table>
-  		<tr>
-			<td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
-			<td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
-			<td>&nbsp;</td>
-		</tr>
-		<tr>
-			<td>
-        <mjl:input type="text" id="firstName.search" value="${person != null ? person.firstName : ''}" />
-      </td>
-      <td>
-        <mjl:input type="text" id="lastName.search" value="${person != null ? person.lastName : ''}" />
-      </td>
-      <td>
-        <mjl:input type="hidden" param="person" id="person"/>
+      <table>
+        <tr>
+          <td> <label class="sublabel"> ${person.identifierMd.displayLabel}  </label></td>        
+          <td> <label class="sublabel"> ${person.firstNameMd.displayLabel}  </label></td>
+          <td> <label class="sublabel"> ${person.lastNameMd.displayLabel}  </label></td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td>
+            <mjl:input type="text" param="identifier.search" id="identifier.search" value="${person != null ? person.identifier : ''}" />
+          </td>        
+          <td>
+            <mjl:input type="text" id="firstName.search" value="${person != null ? person.firstName : ''}" />
+          </td>
+          <td>
+            <mjl:input type="text" id="lastName.search" value="${person != null ? person.lastName : ''}" />
+          </td>
+          <td>
+            <mjl:input type="hidden" param="person" id="person"/>
 
-        <span class="clickable" id="person.span">
-          <span id="createPerson">
-            <fmt:message key="Create_new_recipient"/>        
-          </span>
-          <span id="editPerson" >
-            <fmt:message key="Edit_recipient"/>        
-          </span>
-        </span>
-        </td>
-        </tr></table>
-      </mjl:dt>
-    </mjl:component>
+            <span class="clickable" id="person.span">
+              <span id="createPerson">
+                <fmt:message key="Create_new_recipient"/>        
+              </span>
+              <span id="editPerson" >
+                <fmt:message key="Edit_recipient"/>        
+              </span>
+            </span>
+          </td>
+        </tr>
+    </table>
+    </mjl:dt>
+  </mjl:component>
 
-    <mjl:command value="Search" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewHistory.mojo" name="search.person" id="button.id" />
+  <mjl:command value="Search" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewHistory.mojo" name="search.person" id="button.id" />
   </mjl:form>
 </dl>
 
@@ -75,7 +80,7 @@
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
     var prop = {
-      elements : ['firstName.search', 'lastName.search'],
+      elements : ['identifier.search', 'firstName.search', 'lastName.search'],
       concrete : 'person',
       createLink : 'createPerson',
       editLink : 'editPerson', 
@@ -83,8 +88,10 @@
       calendar : 'dateOfBirth', 
       firstName: 'firstName', 
       lastName: 'lastName',
+      identifier: 'identifier',
       button : 'button.id'
     };
+
   
     new MDSS.PersonModal(prop);
   });

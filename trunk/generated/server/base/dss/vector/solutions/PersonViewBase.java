@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 263653610)
+@com.runwaysdk.business.ClassSignature(hash = -655650240)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,10 +12,13 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
 {
   public final static String CLASS = "dss.vector.solutions.PersonView";
   public static java.lang.String AGE = "age";
+  public static java.lang.String BIRTHENTITY = "birthEntity";
+  public static java.lang.String BIRTHLOCATION = "birthLocation";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFIER = "identifier";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
   public static java.lang.String ISMDSSUSER = "isMDSSUser";
@@ -35,7 +38,7 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOID = "workGeoId";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = 263653610;
+  private static final long serialVersionUID = -655650240;
   
   public PersonViewBase()
   {
@@ -67,6 +70,62 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
     else
     {
       setValue(AGE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public String getBirthEntity()
+  {
+    return getValue(BIRTHENTITY);
+  }
+  
+  public void validateBirthEntity()
+  {
+    this.validateAttribute(BIRTHENTITY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBirthEntityMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return mdClassIF.definesAttribute(BIRTHENTITY);
+  }
+  
+  public void setBirthEntity(String value)
+  {
+    if(value == null)
+    {
+      setValue(BIRTHENTITY, "");
+    }
+    else
+    {
+      setValue(BIRTHENTITY, value);
+    }
+  }
+  
+  public String getBirthLocation()
+  {
+    return getValue(BIRTHLOCATION);
+  }
+  
+  public void validateBirthLocation()
+  {
+    this.validateAttribute(BIRTHLOCATION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBirthLocationMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return mdClassIF.definesAttribute(BIRTHLOCATION);
+  }
+  
+  public void setBirthLocation(String value)
+  {
+    if(value == null)
+    {
+      setValue(BIRTHLOCATION, "");
+    }
+    else
+    {
+      setValue(BIRTHLOCATION, value);
     }
   }
   
@@ -175,6 +234,34 @@ public abstract class PersonViewBase extends com.runwaysdk.business.View impleme
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getIdentifier()
+  {
+    return getValue(IDENTIFIER);
+  }
+  
+  public void validateIdentifier()
+  {
+    this.validateAttribute(IDENTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.PersonView.CLASS);
+    return mdClassIF.definesAttribute(IDENTIFIER);
+  }
+  
+  public void setIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFIER, "");
+    }
+    else
+    {
+      setValue(IDENTIFIER, value);
+    }
   }
   
   public Boolean getIsIPTRecipient()

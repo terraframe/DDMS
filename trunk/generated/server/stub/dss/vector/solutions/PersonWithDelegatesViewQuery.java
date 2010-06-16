@@ -44,6 +44,7 @@ private static final long serialVersionUID = 978492195;
       PersonWithDelegatesViewQuery vQuery = this.getViewQuery();
       
       vQuery.map(PersonWithDelegatesView.PERSONID, query.getId());
+      vQuery.map(PersonWithDelegatesView.IDENTIFIER, query.getIdentifier());
       vQuery.map(PersonWithDelegatesView.DATEOFBIRTH, query.getDateOfBirth());
       vQuery.map(PersonWithDelegatesView.FIRSTNAME, query.getFirstName());
       vQuery.map(PersonWithDelegatesView.LASTNAME, query.getLastName());

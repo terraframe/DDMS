@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 579292620)
+@com.runwaysdk.business.ClassSignature(hash = 1405646256)
 public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Person";
-  private static final long serialVersionUID = 579292620;
+  private static final long serialVersionUID = 1405646256;
   
   protected PersonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,12 +27,15 @@ public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO i
     return CLASS;
   }
   
+  public static java.lang.String BIRTHENTITY = "birthEntity";
+  public static java.lang.String BIRTHLOCATION = "birthLocation";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFIER = "identifier";
   public static java.lang.String IPTRECIPIENTDELEGATE = "iptRecipientDelegate";
   public static java.lang.String ITNRECIPIENTDELEGATE = "itnRecipientDelegate";
   public static java.lang.String KEYNAME = "keyName";
@@ -55,6 +58,87 @@ public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO i
   public static java.lang.String USERDELEGATE = "userDelegate";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
+  public dss.vector.solutions.geo.generated.GeoEntityDTO getBirthEntity()
+  {
+    if(getValue(BIRTHENTITY) == null || getValue(BIRTHENTITY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(BIRTHENTITY));
+    }
+  }
+  
+  public void setBirthEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
+  {
+    if(value == null)
+    {
+      setValue(BIRTHENTITY, "");
+    }
+    else
+    {
+      setValue(BIRTHENTITY, value.getId());
+    }
+  }
+  
+  public boolean isBirthEntityWritable()
+  {
+    return isWritable(BIRTHENTITY);
+  }
+  
+  public boolean isBirthEntityReadable()
+  {
+    return isReadable(BIRTHENTITY);
+  }
+  
+  public boolean isBirthEntityModified()
+  {
+    return isModified(BIRTHENTITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getBirthEntityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(BIRTHENTITY).getAttributeMdDTO();
+  }
+  
+  public String getBirthLocation()
+  {
+    return getValue(BIRTHLOCATION);
+  }
+  
+  public void setBirthLocation(String value)
+  {
+    if(value == null)
+    {
+      setValue(BIRTHLOCATION, "");
+    }
+    else
+    {
+      setValue(BIRTHLOCATION, value);
+    }
+  }
+  
+  public boolean isBirthLocationWritable()
+  {
+    return isWritable(BIRTHLOCATION);
+  }
+  
+  public boolean isBirthLocationReadable()
+  {
+    return isReadable(BIRTHLOCATION);
+  }
+  
+  public boolean isBirthLocationModified()
+  {
+    return isModified(BIRTHLOCATION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getBirthLocationMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(BIRTHLOCATION).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -228,6 +312,43 @@ public abstract class PersonDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
+  }
+  
+  public String getIdentifier()
+  {
+    return getValue(IDENTIFIER);
+  }
+  
+  public void setIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFIER, "");
+    }
+    else
+    {
+      setValue(IDENTIFIER, value);
+    }
+  }
+  
+  public boolean isIdentifierWritable()
+  {
+    return isWritable(IDENTIFIER);
+  }
+  
+  public boolean isIdentifierReadable()
+  {
+    return isReadable(IDENTIFIER);
+  }
+  
+  public boolean isIdentifierModified()
+  {
+    return isModified(IDENTIFIER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentifierMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTIFIER).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.intervention.monitor.IPTRecipientDTO getIptRecipientDelegate()

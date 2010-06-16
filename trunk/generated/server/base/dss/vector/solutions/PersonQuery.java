@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -542541515)
+@com.runwaysdk.business.ClassSignature(hash = -615513561)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class PersonQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -542541515;
+private static final long serialVersionUID = -615513561;
 
   public PersonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -38,6 +38,46 @@ private static final long serialVersionUID = -542541515;
   public String getClassType()
   {
     return dss.vector.solutions.Person.CLASS;
+  }
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity()
+  {
+    return getBirthEntity(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.Person.BIRTHENTITY);
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.BIRTHENTITY, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.Person.BIRTHENTITY);
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.Person.BIRTHENTITY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getBirthLocation()
+  {
+    return getBirthLocation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.Person.BIRTHLOCATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.Person.BIRTHLOCATION, alias, displayLabel);
+
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
@@ -151,6 +191,23 @@ private static final long serialVersionUID = -542541515;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.Person.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getIdentifier()
+  {
+    return getIdentifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.Person.IDENTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.Person.IDENTIFIER, alias, displayLabel);
 
   }
   public dss.vector.solutions.intervention.monitor.IPTRecipientQuery.IPTRecipientQueryReferenceIF getIptRecipientDelegate()
@@ -615,7 +672,11 @@ private static final long serialVersionUID = -542541515;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.Person.CREATEDBY)) 
+    if (name.equals(dss.vector.solutions.Person.BIRTHENTITY)) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.Person.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -718,6 +779,12 @@ private static final long serialVersionUID = -542541515;
   public interface PersonQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, com.runwaysdk.query.SelectableReference
   {
 
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity();
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias);
+    public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getBirthLocation();
+    public com.runwaysdk.query.SelectableChar getBirthLocation(String alias);
+    public com.runwaysdk.query.SelectableChar getBirthLocation(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -736,6 +803,9 @@ private static final long serialVersionUID = -542541515;
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getIdentifier();
+    public com.runwaysdk.query.SelectableChar getIdentifier(String alias);
+    public com.runwaysdk.query.SelectableChar getIdentifier(String alias, String displayLabel);
     public dss.vector.solutions.intervention.monitor.IPTRecipientQuery.IPTRecipientQueryReferenceIF getIptRecipientDelegate();
     public dss.vector.solutions.intervention.monitor.IPTRecipientQuery.IPTRecipientQueryReferenceIF getIptRecipientDelegate(String alias);
     public dss.vector.solutions.intervention.monitor.IPTRecipientQuery.IPTRecipientQueryReferenceIF getIptRecipientDelegate(String alias, String displayLabel);
@@ -817,7 +887,7 @@ private static final long serialVersionUID = -542541515;
  implements PersonQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -581069993;
+private static final long serialVersionUID = -1324679739;
 
   public PersonQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -836,6 +906,40 @@ private static final long serialVersionUID = -581069993;
       return this.NE(person.getId());
     }
 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity()
+  {
+    return getBirthEntity(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.Person.BIRTHENTITY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.Person.BIRTHENTITY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getBirthLocation()
+  {
+    return getBirthLocation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.Person.BIRTHLOCATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.Person.BIRTHLOCATION, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
   {
     return getCreateDate(null);
@@ -936,6 +1040,23 @@ private static final long serialVersionUID = -581069993;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.Person.ID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getIdentifier()
+  {
+    return getIdentifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.Person.IDENTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.Person.IDENTIFIER, alias, displayLabel);
 
   }
   public dss.vector.solutions.intervention.monitor.IPTRecipientQuery.IPTRecipientQueryReferenceIF getIptRecipientDelegate()
@@ -1316,7 +1437,11 @@ private static final long serialVersionUID = -581069993;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals(dss.vector.solutions.Person.CREATEDBY)) 
+    if (name.equals(dss.vector.solutions.Person.BIRTHENTITY)) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.Person.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
