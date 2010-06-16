@@ -420,8 +420,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
 
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
 
-  Alias: Mojo.$,
-  
   Native : true,
   
   Instance : {
@@ -841,8 +839,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
 
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
   
-  Alias: Mojo.$,
-  
   Native : true,
   
   Instance : {
@@ -895,8 +891,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
 
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
 
-  Alias: Mojo.$,
-  
   Native : true,
   
   Instance : {

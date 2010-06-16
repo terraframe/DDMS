@@ -27,6 +27,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         postRender : this.postRender
       });
       
+      this._dm = new MDSS.DependencyManager();
+      
       // Map of attribute key to display label
       this._geoAttributes = {};
       
@@ -68,6 +70,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         this._queryPanel.addAvailableQuery(queries[i]);
       }
+    },
+    
+    getDependencyManager : function()
+    {
+      return this._dm;
     },
     
     getGeoPicker : function ()
@@ -862,6 +869,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         onComplete : function(){},
         onSuccess: function(savedSearchView){
   
+          this.thisRef._dm.disable();
+          
           this.thisRef._resetToDefault();
           this.thisRef._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
           
@@ -870,6 +879,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
           // set the XML and config
           this.thisRef._loadQueryState(savedSearchView);
+          
+          this.thisRef._dm.enable();
         }
       });
   
@@ -1640,4 +1651,295 @@ Mojo.Meta.newClass('MDSS.BasicAttribute', {
       this.$initialize(obj);
     }
   }
+});
+
+Mojo.Meta.newClass('MDSS.DependencyManager', {
+
+  Instance :
+  {
+    initialize : function(){
+      this._dependencies = {};
+      this._enabled = true;
+      this._withinTransaction = false;
+    },
+    
+    enable : function() { this._enabled = true; },
+    
+    disable : function() { this._enabled = false; },
+    
+    notifyAll : function(e)
+    {
+     if(!this._enabled || this._withinTransaction)
+     {
+       return;
+     }
+      
+     this._withinTransaction = true;
+     var d = this._dependencies[e.target.id];
+     if(Mojo.Util.isArray(d))
+     {
+       for(var i=0; i<d.length; i++)
+       {
+         d[i].notify(e);
+       }
+     }
+     this._withinTransaction = false;
+   },
+   
+   _addEntry : function(ind, dep, type, excludes)
+   {
+     if(Mojo.Util.isArray(ind))
+     {
+       for(var i=0; i<ind.length; i++)
+       {
+         this._addEntry(ind[i], dep, type, excludes);
+       }
+       
+       return;
+     }     
+     
+     var indO = MDSS.Independent.factory(ind, type);
+     var depO = MDSS.Dependent.factory(dep, type);
+     
+     indO.setDependent(depO);
+     
+     if(this._dependencies[ind])
+     {
+       this._dependencies[ind].push(indO);
+     }
+     else
+     {
+       this._dependencies[ind] = [indO];
+     }
+   },
+   
+   _getIds : function(input)
+   {
+     if(Mojo.Util.isArray(input))
+     {
+       return Mojo.Iter.map(input, function(i){ return Mojo.Util.isObject(i) ? i.key : i; });
+     }
+     else
+     {
+       return Mojo.Util.isObject(input) ? input.key : input;
+     }
+   },
+   
+   _processEntry : function(config, excludes)
+   {
+     var ind = config.independent;
+     var dep = config.dependent;
+     var type = config.type;
+     var bidirectional = config.bidirectional;
+     
+     var indIds = this._getIds(ind);
+     var depIds = this._getIds(dep);
+     
+     this._addEntry(indIds, depIds, type, excludes);
+     
+     if(bidirectional)
+     {
+       this._addEntry(depIds, indIds, type, excludes);
+     }
+   },
+   
+   includes : function(config)
+   {
+     this._processEntry(config, false);
+   },
+   
+   excludes : function(config)
+   {
+     this._processEntry(config, true);
+   }
+   
+  }
+});
+
+Mojo.Meta.newClass('MDSS.Dependent', {
+  
+  IsAbstract : true,
+
+  Constants : {
+    CHECKED : 'checked',
+    UNCHECKED : 'unchecked',
+    BOTH : 'both',
+  },
+
+  Instance : {
+    initialize : function(type, excludes, group)
+    {
+      this._type = type;
+      this._dependent = null;
+      this._excludes = excludes;
+      this._group = group || null;
+    },
+
+    getType : function()
+    {
+      return this._type;
+    },
+
+    doCheck : {
+      IsAbstract: true
+    },
+
+    doUncheck : {
+      IsAbstract: true
+    }
+
+  },
+
+  Static : {
+    factory : function(attribute, type, excludes)
+    {
+      return Mojo.Util.isArray(attribute) ? 
+        new MDSS.GroupDependent(attribute, type, excludes) : new MDSS.SingleDependent(attribute, type, excludes);
+    }  
+  }
+
+});
+
+Mojo.Meta.newClass('MDSS.GroupDependent', {
+
+  Extends : MDSS.Dependent,
+
+  Instance : {
+    initialize : function(attributes, type, excludes)
+    {
+      this.$initialize(type, excludes);
+
+      this._group = [];
+      for(var i=0; i<attributes.length; i++)
+      {
+        this._group.push(new MDSS.SingleDependent(attributes[i], type, this));
+      }
+    },
+
+    doCheck : function(dependsOn)
+    {
+      for(var i=0; i<this._group.length; i++)
+      {
+        this._group[i].doCheck(dependsOn);
+      }
+    },
+
+    doUncheck : function(dependsOn)
+    {
+      for(var i=0; i<this._group.length; i++)
+      {
+        this._group[i].doUncheck(dependsOn);
+      }
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.SingleDependent', {
+
+  Extends : MDSS.Dependent,
+
+  Instance : {
+    initialize : function(attribute, type, excludes)
+    {
+      this.$initialize(type, excludes);
+      this._single = Mojo.Util.isString(attribute) ? document.getElementById(attribute) : attribute;
+    },
+
+    doCheck : function(dependsOn)
+    {
+      if(!this._single.checked)
+      {
+        this._single.click();
+      }
+    },
+
+    doUncheck : function(dependsOn)
+    {
+      if(this._single.checked)
+      {
+        this._single.click();
+      }
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.Independent',{
+  
+  IsAbstract : true,
+  
+  Instance : {
+    initialize : function()
+    {
+      this._dependent = null;
+    },
+    
+    setDependent : function(d)
+    {
+      this._dependent = d;
+    },
+
+    getDependent : function()
+    {
+      return this._dependent;
+    },
+    
+    notify : function(e)
+    {
+      var type = this._dependent.getType();
+      var checked = e.target.checked;
+      if(checked && (type === MDSS.Dependent.CHECKED
+        || type === MDSS.Dependent.BOTH))
+      {
+        this._dependent.doCheck(this);
+      }
+      if(!checked && (type === MDSS.Dependent.UNCHECKED
+        || type === MDSS.Dependent.BOTH))
+      {
+        this._dependent.doUncheck(this);
+      }
+    },
+  },
+  
+  Static : {
+    factory : function(attribute)
+    {
+      return Mojo.Util.isArray(attribute) ?
+        new MDSS.GroupIndependent(attribute) : new MDSS.SingleIndependent(attribute);
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.SingleIndependent', {
+  
+  Extends : MDSS.Independent,
+  
+  Instance : {
+    initialize : function(attribute, group)
+    {
+      this.$initialize();
+      this._group = group || null;
+    }
+  }
+
+  
+});
+
+Mojo.Meta.newClass('MDSS.GroupIndependent', {
+  
+  Extends : MDSS.Independent,
+  
+  Instance : {
+  initialize : function(attributes)
+  {
+    this.$initialize();
+    
+    this._group = [];
+    for(var i=0; i<attributes.length; i++)
+    {
+      this._group.push(new MDSS.SingleIndependent(attributes[i], this));
+    }
+  }
+}
+
+
 });

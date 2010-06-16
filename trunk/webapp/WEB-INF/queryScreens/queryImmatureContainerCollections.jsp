@@ -348,12 +348,27 @@ YAHOO.util.Event.onDOMReady(function(){
                 {title:"Collection", values:collectionColumns, group:"c", klass:collection.CLASS},
                 {title:"Container", values:containerColumns, group:"c", klass:collection.CLASS},
                 {title:"Indices", values:indexes, group:"c", klass:collection.CLASS},
-                {title:"Container_Calculations", values:calculations, group:"cc", klass:collection.CLASS},
+                {title:"Container_Calculations", values:calculations, group:"c", klass:collection.CLASS},
       ];
 
     
     var query = new MDSS.QueryImmatureContainerCollection(selectableGroups, queryList);
     query.render();
+
+    var dm = query.getDependencyManager();
+    dm.includes({
+      independent: calculations,
+      dependent: 'container_term',
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    
+    dm.includes({
+      independent: 'container_term',
+      dependent: calculations,
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
 
 });
 

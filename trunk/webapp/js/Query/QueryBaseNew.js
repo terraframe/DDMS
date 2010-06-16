@@ -499,6 +499,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         
         this.clearBrowserTerms(attribute);
       }
+      
+      this._dm.notifyAll(e);
     },
 
     _uncheckAllNotInGroup : function(target)
@@ -832,7 +834,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     _resetToDefault : function()
     {
-      MDSS.QueryBase.prototype._resetToDefault.call(this); // super
+      this.$_resetToDefault();
 
       // uncheck all menu items
       var keys = Mojo.Util.getKeys(this._menuItems);
@@ -843,8 +845,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }
       
       this._queryPanel.clearPagination();
-
-
     },
 
 

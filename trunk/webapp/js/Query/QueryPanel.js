@@ -1136,7 +1136,9 @@ MDSS.QueryPanel.prototype = {
       }
       else
       {
+        this._queryClass._dm.disable();
       	this._queryClass._resetToDefault();
+      	this._queryClass._dm.enable();
         this._queryClass._loadDefaultSearch();
       }
     }
