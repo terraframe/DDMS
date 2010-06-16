@@ -791,8 +791,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       parser.parseCriteria({
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
-
-          if(!!thisRef._dateAttribute && userAlias === thisRef._dateAttribute.getUserAlias())
+      	  var sd = thisRef._startDateSelectable;
+      	  var ed = thisRef._endDateSelectable;
+          if((!!sd && userAlias === sd.getComponent().getUserAlias())||(!!ed && userAlias === ed.getComponent().getUserAlias()))
           {
             var formatted = MDSS.Calendar.getLocalizedString(value);
             if(operator === MDSS.QueryXML.Operator.GE)
@@ -1558,9 +1559,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      },
      mapMo : function(term,index){
      	 var row = {};
-         //row.attributeName = this.relAttribute;
-         //row.key = 'term' + term.MOID.replace(':','') +'_'+ term.id;
-         //row.type = this.relType;
          row.dtoType = "AttributeIntegerDTO";
          row.displayLabel = term.displayLabel;
          
