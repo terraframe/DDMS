@@ -17,14 +17,14 @@
       <label>${item.populationTypeMd.displayLabel}</label>
     </dt>
     <dd>      
-      <mjl:boolean param="populationType" trueLabel="${item.populationTypeMd.positiveDisplayLabel}" falseLabel="${item.populationTypeMd.negativeDisplayLabel}" value="${item.populationType}"/>
+      <mjl:boolean param="populationType" id="populationType" trueLabel="${item.populationTypeMd.positiveDisplayLabel}" falseLabel="${item.populationTypeMd.negativeDisplayLabel}" value="${item.populationType}"/>
     </dd>
   
     <dt>
       <label>${item.geoEntityMd.displayLabel}</label>
     </dt>
     <dd>
-      <mdss:geo param="geoId" populated="true" political="true" concrete="false" />    
+      <mdss:geo param="geoId" populated="true" political="true" concrete="false" actions="${actions}" />    
     </dd>
     <dt>
       <label>${item.yearOfDataMd.displayLabel}</label>

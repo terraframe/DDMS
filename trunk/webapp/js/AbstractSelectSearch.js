@@ -480,12 +480,17 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     {
       this._extraUniversals.push(universal);
     },
+
+    clearExtraUniversals : function()
+    {
+      this._extraUniversals = [];
+    },
     
     getExtraUniversals : function()
     {
       return this._extraUniversals;
     },
-        
+            
     /**
      * Performs the DOM level filtering by hiding/showing
      * the proper select lists.

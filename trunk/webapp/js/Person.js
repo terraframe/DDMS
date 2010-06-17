@@ -40,7 +40,7 @@ Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
     
     
     getAction :  {
-    IsAbstract : true
+      IsAbstract : true
     },
     
     populateComponent : function() {

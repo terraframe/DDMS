@@ -1351,6 +1351,20 @@
     </attribute>
     <attribute>
       <description>
+        List of conditional javascript actions to generate
+      </description>
+      <name>
+        actions
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
         Id of tag
       </description>
       <name>

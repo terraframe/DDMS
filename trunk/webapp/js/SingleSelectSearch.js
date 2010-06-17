@@ -551,6 +551,10 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       {
         this._listeners[i](event);
       }    
+    },
+    
+    resetCache : function() {
+      this._genericSearch.resetCache();
     }
 
     

@@ -28,71 +28,76 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   /**
    * Name of the controller parameter or attribute being inputed
    */
-  private String                param;
+  private String                  param;
 
   /**
    * Flag indication if this tag should generate a hidden field for the selected
    * id
    */
-  private Boolean               concrete;
+  private Boolean                 concrete;
 
   /**
    * Flag indicating if this fields should restrict by political universals
    */
-  private Boolean               political;
+  private Boolean                 political;
 
   /**
    * Flag indicating if this fields should restrict by populated universals
    */
-  private Boolean               populated;
+  private Boolean                 populated;
 
   /**
    * Flag indicating if this fields should restrict by spray target allowed
    * universals
    */
-  private Boolean               spray;
+  private Boolean                 spray;
 
   /**
    * Flag indicating if this fields should restrict by urban universals
    */
-  private Boolean               urban;
+  private Boolean                 urban;
 
   /**
    * List of additional accepted universals
    */
-  private List<String>          universals;
+  private List<String>            universals;
 
   /**
    * Class attribute
    */
-  private String                classes;
+  private String                  classes;
 
   /**
    * Class attribute
    */
-  private String                concreteClass;
+  private String                  concreteClass;
 
   /**
    * Id attribute
    */
-  private String                id;
+  private String                  id;
 
   /**
    * Current value term
    */
-  private Object                value;
+  private Object                  value;
 
-  private String                filter;
+  private String                  filter;
 
-  private String                listener;
+  private String                  listener;
 
-  private Set<FilterTagSupport> radioFilters;
+  private Set<FilterTagSupport>   radioFilters;
 
   /**
    * Flag denoting if searching on this geo tag should enforce the system geo
    * root
    */
-  private Boolean               enforceRoot;
+  private Boolean                 enforceRoot;
+
+  /**
+   * List of additional conditional actions
+   */
+  private List<ConditionalAction> actions;
 
   public GeoTagSupport()
   {
@@ -104,6 +109,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.enforceRoot = true;
     this.universals = new LinkedList<String>();
     this.radioFilters = new TreeSet<FilterTagSupport>();
+    this.actions = new LinkedList<ConditionalAction>();
   }
 
   @AttributeAnnotation(required = true, description = "The name of the controller parameter or attribute")
@@ -242,7 +248,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   {
     this.radioFilters.add(tag);
   }
-  
+
   protected boolean hasFilter(FilterTagSupport tag)
   {
     return this.radioFilters.contains(tag);
@@ -269,6 +275,18 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
   {
     this.listener = listener;
   }
+
+  @AttributeAnnotation(required = false, rtexprvalue = true, description = "List of conditional javascript actions to generate")
+  public List<ConditionalAction> getActions()
+  {
+    return actions;
+  }
+
+  public void setActions(List<ConditionalAction> actions)
+  {
+    this.actions = actions;
+  }
+
 
   private Set<String> getExtraUniversals()
   {
@@ -384,7 +402,7 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("    var selectSearch = new MDSS.SingleSelectSearch(" + this.getEnforceRoot() + ");\n");
 
     this.writeFilterScript(out);
-
+    
     out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
 
     if (this.listener != null)
@@ -393,6 +411,11 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     }
 
     this.writeFilterTags(out);
+    
+    for(ConditionalAction action : actions)
+    {
+      out.write(action.getJavascript());
+    }
 
     out.write("  })\n");
     out.write("})();\n");

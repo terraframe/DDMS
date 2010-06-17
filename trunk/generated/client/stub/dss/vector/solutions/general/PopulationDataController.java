@@ -19,7 +19,10 @@ import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.ConditionalAction;
+import dss.vector.solutions.ToggleUniversalAction;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;
 import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -53,7 +56,11 @@ public class PopulationDataController extends PopulationDataControllerBase imple
       utility.checkURL(this.getClass().getSimpleName(), "search");
 
       new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
+      
+      List<ConditionalAction> actions = new LinkedList<ConditionalAction>();
+      actions.add(new ToggleUniversalAction("populationType.negative", "populationType.positive", HealthFacilityDTO.CLASS));
 
+      req.setAttribute("actions", actions);
       req.setAttribute("item", new PopulationDataViewDTO(this.getClientRequest()));
       render("searchComponent.jsp");
     }
