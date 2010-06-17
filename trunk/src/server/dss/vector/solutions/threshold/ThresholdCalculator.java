@@ -124,6 +124,8 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 	protected abstract GeoEntityQuery getRelatedEntitiesQuery(GeoEntity geoEntity, QueryFactory factory);
 
 	protected abstract double getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
+	
+	protected abstract double getAggregatedCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
 
 	protected abstract void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2);
 
@@ -367,43 +369,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 
 	}
 
-	@Transaction
-	protected double getAggregatedCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
-		ValueQuery valueQuery = new ValueQuery(factory);
-		AggregatedCaseQuery caseQuery = new AggregatedCaseQuery(factory);
-
-		// System.out.println("From: " + initialWeek.getStartDate());
-		// System.out.println("  To: " + finalWeek.getEndDate());
-		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));
-		valueQuery.SELECT(F.SUM(caseQuery.getPositiveCases(), "positiveCases"));
-		valueQuery.SELECT(F.SUM(caseQuery.getNegativeCases(), "negativeCases"));
-		valueQuery.WHERE(caseQuery.getDisease().EQ(Disease.getCurrent()));
-		valueQuery.AND(caseQuery.getGeoEntity().EQ(entityQuery));
-		valueQuery.AND(caseQuery.getStartDate().GE(initialDate));
-		valueQuery.AND(caseQuery.getEndDate().LE(finalDate));
-		// Make sure we only grab epi week periods
-		valueQuery.AND(caseQuery.getEndDate().EQ(valueQuery.aSQLDate("startDate", caseQuery.getStartDate().getDbQualifiedName() + "+ interval '6 days'")));
-		valueQuery.FROM(caseQuery.getStartDate().getDefiningTableName(), caseQuery.getStartDate().getDefiningTableAlias());
-
-		long sumClinicalCases = 0l;
-		long sumPositiveCases = 0l;
-		long sumNegativeCases = 0l;
-		for (ValueObject valueObject : valueQuery.getIterator()) {
-			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
-			sumPositiveCases += this.getValue(valueObject, "positiveCases");
-			sumNegativeCases += this.getValue(valueObject, "negativeCases");
-		}
-		
-		double ratio = 1.0d;
-		
-		if (sumPositiveCases + sumNegativeCases > 0) {
-			ratio = ((double) (sumPositiveCases)) / ((double) (sumPositiveCases + sumNegativeCases));
-		}
-		
-		return (double) sumPositiveCases + ((double) sumClinicalCases * ratio);
-	}
-	
-	private long getValue(ValueObject valueObject, String key) {
+	protected long getValue(ValueObject valueObject, String key) {
 		long value = 0;
 		String valueString = valueObject.getValue(key);
 		if (valueString.length() > 0) {
