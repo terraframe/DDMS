@@ -896,12 +896,11 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		
 		ValueQuery query = new ValueQuery(new QueryFactory());
 		query.WHERE(query.aSQLInteger("cnt", "count(*)");
-		query.FROM(query.a)
 		
 		for (ValueObject valueObject : valueQuery.getIterator()) {
-			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
-			sumPositiveCases += this.getValue(valueObject, "positiveCases");
-			sumNegativeCases += this.getValue(valueObject, "negativeCases");
+			sumClinicalCases += this.getValue(valueObject, "clinical");
+			sumPositiveCases += this.getValue(valueObject, "positive");
+			sumNegativeCases += this.getValue(valueObject, "negative");
 		}
 		
 		output("Done!");
