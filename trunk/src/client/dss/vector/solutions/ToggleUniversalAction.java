@@ -17,7 +17,6 @@ public class ToggleUniversalAction implements ConditionalAction, Reloadable
     this.universals = universals;
   }
 
-  @Override
   public String getJavascript()
   {
     StringBuffer buffer = new StringBuffer();
