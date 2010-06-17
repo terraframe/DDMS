@@ -26,19 +26,23 @@
 </mjl:form>
 
 <dl>
-  <dt><fmt:message key="Households" /></dt>
   <dd>
-  <table class="displayTable">
-    <c:forEach items="${households}" var="current" varStatus="status">
-      <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-        <td>${current.householdName}</td>
-        <td><mjl:commandLink action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
-          <fmt:message key="View" />
-          <mjl:property name="id" value="${current.concreteId}" />
-        </mjl:commandLink></td>
-      </tr>
-    </c:forEach>
-  </table>
+    <table class="displayTable" width="33%">
+      <tr>
+        <th><fmt:message key="Households" /></th>
+        <th></th>
+      </tr>    
+  
+      <c:forEach items="${households}" var="current" varStatus="status">
+        <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+          <td>${current.householdName}</td>
+          <td><mjl:commandLink action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
+            <fmt:message key="View" />
+            <mjl:property name="id" value="${current.concreteId}" />
+          </mjl:commandLink></td>
+        </tr>
+      </c:forEach>
+    </table>
   </dd>
   <mjl:commandLink action="dss.vector.solutions.intervention.monitor.HouseholdController.newInstance.mojo" name="Household.newInstance.link">
     <fmt:message key="Add_a_household" />
