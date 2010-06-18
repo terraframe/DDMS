@@ -12,27 +12,32 @@ public class FileDownloadUtil
 {
   public static void writeXLS(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
   {
-    writeFile(resp, filename, "xls", inputStream);
+    String type = "application/octet-stream";
+    writeFile(resp, filename, "xls", inputStream, type);
   }
 
   public static void writeCSV(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
   {
-    writeFile(resp, filename, "csv", inputStream);
+    String type = "text/plain";
+    writeFile(resp, filename, "csv", inputStream, type);
   }
   
   public static void writeTXT(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
   {
-    writeFile(resp, filename, "txt", inputStream);
+    String type = "text/plain";
+    writeFile(resp, filename, "txt", inputStream, type);
   }
   
   public static void writeZIP(HttpServletResponse resp, String filename, InputStream inputStream) throws IOException
   {
-    writeFile(resp, filename, "zip", inputStream);
+    String type = "application/zip";
+    writeFile(resp, filename, "zip", inputStream, type);
   }
   
-  private static void writeFile(HttpServletResponse resp, String filename, String extension, InputStream inputStream) throws IOException
+  private static void writeFile(HttpServletResponse resp, String filename, String extension, InputStream inputStream, String type) throws IOException
   {
     resp.addHeader("Content-Disposition", "attachment;filename=\""+filename+"."+extension+"\"");
+    resp.setContentType(type);
     ServletOutputStream stream = resp.getOutputStream();
     FileIO.write(stream, inputStream);
   }

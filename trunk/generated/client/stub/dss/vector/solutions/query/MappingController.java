@@ -218,6 +218,7 @@ public class MappingController extends MappingControllerBase implements
     finally
     {
       message = JSONObject.quote(message);
+      resp.setContentType("text/html");
       resp.getWriter().write("{\"success\":"+success+", \"message\":"+message+"}");
     }
   }
