@@ -52,9 +52,9 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 
 		// System.out.println("From: " + initialWeek.getStartDate());
 		// System.out.println("  To: " + finalWeek.getEndDate());
-		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getPositiveCases(), "positiveCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getNegativeCases(), "negativeCases"));
+		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));
 		valueQuery.WHERE(caseQuery.getDisease().EQ(Disease.getCurrent()));
 		valueQuery.AND(caseQuery.getGeoEntity().EQ(entityQuery));
 		valueQuery.AND(caseQuery.getStartDate().GE(initialDate));
@@ -67,9 +67,9 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 		long sumPositiveCases = 0l;
 		long sumNegativeCases = 0l;
 		for (ValueObject valueObject : valueQuery.getIterator()) {
-			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
 			sumPositiveCases += this.getValue(valueObject, "positiveCases");
 			sumNegativeCases += this.getValue(valueObject, "negativeCases");
+			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
 		}
 		
 		return (double) sumPositiveCases + (double) sumClinicalCases + (double) sumNegativeCases;

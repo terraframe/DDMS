@@ -36,7 +36,7 @@ public class RunwayTestCase extends TestCase {
 					continue;
 				}
 				
-				System.out.print(method.getName());
+				System.out.println(method.getName());
 				method.invoke(this, sessionId);
 			}
 			

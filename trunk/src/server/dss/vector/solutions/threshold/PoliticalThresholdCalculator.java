@@ -1,6 +1,7 @@
 package dss.vector.solutions.threshold;
 
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.runwaysdk.dataaccess.ValueObject;
@@ -9,6 +10,7 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.general.Disease;
@@ -16,10 +18,14 @@ import dss.vector.solutions.general.WeeklyThreshold;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.intervention.monitor.IndividualCaseQuery;
+import dss.vector.solutions.intervention.monitor.DiagnosisType;
+import dss.vector.solutions.intervention.monitor.IndividualInstanceQuery;
 import dss.vector.solutions.surveillance.AggregatedCaseQuery;
 
 public class PoliticalThresholdCalculator extends ThresholdCalculator implements com.runwaysdk.generation.loader.Reloadable {
+	public static final int POSITIVE_COUNT_INDEX = 0;
+	public static final int NEGATIVE_COUNT_INDEX = 1;
+	public static final int CLINICAL_COUNT_INDEX = 2;
 
 	@Transaction
 	protected GeoEntityQuery getEntityQuery(QueryFactory factory) {
@@ -34,14 +40,52 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 
 	@Transaction
 	protected double getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
-		IndividualCaseQuery query = new IndividualCaseQuery(factory);
+		double[] counts = this.getIndividualCounts(factory, entityQuery, initialDate, finalDate);
+		
+		double ratio = 1.0d;
+		
+		if (counts[POSITIVE_COUNT_INDEX] + counts[NEGATIVE_COUNT_INDEX] > 0) {
+			ratio = ((double) (counts[POSITIVE_COUNT_INDEX])) / ((double) (counts[POSITIVE_COUNT_INDEX] + counts[NEGATIVE_COUNT_INDEX]));
+		}
+		
+		return (double) counts[POSITIVE_COUNT_INDEX] + ((double) counts[CLINICAL_COUNT_INDEX] * ratio);
+	}
+	
+	@Transaction
+	public double[] getIndividualCounts(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate) {
+		double[] counts = new double[3];
+		
+		IndividualInstanceQuery iQuery = new IndividualInstanceQuery(factory);
 
-		query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
-		query.AND(query.getProbableSource().EQ(entityQuery));
-		query.AND(query.getDiagnosisDate().GE(initialDate));
-		query.AND(query.getDiagnosisDate().LE(finalDate));
+		ValueQuery innerQuery = new ValueQuery(factory);
+		SUM positiveColumn = F.SUM(innerQuery.aSQLLong("positive", "(case when " + iQuery.getDiagnosisType().getDbColumnName() + "_c = '" + DiagnosisType.POSITIVE_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "positive");
+		SUM negativeColumn = F.SUM(innerQuery.aSQLLong("negative", "(case when " + iQuery.getDiagnosisType().getDbColumnName() + "_c = '" + DiagnosisType.NEGATIVE_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "negative");
+		SUM clinicalColumn = F.SUM(innerQuery.aSQLLong("clinical", "(case when " + iQuery.getDiagnosisType().getDbColumnName() + "_c = '" + DiagnosisType.CLINICAL_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "clinical");
+		innerQuery.SELECT(iQuery.getIndividualCase());
+		innerQuery.SELECT(positiveColumn);
+		innerQuery.SELECT(negativeColumn);
+		innerQuery.SELECT(clinicalColumn);
+		innerQuery.WHERE(iQuery.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
+		innerQuery.AND(iQuery.getIndividualCase().getProbableSource().EQ(entityQuery));
+		innerQuery.AND(iQuery.getSymptomOnset().GE(initialDate));
+		innerQuery.AND(iQuery.getSymptomOnset().LE(finalDate));
+		// innerQuery.AND(iQuery.getActivelyDetected().EQ(false));
 
-		return (double) query.getCount();
+		ValueQuery vQuery = new ValueQuery(factory);
+		vQuery.SELECT(F.SUM(vQuery.aSQLLong("positive", "(case when " + positiveColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), "positiveCases"));
+		vQuery.SELECT(F.SUM(vQuery.aSQLLong("negative", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), "negativeCases"));
+		vQuery.SELECT(F.SUM(vQuery.aSQLLong("clinical", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " = 0 and " + clinicalColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), "clinicalCases"));
+		vQuery.FROM("(" + innerQuery.getSQL() + ")", "innerQuery");
+		//System.out.println(vQuery.getSQL());
+		
+		for (ValueObject valueObject : vQuery.getIterator()) {
+			counts[POSITIVE_COUNT_INDEX] += this.getValue(valueObject, "positiveCases");
+			counts[NEGATIVE_COUNT_INDEX] += this.getValue(valueObject, "negativeCases");
+			counts[CLINICAL_COUNT_INDEX] += this.getValue(valueObject, "clinicalCases");
+			//System.out.println(sumPositiveCases + "\t" + sumNegativeCases + "\t" + sumClinicalCases);
+		}
+		
+		return counts;
 	}
 	
 	@Transaction
@@ -51,9 +95,9 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 
 		// System.out.println("From: " + initialWeek.getStartDate());
 		// System.out.println("  To: " + finalWeek.getEndDate());
-		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getPositiveCases(), "positiveCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getNegativeCases(), "negativeCases"));
+		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));
 		valueQuery.WHERE(caseQuery.getDisease().EQ(Disease.getCurrent()));
 		valueQuery.AND(caseQuery.getGeoEntity().EQ(entityQuery));
 		valueQuery.AND(caseQuery.getStartDate().GE(initialDate));
@@ -66,9 +110,9 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		long sumPositiveCases = 0l;
 		long sumNegativeCases = 0l;
 		for (ValueObject valueObject : valueQuery.getIterator()) {
-			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
 			sumPositiveCases += this.getValue(valueObject, "positiveCases");
 			sumNegativeCases += this.getValue(valueObject, "negativeCases");
+			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
 		}
 		
 		double ratio = 1.0d;

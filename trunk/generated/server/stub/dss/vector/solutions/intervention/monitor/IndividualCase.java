@@ -43,6 +43,7 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IndividualCase extends IndividualCaseBase implements
@@ -194,14 +195,14 @@ public class IndividualCase extends IndividualCaseBase implements
     QueryFactory factory = new QueryFactory();
 
     GeoEntityQuery entityQuery = entity.getPoliticalDecendants(factory);
+    
+    PoliticalThresholdCalculator calc = new PoliticalThresholdCalculator();
+    double[] counts = calc.getIndividualCounts(factory, entityQuery, startDate, endDate);
 
-    IndividualCaseQuery query = new IndividualCaseQuery(factory);
-	query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
-    query.AND(query.getProbableSource().EQ(entityQuery));
-    query.AND( query.getDiagnosisDate().GE(startDate));
-    query.AND(query.getDiagnosisDate().LE(endDate));
-
-    return query.getCount();
+    ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
+    
+    double ratio = (double) config.getClinicalPositivePercentage() / 100.0d;
+    return Math.round(counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] + (counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio));
   }
 
   public static IndividualCase searchForExistingCase(Date diagnosisDate, String personId)
