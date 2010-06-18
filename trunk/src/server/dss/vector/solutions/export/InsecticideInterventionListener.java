@@ -12,6 +12,7 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.InsecticideInterventionView;
 import dss.vector.solutions.ontology.Term;
 
@@ -23,7 +24,7 @@ public class InsecticideInterventionListener implements ExcelExportListener, Imp
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term method : Term.getRootChildren(InsecticideInterventionView.getInterventionMethodMd()))
+    for (Term method : Term.getRootChildren(ControlInterventionView.getInsecticideInterventionMd()))
     {
       String methodLabel = method.getTermDisplayLabel().getValue();
       String methodTerm = method.getTermId();
@@ -37,7 +38,7 @@ public class InsecticideInterventionListener implements ExcelExportListener, Imp
   {
     InsecticideInterventionExcelView collection = (InsecticideInterventionExcelView) instance;
     
-    for (Term method : Term.getRootChildren(InsecticideInterventionView.getInterventionMethodMd()))
+    for (Term method : Term.getRootChildren(ControlInterventionView.getInsecticideInterventionMd()))
     {
       collection.addInterventionMethod(method);
       String methodTerm = method.getTermId();
