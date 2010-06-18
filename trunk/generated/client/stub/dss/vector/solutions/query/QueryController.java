@@ -21,6 +21,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
+import dss.vector.solutions.entomology.DiagnosticAssayDTO;
 import dss.vector.solutions.entomology.ImmatureCollectionDTO;
 import dss.vector.solutions.entomology.InfectionAssayDTO;
 import dss.vector.solutions.entomology.MolecularAssayDTO;
@@ -30,6 +31,8 @@ import dss.vector.solutions.entomology.PupalCollectionDTO;
 import dss.vector.solutions.entomology.PupalContainerAmountDTO;
 import dss.vector.solutions.entomology.PupalContainerDTO;
 import dss.vector.solutions.entomology.PupalContainerViewDTO;
+import dss.vector.solutions.entomology.TimeResponseAssayDTO;
+import dss.vector.solutions.entomology.TimeResponseAssayViewDTO;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
@@ -82,6 +85,8 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   private static final String QUERY_ENTOMOLOGY                    = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
   private static final String QUERY_RESISTANCE                    = "/WEB-INF/queryScreens/queryResistance.jsp";
+  
+  private static final String QUERY_RESISTANCE_BIOASSAY           = "/WEB-INF/queryScreens/queryResistanceBioassay.jsp";
 
   private static final String QUERY_IRS                           = "/WEB-INF/queryScreens/queryIRS.jsp";
 
@@ -843,6 +848,58 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       throw new ApplicationException(t);
     }
   }
+  
+  
+  public void queryResistanceBioassay() throws IOException, ServletException
+  {
+    try
+    {
+      loadQuerySpecifics(MosquitoCollectionDTO.CLASS, QueryConstants.QueryType.QUERY_RESISTANCE_BIOASSAY);
+
+      ClientRequestIF request = this.getClientRequest();
+
+      ClassQueryDTO adda = request.getQuery(TimeResponseAssayDTO.CLASS);
+      String timeResponseMap = Halp.getDropDownMaps(adda, request, ", ");
+      req.setAttribute("timeResponseMap", timeResponseMap);
+
+      ClassQueryDTO ldda = request.getQuery(DiagnosticAssayDTO.CLASS);
+      String diagnosticMap = Halp.getDropDownMaps(ldda, request, ", ");
+      req.setAttribute("diagnosticMap", diagnosticMap);
+      
+      
+      JSONObject ordered = new JSONObject();
+
+      // Target Groups
+      JSONObject lifeStage = new JSONObject();
+      lifeStage.put("type", TermDTO.CLASS);
+    //  lifeStage.put("label",MDSSProperties.getObject("Life_Stage") );
+      lifeStage.put("relType", TimeResponseAssayDTO.CLASS);
+      lifeStage.put("relAttribute", TimeResponseAssayDTO.LIFESTAGE);
+      lifeStage.put("options", getAllTermsForGrid(request, TimeResponseAssayViewDTO.CLASS,
+          TimeResponseAssayViewDTO.LIFESTAGE));
+      ordered.put("lifeStage", lifeStage);
+
+      
+      // Target Groups
+      JSONObject assayType = new JSONObject();
+      assayType.put("type", TermDTO.CLASS);
+     // assayType.put("label",MDSSProperties.getObject("Assay") );
+      assayType.put("relType", TimeResponseAssayDTO.CLASS);
+      assayType.put("relAttribute", TimeResponseAssayDTO.ASSAY);
+      assayType.put("options", getAllTermsForGrid(request, TimeResponseAssayViewDTO.CLASS,
+          TimeResponseAssayViewDTO.ASSAY));
+      ordered.put("assayType", assayType);
+      
+      req.setAttribute("orderedGrids", ordered.toString());
+
+      req.getRequestDispatcher(QUERY_RESISTANCE_BIOASSAY).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+
 
   /**
    * Creates the screen to query for Entomology (mosquitos).
