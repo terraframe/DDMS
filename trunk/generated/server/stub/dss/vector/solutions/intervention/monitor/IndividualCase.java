@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
@@ -148,6 +149,7 @@ public class IndividualCase extends IndividualCaseBase implements
     }
   }
 
+  @SkipIfProblem
   public void validateOutbreak()
   {
     GeoEntity geoEntity = this.getProbableSource();

@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -70,6 +71,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
     }
   }
 
+  @SkipIfProblem
   private void validateFacilityOutbreak()
   {
     if (this.getActivelyDetected() != null && !this.getActivelyDetected())
