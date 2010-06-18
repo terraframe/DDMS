@@ -61,6 +61,8 @@ public class QueryConstants implements Reloadable
     QUERY_IRS,
 
     QUERY_RESISTANCE,
+
+    QUERY_RESISTANCE_BIOASSAY,
     
     QUERY_AGGREGATED_IPT,
     
