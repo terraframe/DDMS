@@ -65,3 +65,23 @@
     <mjl:page />
   </mjl:pagination>  
 </mjl:table>
+
+<h1><fmt:message key="Import_Export_Individual_Premises"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.IndividualPremiseExcelView" name="excelType"/>
+</jsp:include>
+
+<h1><fmt:message key="Import_Export_Pooled_Aggregated_Premises"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.AggregatedPremiseExcelView" name="excelType"/>
+</jsp:include>
+
+<h1><fmt:message key="Import_Export_Pooled_Person_Interventions"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.PersonInterventionExcelView" name="excelType"/>
+</jsp:include>
+
+<h1><fmt:message key="Import_Export_Pooled_Infection_Assays_Insecticide_Interventions"/></h1>
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.InsecticideInterventionExcelView" name="excelType"/>
+</jsp:include>
