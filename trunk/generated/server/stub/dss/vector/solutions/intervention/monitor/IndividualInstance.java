@@ -57,6 +57,9 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
     super.apply();
 
     validateFacilityOutbreak();
+    if (this.getIndividualCase() != null) {
+    	this.getIndividualCase().validateOutbreak();
+    }
   }
 
   private void setSymptomOnsetDate()

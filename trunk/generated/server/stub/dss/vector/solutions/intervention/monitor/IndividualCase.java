@@ -103,7 +103,7 @@ public class IndividualCase extends IndividualCaseBase implements
     super.apply();
 
     // Perfrom outbreak notification
-    validateOutbreak();
+    //validateOutbreak();
   }
 
   @Override
@@ -148,7 +148,7 @@ public class IndividualCase extends IndividualCaseBase implements
     }
   }
 
-  private void validateOutbreak()
+  public void validateOutbreak()
   {
     GeoEntity geoEntity = this.getProbableSource();
     Date date = this.getDiagnosisDate();
@@ -202,7 +202,7 @@ public class IndividualCase extends IndividualCaseBase implements
     ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
     
     double ratio = (double) config.getClinicalPositivePercentage() / 100.0d;
-    return Math.round(counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] + (counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio));
+    return Math.round(counts[PoliticalThresholdCalculator.POSITIVE_COUNT_INDEX] + (counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio));
   }
 
   public static IndividualCase searchForExistingCase(Date diagnosisDate, String personId)
