@@ -14,37 +14,28 @@ import java.util.Set;
 import java.util.TreeSet;
 import java.util.Map.Entry;
 
-import javax.xml.parsers.ParserConfigurationException;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
-import org.xml.sax.SAXException;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
-import com.runwaysdk.constants.MdLocalizableInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.StructDAO;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
-import com.runwaysdk.dataaccess.io.XMLException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
-import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
-import com.runwaysdk.dataaccess.metadata.MdLocalizableDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.metadata.SupportedLocaleDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.StartSession;
-import com.runwaysdk.system.metadata.MdLocalizable;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.util.FileIO;
-import com.runwaysdk.util.LocalizeUtil;
 
 public class MdssLocalizationImporter implements Reloadable
 {
@@ -110,7 +101,7 @@ public class MdssLocalizationImporter implements Reloadable
     checkLocales();
 
     updateLabels();
-    updateExceptions();
+//    updateExceptions();
     updateProperties("MDSS", propertySheet);
     updateProperties("serverExceptions", serverSheet);
     updateProperties("commonExceptions", commonSheet);
@@ -401,112 +392,112 @@ public class MdssLocalizationImporter implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private void updateExceptions()
-  {
-    // If there's no tab for custom exceptions, bail
-    if (customSheet==null)
-    {
-      return;
-    }
-    
-    Iterator<HSSFRow> rowIterator = customSheet.rowIterator();
-    rowIterator.next();
-    while (rowIterator.hasNext())
-    {
-      HSSFRow row = rowIterator.next();
+//  private void updateExceptions()
+//  {
+//    // If there's no tab for custom exceptions, bail
+//    if (customSheet==null)
+//    {
+//      return;
+//    }
+//    
+//    Iterator<HSSFRow> rowIterator = customSheet.rowIterator();
+//    rowIterator.next();
+//    while (rowIterator.hasNext())
+//    {
+//      HSSFRow row = rowIterator.next();
+//
+//      String key = getStringValue(row.getCell(0));
+//      if (key == null)
+//      {
+//        continue;
+//      }
+//
+//      MdLocalizableDAO dao = (MdLocalizableDAO) MdLocalizableDAO.get(MdLocalizable.CLASS, key);
+//
+//      File xmlFile = dao.getXmlFile();
+//      if (!xmlFile.exists())
+//      {
+//        try
+//        {
+//          FileIO.write(xmlFile, dao.getValue(MdLocalizableInfo.MESSAGES));
+//        }
+//        catch (IOException e)
+//        {
+//          throw new FileWriteException(xmlFile, e);
+//        }
+//      }
+//      
+//      String xmlString;
+//      try
+//      {
+//        xmlString = FileIO.readString(xmlFile);
+//      }
+//      catch (IOException e)
+//      {
+//        throw new FileReadException(xmlFile, e);
+//      }
+//
+//      // Get all the the existing templates
+//      Map<String, String> allTemplates = getTemplates(xmlFile);
+//      int c = 1;
+//      // Add new template definitions, possibly overwriting old ones 
+//      for (LocaleDimension ld : getColumnHeaders(customSheet))
+//      {
+//        String value = getStringValue(row.getCell(c++));
+//        if (value != null)
+//        {
+//          allTemplates.put(ld.getAttributeName(), value);
+//        }
+//      }
+//
+//      // Parse out the header and footer of the xml file
+//      int start = xmlString.indexOf("<locale");
+//      int end = xmlString.lastIndexOf("/locale>");
+//      String prefix = xmlString.substring(0, start).trim();
+//      String suffix = "\n" + xmlString.substring(end + 8).trim();
+//
+//      // Reconstruct the body of the xml
+//      String middle = new String();
+//      for (Map.Entry<String, String> entry : allTemplates.entrySet())
+//      {
+//        String value = entry.getValue();
+//        if (value != null)
+//        {
+//          middle += "\n  <locale language=\"" + entry.getKey() + "\">" + value + "</locale>";
+//        }
+//      }
+//
+//      try
+//      {
+//        // Write out the updated file
+//        FileIO.write(xmlFile, prefix + middle + suffix);
+//      }
+//      catch (IOException e)
+//      {
+//        throw new FileWriteException(xmlFile, e);
+//      }
+//    }
+//  }
 
-      String key = getStringValue(row.getCell(0));
-      if (key == null)
-      {
-        continue;
-      }
-
-      MdLocalizableDAO dao = (MdLocalizableDAO) MdLocalizableDAO.get(MdLocalizable.CLASS, key);
-
-      File xmlFile = dao.getXmlFile();
-      if (!xmlFile.exists())
-      {
-        try
-        {
-          FileIO.write(xmlFile, dao.getValue(MdLocalizableInfo.MESSAGES));
-        }
-        catch (IOException e)
-        {
-          throw new FileWriteException(xmlFile, e);
-        }
-      }
-      
-      String xmlString;
-      try
-      {
-        xmlString = FileIO.readString(xmlFile);
-      }
-      catch (IOException e)
-      {
-        throw new FileReadException(xmlFile, e);
-      }
-
-      // Get all the the existing templates
-      Map<String, String> allTemplates = getTemplates(xmlFile);
-      int c = 1;
-      // Add new template definitions, possibly overwriting old ones 
-      for (LocaleDimension ld : getColumnHeaders(customSheet))
-      {
-        String value = getStringValue(row.getCell(c++));
-        if (value != null)
-        {
-          allTemplates.put(ld.getAttributeName(), value);
-        }
-      }
-
-      // Parse out the header and footer of the xml file
-      int start = xmlString.indexOf("<locale");
-      int end = xmlString.lastIndexOf("/locale>");
-      String prefix = xmlString.substring(0, start).trim();
-      String suffix = "\n" + xmlString.substring(end + 8).trim();
-
-      // Reconstruct the body of the xml
-      String middle = new String();
-      for (Map.Entry<String, String> entry : allTemplates.entrySet())
-      {
-        String value = entry.getValue();
-        if (value != null)
-        {
-          middle += "\n  <locale language=\"" + entry.getKey() + "\">" + value + "</locale>";
-        }
-      }
-
-      try
-      {
-        // Write out the updated file
-        FileIO.write(xmlFile, prefix + middle + suffix);
-      }
-      catch (IOException e)
-      {
-        throw new FileWriteException(xmlFile, e);
-      }
-    }
-  }
-
-  private Map<String, String> getTemplates(File xmlFile)
-  {
-    try
-    {
-      return LocalizeUtil.getAllTemplates(xmlFile);
-    }
-    catch (IOException e1)
-    {
-      throw new FileReadException(xmlFile, e1);
-    }
-    catch (SAXException e1)
-    {
-      throw new XMLException(e1);
-    }
-    catch (ParserConfigurationException e1)
-    {
-      throw new XMLException(e1);
-    }
-  }
+//  private Map<String, String> getTemplates(File xmlFile)
+//  {
+//    try
+//    {
+//      return LocalizeUtil.getAllTemplates(xmlFile);
+//    }
+//    catch (IOException e1)
+//    {
+//      throw new FileReadException(xmlFile, e1);
+//    }
+//    catch (SAXException e1)
+//    {
+//      throw new XMLException(e1);
+//    }
+//    catch (ParserConfigurationException e1)
+//    {
+//      throw new XMLException(e1);
+//    }
+//  }
 
   /**
    * Opens the stream and parses the sheet based on name

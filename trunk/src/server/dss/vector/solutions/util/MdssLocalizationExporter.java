@@ -37,10 +37,8 @@ import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.StructDAO;
 import com.runwaysdk.dataaccess.StructDAOIF;
 import com.runwaysdk.dataaccess.io.FileReadException;
-import com.runwaysdk.dataaccess.io.XMLParseException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
-import com.runwaysdk.dataaccess.metadata.MdLocalizableDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
@@ -50,13 +48,10 @@ import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeLocal;
 import com.runwaysdk.system.metadata.MdAttributeLocalQuery;
 import com.runwaysdk.system.metadata.MdIndex;
-import com.runwaysdk.system.metadata.MdLocalizable;
-import com.runwaysdk.system.metadata.MdLocalizableQuery;
 import com.runwaysdk.system.metadata.MdMethod;
 import com.runwaysdk.system.metadata.MdParameter;
 import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.util.FileIO;
-import com.runwaysdk.util.LocalizeUtil;
 
 public class MdssLocalizationExporter implements Reloadable
 {
@@ -88,8 +83,6 @@ public class MdssLocalizationExporter implements Reloadable
     long start = System.currentTimeMillis();
 
     MdssLocalizationExporter exporter = new MdssLocalizationExporter();
-    exporter.addLocale(Locale.ENGLISH);
-    exporter.addLocale(Locale.US);
     exporter.export();
     FileIO.write("localizer.xls", exporter.write());
 
@@ -133,7 +126,7 @@ public class MdssLocalizationExporter implements Reloadable
     propertySheet = workbook.createSheet(MDSS_PROPERTIES);
     controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
     
-    prepareExceptions();
+//    prepareExceptions();
     prepareLocalizedAttributes();
     prepareProperties("MDSS", propertySheet);
     prepareProperties("serverExceptions", serverSheet);
@@ -177,42 +170,42 @@ public class MdssLocalizationExporter implements Reloadable
     }
   }
   
-  private void prepareExceptions()
-  {
-    int r=1;
-    MdLocalizableQuery query = new MdLocalizableQuery(new QueryFactory());
-    query.ORDER_BY_ASC(query.getPackageName());
-    query.ORDER_BY_ASC(query.getTypeName());
-    for (MdLocalizable localizable : query.getIterator())
-    {
-      MdLocalizableDAO dao = (MdLocalizableDAO)MdLocalizableDAO.get(localizable.getId());
-      File xmlFile = dao.getXmlFile();
-      Map<String, String> templates;
-      try
-      {
-        templates = LocalizeUtil.getAllTemplates(xmlFile);
-      }
-      catch (IOException e)
-      {
-        throw new FileReadException(xmlFile, e);
-      }
-      catch (Exception e)
-      {
-        throw new XMLParseException(e);
-      }
-      
-      HSSFRow row = customSheet.createRow(r++);
-      int c = 0;
-      row.createCell(c++).setCellValue(new HSSFRichTextString(localizable.definesType()));
-      for (LocaleDimension col : columns)
-      {
-        if (!col.hasDimension())
-        {
-          setExceptionMessage(templates, row, c++, col.getAttributeName());
-        }
-      }
-    }
-  }
+//  private void prepareExceptions()
+//  {
+//    int r=1;
+//    MdLocalizableQuery query = new MdLocalizableQuery(new QueryFactory());
+//    query.ORDER_BY_ASC(query.getPackageName());
+//    query.ORDER_BY_ASC(query.getTypeName());
+//    for (MdLocalizable localizable : query.getIterator())
+//    {
+//      MdLocalizableDAO dao = (MdLocalizableDAO)MdLocalizableDAO.get(localizable.getId());
+//      File xmlFile = dao.getXmlFile();
+//      Map<String, String> templates;
+//      try
+//      {
+//        templates = LocalizeUtil.getAllTemplates(xmlFile);
+//      }
+//      catch (IOException e)
+//      {
+//        throw new FileReadException(xmlFile, e);
+//      }
+//      catch (Exception e)
+//      {
+//        throw new XMLParseException(e);
+//      }
+//      
+//      HSSFRow row = customSheet.createRow(r++);
+//      int c = 0;
+//      row.createCell(c++).setCellValue(new HSSFRichTextString(localizable.definesType()));
+//      for (LocaleDimension col : columns)
+//      {
+//        if (!col.hasDimension())
+//        {
+//          setExceptionMessage(templates, row, c++, col.getAttributeName());
+//        }
+//      }
+//    }
+//  }
 
   private void setExceptionMessage(Map<String, String> templates, HSSFRow row, int c, String localeString)
   {

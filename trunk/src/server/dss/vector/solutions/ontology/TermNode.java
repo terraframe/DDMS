@@ -78,20 +78,27 @@ public class TermNode implements Comparable<TermNode>
   
   public void applyRelationships()
   {
-    Set<Term> existing = new TreeSet<Term>();
-    for (Term t : term.getAllParentTerm())
-    {
-      existing.add(t);
-    }
+//    Don't pre-check; it's chepaer to just catch the exception
+//    Set<Term> existing = new TreeSet<Term>();
+//    for (Term t : term.getAllParentTerm())
+//    {
+//      existing.add(t);
+//    }
     
     for (TermNode parentNode : parents)
     {
       Term parentTerm = parentNode.getTerm();
-      if (!existing.contains(parentNode))
+//      if (!existing.contains(parentNode))
+//      {
+      try
       {
         TermRelationship rel = term.addParentTerm(parentTerm);
         rel.setOntologyRelationship(OntologyExcelImporter.getOntologyRelationship());
         rel.applyWithoutCreatingAllPaths();
+      }
+      catch (Exception e)
+      {
+        System.err.println(e);
       }
     }
   }
