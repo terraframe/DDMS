@@ -115,32 +115,7 @@ public abstract class MalariaSeasonDateExceptionBase extends com.runwaysdk.busin
   
   public java.lang.String localize(java.util.Locale locale)
   {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.MalariaSeasonDateException", locale);
-      return this.localize(locale, message);
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-  }
-  
-  protected java.lang.String localize(java.util.Locale locale, java.lang.String message)
-  {
-    message = super.localize(locale, message);
+    java.lang.String message = super.localize(locale);
     message = replace(message, "{id}", this.getId());
     message = replace(message, "{seasonName}", this.getSeasonName());
     message = replace(message, "{weekDate}", this.getWeekDate());

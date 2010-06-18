@@ -12,7 +12,7 @@ public class OutbreakAlert extends OutbreakAlertBase implements com.runwaysdk.ge
   }
 
   @Override
-  protected java.lang.String localize(java.util.Locale locale, java.lang.String message)
+  public java.lang.String localize(java.util.Locale locale)
   {
     // message = super.localize(locale, message);
     String emailFailure = "";
@@ -21,6 +21,7 @@ public class OutbreakAlert extends OutbreakAlertBase implements com.runwaysdk.ge
       emailFailure = ( (MdAttributeBooleanDAOIF) getEmailFailureMd() ).getPositiveDisplayLabel(locale);
     }
 
+    String message = super.localize(locale);
     message = replace(message, "{id}", this.getId());
 
     message = replace(message, "{alertType}", this.getAlertType());

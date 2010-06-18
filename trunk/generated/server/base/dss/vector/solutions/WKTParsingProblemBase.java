@@ -59,32 +59,7 @@ public abstract class WKTParsingProblemBase extends dss.vector.solutions.Notific
   
   public java.lang.String localize(java.util.Locale locale)
   {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.WKTParsingProblem", locale);
-      return this.localize(locale, message);
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLException(e.getLocalizedMessage());
-    }
-  }
-  
-  protected java.lang.String localize(java.util.Locale locale, java.lang.String message)
-  {
-    message = super.localize(locale, message);
+    java.lang.String message = super.localize(locale);
     message = replace(message, "{reason}", this.getReason());
     return message;
   }

@@ -1373,6 +1373,17 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     List<? extends GeoHierarchy> list = query.getIterator().getAll();
     return list.toArray(new GeoHierarchy[list.size()]);
   }
+  
+  /**
+   * @return An array of all Geo Hierarchies where Urban==true
+   */
+  public static GeoHierarchy[] getAllUrban()
+  {
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.WHERE(query.getUrban().EQ(true));
+    List<? extends GeoHierarchy> list = query.getIterator().getAll();
+    return list.toArray(new GeoHierarchy[list.size()]);
+  }
 
   /**
    * Returns a {@link GeoHierarchyView} representative of this GeoHierarchy.

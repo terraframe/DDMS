@@ -106,7 +106,11 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
   public void populateView(ControlIntervention concrete)
   {
-    this.setConcreteId(concrete.getId());
+    String otherId = concrete.getId();
+    if (!this.getConcreteId().equals(otherId))
+    {
+      this.setConcreteId(otherId);
+    }
     this.setGeoEntity(concrete.getGeoEntity());
     this.setStartDate(concrete.getStartDate());
     this.setEndDate(concrete.getEndDate());
