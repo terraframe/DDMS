@@ -740,6 +740,8 @@
     <xs:attribute name="description" type="xs:string" />
     <!--required: If the attribute must have a value-->
     <xs:attribute name="required" type="xs:boolean" />
+    <!--required: Comma delimeted name of dimensions on which this attribute is required-->
+    <xs:attribute name="requiredForDimension" type="xs:string" />
     <!-- Heads up: clean up
     accessor: The name of the accessor method used in generation
     <xs:attribute name="accessor" type="xs:string" />
