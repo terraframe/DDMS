@@ -330,8 +330,8 @@
           <xs:element name="create" type="mdExceptionOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
           <xs:element name="dtoStubSource" minOccurs="0" maxOccurs="1" />
-          <xs:element name="messages" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
+        <xs:attribute name="message" type="xs:string" use="optional" />
         <xs:attribute name="extends" type="xs:string" use="optional" />
       </xs:extension>
     </xs:complexContent>
@@ -1118,7 +1118,7 @@
     </xs:choice>
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
-
+  
   <xs:complexType name="statePermission">
     <!-- type: The metadata type to assign permissions to -->
     <xs:sequence>
