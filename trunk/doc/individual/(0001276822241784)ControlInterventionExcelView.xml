@@ -1,0 +1,111 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdView
+        name="dss.vector.solutions.export.ControlInterventionExcelView"
+        label="Control Intervention Excel View"
+        description="Excel view for control intervention"
+        publish="false">
+        <attributes>
+          <virtual
+            concrete="startDate"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+          <virtual
+            concrete="endDate"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+          <virtual
+            concrete="geoEntity"
+            label="Control Geo Entity"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+          <virtual
+            concrete="comments"
+            type="dss.vector.solutions.intervention.monitor.ControlIntervention" />
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.IndividualPremiseExcelView"
+        label="Individual Premise Excel View"
+        description="Excel view for individual premises"
+        extends="dss.vector.solutions.export.ControlInterventionExcelView">
+        <attributes>
+          <reference
+            name="premiseGeoEntity"
+            label="Premise Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            concrete="visited"
+            type="dss.vector.solutions.intervention.monitor.IndividualPremiseVisit" />
+          <virtual
+            concrete="treated"
+            type="dss.vector.solutions.intervention.monitor.IndividualPremiseVisit" />
+          <char
+            name="reasonsForNotTreated"
+            label="Reason for Not Treated"
+            size="255" />
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.AggregatedPremiseExcelView"
+        label="Aggregated Premise Excel View"
+        description="Excel view for aggregated premises"
+        extends="dss.vector.solutions.export.ControlInterventionExcelView">
+        <attributes>
+          <reference
+            name="premiseGeoEntity"
+            label="Premise Geo Entity"
+            type="dss.vector.solutions.geo.generated.GeoEntity"/>
+          <virtual
+            concrete="vehicleCoverage"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="premises"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="visited"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+          <virtual
+            concrete="treated"
+            type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit" />
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.PersonInterventionExcelView"
+        label="Person Intervention Excel View"
+        description="Excel view for person interventions"
+        extends="dss.vector.solutions.export.ControlInterventionExcelView">
+        <attributes>
+          <virtual
+            concrete="vehicleDays"
+            type="dss.vector.solutions.intervention.monitor.PersonIntervention" />
+        </attributes>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.InsecticideInterventionExcelView"
+        label="Insecticide Intervention Excel View"
+        description="Excel view for insecticide interventions"
+        extends="dss.vector.solutions.export.ControlInterventionExcelView">
+      </mdView>
+    </create>
+    <update>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.InsecticideInterventionExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.PersonInterventionExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.AggregatedPremiseExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.IndividualPremiseExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.export.ControlInterventionExcelView"
+        type="com.runwaysdk.system.metadata.MdView" />
+    </delete>
+  </undoIt>
+</version>
