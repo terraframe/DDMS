@@ -327,8 +327,6 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
     }
     
-    String sql = valueQuery.getSQL();
-    
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
 
   }
