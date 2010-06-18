@@ -43,7 +43,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
   @Override
   @Transaction
   public void apply()
-  {
+  {    
     validateSymptomOnset();
     validateFacilityVisit();
     validateAdmissionDate();
@@ -51,10 +51,20 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
     validateTestSampleDate();
     validateLabTestDate();
     validateTreatmentStartDate();
+    
+    setSymptomOnsetDate();
 
     super.apply();
 
     validateFacilityOutbreak();
+  }
+
+  private void setSymptomOnsetDate()
+  {
+    if(this.getSymptomOnset() == null && this.getIndividualCase() != null)
+    {
+      this.setSymptomOnset(this.getIndividualCase().getDiagnosisDate());
+    }
   }
 
   private void validateFacilityOutbreak()
