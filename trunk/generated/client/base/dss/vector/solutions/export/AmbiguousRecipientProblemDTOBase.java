@@ -142,44 +142,14 @@ public abstract class AmbiguousRecipientProblemDTOBase extends com.runwaysdk.bus
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return localizedMessage;
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.export.AmbiguousRecipientProblem", locale);
-      
-      message = message.replace("{dob}", this.getDob().toString());
-      message = message.replace("{firstName}", this.getFirstName().toString());
-      message = message.replace("{id}", this.getId().toString());
-      message = message.replace("{lastName}", this.getLastName().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{dob}", this.getDob().toString());
+    template = template.replace("{firstName}", this.getFirstName().toString());
+    template = template.replace("{id}", this.getId().toString());
+    template = template.replace("{lastName}", this.getLastName().toString());
+    
+    return template;
   }
   
 }

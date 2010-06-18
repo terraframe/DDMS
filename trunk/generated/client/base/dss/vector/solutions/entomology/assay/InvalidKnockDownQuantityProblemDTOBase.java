@@ -103,42 +103,12 @@ public abstract class InvalidKnockDownQuantityProblemDTOBase extends dss.vector.
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return localizedMessage;
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblem", locale);
-      
-      message = message.replace("{quantityKnockDown}", this.getQuantityKnockDown().toString());
-      message = message.replace("{quantityTested}", this.getQuantityTested().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{quantityKnockDown}", this.getQuantityKnockDown().toString());
+    template = template.replace("{quantityTested}", this.getQuantityTested().toString());
+    
+    return template;
   }
   
 }

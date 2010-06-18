@@ -218,46 +218,16 @@ public abstract class NotificationProblemDTOBase extends com.runwaysdk.business.
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return localizedMessage;
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.NotificationProblem", locale);
-      
-      message = message.replace("{attributeDisplayLabel}", this.getAttributeDisplayLabel().toString());
-      message = message.replace("{attributeName}", this.getAttributeName().toString());
-      message = message.replace("{componentId}", this.getComponentId().toString());
-      message = message.replace("{definingType}", this.getDefiningType().toString());
-      message = message.replace("{definingTypeDisplayLabel}", this.getDefiningTypeDisplayLabel().toString());
-      message = message.replace("{id}", this.getId().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{attributeDisplayLabel}", this.getAttributeDisplayLabel().toString());
+    template = template.replace("{attributeName}", this.getAttributeName().toString());
+    template = template.replace("{componentId}", this.getComponentId().toString());
+    template = template.replace("{definingType}", this.getDefiningType().toString());
+    template = template.replace("{definingTypeDisplayLabel}", this.getDefiningTypeDisplayLabel().toString());
+    template = template.replace("{id}", this.getId().toString());
+    
+    return template;
   }
   
 }

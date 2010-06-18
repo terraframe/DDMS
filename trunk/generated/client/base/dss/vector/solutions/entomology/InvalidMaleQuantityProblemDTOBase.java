@@ -103,42 +103,12 @@ public abstract class InvalidMaleQuantityProblemDTOBase extends dss.vector.solut
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return localizedMessage;
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.InvalidMaleQuantityProblem", locale);
-      
-      message = message.replace("{quantity}", this.getQuantity().toString());
-      message = message.replace("{quantityMale}", this.getQuantityMale().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{quantity}", this.getQuantity().toString());
+    template = template.replace("{quantityMale}", this.getQuantityMale().toString());
+    
+    return template;
   }
   
 }

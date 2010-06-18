@@ -96,42 +96,12 @@ public abstract class CalculationInProgressExceptionDTOBase extends com.runwaysd
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return this.getExceptionDTO().getLocalizedMessage();
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.general.CalculationInProgressException", locale);
-      
-      message = message.replace("{id}", this.getId().toString());
-      message = message.replace("{percentComplete}", this.getPercentComplete().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{id}", this.getId().toString());
+    template = template.replace("{percentComplete}", this.getPercentComplete().toString());
+    
+    return template;
   }
   
 }

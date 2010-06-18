@@ -210,45 +210,15 @@ public abstract class ResistancePropertyExceptionDTOBase extends com.runwaysdk.b
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return this.getExceptionDTO().getLocalizedMessage();
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.entomology.ResistancePropertyException", locale);
-      
-      message = message.replace("{id}", this.getId().toString());
-      message = message.replace("{lowerLabel}", this.getLowerLabel().toString());
-      message = message.replace("{lowerValue}", this.getLowerValue().toString());
-      message = message.replace("{upperLabel}", this.getUpperLabel().toString());
-      message = message.replace("{upperValue}", this.getUpperValue().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{id}", this.getId().toString());
+    template = template.replace("{lowerLabel}", this.getLowerLabel().toString());
+    template = template.replace("{lowerValue}", this.getLowerValue().toString());
+    template = template.replace("{upperLabel}", this.getUpperLabel().toString());
+    template = template.replace("{upperValue}", this.getUpperValue().toString());
+    
+    return template;
   }
   
 }

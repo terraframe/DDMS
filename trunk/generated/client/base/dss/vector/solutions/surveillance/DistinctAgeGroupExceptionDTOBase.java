@@ -134,43 +134,13 @@ public abstract class DistinctAgeGroupExceptionDTOBase extends com.runwaysdk.bus
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return this.getExceptionDTO().getLocalizedMessage();
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.surveillance.DistinctAgeGroupException", locale);
-      
-      message = message.replace("{endAge}", this.getEndAge().toString());
-      message = message.replace("{id}", this.getId().toString());
-      message = message.replace("{startAge}", this.getStartAge().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{endAge}", this.getEndAge().toString());
+    template = template.replace("{id}", this.getId().toString());
+    template = template.replace("{startAge}", this.getStartAge().toString());
+    
+    return template;
   }
   
 }

@@ -179,44 +179,14 @@ public abstract class SprayedSumProblemDTOBase extends dss.vector.solutions.Noti
    */
   public String getMessage()
   {
-    if (this.getLocale() != null)
-    {
-      return this.localize(this.getLocale());
-    }
-    else
-    {
-      return localizedMessage;
-    }
-  }
-  private java.lang.String localize(java.util.Locale locale)
-  {
-    try
-    {
-      java.lang.String message = com.runwaysdk.util.LocalizeUtil.getTemplate("dss.vector.solutions.irs.SprayedSumProblem", locale);
-      
-      message = message.replace("{objectLabel}", this.getObjectLabel().toString());
-      message = message.replace("{objects}", this.getObjects().toString());
-      message = message.replace("{sprayedObjectLabel}", this.getSprayedObjectLabel().toString());
-      message = message.replace("{sprayedObjects}", this.getSprayedObjects().toString());
-      
-      return message;
-    }
-    catch (java.io.IOException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (org.xml.sax.SAXException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (javax.xml.parsers.ParserConfigurationException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
-    catch (com.runwaysdk.util.LocalizeException e)
-    {
-      throw new com.runwaysdk.dataaccess.io.XMLExceptionDTO(e.getLocalizedMessage());
-    }
+    java.lang.String template = super.getMessage();
+    
+    template = template.replace("{objectLabel}", this.getObjectLabel().toString());
+    template = template.replace("{objects}", this.getObjects().toString());
+    template = template.replace("{sprayedObjectLabel}", this.getSprayedObjectLabel().toString());
+    template = template.replace("{sprayedObjects}", this.getSprayedObjects().toString());
+    
+    return template;
   }
   
 }
