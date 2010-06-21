@@ -124,7 +124,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var timeAssay = new  dss.vector.solutions.entomology.TimeResponseAssay();
-    var timeAttribs = ["activeIngredient","assay","lifeStage","referenceStrainResult","species","synergist","testStrainResult"]
+    var timeAttribs = ["activeIngredient","assay","lifeStage","species","synergist","testStrainResult","referenceStrainResult"]
     <%
     Halp.setReadableAttributes(request, "timeAttribs", TimeResponseAssayDTO.CLASS, requestIF);
     %>
@@ -180,8 +180,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var selectableGroups = [
-              {title:"Diagnostic_Assay", values:diagnosticColumns, group:"diag", klass:dss.vector.solutions.entomology.DiagnosticAssay.CLASS},
-              {title:"Time_Response_assay", values:timeColumns, group:"time", klass:dss.vector.solutions.entomology.TimeResponseAssay.CLASS},
+              {title:"Diagnostic_Dose_Assay", values:diagnosticColumns, group:"diag", klass:dss.vector.solutions.entomology.DiagnosticAssay.CLASS},
+              {title:"Time_Response_Assay", values:timeColumns, group:"time", klass:dss.vector.solutions.entomology.TimeResponseAssay.CLASS},
     ];
 
     selectableGroups = selectableGroups.concat(taxonCalcGroups);
