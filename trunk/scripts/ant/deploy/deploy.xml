@@ -553,7 +553,7 @@
 		<echo message="Merging Pre Country Schema (v2.8): (0001238646706000)" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true" fork="true">
 			<arg value="-timestamp" />
-			<arg value="${version.dir}" />
+			<arg value="${local.root}/doc/V2.8/" />
 			<arg value="${profile.root}/version_gis.xsd" />
 			<arg value="${model.dir}(0001238646706000)Pre_V_Two_Eight.xml" />
 			<arg value="0001238646706001" />
@@ -565,7 +565,7 @@
 		<echo message="Merging Post Country Schema (v2.8): (0001238646707003)" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true"  fork="true">
 			<arg value="-timestamp" />
-			<arg value="${version.dir}" />
+			<arg value="${local.root}/doc/V2.8/" />
 			<arg value="${profile.root}/version_gis.xsd" />
 			<arg value="${model.dir}(0001238646707003)Post_V_Two_Eight.xml" />
 			<arg value="0001238646707002" />

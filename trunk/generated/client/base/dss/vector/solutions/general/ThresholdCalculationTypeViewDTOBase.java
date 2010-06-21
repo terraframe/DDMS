@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2118667821)
+@com.runwaysdk.business.ClassSignature(hash = -844673168)
 public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
-  private static final long serialVersionUID = -2118667821;
+  private static final long serialVersionUID = -844673168;
   
   protected ThresholdCalculationTypeViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -20,12 +20,12 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
   public static java.lang.String CASETYPES = "caseTypes";
   public static java.lang.String CLINICALPOSITIVEPERCENTAGE = "clinicalPositivePercentage";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String COUNTINGMETHOD = "countingMethod";
+  public static java.lang.String EPIDEMICUNIVERSAL = "epidemicUniversal";
   public static java.lang.String ID = "id";
-  public static java.lang.String METHOD = "method";
   public static java.lang.String PRIORYEARS = "priorYears";
   public static java.lang.String T1METHOD = "t1Method";
   public static java.lang.String T2METHOD = "t2Method";
-  public static java.lang.String UNIVERSAL = "universal";
   public static java.lang.String WEEKSAFTER = "weeksAfter";
   public static java.lang.String WEEKSBEFORE = "weeksBefore";
   public static java.lang.String WEIGHT0 = "weight0";
@@ -196,49 +196,93 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
   }
   
   @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.OutbreakCalculationDTO> getMethod()
+  public java.util.List<dss.vector.solutions.general.OutbreakCalculationDTO> getCountingMethod()
   {
-    return (java.util.List<dss.vector.solutions.general.OutbreakCalculationDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.OutbreakCalculationDTO.CLASS, getEnumNames(METHOD));
+    return (java.util.List<dss.vector.solutions.general.OutbreakCalculationDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.general.OutbreakCalculationDTO.CLASS, getEnumNames(COUNTINGMETHOD));
   }
   
-  public java.util.List<String> getMethodEnumNames()
+  public java.util.List<String> getCountingMethodEnumNames()
   {
-    return getEnumNames(METHOD);
+    return getEnumNames(COUNTINGMETHOD);
   }
   
-  public void addMethod(dss.vector.solutions.general.OutbreakCalculationDTO enumDTO)
+  public void addCountingMethod(dss.vector.solutions.general.OutbreakCalculationDTO enumDTO)
   {
-    addEnumItem(METHOD, enumDTO.toString());
+    addEnumItem(COUNTINGMETHOD, enumDTO.toString());
   }
   
-  public void removeMethod(dss.vector.solutions.general.OutbreakCalculationDTO enumDTO)
+  public void removeCountingMethod(dss.vector.solutions.general.OutbreakCalculationDTO enumDTO)
   {
-    removeEnumItem(METHOD, enumDTO.toString());
+    removeEnumItem(COUNTINGMETHOD, enumDTO.toString());
   }
   
-  public void clearMethod()
+  public void clearCountingMethod()
   {
-    clearEnum(METHOD);
+    clearEnum(COUNTINGMETHOD);
   }
   
-  public boolean isMethodWritable()
+  public boolean isCountingMethodWritable()
   {
-    return isWritable(METHOD);
+    return isWritable(COUNTINGMETHOD);
   }
   
-  public boolean isMethodReadable()
+  public boolean isCountingMethodReadable()
   {
-    return isReadable(METHOD);
+    return isReadable(COUNTINGMETHOD);
   }
   
-  public boolean isMethodModified()
+  public boolean isCountingMethodModified()
   {
-    return isModified(METHOD);
+    return isModified(COUNTINGMETHOD);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getMethodMd()
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getCountingMethodMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(METHOD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(COUNTINGMETHOD).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.geo.GeoHierarchyDTO getEpidemicUniversal()
+  {
+    if(getValue(EPIDEMICUNIVERSAL) == null || getValue(EPIDEMICUNIVERSAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(EPIDEMICUNIVERSAL));
+    }
+  }
+  
+  public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
+  {
+    if(value == null)
+    {
+      setValue(EPIDEMICUNIVERSAL, "");
+    }
+    else
+    {
+      setValue(EPIDEMICUNIVERSAL, value.getId());
+    }
+  }
+  
+  public boolean isEpidemicUniversalWritable()
+  {
+    return isWritable(EPIDEMICUNIVERSAL);
+  }
+  
+  public boolean isEpidemicUniversalReadable()
+  {
+    return isReadable(EPIDEMICUNIVERSAL);
+  }
+  
+  public boolean isEpidemicUniversalModified()
+  {
+    return isModified(EPIDEMICUNIVERSAL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEpidemicUniversalMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(EPIDEMICUNIVERSAL).getAttributeMdDTO();
   }
   
   public Integer getPriorYears()
@@ -368,50 +412,6 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
   public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getT2MethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(T2METHOD).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.geo.GeoHierarchyDTO getUniversal()
-  {
-    if(getValue(UNIVERSAL) == null || getValue(UNIVERSAL).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchyDTO.get(getRequest(), getValue(UNIVERSAL));
-    }
-  }
-  
-  public void setUniversal(dss.vector.solutions.geo.GeoHierarchyDTO value)
-  {
-    if(value == null)
-    {
-      setValue(UNIVERSAL, "");
-    }
-    else
-    {
-      setValue(UNIVERSAL, value.getId());
-    }
-  }
-  
-  public boolean isUniversalWritable()
-  {
-    return isWritable(UNIVERSAL);
-  }
-  
-  public boolean isUniversalReadable()
-  {
-    return isReadable(UNIVERSAL);
-  }
-  
-  public boolean isUniversalModified()
-  {
-    return isModified(UNIVERSAL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getUniversalMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(UNIVERSAL).getAttributeMdDTO();
   }
   
   public Integer getWeeksAfter()

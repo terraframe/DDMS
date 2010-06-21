@@ -1,16 +1,11 @@
 package dss.vector.solutions.general;
 
-import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.InstallProperties;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoHierarchyProperty;
 import dss.vector.solutions.threshold.FacilityThresholdCalculator;
 import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
 import dss.vector.solutions.threshold.ThresholdCalculator;
@@ -59,12 +54,12 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 	}
 
 	private void populateView(ThresholdAlertCalculationType concrete) {
-		this.clearMethod();
+		this.clearCountingMethod();
 		for (OutbreakCalculation m : concrete.getCountingMethod()) {
-			this.addMethod(m);
+			this.addCountingMethod(m);
 		}
 
-		this.setUniversal(concrete.getEpidemicUniversal());
+		this.setEpidemicUniversal(concrete.getEpidemicUniversal());
 
 		this.setClinicalPositivePercentage(concrete.getClinicalPositivePercentage());
 	}
@@ -100,11 +95,11 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 	
 	private void populateConcrete(ThresholdAlertCalculationType concrete) {
 		concrete.clearCountingMethod();
-		for (OutbreakCalculation m : this.getMethod()) {
+		for (OutbreakCalculation m : this.getCountingMethod()) {
 			concrete.addCountingMethod(m);
 		}
 
-		concrete.setEpidemicUniversal(this.getUniversal());
+		concrete.setEpidemicUniversal(this.getEpidemicUniversal());
 		concrete.setClinicalPositivePercentage(this.getClinicalPositivePercentage());
 	}
 
@@ -132,8 +127,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 	}
 	
 	private void buildAttributeMap(ThresholdAlertCalculationType concrete) {
-		new AttributeNotificationMap(concrete, ThresholdAlertCalculationType.COUNTINGMETHOD, this, ThresholdCalculationTypeView.METHOD);
-		new AttributeNotificationMap(concrete, ThresholdAlertCalculationType.EPIDEMICUNIVERSAL, this, ThresholdCalculationTypeView.UNIVERSAL);
+		new AttributeNotificationMap(concrete, ThresholdAlertCalculationType.COUNTINGMETHOD, this, ThresholdCalculationTypeView.COUNTINGMETHOD);
+		new AttributeNotificationMap(concrete, ThresholdAlertCalculationType.EPIDEMICUNIVERSAL, this, ThresholdCalculationTypeView.EPIDEMICUNIVERSAL);
 		new AttributeNotificationMap(concrete, ThresholdAlertCalculationType.CLINICALPOSITIVEPERCENTAGE, this, ThresholdCalculationTypeView.CLINICALPOSITIVEPERCENTAGE);
 	}
 

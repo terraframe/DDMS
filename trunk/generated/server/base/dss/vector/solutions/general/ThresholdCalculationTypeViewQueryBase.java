@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -322206596)
+@com.runwaysdk.business.ClassSignature(hash = 1257943065)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdCalculationTypeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -322206596;
+private static final long serialVersionUID = 1257943065;
 
   public ThresholdCalculationTypeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -97,6 +97,42 @@ private static final long serialVersionUID = -322206596;
 
   }
  
+  public dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF getCountingMethod()
+  {
+    return getCountingMethod(null);
+
+  }
+ 
+  public dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF getCountingMethod(String alias)
+  {
+    return (dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.COUNTINGMETHOD, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF getCountingMethod(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.COUNTINGMETHOD, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getEpidemicUniversal()
+  {
+    return getEpidemicUniversal(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getEpidemicUniversal(String alias)
+  {
+
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.EPIDEMICUNIVERSAL, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getEpidemicUniversal(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.EPIDEMICUNIVERSAL, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -115,23 +151,6 @@ private static final long serialVersionUID = -322206596;
 
   }
  
-  public dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF getMethod()
-  {
-    return getMethod(null);
-
-  }
- 
-  public dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF getMethod(String alias)
-  {
-    return (dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.METHOD, alias, null);
-
-  }
- 
-  public dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF getMethod(String alias, String displayLabel)
-  {
-    return (dss.vector.solutions.general.OutbreakCalculationMasterQuery.OutbreakCalculationQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.METHOD, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getPriorYears()
   {
     return getPriorYears(null);
@@ -182,25 +201,6 @@ private static final long serialVersionUID = -322206596;
   public dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF getT2Method(String alias, String displayLabel)
   {
     return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQuery.ThresholdCalculationMethodQueryIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.T2METHOD, alias, displayLabel);
-
-  }
-  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getUniversal()
-  {
-    return getUniversal(null);
-
-  }
- 
-  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getUniversal(String alias)
-  {
-
-    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.UNIVERSAL, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF getUniversal(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.geo.GeoHierarchyQuery.GeoHierarchyQueryReferenceIF)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.UNIVERSAL, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getWeeksAfter()

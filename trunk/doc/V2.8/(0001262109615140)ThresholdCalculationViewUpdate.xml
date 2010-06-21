@@ -7,6 +7,7 @@
         name="dss.vector.solutions.general.ThresholdCalculationTypeView">
         <create>
           <attributes>
+<!--  Removed during sprint 10 as we re-typed these in Sprint 9
             <reference
               name="epidemicUniversal"
               label="Epidemic Universal"
@@ -19,6 +20,7 @@
               positiveLabel="Epi Week"
               negativeLabel="Sliding Week"
               defaultValue="true" />
+-->              
             <boolean
               name="calculationInterval"
               label="Calculation Interval"

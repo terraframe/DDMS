@@ -5278,9 +5278,7 @@
          label="Threshold Calculation Type">
         <attributes>
           <char name="concreteId" label="concrete id" size="255" required="true" />
-          <boolean name="countingMethod" label="Counting Method" required="true" positiveLabel="Epi Week" negativeLabel="Sliding Week" defaultValue="true" />
           <boolean name="calculationInterval" label="Calculation Interval" required="true" positiveLabel="Current Season" negativeLabel="Next Season" defaultValue="true" />
-          <reference name="epidemicUniversal" label="Epidemic Universal" type="dss.vector.solutions.geo.GeoHierarchy" required="true" />
           <virtual concrete="t1Method" type="dss.vector.solutions.general.ThresholdCalculationType" />
           <virtual concrete="t2Method" type="dss.vector.solutions.general.ThresholdCalculationType" />
           <virtual concrete="weeksBefore" type="dss.vector.solutions.general.ThresholdCalculationType" />

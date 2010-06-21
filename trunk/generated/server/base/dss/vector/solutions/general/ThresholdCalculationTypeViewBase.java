@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 583869267)
+@com.runwaysdk.business.ClassSignature(hash = -190201616)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,12 +15,12 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
   public static java.lang.String CASETYPES = "caseTypes";
   public static java.lang.String CLINICALPOSITIVEPERCENTAGE = "clinicalPositivePercentage";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String COUNTINGMETHOD = "countingMethod";
+  public static java.lang.String EPIDEMICUNIVERSAL = "epidemicUniversal";
   public static java.lang.String ID = "id";
-  public static java.lang.String METHOD = "method";
   public static java.lang.String PRIORYEARS = "priorYears";
   public static java.lang.String T1METHOD = "t1Method";
   public static java.lang.String T2METHOD = "t2Method";
-  public static java.lang.String UNIVERSAL = "universal";
   public static java.lang.String WEEKSAFTER = "weeksAfter";
   public static java.lang.String WEEKSBEFORE = "weeksBefore";
   public static java.lang.String WEIGHT0 = "weight0";
@@ -33,7 +33,7 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = 583869267;
+  private static final long serialVersionUID = -190201616;
   
   public ThresholdCalculationTypeViewBase()
   {
@@ -162,6 +162,79 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     }
   }
   
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.general.OutbreakCalculation> getCountingMethod()
+  {
+    return (java.util.List<dss.vector.solutions.general.OutbreakCalculation>) getEnumValues(COUNTINGMETHOD);
+  }
+  
+  public void addCountingMethod(dss.vector.solutions.general.OutbreakCalculation value)
+  {
+    if(value != null)
+    {
+      addEnumItem(COUNTINGMETHOD, value.getId());
+    }
+  }
+  
+  public void removeCountingMethod(dss.vector.solutions.general.OutbreakCalculation value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(COUNTINGMETHOD, value.getId());
+    }
+  }
+  
+  public void clearCountingMethod()
+  {
+    clearEnum(COUNTINGMETHOD);
+  }
+  
+  public void validateCountingMethod()
+  {
+    this.validateAttribute(COUNTINGMETHOD);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCountingMethodMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(COUNTINGMETHOD);
+  }
+  
+  public dss.vector.solutions.geo.GeoHierarchy getEpidemicUniversal()
+  {
+    if (getValue(EPIDEMICUNIVERSAL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(EPIDEMICUNIVERSAL));
+    }
+  }
+  
+  public void validateEpidemicUniversal()
+  {
+    this.validateAttribute(EPIDEMICUNIVERSAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEpidemicUniversalMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(EPIDEMICUNIVERSAL);
+  }
+  
+  public void setEpidemicUniversal(dss.vector.solutions.geo.GeoHierarchy value)
+  {
+    if(value == null)
+    {
+      setValue(EPIDEMICUNIVERSAL, "");
+    }
+    else
+    {
+      setValue(EPIDEMICUNIVERSAL, value.getId());
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -176,44 +249,6 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
     return mdClassIF.definesAttribute(ID);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<dss.vector.solutions.general.OutbreakCalculation> getMethod()
-  {
-    return (java.util.List<dss.vector.solutions.general.OutbreakCalculation>) getEnumValues(METHOD);
-  }
-  
-  public void addMethod(dss.vector.solutions.general.OutbreakCalculation value)
-  {
-    if(value != null)
-    {
-      addEnumItem(METHOD, value.getId());
-    }
-  }
-  
-  public void removeMethod(dss.vector.solutions.general.OutbreakCalculation value)
-  {
-    if(value != null)
-    {
-      removeEnumItem(METHOD, value.getId());
-    }
-  }
-  
-  public void clearMethod()
-  {
-    clearEnum(METHOD);
-  }
-  
-  public void validateMethod()
-  {
-    this.validateAttribute(METHOD);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMethodMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(METHOD);
   }
   
   public Integer getPriorYears()
@@ -318,41 +353,6 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
     return mdClassIF.definesAttribute(T2METHOD);
-  }
-  
-  public dss.vector.solutions.geo.GeoHierarchy getUniversal()
-  {
-    if (getValue(UNIVERSAL).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.geo.GeoHierarchy.get(getValue(UNIVERSAL));
-    }
-  }
-  
-  public void validateUniversal()
-  {
-    this.validateAttribute(UNIVERSAL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniversalMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
-    return mdClassIF.definesAttribute(UNIVERSAL);
-  }
-  
-  public void setUniversal(dss.vector.solutions.geo.GeoHierarchy value)
-  {
-    if(value == null)
-    {
-      setValue(UNIVERSAL, "");
-    }
-    else
-    {
-      setValue(UNIVERSAL, value.getId());
-    }
   }
   
   public Integer getWeeksAfter()
