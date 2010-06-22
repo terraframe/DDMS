@@ -259,22 +259,24 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     String numberInhabitants = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERINHABITANTS);
     String numberWithImmatures = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHIMMATURES);
     String numberExamined = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBEREXAMINED);
+    String numberWithLarvae = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHLARVAE);
+    String numberWithPupae = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHPUPAE);
     String premiseSize = QueryUtil.getColumnName(premiseMd, CollectionPremise.PREMISESIZE);
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberimmatures+")/NULLIF(SUM("+numberWithImmatures+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM("+numberWithImmatures+")/NULLIF(SUM("+numberExamined+"), 0.0)*100.0") || needsJoin;
     //     ((SUM(number_larvae)/ NULLIF(SUM(number_with_immatures)*100.0, 0.0))) AS 
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberlarvae+")/NULLIF(SUM("+numberWithImmatures+"), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberpupae+")/NULLIF(SUM("+numberWithImmatures+"), 0.0)*100.0")|| needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM("+numberWithLarvae+")/NULLIF(SUM("+numberExamined+"), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM("+numberWithPupae+")/NULLIF(SUM("+numberExamined+"), 0.0)*100.0")|| needsJoin;
     
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM("+numberimmatures+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM("+numberlarvae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM("+numberpupae+")/NULLIF(SUM("+numberwithwater+"), 0.0)*100.0") || needsJoin;
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "(SUM("+numberimmatures+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "(SUM("+numberlarvae+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "(SUM("+numberpupae+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "(SUM("+numberimmatures+")*100.0)/NULLIF(AVG("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "(SUM("+numberlarvae+")*100.0)/NULLIF(AVG("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "(SUM("+numberpupae+")*100.0)/NULLIF(AVG("+numberExamined+"), 0.0)") || needsJoin;
     
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pi", "(SUM("+numberpupae+")*100.0)/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pi", "(SUM("+numberpupae+")*100.0)/NULLIF(AVG("+numberExamined+"), 0.0)") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM("+numberpupae+")/NULLIF(SUM("+numberExamined+"), 0.0)") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM("+numberpupae+")/NULLIF(SUM("+premiseSize+"), 0.0)*100.0") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM("+numberpupae+")/NULLIF(SUM("+numberInhabitants+"), 0.0)*100.0") || needsJoin;
@@ -316,6 +318,8 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       {
         collectionContainerQuery = new CollectionContainerQuery(valueQuery);   
         valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
+        
+         
       }
     }
     
@@ -328,6 +332,5 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     }
     
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
-
   }
 }
