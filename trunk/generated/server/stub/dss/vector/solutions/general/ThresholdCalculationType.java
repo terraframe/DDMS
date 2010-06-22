@@ -96,6 +96,13 @@ public class ThresholdCalculationType extends ThresholdCalculationTypeBase imple
 			}
 		}
 
+		if (this.getSourceNotificationMinimum() == null || !this.getSourceNotificationMinimum().equals(recent.getSourceNotificationMinimum())) {
+			return true;
+		}
+		
+		if (this.getSourceIdentificationMinimum() == null || !this.getSourceIdentificationMinimum().equals(recent.getSourceIdentificationMinimum())) {
+			return true;
+		}
 		return false;
 	}
 

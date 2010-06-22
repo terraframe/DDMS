@@ -17,16 +17,16 @@
 <mjl:form name="ThresholdData.search.mojo" method="POST" id="threshold.form">
   <dl>
     <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">    
-      <mjl:dt attribute="method">
-        <mjl:group type="radio" param="method" items="${methods}" var="current" valueAttribute="enumName">
-          <mjl:groupOption checked="${(thresholdCalculation.method[0]==current.enumName) ? 'checked' : 'false'}">
+      <mjl:dt attribute="countingMethod">
+        <mjl:group type="radio" param="countingMethod" items="${methods}" var="current" valueAttribute="enumName">
+          <mjl:groupOption checked="${(thresholdCalculation.countingMethod[0]==current.enumName) ? 'checked' : 'false'}">
              ${current.displayLabel}
           </mjl:groupOption>
         </mjl:group>    
       </mjl:dt> 
-      <mjl:dt attribute="universal">
-        <mjl:select var="current" valueAttribute="geoHierarchyId" param="universal" items="${views}">
-          <mjl:option selected="${universal != null && universal.id == current.geoHierarchyId ? 'selected' : 'false'}">
+      <mjl:dt attribute="epidemicUniversal">
+        <mjl:select var="current" valueAttribute="geoHierarchyId" param="epidemicUniversal" items="${views}">
+          <mjl:option selected="${epidemicUniversal != null && epidemicUniversal == current.geoHierarchyId ? 'selected' : 'false'}">
             ${current.displayLabel}
           </mjl:option>    
         </mjl:select>
@@ -48,6 +48,12 @@
         <mjl:select valueAttribute="enumName" param="t2Method" items="${thresholdCalculationMethods}" var="current">
           <mjl:option>${current.displayLabel}</mjl:option>
         </mjl:select>
+      </mjl:dt>
+      <mjl:dt attribute="sourceNotificationMinimum">
+        <mjl:input type="text" param="sourceNotificationMinimum"/>
+      </mjl:dt>
+      <mjl:dt attribute="sourceIdentificationMinimum">
+        <mjl:input type="text" param="sourceIdentificationMinimum"/>
       </mjl:dt>
       <mjl:dt attribute="weeksBefore">
         <mjl:input type="text" param="weeksBefore"/>

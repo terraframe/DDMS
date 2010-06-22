@@ -51,6 +51,9 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 		for (ThresholdCalculationMethod m : concrete.getT2Method()) {
 			this.addT2Method(m);
 		}
+		
+		this.setSourceNotificationMinimum(concrete.getSourceNotificationMinimum());
+		this.setSourceIdentificationMinimum(concrete.getSourceIdentificationMinimum());
 	}
 
 	private void populateView(ThresholdAlertCalculationType concrete) {
@@ -91,6 +94,10 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 		for (ThresholdCalculationMethod m : this.getT2Method()) {
 			concrete.addT2Method(m);
 		}
+		
+		concrete.setSourceNotificationMinimum(this.getSourceNotificationMinimum());
+		concrete.setSourceIdentificationMinimum(this.getSourceIdentificationMinimum());
+		
 	}
 	
 	private void populateConcrete(ThresholdAlertCalculationType concrete) {
@@ -124,6 +131,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 		new AttributeNotificationMap(concrete, ThresholdCalculationType.WEIGHT7, this, ThresholdCalculationTypeView.WEIGHT7);
 		new AttributeNotificationMap(concrete, ThresholdCalculationType.WEIGHT8, this, ThresholdCalculationTypeView.WEIGHT8);
 		new AttributeNotificationMap(concrete, ThresholdCalculationType.WEIGHT9, this, ThresholdCalculationTypeView.WEIGHT9);
+		new AttributeNotificationMap(concrete, ThresholdCalculationType.SOURCENOTIFICATIONMINIMUM, this, ThresholdCalculationTypeView.SOURCENOTIFICATIONMINIMUM);
+		new AttributeNotificationMap(concrete, ThresholdCalculationType.SOURCEIDENTIFICATIONMINIMUM, this, ThresholdCalculationTypeView.SOURCEIDENTIFICATIONMINIMUM);
 	}
 	
 	private void buildAttributeMap(ThresholdAlertCalculationType concrete) {

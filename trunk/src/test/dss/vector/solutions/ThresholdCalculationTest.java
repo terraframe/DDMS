@@ -948,7 +948,26 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
+	@StartSession
+	public void testCalculatePoliticalIndividualMeanThresholdsWithMinimums(String sessionId) {
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
+		output("Calculating Political Individual Mean Thresholds With Minimums...");
+		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
+		calcType.lock();
+		calcType.setSourceNotificationMinimum(100.01d);
+		calcType.setSourceIdentificationMinimum(200.02d);
+		calcType.apply();		
+		if (!CALCULATE_ALL_THRESHOLDS) {
+			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
+		}
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, false);
 
+		ThresholdData td = ThresholdData.getThresholdData(DJIBOUTI, season);
+		assertThresholds(true, 46, 2010, td, 100, 200);
+		output("Done!");
+	}
 
 	protected long getValue(ValueObject valueObject, String key) {
 		long value = 0;

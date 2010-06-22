@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -190201616)
+@com.runwaysdk.business.ClassSignature(hash = -1060735062)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,6 +19,8 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
   public static java.lang.String EPIDEMICUNIVERSAL = "epidemicUniversal";
   public static java.lang.String ID = "id";
   public static java.lang.String PRIORYEARS = "priorYears";
+  public static java.lang.String SOURCEIDENTIFICATIONMINIMUM = "sourceIdentificationMinimum";
+  public static java.lang.String SOURCENOTIFICATIONMINIMUM = "sourceNotificationMinimum";
   public static java.lang.String T1METHOD = "t1Method";
   public static java.lang.String T2METHOD = "t2Method";
   public static java.lang.String WEEKSAFTER = "weeksAfter";
@@ -33,7 +35,7 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
   public static java.lang.String WEIGHT7 = "weight7";
   public static java.lang.String WEIGHT8 = "weight8";
   public static java.lang.String WEIGHT9 = "weight9";
-  private static final long serialVersionUID = -190201616;
+  private static final long serialVersionUID = -1060735062;
   
   public ThresholdCalculationTypeViewBase()
   {
@@ -276,6 +278,62 @@ public abstract class ThresholdCalculationTypeViewBase extends com.runwaysdk.bus
     else
     {
       setValue(PRIORYEARS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Double getSourceIdentificationMinimum()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(SOURCEIDENTIFICATIONMINIMUM));
+  }
+  
+  public void validateSourceIdentificationMinimum()
+  {
+    this.validateAttribute(SOURCEIDENTIFICATIONMINIMUM);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSourceIdentificationMinimumMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(SOURCEIDENTIFICATIONMINIMUM);
+  }
+  
+  public void setSourceIdentificationMinimum(Double value)
+  {
+    if(value == null)
+    {
+      setValue(SOURCEIDENTIFICATIONMINIMUM, "");
+    }
+    else
+    {
+      setValue(SOURCEIDENTIFICATIONMINIMUM, java.lang.Double.toString(value));
+    }
+  }
+  
+  public Double getSourceNotificationMinimum()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(SOURCENOTIFICATIONMINIMUM));
+  }
+  
+  public void validateSourceNotificationMinimum()
+  {
+    this.validateAttribute(SOURCENOTIFICATIONMINIMUM);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSourceNotificationMinimumMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.ThresholdCalculationTypeView.CLASS);
+    return mdClassIF.definesAttribute(SOURCENOTIFICATIONMINIMUM);
+  }
+  
+  public void setSourceNotificationMinimum(Double value)
+  {
+    if(value == null)
+    {
+      setValue(SOURCENOTIFICATIONMINIMUM, "");
+    }
+    else
+    {
+      setValue(SOURCENOTIFICATIONMINIMUM, java.lang.Double.toString(value));
     }
   }
   
