@@ -9,6 +9,7 @@ import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.system.metadata.MdDimension;
 
 import dss.vector.solutions.MDSSUser;
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.ontology.InactivePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
@@ -26,6 +27,19 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
   public Disease()
   {
     super();
+  }
+  
+  @Override
+  public void apply()
+  {
+    if(!this.isNew() && this.isModified(MENUROOT) && this.getMenuRoot() == null)
+    {
+      RequiredAttributeException ex = new RequiredAttributeException();
+      ex.setAttributeLabel(Disease.getMenuRootMd().getDisplayLabel(Session.getCurrentLocale()));
+      throw ex;
+    }
+    
+    super.apply();
   }
 
   public static Disease getMalaria()
