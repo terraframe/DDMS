@@ -20,8 +20,8 @@ import dss.vector.solutions.ontology.Term;
 
 /**
  * @author chris
- *
- * This class generates the menus.
+ * 
+ *         This class generates the menus.
  */
 public class MenuGenerator implements Reloadable {
 	private Disease disease = null;
@@ -139,13 +139,12 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	/**
-	 * Process a menu item term by looking at each parent of that term: 
-	 * - If the parent is the menu root for the specified disease, then attempt
-	 *   to add the current subtree to the existing menu structure.
-	 * - If the parent is the root node, then this hierarchy path was not
-	 *   part of the menu tree, so discard it.
-	 * - Otherwise, add a new gui menu item to the tree, and repeat for its
-	 *   parents.
+	 * Process a menu item term by looking at each parent of that term: - If the
+	 * parent is the menu root for the specified disease, then attempt to add
+	 * the current subtree to the existing menu structure. - If the parent is
+	 * the root node, then this hierarchy path was not part of the menu tree, so
+	 * discard it. - Otherwise, add a new gui menu item to the tree, and repeat
+	 * for its parents.
 	 * 
 	 * @param term
 	 * @param guiMenuItem
@@ -158,11 +157,13 @@ public class MenuGenerator implements Reloadable {
 					while (parents.hasNext()) {
 						Term parent = parents.next();
 						if (parent.getId().equals(this.disease.getMenuRoot().getId())) {
-							// This is a valid menu path, so add it to the current menu structure
+							// This is a valid menu path, so add it to the
+							// current menu structure
 							this.consolidateMenu(guiMenuItem);
 						} else {
-							// This could still be a valid menu path.  Add the
-							// parent to the menu and keep going up the hierarchy
+							// This could still be a valid menu path. Add the
+							// parent to the menu and keep going up the
+							// hierarchy
 							GuiMenuItem parentGuiMenuItem = new GuiMenuItem(parent);
 							parentGuiMenuItem.addChild(guiMenuItem);
 							this.processMenuItem(parent, parentGuiMenuItem);
@@ -179,18 +180,20 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	/**
-	 * Generate the diseases submenu.  One for each configured disease, and 
-	 * check the current disease.
+	 * Generate the diseases submenu. One for each configured disease, and check
+	 * the current disease.
 	 */
 	private void generateDiseaseSubMenu() {
 		int n = 6000000;
 		GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:" + (n++), MdBusinessDAO.getMdBusinessDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
-		for (Disease thisDisease : Disease.getAllDiseases()) {
-			String label = thisDisease.getDisplayLabel();
-			if (thisDisease.equals(this.disease)) {
+		for (Disease disease : Disease.getAllDiseases()) {
+			String label = disease.getDisplayLabel();
+			if (disease.equals(this.disease)) {
 				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:" + (n++), label, "#"));
 			} else {
-				diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:" + (n++), label, "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + thisDisease.getKey()));
+				if (disease.getMenuRoot() != null && disease.getMenuRoot().getInactiveByDisease() != null && !disease.getMenuRoot().getInactiveByDisease().getInactive()) {
+					diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:" + (n++), label, "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease.getKey()));
+				}
 			}
 		}
 		this.menu.addChild(diseaseSubMenu);
@@ -249,7 +252,6 @@ public class MenuGenerator implements Reloadable {
 		out.println(label);
 	}
 
-	
 	/**
 	 * @param newMenu
 	 */
@@ -258,9 +260,9 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	/**
-	 * Combine the new menu into the old menu by checking the top of the menu
-	 * to see if it is already a child of the menu:  if not, add it; if so, 
-	 * continue down the levels to find the appropriate place to add it
+	 * Combine the new menu into the old menu by checking the top of the menu to
+	 * see if it is already a child of the menu: if not, add it; if so, continue
+	 * down the levels to find the appropriate place to add it
 	 * 
 	 * @param oldMenu
 	 * @param newMenu
