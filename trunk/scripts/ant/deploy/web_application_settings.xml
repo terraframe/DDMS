@@ -116,5 +116,8 @@
 
 <filter-mapping>
   <filter-name>ContentTypeFilter</filter-name>
-  <url-pattern>*.*</url-pattern>
+  <url-pattern>/Mojo/JSONControllerServlet</url-pattern>
+  <url-pattern>*.mojax</url-pattern>
+  <url-pattern>*.mojo</url-pattern>
 </filter-mapping>
+

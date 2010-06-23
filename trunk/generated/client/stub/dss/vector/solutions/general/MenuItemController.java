@@ -196,6 +196,11 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   public void editDisease(String id) throws IOException, ServletException
   {
     DiseaseDTO dto = DiseaseDTO.get(this.getClientRequest(), id);
+    editDisease(dto);
+  }
+  
+  private void editDisease(DiseaseDTO dto) throws IOException, ServletException
+  {
     dto.lock();
     
     req.setAttribute("term", dto.getMenuRoot());
@@ -207,9 +212,20 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   @Override
   public void updateDisease(DiseaseDTO dto) throws IOException, ServletException
   {
-    dto.apply();
+    try
+    {
+      dto.apply();
     
-    this.viewAll();
+      this.viewAll();
+    }
+    catch(java.lang.Throwable t)
+    {
+      boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      if (!redirect)
+      {
+        this.editDisease(dto);
+      }
+    }
   }
   
   @Override
