@@ -13,6 +13,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.PanicButton;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
@@ -107,11 +108,21 @@ public class MenuGenerator implements Reloadable {
 	@Transaction
 	public void generateMenu() {
 		this.menu = new GuiMenuItem("menu", "menu", null);
+		if (PanicButton.isEnabled()) {
+			this.generateEmergencyMenu();
+		}
 		this.generateConfigurableMenu();
 		this.generateDiseaseSubMenu();
 		this.menu.addChild(new GuiMenuItem("ZZZZ:7000000", "Log_Out", MDSSProperties.getString("Log_Out"), "com.runwaysdk.defaults.LoginController.logout.mojo"));
 		this.menu.addChild(new GuiMenuItem("ZZZZ:8000000", "About", MDSSProperties.getString("About"), "about.jsp"));
 		this.menu.addChild(new GuiMenuItem("ZZZZ:9000000", "Print", "&nbsp;", "javascript:window.print()"));
+	}
+
+	private void generateEmergencyMenu() {
+		GuiMenuItem emergencyMenu = new GuiMenuItem("AAAA:0100000", "Emergency_Menu", MDSSProperties.getString("Emergency_Menu"), null);
+		emergencyMenu.addChild(new GuiMenuItem("AAAA:0100010", "Emergency_TermTree_MenuItem", MDSSProperties.getString("Emergency_TermTree_MenuItem"), "dss.vector.solutions.ontology.TermController.viewTree.mojo"));
+		emergencyMenu.addChild(new GuiMenuItem("AAAA:0100020", "Emergency_Menu_MenuItem ", MDSSProperties.getString("Emergency_Menu_MenuItem"), "dss.vector.solutions.general.MenuItemController.viewAll.mojo"));
+		this.menu.addChild(emergencyMenu);
 	}
 
 	/**
