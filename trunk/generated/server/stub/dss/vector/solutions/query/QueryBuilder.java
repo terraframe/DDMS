@@ -9,8 +9,12 @@ import java.text.SimpleDateFormat;
 import com.runwaysdk.RunwayException;
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AttributePrimitive;
@@ -26,7 +30,6 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryCSVExporter;
 import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.util.QueryUtil;
 
@@ -75,7 +78,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       ProgrammingErrorException ex = new ProgrammingErrorException(t);
       throw ex;
     }
-
+    
     return valueQuery;
   }
 
@@ -139,15 +142,41 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     QueryFactory queryFactory = new QueryFactory();
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
+    
+    // The attribute may be in the form of attribute1.attribute2.attribute3, etc
+    // to represent a chain of attribute dependencies. This needs to be dereferenced.
+    MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(klass);
+    String searchAttribute = attribute;
+    if(attribute.contains("."))
+    {
+      String[] attrs = attribute.split("\\.");
+      for(int i=0; i<attrs.length; i++)
+      {
+        searchAttribute = attrs[i];
 
-    String attrCol = QueryUtil.getColumnName(klass, attribute);
+        
+        MdAttributeDAOIF attrMd = md.definesAttribute(searchAttribute);
+        if(attrMd instanceof MdAttributeReferenceDAOIF)
+        {
+          // This should only be valid for MdEntities so this downcast is valid.
+          md = (MdEntityDAOIF) ((MdAttributeReferenceDAOIF) attrMd).getReferenceMdBusinessDAO();
+        }
+        else if(i != attrs.length-1)
+        {
+          String error = "The attribute ["+attribute+"] on type ["+klass+"] is not valid for chaining.";
+          throw new ProgrammingErrorException(error);
+        }
+      }
+    }
+
+    String attrCol = QueryUtil.getColumnName(md.definesType(), searchAttribute);
     SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attrCol);
 
     COUNT count = F.COUNT(attribSelectable, "attributeCount");
 
     valueQuery.SELECT(attribSelectable, count);
 
-    String table = MdBusiness.getMdBusiness(klass).getTableName();
+    String table = md.getTableName();
 
     valueQuery.FROM(table, "auto_complete");
 
