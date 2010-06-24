@@ -195,7 +195,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
         it.close();
       }
     }
-    
+
     return new PupalContainerView[0];
   }
 
@@ -209,16 +209,73 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     view.setCollectionId(this.getCollectionId());
 
     return view;
+  }  
+
+  private PupalCollectionView searchCollection()
+  {
+    QueryFactory factory = new QueryFactory();
+
+    PupalCollectionQuery collectionQuery = new PupalCollectionQuery(factory);
+    PupalPremiseQuery premiseQuery = new PupalPremiseQuery(factory);
+
+    Condition collectionCondition = collectionQuery.getGeoEntity().EQ(this.getGeoEntity());
+    collectionCondition = AND.get(collectionCondition, collectionQuery.getStartDate().EQ(this.getStartDate()));
+    collectionCondition = AND.get(collectionCondition, collectionQuery.getEndDate().EQ(this.getEndDate()));
+    collectionQuery.WHERE(collectionCondition);
+
+    Condition premiseCondition = premiseQuery.getCollection().EQ(collectionQuery);
+    premiseCondition = AND.get(premiseCondition, premiseQuery.getPremiseType().EQ(this.getPremiseType()));
+    premiseQuery.WHERE(premiseCondition);
+
+    OIterator<? extends PupalPremise> premiseIt = premiseQuery.getIterator();
+
+    try
+    {
+      if (premiseIt.hasNext())
+      {
+        PupalCollectionView view = premiseIt.next().getView();
+
+        return view;
+      }
+    }
+    finally
+    {
+      premiseIt.close();
+    }
+
+    OIterator<? extends PupalCollection> collectionIt = collectionQuery.getIterator();
+
+    try
+    {
+      if (collectionIt.hasNext())
+      {
+        PupalCollectionView view = collectionIt.next().getView();
+        view.setPremiseType(this.getPremiseType());
+
+        return view;
+      }
+    }
+    finally
+    {
+      collectionIt.close();
+    }
+    
+    return null;
   }
 
-  private void validateSearch()
+
+  private boolean validateSearch()
   {
+    boolean valid = true;
+    
     if (this.getGeoEntity() == null)
     {
       RequiredAttributeProblem p = new RequiredAttributeProblem();
       p.setNotification(this, PupalCollectionView.GEOENTITY);
       p.apply();
       p.throwIt();
+      
+      valid = false;
     }
 
     if (this.getStartDate() == null)
@@ -227,6 +284,8 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
       p.setNotification(this, PupalCollectionView.STARTDATE);
       p.apply();
       p.throwIt();
+      
+      valid = false;
     }
 
     if (this.getEndDate() == null)
@@ -235,6 +294,8 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
       p.setNotification(this, PupalCollectionView.ENDDATE);
       p.apply();
       p.throwIt();
+      
+      valid = false;
     }
 
     if (this.getPremiseType() == null)
@@ -243,7 +304,11 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
       p.setNotification(this, PupalCollectionView.PREMISETYPE);
       p.apply();
       p.throwIt();
+
+      valid = false;
     }
+    
+    return valid;
   }
 
   public void deleteConcrete()
@@ -296,8 +361,6 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     }
 
     query.restrictRows(pageSize, pageNumber);
-    
-//    System.out.println(query.getSQL());
 
     return query;
   }
@@ -305,56 +368,18 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
   @Transaction
   public static PupalCollectionView getCollection(PupalCollectionView collection)
   {
-    collection.validateSearch();
+    boolean valid = collection.validateSearch();
 
-    QueryFactory factory = new QueryFactory();
-
-    PupalCollectionQuery collectionQuery = new PupalCollectionQuery(factory);
-    PupalPremiseQuery premiseQuery = new PupalPremiseQuery(factory);
-
-    Condition collectionCondition = collectionQuery.getGeoEntity().EQ(collection.getGeoEntity());
-    collectionCondition = AND.get(collectionCondition, collectionQuery.getStartDate().EQ(collection.getStartDate()));
-    collectionCondition = AND.get(collectionCondition, collectionQuery.getEndDate().EQ(collection.getEndDate()));
-    collectionQuery.WHERE(collectionCondition);
-
-    Condition premiseCondition = premiseQuery.getCollection().EQ(collectionQuery);
-    premiseCondition = AND.get(premiseCondition, premiseQuery.getPremiseType().EQ(collection.getPremiseType()));
-    premiseQuery.WHERE(premiseCondition);
-
-    OIterator<? extends PupalPremise> premiseIt = premiseQuery.getIterator();
-
-    try
+    if (valid)
     {
-      if (premiseIt.hasNext())
+      PupalCollectionView view = collection.searchCollection();
+      
+      if(view != null)
       {
-        PupalCollectionView view = premiseIt.next().getView();
-
         return view;
       }
-    }
-    finally
-    {
-      premiseIt.close();
-    }
-
-    OIterator<? extends PupalCollection> collectionIt = collectionQuery.getIterator();
-
-    try
-    {
-      if (collectionIt.hasNext())
-      {
-        PupalCollectionView view = collectionIt.next().getView();
-        view.setPremiseType(collection.getPremiseType());
-
-        return view;
-      }
-    }
-    finally
-    {
-      collectionIt.close();
     }
 
     return collection.searchClone();
   }
-
 }
