@@ -213,7 +213,8 @@ public class Term extends TermBase implements Reloadable, OptionIF
     if (display == null || display.length() == 0)
     {
       this.getTermDisplayLabel().setValue(this.getName());
-//      this.getDisplayLabel().setDefaultValue(this.getName()); Does this need to be called?
+      // this.getDisplayLabel().setDefaultValue(this.getName()); Does this need
+      // to be called?
     }
 
     // If this is new, set the Ontology value to the MO ontology.
@@ -229,17 +230,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     super.apply();
-    
-    if(isNew)
+
+    if (isNew)
     {
       // set inactive for all diseases by default
-      for(Disease disease : Disease.getAllDiseases())
+      for (Disease disease : Disease.getAllDiseases())
       {
         InactiveProperty prop = new InactiveProperty();
         prop.setInactive(false);
         prop.setDisease(disease);
         prop.apply();
-        
+
         this.addInactiveProperties(prop).apply();
       }
     }
@@ -302,7 +303,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     conditions.add(Disease.getInactiveCriteria(factory, termQuery, false));
-//    conditions.add(Disease.getInactive(termQuery).EQ(false));
+    // conditions.add(Disease.getInactive(termQuery).EQ(false));
 
     Condition[] conditionArray = conditions.toArray(new Condition[conditions.size()]);
 
@@ -421,11 +422,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     {
       AllPaths.rebuildAllPaths();
     }
-    
-    if(inactive != null)
+
+    if (inactive != null)
     {
       InactiveProperty prop = this.getInactiveByDisease();
-      
+
       prop.appLock();
       prop.setInactive(inactive);
       prop.apply();
@@ -443,7 +444,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       iter.close();
     }
   }
-  
+
   @Override
   @Transaction
   public void updateFromTree(Boolean inactive)
@@ -455,19 +456,19 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     this.apply();
   }
-  
+
   /**
-   * Returns the InactiveProperty associated with this Term
-   * for the current disease of the session. If this Term is a
-   * new instance then a new instance of InactiveProperty is returned,
-   * which can be used for metadata purposes and default values.
+   * Returns the InactiveProperty associated with this Term for the current
+   * disease of the session. If this Term is a new instance then a new instance
+   * of InactiveProperty is returned, which can be used for metadata purposes
+   * and default values.
    */
   @Override
   public InactiveProperty getInactiveByDisease()
   {
     Disease disease = Disease.getCurrent();
-    
-    if(this.isNew() && !this.isAppliedToDB())
+
+    if (this.isNew() && !this.isAppliedToDB())
     {
       InactiveProperty prop = new InactiveProperty();
       prop.setInactive(false);
@@ -479,17 +480,17 @@ public class Term extends TermBase implements Reloadable, OptionIF
       QueryFactory f = new QueryFactory();
       TermQuery tq = new TermQuery(f);
       InactivePropertyQuery ipQ = new InactivePropertyQuery(f);
-      
+
       tq.WHERE(tq.getId().EQ(this.getId()));
-      
+
       ipQ.WHERE(ipQ.getDisease().EQ(disease));
       ipQ.AND(ipQ.term(tq));
-      
+
       OIterator<? extends InactiveProperty> iter = ipQ.getIterator();
-      
+
       try
       {
-        return iter.next();  
+        return iter.next();
       }
       finally
       {
@@ -590,10 +591,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   private static class FetchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private String[]  termIds;
+    private String[]              termIds;
 
-    private TermQuery termQuery;
-    
+    private TermQuery             termQuery;
+
     private InactivePropertyQuery inactivePropQuery;
 
     protected FetchQueryBuilder(QueryFactory queryFactory, String[] termIds)
@@ -626,7 +627,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       this.inactivePropQuery.AND(this.inactivePropQuery.getDisease().EQ(disease));
 
       query.AND(termQuery.inactiveProperties(this.inactivePropQuery));
-      
+
       // restrict by the term ids (ordering will be done client-side)
       if (this.termIds != null && this.termIds.length > 0)
       {
@@ -711,7 +712,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       }
 
       query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
-//      query.AND(Disease.getInactive(termQuery).EQ(false));
+      // query.AND(Disease.getInactive(termQuery).EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getTermDisplayLabel().localize());
     }
@@ -780,7 +781,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       }
 
       query.AND(Disease.getInactiveCriteria(this.getQueryFactory(), termQuery, false));
-//      query.AND(Disease.getInactive(termQuery).EQ(false));
+      // query.AND(Disease.getInactive(termQuery).EQ(false));
 
       query.ORDER_BY_ASC(this.termQuery.getTermDisplayLabel().localize());
     }
@@ -798,7 +799,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private TermRelationshipQuery termRelQuery;
 
     private Boolean               filterObsolete;
-    
+
     private InactivePropertyQuery inactivePropQuery;
 
     protected GetChildrenQueryBuilder(QueryFactory queryFactory, Term parent, Boolean filterObsolete)
@@ -831,15 +832,15 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       query.WHERE(this.termRelQuery.parentId().EQ(this.parent.getId()));
       query.AND(termQuery.parentTerm(this.termRelQuery));
-      
+
       Disease disease = Disease.getCurrent();
-      
+
       if (this.filterObsolete)
       {
         this.inactivePropQuery.AND(this.inactivePropQuery.getInactive().EQ(false));
 
       }
-      
+
       this.inactivePropQuery.AND(this.inactivePropQuery.getDisease().EQ(disease));
 
       query.AND(termQuery.inactiveProperties(this.inactivePropQuery));
@@ -862,7 +863,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     private TermRelationshipQuery termRelQuery;
 
     private boolean               filterObsolete;
-    
+
     protected DefaultRootQueryBuilder(QueryFactory queryFactory, TermQuery termQuery, TermRelationshipQuery termRelQuery, boolean filterObsolete)
     {
       super(queryFactory);
@@ -892,8 +893,10 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       // When filtering is enabled, we know the context is the ontology browser,
       // which means we want the roots that are the children of the single
-      // instance of RootTerm. When filtering is not enabled, we know the context
-      // is to fetch the single instance of RootTerm as the root (for the term tree admin
+      // instance of RootTerm. When filtering is not enabled, we know the
+      // context
+      // is to fetch the single instance of RootTerm as the root (for the term
+      // tree admin
       // screen).
       if (this.filterObsolete)
       {
@@ -1104,7 +1107,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
       {
         children.add(child);
       }
-      
+
     }
 
     List<Term> sorted = new ArrayList<Term>(children);
@@ -1112,7 +1115,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return sorted.toArray(new Term[sorted.size()]);
   }
-  
+
   public static Term[] getSortedRootChildren(MdAttributeDAOIF mdAttribute)
   {
     String className = mdAttribute.definedByClass().definesType();
@@ -1120,14 +1123,16 @@ public class Term extends TermBase implements Reloadable, OptionIF
     return Term.getSortedRootChildren(className, mdAttribute.definesAttribute(), true);
   }
 
-
-
   /**
-   * Returns the directly selectable children of the all roots sorted by (BrowserRoot, TermId)
+   * Returns the directly selectable children of the all roots sorted by
+   * (BrowserRoot, TermId)
    * 
-   * @param className Fully qualified class name which defines the MdAttribute
-   * @param attributeName Name of the MdAttribute
-   * @param returnOnlySelectable Flag denoting if this should only return selectable terms
+   * @param className
+   *          Fully qualified class name which defines the MdAttribute
+   * @param attributeName
+   *          Name of the MdAttribute
+   * @param returnOnlySelectable
+   *          Flag denoting if this should only return selectable terms
    * 
    * @return
    */
@@ -1135,40 +1140,45 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     List<Term> list = new ArrayList<Term>();
     BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, attributeName);
-    
+
     for (BrowserRootView view : roots)
     {
       Set<Term> children = new TreeSet<Term>(new TermComparator());
-      
+
       Term term = Term.get(view.getTermId());
-      
-      if (returnOnlySelectable)
+
+      if (!term.getInactiveByDisease().getInactive())
       {
-        if (view.getSelectable())
+        if (returnOnlySelectable)
+        {
+          if (view.getSelectable())
+          {
+            children.add(term);
+          }
+        }
+        else
         {
           children.add(term);
         }
       }
-      else
-      {
-        children.add(term);
-      }
-      
+
       for (Term child : term.getAllChildTerm())
       {
-        children.add(child);
+        if(!child.getInactiveByDisease().getInactive())
+        {
+          children.add(child);
+        }
       }
-      
+
       List<Term> sorted = new ArrayList<Term>(children);
       Collections.sort(sorted, new OptionComparator(false));
-      
+
       list.addAll(sorted);
     }
-    
-    
+
     return list.toArray(new Term[list.size()]);
   }
-  
+
   /**
    * @param mdAttribute
    * @return Returns selectable roots and every roots direct descendants for a
@@ -1185,12 +1195,12 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     return this.getTermDisplayLabel().getValue();
   }
-  
+
   public String getOptionId()
   {
     return this.getTermId();
   }
-  
+
   public boolean isLeaf()
   {
     return this.getAllChildTerm().getAll().size() == 0;
@@ -1282,62 +1292,59 @@ public class Term extends TermBase implements Reloadable, OptionIF
   {
     QueryFactory factory = new QueryFactory();
     ValueQuery query = new ValueQuery(factory);
-    
+
     AllPathsQuery pathsQuery = new AllPathsQuery(query);
     TermQuery termQuery = new TermQuery(query);
-    
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] {
-        termQuery.getId(Term.ID),
-        termQuery.getTermDisplayLabel().localize(Term.TERMDISPLAYLABEL),
-        termQuery.getTermId(Term.TERMID)
-    };
-    
+
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getTermDisplayLabel().localize(Term.TERMDISPLAYLABEL), termQuery.getTermId(Term.TERMID) };
+
     List<Condition> list = new LinkedList<Condition>();
 
     Condition condition = null;
-    
-    for(String[] root : roots)
+
+    for (String[] root : roots)
     {
       String id = root[0];
       Boolean selectable = Boolean.parseBoolean(root[1]);
-      
+
       BasicCondition eq = pathsQuery.getParentTerm().EQ(id);
-      
-      condition = (condition != null ) ? OR.get(condition, eq) : eq;
-      
-      if(!selectable)
+
+      condition = ( condition != null ) ? OR.get(condition, eq) : eq;
+
+      if (!selectable)
       {
         list.add(termQuery.getId().NEi(id));
       }
     }
-    
+
     list.add(pathsQuery.getChildTerm().EQ(termQuery));
-    
-    if(condition != null)
+
+    if (condition != null)
     {
       list.add(condition);
     }
-    
+
     Condition[] conditions = list.toArray(new Condition[list.size()]);
-    
+
     if (value != null && !value.equals(""))
     {
       String[] tokens = value.split(" ");
       SelectablePrimitive[] searchables = new SelectablePrimitive[] { termQuery.getTermDisplayLabel().localize(Term.TERMDISPLAYLABEL), termQuery.getTermId(Term.TERMID) };
-      
+
       QueryBuilder.textLookup(query, factory, tokens, searchables, selectables, conditions);
     }
     else
     {
       SelectablePrimitive orderBy = selectables[1];
-      
+
       QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions);
     }
-    
+
     query.restrictRows(20, 1);
-    
+
     return query;
   }
+
   /**
    * @param value
    *          term value
@@ -1361,11 +1368,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
     BrowserRootQuery unselectableRootQuery = new BrowserRootQuery(query);
     AllPathsQuery pathsQuery = new AllPathsQuery(query);
     TermQuery termQuery = new TermQuery(query);
-    
+
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { termQuery.getId(Term.ID), termQuery.getTermDisplayLabel().localize(Term.TERMDISPLAYLABEL), termQuery.getTermId(Term.TERMID) };
 
     List<Condition> conditionList = Term.getConditions(className, attribute, fieldQuery, rootQuery, pathsQuery, termQuery);
-    
+
     conditionList.addAll(getUnselectableConditions(className, attribute, fieldQuery, unselectableRootQuery, termQuery));
 
     Condition[] conditions = conditionList.toArray(new Condition[conditionList.size()]);
@@ -1383,9 +1390,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions);
     }
-    
+
     query.restrictRows(20, 1);
-    
+
     System.out.println(query.getSQL());
 
     return query;
@@ -1405,8 +1412,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
       if (count > 0)
       {
-//        termQuery.AND(Disease.getInactiveCriteria(unselectableRootQuery.getQueryFactory(), unselectableRootQuery.getTerm(), termQuery, false));
-        
+        // termQuery.AND(Disease.getInactiveCriteria(unselectableRootQuery.getQueryFactory(),
+        // unselectableRootQuery.getTerm(), termQuery, false));
+
         conditions.add(unselectableRootQuery.getDisease().EQ(Disease.getCurrent()));
         conditions.add(unselectableRootQuery.getSelectable().EQ(false));
         conditions.add(unselectableRootQuery.field(fieldQuery));
@@ -1484,5 +1492,5 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return conditions;
   }
-  
+
 }
