@@ -67,6 +67,8 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
 };
 
 MDSS.QueryPanel.prototype = {
+    
+  RUN_QUERY_BUTTON : 'runQueryBtn',
 
   QUERY_ITEMS : "queryItemsList",
 

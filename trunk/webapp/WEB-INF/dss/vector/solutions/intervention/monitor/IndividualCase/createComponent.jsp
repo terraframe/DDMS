@@ -75,7 +75,7 @@
           
           <span class="clickable" id="physician.span">
             <span id="createPhysician">
-              <fmt:message key="Create_new_Physician"/>        
+              <fmt:message key="Create_New_Physician"/>        
             </span>
             <span id="editPhysician" >
               <fmt:message key="Edit_Physician"/>        

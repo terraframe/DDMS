@@ -630,6 +630,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         // Use regular selectable (this is just here for clarity).
         this._removeVisibleAttribute(attribute, false, true, false);
         this._visibleSelectables[attribute.getKey()] = selectable;
+        selectable.attribute = attribute;
 
         return;
       }
@@ -1483,7 +1484,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        var attrib = this.obj.attributeMap[attribName];
        var row = {};
        if(attrib){
-         row.attributeName = attrib.attributeName;
+         row.attributeName = (this.deref ? this.deref[attrib.attributeName] || '' : '') + attrib.attributeName; // FIXME deref needs to be attribute specific
          if(attrib.dtoType.indexOf('AttributeReferenceDTO') != -1)
          {
            if(attrib.getAttributeMdDTO().getReferencedMdBusiness().indexOf('Term') != -1)
@@ -1532,7 +1533,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
            row.dropDownMap = this.dropDownMaps[uppFirst];
          }
        }else{
-         row.attributeName = attribName;
          row.type = 'sqlinteger';
          row.displayLabel = MDSS.localize(attribName);
          row.key = attribName;

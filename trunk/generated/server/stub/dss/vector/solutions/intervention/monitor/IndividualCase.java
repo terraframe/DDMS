@@ -30,8 +30,9 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
+import dss.vector.solutions.Physician;
+import dss.vector.solutions.PhysicianQuery;
 import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
@@ -346,15 +347,25 @@ public class IndividualCase extends IndividualCaseBase implements
         .get(IndividualInstance.CLASS);
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap
         .get(dss.vector.solutions.Person.CLASS);
+    PhysicianQuery physicianQuery = (PhysicianQuery) queryMap.get(Physician.CLASS);
+    
+    if(physicianQuery != null)
+    {
+      valueQuery.WHERE(instanceQuery.getPhysician().EQ(physicianQuery));
+    }
 
     valueQuery.WHERE(personQuery.getPatientDelegate().EQ(caseQuery.getPatient()));
 
     valueQuery.WHERE(instanceQuery.getIndividualCase().EQ(caseQuery.getId()));
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualCase.CLASS, caseQuery);
+    QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
 
     String idCol = QueryUtil.getIdColumn();
     QueryUtil.leftJoinTermDisplayLabels(valueQuery, instanceQuery, instanceQuery.getTableAlias()+"."+idCol);
+    QueryUtil.leftJoinTermDisplayLabels(valueQuery, caseQuery, caseQuery.getTableAlias()+"."+idCol);
+    
+    QueryUtil.joinEnumerationDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery);
       
     if(valueQuery.hasSelectableRef("healthFacility"))
     {

@@ -120,7 +120,7 @@ Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
     
       this._currentModal = new YAHOO.widget.Panel(this._id,  {
          width: '400px',
-         height: '770px',
+         height: '530px',
          fixedcenter:true,
          close:false,
          draggable:false,
@@ -128,8 +128,10 @@ Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
          modal:true,
          visible:true
        });
+      
+      var div = '<div class="innerContentModalLarge">'+html+'</div>';
 
-      this._currentModal.setBody(html);
+      this._currentModal.setBody(div);
       this._currentModal.render(document.body);
       this._currentModal.bringToTop();
       
