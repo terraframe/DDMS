@@ -67,9 +67,6 @@
     <mdss:mo param="confirmedDiagnosis" value="${confirmedDiagnosis}" id="confirmedDiagnosis"/>
   </mjl:dt>
   <mjl:dt type="text" attribute="confirmedDiagnosisDate" classes="DatePick  NoFuture" />
-  <mjl:dt attribute="detectedBy">
-    <mdss:mo param="detectedBy" value="${detectedBy}" id="detectedBy"/>
-  </mjl:dt>
     
   <mjl:dt type="text" attribute="symptomOnset" classes="DatePick  NoFuture" />
   <mjl:dt type="text" attribute="facilityVisit" classes="DatePick  NoFuture" />
