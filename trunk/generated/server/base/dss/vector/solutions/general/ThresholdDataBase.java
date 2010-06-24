@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -575476978)
+@com.runwaysdk.business.ClassSignature(hash = 1486567204)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,7 @@ public abstract class ThresholdDataBase extends com.runwaysdk.business.Business 
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -575476978;
+  private static final long serialVersionUID = 1486567204;
   
   public ThresholdDataBase()
   {
@@ -430,13 +430,13 @@ public abstract class ThresholdDataBase extends com.runwaysdk.business.Business 
     return (ThresholdData) com.runwaysdk.business.Business.get(CLASS, key);
   }
   
-  public static void checkFacilityThresholdViolation(java.util.Date date, dss.vector.solutions.geo.generated.GeoEntity entity, java.lang.Long count)
+  public static void checkFacilityThresholdViolation(java.util.Date date, dss.vector.solutions.geo.generated.GeoEntity entity, java.lang.Double count)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdData.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static void checkThresholdViolation(java.util.Date date, dss.vector.solutions.geo.generated.GeoEntity entity, java.lang.Long count)
+  public static void checkThresholdViolation(java.util.Date date, dss.vector.solutions.geo.generated.GeoEntity entity, java.lang.Double count)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdData.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

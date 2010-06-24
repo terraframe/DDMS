@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 744785238)
+@com.runwaysdk.business.ClassSignature(hash = -580224752)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,16 +18,16 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
   public static java.lang.String ID = "id";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
-  private static final long serialVersionUID = 744785238;
+  private static final long serialVersionUID = -580224752;
   
   public OutbreakAlertBase()
   {
     super();
   }
   
-  public Long getActualValue()
+  public Double getActualValue()
   {
-    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(ACTUALVALUE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALVALUE));
   }
   
   public void validateActualValue()
@@ -41,7 +41,7 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     return mdClassIF.definesAttribute(ACTUALVALUE);
   }
   
-  public void setActualValue(Long value)
+  public void setActualValue(Double value)
   {
     if(value == null)
     {
@@ -49,7 +49,7 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     }
     else
     {
-      setValue(ACTUALVALUE, java.lang.Long.toString(value));
+      setValue(ACTUALVALUE, java.lang.Double.toString(value));
     }
   }
   
@@ -181,9 +181,9 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     }
   }
   
-  public Integer getThresholdValue()
+  public Double getThresholdValue()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
   }
   
   public void validateThresholdValue()
@@ -197,7 +197,7 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     return mdClassIF.definesAttribute(THRESHOLDVALUE);
   }
   
-  public void setThresholdValue(Integer value)
+  public void setThresholdValue(Double value)
   {
     if(value == null)
     {
@@ -205,7 +205,7 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     }
     else
     {
-      setValue(THRESHOLDVALUE, java.lang.Integer.toString(value));
+      setValue(THRESHOLDVALUE, java.lang.Double.toString(value));
     }
   }
   

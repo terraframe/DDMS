@@ -1,13 +1,10 @@
 package dss.vector.solutions.threshold;
 
 
-import java.util.Calendar;
 import java.util.Date;
 
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
@@ -124,17 +121,17 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		return (double) sumPositiveCases + ((double) sumClinicalCases * ratio);
 	}
 
-	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {
+	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, double t1, double t2) {
 		if (t1 <= 0) {
 			weeklyThreshold.setNotification(null);
 		} else {
-			weeklyThreshold.setNotification((int) t1);
+			weeklyThreshold.setNotification(t1);
 		}
 		
 		if (t2 <= 0) {
 			weeklyThreshold.setIdentification(null);
 		} else { 
-			weeklyThreshold.setIdentification((int) t2);
+			weeklyThreshold.setIdentification(t2);
 		}
 	}
 }

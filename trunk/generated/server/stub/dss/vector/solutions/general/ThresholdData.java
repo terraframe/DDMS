@@ -180,7 +180,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 	 * 
 	 * @return A calulated value for outbreak
 	 */
-	public static Integer getCalculatedValue(GeoEntity entity, EpiWeek week, String attribute) {
+	public static Double getCalculatedValue(GeoEntity entity, EpiWeek week, String attribute) {
 		if (entity.getType().equals(Earth.CLASS)) {
 			return null;
 		}
@@ -213,9 +213,9 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
     
 		QueryFactory queryFactory = new QueryFactory();
 		ValueQuery valueQuery = new ValueQuery(queryFactory);
-		Integer sum = 0;
+		Double sum = 0d;
 
-		valueQuery.SELECT(valueQuery.aSQLInteger("summed_value", "summed_value"));
+		valueQuery.SELECT(valueQuery.aSQLDouble("summed_value", "summed_value"));
 
 		String sql = "(WITH RECURSIVE geohierarchy_flags AS(";
 		sql += " SELECT  (t1."+pckNameCol+" || '.' || t1."+nameCol+") AS parent_type,";
@@ -282,7 +282,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		for (ValueObject valueObject : valueObjectList) {
 			String value = valueObject.getValue("summed_value");
 			if (!value.equals("")) {
-				sum += Integer.parseInt(value);
+				sum += Double.parseDouble(value);
 			}
 		}
 
@@ -295,7 +295,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 
 	@Transaction
 	@Authenticate
-	public static void checkThresholdViolation(Date date, GeoEntity entity, long count) {
+	public static void checkThresholdViolation(Date date, GeoEntity entity, double count) {
 		if (entity.getType().equals(Earth.CLASS)) {
 			return;
 		}
@@ -306,7 +306,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 
 	@Transaction
 	@Authenticate
-	public static void checkFacilityThresholdViolation(Date date, GeoEntity entity, long count) {
+	public static void checkFacilityThresholdViolation(Date date, GeoEntity entity, double count) {
 		if (entity.getType().equals(Earth.CLASS)) {
 			return;
 		}
@@ -315,11 +315,11 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		ThresholdData.checkThreshold(WeeklyThreshold.FACILITYNOTIFICATION, date, entity, count, true);
 	}
 
-	private static void checkThreshold(String accessor, Date date, GeoEntity entity, long cases, boolean facility) {
+	private static void checkThreshold(String accessor, Date date, GeoEntity entity, double cases, boolean facility) {
 		WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
 		EpiWeek week = EpiWeek.getEpiWeek(date);
 
-		Integer count = null;
+		Double count = null;
 
 		if (threshold != null) {
 			count = threshold.getThreshold(accessor);
@@ -348,7 +348,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		}
 	}
 
-	private static void performAlert(String accessor, GeoEntity entity, int threshold, long count) {
+	private static void performAlert(String accessor, GeoEntity entity, double threshold, double count) {
 		SystemAlertType alertType = null;
 		if (accessor == WeeklyThreshold.IDENTIFICATION) {
 			alertType = SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION;

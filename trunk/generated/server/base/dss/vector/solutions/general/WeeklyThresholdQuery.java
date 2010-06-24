@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1574289103)
+@com.runwaysdk.business.ClassSignature(hash = 150485999)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -10,7 +10,7 @@ package dss.vector.solutions.general;
  */
 public  class WeeklyThresholdQuery extends com.runwaysdk.query.GeneratedRelationshipQuery implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1574289103;
+private static final long serialVersionUID = 150485999;
 
   public WeeklyThresholdQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -78,43 +78,43 @@ private static final long serialVersionUID = 1574289103;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("calculationType")) 
+    if (name.equals(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE)) 
     {
        return new dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("createdBy")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.CREATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("entityDomain")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.ENTITYDOMAIN)) 
     {
        return new com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastFacilityIdentification")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION)) 
     {
        return new dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastFacilityNotification")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION)) 
     {
        return new dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastIdentification")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.LASTIDENTIFICATION)) 
     {
        return new dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastNotification")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.LASTNOTIFICATION)) 
     {
        return new dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lastUpdatedBy")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.LASTUPDATEDBY)) 
     {
        return new com.runwaysdk.system.SingleActorQuery.SingleActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("lockedBy")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.LOCKEDBY)) 
     {
        return new com.runwaysdk.system.UsersQuery.UsersQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("owner")) 
+    else if (name.equals(dss.vector.solutions.general.WeeklyThreshold.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -125,72 +125,72 @@ private static final long serialVersionUID = 1574289103;
     }
   }
 
-  public com.runwaysdk.query.SelectableInteger getActualFacilityIdentification()
+  public com.runwaysdk.query.SelectableDouble getActualFacilityIdentification()
   {
     return getActualFacilityIdentification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualFacilityIdentification(String alias)
+  public com.runwaysdk.query.SelectableDouble getActualFacilityIdentification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYIDENTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYIDENTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualFacilityIdentification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getActualFacilityIdentification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYIDENTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYIDENTIFICATION, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getActualFacilityNotification()
+  public com.runwaysdk.query.SelectableDouble getActualFacilityNotification()
   {
     return getActualFacilityNotification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualFacilityNotification(String alias)
+  public com.runwaysdk.query.SelectableDouble getActualFacilityNotification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYNOTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYNOTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualFacilityNotification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getActualFacilityNotification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYNOTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALFACILITYNOTIFICATION, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getActualIdentification()
+  public com.runwaysdk.query.SelectableDouble getActualIdentification()
   {
     return getActualIdentification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualIdentification(String alias)
+  public com.runwaysdk.query.SelectableDouble getActualIdentification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALIDENTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALIDENTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualIdentification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getActualIdentification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALIDENTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALIDENTIFICATION, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getActualNotification()
+  public com.runwaysdk.query.SelectableDouble getActualNotification()
   {
     return getActualNotification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualNotification(String alias)
+  public com.runwaysdk.query.SelectableDouble getActualNotification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALNOTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALNOTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getActualNotification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getActualNotification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALNOTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ACTUALNOTIFICATION, alias, displayLabel);
 
   }
   public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType()
@@ -202,7 +202,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("calculationType");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE);
 
     return (dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE, mdAttributeIF, this, alias, null);
 
@@ -211,7 +211,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF getCalculationType(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("calculationType");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE);
 
     return (dss.vector.solutions.general.ThresholdCalculationTypeQuery.ThresholdCalculationTypeQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.CALCULATIONTYPE, mdAttributeIF, this, alias, displayLabel);
 
@@ -242,7 +242,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.CREATEDBY, mdAttributeIF, this, alias, null);
 
@@ -251,7 +251,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("createdBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -265,7 +265,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.ENTITYDOMAIN, mdAttributeIF, this, alias, null);
 
@@ -274,43 +274,43 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("entityDomain");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.ENTITYDOMAIN);
 
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getFacilityIdentification()
+  public com.runwaysdk.query.SelectableDouble getFacilityIdentification()
   {
     return getFacilityIdentification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFacilityIdentification(String alias)
+  public com.runwaysdk.query.SelectableDouble getFacilityIdentification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYIDENTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYIDENTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFacilityIdentification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getFacilityIdentification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYIDENTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYIDENTIFICATION, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getFacilityNotification()
+  public com.runwaysdk.query.SelectableDouble getFacilityNotification()
   {
     return getFacilityNotification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFacilityNotification(String alias)
+  public com.runwaysdk.query.SelectableDouble getFacilityNotification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFacilityNotification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getFacilityNotification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.FACILITYNOTIFICATION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getFirstFacilityIdentification()
@@ -398,21 +398,21 @@ private static final long serialVersionUID = 1574289103;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.ID, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getIdentification()
+  public com.runwaysdk.query.SelectableDouble getIdentification()
   {
     return getIdentification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getIdentification(String alias)
+  public com.runwaysdk.query.SelectableDouble getIdentification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.IDENTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.IDENTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getIdentification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getIdentification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.IDENTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.IDENTIFICATION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getKeyName()
@@ -441,7 +441,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityIdentification(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityIdentification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION, mdAttributeIF, this, alias, null);
 
@@ -450,7 +450,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityIdentification(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityIdentification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYIDENTIFICATION, mdAttributeIF, this, alias, displayLabel);
 
@@ -464,7 +464,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityNotification(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityNotification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION, mdAttributeIF, this, alias, null);
 
@@ -473,7 +473,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastFacilityNotification(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastFacilityNotification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTFACILITYNOTIFICATION, mdAttributeIF, this, alias, displayLabel);
 
@@ -487,7 +487,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastIdentification(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastIdentification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTIDENTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTIDENTIFICATION, mdAttributeIF, this, alias, null);
 
@@ -496,7 +496,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastIdentification(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastIdentification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTIDENTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTIDENTIFICATION, mdAttributeIF, this, alias, displayLabel);
 
@@ -510,7 +510,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastNotification(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastNotification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTNOTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTNOTIFICATION, mdAttributeIF, this, alias, null);
 
@@ -519,7 +519,7 @@ private static final long serialVersionUID = 1574289103;
   public dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF getLastNotification(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastNotification");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTNOTIFICATION);
 
     return (dss.vector.solutions.general.EpiWeekQuery.EpiWeekQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTNOTIFICATION, mdAttributeIF, this, alias, displayLabel);
 
@@ -550,7 +550,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTUPDATEDBY, mdAttributeIF, this, alias, null);
 
@@ -559,7 +559,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getLastUpdatedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lastUpdatedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LASTUPDATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LASTUPDATEDBY, mdAttributeIF, this, alias, displayLabel);
 
@@ -573,7 +573,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LOCKEDBY, mdAttributeIF, this, alias, null);
 
@@ -582,26 +582,26 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("lockedBy");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getNotification()
+  public com.runwaysdk.query.SelectableDouble getNotification()
   {
     return getNotification(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getNotification(String alias)
+  public com.runwaysdk.query.SelectableDouble getNotification(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.NOTIFICATION, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.NOTIFICATION, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getNotification(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getNotification(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.NOTIFICATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.general.WeeklyThreshold.NOTIFICATION, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -613,7 +613,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.OWNER, mdAttributeIF, this, alias, null);
 
@@ -622,7 +622,7 @@ private static final long serialVersionUID = 1574289103;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("owner");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.WeeklyThreshold.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.WeeklyThreshold.OWNER, mdAttributeIF, this, alias, displayLabel);
 

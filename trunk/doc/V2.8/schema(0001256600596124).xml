@@ -5,7 +5,7 @@
     <update>
       <mdView name="dss.vector.solutions.general.ThresholdDataView">
         <create>
-          <mdMethod name="getCalculatedThresholds" label="Get Calculated Thresholds" returnType="java.lang.Integer[]" static="false" />
+          <mdMethod name="getCalculatedThresholds" label="Get Calculated Thresholds" returnType="java.lang.Double[]" static="false" />
         </create>
       </mdView>
     </update>

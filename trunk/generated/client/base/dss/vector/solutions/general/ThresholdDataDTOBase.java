@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 333663374)
+@com.runwaysdk.business.ClassSignature(hash = 1421793444)
 public abstract class ThresholdDataDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdData";
-  private static final long serialVersionUID = 333663374;
+  private static final long serialVersionUID = 1421793444;
   
   protected ThresholdDataDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -450,17 +450,17 @@ public abstract class ThresholdDataDTOBase extends com.runwaysdk.business.Busine
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public static final void checkFacilityThresholdViolation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date date, dss.vector.solutions.geo.generated.GeoEntityDTO entity, java.lang.Long count)
+  public static final void checkFacilityThresholdViolation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date date, dss.vector.solutions.geo.generated.GeoEntityDTO entity, java.lang.Double count)
   {
-    String[] _declaredTypes = new String[]{"java.util.Date", "dss.vector.solutions.geo.generated.GeoEntity", "java.lang.Long"};
+    String[] _declaredTypes = new String[]{"java.util.Date", "dss.vector.solutions.geo.generated.GeoEntity", "java.lang.Double"};
     Object[] _parameters = new Object[]{date, entity, count};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataDTO.CLASS, "checkFacilityThresholdViolation", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final void checkThresholdViolation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date date, dss.vector.solutions.geo.generated.GeoEntityDTO entity, java.lang.Long count)
+  public static final void checkThresholdViolation(com.runwaysdk.constants.ClientRequestIF clientRequest, java.util.Date date, dss.vector.solutions.geo.generated.GeoEntityDTO entity, java.lang.Double count)
   {
-    String[] _declaredTypes = new String[]{"java.util.Date", "dss.vector.solutions.geo.generated.GeoEntity", "java.lang.Long"};
+    String[] _declaredTypes = new String[]{"java.util.Date", "dss.vector.solutions.geo.generated.GeoEntity", "java.lang.Double"};
     Object[] _parameters = new Object[]{date, entity, count};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataDTO.CLASS, "checkThresholdViolation", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);

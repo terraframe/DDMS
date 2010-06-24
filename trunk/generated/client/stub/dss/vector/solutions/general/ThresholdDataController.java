@@ -259,6 +259,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
     req.setAttribute("thresholdCalculation", item);
     req.setAttribute("active", percentComplete != -1);
+    req.setAttribute("percentComplete", (percentComplete == null ? -1 : percentComplete.intValue()));
 
     render("editThresholdConfiguration.jsp");
   }

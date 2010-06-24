@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1732045866)
+@com.runwaysdk.business.ClassSignature(hash = -52577648)
 public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = -1732045866;
+  private static final long serialVersionUID = -52577648;
   
   public OutbreakAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -23,12 +23,12 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
   public static java.lang.String ID = "id";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
-  public Long getActualValue()
+  public Double getActualValue()
   {
-    return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(ACTUALVALUE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALVALUE));
   }
   
-  public void setActualValue(Long value)
+  public void setActualValue(Double value)
   {
     if(value == null)
     {
@@ -36,7 +36,7 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     }
     else
     {
-      setValue(ACTUALVALUE, java.lang.Long.toString(value));
+      setValue(ACTUALVALUE, java.lang.Double.toString(value));
     }
   }
   
@@ -55,9 +55,9 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return isModified(ACTUALVALUE);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualValueMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALVALUE).getAttributeMdDTO();
   }
   
   public String getAlertType()
@@ -208,12 +208,12 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(THRESHOLDTYPE).getAttributeMdDTO();
   }
   
-  public Integer getThresholdValue()
+  public Double getThresholdValue()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
   }
   
-  public void setThresholdValue(Integer value)
+  public void setThresholdValue(Double value)
   {
     if(value == null)
     {
@@ -221,7 +221,7 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     }
     else
     {
-      setValue(THRESHOLDVALUE, java.lang.Integer.toString(value));
+      setValue(THRESHOLDVALUE, java.lang.Double.toString(value));
     }
   }
   
@@ -240,9 +240,9 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return isModified(THRESHOLDVALUE);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getThresholdValueMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
   }
   
 }

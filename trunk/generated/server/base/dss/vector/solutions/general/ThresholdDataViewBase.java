@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1786719548)
+@com.runwaysdk.business.ClassSignature(hash = -307830625)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -123,7 +123,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
   public static java.lang.String OUTBREAK_9 = "outbreak_9";
   public static java.lang.String SEASON = "season";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
-  private static final long serialVersionUID = -1786719548;
+  private static final long serialVersionUID = -307830625;
   
   public ThresholdDataViewBase()
   {
@@ -230,9 +230,9 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(ID);
   }
   
-  public Integer getIdentification_0()
+  public Double getIdentification_0()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_0));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_0));
   }
   
   public void validateIdentification_0()
@@ -246,7 +246,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_0);
   }
   
-  public void setIdentification_0(Integer value)
+  public void setIdentification_0(Double value)
   {
     if(value == null)
     {
@@ -254,13 +254,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_0, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_0, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_1()
+  public Double getIdentification_1()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_1));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_1));
   }
   
   public void validateIdentification_1()
@@ -274,7 +274,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_1);
   }
   
-  public void setIdentification_1(Integer value)
+  public void setIdentification_1(Double value)
   {
     if(value == null)
     {
@@ -282,13 +282,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_1, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_1, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_10()
+  public Double getIdentification_10()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_10));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_10));
   }
   
   public void validateIdentification_10()
@@ -302,7 +302,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_10);
   }
   
-  public void setIdentification_10(Integer value)
+  public void setIdentification_10(Double value)
   {
     if(value == null)
     {
@@ -310,13 +310,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_10, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_10, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_11()
+  public Double getIdentification_11()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_11));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_11));
   }
   
   public void validateIdentification_11()
@@ -330,7 +330,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_11);
   }
   
-  public void setIdentification_11(Integer value)
+  public void setIdentification_11(Double value)
   {
     if(value == null)
     {
@@ -338,13 +338,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_11, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_11, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_12()
+  public Double getIdentification_12()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_12));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_12));
   }
   
   public void validateIdentification_12()
@@ -358,7 +358,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_12);
   }
   
-  public void setIdentification_12(Integer value)
+  public void setIdentification_12(Double value)
   {
     if(value == null)
     {
@@ -366,13 +366,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_12, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_12, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_13()
+  public Double getIdentification_13()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_13));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_13));
   }
   
   public void validateIdentification_13()
@@ -386,7 +386,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_13);
   }
   
-  public void setIdentification_13(Integer value)
+  public void setIdentification_13(Double value)
   {
     if(value == null)
     {
@@ -394,13 +394,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_13, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_13, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_14()
+  public Double getIdentification_14()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_14));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_14));
   }
   
   public void validateIdentification_14()
@@ -414,7 +414,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_14);
   }
   
-  public void setIdentification_14(Integer value)
+  public void setIdentification_14(Double value)
   {
     if(value == null)
     {
@@ -422,13 +422,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_14, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_14, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_15()
+  public Double getIdentification_15()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_15));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_15));
   }
   
   public void validateIdentification_15()
@@ -442,7 +442,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_15);
   }
   
-  public void setIdentification_15(Integer value)
+  public void setIdentification_15(Double value)
   {
     if(value == null)
     {
@@ -450,13 +450,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_15, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_15, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_16()
+  public Double getIdentification_16()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_16));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_16));
   }
   
   public void validateIdentification_16()
@@ -470,7 +470,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_16);
   }
   
-  public void setIdentification_16(Integer value)
+  public void setIdentification_16(Double value)
   {
     if(value == null)
     {
@@ -478,13 +478,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_16, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_16, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_17()
+  public Double getIdentification_17()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_17));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_17));
   }
   
   public void validateIdentification_17()
@@ -498,7 +498,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_17);
   }
   
-  public void setIdentification_17(Integer value)
+  public void setIdentification_17(Double value)
   {
     if(value == null)
     {
@@ -506,13 +506,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_17, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_17, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_18()
+  public Double getIdentification_18()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_18));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_18));
   }
   
   public void validateIdentification_18()
@@ -526,7 +526,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_18);
   }
   
-  public void setIdentification_18(Integer value)
+  public void setIdentification_18(Double value)
   {
     if(value == null)
     {
@@ -534,13 +534,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_18, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_18, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_19()
+  public Double getIdentification_19()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_19));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_19));
   }
   
   public void validateIdentification_19()
@@ -554,7 +554,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_19);
   }
   
-  public void setIdentification_19(Integer value)
+  public void setIdentification_19(Double value)
   {
     if(value == null)
     {
@@ -562,13 +562,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_19, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_19, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_2()
+  public Double getIdentification_2()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_2));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_2));
   }
   
   public void validateIdentification_2()
@@ -582,7 +582,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_2);
   }
   
-  public void setIdentification_2(Integer value)
+  public void setIdentification_2(Double value)
   {
     if(value == null)
     {
@@ -590,13 +590,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_2, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_2, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_20()
+  public Double getIdentification_20()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_20));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_20));
   }
   
   public void validateIdentification_20()
@@ -610,7 +610,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_20);
   }
   
-  public void setIdentification_20(Integer value)
+  public void setIdentification_20(Double value)
   {
     if(value == null)
     {
@@ -618,13 +618,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_20, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_20, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_21()
+  public Double getIdentification_21()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_21));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_21));
   }
   
   public void validateIdentification_21()
@@ -638,7 +638,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_21);
   }
   
-  public void setIdentification_21(Integer value)
+  public void setIdentification_21(Double value)
   {
     if(value == null)
     {
@@ -646,13 +646,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_21, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_21, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_22()
+  public Double getIdentification_22()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_22));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_22));
   }
   
   public void validateIdentification_22()
@@ -666,7 +666,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_22);
   }
   
-  public void setIdentification_22(Integer value)
+  public void setIdentification_22(Double value)
   {
     if(value == null)
     {
@@ -674,13 +674,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_22, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_22, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_23()
+  public Double getIdentification_23()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_23));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_23));
   }
   
   public void validateIdentification_23()
@@ -694,7 +694,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_23);
   }
   
-  public void setIdentification_23(Integer value)
+  public void setIdentification_23(Double value)
   {
     if(value == null)
     {
@@ -702,13 +702,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_23, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_23, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_24()
+  public Double getIdentification_24()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_24));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_24));
   }
   
   public void validateIdentification_24()
@@ -722,7 +722,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_24);
   }
   
-  public void setIdentification_24(Integer value)
+  public void setIdentification_24(Double value)
   {
     if(value == null)
     {
@@ -730,13 +730,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_24, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_24, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_25()
+  public Double getIdentification_25()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_25));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_25));
   }
   
   public void validateIdentification_25()
@@ -750,7 +750,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_25);
   }
   
-  public void setIdentification_25(Integer value)
+  public void setIdentification_25(Double value)
   {
     if(value == null)
     {
@@ -758,13 +758,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_25, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_25, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_26()
+  public Double getIdentification_26()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_26));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_26));
   }
   
   public void validateIdentification_26()
@@ -778,7 +778,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_26);
   }
   
-  public void setIdentification_26(Integer value)
+  public void setIdentification_26(Double value)
   {
     if(value == null)
     {
@@ -786,13 +786,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_26, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_26, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_27()
+  public Double getIdentification_27()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_27));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_27));
   }
   
   public void validateIdentification_27()
@@ -806,7 +806,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_27);
   }
   
-  public void setIdentification_27(Integer value)
+  public void setIdentification_27(Double value)
   {
     if(value == null)
     {
@@ -814,13 +814,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_27, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_27, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_28()
+  public Double getIdentification_28()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_28));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_28));
   }
   
   public void validateIdentification_28()
@@ -834,7 +834,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_28);
   }
   
-  public void setIdentification_28(Integer value)
+  public void setIdentification_28(Double value)
   {
     if(value == null)
     {
@@ -842,13 +842,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_28, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_28, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_29()
+  public Double getIdentification_29()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_29));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_29));
   }
   
   public void validateIdentification_29()
@@ -862,7 +862,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_29);
   }
   
-  public void setIdentification_29(Integer value)
+  public void setIdentification_29(Double value)
   {
     if(value == null)
     {
@@ -870,13 +870,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_29, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_29, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_3()
+  public Double getIdentification_3()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_3));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_3));
   }
   
   public void validateIdentification_3()
@@ -890,7 +890,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_3);
   }
   
-  public void setIdentification_3(Integer value)
+  public void setIdentification_3(Double value)
   {
     if(value == null)
     {
@@ -898,13 +898,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_3, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_3, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_30()
+  public Double getIdentification_30()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_30));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_30));
   }
   
   public void validateIdentification_30()
@@ -918,7 +918,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_30);
   }
   
-  public void setIdentification_30(Integer value)
+  public void setIdentification_30(Double value)
   {
     if(value == null)
     {
@@ -926,13 +926,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_30, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_30, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_31()
+  public Double getIdentification_31()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_31));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_31));
   }
   
   public void validateIdentification_31()
@@ -946,7 +946,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_31);
   }
   
-  public void setIdentification_31(Integer value)
+  public void setIdentification_31(Double value)
   {
     if(value == null)
     {
@@ -954,13 +954,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_31, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_31, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_32()
+  public Double getIdentification_32()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_32));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_32));
   }
   
   public void validateIdentification_32()
@@ -974,7 +974,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_32);
   }
   
-  public void setIdentification_32(Integer value)
+  public void setIdentification_32(Double value)
   {
     if(value == null)
     {
@@ -982,13 +982,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_32, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_32, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_33()
+  public Double getIdentification_33()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_33));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_33));
   }
   
   public void validateIdentification_33()
@@ -1002,7 +1002,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_33);
   }
   
-  public void setIdentification_33(Integer value)
+  public void setIdentification_33(Double value)
   {
     if(value == null)
     {
@@ -1010,13 +1010,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_33, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_33, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_34()
+  public Double getIdentification_34()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_34));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_34));
   }
   
   public void validateIdentification_34()
@@ -1030,7 +1030,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_34);
   }
   
-  public void setIdentification_34(Integer value)
+  public void setIdentification_34(Double value)
   {
     if(value == null)
     {
@@ -1038,13 +1038,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_34, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_34, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_35()
+  public Double getIdentification_35()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_35));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_35));
   }
   
   public void validateIdentification_35()
@@ -1058,7 +1058,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_35);
   }
   
-  public void setIdentification_35(Integer value)
+  public void setIdentification_35(Double value)
   {
     if(value == null)
     {
@@ -1066,13 +1066,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_35, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_35, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_36()
+  public Double getIdentification_36()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_36));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_36));
   }
   
   public void validateIdentification_36()
@@ -1086,7 +1086,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_36);
   }
   
-  public void setIdentification_36(Integer value)
+  public void setIdentification_36(Double value)
   {
     if(value == null)
     {
@@ -1094,13 +1094,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_36, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_36, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_37()
+  public Double getIdentification_37()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_37));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_37));
   }
   
   public void validateIdentification_37()
@@ -1114,7 +1114,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_37);
   }
   
-  public void setIdentification_37(Integer value)
+  public void setIdentification_37(Double value)
   {
     if(value == null)
     {
@@ -1122,13 +1122,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_37, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_37, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_38()
+  public Double getIdentification_38()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_38));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_38));
   }
   
   public void validateIdentification_38()
@@ -1142,7 +1142,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_38);
   }
   
-  public void setIdentification_38(Integer value)
+  public void setIdentification_38(Double value)
   {
     if(value == null)
     {
@@ -1150,13 +1150,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_38, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_38, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_39()
+  public Double getIdentification_39()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_39));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_39));
   }
   
   public void validateIdentification_39()
@@ -1170,7 +1170,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_39);
   }
   
-  public void setIdentification_39(Integer value)
+  public void setIdentification_39(Double value)
   {
     if(value == null)
     {
@@ -1178,13 +1178,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_39, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_39, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_4()
+  public Double getIdentification_4()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_4));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_4));
   }
   
   public void validateIdentification_4()
@@ -1198,7 +1198,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_4);
   }
   
-  public void setIdentification_4(Integer value)
+  public void setIdentification_4(Double value)
   {
     if(value == null)
     {
@@ -1206,13 +1206,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_4, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_4, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_40()
+  public Double getIdentification_40()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_40));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_40));
   }
   
   public void validateIdentification_40()
@@ -1226,7 +1226,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_40);
   }
   
-  public void setIdentification_40(Integer value)
+  public void setIdentification_40(Double value)
   {
     if(value == null)
     {
@@ -1234,13 +1234,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_40, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_40, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_41()
+  public Double getIdentification_41()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_41));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_41));
   }
   
   public void validateIdentification_41()
@@ -1254,7 +1254,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_41);
   }
   
-  public void setIdentification_41(Integer value)
+  public void setIdentification_41(Double value)
   {
     if(value == null)
     {
@@ -1262,13 +1262,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_41, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_41, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_42()
+  public Double getIdentification_42()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_42));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_42));
   }
   
   public void validateIdentification_42()
@@ -1282,7 +1282,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_42);
   }
   
-  public void setIdentification_42(Integer value)
+  public void setIdentification_42(Double value)
   {
     if(value == null)
     {
@@ -1290,13 +1290,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_42, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_42, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_43()
+  public Double getIdentification_43()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_43));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_43));
   }
   
   public void validateIdentification_43()
@@ -1310,7 +1310,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_43);
   }
   
-  public void setIdentification_43(Integer value)
+  public void setIdentification_43(Double value)
   {
     if(value == null)
     {
@@ -1318,13 +1318,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_43, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_43, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_44()
+  public Double getIdentification_44()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_44));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_44));
   }
   
   public void validateIdentification_44()
@@ -1338,7 +1338,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_44);
   }
   
-  public void setIdentification_44(Integer value)
+  public void setIdentification_44(Double value)
   {
     if(value == null)
     {
@@ -1346,13 +1346,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_44, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_44, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_45()
+  public Double getIdentification_45()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_45));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_45));
   }
   
   public void validateIdentification_45()
@@ -1366,7 +1366,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_45);
   }
   
-  public void setIdentification_45(Integer value)
+  public void setIdentification_45(Double value)
   {
     if(value == null)
     {
@@ -1374,13 +1374,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_45, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_45, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_46()
+  public Double getIdentification_46()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_46));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_46));
   }
   
   public void validateIdentification_46()
@@ -1394,7 +1394,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_46);
   }
   
-  public void setIdentification_46(Integer value)
+  public void setIdentification_46(Double value)
   {
     if(value == null)
     {
@@ -1402,13 +1402,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_46, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_46, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_47()
+  public Double getIdentification_47()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_47));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_47));
   }
   
   public void validateIdentification_47()
@@ -1422,7 +1422,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_47);
   }
   
-  public void setIdentification_47(Integer value)
+  public void setIdentification_47(Double value)
   {
     if(value == null)
     {
@@ -1430,13 +1430,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_47, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_47, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_48()
+  public Double getIdentification_48()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_48));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_48));
   }
   
   public void validateIdentification_48()
@@ -1450,7 +1450,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_48);
   }
   
-  public void setIdentification_48(Integer value)
+  public void setIdentification_48(Double value)
   {
     if(value == null)
     {
@@ -1458,13 +1458,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_48, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_48, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_49()
+  public Double getIdentification_49()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_49));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_49));
   }
   
   public void validateIdentification_49()
@@ -1478,7 +1478,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_49);
   }
   
-  public void setIdentification_49(Integer value)
+  public void setIdentification_49(Double value)
   {
     if(value == null)
     {
@@ -1486,13 +1486,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_49, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_49, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_5()
+  public Double getIdentification_5()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_5));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_5));
   }
   
   public void validateIdentification_5()
@@ -1506,7 +1506,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_5);
   }
   
-  public void setIdentification_5(Integer value)
+  public void setIdentification_5(Double value)
   {
     if(value == null)
     {
@@ -1514,13 +1514,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_5, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_5, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_50()
+  public Double getIdentification_50()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_50));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_50));
   }
   
   public void validateIdentification_50()
@@ -1534,7 +1534,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_50);
   }
   
-  public void setIdentification_50(Integer value)
+  public void setIdentification_50(Double value)
   {
     if(value == null)
     {
@@ -1542,13 +1542,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_50, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_50, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_51()
+  public Double getIdentification_51()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_51));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_51));
   }
   
   public void validateIdentification_51()
@@ -1562,7 +1562,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_51);
   }
   
-  public void setIdentification_51(Integer value)
+  public void setIdentification_51(Double value)
   {
     if(value == null)
     {
@@ -1570,13 +1570,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_51, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_51, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_52()
+  public Double getIdentification_52()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_52));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_52));
   }
   
   public void validateIdentification_52()
@@ -1590,7 +1590,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_52);
   }
   
-  public void setIdentification_52(Integer value)
+  public void setIdentification_52(Double value)
   {
     if(value == null)
     {
@@ -1598,13 +1598,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_52, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_52, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_6()
+  public Double getIdentification_6()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_6));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_6));
   }
   
   public void validateIdentification_6()
@@ -1618,7 +1618,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_6);
   }
   
-  public void setIdentification_6(Integer value)
+  public void setIdentification_6(Double value)
   {
     if(value == null)
     {
@@ -1626,13 +1626,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_6, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_6, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_7()
+  public Double getIdentification_7()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_7));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_7));
   }
   
   public void validateIdentification_7()
@@ -1646,7 +1646,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_7);
   }
   
-  public void setIdentification_7(Integer value)
+  public void setIdentification_7(Double value)
   {
     if(value == null)
     {
@@ -1654,13 +1654,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_7, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_7, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_8()
+  public Double getIdentification_8()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_8));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_8));
   }
   
   public void validateIdentification_8()
@@ -1674,7 +1674,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_8);
   }
   
-  public void setIdentification_8(Integer value)
+  public void setIdentification_8(Double value)
   {
     if(value == null)
     {
@@ -1682,13 +1682,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_8, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_8, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getIdentification_9()
+  public Double getIdentification_9()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_9));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_9));
   }
   
   public void validateIdentification_9()
@@ -1702,7 +1702,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(IDENTIFICATION_9);
   }
   
-  public void setIdentification_9(Integer value)
+  public void setIdentification_9(Double value)
   {
     if(value == null)
     {
@@ -1710,13 +1710,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(IDENTIFICATION_9, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_9, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_0()
+  public Double getOutbreak_0()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_0));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_0));
   }
   
   public void validateOutbreak_0()
@@ -1730,7 +1730,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_0);
   }
   
-  public void setOutbreak_0(Integer value)
+  public void setOutbreak_0(Double value)
   {
     if(value == null)
     {
@@ -1738,13 +1738,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_0, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_0, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_1()
+  public Double getOutbreak_1()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_1));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_1));
   }
   
   public void validateOutbreak_1()
@@ -1758,7 +1758,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_1);
   }
   
-  public void setOutbreak_1(Integer value)
+  public void setOutbreak_1(Double value)
   {
     if(value == null)
     {
@@ -1766,13 +1766,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_1, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_1, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_10()
+  public Double getOutbreak_10()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_10));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_10));
   }
   
   public void validateOutbreak_10()
@@ -1786,7 +1786,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_10);
   }
   
-  public void setOutbreak_10(Integer value)
+  public void setOutbreak_10(Double value)
   {
     if(value == null)
     {
@@ -1794,13 +1794,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_10, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_10, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_11()
+  public Double getOutbreak_11()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_11));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_11));
   }
   
   public void validateOutbreak_11()
@@ -1814,7 +1814,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_11);
   }
   
-  public void setOutbreak_11(Integer value)
+  public void setOutbreak_11(Double value)
   {
     if(value == null)
     {
@@ -1822,13 +1822,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_11, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_11, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_12()
+  public Double getOutbreak_12()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_12));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_12));
   }
   
   public void validateOutbreak_12()
@@ -1842,7 +1842,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_12);
   }
   
-  public void setOutbreak_12(Integer value)
+  public void setOutbreak_12(Double value)
   {
     if(value == null)
     {
@@ -1850,13 +1850,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_12, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_12, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_13()
+  public Double getOutbreak_13()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_13));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_13));
   }
   
   public void validateOutbreak_13()
@@ -1870,7 +1870,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_13);
   }
   
-  public void setOutbreak_13(Integer value)
+  public void setOutbreak_13(Double value)
   {
     if(value == null)
     {
@@ -1878,13 +1878,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_13, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_13, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_14()
+  public Double getOutbreak_14()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_14));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_14));
   }
   
   public void validateOutbreak_14()
@@ -1898,7 +1898,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_14);
   }
   
-  public void setOutbreak_14(Integer value)
+  public void setOutbreak_14(Double value)
   {
     if(value == null)
     {
@@ -1906,13 +1906,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_14, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_14, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_15()
+  public Double getOutbreak_15()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_15));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_15));
   }
   
   public void validateOutbreak_15()
@@ -1926,7 +1926,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_15);
   }
   
-  public void setOutbreak_15(Integer value)
+  public void setOutbreak_15(Double value)
   {
     if(value == null)
     {
@@ -1934,13 +1934,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_15, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_15, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_16()
+  public Double getOutbreak_16()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_16));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_16));
   }
   
   public void validateOutbreak_16()
@@ -1954,7 +1954,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_16);
   }
   
-  public void setOutbreak_16(Integer value)
+  public void setOutbreak_16(Double value)
   {
     if(value == null)
     {
@@ -1962,13 +1962,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_16, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_16, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_17()
+  public Double getOutbreak_17()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_17));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_17));
   }
   
   public void validateOutbreak_17()
@@ -1982,7 +1982,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_17);
   }
   
-  public void setOutbreak_17(Integer value)
+  public void setOutbreak_17(Double value)
   {
     if(value == null)
     {
@@ -1990,13 +1990,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_17, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_17, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_18()
+  public Double getOutbreak_18()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_18));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_18));
   }
   
   public void validateOutbreak_18()
@@ -2010,7 +2010,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_18);
   }
   
-  public void setOutbreak_18(Integer value)
+  public void setOutbreak_18(Double value)
   {
     if(value == null)
     {
@@ -2018,13 +2018,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_18, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_18, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_19()
+  public Double getOutbreak_19()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_19));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_19));
   }
   
   public void validateOutbreak_19()
@@ -2038,7 +2038,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_19);
   }
   
-  public void setOutbreak_19(Integer value)
+  public void setOutbreak_19(Double value)
   {
     if(value == null)
     {
@@ -2046,13 +2046,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_19, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_19, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_2()
+  public Double getOutbreak_2()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_2));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_2));
   }
   
   public void validateOutbreak_2()
@@ -2066,7 +2066,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_2);
   }
   
-  public void setOutbreak_2(Integer value)
+  public void setOutbreak_2(Double value)
   {
     if(value == null)
     {
@@ -2074,13 +2074,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_2, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_2, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_20()
+  public Double getOutbreak_20()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_20));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_20));
   }
   
   public void validateOutbreak_20()
@@ -2094,7 +2094,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_20);
   }
   
-  public void setOutbreak_20(Integer value)
+  public void setOutbreak_20(Double value)
   {
     if(value == null)
     {
@@ -2102,13 +2102,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_20, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_20, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_21()
+  public Double getOutbreak_21()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_21));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_21));
   }
   
   public void validateOutbreak_21()
@@ -2122,7 +2122,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_21);
   }
   
-  public void setOutbreak_21(Integer value)
+  public void setOutbreak_21(Double value)
   {
     if(value == null)
     {
@@ -2130,13 +2130,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_21, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_21, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_22()
+  public Double getOutbreak_22()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_22));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_22));
   }
   
   public void validateOutbreak_22()
@@ -2150,7 +2150,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_22);
   }
   
-  public void setOutbreak_22(Integer value)
+  public void setOutbreak_22(Double value)
   {
     if(value == null)
     {
@@ -2158,13 +2158,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_22, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_22, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_23()
+  public Double getOutbreak_23()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_23));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_23));
   }
   
   public void validateOutbreak_23()
@@ -2178,7 +2178,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_23);
   }
   
-  public void setOutbreak_23(Integer value)
+  public void setOutbreak_23(Double value)
   {
     if(value == null)
     {
@@ -2186,13 +2186,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_23, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_23, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_24()
+  public Double getOutbreak_24()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_24));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_24));
   }
   
   public void validateOutbreak_24()
@@ -2206,7 +2206,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_24);
   }
   
-  public void setOutbreak_24(Integer value)
+  public void setOutbreak_24(Double value)
   {
     if(value == null)
     {
@@ -2214,13 +2214,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_24, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_24, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_25()
+  public Double getOutbreak_25()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_25));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_25));
   }
   
   public void validateOutbreak_25()
@@ -2234,7 +2234,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_25);
   }
   
-  public void setOutbreak_25(Integer value)
+  public void setOutbreak_25(Double value)
   {
     if(value == null)
     {
@@ -2242,13 +2242,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_25, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_25, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_26()
+  public Double getOutbreak_26()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_26));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_26));
   }
   
   public void validateOutbreak_26()
@@ -2262,7 +2262,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_26);
   }
   
-  public void setOutbreak_26(Integer value)
+  public void setOutbreak_26(Double value)
   {
     if(value == null)
     {
@@ -2270,13 +2270,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_26, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_26, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_27()
+  public Double getOutbreak_27()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_27));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_27));
   }
   
   public void validateOutbreak_27()
@@ -2290,7 +2290,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_27);
   }
   
-  public void setOutbreak_27(Integer value)
+  public void setOutbreak_27(Double value)
   {
     if(value == null)
     {
@@ -2298,13 +2298,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_27, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_27, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_28()
+  public Double getOutbreak_28()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_28));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_28));
   }
   
   public void validateOutbreak_28()
@@ -2318,7 +2318,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_28);
   }
   
-  public void setOutbreak_28(Integer value)
+  public void setOutbreak_28(Double value)
   {
     if(value == null)
     {
@@ -2326,13 +2326,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_28, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_28, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_29()
+  public Double getOutbreak_29()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_29));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_29));
   }
   
   public void validateOutbreak_29()
@@ -2346,7 +2346,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_29);
   }
   
-  public void setOutbreak_29(Integer value)
+  public void setOutbreak_29(Double value)
   {
     if(value == null)
     {
@@ -2354,13 +2354,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_29, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_29, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_3()
+  public Double getOutbreak_3()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_3));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_3));
   }
   
   public void validateOutbreak_3()
@@ -2374,7 +2374,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_3);
   }
   
-  public void setOutbreak_3(Integer value)
+  public void setOutbreak_3(Double value)
   {
     if(value == null)
     {
@@ -2382,13 +2382,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_3, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_3, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_30()
+  public Double getOutbreak_30()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_30));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_30));
   }
   
   public void validateOutbreak_30()
@@ -2402,7 +2402,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_30);
   }
   
-  public void setOutbreak_30(Integer value)
+  public void setOutbreak_30(Double value)
   {
     if(value == null)
     {
@@ -2410,13 +2410,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_30, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_30, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_31()
+  public Double getOutbreak_31()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_31));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_31));
   }
   
   public void validateOutbreak_31()
@@ -2430,7 +2430,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_31);
   }
   
-  public void setOutbreak_31(Integer value)
+  public void setOutbreak_31(Double value)
   {
     if(value == null)
     {
@@ -2438,13 +2438,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_31, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_31, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_32()
+  public Double getOutbreak_32()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_32));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_32));
   }
   
   public void validateOutbreak_32()
@@ -2458,7 +2458,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_32);
   }
   
-  public void setOutbreak_32(Integer value)
+  public void setOutbreak_32(Double value)
   {
     if(value == null)
     {
@@ -2466,13 +2466,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_32, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_32, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_33()
+  public Double getOutbreak_33()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_33));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_33));
   }
   
   public void validateOutbreak_33()
@@ -2486,7 +2486,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_33);
   }
   
-  public void setOutbreak_33(Integer value)
+  public void setOutbreak_33(Double value)
   {
     if(value == null)
     {
@@ -2494,13 +2494,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_33, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_33, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_34()
+  public Double getOutbreak_34()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_34));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_34));
   }
   
   public void validateOutbreak_34()
@@ -2514,7 +2514,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_34);
   }
   
-  public void setOutbreak_34(Integer value)
+  public void setOutbreak_34(Double value)
   {
     if(value == null)
     {
@@ -2522,13 +2522,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_34, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_34, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_35()
+  public Double getOutbreak_35()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_35));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_35));
   }
   
   public void validateOutbreak_35()
@@ -2542,7 +2542,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_35);
   }
   
-  public void setOutbreak_35(Integer value)
+  public void setOutbreak_35(Double value)
   {
     if(value == null)
     {
@@ -2550,13 +2550,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_35, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_35, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_36()
+  public Double getOutbreak_36()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_36));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_36));
   }
   
   public void validateOutbreak_36()
@@ -2570,7 +2570,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_36);
   }
   
-  public void setOutbreak_36(Integer value)
+  public void setOutbreak_36(Double value)
   {
     if(value == null)
     {
@@ -2578,13 +2578,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_36, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_36, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_37()
+  public Double getOutbreak_37()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_37));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_37));
   }
   
   public void validateOutbreak_37()
@@ -2598,7 +2598,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_37);
   }
   
-  public void setOutbreak_37(Integer value)
+  public void setOutbreak_37(Double value)
   {
     if(value == null)
     {
@@ -2606,13 +2606,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_37, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_37, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_38()
+  public Double getOutbreak_38()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_38));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_38));
   }
   
   public void validateOutbreak_38()
@@ -2626,7 +2626,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_38);
   }
   
-  public void setOutbreak_38(Integer value)
+  public void setOutbreak_38(Double value)
   {
     if(value == null)
     {
@@ -2634,13 +2634,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_38, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_38, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_39()
+  public Double getOutbreak_39()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_39));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_39));
   }
   
   public void validateOutbreak_39()
@@ -2654,7 +2654,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_39);
   }
   
-  public void setOutbreak_39(Integer value)
+  public void setOutbreak_39(Double value)
   {
     if(value == null)
     {
@@ -2662,13 +2662,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_39, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_39, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_4()
+  public Double getOutbreak_4()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_4));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_4));
   }
   
   public void validateOutbreak_4()
@@ -2682,7 +2682,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_4);
   }
   
-  public void setOutbreak_4(Integer value)
+  public void setOutbreak_4(Double value)
   {
     if(value == null)
     {
@@ -2690,13 +2690,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_4, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_4, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_40()
+  public Double getOutbreak_40()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_40));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_40));
   }
   
   public void validateOutbreak_40()
@@ -2710,7 +2710,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_40);
   }
   
-  public void setOutbreak_40(Integer value)
+  public void setOutbreak_40(Double value)
   {
     if(value == null)
     {
@@ -2718,13 +2718,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_40, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_40, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_41()
+  public Double getOutbreak_41()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_41));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_41));
   }
   
   public void validateOutbreak_41()
@@ -2738,7 +2738,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_41);
   }
   
-  public void setOutbreak_41(Integer value)
+  public void setOutbreak_41(Double value)
   {
     if(value == null)
     {
@@ -2746,13 +2746,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_41, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_41, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_42()
+  public Double getOutbreak_42()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_42));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_42));
   }
   
   public void validateOutbreak_42()
@@ -2766,7 +2766,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_42);
   }
   
-  public void setOutbreak_42(Integer value)
+  public void setOutbreak_42(Double value)
   {
     if(value == null)
     {
@@ -2774,13 +2774,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_42, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_42, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_43()
+  public Double getOutbreak_43()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_43));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_43));
   }
   
   public void validateOutbreak_43()
@@ -2794,7 +2794,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_43);
   }
   
-  public void setOutbreak_43(Integer value)
+  public void setOutbreak_43(Double value)
   {
     if(value == null)
     {
@@ -2802,13 +2802,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_43, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_43, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_44()
+  public Double getOutbreak_44()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_44));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_44));
   }
   
   public void validateOutbreak_44()
@@ -2822,7 +2822,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_44);
   }
   
-  public void setOutbreak_44(Integer value)
+  public void setOutbreak_44(Double value)
   {
     if(value == null)
     {
@@ -2830,13 +2830,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_44, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_44, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_45()
+  public Double getOutbreak_45()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_45));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_45));
   }
   
   public void validateOutbreak_45()
@@ -2850,7 +2850,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_45);
   }
   
-  public void setOutbreak_45(Integer value)
+  public void setOutbreak_45(Double value)
   {
     if(value == null)
     {
@@ -2858,13 +2858,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_45, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_45, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_46()
+  public Double getOutbreak_46()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_46));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_46));
   }
   
   public void validateOutbreak_46()
@@ -2878,7 +2878,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_46);
   }
   
-  public void setOutbreak_46(Integer value)
+  public void setOutbreak_46(Double value)
   {
     if(value == null)
     {
@@ -2886,13 +2886,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_46, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_46, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_47()
+  public Double getOutbreak_47()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_47));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_47));
   }
   
   public void validateOutbreak_47()
@@ -2906,7 +2906,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_47);
   }
   
-  public void setOutbreak_47(Integer value)
+  public void setOutbreak_47(Double value)
   {
     if(value == null)
     {
@@ -2914,13 +2914,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_47, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_47, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_48()
+  public Double getOutbreak_48()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_48));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_48));
   }
   
   public void validateOutbreak_48()
@@ -2934,7 +2934,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_48);
   }
   
-  public void setOutbreak_48(Integer value)
+  public void setOutbreak_48(Double value)
   {
     if(value == null)
     {
@@ -2942,13 +2942,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_48, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_48, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_49()
+  public Double getOutbreak_49()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_49));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_49));
   }
   
   public void validateOutbreak_49()
@@ -2962,7 +2962,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_49);
   }
   
-  public void setOutbreak_49(Integer value)
+  public void setOutbreak_49(Double value)
   {
     if(value == null)
     {
@@ -2970,13 +2970,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_49, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_49, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_5()
+  public Double getOutbreak_5()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_5));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_5));
   }
   
   public void validateOutbreak_5()
@@ -2990,7 +2990,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_5);
   }
   
-  public void setOutbreak_5(Integer value)
+  public void setOutbreak_5(Double value)
   {
     if(value == null)
     {
@@ -2998,13 +2998,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_5, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_5, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_50()
+  public Double getOutbreak_50()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_50));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_50));
   }
   
   public void validateOutbreak_50()
@@ -3018,7 +3018,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_50);
   }
   
-  public void setOutbreak_50(Integer value)
+  public void setOutbreak_50(Double value)
   {
     if(value == null)
     {
@@ -3026,13 +3026,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_50, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_50, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_51()
+  public Double getOutbreak_51()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_51));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_51));
   }
   
   public void validateOutbreak_51()
@@ -3046,7 +3046,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_51);
   }
   
-  public void setOutbreak_51(Integer value)
+  public void setOutbreak_51(Double value)
   {
     if(value == null)
     {
@@ -3054,13 +3054,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_51, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_51, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_52()
+  public Double getOutbreak_52()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_52));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_52));
   }
   
   public void validateOutbreak_52()
@@ -3074,7 +3074,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_52);
   }
   
-  public void setOutbreak_52(Integer value)
+  public void setOutbreak_52(Double value)
   {
     if(value == null)
     {
@@ -3082,13 +3082,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_52, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_52, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_6()
+  public Double getOutbreak_6()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_6));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_6));
   }
   
   public void validateOutbreak_6()
@@ -3102,7 +3102,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_6);
   }
   
-  public void setOutbreak_6(Integer value)
+  public void setOutbreak_6(Double value)
   {
     if(value == null)
     {
@@ -3110,13 +3110,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_6, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_6, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_7()
+  public Double getOutbreak_7()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_7));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_7));
   }
   
   public void validateOutbreak_7()
@@ -3130,7 +3130,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_7);
   }
   
-  public void setOutbreak_7(Integer value)
+  public void setOutbreak_7(Double value)
   {
     if(value == null)
     {
@@ -3138,13 +3138,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_7, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_7, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_8()
+  public Double getOutbreak_8()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_8));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_8));
   }
   
   public void validateOutbreak_8()
@@ -3158,7 +3158,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_8);
   }
   
-  public void setOutbreak_8(Integer value)
+  public void setOutbreak_8(Double value)
   {
     if(value == null)
     {
@@ -3166,13 +3166,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_8, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_8, java.lang.Double.toString(value));
     }
   }
   
-  public Integer getOutbreak_9()
+  public Double getOutbreak_9()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_9));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_9));
   }
   
   public void validateOutbreak_9()
@@ -3186,7 +3186,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     return mdClassIF.definesAttribute(OUTBREAK_9);
   }
   
-  public void setOutbreak_9(Integer value)
+  public void setOutbreak_9(Double value)
   {
     if(value == null)
     {
@@ -3194,7 +3194,7 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     }
     else
     {
-      setValue(OUTBREAK_9, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_9, java.lang.Double.toString(value));
     }
   }
   
@@ -3295,13 +3295,13 @@ public abstract class ThresholdDataViewBase extends com.runwaysdk.business.View 
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public java.lang.Integer[] getCalculatedThresholds()
+  public java.lang.Double[] getCalculatedThresholds()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.ThresholdDataView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static final java.lang.Integer[] getCalculatedThresholds(java.lang.String id)
+  public static final java.lang.Double[] getCalculatedThresholds(java.lang.String id)
   {
     ThresholdDataView _instance = ThresholdDataView.get(id);
     return _instance.getCalculatedThresholds();

@@ -38,12 +38,24 @@
         label="Weekly Threshold">
         <create>
           <attributes>
-            <integer
-              name="facilityNotification"
-              label="Facility T1" />
-            <integer
-              name="facilityIdentification"
-              label="Facility T2" />
+			<double
+				name="facilityNotification"
+				label="Facility T1"
+				length="12"
+				decimal="2"
+				required="false"
+				rejectNegative="true"
+				rejectZero="true"
+				description="Notification threshold value" />
+			<double
+				name="facilityIdentification"
+				label="Facility T2"
+				length="12"
+				decimal="2"
+				required="false"
+				rejectNegative="true"
+				rejectZero="true"
+				description="Identification threshold value" />
             <reference
               name="lastFacilityNotification"
               label="Last Facility Notification"

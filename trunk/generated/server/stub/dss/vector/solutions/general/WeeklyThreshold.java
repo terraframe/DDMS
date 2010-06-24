@@ -80,7 +80,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     return false;
   }
 
-  public void reachedThreshold(String attribute, Integer threshold)
+  public void reachedThreshold(String attribute, Double threshold)
   {
     EpiWeek week = EpiWeek.getEpiWeek(new Date());
 
@@ -142,14 +142,14 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
 
   }
 
-  public void setActualThreshold(String attribute, Integer threshold)
+  public void setActualThreshold(String attribute, Double threshold)
   {
     try
     {
       String accessor = GenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
-      Method method = clazz.getMethod("setActual" + accessor, Integer.class);
+      Method method = clazz.getMethod("setActual" + accessor, Double.class);
 
       method.invoke(this, threshold);
     }
@@ -163,7 +163,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
   }
 
-  public Integer getThreshold(String attribute)
+  public Double getThreshold(String attribute)
   {
     try
     {
@@ -172,7 +172,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("get" + accessor);
 
-      return (Integer) method.invoke(this);
+      return (Double) method.invoke(this);
     }
     catch (InvocationTargetException e)
     {
@@ -184,7 +184,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
   }
 
-  public Integer getActualThreshold(String attribute)
+  public Double getActualThreshold(String attribute)
   {
     try
     {
@@ -193,7 +193,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("getActual" + accessor);
 
-      return (Integer) method.invoke(this);
+      return (Double) method.invoke(this);
     }
     catch (InvocationTargetException e)
     {
@@ -265,7 +265,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
 
       if (date != null)
       {
-        Integer threshold = this.getActualThreshold(accessor);
+        Double threshold = this.getActualThreshold(accessor);
         String type = this.getMdAttributeDAO(accessor).getDisplayLabel(Session.getCurrentLocale());
 
         WeeklyThresholdView view = new WeeklyThresholdView();

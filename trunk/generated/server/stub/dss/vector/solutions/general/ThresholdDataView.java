@@ -69,8 +69,8 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
 
         int index = ( week.getPeriod() % EpiDate.getNumberOfEpiWeeks(week.getYearOfWeek()) );
 
-        Integer notification = ( this.getThresholdType() ? threshold.getNotification() : threshold.getFacilityNotification() );
-        Integer ident = ( this.getThresholdType() ? threshold.getIdentification() : threshold.getFacilityIdentification() );
+        Double notification = ( this.getThresholdType() ? threshold.getNotification() : threshold.getFacilityNotification() );
+        Double ident = ( this.getThresholdType() ? threshold.getIdentification() : threshold.getFacilityIdentification() );
 
         this.populateAttributes(this, "setOutbreak_" + index, notification);
         this.populateAttributes(this, "setIdentification_" + index, ident);
@@ -96,11 +96,11 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     concrete.setSeason(this.getSeason());
   }
 
-  private void populateAttributes(Object to, String accessor, Integer value)
+  private void populateAttributes(Object to, String accessor, Double value)
   {
     try
     {
-      Method setter = to.getClass().getMethod(accessor, Integer.class);
+      Method setter = to.getClass().getMethod(accessor, Double.class);
 
       setter.invoke(to, value);
     }
@@ -157,8 +157,8 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     {
       int index = ( week.getPeriod() % week.getNumberOfEpiWeeks() );
 
-      Integer notification = this.getOutbreak(index);
-      Integer identification = this.getIdentification(index);
+      Double notification = this.getOutbreak(index);
+      Double identification = this.getIdentification(index);
 
       if (notification != null || identification != null)
       {
@@ -197,11 +197,11 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     }
   }
 
-  private Integer getIdentification(int index)
+  private Double getIdentification(int index)
   {
     try
     {
-      return (Integer) this.getClass().getMethod("getIdentification_" + index).invoke(this);
+      return (Double) this.getClass().getMethod("getIdentification_" + index).invoke(this);
     }
     catch (Exception e)
     {
@@ -209,11 +209,11 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     }
   }
 
-  private Integer getOutbreak(int index)
+  private Double getOutbreak(int index)
   {
     try
     {
-      return (Integer) this.getClass().getMethod("getOutbreak_" + index).invoke(this);
+      return (Double) this.getClass().getMethod("getOutbreak_" + index).invoke(this);
     }
     catch (Exception e)
     {
@@ -376,9 +376,9 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   }
 
   @Override
-  public Integer[] getCalculatedThresholds()
+  public Double[] getCalculatedThresholds()
   {
-    Integer[] thresholds = new Integer[106];
+    Double[] thresholds = new Double[106];
     EpiDate[] weeks = this.getSeason().getEpiWeeks();
     GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
 
@@ -393,8 +393,8 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
       {
         EpiWeek epiWeek = EpiWeek.getEpiWeek(week);
 
-        Integer notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
-        Integer identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
+        Double notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
+        Double identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
 
         thresholds[i * 2] = notification;
         thresholds[i * 2 + 1] = identificaiton;

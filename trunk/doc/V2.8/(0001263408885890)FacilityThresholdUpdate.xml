@@ -23,7 +23,7 @@
               name="count"
               label="Count"
               order="2"
-              type="java.lang.Long" />
+              type="java.lang.Double" />
           </mdMethod>
         </create>
       </mdBusiness>

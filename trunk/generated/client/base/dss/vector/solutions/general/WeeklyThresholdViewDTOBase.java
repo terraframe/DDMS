@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 909501959)
+@com.runwaysdk.business.ClassSignature(hash = -840452642)
 public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThresholdView";
-  private static final long serialVersionUID = 909501959;
+  private static final long serialVersionUID = -840452642;
   
   protected WeeklyThresholdViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -134,12 +134,12 @@ public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(THRESHOLDDATE).getAttributeMdDTO();
   }
   
-  public Integer getThresholdValue()
+  public Double getThresholdValue()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
   }
   
-  public void setThresholdValue(Integer value)
+  public void setThresholdValue(Double value)
   {
     if(value == null)
     {
@@ -147,7 +147,7 @@ public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.
     }
     else
     {
-      setValue(THRESHOLDVALUE, java.lang.Integer.toString(value));
+      setValue(THRESHOLDVALUE, java.lang.Double.toString(value));
     }
   }
   
@@ -166,9 +166,9 @@ public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.
     return isModified(THRESHOLDVALUE);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdValueMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getThresholdValueMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(THRESHOLDVALUE).getAttributeMdDTO();
   }
   
   public String getThreshsoldType()

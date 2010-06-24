@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -957185968)
+@com.runwaysdk.business.ClassSignature(hash = 1870278261)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public class WeeklyThresholdViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -957185968;
+private static final long serialVersionUID = 1870278261;
 
   protected WeeklyThresholdViewQueryDTO(String type)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 439006725)
+@com.runwaysdk.business.ClassSignature(hash = 607686811)
 public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.ThresholdDataExcelView";
-  private static final long serialVersionUID = 439006725;
+  private static final long serialVersionUID = 607686811;
   
   protected ThresholdDataExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -170,12 +170,12 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_0()
+  public Double getIdentification_0()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_0));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_0));
   }
   
-  public void setIdentification_0(Integer value)
+  public void setIdentification_0(Double value)
   {
     if(value == null)
     {
@@ -183,7 +183,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_0, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_0, java.lang.Double.toString(value));
     }
   }
   
@@ -202,17 +202,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_0);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_0Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_0Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_0).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_0).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_1()
+  public Double getIdentification_1()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_1));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_1));
   }
   
-  public void setIdentification_1(Integer value)
+  public void setIdentification_1(Double value)
   {
     if(value == null)
     {
@@ -220,7 +220,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_1, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_1, java.lang.Double.toString(value));
     }
   }
   
@@ -239,17 +239,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_1);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_1Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_1Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_1).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_1).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_10()
+  public Double getIdentification_10()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_10));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_10));
   }
   
-  public void setIdentification_10(Integer value)
+  public void setIdentification_10(Double value)
   {
     if(value == null)
     {
@@ -257,7 +257,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_10, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_10, java.lang.Double.toString(value));
     }
   }
   
@@ -276,17 +276,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_10);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_10Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_10Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_10).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_10).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_11()
+  public Double getIdentification_11()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_11));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_11));
   }
   
-  public void setIdentification_11(Integer value)
+  public void setIdentification_11(Double value)
   {
     if(value == null)
     {
@@ -294,7 +294,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_11, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_11, java.lang.Double.toString(value));
     }
   }
   
@@ -313,17 +313,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_11);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_11Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_11Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_11).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_11).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_12()
+  public Double getIdentification_12()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_12));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_12));
   }
   
-  public void setIdentification_12(Integer value)
+  public void setIdentification_12(Double value)
   {
     if(value == null)
     {
@@ -331,7 +331,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_12, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_12, java.lang.Double.toString(value));
     }
   }
   
@@ -350,17 +350,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_12);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_12Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_12Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_12).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_12).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_13()
+  public Double getIdentification_13()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_13));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_13));
   }
   
-  public void setIdentification_13(Integer value)
+  public void setIdentification_13(Double value)
   {
     if(value == null)
     {
@@ -368,7 +368,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_13, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_13, java.lang.Double.toString(value));
     }
   }
   
@@ -387,17 +387,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_13);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_13Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_13Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_13).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_13).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_14()
+  public Double getIdentification_14()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_14));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_14));
   }
   
-  public void setIdentification_14(Integer value)
+  public void setIdentification_14(Double value)
   {
     if(value == null)
     {
@@ -405,7 +405,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_14, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_14, java.lang.Double.toString(value));
     }
   }
   
@@ -424,17 +424,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_14);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_14Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_14Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_14).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_14).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_15()
+  public Double getIdentification_15()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_15));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_15));
   }
   
-  public void setIdentification_15(Integer value)
+  public void setIdentification_15(Double value)
   {
     if(value == null)
     {
@@ -442,7 +442,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_15, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_15, java.lang.Double.toString(value));
     }
   }
   
@@ -461,17 +461,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_15);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_15Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_15Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_15).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_15).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_16()
+  public Double getIdentification_16()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_16));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_16));
   }
   
-  public void setIdentification_16(Integer value)
+  public void setIdentification_16(Double value)
   {
     if(value == null)
     {
@@ -479,7 +479,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_16, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_16, java.lang.Double.toString(value));
     }
   }
   
@@ -498,17 +498,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_16);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_16Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_16Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_16).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_16).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_17()
+  public Double getIdentification_17()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_17));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_17));
   }
   
-  public void setIdentification_17(Integer value)
+  public void setIdentification_17(Double value)
   {
     if(value == null)
     {
@@ -516,7 +516,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_17, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_17, java.lang.Double.toString(value));
     }
   }
   
@@ -535,17 +535,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_17);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_17Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_17Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_17).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_17).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_18()
+  public Double getIdentification_18()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_18));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_18));
   }
   
-  public void setIdentification_18(Integer value)
+  public void setIdentification_18(Double value)
   {
     if(value == null)
     {
@@ -553,7 +553,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_18, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_18, java.lang.Double.toString(value));
     }
   }
   
@@ -572,17 +572,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_18);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_18Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_18Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_18).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_18).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_19()
+  public Double getIdentification_19()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_19));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_19));
   }
   
-  public void setIdentification_19(Integer value)
+  public void setIdentification_19(Double value)
   {
     if(value == null)
     {
@@ -590,7 +590,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_19, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_19, java.lang.Double.toString(value));
     }
   }
   
@@ -609,17 +609,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_19);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_19Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_19Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_19).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_19).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_2()
+  public Double getIdentification_2()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_2));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_2));
   }
   
-  public void setIdentification_2(Integer value)
+  public void setIdentification_2(Double value)
   {
     if(value == null)
     {
@@ -627,7 +627,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_2, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_2, java.lang.Double.toString(value));
     }
   }
   
@@ -646,17 +646,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_2);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_2Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_2Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_2).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_2).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_20()
+  public Double getIdentification_20()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_20));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_20));
   }
   
-  public void setIdentification_20(Integer value)
+  public void setIdentification_20(Double value)
   {
     if(value == null)
     {
@@ -664,7 +664,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_20, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_20, java.lang.Double.toString(value));
     }
   }
   
@@ -683,17 +683,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_20);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_20Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_20Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_20).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_20).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_21()
+  public Double getIdentification_21()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_21));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_21));
   }
   
-  public void setIdentification_21(Integer value)
+  public void setIdentification_21(Double value)
   {
     if(value == null)
     {
@@ -701,7 +701,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_21, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_21, java.lang.Double.toString(value));
     }
   }
   
@@ -720,17 +720,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_21);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_21Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_21Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_21).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_21).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_22()
+  public Double getIdentification_22()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_22));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_22));
   }
   
-  public void setIdentification_22(Integer value)
+  public void setIdentification_22(Double value)
   {
     if(value == null)
     {
@@ -738,7 +738,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_22, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_22, java.lang.Double.toString(value));
     }
   }
   
@@ -757,17 +757,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_22);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_22Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_22Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_22).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_22).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_23()
+  public Double getIdentification_23()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_23));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_23));
   }
   
-  public void setIdentification_23(Integer value)
+  public void setIdentification_23(Double value)
   {
     if(value == null)
     {
@@ -775,7 +775,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_23, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_23, java.lang.Double.toString(value));
     }
   }
   
@@ -794,17 +794,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_23);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_23Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_23Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_23).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_23).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_24()
+  public Double getIdentification_24()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_24));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_24));
   }
   
-  public void setIdentification_24(Integer value)
+  public void setIdentification_24(Double value)
   {
     if(value == null)
     {
@@ -812,7 +812,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_24, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_24, java.lang.Double.toString(value));
     }
   }
   
@@ -831,17 +831,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_24);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_24Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_24Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_24).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_24).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_25()
+  public Double getIdentification_25()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_25));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_25));
   }
   
-  public void setIdentification_25(Integer value)
+  public void setIdentification_25(Double value)
   {
     if(value == null)
     {
@@ -849,7 +849,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_25, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_25, java.lang.Double.toString(value));
     }
   }
   
@@ -868,17 +868,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_25);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_25Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_25Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_25).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_25).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_26()
+  public Double getIdentification_26()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_26));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_26));
   }
   
-  public void setIdentification_26(Integer value)
+  public void setIdentification_26(Double value)
   {
     if(value == null)
     {
@@ -886,7 +886,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_26, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_26, java.lang.Double.toString(value));
     }
   }
   
@@ -905,17 +905,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_26);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_26Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_26Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_26).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_26).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_27()
+  public Double getIdentification_27()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_27));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_27));
   }
   
-  public void setIdentification_27(Integer value)
+  public void setIdentification_27(Double value)
   {
     if(value == null)
     {
@@ -923,7 +923,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_27, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_27, java.lang.Double.toString(value));
     }
   }
   
@@ -942,17 +942,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_27);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_27Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_27Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_27).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_27).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_28()
+  public Double getIdentification_28()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_28));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_28));
   }
   
-  public void setIdentification_28(Integer value)
+  public void setIdentification_28(Double value)
   {
     if(value == null)
     {
@@ -960,7 +960,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_28, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_28, java.lang.Double.toString(value));
     }
   }
   
@@ -979,17 +979,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_28);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_28Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_28Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_28).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_28).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_29()
+  public Double getIdentification_29()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_29));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_29));
   }
   
-  public void setIdentification_29(Integer value)
+  public void setIdentification_29(Double value)
   {
     if(value == null)
     {
@@ -997,7 +997,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_29, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_29, java.lang.Double.toString(value));
     }
   }
   
@@ -1016,17 +1016,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_29);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_29Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_29Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_29).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_29).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_3()
+  public Double getIdentification_3()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_3));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_3));
   }
   
-  public void setIdentification_3(Integer value)
+  public void setIdentification_3(Double value)
   {
     if(value == null)
     {
@@ -1034,7 +1034,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_3, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_3, java.lang.Double.toString(value));
     }
   }
   
@@ -1053,17 +1053,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_3);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_3Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_3Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_3).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_3).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_30()
+  public Double getIdentification_30()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_30));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_30));
   }
   
-  public void setIdentification_30(Integer value)
+  public void setIdentification_30(Double value)
   {
     if(value == null)
     {
@@ -1071,7 +1071,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_30, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_30, java.lang.Double.toString(value));
     }
   }
   
@@ -1090,17 +1090,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_30);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_30Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_30Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_30).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_30).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_31()
+  public Double getIdentification_31()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_31));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_31));
   }
   
-  public void setIdentification_31(Integer value)
+  public void setIdentification_31(Double value)
   {
     if(value == null)
     {
@@ -1108,7 +1108,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_31, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_31, java.lang.Double.toString(value));
     }
   }
   
@@ -1127,17 +1127,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_31);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_31Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_31Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_31).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_31).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_32()
+  public Double getIdentification_32()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_32));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_32));
   }
   
-  public void setIdentification_32(Integer value)
+  public void setIdentification_32(Double value)
   {
     if(value == null)
     {
@@ -1145,7 +1145,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_32, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_32, java.lang.Double.toString(value));
     }
   }
   
@@ -1164,17 +1164,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_32);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_32Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_32Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_32).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_32).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_33()
+  public Double getIdentification_33()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_33));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_33));
   }
   
-  public void setIdentification_33(Integer value)
+  public void setIdentification_33(Double value)
   {
     if(value == null)
     {
@@ -1182,7 +1182,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_33, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_33, java.lang.Double.toString(value));
     }
   }
   
@@ -1201,17 +1201,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_33);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_33Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_33Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_33).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_33).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_34()
+  public Double getIdentification_34()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_34));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_34));
   }
   
-  public void setIdentification_34(Integer value)
+  public void setIdentification_34(Double value)
   {
     if(value == null)
     {
@@ -1219,7 +1219,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_34, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_34, java.lang.Double.toString(value));
     }
   }
   
@@ -1238,17 +1238,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_34);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_34Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_34Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_34).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_34).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_35()
+  public Double getIdentification_35()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_35));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_35));
   }
   
-  public void setIdentification_35(Integer value)
+  public void setIdentification_35(Double value)
   {
     if(value == null)
     {
@@ -1256,7 +1256,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_35, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_35, java.lang.Double.toString(value));
     }
   }
   
@@ -1275,17 +1275,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_35);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_35Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_35Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_35).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_35).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_36()
+  public Double getIdentification_36()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_36));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_36));
   }
   
-  public void setIdentification_36(Integer value)
+  public void setIdentification_36(Double value)
   {
     if(value == null)
     {
@@ -1293,7 +1293,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_36, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_36, java.lang.Double.toString(value));
     }
   }
   
@@ -1312,17 +1312,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_36);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_36Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_36Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_36).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_36).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_37()
+  public Double getIdentification_37()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_37));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_37));
   }
   
-  public void setIdentification_37(Integer value)
+  public void setIdentification_37(Double value)
   {
     if(value == null)
     {
@@ -1330,7 +1330,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_37, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_37, java.lang.Double.toString(value));
     }
   }
   
@@ -1349,17 +1349,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_37);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_37Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_37Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_37).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_37).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_38()
+  public Double getIdentification_38()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_38));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_38));
   }
   
-  public void setIdentification_38(Integer value)
+  public void setIdentification_38(Double value)
   {
     if(value == null)
     {
@@ -1367,7 +1367,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_38, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_38, java.lang.Double.toString(value));
     }
   }
   
@@ -1386,17 +1386,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_38);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_38Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_38Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_38).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_38).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_39()
+  public Double getIdentification_39()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_39));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_39));
   }
   
-  public void setIdentification_39(Integer value)
+  public void setIdentification_39(Double value)
   {
     if(value == null)
     {
@@ -1404,7 +1404,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_39, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_39, java.lang.Double.toString(value));
     }
   }
   
@@ -1423,17 +1423,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_39);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_39Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_39Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_39).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_39).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_4()
+  public Double getIdentification_4()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_4));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_4));
   }
   
-  public void setIdentification_4(Integer value)
+  public void setIdentification_4(Double value)
   {
     if(value == null)
     {
@@ -1441,7 +1441,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_4, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_4, java.lang.Double.toString(value));
     }
   }
   
@@ -1460,17 +1460,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_4);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_4Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_4Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_4).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_4).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_40()
+  public Double getIdentification_40()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_40));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_40));
   }
   
-  public void setIdentification_40(Integer value)
+  public void setIdentification_40(Double value)
   {
     if(value == null)
     {
@@ -1478,7 +1478,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_40, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_40, java.lang.Double.toString(value));
     }
   }
   
@@ -1497,17 +1497,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_40);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_40Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_40Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_40).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_40).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_41()
+  public Double getIdentification_41()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_41));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_41));
   }
   
-  public void setIdentification_41(Integer value)
+  public void setIdentification_41(Double value)
   {
     if(value == null)
     {
@@ -1515,7 +1515,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_41, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_41, java.lang.Double.toString(value));
     }
   }
   
@@ -1534,17 +1534,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_41);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_41Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_41Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_41).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_41).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_42()
+  public Double getIdentification_42()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_42));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_42));
   }
   
-  public void setIdentification_42(Integer value)
+  public void setIdentification_42(Double value)
   {
     if(value == null)
     {
@@ -1552,7 +1552,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_42, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_42, java.lang.Double.toString(value));
     }
   }
   
@@ -1571,17 +1571,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_42);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_42Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_42Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_42).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_42).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_43()
+  public Double getIdentification_43()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_43));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_43));
   }
   
-  public void setIdentification_43(Integer value)
+  public void setIdentification_43(Double value)
   {
     if(value == null)
     {
@@ -1589,7 +1589,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_43, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_43, java.lang.Double.toString(value));
     }
   }
   
@@ -1608,17 +1608,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_43);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_43Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_43Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_43).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_43).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_44()
+  public Double getIdentification_44()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_44));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_44));
   }
   
-  public void setIdentification_44(Integer value)
+  public void setIdentification_44(Double value)
   {
     if(value == null)
     {
@@ -1626,7 +1626,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_44, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_44, java.lang.Double.toString(value));
     }
   }
   
@@ -1645,17 +1645,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_44);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_44Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_44Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_44).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_44).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_45()
+  public Double getIdentification_45()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_45));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_45));
   }
   
-  public void setIdentification_45(Integer value)
+  public void setIdentification_45(Double value)
   {
     if(value == null)
     {
@@ -1663,7 +1663,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_45, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_45, java.lang.Double.toString(value));
     }
   }
   
@@ -1682,17 +1682,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_45);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_45Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_45Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_45).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_45).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_46()
+  public Double getIdentification_46()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_46));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_46));
   }
   
-  public void setIdentification_46(Integer value)
+  public void setIdentification_46(Double value)
   {
     if(value == null)
     {
@@ -1700,7 +1700,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_46, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_46, java.lang.Double.toString(value));
     }
   }
   
@@ -1719,17 +1719,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_46);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_46Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_46Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_46).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_46).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_47()
+  public Double getIdentification_47()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_47));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_47));
   }
   
-  public void setIdentification_47(Integer value)
+  public void setIdentification_47(Double value)
   {
     if(value == null)
     {
@@ -1737,7 +1737,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_47, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_47, java.lang.Double.toString(value));
     }
   }
   
@@ -1756,17 +1756,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_47);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_47Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_47Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_47).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_47).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_48()
+  public Double getIdentification_48()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_48));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_48));
   }
   
-  public void setIdentification_48(Integer value)
+  public void setIdentification_48(Double value)
   {
     if(value == null)
     {
@@ -1774,7 +1774,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_48, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_48, java.lang.Double.toString(value));
     }
   }
   
@@ -1793,17 +1793,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_48);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_48Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_48Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_48).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_48).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_49()
+  public Double getIdentification_49()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_49));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_49));
   }
   
-  public void setIdentification_49(Integer value)
+  public void setIdentification_49(Double value)
   {
     if(value == null)
     {
@@ -1811,7 +1811,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_49, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_49, java.lang.Double.toString(value));
     }
   }
   
@@ -1830,17 +1830,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_49);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_49Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_49Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_49).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_49).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_5()
+  public Double getIdentification_5()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_5));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_5));
   }
   
-  public void setIdentification_5(Integer value)
+  public void setIdentification_5(Double value)
   {
     if(value == null)
     {
@@ -1848,7 +1848,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_5, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_5, java.lang.Double.toString(value));
     }
   }
   
@@ -1867,17 +1867,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_5);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_5Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_5Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_5).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_5).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_50()
+  public Double getIdentification_50()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_50));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_50));
   }
   
-  public void setIdentification_50(Integer value)
+  public void setIdentification_50(Double value)
   {
     if(value == null)
     {
@@ -1885,7 +1885,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_50, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_50, java.lang.Double.toString(value));
     }
   }
   
@@ -1904,17 +1904,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_50);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_50Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_50Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_50).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_50).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_51()
+  public Double getIdentification_51()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_51));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_51));
   }
   
-  public void setIdentification_51(Integer value)
+  public void setIdentification_51(Double value)
   {
     if(value == null)
     {
@@ -1922,7 +1922,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_51, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_51, java.lang.Double.toString(value));
     }
   }
   
@@ -1941,17 +1941,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_51);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_51Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_51Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_51).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_51).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_52()
+  public Double getIdentification_52()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_52));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_52));
   }
   
-  public void setIdentification_52(Integer value)
+  public void setIdentification_52(Double value)
   {
     if(value == null)
     {
@@ -1959,7 +1959,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_52, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_52, java.lang.Double.toString(value));
     }
   }
   
@@ -1978,17 +1978,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_52);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_52Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_52Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_52).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_52).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_6()
+  public Double getIdentification_6()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_6));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_6));
   }
   
-  public void setIdentification_6(Integer value)
+  public void setIdentification_6(Double value)
   {
     if(value == null)
     {
@@ -1996,7 +1996,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_6, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_6, java.lang.Double.toString(value));
     }
   }
   
@@ -2015,17 +2015,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_6);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_6Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_6Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_6).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_6).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_7()
+  public Double getIdentification_7()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_7));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_7));
   }
   
-  public void setIdentification_7(Integer value)
+  public void setIdentification_7(Double value)
   {
     if(value == null)
     {
@@ -2033,7 +2033,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_7, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_7, java.lang.Double.toString(value));
     }
   }
   
@@ -2052,17 +2052,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_7);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_7Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_7Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_7).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_7).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_8()
+  public Double getIdentification_8()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_8));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_8));
   }
   
-  public void setIdentification_8(Integer value)
+  public void setIdentification_8(Double value)
   {
     if(value == null)
     {
@@ -2070,7 +2070,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_8, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_8, java.lang.Double.toString(value));
     }
   }
   
@@ -2089,17 +2089,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_8);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_8Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_8Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_8).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_8).getAttributeMdDTO();
   }
   
-  public Integer getIdentification_9()
+  public Double getIdentification_9()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION_9));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION_9));
   }
   
-  public void setIdentification_9(Integer value)
+  public void setIdentification_9(Double value)
   {
     if(value == null)
     {
@@ -2107,7 +2107,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(IDENTIFICATION_9, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION_9, java.lang.Double.toString(value));
     }
   }
   
@@ -2126,17 +2126,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(IDENTIFICATION_9);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentification_9Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentification_9Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION_9).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION_9).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_0()
+  public Double getOutbreak_0()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_0));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_0));
   }
   
-  public void setOutbreak_0(Integer value)
+  public void setOutbreak_0(Double value)
   {
     if(value == null)
     {
@@ -2144,7 +2144,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_0, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_0, java.lang.Double.toString(value));
     }
   }
   
@@ -2163,17 +2163,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_0);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_0Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_0Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_0).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_0).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_1()
+  public Double getOutbreak_1()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_1));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_1));
   }
   
-  public void setOutbreak_1(Integer value)
+  public void setOutbreak_1(Double value)
   {
     if(value == null)
     {
@@ -2181,7 +2181,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_1, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_1, java.lang.Double.toString(value));
     }
   }
   
@@ -2200,17 +2200,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_1);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_1Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_1Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_1).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_1).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_10()
+  public Double getOutbreak_10()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_10));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_10));
   }
   
-  public void setOutbreak_10(Integer value)
+  public void setOutbreak_10(Double value)
   {
     if(value == null)
     {
@@ -2218,7 +2218,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_10, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_10, java.lang.Double.toString(value));
     }
   }
   
@@ -2237,17 +2237,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_10);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_10Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_10Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_10).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_10).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_11()
+  public Double getOutbreak_11()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_11));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_11));
   }
   
-  public void setOutbreak_11(Integer value)
+  public void setOutbreak_11(Double value)
   {
     if(value == null)
     {
@@ -2255,7 +2255,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_11, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_11, java.lang.Double.toString(value));
     }
   }
   
@@ -2274,17 +2274,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_11);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_11Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_11Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_11).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_11).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_12()
+  public Double getOutbreak_12()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_12));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_12));
   }
   
-  public void setOutbreak_12(Integer value)
+  public void setOutbreak_12(Double value)
   {
     if(value == null)
     {
@@ -2292,7 +2292,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_12, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_12, java.lang.Double.toString(value));
     }
   }
   
@@ -2311,17 +2311,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_12);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_12Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_12Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_12).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_12).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_13()
+  public Double getOutbreak_13()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_13));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_13));
   }
   
-  public void setOutbreak_13(Integer value)
+  public void setOutbreak_13(Double value)
   {
     if(value == null)
     {
@@ -2329,7 +2329,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_13, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_13, java.lang.Double.toString(value));
     }
   }
   
@@ -2348,17 +2348,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_13);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_13Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_13Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_13).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_13).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_14()
+  public Double getOutbreak_14()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_14));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_14));
   }
   
-  public void setOutbreak_14(Integer value)
+  public void setOutbreak_14(Double value)
   {
     if(value == null)
     {
@@ -2366,7 +2366,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_14, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_14, java.lang.Double.toString(value));
     }
   }
   
@@ -2385,17 +2385,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_14);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_14Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_14Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_14).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_14).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_15()
+  public Double getOutbreak_15()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_15));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_15));
   }
   
-  public void setOutbreak_15(Integer value)
+  public void setOutbreak_15(Double value)
   {
     if(value == null)
     {
@@ -2403,7 +2403,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_15, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_15, java.lang.Double.toString(value));
     }
   }
   
@@ -2422,17 +2422,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_15);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_15Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_15Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_15).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_15).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_16()
+  public Double getOutbreak_16()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_16));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_16));
   }
   
-  public void setOutbreak_16(Integer value)
+  public void setOutbreak_16(Double value)
   {
     if(value == null)
     {
@@ -2440,7 +2440,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_16, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_16, java.lang.Double.toString(value));
     }
   }
   
@@ -2459,17 +2459,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_16);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_16Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_16Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_16).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_16).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_17()
+  public Double getOutbreak_17()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_17));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_17));
   }
   
-  public void setOutbreak_17(Integer value)
+  public void setOutbreak_17(Double value)
   {
     if(value == null)
     {
@@ -2477,7 +2477,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_17, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_17, java.lang.Double.toString(value));
     }
   }
   
@@ -2496,17 +2496,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_17);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_17Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_17Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_17).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_17).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_18()
+  public Double getOutbreak_18()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_18));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_18));
   }
   
-  public void setOutbreak_18(Integer value)
+  public void setOutbreak_18(Double value)
   {
     if(value == null)
     {
@@ -2514,7 +2514,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_18, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_18, java.lang.Double.toString(value));
     }
   }
   
@@ -2533,17 +2533,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_18);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_18Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_18Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_18).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_18).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_19()
+  public Double getOutbreak_19()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_19));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_19));
   }
   
-  public void setOutbreak_19(Integer value)
+  public void setOutbreak_19(Double value)
   {
     if(value == null)
     {
@@ -2551,7 +2551,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_19, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_19, java.lang.Double.toString(value));
     }
   }
   
@@ -2570,17 +2570,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_19);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_19Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_19Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_19).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_19).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_2()
+  public Double getOutbreak_2()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_2));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_2));
   }
   
-  public void setOutbreak_2(Integer value)
+  public void setOutbreak_2(Double value)
   {
     if(value == null)
     {
@@ -2588,7 +2588,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_2, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_2, java.lang.Double.toString(value));
     }
   }
   
@@ -2607,17 +2607,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_2);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_2Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_2Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_2).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_2).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_20()
+  public Double getOutbreak_20()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_20));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_20));
   }
   
-  public void setOutbreak_20(Integer value)
+  public void setOutbreak_20(Double value)
   {
     if(value == null)
     {
@@ -2625,7 +2625,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_20, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_20, java.lang.Double.toString(value));
     }
   }
   
@@ -2644,17 +2644,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_20);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_20Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_20Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_20).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_20).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_21()
+  public Double getOutbreak_21()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_21));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_21));
   }
   
-  public void setOutbreak_21(Integer value)
+  public void setOutbreak_21(Double value)
   {
     if(value == null)
     {
@@ -2662,7 +2662,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_21, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_21, java.lang.Double.toString(value));
     }
   }
   
@@ -2681,17 +2681,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_21);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_21Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_21Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_21).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_21).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_22()
+  public Double getOutbreak_22()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_22));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_22));
   }
   
-  public void setOutbreak_22(Integer value)
+  public void setOutbreak_22(Double value)
   {
     if(value == null)
     {
@@ -2699,7 +2699,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_22, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_22, java.lang.Double.toString(value));
     }
   }
   
@@ -2718,17 +2718,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_22);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_22Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_22Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_22).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_22).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_23()
+  public Double getOutbreak_23()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_23));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_23));
   }
   
-  public void setOutbreak_23(Integer value)
+  public void setOutbreak_23(Double value)
   {
     if(value == null)
     {
@@ -2736,7 +2736,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_23, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_23, java.lang.Double.toString(value));
     }
   }
   
@@ -2755,17 +2755,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_23);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_23Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_23Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_23).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_23).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_24()
+  public Double getOutbreak_24()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_24));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_24));
   }
   
-  public void setOutbreak_24(Integer value)
+  public void setOutbreak_24(Double value)
   {
     if(value == null)
     {
@@ -2773,7 +2773,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_24, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_24, java.lang.Double.toString(value));
     }
   }
   
@@ -2792,17 +2792,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_24);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_24Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_24Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_24).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_24).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_25()
+  public Double getOutbreak_25()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_25));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_25));
   }
   
-  public void setOutbreak_25(Integer value)
+  public void setOutbreak_25(Double value)
   {
     if(value == null)
     {
@@ -2810,7 +2810,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_25, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_25, java.lang.Double.toString(value));
     }
   }
   
@@ -2829,17 +2829,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_25);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_25Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_25Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_25).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_25).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_26()
+  public Double getOutbreak_26()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_26));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_26));
   }
   
-  public void setOutbreak_26(Integer value)
+  public void setOutbreak_26(Double value)
   {
     if(value == null)
     {
@@ -2847,7 +2847,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_26, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_26, java.lang.Double.toString(value));
     }
   }
   
@@ -2866,17 +2866,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_26);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_26Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_26Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_26).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_26).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_27()
+  public Double getOutbreak_27()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_27));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_27));
   }
   
-  public void setOutbreak_27(Integer value)
+  public void setOutbreak_27(Double value)
   {
     if(value == null)
     {
@@ -2884,7 +2884,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_27, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_27, java.lang.Double.toString(value));
     }
   }
   
@@ -2903,17 +2903,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_27);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_27Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_27Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_27).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_27).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_28()
+  public Double getOutbreak_28()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_28));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_28));
   }
   
-  public void setOutbreak_28(Integer value)
+  public void setOutbreak_28(Double value)
   {
     if(value == null)
     {
@@ -2921,7 +2921,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_28, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_28, java.lang.Double.toString(value));
     }
   }
   
@@ -2940,17 +2940,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_28);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_28Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_28Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_28).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_28).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_29()
+  public Double getOutbreak_29()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_29));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_29));
   }
   
-  public void setOutbreak_29(Integer value)
+  public void setOutbreak_29(Double value)
   {
     if(value == null)
     {
@@ -2958,7 +2958,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_29, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_29, java.lang.Double.toString(value));
     }
   }
   
@@ -2977,17 +2977,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_29);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_29Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_29Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_29).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_29).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_3()
+  public Double getOutbreak_3()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_3));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_3));
   }
   
-  public void setOutbreak_3(Integer value)
+  public void setOutbreak_3(Double value)
   {
     if(value == null)
     {
@@ -2995,7 +2995,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_3, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_3, java.lang.Double.toString(value));
     }
   }
   
@@ -3014,17 +3014,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_3);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_3Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_3Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_3).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_3).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_30()
+  public Double getOutbreak_30()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_30));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_30));
   }
   
-  public void setOutbreak_30(Integer value)
+  public void setOutbreak_30(Double value)
   {
     if(value == null)
     {
@@ -3032,7 +3032,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_30, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_30, java.lang.Double.toString(value));
     }
   }
   
@@ -3051,17 +3051,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_30);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_30Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_30Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_30).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_30).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_31()
+  public Double getOutbreak_31()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_31));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_31));
   }
   
-  public void setOutbreak_31(Integer value)
+  public void setOutbreak_31(Double value)
   {
     if(value == null)
     {
@@ -3069,7 +3069,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_31, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_31, java.lang.Double.toString(value));
     }
   }
   
@@ -3088,17 +3088,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_31);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_31Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_31Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_31).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_31).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_32()
+  public Double getOutbreak_32()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_32));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_32));
   }
   
-  public void setOutbreak_32(Integer value)
+  public void setOutbreak_32(Double value)
   {
     if(value == null)
     {
@@ -3106,7 +3106,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_32, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_32, java.lang.Double.toString(value));
     }
   }
   
@@ -3125,17 +3125,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_32);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_32Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_32Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_32).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_32).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_33()
+  public Double getOutbreak_33()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_33));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_33));
   }
   
-  public void setOutbreak_33(Integer value)
+  public void setOutbreak_33(Double value)
   {
     if(value == null)
     {
@@ -3143,7 +3143,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_33, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_33, java.lang.Double.toString(value));
     }
   }
   
@@ -3162,17 +3162,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_33);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_33Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_33Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_33).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_33).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_34()
+  public Double getOutbreak_34()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_34));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_34));
   }
   
-  public void setOutbreak_34(Integer value)
+  public void setOutbreak_34(Double value)
   {
     if(value == null)
     {
@@ -3180,7 +3180,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_34, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_34, java.lang.Double.toString(value));
     }
   }
   
@@ -3199,17 +3199,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_34);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_34Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_34Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_34).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_34).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_35()
+  public Double getOutbreak_35()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_35));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_35));
   }
   
-  public void setOutbreak_35(Integer value)
+  public void setOutbreak_35(Double value)
   {
     if(value == null)
     {
@@ -3217,7 +3217,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_35, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_35, java.lang.Double.toString(value));
     }
   }
   
@@ -3236,17 +3236,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_35);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_35Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_35Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_35).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_35).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_36()
+  public Double getOutbreak_36()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_36));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_36));
   }
   
-  public void setOutbreak_36(Integer value)
+  public void setOutbreak_36(Double value)
   {
     if(value == null)
     {
@@ -3254,7 +3254,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_36, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_36, java.lang.Double.toString(value));
     }
   }
   
@@ -3273,17 +3273,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_36);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_36Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_36Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_36).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_36).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_37()
+  public Double getOutbreak_37()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_37));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_37));
   }
   
-  public void setOutbreak_37(Integer value)
+  public void setOutbreak_37(Double value)
   {
     if(value == null)
     {
@@ -3291,7 +3291,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_37, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_37, java.lang.Double.toString(value));
     }
   }
   
@@ -3310,17 +3310,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_37);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_37Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_37Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_37).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_37).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_38()
+  public Double getOutbreak_38()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_38));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_38));
   }
   
-  public void setOutbreak_38(Integer value)
+  public void setOutbreak_38(Double value)
   {
     if(value == null)
     {
@@ -3328,7 +3328,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_38, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_38, java.lang.Double.toString(value));
     }
   }
   
@@ -3347,17 +3347,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_38);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_38Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_38Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_38).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_38).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_39()
+  public Double getOutbreak_39()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_39));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_39));
   }
   
-  public void setOutbreak_39(Integer value)
+  public void setOutbreak_39(Double value)
   {
     if(value == null)
     {
@@ -3365,7 +3365,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_39, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_39, java.lang.Double.toString(value));
     }
   }
   
@@ -3384,17 +3384,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_39);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_39Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_39Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_39).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_39).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_4()
+  public Double getOutbreak_4()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_4));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_4));
   }
   
-  public void setOutbreak_4(Integer value)
+  public void setOutbreak_4(Double value)
   {
     if(value == null)
     {
@@ -3402,7 +3402,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_4, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_4, java.lang.Double.toString(value));
     }
   }
   
@@ -3421,17 +3421,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_4);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_4Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_4Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_4).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_4).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_40()
+  public Double getOutbreak_40()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_40));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_40));
   }
   
-  public void setOutbreak_40(Integer value)
+  public void setOutbreak_40(Double value)
   {
     if(value == null)
     {
@@ -3439,7 +3439,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_40, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_40, java.lang.Double.toString(value));
     }
   }
   
@@ -3458,17 +3458,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_40);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_40Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_40Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_40).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_40).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_41()
+  public Double getOutbreak_41()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_41));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_41));
   }
   
-  public void setOutbreak_41(Integer value)
+  public void setOutbreak_41(Double value)
   {
     if(value == null)
     {
@@ -3476,7 +3476,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_41, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_41, java.lang.Double.toString(value));
     }
   }
   
@@ -3495,17 +3495,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_41);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_41Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_41Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_41).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_41).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_42()
+  public Double getOutbreak_42()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_42));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_42));
   }
   
-  public void setOutbreak_42(Integer value)
+  public void setOutbreak_42(Double value)
   {
     if(value == null)
     {
@@ -3513,7 +3513,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_42, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_42, java.lang.Double.toString(value));
     }
   }
   
@@ -3532,17 +3532,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_42);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_42Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_42Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_42).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_42).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_43()
+  public Double getOutbreak_43()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_43));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_43));
   }
   
-  public void setOutbreak_43(Integer value)
+  public void setOutbreak_43(Double value)
   {
     if(value == null)
     {
@@ -3550,7 +3550,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_43, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_43, java.lang.Double.toString(value));
     }
   }
   
@@ -3569,17 +3569,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_43);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_43Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_43Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_43).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_43).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_44()
+  public Double getOutbreak_44()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_44));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_44));
   }
   
-  public void setOutbreak_44(Integer value)
+  public void setOutbreak_44(Double value)
   {
     if(value == null)
     {
@@ -3587,7 +3587,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_44, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_44, java.lang.Double.toString(value));
     }
   }
   
@@ -3606,17 +3606,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_44);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_44Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_44Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_44).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_44).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_45()
+  public Double getOutbreak_45()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_45));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_45));
   }
   
-  public void setOutbreak_45(Integer value)
+  public void setOutbreak_45(Double value)
   {
     if(value == null)
     {
@@ -3624,7 +3624,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_45, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_45, java.lang.Double.toString(value));
     }
   }
   
@@ -3643,17 +3643,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_45);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_45Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_45Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_45).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_45).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_46()
+  public Double getOutbreak_46()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_46));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_46));
   }
   
-  public void setOutbreak_46(Integer value)
+  public void setOutbreak_46(Double value)
   {
     if(value == null)
     {
@@ -3661,7 +3661,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_46, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_46, java.lang.Double.toString(value));
     }
   }
   
@@ -3680,17 +3680,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_46);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_46Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_46Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_46).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_46).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_47()
+  public Double getOutbreak_47()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_47));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_47));
   }
   
-  public void setOutbreak_47(Integer value)
+  public void setOutbreak_47(Double value)
   {
     if(value == null)
     {
@@ -3698,7 +3698,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_47, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_47, java.lang.Double.toString(value));
     }
   }
   
@@ -3717,17 +3717,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_47);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_47Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_47Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_47).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_47).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_48()
+  public Double getOutbreak_48()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_48));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_48));
   }
   
-  public void setOutbreak_48(Integer value)
+  public void setOutbreak_48(Double value)
   {
     if(value == null)
     {
@@ -3735,7 +3735,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_48, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_48, java.lang.Double.toString(value));
     }
   }
   
@@ -3754,17 +3754,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_48);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_48Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_48Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_48).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_48).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_49()
+  public Double getOutbreak_49()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_49));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_49));
   }
   
-  public void setOutbreak_49(Integer value)
+  public void setOutbreak_49(Double value)
   {
     if(value == null)
     {
@@ -3772,7 +3772,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_49, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_49, java.lang.Double.toString(value));
     }
   }
   
@@ -3791,17 +3791,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_49);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_49Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_49Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_49).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_49).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_5()
+  public Double getOutbreak_5()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_5));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_5));
   }
   
-  public void setOutbreak_5(Integer value)
+  public void setOutbreak_5(Double value)
   {
     if(value == null)
     {
@@ -3809,7 +3809,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_5, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_5, java.lang.Double.toString(value));
     }
   }
   
@@ -3828,17 +3828,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_5);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_5Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_5Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_5).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_5).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_50()
+  public Double getOutbreak_50()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_50));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_50));
   }
   
-  public void setOutbreak_50(Integer value)
+  public void setOutbreak_50(Double value)
   {
     if(value == null)
     {
@@ -3846,7 +3846,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_50, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_50, java.lang.Double.toString(value));
     }
   }
   
@@ -3865,17 +3865,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_50);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_50Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_50Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_50).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_50).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_51()
+  public Double getOutbreak_51()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_51));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_51));
   }
   
-  public void setOutbreak_51(Integer value)
+  public void setOutbreak_51(Double value)
   {
     if(value == null)
     {
@@ -3883,7 +3883,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_51, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_51, java.lang.Double.toString(value));
     }
   }
   
@@ -3902,17 +3902,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_51);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_51Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_51Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_51).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_51).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_52()
+  public Double getOutbreak_52()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_52));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_52));
   }
   
-  public void setOutbreak_52(Integer value)
+  public void setOutbreak_52(Double value)
   {
     if(value == null)
     {
@@ -3920,7 +3920,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_52, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_52, java.lang.Double.toString(value));
     }
   }
   
@@ -3939,17 +3939,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_52);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_52Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_52Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_52).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_52).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_6()
+  public Double getOutbreak_6()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_6));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_6));
   }
   
-  public void setOutbreak_6(Integer value)
+  public void setOutbreak_6(Double value)
   {
     if(value == null)
     {
@@ -3957,7 +3957,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_6, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_6, java.lang.Double.toString(value));
     }
   }
   
@@ -3976,17 +3976,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_6);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_6Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_6Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_6).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_6).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_7()
+  public Double getOutbreak_7()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_7));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_7));
   }
   
-  public void setOutbreak_7(Integer value)
+  public void setOutbreak_7(Double value)
   {
     if(value == null)
     {
@@ -3994,7 +3994,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_7, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_7, java.lang.Double.toString(value));
     }
   }
   
@@ -4013,17 +4013,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_7);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_7Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_7Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_7).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_7).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_8()
+  public Double getOutbreak_8()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_8));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_8));
   }
   
-  public void setOutbreak_8(Integer value)
+  public void setOutbreak_8(Double value)
   {
     if(value == null)
     {
@@ -4031,7 +4031,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_8, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_8, java.lang.Double.toString(value));
     }
   }
   
@@ -4050,17 +4050,17 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_8);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_8Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_8Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_8).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_8).getAttributeMdDTO();
   }
   
-  public Integer getOutbreak_9()
+  public Double getOutbreak_9()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OUTBREAK_9));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(OUTBREAK_9));
   }
   
-  public void setOutbreak_9(Integer value)
+  public void setOutbreak_9(Double value)
   {
     if(value == null)
     {
@@ -4068,7 +4068,7 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     }
     else
     {
-      setValue(OUTBREAK_9, java.lang.Integer.toString(value));
+      setValue(OUTBREAK_9, java.lang.Double.toString(value));
     }
   }
   
@@ -4087,9 +4087,9 @@ public abstract class ThresholdDataExcelViewDTOBase extends com.runwaysdk.busine
     return isModified(OUTBREAK_9);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOutbreak_9Md()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getOutbreak_9Md()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OUTBREAK_9).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(OUTBREAK_9).getAttributeMdDTO();
   }
   
   public String getSeasonName()

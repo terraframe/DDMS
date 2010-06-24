@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 2066291326)
+@com.runwaysdk.business.ClassSignature(hash = -1911515513)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class WeeklyThresholdViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2066291326;
+private static final long serialVersionUID = -1911515513;
 
   public WeeklyThresholdViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -98,21 +98,21 @@ private static final long serialVersionUID = 2066291326;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getThresholdValue()
+  public com.runwaysdk.query.SelectableDouble getThresholdValue()
   {
     return getThresholdValue(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getThresholdValue(String alias)
+  public com.runwaysdk.query.SelectableDouble getThresholdValue(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, null);
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getThresholdValue(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDouble getThresholdValue(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.WeeklyThresholdView.THRESHOLDVALUE, alias, displayLabel);
 
   }
  

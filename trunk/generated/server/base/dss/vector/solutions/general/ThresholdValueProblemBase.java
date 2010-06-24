@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1310140399)
+@com.runwaysdk.business.ClassSignature(hash = 446129420)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,7 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
   public final static String CLASS = "dss.vector.solutions.general.ThresholdValueProblem";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String THRESHOLD = "threshold";
-  private static final long serialVersionUID = 1310140399;
+  private static final long serialVersionUID = 446129420;
   
   public ThresholdValueProblemBase()
   {
@@ -53,9 +53,9 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
     }
   }
   
-  public Integer getThreshold()
+  public Double getThreshold()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLD));
   }
   
   public void validateThreshold()
@@ -69,7 +69,7 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
     return mdClassIF.definesAttribute(THRESHOLD);
   }
   
-  public void setThreshold(Integer value)
+  public void setThreshold(Double value)
   {
     if(value == null)
     {
@@ -77,7 +77,7 @@ public abstract class ThresholdValueProblemBase extends dss.vector.solutions.Not
     }
     else
     {
-      setValue(THRESHOLD, java.lang.Integer.toString(value));
+      setValue(THRESHOLD, java.lang.Double.toString(value));
     }
   }
   

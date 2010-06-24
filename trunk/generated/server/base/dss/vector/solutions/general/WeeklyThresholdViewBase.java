@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1765909639)
+@com.runwaysdk.business.ClassSignature(hash = 1126836062)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
   public static java.lang.String THRESHSOLDTYPE = "threshsoldType";
   public static java.lang.String YEAROFWEEK = "yearOfWeek";
-  private static final long serialVersionUID = 1765909639;
+  private static final long serialVersionUID = 1126836062;
   
   public WeeklyThresholdViewBase()
   {
@@ -125,9 +125,9 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     }
   }
   
-  public Integer getThresholdValue()
+  public Double getThresholdValue()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
   }
   
   public void validateThresholdValue()
@@ -141,7 +141,7 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     return mdClassIF.definesAttribute(THRESHOLDVALUE);
   }
   
-  public void setThresholdValue(Integer value)
+  public void setThresholdValue(Double value)
   {
     if(value == null)
     {
@@ -149,7 +149,7 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
     }
     else
     {
-      setValue(THRESHOLDVALUE, java.lang.Integer.toString(value));
+      setValue(THRESHOLDVALUE, java.lang.Double.toString(value));
     }
   }
   

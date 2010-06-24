@@ -25,7 +25,7 @@
         </mjl:group>    
       </mjl:dt> 
       <mjl:dt attribute="epidemicUniversal">
-        <mjl:select var="current" valueAttribute="geoHierarchyId" param="epidemicUniversal" items="${views}">
+        <mjl:select param="epidemicUniversal" items="${views}" var="current" valueAttribute="geoHierarchyId" >
           <mjl:option selected="${epidemicUniversal != null && epidemicUniversal == current.geoHierarchyId ? 'selected' : 'false'}">
             ${current.displayLabel}
           </mjl:option>    
@@ -135,7 +135,7 @@
       <c:if test="${active}">
         <input type="button" id="calculatePolitical.button" disabled="disabled" value=""  />
         <input type="button" id="calculateFacility.button" disabled="disabled" value="" />
-        (<fmt:message key="Calculations_already_in_progress"/>)
+        (<fmt:message key="Calculations_already_in_progress"/>: ${percentComplete}% complete) 
       </c:if>
     </dd>
     
@@ -160,7 +160,8 @@
         YAHOO.util.Event.stopEvent(e);
 
         var params = Mojo.Util.collectFormValues('threshold.form');
-
+        params["thresholdCalculation.epidemicUniversal"] = params["thresholdCalculation.epidemicUniversal"][0];
+		
         var func = function(request)
         {
           Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculatePoliticalThresholdsMap(request, params);                    
@@ -177,7 +178,8 @@
         YAHOO.util.Event.stopEvent(e);
 
         var params = Mojo.Util.collectFormValues('threshold.form');
-
+        params["thresholdCalculation.epidemicUniversal"] = params["thresholdCalculation.epidemicUniversal"][0];
+        
         var func = function(request)
         {
           Mojo.$.dss.vector.solutions.general.ThresholdDataController.calculateFacilityThresholdsMap(request, params);

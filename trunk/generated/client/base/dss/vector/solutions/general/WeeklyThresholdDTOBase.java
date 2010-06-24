@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -589534298)
+@com.runwaysdk.business.ClassSignature(hash = -190271546)
 public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThreshold";
-  private static final long serialVersionUID = -589534298;
+  private static final long serialVersionUID = -190271546;
   
   public WeeklyThresholdDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
@@ -57,12 +57,12 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  public Integer getActualFacilityIdentification()
+  public Double getActualFacilityIdentification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALFACILITYIDENTIFICATION));
   }
   
-  public void setActualFacilityIdentification(Integer value)
+  public void setActualFacilityIdentification(Double value)
   {
     if(value == null)
     {
@@ -70,7 +70,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(ACTUALFACILITYIDENTIFICATION, java.lang.Integer.toString(value));
+      setValue(ACTUALFACILITYIDENTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -89,17 +89,17 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(ACTUALFACILITYIDENTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualFacilityIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualFacilityIdentificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALFACILITYIDENTIFICATION).getAttributeMdDTO();
   }
   
-  public Integer getActualFacilityNotification()
+  public Double getActualFacilityNotification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALFACILITYNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALFACILITYNOTIFICATION));
   }
   
-  public void setActualFacilityNotification(Integer value)
+  public void setActualFacilityNotification(Double value)
   {
     if(value == null)
     {
@@ -107,7 +107,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(ACTUALFACILITYNOTIFICATION, java.lang.Integer.toString(value));
+      setValue(ACTUALFACILITYNOTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -126,17 +126,17 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(ACTUALFACILITYNOTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualFacilityNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualFacilityNotificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALFACILITYNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALFACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
-  public Integer getActualIdentification()
+  public Double getActualIdentification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALIDENTIFICATION));
   }
   
-  public void setActualIdentification(Integer value)
+  public void setActualIdentification(Double value)
   {
     if(value == null)
     {
@@ -144,7 +144,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(ACTUALIDENTIFICATION, java.lang.Integer.toString(value));
+      setValue(ACTUALIDENTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -163,17 +163,17 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(ACTUALIDENTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualIdentificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALIDENTIFICATION).getAttributeMdDTO();
   }
   
-  public Integer getActualNotification()
+  public Double getActualNotification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(ACTUALNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALNOTIFICATION));
   }
   
-  public void setActualNotification(Integer value)
+  public void setActualNotification(Double value)
   {
     if(value == null)
     {
@@ -181,7 +181,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(ACTUALNOTIFICATION, java.lang.Integer.toString(value));
+      setValue(ACTUALNOTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -200,9 +200,9 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(ACTUALNOTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getActualNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualNotificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(ACTUALNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALNOTIFICATION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.ThresholdCalculationTypeDTO getCalculationType()
@@ -350,12 +350,12 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
-  public Integer getFacilityIdentification()
+  public Double getFacilityIdentification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYIDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(FACILITYIDENTIFICATION));
   }
   
-  public void setFacilityIdentification(Integer value)
+  public void setFacilityIdentification(Double value)
   {
     if(value == null)
     {
@@ -363,7 +363,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(FACILITYIDENTIFICATION, java.lang.Integer.toString(value));
+      setValue(FACILITYIDENTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -382,17 +382,17 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(FACILITYIDENTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFacilityIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getFacilityIdentificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYIDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(FACILITYIDENTIFICATION).getAttributeMdDTO();
   }
   
-  public Integer getFacilityNotification()
+  public Double getFacilityNotification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FACILITYNOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(FACILITYNOTIFICATION));
   }
   
-  public void setFacilityNotification(Integer value)
+  public void setFacilityNotification(Double value)
   {
     if(value == null)
     {
@@ -400,7 +400,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(FACILITYNOTIFICATION, java.lang.Integer.toString(value));
+      setValue(FACILITYNOTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -419,9 +419,9 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(FACILITYNOTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFacilityNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getFacilityNotificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FACILITYNOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(FACILITYNOTIFICATION).getAttributeMdDTO();
   }
   
   public java.util.Date getFirstFacilityIdentification()
@@ -572,12 +572,12 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(FIRSTNOTIFICATION).getAttributeMdDTO();
   }
   
-  public Integer getIdentification()
+  public Double getIdentification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(IDENTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATION));
   }
   
-  public void setIdentification(Integer value)
+  public void setIdentification(Double value)
   {
     if(value == null)
     {
@@ -585,7 +585,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(IDENTIFICATION, java.lang.Integer.toString(value));
+      setValue(IDENTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -604,9 +604,9 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(IDENTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIdentificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(IDENTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATION).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -911,12 +911,12 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public Integer getNotification()
+  public Double getNotification()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NOTIFICATION));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(NOTIFICATION));
   }
   
-  public void setNotification(Integer value)
+  public void setNotification(Double value)
   {
     if(value == null)
     {
@@ -924,7 +924,7 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     }
     else
     {
-      setValue(NOTIFICATION, java.lang.Integer.toString(value));
+      setValue(NOTIFICATION, java.lang.Double.toString(value));
     }
   }
   
@@ -943,9 +943,9 @@ public abstract class WeeklyThresholdDTOBase extends com.runwaysdk.business.Rela
     return isModified(NOTIFICATION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getNotificationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getNotificationMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(NOTIFICATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(NOTIFICATION).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.ActorDTO getOwner()

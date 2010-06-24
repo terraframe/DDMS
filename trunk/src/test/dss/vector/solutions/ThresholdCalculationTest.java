@@ -3,12 +3,8 @@ package dss.vector.solutions;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.TestCase;
-
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
@@ -17,7 +13,6 @@ import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.PopulationData;
@@ -31,7 +26,6 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.intervention.monitor.DiagnosisType;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
-import dss.vector.solutions.intervention.monitor.IndividualCaseQuery;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceQuery;
 import dss.vector.solutions.ontology.Term;
@@ -51,23 +45,6 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	private static final boolean CALCULATE_ALL_THRESHOLDS = false;
 	private static final boolean CREATE_DATA_ONCE = true;
-
-	@Transaction
-	private long getCaseCount(GeoEntity geoEntity, Date startDate, Date endDate) {
-		QueryFactory factory = new QueryFactory();
-
-		GeoEntityQuery entityQuery = geoEntity.getPoliticalDecendants(factory);
-
-		IndividualCaseQuery query = new IndividualCaseQuery(factory);
-
-		Condition condition = query.getProbableSource().EQ(entityQuery);
-		condition = AND.get(condition, query.getDiagnosisDate().GE(startDate));
-		condition = AND.get(condition, query.getDiagnosisDate().LE(endDate));
-
-		query.WHERE(condition);
-
-		return query.getCount();
-	}
 
 	private ThresholdCalculationType createCalculationType(ThresholdCalculationCaseTypes caseTypes, ThresholdCalculationMethod t1, ThresholdCalculationMethod t2) {
 		double[] weights = { 2.0d, 1.0d, 0.5d };
@@ -208,20 +185,22 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		return c;
 	}
 
-	private void assertThresholds(boolean checkPolitical, int week, int year, ThresholdData td, int t1, int t2) {
+	private void assertThresholds(boolean checkPolitical, int week, int year, ThresholdData td, double t1, double t2) {
+		final double DELTA = 0.5d;
+		
 		assertNotNull(td);
 		WeeklyThreshold weeklyThreshold = td.getEpiWeeksRel(EpiWeek.getEpiWeek(week, year));
 		assertNotNull(weeklyThreshold);
 		if (checkPolitical) {
 			assertNotNull(weeklyThreshold.getIdentification());
-			assertEquals(t1, (int) weeklyThreshold.getNotification());
+			assertEquals(t1, weeklyThreshold.getNotification(), DELTA);
 			assertNotNull(weeklyThreshold.getNotification());
-			assertEquals(t2, (int) weeklyThreshold.getIdentification());
+			assertEquals(t2, weeklyThreshold.getIdentification(), DELTA);
 		} else {
 			assertNotNull(weeklyThreshold.getFacilityIdentification());
-			assertEquals(t1, (int) weeklyThreshold.getFacilityNotification());
+			assertEquals(t1, weeklyThreshold.getFacilityNotification(), DELTA);
 			assertNotNull(weeklyThreshold.getFacilityNotification());
-			assertEquals(t2, (int) weeklyThreshold.getFacilityIdentification());
+			assertEquals(t2, weeklyThreshold.getFacilityIdentification(), DELTA);
 		}
 	}
 

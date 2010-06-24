@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 23320175)
+@com.runwaysdk.business.ClassSignature(hash = -1950685556)
 public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.NotificationProblemDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdValueProblem";
-  private static final long serialVersionUID = 23320175;
+  private static final long serialVersionUID = -1950685556;
   
   public ThresholdValueProblemDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -60,12 +60,12 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
-  public Integer getThreshold()
+  public Double getThreshold()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(THRESHOLD));
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLD));
   }
   
-  public void setThreshold(Integer value)
+  public void setThreshold(Double value)
   {
     if(value == null)
     {
@@ -73,7 +73,7 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
     }
     else
     {
-      setValue(THRESHOLD, java.lang.Integer.toString(value));
+      setValue(THRESHOLD, java.lang.Double.toString(value));
     }
   }
   
@@ -92,9 +92,9 @@ public abstract class ThresholdValueProblemDTOBase extends dss.vector.solutions.
     return isModified(THRESHOLD);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getThresholdMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getThresholdMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(THRESHOLD).getAttributeMdDTO();
   }
   
   /**

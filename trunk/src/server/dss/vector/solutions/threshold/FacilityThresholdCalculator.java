@@ -4,8 +4,6 @@ import java.util.Date;
 
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
@@ -72,20 +70,20 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 			sumClinicalCases += this.getValue(valueObject, "clinicalCases");
 		}
 		
-		return (double) sumPositiveCases + (double) sumClinicalCases + (double) sumNegativeCases;
+		return (double) (sumPositiveCases + sumClinicalCases + sumNegativeCases);
 	}
 	
-	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, long t1, long t2) {
+	protected void setThresholdValues(WeeklyThreshold weeklyThreshold, double t1, double t2) {
 		if (t1 <= 0) {
 			weeklyThreshold.setFacilityNotification(null);
 		} else {
-			weeklyThreshold.setFacilityNotification((int) t1);
+			weeklyThreshold.setFacilityNotification(t1);
 		}
 		
 		if (t2 <= 0) {
 			weeklyThreshold.setFacilityIdentification(null);
 		} else {
-			weeklyThreshold.setFacilityIdentification((int) t2);
+			weeklyThreshold.setFacilityIdentification(t2);
 		}
 	}
 }
