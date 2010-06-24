@@ -471,6 +471,7 @@ public class QueryUtil implements Reloadable
     {
       String attrib = s.getColumnAlias();
       attrib = attrib.substring(0, attrib.length() - DISPLAY_LABEL_SUFFIX.length());
+      attrib = getColumnName(klass, attrib);
       String sql = " SELECT "+defaultLocaleColumn+" FROM "+tableEnum+" em JOIN "+tableDisplay+" md on em."+displayLabelColumn+" = md.id  ";
       sql += " JOIN " + tableName + " as t  ON t." + attrib + "_c = em.id";
       sql += " WHERE t.id = " + attributeId + "";
