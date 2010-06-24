@@ -253,7 +253,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
 
     var validateRectangle = Mojo.Util.curry(validateType, function(shape){return shape == 'RECTANGLE'});
     var validateCircle = Mojo.Util.curry(validateType, function(shape){return shape == 'CIRCLE'});
-    var validateShape = Mojo.Util.curry(validateType, function(shape){return shape != ''});
+    var validateShape = Mojo.Util.curry(validateType, function(shape){return (shape != null && shape != '')});
       
     // SETUP THE CONTAINER DATA GRID
     var data = {
