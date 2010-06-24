@@ -350,7 +350,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
-    PersonViewDTO physician = dto.getPhysician().getView();
+    PersonViewDTO physician = (dto.getPhysician() == null ? null : dto.getPhysician().getView());
 
     req.setAttribute("physician", physician);
     req.setAttribute("person", person);
