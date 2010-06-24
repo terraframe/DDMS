@@ -126,7 +126,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
     },
 
     _populateMap : function(map, key, el) {
-      if(el.classList.contains("DatePick")) {
+      if(YAHOO.util.Dom.hasClass(el, 'DatePick')) {
         map[key] = MDSS.Calendar.getLocalizedString(el.value);
       }
       else {
