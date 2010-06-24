@@ -360,6 +360,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
   }
   
   @Override
+  @Transaction
   public InsecticideInterventionView[] applyWithInsecticideInterventionViews(InsecticideInterventionView[] views)
   {
     this.apply();
