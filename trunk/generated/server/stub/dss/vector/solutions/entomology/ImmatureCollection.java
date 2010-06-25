@@ -310,9 +310,9 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       String numberInhabitantsSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + numberInhabitants + "))";
 
 
-      QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "(SUM(" + numberimmatures + ")*100.0)/NULLIF(" + numberExaminedSum + ", 0.0)");
-      QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "(SUM(" + numberlarvae + ")*100.0)/NULLIF(" + numberExaminedSum + ", 0.0)");
-      QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "(SUM(" + numberpupae + ")*100.0)/NULLIF(" + numberExaminedSum + ", 0.0)");
+      QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM(" + numberimmatures + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
+      QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM(" + numberlarvae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
+      QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM(" + numberpupae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
 
       QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM(" + numberpupae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
       QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExamined + ", 0.0)");
