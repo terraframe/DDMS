@@ -37,7 +37,7 @@ public class AggregatedCaseReferralListener implements ExcelExportListener, Impo
       extraColumns.add(new ExcelColumn(REASON + category.getTermId(), category.getTermDisplayLabel().getValue()));
     }
 
-    for (Term patient : Term.getRootChildren(AggregatedCaseView.getCaseReferralsMd()))
+    for (Term patient : Term.getRootChildren(AggregatedCaseView.getCaseDiagnosticMd()))
     {
       String label = patient.getTermDisplayLabel().getValue();
       extraColumns.add(new ExcelColumn(DIAGNOSTIC + patient.getTermId(), label + " - Total tests"));
@@ -79,27 +79,29 @@ public class AggregatedCaseReferralListener implements ExcelExportListener, Impo
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseReferralsMd()))
+    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseDiagnosticMd()))
     {
+      Integer amount = null;
+      Integer amountPositive = null;
+      
       for (ExcelColumn column : extraColumns)
       {
-        Integer amount = null;
-        Integer amountPositive = null;
-        
-        if (column.getAttributeName().equals(DIAGNOSTIC + term.getTermId()))
+        String attributeName = column.getAttributeName();
+        String termId = term.getTermId();
+        if (attributeName.equals(DIAGNOSTIC + termId))
         {
           amount = ExcelUtil.getInteger(row.getCell(column.getIndex()));
         }
-        if (column.getAttributeName().equals(POSITIVE + term.getTermId()))
+        if (attributeName.equals(POSITIVE + termId))
         {
           amountPositive = ExcelUtil.getInteger(row.getCell(column.getIndex()));
         }
-        
-        // Don't add any associations if either attribute is unspecified
-        if (amount!=null && amountPositive!=null)
-        {
-          aggregatedCase.addDiagnostic(term, amount, amountPositive);
-        }
+      }
+      
+      // Don't add any associations if either attribute is unspecified
+      if (amount!=null && amountPositive!=null)
+      {
+        aggregatedCase.addDiagnostic(term, amount, amountPositive);
       }
     }
   }
