@@ -65,7 +65,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERDESTROYED);
 			p.setAttributeDisplayLabel(getNumberDestroyedMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("LTE"));
+			p.setRelation(MDSSProperties.getString("Compare_LTE"));
 			p.setRelativeAttributeLabel(getNumberContainersMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
@@ -80,7 +80,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERWITHLARVICIDE);
 			p.setAttributeDisplayLabel(getNumberWithLarvicideMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("LTE"));
+			p.setRelation(MDSSProperties.getString("Compare_LTE"));
 			p.setRelativeAttributeLabel(getNumberContainersMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
@@ -95,7 +95,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERIMMATURES);
 			p.setAttributeDisplayLabel(getNumberImmaturesMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("LTE"));
+			p.setRelation(MDSSProperties.getString("Compare_LTE"));
 			p.setRelativeAttributeLabel(getNumberWithWaterMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
@@ -107,7 +107,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERIMMATURES);
 			p.setAttributeDisplayLabel(getNumberImmaturesMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("GTE"));
+			p.setRelation(MDSSProperties.getString("Compare_GTE"));
 			p.setRelativeAttributeLabel(getNumberLarvaeMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
@@ -119,7 +119,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERIMMATURES);
 			p.setAttributeDisplayLabel(getNumberImmaturesMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("GTE"));
+			p.setRelation(MDSSProperties.getString("Compare_GTE"));
 			p.setRelativeAttributeLabel(getNumberPupaeMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
@@ -134,7 +134,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERLARVAE);
 			p.setAttributeDisplayLabel(getNumberLarvaeMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("LTE"));
+			p.setRelation(MDSSProperties.getString("Compare_LTE"));
 			p.setRelativeAttributeLabel(getNumberWithWaterMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
@@ -149,7 +149,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERPUPAE);
 			p.setAttributeDisplayLabel(getNumberPupaeMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("LTE"));
+			p.setRelation(MDSSProperties.getString("Compare_LTE"));
 			p.setRelativeAttributeLabel(getNumberWithWaterMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 

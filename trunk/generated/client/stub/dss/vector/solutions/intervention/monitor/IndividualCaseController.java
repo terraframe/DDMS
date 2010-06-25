@@ -10,19 +10,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.runwaysdk.AttributeNotificationDTO;
 import com.runwaysdk.ProblemExceptionDTO;
+import com.runwaysdk.business.ProblemDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
+import dss.vector.solutions.RelativeValueProblemDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class IndividualCaseController extends IndividualCaseControllerBase implements Reloadable
@@ -75,6 +81,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
         renderView(individualCase);
       }
     }
+
     catch (Throwable t)
     {
       ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous(), false);
@@ -90,16 +97,29 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
+    ClientRequestIF clientRequest = super.getClientSession().getRequest();
     if (diagnosisDate == null)
     {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
       problems.add(new RequiredDiagnosisDateProblemDTO(clientRequest, req.getLocale()));
+    } else {
+        if (personId != null) {
+      	  Person person = Person.get(personId);
+      	  if (person != null && diagnosisDate.before(person.getDateOfBirth())) {
+      		RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
+      		problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
+      		problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
+      		problem.setAttributeDisplayLabel(IndividualInstance.getTreatmentStartDateMd().getDisplayLabel(Session.getCurrentLocale()));
+      		problem.setRelation(MDSSProperties.getString("Compare_AE"));
+      		problem.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      		problems.add(problem);
+      	  }
+        }
     }
 
     if (problems.size() > 0)
     {
       throw new ProblemExceptionDTO("", problems);
-    }    
+    }
   }
 
   private void renderCreate(IndividualCaseDTO individualCase, String personId) throws IOException, ServletException
