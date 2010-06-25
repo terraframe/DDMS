@@ -35,7 +35,8 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<%@page import="dss.vector.solutions.PersonViewDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
+<%@page import="dss.vector.solutions.PersonViewDTO"%>
+<%@page import="dss.vector.solutions.PhysicianDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -44,11 +45,11 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ IndividualCaseDTO.CLASS, IndividualInstanceDTO.CLASS, PersonDTO.CLASS,IndividualCaseSymptomDTO.CLASS};
+    String[] types = new String[]{ IndividualCaseDTO.CLASS, IndividualInstanceDTO.CLASS, PersonDTO.CLASS,IndividualCaseSymptomDTO.CLASS,PhysicianDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     List<String> loadables = new ArrayList<String>();
-    loadables.addAll(Arrays.asList(mosquitoTypes));
+    loadables.addAll(Arrays.asList(types));
     loadables.addAll(Arrays.asList(queryTypes));
 %>
 
@@ -84,7 +85,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var caseAttribs = ["age","diagnosisDate","caseReportDate","caseEntryDate",
                            "workplace","workplaceText",
                            "probableSource","probableSourceText",
-                           "residence","residenceText"];
+                           "residence","residenceText", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
     <%
     Halp.setReadableAttributes(request, "caseAttribs", IndividualCaseDTO.CLASS, requestIF);
     %>
@@ -98,13 +99,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
     var instanceAttribs = ["healthFacility","activelyDetected",
-                       "admissionDate","anaemiaPatient","clinicalDiagnosis",
+                       "admissionDate","anaemiaPatient","diagnosisType",
                        "detectedBy","diedInFacility","facilityVisit",
                        "patientCategory","pregnant","properlyRelease",
                        "referralReason","labTestDate","symptomComments",
                        "releaseDate","sampleType","malariaType",
                        "testSampleDate","treatment","treatmentMethod",
-                       "treatmentStartDate"];
+                       "treatmentStartDate", "caseDetection", "confirmedDiagnosis", "confirmedDiagnosisDate",
+                       "dateOfDeath", "classification", "testResult", "primaryInfection"];
     <%
     Halp.setReadableAttributes(request, "instanceAttribs", IndividualInstanceDTO.CLASS, requestIF);
     %>
@@ -117,7 +119,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var instanceColumns = instanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
-    var personAttribs = ["dateOfBirth","firstName","lastName","sex"];
+    var personAttribs = ["identifier", "dateOfBirth","firstName","lastName","sex", "birthEntity"];
     <%
     Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
     %>
@@ -128,6 +130,18 @@ YAHOO.util.Event.onDOMReady(function(){
       
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
 
+    
+    // physician delegates to a person so we use the person metadata
+    var physicianAttribs = ["firstName","lastName"];
+    <%
+    Halp.setReadableAttributes(request, "physicianAttribs", PersonViewDTO.CLASS, requestIF);
+    %>
+    available = new MDSS.Set(<%= request.getAttribute("physicianAttribs") %>);
+    physicianAttribs = Mojo.Iter.filter(physicianAttribs, function(attrib, ind){
+      return this.contains(attrib);
+    }, available);
+    
+    var physicianColumns = physicianAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_phy', dropDownMaps:{}, deref:{'firstName':'person.', 'lastName':'person.'}, type:Mojo.$.dss.vector.solutions.Physician.CLASS});
 
     var calculations = ([
                           {
@@ -197,6 +211,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var selectableGroups = [
               {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
               {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
+              {title:"Physician", values:physicianColumns, group: "c", klass:Mojo.$.dss.vector.solutions.Physician.CLASS},
               {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
               {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
     ];
