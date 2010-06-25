@@ -1,6 +1,7 @@
 package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -17,6 +18,8 @@ import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.RedirectUtility;
 import dss.vector.solutions.util.yui.DataGrid;
 
@@ -338,5 +341,22 @@ public class ControlInterventionController extends ControlInterventionController
   public void failGetInsecticideIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
   {
     this.view(view);
+  }
+  
+  @Override
+  public void exportExcelTemplate() throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = this.getClientRequest();
+      
+      InputStream stream = FacadeDTO.exportControlIntervention(clientRequest);
+      
+      FileDownloadUtil.writeXLS(resp, "ControlInterventionExcelView", stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
   }
 }

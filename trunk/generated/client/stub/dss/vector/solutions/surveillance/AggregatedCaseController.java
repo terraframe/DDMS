@@ -1,6 +1,7 @@
 package dss.vector.solutions.surveillance;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,6 +18,9 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.FileDownloadUtil;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class AggregatedCaseController extends AggregatedCaseControllerBase implements Reloadable
@@ -323,5 +327,22 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
   {
     // This should never occur
     super.failSearch();
+  }
+  
+  @Override
+  public void exportExcelTemplate() throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = this.getClientRequest();
+      
+      InputStream stream = FacadeDTO.exportAggregatedCases(clientRequest);
+      
+      FileDownloadUtil.writeXLS(resp, "AggregatedCaseExcelView", stream);
+    }
+    catch (Throwable t)
+    {
+      resp.getWriter().write(t.getLocalizedMessage());
+    }
   }
 }
