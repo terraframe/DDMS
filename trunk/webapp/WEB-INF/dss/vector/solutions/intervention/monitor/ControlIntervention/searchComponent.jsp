@@ -66,22 +66,34 @@
   </mjl:pagination>  
 </mjl:table>
 
-<h1><fmt:message key="Import_Export_Individual_Premises"/></h1>
-<jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.export.IndividualPremiseExcelView" name="excelType"/>
-</jsp:include>
+<br />
+<form id="export" name="export" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.exportExcelTemplate.mojo" method="post">
+  <fmt:message key="Excel_Export_Header" var="export_label"/>
+  <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
+</form>
+<form id="import" name="import" action="excelimport" method="post">
+  <fmt:message key="Excel_Import_Header" var="import_label"/>
+  <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
+</form>
 
-<h1><fmt:message key="Import_Export_Pooled_Aggregated_Premises"/></h1>
-<jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.export.AggregatedPremiseExcelView" name="excelType"/>
-</jsp:include>
+<script type="text/javascript">
+(function(){
+	YAHOO.util.Event.onDOMReady(function(){
+			  		
+    // attach load listener to Iframe to receive message when error occurs during
+    // export operations
+    YAHOO.util.Event.on('messageFrame', 'load', function(e){
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+        new MDSS.ErrorModal(text);
+      }
 
-<h1><fmt:message key="Import_Export_Pooled_Person_Interventions"/></h1>
-<jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.export.PersonInterventionExcelView" name="excelType"/>
-</jsp:include>
+    }, null, this);
+  })
+})();  
+</script>
 
-<h1><fmt:message key="Import_Export_Pooled_Infection_Assays_Insecticide_Interventions"/></h1>
-<jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.export.InsecticideInterventionExcelView" name="excelType"/>
-</jsp:include>
+<iframe id="messageFrame" name="messageFrame" style="display: none; width: 1px; height: 1px;"></iframe>

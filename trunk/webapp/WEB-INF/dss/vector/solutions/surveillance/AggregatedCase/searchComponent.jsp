@@ -72,9 +72,16 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByView.mojo" name="search.button" id="button.id" value="Search" />
   </dl>
 </mjl:form>
-<jsp:include page="/WEB-INF/excelButtons.jsp">
-  <jsp:param value="dss.vector.solutions.export.AggregatedCaseExcelView" name="excelType"/>
-</jsp:include>
+
+<br />
+<form id="export" name="export" action="dss.vector.solutions.surveillance.AggregatedCaseController.exportExcelTemplate.mojo" method="post">
+  <fmt:message key="Excel_Export_Header" var="export_label"/>
+  <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
+</form>
+<form id="import" name="import" action="excelimport" method="post">
+  <fmt:message key="Excel_Import_Header" var="import_label"/>
+  <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
+</form>
 
 <%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{AggregatedCaseViewDTO.CLASS}))%>
 
@@ -102,6 +109,21 @@
 
     var autocomplete = MDSS.GenericSearch.createYearSearch('periodYear');
     autocomplete.addListener(Mojo.Util.bind(validator, validator.eventHandler));
+
+    // attach load listener to Iframe to receive message when error occurs during
+    // export operations
+    YAHOO.util.Event.on('messageFrame', 'load', function(e){
+      var body = e.target.contentDocument.getElementsByTagName('body')[0];
+      var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+      text = MDSS.util.stripWhitespace(text);
+      if(text.length > 0)
+      {
+        new MDSS.ErrorModal(text);
+      }
+
+    }, null, this);
   })
 })();  
 </script>
+
+<iframe id="messageFrame" name="messageFrame" style="display: none; width: 1px; height: 1px;"></iframe>
