@@ -41,7 +41,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   {
     doCleanup();
   }
-  
+
   @StartSession
   private void doCleanup()
   {
@@ -49,15 +49,15 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     SavedMap.cleanOldViews(System.currentTimeMillis());
     runSql(getDropSql());
   }
-  
+
   @StartSession
   public void contextInitialized(ServletContextEvent arg0)
   {
-      runSql(getDropSql());
-      runSql(getIndexSql());
-      runSql(getGeoDisplayViewSQL());
-      runSql(getGeohierarchyAllpathsSQL());
-      runSql(getFunctionSql());
+    runSql(getDropSql());
+    runSql(getIndexSql());
+    runSql(getGeoDisplayViewSQL());
+    runSql(getGeohierarchyAllpathsSQL());
+    runSql(getFunctionSql());
   }
 
   private String getDropSql()
@@ -65,71 +65,69 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String sql = "";
     sql += "DROP VIEW IF EXISTS geo_displayLabel; \n";
     sql += "DROP VIEW IF EXISTS geohierarchy_allpaths; \n";
-    
+
     sql += "DROP FUNCTION IF EXISTS get_epiStart(int,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiYear_from_date(date,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiWeek_from_date(date,int); \n";
-    
+
     sql += "DROP FUNCTION IF EXISTS get_yearly_population_by_geoid_and_date(varchar,date); \n";
     sql += "DROP FUNCTION IF EXISTS get_seasonal_population_by_geoid_and_date(varchar,date); \n";
     sql += "DROP FUNCTION IF EXISTS get_adjusted_population(varchar,int,int); \n";
-    
+
     return sql;
   }
-  
-  
-  private String getIndexSql() 
+
+  private String getIndexSql()
   {
     MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
     String geoHierarchyTable = geoHierarchyMd.getTableName();
-    
+
     MdEntityDAOIF mdTypeMd = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS);
     String mdTypeTable = mdTypeMd.getTableName();
     String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
     String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
-    
+
     String sql = "";
-    
+
     sql += "DROP INDEX IF EXISTS fqtn_md_type_hash; \n";
     sql += "DROP INDEX IF EXISTS fqtn_md_type_btree; \n";
     sql += "DROP INDEX IF EXISTS display_label_btree; \n";
     sql += "DROP INDEX IF EXISTS geoentityclass_btree; \n";
     sql += "DROP INDEX IF EXISTS geoentityclass_hash; \n";
-    
+
     sql += "CREATE  INDEX fqtn_md_type_hash \n";
-    sql += "  ON "+mdTypeTable+"  \n";
+    sql += "  ON " + mdTypeTable + "  \n";
     sql += "  USING hash \n";
-    sql += "  (("+pckNameCol+" || '.' || "+nameCol+")); \n";
-    
+    sql += "  ((" + pckNameCol + " || '.' || " + nameCol + ")); \n";
+
     sql += "CREATE  INDEX fqtn_md_type_btree \n";
-    sql += "  ON "+mdTypeTable+"  \n";
+    sql += "  ON " + mdTypeTable + "  \n";
     sql += "  USING btree \n";
-    sql += "  (("+pckNameCol+" || '.' || "+nameCol+")); \n";
-    
+    sql += "  ((" + pckNameCol + " || '.' || " + nameCol + ")); \n";
+
     sql += "CREATE INDEX display_label_btree \n";
-    sql += "  ON "+mdTypeTable+" \n";
+    sql += "  ON " + mdTypeTable + " \n";
     sql += "  (display_label); \n";
-    
+
     sql += "CREATE INDEX geoentityclass_btree \n";
-    sql += "  ON "+geoHierarchyTable+" \n";
+    sql += "  ON " + geoHierarchyTable + " \n";
     sql += "  USING btree \n";
     sql += "  (geo_entity_class); \n";
-    
+
     sql += "CREATE INDEX geoentityclass_hash \n";
-    sql += "  ON "+geoHierarchyTable+" \n";
+    sql += "  ON " + geoHierarchyTable + " \n";
     sql += "  USING hash \n";
     sql += "  (geo_entity_class); \n";
-    
+
     return sql;
-    
+
   }
-  
-  
+
   private List<String> getLocaleColumns() throws SQLException
   {
     MdEntityDAOIF mdDisLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
     String mdDisTable = mdDisLabel.getTableName();
-    
+
     String sql = "";
     sql += " SELECT \n";
     sql += "a.attname as Column \n";
@@ -142,26 +140,25 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "SELECT c.oid \n";
     sql += "FROM pg_catalog.pg_class c \n";
     sql += "LEFT JOIN pg_catalog.pg_namespace n ON n.oid = c.relnamespace \n";
-    sql += "WHERE c.relname ~ '^("+mdDisTable+")$' \n";
+    sql += "WHERE c.relname ~ '^(" + mdDisTable + ")$' \n";
     sql += "AND pg_catalog.pg_table_is_visible(c.oid) );\n";
-    
+
     List<String> list = new LinkedList<String>();
-    
-    
+
     Connection conn = Database.getConnection();
     Statement statement = null;
     try
     {
       statement = conn.createStatement();
-      
+
       ResultSet resultSet = statement.executeQuery(sql);
-      
-      while ( resultSet.next())
+
+      while (resultSet.next())
       {
         list.add(resultSet.getString(1));
-        
+
       }
-      
+
     }
     catch (SQLException e)
     {
@@ -177,15 +174,14 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
         }
         catch (SQLException e2)
         {
-          //throw e2;
+          // throw e2;
         }
       }
     }
     return list;
-    
+
   }
-  
-  
+
   private String getGeohierarchyAllpathsSQL()
   {
     MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
@@ -194,38 +190,37 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
     String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
     String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
-    
+
     MdEntityDAOIF mdTypeMd = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS);
     String mdTypeTable = mdTypeMd.getTableName();
     String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
     String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
-    
+
     String allowedInTable = MdEntityDAO.getMdEntityDAO(AllowedIn.CLASS).getTableName();
-    
-    
+
     String sql = "";
-    
+
     sql += "CREATE OR REPLACE VIEW geohierarchy_allpaths AS \n";
     sql += "WITH RECURSIVE geohierarchy_flags AS( \n";
-    sql += "SELECT  (t1."+pckNameCol+" || '.' || t1."+nameCol+") AS parent_type, \n";
-    sql += "  g1."+geoEntityClassCol+" as parent_class, \n";
-    sql += "  g1."+politicalCol+" AS parent_political, \n";
-    sql += "  g1."+sprayTargetAllowedCol+" AS parent_spraytargetallowed,  \n";
-    sql += "  g1."+populationAllowedCol+" AS parent_populationallowed, \n";
-    sql += "  (t2."+pckNameCol+" || '.' || t2."+nameCol+") AS child_type, \n";
-    sql += "  g2."+geoEntityClassCol+" As child_class, \n";
-    sql += "  g2."+politicalCol+" AS child_political, \n";
-    sql += "  g2."+sprayTargetAllowedCol+" AS child_spraytargetallowed,  \n";
-    sql += "  g2."+populationAllowedCol+" AS child_populationallowed \n";
-    sql += "FROM "+allowedInTable+" , \n";
-    sql += "  "+geoHierarchyTable+" g1,  \n";
-    sql += "  "+geoHierarchyTable+" g2, \n";
-    sql += "  "+mdTypeTable+" t1 , \n";
-    sql += "  "+mdTypeTable+" t2  \n";
-    sql += "WHERE  "+allowedInTable+"."+RelationshipInfo.PARENT_ID+" = g1.id \n";
-    sql += "AND "+allowedInTable+"."+RelationshipInfo.CHILD_ID+" = g2.id \n";
-    sql += "AND t1.id = g1."+geoEntityClassCol+"  \n";
-    sql += "AND t2.id = g2."+geoEntityClassCol+" \n";
+    sql += "SELECT  (t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type, \n";
+    sql += "  g1." + geoEntityClassCol + " as parent_class, \n";
+    sql += "  g1." + politicalCol + " AS parent_political, \n";
+    sql += "  g1." + sprayTargetAllowedCol + " AS parent_spraytargetallowed,  \n";
+    sql += "  g1." + populationAllowedCol + " AS parent_populationallowed, \n";
+    sql += "  (t2." + pckNameCol + " || '.' || t2." + nameCol + ") AS child_type, \n";
+    sql += "  g2." + geoEntityClassCol + " As child_class, \n";
+    sql += "  g2." + politicalCol + " AS child_political, \n";
+    sql += "  g2." + sprayTargetAllowedCol + " AS child_spraytargetallowed,  \n";
+    sql += "  g2." + populationAllowedCol + " AS child_populationallowed \n";
+    sql += "FROM " + allowedInTable + " , \n";
+    sql += "  " + geoHierarchyTable + " g1,  \n";
+    sql += "  " + geoHierarchyTable + " g2, \n";
+    sql += "  " + mdTypeTable + " t1 , \n";
+    sql += "  " + mdTypeTable + " t2  \n";
+    sql += "WHERE  " + allowedInTable + "." + RelationshipInfo.PARENT_ID + " = g1.id \n";
+    sql += "AND " + allowedInTable + "." + RelationshipInfo.CHILD_ID + " = g2.id \n";
+    sql += "AND t1.id = g1." + geoEntityClassCol + "  \n";
+    sql += "AND t2.id = g2." + geoEntityClassCol + " \n";
     sql += ") \n";
     sql += ", recursive_rollup AS ( \n";
     sql += " SELECT child_type, parent_type, parent_type as root_type, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed, parent_class as root_class ,0 as depth,  child_class \n";
@@ -239,18 +234,16 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "select root_type, root_class, child_type, child_class, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed , depth \n";
     sql += "from recursive_rollup  ; \n";
 
-    
-    
     return sql;
   }
-  
+
   private String getGeoDisplayViewSQL()
   {
     List<String> list = new LinkedList<String>();
-    
-    String key = MetadataDisplayLabel.CLASS+"."+MetadataDisplayLabel.DEFAULTLOCALE;
+
+    String key = MetadataDisplayLabel.CLASS + "." + MetadataDisplayLabel.DEFAULTLOCALE;
     String defaultLocaleColumn = MdAttributeConcrete.getByKey(key).getColumnName();
-    
+
     list.add(defaultLocaleColumn);
     try
     {
@@ -261,72 +254,68 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
+
     MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
     String geoHierarchyTable = geoHierarchyMd.getTableName();
     String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
     String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
     String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
     String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
-    
+
     MdEntityDAOIF mdTypeMd = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS);
     String mdTypeTable = mdTypeMd.getTableName();
     String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
     String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
     String displayLabelCol = QueryUtil.getColumnName(MdType.getDisplayLabelMd());
-    
+
     MdEntityDAOIF geoEntityMd = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS);
     String geoEntityTable = geoEntityMd.getTableName();
     String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
     String termCol = QueryUtil.getColumnName(GeoEntity.getTermMd());
     String entityNameCol = QueryUtil.getColumnName(GeoEntity.getEntityNameMd());
     String geoIdCol = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
-    
+
     MdEntityDAOIF termMd = MdEntityDAO.getMdEntityDAO(Term.CLASS);
     String termTable = termMd.getTableName();
     String termName = QueryUtil.getColumnName(Term.getNameMd());
-    
+
     MdEntityDAOIF mdDisLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
     String mdDisTable = mdDisLabel.getTableName();
-    
+
     String sql = "";
-    
+
     sql += "CREATE OR REPLACE VIEW geo_displayLabel AS \n";
     sql += "SELECT   \n";
     sql += "geo0.id,  \n";
-    sql += "geo0."+geoIdCol+", \n";
-    sql += "(t1."+pckNameCol+" || '.' || t1."+nameCol+") AS parent_type, \n";
-    sql += "g1."+politicalCol+" AS political, \n";
-    sql += "g1."+sprayTargetAllowedCol+" AS spray_target_allowed,  \n";
-    sql += "g1."+populationAllowedCol+" AS population_allowed,\n \n";
+    sql += "geo0." + geoIdCol + ", \n";
+    sql += "(t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type, \n";
+    sql += "g1." + politicalCol + " AS political, \n";
+    sql += "g1." + sprayTargetAllowedCol + " AS spray_target_allowed,  \n";
+    sql += "g1." + populationAllowedCol + " AS population_allowed,\n \n";
     for (String locale : list)
     {
-      //sql += "dl1.defaultlocale AS type_displayLabel_" + locale +", \n";
-      sql += "geo0."+entityNameCol+"|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter."+termName+",'')   || ') - ' || geo0."+geoIdCol+" AS " + locale +", \n";
+      // sql += "dl1.defaultlocale AS type_displayLabel_" + locale +", \n";
+      sql += "geo0." + entityNameCol + "|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter." + termName + ",'')   || ') - ' || geo0." + geoIdCol + " AS " + locale + ", \n";
     }
-    sql += "geo0."+entityNameCol+"|| COALESCE(' : ' || ter."+termName+",'')   AS short_Display_Label \n"; 
+    sql += "geo0." + entityNameCol + "|| COALESCE(' : ' || ter." + termName + ",'')   AS short_Display_Label \n";
     sql += "FROM  \n";
-    sql += ""+geoHierarchyTable+" g1,  \n";
-    sql += ""+mdTypeTable+" t1 , \n";
-    sql += ""+mdDisTable+" dl1, \n";
-    sql += ""+geoEntityTable+" geo0 \n";
-    sql += "LEFT JOIN "+termTable+" AS ter ON ter.id = geo0."+termCol+" \n";
+    sql += "" + geoHierarchyTable + " g1,  \n";
+    sql += "" + mdTypeTable + " t1 , \n";
+    sql += "" + mdDisTable + " dl1, \n";
+    sql += "" + geoEntityTable + " geo0 \n";
+    sql += "LEFT JOIN " + termTable + " AS ter ON ter.id = geo0." + termCol + " \n";
     sql += "WHERE   \n";
-    sql += "t1.id = g1."+geoEntityClassCol+"  \n";
-    sql += "AND t1."+displayLabelCol+" = dl1.id \n";
-    sql += "AND geo0."+type+" =  (t1."+pckNameCol+" || '.' || t1."+nameCol+"); \n";
-    
-    
-    
+    sql += "t1.id = g1." + geoEntityClassCol + "  \n";
+    sql += "AND t1." + displayLabelCol + " = dl1.id \n";
+    sql += "AND geo0." + type + " =  (t1." + pckNameCol + " || '.' || t1." + nameCol + "); \n";
+
     return sql;
-    
+
   }
-  
 
-  private  void runSql(String storedProcSource) 
+  private void runSql(String storedProcSource)
   {
-    //System.out.println(storedProcSource);
-
+    // System.out.println(storedProcSource);
 
     Connection conn = Database.getConnection();
     Statement statement = null;
@@ -355,32 +344,37 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     }
 
   }
-  
-  
+
   private String getFunctionSql()
   {
     MdEntityDAOIF allPathsMd = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS);
     String allPathsTable = allPathsMd.getTableName();
     String childGeoEntityCol = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
     String parentGeoEntityCol = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
-    
+
     MdEntityDAOIF populationDataMd = MdEntityDAO.getMdEntityDAO(PopulationData.CLASS);
     String populationDataTable = populationDataMd.getTableName();
     String geoEntityCol = QueryUtil.getColumnName(PopulationData.getGeoEntityMd());
     String yearOfDataCol = QueryUtil.getColumnName(PopulationData.getYearOfDataMd());
     String populationCol = QueryUtil.getColumnName(PopulationData.getPopulationMd());
-    
+
     MdEntityDAOIF locatedInMd = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS);
     String locatedInTable = locatedInMd.getTableName();
-    
+
     MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
     String malariaSeasonTable = malariaSeasonMd.getTableName();
     String startDateCol = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
     String endDateCol = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
-    
+
     String sql = "";
-    
-    
+
+    sql += "CREATE OR REPLACE FUNCTION sum_stringified_id_int_pairs(anyarray) RETURNS bigint AS $$ \n";
+    sql += "SELECT \n";
+    sql += "sum (split_part($1[i]::varchar,'~',2)::int) FROM \n";
+    sql += "generate_series(array_lower($1,1),  \n";
+    sql += "array_upper($1,1)) g(i);  \n";
+    sql += "$$ LANGUAGE sql IMMUTABLE; \n";
+
     sql += "CREATE OR REPLACE FUNCTION get_adjusted_population \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
@@ -388,7 +382,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _middle_Day INT \n";
     sql += ") \n";
     sql += "RETURNS DOUBLE PRECISION AS $$ \n";
-    
+
     sql += "DECLARE \n";
     sql += "  _population                Double Precision; \n";
     sql += "  _sql VARCHAR; \n";
@@ -419,17 +413,17 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "    ELSE \n";
     sql += "     _population := 0; \n";
     sql += "      --check if this branch will lead to any data \n";
-    sql += "      SELECT count(ap.id) FROM "+allPathsTable+" ap \n";
-    sql += "     JOIN "+populationDataTable+" pd ON ap."+childGeoEntityCol+" = pd."+geoEntityCol+" JOIN geo_displayLabel gd ON gd.id = pd."+geoEntityCol+" \n";
-    sql += "     WHERE pd.population IS NOT NULL AND ap."+parentGeoEntityCol+" =  _geo_Entity_Id AND pd."+yearOfDataCol+" <= _year \n";
-    sql += "     AND gd."+populationCol+" = 1 AND gd.political = 1 \n";
+    sql += "      SELECT count(ap.id) FROM " + allPathsTable + " ap \n";
+    sql += "     JOIN " + populationDataTable + " pd ON ap." + childGeoEntityCol + " = pd." + geoEntityCol + " JOIN geo_displayLabel gd ON gd.id = pd." + geoEntityCol + " \n";
+    sql += "     WHERE pd.population IS NOT NULL AND ap." + parentGeoEntityCol + " =  _geo_Entity_Id AND pd." + yearOfDataCol + " <= _year \n";
+    sql += "     AND gd." + populationCol + " = 1 AND gd.political = 1 \n";
     sql += "      INTO _child_Count; \n";
     sql += "      --continue to recurse if this branch has data \n";
     sql += "       IF _child_Count > 0 THEN \n";
     sql += "          \n";
-    sql += "         _sql := 'SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+"  FROM "+locatedInTable+" WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = ' || quote_literal(_geo_Entity_Id); \n";
+    sql += "         _sql := 'SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + "  FROM " + locatedInTable + " WHERE " + RelationshipDAOIF.PARENT_ID_COLUMN + " = ' || quote_literal(_geo_Entity_Id); \n";
     sql += "         FOR  rec IN EXECUTE _sql LOOP \n";
-    sql += "           _population = _population + get_adjusted_population(rec."+RelationshipDAOIF.CHILD_ID_COLUMN+", _year,_middle_Day); \n";
+    sql += "           _population = _population + get_adjusted_population(rec." + RelationshipDAOIF.CHILD_ID_COLUMN + ", _year,_middle_Day); \n";
     sql += "         END LOOP; \n";
     sql += "       END IF; \n";
     sql += "    END IF; \n";
@@ -437,12 +431,10 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
 
-    
     MdEntityDAOIF geoEntityMd = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS);
     String geoEntityTable = geoEntityMd.getTableName();
     String geoIdCol = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
-    
-    
+
     sql += "CREATE OR REPLACE FUNCTION get_yearly_population_by_geoid_and_date \n";
     sql += "( \n";
     sql += "  _geo_Id         VARCHAR, \n";
@@ -454,7 +446,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _geo_Entity_Id  VARCHAR; \n";
     sql += "  _year             INT; \n";
     sql += "BEGIN \n";
-    sql += "  SELECT id FROM "+geoEntityTable+" WHERE "+geoIdCol+" = _geoId \n";
+    sql += "  SELECT id FROM " + geoEntityTable + " WHERE " + geoIdCol + " = _geoId \n";
     sql += "    INTO _geo_Entity_Id; \n";
     sql += "   _year := EXTRACT(year FROM _date); \n";
     sql += "  SELECT get_adjusted_population(_geo_Entity_Id, _year,183) \n";
@@ -464,9 +456,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
 
-    
-    
-    
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_population_by_geoid_and_date \n";
     sql += "( \n";
     sql += "  _geo_Id         VARCHAR, \n";
@@ -482,9 +471,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _season_End DATE; \n";
     sql += "  _middle_Day INT; \n";
     sql += "BEGIN \n";
-    sql += "  SELECT id FROM "+geoEntityTable+" WHERE "+geoIdCol+" = _geo_Id \n";
+    sql += "  SELECT id FROM " + geoEntityTable + " WHERE " + geoIdCol + " = _geo_Id \n";
     sql += "    INTO _geo_Entity_Id; \n";
-    sql += "  SELECT "+startDateCol+","+endDateCol+" FROM "+malariaSeasonTable+" AS ms  WHERE ms."+startDateCol+" <= _date AND ms."+endDateCol+" >= _date \n";
+    sql += "  SELECT " + startDateCol + "," + endDateCol + " FROM " + malariaSeasonTable + " AS ms  WHERE ms." + startDateCol + " <= _date AND ms." + endDateCol + " >= _date \n";
     sql += "    INTO _season_Start, _season_End; \n";
     sql += "   \n";
     sql += "  _season_Middle := _season_Start + ((_season_End - _season_Start)/2); \n";
@@ -497,15 +486,12 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "    RETURN _population; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    
-    
-    
+
     MdEntityDAOIF propertyMd = MdEntityDAO.getMdEntityDAO(Property.CLASS);
     String propertyTable = propertyMd.getTableName();
     String propertyValueCol = QueryUtil.getColumnName(Property.getPropertyValueMd());
     String keyNameCol = QueryUtil.getColumnName(Property.getKeyNameMd());
-    
-    
+
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_date \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
@@ -518,13 +504,13 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _season_Id    VARCHAR; \n";
     sql += "  _target_Column  VARCHAR; \n";
     sql += "BEGIN \n";
-    sql += "  SELECT id FROM "+malariaSeasonTable+" AS ms WHERE _date BETWEEN ms."+startDateCol+" AND ms."+endDateCol+" \n";
+    sql += "  SELECT id FROM " + malariaSeasonTable + " AS ms WHERE _date BETWEEN ms." + startDateCol + " AND ms." + endDateCol + " \n";
     sql += "    INTO _season_Id; \n";
     sql += "     \n";
     sql += "   IF _season_Id IS NULL THEN \n";
     sql += "     RETURN NULL; \n";
     sql += "   END IF; \n";
-    sql += "   SELECT "+propertyValueCol+" FROM "+propertyTable+" WHERE "+keyNameCol+" = '"+PropertyInfo.EPI_START_DAY+"' \n";
+    sql += "   SELECT " + propertyValueCol + " FROM " + propertyTable + " WHERE " + keyNameCol + " = '" + PropertyInfo.EPI_START_DAY + "' \n";
     sql += "   INTO _first_Day_Of_Epi_Week; \n";
     sql += "    \n";
     sql += "  _epi_Week := get_epiWeek_from_date(_date,_first_Day_Of_Epi_Week); \n";
@@ -533,15 +519,12 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "   RETURN get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(_geo_Entity_Id,_season_Id,_target_Column); \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    
-    
+
     MdEntityDAOIF geoTargetMd = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS);
     String geoTargetTable = geoTargetMd.getTableName();
     String seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
     String geoEntityTargetCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
-    
-    
-    
+
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
@@ -555,23 +538,23 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _sql TEXT; \n";
     sql += "  rec RECORD; \n";
     sql += "BEGIN \n";
-    sql += "  EXECUTE 'SELECT '|| _target_Column ||' FROM "+geoTargetTable+"  WHERE "+seasonCol+" = $1 AND "+geoEntityTable+" = $2 ' \n";
+    sql += "  EXECUTE 'SELECT '|| _target_Column ||' FROM " + geoTargetTable + "  WHERE " + seasonCol + " = $1 AND " + geoEntityTable + " = $2 ' \n";
     sql += "    INTO _target \n";
     sql += "    USING _season_Id, _geo_Entity_Id; \n";
     sql += "     \n";
     sql += "    IF _target IS NULL THEN \n";
     sql += "      --check if this branch will lead to any data \n";
-    sql += "      EXECUTE 'SELECT count(gt.id) FROM "+allPathsTable+" ap \n";
-    sql += "     JOIN "+geoTargetTable+" gt ON ap."+childGeoEntityCol+" = gt."+geoEntityTargetCol+"   \n";
-    sql += "      WHERE gt."+seasonCol+" = $1 AND ap."+parentGeoEntityCol+" = $2 ' \n";
+    sql += "      EXECUTE 'SELECT count(gt.id) FROM " + allPathsTable + " ap \n";
+    sql += "     JOIN " + geoTargetTable + " gt ON ap." + childGeoEntityCol + " = gt." + geoEntityTargetCol + "   \n";
+    sql += "      WHERE gt." + seasonCol + " = $1 AND ap." + parentGeoEntityCol + " = $2 ' \n";
     sql += "      INTO _child_Count \n";
     sql += "      USING _season_Id, _geo_Entity_Id; \n";
     sql += "      --continue to recurse if this branch has data \n";
     sql += "      IF _child_Count > 0 THEN \n";
     sql += "             _target := 0; \n";
-    sql += "         _sql := 'SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+"  FROM "+locatedInTable+" WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = ' || quote_literal(_geo_Entity_Id); \n";
+    sql += "         _sql := 'SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + "  FROM " + locatedInTable + " WHERE " + RelationshipDAOIF.PARENT_ID_COLUMN + " = ' || quote_literal(_geo_Entity_Id); \n";
     sql += "         FOR  rec IN EXECUTE _sql LOOP \n";
-    sql += "           _target := _target + coalesce(get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(rec."+RelationshipDAOIF.CHILD_ID_COLUMN+",_season_Id,_target_Column),0); \n";
+    sql += "           _target := _target + coalesce(get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(rec." + RelationshipDAOIF.CHILD_ID_COLUMN + ",_season_Id,_target_Column),0); \n";
     sql += "         END LOOP; \n";
     sql += "       END IF; \n";
     sql += "    END IF; \n";
@@ -579,10 +562,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "    RETURN _target; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    
-    
-    
-    
+
     sql += "CREATE OR REPLACE FUNCTION get_epiWeek_from_date \n";
     sql += "( \n";
     sql += "  _date      DATE, \n";
@@ -620,10 +600,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  END CASE; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    
-    
-    
-    
+
     sql += "CREATE OR REPLACE FUNCTION get_epiYear_from_date \n";
     sql += "( \n";
     sql += "  _date      DATE, \n";
@@ -656,10 +633,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  END CASE; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    
-    
-    
-    
+
     sql += "CREATE OR REPLACE FUNCTION get_epiStart \n";
     sql += "( \n";
     sql += "  _year INT, \n";
@@ -683,9 +657,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  END IF; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    
+
     return sql;
   }
-  
-  
+
 }
