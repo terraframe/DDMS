@@ -1547,13 +1547,27 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        }
        return row;
      },
-     mapInts : function(attribName,index){
-       var attrib = this.obj.attributeMap[attribName];
+     mapInts : function(attribInput,index){
+       
+       var attributeName;
+       var sqlName;
+       if(Mojo.Util.isObject(attribInput))
+       {
+         attributeName = attribInput.attributeName;
+         sqlName = attribInput.sqlName;
+       }
+       else
+       {
+         attributeName = attribInput;
+         sqlName = attribInput;
+       }
+       
+       var attrib = this.obj.attributeMap[attributeName];
        var row = {};
-         row.attributeName = attrib.attributeName;
+         row.attributeName = sqlName;
          row.type = 'sqlinteger';
          row.displayLabel = attrib.attributeMdDTO.displayLabel;
-         row.key = attribName;
+         row.key = attributeName;
          row.dtoType = "AttributeIntegerDTO";
        return row;
      },

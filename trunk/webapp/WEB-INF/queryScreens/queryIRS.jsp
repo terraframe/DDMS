@@ -85,7 +85,7 @@
 
 <%=Halp.loadTypes(loadables)%>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -271,9 +271,17 @@ YAHOO.util.Event.onDOMReady(function(){
     available.addAll(<%= request.getAttribute("tss") %>);
 
     var sprayStatus = new Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatus();
-    var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
+    var sprayStatusAttribs = ["households",
+                              "structures",
+                              "rooms",
+                              {attributeName:"sprayedHouseholds",sqlName:"sprayed_households"},
+                              {attributeName:"sprayedStructures",sqlName:"sprayed_structures"},
+                              {attributeName:"sprayedRooms",sqlName:"sprayed_rooms"},
+                              "locked",
+                              "refused",
+                              "other"];
     sprayStatusAttribs = Mojo.Iter.filter(sprayStatusAttribs, function(attrib){
-      return this.contains(attrib);
+      return Mojo.Util.isObject(attrib) ? this.contains(attrib.attributeName) : this.contains(attrib);
     }, available); 
 
     Spray_Details = Spray_Details.concat(abstractSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:abstractSpray, suffix:'_spray', dropDownMaps:operatorSprayMap, type:'dss.vector.solutions.irs.AbstractSpray'}));
@@ -470,7 +478,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 });
 
-</script>
+--></script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
 
