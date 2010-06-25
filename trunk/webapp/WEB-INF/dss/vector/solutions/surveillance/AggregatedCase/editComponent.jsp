@@ -70,15 +70,32 @@
       
     </mjl:component>
 
-    <div id="diagnosisType"></div>
-    <div id="diseaseManifestation"></div>
-    <div id="patientType"></div>
-    <div id="treatment"></div>
-    <div id="method"></div>
-    <div id="stock"></div>
-    <div id="stockReferral"></div>
-    <div id="referral"></div>
-    <div id="diagnostic"></div>
+    <dt><label><fmt:message key="Grid_data_by_diagnosis_type"/></label></dt>
+    <dd><div id="diagnosisType"></div></dd>
+    
+    <dt><label><fmt:message key="Grid_data_by_disease_manifestation"/></label></dt>
+    <dd><div id="diseaseManifestation"></div></dd>
+
+    <dt><label><fmt:message key="Grid_data_by_patient_type"/></label></dt>
+    <dd><div id="patientType"></div></dd>
+
+    <dt><label><fmt:message key="Grid_treatment_by_drug"/></label></dt>
+    <dd><div id="treatment"></div></dd>
+
+    <dt><label><fmt:message key="Grid_treatment_by_method"/></label></dt>
+    <dd><div id="method"></div></dd>
+
+    <dt><label><fmt:message key="Grid_treatment_by_stock"/></label></dt>
+    <dd><div id="stock"></div></dd>
+
+    <dt><label><fmt:message key="Grid_referrals_and_Shortages"/></label></dt>
+    <dd><div id="stockReferral"></div></dd>
+
+    <dt><label><fmt:message key="Grid_referral_Reasons"/></label></dt>
+    <dd><div id="referral"></div></dd>
+
+    <dt><label><fmt:message key="Grid_diagnostic_methods"/></label></dt>
+    <dd><div id="diagnostic"></div></dd>
     
     <hr />
 
