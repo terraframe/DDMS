@@ -1,0 +1,61 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.util.Facade">
+        <create>
+          <mdMethod
+            name="exportAggregatedCases"
+            label="Export Aggregated Cases Excel View"
+            static="true"
+            returnType="java.io.InputStream">
+          </mdMethod>
+          <mdMethod
+            name="exportControlIntervention"
+            label="Export Aggregated Cases Excel View"
+            static="true"
+            returnType="java.io.InputStream">
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdController
+        name="dss.vector.solutions.surveillance.AggregatedCaseController">
+        <create>
+          <mdAction
+            name="exportExcelTemplate"
+            label="Export Excel Template"
+            description="Exports a blank excel template that contains tabs for all of the different import/export types"
+            isPost="true">
+          </mdAction>
+        </create>
+      </mdController>
+      <mdController
+        name="dss.vector.solutions.intervention.monitor.ControlInterventionController">
+        <create>
+          <mdAction
+            name="exportExcelTemplate"
+            label="Export Excel Template"
+            description="Exports a blank excel template that contains tabs for all of the different import/export types"
+            isPost="true">
+          </mdAction>
+        </create>
+      </mdController>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.Facade.exportAggregatedCases"
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object
+        key="dss.vector.solutions.util.Facade.exportControlIntervention"
+        type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object
+        key="dss.vector.solutions.surveillance.AggregatedCaseController.exportExcelTemplate"
+        type="com.runwaysdk.system.metadata.MdAction"/>
+      <object
+        key="dss.vector.solutions.intervention.monitor.ControlInterventionController.exportExcelTemplate"
+        type="com.runwaysdk.system.metadata.MdAction"/>
+    </delete>
+  </undoIt>
+</version>

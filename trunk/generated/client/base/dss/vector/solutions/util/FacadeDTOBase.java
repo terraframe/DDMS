@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 540299606)
+@com.runwaysdk.business.ClassSignature(hash = 40858656)
 public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.Facade";
-  private static final long serialVersionUID = 540299606;
+  private static final long serialVersionUID = 40858656;
   
   protected FacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -366,6 +366,22 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     Object[] _parameters = new Object[]{inputStream, type};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "checkSynonyms", _declaredTypes);
     return (dss.vector.solutions.geo.UnknownGeoEntityDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.io.InputStream exportAggregatedCases(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "exportAggregatedCases", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.io.InputStream exportControlIntervention(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "exportControlIntervention", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdClassQueryDTO getMDSSClasses(com.runwaysdk.constants.ClientRequestIF clientRequest)

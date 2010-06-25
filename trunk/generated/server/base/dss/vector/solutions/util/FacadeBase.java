@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1726861354)
+@com.runwaysdk.business.ClassSignature(hash = 553693856)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1726861354;
+  private static final long serialVersionUID = 553693856;
   
   public FacadeBase()
   {
@@ -316,6 +316,18 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
   }
   
   public static dss.vector.solutions.geo.UnknownGeoEntity[] checkSynonyms(java.io.InputStream inputStream, java.lang.String type)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.io.InputStream exportAggregatedCases()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.io.InputStream exportControlIntervention()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

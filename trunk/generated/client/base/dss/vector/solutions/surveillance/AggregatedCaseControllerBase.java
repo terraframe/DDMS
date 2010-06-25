@@ -1,6 +1,6 @@
 package dss.vector.solutions.surveillance;
 
-@com.runwaysdk.business.ClassSignature(hash = -1007022433)
+@com.runwaysdk.business.ClassSignature(hash = 665979061)
 public class AggregatedCaseControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.surveillance.AggregatedCaseController";
@@ -10,7 +10,7 @@ public class AggregatedCaseControllerBase implements com.runwaysdk.generation.lo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1007022433;
+  private static final long serialVersionUID = 665979061;
   
   public AggregatedCaseControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -121,6 +121,20 @@ public class AggregatedCaseControllerBase implements com.runwaysdk.generation.lo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failEdit");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
+  public void exportExcelTemplate() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.exportExcelTemplate");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="", post=true)
+  public void failExportExcelTemplate() throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.surveillance.AggregatedCaseController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.surveillance.AggregatedCaseController.failExportExcelTemplate");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
