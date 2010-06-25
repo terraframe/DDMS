@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 946719021)
+@com.runwaysdk.business.ClassSignature(hash = -1363191820)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class IndividualCaseExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 946719021;
+private static final long serialVersionUID = -1363191820;
 
   public IndividualCaseExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -98,6 +98,24 @@ private static final long serialVersionUID = 946719021;
 
   }
  
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier()
+  {
+    return getCaseIdentifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEIDENTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getCaseIdentifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEIDENTIFIER, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableMoment getCaseReportDate()
   {
     return getCaseReportDate(null);
@@ -113,6 +131,60 @@ private static final long serialVersionUID = 946719021;
   public com.runwaysdk.query.SelectableMoment getCaseReportDate(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CASEREPORTDATE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getClassification()
+  {
+    return getClassification(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getClassification(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CLASSIFICATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getClassification(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CLASSIFICATION, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getConfirmedDiagnosis()
+  {
+    return getConfirmedDiagnosis(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getConfirmedDiagnosis(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CONFIRMEDDIAGNOSIS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getConfirmedDiagnosis(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CONFIRMEDDIAGNOSIS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate()
+  {
+    return getConfirmedDiagnosisDate(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CONFIRMEDDIAGNOSISDATE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getConfirmedDiagnosisDate(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.CONFIRMEDDIAGNOSISDATE, alias, displayLabel);
 
   }
  
@@ -134,6 +206,24 @@ private static final long serialVersionUID = 946719021;
 
   }
  
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath()
+  {
+    return getDateOfDeath(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DATEOFDEATH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getDateOfDeath(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DATEOFDEATH, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getDetectedBy()
   {
     return getDetectedBy(null);
@@ -152,6 +242,24 @@ private static final long serialVersionUID = 946719021;
 
   }
  
+  public com.runwaysdk.query.SelectableChar getDiagnosis()
+  {
+    return getDiagnosis(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDiagnosis(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSIS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDiagnosis(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSIS, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableMoment getDiagnosisDate()
   {
     return getDiagnosisDate(null);
@@ -167,6 +275,24 @@ private static final long serialVersionUID = 946719021;
   public com.runwaysdk.query.SelectableMoment getDiagnosisDate(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISDATE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDiagnosisType()
+  {
+    return getDiagnosisType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDiagnosisType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISTYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getDiagnosisType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.DIAGNOSISTYPE, alias, displayLabel);
 
   }
  
@@ -243,6 +369,24 @@ private static final long serialVersionUID = 946719021;
     return (dss.vector.solutions.geo.generated.HealthFacilityQuery.HealthFacilityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.HEALTHFACILITY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableMoment getHemorrhagicOnset()
+  {
+    return getHemorrhagicOnset(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getHemorrhagicOnset(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.HEMORRHAGICONSET, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getHemorrhagicOnset(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.HEMORRHAGICONSET, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -258,6 +402,24 @@ private static final long serialVersionUID = 946719021;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier()
+  {
+    return getIdentifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.IDENTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getIdentifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.IDENTIFIER, alias, displayLabel);
 
   }
  
@@ -333,6 +495,42 @@ private static final long serialVersionUID = 946719021;
 
   }
  
+  public com.runwaysdk.query.SelectableChar getOrigin()
+  {
+    return getOrigin(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOrigin(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ORIGIN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOrigin(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ORIGIN, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOtherSettlements()
+  {
+    return getOtherSettlements(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOtherSettlements(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.OTHERSETTLEMENTS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOtherSettlements(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.OTHERSETTLEMENTS, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getPatientCategory()
   {
     return getPatientCategory(null);
@@ -351,6 +549,152 @@ private static final long serialVersionUID = 946719021;
 
   }
  
+  public com.runwaysdk.query.SelectableMoment getPhysicianDateOfBirth()
+  {
+    return getPhysicianDateOfBirth(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getPhysicianDateOfBirth(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANDATEOFBIRTH, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getPhysicianDateOfBirth(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANDATEOFBIRTH, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianFirstName()
+  {
+    return getPhysicianFirstName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianFirstName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANFIRSTNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianFirstName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANFIRSTNAME, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianIdentifier()
+  {
+    return getPhysicianIdentifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianIdentifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANIDENTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianIdentifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANIDENTIFIER, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianLastName()
+  {
+    return getPhysicianLastName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianLastName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANLASTNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianLastName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANLASTNAME, alias, displayLabel);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianResidence()
+  {
+    return getPhysicianResidence(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianResidence(String alias)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANRESIDENCE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianResidence(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANRESIDENCE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getPhysicianSex()
+  {
+    return getPhysicianSex(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianSex(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANSEX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPhysicianSex(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANSEX, alias, displayLabel);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianWorkplace()
+  {
+    return getPhysicianWorkplace(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianWorkplace(String alias)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANWORKPLACE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianWorkplace(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANWORKPLACE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getPlasmaLeakageOnset()
+  {
+    return getPlasmaLeakageOnset(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getPlasmaLeakageOnset(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PLASMALEAKAGEONSET, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getPlasmaLeakageOnset(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PLASMALEAKAGEONSET, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableBoolean getPregnant()
   {
     return getPregnant(null);
@@ -366,6 +710,24 @@ private static final long serialVersionUID = 946719021;
   public com.runwaysdk.query.SelectableBoolean getPregnant(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PREGNANT, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPrimaryInfection()
+  {
+    return getPrimaryInfection(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPrimaryInfection(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PRIMARYINFECTION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPrimaryInfection(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PRIMARYINFECTION, alias, displayLabel);
 
   }
  
@@ -566,6 +928,24 @@ private static final long serialVersionUID = 946719021;
   public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.SYMPTOMONSET, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTestResult()
+  {
+    return getTestResult(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTestResult(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TESTRESULT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getTestResult(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.TESTRESULT, alias, displayLabel);
 
   }
  

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1190935350)
+@com.runwaysdk.business.ClassSignature(hash = -1076795779)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,21 +15,41 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
   public static java.lang.String ADMISSIONDATE = "admissionDate";
   public static java.lang.String AGE = "age";
   public static java.lang.String ANAEMIAPATIENT = "anaemiaPatient";
+  public static java.lang.String CASEIDENTIFIER = "caseIdentifier";
   public static java.lang.String CASEREPORTDATE = "caseReportDate";
+  public static java.lang.String CLASSIFICATION = "classification";
+  public static java.lang.String CONFIRMEDDIAGNOSIS = "confirmedDiagnosis";
+  public static java.lang.String CONFIRMEDDIAGNOSISDATE = "confirmedDiagnosisDate";
   public static java.lang.String DATEOFBIRTH = "dateOfBirth";
+  public static java.lang.String DATEOFDEATH = "dateOfDeath";
   public static java.lang.String DETECTEDBY = "detectedBy";
+  public static java.lang.String DIAGNOSIS = "diagnosis";
   public static java.lang.String DIAGNOSISDATE = "diagnosisDate";
+  public static java.lang.String DIAGNOSISTYPE = "diagnosisType";
   public static java.lang.String DIEDINFACILITY = "diedInFacility";
   public static java.lang.String FACILITYVISIT = "facilityVisit";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String HEALTHFACILITY = "healthFacility";
+  public static java.lang.String HEMORRHAGICONSET = "hemorrhagicOnset";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFIER = "identifier";
   public static java.lang.String LABTEST = "labTest";
   public static java.lang.String LABTESTDATE = "labTestDate";
   public static java.lang.String LASTNAME = "lastName";
   public static java.lang.String MALARIATYPE = "malariaType";
+  public static java.lang.String ORIGIN = "origin";
+  public static java.lang.String OTHERSETTLEMENTS = "otherSettlements";
   public static java.lang.String PATIENTCATEGORY = "patientCategory";
+  public static java.lang.String PHYSICIANDATEOFBIRTH = "physicianDateOfBirth";
+  public static java.lang.String PHYSICIANFIRSTNAME = "physicianFirstName";
+  public static java.lang.String PHYSICIANIDENTIFIER = "physicianIdentifier";
+  public static java.lang.String PHYSICIANLASTNAME = "physicianLastName";
+  public static java.lang.String PHYSICIANRESIDENCE = "physicianResidence";
+  public static java.lang.String PHYSICIANSEX = "physicianSex";
+  public static java.lang.String PHYSICIANWORKPLACE = "physicianWorkplace";
+  public static java.lang.String PLASMALEAKAGEONSET = "plasmaLeakageOnset";
   public static java.lang.String PREGNANT = "pregnant";
+  public static java.lang.String PRIMARYINFECTION = "primaryInfection";
   public static java.lang.String PROBABLESOURCE = "probableSource";
   public static java.lang.String PROPERLYRELEASE = "properlyRelease";
   public static java.lang.String REFERRALREASON = "referralReason";
@@ -41,12 +61,13 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
   public static java.lang.String SEX = "sex";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
   public static java.lang.String SYMPTOMONSET = "symptomOnset";
+  public static java.lang.String TESTRESULT = "testResult";
   public static java.lang.String TESTSAMPLEDATE = "testSampleDate";
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String WORKPLACE = "workplace";
-  private static final long serialVersionUID = 1190935350;
+  private static final long serialVersionUID = -1076795779;
   
   public IndividualCaseExcelViewBase()
   {
@@ -165,6 +186,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getCaseIdentifier()
+  {
+    return getValue(CASEIDENTIFIER);
+  }
+  
+  public void validateCaseIdentifier()
+  {
+    this.validateAttribute(CASEIDENTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCaseIdentifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(CASEIDENTIFIER);
+  }
+  
+  public void setCaseIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(CASEIDENTIFIER, "");
+    }
+    else
+    {
+      setValue(CASEIDENTIFIER, value);
+    }
+  }
+  
   public java.util.Date getCaseReportDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CASEREPORTDATE));
@@ -190,6 +239,90 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(CASEREPORTDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public String getClassification()
+  {
+    return getValue(CLASSIFICATION);
+  }
+  
+  public void validateClassification()
+  {
+    this.validateAttribute(CLASSIFICATION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getClassificationMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(CLASSIFICATION);
+  }
+  
+  public void setClassification(String value)
+  {
+    if(value == null)
+    {
+      setValue(CLASSIFICATION, "");
+    }
+    else
+    {
+      setValue(CLASSIFICATION, value);
+    }
+  }
+  
+  public String getConfirmedDiagnosis()
+  {
+    return getValue(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public void validateConfirmedDiagnosis()
+  {
+    this.validateAttribute(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConfirmedDiagnosisMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(CONFIRMEDDIAGNOSIS);
+  }
+  
+  public void setConfirmedDiagnosis(String value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMEDDIAGNOSIS, "");
+    }
+    else
+    {
+      setValue(CONFIRMEDDIAGNOSIS, value);
+    }
+  }
+  
+  public java.util.Date getConfirmedDiagnosisDate()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(CONFIRMEDDIAGNOSISDATE));
+  }
+  
+  public void validateConfirmedDiagnosisDate()
+  {
+    this.validateAttribute(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConfirmedDiagnosisDateMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(CONFIRMEDDIAGNOSISDATE);
+  }
+  
+  public void setConfirmedDiagnosisDate(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(CONFIRMEDDIAGNOSISDATE, "");
+    }
+    else
+    {
+      setValue(CONFIRMEDDIAGNOSISDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   
@@ -221,6 +354,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public java.util.Date getDateOfDeath()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DATEOFDEATH));
+  }
+  
+  public void validateDateOfDeath()
+  {
+    this.validateAttribute(DATEOFDEATH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDateOfDeathMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(DATEOFDEATH);
+  }
+  
+  public void setDateOfDeath(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(DATEOFDEATH, "");
+    }
+    else
+    {
+      setValue(DATEOFDEATH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public String getDetectedBy()
   {
     return getValue(DETECTEDBY);
@@ -249,6 +410,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getDiagnosis()
+  {
+    return getValue(DIAGNOSIS);
+  }
+  
+  public void validateDiagnosis()
+  {
+    this.validateAttribute(DIAGNOSIS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiagnosisMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(DIAGNOSIS);
+  }
+  
+  public void setDiagnosis(String value)
+  {
+    if(value == null)
+    {
+      setValue(DIAGNOSIS, "");
+    }
+    else
+    {
+      setValue(DIAGNOSIS, value);
+    }
+  }
+  
   public java.util.Date getDiagnosisDate()
   {
     return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(DIAGNOSISDATE));
@@ -274,6 +463,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(DIAGNOSISDATE, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public String getDiagnosisType()
+  {
+    return getValue(DIAGNOSISTYPE);
+  }
+  
+  public void validateDiagnosisType()
+  {
+    this.validateAttribute(DIAGNOSISTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiagnosisTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(DIAGNOSISTYPE);
+  }
+  
+  public void setDiagnosisType(String value)
+  {
+    if(value == null)
+    {
+      setValue(DIAGNOSISTYPE, "");
+    }
+    else
+    {
+      setValue(DIAGNOSISTYPE, value);
     }
   }
   
@@ -396,6 +613,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public java.util.Date getHemorrhagicOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(HEMORRHAGICONSET));
+  }
+  
+  public void validateHemorrhagicOnset()
+  {
+    this.validateAttribute(HEMORRHAGICONSET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHemorrhagicOnsetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(HEMORRHAGICONSET);
+  }
+  
+  public void setHemorrhagicOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(HEMORRHAGICONSET, "");
+    }
+    else
+    {
+      setValue(HEMORRHAGICONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public String getId()
   {
     return getValue(ID);
@@ -410,6 +655,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getIdentifier()
+  {
+    return getValue(IDENTIFIER);
+  }
+  
+  public void validateIdentifier()
+  {
+    this.validateAttribute(IDENTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(IDENTIFIER);
+  }
+  
+  public void setIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFIER, "");
+    }
+    else
+    {
+      setValue(IDENTIFIER, value);
+    }
   }
   
   public String getLabTest()
@@ -524,6 +797,62 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public String getOrigin()
+  {
+    return getValue(ORIGIN);
+  }
+  
+  public void validateOrigin()
+  {
+    this.validateAttribute(ORIGIN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOriginMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(ORIGIN);
+  }
+  
+  public void setOrigin(String value)
+  {
+    if(value == null)
+    {
+      setValue(ORIGIN, "");
+    }
+    else
+    {
+      setValue(ORIGIN, value);
+    }
+  }
+  
+  public String getOtherSettlements()
+  {
+    return getValue(OTHERSETTLEMENTS);
+  }
+  
+  public void validateOtherSettlements()
+  {
+    this.validateAttribute(OTHERSETTLEMENTS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOtherSettlementsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(OTHERSETTLEMENTS);
+  }
+  
+  public void setOtherSettlements(String value)
+  {
+    if(value == null)
+    {
+      setValue(OTHERSETTLEMENTS, "");
+    }
+    else
+    {
+      setValue(OTHERSETTLEMENTS, value);
+    }
+  }
+  
   public String getPatientCategory()
   {
     return getValue(PATIENTCATEGORY);
@@ -552,6 +881,244 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     }
   }
   
+  public java.util.Date getPhysicianDateOfBirth()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(PHYSICIANDATEOFBIRTH));
+  }
+  
+  public void validatePhysicianDateOfBirth()
+  {
+    this.validateAttribute(PHYSICIANDATEOFBIRTH);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianDateOfBirthMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANDATEOFBIRTH);
+  }
+  
+  public void setPhysicianDateOfBirth(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANDATEOFBIRTH, "");
+    }
+    else
+    {
+      setValue(PHYSICIANDATEOFBIRTH, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public String getPhysicianFirstName()
+  {
+    return getValue(PHYSICIANFIRSTNAME);
+  }
+  
+  public void validatePhysicianFirstName()
+  {
+    this.validateAttribute(PHYSICIANFIRSTNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianFirstNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANFIRSTNAME);
+  }
+  
+  public void setPhysicianFirstName(String value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANFIRSTNAME, "");
+    }
+    else
+    {
+      setValue(PHYSICIANFIRSTNAME, value);
+    }
+  }
+  
+  public String getPhysicianIdentifier()
+  {
+    return getValue(PHYSICIANIDENTIFIER);
+  }
+  
+  public void validatePhysicianIdentifier()
+  {
+    this.validateAttribute(PHYSICIANIDENTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianIdentifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANIDENTIFIER);
+  }
+  
+  public void setPhysicianIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANIDENTIFIER, "");
+    }
+    else
+    {
+      setValue(PHYSICIANIDENTIFIER, value);
+    }
+  }
+  
+  public String getPhysicianLastName()
+  {
+    return getValue(PHYSICIANLASTNAME);
+  }
+  
+  public void validatePhysicianLastName()
+  {
+    this.validateAttribute(PHYSICIANLASTNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianLastNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANLASTNAME);
+  }
+  
+  public void setPhysicianLastName(String value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANLASTNAME, "");
+    }
+    else
+    {
+      setValue(PHYSICIANLASTNAME, value);
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getPhysicianResidence()
+  {
+    if (getValue(PHYSICIANRESIDENCE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(PHYSICIANRESIDENCE));
+    }
+  }
+  
+  public void validatePhysicianResidence()
+  {
+    this.validateAttribute(PHYSICIANRESIDENCE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianResidenceMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANRESIDENCE);
+  }
+  
+  public void setPhysicianResidence(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANRESIDENCE, "");
+    }
+    else
+    {
+      setValue(PHYSICIANRESIDENCE, value.getId());
+    }
+  }
+  
+  public String getPhysicianSex()
+  {
+    return getValue(PHYSICIANSEX);
+  }
+  
+  public void validatePhysicianSex()
+  {
+    this.validateAttribute(PHYSICIANSEX);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianSexMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANSEX);
+  }
+  
+  public void setPhysicianSex(String value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANSEX, "");
+    }
+    else
+    {
+      setValue(PHYSICIANSEX, value);
+    }
+  }
+  
+  public dss.vector.solutions.geo.generated.GeoEntity getPhysicianWorkplace()
+  {
+    if (getValue(PHYSICIANWORKPLACE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(PHYSICIANWORKPLACE));
+    }
+  }
+  
+  public void validatePhysicianWorkplace()
+  {
+    this.validateAttribute(PHYSICIANWORKPLACE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPhysicianWorkplaceMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PHYSICIANWORKPLACE);
+  }
+  
+  public void setPhysicianWorkplace(dss.vector.solutions.geo.generated.GeoEntity value)
+  {
+    if(value == null)
+    {
+      setValue(PHYSICIANWORKPLACE, "");
+    }
+    else
+    {
+      setValue(PHYSICIANWORKPLACE, value.getId());
+    }
+  }
+  
+  public java.util.Date getPlasmaLeakageOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(PLASMALEAKAGEONSET));
+  }
+  
+  public void validatePlasmaLeakageOnset()
+  {
+    this.validateAttribute(PLASMALEAKAGEONSET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPlasmaLeakageOnsetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PLASMALEAKAGEONSET);
+  }
+  
+  public void setPlasmaLeakageOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(PLASMALEAKAGEONSET, "");
+    }
+    else
+    {
+      setValue(PLASMALEAKAGEONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
   public Boolean getPregnant()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(PREGNANT));
@@ -577,6 +1144,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(PREGNANT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public String getPrimaryInfection()
+  {
+    return getValue(PRIMARYINFECTION);
+  }
+  
+  public void validatePrimaryInfection()
+  {
+    this.validateAttribute(PRIMARYINFECTION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPrimaryInfectionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(PRIMARYINFECTION);
+  }
+  
+  public void setPrimaryInfection(String value)
+  {
+    if(value == null)
+    {
+      setValue(PRIMARYINFECTION, "");
+    }
+    else
+    {
+      setValue(PRIMARYINFECTION, value);
     }
   }
   
@@ -899,6 +1494,34 @@ public abstract class IndividualCaseExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(SYMPTOMONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public String getTestResult()
+  {
+    return getValue(TESTRESULT);
+  }
+  
+  public void validateTestResult()
+  {
+    this.validateAttribute(TESTRESULT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTestResultMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualCaseExcelView.CLASS);
+    return mdClassIF.definesAttribute(TESTRESULT);
+  }
+  
+  public void setTestResult(String value)
+  {
+    if(value == null)
+    {
+      setValue(TESTRESULT, "");
+    }
+    else
+    {
+      setValue(TESTRESULT, value);
     }
   }
   

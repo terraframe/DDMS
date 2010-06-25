@@ -5,6 +5,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.entomology.ContainerShape;
 import dss.vector.solutions.entomology.LifeStage;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.intervention.monitor.DiagnosisType;
 
 public class ExcelEnums implements Reloadable
 {
@@ -29,6 +30,19 @@ public class ExcelEnums implements Reloadable
           containerShape.getDisplayLabel().equalsIgnoreCase(label))
       {
         return containerShape;
+      }
+    }
+    return null;
+  }
+  
+  public static DiagnosisType getDiagnosisType(String label)
+  {
+    for (DiagnosisType diagnosisType : DiagnosisType.values())
+    {
+      if (diagnosisType.getEnumName().equalsIgnoreCase(label) ||
+          diagnosisType.getDisplayLabel().equalsIgnoreCase(label))
+      {
+        return diagnosisType;
       }
     }
     return null;

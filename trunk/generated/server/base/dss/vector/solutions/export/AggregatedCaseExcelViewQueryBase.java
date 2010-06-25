@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1197978152)
+@com.runwaysdk.business.ClassSignature(hash = 1228211245)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class AggregatedCaseExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1197978152;
+private static final long serialVersionUID = 1228211245;
 
   public AggregatedCaseExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -26,24 +26,6 @@ private static final long serialVersionUID = -1197978152;
   {
     return dss.vector.solutions.export.AggregatedCaseExcelView.CLASS;
   }
-  public com.runwaysdk.query.SelectableChar getAggregatedAgeGroup()
-  {
-    return getAggregatedAgeGroup(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getAggregatedAgeGroup(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.AGGREGATEDAGEGROUP, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getAggregatedAgeGroup(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.AGGREGATEDAGEGROUP, alias, displayLabel);
-
-  }
- 
   public com.runwaysdk.query.SelectableInteger getCases()
   {
     return getCases(null);
@@ -59,114 +41,6 @@ private static final long serialVersionUID = -1197978152;
   public com.runwaysdk.query.SelectableInteger getCases(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASES, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale()
-  {
-    return getCasesFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESFEMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale()
-  {
-    return getCasesMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant()
-  {
-    return getCasesPregnant(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESPREGNANT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getCasesPregnant(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CASESPREGNANT, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed()
-  {
-    return getClinicallyDiagnosed(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosed(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath()
-  {
-    return getClinicallyDiagnosedDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSEDDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getClinicallyDiagnosedDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.CLINICALLYDIAGNOSEDDEATH, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock()
-  {
-    return getDaysOutOfStock(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DAYSOUTOFSTOCK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDaysOutOfStock(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DAYSOUTOFSTOCK, alias, displayLabel);
 
   }
  
@@ -188,111 +62,39 @@ private static final long serialVersionUID = -1197978152;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale()
+  public com.runwaysdk.query.SelectableChar getDisplayLabel()
   {
-    return getDeathsFemale(null);
+    return getDisplayLabel(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias)
+  public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSFEMALE, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DISPLAYLABEL, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsFemale(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSFEMALE, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DISPLAYLABEL, alias, displayLabel);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsMale()
+  public com.runwaysdk.query.SelectableMoment getEndDate()
   {
-    return getDeathsMale(null);
+    return getEndDate(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias)
+  public com.runwaysdk.query.SelectableMoment getEndDate(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSMALE, alias, null);
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.ENDDATE, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getDeathsMale(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableMoment getEndDate(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant()
-  {
-    return getDeathsPregnant(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSPREGNANT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDeathsPregnant(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEATHSPREGNANT, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed()
-  {
-    return getDefinitivelyDiagnosed(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosed(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath()
-  {
-    return getDefinitivelyDiagnosedDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSEDDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getDefinitivelyDiagnosedDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.DEFINITIVELYDIAGNOSEDDEATH, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEpiYear()
-  {
-    return getEpiYear(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEpiYear(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.EPIYEAR, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getEpiYear(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.EPIYEAR, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.ENDDATE, alias, displayLabel);
 
   }
  
@@ -333,453 +135,57 @@ private static final long serialVersionUID = -1197978152;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatients()
+  public com.runwaysdk.query.SelectableInteger getNegativeCases()
   {
-    return getInPatients(null);
+    return getNegativeCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatients(String alias)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTS, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.NEGATIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatients(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getNegativeCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTS, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.NEGATIVECASES, alias, displayLabel);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia()
+  public com.runwaysdk.query.SelectableInteger getPositiveCases()
   {
-    return getInPatientsAnemia(null);
+    return getPositiveCases(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSANEMIA, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.POSITIVECASES, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatientsAnemia(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getPositiveCases(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSANEMIA, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.POSITIVECASES, alias, displayLabel);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically()
+  public com.runwaysdk.query.SelectableMoment getStartDate()
   {
-    return getInPatientsClinically(null);
+    return getStartDate(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias)
+  public com.runwaysdk.query.SelectableMoment getStartDate(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSCLINICALLY, alias, null);
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STARTDATE, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getInPatientsClinically(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableMoment getStartDate(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSCLINICALLY, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive()
-  {
-    return getInPatientsDefinitive(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDEFINITIVE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDefinitive(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDEFINITIVE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged()
-  {
-    return getInPatientsDischarged(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDISCHARGED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsDischarged(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSDISCHARGED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale()
-  {
-    return getInPatientsFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSFEMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale()
-  {
-    return getInPatientsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated()
-  {
-    return getInPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSNOTTREATED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia()
-  {
-    return getInPatientsPregnantAnemia(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTANEMIA, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantAnemia(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTANEMIA, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis()
-  {
-    return getInPatientsPregnantDianosis(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTDIANOSIS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsPregnantDianosis(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSPREGNANTDIANOSIS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal()
-  {
-    return getInPatientsTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInPatientsTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.INPATIENTSTOTAL, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatients()
-  {
-    return getOutPatients(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatients(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatients(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale()
-  {
-    return getOutPatientsFemale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSFEMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsFemale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSFEMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale()
-  {
-    return getOutPatientsMale(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSMALE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsMale(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSMALE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated()
-  {
-    return getOutPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSNOTTREATED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal()
-  {
-    return getOutPatientsTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOutPatientsTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.OUTPATIENTSTOTAL, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated()
-  {
-    return getPatientsNotTreated(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PATIENTSNOTTREATED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPatientsNotTreated(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PATIENTSNOTTREATED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPeriod()
-  {
-    return getPeriod(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPeriod(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIOD, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPeriod(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIOD, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getPeriodType()
-  {
-    return getPeriodType(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getPeriodType(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIODTYPE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getPeriodType(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PERIODTYPE, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis()
-  {
-    return getPregnantDiagnosis(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSIS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosis(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSIS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath()
-  {
-    return getPregnantDiagnosisDeath(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSISDEATH, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantDiagnosisDeath(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTDIAGNOSISDEATH, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived()
-  {
-    return getPregnantReferralsReceived(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTREFERRALSRECEIVED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getPregnantReferralsReceived(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.PREGNANTREFERRALSRECEIVED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived()
-  {
-    return getReferralsReceived(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSRECEIVED, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsReceived(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSRECEIVED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent()
-  {
-    return getReferralsSent(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSSENT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getReferralsSent(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.REFERRALSSENT, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths()
-  {
-    return getStillBirths(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STILLBIRTHS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getStillBirths(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STILLBIRTHS, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableMoment)this.getSelectable(dss.vector.solutions.export.AggregatedCaseExcelView.STARTDATE, alias, displayLabel);
 
   }
  

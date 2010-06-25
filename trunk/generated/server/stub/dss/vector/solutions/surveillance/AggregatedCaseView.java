@@ -50,7 +50,7 @@ public class AggregatedCaseView extends AggregatedCaseViewBase implements com.ru
 
     if (this.hasConcrete())
     {
-      concrete = AggregatedCase.get(this.getConcreteId());
+      concrete = AggregatedCase.lock(this.getConcreteId());
     }
 
     this.populateConcrete(concrete);
