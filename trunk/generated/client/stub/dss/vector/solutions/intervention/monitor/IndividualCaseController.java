@@ -75,18 +75,9 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
         renderView(individualCase);
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDiagnosis = ( diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()) : null );
-      String failCase = ( caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()) : null );
-
-      this.failSearch(failDiagnosis, failCase, personId);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous(), false);
 
       String failDiagnosis = ( diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()) : null );
       String failCase = ( caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()) : null );
@@ -108,7 +99,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     if (problems.size() > 0)
     {
       throw new ProblemExceptionDTO("", problems);
-    }
+    }    
   }
 
   private void renderCreate(IndividualCaseDTO individualCase, String personId) throws IOException, ServletException

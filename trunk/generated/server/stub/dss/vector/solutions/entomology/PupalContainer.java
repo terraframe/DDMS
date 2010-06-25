@@ -78,7 +78,7 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, HEIGHT);
-        p.setInputAttribute(getHeightMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
@@ -100,7 +100,7 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, WIDTH);
-        p.setInputAttribute(getWidthMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
@@ -122,14 +122,14 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, CONTAINERLENGTH);
-        p.setInputAttribute(getContainerLengthMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
       }
     }
   }
-  
+
   @Override
   public void validateOpeningWidth()
   {
@@ -144,14 +144,14 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, OPENINGWIDTH);
-        p.setInputAttribute(getOpeningWidthMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
       }
     }
   }
-  
+
   @Override
   public void validateOpeningLength()
   {
@@ -166,14 +166,14 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, OPENINGLENGTH);
-        p.setInputAttribute(getOpeningLengthMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
       }
     }
   }
-  
+
   @Override
   public void validateDiameter()
   {
@@ -188,14 +188,14 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, DIAMETER);
-        p.setInputAttribute(getDiameterMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
       }
     }
   }
-  
+
   @Override
   public void validateOpeningDiameter()
   {
@@ -210,7 +210,7 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
 
         NotApplicableProblem p = new NotApplicableProblem(msg);
         p.setNotification(this, OPENINGDIAMETER);
-        p.setInputAttribute(getOpeningDiameterMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInputAttribute(getShapeMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
         p.throwIt();
@@ -219,23 +219,25 @@ public class PupalContainer extends PupalContainerBase implements com.runwaysdk.
   }
 
   @Override
-public void validateDrawdownPercent() {
-    if(this.getDrawdownPercent() != null) {
-    	if (this.getDrawdownPercent() < 0 || this.getDrawdownPercent() > 100)
-	      {
-	        RangeValueProblem p = new RangeValueProblem();
-	        p.setNotification(this, DRAWDOWNPERCENT);
-	        p.setAttributeDisplayLabel(getDrawdownPercentMd().getDisplayLabel(Session.getCurrentLocale()));
-	        p.setLowerLimit(0);
-	        p.setUpperLimit(100);
-	        p.apply();
-	        
-	        p.throwIt();
-	      }
-    }
-}
+  public void validateDrawdownPercent()
+  {
+    if (this.getDrawdownPercent() != null)
+    {
+      if (this.getDrawdownPercent() < 0 || this.getDrawdownPercent() > 100)
+      {
+        RangeValueProblem p = new RangeValueProblem();
+        p.setNotification(this, DRAWDOWNPERCENT);
+        p.setAttributeDisplayLabel(getDrawdownPercentMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setLowerLimit(0);
+        p.setUpperLimit(100);
+        p.apply();
 
-@Override
+        p.throwIt();
+      }
+    }
+  }
+
+  @Override
   public PupalContainerView getView()
   {
     PupalContainerView view = new PupalContainerView();

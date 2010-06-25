@@ -30,11 +30,16 @@ public class ErrorUtility implements Reloadable
 
   public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
   {
+    ErrorUtility.prepareProblems(e, req, true);
+  }
+  
+  public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req, boolean ignoreNotifications)
+  {
     List<String> messages = new LinkedList<String>();
 
     for (ProblemDTOIF problem : e.getProblems())
     {
-      if (! ( problem instanceof AttributeNotificationDTO ))
+      if (!ignoreNotifications || !(problem instanceof AttributeNotificationDTO ))
       {
         String message = problem.getMessage();
 
@@ -65,6 +70,11 @@ public class ErrorUtility implements Reloadable
 
   public static boolean prepareThrowable(Throwable t, HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronus) throws IOException
   {
+    return ErrorUtility.prepareThrowable(t, req, resp, isAsynchronus, true);
+  }
+
+  public static boolean prepareThrowable(Throwable t, HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronus, boolean ignoreNotifications) throws IOException
+  {
     if (isAsynchronus)
     {
       if (t instanceof ProblemExceptionDTO)
@@ -86,7 +96,7 @@ public class ErrorUtility implements Reloadable
     {
       if (t instanceof ProblemExceptionDTO)
       {
-        ErrorUtility.prepareProblems((ProblemExceptionDTO) t, req);
+        ErrorUtility.prepareProblems((ProblemExceptionDTO) t, req, ignoreNotifications);
       }
       else
       {
