@@ -288,9 +288,13 @@ YAHOO.util.Event.onDOMReady(function(){
     Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
     // Uses the available filter above
-    var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
+    var netAttribs = ["people",
+                      {attributeName:"roomsWithBedNets",sqlName:"rooms_with_bed_nets"},
+                      {attributeName:"bedNets",sqlName:"bed_nets"},
+                      {attributeName:"prevSprayedHouseholds",sqlName:"prev_sprayed_households"},
+                      {attributeName:"prevSprayedStructures",sqlName:"prev_sprayed_structures"}];
     netAttribs = Mojo.Iter.filter(netAttribs, function(attrib){
-      return this.contains(attrib);
+      return Mojo.Util.isObject(attrib) ? this.contains(attrib.attributeName) : this.contains(attrib);
     }, available);   
     
     
