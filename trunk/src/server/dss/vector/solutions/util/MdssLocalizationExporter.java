@@ -20,10 +20,12 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.SystemException;
+import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.constants.MdAttributeBooleanUtil;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdLocalStructInfo;
+import com.runwaysdk.constants.MdLocalizableInfo;
 import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.StructInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
@@ -41,6 +43,7 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdAction;
@@ -48,16 +51,21 @@ import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeLocal;
 import com.runwaysdk.system.metadata.MdAttributeLocalQuery;
 import com.runwaysdk.system.metadata.MdIndex;
+import com.runwaysdk.system.metadata.MdLocalizable;
 import com.runwaysdk.system.metadata.MdMethod;
 import com.runwaysdk.system.metadata.MdParameter;
 import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.util.FileIO;
+
+import dss.vector.solutions.ontology.Term;
 
 public class MdssLocalizationExporter implements Reloadable
 {
   public static final String CONTROL_PANEL_PROPERTIES = "Control Panel";
   public static final String MDSS_PROPERTIES = "UI Text";
   public static final String DISPLAY_LABELS = "Display Labels";
+  public static final String DESCRIPTIONS = "Descriptions";
+  public static final String TERM_LABELS = "Term Labels";
   public static final String COMMON_EXCEPTIONS = "Common Exceptions";
   public static final String CLIENT_EXCEPTIONS = "Client Exceptions";
   public static final String SERVER_EXCEPTIONS = "Server Exceptions";
@@ -67,15 +75,18 @@ public class MdssLocalizationExporter implements Reloadable
    * The in memory representation of the xls file
    */
   private HSSFWorkbook workbook;
-  private HSSFSheet customSheet;
+  private HSSFSheet exceptionSheet;
+  private HSSFSheet labelSheet;
+  private HSSFSheet termSheet;
+  private HSSFSheet descriptionSheet;
   private HSSFSheet clientSheet;
   private HSSFSheet serverSheet;
   private HSSFSheet commonSheet;
-  private HSSFSheet labelSheet;
   private HSSFSheet propertySheet;
   private HSSFSheet controlPanelSheet;
   private List<Locale> locales;
   private List<LocaleDimension> columns;
+  private List<String> typeExemptions;
 
   @StartSession
   public static void main(String[] args) throws Exception
@@ -95,6 +106,11 @@ public class MdssLocalizationExporter implements Reloadable
     locales = new LinkedList<Locale>();
     columns = new LinkedList<LocaleDimension>();
     addLocaleDimensions(MdAttributeLocalInfo.DEFAULT_LOCALE);
+    typeExemptions = new LinkedList<String>();
+    typeExemptions.add(MdAction.CLASS);
+    typeExemptions.add(MdParameter.CLASS);
+    typeExemptions.add(MdIndex.CLASS);
+    typeExemptions.add(MdMethod.CLASS);
   }
   
   public void addLocale(Locale l)
@@ -118,16 +134,20 @@ public class MdssLocalizationExporter implements Reloadable
   public void export()
   {
     workbook = new HSSFWorkbook();
-    customSheet = workbook.createSheet(MD_EXCEPTIONS);
+    exceptionSheet = workbook.createSheet(MD_EXCEPTIONS);
+    termSheet = workbook.createSheet(TERM_LABELS);
+    labelSheet = workbook.createSheet(DISPLAY_LABELS);
+    descriptionSheet = workbook.createSheet(DESCRIPTIONS);
     serverSheet = workbook.createSheet(SERVER_EXCEPTIONS);
     clientSheet = workbook.createSheet(CLIENT_EXCEPTIONS);
     commonSheet = workbook.createSheet(COMMON_EXCEPTIONS);
-    labelSheet = workbook.createSheet(DISPLAY_LABELS);
     propertySheet = workbook.createSheet(MDSS_PROPERTIES);
     controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
     
-//    prepareExceptions();
-    prepareLocalizedAttributes();
+    prepareExceptions();
+    prepareDisplayLabels();
+    prepareTermLabels();
+    prepareDescriptions();
     prepareProperties("MDSS", propertySheet);
     prepareProperties("serverExceptions", serverSheet);
     prepareProperties("commonExceptions", commonSheet);
@@ -138,7 +158,7 @@ public class MdssLocalizationExporter implements Reloadable
 
   private void prepareHeaders()
   {
-    HSSFSheet[] sheets = new HSSFSheet[]{customSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, controlPanelSheet};
+    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, termSheet, descriptionSheet, propertySheet, controlPanelSheet};
     for (HSSFSheet sheet : sheets)
     {
       HSSFRow row = sheet.createRow(0);
@@ -146,7 +166,7 @@ public class MdssLocalizationExporter implements Reloadable
       
       boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
       
-      if (sheet.equals(labelSheet))
+      if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet))
       {
         row.createCell(i++).setCellValue(new HSSFRichTextString("Type"));
         row.createCell(i++).setCellValue(new HSSFRichTextString("Attribute Name"));
@@ -169,43 +189,6 @@ public class MdssLocalizationExporter implements Reloadable
       }
     }
   }
-  
-//  private void prepareExceptions()
-//  {
-//    int r=1;
-//    MdLocalizableQuery query = new MdLocalizableQuery(new QueryFactory());
-//    query.ORDER_BY_ASC(query.getPackageName());
-//    query.ORDER_BY_ASC(query.getTypeName());
-//    for (MdLocalizable localizable : query.getIterator())
-//    {
-//      MdLocalizableDAO dao = (MdLocalizableDAO)MdLocalizableDAO.get(localizable.getId());
-//      File xmlFile = dao.getXmlFile();
-//      Map<String, String> templates;
-//      try
-//      {
-//        templates = LocalizeUtil.getAllTemplates(xmlFile);
-//      }
-//      catch (IOException e)
-//      {
-//        throw new FileReadException(xmlFile, e);
-//      }
-//      catch (Exception e)
-//      {
-//        throw new XMLParseException(e);
-//      }
-//      
-//      HSSFRow row = customSheet.createRow(r++);
-//      int c = 0;
-//      row.createCell(c++).setCellValue(new HSSFRichTextString(localizable.definesType()));
-//      for (LocaleDimension col : columns)
-//      {
-//        if (!col.hasDimension())
-//        {
-//          setExceptionMessage(templates, row, c++, col.getAttributeName());
-//        }
-//      }
-//    }
-//  }
 
   private void setExceptionMessage(Map<String, String> templates, HSSFRow row, int c, String localeString)
   {
@@ -217,18 +200,53 @@ public class MdssLocalizationExporter implements Reloadable
     }
   }
   
-  private void prepareLocalizedAttributes()
+  private void prepareDisplayLabels()
   {
-    List<String> exemptions = new LinkedList<String>();
-    exemptions.add(MdAction.CLASS);
-    exemptions.add(MdParameter.CLASS);
-    exemptions.add(MdIndex.CLASS);
-    exemptions.add(MdMethod.CLASS);
-    
-    int r=1;
     QueryFactory qf = new QueryFactory();
     MdAttributeLocalQuery localQuery = new MdAttributeLocalQuery(qf);
-    for (MdAttributeLocal local : localQuery.getIterator())
+    localQuery.WHERE(localQuery.getAttributeName().NE(Term.TERMDISPLAYLABEL));
+    localQuery.WHERE(localQuery.getAttributeName().NE(MdLocalizableInfo.MESSAGE));
+    localQuery.WHERE(localQuery.getAttributeName().NE(Metadata.DESCRIPTION));
+    OIterator<? extends MdAttributeLocal> iterator = localQuery.getIterator();
+    prepareAttributeList(labelSheet, iterator.getAll());
+    iterator.close();
+  }
+  
+  private void prepareDescriptions()
+  {
+//    List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
+//    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(Metadata.getDescriptionMd());
+//    list.add(local);
+//    prepareAttributeList(descriptionSheet, list);
+    
+    QueryFactory qf = new QueryFactory();
+    MdAttributeLocalQuery localQuery = new MdAttributeLocalQuery(qf);
+    localQuery.WHERE(localQuery.getAttributeName().EQ(Metadata.DESCRIPTION));
+    OIterator<? extends MdAttributeLocal> iterator = localQuery.getIterator();
+    prepareAttributeList(descriptionSheet, iterator.getAll());
+    iterator.close();
+  }
+  
+  private void prepareExceptions()
+  {
+    List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
+    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(MdLocalizable.getMessageMd());
+    list.add(local);
+    prepareAttributeList(exceptionSheet, list);
+  }
+  
+  private void prepareTermLabels()
+  {
+    List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
+    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(Term.getTermDisplayLabelMd());
+    list.add(local);
+    prepareAttributeList(termSheet, list);
+  }
+
+  private void prepareAttributeList(HSSFSheet sheet, List<? extends MdAttributeLocal> all)
+  {
+    int r = 1;
+    for (MdAttributeLocal local : all)
     {
       MdTypeDAOIF mdType = MdTypeDAO.get(local.getValue(MdAttributeLocal.DEFININGMDCLASS));
       MdLocalStructDAOIF mdLocalStruct = (MdLocalStructDAOIF)BusinessFacade.getEntityDAO(local.getMdStruct());
@@ -236,7 +254,7 @@ public class MdssLocalizationExporter implements Reloadable
       String definingType = mdType.definesType();
       String attributeName = local.getAttributeName();
       
-      if (exemptions.contains(definingType) || attributeName.equalsIgnoreCase(Metadata.DESCRIPTION))
+      if (typeExemptions.contains(definingType))
       {
         continue;
       }
@@ -301,7 +319,7 @@ public class MdssLocalizationExporter implements Reloadable
           }
         }
         
-        HSSFRow row = labelSheet.createRow(r++);
+        HSSFRow row = sheet.createRow(r++);
         int c=0;
         row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getType()));
         row.createCell(c++).setCellValue(new HSSFRichTextString(attributeName));

@@ -39,15 +39,19 @@ import com.runwaysdk.util.FileIO;
 
 public class MdssLocalizationImporter implements Reloadable
 {
-  private HSSFSheet    customSheet;
+  private HSSFSheet    exceptionSheet;
 
+  private HSSFSheet    termSheet;
+  
+  private HSSFSheet    labelSheet;
+  
+  private HSSFSheet    descriptionSheet;
+  
   private HSSFSheet    clientSheet;
 
   private HSSFSheet    serverSheet;
 
   private HSSFSheet    commonSheet;
-
-  private HSSFSheet    labelSheet;
 
   private HSSFSheet    propertySheet;
 
@@ -100,8 +104,10 @@ public class MdssLocalizationImporter implements Reloadable
     
     checkLocales();
 
-    updateLabels();
-//    updateExceptions();
+    updateLocalAttribute(exceptionSheet);
+    updateLocalAttribute(termSheet);
+    updateLocalAttribute(labelSheet);
+    updateLocalAttribute(descriptionSheet);
     updateProperties("MDSS", propertySheet);
     updateProperties("serverExceptions", serverSheet);
     updateProperties("commonExceptions", commonSheet);
@@ -191,7 +197,7 @@ public class MdssLocalizationImporter implements Reloadable
   private void checkLocales()
   {
     Set<String> allLocales = new TreeSet<String>();
-    HSSFSheet[] sheets = new HSSFSheet[]{customSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, controlPanelSheet};
+    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, termSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, controlPanelSheet};
     for (HSSFSheet sheet : sheets)
     {
       for (LocaleDimension ld : getColumnHeaders(sheet))
@@ -232,7 +238,7 @@ public class MdssLocalizationImporter implements Reloadable
     Iterator<HSSFCell> cellIterator = row.cellIterator();
     cellIterator.next();
     
-    if (sheet.equals(labelSheet))
+    if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(descriptionSheet) || sheet.equals(exceptionSheet))
     {
       cellIterator.next();
       cellIterator.next();
@@ -329,29 +335,29 @@ public class MdssLocalizationImporter implements Reloadable
 
   @SuppressWarnings("unchecked")
   @Transaction
-  private void updateLabels()
+  private void updateLocalAttribute(HSSFSheet sheet)
   {
     // Bail if there's no tab for labels
-    if (labelSheet==null)
+    if (sheet==null)
     {
       return;
     }
     
-    List<LocaleDimension> columnHeaders = getColumnHeaders(labelSheet);
+    List<LocaleDimension> columnHeaders = getColumnHeaders(sheet);
     
-    Iterator<HSSFRow> rowIterator = labelSheet.rowIterator();
+    Iterator<HSSFRow> rowIterator = sheet.rowIterator();
     rowIterator.next();
     while (rowIterator.hasNext())
     {
       HSSFRow row = rowIterator.next();
-      readLabelRow(columnHeaders, row);
+      readLocalAttributeRow(columnHeaders, row);
       
 //      if (row.getRowNum()%50==0)
 //        System.out.print(".");
     }
   }
 
-  private void readLabelRow(List<LocaleDimension> localeDimensions, HSSFRow row)
+  private void readLocalAttributeRow(List<LocaleDimension> localeDimensions, HSSFRow row)
   {
     int c = 0;
     String type = getStringValue(row.getCell(c++));
@@ -391,114 +397,6 @@ public class MdssLocalizationImporter implements Reloadable
     }
   }
 
-  @SuppressWarnings("unchecked")
-//  private void updateExceptions()
-//  {
-//    // If there's no tab for custom exceptions, bail
-//    if (customSheet==null)
-//    {
-//      return;
-//    }
-//    
-//    Iterator<HSSFRow> rowIterator = customSheet.rowIterator();
-//    rowIterator.next();
-//    while (rowIterator.hasNext())
-//    {
-//      HSSFRow row = rowIterator.next();
-//
-//      String key = getStringValue(row.getCell(0));
-//      if (key == null)
-//      {
-//        continue;
-//      }
-//
-//      MdLocalizableDAO dao = (MdLocalizableDAO) MdLocalizableDAO.get(MdLocalizable.CLASS, key);
-//
-//      File xmlFile = dao.getXmlFile();
-//      if (!xmlFile.exists())
-//      {
-//        try
-//        {
-//          FileIO.write(xmlFile, dao.getValue(MdLocalizableInfo.MESSAGES));
-//        }
-//        catch (IOException e)
-//        {
-//          throw new FileWriteException(xmlFile, e);
-//        }
-//      }
-//      
-//      String xmlString;
-//      try
-//      {
-//        xmlString = FileIO.readString(xmlFile);
-//      }
-//      catch (IOException e)
-//      {
-//        throw new FileReadException(xmlFile, e);
-//      }
-//
-//      // Get all the the existing templates
-//      Map<String, String> allTemplates = getTemplates(xmlFile);
-//      int c = 1;
-//      // Add new template definitions, possibly overwriting old ones 
-//      for (LocaleDimension ld : getColumnHeaders(customSheet))
-//      {
-//        String value = getStringValue(row.getCell(c++));
-//        if (value != null)
-//        {
-//          allTemplates.put(ld.getAttributeName(), value);
-//        }
-//      }
-//
-//      // Parse out the header and footer of the xml file
-//      int start = xmlString.indexOf("<locale");
-//      int end = xmlString.lastIndexOf("/locale>");
-//      String prefix = xmlString.substring(0, start).trim();
-//      String suffix = "\n" + xmlString.substring(end + 8).trim();
-//
-//      // Reconstruct the body of the xml
-//      String middle = new String();
-//      for (Map.Entry<String, String> entry : allTemplates.entrySet())
-//      {
-//        String value = entry.getValue();
-//        if (value != null)
-//        {
-//          middle += "\n  <locale language=\"" + entry.getKey() + "\">" + value + "</locale>";
-//        }
-//      }
-//
-//      try
-//      {
-//        // Write out the updated file
-//        FileIO.write(xmlFile, prefix + middle + suffix);
-//      }
-//      catch (IOException e)
-//      {
-//        throw new FileWriteException(xmlFile, e);
-//      }
-//    }
-//  }
-
-//  private Map<String, String> getTemplates(File xmlFile)
-//  {
-//    try
-//    {
-//      return LocalizeUtil.getAllTemplates(xmlFile);
-//    }
-//    catch (IOException e1)
-//    {
-//      throw new FileReadException(xmlFile, e1);
-//    }
-//    catch (SAXException e1)
-//    {
-//      throw new XMLException(e1);
-//    }
-//    catch (ParserConfigurationException e1)
-//    {
-//      throw new XMLException(e1);
-//    }
-//  }
-
   /**
    * Opens the stream and parses the sheet based on name
    * 
@@ -510,7 +408,9 @@ public class MdssLocalizationImporter implements Reloadable
     {
       POIFSFileSystem fileSystem = new POIFSFileSystem(stream);
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-      customSheet = workbook.getSheet(MdssLocalizationExporter.MD_EXCEPTIONS);
+      exceptionSheet = workbook.getSheet(MdssLocalizationExporter.MD_EXCEPTIONS);
+      termSheet = workbook.getSheet(MdssLocalizationExporter.TERM_LABELS);
+      descriptionSheet = workbook.getSheet(MdssLocalizationExporter.DESCRIPTIONS);
       clientSheet = workbook.getSheet(MdssLocalizationExporter.CLIENT_EXCEPTIONS);
       serverSheet = workbook.getSheet(MdssLocalizationExporter.SERVER_EXCEPTIONS);
       commonSheet = workbook.getSheet(MdssLocalizationExporter.COMMON_EXCEPTIONS);
