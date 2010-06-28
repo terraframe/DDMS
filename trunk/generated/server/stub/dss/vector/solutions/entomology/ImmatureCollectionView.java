@@ -212,7 +212,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
 
     for (CollectionContainerView c : containers)
     {
-      totalContainersWithWater = this.total(totalContainersWithWater, c.getNumberContainers());
+      totalContainersWithWater = this.total(totalContainersWithWater, c.getNumberWithWater());
       totalContainersWithImmatures = this.total(totalContainersWithImmatures, c.getNumberImmatures());
       totalContainersWithLarvae = this.total(totalContainersWithLarvae, c.getNumberLarvae());
       totalContainersWithPupae = this.total(totalContainersWithPupae, c.getNumberPupae());
