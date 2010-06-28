@@ -268,7 +268,6 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
   @Transaction
   private void checkThreshold(String key, BigDecimal factor, BigDecimal numerator, BigDecimal divisor)
   {
-	System.out.println("Stuff");
     if (divisor.compareTo(new BigDecimal(0)) != 0)
     {
       BigDecimal value = factor.multiply(numerator, MathContext.DECIMAL64).divide(divisor, MathContext.DECIMAL64);
