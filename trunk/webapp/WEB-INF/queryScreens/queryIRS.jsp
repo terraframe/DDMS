@@ -271,30 +271,18 @@ YAHOO.util.Event.onDOMReady(function(){
     available.addAll(<%= request.getAttribute("tss") %>);
 
     var sprayStatus = new Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatus();
-    var sprayStatusAttribs = ["households",
-                              "structures",
-                              "rooms",
-                              {attributeName:"sprayedHouseholds",sqlName:"sprayed_households"},
-                              {attributeName:"sprayedStructures",sqlName:"sprayed_structures"},
-                              {attributeName:"sprayedRooms",sqlName:"sprayed_rooms"},
-                              "locked",
-                              "refused",
-                              "other"];
+    var sprayStatusAttribs = ["households","structures","rooms","sprayedHouseholds","sprayedStructures","sprayedRooms","locked","refused","other"];
     sprayStatusAttribs = Mojo.Iter.filter(sprayStatusAttribs, function(attrib){
-      return Mojo.Util.isObject(attrib) ? this.contains(attrib.attributeName) : this.contains(attrib);
+      return this.contains(attrib);
     }, available); 
 
     Spray_Details = Spray_Details.concat(abstractSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:abstractSpray, suffix:'_spray', dropDownMaps:operatorSprayMap, type:'dss.vector.solutions.irs.AbstractSpray'}));
     Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
     // Uses the available filter above
-    var netAttribs = ["people",
-                      {attributeName:"roomsWithBedNets",sqlName:"rooms_with_bed_nets"},
-                      {attributeName:"bedNets",sqlName:"bed_nets"},
-                      {attributeName:"prevSprayedHouseholds",sqlName:"prev_sprayed_households"},
-                      {attributeName:"prevSprayedStructures",sqlName:"prev_sprayed_structures"}];
+    var netAttribs = ["people","roomsWithBedNets","bedNets","prevSprayedHouseholds","prevSprayedStructures"];
     netAttribs = Mojo.Iter.filter(netAttribs, function(attrib){
-      return Mojo.Util.isObject(attrib) ? this.contains(attrib.attributeName) : this.contains(attrib);
+      return this.contains(attrib);
     }, available);   
     
     
