@@ -49,7 +49,7 @@ public class CollectionContainer extends CollectionContainerBase implements Chil
 			RelativeValueProblem p = new RelativeValueProblem();
 			p.setNotification(this, NUMBERWITHWATER);
 			p.setAttributeDisplayLabel(getNumberWithWaterMd().getDisplayLabel(Session.getCurrentLocale()));
-			p.setRelation(MDSSProperties.getString("LTE"));
+			p.setRelation(MDSSProperties.getString("Compare_LTE"));
 			p.setRelativeAttributeLabel(getNumberContainersMd().getDisplayLabel(Session.getCurrentLocale()));
 			p.apply();
 
