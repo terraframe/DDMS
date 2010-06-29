@@ -58,7 +58,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       ClientRequestIF request = this.getClientRequest();
 
-      req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAll(request)));
+      req.setAttribute("seasons", Arrays.asList(MalariaSeasonDTO.getAllForDisease(request)));
       req.setAttribute("item", new ThresholdDataViewDTO(request));
       render("searchComponent.jsp");
     }
