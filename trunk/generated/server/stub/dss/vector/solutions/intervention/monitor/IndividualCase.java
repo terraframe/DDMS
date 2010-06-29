@@ -115,7 +115,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 				p.throwIt();
 			}
 
-			if (this.getDiagnosisDate() != null && !this.getCaseReportDate().before(this.getDiagnosisDate())) {
+			if (this.getDiagnosisDate() != null && this.getCaseReportDate().before(this.getDiagnosisDate())) {
 				RelativeValueProblem p = new RelativeValueProblem();
 				p.setNotification(this, CASEREPORTDATE);
 				p.setAttributeDisplayLabel(getCaseReportDateMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -252,7 +252,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 
 			// First get the Threshold data for the relevant GeoEntities
 			for (GeoEntity entity : entities) {
-				long count = IndividualCase.getCount(entity, window[0], window[1]);
+				double count = IndividualCase.getCount(entity, window[0], window[1]);
 
 				ThresholdData.checkThresholdViolation(date, entity, count);
 			}
@@ -277,7 +277,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 		return new Date[] { week.getStartDate(), week.getEndDate() };
 	}
 
-	private static long getCount(GeoEntity entity, Date startDate, Date endDate) {
+	private static double getCount(GeoEntity entity, Date startDate, Date endDate) {
 		QueryFactory factory = new QueryFactory();
 
 		GeoEntityQuery entityQuery = entity.getPoliticalDecendants(factory);
@@ -288,7 +288,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 		ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
 
 		double ratio = (double) config.getClinicalPositivePercentage() / 100.0d;
-		return Math.round(counts[PoliticalThresholdCalculator.POSITIVE_COUNT_INDEX] + (counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio));
+		return counts[PoliticalThresholdCalculator.POSITIVE_COUNT_INDEX] + (counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio);
 	}
 
 	public static IndividualCase searchForExistingCase(Date diagnosisDate, String personId) {

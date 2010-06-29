@@ -80,14 +80,14 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
 			if (facility != null && date != null) {
 				Date[] window = IndividualCase.getWindow(date);
 
-				long count = IndividualInstance.getPassiveCount(facility, window[0], window[1]);
+				double count = IndividualInstance.getPassiveCount(facility, window[0], window[1]);
 
 				ThresholdData.checkFacilityThresholdViolation(date, facility, count);
 			}
 		}
 	}
 
-	private static long getPassiveCount(HealthFacility facility, Date startDate, Date endDate) {
+	private static double getPassiveCount(HealthFacility facility, Date startDate, Date endDate) {
 		QueryFactory factory = new QueryFactory();
 
 		IndividualInstanceQuery query = new IndividualInstanceQuery(factory);
