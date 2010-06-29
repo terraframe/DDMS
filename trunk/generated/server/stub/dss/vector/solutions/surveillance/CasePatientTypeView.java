@@ -148,7 +148,9 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
     List<CasePatientTypeAmountView> list = new LinkedList<CasePatientTypeAmountView>();
     Set<CasePatientTypeAmount> set = new TreeSet<CasePatientTypeAmount>(new GridComparator());
 
-    for (Term d : Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd()))
+    Term[] terms = Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd());
+    
+    for (Term d : terms)
     {
       set.add(new CasePatientTypeAmount(this.getId(), d.getId()));
     }
@@ -157,7 +159,9 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
     {
       CasePatientType concrete = CasePatientType.get(this.getConcreteId());
 
-      for (CasePatientTypeAmount d : concrete.getAllPatientsRel())
+      OIterator<? extends CasePatientTypeAmount> patients = concrete.getAllPatientsRel();
+      
+      for (CasePatientTypeAmount d : patients)
       {
         // We will only want grid options methods which are active
         // All active methods are already in the set. Thus, if

@@ -147,7 +147,9 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
     List<CaseDiseaseManifestationAmountView> list = new LinkedList<CaseDiseaseManifestationAmountView>();
     Set<CaseDiseaseManifestationAmount> set = new TreeSet<CaseDiseaseManifestationAmount>(new GridComparator());
 
-    for (Term d : Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd()))
+    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd());
+    
+    for (Term d : terms)
     {
       set.add(new CaseDiseaseManifestationAmount(this.getId(), d.getId()));
     }
@@ -156,7 +158,8 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
     {
       CaseDiseaseManifestation concrete = CaseDiseaseManifestation.get(this.getConcreteId());
 
-      for (CaseDiseaseManifestationAmount d : concrete.getAllDiseasesRel())
+      OIterator<? extends CaseDiseaseManifestationAmount> diseases = concrete.getAllDiseasesRel();
+      for (CaseDiseaseManifestationAmount d : diseases)
       {
         // We will only want grid options methods which are active
         // All active methods are already in the set. Thus, if

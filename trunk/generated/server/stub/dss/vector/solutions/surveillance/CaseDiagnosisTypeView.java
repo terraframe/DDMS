@@ -147,7 +147,9 @@ public class CaseDiagnosisTypeView extends CaseDiagnosisTypeViewBase implements 
     List<CaseDiagnosisTypeAmountView> list = new LinkedList<CaseDiagnosisTypeAmountView>();
     Set<CaseDiagnosisTypeAmount> set = new TreeSet<CaseDiagnosisTypeAmount>(new GridComparator());
 
-    for (Term d : Term.getSortedRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
+    Term[] terms = Term.getSortedRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd());
+
+    for (Term d : terms)
     {
       set.add(new CaseDiagnosisTypeAmount(this.getId(), d.getId()));
     }
@@ -156,7 +158,9 @@ public class CaseDiagnosisTypeView extends CaseDiagnosisTypeViewBase implements 
     {
       CaseDiagnosisType c = CaseDiagnosisType.get(this.getConcreteId());
 
-      for (CaseDiagnosisTypeAmount d : c.getAllCategoriesRel())
+      OIterator<? extends CaseDiagnosisTypeAmount> categories = c.getAllCategoriesRel();
+      
+      for (CaseDiagnosisTypeAmount d : categories)
       {
         // We will only want grid options methods which are active
         // All active methods are already in the set. Thus, if
