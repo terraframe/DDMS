@@ -1,0 +1,31 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdWarning
+        name="dss.vector.solutions.util.LocalizedRowIgnoredWarning"
+        label="Localized Import Row Ignored Warning"
+        description="Thrown when importing the localization spreadsheet and a row references data that cannot be found"
+        message="Ignored row {row} on sheet {sheet} because the data could not be found.">
+        <attributes>
+          <char
+            name="sheet"
+            label="Sheet"
+            description="Sheet name"
+            size="64"/>
+          <integer
+            name="row"
+            label="Row"
+            description="Row number"
+            rejectNegative="true"/>
+        </attributes>
+      </mdWarning>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.util.LocalizedRowIgnoredInfo"
+        type="com.runwaysdk.system.metadata.MdWarning"/>
+    </delete>
+  </undoIt>
+</version>

@@ -33,6 +33,7 @@ import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.metadata.SupportedLocaleDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.util.FileIO;
@@ -343,6 +344,8 @@ public class MdssLocalizationImporter implements Reloadable
       return;
     }
     
+    String sheetName = getSheetName(sheet);
+    
     List<LocaleDimension> columnHeaders = getColumnHeaders(sheet);
     
     Iterator<HSSFRow> rowIterator = sheet.rowIterator();
@@ -350,14 +353,14 @@ public class MdssLocalizationImporter implements Reloadable
     while (rowIterator.hasNext())
     {
       HSSFRow row = rowIterator.next();
-      readLocalAttributeRow(columnHeaders, row);
+      readLocalAttributeRow(columnHeaders, row, sheetName);
       
 //      if (row.getRowNum()%50==0)
 //        System.out.print(".");
     }
   }
 
-  private void readLocalAttributeRow(List<LocaleDimension> localeDimensions, HSSFRow row)
+  private void readLocalAttributeRow(List<LocaleDimension> localeDimensions, HSSFRow row, String sheetName)
   {
     int c = 0;
     String type = getStringValue(row.getCell(c++));
@@ -369,7 +372,23 @@ public class MdssLocalizationImporter implements Reloadable
       return;
     }
     
-    StructDAO struct = StructDAO.get(EntityDAO.get(type, key).getValue(attributeName)).getStructDAO();
+    StructDAO struct;
+    try
+    {
+      struct = StructDAO.get(EntityDAO.get(type, key).getValue(attributeName)).getStructDAO();
+    }
+    catch (DataNotFoundException e)
+    {
+      LocalizedRowIgnoredWarning warning = new LocalizedRowIgnoredWarning();
+      warning.setSheet(sheetName);
+      warning.setRow(row.getRowNum()+1);
+      warning.throwIt();
+      if (Session.getCurrentSession()==null)
+      {
+        System.out.println(warning.getLocalizedMessage());
+      }
+      return;
+    }
 
     boolean apply = false;
     for (LocaleDimension ld : localeDimensions)
@@ -423,5 +442,54 @@ public class MdssLocalizationImporter implements Reloadable
       throw new SystemException(e);
     }
   }
-
+  
+  /**
+   * HSSF is pretty awful and doesn't have an way to get the name of a sheet, so we have to do stuff like this instead.
+   * 
+   * @param sheet
+   * @return Name of the sheet
+   */
+  private String getSheetName(HSSFSheet sheet)
+  {
+    if (sheet.equals(exceptionSheet))
+    {
+      return MdssLocalizationExporter.MD_EXCEPTIONS;
+    }
+    else if (sheet.equals(termSheet))
+    {
+      return MdssLocalizationExporter.TERM_LABELS;
+    }
+    else if (sheet.equals(descriptionSheet))
+    {
+      return MdssLocalizationExporter.DESCRIPTIONS;
+    }
+    else if (sheet.equals(clientSheet))
+    {
+      return MdssLocalizationExporter.CLIENT_EXCEPTIONS;
+    }
+    else if (sheet.equals(serverSheet))
+    {
+      return MdssLocalizationExporter.SERVER_EXCEPTIONS;
+    }
+    else if (sheet.equals(commonSheet))
+    {
+      return MdssLocalizationExporter.COMMON_EXCEPTIONS;
+    }
+    else if (sheet.equals(labelSheet))
+    {
+      return MdssLocalizationExporter.DISPLAY_LABELS;
+    }
+    else if (sheet.equals(propertySheet))
+    {
+      return MdssLocalizationExporter.MDSS_PROPERTIES;
+    }
+    else if (sheet.equals(controlPanelSheet))
+    {
+      return MdssLocalizationExporter.CONTROL_PANEL_PROPERTIES;
+    }
+    else
+    {
+      return "Unknown";
+    }
+  }
 }
