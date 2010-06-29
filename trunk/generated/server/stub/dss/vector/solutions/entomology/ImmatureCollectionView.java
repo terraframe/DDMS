@@ -270,13 +270,14 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
   {
     if (divisor.compareTo(new BigDecimal(0)) != 0)
     {
-      BigDecimal value = factor.multiply(numerator, MathContext.DECIMAL64).divide(divisor, MathContext.DECIMAL64);
+      BigDecimal value = factor.multiply(numerator, MathContext.DECIMAL64).divide(divisor, MathContext.DECIMAL64).setScale(2,RoundingMode.HALF_UP);
       SystemAlert systemAlert = SystemAlert.get(SystemAlertType.ELEVATED_IMMATURE_INDEX_NOTIFICATION);
 
       ImmatureThreshold threshold = ImmatureThreshold.getByDisease(key);
       
       boolean emailSent = false;
-      if (threshold.getThresholdValue() != null && threshold.getThresholdValue().compareTo(value) < 0)
+      BigDecimal thresholdValue = threshold.getThresholdValue();
+      if (thresholdValue != null && thresholdValue.compareTo(value) <= 0)
       {
         if (systemAlert.getIsEmailActive())
         {
