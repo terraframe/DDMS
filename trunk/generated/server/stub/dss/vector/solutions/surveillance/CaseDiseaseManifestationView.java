@@ -16,12 +16,12 @@ import dss.vector.solutions.ontology.Term;
 public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBase implements Reloadable, ChildOption
 {
   private static final long serialVersionUID = 83506452;
-  
+
   public CaseDiseaseManifestationView()
   {
     super();
   }
-  
+
   public void populateView(CaseDiseaseManifestation concrete)
   {
     this.setConcreteId(concrete.getId());
@@ -61,7 +61,7 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
 
     this.populateView(concrete);
   }
-  
+
   private boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
@@ -122,33 +122,39 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
 
   public static CaseDiseaseManifestationAmountView[][] getAmountsForViews(String[] ids)
   {
+    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd());
     CaseDiseaseManifestationAmountView[][] data = new CaseDiseaseManifestationAmountView[ids.length][];
-    
-    for(int i = 0; i < ids.length; i++)
+
+    for (int i = 0; i < ids.length; i++)
     {
       String id = ids[i];
-      
+
       CaseDiseaseManifestationView view = new CaseDiseaseManifestationView();
-      
-      if(id != null && id.length() > 0)
+
+      if (id != null && id.length() > 0)
       {
         view = CaseDiseaseManifestation.getView(id);
       }
 
-      data[i] = view.getAmounts();
+      data[i] = view.getAmounts(terms);
     }
-    
+
     return data;
   }
-  
+
   @Override
   public CaseDiseaseManifestationAmountView[] getAmounts()
+  {
+    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd());
+
+    return this.getAmounts(terms);
+  }
+
+  public CaseDiseaseManifestationAmountView[] getAmounts(Term[] terms)
   {
     List<CaseDiseaseManifestationAmountView> list = new LinkedList<CaseDiseaseManifestationAmountView>();
     Set<CaseDiseaseManifestationAmount> set = new TreeSet<CaseDiseaseManifestationAmount>(new GridComparator());
 
-    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd());
-    
     for (Term d : terms)
     {
       set.add(new CaseDiseaseManifestationAmount(this.getId(), d.getId()));
@@ -194,5 +200,5 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
       view.setManifestation(concrete);
       view.apply();
     }
-  }  
+  }
 }

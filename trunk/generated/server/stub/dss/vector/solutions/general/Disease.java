@@ -28,17 +28,17 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
   {
     super();
   }
-  
+
   @Override
   public void apply()
   {
-    if(!this.isNew() && this.isModified(MENUROOT) && this.getMenuRoot() == null)
+    if (!this.isNew() && this.isModified(MENUROOT) && this.getMenuRoot() == null)
     {
       RequiredAttributeException ex = new RequiredAttributeException();
       ex.setAttributeLabel(Disease.getMenuRootMd().getDisplayLabel(Session.getCurrentLocale()));
       throw ex;
     }
-    
+
     super.apply();
   }
 
@@ -57,6 +57,7 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
     Disease disease = null;
 
     SessionIF session = Session.getCurrentSession();
+
     if (session != null && session.getUser() != null)
     {
       String id = Session.getCurrentSession().getUser().getId();
@@ -65,6 +66,11 @@ public class Disease extends DiseaseBase implements com.runwaysdk.generation.loa
       String name = user.getDiseaseName();
       disease = Disease.getByKey(name);
     }
+    else
+    {
+      disease = Disease.getMalaria();
+    }
+
     return disease;
   }
 

@@ -499,6 +499,42 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
   }
 
+  public List<Term> getActiveChildren()
+  {
+    List<Term> children = new ArrayList<Term>();
+
+    QueryFactory factory = new QueryFactory();
+
+    InactivePropertyQuery iQ = new InactivePropertyQuery(factory);
+    iQ.WHERE(iQ.getInactive().EQ(false));
+    iQ.WHERE(iQ.getDisease().EQ(Disease.getCurrent()));
+
+    TermRelationshipQuery rQ = new TermRelationshipQuery(factory);
+    rQ.WHERE(rQ.parentId().EQ(this.getId()));
+
+    TermQuery query = new TermQuery(factory);
+    query.WHERE(query.getId().EQ(rQ.childId()));
+    query.AND(query.inactiveProperties(iQ));
+
+    OIterator<? extends Term> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        Term child = it.next();
+
+        children.add(child);
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return children;
+  }
+
   /**
    * Returns all default roots (Terms without parents). This method WILL return
    * all Terms regardless of obsolete status. To return the terms with obsolete
@@ -1162,13 +1198,9 @@ public class Term extends TermBase implements Reloadable, OptionIF
         }
       }
 
-      for (Term child : term.getAllChildTerm())
-      {
-        if(!child.getInactiveByDisease().getInactive())
-        {
-          children.add(child);
-        }
-      }
+      List<Term> childTerms = term.getActiveChildren();
+
+      children.addAll(childTerms);
 
       List<Term> sorted = new ArrayList<Term>(children);
       Collections.sort(sorted, new OptionComparator(false));
