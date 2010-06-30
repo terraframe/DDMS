@@ -38,6 +38,9 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
       this._geoId = Mojo.Util.isString(prop.geoId) ? document.getElementById(prop.geoId) : prop.geoId;
       this._startDate = Mojo.Util.isString(prop.startDate) ? document.getElementById(prop.startDate) : prop.startDate;
       this._endDate = Mojo.Util.isString(prop.endDate) ? document.getElementById(prop.endDate) : prop.endDate;
+      this._startDateValue = MDSS.Calendar.parseJavaFormatDate(this._startDate.value);
+      this._endDateValue = MDSS.Calendar.parseJavaFormatDate(this._endDate.value);
+
       
       YAHOO.util.Event.on(this._geoId, 'blur', this.validate, this, this);
       YAHOO.util.Event.on(this._startDate, 'blur', this.validate, this, this);
@@ -70,7 +73,10 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
         
         if(startDate instanceof Date && endDate instanceof Date && this._geoId.value != ''){
           this.enableButton();
-        }        
+        }
+        
+        this._startDateValue = startDate;
+        this._endDateValue = endDate;
       }      
     },
     
@@ -81,15 +87,20 @@ Mojo.Meta.newClass('MDSS.DateSearchValidator', {
       {
         var startDate = MDSS.Calendar.parseJavaFormatDate(this._startDate.value);
         var endDate = MDSS.Calendar.parseJavaFormatDate(this._endDate.value);
-        
+
         if(startDate instanceof Date && endDate instanceof Date) {
           if(startDate > endDate) {
-            alert(MDSS.localize('Invalid_Dates'));
+        	  if (this._startDateValue.toString() != startDate.toString() || this._endDateValue.toString() != endDate.toString()) {
+        		  alert(MDSS.localize('Invalid_Dates'));
+        	  }
           }
           else if(this._geoId.value != ''){
             this.enableButton();
           }
-        }        
+        }
+        
+        this._startDateValue = startDate;
+        this._endDateValue = endDate;
       }
     }
   }
