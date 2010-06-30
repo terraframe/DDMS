@@ -50,7 +50,7 @@
        
        <mjl:dt attribute="individulPremiseUniversal">
        <dl>
-       	 <label><fmt:message key="Aggregation_Universal"/></label>
+        <label><fmt:message key="Aggregation_Universal"/></label>
          <mjl:select param="individulPremiseUniversal" id="individulPremiseUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
            <mjl:option selected="${(individulPremiseUniversal != null && individulPremiseUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
              ${current.displayLabel}
@@ -63,7 +63,7 @@
        
        <mjl:dt attribute="aggregatedPremiseUniversal">
        <dl>
-       	 <label><fmt:message key="Aggregation_Universal"/></label>
+        <label><fmt:message key="Aggregation_Universal"/></label>
          <mjl:select param="aggregatedPremiseUniversal" id="aggregatedPremiseUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
            <mjl:option selected="${(aggregatedPremiseUniversal != null && aggregatedPremiseUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
              ${current.displayLabel}
@@ -213,6 +213,8 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       var attributeDTO = component.getAttributeDTO(attributeName);
 
       if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
+        value = (value == '') ? null : value;
+
         var date = MDSS.Calendar.parseDate(value);
 
         attributeDTO.setValue(date);        

@@ -159,6 +159,8 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
       var attributeDTO = component.getAttributeDTO(attributeName);
 
       if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
+        value = (value == '') ? null : value;
+        
         var date = MDSS.Calendar.parseDate(value);
 
         attributeDTO.setValue(date);        
