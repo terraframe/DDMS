@@ -44,6 +44,17 @@ Mojo.Meta.newClass('MDSS.QueryPupalContainerCollection', {
       picker.setSprayTargetAllowed(false);
       },
      
-
+      _getBrowserRootClass : function(attribute)
+      {
+        var type = attribute.getType();
+        if(type === 'dss.vector.solutions.entomology.PupalPremise')
+        {
+          return 'dss.vector.solutions.entomology.PupalCollectionView';
+        }
+        else
+        {
+          return this.$_getBrowserRootClass(attribute);
+        }
+      }
     }
 });

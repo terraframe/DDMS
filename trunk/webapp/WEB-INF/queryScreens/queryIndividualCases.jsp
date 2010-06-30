@@ -82,7 +82,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
-    var caseAttribs = ["age","diagnosisDate","caseReportDate","caseEntryDate",
+    var caseAttribs = ["diagnosisDate","caseReportDate","caseEntryDate",
                            "workplace","workplaceText",
                            "probableSource","probableSourceText",
                            "residence","residenceText", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
@@ -98,15 +98,15 @@ YAHOO.util.Event.onDOMReady(function(){
     
 
     var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
-    var instanceAttribs = ["healthFacility","activelyDetected",
-                       "admissionDate","anaemiaPatient","diagnosisType",
+    var instanceAttribs = ["healthFacility", "caseIdentifier", "activelyDetected",
+                       "admissionDate","anaemiaPatient","diagnosisType", "diagnosis", "symptomOnset",
                        "detectedBy","diedInFacility","facilityVisit",
-                       "patientCategory","pregnant","properlyRelease",
+                       "patientCategory","pregnant","properlyRelease", "referredTo", "referredFrom",
                        "referralReason","labTestDate","symptomComments",
                        "releaseDate","sampleType","malariaType",
                        "testSampleDate","treatment","treatmentMethod",
                        "treatmentStartDate", "caseDetection", "confirmedDiagnosis", "confirmedDiagnosisDate",
-                       "dateOfDeath", "classification", "testResult", "primaryInfection"];
+                       "dateOfDeath", "classification", "labTest", "testResult", "primaryInfection"];
     <%
     Halp.setReadableAttributes(request, "instanceAttribs", IndividualInstanceDTO.CLASS, requestIF);
     %>
@@ -119,7 +119,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var instanceColumns = instanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
-    var personAttribs = ["identifier", "dateOfBirth","firstName","lastName","sex", "birthEntity"];
+    var personAttribs = ["identifier", "dateOfBirth", "age","firstName","lastName","sex", "birthEntity", "residentialGeoEntity", "residentialInformation", "workGeoEntity", "workInformation"];
     <%
     Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
     %>
@@ -127,7 +127,7 @@ YAHOO.util.Event.onDOMReady(function(){
     personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
-      
+
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
 
     

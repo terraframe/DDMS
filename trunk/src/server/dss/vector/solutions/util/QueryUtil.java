@@ -504,8 +504,10 @@ public class QueryUtil implements Reloadable
     return list.toArray(new String[list.size()]);
   }
 
-  public static ValueQuery getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
+  public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
   {
+    boolean foundGrid = false;
+    
     for (Selectable s : valueQuery.getSelectableRefs())
     {
       while (s instanceof Function)
@@ -521,6 +523,8 @@ public class QueryUtil implements Reloadable
         int index2 = gridAlias.lastIndexOf("__");
         if (index1 > 0 && index2 > 0 && index1 != index2)
         {
+          foundGrid = true;
+          
           String attrib = gridAlias.substring(0, index1);
 
           // here we make a dummy value when the relationship has no ammount
@@ -552,7 +556,7 @@ public class QueryUtil implements Reloadable
         }
       }
     }
-    return valueQuery;
+    return foundGrid;
   }
 
   public static ValueQuery setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)

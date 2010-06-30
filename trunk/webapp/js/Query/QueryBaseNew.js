@@ -884,7 +884,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var visibleObj = visibleAttributes[i];
         
         if(visibleObj.isAggregate){
-        	visibleObj.displayLabel = MDSS.localize(visibleObj.key) +  MDSS.localize("selectable_is_aggreated");
+        	visibleObj.displayLabel = (visibleObj.displayLabel || MDSS.localize(visibleObj.key)) +  MDSS.localize("selectable_is_aggreated");
         }
         
         var attribute = new MDSS.BasicAttribute(visibleObj);
@@ -1533,6 +1533,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
            row.dropDownMap = this.dropDownMaps[uppFirst];
          }
        }else{
+         row.attributeName = attribName;
          row.type = 'sqlinteger';
          row.displayLabel = MDSS.localize(attribName);
          row.key = attribName;

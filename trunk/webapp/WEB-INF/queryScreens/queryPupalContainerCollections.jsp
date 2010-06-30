@@ -134,26 +134,30 @@ YAHOO.util.Event.onDOMReady(function(){
                             
                             row,                        
                             {
-                              key:"percent_pupae_contribution",
+                              key:"percent_pupae_contribution_"+row.attributeName,
                               type:"sqlfloat",
+                              displayLabel:MDSS.localize('percent_pupae_contribution'),
                               attributeName:"percent_pupae_contributionrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
-                              key:"pupae_per_premise_by_taxon",
+                              key:"pupae_per_premise_by_taxon_"+row.attributeName,
                               type:"sqlfloat",
+                              displayLabel:MDSS.localize('pupae_per_premise_by_taxon'),
                               attributeName:"pupae_per_premise_by_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
-                              key:"pupae_per_hectare_by_taxon",
+                              key:"pupae_per_hectare_by_taxon_"+row.attributeName,
                               type:"sqlfloat",
+                              displayLabel:MDSS.localize('pupae_per_hectare_by_taxon'),
                               attributeName:"pupae_per_hectare_by_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
-                              key:"pupae_per_person_per_taxon",
+                              key:"pupae_per_person_per_taxon_"+row.attributeName,
                               type:"sqlfloat",
+                              displayLabel:MDSS.localize('pupae_per_person_per_taxon'),
                               attributeName:"pupae_per_person_per_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },

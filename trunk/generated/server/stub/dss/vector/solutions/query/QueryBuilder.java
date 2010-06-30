@@ -95,6 +95,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null);
 
     valueQuery.restrictRows(pageSize, pageNumber);
+    
+    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }
@@ -185,8 +187,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     valueQuery.ORDER_BY_DESC(count);
 
     valueQuery.restrictRows(20, 1);
-
-    System.out.println(valueQuery.getSQL());
 
     return valueQuery;
   }
