@@ -14,12 +14,12 @@ import dss.vector.solutions.surveillance.GridComparator;
 public class PupalContainerView extends PupalContainerViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 348141061;
-  
+
   public PupalContainerView()
   {
     super();
   }
-  
+
   public void populateView(PupalContainer concrete)
   {
     this.setConcreteId(concrete.getId());
@@ -40,10 +40,10 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
     this.setFillFrequency(concrete.getFillFrequency());
     this.setDrawdownFrequency(concrete.getDrawdownFrequency());
     this.setDrawdownPercent(concrete.getDrawdownPercent());
-    
+
     this.clearShape();
-    
-    for(ContainerShape shape : concrete.getShape())
+
+    for (ContainerShape shape : concrete.getShape())
     {
       this.addShape(shape);
     }
@@ -68,10 +68,10 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
     concrete.setFillFrequency(this.getFillFrequency());
     concrete.setDrawdownFrequency(this.getDrawdownFrequency());
     concrete.setDrawdownPercent(this.getDrawdownPercent());
-    
+
     concrete.clearShape();
-    
-    for(ContainerShape shape : this.getShape())
+
+    for (ContainerShape shape : this.getShape())
     {
       concrete.addShape(shape);
     }
@@ -143,10 +143,17 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
   @Override
   public PupalContainerAmountView[] getAmounts()
   {
+    Term[] terms = Term.getSortedRootChildren(PupalContainerView.getPupaeAmountMd());
+
+    return this.getAmounts(terms);
+  }
+
+  public PupalContainerAmountView[] getAmounts(Term[] terms)
+  {
     List<PupalContainerAmountView> list = new LinkedList<PupalContainerAmountView>();
     Set<PupalContainerAmount> set = new TreeSet<PupalContainerAmount>(new GridComparator());
 
-    for (Term d : Term.getSortedRootChildren(PupalContainerView.getPupaeAmountMd()))
+    for (Term d : terms)
     {
       set.add(new PupalContainerAmount(this.getId(), d.getId()));
     }
@@ -179,12 +186,14 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
   }
 
   public static PupalContainerAmountView[][] getAmountsForViews(PupalContainerView[] views)
-{
+  {
+    Term[] terms = Term.getSortedRootChildren(PupalContainerView.getPupaeAmountMd());
+
     PupalContainerAmountView[][] amounts = new PupalContainerAmountView[views.length][];
 
     for (int i = 0; i < views.length; i++)
     {
-      amounts[i] = views[i].getAmounts();
+      amounts[i] = views[i].getAmounts(terms);
     }
 
     return amounts;

@@ -115,10 +115,17 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   @Override
   public AggregatedPremiseReasonView[] getNonTreatmentReasons()
   {
+    Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd());
+    
+    return this.getNonTreatmentReasons(terms);    
+  }
+  
+  public AggregatedPremiseReasonView[] getNonTreatmentReasons(Term[] terms)
+  {
     List<AggregatedPremiseReasonView> list = new LinkedList<AggregatedPremiseReasonView>();
     Set<AggregatedPremiseReason> set = new TreeSet<AggregatedPremiseReason>(new GridComparator());
 
-    for (Term d : Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd()))
+    for (Term d : terms)
     {
       set.add(new AggregatedPremiseReason(this.getId(), d.getId()));
     }
@@ -153,10 +160,17 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   @Override
   public AggregatedPremiseMethodView[] getInterventionMethods()
   {
+    Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd());
+
+    return this.getInterventionMethods(terms);
+  }
+  
+  public AggregatedPremiseMethodView[] getInterventionMethods(Term[] terms)
+  {
     List<AggregatedPremiseMethodView> list = new LinkedList<AggregatedPremiseMethodView>();
     Set<AggregatedPremiseMethod> set = new TreeSet<AggregatedPremiseMethod>(new GridComparator());
 
-    for (Term d : Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd()))
+    for (Term d : terms)
     {
       set.add(new AggregatedPremiseMethod(this.getId(), d.getId()));
     }
@@ -190,11 +204,13 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
 
   public static AggregatedPremiseMethodView[][] getInterventionMethodsForViews(AggregatedPremiseVisitView[] views)
   {
+    Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd());
+
     AggregatedPremiseMethodView[][] methods = new AggregatedPremiseMethodView[views.length][];
 
     for (int i = 0; i < views.length; i++)
     {
-      methods[i] = views[i].getInterventionMethods();
+      methods[i] = views[i].getInterventionMethods(terms);
     }
 
     return methods;
@@ -202,11 +218,13 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
 
   public static AggregatedPremiseReasonView[][] getNonTreatmentReasonsForViews(AggregatedPremiseVisitView[] views)
   {
+    Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd());
+
     AggregatedPremiseReasonView[][] reasons = new AggregatedPremiseReasonView[views.length][];
     
     for (int i = 0; i < views.length; i++)
     {
-      reasons[i] = views[i].getNonTreatmentReasons();
+      reasons[i] = views[i].getNonTreatmentReasons(terms);
     }
     
     return reasons;

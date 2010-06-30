@@ -87,10 +87,17 @@ public class PersonInterventionView extends PersonInterventionViewBase implement
   @Override
   public PersonInterventionMethodView[] getInterventionMethods()
   {
+    Term[] terms = Term.getRootChildren(PersonInterventionViewBase.getInterventionMethodMd());
+    
+    return this.getInterventionMethods(terms);
+  }
+  
+  public PersonInterventionMethodView[] getInterventionMethods(Term[] terms)
+  {
     List<PersonInterventionMethodView> list = new LinkedList<PersonInterventionMethodView>();
     Set<PersonInterventionMethod> set = new TreeSet<PersonInterventionMethod>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(PersonInterventionViewBase.getInterventionMethodMd()))
+    for (Term d : terms)
     {
       set.add(new PersonInterventionMethod(this.getId(), d.getId()));
     }
@@ -124,11 +131,13 @@ public class PersonInterventionView extends PersonInterventionViewBase implement
 
   public static PersonInterventionMethodView[][] getInterventionMethodsForViews(PersonInterventionView[] views)
   {
+    Term[] terms = Term.getRootChildren(PersonInterventionViewBase.getInterventionMethodMd());
+
     PersonInterventionMethodView[][] methods = new PersonInterventionMethodView[views.length][];
 
     for (int i = 0; i < views.length; i++)
     {
-      methods[i] = views[i].getInterventionMethods();
+      methods[i] = views[i].getInterventionMethods(terms);
     }
 
     return methods;

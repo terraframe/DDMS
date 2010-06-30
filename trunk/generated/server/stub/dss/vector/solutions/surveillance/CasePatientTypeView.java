@@ -123,6 +123,8 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
 
   public static CasePatientTypeAmountView[][] getAmountsForViews(String[] ids)
   {
+    Term[] terms = Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd());
+
     CasePatientTypeAmountView[][] data = new CasePatientTypeAmountView[ids.length][];
     
     for(int i = 0; i < ids.length; i++)
@@ -136,7 +138,7 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
         view = CasePatientType.getView(id);
       }
 
-      data[i] = view.getAmounts();
+      data[i] = view.getAmounts(terms);
     }
     
     return data;
@@ -145,10 +147,16 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
   @Override
   public CasePatientTypeAmountView[] getAmounts()
   {
+    Term[] terms = Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd());
+    
+    return this.getAmounts(terms);    
+  }
+  
+  public CasePatientTypeAmountView[] getAmounts(Term[] terms)
+  {
     List<CasePatientTypeAmountView> list = new LinkedList<CasePatientTypeAmountView>();
     Set<CasePatientTypeAmount> set = new TreeSet<CasePatientTypeAmount>(new GridComparator());
 
-    Term[] terms = Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd());
     
     for (Term d : terms)
     {

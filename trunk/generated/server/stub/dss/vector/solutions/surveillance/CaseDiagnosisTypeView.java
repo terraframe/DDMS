@@ -122,6 +122,8 @@ public class CaseDiagnosisTypeView extends CaseDiagnosisTypeViewBase implements 
 
   public static CaseDiagnosisTypeAmountView[][] getAmountsForViews(String[] ids)
   {
+    Term[] terms = Term.getSortedRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd());
+
     CaseDiagnosisTypeAmountView[][] data = new CaseDiagnosisTypeAmountView[ids.length][];
     
     for(int i = 0; i < ids.length; i++)
@@ -135,19 +137,24 @@ public class CaseDiagnosisTypeView extends CaseDiagnosisTypeViewBase implements 
         view = CaseDiagnosisType.getView(id);
       }
 
-      data[i] = view.getAmounts();
+      data[i] = view.getAmounts(terms);
     }
     
     return data;
   }
-  
+
   @Override
   public CaseDiagnosisTypeAmountView[] getAmounts()
   {
+    Term[] terms = Term.getSortedRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd());
+    
+    return this.getAmounts(terms);
+  }
+  
+  public CaseDiagnosisTypeAmountView[] getAmounts(Term[] terms)
+  {
     List<CaseDiagnosisTypeAmountView> list = new LinkedList<CaseDiagnosisTypeAmountView>();
     Set<CaseDiagnosisTypeAmount> set = new TreeSet<CaseDiagnosisTypeAmount>(new GridComparator());
-
-    Term[] terms = Term.getSortedRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd());
 
     for (Term d : terms)
     {
