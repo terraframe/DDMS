@@ -59,13 +59,17 @@ public class TermNode implements Comparable<TermNode>
       {
         ip.appLock();
         Disease disease = ip.getDisease();
-        if (disease.equals(Disease.MALARIA))
+        if (disease.equals(Disease.getMalaria()))
         {
           ip.setInactive(!activeMalaria);
         }
-        else if (disease.equals(Disease.DENGUE))
+        else if (disease.equals(Disease.getDengue()))
         {
           ip.setInactive(!activeDengue);
+        }
+        else
+        {
+          throw new RuntimeException("Disease " + disease + " not found for term name [" + name + "] and id [" + id + "]");
         }
         ip.apply();
       }
