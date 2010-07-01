@@ -116,10 +116,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     containerColumns = [{
-       
-      key:"container_term",
-      type:"sqlcharacter",
-      attributeName:"container_term",
+      key:"childId",
+      displayLabel: MDSS.localize('container_term'),
+      type:"dss.vector.solutions.entomology.CollectionContainer",
+      attributeName:"childId",
+      dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+      isTerm : true
 
       }].concat(containerColumns);
 

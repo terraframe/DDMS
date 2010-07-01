@@ -185,7 +185,18 @@ public class QueryUtil implements Reloadable
    */
   public static String getColumnName(MdEntityDAOIF md, String attribute)
   {
-    return getColumnName(md.getAllDefinedMdAttributeMap().get(attribute.toLowerCase()));
+    if(attribute.equals("childId"))
+    {
+      return RelationshipDAOIF.CHILD_ID_COLUMN;
+    }
+    else if(attribute.equals("parentId"))
+    {
+      return RelationshipDAOIF.PARENT_ID_COLUMN;
+    }
+    else
+    {
+      return getColumnName(md.getAllDefinedMdAttributeMap().get(attribute.toLowerCase()));
+    }
   }
 
   /**
@@ -348,7 +359,7 @@ public class QueryUtil implements Reloadable
       
       String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
       String subSelect = klass.replace('.', '_') + "TermSubSel";
-      String table = MdBusiness.getMdBusiness(klass).getTableName();
+      String table = MdEntity.getMdEntity(klass).getTableName();
       valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
     }
     return valueQuery;
@@ -580,9 +591,9 @@ public class QueryUtil implements Reloadable
           
           String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
           String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
-//        valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
+        valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
           
-          valueQuery.AND(((AttributeReference) attributeQuery.get(attrib_name)).EQ(apQuery.getChildTerm()));
+//          valueQuery.AND(((AttributeReference) attributeQuery.get(attrib_name)).EQ(apQuery.getChildTerm()));
         }
       }
 
@@ -664,8 +675,8 @@ public class QueryUtil implements Reloadable
 
   public static String getTermSubSelect(String className, String... attributes)
   {
-    String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-    MdBusinessDAOIF targetMdBusiness = MdBusinessDAO.getMdBusinessDAO(className);
+    String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
+    MdEntityDAOIF targetMdBusiness = MdEntityDAO.getMdEntityDAO(className);
     String tableName = targetMdBusiness.getTableName();
 
     String select = "SELECT " + tableName + ".id ,";
@@ -682,7 +693,9 @@ public class QueryUtil implements Reloadable
         select += ",";
       }
 
-      String attrColumn = attrMap.get(attr.toLowerCase()).getColumnName();
+      MdAttributeConcreteDAOIF attrMd = attrMap.get(attr.toLowerCase());
+      String attrColumn = attrMd != null ? getColumnName(attrMd) : getColumnName(targetMdBusiness, attr);
+      
       from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attrColumn + " = term" + count + ".id";
 
       count++;

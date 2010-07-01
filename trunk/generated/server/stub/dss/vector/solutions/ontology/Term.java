@@ -31,6 +31,8 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdEntity;
+import com.runwaysdk.system.metadata.MdRelationship;
 
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
@@ -1246,7 +1248,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
    */
   public static String[] getTermAttributes(String className)
   {
-    MdBusiness md = MdBusiness.getMdBusiness(className);
+    MdEntity md = MdEntity.getMdEntity(className);
     List<String> list = new LinkedList<String>();
 
     for (MdAttribute mdAttr : md.getAllAttribute())
@@ -1254,6 +1256,15 @@ public class Term extends TermBase implements Reloadable, OptionIF
       if (mdAttr instanceof MdAttributeReference && ( (MdAttributeReference) mdAttr ).getMdBusiness().definesType().equals(Term.CLASS))
       {
         list.add( ( (MdAttributeReference) mdAttr ).getAttributeName());
+      }
+    }
+    
+    if(md instanceof MdRelationship)
+    {
+      MdBusiness childMd = ( (MdRelationship) md ).getChildMdBusiness();
+      if(childMd.definesType().equals(Term.CLASS))
+      {
+        list.add("childId");
       }
     }
 

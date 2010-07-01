@@ -289,6 +289,7 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("prevalence");
       if (personQuery == null)
       {
+        
         // we pass in a value query instead of a query factory so that we use a
         // normal join instead of IN()
         personQuery = new SurveyedPersonQuery(valueQuery);
@@ -296,6 +297,13 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
         {
           valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
         }
+        else
+        {
+          householdQuery = new HouseholdQuery(valueQuery);
+          valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
+        }
+        
+        valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
       }
 
       String tableAlias = personQuery.getTableAlias();

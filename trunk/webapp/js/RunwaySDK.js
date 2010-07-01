@@ -1242,7 +1242,7 @@ Mojo.Meta.newClass('Mojo.Util', {
       return true;
     },
 
-    toISO8601 : function (date)
+    toISO8601 : function (date, ignoreTimezone)
     {
       /* 
          ISO8601 format:
@@ -1274,7 +1274,11 @@ Mojo.Meta.newClass('Mojo.Util', {
       // Set ss
       str += ":" + zeropad(tempDate.getSeconds());        
       // Set TZD
-      //str += (offset > 0 ? '-' : '+') + zeropad(offset) + '00';
+      
+      if(!ignoreTimezone)
+      {
+        str += (offset > 0 ? '-' : '+') + zeropad(offset) + '00';
+      }
       
       return str;
     },
@@ -1333,8 +1337,10 @@ Mojo.Meta.newClass('Mojo.Util', {
             }
             
             // Mojo change: A date specific check (server expects timestamps).
+            // TODO Refactor to include a toJSON() method on the DTOs
             if(Mojo.Util.isDate(value))
             {
+              var ignoreTimezone = holder != null && holder instanceof com.runwaysdk.transport.attributes.AttributeDateDTO;
               return quote(Mojo.Util.toISO8601(value));
             }
 

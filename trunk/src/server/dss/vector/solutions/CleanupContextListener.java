@@ -289,9 +289,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "geo0.id,  \n";
     sql += "geo0." + geoIdCol + ", \n";
     sql += "(t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type, \n";
-    sql += "g1." + politicalCol + " AS political, \n";
-    sql += "g1." + sprayTargetAllowedCol + " AS spray_target_allowed,  \n";
-    sql += "g1." + populationAllowedCol + " AS population_allowed,\n \n";
+    sql += "g1." + politicalCol + " AS "+politicalCol+", \n";
+    sql += "g1." + sprayTargetAllowedCol + " AS "+sprayTargetAllowedCol+",  \n";
+    sql += "g1." + populationAllowedCol + " AS "+populationAllowedCol+",\n \n";
     for (String locale : list)
     {
       // sql += "dl1.defaultlocale AS type_displayLabel_" + locale +", \n";
@@ -356,7 +356,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String populationDataTable = populationDataMd.getTableName();
     String geoEntityCol = QueryUtil.getColumnName(PopulationData.getGeoEntityMd());
     String yearOfDataCol = QueryUtil.getColumnName(PopulationData.getYearOfDataMd());
-    String populationCol = QueryUtil.getColumnName(PopulationData.getPopulationMd());
 
     MdEntityDAOIF locatedInMd = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS);
     String locatedInTable = locatedInMd.getTableName();
@@ -366,6 +365,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String startDateCol = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
     String endDateCol = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
 
+    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
+    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
+    
     String sql = "";
 
     sql += "CREATE OR REPLACE FUNCTION sum_stringified_id_int_pairs(anyarray) RETURNS bigint AS $$ \n";
@@ -395,7 +397,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _percentage_Adjustment = (_middle_Day/183); \n";
     sql += "  SELECT population , year_of_data, growth_rate FROM population_data pd JOIN geo_displayLabel gd ON gd.id = pd.geo_entity \n";
     sql += "    WHERE pd.year_of_data  <= _year AND pd.geo_entity = _geo_Entity_Id  \n";
-    sql += "    AND gd.population_allowed = 1 AND gd.political = 1 \n";
+    sql += "    AND gd."+populationAllowedCol+" = 1 AND gd."+politicalCol+" = 1 \n";
     sql += "    ORDER BY pd.year_of_data DESC \n";
     sql += "    LIMIT 1 \n";
     sql += "    INTO _population, _prev_Year, _growth; \n";
@@ -416,7 +418,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "      SELECT count(ap.id) FROM " + allPathsTable + " ap \n";
     sql += "     JOIN " + populationDataTable + " pd ON ap." + childGeoEntityCol + " = pd." + geoEntityCol + " JOIN geo_displayLabel gd ON gd.id = pd." + geoEntityCol + " \n";
     sql += "     WHERE pd.population IS NOT NULL AND ap." + parentGeoEntityCol + " =  _geo_Entity_Id AND pd." + yearOfDataCol + " <= _year \n";
-    sql += "     AND gd." + populationCol + " = 1 AND gd.political = 1 \n";
+    sql += "     AND gd." + populationAllowedCol + " = 1 AND gd."+politicalCol+" = 1 \n";
     sql += "      INTO _child_Count; \n";
     sql += "      --continue to recurse if this branch has data \n";
     sql += "       IF _child_Count > 0 THEN \n";
@@ -446,7 +448,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _geo_Entity_Id  VARCHAR; \n";
     sql += "  _year             INT; \n";
     sql += "BEGIN \n";
-    sql += "  SELECT id FROM " + geoEntityTable + " WHERE " + geoIdCol + " = _geoId \n";
+    sql += "  SELECT id FROM " + geoEntityTable + " WHERE " + geoIdCol + " = _geo_Id \n";
     sql += "    INTO _geo_Entity_Id; \n";
     sql += "   _year := EXTRACT(year FROM _date); \n";
     sql += "  SELECT get_adjusted_population(_geo_Entity_Id, _year,183) \n";

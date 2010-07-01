@@ -55,11 +55,26 @@ Mojo.Meta.newClass('MDSS.QueryImmatureContainerCollection', {
         {
           return 'dss.vector.solutions.entomology.ImmatureCollectionView';
         }
+        else if(attribute.getAttributeName() === 'childId')
+        {
+          return 'dss.vector.solutions.entomology.PupalContainerView';
+        }
         else
         {
           return this.$_getBrowserRootClass(attribute);
         }
+      },
+      
+      _getBrowserRootAttribute : function(attribute)
+      {
+        if(attribute.getAttributeName() === 'childId')
+        {
+          return 'containerType';
+        }
+        else
+        {
+          return this.$_getBrowserRootAttribute(attribute);
+        }
       }
-
     }
 });

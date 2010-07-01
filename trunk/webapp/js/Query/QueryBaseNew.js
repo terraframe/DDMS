@@ -52,6 +52,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     {
       return attribute.getType()+'View';
     },
+    
+    _getBrowserRootAttribute : function(attribute)
+    {
+      return attribute.getAttributeName().replace(/.name/,'');
+    },
 
     /**
      * Returns the controller action to invoke when exporting the query to XML.
@@ -991,10 +996,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         if(attribute.getTerm())
         {
           var browserRootClass = this._getBrowserRootClass(attribute);
+          var browserRootAttribute = this._getBrowserRootAttribute(attribute);
           
         	li.id = attribute.getKey()+'_li';
-        	var n =  attribute.getAttributeName().replace(/.name/,'');
-          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass, n, true);
+          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass, browserRootAttribute, true);
         }
 
         visibleUl.appendChild(li);

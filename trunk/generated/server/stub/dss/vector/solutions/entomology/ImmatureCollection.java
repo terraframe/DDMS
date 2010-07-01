@@ -179,7 +179,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
 
       if (collectionPremiseQuery == null)
       {
-        collectionPremiseQuery = new CollectionPremiseQuery(queryFactory);
+        collectionPremiseQuery = new CollectionPremiseQuery(valueQuery);
         valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
       }
 
@@ -191,13 +191,13 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     {
       if (collectionPremiseQuery == null)
       {
-        collectionPremiseQuery = new CollectionPremiseQuery(queryFactory);
+        collectionPremiseQuery = new CollectionPremiseQuery(valueQuery);
         valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
       }
 
       if (premiseTaxonQuery == null)
       {
-        premiseTaxonQuery = new PremiseTaxonQuery(queryFactory);
+        premiseTaxonQuery = new PremiseTaxonQuery(valueQuery);
         valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
       }
 
@@ -267,10 +267,10 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     needsJoin = valueQuery.hasSelectableRef("ppha") || needsJoin;
     needsJoin = valueQuery.hasSelectableRef("pppe") || needsJoin;
 
-    if (valueQuery.hasSelectableRef("container_term"))
-    {
-      needsJoin = true;
-    }
+//    if (valueQuery.hasSelectableRef("container_term"))
+//    {
+//      needsJoin = true;
+//    }
 
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM(" + numberimmatures + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
     // Percentage of water-holding containers with larvae by container type:
@@ -325,14 +325,14 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
         needsJoin = true;
       }
     }
-
-    if (valueQuery.hasSelectableRef("container_term"))
-    {
-      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-      String idCol = QueryUtil.getIdColumn();
-      String sql = "SELECT " + Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt." + idCol + " = " + collectionContainerQuery.getTableAlias() + "." + RelationshipDAOIF.CHILD_ID_COLUMN;
-      QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
-    }
+//
+//    if (valueQuery.hasSelectableRef("container_term"))
+//    {
+//      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
+//      String idCol = QueryUtil.getIdColumn();
+//      String sql = "SELECT " + Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt." + idCol + " = " + collectionContainerQuery.getTableAlias() + "." + RelationshipDAOIF.CHILD_ID_COLUMN;
+//      QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
+//    }
 
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
   }
