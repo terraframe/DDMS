@@ -314,12 +314,12 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM(" + numberlarvae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
       QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM(" + numberpupae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
 
-      QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM(" + numberpupae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
+      QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
       QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExamined + ", 0.0)");
-      QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM(" + numberpupae + ")/NULLIF(" + numberSizeSum + ", 0.0)*100.0");
+      QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberSizeSum + ", 0.0)*100.0");
       
       // this calculation only valid for premises with data for inhabitants
-      if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM(" + numberpupae + ")/NULLIF(" + numberInhabitantsSum + ", 0.0)*100.0"))
+      if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberInhabitantsSum + ", 0.0)*100.0"))
       {
         valueQuery.WHERE(collectionPremiseQuery.getNumberInhabitants().NE("NULL"));
         needsJoin = true;
