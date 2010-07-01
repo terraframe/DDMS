@@ -2,7 +2,7 @@ package dss.vector.solutions.ontology;
 
 public class MissingMOtoGeoUniversalMappingDTO extends MissingMOtoGeoUniversalMappingDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{
-  private static final long serialVersionUID = 1255669911826L;
+  private static final long serialVersionUID = 1610847048;
   
   public MissingMOtoGeoUniversalMappingDTO(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {

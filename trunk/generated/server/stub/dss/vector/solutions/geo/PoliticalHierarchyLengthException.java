@@ -2,7 +2,7 @@ package dss.vector.solutions.geo;
 
 public class PoliticalHierarchyLengthException extends PoliticalHierarchyLengthExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1243874391103L;
+  private static final long serialVersionUID = -480903587;
   
   public PoliticalHierarchyLengthException()
   {
