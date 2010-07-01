@@ -1274,7 +1274,7 @@ Mojo.Meta.newClass('Mojo.Util', {
       // Set ss
       str += ":" + zeropad(tempDate.getSeconds());        
       // Set TZD
-      str += (offset > 0 ? '-' : '+') + zeropad(offset) + '00';
+      //str += (offset > 0 ? '-' : '+') + zeropad(offset) + '00';
       
       return str;
     },
@@ -1286,25 +1286,7 @@ Mojo.Meta.newClass('Mojo.Util', {
             return n < 10 ? '0' + n : n;
         }
 
-        if (typeof Date.prototype.toJSON !== 'function') {
 
-            Date.prototype.toJSON = function (key) {
-
-                return isFinite(this.valueOf()) ?
-                       this.getUTCFullYear()   + '-' +
-                     f(this.getUTCMonth() + 1) + '-' +
-                     f(this.getUTCDate())      + 'T' +
-                     f(this.getUTCHours())     + ':' +
-                     f(this.getUTCMinutes())   + ':' +
-                     f(this.getUTCSeconds())   + 'Z' : null;
-            };
-
-            String.prototype.toJSON =
-            Number.prototype.toJSON =
-            Boolean.prototype.toJSON = function (key) {
-                return this.valueOf();
-            };
-        }
 
         var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
             escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -1345,13 +1327,15 @@ Mojo.Meta.newClass('Mojo.Util', {
                 partial,
                 value = holder[key];
 
-            if (value && typeof value === 'object' &&
-                    typeof value.toJSON === 'function') {
-                value = value.toJSON(key);
-            }
 
             if (typeof rep === 'function') {
                 value = rep.call(holder, key, value);
+            }
+            
+            // Mojo change: A date specific check (server expects timestamps).
+            if(Mojo.Util.isDate(value))
+            {
+              return quote(Mojo.Util.toISO8601(value));
             }
 
             switch (typeof value) {
