@@ -40,6 +40,7 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
+import dss.vector.solutions.intervention.monitor.ControlInterventionDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
 import dss.vector.solutions.intervention.monitor.IPTDoseDTO;
@@ -119,6 +120,8 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   private static final String QUERY_AGGREGATED_ITN                = "/WEB-INF/queryScreens/queryAggregatedITN.jsp";
 
   private static final String QUERY_MOSQUITO_COLLECTIONS          = "/WEB-INF/queryScreens/queryMosquitoCollections.jsp";
+
+  private static final String QUERY_INTERVENTION_CONTROL          = "/WEB-INF/queryScreens/queryInterventionControl.jsp";
 
   public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -720,6 +723,41 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
      
       
       req.getRequestDispatcher(QUERY_PUPAL_CONTAINER_COLLECTION).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+  }
+
+  
+  
+  /**
+   * Creates the screen to query Invervention COntrol
+   */
+  public void queryInterventionControl() throws IOException, ServletException
+  {
+    try
+    {
+      loadQuerySpecifics(ControlInterventionDTO.CLASS, QueryConstants.QueryType.QUERY_INTERVENTION_CONTROL);
+
+      ClientRequestIF request = this.getClientRequest();
+
+      // Load label map for Adult Discriminating Dose Assay
+      ClassQueryDTO ci = request.getQuery(ControlInterventionDTO.CLASS);
+      String map = Halp.getDropDownMaps(ci, request, ", ");
+      req.setAttribute("ciMap", map);
+
+      
+      JSONObject ordered = new JSONObject();
+
+
+      req.setAttribute("orderedGrids", ordered.toString());
+      
+     
+      
+      req.getRequestDispatcher(QUERY_INTERVENTION_CONTROL).forward(req, resp);
 
     }
     catch (Throwable t)
