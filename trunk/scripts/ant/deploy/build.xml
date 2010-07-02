@@ -550,6 +550,21 @@
 		</java>
 	</target>
 
+	<target name="import_localization_data" description="Imports the localization xls file">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Dgeodata.db=${geodata.db}" />
+			<arg value="import_localization_disease_defaults" />
+		</java>
+	</target>
+
 	<target name="load_permissions" description="Load default permissions">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="load_permissions">
 			<jvmarg value="-Xmx${max_memory_use}" />
