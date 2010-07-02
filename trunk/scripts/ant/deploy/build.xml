@@ -40,7 +40,7 @@
 		<echo message="Build part 1 complete, please refresh and clean" />
 	</target>
 
-	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_menuitems,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_menuitems,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,load_permissions,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="The build is complete, please start tomcat" />
 	</target>
 
@@ -547,6 +547,18 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="import_menuitems" />
+		</java>
+	</target>
+
+	<target name="load_permissions" description="Load default permissions">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="load_permissions">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="load_permissions" />
 		</java>
 	</target>
 
