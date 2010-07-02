@@ -16,8 +16,7 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 
-public class EfficacyAssayView extends EfficacyAssayViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242609508153L;
 
@@ -30,7 +29,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
   {
     GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
 
-    if(entity == null || !(entity instanceof Surface))
+    if (entity == null || ! ( entity instanceof Surface ))
     {
       throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId", (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
     }
@@ -55,8 +54,9 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     concrete.setSex(this.getSex());
     concrete.setSurfacePostion(this.getSurfacePostion());
     concrete.setSurfaceType(this.getSurfaceType());
-    if (this.isNew() && this.getDisease() != null) {
-    	concrete.setDisease(this.getDisease());
+    if (this.isNew() && this.getDisease() != null)
+    {
+      concrete.setDisease(this.getDisease());
     }
   }
 
@@ -106,39 +106,27 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
 
   private void populateMapping(EfficacyAssay concrete)
   {
-    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.STARTPOINT, this,
-        EfficacyAssayView.AGERANGE);
-    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.ENDPOINT, this,
-        EfficacyAssayView.AGERANGE);
+    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.STARTPOINT, this, EfficacyAssayView.AGERANGE);
+    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.ENDPOINT, this, EfficacyAssayView.AGERANGE);
     new AttributeNotificationMap(concrete, EfficacyAssay.COLONYNAME, this, EfficacyAssayView.COLONYNAME);
-    new AttributeNotificationMap(concrete, EfficacyAssay.EXPOSURETIME, this,
-        EfficacyAssayView.EXPOSURETIME);
+    new AttributeNotificationMap(concrete, EfficacyAssay.EXPOSURETIME, this, EfficacyAssayView.EXPOSURETIME);
     new AttributeNotificationMap(concrete, EfficacyAssay.FED, this, EfficacyAssayView.FED);
     new AttributeNotificationMap(concrete, EfficacyAssay.GEOENTITY, this, EfficacyAssayView.GEOID);
     new AttributeNotificationMap(concrete, EfficacyAssay.GRAVID, this, EfficacyAssayView.GRAVID);
-    new AttributeNotificationMap(concrete, EfficacyAssay.HOLDINGTIME, this,
-        EfficacyAssayView.HOLDINGTIME);
-    new AttributeNotificationMap(concrete, EfficacyAssay.INSECTICIDE, this,
-        EfficacyAssayView.INSECTICIDE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.HOLDINGTIME, this, EfficacyAssayView.HOLDINGTIME);
+    new AttributeNotificationMap(concrete, EfficacyAssay.INSECTICIDE, this, EfficacyAssayView.INSECTICIDE);
     new AttributeNotificationMap(concrete, EfficacyAssay.MORTALITY, this, EfficacyAssayView.MORTALITY);
-    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYDEAD, this,
-        EfficacyAssayView.QUANTITYDEAD);
-    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYLIVE, this,
-        EfficacyAssayView.QUANTITYLIVE);
-    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYTESTED, this,
-        EfficacyAssayView.QUANTITYTESTED);
+    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYDEAD, this, EfficacyAssayView.QUANTITYDEAD);
+    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYLIVE, this, EfficacyAssayView.QUANTITYLIVE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYTESTED, this, EfficacyAssayView.QUANTITYTESTED);
     new AttributeNotificationMap(concrete, EfficacyAssay.SPECIE, this, EfficacyAssayView.SPECIE);
     new AttributeNotificationMap(concrete, EfficacyAssay.TESTDATE, this, EfficacyAssayView.TESTDATE);
     new AttributeNotificationMap(concrete, EfficacyAssay.TESTMETHOD, this, EfficacyAssayView.TESTMETHOD);
-    new AttributeNotificationMap(concrete, EfficacyAssay.TIMEONSURFACE, this,
-        EfficacyAssayView.TIMEONSURFACE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.TIMEONSURFACE, this, EfficacyAssayView.TIMEONSURFACE);
     new AttributeNotificationMap(concrete, EfficacyAssay.SEX, this, EfficacyAssayView.SEX);
-    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACEPOSTION, this,
-            EfficacyAssayView.SURFACEPOSTION);
-    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACETYPE, this,
-            EfficacyAssayView.SURFACETYPE);
-    new AttributeNotificationMap(concrete, EfficacyAssay.DISEASE, this,
-            EfficacyAssayView.DISEASE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACEPOSTION, this, EfficacyAssayView.SURFACEPOSTION);
+    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACETYPE, this, EfficacyAssayView.SURFACETYPE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.DISEASE, this, EfficacyAssayView.DISEASE);
   }
 
   private boolean hasConcreteId()
@@ -193,17 +181,17 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
       iterator.close();
     }
   }
-  
+
   public static EfficacyAssayViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     EfficacyAssayViewQuery query = new EfficacyAssayViewQuery(new QueryFactory());
 
-    if (sortAttribute==null)
+    if (sortAttribute == null)
     {
       sortAttribute = COLONYNAME;
     }
-    
-    SelectablePrimitive selectable = (SelectablePrimitive)query.getComponentQuery().getSelectableRef(sortAttribute);
+
+    SelectablePrimitive selectable = (SelectablePrimitive) query.getComponentQuery().getSelectableRef(sortAttribute);
 
     if (isAscending)
     {
@@ -213,16 +201,17 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
     {
       query.ORDER_BY_DESC(selectable, sortAttribute);
     }
-    
+
     if (pageSize != 0 && pageNumber != 0)
     {
-       query.restrictRows(pageSize, pageNumber);
+      query.restrictRows(pageSize, pageNumber);
     }
-    
-    //FIXME: Printing out the sql changes the result,  the struct table is not being joined. 
-    
-    //DO NOT DELETE THIS PRINTLN UNTILL THIS BUG IS FIXED!!!!!!!!!
-    System.out.println(query.getSQL());    
+
+    // FIXME: Printing out the sql changes the result, the struct table is not
+    // being joined.
+
+    // DO NOT DELETE THIS PRINTLN UNTILL THIS BUG IS FIXED!!!!!!!!!
+    System.out.println(query.getSQL());
 
     return query;
   }

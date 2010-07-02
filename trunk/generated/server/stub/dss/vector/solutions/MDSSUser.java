@@ -16,6 +16,7 @@ import com.runwaysdk.system.Roles;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.permission.MDSSRole;
 
 public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -82,22 +83,22 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
 
     UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
 
-    // First clear all existing roles except GUI visibility
-    String[] roles = MDSSUser.getAssignableRoles();
+    // First clear all existing roles
+    Roles[] roles = MDSSRole.getRoles();
 
-    for (String roleName : roles)
+    for (Roles role : roles)
     {
-      RoleDAOIF roleDAO = RoleDAO.findRole(roleName);
+      RoleDAOIF roleDAOIF = RoleDAO.get(role.getId());
 
       if (session != null && !session.checkTypeAccess(Operation.DELETE, Assignments.CLASS))
       {
         String msg = "The user does not have permissions to assign members to roles";
-        Assignments entity = new Assignments(this, Roles.get(roleDAO.getId()));
+        Assignments entity = new Assignments(this, Roles.get(roleDAOIF.getId()));
 
         throw new DeletePermissionException(msg, entity, session.getUser());
       }
 
-      RoleDAO.findRole(roleName).getBusinessDAO().deassignMember(userDAO);
+      roleDAOIF.getBusinessDAO().deassignMember(userDAO);
     }
 
     for (String id : assign)
@@ -114,11 +115,6 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
 
       role.assignMember(userDAO);
     }
-  }
-
-  private static String[] getAssignableRoles()
-  {
-    return new String[] { MDSSRoleInfo.DATACAPTURER, MDSSRoleInfo.ENTOMOLOGIST, MDSSRoleInfo.MANAGER, MDSSRoleInfo.MDSS, MDSSRoleInfo.MDSS_CORRDINATOR, MDSSRoleInfo.OPERATIONAL_MANAGER, MDSSRoleInfo.STOCK_STAFF, };
   }
 
   public static void changeRootGeoEntity(String geoEntityId)

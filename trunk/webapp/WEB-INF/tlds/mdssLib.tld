@@ -805,6 +805,20 @@
     </body-content>
     <attribute>
       <description>
+        Flag denoting if the attribute label should be displayed
+      </description>
+      <name>
+        showAttributeLabel
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+    </attribute>
+    <attribute>
+      <description>
         The name of the controller parameter or attribute
       </description>
       <name>

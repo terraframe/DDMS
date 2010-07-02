@@ -1,0 +1,367 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <enumerationMaster
+        name="dss.vector.solutions.permission.PermissionOptionMaster"
+        label="Permission Option Master"
+        generateController="false" />
+
+      <object
+        key="READ"
+        type="dss.vector.solutions.permission.PermissionOptionMaster">
+        <attribute
+          name="enumName"
+          value="READ" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Read" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="WRITE"
+        type="dss.vector.solutions.permission.PermissionOptionMaster">
+        <attribute
+          name="enumName"
+          value="WRITE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Write" />
+        </attributeStruct>
+      </object>
+
+      <object
+        key="NONE"
+        type="dss.vector.solutions.permission.PermissionOptionMaster">
+        <attribute
+          name="enumName"
+          value="NONE" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="None" />
+        </attributeStruct>
+      </object>
+
+      <mdEnumeration
+        name="dss.vector.solutions.permission.PermissionOption"
+        type="dss.vector.solutions.permission.PermissionOptionMaster"
+        label="Permission Option">
+        <includeAll />
+      </mdEnumeration>
+
+      <mdView
+        name="dss.vector.solutions.permission.PermissionView"
+        label="Permission View">
+        <attributes>
+          <char
+            name="label"
+            label="Menu Item"
+            size="255"
+            required="true" />
+          <char
+            name="urlId"
+            label="URL Id"
+            size="255"
+            required="true" />
+          <enumeration
+            name="permission"
+            label="Permissions"
+            required="true"
+            selectMultiple="false"
+            type="dss.vector.solutions.permission.PermissionOption" />
+        </attributes>
+      </mdView>
+
+      <mdView
+        name="dss.vector.solutions.permission.UniversalPermissionView"
+        label="Universal View">
+        <attributes>
+          <char
+            name="label"
+            label="Universal"
+            size="255"
+            required="true" />
+          <char
+            name="universalId"
+            label="Universal Id"
+            size="255"
+            required="true" />
+          <boolean
+            name="permission"
+            label="Create permission"
+            positiveLabel="true"
+            negativeLabel="false"
+            required="true" />
+        </attributes>
+      </mdView>
+
+      <mdBusiness
+        name="dss.vector.solutions.permission.MDSSRole"
+        label="Role"
+        generateController="true">
+        <attributes>
+          <reference
+            name="role"
+            column="runwayRole"
+            label="Role"
+            type="com.runwaysdk.system.Roles"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="unlockView"
+          label="unlock View"
+          returnType="dss.vector.solutions.permission.MDSSRoleView"
+          description="Unlocks the corresponding SurveyPoint and returns its view representation"
+          static="false" />
+        <mdMethod
+          name="lockView"
+          label="Lock View"
+          returnType="dss.vector.solutions.permission.MDSSRoleView"
+          description="Locks the corresponding SurveyPoint and returns its view representation"
+          static="false" />
+        <mdMethod
+          name="getView"
+          label="Get View"
+          returnType="dss.vector.solutions.permission.MDSSRoleView"
+          description="Returns the view representation of a given SurveyPoint"
+          static="false" />
+        <mdMethod
+          name="getRoles"
+          label="Get Roles"
+          returnType="com.runwaysdk.system.Roles[]"
+          static="true" />
+      </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.permission.MDSSRoleView"
+        label="Role"
+        generateController="true">
+        <attributes>
+          <char
+            name="concreteId"
+            label="Concrete Id"
+            size="64"
+            required="true" />
+          <char
+            name="roleName"
+            label="Role Name"
+            size="255"
+            required="true" />
+          <char
+            name="displayLabel"
+            label="Display Label"
+            size="255"
+            required="true" />
+        </attributes>
+        <mdMethod
+          name="getPermissions"
+          label="Get Permissions"
+          static="false"
+          returnType="dss.vector.solutions.permission.PermissionView[]" />
+        <mdMethod
+          name="setPermissions"
+          label="Set Permissions"
+          static="false"
+          returnType="void">
+          <mdParameter
+            name="permissions"
+            label="Permissions"
+            order="0"
+            type="dss.vector.solutions.permission.PermissionView[]" />
+        </mdMethod>
+        <mdMethod
+          name="getUniversalPermissions"
+          label="Get Permissions"
+          static="false"
+          returnType="dss.vector.solutions.permission.UniversalPermissionView[]" />
+        <mdMethod
+          name="setUniversalPermissions"
+          label="Set Permissions"
+          static="false"
+          returnType="void">
+          <mdParameter
+            name="permissions"
+            label="Permissions"
+            order="0"
+            type="dss.vector.solutions.permission.UniversalPermissionView[]" />
+        </mdMethod>
+        <mdMethod
+          name="deleteConcrete"
+          label="Delete Concrete"
+          returnType="void"
+          static="false" />
+        <mdMethod
+          name="getPage"
+          returnType="dss.vector.solutions.permission.MDSSRoleViewQuery"
+          label="getPage"
+          static="true">
+          <mdParameter
+            name="sortAttribute"
+            label="Sort Attribute"
+            type="java.lang.String"
+            order="0" />
+          <mdParameter
+            name="isAscending"
+            label="Is Ascending"
+            type="java.lang.Boolean"
+            order="1" />
+          <mdParameter
+            name="pageSize"
+            label="Page Size"
+            type="java.lang.Integer"
+            order="2" />
+          <mdParameter
+            name="pageNumber"
+            label="Page Number"
+            type="java.lang.Integer"
+            order="3" />
+        </mdMethod>
+      </mdView>
+    </create>
+    <update>
+      <mdController
+        name="dss.vector.solutions.permission.MDSSRoleController">
+        <mdAction
+          name="update"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.permission.MDSSRoleView" />
+        </mdAction>
+        <mdAction
+          name="delete"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.permission.MDSSRoleView" />
+        </mdAction>
+        <mdAction
+          name="create"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.permission.MDSSRoleView" />
+        </mdAction>
+        <mdAction
+          name="cancel"
+          isPost="true">
+          <mdParameter
+            name="dto"
+            type="dss.vector.solutions.permission.MDSSRoleView" />
+        </mdAction>
+        <create>
+          <mdAction
+            name="getPermissions"
+            label="Get Permissions"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="id"
+              label="id"
+              type="java.lang.String"
+              order="0" />
+          </mdAction>
+          <mdAction
+            name="setPermissions"
+            label="Set Permissions"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="dto"
+              label="DTO"
+              type="dss.vector.solutions.permission.MDSSRoleView"
+              order="0" />
+            <mdParameter
+              name="permissions"
+              label="Permissions"
+              order="1"
+              type="dss.vector.solutions.permission.PermissionView[]" />
+          </mdAction>
+          <mdAction
+            name="getUniversalPermissions"
+            label="Get Universal Permissions"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="id"
+              label="id"
+              type="java.lang.String"
+              order="0" />
+          </mdAction>
+          <mdAction
+            name="setUniversalPermissions"
+            label="Set Universal Permissions"
+            isPost="true"
+            isQuery="false">
+            <mdParameter
+              name="dto"
+              label="DTO"
+              type="dss.vector.solutions.permission.MDSSRoleView"
+              order="0" />
+            <mdParameter
+              name="permissions"
+              label="Permissions"
+              order="1"
+              type="dss.vector.solutions.permission.UniversalPermissionView[]" />
+          </mdAction>
+        </create>
+      </mdController>
+
+
+      <mdBusiness
+        name="dss.vector.solutions.general.SystemURL">
+        <create>
+          <attributes>
+            <reference
+              name="readRole"
+              label="Read Role"
+              type="com.runwaysdk.system.Roles" />
+            <reference
+              name="writeRole"
+              label="Write Role"
+              type="com.runwaysdk.system.Roles" />
+          </attributes>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.SystemURL.writeRole"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.general.SystemURL.readRole"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.permission.MDSSRoleController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.permission.MDSSRoleView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.permission.MDSSRole"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+      <object
+        key="dss.vector.solutions.permission.PermissionView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.permission.UniversalPermissionView"
+        type="com.runwaysdk.system.metadata.MdView" />
+      <object
+        key="dss.vector.solutions.permission.PermissionOption"
+        type="com.runwaysdk.system.metadata.MdEnumeration" />
+      <object
+        key="dss.vector.solutions.permission.PermissionOptionMaster"
+        type="com.runwaysdk.system.metadata.MdBusiness" />
+    </delete>
+  </undoIt>
+</version>

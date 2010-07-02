@@ -2,16 +2,12 @@ package dss.vector.solutions;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
-import com.runwaysdk.ClientSession;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.RelationshipInfo;
-import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AttributePrimitive;
@@ -30,7 +26,8 @@ import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.BrowserRoot;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
 
 public class Sandbox
 {
@@ -38,154 +35,14 @@ public class Sandbox
 
   private static int           feedbackMod = 50;
 
+  @StartSession
   public static void main(String[] args) throws Exception
   {
-    ClientSession session = ClientSession.createUserSession("MDSS", "mdsstest2", new Locale[]{Locale.ENGLISH});
-    testGeoEntityQuery(session.getSessionId());
-
-    // String s =
-    // "ajlas aljskfdj GROUP BY entityname_v, geoid_v, type_4, geometry_v, exo_v WHERE jaja";
-    // Pattern p =
-    // Pattern.compile("(.*? GROUP BY\\s)(([a-z0-9_]+,?\\s?)+)(.*?)");
-    // Matcher m = p.matcher(s);
-    //    
-    // m.matches();
-    //    
-    // String matched = m.group(2);
-    //
-    // String[] split = matched.split(",\\s");
-    // String[] done = new String[split.length-1];
-    // int count = 0;
-    // for(String piece : split)
-    // {
-    // if(!piece.equals("geometry_v"))
-    // {
-    // done[count++] = piece;
-    // }
-    // }
-    //    
-    // String groupBy = StringUtils.join(done, ", ");
-    //    
-    // String sql = m.replaceFirst("$1"+groupBy+"$4");
-
-    // try
-    // {
-    // ClientSession session = ClientSession.createUserSession("MDSS",
-    // "mdsstest2", new Locale[]{Locale.ENGLISH});
-    // gogo(session.getSessionId(), session);
-    // // OntologyDefinitionDTO od = new
-    // OntologyDefinitionDTO(session.getRequest());
-    // // od.setOntologyName("MO");
-    // // od.setNamespace("dss.vector.solutions.ontology");
-    // // od.apply();
-    //
-    //
-    //
-    //
-    // }
-    // catch(ProblemExceptionDTO e)
-    // {
-    // }
-
-    //
-    // String temp = "CaseTreatmentStock_SP_TreatmentGrid";
-    //
-    // int firstIndex = temp.indexOf("_", 0);
-    //
-    // int secondIndex = temp.indexOf("_", firstIndex+1);
-    //
-    // String relString = temp.substring(0, secondIndex);
-    //
-    // System.out.println(firstIndex+"  "+secondIndex+"  "+relString);
-
-    //
-    // String s =
-    // "dss.vector.solutions.geo.generated.CountryController&dss.vector.solutions.geo.generated.DistrictController&dss.vector.solutions.geo.generated.VillageController&dss.vector.solutions.geo.generated.LocalityController&dss.vector.solutions.geo.generated.AdminPostController&dss.vector.solutions.geo.generated.Trap&dss.vector.solutions.geo.generated.RoadController&dss.vector.solutions.geo.generated.Reserve&dss.vector.solutions.geo.generated.EarthController&dss.vector.solutions.geo.generated.CityController&dss.vector.solutions.geo.generated.Town&dss.vector.solutions.geo.generated.District&dss.vector.solutions.geo.generated.Village&dss.vector.solutions.geo.generated.RoofController&dss.vector.solutions.geo.generated.NonSentinelSiteController&dss.vector.solutions.geo.generated.Earth&dss.vector.solutions.geo.generated.SentinelSite&dss.vector.solutions.geo.generated.RiverController&dss.vector.solutions.geo.generated.Wall&dss.vector.solutions.geo.generated.SprayZoneController&dss.vector.solutions.geo.generated.WallController&dss.vector.solutions.geo.generated.PermanentWaterBodyController&dss.vector.solutions.geo.generated.BreedingSiteController&dss.vector.solutions.geo.generated.PopulatedArea&dss.vector.solutions.geo.generated.FacilityController&dss.vector.solutions.geo.generated.Railway&dss.vector.solutions.geo.generated.Locality&dss.vector.solutions.geo.generated.SentinelSiteController&dss.vector.solutions.geo.generated.NationalRoadController&dss.vector.solutions.geo.generated.Road&dss.vector.solutions.geo.generated.Facility&dss.vector.solutions.geo.generated.Province&dss.vector.solutions.geo.generated.PopulatedAreaController&dss.vector.solutions.geo.generated.ProvinceController&dss.vector.solutions.geo.generated.ReserveController&dss.vector.solutions.geo.generated.TrapController&dss.vector.solutions.geo.generated.BreedingSite&dss.vector.solutions.geo.generated.AdminPost&dss.vector.solutions.geo.generated.Roof&dss.vector.solutions.geo.generated.SprayZone&dss.vector.solutions.geo.generated.River&dss.vector.solutions.geo.generated.NationalRoad&dss.vector.solutions.geo.generated.City&dss.vector.solutions.geo.generated.Country&dss.vector.solutions.geo.generated.PermanentWaterBody&dss.vector.solutions.geo.generated.RailwayController&dss.vector.solutions.geo.generated.TownController&dss.vector.solutions.geo.generated.NonSentinelSite&dss.vector.solutions.geo.GeoEntityView";
-    //
-    // String[] arr = s.split("&");
-    //
-    // for(String type : arr)
-    // {
-    // // System.out.println(type);
-    // }
-    //
-    // Date before = new Date();
-    //
-    // // String js = JSONController.importTypes(session.getSessionId(), arr,
-    // true);
-    // String js = JSONController.importTypes(session.getSessionId(), new
-    // String[]{GeoEntity.CLASS}, true);
-    //
-    //
-    // //System.out.println(js);
-    //
-    // Date after = new Date();
-
-    // System.out.println(before);
-    // System.out.println(after);
-
-    // createGeoEntities(request.getSessionId());
-
-    // testQueries();
-
-    // queryAggregatedCases();
-
-    // testAllPaths();
-  }
-
-  @StartSession
-  private static void gogo(String sessionId, ClientSession session)
-  {
-
-    MdAttributeDAOIF dao = MdAttributeDAO.getByKey("dss.vector.solutions.ontology.Term.namespace");
-    dao.getBusinessDAO().apply();
-
-    // AllPaths.get("2d3373900f3c9635c73f7b50b126220c0ng41xiuq0nzo8wjdn1v9cunh9f1icac").printAttributes();
-
-    // QueryFactory queryFactory = new QueryFactory();
-    //
-    // MdClassQuery mdClassQuery;
-    // mdClassQuery = new MdClassQuery(queryFactory);
-    //
-    // MdAttributeConcreteQuery mdConcreteQuery = new
-    // MdAttributeConcreteQuery(queryFactory);
-    //
-    // ValueQuery concreteQuery = new ValueQuery(queryFactory);
-    // ValueQuery virtualQuery = new ValueQuery(queryFactory);
-    //
-    // ValueQuery unioned = new ValueQuery(queryFactory);
-    //
-    // MdAttributeVirtualQuery mdVirtualQuery = new
-    // MdAttributeVirtualQuery(queryFactory);
-    //
-    // // join concrete attribute with display labels
-    // concreteQuery.SELECT(mdClassQuery.getId("classId"),
-    // mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
-    // mdConcreteQuery.getId("attributeId"),
-    // mdConcreteQuery.getDisplayLabel().currentLocale("attributeLabel"),
-    // mdConcreteQuery.getDefiningMdClass().getId("definingMdClass"));
-    // concreteQuery.WHERE(mdConcreteQuery.getDefiningMdClass().EQ(mdClassQuery));
-    //
-    // virtualQuery.SELECT(mdClassQuery.getId("classId"),
-    // mdClassQuery.getDisplayLabel().currentLocale("classLabel"),
-    // mdVirtualQuery.getId("attributeId"),
-    // mdVirtualQuery.getDisplayLabel().currentLocale("attributeLabel"),
-    // mdVirtualQuery.getDefiningMdView().getId("definingMdClass"));
-    // virtualQuery.WHERE(mdVirtualQuery.getDefiningMdView().EQ(mdClassQuery));
-    //
-    // unioned.UNION(concreteQuery, virtualQuery);
-    //
-    // for(ValueObject valueObject : unioned.getIterator())
-    // {
-    // valueObject.printAttributes();
-    // }
-
-    try
+    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.CLASS, CaseDiseaseManifestationView.DISEASECATEGORY, true);
+    
+    for(Term term : terms)
     {
-    }
-    catch (Throwable t)
-    {
-      t.printStackTrace();
+      System.out.println(term.getTermDisplayLabel().getValue());
     }
   }
 
@@ -285,7 +142,7 @@ public class Sandbox
   public static void testGeoEntityQuery(String sessionId)
   {
     new CleanupContextListener().contextInitialized(null);
-    
+
     String geoId = Property.getStr(PropertyInfo.INSTALL_PACKAGE, PropertyInfo.COUNTRY_GEO_ID);
     System.out.println(geoId);
   }

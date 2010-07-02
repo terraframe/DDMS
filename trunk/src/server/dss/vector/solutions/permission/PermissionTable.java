@@ -1,4 +1,4 @@
-package dss.vector.solutions;
+package dss.vector.solutions.permission;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -93,7 +93,7 @@ public class PermissionTable
       for (Roles role : allRoles)
       {
         RoleDAO roleDAO = (RoleDAO)BusinessFacade.getEntityDAO(role);
-        Set<Operation> permissions = roleDAO.getPermissions(typeDAO);
+        Set<Operation> permissions = roleDAO.getAllPermissions(typeDAO);
         for (Operation op : allOperations)
         {
           if (permissions.contains(op))

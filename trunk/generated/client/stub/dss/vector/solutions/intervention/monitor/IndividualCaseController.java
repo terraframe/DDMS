@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.AttributeNotificationDTO;
 import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.business.ProblemDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;

@@ -2,7 +2,6 @@ package dss.vector.solutions;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,8 +11,8 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.system.RolesDTO;
 
+import dss.vector.solutions.permission.MDSSRoleDTO;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class RoleController extends RoleControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -56,23 +55,10 @@ public class RoleController extends RoleControllerBase implements com.runwaysdk.
       MDSSUserDTO userDTO = MDSSUserDTO.get(clientRequest, id);
 
       // Start by assuming that the user has no roles
-      List<RolesDTO> roles = new LinkedList<RolesDTO>(Arrays.asList(FacadeDTO.getMDSSRoles(clientRequest)));
+      List<RolesDTO> roles = new LinkedList<RolesDTO>(Arrays.asList(MDSSRoleDTO.getRoles(clientRequest)));
       List<? extends RolesDTO> assigned = userDTO.getAllAssignedRole();
       List<String> list = new LinkedList<String>();
      
-      Iterator<RolesDTO> it = roles.iterator();
-
-      // Remove GUIVisibility from the list of roles
-      while(it.hasNext())
-      {
-        RolesDTO role = it.next();
-        
-        if(role.getRoleName().equals(MDSSRoleInfo.GUI_VISIBILITY))
-        {
-          it.remove();
-        }
-      }
-            
       for(RolesDTO role : assigned)
       {
         list.add(role.getId());

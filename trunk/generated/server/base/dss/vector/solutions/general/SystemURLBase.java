@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2054362075)
+@com.runwaysdk.business.ClassSignature(hash = -905579086)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,11 +23,13 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String READROLE = "readRole";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
-  private static final long serialVersionUID = -2054362075;
+  public static java.lang.String WRITEROLE = "writeRole";
+  private static final long serialVersionUID = -905579086;
   
   public SystemURLBase()
   {
@@ -266,6 +268,41 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public com.runwaysdk.system.Roles getReadRole()
+  {
+    if (getValue(READROLE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.Roles.get(getValue(READROLE));
+    }
+  }
+  
+  public void validateReadRole()
+  {
+    this.validateAttribute(READROLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getReadRoleMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemURL.CLASS);
+    return mdClassIF.definesAttribute(READROLE);
+  }
+  
+  public void setReadRole(com.runwaysdk.system.Roles value)
+  {
+    if(value == null)
+    {
+      setValue(READROLE, "");
+    }
+    else
+    {
+      setValue(READROLE, value.getId());
+    }
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -339,6 +376,41 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     else
     {
       setValue(URL, value);
+    }
+  }
+  
+  public com.runwaysdk.system.Roles getWriteRole()
+  {
+    if (getValue(WRITEROLE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.Roles.get(getValue(WRITEROLE));
+    }
+  }
+  
+  public void validateWriteRole()
+  {
+    this.validateAttribute(WRITEROLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWriteRoleMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemURL.CLASS);
+    return mdClassIF.definesAttribute(WRITEROLE);
+  }
+  
+  public void setWriteRole(com.runwaysdk.system.Roles value)
+  {
+    if(value == null)
+    {
+      setValue(WRITEROLE, "");
+    }
+    else
+    {
+      setValue(WRITEROLE, value.getId());
     }
   }
   

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 761379493)
+@com.runwaysdk.business.ClassSignature(hash = 1472149298)
 public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemURL";
-  private static final long serialVersionUID = 761379493;
+  private static final long serialVersionUID = 1472149298;
   
   protected SystemURLDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -37,10 +37,12 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String READROLE = "readRole";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
+  public static java.lang.String WRITEROLE = "writeRole";
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -337,6 +339,50 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
   }
   
+  public com.runwaysdk.system.RolesDTO getReadRole()
+  {
+    if(getValue(READROLE) == null || getValue(READROLE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.RolesDTO.get(getRequest(), getValue(READROLE));
+    }
+  }
+  
+  public void setReadRole(com.runwaysdk.system.RolesDTO value)
+  {
+    if(value == null)
+    {
+      setValue(READROLE, "");
+    }
+    else
+    {
+      setValue(READROLE, value.getId());
+    }
+  }
+  
+  public boolean isReadRoleWritable()
+  {
+    return isWritable(READROLE);
+  }
+  
+  public boolean isReadRoleReadable()
+  {
+    return isReadable(READROLE);
+  }
+  
+  public boolean isReadRoleModified()
+  {
+    return isModified(READROLE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getReadRoleMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(READROLE).getAttributeMdDTO();
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -422,6 +468,50 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUrlMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(URL).getAttributeMdDTO();
+  }
+  
+  public com.runwaysdk.system.RolesDTO getWriteRole()
+  {
+    if(getValue(WRITEROLE) == null || getValue(WRITEROLE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return com.runwaysdk.system.RolesDTO.get(getRequest(), getValue(WRITEROLE));
+    }
+  }
+  
+  public void setWriteRole(com.runwaysdk.system.RolesDTO value)
+  {
+    if(value == null)
+    {
+      setValue(WRITEROLE, "");
+    }
+    else
+    {
+      setValue(WRITEROLE, value.getId());
+    }
+  }
+  
+  public boolean isWriteRoleWritable()
+  {
+    return isWritable(WRITEROLE);
+  }
+  
+  public boolean isWriteRoleReadable()
+  {
+    return isReadable(WRITEROLE);
+  }
+  
+  public boolean isWriteRoleModified()
+  {
+    return isModified(WRITEROLE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getWriteRoleMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(WRITEROLE).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.general.SystemURLDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
