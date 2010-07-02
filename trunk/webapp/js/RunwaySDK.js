@@ -1283,14 +1283,11 @@ Mojo.Meta.newClass('Mojo.Util', {
       return str;
     },
     
+    /**
+     * This JSON object is based on the reference code provided by Douglas Crockford.
+     * The original, commented source is located at http://json.org/json2.js.
+     */    
     JSON : (function(){
-      
-        function f(n) {
-            // Format integers to have at least two digits.
-            return n < 10 ? '0' + n : n;
-        }
-
-
 
         var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
             escapable = /[\\\"\x00-\x1f\x7f-\x9f\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -1314,7 +1311,7 @@ Mojo.Meta.newClass('Mojo.Util', {
             return escapable.test(string) ?
                 '"' + string.replace(escapable, function (a) {
                     var c = meta[a];
-                    return typeof c === 'string' ? c :
+                    return Mojo.Util.isString(c) ? c :
                         '\\u' + ('0000' + a.charCodeAt(0).toString(16)).slice(-4);
                 }) + '"' :
                 '"' + string + '"';
@@ -1366,7 +1363,7 @@ Mojo.Meta.newClass('Mojo.Util', {
                 gap += indent;
                 partial = [];
 
-                if (Object.prototype.toString.apply(value) === '[object Array]') {
+                if (Mojo.Util.isArray(value)) {
 
                     length = value.length;
                     for (i = 0; i < length; i += 1) {
@@ -4132,6 +4129,9 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Exception', {
         this.localizedMessage = null;
         this.developerMessage = null;
       }
+      
+      // Make the message public to conform with the Error API
+      this.message = this.developerMessage || this.localizedMessage;
     },
   
     getLocalizedMessage : function() { return this.localizedMessage; },
@@ -4875,7 +4875,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeTextDTO', {
   }
 });
 
-Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTextMdDTO', {
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTextMdDTO',        {
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -4887,6 +4887,36 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTextMdDTO', {
     }
   
   }
+});
+
+// local text
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalTextDTO', {
+  
+  Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
+  
+  
+  Instance : {
+  
+  initialize : function(obj)
+  {
+  this.$initialize(obj);
+  }
+
+}
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLocalTextMdDTO',        {
+  
+  Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
+  
+  Instance : {
+  
+  initialize : function(obj)
+  {
+  this.$initialize(obj);
+  }
+
+}
 });
 
 // character
@@ -4905,6 +4935,39 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeCharacterDTO', {
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeCharacterMdDTO', {
+
+  Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
+  
+  Instance : {
+    
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+  
+      this.size = obj.size;
+    },
+  
+    getSize : function() { return this.size; }
+  
+  }
+});
+
+// local character
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalCharacterDTO', {
+
+  Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
+  
+  Instance : {
+    
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
+  
+  }
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLocalCharacterMdDTO', {
 
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
   
@@ -5019,12 +5082,14 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
     {
       this.$initialize(obj);
   
+      this._ignoreTimezone = false;
+      
       // set internal value as a date
       if(this.value != null && this.value !== '')
       {
         var date = new Date();
-          
-        Mojo.Util.setISO8601(date, this.value);
+        var ignoreTimezone = this.getIgnoreTimezone();          
+        Mojo.Util.setISO8601(date, this.value, ignoreTimezone);
  
         this.value = date;
       }
@@ -5032,6 +5097,16 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
       {
         this.value = null;
       }
+    },
+    
+    setIgnoreTimezone : function(ignoreTimezone)
+    {
+      this._ignoreTimezone = ignoreTimezone;
+    },
+    
+    getIgnoreTimezone : function()
+    {
+      return this._ignoreTimezone;
     },
   
     setValue : function(value)
@@ -5048,7 +5123,8 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
           {
             var date = new Date();
             
-            Mojo.Util.setISO8601(date, value);
+            var ignoreTimezone = this.getIgnoreTimezone();
+            Mojo.Util.setISO8601(date, value, ignoreTimezone);
   
             this.value = date;
           }
@@ -5120,6 +5196,8 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDateDTO', {
     initialize : function(obj)
     {
       this.$initialize(obj);
+      
+      this.setIgnoreTimezone(true);
     }
   
   }
