@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -35,10 +34,12 @@ public class PermissionView extends PermissionViewBase implements com.runwaysdk.
       while (it.hasNext())
       {
         SystemURL url = it.next();
+        RoleDAOIF writeRole = url.getWriteRoleDAO();
+        RoleDAOIF readRole = url.getReadRoleDAO();
 
-        if (url.getReadRole() != null && url.getWriteRole() != null)
+        if (writeRole != null && readRole != null)
         {
-          PermissionView view = PermissionView.getView(role, url);
+          PermissionView view = PermissionView.getView(role, url, writeRole, readRole);
           list.add(view);
         }
       }
@@ -51,7 +52,7 @@ public class PermissionView extends PermissionViewBase implements com.runwaysdk.
     return list.toArray(new PermissionView[list.size()]);
   }
 
-  private static PermissionView getView(MDSSRoleView view, SystemURL url)
+  private static PermissionView getView(MDSSRoleView view, SystemURL url, RoleDAOIF writeRole, RoleDAOIF readRole)
   {
     PermissionView permission = new PermissionView();
     permission.setUrlId(url.getId());
@@ -59,9 +60,6 @@ public class PermissionView extends PermissionViewBase implements com.runwaysdk.
 
     RoleDAOIF role = view.getRole();
     Set<RoleDAOIF> superRoles = role.getSuperRoles();
-
-    RoleDAOIF writeRole = RoleDAO.get(url.getWriteRole().getId());
-    RoleDAOIF readRole = RoleDAO.get(url.getReadRole().getId());
 
     if (superRoles.contains(writeRole))
     {

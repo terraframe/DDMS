@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1225667159)
+@com.runwaysdk.business.ClassSignature(hash = -966712824)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  class SystemURLQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1225667159;
+private static final long serialVersionUID = -966712824;
 
   public SystemURLQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -245,29 +245,6 @@ private static final long serialVersionUID = -1225667159;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemURL.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole()
-  {
-    return getReadRole(null);
-
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole(String alias)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemURL.READROLE);
-
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemURL.READROLE, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole(String alias, String displayLabel)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemURL.READROLE);
-
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemURL.READROLE, mdAttributeIF, this, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -336,29 +313,6 @@ private static final long serialVersionUID = -1225667159;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURL.URL, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole()
-  {
-    return getWriteRole(null);
-
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole(String alias)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemURL.WRITEROLE);
-
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemURL.WRITEROLE, mdAttributeIF, this, alias, null);
-
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole(String alias, String displayLabel)
-  {
-
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemURL.WRITEROLE);
-
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemURL.WRITEROLE, mdAttributeIF, this, alias, displayLabel);
-
-  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -382,14 +336,6 @@ private static final long serialVersionUID = -1225667159;
     else if (name.equals(dss.vector.solutions.general.SystemURL.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.general.SystemURL.READROLE)) 
-    {
-       return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.general.SystemURL.WRITEROLE)) 
-    {
-       return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -438,6 +384,122 @@ private static final long serialVersionUID = -1225667159;
   }
 
 
+  public com.runwaysdk.query.Condition roles()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.getBusinessQuery().isParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.getBusinessQuery().isParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.getBusinessQuery().isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.getBusinessQuery().isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.getBusinessQuery().isParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.getBusinessQuery().isParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_roles()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.getBusinessQuery().isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.getBusinessQuery().isNotParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.getBusinessQuery().isNotParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+
 /**
  * Interface that masks all type unsafe query methods and defines all type safe methods.
  * This type is used when a join is performed on this class as a reference.
@@ -475,9 +537,6 @@ private static final long serialVersionUID = -1225667159;
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
-    public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole();
-    public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole(String alias);
-    public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -490,13 +549,38 @@ private static final long serialVersionUID = -1225667159;
     public com.runwaysdk.query.SelectableChar getUrl();
     public com.runwaysdk.query.SelectableChar getUrl(String alias);
     public com.runwaysdk.query.SelectableChar getUrl(String alias, String displayLabel);
-    public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole();
-    public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole(String alias);
-    public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.SystemURL systemURL);
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.SystemURL systemURL);
+
+
+  public com.runwaysdk.query.Condition roles();
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery);
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles();
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery);
+
+
+  public com.runwaysdk.query.Condition NOT_IN_roles();
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles();
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery);
 
   }
 
@@ -508,7 +592,7 @@ private static final long serialVersionUID = -1225667159;
  implements SystemURLQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1526268601;
+private static final long serialVersionUID = 1367824426;
 
   public SystemURLQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -697,23 +781,6 @@ private static final long serialVersionUID = -1526268601;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.SystemURL.OWNER,  alias, displayLabel);
 
   }
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole()
-  {
-    return getReadRole(null);
-
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole(String alias)
-  {
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.get(dss.vector.solutions.general.SystemURL.READROLE, alias, null);
-
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getReadRole(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.get(dss.vector.solutions.general.SystemURL.READROLE,  alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -782,23 +849,122 @@ private static final long serialVersionUID = -1526268601;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURL.URL, alias, displayLabel);
 
   }
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole()
-  {
-    return getWriteRole(null);
 
-  }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole(String alias)
+  public com.runwaysdk.query.Condition roles()
   {
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.get(dss.vector.solutions.general.SystemURL.WRITEROLE, alias, null);
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
 
+    return this.isParentIn(relationshipQuery);
   }
- 
-  public com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF getWriteRole(String alias, String displayLabel)
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles()
   {
-    return (com.runwaysdk.system.RolesQuery.RolesQueryReferenceIF)this.get(dss.vector.solutions.general.SystemURL.WRITEROLE,  alias, displayLabel);
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
 
+    return this.isParentIn_SUBSELECT(relationshipQuery);
   }
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.isParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.isParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.isParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.isParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.isParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.isParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_roles()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.isNotParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    return this.isNotParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.isNotParentIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.permissions.URLRole.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasChild(rolePropertyQuery));
+
+    return this.isNotParentIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.isNotParentIn(uRLRoleQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_roles(dss.vector.solutions.permissions.RolePropertyQuery rolePropertyQuery, dss.vector.solutions.permissions.URLRoleQuery uRLRoleQuery)
+  {
+    uRLRoleQuery.AND(uRLRoleQuery.hasChild(rolePropertyQuery));
+    return this.isNotParentIn_SUBSELECT(uRLRoleQuery);
+  }
+
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -822,14 +988,6 @@ private static final long serialVersionUID = -1526268601;
     else if (name.equals(dss.vector.solutions.general.SystemURL.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.general.SystemURL.READROLE)) 
-    {
-       return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
-    }
-    else if (name.equals(dss.vector.solutions.general.SystemURL.WRITEROLE)) 
-    {
-       return new com.runwaysdk.system.RolesQuery.RolesQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

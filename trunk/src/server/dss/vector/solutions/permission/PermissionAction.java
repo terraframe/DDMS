@@ -1,30 +1,41 @@
 package dss.vector.solutions.permission;
 
-import java.util.List;
-
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.Roles;
+import com.runwaysdk.system.metadata.MdDimension;
 
+import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.permissions.RoleProperty;
 
 public abstract class PermissionAction implements Reloadable
 {
-  private SystemURL              url;
+  private SystemURL url;
+  
+  protected RoleDAO role;
 
-  protected RoleDAO              role;
+  private Disease   disease;
 
-  private List<MdDimensionDAOIF> mdDimensions;
-
-  public PermissionAction(SystemURL url, RoleDAO role, List<MdDimensionDAOIF> mdDimensions)
+  protected PermissionAction(SystemURL url, Disease disease)
   {
     this.url = url;
-    this.role = role;
-    this.mdDimensions = mdDimensions;
+    this.disease = disease;
+
+    this.initializeRole();
   }
 
+  protected PermissionAction(RoleDAO role, Disease disease)
+  {
+    this.disease = disease;
+    this.role = role;
+  }
+  
   public SystemURL getUrl()
   {
     return url;
@@ -37,33 +48,41 @@ public abstract class PermissionAction implements Reloadable
 
   public void assign(MetadataDAOIF metadata)
   {
-    for (MdDimensionDAOIF mdDimension : mdDimensions)
-    {
-      this.doIt(mdDimension, metadata);
-    }
+    MdDimension dimension = disease.getDimension();
+    MdDimensionDAOIF mdDimension = MdDimensionDAO.get(dimension.getId());
+
+    this.doIt(mdDimension, metadata);
   }
 
-  public abstract void updateURL();
+  private final void initializeRole()
+  {
+    String name = url.getKey().replace(" ", "");
+    String _roleName = MDSSRoleInfo.MDSS_PREFIX + "." + disease.getKey() + "." + name + "." + this.getActionName();
+
+    try
+    {
+      role = RoleDAO.findRole(_roleName).getBusinessDAO();
+    }
+    catch (DataNotFoundException e)
+    {
+      PermissionOption roleType = this.getRoleType();
+      
+      role = RoleDAO.createRole(_roleName, _roleName);
+      role.apply();
+
+      RoleProperty property = new RoleProperty();
+      property.setRole(Roles.get(role.getId()));
+      property.setDisease(disease);
+      property.addRoleType(roleType);
+      property.apply();
+      
+      url.addRoles(property).apply();
+    }
+  }
 
   protected abstract void doIt(MdDimensionDAOIF mdDimension, MetadataDAOIF metadata);
   
-  public static PermissionAction getAction(String name, SystemURL url, List<MdDimensionDAOIF> mdDimensions)
-  {
-    if(name.equalsIgnoreCase("WRITE"))
-    {
-      return new WriteAction(url, mdDimensions);
-    }
-    
-    return new ReadAction(url, mdDimensions);
-  }
+  protected abstract String getActionName();
   
-  public static PermissionAction getAction(String name, SystemURL url, RoleDAO role, List<MdDimensionDAOIF> mdDimensions)
-  {
-    if(name.equalsIgnoreCase("WRITE"))
-    {
-      return new WriteAction(url, role, mdDimensions);
-    }
-    
-    return new ReadAction(url, role, mdDimensions);
-  }
+  protected abstract PermissionOption getRoleType();
 }

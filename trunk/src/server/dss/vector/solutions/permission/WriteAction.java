@@ -13,22 +13,22 @@ import com.runwaysdk.dataaccess.MdMethodDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.Roles;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 
 public class WriteAction extends PermissionAction implements Reloadable
-{
-  public WriteAction(SystemURL url, List<MdDimensionDAOIF> mdDimensions)
+{  
+  public WriteAction(SystemURL url, Disease disease)
   {
-    super(url, url.getWriteRoleDAO(), mdDimensions);
+    super(url, disease);
   }
   
-  public WriteAction(SystemURL url, RoleDAO role, List<MdDimensionDAOIF> mdDimensions)
+  public WriteAction(RoleDAO role, Disease disease)
   {
-    super(url, role, mdDimensions);
+    super(role, disease);
   }
-
+  
   @Override
   protected void doIt(MdDimensionDAOIF mdDimension, MetadataDAOIF metadata)
   {
@@ -63,12 +63,14 @@ public class WriteAction extends PermissionAction implements Reloadable
   }
 
   @Override
-  public void updateURL()
+  protected String getActionName()
   {
-    Roles role = this.getRole();
+    return "Write";
+  }
 
-    SystemURL url = this.getUrl();
-    url.setWriteRole(role);
-    url.apply();
+  @Override
+  protected PermissionOption getRoleType()
+  {
+    return PermissionOption.WRITE;
   }
 }

@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -19,12 +18,10 @@ import com.runwaysdk.SystemException;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.constants.MetadataInfo;
-import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
-import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdMethodDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -33,19 +30,19 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 
-import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.general.SystemURLQuery;
 
 public class PermissionImporter implements Reloadable
 {
-  private List<MdDimensionDAOIF>     mdDimensions;
+  private Disease[]                  diseases;
 
   private HashMap<String, SystemURL> systemURLs;
 
   public PermissionImporter()
   {
-    this.mdDimensions = MdDimensionDAO.getAllMdDimensions();
+    this.diseases = Disease.getAllDiseases();
     this.systemURLs = new HashMap<String, SystemURL>();
   }
 
@@ -66,6 +63,8 @@ public class PermissionImporter implements Reloadable
   private void readRow(HSSFRow row)
   {
     String urlKey = ExcelUtil.getString(row.getCell(0));
+    String actionKey = ExcelUtil.getString(row.getCell(1));
+    PermissionFactory factory = new PermissionFactory(actionKey);
 
     if (urlKey.equalsIgnoreCase("COMMON"))
     {
@@ -74,44 +73,37 @@ public class PermissionImporter implements Reloadable
       for (String key : keys)
       {
         SystemURL url = this.systemURLs.get(key);
-        PermissionAction action = this.getAction(row, url);
 
-        this.importPermissions(row, action);
+        for (Disease disease : diseases)
+        {
+          PermissionAction action = factory.getAction(url, disease);
+
+          this.importPermissions(row, action);
+        }
       }
     }
     else if (urlKey.equalsIgnoreCase(RoleDAOIF.PUBLIC_ROLE))
     {
       RoleDAO role = RoleDAO.findRole(RoleDAOIF.PUBLIC_ROLE).getBusinessDAO();
 
-      PermissionAction action = this.getAction(row, null, role);
+      for (Disease disease : diseases)
+      {
+        PermissionAction action = factory.getAction(role, disease);
 
-      this.importPermissions(row, action);
+        this.importPermissions(row, action);
+      }
     }
     else
     {
       SystemURL url = this.getURL(urlKey);
-      RoleDAO role = this.importRole(row);
 
-      PermissionAction action = this.getAction(row, url, role);
+      for (Disease disease : diseases)
+      {
+        PermissionAction action = factory.getAction(url, disease);
 
-      action.updateURL();
-
-      this.importPermissions(row, action);
+        this.importPermissions(row, action);
+      }
     }
-  }
-
-  private PermissionAction getAction(HSSFRow row, SystemURL url, RoleDAO role)
-  {
-    String action = ExcelUtil.getString(row.getCell(1));
-
-    return PermissionAction.getAction(action, url, role, mdDimensions);
-  }
-
-  private PermissionAction getAction(HSSFRow row, SystemURL url)
-  {
-    String action = ExcelUtil.getString(row.getCell(1));
-
-    return PermissionAction.getAction(action, url, mdDimensions);
   }
 
   private SystemURL getURL(String urlKey)
@@ -139,24 +131,6 @@ public class PermissionImporter implements Reloadable
     }
 
     return this.systemURLs.get(urlKey);
-  }
-
-  private RoleDAO importRole(HSSFRow row)
-  {
-    String _roleName = ExcelUtil.getString(row.getCell(2));
-    String roleName = MDSSRoleInfo.MDSS_PREFIX + "." + _roleName;
-
-    try
-    {
-      return RoleDAO.findRole(roleName).getBusinessDAO();
-    }
-    catch (DataNotFoundException e)
-    {
-      RoleDAO role = RoleDAO.createRole(roleName, roleName);
-      role.apply();
-
-      return role;
-    }
   }
 
   private void importPermissions(HSSFRow row, PermissionAction action)

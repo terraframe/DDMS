@@ -13,20 +13,20 @@ import com.runwaysdk.dataaccess.MdMethodDAOIF;
 import com.runwaysdk.dataaccess.MdViewDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.Roles;
 
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 
 public class ReadAction extends PermissionAction implements Reloadable
 {
-  public ReadAction(SystemURL url, List<MdDimensionDAOIF> mdDimensions)
+  public ReadAction(SystemURL url, Disease disease)
   {
-    super(url, url.getReadRoleDAO(), mdDimensions);
+    super(url, disease);
   }
-
-  public ReadAction(SystemURL url, RoleDAO role, List<MdDimensionDAOIF> mdDimensions)
+  
+  public ReadAction(RoleDAO role, Disease disease)
   {
-    super(url, role, mdDimensions);
+    super(role, disease);
   }
 
   @Override
@@ -67,12 +67,14 @@ public class ReadAction extends PermissionAction implements Reloadable
   }
 
   @Override
-  public void updateURL()
+  protected String getActionName()
   {
-    Roles role = this.getRole();
+    return "Read";
+  }
 
-    SystemURL url = this.getUrl();
-    url.setReadRole(role);
-    url.apply();
+  @Override
+  protected PermissionOption getRoleType()
+  {
+    return PermissionOption.READ;
   }
 }

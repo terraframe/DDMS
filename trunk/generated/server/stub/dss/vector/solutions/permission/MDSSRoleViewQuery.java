@@ -44,7 +44,7 @@ private static final long serialVersionUID = -578557898;
       
       vQuery.map(MDSSRoleView.CONCRETEID, query.getId());
       vQuery.map(MDSSRoleView.ROLENAME, query.getRole().getRoleName());
-      vQuery.map(MDSSRoleView.DISPLAYLABEL, query.getRole().getDisplayLabel().getSessionLocale());
+      vQuery.map(MDSSRoleView.DISPLAYLABEL, query.getRole().getDisplayLabel().localize());
     }
 
     /**

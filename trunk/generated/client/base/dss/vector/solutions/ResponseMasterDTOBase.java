@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -702622607)
+@com.runwaysdk.business.ClassSignature(hash = 225346005)
 public abstract class ResponseMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ResponseMaster";
-  private static final long serialVersionUID = -702622607;
+  private static final long serialVersionUID = 225346005;
   
   protected ResponseMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {

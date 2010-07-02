@@ -7,16 +7,12 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.MdClassDimensionDAOIF;
-import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
-import com.runwaysdk.session.Session;
 import com.runwaysdk.system.Roles;
 
 import dss.vector.solutions.MDSSRoleInfo;
@@ -127,8 +123,8 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
     {
       List<PermissionOption> permission = view.getPermission();
       SystemURL url = SystemURL.get(view.getUrlId());
-      RoleDAOIF writeRole = RoleDAO.get(url.getWriteRole().getId());
-      RoleDAOIF readRole = RoleDAO.get(url.getReadRole().getId());
+      RoleDAOIF writeRole = url.getWriteRoleDAO();
+      RoleDAOIF readRole = url.getReadRoleDAO();
       
       if(permission.contains(PermissionOption.WRITE))
       {
@@ -162,37 +158,31 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
     for(UniversalPermissionView view : permissions)
     {
       MdBusinessDAOIF universal = MdBusinessDAO.get(view.getUniversalId());
-      MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
-      MdClassDimensionDAOIF mdClassDimension = universal.getMdClassDimension(mdDimension);
       
       if(view.getPermission() != null && view.getPermission())
       {
-        role.grantPermission(Operation.CREATE, mdClassDimension.getId());
-        role.grantPermission(Operation.WRITE, mdClassDimension.getId());
-        role.grantPermission(Operation.DELETE, mdClassDimension.getId());
+        role.grantPermission(Operation.CREATE, universal.getId());
+        role.grantPermission(Operation.WRITE, universal.getId());
+        role.grantPermission(Operation.DELETE, universal.getId());
         
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
         
         for(MdAttributeDAOIF mdAttribute : attributes)
         {
-          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-          
-          role.grantPermission(Operation.WRITE, mdAttributeDimension.getId());
+          role.grantPermission(Operation.WRITE, mdAttribute.getId());
         }
       }
       else
       {
-        role.revokePermission(Operation.CREATE, mdClassDimension.getId());
-        role.revokePermission(Operation.WRITE, mdClassDimension.getId());
-        role.revokePermission(Operation.DELETE, mdClassDimension.getId());
+        role.revokePermission(Operation.CREATE, universal.getId());
+        role.revokePermission(Operation.WRITE, universal.getId());
+        role.revokePermission(Operation.DELETE, universal.getId());
         
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
         
         for(MdAttributeDAOIF mdAttribute : attributes)
         {
-          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-          
-          role.revokePermission(Operation.WRITE, mdAttributeDimension.getId());
+          role.revokePermission(Operation.WRITE, mdAttribute.getId());
         }        
       }
     }

@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.ActorDAO;
@@ -26,6 +25,7 @@ import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.PermissionFacade;
+import com.runwaysdk.session.PermissionMap;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeDimension;
@@ -72,7 +72,10 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   public static ReadableAttributeView[] getActorAttributes(String universal, String actorName)
   {
     ActorDAOIF actor = getActor(actorName);
+    PermissionMap map = actor.getOperations();
+
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
+    MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
 
     List<ReadableAttributeView> list = new LinkedList<ReadableAttributeView>();
 
@@ -84,21 +87,16 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         continue;
       }
 
-      Set<Operation> permissions = actor.getAssignedPermissions(mdAttribute);
-
-      boolean readable = permissions.contains(Operation.READ);
+      boolean readable = !map.containsPermission(mdAttribute.getPermissionKey(), Operation.DENY_READ);
 
       // Check the dimension permissions
       if (!readable)
       {
-        MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
-
         if (mdDimension != null)
         {
           MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
 
-          permissions = actor.getAssignedPermissions(mdAttributeDimension);
-          readable = permissions.contains(Operation.READ);
+          readable = !map.containsPermission(mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
         }
       }
 
@@ -184,13 +182,13 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
 
       if (permission != null)
       {
-        if (permission)
+        if (!permission)
         {
-          actor.grantPermission(Operation.READ, _mdAttributeDimension.getId());
+          actor.grantPermission(Operation.DENY_READ, _mdAttributeDimension.getId());
         }
         else
         {
-          actor.revokePermission(Operation.READ, _mdAttributeDimension.getId());
+          actor.revokePermission(Operation.DENY_READ, _mdAttributeDimension.getId());
         }
       }
       

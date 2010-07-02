@@ -1,25 +1,26 @@
-package dss.vector.solutions.general;
+package dss.vector.solutions.permissions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1007818911)
-public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
+@com.runwaysdk.business.ClassSignature(hash = -454509149)
+public abstract class URLRoleDTOBase extends com.runwaysdk.business.RelationshipDTO implements com.runwaysdk.generation.loader.Reloadable
 {
-  public final static String CLASS = "dss.vector.solutions.general.SystemURL";
-  private static final long serialVersionUID = 1007818911;
+  public final static String CLASS = "dss.vector.solutions.permissions.URLRole";
+  private static final long serialVersionUID = -454509149;
   
-  protected SystemURLDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  public URLRoleDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.String childId)
   {
-    super(clientRequest);
+    super(clientRequest, parentId, childId);
+    
   }
   
   /**
-  * Copy Constructor: Duplicates the values and attributes of the given BusinessDTO into a new DTO.
+  * Copy Constructor: Duplicates the values and attributes of the given RelationshipDTO into a new DTO.
   * 
-  * @param businessDTO The BusinessDTO to duplicate
+  * @param relationshipDTO The RelationshipDTO to duplicate
   * @param clientRequest The clientRequest this DTO should use to communicate with the server.
   */
-  protected SystemURLDTOBase(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected URLRoleDTOBase(com.runwaysdk.business.RelationshipDTO relationshipDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
-    super(businessDTO, clientRequest);
+    super(relationshipDTO, clientRequest);
   }
   
   protected java.lang.String getDeclaredType()
@@ -29,7 +30,6 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
@@ -40,7 +40,6 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  public static java.lang.String URL = "url";
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -96,31 +95,6 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCreatedByMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.general.SystemURLDisplayLabelDTO getDisplayLabel()
-  {
-    return (dss.vector.solutions.general.SystemURLDisplayLabelDTO) this.getAttributeStructDTO(DISPLAYLABEL).getStructDTO();
-  }
-  
-  public boolean isDisplayLabelWritable()
-  {
-    return isWritable(DISPLAYLABEL);
-  }
-  
-  public boolean isDisplayLabelReadable()
-  {
-    return isReadable(DISPLAYLABEL);
-  }
-  
-  public boolean isDisplayLabelModified()
-  {
-    return isModified(DISPLAYLABEL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDisplayLabelMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
@@ -387,109 +361,40 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
   }
   
-  public String getUrl()
+  public dss.vector.solutions.general.SystemURLDTO getParent()
   {
-    return getValue(URL);
+    return dss.vector.solutions.general.SystemURLDTO.get(getRequest(), super.getParentId());
   }
   
-  public void setUrl(String value)
+    public dss.vector.solutions.permissions.RolePropertyDTO getChild()
   {
-    if(value == null)
-    {
-      setValue(URL, "");
-    }
-    else
-    {
-      setValue(URL, value);
-    }
+    return dss.vector.solutions.permissions.RolePropertyDTO.get(getRequest(), super.getChildId());
   }
   
-  public boolean isUrlWritable()
+  public static dss.vector.solutions.permissions.URLRoleDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
   {
-    return isWritable(URL);
-  }
-  
-  public boolean isUrlReadable()
-  {
-    return isReadable(URL);
-  }
-  
-  public boolean isUrlModified()
-  {
-    return isModified(URL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUrlMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(URL).getAttributeMdDTO();
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.permissions.RolePropertyDTO> getAllRoles()
-  {
-    return (java.util.List<? extends dss.vector.solutions.permissions.RolePropertyDTO>) getRequest().getChildren(this.getId(), dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.permissions.RolePropertyDTO> getAllRoles(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.permissions.RolePropertyDTO>) clientRequestIF.getChildren(id, dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public java.util.List<? extends dss.vector.solutions.permissions.URLRoleDTO> getAllRolesRelationships()
-  {
-    return (java.util.List<? extends dss.vector.solutions.permissions.URLRoleDTO>) getRequest().getChildRelationships(this.getId(), dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  @SuppressWarnings("unchecked")
-  public static java.util.List<? extends dss.vector.solutions.permissions.URLRoleDTO> getAllRolesRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    return (java.util.List<? extends dss.vector.solutions.permissions.URLRoleDTO>) clientRequestIF.getChildRelationships(id, dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  public dss.vector.solutions.permissions.URLRoleDTO addRoles(dss.vector.solutions.permissions.RolePropertyDTO child)
-  {
-    return (dss.vector.solutions.permissions.URLRoleDTO) getRequest().addChild(this.getId(), child.getId(), dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.permissions.URLRoleDTO addRoles(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.permissions.RolePropertyDTO child)
-  {
-    return (dss.vector.solutions.permissions.URLRoleDTO) clientRequestIF.addChild(id, child.getId(), dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  public void removeRoles(dss.vector.solutions.permissions.URLRoleDTO relationship)
-  {
-    getRequest().deleteChild(relationship.getId());
-  }
-  
-  public static void removeRoles(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.permissions.URLRoleDTO relationship)
-  {
-    clientRequestIF.deleteChild(relationship.getId());
-  }
-  
-  public void removeAllRoles()
-  {
-    getRequest().deleteChildren(this.getId(), dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  public static void removeAllRoles(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
-  {
-    clientRequestIF.deleteChildren(id, dss.vector.solutions.permissions.URLRoleDTO.CLASS);
-  }
-  
-  public static dss.vector.solutions.general.SystemURLDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
-  {
-    com.runwaysdk.business.EntityDTO dto = (com.runwaysdk.business.EntityDTO)clientRequest.get(id);
+    com.runwaysdk.business.RelationshipDTO dto = (com.runwaysdk.business.RelationshipDTO) clientRequest.get(id);
     
-    return (dss.vector.solutions.general.SystemURLDTO) dto;
+    return (dss.vector.solutions.permissions.URLRoleDTO) dto;
   }
   
+  public static dss.vector.solutions.permissions.URLRoleQueryDTO parentQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String parentId)
+  {
+    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.permissions.URLRoleDTO.CLASS);
+    queryDTO.addCondition("parent_id", "EQ", parentId);
+    return (dss.vector.solutions.permissions.URLRoleQueryDTO) clientRequest.queryRelationships(queryDTO);
+  }
+  public static dss.vector.solutions.permissions.URLRoleQueryDTO childQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, String childId)
+  {
+    com.runwaysdk.business.RelationshipQueryDTO queryDTO = (com.runwaysdk.business.RelationshipQueryDTO) clientRequest.getQuery(dss.vector.solutions.permissions.URLRoleDTO.CLASS);
+    queryDTO.addCondition("child_id", "EQ", childId);
+    return (dss.vector.solutions.permissions.URLRoleQueryDTO) clientRequest.queryRelationships(queryDTO);
+  }
   public void apply()
   {
     if(isNewInstance())
     {
-      getRequest().createBusiness(this);
+      getRequest().createRelationship(this);
     }
     else
     {
@@ -501,9 +406,9 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     getRequest().delete(this.getId());
   }
   
-  public static dss.vector.solutions.general.SystemURLQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  public static dss.vector.solutions.permissions.URLRoleQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.SystemURLQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.SystemURLDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.permissions.URLRoleQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.permissions.URLRoleDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()
@@ -511,12 +416,12 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     getRequest().lock(this);
   }
   
-  public static dss.vector.solutions.general.SystemURLDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.permissions.URLRoleDTO lock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.SystemURLDTO.CLASS, "lock", _declaredTypes);
-    return (dss.vector.solutions.general.SystemURLDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.permissions.URLRoleDTO.CLASS, "lock", _declaredTypes);
+    return (dss.vector.solutions.permissions.URLRoleDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public void unlock()
@@ -524,12 +429,12 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     getRequest().unlock(this);
   }
   
-  public static dss.vector.solutions.general.SystemURLDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  public static dss.vector.solutions.permissions.URLRoleDTO unlock(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
     Object[] _parameters = new Object[]{id};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.SystemURLDTO.CLASS, "unlock", _declaredTypes);
-    return (dss.vector.solutions.general.SystemURLDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.permissions.URLRoleDTO.CLASS, "unlock", _declaredTypes);
+    return (dss.vector.solutions.permissions.URLRoleDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
 }
