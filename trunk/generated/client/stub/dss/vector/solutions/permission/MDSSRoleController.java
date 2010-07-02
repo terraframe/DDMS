@@ -282,7 +282,11 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
 
     List<PermissionOptionMasterDTO> options = PermissionOptionDTO.allItems(clientRequest);
     Collections.reverse(options);
+    
+    PermissionViewDTO header = new PermissionViewDTO(clientRequest);
 
+    req.setAttribute("urlLabel", header.getLabelMd().getDisplayLabel());
+    req.setAttribute("permissionLabel", header.getPermissionMd().getDisplayLabel());
     req.setAttribute("options", options);
     req.setAttribute("permissions", Arrays.asList(permissions));
     req.setAttribute("item", dto);

@@ -13,6 +13,10 @@
   </mjl:component>
 
   <table class="displayTable">
+    <tr>
+      <th>${urlLabel}</th>
+      <th>${permissionLabel}</th>
+    </tr>  
     <mjl:components items="${permissions}" param="permissions" var="view" varStatus="status">
       <mjl:input type="hidden" param="urlId" value="${view.urlId}"/>
       <mjl:input type="hidden" param="label" value="${view.label}"/>
