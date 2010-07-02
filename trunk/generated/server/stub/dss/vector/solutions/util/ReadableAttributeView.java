@@ -27,12 +27,16 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.PermissionFacade;
 import com.runwaysdk.session.PermissionMap;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeDimension;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.InstallProperties;
+import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.permission.MDSSRole;
+import dss.vector.solutions.permission.PermissionChange;
 
 public class ReadableAttributeView extends ReadableAttributeViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -87,18 +91,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
         continue;
       }
 
-      boolean readable = !map.containsPermission(mdAttribute.getPermissionKey(), Operation.DENY_READ);
-
-      // Check the dimension permissions
-      if (!readable)
-      {
-        if (mdDimension != null)
-        {
-          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-
-          readable = !map.containsPermission(mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
-        }
-      }
+      MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+      boolean readable = !map.containsPermission(mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
 
       ReadableAttributeView view = createReadableAttributeView(mdAttribute, readable);
 
@@ -151,8 +145,12 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
     InstallProperties.validateMasterOperation();
 
     ActorDAO actor = (ActorDAO) getActor(actorName).getBusinessDAO();
+    PermissionMap existingPermissions = actor.getOperations();
+
     MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(universal);
     Map<String, ? extends MdAttributeDAOIF> attributeMap = mdClass.getAllDefinedMdAttributeMap();
+
+    List<PermissionChange> newPermissions = new LinkedList<PermissionChange>();
 
     for (ReadableAttributeView view : attributeViews)
     {
@@ -179,23 +177,53 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       MdAttributeDimensionDAOIF _mdAttributeDimension = _mdAttribute.getMdAttributeDimension(_mdDimension);
 
       Boolean permission = view.getReadPermission();
+      Boolean existing = !existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
 
-      if (permission != null)
+      if (permission != null && permission != existing)
       {
-        if (!permission)
+        newPermissions.add(new PermissionChange(!permission, _mdAttributeDimension.getId()));
+      }
+
+      ReadableAttributeView.setDimensionAttributes(view.getNotBlank(), _mdAttribute, _mdDimension);
+    }
+    
+    ReadableAttributeView.assignPermissions(actor, newPermissions);
+  }
+
+  private static void assignPermissions(ActorDAO actor, List<PermissionChange> permissions)
+  {
+    List<ActorDAO> actors = new LinkedList<ActorDAO>();
+    actors.add(actor);
+
+    if (actor instanceof RoleDAO)
+    {
+      RoleDAO role = (RoleDAO) actor;
+
+      if (role.getRoleName().equalsIgnoreCase(MDSSRoleInfo.GUI_VISIBILITY))
+      {
+        Roles[] roles = MDSSRole.getRoles();
+
+        for (Roles _role : roles)
         {
-          actor.grantPermission(Operation.DENY_READ, _mdAttributeDimension.getId());
+          actors.add(RoleDAO.get(_role.getId()).getBusinessDAO());
+        }
+      }
+    }
+
+    for (ActorDAO _actor : actors)
+    {
+      for (PermissionChange permission : permissions)
+      {
+        if (permission.isDeny())
+        {
+          _actor.grantPermission(Operation.DENY_READ, permission.getMetadataId());
         }
         else
         {
-          actor.revokePermission(Operation.DENY_READ, _mdAttributeDimension.getId());
+          _actor.revokePermission(Operation.DENY_READ, permission.getMetadataId());
         }
       }
-      
-      ReadableAttributeView.setDimensionAttributes(view.getNotBlank(), _mdAttribute, _mdDimension);
     }
-
-    // actor.apply();
   }
 
   /**
@@ -209,10 +237,10 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
   {
     MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttribute.getMdAttributeConcrete();
     MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeConcrete.getMdAttributeDimension(mdDimension);
-    
+
     MdAttributeDimension mdAttributeDimension = MdAttributeDimension.lock(_mdAttributeDimension.getId());
     mdAttributeDimension.setRequired(notBlank != null && notBlank);
-    mdAttributeDimension.apply();    
+    mdAttributeDimension.apply();
   }
 
   private static ActorDAOIF getActor(String actorName)

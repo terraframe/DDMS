@@ -1,11 +1,12 @@
 package dss.vector.solutions.permission;
 
 import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 
-public class PermissionFactory
+public class PermissionFactory implements Reloadable
 {
   private String key;
   

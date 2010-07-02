@@ -8,6 +8,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.RolesQuery;
@@ -15,7 +16,7 @@ import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MdTypeQuery;
 import com.runwaysdk.util.FileIO;
 
-public class PermissionTable
+public class PermissionTable implements Reloadable
 {
   private String html;
   private List<Operation> allOperations;
