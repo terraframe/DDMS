@@ -71,6 +71,8 @@ public class QueryConstants implements Reloadable
     QUERY_INDIVIDUAL_CASES,
     
     QUERY_EFFICACY_ASSAY,
+
+    QUERY_INTERVENTION_CONTROL,
     
     QUERY_MOSQUITO_COLLECTIONS,
     
