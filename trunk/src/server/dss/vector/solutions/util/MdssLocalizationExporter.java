@@ -23,6 +23,7 @@ import com.runwaysdk.SystemException;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.constants.MdAttributeBooleanUtil;
+import com.runwaysdk.constants.MdAttributeDimensionInfo;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdLocalStructInfo;
 import com.runwaysdk.constants.MdLocalizableInfo;
@@ -32,6 +33,7 @@ import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeCharDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdLocalStructDAOIF;
@@ -48,6 +50,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdAction;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeDimension;
 import com.runwaysdk.system.metadata.MdAttributeLocal;
 import com.runwaysdk.system.metadata.MdAttributeLocalQuery;
 import com.runwaysdk.system.metadata.MdIndex;
@@ -111,6 +114,7 @@ public class MdssLocalizationExporter implements Reloadable
     typeExemptions.add(MdParameter.CLASS);
     typeExemptions.add(MdIndex.CLASS);
     typeExemptions.add(MdMethod.CLASS);
+    typeExemptions.add(MdAttributeDimension.CLASS);
   }
   
   public void addLocale(Locale l)
@@ -306,6 +310,12 @@ public class MdssLocalizationExporter implements Reloadable
       	  			continue;
       	  		}
               }
+        }
+        
+        // Ignore attribute dimensions
+        if (entity instanceof MdAttributeDimensionDAOIF)
+        {
+          continue;
         }
         
         // We don't want to export the attribute definitions of the locales on our MdLocalStructs 
