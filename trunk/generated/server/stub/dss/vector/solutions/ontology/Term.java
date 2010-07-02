@@ -998,28 +998,28 @@ public class Term extends TermBase implements Reloadable, OptionIF
       return null;
     }
 
-    QueryFactory factory = new QueryFactory();
-
-    BrowserFieldQuery bfq = new BrowserFieldQuery(factory);
-    bfq.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
-
-    BrowserRootQuery brq = new BrowserRootQuery(factory);
-    brq.WHERE(brq.field(bfq));
-
-    AllPathsQuery apq = new AllPathsQuery(factory);
-    apq.WHERE(apq.getParentTerm().EQ(brq.getTerm()));
-
-    TermQuery tq = new TermQuery(factory);
+    QueryFactory qf = new QueryFactory();
+    ValueQuery query = new ValueQuery(qf);
+    BrowserFieldQuery bfq = new BrowserFieldQuery(query);
+    BrowserRootQuery brq = new BrowserRootQuery(query);
+    AllPathsQuery apq = new AllPathsQuery(query);
+    TermQuery tq = new TermQuery(query);
+    
     tq.WHERE(OR.get(tq.getName().EQi(displayLabel), tq.getTermDisplayLabel().localize().EQi(displayLabel), tq.getTermId().EQ(displayLabel)));
-    tq.WHERE(tq.getId().EQ(apq.getChildTerm().getId()));
-
-    OIterator<? extends Term> iterator = tq.getIterator();
+    query.SELECT_DISTINCT(tq.getId());
+    query.WHERE(apq.getChildTerm().EQ(tq.getId()));
+    query.WHERE(brq.getTerm().EQ(apq.getParentTerm()));
+    query.WHERE(bfq.getId().EQ(brq.getBrowserField().getId()));
+    query.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
+    query.WHERE(brq.getDisease().EQ(Disease.getMalaria()));
+    
+    OIterator<ValueObject> iterator = query.getIterator();
 
     try
     {
       if (iterator.hasNext())
       {
-        return iterator.next();
+        return Term.get(iterator.next().getValue(Term.ID));
       }
 
       String attributeLabel = mdAttribute.getDisplayLabel(Session.getCurrentLocale());
