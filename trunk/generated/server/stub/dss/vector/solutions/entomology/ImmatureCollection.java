@@ -9,19 +9,16 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
-import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -306,7 +303,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       // we need to deuplicate the sum so the same collection is not counted
       // twice
       String numberExaminedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + numberExamined + "))";
-      String numberSizeSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + premiseSize + "))";
+      String numberSizeSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + premiseSize + "))";
       String numberInhabitantsSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + numberInhabitants + "))";
 
 
@@ -315,8 +312,8 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM(" + numberpupae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
 
       QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
-      QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExamined + ", 0.0)");
-      QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberSizeSum + ", 0.0)*100.0");
+      QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberSizeSum + ", 0.0)");
+      QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
       
       // this calculation only valid for premises with data for inhabitants
       if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberInhabitantsSum + ", 0.0)*100.0"))
