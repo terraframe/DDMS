@@ -2,13 +2,17 @@ package dss.vector.solutions.util;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.system.RolesDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.permission.MDSSRoleDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO;
 
@@ -32,8 +36,24 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     }
 
     ClientRequestIF clientRequest = super.getClientRequest();
+    
+    List<RolesDTO> roles = new LinkedList<RolesDTO>();
+    
+    RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
+    RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
+    
+    RolesDTO[][] allRoles = new RolesDTO[][]{systemRoles, mdssRoles};
+    
+    for(int i = 0; i < allRoles.length; i++)
+    {
+      for(int j = 0; j < allRoles[i].length; j++)
+      {
+        roles.add(allRoles[i][j]);
+      }
+    }
+
     req.setAttribute("actor", actor);
-    req.setAttribute("actorOptions", FacadeDTO.getMDSSRoles(clientRequest));
+    req.setAttribute("actorOptions", roles);
 
     // I commented the follow lines out because they are not used in
     // selectUniversal.jsp and they were causing exceptions to be thrown

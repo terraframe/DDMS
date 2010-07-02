@@ -33,7 +33,6 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.system.metadata.MdElementQuery;
-import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.export.AggregatedCaseReferralsExcelView;
@@ -78,14 +77,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
   {
     return new Roles[]
     {
-      Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY),
-      Roles.findRoleByName(MDSSRoleInfo.ENTOMOLOGIST),
-      Roles.findRoleByName(MDSSRoleInfo.DATACAPTURER),
-      Roles.findRoleByName(MDSSRoleInfo.MANAGER),
-      Roles.findRoleByName(MDSSRoleInfo.MDSS),
-      Roles.findRoleByName(MDSSRoleInfo.MDSS_CORRDINATOR),
-      Roles.findRoleByName(MDSSRoleInfo.OPERATIONAL_MANAGER),
-      Roles.findRoleByName(MDSSRoleInfo.STOCK_STAFF)
+      Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY)
     };
   }
 
