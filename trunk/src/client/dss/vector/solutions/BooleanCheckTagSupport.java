@@ -25,7 +25,7 @@ public class BooleanCheckTagSupport extends BooleanTagSupport implements Reloada
 
   public BooleanCheckTagSupport()
   {
-    this.showAttributeLabel = false;
+    this.showAttributeLabel = true;
   }
 
   @AttributeAnnotation(description = "Flag denoting if the attribute label should be displayed")
