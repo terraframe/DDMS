@@ -1359,7 +1359,17 @@ Mojo.Meta.newClass('Mojo.Util', {
                 if (!value) {
                     return 'null';
                 }
-
+                
+                // Optimization to not include metadata
+                // TODO have logic located on the classes via toJSON or visitor
+                if(key === '__metaClass'
+                  || key === '__context'
+                  || key === 'attributeMdDTO'
+                  || key === '_typeMd')
+                {
+                  return null;
+                }
+                
                 gap += indent;
                 partial = [];
 
@@ -4899,7 +4909,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalTextDTO', {
   
   initialize : function(obj)
   {
-  this.$initialize(obj);
+    this.$initialize(obj);
   }
 
 }
@@ -4913,7 +4923,7 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLocalTextMdDTO',        {
   
   initialize : function(obj)
   {
-  this.$initialize(obj);
+    this.$initialize(obj);
   }
 
 }

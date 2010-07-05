@@ -5,8 +5,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO'
 
   Abstract : true,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -23,8 +21,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO'
 
   Abstract : true,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -39,8 +35,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeLineStringDT
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -54,8 +48,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeLineStringMdDT
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
 
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -70,8 +62,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributePointDTO', {
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -85,8 +75,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributePointMdDTO', {
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
 
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -101,8 +89,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributePolygonDTO',
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -116,8 +102,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributePolygonMdDTO',
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
 
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -133,8 +117,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiLineStr
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -148,8 +130,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiLineStrin
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
 
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -164,8 +144,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiPointDT
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -179,8 +157,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiPointMdDT
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
 
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -195,8 +171,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiPolygon
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
   
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
@@ -210,8 +184,6 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiPolygonMd
 
   Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
 
-  Alias: Mojo.$,
-  
   Instance : {
   
     initialize : function(obj)
