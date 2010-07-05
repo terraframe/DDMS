@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.irs.UniqueTeamSprayException">
-  <!--
-    - {sprayTeam} sprayTeam
-    -->
-  <locale language="defaultLocale">A level 2 IRS record already exists with ([{geoEntity}], [{sprayDate}], [{brand}], [{sprayMethod}], [{sprayTeam}]) values.</locale>
-</exception>

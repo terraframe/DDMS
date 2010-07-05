@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.geo.GeoServerReloadException">
-  <!--
-    - {id} id
-    -->
-  <locale language="defaultLocale">The map could not be generated. Please try again or contact technical support if the problem continues.</locale>
-</exception>

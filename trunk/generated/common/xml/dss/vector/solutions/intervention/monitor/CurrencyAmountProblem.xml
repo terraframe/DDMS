@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../../exceptions.xsd"
-  name="dss.vector.solutions.intervention.monitor.CurrencyAmountProblem">
-  <!--
-    -->
-  <locale language="defaultLocale">Currency received cannot be set when no ITNs were sold.</locale>
-</exception>

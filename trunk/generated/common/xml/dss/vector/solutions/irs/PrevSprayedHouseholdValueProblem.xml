@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.irs.PrevSprayedHouseholdValueProblem">
-  <!--
-    -->
-  <locale language="defaultLocale">The [Previously Sprayed Household] attribute for household [{householdId}] and structure [{structureId}] can only have a value of 0 or 1.</locale>
-</exception>

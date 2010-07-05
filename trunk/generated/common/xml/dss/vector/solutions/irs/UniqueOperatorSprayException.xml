@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.irs.UniqueOperatorSprayException">
-  <!--
-    - {sprayOperator} sprayOperator
-    -->
-  <locale language="defaultLocale">A level 1 IRS record already exists with ([{geoEntity}], [{sprayDate}], [{brand}], [{sprayMethod}], [{sprayOperator}]) values.</locale>
-</exception>

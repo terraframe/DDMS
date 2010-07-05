@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.irs.SprayedHouseholdValueProblem">
-  <!--
-    -->
-  <locale language="defaultLocale">The [Sprayed Household] attribute is not applicable on a mop of spray for household [{householdId}] and structure [{structureId}]</locale>
-</exception>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<exception xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:noNamespaceSchemaLocation="../../../../exceptions.xsd"
-  name="dss.vector.solutions.query.NoEntitiesInThematicLayerException">
-  <!--
-    - {id} id
-    -->
-  <locale language="defaultLocale">The map cannot be generated because the base layer contains no entities.</locale>
-</exception>
