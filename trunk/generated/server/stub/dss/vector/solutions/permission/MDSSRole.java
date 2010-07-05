@@ -61,9 +61,9 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
   @Transaction
   public void delete()
   {
-    this.getRole().delete();
-
     super.delete();
+    
+    this.getRole().delete();
   }
 
   @Override

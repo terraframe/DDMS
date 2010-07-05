@@ -10,18 +10,23 @@ import java.util.Iterator;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
+import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.constants.MetadataInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdMethodDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -30,42 +35,109 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 
+import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.general.SystemURLQuery;
 
 public class PermissionImporter implements Reloadable
 {
-  private Disease[]                  diseases;
+  private static final String               URL_SHEET_NAME        = "URL Permissions";
 
-  private HashMap<String, SystemURL> systemURLs;
+  private static final String               VISIBILITY_SHEET_NAME = "GUIVisibility";
+
+  private Disease[]                         diseases;
+
+  private HashMap<String, MdDimensionDAOIF> mdDimensions;
+
+  private HashMap<String, SystemURL>        systemURLs;
 
   public PermissionImporter()
   {
     this.diseases = Disease.getAllDiseases();
     this.systemURLs = new HashMap<String, SystemURL>();
+    this.mdDimensions = new HashMap<String, MdDimensionDAOIF>();
+    
+    for(Disease disease : this.diseases)
+    {
+      MdDimensionDAOIF mdDimension = MdDimensionDAO.get(disease.getDimension().getId());
+      
+      mdDimensions.put(disease.getKey(), mdDimension);
+    }
   }
 
   @Transaction
-  @SuppressWarnings("unchecked")
   public void read(InputStream stream)
   {
     HSSFWorkbook workbook = openStream(stream);
-    for (int i=0; i<workbook.getNumberOfSheets(); i++)
+
+    this.readURLSheet(workbook);
+    this.readVisibilitySheet(workbook);
+  }
+
+  @SuppressWarnings("unchecked")
+  private Iterator<HSSFRow> getSheetRows(HSSFWorkbook workbook, String sheetName)
+  {
+    return workbook.getSheet(sheetName).iterator();
+  }
+
+  private void readURLSheet(HSSFWorkbook workbook)
+  {
+    Iterator<HSSFRow> iterator = this.getSheetRows(workbook, URL_SHEET_NAME);
+
+    // Skip the header row
+    iterator.next();
+
+    while (iterator.hasNext())
     {
-      Iterator<HSSFRow> iterator = workbook.getSheetAt(i).iterator();
+      readURLRow(iterator.next());
+    }
+  }
+
+  private void readVisibilitySheet(HSSFWorkbook workbook)
+  {
+    RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
+    Iterator<HSSFRow> iterator = this.getSheetRows(workbook, VISIBILITY_SHEET_NAME);
+
+    // Skip the header row
+    iterator.next();
+
+    while (iterator.hasNext())
+    {
+      readVisibilityRow(iterator.next(), guiVisibility);
+    }
+  }
+
+  private void readVisibilityRow(HSSFRow row, RoleDAO role)
+  {
+    String key = ExcelUtil.getString(row.getCell(0));
+    String diseaseName = ExcelUtil.getString(row.getCell(1));
+
+    MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
+    
+    if(diseaseName != null && diseaseName.length() > 0)
+    {
+      MdDimensionDAOIF mdDimension = this.mdDimensions.get(diseaseName);
+      MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
       
-      // Skip the header row
-      iterator.next();
-      
-      while (iterator.hasNext())
+      role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
+    }
+    else
+    {
+      Set<String> keys = mdDimensions.keySet();
+
+      for(String dimensionKey : keys)
       {
-        readRow(iterator.next());
+        MdDimensionDAOIF mdDimension = mdDimensions.get(dimensionKey);
+        
+        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+        
+        role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
       }
     }
   }
 
-  private void readRow(HSSFRow row)
+  private void readURLRow(HSSFRow row)
   {
     String urlKey = ExcelUtil.getString(row.getCell(0));
     String actionKey = ExcelUtil.getString(row.getCell(1));
@@ -180,7 +252,6 @@ public class PermissionImporter implements Reloadable
    * @return
    * @throws IOException
    */
-  @SuppressWarnings("unchecked")
   private HSSFWorkbook openStream(InputStream stream)
   {
     try
