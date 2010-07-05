@@ -47,16 +47,21 @@ public class PermissionImporter implements Reloadable
   }
 
   @Transaction
+  @SuppressWarnings("unchecked")
   public void read(InputStream stream)
   {
-    Iterator<HSSFRow> iterator = openStream(stream);
-
-    // Skip the header row
-    iterator.next();
-
-    while (iterator.hasNext())
+    HSSFWorkbook workbook = openStream(stream);
+    for (int i=0; i<workbook.getNumberOfSheets(); i++)
     {
-      readRow(iterator.next());
+      Iterator<HSSFRow> iterator = workbook.getSheetAt(i).iterator();
+      
+      // Skip the header row
+      iterator.next();
+      
+      while (iterator.hasNext())
+      {
+        readRow(iterator.next());
+      }
     }
   }
 
@@ -176,16 +181,14 @@ public class PermissionImporter implements Reloadable
    * @throws IOException
    */
   @SuppressWarnings("unchecked")
-  private Iterator<HSSFRow> openStream(InputStream stream)
+  private HSSFWorkbook openStream(InputStream stream)
   {
     try
     {
       POIFSFileSystem fileSystem = new POIFSFileSystem(stream);
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet sheet = workbook.getSheetAt(0);
-      Iterator<HSSFRow> rowIterator = sheet.rowIterator();
 
-      return rowIterator;
+      return workbook;
     }
     catch (IOException e)
     {
