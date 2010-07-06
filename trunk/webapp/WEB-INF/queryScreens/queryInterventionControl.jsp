@@ -185,14 +185,14 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var individualPremiseVisit = new dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
     var individualPremiseVisitAttribs = [ "geoEntity","visited","treated","reasonsForNotTreated"];
-    var individualPremiseVisitColumns =   individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ci', dropDownMaps:individualPremiseVisitMethodMaps});
+    var individualPremiseVisitColumns =   individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps});
 
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
 
     
     var aggregatedPremiseVisit = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
     var aggregatedPremiseVisitAttribs = [ "geoEntity","vehicleCoverage","premises","visited","treated"];
-    var aggregatedPremiseVisitColumns =   aggregatedPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedPremiseVisit, suffix:'_ci', dropDownMaps:aggregatedPremiseVisitMaps});
+    var aggregatedPremiseVisitColumns =   aggregatedPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedPremiseVisit, suffix:'_ip', dropDownMaps:aggregatedPremiseVisitMaps});
     
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionReasons));
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionMethods));
@@ -201,20 +201,18 @@ YAHOO.util.Event.onDOMReady(function(){
     var personInterventionAttribs = ["vehicleDays"];
 
     
-    var personInterventionColumns =  personInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:personIntervention, suffix:'_ci', dropDownMaps:personInterventionMaps});
+    var personInterventionColumns =  personInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:personIntervention, suffix:'_ap', dropDownMaps:personInterventionMaps});
 
     personInterventionColumns = personInterventionColumns.concat(orderedGrids.personInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.personInterventionMethods));
-    //var PersonInterventionMethod = new dss.vector.solutions.intervention.monitor.PersonInterventionMethod;
-    
     
     var insecticideIntervention = new dss.vector.solutions.intervention.monitor.InsecticideIntervention;
     var insecticideInterventionAttribs = [ "interventionMethod","quantity","unit"];
-    var insecticideInterventionColumns =  insecticideInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideIntervention, suffix:'_ci', dropDownMaps:{}});
+    var insecticideInterventionColumns =  insecticideInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideIntervention, suffix:'_pi', dropDownMaps:{}});
 
     
     var insecticideBrand = new dss.vector.solutions.irs.InsecticideBrand;
     var insecticideBrandAttribs = [ "brandName","activeIngredient","amount"];
-    var insecticideBrandColumns =   insecticideBrandAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideBrand, suffix:'_ci', dropDownMaps:{}});
+    var insecticideBrandColumns =   insecticideBrandAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideBrand, suffix:'_ii', dropDownMaps:{}});
 
 
     insecticideInterventionColumns = insecticideInterventionColumns.concat(insecticideBrandColumns);
