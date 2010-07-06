@@ -360,13 +360,13 @@ YAHOO.util.Event.onDOMReady(function(){
     var dm = query.getDependencyManager();
     dm.includes({
       independent: calculations,
-      dependent: 'container_term',
+      dependent: 'childId',
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     
     dm.includes({
-      independent: 'container_term',
+      independent: 'childId',
       dependent: calculations,
       type: MDSS.Dependent.UNCHECKED,
       bidirectional: false
