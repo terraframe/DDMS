@@ -275,9 +275,10 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
 
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM(" + numberlarvae + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
     needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM(" + numberpupae + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "SUM(" + numberimmatures + ")/NULLIF(SUM(SUM(" + numberimmatures + ")) OVER (), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM(" + numberlarvae + ")/NULLIF(SUM(SUM(" + numberimmatures + ")) OVER (), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM(" + numberpupae + ")/NULLIF(SUM(SUM(" + numberimmatures + ")) OVER (), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", "(SUM(" + numberlarvaecollected + ")+SUM(" + numberpupaecollected + "))/" +
+    		"NULLIF((SUM(SUM(" + numberlarvaecollected + ")) OVER ()) + (SUM(SUM(" + numberpupaecollected + ")) OVER ()), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM(" + numberlarvaecollected + ")/NULLIF(SUM(SUM(" + numberlarvaecollected + ")) OVER (), 0.0)*100.0") || needsJoin;
+    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM(" + numberpupaecollected + ")/NULLIF(SUM(SUM(" + numberpupaecollected + ")) OVER (), 0.0)*100.0") || needsJoin;
 
     if (needsJoin)
     {
