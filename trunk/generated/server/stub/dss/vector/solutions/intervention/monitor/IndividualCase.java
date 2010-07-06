@@ -502,9 +502,8 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
       String tableAlias = caseQuery.getTableAlias();
-      String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String indCaseCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.INDIVIDUALCASE);
-      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))";
+//      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))";
+      String sql = "COUNT(DISTINCT "+tableAlias+"."+idCol+")";
       calc.setSQL(sql);
     }
 
@@ -523,7 +522,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id)))*100.0";
+      String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + "."+idCol+")))*100.0";
       calc.setSQL(sql);
     }
 
