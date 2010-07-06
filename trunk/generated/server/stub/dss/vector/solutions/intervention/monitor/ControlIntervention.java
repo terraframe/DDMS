@@ -7,15 +7,19 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.InsecticideBrand;
@@ -245,27 +249,114 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     ControlInterventionQuery controlInterventionQuery  = (ControlInterventionQuery) queryMap.get(ControlIntervention.CLASS);
     
     IndividualPremiseVisitQuery individualPremiseVisitQuery  = (IndividualPremiseVisitQuery) queryMap.get(IndividualPremiseVisit.CLASS);
-    IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery  = (IndividualPremiseVisitMethodQuery) queryMap.get(IndividualPremiseVisitMethod.CLASS);
     
-    AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery  = (AggregatedPremiseReasonQuery) queryMap.get(AggregatedPremiseReason.CLASS);
-    AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery  = (AggregatedPremiseVisitQuery) queryMap.get(AggregatedPremiseVisit.CLASS);
+    if (individualPremiseVisitQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery,individualPremiseVisitQuery.getTableAlias());
+    }
+    //IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery  = (IndividualPremiseVisitMethodQuery) queryMap.get(IndividualPremiseVisitMethod.CLASS);
+    
+    
+    AggregatedPremiseVisitQuery  aggregatedPremiseVisitQuery  = (AggregatedPremiseVisitQuery) queryMap.get(AggregatedPremiseVisit.CLASS);
+    
+    
+    if ( aggregatedPremiseVisitQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedPremiseVisitQuery.getTableAlias());
+    }
+    //AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery  = (AggregatedPremiseReasonQuery) queryMap.get(AggregatedPremiseReason.CLASS);
+    //AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery  = (AggregatedPremiseMethodQuery) queryMap.get(AggregatedPremiseMethod.CLASS);
+    
     
     PersonInterventionQuery personInterventionQuery  = (PersonInterventionQuery) queryMap.get(PersonIntervention.CLASS);
-    PersonInterventionMethodQuery personInterventionMethodQuery  = (PersonInterventionMethodQuery) queryMap.get(PersonInterventionMethod.CLASS);
+    
+    if ( personInterventionQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery,personInterventionQuery.getTableAlias());
+    }
+    
+    
+    //PersonInterventionMethodQuery personInterventionMethodQuery  = (PersonInterventionMethodQuery) queryMap.get(PersonInterventionMethod.CLASS);
+    
+    
     
     InsecticideInterventionQuery insecticideInterventionQuery  = (InsecticideInterventionQuery) queryMap.get(InsecticideIntervention.CLASS);
-    InsecticideBrandQuery insecticideBrandQuery  = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+    if ( insecticideInterventionQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideIntervention.CLASS, insecticideInterventionQuery);
+    }
     
+    
+    InsecticideBrandQuery insecticideBrandQuery  = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+    if ( insecticideBrandQuery != null)
+    {
+      
+      if ( insecticideInterventionQuery != null)
+      {
+        valueQuery.WHERE(insecticideInterventionQuery.getInsecticide().EQ(insecticideBrandQuery));
+      }
+      QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
+    }
 
+    boolean needsView = false; 
+    MdEntityDAOIF visitMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseVisit.CLASS);
+    String id = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.ID);
+    String treated = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.TREATED);
+    String premises = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.PREMISES);
+    String visited = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.VISITED);
+    
+    String treatedSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + treated + "))";
+    String premisesSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + premises + "))";
+    String visitedSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + visited + "))";
+    
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", ""+visitedSum+"") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", ""+treatedSum) || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", ""+premisesSum+"-"+treatedSum) || needsView;
+    //needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_person_days", "total_person_days") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_visited", "("+visitedSum+"/NULLIF("+premisesSum+",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "("+treatedSum+"/NULLIF("+premisesSum+",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "("+treatedSum+"/NULLIF("+visitedSum+",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "(("+premisesSum+"-"+treatedSum+")/NULLIF("+visitedSum+",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "childId_displayLabel", "childid_displaylabel") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "method_qty", "SUM(used)") || needsView;
+    
+    
+    
+    String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
+    if( needsView)
+    {      
+      String viewSql = "SELECT  point, 1 as premises, visited , treated, used, individual_premise_visit_metho.parent_id as visit, \n";
+      viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel\n";
+      viewSql += " FROM individual_premise_visit , individual_premise_visit_metho  LEFT JOIN term as term0 on individual_premise_visit_metho.child_id = term0.id\n";
+      viewSql += " WHERE  individual_premise_visit_metho.parent_id = individual_premise_visit.id\n";
+      viewSql += " UNION ALL\n";
+      viewSql += " SELECT  point, premises, visited , treated, amount, aggregated_premise_method.parent_id as visit, \n";
+      viewSql += " aggregated_premise_method.child_id as id,  term0.name as childId_displayLabel\n";
+      viewSql += " FROM aggregated_premise_visit , aggregated_premise_method  LEFT JOIN term as term0 on aggregated_premise_method.child_id = term0.id\n";
+      viewSql += " WHERE  aggregated_premise_method.parent_id = aggregated_premise_visit.id\n";
+      
+      
+      //(SELECT collection_container.id , term0.name as childId_displayLabel FROM collection_container 
+      //as collection_container LEFT JOIN term as term0 on collection_container.child_id = term0.id) dss_vector_solutions_entomology_CollectionContainerTermSubSel 
+      
+      String view = "dss_vector_solutions_intervention_monitor_IndividualPremiseVisitTermSubSel";    
+      
+      valueQuery.setSqlPrefix("WITH "+view+" AS (" + viewSql + ")");
+      valueQuery.AND(new InnerJoinEq("id", controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
+    }
+    
+    
+    
     QueryUtil.joinGeoDisplayLabels(valueQuery, ControlIntervention.CLASS, controlInterventionQuery );
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
       
-
-    
     
     return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate());
 
