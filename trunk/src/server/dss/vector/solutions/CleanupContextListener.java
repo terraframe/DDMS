@@ -372,7 +372,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
     sql += "CREATE OR REPLACE FUNCTION sum_stringified_id_int_pairs(anyarray) RETURNS Double Precision AS $$ \n";
     sql += "SELECT \n";
-    sql += "sum (split_part($1[i]::varchar,'~',2)::Double) FROM \n";
+    sql += "sum (split_part($1[i]::varchar,'~',2)::Double Precision) FROM \n";
     sql += "generate_series(array_lower($1,1),  \n";
     sql += "array_upper($1,1)) g(i);  \n";
     sql += "$$ LANGUAGE sql IMMUTABLE; \n";
