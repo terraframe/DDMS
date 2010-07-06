@@ -86,7 +86,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var controlIntervention = new dss.vector.solutions.intervention.monitor.ControlIntervention;
     var controlInterventionAttribs = [ "startDate","endDate","geoEntity","comments"];
-//"aggregatedPremiseUniversal","individulPremiseUniversal"
 
     
     var calculations = ([
@@ -111,13 +110,14 @@ YAHOO.util.Event.onDOMReady(function(){
                            attributeName:"total_premises_not_treated",
                            isAggregate:true
                          },
+                         /*
                          {
                            
                            key:"total_person_days",
                            type:"sqlfloat",
                            attributeName:"total_person_days",
                            isAggregate:true
-                         },
+                         },*/
                       
                          {
                            
@@ -151,11 +151,18 @@ YAHOO.util.Event.onDOMReady(function(){
                          {
                            key:"childId",
                            displayLabel: MDSS.localize('Treatment_Method'),
-                           type:"dss.vector.solutions.intervention.monitor.IndividualdPremiseVisitMethod",
+                           type:"dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod",
                            attributeName:"childId",
                            dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
                            isTerm : true
 
+                           },
+
+                           {
+                             key:"method_qty",
+                             type:"sqlfloat",
+                             attributeName:"method_qty",
+                             isAggregate:true
                            },
                       
                         ]);
@@ -182,20 +189,6 @@ YAHOO.util.Event.onDOMReady(function(){
 
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
 
-    /*
-    individualPremiseVisitColumns = individualPremiseVisitColumns.concat([{
-      key:"childId",
-      displayLabel: MDSS.localize('Method'),
-      type:"dss.vector.solutions.intervention.monitor.IndividualdPremiseVisitMethod",
-      attributeName:"childId",
-      dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
-      isTerm : true
-
-      }].concat();
-    */
-    //var individualPremiseVisitMethodAttribs = [ "used"];
-    //var individualPremiseVisitMethod = new dss.vector.solutions.intervention.monitor.IndividualdPremiseVisitMethod;
-    
     
     var aggregatedPremiseVisit = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
     var aggregatedPremiseVisitAttribs = [ "geoEntity","vehicleCoverage","premises","visited","treated"];
@@ -203,11 +196,6 @@ YAHOO.util.Event.onDOMReady(function(){
     
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionReasons));
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionMethods));
-    //var AggregatedVisitMethod = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitMethod;
-//    var aggregatedPremiseVisitMethodAttribs = [ "amount"];
-    
-    //var AggregatedPremiseReason = new dss.vector.solutions.intervention.monitor.AggregatedPremiseReason;
-   // var aggregatedPremiseReasonAttribs = [ "amount"];
     
     var personIntervention = new dss.vector.solutions.intervention.monitor.PersonIntervention;
     var personInterventionAttribs = ["vehicleDays"];
@@ -233,14 +221,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
  
       var selectableGroups = [
-                {title:"Intervention_Control", values:controlInterventionColumns, group:"c", klass:controlIntervention.CLASS},
-                {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"c", klass:controlIntervention.CLASS},
-                {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"c", klass:controlIntervention.CLASS},
-                {title:"Person_Intervention", values:personInterventionColumns, group:"c",klass:controlIntervention.CLASS},
-                {title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"c",klass:controlIntervention.CLASS},
+                {title:"Intervention_Control", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
+                {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ip", klass:controlIntervention.CLASS},
+                {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ap", klass:controlIntervention.CLASS},
+                {title:"Person_Intervention", values:personInterventionColumns, group:"pi",klass:controlIntervention.CLASS},
+                {title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"ii",klass:controlIntervention.CLASS},
       ];
 
-      //selectableGroups = selectableGroups.concat(taxonCalcGroups);
 
     
     var query = new MDSS.QueryInterventionControl(selectableGroups, queryList);
