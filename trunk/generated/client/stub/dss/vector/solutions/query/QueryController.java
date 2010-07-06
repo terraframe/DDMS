@@ -40,6 +40,10 @@ import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonDTO;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitDTO;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitViewDTO;
 import dss.vector.solutions.intervention.monitor.ControlInterventionDTO;
 import dss.vector.solutions.intervention.monitor.HouseholdDTO;
 import dss.vector.solutions.intervention.monitor.IPTANCVisitDTO;
@@ -62,7 +66,13 @@ import dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO;
 import dss.vector.solutions.intervention.monitor.IndividualCaseDTO;
 import dss.vector.solutions.intervention.monitor.IndividualIPTDTO;
 import dss.vector.solutions.intervention.monitor.IndividualInstanceDTO;
+import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitDTO;
+import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodDTO;
+import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitViewDTO;
 import dss.vector.solutions.intervention.monitor.LarvacideDTO;
+import dss.vector.solutions.intervention.monitor.PersonInterventionDTO;
+import dss.vector.solutions.intervention.monitor.PersonInterventionMethodDTO;
+import dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO;
 import dss.vector.solutions.intervention.monitor.SurveyPointDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO;
@@ -752,10 +762,61 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       
       JSONObject ordered = new JSONObject();
 
-
-      req.setAttribute("orderedGrids", ordered.toString());
       
-     
+
+      ClassQueryDTO iim = request.getQuery(IndividualPremiseVisitDTO.CLASS);
+      String iimap = Halp.getDropDownMaps(iim, request, ", ");
+      req.setAttribute("individualPremiseVisit", iimap);
+      
+      
+      JSONObject interventionMethods = new JSONObject();
+      interventionMethods.put("type", TermDTO.CLASS);
+      interventionMethods.put("label",MDSSProperties.getObject("Amount") );
+      interventionMethods.put("relType", IndividualPremiseVisitMethodDTO.CLASS);
+      interventionMethods.put("relAttribute", IndividualPremiseVisitMethodDTO.USED);
+      interventionMethods.put("options", getAllTermsForGrid(request, IndividualPremiseVisitViewDTO.CLASS,
+          IndividualPremiseVisitViewDTO.INTERVENTIONMETHOD));
+      ordered.put("individualPremiseVisitMethod", interventionMethods);
+      
+      
+      ClassQueryDTO aim = request.getQuery(AggregatedPremiseVisitDTO.CLASS);
+      String aimap = Halp.getDropDownMaps(aim, request, ", ");
+      req.setAttribute("aggregatedPremiseVisit", aimap);
+      
+      JSONObject aggInterventionMethods = new JSONObject();
+      aggInterventionMethods.put("type", TermDTO.CLASS);
+      aggInterventionMethods.put("label",MDSSProperties.getObject("Amount") );
+      aggInterventionMethods.put("relType", AggregatedPremiseMethodDTO.CLASS);   
+      aggInterventionMethods.put("relAttribute", AggregatedPremiseMethodDTO.AMOUNT);
+      aggInterventionMethods.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS,
+          AggregatedPremiseVisitViewDTO.INTERVENTIONMETHOD));
+      ordered.put("aggInterventionMethods", aggInterventionMethods);
+      
+      JSONObject aggInterventionReasons = new JSONObject();
+      aggInterventionReasons.put("type", TermDTO.CLASS);
+      aggInterventionReasons.put("label",MDSSProperties.getObject("Amount") );
+      aggInterventionReasons.put("relType", AggregatedPremiseReasonDTO.CLASS);
+      aggInterventionReasons.put("relAttribute", AggregatedPremiseReasonDTO.AMOUNT);
+      aggInterventionReasons.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS,
+          AggregatedPremiseVisitViewDTO.NONTREATMENTREASON));
+      ordered.put("aggInterventionReasons", aggInterventionReasons);
+      
+      ClassQueryDTO pim = request.getQuery(PersonInterventionDTO.CLASS);
+      String pimap = Halp.getDropDownMaps(pim, request, ", ");
+      req.setAttribute("PersonIntervention", pimap);
+      
+      
+      JSONObject personInterventionMethod = new JSONObject();
+      personInterventionMethod.put("type", TermDTO.CLASS);
+      personInterventionMethod.put("label",MDSSProperties.getObject("Amount") );
+      personInterventionMethod.put("relType", PersonInterventionMethodDTO.CLASS);
+      personInterventionMethod.put("relAttribute", PersonInterventionMethodDTO.AMOUNT);
+      personInterventionMethod.put("options", getAllTermsForGrid(request, PersonInterventionViewDTO.CLASS,
+          PersonInterventionViewDTO.INTERVENTIONMETHOD));
+      ordered.put("personInterventionMethods", personInterventionMethod);
+      
+      req.setAttribute("orderedGrids", ordered.toString());
+
       
       req.getRequestDispatcher(QUERY_INTERVENTION_CONTROL).forward(req, resp);
 
