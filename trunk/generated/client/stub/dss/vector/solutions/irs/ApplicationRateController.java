@@ -61,7 +61,7 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 //    String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 
     
-    this.setupBrandGrid();
+    //this.setupBrandGrid();
     this.setupNozzleGrid();
     this.setupConfigurationGrid();
 
