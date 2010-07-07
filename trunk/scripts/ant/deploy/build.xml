@@ -827,5 +827,10 @@
 		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/individual/schema(0001238646707001).xml" overwrite="true" />
 		<copy file="../../../webapp/imgs/flags/${geodata.db}.gif" tofile="../../../webapp/imgs/flags/current" overwrite="true" />
 	</target>
+	
+	<target name="sleep" depends="">
+		<echo message="Starting the build in 15 seconds..." />
+		<sleep seconds="15" />
+	</target>
 </project>
 
