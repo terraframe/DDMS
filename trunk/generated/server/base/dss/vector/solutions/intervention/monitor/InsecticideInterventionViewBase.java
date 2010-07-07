@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -846094702)
+@com.runwaysdk.business.ClassSignature(hash = 2143513924)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,8 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.InsecticideInterventionView";
   public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
-  public static java.lang.String AMOUNT = "amount";
+  public static java.lang.String CONCENTRATIONQUALIFIER = "concentrationQualifier";
+  public static java.lang.String CONCENTRATIONQUANTIFIER = "concentrationQuantifier";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
@@ -20,7 +21,7 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
   public static java.lang.String INTERVENTIONMETHOD = "interventionMethod";
   public static java.lang.String QUANTITY = "quantity";
   public static java.lang.String UNIT = "unit";
-  private static final long serialVersionUID = -846094702;
+  private static final long serialVersionUID = 2143513924;
   
   public InsecticideInterventionViewBase()
   {
@@ -55,31 +56,59 @@ public abstract class InsecticideInterventionViewBase extends com.runwaysdk.busi
     }
   }
   
-  public Integer getAmount()
+  public String getConcentrationQualifier()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+    return getValue(CONCENTRATIONQUALIFIER);
   }
   
-  public void validateAmount()
+  public void validateConcentrationQualifier()
   {
-    this.validateAttribute(AMOUNT);
+    this.validateAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQualifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public void setAmount(Integer value)
+  public void setConcentrationQualifier(String value)
   {
     if(value == null)
     {
-      setValue(AMOUNT, "");
+      setValue(CONCENTRATIONQUALIFIER, "");
     }
     else
     {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
+      setValue(CONCENTRATIONQUALIFIER, value);
+    }
+  }
+  
+  public java.math.BigDecimal getConcentrationQuantifier()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CONCENTRATIONQUANTIFIER));
+  }
+  
+  public void validateConcentrationQuantifier()
+  {
+    this.validateAttribute(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQuantifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CLASS);
+    return mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public void setConcentrationQuantifier(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(CONCENTRATIONQUANTIFIER, "");
+    }
+    else
+    {
+      setValue(CONCENTRATIONQUANTIFIER, value.toString());
     }
   }
   

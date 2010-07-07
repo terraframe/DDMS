@@ -20,7 +20,13 @@ import dss.vector.solutions.irs.AreaStandardsDTO;
 import dss.vector.solutions.irs.AreaStandardsViewDTO;
 import dss.vector.solutions.irs.GeoTargetDTO;
 import dss.vector.solutions.irs.GeoTargetViewDTO;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO;
+import dss.vector.solutions.irs.InsecticideBrandUse;
+import dss.vector.solutions.irs.InsecticideBrandUseDTO;
 import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.irs.InsecticideNozzleDTO;
 import dss.vector.solutions.irs.InsecticideNozzleViewDTO;
@@ -90,11 +96,14 @@ public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeav
     TermDTO term = TermDTO.get(request, termId);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
-    brand.setBrandName(TestConstants.BRAND_NAME);
-    brand.setAmount(44);
+    brand.setProductName(term);
+    brand.addInsecticideUse(InsecticideBrandUseDTO.IRS);
     brand.setActiveIngredient(term);
-    brand.setWeight(new BigDecimal(3.3));
-    brand.setSachetsPerRefill(2);
+    brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+    brand.setUnitQuantifier(new BigDecimal("100"));
+    brand.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+    brand.setUnitsPerApplication(20);
     brand.setEnabled(true);
     brand.apply();
 
@@ -102,16 +111,21 @@ public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeav
     {
 
       InsecticideBrandViewDTO update = InsecticideBrandDTO.lockView(request, brand.getInsecticdeId());
-      update.setBrandName(TestConstants.BRAND_NAME_2);
-      update.setAmount(42);
+      update.setProductName(term);
+      update.addInsecticideUse(InsecticideBrandUseDTO.IRS);
       update.setActiveIngredient(term);
+      update.setConcentrationQuantifier(new BigDecimal("4.50"));
+      update.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+      update.setUnitQuantifier(new BigDecimal("100"));
+      update.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+      update.setUnitsPerApplication(20);
       update.setEnabled(true);
       update.apply();
 
       InsecticideBrandViewDTO test = InsecticideBrandDTO.getView(request, brand.getInsecticdeId());
 
-      assertEquals(update.getBrandName(), test.getBrandName());
-      assertEquals(update.getAmount(), test.getAmount());
+      assertEquals(update.getProductName().getId(), test.getProductName().getId());
+      assertEquals(update.getConcentrationQuantifier(), test.getConcentrationQuantifier());
       assertEquals(update.getActiveIngredient().getId(), test.getActiveIngredient().getId());
     }
     catch (ProblemExceptionDTO e)
@@ -167,11 +181,14 @@ public class PlanningCRUDPermissions extends PermissionTest implements DoNotWeav
     TermDTO term = TermDTO.get(request, termId);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
-    brand.setBrandName(TestConstants.BRAND_NAME);
-    brand.setAmount(44);
+    brand.setProductName(term);
+    brand.addInsecticideUse(InsecticideBrandUseDTO.IRS);
     brand.setActiveIngredient(term);
-    brand.setWeight(new BigDecimal(3.3));
-    brand.setSachetsPerRefill(2);
+    brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+    brand.setUnitQuantifier(new BigDecimal("100"));
+    brand.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+    brand.setUnitsPerApplication(20);
     brand.setEnabled(true);
     brand.apply();
 

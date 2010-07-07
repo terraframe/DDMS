@@ -30,7 +30,7 @@ public class InsecticideBrandDTO extends InsecticideBrandDTOBase implements Relo
 
   public String getLabel()
   {
-    return this.getBrandName();
+    return this.getProductName().getTermDisplayLabel().getValue();
   }
 
   public String getOptionId()

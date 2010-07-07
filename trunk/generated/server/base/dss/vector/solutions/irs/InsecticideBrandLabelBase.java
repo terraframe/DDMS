@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -596213394)
+@com.runwaysdk.business.ClassSignature(hash = -1108613256)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,11 +12,12 @@ public abstract class InsecticideBrandLabelBase extends com.runwaysdk.business.V
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideBrandLabel";
   public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
-  public static java.lang.String BRANDNAME = "brandName";
-  public static java.lang.String CONCENTRATION = "concentration";
+  public static java.lang.String CONCENTRATIONQUALIFIER = "concentrationQualifier";
+  public static java.lang.String CONCENTRATIONQUANTIFIER = "concentrationQuantifier";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -596213394;
+  public static java.lang.String PRODUCTNAME = "productName";
+  private static final long serialVersionUID = -1108613256;
   
   public InsecticideBrandLabelBase()
   {
@@ -51,59 +52,59 @@ public abstract class InsecticideBrandLabelBase extends com.runwaysdk.business.V
     }
   }
   
-  public String getBrandName()
+  public String getConcentrationQualifier()
   {
-    return getValue(BRANDNAME);
+    return getValue(CONCENTRATIONQUALIFIER);
   }
   
-  public void validateBrandName()
+  public void validateConcentrationQualifier()
   {
-    this.validateAttribute(BRANDNAME);
+    this.validateAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQualifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandLabel.CLASS);
-    return mdClassIF.definesAttribute(BRANDNAME);
+    return mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public void setBrandName(String value)
+  public void setConcentrationQualifier(String value)
   {
     if(value == null)
     {
-      setValue(BRANDNAME, "");
+      setValue(CONCENTRATIONQUALIFIER, "");
     }
     else
     {
-      setValue(BRANDNAME, value);
+      setValue(CONCENTRATIONQUALIFIER, value);
     }
   }
   
-  public Integer getConcentration()
+  public java.math.BigDecimal getConcentrationQuantifier()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONCENTRATION));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CONCENTRATIONQUANTIFIER));
   }
   
-  public void validateConcentration()
+  public void validateConcentrationQuantifier()
   {
-    this.validateAttribute(CONCENTRATION);
+    this.validateAttribute(CONCENTRATIONQUANTIFIER);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQuantifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandLabel.CLASS);
-    return mdClassIF.definesAttribute(CONCENTRATION);
+    return mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
   }
   
-  public void setConcentration(Integer value)
+  public void setConcentrationQuantifier(java.math.BigDecimal value)
   {
     if(value == null)
     {
-      setValue(CONCENTRATION, "");
+      setValue(CONCENTRATIONQUANTIFIER, "");
     }
     else
     {
-      setValue(CONCENTRATION, java.lang.Integer.toString(value));
+      setValue(CONCENTRATIONQUANTIFIER, value.toString());
     }
   }
   
@@ -149,6 +150,34 @@ public abstract class InsecticideBrandLabelBase extends com.runwaysdk.business.V
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandLabel.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getProductName()
+  {
+    return getValue(PRODUCTNAME);
+  }
+  
+  public void validateProductName()
+  {
+    this.validateAttribute(PRODUCTNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getProductNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandLabel.CLASS);
+    return mdClassIF.definesAttribute(PRODUCTNAME);
+  }
+  
+  public void setProductName(String value)
+  {
+    if(value == null)
+    {
+      setValue(PRODUCTNAME, "");
+    }
+    else
+    {
+      setValue(PRODUCTNAME, value);
+    }
   }
   
   protected String getDeclaredType()

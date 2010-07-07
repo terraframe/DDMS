@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 775025268)
+@com.runwaysdk.business.ClassSignature(hash = 913027008)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,6 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
 {
   public final static String CLASS = "dss.vector.solutions.export.OperatorSprayExcelView";
   public static java.lang.String BEDNETS = "bedNets";
-  public static java.lang.String BRANDNAME = "brandName";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String HOUSEHOLDS = "households";
@@ -43,7 +42,7 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 775025268;
+  private static final long serialVersionUID = 913027008;
   
   public OperatorSprayExcelViewBase()
   {
@@ -75,34 +74,6 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(BEDNETS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public String getBrandName()
-  {
-    return getValue(BRANDNAME);
-  }
-  
-  public void validateBrandName()
-  {
-    this.validateAttribute(BRANDNAME);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandNameMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(BRANDNAME);
-  }
-  
-  public void setBrandName(String value)
-  {
-    if(value == null)
-    {
-      setValue(BRANDNAME, "");
-    }
-    else
-    {
-      setValue(BRANDNAME, value);
     }
   }
   

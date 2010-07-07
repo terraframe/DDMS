@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1579555649)
+@com.runwaysdk.business.ClassSignature(hash = 281117195)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,6 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
 {
   public final static String CLASS = "dss.vector.solutions.export.ZoneSprayExcelView";
   public static java.lang.String BEDNETS = "bedNets";
-  public static java.lang.String BRANDNAME = "brandName";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String HOUSEHOLDS = "households";
   public static java.lang.String ID = "id";
@@ -43,7 +42,7 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String TEAMTARGET = "teamTarget";
   public static java.lang.String TEAMUSED = "teamUsed";
-  private static final long serialVersionUID = -1579555649;
+  private static final long serialVersionUID = 281117195;
   
   public ZoneSprayExcelViewBase()
   {
@@ -75,34 +74,6 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(BEDNETS, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public String getBrandName()
-  {
-    return getValue(BRANDNAME);
-  }
-  
-  public void validateBrandName()
-  {
-    this.validateAttribute(BRANDNAME);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandNameMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(BRANDNAME);
-  }
-  
-  public void setBrandName(String value)
-  {
-    if(value == null)
-    {
-      setValue(BRANDNAME, "");
-    }
-    else
-    {
-      setValue(BRANDNAME, value);
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 147860809)
+@com.runwaysdk.business.ClassSignature(hash = -1808347859)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class InsecticideInterventionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 147860809;
+private static final long serialVersionUID = -1808347859;
 
   public InsecticideInterventionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -44,21 +44,39 @@ private static final long serialVersionUID = 147860809;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getAmount()
+  public com.runwaysdk.query.SelectableChar getConcentrationQualifier()
   {
-    return getAmount(null);
+    return getConcentrationQualifier(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getAmount(String alias)
+  public com.runwaysdk.query.SelectableChar getConcentrationQualifier(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.AMOUNT, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CONCENTRATIONQUALIFIER, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getAmount(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getConcentrationQualifier(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.AMOUNT, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CONCENTRATIONQUALIFIER, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getConcentrationQuantifier()
+  {
+    return getConcentrationQuantifier(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getConcentrationQuantifier(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CONCENTRATIONQUANTIFIER, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getConcentrationQuantifier(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.intervention.monitor.InsecticideInterventionView.CONCENTRATIONQUANTIFIER, alias, displayLabel);
 
   }
  

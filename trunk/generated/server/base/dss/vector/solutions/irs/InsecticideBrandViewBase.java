@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 284134329)
+@com.runwaysdk.business.ClassSignature(hash = 41758701)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,14 +12,18 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideBrandView";
   public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
-  public static java.lang.String AMOUNT = "amount";
-  public static java.lang.String BRANDNAME = "brandName";
+  public static java.lang.String CONCENTRATIONQUALIFIER = "concentrationQualifier";
+  public static java.lang.String CONCENTRATIONQUANTIFIER = "concentrationQuantifier";
   public static java.lang.String ENABLED = "enabled";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICDEID = "insecticdeId";
-  public static java.lang.String SACHETSPERREFILL = "sachetsPerRefill";
-  public static java.lang.String WEIGHT = "weight";
-  private static final long serialVersionUID = 284134329;
+  public static java.lang.String INSECTICIDEUSE = "insecticideUse";
+  public static java.lang.String PRODUCTNAME = "productName";
+  public static java.lang.String UNITQUALIFIER = "unitQualifier";
+  public static java.lang.String UNITQUANTIFIER = "unitQuantifier";
+  public static java.lang.String UNITSPERAPPLICATION = "unitsPerApplication";
+  public static java.lang.String USEDETAIL = "useDetail";
+  private static final long serialVersionUID = 41758701;
   
   public InsecticideBrandViewBase()
   {
@@ -61,59 +65,69 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     }
   }
   
-  public Integer getAmount()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier> getConcentrationQualifier()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+    return (java.util.List<dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier>) getEnumValues(CONCENTRATIONQUALIFIER);
   }
   
-  public void validateAmount()
+  public void addConcentrationQualifier(dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier value)
   {
-    this.validateAttribute(AMOUNT);
+    if(value != null)
+    {
+      addEnumItem(CONCENTRATIONQUALIFIER, value.getId());
+    }
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  public void removeConcentrationQualifier(dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(CONCENTRATIONQUALIFIER, value.getId());
+    }
+  }
+  
+  public void clearConcentrationQualifier()
+  {
+    clearEnum(CONCENTRATIONQUALIFIER);
+  }
+  
+  public void validateConcentrationQualifier()
+  {
+    this.validateAttribute(CONCENTRATIONQUALIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQualifierMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(AMOUNT);
+    return mdClassIF.definesAttribute(CONCENTRATIONQUALIFIER);
   }
   
-  public void setAmount(Integer value)
+  public java.math.BigDecimal getConcentrationQuantifier()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CONCENTRATIONQUANTIFIER));
+  }
+  
+  public void validateConcentrationQuantifier()
+  {
+    this.validateAttribute(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getConcentrationQuantifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
+    return mdClassIF.definesAttribute(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public void setConcentrationQuantifier(java.math.BigDecimal value)
   {
     if(value == null)
     {
-      setValue(AMOUNT, "");
+      setValue(CONCENTRATIONQUANTIFIER, "");
     }
     else
     {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public String getBrandName()
-  {
-    return getValue(BRANDNAME);
-  }
-  
-  public void validateBrandName()
-  {
-    this.validateAttribute(BRANDNAME);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getBrandNameMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(BRANDNAME);
-  }
-  
-  public void setBrandName(String value)
-  {
-    if(value == null)
-    {
-      setValue(BRANDNAME, "");
-    }
-    else
-    {
-      setValue(BRANDNAME, value);
+      setValue(CONCENTRATIONQUANTIFIER, value.toString());
     }
   }
   
@@ -189,59 +203,205 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     }
   }
   
-  public Integer getSachetsPerRefill()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.InsecticideBrandUse> getInsecticideUse()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SACHETSPERREFILL));
+    return (java.util.List<dss.vector.solutions.irs.InsecticideBrandUse>) getEnumValues(INSECTICIDEUSE);
   }
   
-  public void validateSachetsPerRefill()
+  public void addInsecticideUse(dss.vector.solutions.irs.InsecticideBrandUse value)
   {
-    this.validateAttribute(SACHETSPERREFILL);
+    if(value != null)
+    {
+      addEnumItem(INSECTICIDEUSE, value.getId());
+    }
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSachetsPerRefillMd()
+  public void removeInsecticideUse(dss.vector.solutions.irs.InsecticideBrandUse value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(INSECTICIDEUSE, value.getId());
+    }
+  }
+  
+  public void clearInsecticideUse()
+  {
+    clearEnum(INSECTICIDEUSE);
+  }
+  
+  public void validateInsecticideUse()
+  {
+    this.validateAttribute(INSECTICIDEUSE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideUseMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(SACHETSPERREFILL);
+    return mdClassIF.definesAttribute(INSECTICIDEUSE);
   }
   
-  public void setSachetsPerRefill(Integer value)
+  public dss.vector.solutions.ontology.Term getProductName()
   {
-    if(value == null)
+    if (getValue(PRODUCTNAME).trim().equals(""))
     {
-      setValue(SACHETSPERREFILL, "");
+      return null;
     }
     else
     {
-      setValue(SACHETSPERREFILL, java.lang.Integer.toString(value));
+      return dss.vector.solutions.ontology.Term.get(getValue(PRODUCTNAME));
     }
   }
   
-  public java.math.BigDecimal getWeight()
+  public void validateProductName()
   {
-    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(WEIGHT));
+    this.validateAttribute(PRODUCTNAME);
   }
   
-  public void validateWeight()
-  {
-    this.validateAttribute(WEIGHT);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWeightMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getProductNameMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
-    return mdClassIF.definesAttribute(WEIGHT);
+    return mdClassIF.definesAttribute(PRODUCTNAME);
   }
   
-  public void setWeight(java.math.BigDecimal value)
+  public void setProductName(dss.vector.solutions.ontology.Term value)
   {
     if(value == null)
     {
-      setValue(WEIGHT, "");
+      setValue(PRODUCTNAME, "");
     }
     else
     {
-      setValue(WEIGHT, value.toString());
+      setValue(PRODUCTNAME, value.getId());
+    }
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.InsecticideBrandUnitQualifier> getUnitQualifier()
+  {
+    return (java.util.List<dss.vector.solutions.irs.InsecticideBrandUnitQualifier>) getEnumValues(UNITQUALIFIER);
+  }
+  
+  public void addUnitQualifier(dss.vector.solutions.irs.InsecticideBrandUnitQualifier value)
+  {
+    if(value != null)
+    {
+      addEnumItem(UNITQUALIFIER, value.getId());
+    }
+  }
+  
+  public void removeUnitQualifier(dss.vector.solutions.irs.InsecticideBrandUnitQualifier value)
+  {
+    if(value != null)
+    {
+      removeEnumItem(UNITQUALIFIER, value.getId());
+    }
+  }
+  
+  public void clearUnitQualifier()
+  {
+    clearEnum(UNITQUALIFIER);
+  }
+  
+  public void validateUnitQualifier()
+  {
+    this.validateAttribute(UNITQUALIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitQualifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
+    return mdClassIF.definesAttribute(UNITQUALIFIER);
+  }
+  
+  public java.math.BigDecimal getUnitQuantifier()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(UNITQUANTIFIER));
+  }
+  
+  public void validateUnitQuantifier()
+  {
+    this.validateAttribute(UNITQUANTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitQuantifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
+    return mdClassIF.definesAttribute(UNITQUANTIFIER);
+  }
+  
+  public void setUnitQuantifier(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(UNITQUANTIFIER, "");
+    }
+    else
+    {
+      setValue(UNITQUANTIFIER, value.toString());
+    }
+  }
+  
+  public Integer getUnitsPerApplication()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSPERAPPLICATION));
+  }
+  
+  public void validateUnitsPerApplication()
+  {
+    this.validateAttribute(UNITSPERAPPLICATION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitsPerApplicationMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
+    return mdClassIF.definesAttribute(UNITSPERAPPLICATION);
+  }
+  
+  public void setUnitsPerApplication(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(UNITSPERAPPLICATION, "");
+    }
+    else
+    {
+      setValue(UNITSPERAPPLICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public dss.vector.solutions.ontology.Term getUseDetail()
+  {
+    if (getValue(USEDETAIL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.Term.get(getValue(USEDETAIL));
+    }
+  }
+  
+  public void validateUseDetail()
+  {
+    this.validateAttribute(USEDETAIL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUseDetailMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.InsecticideBrandView.CLASS);
+    return mdClassIF.definesAttribute(USEDETAIL);
+  }
+  
+  public void setUseDetail(dss.vector.solutions.ontology.Term value)
+  {
+    if(value == null)
+    {
+      setValue(USEDETAIL, "");
+    }
+    else
+    {
+      setValue(USEDETAIL, value.getId());
     }
   }
   

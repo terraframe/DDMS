@@ -104,8 +104,8 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
     AreaStandardsView area = AreaStandardsView.getMostRecent();
 
     Float coverage = area.getUnitNozzleAreaCoverage();
-    Integer sachets = brand.getSachetsPerRefill();
-    BigDecimal weight = brand.getWeight();
+    Integer sachets = brand.getUnitsPerApplication();
+    BigDecimal weight = brand.getUnitQuantifier();
     Float targetArea = area.getTargetArea();
 
     for (InsecticideInterventionPlanningView view : views)

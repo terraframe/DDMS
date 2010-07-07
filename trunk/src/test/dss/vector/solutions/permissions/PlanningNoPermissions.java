@@ -18,7 +18,10 @@ import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.irs.AreaStandardsViewDTO;
 import dss.vector.solutions.irs.GeoTargetViewDTO;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO;
+import dss.vector.solutions.irs.InsecticideBrandUseDTO;
 import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.irs.InsecticideNozzleViewDTO;
 import dss.vector.solutions.irs.NozzleDTO;
@@ -79,11 +82,14 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
     try
     {
       InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(request);
-      brand.setBrandName(TestConstants.BRAND_NAME);
-      brand.setAmount(44);
+      brand.setProductName(term);
+      brand.addInsecticideUse(InsecticideBrandUseDTO.IRS);
       brand.setActiveIngredient(term);
-      brand.setWeight(new BigDecimal(3.3));
-      brand.setSachetsPerRefill(2);
+      brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+      brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+      brand.setUnitQuantifier(new BigDecimal("100"));
+      brand.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+      brand.setUnitsPerApplication(20);
       brand.setEnabled(true);
       brand.apply();
 
@@ -119,11 +125,14 @@ public class PlanningNoPermissions extends PermissionTest implements DoNotWeave
     TermDTO term = TermDTO.get(request, termId);
 
     InsecticideBrandViewDTO brand = new InsecticideBrandViewDTO(systemRequest);
-    brand.setBrandName(TestConstants.BRAND_NAME);
-    brand.setAmount(44);
+    brand.setProductName(term);
+    brand.addInsecticideUse(InsecticideBrandUseDTO.IRS);
     brand.setActiveIngredient(term);
-    brand.setWeight(new BigDecimal(3.3));
-    brand.setSachetsPerRefill(2);
+    brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+    brand.setUnitQuantifier(new BigDecimal("100"));
+    brand.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+    brand.setUnitsPerApplication(20);
     brand.setEnabled(true);
     brand.apply();
 

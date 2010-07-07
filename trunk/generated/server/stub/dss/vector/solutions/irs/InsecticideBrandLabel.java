@@ -17,9 +17,10 @@ public class InsecticideBrandLabel extends InsecticideBrandLabelBase implements 
     {
       InsecticideBrandLabel label = new InsecticideBrandLabel();
       label.setConcreteId(concrete.getId());
-      label.setBrandName(concrete.getBrandName());
+      label.setProductName(concrete.getProductName().getTermDisplayLabel().getValue());
       label.setActiveIngredient(concrete.getActiveIngredient().getTermDisplayLabel().getValue());
-      label.setConcentration(concrete.getAmount());
+      label.setConcentrationQuantifier(concrete.getConcentrationQuantifier());
+      label.setConcentrationQualifier(concrete.getConcentrationQualifier().get(0).getDisplayLabel());
       
       return label;
     }

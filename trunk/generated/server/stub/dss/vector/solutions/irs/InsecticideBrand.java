@@ -46,9 +46,9 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getBrandName() != null)
+    else if(this.getProductName() != null)
     {
-      return this.getBrandName();
+      return this.getProductName().getTermDisplayLabel().getValue();
     }
 
     return super.toString();
@@ -57,24 +57,34 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
   @Override
   protected String buildKey()
   {
-    return this.getBrandName();
+    return this.getProductName().getKey();
   }
 
   public void populateView(InsecticideBrandView view)
   {
-    view.setBrandName(this.getBrandName());
-    view.setActiveIngredient(this.getActiveIngredient());
-    view.setAmount(this.getAmount());
-    view.setWeight(this.getWeight());
-    view.setSachetsPerRefill(this.getSachetsPerRefill());
-    view.setInsecticdeId(this.getId());
-    view.setEnabled(this.getEnabled());
+	    view.setInsecticdeId(this.getId());
+	    view.setProductName(this.getProductName());
+	    for (InsecticideBrandUse insecticideUse: this.getInsecticideUse()) {
+	    	view.addInsecticideUse(insecticideUse);
+	    }
+	    view.setUseDetail(this.getUseDetail());
+	    view.setActiveIngredient(this.getActiveIngredient());
+	    view.setConcentrationQuantifier(this.getConcentrationQuantifier());
+	    for (InsecticideBrandConcentrationQualifier concentrationQualifier: this.getConcentrationQualifier()) {
+	    	view.addConcentrationQualifier(concentrationQualifier);
+	    }
+	    view.setUnitQuantifier(this.getUnitQuantifier());
+	    for (InsecticideBrandUnitQualifier unitQualifier: this.getUnitQualifier()) {
+	    	view.addUnitQualifier(unitQualifier);
+	    }
+	    view.setUnitsPerApplication(this.getUnitsPerApplication());
+	    view.setEnabled(this.getEnabled());
   }
 
   public static InsecticideBrand getByName(String name)
   {
     InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());
-    query.WHERE(query.getBrandName().EQ(name));
+    query.WHERE(query.getProductName().EQ(name));
     OIterator<? extends InsecticideBrand> iterator = query.getIterator();
     try
     {
@@ -194,9 +204,9 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
     
     MdEntityDAOIF insectBrandMd = MdEntityDAO.getMdEntityDAO(InsecticideBrand.CLASS);
     String insectBrandTable = insectBrandMd.getTableName();
-    String sachetsPerRefillCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.SACHETSPERREFILL);
-    String weightCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.WEIGHT);
-    String amountCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.AMOUNT);
+    String unitsPerApplicationCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.UNITSPERAPPLICATION);
+    String unitQuantifierCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.UNITQUANTIFIER);
+    String concentrationQuantifierCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.CONCENTRATIONQUANTIFIER);
     
     MdEntityDAOIF nozzleMd = MdEntityDAO.getMdEntityDAO(Nozzle.CLASS);
     String nozzleTable = nozzleMd.getTableName();
@@ -220,7 +230,7 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
     select += "AND "+insectNozzleTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = i."+RelationshipDAOIF.CHILD_ID_COLUMN+"  AND "+insectNozzleTable+"."+configDateCol+" > i."+configDateCol+"  ORDER BY i."+configDateCol+" ASC LIMIT 1),'2100-01-01'::date) nozzleEnd, \n"; 
     // --% active ingredient in sachet (2) * weight of sachet (3) * number of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio (6)
     //select += "insecticidebrand.brandname,\n";
-    select += ""+weightCol+"*"+sachetsPerRefillCol+"*ratio*("+amountCol+"/100.0) AS active_ingredient_per_can,\n";
+    select += ""+unitQuantifierCol+"*"+unitsPerApplicationCol+"*ratio*("+concentrationQuantifierCol+"/100.0) AS active_ingredient_per_can,\n";
     select += ""+nozzleTable+"."+ratioCol+" AS nozzle_ratio,\n";
     select += ""+nozzleTable+"."+nozzleDisLabelCol+" AS nozzle_defaultLocale,\n";
     select += ""+insectNozzleTable+"."+enabledCol+",\n";
@@ -229,8 +239,8 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
     
     select += "(CASE WHEN "+enumNameCol+" = '"+TargetUnit.ROOM.name()+"' THEN "+roomCol+"  WHEN "+enumNameCol+" = '"+TargetUnit.STRUCTURE.name()+"' THEN "+structureAreaCol+" WHEN "+enumNameCol+" = '"+TargetUnit.HOUSEHOLD.name()+"' THEN "+householdCol+" END ) AS unitarea,\n";
     select += ""+unitAreaNozzleCovCol+" "+unitAreaNozzleCovCol+",\n";
-    select += "(("+weightCol+"*"+sachetsPerRefillCol+"*("+amountCol+"/100.0)) / "+unitAreaNozzleCovCol+" )  AS standard_application_rate,\n";
-    select += "(1000.0 * ("+weightCol+"*"+sachetsPerRefillCol+"*("+amountCol+"/100.0)) / "+unitAreaNozzleCovCol+" ) AS standard_application_rate_mg,\n";
+    select += "(("+unitQuantifierCol+"*"+unitsPerApplicationCol+"*("+concentrationQuantifierCol+"/100.0)) / "+unitAreaNozzleCovCol+" )  AS standard_application_rate,\n";
+    select += "(1000.0 * ("+unitQuantifierCol+"*"+unitsPerApplicationCol+"*("+concentrationQuantifierCol+"/100.0)) / "+unitAreaNozzleCovCol+" ) AS standard_application_rate_mg,\n";
     select += "ratio * "+unitAreaNozzleCovCol+"/(CASE WHEN "+enumNameCol+" = '"+TargetUnit.ROOM.name()+"' THEN "+roomCol+" WHEN "+enumNameCol+" = '"+TargetUnit.STRUCTURE.name()+"' THEN "+structureAreaCol+" WHEN "+enumNameCol+" = '"+TargetUnit.HOUSEHOLD.name()+"' THEN "+householdCol+" END ) AS units_per_can,\n";
     
     

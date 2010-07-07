@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1884433072)
+@com.runwaysdk.business.ClassSignature(hash = 926387716)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public class InsecticideBrandViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1884433072;
+private static final long serialVersionUID = 926387716;
 
   protected InsecticideBrandViewQueryDTO(String type)
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 427299749)
+@com.runwaysdk.business.ClassSignature(hash = 1467992225)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class InsecticideBrandLabelQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 427299749;
+private static final long serialVersionUID = 1467992225;
 
   public InsecticideBrandLabelQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -44,39 +44,39 @@ private static final long serialVersionUID = 427299749;
 
   }
  
-  public com.runwaysdk.query.SelectableChar getBrandName()
+  public com.runwaysdk.query.SelectableChar getConcentrationQualifier()
   {
-    return getBrandName(null);
+    return getConcentrationQualifier(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getBrandName(String alias)
+  public com.runwaysdk.query.SelectableChar getConcentrationQualifier(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.BRANDNAME, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.CONCENTRATIONQUALIFIER, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getBrandName(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getConcentrationQualifier(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.BRANDNAME, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.CONCENTRATIONQUALIFIER, alias, displayLabel);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getConcentration()
+  public com.runwaysdk.query.SelectableDecimal getConcentrationQuantifier()
   {
-    return getConcentration(null);
+    return getConcentrationQuantifier(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getConcentration(String alias)
+  public com.runwaysdk.query.SelectableDecimal getConcentrationQuantifier(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.CONCENTRATION, alias, null);
+    return (com.runwaysdk.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.CONCENTRATIONQUANTIFIER, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getConcentration(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableDecimal getConcentrationQuantifier(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.CONCENTRATION, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.CONCENTRATIONQUANTIFIER, alias, displayLabel);
 
   }
  
@@ -113,6 +113,24 @@ private static final long serialVersionUID = 427299749;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getProductName()
+  {
+    return getProductName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getProductName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.PRODUCTNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getProductName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.InsecticideBrandLabel.PRODUCTNAME, alias, displayLabel);
 
   }
  

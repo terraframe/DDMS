@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1820374004)
+@com.runwaysdk.business.ClassSignature(hash = 1175826752)
 public abstract class OperatorSprayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.OperatorSprayExcelView";
-  private static final long serialVersionUID = 1820374004;
+  private static final long serialVersionUID = 1175826752;
   
   protected OperatorSprayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,7 +17,6 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.runwaysdk.busine
   }
   
   public static java.lang.String BEDNETS = "bedNets";
-  public static java.lang.String BRANDNAME = "brandName";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String HOUSEHOLDS = "households";
@@ -83,43 +82,6 @@ public abstract class OperatorSprayExcelViewDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getBedNetsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(BEDNETS).getAttributeMdDTO();
-  }
-  
-  public String getBrandName()
-  {
-    return getValue(BRANDNAME);
-  }
-  
-  public void setBrandName(String value)
-  {
-    if(value == null)
-    {
-      setValue(BRANDNAME, "");
-    }
-    else
-    {
-      setValue(BRANDNAME, value);
-    }
-  }
-  
-  public boolean isBrandNameWritable()
-  {
-    return isWritable(BRANDNAME);
-  }
-  
-  public boolean isBrandNameReadable()
-  {
-    return isReadable(BRANDNAME);
-  }
-  
-  public boolean isBrandNameModified()
-  {
-    return isModified(BRANDNAME);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()

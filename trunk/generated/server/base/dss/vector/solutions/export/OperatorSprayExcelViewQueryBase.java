@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 646826347)
+@com.runwaysdk.business.ClassSignature(hash = -1292655817)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class OperatorSprayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 646826347;
+private static final long serialVersionUID = -1292655817;
 
   public OperatorSprayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -41,24 +41,6 @@ private static final long serialVersionUID = 646826347;
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.BEDNETS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getBrandName()
-  {
-    return getBrandName(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getBrandName(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.BRANDNAME, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getBrandName(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.BRANDNAME, alias, displayLabel);
 
   }
  

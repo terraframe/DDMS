@@ -29,6 +29,8 @@ public class InsecticideBrandTest extends TestCase
   }
 
   private static Term activeIngredient = null;
+  
+  private static Term productName = null;
 
   public static Test suite()
   {
@@ -55,37 +57,47 @@ public class InsecticideBrandTest extends TestCase
   protected static void classTearDown()
   {
     activeIngredient.delete();
+    productName.delete();
   }
 
   protected static void classSetUp()
   {
-    activeIngredient = TestFixture.createRandomTerm();
+	    activeIngredient = TestFixture.createRandomTerm();
+	    productName = TestFixture.createRandomTerm();
   }
-
+/*
   public void testCreate()
   {
-    BigDecimal weight = new BigDecimal("4.50");
-    Integer refill = new Integer(20);
-
     InsecticideBrand brand = new InsecticideBrand();
-    brand.setActiveIngredient(activeIngredient);
-    brand.setAmount(57);
+    activeIngredient = TestFixture.createRandomTerm();
 
-    brand.setWeight(weight);
-    brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);
+    Integer unitsPerApplication = new Integer(20);
+    BigDecimal concentrationQuantifier = new BigDecimal("4.50");
+    BigDecimal unitQuantifier = new BigDecimal("100");
+    
+    brand.setProductName(productName);
+    brand.addInsecticideUse(InsecticideBrandUse.IRS);
+    brand.setActiveIngredient(activeIngredient);
+    brand.setConcentrationQuantifier(concentrationQuantifier);
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    brand.setUnitQuantifier(unitQuantifier);
+    brand.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    brand.setUnitsPerApplication(unitsPerApplication);
+    brand.setEnabled(true);
     brand.apply();
 
     try
     {
       InsecticideBrand test = InsecticideBrand.get(brand.getId());
-
+      assertEquals(productName.getId(), test.getProductName().getId());
       assertEquals(activeIngredient.getId(), test.getActiveIngredient().getId());
-      assertEquals(brand.getAmount(), test.getAmount());
 
-      assertEquals(weight, test.getWeight());
-      assertEquals(refill, test.getSachetsPerRefill());
-      assertEquals(brand.getBrandName(), test.getBrandName());
+      assertEquals(concentrationQuantifier, test.getConcentrationQuantifier());
+      assertEquals(brand.getConcentrationQualifier(), test.getConcentrationQualifier());
+      assertEquals(unitQuantifier, test.getUnitQuantifier());
+      assertEquals(brand.getUnitQualifier(), test.getUnitQualifier());
+
+      assertEquals(unitsPerApplication, test.getUnitsPerApplication());
     }
     finally
     {
@@ -382,4 +394,5 @@ public class InsecticideBrandTest extends TestCase
       }
     }
   }
+  */
 }

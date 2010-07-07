@@ -38,7 +38,8 @@ public class InsecticideInterventionGridBuilder extends GridBuilder implements R
     
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.INTERVENTIONMETHOD, false);
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.ACTIVEINGREDIENT, false);
-    GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.AMOUNT, false);
+    GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.CONCENTRATIONQUANTIFIER, false);
+    GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.CONCENTRATIONQUALIFIER, false);
     GridBuilder.setValidator(columns, InsecticideInterventionViewDTO.QUANTITY, "YAHOO.widget.DataTable.validateNumber");
        
     return new ViewDataGrid(view, columns, keys, data);
@@ -48,7 +49,7 @@ public class InsecticideInterventionGridBuilder extends GridBuilder implements R
   
   private String[] getKeys()
   {
-    String[] keys = new String[] { InsecticideInterventionViewDTO.CONCRETEID, InsecticideInterventionViewDTO.INTERVENTIONMETHOD, InsecticideInterventionViewDTO.INSECTICIDE, InsecticideInterventionViewDTO.ACTIVEINGREDIENT, InsecticideInterventionViewDTO.AMOUNT, InsecticideInterventionViewDTO.QUANTITY, InsecticideInterventionViewDTO.UNIT };
+    String[] keys = new String[] { InsecticideInterventionViewDTO.CONCRETEID, InsecticideInterventionViewDTO.INTERVENTIONMETHOD, InsecticideInterventionViewDTO.INSECTICIDE, InsecticideInterventionViewDTO.ACTIVEINGREDIENT, InsecticideInterventionViewDTO.CONCENTRATIONQUANTIFIER, InsecticideInterventionViewDTO.CONCENTRATIONQUALIFIER, InsecticideInterventionViewDTO.QUANTITY, InsecticideInterventionViewDTO.UNIT };
 
     upperFirstCharacter(keys);
 

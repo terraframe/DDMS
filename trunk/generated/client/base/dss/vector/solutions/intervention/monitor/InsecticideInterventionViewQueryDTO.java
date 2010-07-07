@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 2146079131)
+@com.runwaysdk.business.ClassSignature(hash = -434392165)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class InsecticideInterventionViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2146079131;
+private static final long serialVersionUID = -434392165;
 
   protected InsecticideInterventionViewQueryDTO(String type)
   {

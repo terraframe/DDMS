@@ -37,7 +37,8 @@ public class InsecticideInterventionView extends InsecticideInterventionViewBase
     if(_insecticide != null)
     {
       this.setActiveIngredient(_insecticide.getActiveIngredient().getTermDisplayLabel().getValue());
-      this.setAmount(_insecticide.getAmount());
+      this.setConcentrationQuantifier(_insecticide.getConcentrationQuantifier());
+      this.setConcentrationQualifier(_insecticide.getConcentrationQualifier().get(0).getDisplayLabel());
     }
   }
 
@@ -113,7 +114,8 @@ public class InsecticideInterventionView extends InsecticideInterventionViewBase
     if(_insecticide != null)
     {
       view.setActiveIngredient(_insecticide.getActiveIngredient().getTermDisplayLabel().getValue());
-      view.setAmount(_insecticide.getAmount());
+      view.setConcentrationQuantifier(_insecticide.getConcentrationQuantifier());
+      view.setConcentrationQualifier(_insecticide.getConcentrationQualifier().get(0).getDisplayLabel());
     }
 
     return view;    

@@ -18,9 +18,6 @@
 
 <c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
-<h2><fmt:message key="Insecticide_Brand"/></h2>
-<div id="InsecticideBrand"></div>
-
 <h2><fmt:message key="Nozzle"/></h2>
 <div id="Nozzle"></div>
 
@@ -55,7 +52,6 @@
   <%=Halp.loadTypes(Arrays.asList(new String[]{InsecticideBrandViewDTO.CLASS, NozzleViewDTO.CLASS, InsecticideNozzleViewDTO.CLASS}))%>
 
 <%
-DataGrid brandGrid = (DataGrid) request.getAttribute("brandGrid");
 DataGrid nozzleGrid = (DataGrid) request.getAttribute("nozzleGrid");
 DataGrid configurationGrid = (DataGrid) request.getAttribute("configurationGrid");
 %>
@@ -82,17 +78,6 @@ DataGrid configurationGrid = (DataGrid) request.getAttribute("configurationGrid"
          window.location.reload( false );
       }
     }
-  
-    brandData = {
-      rows:<%=brandGrid.getData()%>,
-      columnDefs:<%=brandGrid.getColumnSetupWithDelete()%>,
-      defaults:<%=brandGrid.getDefaultValues()%>,
-      copy_from_above: [],
-      div_id: "InsecticideBrand",
-      data_type: "Mojo.$.<%=InsecticideBrandViewDTO.CLASS%>",
-      saveFunction:"applyAll",
-      excelButtons:false
-    };
 
     nozzleData = {
       rows:<%=nozzleGrid.getData()%>,
@@ -118,11 +103,9 @@ DataGrid configurationGrid = (DataGrid) request.getAttribute("configurationGrid"
       saveFunction:"applyAll"
     };
 
-    var brandGrid = MojoGrid.createDataTable(brandData);
     var nozzleGrid = MojoGrid.createDataTable(nozzleData);
     var configurationGrid = MojoGrid.createDataTable(insecticideNozzleData);
 
-    brandGrid.addListener(onSaveAndDelete);
     nozzleGrid.addListener(onSaveAndDelete);        
   });
 })();

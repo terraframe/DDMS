@@ -17,7 +17,13 @@ import dss.vector.solutions.TestConstants;
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.irs.HouseholdSprayStatusDTO;
 import dss.vector.solutions.irs.HouseholdSprayStatusViewDTO;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO;
+import dss.vector.solutions.irs.InsecticideBrandUse;
+import dss.vector.solutions.irs.InsecticideBrandUseDTO;
 import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.irs.OperatorSprayStatusDTO;
@@ -69,11 +75,14 @@ public class IRSCrudPermissions extends PermissionTest implements DoNotWeave
       try
       {
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-        view.setBrandName(TestConstants.BRAND_NAME);
-        view.setAmount(44);
+        view.setProductName(term);
+        view.addInsecticideUse(InsecticideBrandUseDTO.IRS);
         view.setActiveIngredient(term);
-        view.setWeight(new BigDecimal(3.3));
-        view.setSachetsPerRefill(2);
+        view.setConcentrationQuantifier(new BigDecimal("3.3"));
+        view.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+        view.setUnitQuantifier(new BigDecimal("44"));
+        view.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+        view.setUnitsPerApplication(2);
         view.setEnabled(true);
         view.apply();
 
@@ -163,11 +172,14 @@ public class IRSCrudPermissions extends PermissionTest implements DoNotWeave
       try
       {
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-        view.setBrandName(TestConstants.BRAND_NAME);
-        view.setAmount(44);
+        view.setProductName(term);
+        view.addInsecticideUse(InsecticideBrandUseDTO.IRS);
         view.setActiveIngredient(term);
-        view.setWeight(new BigDecimal(3.3));
-        view.setSachetsPerRefill(2);
+        view.setConcentrationQuantifier(new BigDecimal("3.3"));
+        view.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+        view.setUnitQuantifier(new BigDecimal("44"));
+        view.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+        view.setUnitsPerApplication(2);
         view.setEnabled(true);
         view.apply();
 
@@ -260,11 +272,14 @@ public class IRSCrudPermissions extends PermissionTest implements DoNotWeave
       try
       {
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-        view.setBrandName(TestConstants.BRAND_NAME);
-        view.setAmount(44);
+        view.setProductName(term);
+        view.addInsecticideUse(InsecticideBrandUseDTO.IRS);
         view.setActiveIngredient(term);
-        view.setWeight(new BigDecimal(3.3));
-        view.setSachetsPerRefill(2);
+        view.setConcentrationQuantifier(new BigDecimal("3.3"));
+        view.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+        view.setUnitQuantifier(new BigDecimal("44"));
+        view.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+        view.setUnitsPerApplication(2);
         view.setEnabled(true);
         view.apply();
 
@@ -343,11 +358,14 @@ public class IRSCrudPermissions extends PermissionTest implements DoNotWeave
       try
       {
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-        view.setBrandName(TestConstants.BRAND_NAME);
-        view.setAmount(44);
+        view.setProductName(term);
+        view.addInsecticideUse(InsecticideBrandUseDTO.IRS);
         view.setActiveIngredient(term);
-        view.setWeight(new BigDecimal(3.3));
-        view.setSachetsPerRefill(2);
+        view.setConcentrationQuantifier(new BigDecimal("3.3"));
+        view.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+        view.setUnitQuantifier(new BigDecimal("44"));
+        view.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+        view.setUnitsPerApplication(2);
         view.setEnabled(true);
         view.apply();
 
@@ -442,11 +460,14 @@ public class IRSCrudPermissions extends PermissionTest implements DoNotWeave
       {
 
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-        view.setBrandName(TestConstants.BRAND_NAME);
-        view.setAmount(44);
+        view.setProductName(term);
+        view.addInsecticideUse(InsecticideBrandUseDTO.IRS);
         view.setActiveIngredient(term);
-        view.setWeight(new BigDecimal(3.3));
-        view.setSachetsPerRefill(2);
+        view.setConcentrationQuantifier(new BigDecimal("3.3"));
+        view.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+        view.setUnitQuantifier(new BigDecimal("44"));
+        view.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+        view.setUnitsPerApplication(2);
         view.setEnabled(true);
         view.apply();
 
@@ -522,11 +543,14 @@ public class IRSCrudPermissions extends PermissionTest implements DoNotWeave
       try
       {
         InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(systemRequest);
-        view.setBrandName(TestConstants.BRAND_NAME);
-        view.setAmount(44);
+        view.setProductName(term);
+        view.addInsecticideUse(InsecticideBrandUseDTO.IRS);
         view.setActiveIngredient(term);
-        view.setWeight(new BigDecimal(3.3));
-        view.setSachetsPerRefill(2);
+        view.setConcentrationQuantifier(new BigDecimal("3.3"));
+        view.addConcentrationQualifier(InsecticideBrandConcentrationQualifierDTO.PERCENT);
+        view.setUnitQuantifier(new BigDecimal("44"));
+        view.addUnitQualifier(InsecticideBrandUnitQualifierDTO.GRAMS);
+        view.setUnitsPerApplication(2);
         view.setEnabled(true);
         view.apply();
 

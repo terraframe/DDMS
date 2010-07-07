@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -193895082)
+@com.runwaysdk.business.ClassSignature(hash = -1288127838)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class TeamSprayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -193895082;
+private static final long serialVersionUID = -1288127838;
 
   public TeamSprayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -41,24 +41,6 @@ private static final long serialVersionUID = -193895082;
   public com.runwaysdk.query.SelectableInteger getBedNets(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.BEDNETS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getBrandName()
-  {
-    return getBrandName(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getBrandName(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.BRANDNAME, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getBrandName(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.TeamSprayExcelView.BRANDNAME, alias, displayLabel);
 
   }
  

@@ -40,7 +40,8 @@
 
     var setLabels = function(index, obj) {
       grid.setData(index, 'ActiveIngredient', obj.activeIngredient);
-      grid.setData(index, 'Amount', obj.amount);
+      grid.setData(index, 'ConcentrationQuantifier', obj.concentrationQuantifier);
+      grid.setData(index, 'ConcentrationQualifier', obj.concentrationQualifier);
 
       grid.focus();
     };
@@ -57,7 +58,7 @@
           index:index,
           id:id,
           onSuccess : function(view) {
-            var obj = {activeIngredient:view.getActiveIngredient(), amount:view.getConcentration()};
+            var obj = {activeIngredient:view.getActiveIngredient(), concentrationQuantifier:view.getConcentrationQuantifier(), concentrationQualifier:view.getConcentrationQualifier()};
 
             this.cache[this.id] = obj;
 

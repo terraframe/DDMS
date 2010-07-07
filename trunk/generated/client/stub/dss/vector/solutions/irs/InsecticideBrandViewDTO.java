@@ -15,7 +15,7 @@ public class InsecticideBrandViewDTO extends InsecticideBrandViewDTOBase impleme
 
   public String getLabel()
   {
-    return this.getBrandName();
+    return this.getProductName().getTermDisplayLabel().getValue();
   }
 
   public String getOptionId()

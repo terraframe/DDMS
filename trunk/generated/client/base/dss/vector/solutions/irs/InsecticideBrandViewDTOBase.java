@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1577919943)
+@com.runwaysdk.business.ClassSignature(hash = 950615661)
 public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideBrandView";
-  private static final long serialVersionUID = -1577919943;
+  private static final long serialVersionUID = 950615661;
   
   protected InsecticideBrandViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,13 +17,17 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
   }
   
   public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
-  public static java.lang.String AMOUNT = "amount";
-  public static java.lang.String BRANDNAME = "brandName";
+  public static java.lang.String CONCENTRATIONQUALIFIER = "concentrationQualifier";
+  public static java.lang.String CONCENTRATIONQUANTIFIER = "concentrationQuantifier";
   public static java.lang.String ENABLED = "enabled";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICDEID = "insecticdeId";
-  public static java.lang.String SACHETSPERREFILL = "sachetsPerRefill";
-  public static java.lang.String WEIGHT = "weight";
+  public static java.lang.String INSECTICIDEUSE = "insecticideUse";
+  public static java.lang.String PRODUCTNAME = "productName";
+  public static java.lang.String UNITQUALIFIER = "unitQualifier";
+  public static java.lang.String UNITQUANTIFIER = "unitQuantifier";
+  public static java.lang.String UNITSPERAPPLICATION = "unitsPerApplication";
+  public static java.lang.String USEDETAIL = "useDetail";
   public dss.vector.solutions.ontology.TermDTO getActiveIngredient()
   {
     if(getValue(ACTIVEINGREDIENT) == null || getValue(ACTIVEINGREDIENT).trim().equals(""))
@@ -68,78 +72,87 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ACTIVEINGREDIENT).getAttributeMdDTO();
   }
   
-  public Integer getAmount()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO> getConcentrationQualifier()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+    return (java.util.List<dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO.CLASS, getEnumNames(CONCENTRATIONQUALIFIER));
   }
   
-  public void setAmount(Integer value)
+  public java.util.List<String> getConcentrationQualifierEnumNames()
+  {
+    return getEnumNames(CONCENTRATIONQUALIFIER);
+  }
+  
+  public void addConcentrationQualifier(dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO enumDTO)
+  {
+    addEnumItem(CONCENTRATIONQUALIFIER, enumDTO.toString());
+  }
+  
+  public void removeConcentrationQualifier(dss.vector.solutions.irs.InsecticideBrandConcentrationQualifierDTO enumDTO)
+  {
+    removeEnumItem(CONCENTRATIONQUALIFIER, enumDTO.toString());
+  }
+  
+  public void clearConcentrationQualifier()
+  {
+    clearEnum(CONCENTRATIONQUALIFIER);
+  }
+  
+  public boolean isConcentrationQualifierWritable()
+  {
+    return isWritable(CONCENTRATIONQUALIFIER);
+  }
+  
+  public boolean isConcentrationQualifierReadable()
+  {
+    return isReadable(CONCENTRATIONQUALIFIER);
+  }
+  
+  public boolean isConcentrationQualifierModified()
+  {
+    return isModified(CONCENTRATIONQUALIFIER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getConcentrationQualifierMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(CONCENTRATIONQUALIFIER).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getConcentrationQuantifier()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CONCENTRATIONQUANTIFIER));
+  }
+  
+  public void setConcentrationQuantifier(java.math.BigDecimal value)
   {
     if(value == null)
     {
-      setValue(AMOUNT, "");
+      setValue(CONCENTRATIONQUANTIFIER, "");
     }
     else
     {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
+      setValue(CONCENTRATIONQUANTIFIER, value.toString());
     }
   }
   
-  public boolean isAmountWritable()
+  public boolean isConcentrationQuantifierWritable()
   {
-    return isWritable(AMOUNT);
+    return isWritable(CONCENTRATIONQUANTIFIER);
   }
   
-  public boolean isAmountReadable()
+  public boolean isConcentrationQuantifierReadable()
   {
-    return isReadable(AMOUNT);
+    return isReadable(CONCENTRATIONQUANTIFIER);
   }
   
-  public boolean isAmountModified()
+  public boolean isConcentrationQuantifierModified()
   {
-    return isModified(AMOUNT);
+    return isModified(CONCENTRATIONQUANTIFIER);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAmountMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getConcentrationQuantifierMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
-  }
-  
-  public String getBrandName()
-  {
-    return getValue(BRANDNAME);
-  }
-  
-  public void setBrandName(String value)
-  {
-    if(value == null)
-    {
-      setValue(BRANDNAME, "");
-    }
-    else
-    {
-      setValue(BRANDNAME, value);
-    }
-  }
-  
-  public boolean isBrandNameWritable()
-  {
-    return isWritable(BRANDNAME);
-  }
-  
-  public boolean isBrandNameReadable()
-  {
-    return isReadable(BRANDNAME);
-  }
-  
-  public boolean isBrandNameModified()
-  {
-    return isModified(BRANDNAME);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONCENTRATIONQUANTIFIER).getAttributeMdDTO();
   }
   
   public Boolean getEnabled()
@@ -216,78 +229,258 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICDEID).getAttributeMdDTO();
   }
   
-  public Integer getSachetsPerRefill()
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.InsecticideBrandUseDTO> getInsecticideUse()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SACHETSPERREFILL));
+    return (java.util.List<dss.vector.solutions.irs.InsecticideBrandUseDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.InsecticideBrandUseDTO.CLASS, getEnumNames(INSECTICIDEUSE));
   }
   
-  public void setSachetsPerRefill(Integer value)
+  public java.util.List<String> getInsecticideUseEnumNames()
   {
-    if(value == null)
+    return getEnumNames(INSECTICIDEUSE);
+  }
+  
+  public void addInsecticideUse(dss.vector.solutions.irs.InsecticideBrandUseDTO enumDTO)
+  {
+    addEnumItem(INSECTICIDEUSE, enumDTO.toString());
+  }
+  
+  public void removeInsecticideUse(dss.vector.solutions.irs.InsecticideBrandUseDTO enumDTO)
+  {
+    removeEnumItem(INSECTICIDEUSE, enumDTO.toString());
+  }
+  
+  public void clearInsecticideUse()
+  {
+    clearEnum(INSECTICIDEUSE);
+  }
+  
+  public boolean isInsecticideUseWritable()
+  {
+    return isWritable(INSECTICIDEUSE);
+  }
+  
+  public boolean isInsecticideUseReadable()
+  {
+    return isReadable(INSECTICIDEUSE);
+  }
+  
+  public boolean isInsecticideUseModified()
+  {
+    return isModified(INSECTICIDEUSE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getInsecticideUseMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(INSECTICIDEUSE).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getProductName()
+  {
+    if(getValue(PRODUCTNAME) == null || getValue(PRODUCTNAME).trim().equals(""))
     {
-      setValue(SACHETSPERREFILL, "");
+      return null;
     }
     else
     {
-      setValue(SACHETSPERREFILL, java.lang.Integer.toString(value));
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PRODUCTNAME));
     }
   }
   
-  public boolean isSachetsPerRefillWritable()
-  {
-    return isWritable(SACHETSPERREFILL);
-  }
-  
-  public boolean isSachetsPerRefillReadable()
-  {
-    return isReadable(SACHETSPERREFILL);
-  }
-  
-  public boolean isSachetsPerRefillModified()
-  {
-    return isModified(SACHETSPERREFILL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSachetsPerRefillMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SACHETSPERREFILL).getAttributeMdDTO();
-  }
-  
-  public java.math.BigDecimal getWeight()
-  {
-    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(WEIGHT));
-  }
-  
-  public void setWeight(java.math.BigDecimal value)
+  public void setProductName(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
     {
-      setValue(WEIGHT, "");
+      setValue(PRODUCTNAME, "");
     }
     else
     {
-      setValue(WEIGHT, value.toString());
+      setValue(PRODUCTNAME, value.getId());
     }
   }
   
-  public boolean isWeightWritable()
+  public boolean isProductNameWritable()
   {
-    return isWritable(WEIGHT);
+    return isWritable(PRODUCTNAME);
   }
   
-  public boolean isWeightReadable()
+  public boolean isProductNameReadable()
   {
-    return isReadable(WEIGHT);
+    return isReadable(PRODUCTNAME);
   }
   
-  public boolean isWeightModified()
+  public boolean isProductNameModified()
   {
-    return isModified(WEIGHT);
+    return isModified(PRODUCTNAME);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getWeightMd()
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getProductNameMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(WEIGHT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(PRODUCTNAME).getAttributeMdDTO();
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO> getUnitQualifier()
+  {
+    return (java.util.List<dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO>) com.runwaysdk.transport.conversion.ConversionFacade.convertEnumDTOsFromEnumNames(getRequest(), dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO.CLASS, getEnumNames(UNITQUALIFIER));
+  }
+  
+  public java.util.List<String> getUnitQualifierEnumNames()
+  {
+    return getEnumNames(UNITQUALIFIER);
+  }
+  
+  public void addUnitQualifier(dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO enumDTO)
+  {
+    addEnumItem(UNITQUALIFIER, enumDTO.toString());
+  }
+  
+  public void removeUnitQualifier(dss.vector.solutions.irs.InsecticideBrandUnitQualifierDTO enumDTO)
+  {
+    removeEnumItem(UNITQUALIFIER, enumDTO.toString());
+  }
+  
+  public void clearUnitQualifier()
+  {
+    clearEnum(UNITQUALIFIER);
+  }
+  
+  public boolean isUnitQualifierWritable()
+  {
+    return isWritable(UNITQUALIFIER);
+  }
+  
+  public boolean isUnitQualifierReadable()
+  {
+    return isReadable(UNITQUALIFIER);
+  }
+  
+  public boolean isUnitQualifierModified()
+  {
+    return isModified(UNITQUALIFIER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getUnitQualifierMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(UNITQUALIFIER).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getUnitQuantifier()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(UNITQUANTIFIER));
+  }
+  
+  public void setUnitQuantifier(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(UNITQUANTIFIER, "");
+    }
+    else
+    {
+      setValue(UNITQUANTIFIER, value.toString());
+    }
+  }
+  
+  public boolean isUnitQuantifierWritable()
+  {
+    return isWritable(UNITQUANTIFIER);
+  }
+  
+  public boolean isUnitQuantifierReadable()
+  {
+    return isReadable(UNITQUANTIFIER);
+  }
+  
+  public boolean isUnitQuantifierModified()
+  {
+    return isModified(UNITQUANTIFIER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getUnitQuantifierMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(UNITQUANTIFIER).getAttributeMdDTO();
+  }
+  
+  public Integer getUnitsPerApplication()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(UNITSPERAPPLICATION));
+  }
+  
+  public void setUnitsPerApplication(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(UNITSPERAPPLICATION, "");
+    }
+    else
+    {
+      setValue(UNITSPERAPPLICATION, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isUnitsPerApplicationWritable()
+  {
+    return isWritable(UNITSPERAPPLICATION);
+  }
+  
+  public boolean isUnitsPerApplicationReadable()
+  {
+    return isReadable(UNITSPERAPPLICATION);
+  }
+  
+  public boolean isUnitsPerApplicationModified()
+  {
+    return isModified(UNITSPERAPPLICATION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getUnitsPerApplicationMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(UNITSPERAPPLICATION).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.ontology.TermDTO getUseDetail()
+  {
+    if(getValue(USEDETAIL) == null || getValue(USEDETAIL).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(USEDETAIL));
+    }
+  }
+  
+  public void setUseDetail(dss.vector.solutions.ontology.TermDTO value)
+  {
+    if(value == null)
+    {
+      setValue(USEDETAIL, "");
+    }
+    else
+    {
+      setValue(USEDETAIL, value.getId());
+    }
+  }
+  
+  public boolean isUseDetailWritable()
+  {
+    return isWritable(USEDETAIL);
+  }
+  
+  public boolean isUseDetailReadable()
+  {
+    return isReadable(USEDETAIL);
+  }
+  
+  public boolean isUseDetailModified()
+  {
+    return isModified(USEDETAIL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getUseDetailMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(USEDETAIL).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideBrandViewDTO[] insecticides)

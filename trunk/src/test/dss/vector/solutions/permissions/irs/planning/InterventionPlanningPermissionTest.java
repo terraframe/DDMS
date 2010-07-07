@@ -20,6 +20,9 @@ import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.irs.AreaStandardsView;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUse;
 import dss.vector.solutions.irs.InsecticideNozzle;
 import dss.vector.solutions.irs.Nozzle;
 import dss.vector.solutions.irs.TargetUnit;
@@ -46,6 +49,8 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
   private static AreaStandardsView standards;
 
   private static Term              activeIngredient;
+
+  private static Term              productName;
 
   protected static ClientSession   clientSession;
 
@@ -78,6 +83,7 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
 
     // Create a test user and assign it to the entomology role
     activeIngredient = TestFixture.createRandomTerm();
+    productName = TestFixture.createRandomTerm();
     person = TestFixture.createTestPerson(username, password, rolename);
     site = TestFixture.createRandomSite();
 
@@ -94,12 +100,15 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
     season.apply();
 
     brand = new InsecticideBrand();
+    brand.setProductName(productName);
+    brand.addInsecticideUse(InsecticideBrandUse.IRS);
     brand.setActiveIngredient(activeIngredient);
-    brand.setAmount(30);
-    brand.setBrandName(TestConstants.BRAND_NAME);
+    brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    brand.setUnitQuantifier(new BigDecimal("100"));
+    brand.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    brand.setUnitsPerApplication(20);
     brand.setEnabled(true);
-    brand.setWeight(new BigDecimal(3.4));
-    brand.setSachetsPerRefill(5);
     brand.apply();
 
     nozzle = new Nozzle();
@@ -143,5 +152,6 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
     nozzle.delete();
     standards.deleteConcrete();
     activeIngredient.delete();
+    productName.delete();
   }
 }

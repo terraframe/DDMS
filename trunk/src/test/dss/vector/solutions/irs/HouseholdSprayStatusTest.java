@@ -49,6 +49,8 @@ public class HouseholdSprayStatusTest extends TestCase
 
   private static Term             activeIngredient = null;
 
+  private static Term             productName      = null;	
+
   private static Term             surfaceType      = null;
 
   private static Term             sex              = null;
@@ -85,25 +87,28 @@ public class HouseholdSprayStatusTest extends TestCase
     brand.delete();
 
     activeIngredient.delete();
+    productName.delete();
     surfaceType.delete();
     sex.delete();
   }
 
   protected static void classSetUp()
   {
-    activeIngredient = TestFixture.createRandomTerm();
+	    activeIngredient = TestFixture.createRandomTerm();
+	    productName = TestFixture.createRandomTerm();
     surfaceType = TestFixture.createRandomTerm();
     sex = TestFixture.createRandomTerm();
 
-    BigDecimal weight = new BigDecimal("4.50");
-    Integer refill = new Integer(20);
-
     brand = new InsecticideBrand();
+    brand.setProductName(productName);
+    brand.addInsecticideUse(InsecticideBrandUse.IRS);
     brand.setActiveIngredient(activeIngredient);
-    brand.setAmount(57);
-    brand.setWeight(weight);
-    brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);
+    brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    brand.setUnitQuantifier(new BigDecimal("100"));
+    brand.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    brand.setUnitsPerApplication(20);
+    brand.setEnabled(true);
     brand.apply();
 
     geoEntity = new SentinelSite();

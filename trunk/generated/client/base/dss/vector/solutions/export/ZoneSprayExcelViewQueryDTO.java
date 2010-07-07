@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1310623992)
+@com.runwaysdk.business.ClassSignature(hash = -1541777452)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class ZoneSprayExcelViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1310623992;
+private static final long serialVersionUID = -1541777452;
 
   protected ZoneSprayExcelViewQueryDTO(String type)
   {

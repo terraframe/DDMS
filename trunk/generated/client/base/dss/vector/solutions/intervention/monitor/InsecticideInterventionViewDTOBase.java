@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1267843090)
+@com.runwaysdk.business.ClassSignature(hash = 166255556)
 public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.InsecticideInterventionView";
-  private static final long serialVersionUID = 1267843090;
+  private static final long serialVersionUID = 166255556;
   
   protected InsecticideInterventionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,7 +17,8 @@ public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.b
   }
   
   public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
-  public static java.lang.String AMOUNT = "amount";
+  public static java.lang.String CONCENTRATIONQUALIFIER = "concentrationQualifier";
+  public static java.lang.String CONCENTRATIONQUANTIFIER = "concentrationQuantifier";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
   public static java.lang.String INSECTICIDE = "insecticide";
@@ -62,41 +63,78 @@ public abstract class InsecticideInterventionViewDTOBase extends com.runwaysdk.b
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ACTIVEINGREDIENT).getAttributeMdDTO();
   }
   
-  public Integer getAmount()
+  public String getConcentrationQualifier()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+    return getValue(CONCENTRATIONQUALIFIER);
   }
   
-  public void setAmount(Integer value)
+  public void setConcentrationQualifier(String value)
   {
     if(value == null)
     {
-      setValue(AMOUNT, "");
+      setValue(CONCENTRATIONQUALIFIER, "");
     }
     else
     {
-      setValue(AMOUNT, java.lang.Integer.toString(value));
+      setValue(CONCENTRATIONQUALIFIER, value);
     }
   }
   
-  public boolean isAmountWritable()
+  public boolean isConcentrationQualifierWritable()
   {
-    return isWritable(AMOUNT);
+    return isWritable(CONCENTRATIONQUALIFIER);
   }
   
-  public boolean isAmountReadable()
+  public boolean isConcentrationQualifierReadable()
   {
-    return isReadable(AMOUNT);
+    return isReadable(CONCENTRATIONQUALIFIER);
   }
   
-  public boolean isAmountModified()
+  public boolean isConcentrationQualifierModified()
   {
-    return isModified(AMOUNT);
+    return isModified(CONCENTRATIONQUALIFIER);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAmountMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcentrationQualifierMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCENTRATIONQUALIFIER).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getConcentrationQuantifier()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CONCENTRATIONQUANTIFIER));
+  }
+  
+  public void setConcentrationQuantifier(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(CONCENTRATIONQUANTIFIER, "");
+    }
+    else
+    {
+      setValue(CONCENTRATIONQUANTIFIER, value.toString());
+    }
+  }
+  
+  public boolean isConcentrationQuantifierWritable()
+  {
+    return isWritable(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public boolean isConcentrationQuantifierReadable()
+  {
+    return isReadable(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public boolean isConcentrationQuantifierModified()
+  {
+    return isModified(CONCENTRATIONQUANTIFIER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getConcentrationQuantifierMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONCENTRATIONQUANTIFIER).getAttributeMdDTO();
   }
   
   public String getConcreteId()

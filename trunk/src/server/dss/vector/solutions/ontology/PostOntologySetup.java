@@ -14,6 +14,9 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.AreaStandards;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUse;
 import dss.vector.solutions.irs.InsecticideNozzle;
 import dss.vector.solutions.irs.Nozzle;
 import dss.vector.solutions.irs.TargetUnit;
@@ -71,25 +74,33 @@ public class PostOntologySetup
   {
     final String DELTAMETHRIN = "MIRO:10000133";
     final String DDT = "MIRO:10000157";
+    final String K_OTHERINE_WG_250 = "MDSS:0000476";
+    final String DDT_WP_75 = "MDSS:0000477";
     final Disease DEFAULT_DISEASE = Disease.getMalaria();
     
     InsecticideBrand deltamethrin = new InsecticideBrand();
+    deltamethrin.setProductName(Term.getByTermId(K_OTHERINE_WG_250));
+    deltamethrin.addInsecticideUse(InsecticideBrandUse.IRS);
     deltamethrin.setDisease(DEFAULT_DISEASE);
     deltamethrin.setActiveIngredient(Term.getByTermId(DELTAMETHRIN));
-    deltamethrin.setBrandName("K-othrine WG 250");
-    deltamethrin.setAmount(25);
-    deltamethrin.setWeight(new BigDecimal(20.00));
-    deltamethrin.setSachetsPerRefill(1);
+    deltamethrin.setConcentrationQuantifier(new BigDecimal("25"));
+    deltamethrin.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    deltamethrin.setUnitQuantifier(new BigDecimal(20.00));
+    deltamethrin.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    deltamethrin.setUnitsPerApplication(1);
     deltamethrin.setEnabled(true);
     deltamethrin.apply();
     
     InsecticideBrand ddt = new InsecticideBrand();
+    ddt.setProductName(Term.getByTermId(DDT_WP_75));
+    ddt.addInsecticideUse(InsecticideBrandUse.IRS);
     ddt.setDisease(DEFAULT_DISEASE);
     ddt.setActiveIngredient(Term.getByTermId(DDT));
-    ddt.setBrandName("DDT WP 75");
-    ddt.setAmount(75);
-    ddt.setWeight(new BigDecimal(670.00));
-    ddt.setSachetsPerRefill(1);
+    ddt.setConcentrationQuantifier(new BigDecimal("75"));
+    ddt.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    ddt.setUnitQuantifier(new BigDecimal(670.00));
+    ddt.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    ddt.setUnitsPerApplication(1);
     ddt.setEnabled(true);
     ddt.apply();
     

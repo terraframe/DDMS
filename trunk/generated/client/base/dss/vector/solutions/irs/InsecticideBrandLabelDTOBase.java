@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1676370670)
+@com.runwaysdk.business.ClassSignature(hash = 1318483448)
 public abstract class InsecticideBrandLabelDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideBrandLabel";
-  private static final long serialVersionUID = 1676370670;
+  private static final long serialVersionUID = 1318483448;
   
   protected InsecticideBrandLabelDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,10 +17,11 @@ public abstract class InsecticideBrandLabelDTOBase extends com.runwaysdk.busines
   }
   
   public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
-  public static java.lang.String BRANDNAME = "brandName";
-  public static java.lang.String CONCENTRATION = "concentration";
+  public static java.lang.String CONCENTRATIONQUALIFIER = "concentrationQualifier";
+  public static java.lang.String CONCENTRATIONQUANTIFIER = "concentrationQuantifier";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String ID = "id";
+  public static java.lang.String PRODUCTNAME = "productName";
   public String getActiveIngredient()
   {
     return getValue(ACTIVEINGREDIENT);
@@ -58,78 +59,78 @@ public abstract class InsecticideBrandLabelDTOBase extends com.runwaysdk.busines
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ACTIVEINGREDIENT).getAttributeMdDTO();
   }
   
-  public String getBrandName()
+  public String getConcentrationQualifier()
   {
-    return getValue(BRANDNAME);
+    return getValue(CONCENTRATIONQUALIFIER);
   }
   
-  public void setBrandName(String value)
+  public void setConcentrationQualifier(String value)
   {
     if(value == null)
     {
-      setValue(BRANDNAME, "");
+      setValue(CONCENTRATIONQUALIFIER, "");
     }
     else
     {
-      setValue(BRANDNAME, value);
+      setValue(CONCENTRATIONQUALIFIER, value);
     }
   }
   
-  public boolean isBrandNameWritable()
+  public boolean isConcentrationQualifierWritable()
   {
-    return isWritable(BRANDNAME);
+    return isWritable(CONCENTRATIONQUALIFIER);
   }
   
-  public boolean isBrandNameReadable()
+  public boolean isConcentrationQualifierReadable()
   {
-    return isReadable(BRANDNAME);
+    return isReadable(CONCENTRATIONQUALIFIER);
   }
   
-  public boolean isBrandNameModified()
+  public boolean isConcentrationQualifierModified()
   {
-    return isModified(BRANDNAME);
+    return isModified(CONCENTRATIONQUALIFIER);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getBrandNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcentrationQualifierMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(BRANDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCENTRATIONQUALIFIER).getAttributeMdDTO();
   }
   
-  public Integer getConcentration()
+  public java.math.BigDecimal getConcentrationQuantifier()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CONCENTRATION));
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(CONCENTRATIONQUANTIFIER));
   }
   
-  public void setConcentration(Integer value)
+  public void setConcentrationQuantifier(java.math.BigDecimal value)
   {
     if(value == null)
     {
-      setValue(CONCENTRATION, "");
+      setValue(CONCENTRATIONQUANTIFIER, "");
     }
     else
     {
-      setValue(CONCENTRATION, java.lang.Integer.toString(value));
+      setValue(CONCENTRATIONQUANTIFIER, value.toString());
     }
   }
   
-  public boolean isConcentrationWritable()
+  public boolean isConcentrationQuantifierWritable()
   {
-    return isWritable(CONCENTRATION);
+    return isWritable(CONCENTRATIONQUANTIFIER);
   }
   
-  public boolean isConcentrationReadable()
+  public boolean isConcentrationQuantifierReadable()
   {
-    return isReadable(CONCENTRATION);
+    return isReadable(CONCENTRATIONQUANTIFIER);
   }
   
-  public boolean isConcentrationModified()
+  public boolean isConcentrationQuantifierModified()
   {
-    return isModified(CONCENTRATION);
+    return isModified(CONCENTRATIONQUANTIFIER);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getConcentrationMd()
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getConcentrationQuantifierMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(CONCENTRATION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONCENTRATIONQUANTIFIER).getAttributeMdDTO();
   }
   
   public String getConcreteId()
@@ -167,6 +168,43 @@ public abstract class InsecticideBrandLabelDTOBase extends com.runwaysdk.busines
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getConcreteIdMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(CONCRETEID).getAttributeMdDTO();
+  }
+  
+  public String getProductName()
+  {
+    return getValue(PRODUCTNAME);
+  }
+  
+  public void setProductName(String value)
+  {
+    if(value == null)
+    {
+      setValue(PRODUCTNAME, "");
+    }
+    else
+    {
+      setValue(PRODUCTNAME, value);
+    }
+  }
+  
+  public boolean isProductNameWritable()
+  {
+    return isWritable(PRODUCTNAME);
+  }
+  
+  public boolean isProductNameReadable()
+  {
+    return isReadable(PRODUCTNAME);
+  }
+  
+  public boolean isProductNameModified()
+  {
+    return isModified(PRODUCTNAME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getProductNameMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PRODUCTNAME).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.irs.InsecticideBrandLabelDTO getLabel(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)

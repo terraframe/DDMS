@@ -26,7 +26,7 @@ public class InsecticideNozzleView extends InsecticideNozzleViewBase implements 
     this.setNozzle(nozzle);
     this.setEnabled(concrete.getEnabled());
     this.setInsecticideNozzleId(concrete.getId());
-    this.setBrandLabel(brand.getBrandName());
+    this.setBrandLabel(brand.getProductName().getTermDisplayLabel().getValue());
     this.setNozzleLabel(nozzle.getDisplayLabel());
     this.setConfigurationDate(concrete.getConfigurationDate());
   }

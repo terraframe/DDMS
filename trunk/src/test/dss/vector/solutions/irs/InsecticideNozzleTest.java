@@ -33,6 +33,12 @@ public class InsecticideNozzleTest extends TestCase
 
   private static Term activeIngredient;
 
+  private static Term productName;
+
+  private static Term productName2;
+
+  private static Term productName3;
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -61,6 +67,9 @@ public class InsecticideNozzleTest extends TestCase
     brand2.delete();
     nozzle.delete();
     activeIngredient.delete();
+    productName.delete();
+    productName2.delete();
+    productName3.delete();
   }
 
   protected static void classSetUp()
@@ -70,21 +79,32 @@ public class InsecticideNozzleTest extends TestCase
     Integer refill = new Integer(20);
 
     activeIngredient = TestFixture.createRandomTerm();
+    productName = TestFixture.createRandomTerm();
+    productName2 = TestFixture.createRandomTerm();
+    productName3 = TestFixture.createRandomTerm();
 
     brand = new InsecticideBrand();
+    brand.setProductName(productName);
+    brand.addInsecticideUse(InsecticideBrandUse.IRS);
     brand.setActiveIngredient(activeIngredient);
-    brand.setAmount(57);
-    brand.setWeight(weight);
-    brand.setSachetsPerRefill(refill);
-    brand.setBrandName(TestConstants.BRAND_NAME);
+    brand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    brand.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    brand.setUnitQuantifier(new BigDecimal("100"));
+    brand.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    brand.setUnitsPerApplication(20);
+    brand.setEnabled(true);
     brand.apply();
 
     brand2 = new InsecticideBrand();
+    brand2.setProductName(productName2);
+    brand2.addInsecticideUse(InsecticideBrandUse.IRS);
     brand2.setActiveIngredient(activeIngredient);
-    brand2.setAmount(13);
-    brand2.setWeight(weight);
-    brand2.setSachetsPerRefill(refill);
-    brand2.setBrandName(TestConstants.BRAND_NAME_2);
+    brand2.setConcentrationQuantifier(new BigDecimal("9.50"));
+    brand2.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    brand2.setUnitQuantifier(new BigDecimal("50"));
+    brand2.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    brand2.setUnitsPerApplication(13);
+    brand2.setEnabled(true);
     brand2.apply();
 
     nozzle = new Nozzle();
@@ -192,12 +212,15 @@ public class InsecticideNozzleTest extends TestCase
     Integer refill = new Integer(20);
 
     InsecticideBrand testBrand = new InsecticideBrand();
+    testBrand.setProductName(productName3);
+    testBrand.addInsecticideUse(InsecticideBrandUse.IRS);
     testBrand.setActiveIngredient(activeIngredient);
-    testBrand.setAmount(57);
-    testBrand.setWeight(weight);
-    testBrand.setSachetsPerRefill(refill);
+    testBrand.setConcentrationQuantifier(new BigDecimal("4.50"));
+    testBrand.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    testBrand.setUnitQuantifier(new BigDecimal("100"));
+    testBrand.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    testBrand.setUnitsPerApplication(20);
     testBrand.setEnabled(false);
-    testBrand.setBrandName(TestConstants.BRAND_NAME_3);
     testBrand.apply();
 
     InsecticideNozzle insecticideNozzle = new InsecticideNozzle(brand, nozzle);
