@@ -107,7 +107,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
       		RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
       		problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
       		problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
-      		problem.setAttributeDisplayLabel(IndividualInstance.getTreatmentStartDateMd().getDisplayLabel(Session.getCurrentLocale()));
+      		problem.setAttributeDisplayLabel(IndividualCase.getDiagnosisDateMd().getDisplayLabel(Session.getCurrentLocale()));
       		problem.setRelation(MDSSProperties.getString("Compare_AE"));
       		problem.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
       		problems.add(problem);
