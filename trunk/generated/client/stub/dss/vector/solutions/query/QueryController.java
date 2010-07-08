@@ -83,6 +83,20 @@ import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
+import dss.vector.solutions.surveillance.AggregatedCaseDTO;
+import dss.vector.solutions.surveillance.AggregatedCaseViewDTO;
+import dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO;
+import dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO;
+import dss.vector.solutions.surveillance.CaseDiagnosticDTO;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO;
+import dss.vector.solutions.surveillance.CasePatientTypeDTO;
+import dss.vector.solutions.surveillance.CasePatientTypeViewDTO;
+import dss.vector.solutions.surveillance.CaseReferralDTO;
+import dss.vector.solutions.surveillance.CaseStockReferralDTO;
+import dss.vector.solutions.surveillance.CaseTreatmentDTO;
+import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
+import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
@@ -96,7 +110,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   private static final String QUERY_ENTOMOLOGY                    = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
   private static final String QUERY_RESISTANCE                    = "/WEB-INF/queryScreens/queryResistance.jsp";
-  
+
   private static final String QUERY_RESISTANCE_BIOASSAY           = "/WEB-INF/queryScreens/queryResistanceBioassay.jsp";
 
   private static final String QUERY_IRS                           = "/WEB-INF/queryScreens/queryIRS.jsp";
@@ -304,6 +318,96 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   @Override
   public void queryAggregatedCases() throws IOException, ServletException
   {
+    try
+    {
+      loadQuerySpecifics(AggregatedCaseDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_CASE);
+
+      ClientRequestIF request = this.getClientRequest();
+
+      JSONObject ordered = new JSONObject();      
+      
+      JSONObject methods = new JSONObject();
+      methods.put("type", TermDTO.CLASS);
+      methods.put("label", MDSSProperties.getObject("Amount"));
+      methods.put("relType", CaseTreatmentMethodDTO.CLASS);
+      methods.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
+      methods.put("options", getAllTermsForGrid(request,AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASETREATMENTMETHOD));
+      ordered.put("methods", methods);
+
+      JSONObject treatments = new JSONObject();
+      treatments.put("type", TermDTO.CLASS);
+      treatments.put("label", MDSSProperties.getObject("Amount"));
+      treatments.put("relType", CaseTreatmentDTO.CLASS);
+      treatments.put("relAttribute", CaseTreatmentDTO.AMOUNT);
+      treatments.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASETREATMENTS));
+      ordered.put("treatments", treatments);
+
+      JSONObject stocks = new JSONObject();
+      stocks.put("type", TermDTO.CLASS);
+      stocks.put("label", MDSSProperties.getObject("Amount"));
+      stocks.put("relType", CaseTreatmentStockDTO.CLASS);
+      stocks.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
+      stocks.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASESTOCKS));
+      ordered.put("stocks", stocks);
+
+      JSONObject diagnostics = new JSONObject();
+      diagnostics.put("type", TermDTO.CLASS);
+      diagnostics.put("label", MDSSProperties.getObject("Amount"));
+      diagnostics.put("relType", CaseDiagnosticDTO.CLASS);
+      diagnostics.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
+      diagnostics.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSTIC));
+      ordered.put("diagnostics", diagnostics);
+      
+      JSONObject referrals = new JSONObject();
+      referrals.put("type", TermDTO.CLASS);
+      referrals.put("label", MDSSProperties.getObject("Amount"));
+      referrals.put("relType", CaseReferralDTO.CLASS);
+      referrals.put("relAttribute", CaseReferralDTO.AMOUNT);
+      referrals.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEREFERRALS));
+      ordered.put("referrals", referrals);
+
+      JSONObject stockReferrals = new JSONObject();
+      stockReferrals.put("type", TermDTO.CLASS);
+      stockReferrals.put("label", MDSSProperties.getObject("Amount"));
+      stockReferrals.put("relType", CaseStockReferralDTO.CLASS);
+      stockReferrals.put("relAttribute", CaseStockReferralDTO.AMOUNT);
+      stockReferrals.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASESTOCKREFERRAL));
+      ordered.put("stockReferrals", stockReferrals);
+      
+      JSONObject types = new JSONObject();
+      types.put("type", TermDTO.CLASS);
+      types.put("label", MDSSProperties.getObject("Amount"));
+      types.put("relType", CaseDiagnosisTypeDTO.CLASS);
+      types.put("relAttribute", CaseDiagnosisTypeDTO.TERM);
+      types.put("options", getAllTermsForGrid(request, CaseDiagnosisTypeViewDTO.CLASS, CaseDiagnosisTypeViewDTO.DIAGNOSISCATEGORY));
+      ordered.put("types", types);
+
+      JSONObject manifestations = new JSONObject();
+      manifestations.put("type", TermDTO.CLASS);
+      manifestations.put("label", MDSSProperties.getObject("Amount"));
+      manifestations.put("relType", CaseDiseaseManifestationDTO.CLASS);
+      manifestations.put("relAttribute", CaseDiseaseManifestationDTO.TERM);
+      manifestations.put("options", getAllTermsForGrid(request, CaseDiseaseManifestationViewDTO.CLASS, CaseDiseaseManifestationViewDTO.DISEASECATEGORY));
+      ordered.put("manifestations", manifestations);
+      
+      JSONObject patientTypes = new JSONObject();
+      patientTypes.put("type", TermDTO.CLASS);
+      patientTypes.put("label", MDSSProperties.getObject("Amount"));
+      patientTypes.put("relType", CasePatientTypeDTO.CLASS);
+      patientTypes.put("relAttribute", CasePatientTypeDTO.TERM);
+      patientTypes.put("options", getAllTermsForGrid(request, CasePatientTypeViewDTO.CLASS, CasePatientTypeViewDTO.PATIENTCATEGORY));
+      ordered.put("patientTypes", patientTypes);
+      
+      req.setAttribute("orderedGrids", ordered.toString());
+
+      req.getRequestDispatcher(QUERY_AGGREGATED_CASES).forward(req, resp);
+
+    }
+    catch (Throwable t)
+    {
+      throw new ApplicationException(t);
+    }
+
   }
 
   private void loadGrid(String relationshipClass, String className, String attributeName, JSONObject gridMeta, JSONArray ordered)
@@ -715,23 +819,19 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       String container_map = Halp.getDropDownMaps(container, request, ", ");
       req.setAttribute("containerMap", container_map);
 
-      
       JSONObject ordered = new JSONObject();
 
       // Target Groups
       JSONObject taxons = new JSONObject();
       taxons.put("type", TermDTO.CLASS);
-      taxons.put("label",MDSSProperties.getObject("Pupae_Amount") );
+      taxons.put("label", MDSSProperties.getObject("Pupae_Amount"));
       taxons.put("relType", PupalContainerAmountDTO.CLASS);
       taxons.put("relAttribute", PupalContainerAmountDTO.AMOUNT);
-      taxons.put("options", getAllTermsForGrid(request, PupalContainerViewDTO.CLASS,
-          PupalContainerViewDTO.PUPAEAMOUNT));
+      taxons.put("options", getAllTermsForGrid(request, PupalContainerViewDTO.CLASS, PupalContainerViewDTO.PUPAEAMOUNT));
       ordered.put("pupaeAmmount", taxons);
 
       req.setAttribute("orderedGrids", ordered.toString());
-      
-     
-      
+
       req.getRequestDispatcher(QUERY_PUPAL_CONTAINER_COLLECTION).forward(req, resp);
 
     }
@@ -741,8 +841,6 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
   }
 
-  
-  
   /**
    * Creates the screen to query Invervention COntrol
    */
@@ -759,65 +857,54 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       String map = Halp.getDropDownMaps(ci, request, ", ");
       req.setAttribute("ciMap", map);
 
-      
       JSONObject ordered = new JSONObject();
-
-      
 
       ClassQueryDTO iim = request.getQuery(IndividualPremiseVisitDTO.CLASS);
       String iimap = Halp.getDropDownMaps(iim, request, ", ");
       req.setAttribute("individualPremiseVisit", iimap);
-      
-      
+
       JSONObject interventionMethods = new JSONObject();
       interventionMethods.put("type", TermDTO.CLASS);
-      interventionMethods.put("label",MDSSProperties.getObject("Amount") );
+      interventionMethods.put("label", MDSSProperties.getObject("Amount"));
       interventionMethods.put("relType", IndividualPremiseVisitMethodDTO.CLASS);
       interventionMethods.put("relAttribute", IndividualPremiseVisitMethodDTO.USED);
-      interventionMethods.put("options", getAllTermsForGrid(request, IndividualPremiseVisitViewDTO.CLASS,
-          IndividualPremiseVisitViewDTO.INTERVENTIONMETHOD));
+      interventionMethods.put("options", getAllTermsForGrid(request, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitViewDTO.INTERVENTIONMETHOD));
       ordered.put("individualPremiseVisitMethod", interventionMethods);
-      
-      
+
       ClassQueryDTO aim = request.getQuery(AggregatedPremiseVisitDTO.CLASS);
       String aimap = Halp.getDropDownMaps(aim, request, ", ");
       req.setAttribute("aggregatedPremiseVisit", aimap);
-      
+
       JSONObject aggInterventionMethods = new JSONObject();
       aggInterventionMethods.put("type", TermDTO.CLASS);
-      aggInterventionMethods.put("label",MDSSProperties.getObject("Amount") );
-      aggInterventionMethods.put("relType", AggregatedPremiseMethodDTO.CLASS);   
+      aggInterventionMethods.put("label", MDSSProperties.getObject("Amount"));
+      aggInterventionMethods.put("relType", AggregatedPremiseMethodDTO.CLASS);
       aggInterventionMethods.put("relAttribute", AggregatedPremiseMethodDTO.AMOUNT);
-      aggInterventionMethods.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS,
-          AggregatedPremiseVisitViewDTO.INTERVENTIONMETHOD));
+      aggInterventionMethods.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseVisitViewDTO.INTERVENTIONMETHOD));
       ordered.put("aggInterventionMethods", aggInterventionMethods);
-      
+
       JSONObject aggInterventionReasons = new JSONObject();
       aggInterventionReasons.put("type", TermDTO.CLASS);
-      aggInterventionReasons.put("label",MDSSProperties.getObject("Amount") );
+      aggInterventionReasons.put("label", MDSSProperties.getObject("Amount"));
       aggInterventionReasons.put("relType", AggregatedPremiseReasonDTO.CLASS);
       aggInterventionReasons.put("relAttribute", AggregatedPremiseReasonDTO.AMOUNT);
-      aggInterventionReasons.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS,
-          AggregatedPremiseVisitViewDTO.NONTREATMENTREASON));
+      aggInterventionReasons.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseVisitViewDTO.NONTREATMENTREASON));
       ordered.put("aggInterventionReasons", aggInterventionReasons);
-      
+
       ClassQueryDTO pim = request.getQuery(PersonInterventionDTO.CLASS);
       String pimap = Halp.getDropDownMaps(pim, request, ", ");
       req.setAttribute("PersonIntervention", pimap);
-      
-      
+
       JSONObject personInterventionMethod = new JSONObject();
       personInterventionMethod.put("type", TermDTO.CLASS);
-      personInterventionMethod.put("label",MDSSProperties.getObject("Amount") );
+      personInterventionMethod.put("label", MDSSProperties.getObject("Amount"));
       personInterventionMethod.put("relType", PersonInterventionMethodDTO.CLASS);
       personInterventionMethod.put("relAttribute", PersonInterventionMethodDTO.AMOUNT);
-      personInterventionMethod.put("options", getAllTermsForGrid(request, PersonInterventionViewDTO.CLASS,
-          PersonInterventionViewDTO.INTERVENTIONMETHOD));
+      personInterventionMethod.put("options", getAllTermsForGrid(request, PersonInterventionViewDTO.CLASS, PersonInterventionViewDTO.INTERVENTIONMETHOD));
       ordered.put("personInterventionMethods", personInterventionMethod);
-      
+
       req.setAttribute("orderedGrids", ordered.toString());
 
-      
       req.getRequestDispatcher(QUERY_INTERVENTION_CONTROL).forward(req, resp);
 
     }
@@ -947,8 +1034,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       throw new ApplicationException(t);
     }
   }
-  
-  
+
   public void queryResistanceBioassay() throws IOException, ServletException
   {
     try
@@ -964,31 +1050,27 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO ldda = request.getQuery(DiagnosticAssayDTO.CLASS);
       String diagnosticMap = Halp.getDropDownMaps(ldda, request, ", ");
       req.setAttribute("diagnosticMap", diagnosticMap);
-      
-      
+
       JSONObject ordered = new JSONObject();
 
       // Target Groups
       JSONObject lifeStage = new JSONObject();
       lifeStage.put("type", TermDTO.CLASS);
-    //  lifeStage.put("label",MDSSProperties.getObject("Life_Stage") );
+      // lifeStage.put("label",MDSSProperties.getObject("Life_Stage") );
       lifeStage.put("relType", TimeResponseAssayDTO.CLASS);
       lifeStage.put("relAttribute", TimeResponseAssayDTO.LIFESTAGE);
-      lifeStage.put("options", getAllTermsForGrid(request, TimeResponseAssayViewDTO.CLASS,
-          TimeResponseAssayViewDTO.LIFESTAGE));
+      lifeStage.put("options", getAllTermsForGrid(request, TimeResponseAssayViewDTO.CLASS, TimeResponseAssayViewDTO.LIFESTAGE));
       ordered.put("lifeStage", lifeStage);
 
-      
       // Target Groups
       JSONObject assayType = new JSONObject();
       assayType.put("type", TermDTO.CLASS);
-     // assayType.put("label",MDSSProperties.getObject("Assay") );
+      // assayType.put("label",MDSSProperties.getObject("Assay") );
       assayType.put("relType", TimeResponseAssayDTO.CLASS);
       assayType.put("relAttribute", TimeResponseAssayDTO.ASSAY);
-      assayType.put("options", getAllTermsForGrid(request, TimeResponseAssayViewDTO.CLASS,
-          TimeResponseAssayViewDTO.ASSAY));
+      assayType.put("options", getAllTermsForGrid(request, TimeResponseAssayViewDTO.CLASS, TimeResponseAssayViewDTO.ASSAY));
       ordered.put("assayType", assayType);
-      
+
       req.setAttribute("orderedGrids", ordered.toString());
 
       req.getRequestDispatcher(QUERY_RESISTANCE_BIOASSAY).forward(req, resp);
@@ -998,7 +1080,6 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       throw new ApplicationException(t);
     }
   }
-
 
   /**
    * Creates the screen to query for Entomology (mosquitos).
@@ -1089,74 +1170,6 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     try
     {
       InputStream stream = QueryBuilderDTO.exportQueryToExcel(this.getClientRequest(), className, queryXML, config, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-//  @Override
-//  public void exportAggregatedCaseQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
-//  {
-//    try
-//    {
-//      InputStream stream = AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-//
-//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-//
-//      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-//    }
-//    catch (Throwable t)
-//    {
-//      resp.getWriter().write(t.getLocalizedMessage());
-//    }
-//  }
-//
-//  @Override
-//  public void exportAggregatedCaseQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
-//  {
-//    try
-//    {
-//      InputStream stream = AggregatedCaseDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
-//
-//      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-//
-//      FileDownloadUtil.writeXLS(resp, search.getQueryName(), stream);
-//    }
-//    catch (Throwable t)
-//    {
-//      resp.getWriter().write(t.getLocalizedMessage());
-//    }
-//  }
-
-  @Override
-  public void exportSurveyQueryToCSV(String queryXML, String config, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-
-      SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
-
-      FileDownloadUtil.writeCSV(resp, search.getQueryName(), stream);
-    }
-    catch (Throwable t)
-    {
-      resp.getWriter().write(t.getLocalizedMessage());
-    }
-  }
-
-  @Override
-  public void exportSurveyQueryToExcel(String queryXML, String config, String savedSearchId) throws IOException, ServletException
-  {
-    try
-    {
-      InputStream stream = SurveyPointDTO.exportQueryToExcel(this.getClientRequest(), queryXML, config, savedSearchId);
 
       SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
 
