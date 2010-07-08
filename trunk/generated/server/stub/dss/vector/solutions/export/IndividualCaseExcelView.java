@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -52,6 +51,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       individualCase.setOrigin(Term.validateByDisplayLabel(this.getOrigin(), IndividualCase.getOriginMd()));
       individualCase.setPlasmaLeakageOnset(this.getPlasmaLeakageOnset());
       individualCase.setHemorrhagicOnset(this.getHemorrhagicOnset());
+      individualCase.setSymptomOnset(this.getSymptomOnset());
       
       GeoEntity res = this.getResidence();
       if (res!=null)
@@ -84,7 +84,6 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setDiagnosis(Term.validateByDisplayLabel(this.getDiagnosis(), IndividualInstance.getDiagnosisMd()));
     instance.setConfirmedDiagnosis(Term.validateByDisplayLabel(this.getConfirmedDiagnosis(), IndividualInstance.getConfirmedDiagnosisMd()));
     instance.setConfirmedDiagnosisDate(this.getConfirmedDiagnosisDate());
-    instance.setSymptomOnset(this.getSymptomOnset());
     instance.setFacilityVisit(this.getFacilityVisit());
     instance.setPatientCategory(Term.validateByDisplayLabel(this.getPatientCategory(), IndividualInstance.getPatientCategoryMd()));
     instance.setAdmissionDate(this.getAdmissionDate());
