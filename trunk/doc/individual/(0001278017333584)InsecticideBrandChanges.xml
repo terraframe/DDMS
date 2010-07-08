@@ -26,6 +26,32 @@
 				type="dss.vector.solutions.ontology.BrowserField" />
 		</delete>
 
+		<create>
+			<mdProblem
+				name="dss.vector.solutions.irs.InsecticideBrandUseProblem"
+				label="Insecticide Brand Use Problem"
+				extends="dss.vector.solutions.NotificationProblem"
+				description="When [insecticideUseLabel] is [insecticideUseValue], [attributeLabel] must be [attributeValue]">
+				<attributes>
+					<text
+						name="insecticideUseLabel"
+						label="Insecticide use label"
+						required="true" />
+					<text
+						name="insecticideUseValue"
+						label="Insecticide use value"
+						required="true" />
+					<text
+						name="attributeLabel"
+						label="Attribute label"
+						required="true" />
+					<text
+						name="attributeValue"
+						label="Attribute value"
+						required="true" />
+				</attributes>
+			</mdProblem>
+		</create>
 
 		<create>
 			<enumerationMaster
@@ -733,6 +759,10 @@
 			<object
 				key="dss.vector.solutions.irs.InsecticideBrandUnitQualifierMaster"
 				type="com.runwaysdk.system.metadata.MdBusiness" />
+
+			<object
+				key="dss.vector.solutions.irs.InsecticideBrandUseProblem"
+				type="com.runwaysdk.system.metadata.MdProblem" />
 		</delete>
 	</undoIt>
 </version>
