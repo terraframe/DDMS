@@ -171,6 +171,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     list.add("GeoEntity");
     list.add("Season");
     list.add("EntityLabel");
+    list.add("ThresholdType");
 
     List<Integer> indices = getAttributeIndicies(weeks);
 
