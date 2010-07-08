@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1218705443)
+@com.runwaysdk.business.ClassSignature(hash = -666624792)
 public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualCase";
-  private static final long serialVersionUID = -1218705443;
+  private static final long serialVersionUID = -666624792;
   
   protected IndividualCaseDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -52,6 +52,7 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
   public static java.lang.String RESIDENCETEXT = "residenceText";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SYMPTOMONSET = "symptomOnset";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WORKPLACE = "workplace";
   public static java.lang.String WORKPLACETEXT = "workplaceText";
@@ -927,6 +928,43 @@ public abstract class IndividualCaseDTOBase extends com.runwaysdk.business.Busin
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public java.util.Date getSymptomOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SYMPTOMONSET));
+  }
+  
+  public void setSymptomOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(SYMPTOMONSET, "");
+    }
+    else
+    {
+      setValue(SYMPTOMONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
+  }
+  
+  public boolean isSymptomOnsetWritable()
+  {
+    return isWritable(SYMPTOMONSET);
+  }
+  
+  public boolean isSymptomOnsetReadable()
+  {
+    return isReadable(SYMPTOMONSET);
+  }
+  
+  public boolean isSymptomOnsetModified()
+  {
+    return isModified(SYMPTOMONSET);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getSymptomOnsetMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SYMPTOMONSET).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getWorkplace()

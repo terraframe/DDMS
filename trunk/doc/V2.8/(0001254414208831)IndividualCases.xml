@@ -10,6 +10,9 @@
         generateController="true">
         <attributes>
           <date
+            name="symptomOnset"
+            label="Symptom Onset Date"/>
+          <date
             name="caseReportDate"
             label="Case Report Date"
             description="Date for the original case report"/>
@@ -83,9 +86,6 @@
             label="Clinical Diagnosis"
             positiveLabel="Clinical Diagnosis"
             negativeLabel="Definitive Diagnosis"/>
-          <date
-            name="symptomOnset"
-            label="Symptom Onset Date"/>
           <date
             name="facilityVisit"
             label="Facility Visit Date"/>

@@ -440,6 +440,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     valueQuery.restrictRows(20, 1);
 
+    System.out.println(valueQuery.getSQL());
+    
     return valueQuery;
   }
 

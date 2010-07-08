@@ -34,6 +34,11 @@
       <mjl:dt attribute="otherSettlements">
         ${item.otherSettlements}
       </mjl:dt>
+      <mjl:dt attribute="symptomOnset">
+        <span class="formatDate">
+          ${item.symptomOnset}
+        </span>
+      </mjl:dt>
       <mjl:dt attribute="origin">
         ${item.origin.displayLabel}
       </mjl:dt>
@@ -60,11 +65,6 @@
     <mjl:attributeColumn attributeName="facilityVisit">
       <mjl:row>
         <fmt:formatDate value="${row.facilityVisit}" pattern="${dateFormatPattern}" />
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="symptomOnset">
-      <mjl:row>
-        <fmt:formatDate value="${row.symptomOnset}" pattern="${dateFormatPattern}" />
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="diagnosisType">

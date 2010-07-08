@@ -27,6 +27,7 @@
   <mjl:dt attribute="otherSettlements">
     <mjl:textarea param="otherSettlements" cols="3" rows="3"/>
   </mjl:dt>
+      <mjl:dt type="text" attribute="symptomOnset" classes="DatePick  NoFuture" />
   <mjl:dt attribute="origin">
     <mdss:mo param="origin" value="${origin}" />
   </mjl:dt>

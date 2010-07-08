@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1965839098)
+@com.runwaysdk.business.ClassSignature(hash = -943886383)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class IndividualCaseQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1965839098;
+private static final long serialVersionUID = -943886383;
 
   public IndividualCaseQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -524,6 +524,23 @@ private static final long serialVersionUID = -1965839098;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableMoment getSymptomOnset()
+  {
+    return getSymptomOnset(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SYMPTOMONSET, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualCase.SYMPTOMONSET, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -743,6 +760,9 @@ private static final long serialVersionUID = -1965839098;
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableMoment getSymptomOnset();
+    public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias);
+    public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -767,7 +787,7 @@ private static final long serialVersionUID = -1965839098;
  implements IndividualCaseQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 186525352;
+private static final long serialVersionUID = -608636685;
 
   public IndividualCaseQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1209,6 +1229,23 @@ private static final long serialVersionUID = 186525352;
   public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableMoment getSymptomOnset()
+  {
+    return getSymptomOnset(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SYMPTOMONSET, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualCase.SYMPTOMONSET, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()

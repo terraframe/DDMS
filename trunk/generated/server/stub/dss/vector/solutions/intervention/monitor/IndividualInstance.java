@@ -44,7 +44,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
 	@Override
 	@Transaction
 	public void apply() {
-		validateSymptomOnset();
+//		validateSymptomOnset();
 		validateFacilityVisit();
 		validateAdmissionDate();
 		validateReleaseDate();
@@ -54,19 +54,11 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
 		validateConfirmedDiagnosisDate();
 		validateDateOfDeath();
 
-		setSymptomOnsetDate();
-
 		super.apply();
 
 		validateFacilityOutbreak();
 		if (this.getIndividualCase() != null) {
 			this.getIndividualCase().validateOutbreak();
-		}
-	}
-
-	private void setSymptomOnsetDate() {
-		if (this.getSymptomOnset() == null && this.getIndividualCase() != null) {
-			this.setSymptomOnset(this.getIndividualCase().getDiagnosisDate());
 		}
 	}
 
@@ -98,31 +90,6 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
 		query.AND(query.getFacilityVisit().LE(endDate));
 
 		return query.getCount();
-	}
-
-	@Override
-	public void validateSymptomOnset() {
-		if (this.getSymptomOnset() != null) {
-			if (this.getSymptomOnset().after(new Date())) {
-				CurrentDateProblem p = new CurrentDateProblem();
-				p.setGivenDate(this.getSymptomOnset());
-				p.setCurrentDate(new Date());
-				p.setNotification(this, SYMPTOMONSET);
-				p.apply();
-				p.throwIt();
-			}
-			
-			if (this.getIndividualCase() != null && this.getIndividualCase().getPatient() != null && this.getIndividualCase().getPatient().getPerson() != null && this.getIndividualCase().getPatient().getPerson().getDateOfBirth() != null && this.getIndividualCase().getPatient().getPerson().getDateOfBirth().after(this.getSymptomOnset())) {
-				RelativeValueProblem p = new RelativeValueProblem();
-				p.setNotification(this, SYMPTOMONSET);
-				p.setAttributeDisplayLabel(getSymptomOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
-				p.setRelation(MDSSProperties.getString("Compare_AE"));
-				p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
-				p.apply();
-
-				p.throwIt();
-			}
-		}
 	}
 
 	@Override

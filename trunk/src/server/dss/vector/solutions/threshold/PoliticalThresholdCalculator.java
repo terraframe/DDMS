@@ -64,8 +64,8 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		innerQuery.SELECT(clinicalColumn);
 		innerQuery.WHERE(iQuery.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
 		innerQuery.AND(iQuery.getIndividualCase().getProbableSource().EQ(entityQuery));
-		innerQuery.AND(iQuery.getSymptomOnset().GE(initialDate));
-		innerQuery.AND(iQuery.getSymptomOnset().LE(finalDate));
+		innerQuery.AND(iQuery.getIndividualCase().getSymptomOnset().GE(initialDate));
+		innerQuery.AND(iQuery.getIndividualCase().getSymptomOnset().LE(finalDate));
 		// innerQuery.AND(iQuery.getActivelyDetected().EQ(false));
 
 		ValueQuery vQuery = new ValueQuery(factory);

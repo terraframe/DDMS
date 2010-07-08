@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -1975659654)
+@com.runwaysdk.business.ClassSignature(hash = -138091995)
 public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualInstance";
-  private static final long serialVersionUID = -1975659654;
+  private static final long serialVersionUID = -138091995;
   
   protected IndividualInstanceDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -68,7 +68,6 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SYMPTOM = "symptom";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
-  public static java.lang.String SYMPTOMONSET = "symptomOnset";
   public static java.lang.String TESTRESULT = "testResult";
   public static java.lang.String TESTSAMPLEDATE = "testSampleDate";
   public static java.lang.String TREATMENT = "treatment";
@@ -1611,43 +1610,6 @@ public abstract class IndividualInstanceDTOBase extends com.runwaysdk.business.B
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getSymptomCommentsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(SYMPTOMCOMMENTS).getAttributeMdDTO();
-  }
-  
-  public java.util.Date getSymptomOnset()
-  {
-    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SYMPTOMONSET));
-  }
-  
-  public void setSymptomOnset(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(SYMPTOMONSET, "");
-    }
-    else
-    {
-      setValue(SYMPTOMONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
-    }
-  }
-  
-  public boolean isSymptomOnsetWritable()
-  {
-    return isWritable(SYMPTOMONSET);
-  }
-  
-  public boolean isSymptomOnsetReadable()
-  {
-    return isReadable(SYMPTOMONSET);
-  }
-  
-  public boolean isSymptomOnsetModified()
-  {
-    return isModified(SYMPTOMONSET);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeDateMdDTO getSymptomOnsetMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeDateMdDTO) getAttributeDTO(SYMPTOMONSET).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.ontology.TermDTO getTestResult()

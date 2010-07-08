@@ -13,6 +13,11 @@
         ${item.patient.person}
       </mjl:row>
     </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="symptomOnset">
+      <mjl:row>
+        <fmt:formatDate value="${item.symptomOnset}" pattern="${dateFormatPattern}" />
+      </mjl:row>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="diagnosisDate">
       <mjl:row>
         <fmt:formatDate value="${item.diagnosisDate}" pattern="${dateFormatPattern}" />

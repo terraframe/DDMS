@@ -75,6 +75,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
   @Transaction
   public void apply()
   {
+    validateSymptomOnset();
     validateDiagnosisDate();
     validateCaseEntryDate();
     validateCaseReportDate();
@@ -105,11 +106,47 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       long age = difference / 31556926000l;
       this.setAge((int) age);
     }
+    
+    setSymptomOnsetDate();
 
     super.apply();
 
     // Perfrom outbreak notification
     // validateOutbreak();
+  }
+  
+  private void setSymptomOnsetDate() {
+    if (this.getSymptomOnset() == null) {
+      this.setSymptomOnset(this.getDiagnosisDate());
+    }
+  }
+  
+
+  @Override
+  public void validateSymptomOnset() {
+    if (this.getSymptomOnset() != null) {
+      if (this.getSymptomOnset().after(new Date())) {
+        CurrentDateProblem p = new CurrentDateProblem();
+        p.setGivenDate(this.getSymptomOnset());
+        p.setCurrentDate(new Date());
+        p.setNotification(this, SYMPTOMONSET);
+        p.apply();
+        p.throwIt();
+      }
+      
+      if (this.getPatient() != null && this.getPatient().getPerson() != null 
+          && this.getPatient().getPerson().getDateOfBirth() != null 
+          && this.getPatient().getPerson().getDateOfBirth().after(this.getSymptomOnset())) {
+        RelativeValueProblem p = new RelativeValueProblem();
+        p.setNotification(this, SYMPTOMONSET);
+        p.setAttributeDisplayLabel(getSymptomOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelation(MDSSProperties.getString("Compare_AE"));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.apply();
+
+        p.throwIt();
+      }
+    }
   }
 
   @Override

@@ -124,7 +124,6 @@
       </mjl:dt>
       <mjl:dt type="text" attribute="confirmedDiagnosisDate" classes="DatePick  NoFuture" />
  
-      <mjl:dt type="text" attribute="symptomOnset" classes="DatePick  NoFuture" />
       <mjl:dt type="text" attribute="facilityVisit" classes="DatePick  NoFuture" />
     </mjl:component>
     
@@ -133,6 +132,7 @@
       IMPORTANT: THESE ARE CASE SPECIFIC ENTERIES
      -->
     <mjl:component item="${individualCase}" param="dto">
+      <mjl:dt type="text" attribute="symptomOnset" classes="DatePick  NoFuture" />
       <mjl:dt attribute="origin">
         <mdss:mo param="origin" value="${origin}" />
       </mjl:dt>

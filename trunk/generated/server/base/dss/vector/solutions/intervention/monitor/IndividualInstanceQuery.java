@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 936229425)
+@com.runwaysdk.business.ClassSignature(hash = -446439780)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  class IndividualInstanceQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 936229425;
+private static final long serialVersionUID = -446439780;
 
   public IndividualInstanceQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -856,23 +856,6 @@ private static final long serialVersionUID = 936229425;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMCOMMENTS, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableMoment getSymptomOnset()
-  {
-    return getSymptomOnset(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMONSET, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.getComponentQuery().get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMONSET, alias, displayLabel);
-
-  }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult()
   {
     return getTestResult(null);
@@ -1378,9 +1361,6 @@ private static final long serialVersionUID = 936229425;
     public com.runwaysdk.query.SelectableChar getSymptomComments();
     public com.runwaysdk.query.SelectableChar getSymptomComments(String alias);
     public com.runwaysdk.query.SelectableChar getSymptomComments(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableMoment getSymptomOnset();
-    public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias);
-    public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult(String alias, String displayLabel);
@@ -1442,7 +1422,7 @@ private static final long serialVersionUID = 936229425;
  implements IndividualInstanceQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 679624271;
+private static final long serialVersionUID = 1987623482;
 
   public IndividualInstanceQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -2156,23 +2136,6 @@ private static final long serialVersionUID = 679624271;
   public com.runwaysdk.query.SelectableChar getSymptomComments(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMCOMMENTS, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableMoment getSymptomOnset()
-  {
-    return getSymptomOnset(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMONSET, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableMoment getSymptomOnset(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableMoment)this.get(dss.vector.solutions.intervention.monitor.IndividualInstance.SYMPTOMONSET, alias, displayLabel);
 
   }
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestResult()

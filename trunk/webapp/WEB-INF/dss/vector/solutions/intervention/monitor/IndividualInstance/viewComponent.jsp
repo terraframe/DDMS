@@ -46,11 +46,6 @@
           ${item.confirmedDiagnosisDate}
         </span>      
       </mjl:dt>
-      <mjl:dt attribute="symptomOnset">
-        <span class="formatDate">
-          ${item.symptomOnset}
-        </span>
-      </mjl:dt>
       <mjl:dt attribute="facilityVisit">
         <span class="formatDate">
           ${item.facilityVisit}

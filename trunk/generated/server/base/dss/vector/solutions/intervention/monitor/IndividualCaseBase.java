@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 2017409373)
+@com.runwaysdk.business.ClassSignature(hash = 170847848)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -36,10 +36,11 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
   public static java.lang.String RESIDENCETEXT = "residenceText";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SYMPTOMONSET = "symptomOnset";
   public static java.lang.String TYPE = "type";
   public static java.lang.String WORKPLACE = "workplace";
   public static java.lang.String WORKPLACETEXT = "workplaceText";
-  private static final long serialVersionUID = 2017409373;
+  private static final long serialVersionUID = 170847848;
   
   public IndividualCaseBase()
   {
@@ -718,6 +719,34 @@ public abstract class IndividualCaseBase extends com.runwaysdk.business.Business
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
     return mdClassIF.definesAttribute(SITEMASTER);
+  }
+  
+  public java.util.Date getSymptomOnset()
+  {
+    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SYMPTOMONSET));
+  }
+  
+  public void validateSymptomOnset()
+  {
+    this.validateAttribute(SYMPTOMONSET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSymptomOnsetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualCase.CLASS);
+    return mdClassIF.definesAttribute(SYMPTOMONSET);
+  }
+  
+  public void setSymptomOnset(java.util.Date value)
+  {
+    if(value == null)
+    {
+      setValue(SYMPTOMONSET, "");
+    }
+    else
+    {
+      setValue(SYMPTOMONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
+    }
   }
   
   public String getType()

@@ -51,7 +51,7 @@
             type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
           <virtual
             concrete="symptomOnset"
-            type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>
+            type="dss.vector.solutions.intervention.monitor.IndividualCase"/>
           <virtual
             concrete="facilityVisit"
             type="dss.vector.solutions.intervention.monitor.IndividualInstance"/>

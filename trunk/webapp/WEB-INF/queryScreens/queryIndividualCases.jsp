@@ -85,7 +85,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var caseAttribs = ["diagnosisDate","caseReportDate","caseEntryDate",
                            "workplace","workplaceText",
                            "probableSource","probableSourceText",
-                           "residence","residenceText", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
+                           "residence","residenceText", "symptomOnset", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
     <%
     Halp.setReadableAttributes(request, "caseAttribs", IndividualCaseDTO.CLASS, requestIF);
     %>
@@ -99,7 +99,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
     var instanceAttribs = ["healthFacility", "caseIdentifier", "activelyDetected",
-                       "admissionDate","anaemiaPatient","diagnosisType", "diagnosis", "symptomOnset",
+                       "admissionDate","anaemiaPatient","diagnosisType", "diagnosis",
                        "detectedBy","diedInFacility","facilityVisit",
                        "patientCategory","pregnant","properlyRelease", "referredTo", "referredFrom",
                        "referralReason","labTestDate","symptomComments",

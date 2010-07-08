@@ -57,11 +57,7 @@
         <fmt:formatDate value="${item.releaseDate}" pattern="${dateFormatPattern}" />
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="symptomOnset">
-      <mjl:row>
-        <fmt:formatDate value="${item.symptomOnset}" pattern="${dateFormatPattern}" />
-      </mjl:row>
-    </mjl:attributeColumn>
+
     <mjl:attributeColumn attributeName="testSampleDate">
       <mjl:row>
         <fmt:formatDate value="${item.testSampleDate}" pattern="${dateFormatPattern}" />

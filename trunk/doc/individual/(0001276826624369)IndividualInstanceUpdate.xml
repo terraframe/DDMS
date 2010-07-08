@@ -1,7 +1,7 @@
 <version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <update>
-      <mdBusiness name="dss.vector.solutions.intervention.monitor.IndividualInstance">
+      <mdBusiness name="dss.vector.solutions.intervention.monitor.IndividualCase">
         <attributes>
           <date name="symptomOnset" label="Symptom Onset Date" requiredForDimension="DENGUE" />        
         </attributes>

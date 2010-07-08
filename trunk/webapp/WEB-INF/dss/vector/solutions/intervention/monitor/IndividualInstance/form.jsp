@@ -68,7 +68,7 @@
   </mjl:dt>
   <mjl:dt type="text" attribute="confirmedDiagnosisDate" classes="DatePick  NoFuture" />
     
-  <mjl:dt type="text" attribute="symptomOnset" classes="DatePick  NoFuture" />
+ 
   <mjl:dt type="text" attribute="facilityVisit" classes="DatePick  NoFuture" />
 
   <mjl:dt attribute="patientCategory">

@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -246287878)
+@com.runwaysdk.business.ClassSignature(hash = 1511825573)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -52,14 +52,13 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SYMPTOM = "symptom";
   public static java.lang.String SYMPTOMCOMMENTS = "symptomComments";
-  public static java.lang.String SYMPTOMONSET = "symptomOnset";
   public static java.lang.String TESTRESULT = "testResult";
   public static java.lang.String TESTSAMPLEDATE = "testSampleDate";
   public static java.lang.String TREATMENT = "treatment";
   public static java.lang.String TREATMENTMETHOD = "treatmentMethod";
   public static java.lang.String TREATMENTSTARTDATE = "treatmentStartDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -246287878;
+  private static final long serialVersionUID = 1511825573;
   
   public IndividualInstanceBase()
   {
@@ -1258,34 +1257,6 @@ public abstract class IndividualInstanceBase extends com.runwaysdk.business.Busi
     else
     {
       setValue(SYMPTOMCOMMENTS, value);
-    }
-  }
-  
-  public java.util.Date getSymptomOnset()
-  {
-    return com.runwaysdk.constants.MdAttributeDateUtil.getTypeSafeValue(getValue(SYMPTOMONSET));
-  }
-  
-  public void validateSymptomOnset()
-  {
-    this.validateAttribute(SYMPTOMONSET);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSymptomOnsetMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualInstance.CLASS);
-    return mdClassIF.definesAttribute(SYMPTOMONSET);
-  }
-  
-  public void setSymptomOnset(java.util.Date value)
-  {
-    if(value == null)
-    {
-      setValue(SYMPTOMONSET, "");
-    }
-    else
-    {
-      setValue(SYMPTOMONSET, new java.text.SimpleDateFormat(com.runwaysdk.constants.Constants.DATE_FORMAT).format(value));
     }
   }
   

@@ -597,9 +597,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Deletes this GeoHierarchy and it's associated MdBusiness that defines a
+   * Deletes this GeoHierarchy and its associated MdBusiness that defines a
    * GeoEntity subtype. All children are deleted recursively.
    */
+  @Transaction
   private void deleteInternal(Set<String> ids)
   {
     ids.add(this.getId());

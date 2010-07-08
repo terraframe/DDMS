@@ -43,8 +43,8 @@ Mojo.Meta.newClass('MDSS.QueryIndividualCases', {
                              accessor : this._groupByClass.CASEENTRYDATE,
                            },
                            {
-                             klass :  this._individualInstance,
-                             accessor : this._individualInstance.SYMPTOMONSET,                       
+                             klass :  this._groupByClass,
+                             accessor : this._groupByClass.SYMPTOMONSET,                       
                            },
                            {
                              klass :  this._individualInstance,
