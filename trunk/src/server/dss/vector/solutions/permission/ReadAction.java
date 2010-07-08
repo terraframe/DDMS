@@ -10,6 +10,7 @@ import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdClassDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdMethodDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdViewDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -45,6 +46,13 @@ public class ReadAction extends PermissionAction implements Reloadable
         role.grantPermission(Operation.DELETE, mdClassDimension.getId());
         role.grantPermission(Operation.WRITE, mdClassDimension.getId());
       }
+      else if (metadata instanceof MdRelationshipDAOIF)
+      {
+        role.grantPermission(Operation.READ_CHILD, mdClass.getId());        
+        role.grantPermission(Operation.READ_PARENT, mdClass.getId());                
+      }
+
+
 
       List<? extends MdAttributeDAOIF> attributes = mdClass.definesAttributes();
 
