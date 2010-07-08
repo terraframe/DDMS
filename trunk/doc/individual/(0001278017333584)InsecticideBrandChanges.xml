@@ -31,7 +31,8 @@
 				name="dss.vector.solutions.irs.InsecticideBrandUseProblem"
 				label="Insecticide Brand Use Problem"
 				extends="dss.vector.solutions.NotificationProblem"
-				description="When [insecticideUseLabel] is [insecticideUseValue], [attributeLabel] must be [attributeValue]">
+				description="When [insecticideUseLabel] is [insecticideUseValue], [attributeLabel] must be [attributeValue]"
+				message="When [insecticideUseLabel] is [insecticideUseValue], [attributeLabel] must be [attributeValue]">
 				<attributes>
 					<text
 						name="insecticideUseLabel"

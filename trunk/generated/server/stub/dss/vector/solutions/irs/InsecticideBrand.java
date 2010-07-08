@@ -38,9 +38,10 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 		}
 
 		this.validateUnitsPerApplication();
-		this.validateConcentrationQualifier();
+		this.validateUnitQuantifier();
 		this.validateUnitQualifier();
-
+		this.validateConcentrationQualifier();
+		
 		super.apply();
 	}
 
@@ -61,19 +62,18 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 	}
 
 	@Override
-	public void validateConcentrationQualifier() {
-		if (this.getInsecticideUse() != null && this.getInsecticideUse().contains(InsecticideBrandUse.IRS) && !this.getConcentrationQualifier().contains(InsecticideBrandConcentrationQualifier.PERCENT)) {
-	        InsecticideBrandUseProblem p = new InsecticideBrandUseProblem();
-	        p.setNotification(this, CONCENTRATIONQUALIFIER);
-	        p.setInsecticideUseLabel(getInsecticideUseMd().getDisplayLabel(Session.getCurrentLocale()));
-	        p.setInsecticideUseValue(InsecticideBrandUse.IRS.getDisplayLabel());
-	        p.setAttributeDisplayLabel(getConcentrationQualifierMd().getDisplayLabel(Session.getCurrentLocale()));
-	        p.setAttributeValue(InsecticideBrandConcentrationQualifier.PERCENT.getDisplayLabel());
-	        p.apply();
+	public void validateUnitQuantifier() {
+        InsecticideBrandUseProblem p = new InsecticideBrandUseProblem();
+        p.setNotification(this, UNITQUANTIFIER);
+        p.setInsecticideUseLabel(getInsecticideUseMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setInsecticideUseValue(InsecticideBrandUse.IRS.getDisplayLabel());
+        p.setAttributeDisplayLabel(getUnitQuantifierMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setAttributeValue(MDSSProperties.getString("specified"));
+        p.apply();
 
-	        p.throwIt();
-		}
-		super.validateConcentrationQualifier();
+        p.throwIt();
+        
+		super.validateUnitQuantifier();
 	}
 
 	@Override
@@ -90,6 +90,22 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 	        p.throwIt();
 		}
 		super.validateUnitQualifier();
+	}
+
+	@Override
+	public void validateConcentrationQualifier() {
+		if (this.getInsecticideUse() != null && this.getInsecticideUse().contains(InsecticideBrandUse.IRS) && !this.getConcentrationQualifier().contains(InsecticideBrandConcentrationQualifier.PERCENT)) {
+	        InsecticideBrandUseProblem p = new InsecticideBrandUseProblem();
+	        p.setNotification(this, CONCENTRATIONQUALIFIER);
+	        p.setInsecticideUseLabel(getInsecticideUseMd().getDisplayLabel(Session.getCurrentLocale()));
+	        p.setInsecticideUseValue(InsecticideBrandUse.IRS.getDisplayLabel());
+	        p.setAttributeDisplayLabel(getConcentrationQualifierMd().getDisplayLabel(Session.getCurrentLocale()));
+	        p.setAttributeValue(InsecticideBrandConcentrationQualifier.PERCENT.getDisplayLabel());
+	        p.apply();
+
+	        p.throwIt();
+		}
+		super.validateConcentrationQualifier();
 	}
 
 	@Override
