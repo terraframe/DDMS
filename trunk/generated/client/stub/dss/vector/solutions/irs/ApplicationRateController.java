@@ -115,7 +115,7 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
     InsecticideNozzleViewDTO[] data = InsecticideNozzleViewDTO.getAll(clientRequest);
     String[] keys = {"InsecticideNozzleId", "ConfigurationDate", "Brand", "Nozzle", "Enabled"};
 
-    ColumnSetup brandSetup = new ColumnSetup(false, true, null, InsecticideBrandViewDTO.class.getName(), "getAllActive");
+    ColumnSetup brandSetup = new ColumnSetup(false, true, null, InsecticideBrandViewDTO.class.getName(), "getIRSActive");
     ColumnSetup nozzleSetup = new ColumnSetup(false, true, null, NozzleViewDTO.class.getName(), "getAllActive");
     
     brandSetup.setGetter("getBrandView");

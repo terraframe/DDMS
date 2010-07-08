@@ -227,6 +227,29 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 			it.close();
 		}
 	}
+	
+
+	@Transaction
+	public static InsecticideBrand[] getAll(Boolean activeOnly, InsecticideBrandUse[] uses) {
+		List<InsecticideBrand> list = new LinkedList<InsecticideBrand>();
+		InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());
+		query.WHERE(query.getInsecticideUse().containsAny(uses));
+		if (activeOnly) {
+			query.WHERE(query.getEnabled().EQ(true));
+		}
+		query.ORDER_BY_ASC(query.getCreateDate());
+
+		OIterator<? extends InsecticideBrand> it = query.getIterator();
+
+		try {
+			while (it.hasNext()) {
+				list.add(it.next());
+			}
+			return list.toArray(new InsecticideBrand[list.size()]);
+		} finally {
+			it.close();
+		}
+	}
 
 	public static String getTempTableSQL() {
 		MdEntityDAOIF insectNozzleMd = MdEntityDAO.getMdEntityDAO(InsecticideNozzle.CLASS);

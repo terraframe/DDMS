@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 41758701)
+@com.runwaysdk.business.ClassSignature(hash = -1359802987)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
   public static java.lang.String UNITQUANTIFIER = "unitQuantifier";
   public static java.lang.String UNITSPERAPPLICATION = "unitsPerApplication";
   public static java.lang.String USEDETAIL = "useDetail";
-  private static final long serialVersionUID = 41758701;
+  private static final long serialVersionUID = -1359802987;
   
   public InsecticideBrandViewBase()
   {
@@ -440,6 +440,12 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
   }
   
   public static dss.vector.solutions.irs.InsecticideBrandView[] getAllActive()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideBrandView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.irs.InsecticideBrandView[] getIRSActive()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideBrandView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

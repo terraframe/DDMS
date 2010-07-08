@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 396331030)
+@com.runwaysdk.business.ClassSignature(hash = 801528446)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class InsecticideBrandViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 396331030;
+private static final long serialVersionUID = 801528446;
 
   public InsecticideBrandViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

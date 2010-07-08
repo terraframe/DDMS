@@ -73,6 +73,13 @@ public class InsecticideBrandView extends InsecticideBrandViewBase implements
   {
     return InsecticideBrandView.getViews(InsecticideBrand.getAllActive());
   }
+  
+  @Transaction
+  public static InsecticideBrandView[] getIRSActive()
+  {
+	  InsecticideBrandUse[] uses = {InsecticideBrandUse.IRS};
+    return InsecticideBrandView.getViews(InsecticideBrand.getAll(true, uses));
+  }
 
   private static InsecticideBrandView[] getViews(InsecticideBrand[] brands)
   {
