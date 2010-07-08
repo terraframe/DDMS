@@ -32,7 +32,7 @@
 				label="Insecticide Brand Use Problem"
 				extends="dss.vector.solutions.NotificationProblem"
 				description="When [insecticideUseLabel] is [insecticideUseValue], [attributeLabel] must be [attributeValue]"
-				message="When {insecticideUseLabel} is {insecticideUseValue}, {attributeLabel} must be {$attributeValue}">
+				message="When {insecticideUseLabel} is {insecticideUseValue}, {attributeLabel} must be {attributeValue}">
 				<attributes>
 					<text
 						name="insecticideUseLabel"
