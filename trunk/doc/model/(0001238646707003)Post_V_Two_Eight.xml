@@ -4078,6 +4078,7 @@
           <text name="residenceText" label="Residence Location" />
           <text name="workplaceText" label="Workplace/School Location" />
           <integer name="age" label="Age" description="" rejectNegative="true" />
+          <date name="symptomOnset" label="Symptom Onset Date" />
           <date name="caseReportDate" label="Case Report Date" description="Date for the original case report" />
           <date name="caseEntryDate" label="Case Entry Date" description="Date of case entry in MDSS" />
           <date name="diagnosisDate" label="Diagnosis Date" description="Date of diagnosis" />
@@ -4119,7 +4120,6 @@
           <boolean name="referredTo" label="Patient Referred to this Facility?" positiveLabel="Yes" negativeLabel="No" defaultValue="false" />
           <boolean name="referredFrom" label="Did this facility refer patient to another facility?" positiveLabel="Yes" negativeLabel="No" defaultValue="false" />
           <boolean name="activelyDetected" label="Case Detection" positiveLabel="Actively Detected" negativeLabel="Passively Detected" />
-          <date name="symptomOnset" label="Symptom Onset Date" />
           <date name="facilityVisit" label="Visit Date" required="true" />
           <date name="admissionDate" label="Admission Date" description="In-patient date admitted" />
           <date name="releaseDate" label="Release Date" description="In-patient date released" />
@@ -5717,7 +5717,7 @@
           <virtual concrete="activelyDetected" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
           <virtual concrete="healthFacility" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
           <virtual concrete="clinicalDiagnosis" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
-          <virtual concrete="symptomOnset" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
+          <virtual concrete="symptomOnset" type="dss.vector.solutions.intervention.monitor.IndividualCase" />
           <virtual concrete="facilityVisit" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
           <virtual concrete="admissionDate" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
           <virtual concrete="releaseDate" type="dss.vector.solutions.intervention.monitor.IndividualInstance" />
