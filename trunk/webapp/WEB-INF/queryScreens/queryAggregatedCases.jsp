@@ -1,12 +1,14 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@page import="com.runwaysdk.business.ClassQueryDTO"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="com.runwaysdk.transport.attributes.AttributeDTO"%>
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="com.runwaysdk.web.json.JSONController"%>
+<%@page import="dss.vector.solutions.geo.generated.SentinelSiteDTO"%>
 <%@page import="dss.vector.solutions.query.QueryController"%>
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.SavedSearchViewDTO"%>
@@ -15,53 +17,50 @@
 <%@page import="dss.vector.solutions.query.NonRangeCategoryDTO"%>
 <%@page import="dss.vector.solutions.query.RangeCategoryController"%>
 <%@page import="dss.vector.solutions.query.NonRangeCategoryController"%>
-<%@page import="dss.vector.solutions.query.LayerViewDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedAgeGroupDTO"%>
-<%@page import="dss.vector.solutions.surveillance.AggregatedCaseDTO"%>
 <%@page import="dss.vector.solutions.query.ThematicVariableDTO"%>
+<%@page import="dss.vector.solutions.util.Halp"%>
+<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="org.json.JSONArray"%>
+<%@page import="com.runwaysdk.system.metadata.MdAttributeVirtualDTO"%>
+<%@page import="org.json.JSONException"%>
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
+<%@page import="com.runwaysdk.constants.MdAttributeConcreteInfo"%>
+<%@page import="com.runwaysdk.constants.MdAttributeVirtualInfo"%>
+<%@page import="dss.vector.solutions.query.LayerViewDTO"%>
+<%@page import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page import="java.util.Locale"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="dss.vector.solutions.surveillance.*"%>
 
-<c:set var="page_title" value="Query_Aggregated_Cases"  scope="request" />
 
-<jsp:include page="../templates/header.jsp"></jsp:include>
+<%@page import="com.runwaysdk.business.BusinessDTO"%>
+<c:set var="page_title" value="Query_Intervention_Control"  scope="request"/>
 
+<jsp:include page="../templates/header.jsp"/>
+<jsp:include page="/WEB-INF/inlineError.jsp"/>
+<jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
+<jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
-<jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
-<jwr:script src="/bundles/queryBundle.js"/>
-<jsp:include page="/WEB-INF/selectSearch.jsp"></jsp:include>
-<script type="text/javascript">
-
-  <%
+<%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-    String[] types = new String[]{EpiDateDTO.CLASS, AggregatedCaseDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS};
-    String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
-
-    out.print(js);
-  %>
-
-(function(){
-
-  YAHOO.util.Event.onDOMReady(function(){
-	  
-    var queryList = <%= (String) request.getAttribute("queryList") %>;
-    var ageGroups = <%= (String) request.getAttribute("ageGroups") %>;
-    var visibleAttributes = <%= (String) request.getAttribute("visibleAttributes") %>;
-    visibleAttributes = visibleAttributes.concat(
-        [{"attributeName":"cfr","displayLabel":MDSS.Localized.cfr,"type":"sqldouble"},
-         {"attributeName":"incidence_100","displayLabel":MDSS.Localized.incidence_100,"type":"sqldouble"},
-         {"attributeName":"incidence_1000","displayLabel":MDSS.Localized.incidence_1000,"type":"sqldouble"},
-         {"attributeName":"incidence_10000","displayLabel":MDSS.Localized.incidence_10000,"type":"sqldouble"},
-         {"attributeName":"incidence_100000","displayLabel":MDSS.Localized.incidence_100000,"type":"sqldouble"},
-        ]
+    String[] mosquitoTypes = new String[]{AggregatedCaseDTO.CLASS,CaseTreatmentMethodDTO.CLASS,CaseTreatmentDTO.CLASS,CaseTreatmentStockDTO.CLASS,CaseReferralDTO.CLASS,CaseStockReferralDTO.CLASS,CaseDiagnosticDTO.CLASS,CaseReferralDTO.CLASS,CaseStockReferralDTO.CLASS,CaseDiagnosisTypeDTO.CLASS,CaseDiseaseManifestation.CLASS,CasePatientType.CLASS};
+    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
-         );
+    List<String> loadables = new ArrayList<String>();
+    loadables.addAll(Arrays.asList(mosquitoTypes));
+    loadables.addAll(Arrays.asList(queryTypes));
+%>
 
-    var orderedGrids = <%= (String) request.getAttribute("orderedGrids") %>;
-    var query = new MDSS.QueryAggregatedCases(ageGroups, visibleAttributes, orderedGrids, queryList);
-    query.render();
-    
+<%=Halp.loadTypes(loadables)%>
+
+<script type="text/javascript">
+// Setting both values to false will select *all* univerals
+
+YAHOO.util.Event.onDOMReady(function(){
+
     // attach load listener to Iframe to receive message when error occurs during
     // export operations
     YAHOO.util.Event.on('messageFrame', 'load', function(e){
@@ -75,12 +74,120 @@
 
     }, null, this);
 
-  });
+    var queryList = <%= (String) request.getAttribute("queryList") %>;
+    
+    var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
-})();
+    var aggregatedCase = new dss.vector.solutions.surveillance.AggregatedCase;
+    var aggregatedCaseAttribs = [ "startDate","endDate","geoEntity","ageGroup","cases","deaths","negativeCases","positiveCases"];
+
+    var calculations = ([
+                         {
+                           
+                           key:"total_premises_visited",
+                           type:"sqlfloat",
+                           attributeName:"total_premises_visited",
+                           isAggregate:true
+                         },
+                         {
+                           
+                           key:"total_premises_treated",
+                           type:"sqlfloat",
+                           attributeName:"total_premises_treated",
+                           isAggregate:true
+                         },
+                         {
+                           
+                           key:"total_premises_not_treated",
+                           type:"sqlfloat",
+                           attributeName:"total_premises_not_treated",
+                           isAggregate:true
+                         },
+                     
+                      
+                        ]);
+
+
+    <%
+    Halp.setReadableAttributes(request, "acAttribs", AggregatedCaseDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("acAttribs") %>);
+    aggregatedCaseAttribs = Mojo.Iter.filter(aggregatedCaseAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+    
+    var aggregatedCaseColumns =   aggregatedCaseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedCase, suffix:'_ac', dropDownMaps:{}});
+
+    //aggregatedCaseColumns = controlInterventionColumns.concat(calculations);
+        
+
+    var caseTreatmentMethod = new dss.vector.solutions.surveillance.CaseTreatmentMethod;
+    var caseTreatmentMethodAttribs = [];
+    var caseTreatmentMethodColumns =   caseTreatmentMethodAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:caseTreatmentMethod, suffix:'_ic', dropDownMaps:{}});
+    caseTreatmentMethodColumns = caseTreatmentMethodColumns.concat(orderedGrids.methods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.methods));
+
+     var  treatment = new dss.vector.solutions.surveillance.CaseTreatment;
+     var treatmentAttribs = [];
+     var treatmentColumns =   treatmentAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:treatment, suffix:'_ip', dropDownMaps:{}});
+     treatmentColumns = treatmentColumns.concat(orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments));
+
+     var stock = new dss.vector.solutions.surveillance.CaseTreatmentStock;
+     var stockAttribs = [];
+     var stockColumns =   stockAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stock, suffix:'_ip', dropDownMaps:{}});
+     stockColumns = stockColumns.concat(orderedGrids.stocks.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stocks));
+     
+     var referral = new dss.vector.solutions.surveillance.CaseReferral;
+     var referralAttribs = [];
+     var referralColumns =   referralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:referral, suffix:'_ip', dropDownMaps:{}});
+     referralColumns = referralColumns.concat(orderedGrids.referrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.referrals));
+
+     var stockReferral = new dss.vector.solutions.surveillance.CaseStockReferral;
+     var stockReferralAttribs = [];
+     var stockReferralColumns =   stockReferralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockReferral, suffix:'_ip', dropDownMaps:{}});
+     stockReferralColumns = stockReferralColumns.concat(orderedGrids.stockReferrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stockReferrals));
+      
+     var diagnostic = new dss.vector.solutions.surveillance.CaseDiagnostic;
+     var diagnosticAttribs = [];
+     var diagnosticColumns =  diagnosticAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip', dropDownMaps:{}});
+     diagnosticColumns = diagnosticColumns.concat(orderedGrids.diagnostics.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.diagnostics));
+
+     var caseDiagnosisType = new dss.vector.solutions.surveillance.CaseDiagnosisType;
+     var caseDiagnosisTypeAttribs = [];
+     var caseDiagnosisTypeColumns =  referralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:referral, suffix:'_ip', dropDownMaps:{}});
+     caseDiagnosisTypeColumns = caseDiagnosisTypeColumns.concat(orderedGrids.types.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.types));
+
+     var manifestation = new dss.vector.solutions.surveillance.CaseDiseaseManifestation;
+     var manifestationAttribs = [];
+     var manifestationColumns =  manifestationAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:manifestation, suffix:'_ip', dropDownMaps:{}});
+     manifestationColumns = manifestationColumns.concat(orderedGrids.manifestations.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.manifestations));
+      
+     var patientType = new dss.vector.solutions.surveillance.CasePatientType;
+     var patientTypeAttribs = [];
+     var patientTypeColumns =  patientTypeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:patientType, suffix:'_ip', dropDownMaps:{}});
+     patientTypeColumns = patientTypeColumns.concat(orderedGrids.patientTypes.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.patientTypes));
+     
+ 
+      var selectableGroups = ([
+              {title:"Aggregated_Cases", values:aggregatedCaseColumns, group:"ag", klass:aggregatedCase.CLASS},
+              {title:"Grid_data_by_diagnosis_type", values:caseDiagnosisTypeColumns, group:"dt", klass:aggregatedCase.CLASS},
+              {title:"Grid_data_by_patient_type", values:patientTypeColumns, group:"ap", klass:aggregatedCase.CLASS},
+              {title:"Grid_treatment_by_drug", values:treatmentColumns, group:"pi",klass:aggregatedCase.CLASS},
+              {title:"Grid_treatment_by_method", values:caseTreatmentMethodColumns, group:"ii",klass:aggregatedCase.CLASS},
+              {title:"Grid_treatment_by_stock", values:stockColumns, group:"ii",klass:aggregatedCase.CLASS},
+              {title:"Grid_referrals_and_Shortages", values:stockReferralColumns, group:"ii",klass:aggregatedCase.CLASS},
+              {title:"Grid_referral_Reasons", values:referralColumns, group:"ii",klass:aggregatedCase.CLASS},
+              {title:"Grid_diagnostic_methods", values:diagnosticColumns, group:"ii",klass:aggregatedCase.CLASS},
+      ]);
+
+
+    
+    var query = new MDSS.QueryAggregatedCases(selectableGroups, queryList);
+    query.render();
+
+});
 
 </script>
-
 <jsp:include page="queryContainer.jsp"></jsp:include>
+
 
 <jsp:include page="../templates/footer.jsp"></jsp:include>
