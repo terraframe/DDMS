@@ -9,8 +9,14 @@
   <mjl:form id="dss.vector.solutions.irs.InsecticideBrand.form.id" name="dss.vector.solutions.irs.InsecticideBrand.form.name" method="POST">
     <mjl:input param="id" value="${item.id}" type="hidden" />
     <mjl:component param="dto" item="${item}">
+      <mjl:dt attribute="productName">
+        ${item.productName.displayLabel}
+      </mjl:dt>
       <mjl:dt attribute="activeIngredient">
         ${item.activeIngredient.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="concentrationQuantifier">
+        ${item.concentrationQuantifier}
       </mjl:dt>
       <mjl:dt attribute="concentrationQualifier">
         <ul>
@@ -21,15 +27,6 @@
           </c:forEach>
         </ul>
       </mjl:dt>
-      <mjl:dt attribute="concentrationQuantifier">
-        ${item.concentrationQuantifier}
-      </mjl:dt>
-      <mjl:dt attribute="disease">
-        ${item.disease.keyName}
-      </mjl:dt>
-      <mjl:dt attribute="enabled">
-        ${item.enabled ? item.enabledMd.positiveDisplayLabel : item.enabledMd.negativeDisplayLabel}
-      </mjl:dt>
       <mjl:dt attribute="insecticideUse">
         <ul>
           <c:forEach items="${item.insecticideUseEnumNames}" var="enumName">
@@ -39,8 +36,14 @@
           </c:forEach>
         </ul>
       </mjl:dt>
-      <mjl:dt attribute="productName">
-        ${item.productName.displayLabel}
+      <mjl:dt attribute="useDetail">
+        ${item.useDetail.displayLabel}
+      </mjl:dt>
+      <mjl:dt attribute="unitsPerApplication">
+        ${item.unitsPerApplication}
+      </mjl:dt>
+      <mjl:dt attribute="unitQuantifier">
+        ${item.unitQuantifier}
       </mjl:dt>
       <mjl:dt attribute="unitQualifier">
         <ul>
@@ -51,14 +54,8 @@
           </c:forEach>
         </ul>
       </mjl:dt>
-      <mjl:dt attribute="unitQuantifier">
-        ${item.unitQuantifier}
-      </mjl:dt>
-      <mjl:dt attribute="unitsPerApplication">
-        ${item.unitsPerApplication}
-      </mjl:dt>
-      <mjl:dt attribute="useDetail">
-        ${item.useDetail.displayLabel}
+      <mjl:dt attribute="enabled">
+        ${item.enabled ? item.enabledMd.positiveDisplayLabel : item.enabledMd.negativeDisplayLabel}
       </mjl:dt>
     </mjl:component>
     <mjl:command localize="false" name="dss.vector.solutions.irs.InsecticideBrand.form.edit.button" value="Edit" action="dss.vector.solutions.irs.InsecticideBrandController.edit.mojo" />

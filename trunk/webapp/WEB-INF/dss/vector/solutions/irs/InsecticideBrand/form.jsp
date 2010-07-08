@@ -3,8 +3,14 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <mjl:component param="dto" item="${item}">
+  <mjl:dt attribute="productName">
+    <mdss:mo param="productName" value="${productName}" />
+  </mjl:dt>
   <mjl:dt attribute="activeIngredient">
     <mdss:mo param="activeIngredient" value="${activeIngredient}" />
+  </mjl:dt>
+  <mjl:dt attribute="concentrationQuantifier">
+    <mjl:input param="concentrationQuantifier" type="text" />
   </mjl:dt>
   <mjl:dt attribute="concentrationQualifier">
     <mjl:select param="concentrationQualifier" items="${_concentrationQualifier}" var="current" valueAttribute="enumName">
@@ -13,19 +19,6 @@
       </mjl:option>
     </mjl:select>
   </mjl:dt>
-  <mjl:dt attribute="concentrationQuantifier">
-    <mjl:input param="concentrationQuantifier" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="disease">
-    <mjl:select param="disease" items="${_disease}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.keyName}
-      </mjl:option>
-    </mjl:select>
-  </mjl:dt>
-  <mjl:dt attribute="enabled">
-    <mjl:boolean param="enabled" />
-  </mjl:dt>
   <mjl:dt attribute="insecticideUse">
     <mjl:select param="insecticideUse" items="${_insecticideUse}" var="current" valueAttribute="enumName">
       <mjl:option selected="${mjl:contains(item.insecticideUseEnumNames, current.enumName) ? 'selected' : 'false'}">
@@ -33,8 +26,14 @@
       </mjl:option>
     </mjl:select>
   </mjl:dt>
-  <mjl:dt attribute="productName">
-    <mdss:mo param="productName" value="${productName}" />
+  <mjl:dt attribute="useDetail">
+    <mdss:mo param="useDetail" value="${useDetail}" />
+  </mjl:dt>
+  <mjl:dt attribute="unitsPerApplication">
+    <mjl:input param="unitsPerApplication" type="text" />
+  </mjl:dt>
+  <mjl:dt attribute="unitQuantifier">
+    <mjl:input param="unitQuantifier" type="text" />
   </mjl:dt>
   <mjl:dt attribute="unitQualifier">
     <mjl:select param="unitQualifier" items="${_unitQualifier}" var="current" valueAttribute="enumName">
@@ -43,13 +42,7 @@
       </mjl:option>
     </mjl:select>
   </mjl:dt>
-  <mjl:dt attribute="unitQuantifier">
-    <mjl:input param="unitQuantifier" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="unitsPerApplication">
-    <mjl:input param="unitsPerApplication" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="useDetail">
-    <mdss:mo param="useDetail" value="${useDetail}" />
+  <mjl:dt attribute="enabled">
+    <mjl:boolean param="enabled" />
   </mjl:dt>
 </mjl:component>

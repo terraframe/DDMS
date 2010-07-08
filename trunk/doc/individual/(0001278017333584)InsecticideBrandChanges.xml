@@ -21,6 +21,9 @@
 			<object
 				key="dss.vector.solutions.irs.InsecticideBrandLabel.concentration"
 				type="com.runwaysdk.system.metadata.MdAttribute" />
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrandView.activeIngredient"
+				type="dss.vector.solutions.ontology.BrowserField" />
 		</delete>
 
 
@@ -541,11 +544,57 @@
 				</create>
 			</mdView>
 		</update>
+
+		<create>
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrand.productName"
+				type="dss.vector.solutions.ontology.BrowserField">
+				<attributeReference
+					name="mdAttribute"
+					key="dss.vector.solutions.irs.InsecticideBrand.productName" />
+			</object>
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrand.useDetail"
+				type="dss.vector.solutions.ontology.BrowserField">
+				<attributeReference
+					name="mdAttribute"
+					key="dss.vector.solutions.irs.InsecticideBrand.useDetail" />
+			</object>
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrand.activeIngredient"
+				type="dss.vector.solutions.ontology.BrowserField">
+				<attributeReference
+					name="mdAttribute"
+					key="dss.vector.solutions.irs.InsecticideBrand.activeIngredient" />
+			</object>
+		</create>
 	</doIt>
 
 
 
 	<undoIt>
+		<create>
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrandView.activeIngredient"
+				type="dss.vector.solutions.ontology.BrowserField">
+				<attributeReference
+					name="mdAttribute"
+					key="dss.vector.solutions.irs.InsecticideBrandView.activeIngredient" />
+			</object>
+		</create>
+
+		<delete>
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrand.productName"
+				type="dss.vector.solutions.ontology.BrowserField" />
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrand.useDetail"
+				type="dss.vector.solutions.ontology.BrowserField" />
+			<object
+				key="Ontology__dss.vector.solutions.irs.InsecticideBrand.activeIngredient"
+				type="dss.vector.solutions.ontology.BrowserField" />
+		</delete>
+
 		<update>
 			<mdBusiness
 				name="dss.vector.solutions.irs.InsecticideBrand">

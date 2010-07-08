@@ -8,10 +8,17 @@
 <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.irs.InsecticideBrandController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="productName">
+      <mjl:row>
+        ${item.productName.displayLabel}
+      </mjl:row>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="activeIngredient">
       <mjl:row>
         ${item.activeIngredient.displayLabel}
       </mjl:row>
+    </mjl:attributeColumn>
+    <mjl:attributeColumn attributeName="concentrationQuantifier">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="concentrationQualifier">
       <mjl:row>
@@ -24,15 +31,6 @@
         </ul>
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="concentrationQuantifier">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="disease">
-      <mjl:row>
-        ${item.disease.keyName}
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="enabled">
-    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="insecticideUse">
       <mjl:row>
         <ul>
@@ -44,30 +42,7 @@
         </ul>
       </mjl:row>
     </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="productName">
-      <mjl:row>
-        ${item.productName.displayLabel}
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="unitQualifier">
-      <mjl:row>
-        <ul>
-          <c:forEach items="${item.unitQualifierEnumNames}" var="enumName">
-            <li>
-              ${item.unitQualifierMd.enumItems[enumName]}
-            </li>
-          </c:forEach>
-        </ul>
-      </mjl:row>
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="unitQuantifier">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="unitsPerApplication">
-    </mjl:attributeColumn>
-    <mjl:attributeColumn attributeName="useDetail">
-      <mjl:row>
-        ${item.useDetail.displayLabel}
-      </mjl:row>
+    <mjl:attributeColumn attributeName="enabled">
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
