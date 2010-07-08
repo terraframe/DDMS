@@ -57,7 +57,7 @@
       </tr>
       <tr>
         <td>
-          <mjl:dt attribute="brand"> ${brand.brandName} </mjl:dt>
+          <mjl:dt attribute="brand"> ${brand.productName.termDisplayLabel.value} </mjl:dt>
         </td>
         <td>
           <mjl:dt attribute="sprayOperator"> ${item.sprayOperator.person.lastName}, ${item.sprayOperator.person.firstName} </mjl:dt>

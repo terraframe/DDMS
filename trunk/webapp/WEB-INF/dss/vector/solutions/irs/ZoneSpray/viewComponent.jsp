@@ -59,7 +59,7 @@ background:none;
     </tr>
     <tr>
       <td>
-        <mjl:dt attribute="brand"> ${brand.brandName} </mjl:dt>
+        <mjl:dt attribute="brand"> ${brand.productName.termDisplayLabel.value} </mjl:dt>
       </td>
       <td>
         <mjl:dt attribute="sprayWeek"> ${item.sprayWeek} </mjl:dt>

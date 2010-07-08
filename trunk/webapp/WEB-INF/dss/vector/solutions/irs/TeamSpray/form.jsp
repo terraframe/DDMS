@@ -20,7 +20,7 @@
       <mjl:dt attribute="brand"> 
         <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand" >
          <mjl:option selected="${item.brand != null && current.id == item.brand.id ? 'selected' : 'false'}">
-           ${current.brandName}
+           ${current.productName.termDisplayLabel.value}
          </mjl:option>
         </mjl:select>
       </mjl:dt>

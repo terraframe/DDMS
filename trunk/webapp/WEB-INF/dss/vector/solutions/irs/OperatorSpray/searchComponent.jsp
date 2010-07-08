@@ -34,7 +34,7 @@
     <dd>
       <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >
        <mjl:option selected="${brand != null && current.id == brand.id ? 'selected' : 'false'}">
-          ${current.brandName}
+          ${current.productName.termDisplayLabel.value}
        </mjl:option>
       </mjl:select>
     </dd>
