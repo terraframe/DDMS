@@ -15,6 +15,7 @@ import dss.vector.solutions.entomology.LifeStageDTO;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionViewDTO;
 import dss.vector.solutions.entomology.SubCollectionViewDTO;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.general.PopulationData;
@@ -28,6 +29,10 @@ import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.geo.generated.StockDepot;
 import dss.vector.solutions.geo.generated.Surface;
+import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.InsecticideBrandConcentrationQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUnitQualifier;
+import dss.vector.solutions.irs.InsecticideBrandUse;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.permissions.PermissionTest;
@@ -81,6 +86,24 @@ public class TestFixture
     insecticide.apply();
 
     return insecticide;
+  }
+  
+  public static InsecticideBrand createInsecticideBrand()
+  {
+    InsecticideBrand deltamethrin = new InsecticideBrand();
+    deltamethrin.setProductName(TestFixture.createRandomTerm());
+    deltamethrin.addInsecticideUse(InsecticideBrandUse.IRS);
+    deltamethrin.setDisease(Disease.getMalaria());
+    deltamethrin.setActiveIngredient(TestFixture.createRandomTerm());
+    deltamethrin.setConcentrationQuantifier(new BigDecimal("25"));
+    deltamethrin.addConcentrationQualifier(InsecticideBrandConcentrationQualifier.PERCENT);
+    deltamethrin.setUnitQuantifier(new BigDecimal(20.00));
+    deltamethrin.addUnitQualifier(InsecticideBrandUnitQualifier.GRAMS);
+    deltamethrin.setUnitsPerApplication(1);
+    deltamethrin.setEnabled(true);
+    deltamethrin.apply();
+
+    return deltamethrin;
   }
 
   private static String getRandomGeoId()
@@ -250,6 +273,17 @@ public class TestFixture
     insecticide.delete();
 
     units.delete();
+    activeIngredient.delete();
+  }
+
+  public static void delete(InsecticideBrand insecticideBrand)
+  {
+    Term productName = insecticideBrand.getProductName();
+    Term activeIngredient = insecticideBrand.getActiveIngredient();
+
+    insecticideBrand.delete();
+
+    productName.delete();
     activeIngredient.delete();
   }
 
