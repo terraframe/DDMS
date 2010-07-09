@@ -98,6 +98,12 @@
             required="true"
             description="The sex of the tested mosquitos"
             type="dss.vector.solutions.ontology.Term" />
+          <reference
+            name="insecticideBrand"
+            label="Insecticide product"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            description="The Insecticide product being tested."
+            required="true" />
         </attributes>
         <mdMethod
           name="getOverallMortalityRate"

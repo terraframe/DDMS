@@ -1478,12 +1478,6 @@
             type="dss.vector.solutions.ontology.Term"
             description="The Specie of mosqito being tested."
             required="false" />
-          <reference
-            name="insecticide"
-            label="Insecticide"
-            type="dss.vector.solutions.general.Insecticide"
-            description="The Insecticide being tested."
-            required="true" />
         </attributes>
       </mdBusiness>
 
@@ -1547,6 +1541,12 @@
             required="true"
             description="The interval time in minutes"
             defaultValue="10" />
+          <reference
+            name="insecticide"
+            label="Insecticide"
+            type="dss.vector.solutions.general.Insecticide"
+            description="The Insecticide being tested."
+            required="true" />
         </attributes>
         <mdMethod
           name="getKD50"

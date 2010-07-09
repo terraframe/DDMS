@@ -52,7 +52,7 @@ private static final long serialVersionUID = 1242609508401L;
       vQuery.map(EfficacyAssayView.GEOID, query.getGeoEntity().getGeoId());
       vQuery.map(EfficacyAssayView.GRAVID, query.getGravid());
       vQuery.map(EfficacyAssayView.HOLDINGTIME, query.getHoldingTime());
-      vQuery.map(EfficacyAssayView.INSECTICIDE, query.getInsecticide());
+      vQuery.map(EfficacyAssayView.INSECTICIDEBRAND, query.getInsecticideBrand());
       vQuery.map(EfficacyAssayView.MORTALITY, query.getMortality());
       vQuery.map(EfficacyAssayView.QUANTITYDEAD, query.getQuantityDead());
       vQuery.map(EfficacyAssayView.QUANTITYLIVE, query.getQuantityLive());

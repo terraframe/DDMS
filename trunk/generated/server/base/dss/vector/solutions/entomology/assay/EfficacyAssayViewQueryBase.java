@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -664112187)
+@com.runwaysdk.business.ClassSignature(hash = 465485166)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public  abstract  class EfficacyAssayViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -664112187;
+private static final long serialVersionUID = 465485166;
 
   public EfficacyAssayViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -207,23 +207,23 @@ private static final long serialVersionUID = -664112187;
 
   }
  
-  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
   {
-    return getInsecticide(null);
+    return getInsecticideBrand(null);
 
   }
  
-  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
   {
 
-    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.INSECTICIDE, alias, null);
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.INSECTICIDEBRAND, alias, null);
 
   }
  
-  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias, String displayLabel)
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
   {
 
-    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.INSECTICIDE, alias, displayLabel);
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.INSECTICIDEBRAND, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableFloat getMortality()

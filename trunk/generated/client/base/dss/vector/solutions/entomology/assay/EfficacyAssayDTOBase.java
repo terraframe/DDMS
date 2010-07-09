@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -2113548374)
+@com.runwaysdk.business.ClassSignature(hash = 1263237411)
 public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssay";
-  private static final long serialVersionUID = -2113548374;
+  private static final long serialVersionUID = 1263237411;
   
   protected EfficacyAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -34,6 +34,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String HOLDINGTIME = "holdingTime";
+  public static java.lang.String INSECTICIDEBRAND = "insecticideBrand";
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
@@ -295,6 +296,50 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getHoldingTimeMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(HOLDINGTIME).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.irs.InsecticideBrandDTO getInsecticideBrand()
+  {
+    if(getValue(INSECTICIDEBRAND) == null || getValue(INSECTICIDEBRAND).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(INSECTICIDEBRAND));
+    }
+  }
+  
+  public void setInsecticideBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDEBRAND, "");
+    }
+    else
+    {
+      setValue(INSECTICIDEBRAND, value.getId());
+    }
+  }
+  
+  public boolean isInsecticideBrandWritable()
+  {
+    return isWritable(INSECTICIDEBRAND);
+  }
+  
+  public boolean isInsecticideBrandReadable()
+  {
+    return isReadable(INSECTICIDEBRAND);
+  }
+  
+  public boolean isInsecticideBrandModified()
+  {
+    return isModified(INSECTICIDEBRAND);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getInsecticideBrandMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDEBRAND).getAttributeMdDTO();
   }
   
   public Float getMortality()

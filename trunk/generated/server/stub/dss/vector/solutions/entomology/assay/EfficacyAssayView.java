@@ -42,7 +42,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
     concrete.setGeoEntity((Surface) entity);
     concrete.setGravid(this.getGravid());
     concrete.setHoldingTime(this.getHoldingTime());
-    concrete.setInsecticide(this.getInsecticide());
+    concrete.setInsecticideBrand(this.getInsecticideBrand());
     concrete.setMortality(this.getMortality());
     concrete.setQuantityDead(this.getQuantityDead());
     concrete.setQuantityLive(this.getQuantityLive());
@@ -71,7 +71,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
     this.setGeoId(assay.getGeoEntity().getGeoId());
     this.setGravid(assay.getGravid());
     this.setHoldingTime(assay.getHoldingTime());
-    this.setInsecticide(assay.getInsecticide());
+    this.setInsecticideBrand(assay.getInsecticideBrand());
     this.setMortality(assay.getMortality());
     this.setQuantityDead(assay.getQuantityDead());
     this.setQuantityLive(assay.getQuantityLive());
@@ -114,7 +114,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
     new AttributeNotificationMap(concrete, EfficacyAssay.GEOENTITY, this, EfficacyAssayView.GEOID);
     new AttributeNotificationMap(concrete, EfficacyAssay.GRAVID, this, EfficacyAssayView.GRAVID);
     new AttributeNotificationMap(concrete, EfficacyAssay.HOLDINGTIME, this, EfficacyAssayView.HOLDINGTIME);
-    new AttributeNotificationMap(concrete, EfficacyAssay.INSECTICIDE, this, EfficacyAssayView.INSECTICIDE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.INSECTICIDEBRAND, this, EfficacyAssayView.INSECTICIDEBRAND);
     new AttributeNotificationMap(concrete, EfficacyAssay.MORTALITY, this, EfficacyAssayView.MORTALITY);
     new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYDEAD, this, EfficacyAssayView.QUANTITYDEAD);
     new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYLIVE, this, EfficacyAssayView.QUANTITYLIVE);

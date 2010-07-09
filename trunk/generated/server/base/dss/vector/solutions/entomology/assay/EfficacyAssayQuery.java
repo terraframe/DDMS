@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1143319187)
+@com.runwaysdk.business.ClassSignature(hash = -1549839526)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public  class EfficacyAssayQuery extends dss.vector.solutions.entomology.assay.AbstractAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1143319187;
+private static final long serialVersionUID = -1549839526;
 
   public EfficacyAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -168,6 +168,29 @@ private static final long serialVersionUID = 1143319187;
   public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.EfficacyAssay.HOLDINGTIME, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND);
+
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND);
+
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableFloat getMortality()
@@ -355,6 +378,10 @@ private static final long serialVersionUID = 1143319187;
     {
        return new dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND)) 
+    {
+       return new dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
@@ -444,6 +471,9 @@ private static final long serialVersionUID = 1143319187;
     public com.runwaysdk.query.SelectableInteger getHoldingTime();
     public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias);
     public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand();
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias);
+    public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableFloat getMortality();
     public com.runwaysdk.query.SelectableFloat getMortality(String alias);
     public com.runwaysdk.query.SelectableFloat getMortality(String alias, String displayLabel);
@@ -486,7 +516,7 @@ private static final long serialVersionUID = 1143319187;
  implements EfficacyAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1775453259;
+private static final long serialVersionUID = 671258232;
 
   public EfficacyAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -622,6 +652,23 @@ private static final long serialVersionUID = -1775453259;
   public com.runwaysdk.query.SelectableInteger getHoldingTime(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.HOLDINGTIME, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand()
+  {
+    return getInsecticideBrand(null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF getInsecticideBrand(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND,  alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableFloat getMortality()
@@ -784,6 +831,10 @@ private static final long serialVersionUID = -1775453259;
     if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.GEOENTITY)) 
     {
        return new dss.vector.solutions.geo.generated.SurfaceQuery.SurfaceQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.INSECTICIDEBRAND)) 
+    {
+       return new dss.vector.solutions.irs.InsecticideBrandQuery.InsecticideBrandQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else if (name.equals(dss.vector.solutions.entomology.assay.EfficacyAssay.SEX)) 
     {

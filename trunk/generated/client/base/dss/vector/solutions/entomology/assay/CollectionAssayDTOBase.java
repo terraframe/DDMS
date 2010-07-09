@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -2020084092)
+@com.runwaysdk.business.ClassSignature(hash = 1592451175)
 public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.CollectionAssay";
-  private static final long serialVersionUID = -2020084092;
+  private static final long serialVersionUID = 1592451175;
   
   protected CollectionAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,7 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
+  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
@@ -201,6 +202,50 @@ public abstract class CollectionAssayDTOBase extends dss.vector.solutions.entomo
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getIdentificationMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(IDENTIFICATIONMETHOD).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.InsecticideDTO getInsecticide()
+  {
+    if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
+    }
+  }
+  
+  public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDE, "");
+    }
+    else
+    {
+      setValue(INSECTICIDE, value.getId());
+    }
+  }
+  
+  public boolean isInsecticideWritable()
+  {
+    return isWritable(INSECTICIDE);
+  }
+  
+  public boolean isInsecticideReadable()
+  {
+    return isReadable(INSECTICIDE);
+  }
+  
+  public boolean isInsecticideModified()
+  {
+    return isModified(INSECTICIDE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()

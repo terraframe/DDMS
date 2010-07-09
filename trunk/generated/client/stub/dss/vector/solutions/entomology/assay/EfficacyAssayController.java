@@ -302,7 +302,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     clone.setTimeOnSurface(dto.getTimeOnSurface());
     clone.setGravid(dto.getGravid());
     clone.setFed(dto.getFed());
-    clone.setInsecticide(dto.getInsecticide());
+    clone.setInsecticideBrand(dto.getInsecticideBrand());
     clone.getAgeRange().setStartPoint(dto.getAgeRange().getStartPoint());
     clone.getAgeRange().setEndPoint(dto.getAgeRange().getEndPoint());
     clone.setSex(dto.getSex());

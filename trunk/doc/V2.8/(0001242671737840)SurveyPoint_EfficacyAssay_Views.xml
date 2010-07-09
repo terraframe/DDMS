@@ -173,9 +173,9 @@
             concrete="specie"
             type="dss.vector.solutions.entomology.assay.AbstractAssay" />
           <virtual
-            name="insecticide"
-            concrete="insecticide"
-            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+            name="insecticideBrand"
+            concrete="insecticideBrand"
+            type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
           <virtual
             name="testMethod"
             concrete="testMethod"

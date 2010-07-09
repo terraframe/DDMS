@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1312101636)
+@com.runwaysdk.business.ClassSignature(hash = -145706521)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,10 +15,11 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String GENERATION = "generation";
   public static java.lang.String IDENTIFICATIONMETHOD = "identificationMethod";
+  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 1312101636;
+  private static final long serialVersionUID = -145706521;
   
   public CollectionAssayBase()
   {
@@ -155,6 +156,41 @@ public abstract class CollectionAssayBase extends dss.vector.solutions.entomolog
     else
     {
       setValue(IDENTIFICATIONMETHOD, value.getId());
+    }
+  }
+  
+  public dss.vector.solutions.general.Insecticide getInsecticide()
+  {
+    if (getValue(INSECTICIDE).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.general.Insecticide.get(getValue(INSECTICIDE));
+    }
+  }
+  
+  public void validateInsecticide()
+  {
+    this.validateAttribute(INSECTICIDE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.CollectionAssay.CLASS);
+    return mdClassIF.definesAttribute(INSECTICIDE);
+  }
+  
+  public void setInsecticide(dss.vector.solutions.general.Insecticide value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDE, "");
+    }
+    else
+    {
+      setValue(INSECTICIDE, value.getId());
     }
   }
   

@@ -43,9 +43,9 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
     {
       return "New: "+ this.getClassDisplayLabel();
     }
-    else if(this.getGeoEntity() != null && this.getInsecticide() != null)
+    else if(this.getGeoEntity() != null && this.getInsecticideBrand() != null)
     {
-      return "(" + this.getGeoEntity().getLabel() + ", " + this.getInsecticide().toString() + ")";
+      return "(" + this.getGeoEntity().getLabel() + ", " + this.getInsecticideBrand().toString() + ")";
     }
     
     return super.toString();

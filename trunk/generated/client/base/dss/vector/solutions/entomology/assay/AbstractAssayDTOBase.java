@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1081480846)
+@com.runwaysdk.business.ClassSignature(hash = -645415501)
 public abstract class AbstractAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AbstractAssay";
-  private static final long serialVersionUID = -1081480846;
+  private static final long serialVersionUID = -645415501;
   
   protected AbstractAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -32,7 +32,6 @@ public abstract class AbstractAssayDTOBase extends com.runwaysdk.business.Busine
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
-  public static java.lang.String INSECTICIDE = "insecticide";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
@@ -186,50 +185,6 @@ public abstract class AbstractAssayDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
-  }
-  
-  public dss.vector.solutions.general.InsecticideDTO getInsecticide()
-  {
-    if(getValue(INSECTICIDE) == null || getValue(INSECTICIDE).trim().equals(""))
-    {
-      return null;
-    }
-    else
-    {
-      return dss.vector.solutions.general.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
-    }
-  }
-  
-  public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
-  {
-    if(value == null)
-    {
-      setValue(INSECTICIDE, "");
-    }
-    else
-    {
-      setValue(INSECTICIDE, value.getId());
-    }
-  }
-  
-  public boolean isInsecticideWritable()
-  {
-    return isWritable(INSECTICIDE);
-  }
-  
-  public boolean isInsecticideReadable()
-  {
-    return isReadable(INSECTICIDE);
-  }
-  
-  public boolean isInsecticideModified()
-  {
-    return isModified(INSECTICIDE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getInsecticideMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(INSECTICIDE).getAttributeMdDTO();
   }
   
   public String getKeyName()

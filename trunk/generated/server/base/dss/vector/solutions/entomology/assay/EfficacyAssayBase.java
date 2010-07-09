@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1570987734)
+@com.runwaysdk.business.ClassSignature(hash = -684533853)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,6 +20,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String HOLDINGTIME = "holdingTime";
+  public static java.lang.String INSECTICIDEBRAND = "insecticideBrand";
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
@@ -29,7 +30,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = -1570987734;
+  private static final long serialVersionUID = -684533853;
   
   public EfficacyAssayBase()
   {
@@ -225,6 +226,41 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     else
     {
       setValue(HOLDINGTIME, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public dss.vector.solutions.irs.InsecticideBrand getInsecticideBrand()
+  {
+    if (getValue(INSECTICIDEBRAND).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.irs.InsecticideBrand.get(getValue(INSECTICIDEBRAND));
+    }
+  }
+  
+  public void validateInsecticideBrand()
+  {
+    this.validateAttribute(INSECTICIDEBRAND);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideBrandMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
+    return mdClassIF.definesAttribute(INSECTICIDEBRAND);
+  }
+  
+  public void setInsecticideBrand(dss.vector.solutions.irs.InsecticideBrand value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDEBRAND, "");
+    }
+    else
+    {
+      setValue(INSECTICIDEBRAND, value.getId());
     }
   }
   

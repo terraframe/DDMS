@@ -729,7 +729,6 @@
         <attributes>
           <date name="testDate" label="Test Date" description="The date the test was performed" />
           <reference name="specie" label="Species" type="dss.vector.solutions.ontology.Term" description="The Specie of mosqito being tested." required="false" />
-          <reference name="insecticide" label="Insecticide" type="dss.vector.solutions.general.Insecticide" description="The Insecticide being tested." required="true" />
         </attributes>
       </mdBusiness>
       <mdBusiness
@@ -748,6 +747,7 @@
           <reference name="testMethod" label="Test Method" type="dss.vector.solutions.ontology.Term" />
           <reference name="identificationMethod" label="Identification Method" type="dss.vector.solutions.ontology.Term" required="false" />
           <reference name="generation" label="Generation" required="true" description="The generation of the mosquito" type="dss.vector.solutions.ontology.Term" />
+          <reference name="insecticide" label="Insecticide" type="dss.vector.solutions.general.Insecticide" description="The Insecticide being tested." required="true" />
         </attributes>
         <mdMethod name="getKD50" label="Get KD50" returnType="java.lang.Double" static="false" description="Returns the predicted KD50" />
         <mdMethod name="getKD95" label="Get KD95" returnType="java.lang.Double" static="false" description="Returns the predicted KD95" />

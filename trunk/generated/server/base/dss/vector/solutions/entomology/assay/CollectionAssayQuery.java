@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1439765307)
+@com.runwaysdk.business.ClassSignature(hash = -1735453360)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public  class CollectionAssayQuery extends dss.vector.solutions.entomology.assay.AbstractAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1439765307;
+private static final long serialVersionUID = -1735453360;
 
   public CollectionAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -48,7 +48,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("collection");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION);
 
     return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION, mdAttributeIF, this, alias, null);
 
@@ -57,7 +57,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF getCollection(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("collection");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION);
 
     return (dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION, mdAttributeIF, this, alias, displayLabel);
 
@@ -88,7 +88,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("generation");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION, mdAttributeIF, this, alias, null);
 
@@ -97,7 +97,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getGeneration(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("generation");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION, mdAttributeIF, this, alias, displayLabel);
 
@@ -111,7 +111,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("identificationMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD, mdAttributeIF, this, alias, null);
 
@@ -120,9 +120,32 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("identificationMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
+  {
+    return getInsecticide(null);
+
+  }
+ 
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE);
+
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE);
+
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getIsofemale()
@@ -168,7 +191,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("testMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD, mdAttributeIF, this, alias, null);
 
@@ -177,7 +200,7 @@ private static final long serialVersionUID = 1439765307;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getTestMethod(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("testMethod");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD, mdAttributeIF, this, alias, displayLabel);
 
@@ -186,19 +209,23 @@ private static final long serialVersionUID = 1439765307;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("collection")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION)) 
     {
        return new dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("generation")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("identificationMethod")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("testMethod")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE)) 
+    {
+       return new dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -252,6 +279,9 @@ private static final long serialVersionUID = 1439765307;
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod();
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias);
     public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getIdentificationMethod(String alias, String displayLabel);
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide();
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias);
+    public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getIsofemale();
     public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias);
     public com.runwaysdk.query.SelectableBoolean getIsofemale(String alias, String displayLabel);
@@ -276,7 +306,7 @@ private static final long serialVersionUID = 1439765307;
  implements CollectionAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 784851801;
+private static final long serialVersionUID = 1637087858;
 
   public CollectionAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -363,6 +393,23 @@ private static final long serialVersionUID = 784851801;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD,  alias, displayLabel);
 
   }
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide()
+  {
+    return getInsecticide(null);
+
+  }
+ 
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias)
+  {
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF getInsecticide(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReferenceIF)this.get(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE,  alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableBoolean getIsofemale()
   {
     return getIsofemale(null);
@@ -418,19 +465,23 @@ private static final long serialVersionUID = 784851801;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("collection")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.COLLECTION)) 
     {
        return new dss.vector.solutions.entomology.MosquitoCollectionQuery.MosquitoCollectionQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("generation")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.GENERATION)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("identificationMethod")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.IDENTIFICATIONMETHOD)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("testMethod")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.INSECTICIDE)) 
+    {
+       return new dss.vector.solutions.general.InsecticideQuery.InsecticideQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.entomology.assay.CollectionAssay.TESTMETHOD)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

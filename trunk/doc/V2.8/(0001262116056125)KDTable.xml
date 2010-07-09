@@ -58,7 +58,7 @@
             type="dss.vector.solutions.entomology.assay.AbstractAssay" />
           <virtual
             concrete="insecticide"
-            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
           <virtual
             concrete="testMethod"
             type="dss.vector.solutions.entomology.assay.CollectionAssay" />
@@ -125,7 +125,7 @@
             type="dss.vector.solutions.entomology.assay.AbstractAssay" />
           <virtual
             concrete="insecticide"
-            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
           <virtual
             concrete="testMethod"
             type="dss.vector.solutions.entomology.assay.CollectionAssay" />
@@ -192,7 +192,7 @@
             type="dss.vector.solutions.entomology.assay.AbstractAssay" />
           <virtual
             concrete="insecticide"
-            type="dss.vector.solutions.entomology.assay.AbstractAssay" />
+            type="dss.vector.solutions.entomology.assay.CollectionAssay" />
           <virtual
             concrete="testMethod"
             type="dss.vector.solutions.entomology.assay.CollectionAssay" />
