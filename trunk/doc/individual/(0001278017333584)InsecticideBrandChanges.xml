@@ -443,10 +443,11 @@
 							label="Use"
 							type="dss.vector.solutions.irs.InsecticideBrandUse"
 							selectMultiple="false"
+							immutable="true"
 							required="true" />
 						<reference
 							name="useDetail"
-							label="Use detail"
+							label="Use detail" 
 							type="dss.vector.solutions.ontology.Term" />
 						<decimal
 							name="concentrationQuantifier"
