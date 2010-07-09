@@ -475,6 +475,20 @@ YAHOO.util.Event.onDOMReady(function(){
     var query = new MDSS.QueryIRS(selectableGroups, queryList);
     query.render();
 
+    var dm = query.getDependencyManager();
+    dm.includes({
+      independent: 'concentrationQuantifier_spray',
+      dependent: 'concentrationQualifier_spray',
+      type: MDSS.Dependent.BOTH,
+      bidirectional: true
+    });
+    dm.includes({
+      independent: 'unitQuantifier_spray',
+      dependent: 'unitQualifier_spray',
+      type: MDSS.Dependent.BOTH,
+      bidirectional: true
+    });
+
 });
 
 --></script>

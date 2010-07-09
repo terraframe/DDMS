@@ -871,16 +871,25 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
           this.thisRef._dm.disable();
           
-          this.thisRef._resetToDefault();
-          this.thisRef._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
+          try
+          {
+            this.thisRef._resetToDefault();
+            this.thisRef._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
           
-          this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
-          this.thisRef._reconstructSearch(savedSearchView);
+            this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
+            this.thisRef._reconstructSearch(savedSearchView);
   
-          // set the XML and config
-          this.thisRef._loadQueryState(savedSearchView);
-          
-          this.thisRef._dm.enable();
+            // set the XML and config
+            this.thisRef._loadQueryState(savedSearchView);
+          }
+          catch(e)
+          {
+            
+          }
+          finally
+          {
+            this.thisRef._dm.enable();
+          }
         }
       });
   

@@ -239,6 +239,19 @@ YAHOO.util.Event.onDOMReady(function(){
     var query = new MDSS.QueryInterventionControl(selectableGroups, queryList);
     query.render();
 
+    var dm = query.getDependencyManager();
+    dm.includes({
+      independent: 'concentrationQuantifier_ii',
+      dependent: 'concentrationQualifier_ii',
+      type: MDSS.Dependent.BOTH,
+      bidirectional: true
+    });
+    dm.includes({
+      independent: 'unitQuantifier_ii',
+      dependent: 'unitQualifier_ii',
+      type: MDSS.Dependent.BOTH,
+      bidirectional: true
+    });
 });
 
 </script>
