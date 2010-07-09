@@ -92,7 +92,15 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     {
       if(this._cache[termId])
       {
-        return this.constructor.formatLabelFromValueObject(this._cache[termId]);
+        var obj = this._cache[termId];
+        if(obj instanceof Mojo.$.com.runwaysdk.business.ViewDTO)
+        {
+          return this.constructor.formatLabelFromView(obj);
+        }
+        else
+        {
+          return this.constructor.formatLabelFromValueObject(obj);
+        }
       }
       else
       {

@@ -64,6 +64,10 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       {
         return 'dss.vector.solutions.irs.OperatorSprayView';
       }
+      else if(type === 'dss.vector.solutions.irs.InsecticideBrand')
+      {
+        return type;
+      }
       else
       {
         return this.$_getBrowserRootClass(attribute);

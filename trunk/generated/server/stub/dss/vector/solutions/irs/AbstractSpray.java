@@ -79,6 +79,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     {
       valueQuery.WHERE(abstractSprayQuery.getBrand().EQ(insecticideQuery));
 
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery,  InsecticideBrand.CLASS, insecticideQuery);
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideQuery);
     }
 

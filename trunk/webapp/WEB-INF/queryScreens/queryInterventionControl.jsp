@@ -211,8 +211,16 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var insecticideBrand = new dss.vector.solutions.irs.InsecticideBrand;
-    var insecticideBrandAttribs = [ "brandName","activeIngredient","amount"];
-    var insecticideBrandColumns =   insecticideBrandAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideBrand, suffix:'_ii', dropDownMaps:{}});
+    var insecticideBrandAttribs = ["insecticideUse",
+                             "productName",
+                             "concentrationQualifier",
+                             "concentrationQuantifier",
+                             "activeIngredient","amount",
+                             "unitQualifier", "unitQuantifier",
+                             "unitsPerApplication", "useDetail"];
+
+    var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
+    var insecticideBrandColumns =   insecticideBrandAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideBrand, suffix:'_ii', dropDownMaps:insecticideBrandMap});
 
 
     insecticideInterventionColumns = insecticideInterventionColumns.concat(insecticideBrandColumns);

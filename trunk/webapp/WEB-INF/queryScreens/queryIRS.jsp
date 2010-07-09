@@ -163,7 +163,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrand();
 
-    var insectcideAttribs = ["brandName","activeIngredient","amount","weight","sachetsPerRefill"];
+    var insectcideAttribs = ["insecticideUse",
+                             "productName",
+                             "concentrationQualifier",
+                             "concentrationQuantifier",
+                             "activeIngredient","amount",
+                             "unitQualifier", "unitQuantifier",
+                             "unitsPerApplication", "useDetail"];
     <%
     Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideBrandViewDTO.CLASS, requestIF);
     %>
@@ -172,7 +178,8 @@ YAHOO.util.Event.onDOMReady(function(){
       return this.contains(attrib);
     }, available);    
 
-    var Insecticide_Details = insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.InsecticideBrand'});
+    var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
+    var Insecticide_Details = insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:insecticideBrandMap, type:'dss.vector.solutions.irs.InsecticideBrand'});
     Insecticide_Details = Insecticide_Details.concat([
 
                                                       {
@@ -228,7 +235,7 @@ YAHOO.util.Event.onDOMReady(function(){
     insectcideUsageAttribs = Mojo.Iter.filter(insectcideUsageAttribs, function(attrib){
       return this.contains(attrib);
     }, available);  
-    
+
     Insecticide_Details = Insecticide_Details.concat(insectcideUsageAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:abstractSpray, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
     
     

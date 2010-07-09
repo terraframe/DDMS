@@ -1609,7 +1609,7 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
     
     getDisplay : function(termId)
     {
-      var display = this._browser.getDisplay(termId)
+      var display = this._browser.getDisplay(termId);
       if(display)
       {
         return display;

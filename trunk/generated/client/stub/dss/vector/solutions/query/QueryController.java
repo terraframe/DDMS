@@ -79,6 +79,7 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocationDTO;
 import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
+import dss.vector.solutions.irs.InsecticideBrandDTO;
 import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
@@ -851,6 +852,10 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       loadQuerySpecifics(ControlInterventionDTO.CLASS, QueryConstants.QueryType.QUERY_INTERVENTION_CONTROL);
 
       ClientRequestIF request = this.getClientRequest();
+      
+      ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
+      String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO ci = request.getQuery(ControlInterventionDTO.CLASS);
@@ -1137,6 +1142,10 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO operatorSpray = request.getQuery(OperatorSprayDTO.CLASS);
       String sprayDataMap = Halp.getDropDownMaps(operatorSpray, request, ", ");
       req.setAttribute("operatorSprayMap", sprayDataMap);
+      
+      ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
+      String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       req.getRequestDispatcher(QUERY_IRS).forward(req, resp);
 

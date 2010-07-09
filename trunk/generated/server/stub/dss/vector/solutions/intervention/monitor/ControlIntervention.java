@@ -298,6 +298,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       {
         valueQuery.WHERE(insecticideInterventionQuery.getInsecticide().EQ(insecticideBrandQuery));
       }
+      
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery,  InsecticideBrand.CLASS, insecticideBrandQuery);
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
     }
 

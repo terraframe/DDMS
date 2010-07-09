@@ -10,7 +10,7 @@ MDSS.QueryXML = {
     GE: 'GE',
     LT: 'LT',
     LE: 'LE',
-    CONTAINS_ANY: MDSS.Localized.CONTAINS_ANY
+    CONTAINS_ANY: 'containsAny'
   },
 
   Functions : {

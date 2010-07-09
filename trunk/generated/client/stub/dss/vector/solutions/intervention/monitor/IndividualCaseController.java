@@ -15,9 +15,7 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.session.Session;
 
-import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonDTO;
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.RelativeValueProblemDTO;
@@ -102,14 +100,19 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
       problems.add(new RequiredDiagnosisDateProblemDTO(clientRequest, req.getLocale()));
     } else {
         if (personId != null) {
-      	  Person person = Person.get(personId);
+      	  PersonDTO person = PersonDTO.get(clientRequest, personId);
       	  if (person != null && diagnosisDate.before(person.getDateOfBirth())) {
+      	  
+      	  // we need an instance of IndividualCase to use its metadata display labels,
+      	  // but this should be replaced with calls to static metadata accessors.
+      	  String attrDL = new IndividualCaseDTO(clientRequest).getDiagnosisDateMd().getDisplayLabel();
+      	    
       		RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
       		problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
       		problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
-      		problem.setAttributeDisplayLabel(IndividualCase.getDiagnosisDateMd().getDisplayLabel(Session.getCurrentLocale()));
+      		problem.setAttributeDisplayLabel(attrDL);
       		problem.setRelation(MDSSProperties.getString("Compare_AE"));
-      		problem.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
+      		problem.setRelativeAttributeLabel(person.getDateOfBirthMd().getDisplayLabel());
       		problems.add(problem);
       	  }
         }
