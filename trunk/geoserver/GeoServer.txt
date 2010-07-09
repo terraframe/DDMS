@@ -6,9 +6,19 @@
 *** result in ClassCastExceptions                                            ***
 ********************************************************************************
 
+
+
+** NEW DIRECTIONS **
+1) Unzip geoserver.xip to the webapps/ directory in tomcat and restart the server.
+  * the zip contains the necessary web.xml and MDSS_GeoServer.jar
+
+
+** OLD DIRECTIONS **
 1) Put MDSS_GeoServer.jar into webapps/geoserver/WEB-INF/lib
 2) Put web.xml into webapps/geoserver/WEB-INF
 3) Restart the geoserver app
+********************
+
 
 - Namespace
 Prefix: mdss
