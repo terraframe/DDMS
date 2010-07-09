@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1359802987)
+@com.runwaysdk.business.ClassSignature(hash = 2124837604)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
   public static java.lang.String UNITQUANTIFIER = "unitQuantifier";
   public static java.lang.String UNITSPERAPPLICATION = "unitsPerApplication";
   public static java.lang.String USEDETAIL = "useDetail";
-  private static final long serialVersionUID = -1359802987;
+  private static final long serialVersionUID = 2124837604;
   
   public InsecticideBrandViewBase()
   {
@@ -445,7 +445,25 @@ public abstract class InsecticideBrandViewBase extends com.runwaysdk.business.Vi
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
-  public static dss.vector.solutions.irs.InsecticideBrandView[] getIRSActive()
+  public static dss.vector.solutions.irs.InsecticideBrandView[] getControlInterventionInsecticideBrands()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideBrandView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.irs.InsecticideBrandView[] getEfficacyAssayInsecticideBrands()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideBrandView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.irs.InsecticideBrandView[] getIRSInsecticideBrands()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideBrandView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.irs.InsecticideBrandView[] getNozzleInsecticideBrands()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideBrandView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

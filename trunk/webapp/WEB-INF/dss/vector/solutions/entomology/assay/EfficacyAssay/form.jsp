@@ -42,13 +42,12 @@
       <mjl:dt attribute="fed">
         <mjl:input type="text" param="fed" />
       </mjl:dt>
-      <mjl:dt attribute="insecticide">
-        <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
-          <mjl:option>
-            ${current.displayLabel}
-          </mjl:option>
+      <mjl:dt attribute="insecticideBrand"> 
+        <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="insecticideBrand" >
+         <mjl:option>
+           ${current.productName.termDisplayLabel.value}
+         </mjl:option>
         </mjl:select>
-        <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
       </mjl:dt>
       <mjl:dt attribute="timeOnSurface" >
         <mjl:input type="text" param="timeOnSurface" />

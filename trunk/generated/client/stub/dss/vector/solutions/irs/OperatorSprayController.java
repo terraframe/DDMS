@@ -256,7 +256,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);
@@ -339,7 +339,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
-    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getIRSInsecticideBrands(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
 
     String operatorId = dto.getValue(OperatorSprayViewDTO.SPRAYOPERATOR);

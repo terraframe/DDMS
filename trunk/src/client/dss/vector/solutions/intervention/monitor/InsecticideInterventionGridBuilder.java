@@ -33,7 +33,7 @@ public class InsecticideInterventionGridBuilder extends GridBuilder implements R
     
     ColumnSetup setup = GridBuilder.getSetup(columns, InsecticideInterventionViewDTO.INSECTICIDE);
     setup.setType(InsecticideBrandViewDTO.class.getName());
-    setup.setMethod("getAllActive");
+    setup.setMethod("getControlInterventionInsecticideBrands");
     setup.setGetter("getInsecticideView");
     
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.INTERVENTIONMETHOD, false);

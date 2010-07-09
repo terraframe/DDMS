@@ -57,8 +57,8 @@
       <mjl:dt attribute="fed">
         ${item.fed}
       </mjl:dt>
-      <mjl:dt attribute="insecticide">
-        ${item.insecticide.displayLabel}
+      <mjl:dt attribute="insecticideBrand">
+        ${item.insecticideBrand.productName.termDisplayLabel.value}
       </mjl:dt>
       <mjl:dt attribute="timeOnSurface">
         ${item.timeOnSurface}

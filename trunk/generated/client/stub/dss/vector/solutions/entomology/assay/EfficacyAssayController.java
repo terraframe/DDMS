@@ -1,6 +1,7 @@
 package dss.vector.solutions.entomology.assay;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.geo.generated.SurfaceDTO;
+import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -121,6 +123,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     this.setupReferences(dto);
     this.setupRequest();
     req.setAttribute("item", dto);
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(dto.getRequest())));
 
     render("editComponent.jsp");
   }
@@ -248,6 +251,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     this.setupReferences(dto);
     this.setupRequest();
     req.setAttribute("item", dto);
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(dto.getRequest())));
 
     render("createComponent.jsp");
   }

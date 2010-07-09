@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 2083585045)
+@com.runwaysdk.business.ClassSignature(hash = 38745188)
 public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideBrandView";
-  private static final long serialVersionUID = 2083585045;
+  private static final long serialVersionUID = 38745188;
   
   protected InsecticideBrandViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -523,11 +523,35 @@ public abstract class InsecticideBrandViewDTOBase extends com.runwaysdk.business
     return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getIRSActive(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getControlInterventionInsecticideBrands(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
-    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getIRSActive", _declaredTypes);
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getControlInterventionInsecticideBrands", _declaredTypes);
+    return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getEfficacyAssayInsecticideBrands(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getEfficacyAssayInsecticideBrands", _declaredTypes);
+    return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getIRSInsecticideBrands(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getIRSInsecticideBrands", _declaredTypes);
+    return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.irs.InsecticideBrandViewDTO[] getNozzleInsecticideBrands(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideBrandViewDTO.CLASS, "getNozzleInsecticideBrands", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideBrandViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

@@ -74,7 +74,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
-    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getIRSInsecticideBrands(request)));
     req.setAttribute("teams", Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
 
     if (sprayTeam != null)
@@ -270,7 +270,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);
@@ -370,7 +370,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);

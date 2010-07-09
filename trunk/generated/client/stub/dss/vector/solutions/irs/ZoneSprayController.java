@@ -100,7 +100,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
 
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("methods", SprayMethodDTO.allItems(request));
-    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getAll(request)));
+    req.setAttribute("brands", Arrays.asList(InsecticideBrandViewDTO.getIRSInsecticideBrands(request)));
     req.setAttribute("supervisors", Arrays.asList(SupervisorViewDTO.getSupervisors(request)));
   }
 
@@ -288,7 +288,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);
@@ -381,7 +381,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
   {
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
-    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getAll(clientRequest);
+    InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(clientRequest);
     List<SprayMethodMasterDTO> methods = SprayMethodDTO.allItems(clientRequest);
 
     req.setAttribute("methods", methods);
