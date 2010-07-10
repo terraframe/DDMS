@@ -96,8 +96,6 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     valueQuery.restrictRows(pageSize, pageNumber);
     
-    System.out.println(valueQuery.getSQL());
-
     return valueQuery;
   }
 

@@ -101,10 +101,10 @@ public class SavedSearch extends SavedSearchBase implements
     QueryFactory f = new QueryFactory();
     SavedSearchQuery searchQuery = new SavedSearchQuery(f);
 
-    // restrict by type and search name
+    // a search name must be unique across all types for mapping purposes.
+    // We exclude the DefaultSavedSearch subclass. 
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
-    // searchQuery.WHERE(searchQuery.getQueryType().EQ(this.getQueryType()));
-    searchQuery.WHERE(searchQuery.getQueryType().NEi(DefaultSavedSearch.DEFAULT));
+    searchQuery.AND(searchQuery.getType().EQ(SavedSearch.CLASS));
 
     if (searchQuery.getCount() > 0)
     {

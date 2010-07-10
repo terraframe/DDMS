@@ -20,7 +20,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.report.engine.api.EngineConstants;
-import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.IRenderOption;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
@@ -159,7 +158,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
       task.run();
       task.close();
     }
-    catch (EngineException e)
+    catch (Throwable e)
     {
       String msg = "The provided design is not a valid BIRT design";
       throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);

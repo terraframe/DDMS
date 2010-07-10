@@ -15,7 +15,7 @@ public class DefaultSavedSearch extends DefaultSavedSearchBase implements com.ru
   public void apply()
   {
     this.setQueryName(DEFAULT);
-    this.setQueryType(DEFAULT);
+//    this.setQueryType(DEFAULT); This was clobbering the [query class:query type] namespace.
     
     super.apply();
   }
