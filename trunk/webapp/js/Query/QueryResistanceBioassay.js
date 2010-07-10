@@ -66,49 +66,12 @@ Mojo.Meta.newClass('MDSS.QueryResistanceBioassay', {
        */
       _addVisibleAttribute : function(attribute)
       {
-        var attributeName = attribute.getAttributeName();
-
         if(attribute.mainQueryClass)
         {
           this._mainQueryClass = attribute.mainQueryClass;
         }
-
-        if(attribute.getType() == 'sqlcharacter'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-        }else
-        if(attribute.getType() == 'sqlinteger'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-      	}else
-        if(attribute.getType() == 'sqlfloat'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-        }else
-        if(attribute.getType() == 'sqldouble'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-        }
-        else
-        {
-          var selectable = attribute.getSelectable(true);
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column(attribute.getColumnObject());
-           column.attribute = attribute;
-        }
-
-        column = this._queryPanel.insertColumn(column);
-
-        this._visibleSelectables[attribute.getKey()] = selectable;
-      },
-
+        
+        this.$_addVisibleAttribute(attribute);
+      }
     }
 });
