@@ -61,7 +61,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       p.throwIt();
     }
 
-    ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getBrandName()));
+    ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()));
 
     if (zsv.getConcreteId() == null || zsv.getConcreteId().equals(""))
     {
@@ -106,7 +106,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
-    list.add(BRANDNAME);
+    list.add(INSECTICIDETERM);
     list.add(SPRAYDATE);
     list.add(SPRAYMETHOD);
     list.add(SURFACETYPE);

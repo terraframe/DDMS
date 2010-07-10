@@ -67,7 +67,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       operatorId = operator.getId();
     }
 
-    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getBrandName()), operatorId);
+    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
 
     // Only create values if one already exists do not update
     if (osv.getConcreteId() == null || osv.getConcreteId().equals(""))
@@ -142,7 +142,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
-    list.add(BRANDNAME);
+    list.add(INSECTICIDETERM);
     list.add(SPRAYDATE);
     list.add(SPRAYMETHOD);
     list.add(SPRAYTEAM);

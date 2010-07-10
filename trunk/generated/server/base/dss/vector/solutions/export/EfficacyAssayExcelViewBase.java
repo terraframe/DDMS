@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 476947703)
+@com.runwaysdk.business.ClassSignature(hash = 594353085)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,9 +21,7 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String GRAVID = "gravid";
   public static java.lang.String HOLDINGTIME = "holdingTime";
   public static java.lang.String ID = "id";
-  public static java.lang.String INSECTICIDEACTIVEINGREDIENT = "insecticideActiveIngredient";
-  public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
-  public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
+  public static java.lang.String INSECTICIDETERM = "insecticideTerm";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYTESTED = "quantityTested";
   public static java.lang.String SEX = "sex";
@@ -33,7 +31,7 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 476947703;
+  private static final long serialVersionUID = 594353085;
   
   public EfficacyAssayExcelViewBase()
   {
@@ -248,87 +246,31 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     return mdClassIF.definesAttribute(ID);
   }
   
-  public String getInsecticideActiveIngredient()
+  public String getInsecticideTerm()
   {
-    return getValue(INSECTICIDEACTIVEINGREDIENT);
+    return getValue(INSECTICIDETERM);
   }
   
-  public void validateInsecticideActiveIngredient()
+  public void validateInsecticideTerm()
   {
-    this.validateAttribute(INSECTICIDEACTIVEINGREDIENT);
+    this.validateAttribute(INSECTICIDETERM);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideActiveIngredientMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideTermMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEACTIVEINGREDIENT);
+    return mdClassIF.definesAttribute(INSECTICIDETERM);
   }
   
-  public void setInsecticideActiveIngredient(String value)
+  public void setInsecticideTerm(String value)
   {
     if(value == null)
     {
-      setValue(INSECTICIDEACTIVEINGREDIENT, "");
+      setValue(INSECTICIDETERM, "");
     }
     else
     {
-      setValue(INSECTICIDEACTIVEINGREDIENT, value);
-    }
-  }
-  
-  public Double getInsecticideAmount()
-  {
-    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(INSECTICIDEAMOUNT));
-  }
-  
-  public void validateInsecticideAmount()
-  {
-    this.validateAttribute(INSECTICIDEAMOUNT);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideAmountMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEAMOUNT);
-  }
-  
-  public void setInsecticideAmount(Double value)
-  {
-    if(value == null)
-    {
-      setValue(INSECTICIDEAMOUNT, "");
-    }
-    else
-    {
-      setValue(INSECTICIDEAMOUNT, java.lang.Double.toString(value));
-    }
-  }
-  
-  public String getInsecticideUnits()
-  {
-    return getValue(INSECTICIDEUNITS);
-  }
-  
-  public void validateInsecticideUnits()
-  {
-    this.validateAttribute(INSECTICIDEUNITS);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideUnitsMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
-    return mdClassIF.definesAttribute(INSECTICIDEUNITS);
-  }
-  
-  public void setInsecticideUnits(String value)
-  {
-    if(value == null)
-    {
-      setValue(INSECTICIDEUNITS, "");
-    }
-    else
-    {
-      setValue(INSECTICIDEUNITS, value);
+      setValue(INSECTICIDETERM, value);
     }
   }
   

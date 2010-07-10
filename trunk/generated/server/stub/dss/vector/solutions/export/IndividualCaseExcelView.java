@@ -131,8 +131,6 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       person.setLastName(lName);
       person.setDateOfBirth(dob);
       person.setSex(sexTerm);
-      person.setResidentialGeoEntity(this.getPhysicianResidence());
-      person.setWorkGeoEntity(this.getPhysicianWorkplace());
       person.apply();
       
       Physician physician = addPhysicianDelegate(person);
@@ -194,6 +192,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       person.setSex(sexTerm);
       person.setResidentialGeoEntity(this.getResidence());
       person.setWorkGeoEntity(this.getWorkplace());
+      person.setBirthEntity(this.getBirthEntity());
       person.apply();
       return person;
     }
@@ -272,24 +271,22 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
 
   public static void setupImportListener(ImportContext context, String... params)
   {
-    context.addListener(new SymptomListener());
     context.addListener(createSettlementSubdivisionListener(RESIDENCE));
     context.addListener(createSettlementSubdivisionListener(WORKPLACE));
     context.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
-    context.addListener(createSettlementSubdivisionListener(PHYSICIANRESIDENCE));
-    context.addListener(createSettlementSubdivisionListener(PHYSICIANWORKPLACE));
+    context.addListener(createSettlementSubdivisionListener(BIRTHENTITY));
     context.addListener(createHealthFacilityListener());
+    context.addListener(new SymptomListener());
   }
 
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
-    exporter.addListener(new SymptomListener());
     exporter.addListener(createSettlementSubdivisionListener(PROBABLESOURCE));
     exporter.addListener(createSettlementSubdivisionListener(RESIDENCE));
     exporter.addListener(createSettlementSubdivisionListener(WORKPLACE));
-    exporter.addListener(createSettlementSubdivisionListener(PHYSICIANRESIDENCE));
-    exporter.addListener(createSettlementSubdivisionListener(PHYSICIANWORKPLACE));
+    exporter.addListener(createSettlementSubdivisionListener(BIRTHENTITY));
     exporter.addListener(createHealthFacilityListener());
+    exporter.addListener(new SymptomListener());
   }
   
   private static DynamicGeoColumnListener createSettlementSubdivisionListener(String attribute)

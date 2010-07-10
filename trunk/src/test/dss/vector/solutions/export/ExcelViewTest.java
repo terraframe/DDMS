@@ -251,7 +251,7 @@ public class ExcelViewTest extends TestCase
     
     EfficacyAssayQuery query = new EfficacyAssayQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().EQ(surface));
-    query.WHERE(query.getInsecticide().EQ(deltamethrin));
+//    query.WHERE(query.getInsecticideBrand().getProductName().getName().EQ(deltamethrin));
     query.WHERE(query.getColonyName().EQ("Test Colony"));
     OIterator<? extends EfficacyAssay> iterator = query.getIterator();
     

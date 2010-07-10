@@ -16,6 +16,7 @@ import dss.vector.solutions.entomology.assay.EfficacyAssayView;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Surface;
+import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -57,7 +58,7 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     eav.setQuantityTested(this.getQuantityTested());
     eav.setQuantityDead(this.getQuantityDead());
     
-    eav.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
+    eav.setInsecticideBrand(InsecticideBrand.validateByName(this.getInsecticideTerm()));
     
     eav.apply();
   }
@@ -74,9 +75,7 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     list.add(SEX);
     list.add(GRAVID);
     list.add(FED);
-    list.add(INSECTICIDEACTIVEINGREDIENT);
-    list.add(INSECTICIDEAMOUNT);
-    list.add(INSECTICIDEUNITS);
+    list.add(INSECTICIDETERM);
     list.add(TIMEONSURFACE);
     list.add(SURFACEPOSITION);
     list.add(EXPOSURETIME);

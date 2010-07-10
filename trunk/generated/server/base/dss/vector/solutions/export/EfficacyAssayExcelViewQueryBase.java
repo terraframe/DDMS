@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1918539488)
+@com.runwaysdk.business.ClassSignature(hash = -887361996)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class EfficacyAssayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1918539488;
+private static final long serialVersionUID = -887361996;
 
   public EfficacyAssayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -171,57 +171,21 @@ private static final long serialVersionUID = 1918539488;
 
   }
  
-  public com.runwaysdk.query.SelectableChar getInsecticideActiveIngredient()
+  public com.runwaysdk.query.SelectableChar getInsecticideTerm()
   {
-    return getInsecticideActiveIngredient(null);
+    return getInsecticideTerm(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getInsecticideActiveIngredient(String alias)
+  public com.runwaysdk.query.SelectableChar getInsecticideTerm(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDEACTIVEINGREDIENT, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDETERM, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getInsecticideActiveIngredient(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getInsecticideTerm(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDEACTIVEINGREDIENT, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getInsecticideAmount()
-  {
-    return getInsecticideAmount(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getInsecticideAmount(String alias)
-  {
-    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDEAMOUNT, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getInsecticideAmount(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDEAMOUNT, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getInsecticideUnits()
-  {
-    return getInsecticideUnits(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getInsecticideUnits(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDEUNITS, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getInsecticideUnits(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.EfficacyAssayExcelView.INSECTICIDETERM, alias, displayLabel);
 
   }
  

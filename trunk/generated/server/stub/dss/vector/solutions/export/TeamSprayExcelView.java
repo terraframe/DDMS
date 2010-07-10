@@ -70,7 +70,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     }
 
     TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(),
-        getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getBrandName()),
+        getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()),
         teamId);
 
     if (tsv.getConcreteId() == null || tsv.getConcreteId().equals(""))
@@ -129,7 +129,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
-    list.add(BRANDNAME);
+    list.add(INSECTICIDETERM);
     list.add(SPRAYDATE);
     list.add(SPRAYMETHOD);
     list.add(SPRAYTEAM);

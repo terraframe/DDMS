@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1363191820)
+@com.runwaysdk.business.ClassSignature(hash = -196008695)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class IndividualCaseExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1363191820;
+private static final long serialVersionUID = -196008695;
 
   public IndividualCaseExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -95,6 +95,43 @@ private static final long serialVersionUID = -1363191820;
   public com.runwaysdk.query.SelectableBoolean getAnaemiaPatient(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.ANAEMIAPATIENT, alias, displayLabel);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity()
+  {
+    return getBirthEntity(null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.BIRTHENTITY, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getBirthEntity(String alias, String displayLabel)
+  {
+
+    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.BIRTHENTITY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getBirthLocation()
+  {
+    return getBirthLocation(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.BIRTHLOCATION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getBirthLocation(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.BIRTHLOCATION, alias, displayLabel);
 
   }
  
@@ -621,25 +658,6 @@ private static final long serialVersionUID = -1363191820;
 
   }
  
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianResidence()
-  {
-    return getPhysicianResidence(null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianResidence(String alias)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANRESIDENCE, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianResidence(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANRESIDENCE, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getPhysicianSex()
   {
     return getPhysicianSex(null);
@@ -658,25 +676,6 @@ private static final long serialVersionUID = -1363191820;
 
   }
  
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianWorkplace()
-  {
-    return getPhysicianWorkplace(null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianWorkplace(String alias)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANWORKPLACE, alias, null);
-
-  }
- 
-  public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getPhysicianWorkplace(String alias, String displayLabel)
-  {
-
-    return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PHYSICIANWORKPLACE, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableMoment getPlasmaLeakageOnset()
   {
     return getPlasmaLeakageOnset(null);
@@ -750,6 +749,24 @@ private static final long serialVersionUID = -1363191820;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROBABLESOURCE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getProbableSourceText()
+  {
+    return getProbableSourceText(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getProbableSourceText(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROBABLESOURCETEXT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getProbableSourceText(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.PROBABLESOURCETEXT, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableBoolean getProperlyRelease()
   {
     return getProperlyRelease(null);
@@ -859,6 +876,24 @@ private static final long serialVersionUID = -1363191820;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RESIDENCE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getResidenceText()
+  {
+    return getResidenceText(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getResidenceText(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RESIDENCETEXT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getResidenceText(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.RESIDENCETEXT, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableChar getSampleType()
   {
     return getSampleType(null);
@@ -1040,6 +1075,24 @@ private static final long serialVersionUID = -1363191820;
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.WORKPLACE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getWorkplaceText()
+  {
+    return getWorkplaceText(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getWorkplaceText(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.WORKPLACETEXT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getWorkplaceText(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualCaseExcelView.WORKPLACETEXT, alias, displayLabel);
+
+  }
+ 
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

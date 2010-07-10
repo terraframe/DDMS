@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 913027008)
+@com.runwaysdk.business.ClassSignature(hash = 907579582)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String HOUSEHOLDS = "households";
   public static java.lang.String ID = "id";
+  public static java.lang.String INSECTICIDETERM = "insecticideTerm";
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String OPERATORID = "operatorId";
@@ -42,7 +43,7 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 913027008;
+  private static final long serialVersionUID = 907579582;
   
   public OperatorSprayExcelViewBase()
   {
@@ -182,6 +183,34 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getInsecticideTerm()
+  {
+    return getValue(INSECTICIDETERM);
+  }
+  
+  public void validateInsecticideTerm()
+  {
+    this.validateAttribute(INSECTICIDETERM);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideTermMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(INSECTICIDETERM);
+  }
+  
+  public void setInsecticideTerm(String value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDETERM, "");
+    }
+    else
+    {
+      setValue(INSECTICIDETERM, value);
+    }
   }
   
   public String getLeaderId()
