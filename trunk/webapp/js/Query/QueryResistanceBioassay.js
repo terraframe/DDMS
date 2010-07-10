@@ -57,7 +57,7 @@ Mojo.Meta.newClass('MDSS.QueryResistanceBioassay', {
         }
         else
         {
-          return attribute.getType();
+          return this.$_getBrowserRootClass(attribute);
         }
       },
 				

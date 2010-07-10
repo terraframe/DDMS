@@ -17,7 +17,8 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
-public class TimeResponseAssay extends TimeResponseAssayBase implements com.runwaysdk.generation.loader.Reloadable
+public class TimeResponseAssay extends TimeResponseAssayBase implements
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1580911879;
 
@@ -60,38 +61,45 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements com.runw
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        valueQuery, xml, queryConfig, layer);
 
-    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
-    DiagnosticAssayQuery diagnosticAssayQuery = (DiagnosticAssayQuery) queryMap.get(DiagnosticAssay.CLASS);
+    MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap
+        .get(MosquitoCollection.CLASS);
+    DiagnosticAssayQuery diagnosticAssayQuery = (DiagnosticAssayQuery) queryMap
+        .get(DiagnosticAssay.CLASS);
 
     if (diagnosticAssayQuery != null)
     {
-      if(mosquitoCollectionQuery != null)
+      if (mosquitoCollectionQuery == null)
       {
-        valueQuery.WHERE(diagnosticAssayQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
+        mosquitoCollectionQuery = new MosquitoCollectionQuery(queryFactory);
       }
+
+      valueQuery.WHERE(diagnosticAssayQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, DiagnosticAssay.CLASS, diagnosticAssayQuery);
     }
 
-    TimeResponseAssayQuery timeResponseQuery = (TimeResponseAssayQuery) queryMap.get(TimeResponseAssay.CLASS);
+    TimeResponseAssayQuery timeResponseQuery = (TimeResponseAssayQuery) queryMap
+        .get(TimeResponseAssay.CLASS);
 
     if (timeResponseQuery != null)
     {
-      if(mosquitoCollectionQuery != null)
+      if (mosquitoCollectionQuery == null)
       {
-        valueQuery.WHERE(timeResponseQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
+        mosquitoCollectionQuery = new MosquitoCollectionQuery(queryFactory);
       }
 
+      valueQuery.WHERE(timeResponseQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, TimeResponseAssay.CLASS, timeResponseQuery);
     }
 
-    
-    if(mosquitoCollectionQuery != null)
+    if (mosquitoCollectionQuery != null)
     {
       QueryUtil.joinGeoDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);      
-      // QueryUtil.joinEnumerationDisplayLabels(valueQuery,  MosquitoCollection.CLASS, mosquitoCollectionQuery);
+      QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
+      // QueryUtil.joinEnumerationDisplayLabels(valueQuery,
+      // MosquitoCollection.CLASS, mosquitoCollectionQuery);
     }
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
@@ -103,11 +111,10 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements com.runw
 
     String lifeStageCol = QueryUtil.getColumnName(timeMd, TimeResponseAssay.LIFESTAGE);
     String assayCol = QueryUtil.getColumnName(timeMd, TimeResponseAssay.ASSAY);
-    String referenceStrainResultCol = QueryUtil.getColumnName(timeMd, TimeResponseAssay.REFERENCESTRAINRESULT);
+    String referenceStrainResultCol = QueryUtil.getColumnName(timeMd,
+        TimeResponseAssay.REFERENCESTRAINRESULT);
     String testStrainResult = QueryUtil.getColumnName(timeMd, TimeResponseAssay.TESTSTRAINRESULT);
     String timeResponseTable = null;
-
-    timeResponseQuery.getTableAlias();
 
     boolean needsJoin = false;
 
@@ -117,55 +124,57 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements com.runw
       for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
       {
 
-        String stageAmmountCol = assay.getTermId().replace(":", "") + lifeStage.getTermId().replace(":", "");
+        String stageAmmountCol = assay.getTermId().replace(":", "")
+            + lifeStage.getTermId().replace(":", "");
 
         needsJoin = valueQuery.hasSelectableRef(stageAmmountCol);
 
       }
     }
 
-    if (needsJoin)
+    for (Term assay : Term.getRootChildren(TimeResponseAssayView.getAssayMd()))
     {
-      
-      if(timeResponseQuery == null)
-      { 
-        timeResponseQuery = new TimeResponseAssayQuery(valueQuery);
-      }
-      
-      
-      valueQuery.WHERE(timeResponseQuery.getId().NE("0"));
 
-      
-      if(mosquitoCollectionQuery != null)
+      for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
       {
-        valueQuery.WHERE(timeResponseQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
-      }
+
+        String stageAmmountCol = assay.getTermId().replace(":", "")
+            + lifeStage.getTermId().replace(":", "");
+        String idStr = assay.getId() + lifeStage.getId();
+
+        if(valueQuery.hasSelectableRef(stageAmmountCol))
+        {
+          needsJoin = true;
+          
+          if(timeResponseQuery == null)
+          {
+            timeResponseQuery = new TimeResponseAssayQuery(queryFactory);
+          }
         
-      
+          timeResponseTable = timeResponseQuery.getTableAlias();
+          String sql = "AVG(" + "CASE " + timeResponseTable + "." + assayCol + " || " + timeResponseTable
+            + "." + lifeStageCol + " WHEN '" + idStr + "' THEN " + timeResponseTable + "."
+            + testStrainResult + " / " + timeResponseTable + "." + referenceStrainResultCol
+            + " ELSE NULL END)";
+
+          needsJoin = QueryUtil.setSelectabeSQL(valueQuery, stageAmmountCol, sql) || needsJoin;
+        }
+      }
     }
 
     if (needsJoin)
     {
-      
-      timeResponseTable = timeResponseQuery.getTableAlias();
-      for (Term assay : Term.getRootChildren(TimeResponseAssayView.getAssayMd()))
+      if (timeResponseQuery == null)
       {
-
-        for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
-        {
-
-          String stageAmmountCol = assay.getTermId().replace(":", "") + lifeStage.getTermId().replace(":", "");
-          String idStr = assay.getId() + lifeStage.getId();
-
-          String sql = "AVG(" + "CASE " + timeResponseTable + "." + assayCol + " || " + timeResponseTable + "." + lifeStageCol 
-          + " WHEN '" + idStr + "' THEN " + timeResponseTable + "." + testStrainResult + " / " + timeResponseTable + "."
-          + referenceStrainResultCol + " ELSE NULL END)";
-
-          needsJoin = QueryUtil.setSelectabeSQL(valueQuery, stageAmmountCol, sql) || needsJoin;
-
-        }
+        timeResponseQuery = new TimeResponseAssayQuery(valueQuery);
       }
 
+      valueQuery.WHERE(timeResponseQuery.getId().NE("0"));
+
+      if (mosquitoCollectionQuery != null)
+      {
+        valueQuery.WHERE(timeResponseQuery.getCollection().EQ(mosquitoCollectionQuery.getId()));
+      }
     }
 
     return valueQuery;

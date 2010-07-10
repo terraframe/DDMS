@@ -79,6 +79,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       throw ex;
     }
     
+    System.out.println(valueQuery.getSQL());
+    
     return valueQuery;
   }
 
