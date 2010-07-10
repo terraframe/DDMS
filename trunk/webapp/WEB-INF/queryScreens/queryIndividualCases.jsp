@@ -83,9 +83,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
     var caseAttribs = ["diagnosisDate","caseReportDate","caseEntryDate",
-                           "workplace","workplaceText",
-                           "probableSource","probableSourceText",
-                           "residence","residenceText", "symptomOnset", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
+                           "workplace",
+                           "probableSource",
+                           "residence", "symptomOnset", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
     <%
     Halp.setReadableAttributes(request, "caseAttribs", IndividualCaseDTO.CLASS, requestIF);
     %>
@@ -102,7 +102,7 @@ YAHOO.util.Event.onDOMReady(function(){
                        "admissionDate","anaemiaPatient","diagnosisType", "diagnosis",
                        "detectedBy","diedInFacility","facilityVisit",
                        "patientCategory","pregnant","properlyRelease", "referredTo", "referredFrom",
-                       "referralReason","labTestDate","symptomComments",
+                       "referralReason","labTestDate",
                        "releaseDate","sampleType","malariaType",
                        "testSampleDate","treatment","treatmentMethod",
                        "treatmentStartDate", "caseDetection", "confirmedDiagnosis", "confirmedDiagnosisDate",
