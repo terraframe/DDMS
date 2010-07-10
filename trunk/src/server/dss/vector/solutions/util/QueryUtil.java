@@ -28,6 +28,7 @@ import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.COUNT;
@@ -58,7 +59,6 @@ import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
-import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
@@ -570,7 +570,7 @@ public class QueryUtil implements Reloadable
     return foundGrid;
   }
 
-  public static ValueQuery setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  public static void setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
   {
     for (String entityAlias : queryMap.keySet())
     {
@@ -580,26 +580,27 @@ public class QueryUtil implements Reloadable
       {
         String attrib_name = entityAlias.substring(0, index1);
         String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
-        String table = MdRelationship.getMdEntity(klass).getTableName();
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
-          dss.vector.solutions.ontology.AllPathsQuery apQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          String allPathsTable = MdRelationship.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
+          String allPathsTable = MdEntity.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
           
           String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
           String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
-        valueQuery.AND(new InnerJoinEq(attrCol, table, attributeQuery.getTableAlias(), childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
           
-//          valueQuery.AND(((AttributeReference) attributeQuery.get(attrib_name)).EQ(apQuery.getChildTerm()));
+          // IMPORTANT: We cannot always rely on the class table directly because the attribute
+          // may have been defined by a parent class, hence it will be on the parent table.
+          // Instead, rely on the query and metadata to resolve the class/attribute mapping.
+          Attribute attr = attributeQuery.get(attrib_name);
+          String table = attr.getDefiningTableName();
+          String alias = attr.getDefiningTableAlias();
+          
+          valueQuery.AND(new InnerJoinEq(attrCol, table, alias, childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
         }
       }
 
     }
-    String sql = valueQuery.getSQL();
-    return null;
   }
 
   public static ValueQuery setNumericRestrictions(ValueQuery valueQuery, JSONObject queryConfig)

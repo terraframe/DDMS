@@ -53,6 +53,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   @StartSession
   public void contextInitialized(ServletContextEvent arg0)
   {
+    SavedMap.cleanOldViews(System.currentTimeMillis());
     runSql(getDropSql());
     runSql(getIndexSql());
     runSql(getGeoDisplayViewSQL());

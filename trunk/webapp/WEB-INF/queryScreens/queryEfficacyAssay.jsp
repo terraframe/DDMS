@@ -29,7 +29,6 @@
 
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayDTO"%>
 
-<%@page import="dss.vector.solutions.general.InsecticideDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 
 
@@ -38,7 +37,10 @@
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
 <%@page import="dss.vector.solutions.export.EfficacyAssayExcelViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayView"%>
-<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
+<%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%>
+<%@page import="dss.vector.solutions.irs.InsecticideBrandDTO"%>
+
+<c:set var="page_title" value="Query_Efficacy"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -47,7 +49,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{  EfficacyAssayDTO.CLASS, InsecticideDTO.CLASS};
+    String[] mosquitoTypes = new String[]{  EfficacyAssayDTO.CLASS, InsecticideBrandDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 //    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
@@ -80,22 +82,26 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var efficacyMaps = {<%//=(String) request.getAttribute("adultMap")%>};
 
-    var insecticideMaps = {<%//=(String) request.getAttribute("insecticideMap")%>};
+    var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrand();
 
-
-    var insectcide = new Mojo.$.dss.vector.solutions.general.Insecticide();
-
+    var insectcideAttribs = ["insecticideUse",
+                             "productName",
+                             "concentrationQualifier",
+                             "concentrationQuantifier",
+                             "activeIngredient","amount",
+                             "unitQualifier", "unitQuantifier",
+                             "unitsPerApplication", "useDetail"];
     <%
-      Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideDTO.CLASS, requestIF);
+      Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideBrandDTO.CLASS, requestIF);
     %>
     
-    var insectcideAttribs = ["activeIngredient","amount","units"];
     var available = new MDSS.Set(<%= request.getAttribute("insectcideAttribs") %>);
     insectcideAttribs = Mojo.Iter.filter(insectcideAttribs, function(attrib){
         return this.contains(attrib);
     }, available);
 
-    var insectcideColumns =   insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideMaps});
+    var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
+    var insectcideColumns =   insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideBrandMap});
 
     
     var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
@@ -132,6 +138,19 @@ YAHOO.util.Event.onDOMReady(function(){
     var query = new MDSS.QueryEfficacyAssay(selectableGroups, queryList);
     query.render();
 
+    var dm = query.getDependencyManager();
+    dm.includes({
+      independent: 'concentrationQuantifier_eff',
+      dependent: 'concentrationQualifier_eff',
+      type: MDSS.Dependent.BOTH,
+      bidirectional: true
+    });
+    dm.includes({
+      independent: 'unitQuantifier_eff',
+      dependent: 'unitQualifier_eff',
+      type: MDSS.Dependent.BOTH,
+      bidirectional: true
+    });
 });
 
 </script>

@@ -19,11 +19,10 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.ValueQuery;
 
-import dss.vector.solutions.general.Insecticide;
-import dss.vector.solutions.general.InsecticideQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
-import dss.vector.solutions.intervention.monitor.SurveyPoint;
+import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -231,8 +230,10 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
     
     if (efficacyAssayQuery != null)
     {
-      QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS,efficacyAssayQuery);
-      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS,  efficacyAssayQuery.getTestDate().getDefiningTableAlias());
+      QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS, efficacyAssayQuery);
+      
+      // There are termw defined on the parent class as well, so grab
+      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS,  efficacyAssayQuery.getSpecie().getDefiningTableAlias());
       if(abstractAssayQuery != null)
       {
         valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
@@ -250,12 +251,14 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
       QueryUtil.joinGeoDisplayLabels(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery);
     }
     
-    InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
+    InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
     
-    if(insecticideQuery != null)
+    if(insecticideBrandQuery != null)
     {
-      valueQuery.WHERE(efficacyAssayQuery.getInsecticide().EQ(insecticideQuery));
-      QueryUtil.joinTermAllpaths(valueQuery,Insecticide.CLASS,insecticideQuery);
+      valueQuery.WHERE(efficacyAssayQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
+      
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery,  InsecticideBrand.CLASS, insecticideBrandQuery);
+      QueryUtil.joinTermAllpaths(valueQuery,InsecticideBrand.CLASS,insecticideBrandQuery);
     }
     
     

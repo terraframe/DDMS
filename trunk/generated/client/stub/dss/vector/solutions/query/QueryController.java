@@ -980,6 +980,10 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClientRequestIF request = this.getClientRequest();
 
+      ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
+      String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      req.setAttribute("insecticideBrandMap", insecticideBrandMap);
+      
       // Load label map for Adult Discriminating Dose Assay
       ClassQueryDTO aIPT = request.getQuery(IndividualIPTDTO.CLASS);
       String iptMap = Halp.getDropDownMaps(aIPT, request, ", ");

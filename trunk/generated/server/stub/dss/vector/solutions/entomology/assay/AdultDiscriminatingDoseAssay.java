@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoin;
 import com.runwaysdk.query.Join;
@@ -188,7 +189,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       }
     }
     
-    AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
+    CollectionAssayQuery abstractAssayQuery = (CollectionAssayQuery) queryMap.get(AbstractAssay.CLASS);
     if (abstractAssayQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, abstractAssayQuery);

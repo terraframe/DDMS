@@ -57,7 +57,7 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       _getBrowserRootClass : function(attribute)
       {
         var type = attribute.getType();
-        if(type === 'dss.vector.solutions.general.Insecticide')
+        if(type === 'dss.vector.solutions.irs.InsecticideBrand')
         {
           return type;
         }
