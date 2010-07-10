@@ -3,6 +3,7 @@ package dss.vector.solutions.entomology.assay;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.KnockDownTimeProperty;
+import dss.vector.solutions.util.QueryUtil;
 
 public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -39,29 +40,27 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
     String resistantLabel = labels[2];
 
     String assayTable = MdBusiness.getMdBusiness(KnockDownAssay.CLASS).getTableName();
-    String abstractTable = MdBusiness.getMdBusiness(AbstractAssay.CLASS).getTableName();
+    String collectionAssayTable = MdBusiness.getMdBusiness(CollectionAssay.CLASS).getTableName();
     String knockDownTimeTable = MdBusiness.getMdBusiness(KnockDownTimeProperty.CLASS).getTableName();
 
-    String kd50 = KnockDownAssay.KD50;
-    String kd95 = KnockDownAssay.KD95;
-    String insectidce = KnockDownAssay.INSECTICIDE;
-    String lowerTime = KnockDownTimeProperty.LOWERTIME;
-    String upperTime = KnockDownTimeProperty.UPPERTIME;
+    String kd50 = QueryUtil.getColumnName(KnockDownAssay.getKd50Md());
+    String kd95 = QueryUtil.getColumnName(KnockDownAssay.getKd95Md());
+    
+    String insectidce = QueryUtil.getColumnName(KnockDownAssay.getInsecticideMd());
+    String lowerTime = QueryUtil.getColumnName(KnockDownTimeProperty.getLowerTimeMd());
+    String upperTime = QueryUtil.getColumnName(KnockDownTimeProperty.getUpperTimeMd());
 
 
-    String select = "SELECT assay.id AS id,\n";
-    String from = "FROM " + abstractTable + " AS abstract, " + assayTable + " AS assay, " + knockDownTimeTable + " AS cutoff \n";
-    String where = "AND (abstract."+insectidce+" = cutoff."+insectidce+" AND abstract.id = assay.id) \n";
+    String select = "SELECT assay.id AS id,";
 
 
-    select += "(CASE WHEN (assay." + kd50 + " > " + upperTime + " OR assay." + kd95 + " > " + upperTime + ") THEN '" + resistantLabel + "'\n";
-    select += "WHEN (assay." + kd50 + " > " + lowerTime + " OR assay." + kd95 + " > " + lowerTime + ")   THEN '" + potentialyResistantLabel + "'\n";
-    select += "ELSE '" + susceptibleLabel + "' END) AS " + resistance_result + ",\n";
+    select += "(CASE WHEN (assay." + kd50 + " > " + upperTime + " OR assay." + kd95 + " > " + upperTime + ") THEN '" + resistantLabel + "' ";
+    select += "WHEN (assay." + kd50 + " > " + lowerTime + " OR assay." + kd95 + " > " + lowerTime + ")   THEN '" + potentialyResistantLabel + "' ";
+    select += "ELSE '" + susceptibleLabel + "' END) AS " + resistance_result + "";
 
+    String from = "FROM " + collectionAssayTable + " AS collectionAssay, " + assayTable + " AS assay, " + knockDownTimeTable + " AS cutoff ";
 
-    select = select.substring(0, select.length() - 2);
-    where = "WHERE " + where.substring(3, where.length() - 2);
-    from = from.substring(0, from.length() - 2);
+    String where = "WHERE (collectionAssay."+insectidce+" = cutoff."+insectidce+" AND collectionAssay.id = assay.id) ";
 
     return select + "\n" + from + "\n" + where;
   }

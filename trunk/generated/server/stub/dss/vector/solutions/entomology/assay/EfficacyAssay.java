@@ -232,7 +232,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
     {
       QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS, efficacyAssayQuery);
       
-      // There are termw defined on the parent class as well, so grab
+      // There are terms defined on the parent class as well, so grab
       QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS,  efficacyAssayQuery.getSpecie().getDefiningTableAlias());
       if(abstractAssayQuery != null)
       {

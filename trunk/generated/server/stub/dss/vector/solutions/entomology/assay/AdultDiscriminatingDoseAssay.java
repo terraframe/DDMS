@@ -6,7 +6,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoin;
 import com.runwaysdk.query.Join;
@@ -189,7 +188,12 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       }
     }
     
-    CollectionAssayQuery abstractAssayQuery = (CollectionAssayQuery) queryMap.get(AbstractAssay.CLASS);
+    AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
+    AdultDiscriminatingDoseAssayQuery adultQuery = (AdultDiscriminatingDoseAssayQuery) queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
+    LarvaeDiscriminatingDoseAssayQuery larvaeQuery = (LarvaeDiscriminatingDoseAssayQuery) queryMap.get(LarvaeDiscriminatingDoseAssay.CLASS);
+    KnockDownAssayQuery kdQuery = (KnockDownAssayQuery) queryMap.get(KnockDownAssay.CLASS);
+    CollectionAssayQuery collectionAssayQuery = (CollectionAssayQuery) queryMap.get(CollectionAssay.CLASS);
+
     if (abstractAssayQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, abstractAssayQuery);
@@ -199,14 +203,29 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (insecticideQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, Insecticide.CLASS, insecticideQuery);
-      valueQuery.WHERE(abstractAssayQuery.getInsecticide().EQ(insecticideQuery));
+      
+      if(adultQuery != null)
+      {
+        valueQuery.WHERE(adultQuery.getInsecticide().EQ(insecticideQuery));
+      }
+      if(larvaeQuery != null)
+      {
+        valueQuery.WHERE(larvaeQuery.getInsecticide().EQ(insecticideQuery));
+      }
+      if(kdQuery != null)
+      {
+        valueQuery.WHERE(kdQuery.getInsecticide().EQ(insecticideQuery));
+      }
+      if(collectionAssayQuery != null)
+      {
+        valueQuery.WHERE(collectionAssayQuery.getInsecticide().EQ(insecticideQuery));
+      }
     }
     
     
     CollectionAssayQuery joinResults = null;
 
     // join Mosquito with mosquito collection
-    AdultDiscriminatingDoseAssayQuery adultQuery = (AdultDiscriminatingDoseAssayQuery) queryMap.get(AdultDiscriminatingDoseAssay.CLASS);
     if (adultQuery != null)
     {
      // valueQuery.WHERE(adultQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
@@ -217,7 +236,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS,  adultQuery.getIdentificationMethod().getDefiningTableAlias());
     }
 
-    LarvaeDiscriminatingDoseAssayQuery larvaeQuery = (LarvaeDiscriminatingDoseAssayQuery) queryMap.get(LarvaeDiscriminatingDoseAssay.CLASS);
     if (larvaeQuery != null)
     {
      // valueQuery.WHERE(larvaeQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
@@ -227,7 +245,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS,  larvaeQuery.getIdentificationMethod().getDefiningTableAlias());
     }
 
-    KnockDownAssayQuery kdQuery = (KnockDownAssayQuery) queryMap.get(KnockDownAssay.CLASS);
     if (kdQuery != null)
     {
       //valueQuery.WHERE(kdQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
@@ -236,7 +253,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS,  kdQuery.getIdentificationMethod().getDefiningTableAlias());
     }
 
-    CollectionAssayQuery collectionAssayQuery = (CollectionAssayQuery) queryMap.get(CollectionAssay.CLASS);
     if (collectionAssayQuery != null)
     {
     //  valueQuery.WHERE(collectionAssayQuery.getCollection().getId().EQ(mosquitoCollectionQuery.getId()));
