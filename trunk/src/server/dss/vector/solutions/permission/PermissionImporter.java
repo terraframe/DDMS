@@ -217,6 +217,14 @@ public class PermissionImporter implements Reloadable
     while (row.getCell(i) != null)
     {
       String key = ExcelUtil.getString(row.getCell(i++));
+      if (key==null)
+      {
+        continue;
+      }
+      if (key.length()==0)
+      {
+        continue;
+      }
 
       MetadataDAOIF metadata = getMetadata(key);
 
