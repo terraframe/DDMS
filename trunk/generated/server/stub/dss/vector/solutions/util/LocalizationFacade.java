@@ -11,6 +11,8 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
+import dss.vector.solutions.CleanupContextListener;
+
 public abstract class LocalizationFacade extends LocalizationFacadeBase implements Reloadable
 {
   private static final long serialVersionUID = 1002885644;
@@ -32,6 +34,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   public static void installLocale(String localeString)
   {
     install(localeString);
+    CleanupContextListener.updateGeoDisplayView();
   }
 
   @Transaction

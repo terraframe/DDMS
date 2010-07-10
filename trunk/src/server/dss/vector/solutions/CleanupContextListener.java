@@ -10,17 +10,24 @@ import java.util.List;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+import com.runwaysdk.constants.MdAttributeLocalInfo;
+import com.runwaysdk.constants.MdLocalizableInfo;
 import com.runwaysdk.constants.MdTypeInfo;
 import com.runwaysdk.constants.RelationshipInfo;
+import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
-import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
+import com.runwaysdk.system.metadata.SupportedLocale;
+import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.PopulationData;
@@ -61,6 +68,11 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     runSql(getFunctionSql());
   }
 
+  public static void updateGeoDisplayView()
+  {
+    runSql(getGeoDisplayViewSQL());
+  }
+  
   private String getDropSql()
   {
     String sql = "";
@@ -124,7 +136,28 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   }
 
-  private List<String> getLocaleColumns() throws SQLException
+  @SuppressWarnings("unchecked")
+  private static List<String> newGetLocaleColumns() throws SQLException
+  {
+    LinkedList<String> list = new LinkedList<String>();
+    List<MdDimensionDAOIF> allDimensions = MdDimensionDAO.getAllMdDimensions();
+    List<SupportedLocale> allLocales = (List<SupportedLocale>)new SupportedLocaleQuery(new QueryFactory()).getIterator().getAll();
+    SupportedLocale defaultLocale = new SupportedLocale();
+    defaultLocale.setEnumName(MdAttributeLocalInfo.DEFAULT_LOCALE);
+    allLocales.add(defaultLocale);
+    for (SupportedLocale locale : allLocales)
+    {
+      String localeString = locale.getEnumName();
+      list.add(MetadataDAO.convertCamelCaseToUnderscore(localeString));
+      for (MdDimensionDAOIF dimension : allDimensions)
+      {
+        list.add(MetadataDAO.convertCamelCaseToUnderscore(dimension.getName()+localeString));
+      }
+    }
+    return list;
+  }
+  
+  private static List<String> getLocaleColumns() throws SQLException
   {
     MdEntityDAOIF mdDisLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
     String mdDisTable = mdDisLabel.getTableName();
@@ -145,6 +178,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "AND pg_catalog.pg_table_is_visible(c.oid) );\n";
 
     List<String> list = new LinkedList<String>();
+    list.add(MetadataDAO.convertCamelCaseToUnderscore(MdAttributeLocalInfo.DEFAULT_LOCALE));
 
     Connection conn = Database.getConnection();
     Statement statement = null;
@@ -238,14 +272,10 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     return sql;
   }
 
-  private String getGeoDisplayViewSQL()
+  private static String getGeoDisplayViewSQL()
   {
     List<String> list = new LinkedList<String>();
 
-    String key = MetadataDisplayLabel.CLASS + "." + MetadataDisplayLabel.DEFAULTLOCALE;
-    String defaultLocaleColumn = MdAttributeConcrete.getByKey(key).getColumnName();
-
-    list.add(defaultLocaleColumn);
     try
     {
       list.addAll(getLocaleColumns());
@@ -293,13 +323,13 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "g1." + politicalCol + " AS "+politicalCol+", \n";
     sql += "g1." + sprayTargetAllowedCol + " AS "+sprayTargetAllowedCol+",  \n";
     sql += "g1." + populationAllowedCol + " AS "+populationAllowedCol+",\n \n";
+    sql += "geo0." + entityNameCol + "|| COALESCE(' : ' || ter." + termName + ",'')   AS short_Display_Label";
     for (String locale : list)
     {
       // sql += "dl1.defaultlocale AS type_displayLabel_" + locale +", \n";
-      sql += "geo0." + entityNameCol + "|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter." + termName + ",'')   || ') - ' || geo0." + geoIdCol + " AS " + locale + ", \n";
+      sql += ", \ngeo0." + entityNameCol + "|| ' (' || dl1." + locale + " ||  COALESCE(' : ' || ter." + termName + ",'')   || ') - ' || geo0." + geoIdCol + " AS " + locale;
     }
-    sql += "geo0." + entityNameCol + "|| COALESCE(' : ' || ter." + termName + ",'')   AS short_Display_Label \n";
-    sql += "FROM  \n";
+    sql += "\nFROM  \n";
     sql += "" + geoHierarchyTable + " g1,  \n";
     sql += "" + mdTypeTable + " t1 , \n";
     sql += "" + mdDisTable + " dl1, \n";
@@ -314,7 +344,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   }
 
-  private void runSql(String storedProcSource)
+  private static void runSql(String storedProcSource)
   {
     // System.out.println(storedProcSource);
 
