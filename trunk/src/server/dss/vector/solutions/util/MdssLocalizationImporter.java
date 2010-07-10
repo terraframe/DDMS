@@ -145,7 +145,7 @@ public class MdssLocalizationImporter implements Reloadable
     File dir;
     try
     {
-      dir = FileIO.getDirectory(parentFileName);
+      dir = FileIO.getDirectory("MDSS.properties");
     }
     catch (URISyntaxException e)
     {
@@ -159,7 +159,14 @@ public class MdssLocalizationImporter implements Reloadable
     
     try
     {
-      parentLines = FileIO.readLines(parentFile);
+      if (parentFile.exists())
+      {
+        parentLines = FileIO.readLines(parentFile);
+      }
+      else
+      {
+        parentLines = new LinkedList<String>();
+      }
     }
     catch (IOException e)
     {
@@ -168,7 +175,14 @@ public class MdssLocalizationImporter implements Reloadable
     
     try
     {
-      childLines = FileIO.readLines(childFile);
+      if (childFile.exists())
+      {
+        childLines = FileIO.readLines(childFile);
+      }
+      else
+      {
+        childLines = new LinkedList<String>();
+      }
     }
     catch (IOException e)
     {
