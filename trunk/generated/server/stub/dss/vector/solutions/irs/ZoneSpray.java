@@ -174,12 +174,12 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     select += "" + teamSprayStatusTable + "." + sprayTeamCol + " AS sprayteam,\n";
     select += "(SELECT st." + teamIdCol + " FROM " + sprayTeamTable + " st WHERE st.id = " + teamSprayStatusTable + "." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += "" + teamSprayStatusTable + "." + teamLeaderCol + " AS sprayleader,\n";
-    select += "(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || p." + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm.id AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
+    select += "(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm.id AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
     select += "" + teamSprayStatusTable + "." + teamSprayWeekCol + " AS team_week,\n";
     select += "" + teamSprayStatusTable + "." + targetCol + " AS team_target,\n";
     // zone stuff
     select += "" + zoneSprayTable + "." + supervisorCol + "  AS zone_supervisor,\n";
-    select += "(SELECT  p." + firstNameCol + " || p." + lastNameCol + " FROM " + personTable + " AS p WHERE p.id = " + zoneSprayTable + "." + supervisorCol + ") AS zone_supervisor_defaultLocale,\n";
+    select += "(SELECT  p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + personTable + " AS p WHERE p.id = " + zoneSprayTable + "." + supervisorCol + ") AS zone_supervisor_defaultLocale,\n";
     select += "" + zoneSprayTable + "." + sprayWeekCol + " AS zone_week,\n";
     select += "" + zoneSprayTable + "." + zsTargetCol + " AS zone_target,\n";
     // target stuff

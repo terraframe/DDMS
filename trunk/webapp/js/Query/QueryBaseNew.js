@@ -956,7 +956,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           
         }
         
-        if(visibleObj.dtoType && (visibleObj.dtoType.indexOf('AttributeIntegerDTO') != -1  || visibleObj.dtoType.indexOf('AttributeFloatDTO') != -1 ))
+        if(visibleObj.dtoType && (visibleObj.dtoType.indexOf('AttributeIntegerDTO') != -1 
+            || visibleObj.dtoType.indexOf('AttributeFloatDTO') != -1
+            || visibleObj.dtoType.indexOf('AttributeLongDTO') != -1
+          || visibleObj.dtoType.indexOf('AttributeDoubleDTO') != -1
+          || visibleObj.dtoType.indexOf('AttributeDecimalDTO') != -1 ))
         {
         	li.id = attribute.getKey()+'_li';
         	 	

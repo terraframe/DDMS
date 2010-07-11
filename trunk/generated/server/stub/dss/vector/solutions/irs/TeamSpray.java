@@ -190,14 +190,14 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     select += "'' AS household_id,\n";
     select += "'' AS structure_id,\n";
     select += ""+operSprayStatusTable+"." + sprayOperatorCol + " AS sprayoperator,\n";
-    select += "sprayoperator."+memberIdCol+" || ' - ' || "+personTable+"."+firstNameCol+"  || "+personTable+"."+lastNameCol+" AS sprayoperator_defaultLocale,\n";
+    select += "sprayoperator."+memberIdCol+" || ' - ' || "+personTable+"."+firstNameCol+" || ' ' || "+personTable+"."+lastNameCol+" AS sprayoperator_defaultLocale,\n";
     select += ""+operSprayStatusTable+"." + operSprayWeekCol + " AS operator_week,\n";
     select += "NULL AS operator_target,\n";
     // team stuff
     select += ""+teamSprayTable+"." + sprayTeamCol + " AS "+sprayTeamCol+",\n";
     select += "(SELECT st." + teamIdCold + " FROM "+sprayTeamTable+" st WHERE st.id = "+teamSprayTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += ""+teamSprayTable+"." + teamLeaderCol + " AS sprayleader,\n";
-    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm.id AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
+    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm.id AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
     select += ""+teamSprayTable+"." +teamSprayWeekCol + " AS team_week,\n";
     select += ""+teamSprayTable+"." + targetCol + " AS team_target,\n";
     // zone stuff
