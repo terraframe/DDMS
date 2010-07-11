@@ -138,8 +138,8 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     ClientRequestIF clientRequest = this.getClientRequest();
 
     PersonViewDTO person = PersonDTO.getView(clientRequest, personId);
-    individualCase.setResidenceText(person.getResidentialInformation());
-    individualCase.setWorkplaceText(person.getWorkInformation());
+    individualCase.setResidenceText(AttributeUtil.getString(PersonViewDTO.RESIDENTIALINFORMATION, person));
+    individualCase.setWorkplaceText(AttributeUtil.getString(PersonViewDTO.WORKINFORMATION, person));
     
     // Case stuff
     req.setAttribute("person", person);
