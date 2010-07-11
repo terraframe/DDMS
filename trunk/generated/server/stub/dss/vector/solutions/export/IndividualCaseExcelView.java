@@ -73,6 +73,10 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
         individualCase.setWorkplace(person.getWorkGeoEntity());
       }
     }
+    else
+    {
+      individualCase.lock();
+    }
     
     IndividualInstance instance = new IndividualInstance();
     instance.setActivelyDetected(this.getActivelyDetected());
@@ -120,9 +124,40 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     String ident = this.getPhysicianIdentifier();
     
     PersonQuery query = new PersonQuery(new QueryFactory());
-    query.WHERE(query.getIdentifier().EQ(ident));
-    OIterator<? extends Person> iterator = query.getIterator();
+    int conditions = 0;
+    if (ident.length()>0)
+    {
+      query.WHERE(query.getIdentifier().EQ(ident));
+      conditions++;
+    }
+    if (fName.length()>0)
+    {
+      query.WHERE(query.getFirstName().EQ(fName));
+      conditions++;
+    }
+    if (lName.length()>0)
+    {
+      query.WHERE(query.getLastName().EQ(lName));
+      conditions++;
+    }
+    if (dob!=null)
+    {
+      query.WHERE(query.getDateOfBirth().EQ(dob));
+      conditions++;
+    }
+    if (sexTerm!=null)
+    {
+      query.WHERE(query.getSex().EQ(sexTerm));
+      conditions++;
+    }
     
+    // No physician data specified.  Return null.
+    if (conditions==0)
+    {
+      return null;
+    }
+    
+    OIterator<? extends Person> iterator = query.getIterator();
     if (!iterator.hasNext())
     {
       Person person = new Person();
@@ -179,7 +214,26 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     String ident = this.getIdentifier();
     
     PersonQuery query = new PersonQuery(new QueryFactory());
-    query.WHERE(query.getIdentifier().EQ(ident));
+    if (ident.length()>0)
+    {
+      query.WHERE(query.getIdentifier().EQ(ident));
+    }
+    if (fName.length()>0)
+    {
+      query.WHERE(query.getFirstName().EQ(fName));
+    }
+    if (lName.length()>0)
+    {
+      query.WHERE(query.getLastName().EQ(lName));
+    }
+    if (dob!=null)
+    {
+      query.WHERE(query.getDateOfBirth().EQ(dob));
+    }
+    if (sexTerm!=null)
+    {
+      query.WHERE(query.getSex().EQ(sexTerm));
+    }
     OIterator<? extends Person> iterator = query.getIterator();
     
     if (!iterator.hasNext())
@@ -222,6 +276,10 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     list.add(LASTNAME);
     list.add(DATEOFBIRTH);
     list.add(SEX);
+    list.add(RESIDENCETEXT);
+    list.add(WORKPLACETEXT);
+    list.add(BIRTHLOCATION);
+    list.add(PROBABLESOURCETEXT);
     list.add(OTHERSETTLEMENTS);
     list.add(ACTIVELYDETECTED);
     list.add(CASEIDENTIFIER);
