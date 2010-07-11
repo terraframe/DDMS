@@ -77,7 +77,7 @@ private static final long serialVersionUID = 1240879208564L;
       SavedSearchViewQuery viewQuery = this.getViewQuery();
       
       viewQuery.WHERE(searchQuery.getQueryType().EQ(queryType));
-
+      viewQuery.AND(searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
 

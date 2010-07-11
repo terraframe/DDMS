@@ -865,8 +865,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     {
       var request = new MDSS.Request({
         thisRef : this,
+        hadError : false,
         savedSearchId : savedSearchId,
-        onComplete : function(){},
+        onComplete : function(){
+        
+          // Batched Ajax isn't supported yet, so check for an error
+          // and manually remove the overlay if an error occured.
+          if(this.getTransport().status === 500)
+          {
+            MDSS.util.wait_for_ajax.hide();
+          }
+        },
         onSuccess: function(savedSearchView){
   
           this.thisRef._dm.disable();
@@ -1669,7 +1678,7 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
     initialize : function(){
       this._dependencies = {};
       this._enabled = true;
-      this._withinTransaction = false;
+      this._transactions = 0;
     },
     
     enable : function() { this._enabled = true; },
@@ -1678,36 +1687,43 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
     
     notifyAll : function(e)
     {
-     if(!this._enabled || this._withinTransaction)
-     {
-       return;
-     }
+      var dArr = this._dependencies[e.target.id];
+      if(!dArr || !this._enabled)
+      {
+        return;
+      }
       
-     this._withinTransaction = true;
-     var d = this._dependencies[e.target.id];
-     if(Mojo.Util.isArray(d))
-     {
-       for(var i=0; i<d.length; i++)
-       {
-         d[i].notify(e);
-       }
-     }
-     this._withinTransaction = false;
+      if(Mojo.Util.isArray(dArr))
+      {
+        for(var i=0; i<dArr.length; i++)
+        {
+          var d = dArr[i];
+          var propagate = d.doesPropagate();
+          if(!propagate && this._transactions > 1)
+          {
+            return;
+          }
+          
+          this._transactions++;
+          d.notify(e);
+          this._transactions--;
+        }
+      }
    },
    
-   _addEntry : function(ind, dep, type, excludes)
+   _addEntry : function(ind, dep, type, excludes, propagate)
    {
      if(Mojo.Util.isArray(ind))
      {
        for(var i=0; i<ind.length; i++)
        {
-         this._addEntry(ind[i], dep, type, excludes);
+         this._addEntry(ind[i], dep, type, excludes, propagate);
        }
        
        return;
      }     
      
-     var indO = MDSS.Independent.factory(ind, type);
+     var indO = MDSS.Independent.factory(ind, excludes, propagate);
      var depO = MDSS.Dependent.factory(dep, type);
      
      indO.setDependent(depO);
@@ -1740,15 +1756,16 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
      var dep = config.dependent;
      var type = config.type;
      var bidirectional = config.bidirectional;
+     var propagate = config.propagate || false;
      
      var indIds = this._getIds(ind);
      var depIds = this._getIds(dep);
      
-     this._addEntry(indIds, depIds, type, excludes);
+     this._addEntry(indIds, depIds, type, excludes, propagate);
      
      if(bidirectional)
      {
-       this._addEntry(depIds, indIds, type, excludes);
+       this._addEntry(depIds, indIds, type, excludes, propagate);
      }
    },
    
@@ -1776,11 +1793,10 @@ Mojo.Meta.newClass('MDSS.Dependent', {
   },
 
   Instance : {
-    initialize : function(type, excludes, group)
+    initialize : function(type, group)
     {
       this._type = type;
       this._dependent = null;
-      this._excludes = excludes;
       this._group = group || null;
     },
 
@@ -1800,10 +1816,10 @@ Mojo.Meta.newClass('MDSS.Dependent', {
   },
 
   Static : {
-    factory : function(attribute, type, excludes)
+    factory : function(attribute, type)
     {
       return Mojo.Util.isArray(attribute) ? 
-        new MDSS.GroupDependent(attribute, type, excludes) : new MDSS.SingleDependent(attribute, type, excludes);
+        new MDSS.GroupDependent(attribute, type) : new MDSS.SingleDependent(attribute, type);
     }  
   }
 
@@ -1814,9 +1830,9 @@ Mojo.Meta.newClass('MDSS.GroupDependent', {
   Extends : MDSS.Dependent,
 
   Instance : {
-    initialize : function(attributes, type, excludes)
+    initialize : function(attributes, type)
     {
-      this.$initialize(type, excludes);
+      this.$initialize(type);
 
       this._group = [];
       for(var i=0; i<attributes.length; i++)
@@ -1848,9 +1864,9 @@ Mojo.Meta.newClass('MDSS.SingleDependent', {
   Extends : MDSS.Dependent,
 
   Instance : {
-    initialize : function(attribute, type, excludes)
+    initialize : function(attribute, type)
     {
-      this.$initialize(type, excludes);
+      this.$initialize(type);
       this._single = Mojo.Util.isString(attribute) ? document.getElementById(attribute) : attribute;
     },
 
@@ -1877,9 +1893,21 @@ Mojo.Meta.newClass('MDSS.Independent',{
   IsAbstract : true,
   
   Instance : {
-    initialize : function()
+    initialize : function(excludes, propagate)
     {
       this._dependent = null;
+      this._excludes = excludes;
+      this._propagate = propagate;
+    },
+    
+    doesPropagate : function()
+    {
+      return this._propagate;
+    },
+    
+    doesExclude : function()
+    {
+      return this._excludes;
     },
     
     setDependent : function(d)
@@ -1896,24 +1924,39 @@ Mojo.Meta.newClass('MDSS.Independent',{
     {
       var type = this._dependent.getType();
       var checked = e.target.checked;
+      var excludes = this.doesExclude();
       if(checked && (type === MDSS.Dependent.CHECKED
         || type === MDSS.Dependent.BOTH))
       {
-        this._dependent.doCheck(this);
+        if(excludes)
+        {
+          this._dependent.doUncheck(this);
+        }
+        else
+        {
+          this._dependent.doCheck(this);
+        }
       }
       if(!checked && (type === MDSS.Dependent.UNCHECKED
         || type === MDSS.Dependent.BOTH))
       {
-        this._dependent.doUncheck(this);
+        if(excludes)
+        {
+          this._dependent.doCheck(this);
+        }
+        else
+        {
+          this._dependent.doUncheck(this);
+        }
       }
     },
   },
   
   Static : {
-    factory : function(attribute)
+    factory : function(attribute, excludes)
     {
       return Mojo.Util.isArray(attribute) ?
-        new MDSS.GroupIndependent(attribute) : new MDSS.SingleIndependent(attribute);
+        new MDSS.GroupIndependent(attribute, excludes) : new MDSS.SingleIndependent(attribute, excludes);
     }
   }
 });
@@ -1923,10 +1966,16 @@ Mojo.Meta.newClass('MDSS.SingleIndependent', {
   Extends : MDSS.Independent,
   
   Instance : {
-    initialize : function(attribute, group)
+    initialize : function(attribute, excludes, propagates, group)
     {
-      this.$initialize();
+      this.$initialize(excludes, propagates);
       this._group = group || null;
+      this._attribute = attribute;
+    },
+    
+    toString : function()
+    {
+      return "I: "+this._attribute;
     }
   }
 
@@ -1938,14 +1987,14 @@ Mojo.Meta.newClass('MDSS.GroupIndependent', {
   Extends : MDSS.Independent,
   
   Instance : {
-  initialize : function(attributes)
+  initialize : function(attributes, excludes, propagates)
   {
-    this.$initialize();
+    this.$initialize(excludes, propagates);
     
     this._group = [];
     for(var i=0; i<attributes.length; i++)
     {
-      this._group.push(new MDSS.SingleIndependent(attributes[i], this));
+      this._group.push(new MDSS.SingleIndependent(attributes[i], excludes, propagates, this));
     }
   }
 }

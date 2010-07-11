@@ -407,7 +407,7 @@ public class SavedSearch extends SavedSearchBase implements
     {
       GeneratedViewQuery viewQuery = this.getViewQuery();
 
-      viewQuery.WHERE(this.searchQuery.getQueryType().NE(DefaultSavedSearch.DEFAULT));
+      viewQuery.WHERE(this.searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.AND(this.searchQuery.getMappable().EQ(true));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }

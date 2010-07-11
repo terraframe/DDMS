@@ -369,6 +369,14 @@ YAHOO.util.Event.onDOMReady(function(){
       independent: 'childId',
       dependent: calculations,
       type: MDSS.Dependent.UNCHECKED,
+      propagate: true,
+      bidirectional: false
+    });
+
+    dm.excludes({
+      independent: indexes,
+      dependent: 'childId',
+      type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
 
