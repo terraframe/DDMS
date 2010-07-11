@@ -2,6 +2,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <mjl:component item="${person}" param="#person">
+  <mjl:dt attribute="identifier">
+    ${person.identifier}
+  </mjl:dt>
   <mjl:dt attribute="firstName">
     ${person.firstName}
   </mjl:dt>
