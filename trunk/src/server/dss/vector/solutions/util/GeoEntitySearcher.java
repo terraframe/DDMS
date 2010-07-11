@@ -15,6 +15,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.business.Business;
@@ -32,6 +33,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.ExcelReadException;
+import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoSynonymQuery;
 import dss.vector.solutions.geo.UnknownGeoEntity;
@@ -106,6 +108,10 @@ public class GeoEntitySearcher implements Reloadable
       POIFSFileSystem fileSystem = new POIFSFileSystem(inputStream);
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
       sheet = workbook.getSheetAt(0);
+    }
+    catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
     }
     catch (IOException e)
     {

@@ -12,6 +12,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
@@ -31,6 +32,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdAttribute;
 
+import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.general.Disease;
 
 /**
@@ -207,6 +209,10 @@ public class AttributeRootImporter implements Reloadable
       Iterator<HSSFRow> rowIterator = sheet.rowIterator();
 
       return rowIterator;
+    }
+    catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
     }
     catch (IOException e)
     {

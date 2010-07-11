@@ -14,6 +14,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.RunwayExceptionIF;
@@ -39,6 +40,7 @@ import dss.vector.solutions.export.AggregatedCaseReferralsExcelView;
 import dss.vector.solutions.export.AggregatedCaseTreatmentsExcelView;
 import dss.vector.solutions.export.AggregatedCaseTypesExcelView;
 import dss.vector.solutions.export.AggregatedPremiseExcelView;
+import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.export.IndividualPremiseExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
 import dss.vector.solutions.export.PersonInterventionExcelView;
@@ -198,6 +200,10 @@ public abstract class Facade extends FacadeBase implements Reloadable
       buffer.close();
       return new ByteArrayInputStream(bytes.toByteArray());
     }
+    catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
+    }
     catch (IOException e)
     {
       throw new SystemException(e);
@@ -252,6 +258,10 @@ public abstract class Facade extends FacadeBase implements Reloadable
       buffer.flush();
       buffer.close();
       return new ByteArrayInputStream(bytes.toByteArray());
+    }
+    catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
     }
     catch (IOException e)
     {

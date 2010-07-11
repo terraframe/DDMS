@@ -20,6 +20,7 @@ import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
@@ -32,6 +33,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 
+import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.util.MDSSProperties;
 
 public class OntologyExcelImporter
@@ -243,6 +245,10 @@ public class OntologyExcelImporter
       Iterator<HSSFRow> rowIterator = sheet.rowIterator();
 
       return rowIterator;
+    }
+    catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
     }
     catch (IOException e)
     {

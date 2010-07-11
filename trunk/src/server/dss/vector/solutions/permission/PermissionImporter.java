@@ -11,6 +11,7 @@ import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
@@ -36,6 +37,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.general.SystemURLQuery;
@@ -268,6 +270,10 @@ public class PermissionImporter implements Reloadable
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
 
       return workbook;
+    }
+    catch (OfficeXmlFileException e)
+    {
+      throw new ExcelVersionException(e);
     }
     catch (IOException e)
     {
