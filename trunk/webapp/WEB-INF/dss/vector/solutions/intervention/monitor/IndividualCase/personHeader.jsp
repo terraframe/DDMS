@@ -8,9 +8,6 @@
   <mjl:dt attribute="lastName">
     ${person.lastName}
   </mjl:dt>
-  <mjl:dt attribute="residentialGeoId">
-    ${residential.displayString}
-  </mjl:dt>
   <mjl:dt attribute="sex">
     ${person.sex.displayLabel}
   </mjl:dt>

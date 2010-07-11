@@ -10,6 +10,9 @@
     <%@include file="personHeader.jsp" %>
     <mjl:input value="${item.id}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="residence">
+        ${item.residence}  
+      </mjl:dt>
       <mjl:dt attribute="caseReportDate">
         <span class="formatDate">
           ${item.caseReportDate}
