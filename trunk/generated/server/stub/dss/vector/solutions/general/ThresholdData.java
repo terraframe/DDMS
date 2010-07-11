@@ -204,6 +204,8 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 
     String weeklyThresholdTable = MdEntityDAO.getMdEntityDAO(WeeklyThreshold.CLASS).getTableName();
     
+    String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
+    
     String thresholdDataTable = MdEntityDAO.getMdEntityDAO(ThresholdData.CLASS).getTableName();
     String geoEntityCol = QueryUtil.getColumnName(ThresholdData.getGeoEntityMd());
     
@@ -240,11 +242,13 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+", 0 AS depth , "+geoEntityTable+"."+typeCol+" , ";
 		sql += " COALESCE((";
 		// this is the table with the sumable value
-		sql += " SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+" ";
+		sql += " SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+", "+malariaSeasonTable+" ";
 		sql += "    WHERE "+weeklyThresholdTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + week.getId() + "'";
 		sql += "    AND "+thresholdDataTable+"."+geoEntityCol+" = "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+"";
 		sql += "    AND "+weeklyThresholdTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+thresholdDataTable+"."+idCol+"";
 		sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
+		sql += "    AND "+thresholdDataTable+"."+"season"+" = " + malariaSeasonTable+"."+"id";
+		sql += "    AND "+malariaSeasonTable+"."+"disease"+" = " + "'"+Disease.getCurrent().getId()+"'";
 		sql += "  ),0)as sumvalue";
 		sql += "  FROM "+locatedInTable+", geohierarchy_flags, "+geoEntityTable+"";
 		// --zambia";
@@ -256,11 +260,13 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		sql += " SELECT b."+RelationshipDAOIF.CHILD_ID_COLUMN+", b."+RelationshipDAOIF.PARENT_ID_COLUMN+", a.depth+1 , "+geoEntityTable+"."+typeCol+" , ";
 		// this is how we sum. We only sum if population is allowed";
 		sql += " a.sumvalue +  COALESCE((";
-		sql += "  SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+"  ";
+		sql += "  SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+", "+malariaSeasonTable+"  ";
 		sql += "    WHERE "+weeklyThresholdTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + week.getId() + "'";
 		sql += "    AND "+thresholdDataTable+"."+geoEntityCol+" = b."+RelationshipDAOIF.CHILD_ID_COLUMN+"";
 		sql += "    AND "+weeklyThresholdTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+thresholdDataTable+"."+idCol+"";
 		sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
+		sql += "    AND "+thresholdDataTable+"."+"season"+" = " + malariaSeasonTable+"."+"id";
+		sql += "    AND "+malariaSeasonTable+"."+"disease"+" = " + "'"+Disease.getCurrent().getId()+"'";
 		sql += " ),0)";
 		sql += " FROM recursive_rollup a, "+locatedInTable+" b , geohierarchy_flags, "+geoEntityTable+" ";
 		sql += " WHERE a."+RelationshipDAOIF.CHILD_ID_COLUMN+" = b."+RelationshipDAOIF.PARENT_ID_COLUMN+"";
