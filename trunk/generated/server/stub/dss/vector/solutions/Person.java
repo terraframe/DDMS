@@ -125,7 +125,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
 
       if (count > 0)
       {
-        throw new UniqueLeaderIdException();
+        throw new UniquePersonIdException();
       }
     }
   }
