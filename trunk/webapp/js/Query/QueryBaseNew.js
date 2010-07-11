@@ -247,7 +247,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             	//this is for multi mo restriction
             	if(t == 'sqlinteger')
             	{
-            		this._config.setProperty(k+'Criteria',  whereIds[0]);
+            		this._config.setNumberCriteria(k,  whereIds[0]);
             	}
             	else
             	{
@@ -261,7 +261,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             	//this is for multi mo restriction
             	if(t == 'sqlinteger')
             	{
-            		this._config.setProperty(k+'Criteria',  whereIds[0] + ' - ' + whereIds[1]);
+            		this._config.setNumberCriteria(k,  whereIds[0] + ' - ' + whereIds[1]);
             	}
             	else
             	{
@@ -465,6 +465,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       if(removeColumn)
       {
+        this._config.removeNumberCriteria(key);
         var column = this._queryPanel.getColumn(key);
         this._queryPanel.removeColumn(column);
       }
@@ -686,6 +687,24 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          this._queryPanel.removeWhereCriteria(attribute.getKey(), value);
        }
     },
+    
+    _setNumberCriteriaFromLoad : function(checked, userAlias)
+    {
+      var key = userAlias + this._config.CRITERIA;
+      var crit = this._config.getProperty(key);
+      if(checked && crit){
+        this._queryPanel.addWhereCriteria(userAlias, crit, crit);
+        if(crit.indexOf(' - ')>0)
+        {
+          crit = crit.split(' - ');               
+          this._toggleRange(userAlias, true, crit[0],crit[1]);
+        }
+        else
+        {
+          this._toggleSingle(userAlias, true, crit);
+        }
+      }
+    },
 
 
     _loadQueryState : function(view)
@@ -717,40 +736,30 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       parser.parseSelectables({
         attribute : function(entityAlias, attributeName, userAlias){
             var checked = thisRef._checkBox(userAlias);
-           
-           	var key = userAlias + 'Criteria';
-           	var crit = thisRef._config.getProperty(key);
-	          if(checked && crit){
-	          	thisRef._queryPanel.addWhereCriteria(userAlias, crit, crit);
-	          	if(crit.indexOf(' - ')>0)
-	          	{
-	          		crit = crit.split(' - ');	          		
-      			  	thisRef._toggleRange(userAlias, true, crit[0],crit[1]);
-	          	}
-      			  else
-      			  {
-      			  	thisRef._toggleSingle(userAlias, true, crit);
-      			  }
-          	}
+            thisRef._setNumberCriteriaFromLoad(checked, userAlias);
         },
         sum: function(entityAlias, attributeName, userAlias){
 
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
           thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
         },
         min: function(entityAlias, attributeName, userAlias){
 
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
           thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
         },
         max: function(entityAlias, attributeName, userAlias){
 
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
           thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
         },
         avg: function(entityAlias, attributeName, userAlias){
 
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
           thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
         },
         count: function(entityAlias, attributeName, userAlias){
@@ -779,15 +788,18 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         },
         sqlinteger: function(entityAlias, attributeName, userAlias){
           
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
         },
         sqldouble: function(entityAlias, attributeName, userAlias){
           
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
         },
         sqlfloat: function(entityAlias, attributeName, userAlias){
           
-          thisRef._checkBox(userAlias);
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
         },
         sqldate : function(entityAlias, attributeName, userAlias){
 
@@ -1434,7 +1446,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       if(!checked)
       {
-        this._config.setProperty(attribute.getKey()+'Criteria', null);
+        this._config.removeNumericCriteria(attribute.getKey())
       }
     
     },
@@ -1495,7 +1507,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         value = null;
       }
     
-      this._config.setProperty(attribute.getKey()+'Criteria', value);
+      this._config.setNumberCriteria(attribute.getKey(), value);
       this._queryPanel.clearWhereCriteria(attribute.getKey());
       
       if(value != null)

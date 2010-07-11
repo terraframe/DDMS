@@ -837,6 +837,8 @@ MDSS.QueryXML.OrderBy.prototype = {
 MDSS.Query = {};
 MDSS.Query.Config = function(configJSON)
 {
+  this.CRITERIA = 'Criteria';
+  
   this._config = {
     selectedUniversals : {},
     criteriaEntities : {},
@@ -912,6 +914,26 @@ MDSS.Query.Config.prototype = {
   setProperty : function(key, value)
   {
     this._config[key] = value;
+  },
+  
+  removeProperty : function(key)
+  {
+    delete this._config[key];
+  },
+  
+  setNumberCriteria : function(key, value)
+  {
+    this.setProperty(key+this.CRITERIA, value);
+  },
+  
+  getNumberCriteria : function(key)
+  {
+    return this._getProperty(key+this.CRITERIA);
+  },
+  
+  removeNumberCriteria : function(key)
+  {
+    this.removeProperty(key+this.CRITERIA);
   },
 
   getProperty : function(key)

@@ -893,7 +893,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           }
           catch(e)
           {
-            
+            // not all of the query could be loaded. There are too many
+            // possibilities that could cause this, but at least load the
+            // best we can.
           }
           finally
           {
