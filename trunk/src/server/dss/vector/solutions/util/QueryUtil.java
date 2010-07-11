@@ -98,7 +98,7 @@ public class QueryUtil implements Reloadable
   public static final String  DATEGROUP_SEASON             = "dategroup_season";
 
   public static final String  DUMMY_RELATIONSHIP_VALUE_ONE = "one";
-  
+
   public static final String  DUMMY_RELATIONSHIP_VALUE_COL = "1";
 
   public static final String  START_DATE_RANGE             = "start_date_range";
@@ -131,7 +131,8 @@ public class QueryUtil implements Reloadable
       throw ex;
     }
 
-    if (size == 1 && ( valueQuery.hasSelectableRef(RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
+    if (size == 1
+        && ( valueQuery.hasSelectableRef(RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
     {
       throw new CountOrRatioAloneException();
     }
@@ -147,12 +148,12 @@ public class QueryUtil implements Reloadable
       }
     }
   }
-  
+
   public static String getColumnName(String klass, String attribute)
   {
     return getColumnName(MdEntityDAO.getMdEntityDAO(klass), attribute);
   }
-  
+
   /**
    * Returns the column name of the given MdAttribute.
    * 
@@ -161,21 +162,21 @@ public class QueryUtil implements Reloadable
    */
   public static String getColumnName(MdAttributeDAOIF md)
   {
-    if(md instanceof MdAttributeVirtualDAOIF)
+    if (md instanceof MdAttributeVirtualDAOIF)
     {
-      return ((MdAttributeVirtualDAO)md).getMdAttributeConcrete().getColumnName();
+      return ( (MdAttributeVirtualDAO) md ).getMdAttributeConcrete().getColumnName();
     }
     else
     {
-      return ((MdAttributeConcreteDAOIF)md).getColumnName();
+      return ( (MdAttributeConcreteDAOIF) md ).getColumnName();
     }
   }
-  
+
   public static String getIdColumn()
   {
     return getColumnName(MdClass.getIdMd());
   }
-  
+
   /**
    * Returns the column name of the given attribute.
    * 
@@ -185,11 +186,11 @@ public class QueryUtil implements Reloadable
    */
   public static String getColumnName(MdEntityDAOIF md, String attribute)
   {
-    if(attribute.equals("childId"))
+    if (attribute.equals("childId"))
     {
       return RelationshipDAOIF.CHILD_ID_COLUMN;
     }
-    else if(attribute.equals("parentId"))
+    else if (attribute.equals("parentId"))
     {
       return RelationshipDAOIF.PARENT_ID_COLUMN;
     }
@@ -253,7 +254,9 @@ public class QueryUtil implements Reloadable
     String relTable = MdEntity.getMdEntity(relClass).getTableName();
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
 
-    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from" + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin." + RelationshipDAOIF.PARENT_ID_COLUMN + " = pJoin.id" + " LEFT JOIN " + termTable
+    return "(select pJoin.id AS id, tJoin." + Term.NAME + " as " + attribute + "_displayLabel from"
+        + " " + parentTable + " AS pJoin LEFT JOIN " + relTable + " rJoin ON rJoin."
+        + RelationshipDAOIF.PARENT_ID_COLUMN + " = pJoin.id" + " LEFT JOIN " + termTable
         + " tJoin on rJoin." + RelationshipDAOIF.CHILD_ID_COLUMN + " = tJoin.id)";
   }
 
@@ -338,7 +341,8 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass,
+      GeneratedEntityQuery query)
   {
 
     String tableAlias = query.getTableAlias();
@@ -356,7 +360,7 @@ public class QueryUtil implements Reloadable
     if (termAttributes.length > 0)
     {
       String id = getIdColumn();
-      
+
       String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
       String subSelect = klass.replace('.', '_') + "TermSubSel";
       String table = MdEntity.getMdEntity(klass).getTableName();
@@ -366,7 +370,8 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, GeneratedEntityQuery query, String attributeId)
+  public static ValueQuery leftJoinTermDisplayLabels(ValueQuery valueQuery, GeneratedEntityQuery query,
+      String attributeId)
   {
 
     MdEntityDAOIF mdEntity = query.getMdClassIF();
@@ -381,10 +386,10 @@ public class QueryUtil implements Reloadable
       String attrib = s.getColumnAlias();
       attrib = attrib.substring(0, attrib.length() - DISPLAY_LABEL_SUFFIX.length());
       String attrCol = getColumnName(mdEntity, attrib);
-      
+
       String sql = "SELECT term." + Term.NAME + "  FROM " + tableName + " as t";
-      sql += " LEFT JOIN " + termTable + " as term  on t." + attrCol + " = term."+idCol;
-      sql += " WHERE t."+idCol+" = " + attributeId + "";
+      sql += " LEFT JOIN " + termTable + " as term  on t." + attrCol + " = term." + idCol;
+      sql += " WHERE t." + idCol + " = " + attributeId + "";
 
       s.setSQL(sql);
     }
@@ -392,22 +397,25 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass, String attributeName, String attributeAlias)
+  public static void subselectGeoDisplayLabels(SelectableSQLCharacter geoLabel, String klass,
+      String attributeName, String attributeAlias)
   {
     MdBusiness md = MdBusiness.getMdBusiness(klass);
     String tableName = md.getTableName();
     String attribCol = QueryUtil.getColumnName(klass, attributeName);
-    
+
     String localeCoalesce = getLocaleCoalesce("gdl.");
 
-    String sql = "SELECT "+localeCoalesce+" FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName + " p ON p." + attribCol + " = gdl.id";
+    String sql = "SELECT " + localeCoalesce + " FROM " + GEO_DISPLAY_LABEL + " AS gdl JOIN " + tableName
+        + " p ON p." + attribCol + " = gdl.id";
 
     sql += " WHERE p.id = " + attributeAlias + "";
 
     geoLabel.setSQL(sql);
   }
 
-  public static ValueQuery joinGeoDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  public static ValueQuery joinGeoDisplayLabels(ValueQuery valueQuery, String klass,
+      GeneratedEntityQuery query)
   {
     if (query != null)
     {
@@ -415,7 +423,7 @@ public class QueryUtil implements Reloadable
       if (geoAttributes.length > 0)
       {
         String id = getIdColumn();
-        
+
         String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
         String subSelect = klass.replace('.', '_') + "GeoSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
@@ -426,7 +434,8 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static Join forceJoinGeoDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  public static Join forceJoinGeoDisplayLabels(ValueQuery valueQuery, String klass,
+      GeneratedEntityQuery query)
   {
     if (query != null)
     {
@@ -434,7 +443,7 @@ public class QueryUtil implements Reloadable
       if (geoAttributes.length > 0)
       {
         String id = getIdColumn();
-        
+
         String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
         String subSelect = klass.replace('.', '_') + "GeoSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
@@ -446,7 +455,8 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery joinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
+  public static ValueQuery joinEnumerationDisplayLabels(ValueQuery valueQuery, String klass,
+      GeneratedEntityQuery query)
   {
     if (query != null)
     {
@@ -454,7 +464,7 @@ public class QueryUtil implements Reloadable
       if (enumAttributes.length > 0)
       {
         String id = getIdColumn();
-        
+
         String sql = "(" + QueryUtil.getEnumerationDisplayLabelSubSelect(klass, enumAttributes) + ")";
         String subSelect = klass.replace('.', '_') + "EnumSubSel";
         String table = MdBusiness.getMdBusiness(klass).getTableName();
@@ -465,25 +475,28 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery leftJoinEnumerationDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query, String attributeId)
+  public static ValueQuery leftJoinEnumerationDisplayLabels(ValueQuery valueQuery, String klass,
+      GeneratedEntityQuery query, String attributeId)
   {
     MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
     String tableEnum = enumMaster.getTableName();
     String displayLabelColumn = getColumnName(enumMaster, EnumerationMaster.DISPLAYLABEL);
-    
-    SelectableSQL[] enumAttributes = filterSelectedSelectables(valueQuery, QueryUtil.getEnumAttributes(klass));
+
+    SelectableSQL[] enumAttributes = filterSelectedSelectables(valueQuery, QueryUtil
+        .getEnumAttributes(klass));
     String tableName = MdBusiness.getMdBusiness(klass).getTableName();
 
     MdEntityDAOIF mdDisplayLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
     String tableDisplay = mdDisplayLabel.getTableName();
     String defaultLocaleColumn = getColumnName(mdDisplayLabel, MetadataDisplayLabel.DEFAULTLOCALE);
-    
+
     for (SelectableSQL s : Arrays.asList(enumAttributes))
     {
       String attrib = s.getColumnAlias();
       attrib = attrib.substring(0, attrib.length() - DISPLAY_LABEL_SUFFIX.length());
       attrib = getColumnName(klass, attrib);
-      String sql = " SELECT "+defaultLocaleColumn+" FROM "+tableEnum+" em JOIN "+tableDisplay+" md on em."+displayLabelColumn+" = md.id  ";
+      String sql = " SELECT " + defaultLocaleColumn + " FROM " + tableEnum + " em JOIN " + tableDisplay
+          + " md on em." + displayLabelColumn + " = md.id  ";
       sql += " JOIN " + tableName + " as t  ON t." + attrib + "_c = em.id";
       sql += " WHERE t.id = " + attributeId + "";
 
@@ -518,7 +531,7 @@ public class QueryUtil implements Reloadable
   public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
   {
     boolean foundGrid = false;
-    
+
     for (Selectable s : valueQuery.getSelectableRefs())
     {
       while (s instanceof Function)
@@ -535,7 +548,7 @@ public class QueryUtil implements Reloadable
         if (index1 > 0 && index2 > 0 && index1 != index2)
         {
           foundGrid = true;
-          
+
           String attrib = gridAlias.substring(0, index1);
 
           // here we make a dummy value when the relationship has no ammount
@@ -549,9 +562,9 @@ public class QueryUtil implements Reloadable
 
           MdEntityDAOIF mdRel = MdEntityDAO.getMdEntityDAO(klass);
           String table = mdRel.getTableName();
-          
+
           String attrCol;
-          if(attrib.equals(DUMMY_RELATIONSHIP_VALUE_COL))
+          if (attrib.equals(DUMMY_RELATIONSHIP_VALUE_COL))
           {
             attrCol = DUMMY_RELATIONSHIP_VALUE_COL;
           }
@@ -559,9 +572,10 @@ public class QueryUtil implements Reloadable
           {
             attrCol = getColumnName(mdRel, attrib);
           }
-          
-          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE "+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + term_id + "' " 
-            + "AND "+RelationshipDAOIF.PARENT_ID_COLUMN+" = " + tableAlias + ".id";
+
+          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE "
+              + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + term_id + "' " + "AND "
+              + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + tableAlias + ".id";
 
           ( (SelectableSQL) s ).setSQL(sql);
         }
@@ -570,7 +584,8 @@ public class QueryUtil implements Reloadable
     return foundGrid;
   }
 
-  public static void setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  public static void setTermRestrictions(ValueQuery valueQuery,
+      Map<String, GeneratedEntityQuery> queryMap)
   {
     for (String entityAlias : queryMap.keySet())
     {
@@ -582,21 +597,27 @@ public class QueryUtil implements Reloadable
         String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
-          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          String allPathsTable = MdEntity.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
+          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap
+              .get(entityAlias);
+          String allPathsTable = MdEntity.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS)
+              .getTableName();
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
-          
+
           String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
           String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
-          
-          // IMPORTANT: We cannot always rely on the class table directly because the attribute
-          // may have been defined by a parent class, hence it will be on the parent table.
-          // Instead, rely on the query and metadata to resolve the class/attribute mapping.
+
+          // IMPORTANT: We cannot always rely on the class table directly
+          // because the attribute
+          // may have been defined by a parent class, hence it will be on the
+          // parent table.
+          // Instead, rely on the query and metadata to resolve the
+          // class/attribute mapping.
           Attribute attr = attributeQuery.get(attrib_name);
           String table = attr.getDefiningTableName();
           String alias = attr.getDefiningTableAlias();
-          
-          valueQuery.AND(new InnerJoinEq(attrCol, table, alias, childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
+
+          valueQuery.AND(new InnerJoinEq(attrCol, table, alias, childTermCol, allPathsTable,
+              allPathsQuery.getTableAlias()));
         }
       }
 
@@ -615,60 +636,63 @@ public class QueryUtil implements Reloadable
       {
         attributeName = matcher.group(1);
 
+        String value;
         try
         {
-          String value = queryConfig.getString(key);
-          Selectable sel = valueQuery.getSelectableRef(attributeName);
+          value = queryConfig.getString(key);
+        }
+        catch (JSONException e)
+        {
+          String error = "Could not extract the key [" + key + "] when setting numeric restrictions.";
+          throw new ProgrammingErrorException(error, e);
+        }
+        Selectable sel = valueQuery.getSelectableRef(attributeName);
 
-          while (sel instanceof Function)
-          {
-            Function f = (Function) sel;
-            sel = f.getSelectable();
-          }
+        while (sel instanceof Function)
+        {
+          Function f = (Function) sel;
+          sel = f.getSelectable();
+        }
 
-          if (value.contains("-"))
+        if (value.contains("-"))
+        {
+          String[] range = value.split("-");
+          if (range.length == 2)
           {
-            String[] range = value.split("-");
-            if (range.length == 2)
+            String range1 = range[0].trim();
+            String range2 = range[1].trim();
+            if (range1.length() > 0)
             {
-              String range1 = range[0];
-              String range2 = range[1];
-              if (range1.length() > 0)
-              {
-                valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range1));
-              }
-
-              if (range2.length() > 0)
-              {
-                valueQuery.WHERE( ( (SelectableNumber) sel ).LE(range2));
-              }
+              valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range1));
             }
-            else
+
+            if (range2.length() > 0)
             {
-              // Just the GE criteria was specified (e.g., "7-")
-              valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range[0]));
+              valueQuery.WHERE( ( (SelectableNumber) sel ).LE(range2));
             }
           }
           else
           {
-            // exact value
-            if (sel instanceof SelectableNumber && !value.equals("NULL"))
-            {
-              valueQuery.WHERE(sel.EQ(value));
-            }
-            if (sel instanceof SelectableChar && !value.equals("NULL"))
-            {
-              valueQuery.WHERE( ( (SelectableChar) sel ).LIKE(value));
-            }
-
+            // Just the GE criteria was specified (e.g., "7-")
+            valueQuery.WHERE( ( (SelectableNumber) sel ).GE(range[0].trim()));
+          }
+        }
+        else
+        {
+          value = value.trim();
+          
+          // exact value
+          if (sel instanceof SelectableNumber && !value.equals("NULL"))
+          {
+            valueQuery.WHERE(sel.EQ(value));
+          }
+          if (sel instanceof SelectableChar && !value.equals("NULL"))
+          {
+            valueQuery.WHERE( ( (SelectableChar) sel ).LIKE(value));
           }
 
         }
-        catch (Exception e)
-        {
-          // TODO Auto-generated catch block
-          // e.printStackTrace();
-        }
+
       }
     }
     return valueQuery;
@@ -684,7 +708,8 @@ public class QueryUtil implements Reloadable
     String from = " FROM " + tableName + " as " + tableName;
 
     int count = 0;
-    Map<String, ? extends MdAttributeConcreteDAOIF> attrMap = targetMdBusiness.getAllDefinedMdAttributeMap();
+    Map<String, ? extends MdAttributeConcreteDAOIF> attrMap = targetMdBusiness
+        .getAllDefinedMdAttributeMap();
     for (String attr : attributes)
     {
       select += " term" + count + "." + Term.NAME + " as " + attr + "_displayLabel";
@@ -696,8 +721,9 @@ public class QueryUtil implements Reloadable
 
       MdAttributeConcreteDAOIF attrMd = attrMap.get(attr.toLowerCase());
       String attrColumn = attrMd != null ? getColumnName(attrMd) : getColumnName(targetMdBusiness, attr);
-      
-      from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attrColumn + " = term" + count + ".id";
+
+      from += " LEFT JOIN " + termTable + " as term" + count + " on " + tableName + "." + attrColumn
+          + " = term" + count + ".id";
 
       count++;
     }
@@ -711,16 +737,16 @@ public class QueryUtil implements Reloadable
   {
     MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(className);
     String tableName = md.getTableName();
-    
+
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
 
-    int count = 0; 
+    int count = 0;
     for (String attr : attributes)
     {
       String localeCoalesce = getLocaleCoalesce(" geo" + count + ".");
-      
-      select += localeCoalesce+" AS " + attr + "_displayLabel";
+
+      select += localeCoalesce + " AS " + attr + "_displayLabel";
 
       if (count != attributes.length - 1)
       {
@@ -728,7 +754,8 @@ public class QueryUtil implements Reloadable
       }
 
       String geoCol = getColumnName(md, attr);
-      from += " LEFT JOIN " + GEO_DISPLAY_LABEL + " as geo" + count + " on " + tableName + "." + geoCol + " = geo" + count + ".id";
+      from += " LEFT JOIN " + GEO_DISPLAY_LABEL + " as geo" + count + " on " + tableName + "." + geoCol
+          + " = geo" + count + ".id";
 
       count++;
     }
@@ -737,13 +764,11 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-  
-
 
   public static String getLocaleCoalesce(String prefix)
   {
     String localeString = Session.getCurrentLocale().toString().toLowerCase();
-    
+
     SupportedLocaleQuery installedLocales = LocalizationFacade.getInstalledLocales();
     OIterator<? extends SupportedLocale> iterator = installedLocales.getIterator();
     List<String> list = new LinkedList<String>();
@@ -753,30 +778,31 @@ public class QueryUtil implements Reloadable
       SupportedLocale supportedLocale = (SupportedLocale) iterator.next();
       list.add(supportedLocale.getEnumName().toLowerCase());
     }
-    
+
     String localeColumns = "";
-    
-    
+
     for (int i = localeString.length(); i > 0; i = localeString.lastIndexOf('_', i - 1))
     {
       String subLocale = localeString.substring(0, i).toLowerCase();
-      
-      if(list.contains(subLocale))
-      {   
-        localeColumns += MetadataDAO.convertCamelCaseToUnderscore(Session.getCurrentDimension().getLocaleAttributeName(subLocale))+ ", ";
+
+      if (list.contains(subLocale))
+      {
+        localeColumns += MetadataDAO.convertCamelCaseToUnderscore(Session.getCurrentDimension()
+            .getLocaleAttributeName(subLocale))
+            + ", ";
         localeColumns += subLocale + ", ";
       }
-      
+
     }
-    
-    String key = MetadataDisplayLabel.CLASS+"."+MetadataDisplayLabel.DEFAULTLOCALE;
+
+    String key = MetadataDisplayLabel.CLASS + "." + MetadataDisplayLabel.DEFAULTLOCALE;
     String defaultLocaleColumn = MdAttributeConcrete.getByKey(key).getColumnName();
-    
+
     String dim_key = Session.getCurrentDimension().getDefaultLocaleAttributeName();
-    String defaultDimensionLocaleColumn = MetadataDAO.convertCamelCaseToUnderscore(dim_key) ;
-    
-    
-    localeColumns = "COALESCE(" + localeColumns + prefix + defaultDimensionLocaleColumn + ", " + prefix + defaultLocaleColumn + ")";
+    String defaultDimensionLocaleColumn = MetadataDAO.convertCamelCaseToUnderscore(dim_key);
+
+    localeColumns = "COALESCE(" + localeColumns + prefix + defaultDimensionLocaleColumn + ", " + prefix
+        + defaultLocaleColumn + ")";
     return localeColumns;
   }
 
@@ -785,13 +811,13 @@ public class QueryUtil implements Reloadable
     MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
     String tableEnum = enumMaster.getTableName();
     String displayLabelColumn = getColumnName(enumMaster, EnumerationMaster.DISPLAYLABEL);
-    
+
     MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(className);
     String tableName = md.getTableName();
 
     MdEntityDAOIF mdDisplayLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
     String tableDisplay = mdDisplayLabel.getTableName();
-    
+
     String select = "SELECT " + tableName + ".id ,";
     String from = " FROM " + tableName + " as " + tableName;
     String localeColumns = getLocaleCoalesce("");
@@ -800,7 +826,9 @@ public class QueryUtil implements Reloadable
     for (String attr : attributes)
     {
       String attrCol = getColumnName(md, attr);
-      select += "(SELECT " + localeColumns + " FROM "+tableEnum+" em join "+tableDisplay+" md on em."+displayLabelColumn+" = md.id  WHERE em.id = " + attrCol + "_c) as " + attr + "_displayLabel";
+      select += "(SELECT " + localeColumns + " FROM " + tableEnum + " em join " + tableDisplay
+          + " md on em." + displayLabelColumn + " = md.id  WHERE em.id = " + attrCol + "_c) as " + attr
+          + "_displayLabel";
 
       if (count != attributes.length - 1)
       {
@@ -828,7 +856,8 @@ public class QueryUtil implements Reloadable
    * @param selectedUniversals
    * @return
    */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
+      ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
   {
     Map<String, GeneratedEntityQuery> queryMap;
 
@@ -847,7 +876,8 @@ public class QueryUtil implements Reloadable
       layerGeoEntityType = layer.getGeoHierarchy().getQualifiedType();
       MdAttribute mdAttribute = layer.getMdAttribute();
       key = mdAttribute.getKey();
-      attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT : GeoEntity.GEOMULTIPOLYGON;
+      attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT
+          : GeoEntity.GEOMULTIPOLYGON;
     }
 
     // Normal query (non-mapping)
@@ -869,7 +899,8 @@ public class QueryUtil implements Reloadable
           selectedUniversals[i] = universals.getString(i);
         }
 
-        addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
+        addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals,
+            valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
       }
     }
     catch (JSONException e)
@@ -882,11 +913,13 @@ public class QueryUtil implements Reloadable
     {
       String entityAlias = key + "__" + layerGeoEntityType;
 
-      valueQueryParser.addAttributeSelectable(entityAlias, attr, attr, QueryConstants.GEOMETRY_NAME_COLUMN);
+      valueQueryParser.addAttributeSelectable(entityAlias, attr, attr,
+          QueryConstants.GEOMETRY_NAME_COLUMN);
 
       if (joinData.geoThematicAlias != null)
       {
-        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, "data");
+        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr,
+            joinData.geoThematicAlias, "data");
       }
     }
 
@@ -899,7 +932,8 @@ public class QueryUtil implements Reloadable
     // Set the entity name and geo id columns to something predictable
     if (layer != null)
     {
-      valueQuery.getSelectableRef(joinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      valueQuery.getSelectableRef(joinData.entityNameAlias).setColumnAlias(
+          QueryConstants.ENTITY_NAME_COLUMN);
       valueQuery.getSelectableRef(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       // Name the thematic column if a thematic variable has been selected
@@ -934,7 +968,8 @@ public class QueryUtil implements Reloadable
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
       List<ValueQuery> leftJoinValueQueries = joinData.attributeKeysAndJoins.get(attributeKey);
 
-      restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
+      restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery,
+          queryMap);
     }
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
@@ -942,8 +977,9 @@ public class QueryUtil implements Reloadable
     return queryMap;
   }
 
-  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType,
-      String thematicUserAlias)
+  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory,
+      String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser,
+      String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     for (String selectedGeoEntityType : selectedUniversals)
@@ -957,13 +993,16 @@ public class QueryUtil implements Reloadable
       MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
 
       String prepend = attributeKey.replaceAll("\\.", "_") + "__";
-      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYNAME;
+      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_"
+          + GeoEntityView.ENTITYNAME;
       String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
 
       Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
-      String displaySQL = "SELECT " + SHORT_DISPLAY_LABEL + " FROM " + GEO_DISPLAY_LABEL + " gd WHERE gd.id = " + selectable1.getDefiningTableAlias() + ".id";
-      Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, displaySQL, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
+      String displaySQL = "SELECT " + SHORT_DISPLAY_LABEL + " FROM " + GEO_DISPLAY_LABEL
+          + " gd WHERE gd.id = " + selectable1.getDefiningTableAlias() + ".id";
+      Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, displaySQL, entityNameAlias,
+          selectable1.getUserDefinedDisplayLabel());
 
       selectables.add(selectable2);
       selectables.add(selectable4);
@@ -973,7 +1012,8 @@ public class QueryUtil implements Reloadable
 
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
       GeoEntityQuery geoEntityQuery2 = null;
-      if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
+      if (layerKey != null && attributeKey.equals(layerKey)
+          && selectedGeoEntityType.equals(layerGeoEntityType))
       {
         // save the aliases used for mapping the entity name and geo id columns
         joinData.entityNameAlias = entityNameAlias;
@@ -1037,7 +1077,9 @@ public class QueryUtil implements Reloadable
     joinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
   }
 
-  private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery,
+      List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery,
+      Map<String, GeneratedEntityQuery> queryMap)
   {
     if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
     {
@@ -1046,7 +1088,8 @@ public class QueryUtil implements Reloadable
       allPathsQuery = new AllPathsQuery(valueQuery.getQueryFactory());
       valueQuery.FROM(allPathsQuery);
       // we use the country universial to restrict the cross product
-      valueQuery.AND(allPathsQuery.getParentUniversal().EQ(MdBusiness.getMdBusiness(Country.CLASS).getId()));
+      valueQuery.AND(allPathsQuery.getParentUniversal().EQ(
+          MdBusiness.getMdBusiness(Country.CLASS).getId()));
     }
 
     if (allPathsQuery != null)
@@ -1061,7 +1104,8 @@ public class QueryUtil implements Reloadable
       int size = leftJoinSelectables.size();
       if (size > 0)
       {
-        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
+        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
+            leftJoinSelectables.toArray(new SelectableSingle[size])));
       }
 
       int ind = attributeKey.lastIndexOf(".");
@@ -1069,11 +1113,13 @@ public class QueryUtil implements Reloadable
       String attributeName = attributeKey.substring(ind + 1);
 
       GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
-      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.get(attributeName) ).EQ(allPathsQuery.getChildGeoEntity()));
+      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.get(attributeName) ).EQ(allPathsQuery
+          .getChildGeoEntity()));
     }
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,
+      Map<String, GeneratedEntityQuery> queryMap)
   {
     String attributeName = null;
     String startValue = null;
@@ -1090,19 +1136,19 @@ public class QueryUtil implements Reloadable
       GeneratedEntityQuery attributeQuery = null;
       while (attributeQuery == null)
       {
-        if(md == null)
+        if (md == null)
         {
           // the entity that defines the date attribute is not
           // in the query, so don't do anymore processing.
           return valueQuery;
         }
-        
+
         attributeQuery = queryMap.get(md.definesType());
-        if(attributeQuery != null)
+        if (attributeQuery != null)
         {
           break;
         }
-        
+
         md = md.getSuperMdBusiness();
       }
 
@@ -1141,8 +1187,8 @@ public class QueryUtil implements Reloadable
         }
       }
 
-      
-      return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName));
+      return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery
+          .get(attributeName));
     }
     catch (JSONException e)
     {
@@ -1151,7 +1197,8 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target,
+      SelectableMoment daSel)
   {
     String da = daSel.getDbQualifiedName();
     Set<String> found = new HashSet<String>();
@@ -1160,21 +1207,24 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_SEASON);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_SEASON);
       MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
       String table = malariaSeasonMd.getTableName();
       String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
       String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
       String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
-      
-      dateGroup.setSQL("SELECT " +seasonNameCol + " FROM " + table + " AS ms " + " WHERE ms." + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da);
+
+      dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms " + " WHERE ms."
+          + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       found.add(DATEGROUP_EPIWEEK);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_EPIWEEK);
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
       dateGroup.setSQL("get_epiWeek_from_date(" + da + "," + startDay + ")");
     }
@@ -1183,7 +1233,8 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_MONTH);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_MONTH);
       dateGroup.setSQL("to_char(" + da + ",'MM')");
     }
 
@@ -1191,7 +1242,8 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_QUARTER);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_QUARTER);
       dateGroup.setSQL("to_char(" + da + ",'Q')");
     }
 
@@ -1199,7 +1251,8 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_CALENDARYEAR);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_CALENDARYEAR);
       dateGroup.setSQL("to_char(" + da + ",'YYYY')");
     }
 
@@ -1208,7 +1261,8 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_EPIYEAR);
 
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_EPIYEAR);
       dateGroup.setSQL("get_epiYear_from_date(" + da + "," + startDay + ")");
     }
 
@@ -1229,7 +1283,8 @@ public class QueryUtil implements Reloadable
    * @param valueQuery
    * @param target
    */
-  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery, GeneratedEntityQuery target)
+  private static void ensureEntityInFromClause(Set<String> found, ValueQuery valueQuery,
+      GeneratedEntityQuery target)
   {
     // Include RATIO, which suffers from the same problem as the date
     // selectables
@@ -1259,11 +1314,12 @@ public class QueryUtil implements Reloadable
     }
   }
 
-  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment sdSel, SelectableMoment edSel)
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target,
+      SelectableMoment sdSel, SelectableMoment edSel)
   {
     String sd = sdSel.getDbQualifiedName();
     String ed = edSel.getDbQualifiedName();
-    
+
     Set<String> found = new HashSet<String>();
 
     String intervalNotValid = "INTERVAL NOT VALID";
@@ -1272,26 +1328,31 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_SEASON);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_SEASON);
 
-      
       MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
       String table = malariaSeasonMd.getTableName();
       String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
       String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
       String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
-      
-      dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms" + " WHERE ms." + startDateCol + " <= " + sd + " AND ms." + endDateCol + " >= " + ed);
+
+      dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms" + " WHERE ms."
+          + startDateCol + " <= " + sd + " AND ms." + endDateCol + " >= " + ed);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       found.add(DATEGROUP_EPIWEEK);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIWEEK);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_EPIWEEK);
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
-          + "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")::TEXT " + "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ")::TEXT  END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '7 days') < " + ed + "  THEN '"
+          + intervalNotValid + "'" + "WHEN (extract(Day FROM " + sd
+          + ") - extract(DOW FROM date_trunc('week'," + ed + "))) > extract(DOW FROM " + ed + ")"
+          + "THEN get_epiWeek_from_date(" + sd + "," + startDay + ")::TEXT "
+          + "ELSE get_epiWeek_from_date(" + ed + "," + startDay + ")::TEXT  END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -1299,8 +1360,11 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_MONTH);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_MONTH);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_MONTH);
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 month') < " + ed + "  THEN '"
+          + intervalNotValid + "'" + "WHEN (extract(DAY FROM " + sd
+          + ") - extract(DAY FROM date_trunc('month'," + ed + "))) > extract(DAY FROM " + ed + ")"
           + "THEN to_char(" + sd + ",'MM')" + "ELSE to_char(" + ed + ",'MM') END";
       dateGroup.setSQL(dateGroupSql);
     }
@@ -1309,10 +1373,14 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_QUARTER);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_QUARTER);
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_QUARTER);
 
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')" + "ELSE to_char(" + ed + ",'Q') END";
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '3 months') < " + ed + "  THEN '"
+          + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd
+          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('quarter'," + ed + ")))" + "THEN to_char(" + sd + ",'Q')"
+          + "ELSE to_char(" + ed + ",'Q') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -1320,9 +1388,13 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_CALENDARYEAR);
 
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_CALENDARYEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')" + "ELSE to_char(" + ed + ",'YYYY') END";
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_CALENDARYEAR);
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '"
+          + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN to_char(" + sd + ",'YYYY')"
+          + "ELSE to_char(" + ed + ",'YYYY') END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -1331,9 +1403,14 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_EPIYEAR);
 
       int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_EPIYEAR);
-      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '" + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
-          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN  get_epiYear_from_date(" + sd + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay + ")::TEXT END";
+      SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery
+          .getSelectableRef(DATEGROUP_EPIYEAR);
+      String dateGroupSql = "CASE WHEN (" + sd + " + interval '1 year') < " + ed + "  THEN '"
+          + intervalNotValid + "'" + "WHEN (extract(DOY FROM " + sd
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + " >  (extract(DOY FROM " + ed
+          + ") - extract(DOY FROM date_trunc('year'," + ed + ")))" + "THEN  get_epiYear_from_date(" + sd
+          + "," + startDay + ")::TEXT" + " ELSE  get_epiYear_from_date(" + ed + "," + startDay
+          + ")::TEXT END";
       dateGroup.setSQL(dateGroupSql);
     }
 
@@ -1350,7 +1427,8 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(START_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(START_DATE_RANGE);
-      Pattern pattern = Pattern.compile("<operator>GE</operator>\\W{1,2}<value>(" + DATE_REGEX + ")</value>");
+      Pattern pattern = Pattern.compile("<operator>GE</operator>\\W{1,2}<value>(" + DATE_REGEX
+          + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
@@ -1361,7 +1439,8 @@ public class QueryUtil implements Reloadable
     if (xml.indexOf(END_DATE_RANGE) > 0)
     {
       SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(END_DATE_RANGE);
-      Pattern pattern = Pattern.compile("<operator>LE</operator>\\W{1,2}<value>(" + DATE_REGEX + ")</value>");
+      Pattern pattern = Pattern.compile("<operator>LE</operator>\\W{1,2}<value>(" + DATE_REGEX
+          + ")</value>");
       Matcher matcher = pattern.matcher(xml);
       if (matcher.find())
       {
