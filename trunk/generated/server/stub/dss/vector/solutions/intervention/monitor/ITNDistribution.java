@@ -12,6 +12,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
@@ -158,7 +159,9 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
 
     try
     {
-      SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("age");
+      Selectable sel = valueQuery.getSelectableRef("age");
+      SelectableSQLInteger dobSel = (SelectableSQLInteger)
+        (sel.isAggregateFunction() ? sel.getAggregateFunction().getSelectable() : sel);
 
       String personTableAlias = personQuery.getTableAlias();
       String distDateCol = QueryUtil.getColumnName(itnQuery.getMdClassIF(), ITNDistribution.DISTRIBUTIONDATE);

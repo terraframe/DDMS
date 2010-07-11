@@ -1507,11 +1507,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         value = null;
       }
     
-      this._config.setNumberCriteria(attribute.getKey(), value);
       this._queryPanel.clearWhereCriteria(attribute.getKey());
       
       if(value != null)
       {
+        this._config.setNumberCriteria(attribute.getKey(), value);
         this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
       }
      

@@ -363,7 +363,7 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
 
     ITNCommunityDistributionQuery itnQuery = (ITNCommunityDistributionQuery) queryMap.get(ITNCommunityDistribution.CLASS);
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
+    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ITNCommunityDistribution.CLASS, itnQuery);
 
@@ -371,6 +371,11 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
+    if(hasNets)
+    {
+      valueQuery.FROM(itnQuery.getMdClassIF().getTableName(), itnQuery.getTableAlias());
+    }
+    
     return QueryUtil.setQueryDates(xml, valueQuery, itnQuery,  itnQuery.getStartDate(), itnQuery.getEndDate());
 
   }

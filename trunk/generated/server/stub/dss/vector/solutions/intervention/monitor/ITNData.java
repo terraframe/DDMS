@@ -325,13 +325,18 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
    
     ITNDataQuery itnQuery = (ITNDataQuery) queryMap.get(ITNData.CLASS);
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
+    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
     
     QueryUtil.joinGeoDisplayLabels(valueQuery,ITNData.CLASS,itnQuery);
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
+    
+    if(hasNets)
+    {
+      valueQuery.FROM(itnQuery.getMdClassIF().getTableName(), itnQuery.getTableAlias());
+    }
    
     return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, itnQuery.getStartDate(), itnQuery.getEndDate());
 
