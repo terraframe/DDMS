@@ -270,7 +270,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
 			if (this.getIndividualCase() != null && this.getIndividualCase().getPatient() != null && this.getIndividualCase().getPatient().getPerson() != null && this.getIndividualCase().getPatient().getPerson().getDateOfBirth() != null && this.getIndividualCase().getPatient().getPerson().getDateOfBirth().after(this.getTreatmentStartDate())) {
 				RelativeValueProblem p = new RelativeValueProblem();
 				p.setNotification(this, CONFIRMEDDIAGNOSISDATE);
-				p.setAttributeDisplayLabel(getTreatmentStartDateMd().getDisplayLabel(Session.getCurrentLocale()));
+				p.setAttributeDisplayLabel(getConfirmedDiagnosisDateMd().getDisplayLabel(Session.getCurrentLocale()));
 				p.setRelation(MDSSProperties.getString("Compare_AE"));
 				p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
 				p.apply();
@@ -295,7 +295,7 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
 			if (this.getIndividualCase() != null && this.getIndividualCase().getPatient() != null && this.getIndividualCase().getPatient().getPerson() != null && this.getIndividualCase().getPatient().getPerson().getDateOfBirth() != null && this.getIndividualCase().getPatient().getPerson().getDateOfBirth().after(this.getTreatmentStartDate())) {
 				RelativeValueProblem p = new RelativeValueProblem();
 				p.setNotification(this, DATEOFDEATH);
-				p.setAttributeDisplayLabel(getTreatmentStartDateMd().getDisplayLabel(Session.getCurrentLocale()));
+				p.setAttributeDisplayLabel(getDateOfDeathMd().getDisplayLabel(Session.getCurrentLocale()));
 				p.setRelation(MDSSProperties.getString("Compare_AE"));
 				p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
 				p.apply();
