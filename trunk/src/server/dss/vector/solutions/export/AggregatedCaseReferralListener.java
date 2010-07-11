@@ -14,9 +14,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
-import dss.vector.solutions.surveillance.CaseDiagnosisTypeView;
-import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
-import dss.vector.solutions.surveillance.CasePatientTypeView;
 
 public class AggregatedCaseReferralListener implements ExcelExportListener, ImportListener, Reloadable
 {

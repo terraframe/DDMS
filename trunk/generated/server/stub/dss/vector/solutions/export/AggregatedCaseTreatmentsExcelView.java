@@ -100,19 +100,19 @@ public class AggregatedCaseTreatmentsExcelView extends AggregatedCaseTreatmentsE
     context.addListener(new AggregatedCaseTreatmentListener());
   }
 
-  public void addStock(Term grid, boolean inStock)
+  public void addStock(Term grid, Boolean inStock)
   {
     stock.add(grid);
     stockValues.add(inStock);
   }
 
-  public void addTreatment(Term grid, int count)
+  public void addTreatment(Term grid, Integer count)
   {
     treatments.add(grid);
     treatmentAmounts.add(count);
   }
 
-  public void addMethod(Term grid, int count)
+  public void addMethod(Term grid, Integer count)
   {
     methods.add(grid);
     methodAmounts.add(count);

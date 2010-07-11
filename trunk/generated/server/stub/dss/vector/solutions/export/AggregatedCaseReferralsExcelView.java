@@ -104,19 +104,19 @@ public class AggregatedCaseReferralsExcelView extends AggregatedCaseReferralsExc
     context.addListener(new AggregatedCaseReferralListener());
   }
   
-  public void addReferral(Term grid, int count)
+  public void addReferral(Term grid, Integer count)
   {
     referrals.add(grid);
     referralAmounts.add(count);
   }
   
-  public void addReason(Term grid, int total)
+  public void addReason(Term grid, Integer total)
   {
     reasons.add(grid);
     reasonAmounts.add(total);
   }
   
-  public void addDiagnostic(Term grid, int total, int positive)
+  public void addDiagnostic(Term grid, Integer total, Integer positive)
   {
     diagnostics.add(grid);
     diagnosticAmounts.add(total);
