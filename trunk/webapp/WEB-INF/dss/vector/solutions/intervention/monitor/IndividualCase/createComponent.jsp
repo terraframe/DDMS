@@ -30,7 +30,7 @@
         <mdss:geo param="residence" value="${individualCase.residence}" />  
       </mjl:dt>
       <mjl:dt attribute="residenceText">
-        <mjl:textarea param="residenceText" cols="3" rows="3"/>
+        <mjl:textarea param="residenceText" cols="3" rows="3" value="${individualCase.residenceText}" />
       </mjl:dt>
       <mjl:dt attribute="probableSource">
         <mdss:geo param="probableSource" value="${individualCase.probableSource}" />  
@@ -42,7 +42,7 @@
         <mdss:geo param="workplace" value="${individualCase.workplace}" />  
       </mjl:dt>
       <mjl:dt attribute="workplaceText">
-        <mjl:textarea param="workplaceText" cols="3" rows="3"/>
+        <mjl:textarea param="workplaceText" cols="3" rows="3" value="${individualCase.workplaceText}" />
       </mjl:dt>
       <mjl:dt attribute="otherSettlements">
         <mjl:textarea param="otherSettlements" cols="3" rows="3"/>
