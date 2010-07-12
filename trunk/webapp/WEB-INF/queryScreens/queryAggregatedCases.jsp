@@ -45,7 +45,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{AggregatedCaseDTO.CLASS,CaseTreatmentMethodDTO.CLASS,CaseTreatmentDTO.CLASS,CaseTreatmentStockDTO.CLASS,CaseReferralDTO.CLASS,CaseStockReferralDTO.CLASS,CaseDiagnosticDTO.CLASS,CaseReferralDTO.CLASS,CaseStockReferralDTO.CLASS,CaseDiagnosisTypeDTO.CLASS,CaseDiseaseManifestation.CLASS,CasePatientType.CLASS};
+    String[] mosquitoTypes = new String[]{AggregatedCaseDTO.CLASS, CaseDiagnosisTypeAmountDTO.CLASS, CaseDiseaseManifestationAmountDTO.CLASS, CaseTreatmentMethodDTO.CLASS,CaseTreatmentDTO.CLASS,CaseTreatmentStockDTO.CLASS,CaseReferralDTO.CLASS,CaseStockReferralDTO.CLASS,CaseDiagnosticDTO.CLASS,CaseReferralDTO.CLASS,CaseStockReferralDTO.CLASS,CaseDiagnosisTypeDTO.CLASS,CaseDiseaseManifestation.CLASS,CasePatientType.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
@@ -74,6 +74,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
     }, null, this);
 
+    
+    
     var queryList = <%= (String) request.getAttribute("queryList") %>;
     
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
@@ -151,26 +153,69 @@ YAHOO.util.Event.onDOMReady(function(){
      var diagnosticColumns =  diagnosticAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip', dropDownMaps:{}});
      diagnosticColumns = diagnosticColumns.concat(orderedGrids.diagnostics.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.diagnostics));
 
-     var caseDiagnosisType = new dss.vector.solutions.surveillance.CaseDiagnosisType;
-     var caseDiagnosisTypeAttribs = [];
-     var caseDiagnosisTypeColumns =  referralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:referral, suffix:'_ip', dropDownMaps:{}});
-     caseDiagnosisTypeColumns = caseDiagnosisTypeColumns.concat(orderedGrids.types.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.types));
+ 
 
-     var manifestation = new dss.vector.solutions.surveillance.CaseDiseaseManifestation;
-     var manifestationAttribs = [];
-     var manifestationColumns =  manifestationAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:manifestation, suffix:'_ip', dropDownMaps:{}});
-     manifestationColumns = manifestationColumns.concat(orderedGrids.manifestations.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.manifestations));
-      
-     var patientType = new dss.vector.solutions.surveillance.CasePatientType;
-     var patientTypeAttribs = [];
-     var patientTypeColumns =  patientTypeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:patientType, suffix:'_ip', dropDownMaps:{}});
-     patientTypeColumns = patientTypeColumns.concat(orderedGrids.patientTypes.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.patientTypes));
+     var mapMo = function(term,index){
+       var row = {};
+        row.dtoType = "AttributeIntegerDTO";
+        row.displayLabel = term.displayLabel;
+        
+        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;
+        row.type = 'sqlinteger';
+        row.attributeName = 'term' + term.MOID.replace(':','');
+        
+       return row;
+     };
+
+     var mapterm = function(term,index){
+       
+       var row = {};
+       row.displayLabel = term.displayLabel;
+       row.attributeName = term.MOID.replace(':','');
+
+       MDSS.Localized[row.attributeName]= term.displayLabel;
+
+       var calculations = ([
+
+                           ]);
+       
+       this.options.forEach( function(stage){
+
+      	var attributeName = stage.MOID.replace(':','');
+
+        var key = row.attributeName+attributeName
+
+        MDSS.Localized[key]= row.displayLabel + " " + stage.displayLabel;
+        
+      	calculations = calculations.concat([
+                              
+                              {
+                                key:key,
+                                type:"sqlfloat",
+                                attributeName:key,
+                                isAggregate:true
+                              },
+
+                             ]);
+         
+       });
+       
+       var group = {title:row.attributeName, values:calculations, group:"time", klass:dss.vector.solutions.surveillance.AggregatedCase.CLASS};
+       
+      return group;      
+    }
+
+     //{title:"Grid_data_by_diagnosis_type", values:caseDiagnosisTypeColumns, group:"dt", klass:aggregatedCase.CLASS},
+     //{title:"Grid_data_by_patient_type", values:patientTypeColumns, group:"ap", klass:aggregatedCase.CLASS},
+     var diagnosisTypeGroups = orderedGrids.diagnosisTypes.options.map(mapterm, orderedGrids.diagnosisTypeAmounts);
+
+     var patientTypeGroups = orderedGrids.patientTypes.options.map(mapterm, orderedGrids.patientTypeAmounts);
+
+     var manifestationGroups = orderedGrids.manifestations.options.map(mapterm, orderedGrids.manifestationAmmounts);
      
  
       var selectableGroups = ([
               {title:"Aggregated_Cases", values:aggregatedCaseColumns, group:"ag", klass:aggregatedCase.CLASS},
-              {title:"Grid_data_by_diagnosis_type", values:caseDiagnosisTypeColumns, group:"dt", klass:aggregatedCase.CLASS},
-              {title:"Grid_data_by_patient_type", values:patientTypeColumns, group:"ap", klass:aggregatedCase.CLASS},
               {title:"Grid_treatment_by_drug", values:treatmentColumns, group:"pi",klass:aggregatedCase.CLASS},
               {title:"Grid_treatment_by_method", values:caseTreatmentMethodColumns, group:"ii",klass:aggregatedCase.CLASS},
               {title:"Grid_treatment_by_stock", values:stockColumns, group:"ii",klass:aggregatedCase.CLASS},
@@ -179,7 +224,9 @@ YAHOO.util.Event.onDOMReady(function(){
               {title:"Grid_diagnostic_methods", values:diagnosticColumns, group:"ii",klass:aggregatedCase.CLASS},
       ]);
 
-
+      selectableGroups = selectableGroups.concat(diagnosisTypeGroups);
+      selectableGroups = selectableGroups.concat(patientTypeGroups);
+      selectableGroups = selectableGroups.concat(manifestationGroups);
     
     var query = new MDSS.QueryAggregatedCases(selectableGroups, queryList);
     query.render();
