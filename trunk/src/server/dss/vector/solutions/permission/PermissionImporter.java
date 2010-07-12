@@ -127,6 +127,7 @@ public class PermissionImporter implements Reloadable
           if (action.equalsIgnoreCase("W"))
           {
             role.addAscendant(writeRoleDAO);
+            role.addAscendant(readRoleDAO);
           }
           else if (action.equalsIgnoreCase("R"))
           {
