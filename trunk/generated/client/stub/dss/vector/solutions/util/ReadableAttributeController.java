@@ -55,17 +55,6 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     req.setAttribute("actor", actor);
     req.setAttribute("actorOptions", roles);
 
-    // I commented the follow lines out because they are not used in
-    // selectUniversal.jsp and they were causing exceptions to be thrown
-    // -Justin Smethie
-
-    // MdClassQueryDTO classes = FacadeDTO.getMDSSClasses(clientRequest);
-    // req.setAttribute("query", classes);
-    // req.setAttribute("universals", classes.getResultSet());
-
-    AggregatedAgeGroupQueryDTO query = AggregatedAgeGroupDTO.getAllInstances(clientRequest, null, true, 20, 1);
-    req.setAttribute("ageGroups", query.getResultSet());
-
     render("selectUniversal.jsp");
   }
 

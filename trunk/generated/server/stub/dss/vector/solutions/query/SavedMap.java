@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -66,6 +67,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    */
   @Override
   @Transaction
+  @Authenticate
   public String refreshMap()
   {
     JSONObject mapData;
@@ -283,6 +285,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    */
   @Override
   @Transaction
+  @Authenticate
   public LayerViewQuery createFromExisting(String existingMapId)
   {
     if(this.isNew())
@@ -500,6 +503,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    * @return
    */
   @Transaction
+  @Authenticate
   public static SavedMap loadDefaultMap(SavedMap map)
   {
     UserDAOIF userDAO = Session.getCurrentSession().getUser();

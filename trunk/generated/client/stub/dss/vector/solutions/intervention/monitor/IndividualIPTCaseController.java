@@ -334,30 +334,25 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
   public void failDelete(IndividualIPTCaseViewDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
   public void search() throws IOException, ServletException
   {
     if (!this.isAsynchronous())
     {
-      // new RedirectUtility(req,
-      // resp).checkURL(this.getClass().getSimpleName(), "search");
-
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
       req.setAttribute("serviceDate", req.getParameter("serviceDate"));
-      req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
-      // this
-      // for
-      // labels
+      req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));
+      
+      // need this for labels
       render("searchComponent.jsp");
     }
   }
 
   public void failSearch() throws IOException, ServletException
   {
-    resp.sendError(500);
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   @Override

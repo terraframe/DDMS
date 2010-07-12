@@ -34,7 +34,7 @@ public class PersonInterventionGridBuilder extends GridBuilder implements Reload
     DataGrid staticGrid = this.getStaticGrid(view, views);
     DataGrid methodGrid = this.getMethodGrid(view, methods);
 
-    return new CompositeDataGrid(new DataGrid[] { staticGrid, methodGrid });
+    return new CompositeDataGrid("personIntervention", dto.isPersonInterventionReadable(), staticGrid, methodGrid);
   }
 
   private DataGrid getMethodGrid(PersonInterventionViewDTO view, PersonInterventionMethodViewDTO[][] data)

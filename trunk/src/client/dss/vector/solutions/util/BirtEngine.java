@@ -18,11 +18,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.report.BirtConfigurationExceptionDTO;
 
-public class BirtEngine
+public class BirtEngine implements Reloadable
 {
   private enum LogLevel implements Reloadable {
-    SEVERE(Level.SEVERE), WARNING(Level.WARNING), INFO(Level.INFO), CONFIG(Level.CONFIG), FINE(
-        Level.FINE), FINER(Level.FINER), FINEST(Level.FINEST), OFF(Level.OFF);
+    SEVERE(Level.SEVERE), WARNING(Level.WARNING), INFO(Level.INFO), CONFIG(Level.CONFIG), FINE(Level.FINE), FINER(Level.FINER), FINEST(Level.FINEST), OFF(Level.OFF);
 
     private Level level;
 
@@ -37,8 +36,7 @@ public class BirtEngine
     }
   }
 
-  private static IReportEngine engine     = null;
-
+  private static IReportEngine engine = null;
 
   public static synchronized void initBirtConfig()
   {
@@ -52,10 +50,11 @@ public class BirtEngine
       IPlatformContext context = new PlatformServletContext(sc);
 
       EngineConfig config = new EngineConfig();
-      config.setEngineHome("");       // Use the default /WEB-INF/platform as the location BIRT home
+      config.setEngineHome(""); // Use the default /WEB-INF/platform as the
+                                // location BIRT home
       config.setLogConfig(LocalProperties.getLogDirectory(), level.getLevel());
       config.setPlatformContext(context);
-     
+
       try
       {
         Platform.startup(config);
@@ -70,7 +69,7 @@ public class BirtEngine
       IReportEngineFactory factory = (IReportEngineFactory) Platform.createFactoryObject(IReportEngineFactory.EXTENSION_REPORT_ENGINE_FACTORY);
       engine = factory.createReportEngine(config);
     }
-    
+
     return engine;
   }
 

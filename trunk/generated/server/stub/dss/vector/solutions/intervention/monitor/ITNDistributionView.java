@@ -75,7 +75,7 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
       recipient.setPerson(person);
       recipient.apply();
 
-      person.lock();
+      person.lockPerson();
       person.setItnRecipientDelegate(recipient);
       person.apply();
     }

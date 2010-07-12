@@ -6,8 +6,10 @@ public class CompositeDataGrid extends AbstractCompositeGrid implements Reloadab
 {
   private DataGrid[] generators;
 
-  public CompositeDataGrid(DataGrid... generators)
+  public CompositeDataGrid(String tableId, boolean readable, DataGrid... generators)
   {
+    super(tableId, readable);
+
     this.generators = generators;
   }
 

@@ -45,7 +45,7 @@ public class CaseTreatmentGridBuilder extends GridBuilder implements Reloadable
       }
     }
 
-    return new ViewDataGrid(view, columns, keys, data);
+    return new ViewDataGrid("treatment", dto.isCaseTreatmentsReadable(), view, columns, keys, data);
   }
 
   private String[] getKeys()

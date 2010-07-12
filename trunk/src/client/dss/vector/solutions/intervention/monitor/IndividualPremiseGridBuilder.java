@@ -34,9 +34,7 @@ public class IndividualPremiseGridBuilder extends GridBuilder implements Reloada
     DataGrid staticGrid = this.getStaticGrid(view, views);
     DataGrid dynamicGrid = this.getMethodGrid(view, methods);
 
-    CompositeDataGrid generator = new CompositeDataGrid(new DataGrid[] { staticGrid, dynamicGrid });
-
-    return generator;
+    return new CompositeDataGrid("individualPremise", dto.isIndividulPremiseUniversalReadable(), staticGrid, dynamicGrid);
   }
 
   private DataGrid getMethodGrid(IndividualPremiseVisitViewDTO view, IndividualPremiseVisitMethodViewDTO[][] data)

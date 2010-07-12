@@ -248,7 +248,7 @@ public class PupalContainerController extends PupalContainerControllerBase imple
 
     DynamicTermDataGrid dynamicGenerator = new DynamicTermDataGrid(amount, methodColumns, amountKeys, setup, PupalContainerViewDTO.CLASS, PupalContainerViewDTO.PUPAEAMOUNT, label, amounts);
             
-    CompositeDataGrid generator = new CompositeDataGrid(new DataGrid[]{viewGenerator, dynamicGenerator});
+    CompositeDataGrid generator = new CompositeDataGrid("grid", true, viewGenerator, dynamicGenerator);
     
     return generator;
   }

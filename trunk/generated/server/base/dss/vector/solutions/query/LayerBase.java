@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 548032335)
+@com.runwaysdk.business.ClassSignature(hash = -1577786778)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -52,7 +52,7 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   public static java.lang.String TYPE = "type";
   public static java.lang.String VIEWCREATED = "viewCreated";
   public static java.lang.String VIEWNAME = "viewName";
-  private static final long serialVersionUID = 548032335;
+  private static final long serialVersionUID = -1577786778;
   
   public LayerBase()
   {
@@ -1330,6 +1330,18 @@ public abstract class LayerBase extends com.runwaysdk.business.Business implemen
   {
     Layer _instance = Layer.get(id);
     return _instance.getAttributeGeoHierarchies();
+  }
+  
+  public void updateSLDFile(java.lang.String fileId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.Layer.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void updateSLDFile(java.lang.String id, java.lang.String fileId)
+  {
+    Layer _instance = Layer.get(id);
+    _instance.updateSLDFile(fileId);
   }
   
   public static Layer lock(java.lang.String id)

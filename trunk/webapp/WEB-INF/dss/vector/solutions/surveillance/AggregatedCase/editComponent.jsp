@@ -69,33 +69,53 @@
       </mjl:dt>
       
     </mjl:component>
-
-    <dt><label><fmt:message key="Grid_data_by_diagnosis_type"/></label></dt>
-    <dd><div id="diagnosisType"></div></dd>
     
-    <dt><label><fmt:message key="Grid_data_by_disease_manifestation"/></label></dt>
-    <dd><div id="diseaseManifestation"></div></dd>
+    <c:if test="${item.isCaseDiagnosisTypeReadable}">
+      <dt><label><fmt:message key="Grid_data_by_diagnosis_type"/></label></dt>
+      <dd><div id="diagnosisType"></div></dd>
+    </c:if>
 
-    <dt><label><fmt:message key="Grid_data_by_patient_type"/></label></dt>
-    <dd><div id="patientType"></div></dd>
+    <c:if test="${item.isCaseDiseaseManifestationReadable}">    
+      <dt><label><fmt:message key="Grid_data_by_disease_manifestation"/></label></dt>
+      <dd><div id="diseaseManifestation"></div></dd>
+    </c:if>
 
-    <dt><label><fmt:message key="Grid_treatment_by_drug"/></label></dt>
-    <dd><div id="treatment"></div></dd>
+    <c:if test="${item.isCasePatientTypeReadable}">
+      <dt><label><fmt:message key="Grid_data_by_patient_type"/></label></dt>
+      <dd><div id="patientType"></div></dd>
+    </c:if>
 
-    <dt><label><fmt:message key="Grid_treatment_by_method"/></label></dt>
-    <dd><div id="method"></div></dd>
+    <c:if test="${item.isCaseTreatmentsReadable}">
+      <dt><label><fmt:message key="Grid_treatment_by_drug"/></label></dt>
+      <dd><div id="treatment"></div></dd>
+    </c:if>
 
-    <dt><label><fmt:message key="Grid_treatment_by_stock"/></label></dt>
-    <dd><div id="stock"></div></dd>
+    <c:if test="${item.isCaseTreatmentMethodReadable}">
+      <dt><label><fmt:message key="Grid_treatment_by_method"/></label></dt>
+      <dd><div id="method"></div></dd>
+    </c:if>
 
-    <dt><label><fmt:message key="Grid_referrals_and_Shortages"/></label></dt>
-    <dd><div id="stockReferral"></div></dd>
+    <c:if test="${item.isCaseStocksReadable}">
+      <dt><label><fmt:message key="Grid_treatment_by_stock"/></label></dt>
+      <dd><div id="stock"></div></dd>
+    </c:if>
 
-    <dt><label><fmt:message key="Grid_referral_Reasons"/></label></dt>
-    <dd><div id="referral"></div></dd>
+    <c:if test="${item.isCaseStockReferralReadable}">
+      <dt><label><fmt:message key="Grid_referrals_and_Shortages"/></label></dt>
+      <dd><div id="stockReferral"></div></dd>
+    </c:if>
+    
 
-    <dt><label><fmt:message key="Grid_diagnostic_methods"/></label></dt>
-    <dd><div id="diagnostic"></div></dd>
+    <c:if test="${item.isCaseReferralsReadable}">
+      <dt><label><fmt:message key="Grid_referral_Reasons"/></label></dt>
+      <dd><div id="referral"></div></dd>
+    </c:if>
+    
+
+    <c:if test="${item.isCaseDiagnosticReadable}">
+      <dt><label><fmt:message key="Grid_diagnostic_methods"/></label></dt>
+      <dd><div id="diagnostic"></div></dd>
+    </c:if>
     
     <hr />
 
@@ -232,16 +252,44 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
       var component = this.populateComponent();
       var params = [];
 
-      for(var i in this._grids) {
-        var grid = this._grids[i];
+      var tParams = this._grids[0] != null ? this._grids[0].getParameters()[0] : [];
+      var mParams = this._grids[1] != null ? this._grids[1].getParameters()[0] : [];
+      var sParams = this._grids[2] != null ? this._grids[2].getParameters()[0] : [];
+      var dParams = this._grids[3] != null ? this._grids[3].getParameters()[0] : [];
+      var rParams = this._grids[4] != null ? this._grids[4].getParameters()[0] : [];
+      var srParams = this._grids[5] != null ? this._grids[5].getParameters()[0] : [];
 
-        var parameters = grid.getParameters();
-        for(var j in parameters) {
-          params.push(parameters[j]);
-        }
+      var dtParams = [];
+      var dtaParams = [];
+
+      if(this._grids[6] != null)
+      {
+        var params = this._grids[6].getParameters();
+        dtParams = params[0];
+        dtaParams = params[1];
       }
 
-      component.applyAll(request, params[0], params[1], params[2], params[3], params[4], params[5], params[6], params[7], params[8], params[9], params[10], params[11]);
+      var dmParams = [];
+      var dmaParams = [];
+
+      if(this._grids[7] != null)
+      {
+        var params = this._grids[7].getParameters();
+        dmParams = params[0];
+        dmaParams = params[1];
+      }
+
+      var ptParams = [];
+      var ptaParams = [];
+
+      if(this._grids[8] != null)
+      {
+        var params = this._grids[8].getParameters();
+        ptParams = params[0];
+        ptaParams = params[1];
+      }
+
+      component.applyAll(request, tParams, mParams, sParams, dParams, rParams, srParams, dtParams, dtaParams, dmParams, dmaParams, ptParams, ptaParams);
     }
   }
 });
@@ -250,112 +298,31 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
   YAHOO.util.Event.onDOMReady(function(){
 
     // SETUP THE TREATMENT DATA GRID
-    var treatmentData = {
-      columnDefs:<%=treatment.getColumns()%>,
-      defaults:<%=treatment.getDefaultValues()%>,
-      div_id: "treatment",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var treatmentGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=treatment.getMetadata()%>), <%=treatment.getData()%>, null), treatmentData);
+    <%=treatment.getJavascript()%>
 
     // SETUP THE method DATA GRID
-    var methodData = {
-      columnDefs:<%=method.getColumns()%>,
-      defaults:<%=method.getDefaultValues()%>,
-      div_id: "method",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var methodGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=method.getMetadata()%>), <%=method.getData()%>, null), methodData);
+    <%=method.getJavascript()%>
 
     // SETUP THE STOCK DATA GRID
-    var stockData = {
-      columnDefs:<%=stock.getColumns()%>,
-      defaults:<%=stock.getDefaultValues()%>,
-      div_id: "stock",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var stockGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=stock.getMetadata()%>), <%=stock.getData()%>, null), stockData);
+    <%=stock.getJavascript()%>
 
     // SETUP THE referral DATA GRID
-    var referralData = {
-      columnDefs:<%=referral.getColumns()%>,
-      defaults:<%=referral.getDefaultValues()%>,
-      div_id: "referral",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var referralGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=referral.getMetadata()%>), <%=referral.getData()%>, null), referralData);
+    <%=referral.getJavascript()%>
 
     // SETUP THE diagnostic DATA GRID
-    var diagnosticData = {
-      columnDefs:<%=diagnostic.getColumns()%>,
-      defaults:<%=diagnostic.getDefaultValues()%>,
-      div_id: "diagnostic",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var diagnosticGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diagnostic.getMetadata()%>), <%=diagnostic.getData()%>, null), diagnosticData);
+    <%=diagnostic.getJavascript()%>
 
     // SETUP THE stockReferral DATA GRID
-    var stockReferralData = {
-      columnDefs:<%=stockReferral.getColumns()%>,
-      defaults:<%=stockReferral.getDefaultValues()%>,
-      div_id: "stockReferral",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var stockReferralGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=stockReferral.getMetadata()%>), <%=stockReferral.getData()%>, null), stockReferralData);
+    <%=stockReferral.getJavascript()%>
 
     // SETUP THE diagnosisType DATA GRID
-    var diagnosisTypeData = {
-      columnDefs:<%=diagnosisType.getColumns()%>,
-      defaults:<%=diagnosisType.getDefaultValues()%>,
-      div_id: "diagnosisType",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var diagnosisTypeGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diagnosisType.getMetadata()%>), <%=diagnosisType.getData()%>, null), diagnosisTypeData);
+    <%=diagnosisType.getJavascript()%>
 
     // SETUP THE diseaseManifestation DATA GRID
-    var diseaseManifestationData = {
-      columnDefs:<%=diseaseManifestation.getColumns()%>,
-      defaults:<%=diseaseManifestation.getDefaultValues()%>,
-      div_id: "diseaseManifestation",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var diseaseManifestationGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=diseaseManifestation.getMetadata()%>), <%=diseaseManifestation.getData()%>, null), diseaseManifestationData);
+    <%=diseaseManifestation.getJavascript()%>
 
     // SETUP THE patientType DATA GRID
-    var patientTypeData = {
-      columnDefs:<%=patientType.getColumns()%>,
-      defaults:<%=patientType.getDefaultValues()%>,
-      div_id: "patientType",
-      excelButtons:false,
-      addButton:false,
-      saveButton:false
-    };
-        
-    var patientTypeGrid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(<%=patientType.getMetadata()%>), <%=patientType.getData()%>, null), patientTypeData);
+    <%=patientType.getJavascript()%>        
 
     var grids = [treatmentGrid, methodGrid, stockGrid, diagnosticGrid, referralGrid, stockReferralGrid, diagnosisTypeGrid, diseaseManifestationGrid, patientTypeGrid];
       

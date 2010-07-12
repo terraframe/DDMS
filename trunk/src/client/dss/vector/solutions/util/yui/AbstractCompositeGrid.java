@@ -14,6 +14,16 @@ import dss.vector.solutions.util.Halp;
 
 public abstract class AbstractCompositeGrid extends DataGrid implements Reloadable
 {
+  public AbstractCompositeGrid()
+  {
+    super();
+  }
+  
+  public AbstractCompositeGrid(String tableId, boolean readable)
+  {
+    super(tableId, readable);
+  }
+
   public abstract DataGrid[] getGrids();
 
   @Override

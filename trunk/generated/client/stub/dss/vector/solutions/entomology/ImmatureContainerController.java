@@ -33,13 +33,31 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
   @Override
   public void search() throws IOException, ServletException
   {
-    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
+    try
+    {
+      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
-    this.search(new ImmatureCollectionViewDTO(this.getClientRequest()));
+      this.search(new ImmatureCollectionViewDTO(this.getClientRequest()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failSearch();
+      }
+    }
+  }
+  
+  @Override
+  public void failSearch() throws IOException, ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   private void search(ImmatureCollectionViewDTO view) throws IOException, ServletException
-  {    
+  {
     ImmatureCollectionViewQueryDTO query = ImmatureCollectionViewDTO.getMostRecent(this.getClientRequest());
 
     this.setupExtraUniversals();
@@ -187,7 +205,7 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
     try
     {
       dto.applyWithContainers(containers);
-      
+
       ClientRequestIF request = dto.getRequest();
 
       ErrorUtility.prepareInformation(request.getInformation(), req);
@@ -210,14 +228,14 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
   {
     this.view(dto, containers);
   }
-  
+
   @Override
   public void delete(ImmatureCollectionViewDTO dto) throws IOException, ServletException
   {
     try
     {
       dto.deleteTaxon();
-      
+
       this.search();
     }
     catch (Throwable t)
@@ -230,7 +248,7 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
       }
     }
   }
-  
+
   @Override
   public void failDelete(ImmatureCollectionViewDTO dto) throws IOException, ServletException
   {

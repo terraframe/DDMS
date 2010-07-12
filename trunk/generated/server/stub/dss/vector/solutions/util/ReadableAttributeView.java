@@ -17,10 +17,10 @@ import com.runwaysdk.constants.MdAttributeInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -173,8 +173,8 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       }
 
       MdDimensionDAOIF _mdDimension = Session.getCurrentDimension();
-      MdAttributeDAOIF _mdAttribute = MdAttributeDAO.get(mdAttribute.getId());
-      MdAttributeDimensionDAOIF _mdAttributeDimension = _mdAttribute.getMdAttributeDimension(_mdDimension);
+
+      MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
 
       Boolean permission = view.getReadPermission();
       Boolean existing = !existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
@@ -182,11 +182,20 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       if (permission != null && permission != existing)
       {
         newPermissions.add(new PermissionChange(!permission, _mdAttributeDimension.getId()));
+        
+        if(mdAttributeDAO instanceof MdAttributeVirtualDAOIF)
+        {          
+          MdAttributeConcreteDAOIF mdAttributeConcrete = mdAttributeDAO.getMdAttributeConcrete();
+          MdAttributeDimensionDAOIF mdAttributeConcreteDimension = mdAttributeConcrete.getMdAttributeDimension(_mdDimension);
+
+          newPermissions.add(new PermissionChange(!permission, mdAttributeConcreteDimension.getId()));
+        }
+
       }
 
-      ReadableAttributeView.setDimensionAttributes(view.getNotBlank(), _mdAttribute, _mdDimension);
+      ReadableAttributeView.setDimensionAttributes(view.getNotBlank(), mdAttributeDAO, _mdDimension);
     }
-    
+
     ReadableAttributeView.assignPermissions(actor, newPermissions);
   }
 

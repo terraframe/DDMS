@@ -77,16 +77,16 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
       }
     }
   }
-  
+
   @Override
   public void setResistanceAssayComment(String collectionId, String comments) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
+
       MosquitoCollectionViewDTO view = MosquitoCollectionDTO.getView(request, collectionId);
-      view.setResistanceAssayComments(comments);      
+      view.setResistanceAssayComments(comments);
       view.apply();
     }
     catch (Throwable t)
@@ -129,10 +129,10 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     this.setupReferences(dto);
 
     List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
-    
+
     SubCollectionViewDTO view = new SubCollectionViewDTO(this.getClientRequest());
     view.setTotal(0);
-    
+
     String[] keys = this.getKeys();
     Map<String, ColumnSetup> map = this.getColumns(dto);
     SubCollectionViewDTO[] data = dto.getSubCollections();
@@ -303,23 +303,41 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   @Override
   public void search() throws IOException, ServletException
   {
-    // go back to household view after entering person
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.checkURL(this.getClass().getSimpleName(), "search");
+    try
+    {
+      // go back to household view after entering person
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.checkURL(this.getClass().getSimpleName(), "search");
 
-    ClientRequestIF request = this.getClientRequest();
+      ClientRequestIF request = this.getClientRequest();
 
-    MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
-    SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
-    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
+      MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
+      SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
+      List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
 
-    this.setupReferences(view);
+      this.setupReferences(view);
 
-    req.setAttribute("entityUniversals", entityUniversals);
-    req.setAttribute("query", query);
-    req.setAttribute("item", view);
+      req.setAttribute("entityUniversals", entityUniversals);
+      req.setAttribute("query", query);
+      req.setAttribute("item", view);
 
-    render("searchComponent.jsp");
+      render("searchComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failSearch();
+      }
+    }
+  }
+  
+  @Override
+  public void failSearch() throws IOException, ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   @Override

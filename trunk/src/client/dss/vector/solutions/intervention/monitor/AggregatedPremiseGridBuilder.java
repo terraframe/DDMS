@@ -36,7 +36,7 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
     DataGrid reasonGrid = this.getReasonGrid(view, reasons);
     DataGrid methodGrid = this.getMethodGrid(view, methods);
 
-    return new CompositeDataGrid(new DataGrid[] { staticGrid, reasonGrid, methodGrid });
+    return new CompositeDataGrid("aggregatedPremise", dto.isAggregatedPremiseUniversalReadable(), staticGrid, reasonGrid, methodGrid);
   }
 
   private DataGrid getMethodGrid(AggregatedPremiseVisitViewDTO view, AggregatedPremiseMethodViewDTO[][] data)

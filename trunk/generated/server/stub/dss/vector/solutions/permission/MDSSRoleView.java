@@ -2,6 +2,7 @@ package dss.vector.solutions.permission;
 
 import java.util.List;
 
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
@@ -17,6 +18,7 @@ import com.runwaysdk.system.Roles;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -82,9 +84,19 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
     new AttributeNotificationMap(role, Roles.DISPLAYLABEL, this, MDSSRoleView.DISPLAYLABEL);
   }
 
-  private boolean hasConcrete()
+  public boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
+  }
+  
+  public MDSSRole getConcrete()
+  {
+    if(this.hasConcrete())
+    {
+      return MDSSRole.get(this.getConcreteId());
+    }
+    
+    return null;
   }
 
   @Override
@@ -95,95 +107,116 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
       MDSSRole.get(this.getConcreteId()).delete();
     }
   }
-  
+
   public RoleDAOIF getRole()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       Roles role = MDSSRole.get(this.getConcreteId()).getRole();
-      
+
       return RoleDAO.get(role.getId());
     }
-    
+
     return null;
   }
-  
+
   @Override
   public PermissionView[] getPermissions()
   {
     return PermissionView.getPermissions(this);
   }
-  
+
   @Override
+  @Authenticate
   public void setPermissions(PermissionView[] permissions)
   {
     RoleDAO role = this.getRole().getBusinessDAO();
 
-    for(PermissionView view : permissions)
+    for (PermissionView view : permissions)
     {
       List<PermissionOption> permission = view.getPermission();
       SystemURL url = SystemURL.get(view.getUrlId());
       RoleDAOIF writeRole = url.getWriteRoleDAO();
       RoleDAOIF readRole = url.getReadRoleDAO();
-      
-      if(permission.contains(PermissionOption.WRITE))
+
+      if (permission.contains(PermissionOption.WRITE))
       {
         role.addAscendant(writeRole);
         role.addAscendant(readRole);
       }
-      else if(permission.contains(PermissionOption.READ))
-      {        
+      else if (permission.contains(PermissionOption.READ))
+      {
         role.removeAscendant(writeRole);
         role.addAscendant(readRole);
       }
       else
-      {        
+      {
         role.removeAscendant(writeRole);
         role.removeAscendant(readRole);
       }
     }
   }
-  
+
   @Override
   public UniversalPermissionView[] getUniversalPermissions()
   {
     return UniversalPermissionView.getPermissions(this);
   }
-  
+
   @Override
+  @Authenticate
   public void setUniversalPermissions(UniversalPermissionView[] permissions)
   {
     RoleDAO role = this.getRole().getBusinessDAO();
+    boolean hasUniversalPermissions = false;
 
-    for(UniversalPermissionView view : permissions)
+    for (UniversalPermissionView view : permissions)
     {
       MdBusinessDAOIF universal = MdBusinessDAO.get(view.getUniversalId());
-      
-      if(view.getPermission() != null && view.getPermission())
+
+      if (view.getPermission() != null && view.getPermission())
       {
         role.grantPermission(Operation.CREATE, universal.getId());
         role.grantPermission(Operation.WRITE, universal.getId());
         role.grantPermission(Operation.DELETE, universal.getId());
-        
+
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
-        
-        for(MdAttributeDAOIF mdAttribute : attributes)
+
+        for (MdAttributeDAOIF mdAttribute : attributes)
         {
           role.grantPermission(Operation.WRITE, mdAttribute.getId());
         }
+
+        hasUniversalPermissions = true;
       }
       else
       {
         role.revokePermission(Operation.CREATE, universal.getId());
         role.revokePermission(Operation.WRITE, universal.getId());
         role.revokePermission(Operation.DELETE, universal.getId());
-        
+
         List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
-        
-        for(MdAttributeDAOIF mdAttribute : attributes)
+
+        for (MdAttributeDAOIF mdAttribute : attributes)
         {
           role.revokePermission(Operation.WRITE, mdAttribute.getId());
-        }        
+        }
+      }
+    }
+
+    MdBusinessDAOIF universal = MdBusinessDAO.getMdBusinessDAO(GeoEntity.CLASS);
+
+    List<? extends MdAttributeConcreteDAOIF> attributes = universal.definesAttributes();
+
+    for (MdAttributeDAOIF mdAttribute : attributes)
+    {
+      if (hasUniversalPermissions)
+      {
+        role.grantPermission(Operation.WRITE, mdAttribute.getId());
+      }
+      else
+      {
+        role.revokePermission(Operation.WRITE, mdAttribute.getId());
       }
     }
   }

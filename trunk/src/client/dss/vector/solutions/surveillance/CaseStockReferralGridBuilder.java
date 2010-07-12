@@ -45,7 +45,7 @@ public class CaseStockReferralGridBuilder extends GridBuilder implements Reloada
       }
     }
 
-    return new ViewDataGrid(view, columns, keys, data);
+    return new ViewDataGrid("stockReferral", dto.getIsCaseStockReferralReadable(), view, columns, keys, data);
   }
 
   private String[] getKeys()

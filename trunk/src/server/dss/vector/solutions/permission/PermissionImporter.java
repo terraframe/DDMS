@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -48,6 +50,8 @@ public class PermissionImporter implements Reloadable
 
   private static final String               VISIBILITY_SHEET_NAME = "GUIVisibility";
 
+  private static final String               ROLE_SHEET_NAME       = "MDSS Role Assignment";
+
   private Disease[]                         diseases;
 
   private HashMap<String, MdDimensionDAOIF> mdDimensions;
@@ -59,11 +63,11 @@ public class PermissionImporter implements Reloadable
     this.diseases = Disease.getAllDiseases();
     this.systemURLs = new HashMap<String, SystemURL>();
     this.mdDimensions = new HashMap<String, MdDimensionDAOIF>();
-    
-    for(Disease disease : this.diseases)
+
+    for (Disease disease : this.diseases)
     {
       MdDimensionDAOIF mdDimension = MdDimensionDAO.get(disease.getDimension().getId());
-      
+
       mdDimensions.put(disease.getKey(), mdDimension);
     }
   }
@@ -75,12 +79,85 @@ public class PermissionImporter implements Reloadable
 
     this.readURLSheet(workbook);
     this.readVisibilitySheet(workbook);
+    this.readRoleAssignment(workbook);
   }
 
   @SuppressWarnings("unchecked")
   private Iterator<HSSFRow> getSheetRows(HSSFWorkbook workbook, String sheetName)
   {
     return workbook.getSheet(sheetName).iterator();
+  }
+
+  private void readRoleAssignment(HSSFWorkbook workbook)
+  {
+    Iterator<HSSFRow> iterator = this.getSheetRows(workbook, ROLE_SHEET_NAME);
+
+    if (iterator.hasNext())
+    {
+      HSSFRow header = iterator.next();
+
+      List<RoleDAO> roles = this.getMDSSRoles(header);
+
+      while (iterator.hasNext())
+      {
+        HSSFRow row = iterator.next();
+
+        this.readAssignment(row, roles);
+      }
+    }
+  }
+
+  private void readAssignment(HSSFRow row, List<RoleDAO> roles)
+  {
+    SystemURL url = this.getURL(ExcelUtil.getString(row.getCell(0)));
+
+    for (Disease disease : diseases)
+    {
+      RoleDAO writeRoleDAO = url.getRole(disease, PermissionOption.WRITE);
+      RoleDAO readRoleDAO = url.getRole(disease, PermissionOption.READ);
+
+      if (writeRoleDAO != null && readRoleDAO != null)
+      {
+        int i = 1;
+
+        for (RoleDAO role : roles)
+        {
+          String action = ExcelUtil.getString(row.getCell(i++));
+
+          if (action.equalsIgnoreCase("W"))
+          {
+            role.addAscendant(writeRoleDAO);
+          }
+          else if (action.equalsIgnoreCase("R"))
+          {
+            role.addAscendant(readRoleDAO);
+          }
+        }
+      }
+    }
+  }
+
+  private List<RoleDAO> getMDSSRoles(HSSFRow header)
+  {
+    List<RoleDAO> list = new LinkedList<RoleDAO>();
+
+    int i = 1;
+
+    while (header.getCell(i) != null)
+    {
+      String roleName = ExcelUtil.getString(header.getCell(i++));
+
+      MDSSRoleView view = MDSSRole.getViewByRoleName(roleName);
+
+      if (!view.hasConcrete())
+      {
+        view.apply();
+      }
+
+      list.add(view.getRole().getBusinessDAO());
+    }
+
+    return list;
   }
 
   private void readURLSheet(HSSFWorkbook workbook)
@@ -102,11 +179,14 @@ public class PermissionImporter implements Reloadable
     Iterator<HSSFRow> iterator = this.getSheetRows(workbook, VISIBILITY_SHEET_NAME);
 
     // Skip the header row
-    iterator.next();
-
-    while (iterator.hasNext())
+    if (iterator.hasNext())
     {
-      readVisibilityRow(iterator.next(), guiVisibility);
+      iterator.next();
+
+      while (iterator.hasNext())
+      {
+        readVisibilityRow(iterator.next(), guiVisibility);
+      }
     }
   }
 
@@ -116,24 +196,24 @@ public class PermissionImporter implements Reloadable
     String diseaseName = ExcelUtil.getString(row.getCell(1));
 
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
-    
-    if(diseaseName != null && diseaseName.length() > 0)
+
+    if (diseaseName != null && diseaseName.length() > 0)
     {
       MdDimensionDAOIF mdDimension = this.mdDimensions.get(diseaseName);
       MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-      
+
       role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
     }
     else
     {
       Set<String> keys = mdDimensions.keySet();
 
-      for(String dimensionKey : keys)
+      for (String dimensionKey : keys)
       {
         MdDimensionDAOIF mdDimension = mdDimensions.get(dimensionKey);
-        
+
         MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-        
+
         role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
       }
     }
@@ -230,12 +310,20 @@ public class PermissionImporter implements Reloadable
 
       MetadataDAOIF metadata = getMetadata(key);
 
-      action.assign(metadata);
+      if (metadata != null)
+      {
+        action.assign(metadata);
+      }
     }
   }
 
   private MetadataDAOIF getMetadata(String key)
   {
+    if (key == null || key.length() == 0)
+    {
+      return null;
+    }
+
     try
     {
       return MdClassDAO.getMdClassDAO(key);

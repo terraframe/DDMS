@@ -45,7 +45,7 @@ public class CaseDiagnosticGridBuilder extends GridBuilder implements Reloadable
       }
     }
 
-    return new ViewDataGrid(view, columns, keys, data);
+    return new ViewDataGrid("diagnostic", dto.getIsCaseDiagnosticReadable(), view, columns, keys, data);
   }
 
   private String[] getKeys()

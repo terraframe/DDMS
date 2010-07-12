@@ -112,4 +112,32 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
 
     return list.toArray(new Roles[list.size()]);
   }
+
+  public static MDSSRoleView getViewByRoleName(String roleName)
+  {
+    String prefixedName = MDSSRoleInfo.MDSS_PREFIX + "." + roleName;
+    
+    MDSSRoleQuery query = new MDSSRoleQuery(new QueryFactory());
+    query.WHERE(query.getRole().getRoleName().EQ(prefixedName));
+    
+    OIterator<? extends MDSSRole> it = query.getIterator();
+    
+    try
+    {
+      if(it.hasNext())
+      {
+        return it.next().getView();
+      }
+      
+      MDSSRoleView view = new MDSSRoleView();
+      view.setRoleName(prefixedName);
+      view.setDisplayLabel(roleName);
+      
+      return view;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
 }

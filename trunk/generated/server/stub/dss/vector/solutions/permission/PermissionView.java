@@ -25,7 +25,7 @@ public class PermissionView extends PermissionViewBase implements com.runwaysdk.
     List<PermissionView> list = new ArrayList<PermissionView>();
 
     SystemURLQuery query = new SystemURLQuery(new QueryFactory());
-    query.ORDER_BY_DESC(query.getUrl(), SystemURL.URL);
+    query.ORDER_BY_ASC(query.getDisplayLabel().localize(), SystemURL.URL);
 
     OIterator<? extends SystemURL> it = query.getIterator();
 

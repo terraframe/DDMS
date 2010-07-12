@@ -16,7 +16,7 @@ Mojo.Meta.newClass('MDSS.ArrayMetadata', {
       var keys = new Array();
       
       for(var i in this._metadata) {
-        var _keys = this._metadata[i].getKeys()
+        var _keys = this._metadata[i].getKeys();
 
         keys = keys.concat(_keys);
       }     
@@ -441,30 +441,33 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         this.myDataTable = new YAHOO.widget.DataTable(this._div, this._columnDefs, this.myDataSource, {});
       }          
                              
-      // the data comes from the server as ids, we need to set the labels
+      // the data comes from the server as ids, we need to set the labels      
       this._initializeRecords();
-          
-      this.myDataTable.set("selectionMode","singlecell");
-          
-      this.myDataTable.render();
-          
-      this.myDataTable.subscribe("columnSortEvent", this._trackReverseSorts);
-
-      this.myDataTable.subscribe("cellMouseoverEvent", this._highlightEditableCell);
-
-      this.myDataTable.subscribe("cellMouseoutEvent", this.myDataTable.onEventUnhighlightCell);
-
-      this.myDataTable.subscribe("cellClickEvent", this.onCellClick, null, this);
-         
-      this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
-
-      this.myDataTable.subscribe("tableKeyEvent", this.tableKeyEvent, null, this);
-
-      this.myDataTable.subscribe("editorSaveEvent", this._saveHandler, null, this);
       
-      this._setUpButtons(data);
+      if(this._div != null)
+      {         
+        this.myDataTable.set("selectionMode","singlecell");
+          
+        this.myDataTable.render();
+          
+        this.myDataTable.subscribe("columnSortEvent", this._trackReverseSorts);
 
-      this._model.addListener(Mojo.Util.bind(this, this._modelEventHandler));
+        this.myDataTable.subscribe("cellMouseoverEvent", this._highlightEditableCell);
+
+        this.myDataTable.subscribe("cellMouseoutEvent", this.myDataTable.onEventUnhighlightCell);
+
+        this.myDataTable.subscribe("cellClickEvent", this.onCellClick, null, this);
+         
+        this.myDataTable.subscribe("editorKeydownEvent", this.editorKeyEvent, null, this);
+
+        this.myDataTable.subscribe("tableKeyEvent", this.tableKeyEvent, null, this);
+
+        this.myDataTable.subscribe("editorSaveEvent", this._saveHandler, null, this);
+       
+        this._setUpButtons(data);
+
+        this._model.addListener(Mojo.Util.bind(this, this._modelEventHandler));
+      }
       
       //set this so it accessable by other methods in the jsp
       this.myDataTable.dataGrid = this;          

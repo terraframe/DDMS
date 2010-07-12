@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1658343631)
+@com.runwaysdk.business.ClassSignature(hash = 101983206)
 public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Layer";
-  private static final long serialVersionUID = 1658343631;
+  private static final long serialVersionUID = 101983206;
   
   protected LayerDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -1593,6 +1593,22 @@ public abstract class LayerDTOBase extends com.runwaysdk.business.BusinessDTO im
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
     return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final void updateSLDFile(java.lang.String fileId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{fileId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "updateSLDFile", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void updateSLDFile(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String fileId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{id, fileId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.LayerDTO.CLASS, "updateSLDFile", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

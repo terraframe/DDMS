@@ -35,7 +35,7 @@ public class CasePatientTypeGridBuilder extends GridBuilder implements Reloadabl
     DataGrid staticGrid = this.buildStatic(data);
     DataGrid dynamicGrid = this.buildDynamic(data);
     
-    return new CompositeDataGrid(staticGrid, dynamicGrid);
+    return new CompositeDataGrid("patientType", dto.getIsCasePatientTypeReadable(), staticGrid, dynamicGrid);
   }
 
   private DataGrid buildStatic(CasePatientTypeViewDTO[] data)

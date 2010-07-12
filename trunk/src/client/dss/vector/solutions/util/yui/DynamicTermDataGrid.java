@@ -26,6 +26,8 @@ public class DynamicTermDataGrid extends AbstractCompositeGrid implements Reload
 
   public DynamicTermDataGrid(ViewDTO view, Map<String, ColumnSetup> map, String[] keys, TermSetup setup, String className, String attributeName, String label, ViewDTO[][] data)
   {
+    super();
+    
     ClientRequestIF request = view.getRequest();
 
     ViewDTO[][] t = transpose(data);

@@ -40,11 +40,23 @@ public class ViewDataGrid extends DataGrid implements Reloadable
 
   public ViewDataGrid(ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data)
   {
-    this(view, map, keys, data, "");
+    this("", true, view, map, keys, data, "");
+  }
+  
+  public ViewDataGrid(String tableId, boolean readable, ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data)
+  {
+    this(tableId, readable, view, map, keys, data, "");
   }
 
   public ViewDataGrid(ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data, String postfix)
   {
+    this("", true, view, map, keys, data, postfix);    		
+  }
+
+  public ViewDataGrid(String tableId, boolean readable, ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data, String postfix)
+  {
+    super(tableId, readable);
+    
     this.view = view;
     this.data = data;
     this.yuiColumns = new LinkedHashMap<String, YUIColumn>();

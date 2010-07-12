@@ -10,6 +10,31 @@ import dss.vector.solutions.util.Halp;
 
 public abstract class DataGrid implements Reloadable
 {
+  private String  tableId;
+
+  private boolean excelButtons;
+
+  private boolean addButton;
+
+  private boolean saveButton;
+
+  private boolean readable;
+
+  public DataGrid()
+  {
+    this("", true);
+  }
+
+  public DataGrid(String tableId, boolean readable)
+  {
+    this.tableId = tableId;
+    this.readable = readable;
+
+    this.excelButtons = false;
+    this.addButton = false;
+    this.saveButton = false;
+  }
+
   public abstract List<String> getColumns();
 
   public abstract String getMetadata();
@@ -23,11 +48,41 @@ public abstract class DataGrid implements Reloadable
   public abstract JSONArray getData();
 
   public abstract int getDataLength();
-  
+
   protected abstract List<String> getDefaultValuesAsList();
-  
+
   protected abstract List<String> getDropDownOptions();
-  
+
+  protected boolean isExcelButtons()
+  {
+    return excelButtons;
+  }
+
+  protected void setExcelButtons(boolean excelButtons)
+  {
+    this.excelButtons = excelButtons;
+  }
+
+  protected boolean isAddButton()
+  {
+    return addButton;
+  }
+
+  protected void setAddButton(boolean addButton)
+  {
+    this.addButton = addButton;
+  }
+
+  protected boolean isSaveButton()
+  {
+    return saveButton;
+  }
+
+  protected void setSaveButton(boolean saveButton)
+  {
+    this.saveButton = saveButton;
+  }
+
   public String getColumnSetupWithDelete()
   {
     return this.getColumnSetup(DataGrid.getDeleteColumn());
@@ -44,14 +99,14 @@ public abstract class DataGrid implements Reloadable
 
     return ( "[" + Halp.join(columns, ",\n") + "]" );
   }
-  
+
   public String getDefaultValues()
   {
     List<String> defaults = this.getDefaultValuesAsList();
-    
+
     return "{" + Halp.join(defaults, ",") + "}";
   }
-  
+
   public String getDropDownMap()
   {
     List<String> options = this.getDropDownOptions();
@@ -62,5 +117,29 @@ public abstract class DataGrid implements Reloadable
   public static String getDeleteColumn()
   {
     return "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+  }
+
+  public String getJavascript()
+  {
+    StringBuffer buffer = new StringBuffer();
+
+    if (this.readable)
+    {
+      buffer.append("var " + this.tableId + "Data = {\n");
+      buffer.append("  columnDefs:" + this.getColumns() + ",\n");
+      buffer.append("  defaults:" + this.getDefaultValues() + ",\n");
+      buffer.append("  div_id:'" + this.tableId + "',\n");
+      buffer.append("  excelButtons:" + this.excelButtons + ",\n");
+      buffer.append("  addButton:" + this.addButton + ",\n");
+      buffer.append("  saveButton:" + this.saveButton + "\n");
+      buffer.append("};\n");
+      buffer.append("var " + this.tableId + "Grid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(" + this.getMetadata() + "), " + this.getData().toString() + ", null), " + this.tableId + "Data);\n");
+    }
+    else
+    {
+      buffer.append("var " + this.tableId + "Grid = null;\n");
+    }
+
+    return buffer.toString();
   }
 }

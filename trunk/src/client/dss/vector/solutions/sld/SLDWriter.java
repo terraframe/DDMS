@@ -175,8 +175,6 @@ public class SLDWriter implements Reloadable
 
   public void write()
   {
-    this.layer.lock();
-
     ClientRequestIF requestIF = this.layer.getRequest();
 
     writeSequence();
@@ -191,13 +189,7 @@ public class SLDWriter implements Reloadable
     BusinessDTO webFile = requestIF.newFile(QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, stream);
 
     // Lock this layer. This lock all objects used by this layer
-    this.layer.setSldFile(webFile.getId());
-    this.layer.apply();
-
-    // Applying a layer only unlocks the individual layer not all of the objects
-    // used in a layer. Therefore we must call the unlock method so that all of
-    // the objects used in a layer are also unlocked.
-    this.layer.unlock();
+    this.layer.updateSLDFile(webFile.getId());
   }
 
   private void deleteExistingSLD(ClientRequestIF requestIF, String path, String fileName,

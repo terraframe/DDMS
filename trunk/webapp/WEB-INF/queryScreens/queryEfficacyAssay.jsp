@@ -35,7 +35,6 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<%@page import="dss.vector.solutions.export.EfficacyAssayExcelViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayView"%>
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InsecticideBrandDTO"%>

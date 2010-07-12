@@ -61,7 +61,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
       recipient.setPerson(person);
       recipient.apply();
 
-      person.lock();
+      person.lockPerson();
       person.setIptRecipientDelegate(recipient);
       person.apply();
     }

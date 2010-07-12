@@ -35,7 +35,7 @@ public class CaseDiagnosisTypeGridBuilder extends GridBuilder implements Reloada
     DataGrid staticGrid = this.buildStatic(data);
     DataGrid dynamicGrid = this.buildDynamic(data);
     
-    return new CompositeDataGrid(staticGrid, dynamicGrid);
+    return new CompositeDataGrid("diagnosisType", dto.getIsCaseDiagnosisTypeReadable(), staticGrid, dynamicGrid);
   }
 
   private DataGrid buildStatic(CaseDiagnosisTypeViewDTO[] data)

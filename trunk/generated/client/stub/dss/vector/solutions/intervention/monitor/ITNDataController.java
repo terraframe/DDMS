@@ -333,7 +333,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       else
       {
         // Ensure that the user has the ability to create an aggregated IPT
-        new AggregatedIPTDTO(request);
+        new ITNDataDTO(request);
 
         // Load all of the corresponding grid values
         this.prepareRelationships(view);

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
@@ -334,6 +335,19 @@ public class Layer extends LayerBase implements com.runwaysdk.generation.loader.
     super.delete();
     
     styles.delete();
+  }
+  
+  
+  @Override
+  @Transaction
+  @Authenticate
+  public void updateSLDFile(String fileId)
+  {
+    this.lock();
+    
+    this.setSldFile(fileId);
+    
+    this.apply();
   }
   
   public String toString()

@@ -106,26 +106,27 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       long age = difference / 31556926000l;
       this.setAge((int) age);
     }
-    
-    setSymptomOnsetDate();
 
     super.apply();
+
+    if (this.getSymptomOnset() == null)
+    {
+      this.setSymptomOnset(this.getDiagnosisDate());
+
+      super.apply();
+    }
 
     // Perfrom outbreak notification
     // validateOutbreak();
   }
-  
-  private void setSymptomOnsetDate() {
-    if (this.getSymptomOnset() == null) {
-      this.setSymptomOnset(this.getDiagnosisDate());
-    }
-  }
-  
 
   @Override
-  public void validateSymptomOnset() {
-    if (this.getSymptomOnset() != null) {
-      if (this.getSymptomOnset().after(new Date())) {
+  public void validateSymptomOnset()
+  {
+    if (this.getSymptomOnset() != null)
+    {
+      if (this.getSymptomOnset().after(new Date()))
+      {
         CurrentDateProblem p = new CurrentDateProblem();
         p.setGivenDate(this.getSymptomOnset());
         p.setCurrentDate(new Date());
@@ -133,10 +134,9 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
         p.apply();
         p.throwIt();
       }
-      
-      if (this.getPatient() != null && this.getPatient().getPerson() != null 
-          && this.getPatient().getPerson().getDateOfBirth() != null 
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getSymptomOnset())) {
+
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getSymptomOnset()))
+      {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, SYMPTOMONSET);
         p.setAttributeDisplayLabel(getSymptomOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
@@ -539,8 +539,9 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
       String tableAlias = caseQuery.getTableAlias();
-//      String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))";
-      String sql = "COUNT(DISTINCT "+tableAlias+"."+idCol+")";
+      // String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName +
+      // " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))";
+      String sql = "COUNT(DISTINCT " + tableAlias + "." + idCol + ")";
       calc.setSQL(sql);
     }
 
@@ -559,7 +560,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       String tableAlias = caseQuery.getTableAlias();
       String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + "."+idCol+")))*100.0";
+      String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + "." + idCol + ")))*100.0";
       calc.setSQL(sql);
     }
 

@@ -45,7 +45,7 @@ public class CaseReferralGridBuilder extends GridBuilder implements Reloadable
       }
     }
 
-    return new ViewDataGrid(view, columns, keys, data);
+    return new ViewDataGrid("referral", dto.getIsCaseReferralsReadable(), view, columns, keys, data);
   }
 
   private String[] getKeys()

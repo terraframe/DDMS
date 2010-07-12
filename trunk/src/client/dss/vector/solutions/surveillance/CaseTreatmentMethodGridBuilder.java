@@ -45,7 +45,7 @@ public class CaseTreatmentMethodGridBuilder extends GridBuilder implements Reloa
       }
     }
 
-    return new ViewDataGrid(view, columns, keys, data);
+    return new ViewDataGrid("method", dto.getIsCaseTreatmentMethodReadable(), view, columns, keys, data);
   }
 
   private String[] getKeys()

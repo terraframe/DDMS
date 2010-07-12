@@ -175,6 +175,9 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       req.setAttribute("geoId", entity);
     }
 
+    List<String> entityUniversals = Arrays.asList(new String[] { HealthFacilityDTO.CLASS });
+    req.setAttribute("entityUniversals", entityUniversals);
+    req.setAttribute("HealthFacility", HealthFacilityDTO.CLASS);
     req.setAttribute("checkedType", periodType);
 
     render("searchComponent.jsp");

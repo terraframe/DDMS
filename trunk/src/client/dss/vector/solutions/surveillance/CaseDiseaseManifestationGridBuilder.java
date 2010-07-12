@@ -35,7 +35,7 @@ public class CaseDiseaseManifestationGridBuilder extends GridBuilder implements 
     DataGrid staticGrid = this.buildStatic(data);
     DataGrid dynamicGrid = this.buildDynamic(data);
     
-    return new CompositeDataGrid(staticGrid, dynamicGrid);
+    return new CompositeDataGrid("diseaseManifestation", dto.getIsCaseDiseaseManifestationReadable(), staticGrid, dynamicGrid);
   }
 
   private DataGrid buildStatic(CaseDiseaseManifestationViewDTO[] data)
