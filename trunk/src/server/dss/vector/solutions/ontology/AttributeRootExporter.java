@@ -4,6 +4,8 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRichTextString;
@@ -24,6 +26,8 @@ import com.runwaysdk.system.metadata.MdAttributeVirtual;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.general.Disease;
+
 /**
  * 
  * 
@@ -34,6 +38,12 @@ public class AttributeRootExporter
   private HSSFWorkbook workbook;
 
   private HSSFSheet    sheet;
+  
+  private Disease[]    allDiseases;
+  
+  private int rowCount;
+  
+  private short maxCellCount;
 
   @StartSession
   public static void main(String[] args) throws IOException
@@ -58,8 +68,10 @@ public class AttributeRootExporter
   public AttributeRootExporter()
   {
     workbook = new HSSFWorkbook();
-
     sheet = workbook.createSheet();
+    allDiseases = Disease.getAllDiseases();
+    rowCount = 0;
+    maxCellCount = 0;
   }
 
   public void exportTemplate()
@@ -69,70 +81,95 @@ public class AttributeRootExporter
     
     OIterator<? extends BrowserField> iterator = query.getIterator();
 
-    int rowCount = 0;
     HSSFRow header = sheet.createRow(rowCount++);
     header.createCell(0).setCellValue(new HSSFRichTextString("Key"));
     header.createCell(1).setCellValue(new HSSFRichTextString("Class"));
     header.createCell(2).setCellValue(new HSSFRichTextString("Attribute"));
     header.createCell(3).setCellValue(new HSSFRichTextString("Default"));
+    header.createCell(4).setCellValue(new HSSFRichTextString("Disease"));
 
-    short maxCellCount = 0;
     for (BrowserField field : iterator)
     {
-      MdAttribute mdAttribute = field.getMdAttribute();
-      MdClass mdClass = mdAttribute.getAllDefiningClass().next();
-      String attributeLabel = mdAttribute.getDisplayLabel().getDefaultValue();
-
-      if (attributeLabel.length() == 0 && mdAttribute instanceof MdAttributeVirtual)
+      List<ExportData> commonRoots = ExportData.getCommonRoots(field);
+      writeRootRow(field, commonRoots, null);
+      
+      for (Disease disease : allDiseases)
       {
-        MdAttributeVirtual virtual = (MdAttributeVirtual) mdAttribute;
-        MdAttributeConcrete concrete = virtual.getAllConcreteAttribute().next();
-        attributeLabel = concrete.getDisplayLabel().getDefaultValue();
-      }
-
-      HSSFRow row = sheet.createRow(rowCount++);
-
-      int cellCount = 0;
-      createAndSet(row, cellCount++, mdAttribute.getKey());
-      createAndSet(row, cellCount++, mdClass.getDisplayLabel().getDefaultValue());
-      createAndSet(row, cellCount++, attributeLabel);
-
-      MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
-      String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
-      String defaultTermValue = new String();
-
-      if (defaultTermId.length() > 0)
-      {
-        defaultTermValue = Term.get(defaultTermId).getTermId();
-      }
-      createAndSet(row, cellCount++, defaultTermValue);
-
-      List<ExportData> roots = ExportData.getRoots(field);
-
-      for (ExportData root : roots)
-      {
-        createAndSet(row, cellCount++, root.getTermId());
-        row.createCell(cellCount++).setCellValue(root.getSelectable());
-        createAndSet(row, cellCount++, root.getDisease());
-      }
-      if (cellCount > maxCellCount)
-      {
-        maxCellCount = (short) cellCount;
+        List<ExportData> rootsByDisease = ExportData.getRootsByDisease(field, disease, commonRoots);
+        writeRootRow(field, rootsByDisease, disease);
       }
     }
 
-    for (short s = 4; s < maxCellCount; s += 3)
+    for (short s = 4; s < maxCellCount; s++)
     {
-      int index = ( s - 3 ) / 3;
-
-      createAndSet(header, s, "Root ID #" + index);
-      createAndSet(header, s + 1, "Selectable #" + index);
-      createAndSet(header, s + 2, "Disease #" + index);
+      if (s>4 && s%2==1)
+      {
+        createAndSet(header, s, "Root ID #" + (s-3)/2);
+      }
+      if (s>4 && s%2==0)
+      {
+        createAndSet(header, s, "Selectable #" + (s-3)/2);
+      }
     }
     
-    for (short s = 0; s < maxCellCount; s ++)
+    System.out.println(maxCellCount);
+    for (short s = 0; s < maxCellCount; s++)
     {
       sheet.autoSizeColumn(s);
+    }
+  }
+  
+  private void writeRootRow(BrowserField field, List<ExportData> roots, Disease disease)
+  {
+    if (roots.size()==0)
+    {
+      return;
+    }
+    
+    MdAttribute mdAttribute = field.getMdAttribute();
+    MdClass mdClass = mdAttribute.getAllDefiningClass().next();
+    String attributeLabel = mdAttribute.getDisplayLabel().getDefaultValue();
+
+    if (attributeLabel.length() == 0 && mdAttribute instanceof MdAttributeVirtual)
+    {
+      MdAttributeVirtual virtual = (MdAttributeVirtual) mdAttribute;
+      MdAttributeConcrete concrete = virtual.getAllConcreteAttribute().next();
+      attributeLabel = concrete.getDisplayLabel().getDefaultValue();
+    }
+    
+    // Create a row for this root-default-disease triple
+    HSSFRow row = sheet.createRow(rowCount++);
+    
+    int cellCount = 0;
+    createAndSet(row, cellCount++, mdAttribute.getKey());
+    createAndSet(row, cellCount++, mdClass.getDisplayLabel().getDefaultValue());
+    createAndSet(row, cellCount++, attributeLabel);
+    
+    MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
+    String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
+    String defaultTermValue = new String();
+    
+    if (defaultTermId.length() > 0)
+    {
+      defaultTermValue = Term.get(defaultTermId).getTermId();
+    }
+    createAndSet(row, cellCount++, defaultTermValue);
+    
+    if (disease!=null)
+    {
+      createAndSet(row, cellCount, disease.getKey());
+    }
+    cellCount++;
+    
+    for (ExportData root : roots)
+    {
+      createAndSet(row, cellCount++, root.getTermId());
+      row.createCell(cellCount++).setCellValue(root.getSelectable());
+//        createAndSet(row, cellCount++, root.getDisease());
+    }
+    if (cellCount > maxCellCount)
+    {
+      maxCellCount = (short) cellCount;
     }
   }
 
