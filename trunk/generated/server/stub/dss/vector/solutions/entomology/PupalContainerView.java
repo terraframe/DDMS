@@ -9,7 +9,7 @@ import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.surveillance.SortedGridComparator;
 
 public class PupalContainerView extends PupalContainerViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -151,7 +151,7 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
   public PupalContainerAmountView[] getAmounts(Term[] terms)
   {
     List<PupalContainerAmountView> list = new LinkedList<PupalContainerAmountView>();
-    Set<PupalContainerAmount> set = new TreeSet<PupalContainerAmount>(new GridComparator());
+    Set<PupalContainerAmount> set = new TreeSet<PupalContainerAmount>(new SortedGridComparator());
 
     for (Term d : terms)
     {

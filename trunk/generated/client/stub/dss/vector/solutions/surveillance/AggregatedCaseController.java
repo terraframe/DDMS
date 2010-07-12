@@ -20,7 +20,6 @@ import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
-import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class AggregatedCaseController extends AggregatedCaseControllerBase implements Reloadable

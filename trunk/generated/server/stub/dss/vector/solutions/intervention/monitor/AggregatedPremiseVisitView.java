@@ -14,7 +14,7 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.surveillance.SortedGridComparator;
 
 public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -123,7 +123,7 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   public AggregatedPremiseReasonView[] getNonTreatmentReasons(Term[] terms)
   {
     List<AggregatedPremiseReasonView> list = new LinkedList<AggregatedPremiseReasonView>();
-    Set<AggregatedPremiseReason> set = new TreeSet<AggregatedPremiseReason>(new GridComparator());
+    Set<AggregatedPremiseReason> set = new TreeSet<AggregatedPremiseReason>(new SortedGridComparator());
 
     for (Term d : terms)
     {
@@ -168,7 +168,7 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   public AggregatedPremiseMethodView[] getInterventionMethods(Term[] terms)
   {
     List<AggregatedPremiseMethodView> list = new LinkedList<AggregatedPremiseMethodView>();
-    Set<AggregatedPremiseMethod> set = new TreeSet<AggregatedPremiseMethod>(new GridComparator());
+    Set<AggregatedPremiseMethod> set = new TreeSet<AggregatedPremiseMethod>(new SortedGridComparator());
 
     for (Term d : terms)
     {

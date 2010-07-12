@@ -155,7 +155,7 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
   public CasePatientTypeAmountView[] getAmounts(Term[] terms)
   {
     List<CasePatientTypeAmountView> list = new LinkedList<CasePatientTypeAmountView>();
-    Set<CasePatientTypeAmount> set = new TreeSet<CasePatientTypeAmount>(new GridComparator());
+    Set<CasePatientTypeAmount> set = new TreeSet<CasePatientTypeAmount>(new SortedGridComparator());
 
     
     for (Term d : terms)

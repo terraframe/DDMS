@@ -15,6 +15,7 @@ import com.runwaysdk.query.QueryFactory;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
+import dss.vector.solutions.surveillance.SortedGridComparator;
 
 public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -114,7 +115,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   public IndividualPremiseVisitMethodView[] getInterventionMethods(Term[] terms)
   {
     List<IndividualPremiseVisitMethodView> list = new LinkedList<IndividualPremiseVisitMethodView>();
-    Set<IndividualPremiseVisitMethod> set = new TreeSet<IndividualPremiseVisitMethod>(new GridComparator());
+    Set<IndividualPremiseVisitMethod> set = new TreeSet<IndividualPremiseVisitMethod>(new SortedGridComparator());
 
     for (Term d : terms)
     {

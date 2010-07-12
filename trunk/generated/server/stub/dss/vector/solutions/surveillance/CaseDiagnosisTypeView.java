@@ -154,7 +154,7 @@ public class CaseDiagnosisTypeView extends CaseDiagnosisTypeViewBase implements 
   public CaseDiagnosisTypeAmountView[] getAmounts(Term[] terms)
   {
     List<CaseDiagnosisTypeAmountView> list = new LinkedList<CaseDiagnosisTypeAmountView>();
-    Set<CaseDiagnosisTypeAmount> set = new TreeSet<CaseDiagnosisTypeAmount>(new GridComparator());
+    Set<CaseDiagnosisTypeAmount> set = new TreeSet<CaseDiagnosisTypeAmount>(new SortedGridComparator());
 
     for (Term d : terms)
     {

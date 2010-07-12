@@ -153,7 +153,7 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
   public CaseDiseaseManifestationAmountView[] getAmounts(Term[] terms)
   {
     List<CaseDiseaseManifestationAmountView> list = new LinkedList<CaseDiseaseManifestationAmountView>();
-    Set<CaseDiseaseManifestationAmount> set = new TreeSet<CaseDiseaseManifestationAmount>(new GridComparator());
+    Set<CaseDiseaseManifestationAmount> set = new TreeSet<CaseDiseaseManifestationAmount>(new SortedGridComparator());
 
     for (Term d : terms)
     {
