@@ -1,6 +1,5 @@
 package dss.vector.solutions.surveillance;
 
-import java.io.InputStream;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,8 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
@@ -23,19 +23,16 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.ValueQueryCSVExporter;
-import com.runwaysdk.query.ValueQueryExcelExporter;
-import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
-import dss.vector.solutions.query.SavedSearch;
-import dss.vector.solutions.query.SavedSearchRequiredException;
 import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.generation.loader.Reloadable
@@ -191,9 +188,9 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       manifestation.delete();
     }
-    
+
     List<CasePatientType> patientTypes = this.getPatientTypes();
-    
+
     for (CasePatientType patientType : patientTypes)
     {
       patientType.delete();
@@ -263,9 +260,9 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       manifestation.lock();
     }
-    
+
     List<CasePatientType> patientTypes = this.getPatientTypes();
-    
+
     for (CasePatientType patientType : patientTypes)
     {
       patientType.lock();
@@ -333,9 +330,9 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       manifestation.unlock();
     }
-    
+
     List<CasePatientType> patientTypes = this.getPatientTypes();
-    
+
     for (CasePatientType patientType : patientTypes)
     {
       patientType.unlock();
@@ -513,12 +510,12 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
   public List<CasePatientType> getPatientTypes()
   {
     List<CasePatientType> list = new LinkedList<CasePatientType>();
-    
+
     CasePatientTypeQuery query = new CasePatientTypeQuery(new QueryFactory());
     query.WHERE(query.getAggregatedCase().EQ(this));
-    
+
     OIterator<? extends CasePatientType> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -527,10 +524,10 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     {
       it.close();
     }
-    
+
     return list;
   }
-  
+
   public AggregatedCaseView getView()
   {
     AggregatedCaseView view = new AggregatedCaseView();
@@ -584,14 +581,55 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
 
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
 
-    // for (String gridAlias : queryMap.keySet())
-    // {
-    // GeneratedEntityQuery generatedQuery = queryMap.get(gridAlias);
-    //
-    // String termAlias = gridAlias + "_Term";
-    // TermQuery termQuery = (TermQuery) queryMap.get(termAlias);
-    //
-    // }
+
+    CaseTreatmentQuery caseTreatmentQuery = (CaseTreatmentQuery) queryMap.get(CaseTreatment.CLASS);
+    if (caseTreatmentQuery != null)
+    {
+      //QueryUtil.joinTermAllpaths(valueQuery, CaseTreatment.CLASS, caseTreatmentQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseTreatmentQuery.getTableAlias());
+    }
+    else
+    {
+      caseTreatmentQuery = new CaseTreatmentQuery(valueQuery);
+      //QueryUtil.joinTermAllpaths(valueQuery, CaseTreatment.CLASS, caseTreatmentQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseTreatmentQuery.getTableAlias());
+    }
+    
+    CaseTreatmentMethodQuery caseTreatmentMethodQuery = (CaseTreatmentMethodQuery) queryMap.get(CaseTreatmentMethod.CLASS);
+    if (caseTreatmentMethodQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CaseTreatmentMethod.CLASS, caseTreatmentMethodQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseTreatmentMethodQuery.getTableAlias());
+    }
+
+    CaseTreatmentStockQuery caseTreatmentStockQuery = (CaseTreatmentStockQuery) queryMap.get(CaseTreatmentStock.CLASS);
+    if (caseTreatmentStockQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CaseTreatmentStock.CLASS, caseTreatmentStockQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseTreatmentStockQuery.getTableAlias());
+    }
+
+    CaseReferralQuery caseReferralQuery = (CaseReferralQuery) queryMap.get(CaseReferral.CLASS);
+    if (caseReferralQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CaseReferral.CLASS, caseReferralQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseReferralQuery.getTableAlias());
+    }
+
+    CaseStockReferralQuery caseStockReferralQuery = (CaseStockReferralQuery) queryMap.get(CaseStockReferral.CLASS);
+    if (caseStockReferralQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CaseStockReferral.CLASS, caseStockReferralQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseStockReferralQuery.getTableAlias());
+    }
+
+    CaseDiagnosticQuery caseDiagnosticQuery = (CaseDiagnosticQuery) queryMap.get(CaseDiagnostic.CLASS);
+    if (caseDiagnosticQuery != null)
+    {
+      QueryUtil.joinTermAllpaths(valueQuery, CaseDiagnostic.CLASS, caseDiagnosticQuery);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, caseDiagnosticQuery.getTableAlias());
+    }
+
 
     if (valueQuery.hasSelectableRef("sqldouble__cfr"))
     {
@@ -614,6 +652,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 10000);
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100000);
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 1000000);
+
+    joinPatientTypes(valueQuery, aggregatedCaseQuery);
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, aggregatedCaseQuery.getStartDate(), aggregatedCaseQuery.getEndDate());
@@ -693,58 +733,147 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + startDateCol + ")),0))*" + multiplier;
 
     calc.setSQL(sql);
+
   }
 
-  /**
-   * Queries for AggregatedCases.
-   * 
-   * @param xml
-   */
-  @Transaction
-  @Authenticate
-  public static com.runwaysdk.query.ValueQuery queryAggregatedCase(String xml, String config, Integer pageNumber, Integer pageSize)
+  public static void joinPatientTypes(ValueQuery valueQuery, AggregatedCaseQuery aggregatedCaseQuery)
   {
-    ValueQuery valueQuery = xmlToValueQuery(xml, config, null);
+    MdEntityDAOIF patientTypeMd = MdEntityDAO.getMdEntityDAO(CasePatientType.CLASS);
 
-    valueQuery.restrictRows(pageSize, pageNumber);
+    String term = QueryUtil.getColumnName(patientTypeMd, CasePatientType.TERM);
+    String aggCase = QueryUtil.getColumnName(patientTypeMd, CasePatientType.AGGREGATEDCASE);
+    MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(CasePatientTypeAmount.CLASS);
 
-    return valueQuery;
-  }
+    String amount = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmount.AMOUNT);
+    String id = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmount.ID);
+    String child_id = "child_id";
+    String parent_id = "parent_id";
+    String patientTypeTable = MdBusiness.getMdBusiness(CasePatientType.CLASS).getTableName();
+    String patientTypeAmountTable = MdBusiness.getMdEntity(CasePatientTypeAmount.CLASS).getTableName();
 
-  @Transaction
-  public static InputStream exportQueryToExcel(String queryXML, String config, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    boolean needsJoin = false;
+
+    String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
+    for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCasePatientTypeMd()))
     {
-      String error = "Cannot export to Excel without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
+      String patientTypeMoID = patientType.getTermId().replace(":", "");
+
+      for (Term patientTypeAmount : Term.getRootChildren(CasePatientTypeView.getPatientCategoryMd()))
+      {
+        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+        String ammountCol = patientTypeMoID + patientTypeAmountMoID;
+
+        if (valueQuery.hasSelectableRef(ammountCol))
+        {
+          needsJoin = true;
+          patientTypeSql = "SELECT " + amount + "\n";
+          patientTypeSql += " FROM " + patientTypeAmountTable + " pta JOIN " + patientTypeTable + " pt ON pta." + parent_id + "  = pt." + id + "\n ";
+          patientTypeSql += " WHERE " + child_id + " = '" + patientTypeAmount.getId() + "'  AND pt." + term + " = '" + patientType.getId() + "'";
+          patientTypeSql += " AND " + aggregatedCaseQuery.getTableAlias() + ".id = pt." + aggCase + "\n ";
+
+          QueryUtil.setSelectabeSQL(valueQuery, ammountCol, patientTypeSql);
+        }
+      }
+
     }
 
-    SavedSearch search = SavedSearch.get(savedSearchId);
-
-    ValueQuery query = xmlToValueQuery(queryXML, config, null);
-
-    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
-    return exporter.exportStream();
-  }
-
-  @Transaction
-  public static InputStream exportQueryToCSV(String queryXML, String config, String savedSearchId)
-  {
-    if (savedSearchId == null || savedSearchId.trim().length() == 0)
+    if(needsJoin)
     {
-      String error = "Cannot export to CSV without a current SavedSearch instance.";
-      SavedSearchRequiredException ex = new SavedSearchRequiredException(error);
-      throw ex;
+      valueQuery.AND(aggregatedCaseQuery.getId().EQ(aggregatedCaseQuery.getId()));
+     }
+  }
+  
+  public static void joinDiagnosisTypes(ValueQuery valueQuery, AggregatedCaseQuery aggregatedCaseQuery)
+  {
+    MdEntityDAOIF patientTypeMd = MdEntityDAO.getMdEntityDAO(CaseDiagnosisType.CLASS);
+
+    String term = QueryUtil.getColumnName(patientTypeMd, CaseDiagnosisType.TERM);
+    String aggCase = QueryUtil.getColumnName(patientTypeMd, CaseDiagnosisType.AGGREGATEDCASE);
+    MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(CaseDiagnosisTypeAmount.CLASS);
+
+    String amount = QueryUtil.getColumnName(ammountMd, CaseDiagnosisTypeAmount.AMOUNT);
+    String id = QueryUtil.getColumnName(ammountMd, CaseDiagnosisTypeAmount.ID);
+    String child_id = "child_id";
+    String parent_id = "parent_id";
+    String diagTypeTable = MdBusiness.getMdBusiness(CaseDiagnosisType.CLASS).getTableName();
+    String diagTypeAmountTable = MdBusiness.getMdEntity(CaseDiagnosisTypeAmount.CLASS).getTableName();
+
+    boolean needsJoin = false;
+
+    String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
+    for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCasePatientTypeMd()))
+    {
+      String patientTypeMoID = patientType.getTermId().replace(":", "");
+
+      for (Term patientTypeAmount : Term.getRootChildren(CasePatientTypeView.getPatientCategoryMd()))
+      {
+        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+        String ammountCol = patientTypeMoID + patientTypeAmountMoID;
+
+        if (valueQuery.hasSelectableRef(ammountCol))
+        {
+          needsJoin = true;
+          patientTypeSql = "SELECT " + amount + "\n";
+          patientTypeSql += " FROM " + diagTypeAmountTable + " pta JOIN " + diagTypeTable + " pt ON pta." + parent_id + "  = pt." + id + "\n ";
+          patientTypeSql += " WHERE " + child_id + " = '" + patientTypeAmount.getId() + "'  AND pt." + term + " = '" + patientType.getId() + "'";
+          patientTypeSql += " AND " + aggregatedCaseQuery.getTableAlias() + ".id = pt." + aggCase + "\n ";
+
+          QueryUtil.setSelectabeSQL(valueQuery, ammountCol, patientTypeSql);
+        }
+      }
+
     }
 
-    ValueQuery query = xmlToValueQuery(queryXML, config, null);
+    if(needsJoin)
+    {
+      valueQuery.AND(aggregatedCaseQuery.getId().EQ(aggregatedCaseQuery.getId()));
+     }
+  }
+  
+  public static void joinDiseaseManifestations(ValueQuery valueQuery, AggregatedCaseQuery aggregatedCaseQuery)
+  {
+    MdEntityDAOIF patientTypeMd = MdEntityDAO.getMdEntityDAO(CasePatientType.CLASS);
 
-    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
+    String term = QueryUtil.getColumnName(patientTypeMd, CasePatientType.TERM);
+    String aggCase = QueryUtil.getColumnName(patientTypeMd, CasePatientType.AGGREGATEDCASE);
+    MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(CasePatientTypeAmount.CLASS);
 
-    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
+    String amount = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmountDTO.AMOUNT);
+    String id = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmountDTO.ID);
+    String child_id = "child_id";
+    String parent_id = "parent_id";
+    String patientTypeTable = MdBusiness.getMdBusiness(CasePatientType.CLASS).getTableName();
+    String patientTypeAmountTable = MdBusiness.getMdEntity(CasePatientTypeAmount.CLASS).getTableName();
 
-    return exporter.exportStream();
+    boolean needsJoin = false;
+
+    String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
+    for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCasePatientTypeMd()))
+    {
+      String patientTypeMoID = patientType.getTermId().replace(":", "");
+
+      for (Term patientTypeAmount : Term.getRootChildren(CasePatientTypeView.getPatientCategoryMd()))
+      {
+        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+        String ammountCol = patientTypeMoID + patientTypeAmountMoID;
+
+        if (valueQuery.hasSelectableRef(ammountCol))
+        {
+          needsJoin = true;
+          patientTypeSql = "SELECT " + amount + "\n";
+          patientTypeSql += " FROM " + patientTypeAmountTable + " pta JOIN " + patientTypeTable + " pt ON pta." + parent_id + "  = pt." + id + "\n ";
+          patientTypeSql += " WHERE " + child_id + " = '" + patientTypeAmount.getId() + "'  AND pt." + term + " = '" + patientType.getId() + "'";
+          patientTypeSql += " AND " + aggregatedCaseQuery.getTableAlias() + ".id = pt." + aggCase + "\n ";
+
+          QueryUtil.setSelectabeSQL(valueQuery, ammountCol, patientTypeSql);
+        }
+      }
+
+    }
+
+    if(needsJoin)
+    {
+      valueQuery.AND(aggregatedCaseQuery.getId().EQ(aggregatedCaseQuery.getId()));
+     }
   }
 }
