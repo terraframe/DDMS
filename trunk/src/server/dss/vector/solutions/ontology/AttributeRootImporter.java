@@ -133,8 +133,9 @@ public class AttributeRootImporter implements Reloadable
 
     BrowserField browserField = BrowserField.getFieldForAttribute(mdAttribute.definedByClass().definesType(), mdAttribute.definesAttribute());
     List<? extends BrowserRoot> allRoots = browserField.getAllroot().getAll();
+    String diseaseName = ExcelUtil.getString(row.getCell(4));
 
-    int i = 4;
+    int i = 5;
 
     // Iterate over all remaining columns. Each should have a Mo Term ID
     while (row.getCell(i) != null && row.getCell(i + 1) != null)
@@ -142,7 +143,7 @@ public class AttributeRootImporter implements Reloadable
       String termId = ExcelUtil.getString(row.getCell(i++));
       Term term = Term.getByTermId(termId);
       Boolean selectable = ExcelUtil.getBoolean(row.getCell(i++));
-      String diseaseName = ExcelUtil.getString(row.getCell(i++));
+//      String diseaseName = ExcelUtil.getString(row.getCell(i++));
 
       if (diseaseName == null || diseaseName.length() == 0)
       {
