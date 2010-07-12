@@ -805,6 +805,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           element.disabled = true;
         }
       }
+      
+      // disable the date criteria checkboxes
+      this._queryPanel.disableDates(true, true);
     },
   
   

@@ -83,15 +83,19 @@ MDSS.QueryPanel.prototype = {
   DATE_GROUP_ID : "dateGroupSelection",
 
   START_DATE_RANGE : "startDateRange",
+  
+  START_DATE_RANGE_CHECK : "start_date_range",
 
   END_DATE_RANGE : "endDateRange",
+  
+  END_DATE_RANGE_CHECK : "end_date_range",
 
   GEO_ENTITY_PANEL_LIST : "geoEntityPanelList",
 
   COLUMNS_LIST : "columnsList",
 
   QUERY_SUMMARY : "querySummary",
-
+  
 
   EDIT_VARIABLE_STYLE : "editVariableStyle",
 
@@ -334,12 +338,12 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
     this._startDate.id = this.START_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
-    //YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
+    YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
 
     this._startDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', 'start_date_range');
-    //YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
+    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', this.START_DATE_RANGE_CHECK);
+    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
 
     var endLabel = document.createElement('span');
     endLabel.innerHTML = MDSS.Localized.Query.End_Date;
@@ -348,12 +352,12 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
     this._endDate.id = this.END_DATE_RANGE;
     YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
-    //YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
+    YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
 
     this._endDateRangeCheck = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', 'end_date_range');
-    //YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
+    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', this.END_DATE_RANGE_CHECK);
+    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
 
     var toggleDatesSpan = document.createElement('span');
     toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
@@ -404,6 +408,19 @@ MDSS.QueryPanel.prototype = {
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
 
+  },
+  
+  disableDates : function(disableStart, disableEnd)
+  {
+    if(disableStart !== null)
+    {
+      this._startDateRangeCheck.disabled = disableStart;
+    }
+    
+    if(disableEnd !== null)
+    {
+      this._endDateRangeCheck.disabled = disableEnd;
+    }
   },
 
   /**

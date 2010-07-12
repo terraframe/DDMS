@@ -735,6 +735,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       parser.parseSelectables({
         attribute : function(entityAlias, attributeName, userAlias){
+            
             var checked = thisRef._checkBox(userAlias);
             thisRef._setNumberCriteriaFromLoad(checked, userAlias);
         },
@@ -803,7 +804,25 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         },
         sqldate : function(entityAlias, attributeName, userAlias){
 
-          thisRef._checkBox(userAlias);
+          // NOTE: if we're checking the start and/or end date checkboxes
+          // then defer the checking action because there is an internal
+          // race condition between the DOM and executing JavaScript such that
+          // the checkboxes can't be checked immediately after re-enabling.
+          if(userAlias === thisRef._queryPanel.START_DATE_RANGE_CHECK)
+          {
+            thisRef._queryPanel.disableDates(false, null);
+            setTimeout(Mojo.Util.bind(thisRef, thisRef._checkBox, userAlias), 0);
+          }
+          else if(userAlias === thisRef._queryPanel.END_DATE_RANGE_CHECK)
+          {
+            thisRef._queryPanel.disableDates(null, false);
+            setTimeout(Mojo.Util.bind(thisRef, thisRef._checkBox, userAlias), 0);
+            defer = true;
+          }
+          else
+          {
+            thisRef._checkBox(userAlias)
+          }
         }
       });
 
