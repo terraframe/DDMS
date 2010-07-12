@@ -1055,7 +1055,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
         this.index = selected.length;
       }
       else {
-        resultEL.innerHTML = '';
+        resultEl.innerHTML = '';
         this.index = 0;
         this.map = {};        
       }      
@@ -1120,6 +1120,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
 
       innerHTML = '<li>\n';
       innerHTML += '<input type="hidden" class="' + this.attributeName + '" name="' + component + '.componentId" value="' + id + '" />\n';
+      innerHTML += '<input type="hidden" name="' + component + '.termDisplayLabel" value="' + label + '" />\n';
       innerHTML += '<input type="hidden" name="' + component + '.isNew" value="false" />\n';
       innerHTML += label + '\n';
       innerHTML += '<li>\n';

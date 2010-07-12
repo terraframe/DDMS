@@ -107,7 +107,9 @@ public class MultiMOTagSupport extends AbstractTermTagSupport implements Reloada
       {
         for (TermDTO term : _value)
         {
-          out.write("browser.addSelection('" + term.getDisplayLabel() + "', '" + term.getId() + "');\n");
+          String label = term.getDisplayLabel();
+          
+          out.write("    browser.addSelection('" + label + "', '" + term.getId() + "');\n");
         }
       }
            
