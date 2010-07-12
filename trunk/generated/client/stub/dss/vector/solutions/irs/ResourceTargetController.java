@@ -3,28 +3,23 @@ package dss.vector.solutions.irs;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
-import dss.vector.solutions.util.yui.ColumnSetup;
-import dss.vector.solutions.util.yui.ViewDataGrid;
+import dss.vector.solutions.util.yui.DataGrid;
 
 // TODO: delete unused methods from metadata
 
-public class ResourceTargetController extends ResourceTargetControllerBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class ResourceTargetController extends ResourceTargetControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ResourceTarget/";
 
@@ -32,8 +27,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
   private static final long  serialVersionUID = 1240257007714L;
 
-  public ResourceTargetController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public ResourceTargetController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
@@ -54,7 +48,7 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   {
     resp.sendError(500);
   }
-  
+
   public void view(String id, MalariaSeasonDTO season, String geoId) throws IOException, ServletException
   {
     try
@@ -65,13 +59,9 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
       String[] targetIds = this.getTargetIds(id, geoId, request);
 
-      ResourceTargetViewDTO view = new ResourceTargetViewDTO(request);
-      ResourceTargetViewDTO[] data = ResourceTargetViewDTO.getResourceTargets(request, targetIds, season);
+      DataGrid grid = new ResourceTargetGridBuilder(request, targetIds, season).build();
       
-      String[] keys = this.getKeys();
-      Map<String, ColumnSetup> map = this.getColumns(keys, false);
-      
-      req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
+      req.setAttribute("grid", grid);
       render("viewComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -97,16 +87,16 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
     if (id.equals("ALL"))
     {
-      //Get the GeoEntity which corresponds to the GeoId
+      // Get the GeoEntity which corresponds to the GeoId
       sprayTeams.addAll(Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
     }
     else
     {
       SprayTeamDTO team = SprayTeamDTO.get(request, id);
-      
-      //We do not want to show the team summary row since weeks do not add up 
-      //sprayTeams.add(team);
-      
+
+      // We do not want to show the team summary row since weeks do not add up
+      // sprayTeams.add(team);
+
       sprayOperators.addAll(team.getAllSprayTeamMembers());
     }
 
@@ -138,8 +128,8 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     {
       problems.add(new RequiredSeasonProblemDTO(this.getClientRequest(), req.getLocale()));
     }
-    
-    if(geoId == null)
+
+    if (geoId == null)
     {
       problems.add(new RequiredGeoIdProblemDTO(this.getClientRequest(), req.getLocale()));
     }
@@ -154,53 +144,4 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
   {
     this.viewAll();
   }
-  
-  private String[] getKeys()
-  {
-    List<String> keys = new LinkedList<String>();
-    
-    keys.add(ResourceTargetViewDTO.TARGETID);
-    keys.add(ResourceTargetViewDTO.SEASON);
-    keys.add(ResourceTargetViewDTO.TARGETER);
-    keys.add(ResourceTargetViewDTO.TARGETERNAME);
-    
-    for(int i=0; i <= 52; i++)
-    {
-      keys.add(ResourceTargetViewDTO.TARGET + i);
-    }
-    
-    String[] array = keys.toArray(new String[keys.size()]);
-    
-    this.upperFirstCharacter(array);
-    
-    return array;
-  }
-  
-  private Map<String, ColumnSetup> getColumns(String[] keys, Boolean sum)
-  {   
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-
-    for (int i = 0; i < keys.length; i++)
-    {
-      ColumnSetup setup = ( i < 3 ? new ColumnSetup(true, false) : new ColumnSetup(false, true) );
-      
-      if(i >= 3 && ! sum)
-      {
-        setup.setSum(sum);
-      }
-      
-      map.put(keys[i], setup);
-    }
-
-    return map;
-  }
-  
-  private void upperFirstCharacter(String[] array)
-  {
-    for (int i = 0; i < array.length; i++)
-    {
-      array[i] = GenerationUtil.upperFirstCharacter(array[i]);
-    }
-  }
-
 }
