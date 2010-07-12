@@ -183,7 +183,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
       	var attributeName = stage.MOID.replace(':','');
 
-        var key = row.attributeName+attributeName
+        var key = row.attributeName+attributeName;
 
         MDSS.Localized[key]= row.displayLabel + " " + stage.displayLabel;
         
@@ -193,7 +193,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                 key:key,
                                 type:"sqlfloat",
                                 attributeName:key,
-                                isAggregate:true
+                                isAggregate:false
                               },
 
                              ]);
