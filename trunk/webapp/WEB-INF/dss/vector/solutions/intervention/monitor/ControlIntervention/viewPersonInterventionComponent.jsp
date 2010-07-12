@@ -9,6 +9,27 @@
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:240px;
+  display:block;
+  position:relative;
+  top:110px;
+  left:110px;
+}
+</style>
+
 <mjl:component item="${view}" param="dto">
   <mjl:dt attribute="personIntervention">
     <div id="premises"></div>

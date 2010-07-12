@@ -11,6 +11,27 @@
 <%@page import="dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodViewDTO"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:160px;
+  display:block;
+  position:relative;
+  top:70px;
+  left:70px;
+}
+</style>
+
 <mjl:component item="${view}" param="dto">
   <mjl:dt attribute="individulPremiseUniversal">
     <div id="premises"></div>

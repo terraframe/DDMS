@@ -9,6 +9,27 @@
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:160px;
+  display:block;
+  position:relative;
+  top:70px;
+  left:70px;
+}
+</style>
+
 <mjl:component item="${view}" param="dto">
   <mjl:dt attribute="insecticideIntervention">
     <div id="premises"></div>
@@ -42,8 +63,6 @@
       grid.setData(index, 'ActiveIngredient', obj.activeIngredient);
       grid.setData(index, 'ConcentrationQuantifier', obj.concentrationQuantifier);
       grid.setData(index, 'ConcentrationQualifier', obj.concentrationQualifier);
-
-      grid.focus();
     };
 
     var loadInsecticideLabels = function(index, id) {
