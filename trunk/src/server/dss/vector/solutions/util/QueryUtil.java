@@ -16,11 +16,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
@@ -35,6 +37,7 @@ import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.Join;
 import com.runwaysdk.query.OIterator;
@@ -362,7 +365,8 @@ public class QueryUtil implements Reloadable
       String id = getIdColumn();
 
       String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
-      String subSelect = klass.replace('.', '_') + "TermSubSel";
+//      String subSelect = klass.replace('.', '_') + "TermSubSel";
+      String subSelect = tableAlias+"_TermSubSel";
       String table = MdEntity.getMdEntity(klass).getTableName();
       valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
     }
@@ -612,9 +616,24 @@ public class QueryUtil implements Reloadable
           // parent table.
           // Instead, rely on the query and metadata to resolve the
           // class/attribute mapping.
-          Attribute attr = attributeQuery.get(attrib_name);
-          String table = attr.getDefiningTableName();
-          String alias = attr.getDefiningTableAlias();
+          String table;
+          String alias;
+          if(attributeQuery instanceof GeneratedRelationshipQuery &&
+              (attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID)))
+          {
+            // We don't have metadata for childId or parentId so we have to manually get the table and alias
+            // IMPORTANT: this does not take inheritance into account (i.e., if child_id or parent_id are
+            // defined by an MdRelationship superclass).
+            MdRelationshipDAOIF md = (MdRelationshipDAOIF) attributeQuery.getMdClassIF();
+            table = md.getTableName();
+            alias = attributeQuery.getTableAlias();
+          }
+          else
+          {
+            Attribute attr = attributeQuery.get(attrib_name);
+            table = attr.getDefiningTableName();
+            alias = attr.getDefiningTableAlias();
+          }
 
           valueQuery.AND(new InnerJoinEq(attrCol, table, alias, childTermCol, allPathsTable,
               allPathsQuery.getTableAlias()));
