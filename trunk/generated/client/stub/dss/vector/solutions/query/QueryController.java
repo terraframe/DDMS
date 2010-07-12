@@ -86,11 +86,14 @@ import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseViewDTO;
+import dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeViewDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosticDTO;
+import dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountDTO;
 import dss.vector.solutions.surveillance.CaseDiseaseManifestationDTO;
 import dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO;
+import dss.vector.solutions.surveillance.CasePatientTypeAmountDTO;
 import dss.vector.solutions.surveillance.CasePatientTypeDTO;
 import dss.vector.solutions.surveillance.CasePatientTypeViewDTO;
 import dss.vector.solutions.surveillance.CaseReferralDTO;
@@ -375,29 +378,54 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       stockReferrals.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASESTOCKREFERRAL));
       ordered.put("stockReferrals", stockReferrals);
       
-      JSONObject types = new JSONObject();
-      types.put("type", TermDTO.CLASS);
-      types.put("label", MDSSProperties.getObject("Amount"));
-      types.put("relType", CaseDiagnosisTypeDTO.CLASS);
-      types.put("relAttribute", CaseDiagnosisTypeDTO.TERM);
-      types.put("options", getAllTermsForGrid(request, CaseDiagnosisTypeViewDTO.CLASS, CaseDiagnosisTypeViewDTO.DIAGNOSISCATEGORY));
-      ordered.put("types", types);
-
+      JSONObject typeOfDiagnosis = new JSONObject();
+      typeOfDiagnosis.put("type", TermDTO.CLASS);
+      typeOfDiagnosis.put("label", MDSSProperties.getObject("Amount"));
+      typeOfDiagnosis.put("relType", CaseDiagnosisTypeDTO.CLASS);
+      typeOfDiagnosis.put("relAttribute", CaseDiagnosisTypeDTO.TERM);
+      typeOfDiagnosis.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSISTYPE));
+      ordered.put("diagnosisTypes",typeOfDiagnosis);
+      
+      JSONObject diagnosisTypeAmounts = new JSONObject();
+      diagnosisTypeAmounts.put("type", TermDTO.CLASS);
+      diagnosisTypeAmounts.put("label", MDSSProperties.getObject("Amount"));
+      diagnosisTypeAmounts.put("relType", CaseDiagnosisTypeAmountDTO.CLASS);
+      diagnosisTypeAmounts.put("relAttribute", CaseDiagnosisTypeAmountDTO.AMOUNT);
+      diagnosisTypeAmounts.put("options", getAllTermsForGrid(request, CaseDiagnosisTypeViewDTO.CLASS, CaseDiagnosisTypeViewDTO.DIAGNOSISCATEGORY));
+      ordered.put("diagnosisTypeAmounts", diagnosisTypeAmounts);
+          
       JSONObject manifestations = new JSONObject();
       manifestations.put("type", TermDTO.CLASS);
       manifestations.put("label", MDSSProperties.getObject("Amount"));
       manifestations.put("relType", CaseDiseaseManifestationDTO.CLASS);
       manifestations.put("relAttribute", CaseDiseaseManifestationDTO.TERM);
-      manifestations.put("options", getAllTermsForGrid(request, CaseDiseaseManifestationViewDTO.CLASS, CaseDiseaseManifestationViewDTO.DISEASECATEGORY));
-      ordered.put("manifestations", manifestations);
+      manifestations.put("options", getAllTermsForGrid(request,AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDISEASEMANIFESTATION ));
+      ordered.put("manifestations", manifestations);     
+      
+      JSONObject manifestationAmmounts = new JSONObject();
+      manifestationAmmounts.put("type", TermDTO.CLASS);
+      manifestationAmmounts.put("label", MDSSProperties.getObject("Amount"));
+      manifestationAmmounts.put("relType", CaseDiseaseManifestationAmountDTO.CLASS);
+      manifestationAmmounts.put("relAttribute", CaseDiseaseManifestationAmountDTO.AMOUNT);
+      manifestationAmmounts.put("options", getAllTermsForGrid(request, CaseDiseaseManifestationViewDTO.CLASS, CaseDiseaseManifestationViewDTO.DISEASECATEGORY));
+      ordered.put("manifestationAmmounts", manifestationAmmounts);
       
       JSONObject patientTypes = new JSONObject();
       patientTypes.put("type", TermDTO.CLASS);
       patientTypes.put("label", MDSSProperties.getObject("Amount"));
       patientTypes.put("relType", CasePatientTypeDTO.CLASS);
       patientTypes.put("relAttribute", CasePatientTypeDTO.TERM);
-      patientTypes.put("options", getAllTermsForGrid(request, CasePatientTypeViewDTO.CLASS, CasePatientTypeViewDTO.PATIENTCATEGORY));
+      patientTypes.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEPATIENTTYPE));
       ordered.put("patientTypes", patientTypes);
+      
+      JSONObject patientTypeAmounts = new JSONObject();
+      patientTypeAmounts.put("type", TermDTO.CLASS);
+      patientTypeAmounts.put("label", MDSSProperties.getObject("Amount"));
+      patientTypeAmounts.put("relType", CasePatientTypeAmountDTO.CLASS);
+      patientTypeAmounts.put("relAttribute", CasePatientTypeAmountDTO.AMOUNT);
+      patientTypeAmounts.put("options", getAllTermsForGrid(request, CasePatientTypeViewDTO.CLASS, CasePatientTypeViewDTO.PATIENTCATEGORY));
+      ordered.put("patientTypeAmounts", patientTypeAmounts);
+      
       
       req.setAttribute("orderedGrids", ordered.toString());
 
