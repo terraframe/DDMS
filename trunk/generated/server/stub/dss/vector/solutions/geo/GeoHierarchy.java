@@ -23,8 +23,6 @@ import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
-import com.runwaysdk.business.rbac.Operation;
-import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -49,13 +47,11 @@ import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.system.gis.metadata.MdAttributeGeometry;
-import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -787,30 +783,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     MdBusiness parent = MdBusiness.getMdBusiness(GeoEntity.CLASS);
     mdGeoEntity.setSuperMdBusiness(parent);
     mdGeoEntity.apply();
-
-    // Define permissions on the new Universal
-    RoleDAO guiVisibility = RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).getBusinessDAO();
-    RoleDAO mdssCorrdinator = RoleDAO.findRole(MDSSRoleInfo.MDSS_CORRDINATOR).getBusinessDAO();
-    // RoleDAO entomologist =
-    // RoleDAO.findRole(MDSSRoleInfo.ENTOMOLOGIST).getBusinessDAO();
-
-    // Define all read permissions
-    guiVisibility.grantPermission(Operation.READ, mdGeoEntity.getId());
-
-    mdssCorrdinator.grantPermission(Operation.WRITE, mdGeoEntity.getId());
-    mdssCorrdinator.grantPermission(Operation.CREATE, mdGeoEntity.getId());
-    mdssCorrdinator.grantPermission(Operation.DELETE, mdGeoEntity.getId());
-
-    // entomologist.grantPermission(Operation.WRITE, mdGeoEntity.getId());
-    // entomologist.grantPermission(Operation.CREATE, mdGeoEntity.getId());
-    // entomologist.grantPermission(Operation.DELETE, mdGeoEntity.getId());
-
-    for (MdAttribute mdAttribute : mdGeoEntity.getAllAttribute())
-    {
-      guiVisibility.grantPermission(Operation.READ, mdAttribute.getId());
-      mdssCorrdinator.grantPermission(Operation.WRITE, mdAttribute.getId());
-      // entomologist.grantPermission(Operation.WRITE, mdAttribute.getId());
-    }
 
     // create the GeoHeirachy and relationship
     GeoHierarchy geoHierarchy = new GeoHierarchy();

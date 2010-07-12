@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.system.Roles;
 
 import dss.vector.solutions.MDSSRoleInfo;
@@ -94,6 +95,7 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
   {
     List<Roles> list = new ArrayList<Roles>();
     MDSSRoleQuery query = new MDSSRoleQuery(new QueryFactory());
+    query.ORDER_BY(query.getRole().getDisplayLabel().localize(), SortOrder.ASC);
 
     OIterator<? extends MDSSRole> it = query.getIterator();
 

@@ -105,11 +105,6 @@
         <assignedRole
           roleName="Administrator" />
       </method>
-      <role
-        roleName="mdss.MDSS">
-        <superRole
-          roleName="Administrator" />
-      </role>
       <method
         methodName="setUnitsPerDay"
         type="dss.vector.solutions.Property">

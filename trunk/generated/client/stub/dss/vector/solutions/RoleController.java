@@ -13,6 +13,7 @@ import com.runwaysdk.system.RolesDTO;
 
 import dss.vector.solutions.permission.MDSSRoleDTO;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class RoleController extends RoleControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -55,9 +56,18 @@ public class RoleController extends RoleControllerBase implements com.runwaysdk.
       MDSSUserDTO userDTO = MDSSUserDTO.get(clientRequest, id);
 
       // Start by assuming that the user has no roles
+      RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
       List<RolesDTO> roles = new LinkedList<RolesDTO>(Arrays.asList(MDSSRoleDTO.getRoles(clientRequest)));
       List<? extends RolesDTO> assigned = userDTO.getAllAssignedRole();
       List<String> list = new LinkedList<String>();
+                  
+      for(RolesDTO role : systemRoles)
+      {
+        if(role.getRoleName().equalsIgnoreCase(MDSSRoleInfo.SYSTEM))
+        {
+          roles.add(0, role);
+        }
+      }
      
       for(RolesDTO role : assigned)
       {

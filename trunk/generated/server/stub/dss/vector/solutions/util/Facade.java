@@ -79,7 +79,8 @@ public abstract class Facade extends FacadeBase implements Reloadable
   {
     return new Roles[]
     {
-      Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY)
+      Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY),
+      Roles.findRoleByName(MDSSRoleInfo.SYSTEM)
     };
   }
 
