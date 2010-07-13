@@ -361,6 +361,14 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       diagnostics.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
       diagnostics.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSTIC));
       ordered.put("diagnostics", diagnostics);
+
+      JSONObject diagnosticsP = new JSONObject();
+      diagnosticsP.put("type", TermDTO.CLASS);
+      diagnosticsP.put("label", MDSSProperties.getObject("Amount_Positive"));
+      diagnosticsP.put("relType", CaseDiagnosticDTO.CLASS);
+      diagnosticsP.put("relAttribute", CaseDiagnosticDTO.AMOUNTPOSITIVE);
+      diagnosticsP.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSTIC));
+      ordered.put("diagnosticsPositive", diagnosticsP);
       
       JSONObject referrals = new JSONObject();
       referrals.put("type", TermDTO.CLASS);

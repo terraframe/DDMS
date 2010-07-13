@@ -531,8 +531,14 @@ public class QueryUtil implements Reloadable
 
     return list.toArray(new String[list.size()]);
   }
-
+  
+  
   public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
+  {
+    return getSingleAttribteGridSql(valueQuery, tableAlias, RelationshipDAOIF.PARENT_ID_COLUMN, RelationshipDAOIF.CHILD_ID_COLUMN);
+  }
+
+  public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias, String parentColumn, String childColumn)
   {
     boolean foundGrid = false;
 
@@ -578,8 +584,8 @@ public class QueryUtil implements Reloadable
           }
 
           String sql = "SELECT " + attrCol + " FROM " + table + " WHERE "
-              + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + term_id + "' " + "AND "
-              + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + tableAlias + ".id";
+              + parentColumn + " = '" + term_id + "' " + "AND "
+              + childColumn + " = " + tableAlias + ".id";
 
           ( (SelectableSQL) s ).setSQL(sql);
         }
