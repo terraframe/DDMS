@@ -205,9 +205,9 @@
     </dd>
     <dd>
       <mjl:commandLink
-        name="Insecticide"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
-        <f:message key="Insecticide"/>
+        name="InsecticideBrand"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrand">
+        <f:message key="Insecticide_Brand"/>
       </mjl:commandLink>    
     </dd>
   </dl>
@@ -275,13 +275,6 @@
   </dl>
   <dl>
     <dt><label><f:message key="Configure_Application_Rate_Management"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="InsecticideBrandView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrandView">
-        <f:message key="Insecticide_Brand"/>
-      </mjl:commandLink>    
-    </dd>
     <dd>
       <mjl:commandLink
         name="NozzleView"
@@ -595,6 +588,16 @@
         <f:message key="Term"/>
       </mjl:commandLink>
     </dd>    
+  </dl>
+    <dl>
+    <dt><label><f:message key="Configure_Insecticide_Products"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="InsecticideBrand"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrand">
+        <f:message key="Insecticide_Brand"/>
+      </mjl:commandLink>    
+    </dd>
   </dl>
   <dl>
     <dt><label><f:message key="Configure_the_Universal_Tree"/></label></dt>
