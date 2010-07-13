@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -580224752)
+@com.runwaysdk.business.ClassSignature(hash = 1071892820)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,13 +12,14 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
   public static java.lang.String ACTUALVALUE = "actualValue";
+  public static java.lang.String ALERTLEVEL = "alertLevel";
   public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String THRESHOLDTYPE = "thresholdType";
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
-  private static final long serialVersionUID = -580224752;
+  private static final long serialVersionUID = 1071892820;
   
   public OutbreakAlertBase()
   {
@@ -50,6 +51,34 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     else
     {
       setValue(ACTUALVALUE, java.lang.Double.toString(value));
+    }
+  }
+  
+  public String getAlertLevel()
+  {
+    return getValue(ALERTLEVEL);
+  }
+  
+  public void validateAlertLevel()
+  {
+    this.validateAttribute(ALERTLEVEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAlertLevelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
+    return mdClassIF.definesAttribute(ALERTLEVEL);
+  }
+  
+  public void setAlertLevel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ALERTLEVEL, "");
+    }
+    else
+    {
+      setValue(ALERTLEVEL, value);
     }
   }
   
@@ -218,6 +247,7 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
   {
     java.lang.String message = super.localize(locale);
     message = replace(message, "{actualValue}", this.getActualValue());
+    message = replace(message, "{alertLevel}", this.getAlertLevel());
     message = replace(message, "{alertType}", this.getAlertType());
     message = replace(message, "{emailFailure}", this.getEmailFailure());
     message = replace(message, "{geoEntity}", this.getGeoEntity());

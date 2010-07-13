@@ -14,6 +14,7 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdType;
 
 import dss.vector.solutions.geo.AllowedIn;
@@ -367,6 +368,19 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		} else {
 			// this should not be reachable
 		}
+		
+		String alertLevel = MDSSProperties.getString("Outbreak");
+	    ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
+	    if (config.getEpidemicUniversal().equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType()))) {
+    		alertLevel = MDSSProperties.getString("Epidemic");
+	    } else {
+		    for (GeoHierarchy u: config.getEpidemicUniversal().getAllParents()) {
+		    	if (u.equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType()))) {
+		    		alertLevel = MDSSProperties.getString("Epidemic");
+		    		break;
+		    	}
+		    }
+	    }
 
 		SystemAlert systemAlert = SystemAlert.get(alertType);
 		String label = entity.getLabel();
@@ -375,6 +389,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		if (systemAlert.getIsEmailActive()) {
 			HashMap<String, Object> data = new HashMap<String, Object>();
 			data.put("alertType", alertType.getDisplayLabel());
+			data.put("alertLevel", alertLevel);
 			if (systemAlert.getDisease() != null) {
 				data.put("disease", systemAlert.getDisease().getDisplayLabel());
 			} else {
@@ -391,6 +406,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 		if (systemAlert.getIsOnscreenActive()) {
 			OutbreakAlert alert = new OutbreakAlert();
 			alert.setAlertType(alertType.getDisplayLabel());
+			alert.setAlertLevel(alertLevel);
 			alert.setThresholdType(accessor);
 			alert.setThresholdValue(threshold);
 			alert.setActualValue(count);

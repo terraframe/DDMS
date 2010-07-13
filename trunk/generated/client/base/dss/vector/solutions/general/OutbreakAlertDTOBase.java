@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -52577648)
+@com.runwaysdk.business.ClassSignature(hash = 179271636)
 public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = -52577648;
+  private static final long serialVersionUID = 179271636;
   
   public OutbreakAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -17,6 +17,7 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
   }
   
   public static java.lang.String ACTUALVALUE = "actualValue";
+  public static java.lang.String ALERTLEVEL = "alertLevel";
   public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -58,6 +59,43 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
   public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getActualValueMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ACTUALVALUE).getAttributeMdDTO();
+  }
+  
+  public String getAlertLevel()
+  {
+    return getValue(ALERTLEVEL);
+  }
+  
+  public void setAlertLevel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ALERTLEVEL, "");
+    }
+    else
+    {
+      setValue(ALERTLEVEL, value);
+    }
+  }
+  
+  public boolean isAlertLevelWritable()
+  {
+    return isWritable(ALERTLEVEL);
+  }
+  
+  public boolean isAlertLevelReadable()
+  {
+    return isReadable(ALERTLEVEL);
+  }
+  
+  public boolean isAlertLevelModified()
+  {
+    return isModified(ALERTLEVEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getAlertLevelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ALERTLEVEL).getAttributeMdDTO();
   }
   
   public String getAlertType()
