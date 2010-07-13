@@ -25,6 +25,11 @@ var Mojo = {
     
     newInstance : function(type)
     {
+      if (!Mojo.Meta.classExists(type))
+      {
+      	throw new Mojo.$.com.runwaysdk.Exception("Unable to newInstance " + type + ". The specified class does not exist.");
+      }
+    	
       var klass = Mojo.Meta._classes[type];
       var args = [].splice.call(arguments, 1);
       
@@ -96,6 +101,11 @@ var Mojo = {
     {
       // FIXME drop all subclasses from tree.
       // FIXME remove all aliases and shorthand
+      if (!Mojo.Meta.classExists(type))
+      {
+    	  throw new Mojo.$.com.runwaysdk.Exception("Unable to dropClass " + type + ". The specified class does not exist.");
+    	}
+    	
       delete Mojo.Meta._classes[type];
     },
     
@@ -325,6 +335,11 @@ var Mojo = {
       {
         if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(statics[m]))
         {
+          if (statics[m].IsAbstract)
+          {
+            throw new com.runwaysdk.Exception("The method " + m + " defined on the class " + className + " cannot be both static and abstract.");
+          }      
+
           config.staticMethods[m] = {name : m, isStatic : true, isAbstract : false, 
             isConstructor : false, method : statics[m], klass: klass};
         }

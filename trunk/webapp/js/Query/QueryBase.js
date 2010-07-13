@@ -639,28 +639,27 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           onSuccess : function(query)
           {
             var results = query.getResultSet();
-            var found = [];
             for(var i=0; i<results.length; i++)
             {
               var view = results[i];
               var id = view.getGeoEntityId();
               loaded[id] = view;
-              found.push(id);
             }
             
             // Only set the found geo entities (in case we were referencing a deleted entity)
             for(var i=0; i<attributeKeys.length; i++)
             {
               var attributeKey = attributeKeys[i];
+              var criteriaEntities = this.thisRef._config.getCriteriaEntities(attributeKey)
               var views = [];
-              for(var j=0; j<found.length; j++)
+              for(var j=0; j<criteriaEntities.length; j++)
               {
-                var view = loaded[found[j]];
+                var view = loaded[criteriaEntities[j]];
                 views.push(view);
               } 
                 
               var selectedUniversals = this.thisRef._config.getSelectedUniversals(attributeKey);
-                
+              
               this.thisRef._hideHandler(views, selectedUniversals, attributeKey);
             }
           }
