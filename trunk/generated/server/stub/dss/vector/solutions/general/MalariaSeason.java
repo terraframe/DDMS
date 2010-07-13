@@ -189,7 +189,6 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
   public static MalariaSeason getSeasonByDate(Date date)
   {
 	  MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
-	  query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
 	  
 	  return getSeasonFromQueryByDate(query, date);
   }
@@ -198,7 +197,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
   public static MalariaSeason getNextSeasonByDate(Date date)
   {
 	  MalariaSeasonQuery query = MalariaSeason.getNextSeasonQueryByDate(date, new QueryFactory());
-	  query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+
 	  return getSeasonFromQueryByDate(query, date);
   }
   
@@ -229,6 +228,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
     
     query.AND(query.getStartDate().GE(date));
+    query.AND(query.getDisease().EQ(Disease.getCurrent()));
 
     return query;
   }
@@ -239,6 +239,8 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     
     query.AND(query.getStartDate().LE(date));
     query.AND(query.getEndDate().GE(date));
+    query.AND(query.getDisease().EQ(Disease.getCurrent()));
+
 
     return query;
   }
