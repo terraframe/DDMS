@@ -116,14 +116,15 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   public AggregatedPremiseReasonView[] getNonTreatmentReasons()
   {
     Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
     
-    return this.getNonTreatmentReasons(terms);    
+    return this.getNonTreatmentReasons(terms, comparator);    
   }
   
-  public AggregatedPremiseReasonView[] getNonTreatmentReasons(Term[] terms)
+  public AggregatedPremiseReasonView[] getNonTreatmentReasons(Term[] terms, SortedGridComparator comparator)
   {
     List<AggregatedPremiseReasonView> list = new LinkedList<AggregatedPremiseReasonView>();
-    Set<AggregatedPremiseReason> set = new TreeSet<AggregatedPremiseReason>(new SortedGridComparator());
+    Set<AggregatedPremiseReason> set = new TreeSet<AggregatedPremiseReason>(comparator);
 
     for (Term d : terms)
     {
@@ -161,14 +162,15 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   public AggregatedPremiseMethodView[] getInterventionMethods()
   {
     Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
-    return this.getInterventionMethods(terms);
+    return this.getInterventionMethods(terms, comparator);
   }
   
-  public AggregatedPremiseMethodView[] getInterventionMethods(Term[] terms)
+  public AggregatedPremiseMethodView[] getInterventionMethods(Term[] terms, SortedGridComparator comparator)
   {
     List<AggregatedPremiseMethodView> list = new LinkedList<AggregatedPremiseMethodView>();
-    Set<AggregatedPremiseMethod> set = new TreeSet<AggregatedPremiseMethod>(new SortedGridComparator());
+    Set<AggregatedPremiseMethod> set = new TreeSet<AggregatedPremiseMethod>(comparator);
 
     for (Term d : terms)
     {
@@ -205,12 +207,13 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   public static AggregatedPremiseMethodView[][] getInterventionMethodsForViews(AggregatedPremiseVisitView[] views)
   {
     Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getInterventionMethodMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
     AggregatedPremiseMethodView[][] methods = new AggregatedPremiseMethodView[views.length][];
 
     for (int i = 0; i < views.length; i++)
     {
-      methods[i] = views[i].getInterventionMethods(terms);
+      methods[i] = views[i].getInterventionMethods(terms, comparator);
     }
 
     return methods;
@@ -219,12 +222,13 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   public static AggregatedPremiseReasonView[][] getNonTreatmentReasonsForViews(AggregatedPremiseVisitView[] views)
   {
     Term[] terms = Term.getSortedRootChildren(AggregatedPremiseVisitViewBase.getNonTreatmentReasonMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
     AggregatedPremiseReasonView[][] reasons = new AggregatedPremiseReasonView[views.length][];
     
     for (int i = 0; i < views.length; i++)
     {
-      reasons[i] = views[i].getNonTreatmentReasons(terms);
+      reasons[i] = views[i].getNonTreatmentReasons(terms, comparator);
     }
     
     return reasons;

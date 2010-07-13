@@ -144,14 +144,15 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
   public PupalContainerAmountView[] getAmounts()
   {
     Term[] terms = Term.getSortedRootChildren(PupalContainerView.getPupaeAmountMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
-    return this.getAmounts(terms);
+    return this.getAmounts(terms, comparator);
   }
 
-  public PupalContainerAmountView[] getAmounts(Term[] terms)
+  public PupalContainerAmountView[] getAmounts(Term[] terms, SortedGridComparator comparator)
   {
     List<PupalContainerAmountView> list = new LinkedList<PupalContainerAmountView>();
-    Set<PupalContainerAmount> set = new TreeSet<PupalContainerAmount>(new SortedGridComparator());
+    Set<PupalContainerAmount> set = new TreeSet<PupalContainerAmount>(comparator);
 
     for (Term d : terms)
     {
@@ -188,12 +189,13 @@ public class PupalContainerView extends PupalContainerViewBase implements com.ru
   public static PupalContainerAmountView[][] getAmountsForViews(PupalContainerView[] views)
   {
     Term[] terms = Term.getSortedRootChildren(PupalContainerView.getPupaeAmountMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
     PupalContainerAmountView[][] amounts = new PupalContainerAmountView[views.length][];
 
     for (int i = 0; i < views.length; i++)
     {
-      amounts[i] = views[i].getAmounts(terms);
+      amounts[i] = views[i].getAmounts(terms, comparator);
     }
 
     return amounts;

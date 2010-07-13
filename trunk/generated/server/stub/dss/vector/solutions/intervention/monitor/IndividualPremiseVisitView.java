@@ -108,14 +108,15 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   public IndividualPremiseVisitMethodView[] getInterventionMethods()
   {
     Term[] terms = Term.getSortedRootChildren(IndividualPremiseVisitView.getInterventionMethodMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
-    return this.getInterventionMethods(terms);
+    return this.getInterventionMethods(terms, comparator);
   }
 
-  public IndividualPremiseVisitMethodView[] getInterventionMethods(Term[] terms)
+  public IndividualPremiseVisitMethodView[] getInterventionMethods(Term[] terms, SortedGridComparator comparator)
   {
     List<IndividualPremiseVisitMethodView> list = new LinkedList<IndividualPremiseVisitMethodView>();
-    Set<IndividualPremiseVisitMethod> set = new TreeSet<IndividualPremiseVisitMethod>(new SortedGridComparator());
+    Set<IndividualPremiseVisitMethod> set = new TreeSet<IndividualPremiseVisitMethod>(comparator);
 
     for (Term d : terms)
     {
@@ -152,12 +153,13 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   public static IndividualPremiseVisitMethodView[][] getInterventionMethodsForViews(IndividualPremiseVisitView[] views)
   {
     Term[] terms = Term.getSortedRootChildren(IndividualPremiseVisitView.getInterventionMethodMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
     IndividualPremiseVisitMethodView[][] methods = new IndividualPremiseVisitMethodView[views.length][];
 
     for (int i = 0; i < views.length; i++)
     {
-      methods[i] = views[i].getInterventionMethods(terms);
+      methods[i] = views[i].getInterventionMethods(terms, comparator);
     }
 
     return methods;

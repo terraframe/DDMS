@@ -124,6 +124,7 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
   public static CasePatientTypeAmountView[][] getAmountsForViews(String[] ids)
   {
     Term[] terms = Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
     CasePatientTypeAmountView[][] data = new CasePatientTypeAmountView[ids.length][];
     
@@ -138,7 +139,7 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
         view = CasePatientType.getView(id);
       }
 
-      data[i] = view.getAmounts(terms);
+      data[i] = view.getAmounts(terms, comparator);
     }
     
     return data;
@@ -148,15 +149,15 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
   public CasePatientTypeAmountView[] getAmounts()
   {
     Term[] terms = Term.getSortedRootChildren(CasePatientTypeView.getPatientCategoryMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
     
-    return this.getAmounts(terms);    
+    return this.getAmounts(terms, comparator);    
   }
   
-  public CasePatientTypeAmountView[] getAmounts(Term[] terms)
+  public CasePatientTypeAmountView[] getAmounts(Term[] terms, SortedGridComparator comparator)
   {
     List<CasePatientTypeAmountView> list = new LinkedList<CasePatientTypeAmountView>();
-    Set<CasePatientTypeAmount> set = new TreeSet<CasePatientTypeAmount>(new SortedGridComparator());
-
+    Set<CasePatientTypeAmount> set = new TreeSet<CasePatientTypeAmount>(comparator);
     
     for (Term d : terms)
     {

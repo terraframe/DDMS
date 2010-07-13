@@ -123,6 +123,8 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
   public static CaseDiseaseManifestationAmountView[][] getAmountsForViews(String[] ids)
   {
     Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
+
     CaseDiseaseManifestationAmountView[][] data = new CaseDiseaseManifestationAmountView[ids.length][];
 
     for (int i = 0; i < ids.length; i++)
@@ -136,7 +138,7 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
         view = CaseDiseaseManifestation.getView(id);
       }
 
-      data[i] = view.getAmounts(terms);
+      data[i] = view.getAmounts(terms, comparator);
     }
 
     return data;
@@ -146,14 +148,15 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
   public CaseDiseaseManifestationAmountView[] getAmounts()
   {
     Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd());
+    SortedGridComparator comparator = new SortedGridComparator(terms);
 
-    return this.getAmounts(terms);
+    return this.getAmounts(terms, comparator);
   }
 
-  public CaseDiseaseManifestationAmountView[] getAmounts(Term[] terms)
+  public CaseDiseaseManifestationAmountView[] getAmounts(Term[] terms, SortedGridComparator comparator)
   {
     List<CaseDiseaseManifestationAmountView> list = new LinkedList<CaseDiseaseManifestationAmountView>();
-    Set<CaseDiseaseManifestationAmount> set = new TreeSet<CaseDiseaseManifestationAmount>(new SortedGridComparator());
+    Set<CaseDiseaseManifestationAmount> set = new TreeSet<CaseDiseaseManifestationAmount>(comparator);
 
     for (Term d : terms)
     {
