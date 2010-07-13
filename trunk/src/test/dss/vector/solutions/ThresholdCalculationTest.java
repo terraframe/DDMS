@@ -935,8 +935,8 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Calculating Political Individual Mean Thresholds With Minimums...");
 		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
 		calcType.lock();
-		calcType.setSourceNotificationMinimum(100.01d);
-		calcType.setSourceIdentificationMinimum(200.02d);
+		calcType.setNotificationMinimum(100.01d);
+		calcType.setIdentificationMinimum(200.02d);
 		calcType.apply();		
 		if (!CALCULATE_ALL_THRESHOLDS) {
 			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
@@ -948,6 +948,28 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
+
+	@StartSession
+	public void testCalculateFacilityIndividualMeanThresholdsWithMinumums(String sessionId) {
+		if (!CREATE_DATA_ONCE) {
+			this.createData();
+		}
+		output("Calculating Facility Individual Mean Thresholds...");
+		ThresholdCalculationType calcType = this.createCalculationType(ThresholdCalculationCaseTypes.INDIVIDUAL, ThresholdCalculationMethod.MEAN_PLUS_15_SD, ThresholdCalculationMethod.MEAN_PLUS_20_SD);
+		calcType.lock();
+		calcType.setNotificationMinimum(100.01d);
+		calcType.setIdentificationMinimum(200.02d);
+		calcType.apply();		
+		if (!CALCULATE_ALL_THRESHOLDS) {
+			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
+		}
+		MalariaSeason season = ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, false);
+
+		ThresholdData td = ThresholdData.getThresholdData(KABWE_MINE_HOSPITAL, season);
+		assertThresholds(false, 46, 2010, td, 100, 200);
+		output("Done!");
+	}
+	
 	protected long getValue(ValueObject valueObject, String key) {
 		long value = 0;
 		String valueString = valueObject.getValue(key);
