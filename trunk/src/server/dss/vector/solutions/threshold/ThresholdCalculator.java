@@ -195,11 +195,11 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 					t2 = this.calculate(t2Method, geoEntity, period, year, weightedSeasonalMeans);
 				}
 
-				if (this.calculationType.getSourceNotificationMinimum() != null && t1 < this.calculationType.getSourceNotificationMinimum()) {
-					t1 = this.calculationType.getSourceNotificationMinimum();
+				if (this.calculationType.getNotificationMinimum() != null && t1 < this.calculationType.getNotificationMinimum()) {
+					t1 = this.calculationType.getNotificationMinimum();
 				}
-				if (this.calculationType.getSourceIdentificationMinimum() != null && t2 < this.calculationType.getSourceIdentificationMinimum()) {
-					t2 = this.calculationType.getSourceIdentificationMinimum();
+				if (this.calculationType.getIdentificationMinimum() != null && t2 < this.calculationType.getIdentificationMinimum()) {
+					t2 = this.calculationType.getIdentificationMinimum();
 				}
 				this.createWeeklyThreshold(geoEntity, calculationPeriod.season, currentEpiWeek, t1, t2);
 			}

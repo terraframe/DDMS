@@ -49,11 +49,11 @@
           <mjl:option>${current.displayLabel}</mjl:option>
         </mjl:select>
       </mjl:dt>
-      <mjl:dt attribute="sourceNotificationMinimum">
-        <mjl:input type="text" param="sourceNotificationMinimum"/>
+      <mjl:dt attribute="notificationMinimum">
+        <mjl:input type="text" param="notificationMinimum"/>
       </mjl:dt>
-      <mjl:dt attribute="sourceIdentificationMinimum">
-        <mjl:input type="text" param="sourceIdentificationMinimum"/>
+      <mjl:dt attribute="identificationMinimum">
+        <mjl:input type="text" param="identificationMinimum"/>
       </mjl:dt>
       <mjl:dt attribute="weeksBefore">
         <mjl:input type="text" param="weeksBefore"/>

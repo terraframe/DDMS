@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -123197910)
+@com.runwaysdk.business.ClassSignature(hash = 648656042)
 public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdCalculationTypeView";
-  private static final long serialVersionUID = -123197910;
+  private static final long serialVersionUID = 648656042;
   
   protected ThresholdCalculationTypeViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,9 +23,9 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
   public static java.lang.String COUNTINGMETHOD = "countingMethod";
   public static java.lang.String EPIDEMICUNIVERSAL = "epidemicUniversal";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFICATIONMINIMUM = "identificationMinimum";
+  public static java.lang.String NOTIFICATIONMINIMUM = "notificationMinimum";
   public static java.lang.String PRIORYEARS = "priorYears";
-  public static java.lang.String SOURCEIDENTIFICATIONMINIMUM = "sourceIdentificationMinimum";
-  public static java.lang.String SOURCENOTIFICATIONMINIMUM = "sourceNotificationMinimum";
   public static java.lang.String T1METHOD = "t1Method";
   public static java.lang.String T2METHOD = "t2Method";
   public static java.lang.String WEEKSAFTER = "weeksAfter";
@@ -287,6 +287,80 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(EPIDEMICUNIVERSAL).getAttributeMdDTO();
   }
   
+  public Double getIdentificationMinimum()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(IDENTIFICATIONMINIMUM));
+  }
+  
+  public void setIdentificationMinimum(Double value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFICATIONMINIMUM, "");
+    }
+    else
+    {
+      setValue(IDENTIFICATIONMINIMUM, java.lang.Double.toString(value));
+    }
+  }
+  
+  public boolean isIdentificationMinimumWritable()
+  {
+    return isWritable(IDENTIFICATIONMINIMUM);
+  }
+  
+  public boolean isIdentificationMinimumReadable()
+  {
+    return isReadable(IDENTIFICATIONMINIMUM);
+  }
+  
+  public boolean isIdentificationMinimumModified()
+  {
+    return isModified(IDENTIFICATIONMINIMUM);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getIdentificationMinimumMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(IDENTIFICATIONMINIMUM).getAttributeMdDTO();
+  }
+  
+  public Double getNotificationMinimum()
+  {
+    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(NOTIFICATIONMINIMUM));
+  }
+  
+  public void setNotificationMinimum(Double value)
+  {
+    if(value == null)
+    {
+      setValue(NOTIFICATIONMINIMUM, "");
+    }
+    else
+    {
+      setValue(NOTIFICATIONMINIMUM, java.lang.Double.toString(value));
+    }
+  }
+  
+  public boolean isNotificationMinimumWritable()
+  {
+    return isWritable(NOTIFICATIONMINIMUM);
+  }
+  
+  public boolean isNotificationMinimumReadable()
+  {
+    return isReadable(NOTIFICATIONMINIMUM);
+  }
+  
+  public boolean isNotificationMinimumModified()
+  {
+    return isModified(NOTIFICATIONMINIMUM);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getNotificationMinimumMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(NOTIFICATIONMINIMUM).getAttributeMdDTO();
+  }
+  
   public Integer getPriorYears()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PRIORYEARS));
@@ -322,80 +396,6 @@ public abstract class ThresholdCalculationTypeViewDTOBase extends com.runwaysdk.
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPriorYearsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PRIORYEARS).getAttributeMdDTO();
-  }
-  
-  public Double getSourceIdentificationMinimum()
-  {
-    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(SOURCEIDENTIFICATIONMINIMUM));
-  }
-  
-  public void setSourceIdentificationMinimum(Double value)
-  {
-    if(value == null)
-    {
-      setValue(SOURCEIDENTIFICATIONMINIMUM, "");
-    }
-    else
-    {
-      setValue(SOURCEIDENTIFICATIONMINIMUM, java.lang.Double.toString(value));
-    }
-  }
-  
-  public boolean isSourceIdentificationMinimumWritable()
-  {
-    return isWritable(SOURCEIDENTIFICATIONMINIMUM);
-  }
-  
-  public boolean isSourceIdentificationMinimumReadable()
-  {
-    return isReadable(SOURCEIDENTIFICATIONMINIMUM);
-  }
-  
-  public boolean isSourceIdentificationMinimumModified()
-  {
-    return isModified(SOURCEIDENTIFICATIONMINIMUM);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getSourceIdentificationMinimumMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(SOURCEIDENTIFICATIONMINIMUM).getAttributeMdDTO();
-  }
-  
-  public Double getSourceNotificationMinimum()
-  {
-    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(SOURCENOTIFICATIONMINIMUM));
-  }
-  
-  public void setSourceNotificationMinimum(Double value)
-  {
-    if(value == null)
-    {
-      setValue(SOURCENOTIFICATIONMINIMUM, "");
-    }
-    else
-    {
-      setValue(SOURCENOTIFICATIONMINIMUM, java.lang.Double.toString(value));
-    }
-  }
-  
-  public boolean isSourceNotificationMinimumWritable()
-  {
-    return isWritable(SOURCENOTIFICATIONMINIMUM);
-  }
-  
-  public boolean isSourceNotificationMinimumReadable()
-  {
-    return isReadable(SOURCENOTIFICATIONMINIMUM);
-  }
-  
-  public boolean isSourceNotificationMinimumModified()
-  {
-    return isModified(SOURCENOTIFICATIONMINIMUM);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getSourceNotificationMinimumMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(SOURCENOTIFICATIONMINIMUM).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")

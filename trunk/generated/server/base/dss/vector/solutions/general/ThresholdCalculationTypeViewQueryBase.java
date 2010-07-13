@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 437300755)
+@com.runwaysdk.business.ClassSignature(hash = 1842489235)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  abstract  class ThresholdCalculationTypeViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 437300755;
+private static final long serialVersionUID = 1842489235;
 
   public ThresholdCalculationTypeViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -151,6 +151,42 @@ private static final long serialVersionUID = 437300755;
 
   }
  
+  public com.runwaysdk.query.SelectableDouble getIdentificationMinimum()
+  {
+    return getIdentificationMinimum(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getIdentificationMinimum(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.IDENTIFICATIONMINIMUM, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getIdentificationMinimum(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.IDENTIFICATIONMINIMUM, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getNotificationMinimum()
+  {
+    return getNotificationMinimum(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getNotificationMinimum(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.NOTIFICATIONMINIMUM, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDouble getNotificationMinimum(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.NOTIFICATIONMINIMUM, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableInteger getPriorYears()
   {
     return getPriorYears(null);
@@ -166,42 +202,6 @@ private static final long serialVersionUID = 437300755;
   public com.runwaysdk.query.SelectableInteger getPriorYears(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.PRIORYEARS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getSourceIdentificationMinimum()
-  {
-    return getSourceIdentificationMinimum(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getSourceIdentificationMinimum(String alias)
-  {
-    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.SOURCEIDENTIFICATIONMINIMUM, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getSourceIdentificationMinimum(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.SOURCEIDENTIFICATIONMINIMUM, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getSourceNotificationMinimum()
-  {
-    return getSourceNotificationMinimum(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getSourceNotificationMinimum(String alias)
-  {
-    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.SOURCENOTIFICATIONMINIMUM, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableDouble getSourceNotificationMinimum(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableDouble)this.getSelectable(dss.vector.solutions.general.ThresholdCalculationTypeView.SOURCENOTIFICATIONMINIMUM, alias, displayLabel);
 
   }
  

@@ -52,8 +52,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 			this.addT2Method(m);
 		}
 		
-		this.setSourceNotificationMinimum(concrete.getSourceNotificationMinimum());
-		this.setSourceIdentificationMinimum(concrete.getSourceIdentificationMinimum());
+		this.setNotificationMinimum(concrete.getNotificationMinimum());
+		this.setIdentificationMinimum(concrete.getIdentificationMinimum());
 	}
 
 	private void populateView(ThresholdAlertCalculationType concrete) {
@@ -95,8 +95,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 			concrete.addT2Method(m);
 		}
 		
-		concrete.setSourceNotificationMinimum(this.getSourceNotificationMinimum());
-		concrete.setSourceIdentificationMinimum(this.getSourceIdentificationMinimum());
+		concrete.setNotificationMinimum(this.getNotificationMinimum());
+		concrete.setIdentificationMinimum(this.getIdentificationMinimum());
 		
 	}
 	
@@ -131,8 +131,8 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 		new AttributeNotificationMap(concrete, ThresholdCalculationType.WEIGHT7, this, ThresholdCalculationTypeView.WEIGHT7);
 		new AttributeNotificationMap(concrete, ThresholdCalculationType.WEIGHT8, this, ThresholdCalculationTypeView.WEIGHT8);
 		new AttributeNotificationMap(concrete, ThresholdCalculationType.WEIGHT9, this, ThresholdCalculationTypeView.WEIGHT9);
-		new AttributeNotificationMap(concrete, ThresholdCalculationType.SOURCENOTIFICATIONMINIMUM, this, ThresholdCalculationTypeView.SOURCENOTIFICATIONMINIMUM);
-		new AttributeNotificationMap(concrete, ThresholdCalculationType.SOURCEIDENTIFICATIONMINIMUM, this, ThresholdCalculationTypeView.SOURCEIDENTIFICATIONMINIMUM);
+		new AttributeNotificationMap(concrete, ThresholdCalculationType.NOTIFICATIONMINIMUM, this, ThresholdCalculationTypeView.NOTIFICATIONMINIMUM);
+		new AttributeNotificationMap(concrete, ThresholdCalculationType.IDENTIFICATIONMINIMUM, this, ThresholdCalculationTypeView.IDENTIFICATIONMINIMUM);
 	}
 	
 	private void buildAttributeMap(ThresholdAlertCalculationType concrete) {
