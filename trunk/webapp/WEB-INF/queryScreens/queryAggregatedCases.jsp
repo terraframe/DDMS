@@ -56,7 +56,7 @@
 
 <%=Halp.loadTypes(loadables)%>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 // Setting both values to false will select *all* univerals
 
 YAHOO.util.Event.onDOMReady(function(){
@@ -123,51 +123,54 @@ YAHOO.util.Event.onDOMReady(function(){
     //aggregatedCaseColumns = controlInterventionColumns.concat(calculations);
         
 
-    var caseTreatmentMethod = new dss.vector.solutions.surveillance.CaseTreatmentMethod;
-    var caseTreatmentMethodAttribs = [];
-    var caseTreatmentMethodColumns =   caseTreatmentMethodAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:caseTreatmentMethod, suffix:'_ic', dropDownMaps:{}});
-    caseTreatmentMethodColumns = caseTreatmentMethodColumns.concat(orderedGrids.methods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.methods));
+//    var caseTreatmentMethod = new dss.vector.solutions.surveillance.CaseTreatmentMethod;
+//    var caseTreatmentMethodAttribs = [];
+//    var caseTreatmentMethodColumns =   caseTreatmentMethodAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:caseTreatmentMethod, suffix:'_ic', dropDownMaps:{}});
+    var caseTreatmentMethodColumns = orderedGrids.methods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.methods);
 
-     var  treatment = new dss.vector.solutions.surveillance.CaseTreatment;
-     var treatmentAttribs = [];
-     var treatmentColumns =   treatmentAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:treatment, suffix:'_ip1', dropDownMaps:{}});
-     treatmentColumns = treatmentColumns.concat(orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments));
+//     var  treatment = new dss.vector.solutions.surveillance.CaseTreatment;
+//     var treatmentAttribs = [];
+//     var treatmentColumns =   treatmentAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:treatment, suffix:'_ip1', dropDownMaps:{}});
+     var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
 
-     var stock = new dss.vector.solutions.surveillance.CaseTreatmentStock;
-     var stockAttribs = [];
-     var stockColumns =   stockAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stock, suffix:'_ip2', dropDownMaps:{}});
-     stockColumns = stockColumns.concat(orderedGrids.stocks.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stocks));
+//     var stock = new dss.vector.solutions.surveillance.CaseTreatmentStock;
+//     var stockAttribs = [];
+//     var stockColumns =   stockAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stock, suffix:'_ip2', dropDownMaps:{}});
+     var stockColumns = orderedGrids.stocks.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stocks);
      
-     var referral = new dss.vector.solutions.surveillance.CaseReferral;
-     var referralAttribs = [];
-     var referralColumns =   referralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:referral, suffix:'_ip3', dropDownMaps:{}});
-     referralColumns = referralColumns.concat(orderedGrids.referrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.referrals));
+//     var referral = new dss.vector.solutions.surveillance.CaseReferral;
+//     var referralAttribs = [];
+//     var referralColumns =   referralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:referral, suffix:'_ip3', dropDownMaps:{}});
+     var referralColumns = orderedGrids.referrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.referrals);
 
-     var stockReferral = new dss.vector.solutions.surveillance.CaseStockReferral;
-     var stockReferralAttribs = [];
-     var stockReferralColumns =   stockReferralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockReferral, suffix:'_ip4', dropDownMaps:{}});
-     stockReferralColumns = stockReferralColumns.concat(orderedGrids.stockReferrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stockReferrals));
+//     var stockReferral = new dss.vector.solutions.surveillance.CaseStockReferral;
+//     var stockReferralAttribs = [];
+//     var stockReferralColumns =   stockReferralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockReferral, suffix:'_ip4', dropDownMaps:{}});
+     var stockReferralColumns = orderedGrids.stockReferrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stockReferrals);
       
-     var diagnostic = new dss.vector.solutions.surveillance.CaseDiagnostic;
-     var diagnosticAttribs = [];
-     var diagnosticColumns =  diagnosticAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip5', dropDownMaps:{}});
-     diagnosticColumns = diagnosticColumns.concat(orderedGrids.diagnostics.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.diagnostics));
+//     var diagnostic = new dss.vector.solutions.surveillance.CaseDiagnostic;
+//     var diagnosticAttribs = [];
+//     var diagnosticColumns =  diagnosticAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip5', dropDownMaps:{}});
+     var diagnosticColumns = orderedGrids.diagnostics.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.diagnostics);
 
-     var diagnosticPositiveAttribs = [];
-     var diagnosticPositiveColumns =  diagnosticPositiveAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip6', dropDownMaps:{}});
-     diagnosticPositiveColumns = diagnosticPositiveColumns.concat(orderedGrids.diagnosticsPositive.options.map(mapMo, orderedGrids.diagnosticsPositive));
+//     var diagnosticPositiveAttribs = [];
+//     var diagnosticPositiveColumns =  diagnosticPositiveAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip6', dropDownMaps:{}});
+     var diagnosticPositiveColumns = orderedGrids.diagnosticsPositive.options.map(mapMo, orderedGrids.diagnosticsPositive);
+     var diagnosticColumns = diagnosticColumns.concat(diagnosticPositiveColumns);
 
  
 
      function mapMo(term,index){
-       var row = {};
+
+        var row = {};
+       
         row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel;
+        row.displayLabel = term.displayLabel+' ('+MDSS.localize('Amount_Positive')+')';
         
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;
         row.type = 'sqlinteger';
         row.attributeName = this._relAttribute+'__term' + term.MOID.replace(':','');
-        
+
        return row;
      };
 
@@ -197,7 +200,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                 key:key,
                                 type:"sqlfloat",
                                 attributeName:key,
-                                isAggregate:false
+                                isAggregate:false,
+                                dtoType : "AttributeFloatDTO"
                               },
 
                              ]);
@@ -217,7 +221,58 @@ YAHOO.util.Event.onDOMReady(function(){
 
      var manifestationGroups = orderedGrids.manifestations.options.map(mapterm, {grid:orderedGrids.manifestationAmmounts, ns:'<%=AggregatedCaseViewDTO.CASEDISEASEMANIFESTATION %>'});
      
- 
+     var calculations = ([
+                          {
+                           
+                           key:"totalCases",
+                           type:"sqlfloat",
+                           attributeName:"totalCases",
+                           displayLabel:MDSS.localize("cases"),
+                           isAggregate:true
+                          },                     
+                          {
+                            
+                            key:"incidence_100",
+                            type:"sqlfloat",
+                            attributeName:"incidence_100",
+                            isAggregate:true
+                          },
+
+                          {
+                            
+                            key:"incidence_1000",
+                            type:"sqlfloat",
+                            attributeName:"incidence_1000",
+                            isAggregate:true
+                          },
+
+                          {
+                            
+                            key:"incidence_10000",
+                            type:"sqlfloat",
+                            attributeName:"incidence_10000",
+                            isAggregate:true
+                          },
+
+                          {
+                            
+                            key:"incidence_100000",
+                            type:"sqlfloat",
+                            attributeName:"incidence_100000",
+                            //dropDownMap:{'100':'100','1,000':'1000','10,000':'10000','100,000':'100000'},
+                            isAggregate:true
+                          },
+                          
+                          {
+                            
+                            key:"cfr",
+                            type:"sqlfloat",
+                            attributeName:"cfr",
+                            isAggregate:true
+                          },
+
+                         ]);      
+     
       var selectableGroups = ([
               {title:"Aggregated_Cases", values:aggregatedCaseColumns, group:"ag", klass:aggregatedCase.CLASS},
               {title:"Grid_treatment_by_drug", values:treatmentColumns, group:"ag",klass:aggregatedCase.CLASS},
@@ -226,19 +281,20 @@ YAHOO.util.Event.onDOMReady(function(){
               {title:"Grid_referrals_and_Shortages", values:stockReferralColumns, group:"ag",klass:aggregatedCase.CLASS},
               {title:"Grid_referral_Reasons", values:referralColumns, group:"ag",klass:aggregatedCase.CLASS},
               {title:"Grid_diagnostic_methods", values:diagnosticColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Grid_diagnostic_methods", values:diagnosticPositiveColumns, group:"ag",klass:aggregatedCase.CLASS}
+              {title:"Calculations", values:calculations, group:"ag", klass:aggregatedCase.CLASS}
       ]);
 
       selectableGroups = selectableGroups.concat(diagnosisTypeGroups);
       selectableGroups = selectableGroups.concat(patientTypeGroups);
       selectableGroups = selectableGroups.concat(manifestationGroups);
+
     
     var query = new MDSS.QueryAggregatedCases(selectableGroups, queryList);
     query.render();
 
 });
 
-</script>
+--></script>
 <jsp:include page="queryContainer.jsp"></jsp:include>
 
 

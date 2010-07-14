@@ -21,7 +21,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableSQLDouble;
+import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
@@ -606,20 +606,21 @@ public class AggregatedCase extends AggregatedCaseBase implements
         .getColumnName(CaseDiagnostic.getTermMd()), QueryUtil.getColumnName(CaseDiagnostic
         .getAggregatedCaseMd()));
 
-    if (valueQuery.hasSelectableRef("sqldouble__cfr"))
+    if (valueQuery.hasSelectableRef("totalCases"))
     {
-      // String deathsCol =
-      // QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(),
-      // AggregatedCase.DEATHS);
-      // String casesCol =
-      // QueryUtil.getColumnName(aggregatedCaseQuery.getMdClassIF(),
-      // AggregatedCase.CASES);
-      //
-      // SelectableSQLDouble calc = (SelectableSQLDouble)
-      // valueQuery.getSelectableRef("sqldouble__cfr");
-      // String sql = "(SUM(" + deathsCol + "::FLOAT)/NULLIF(SUM(" + casesCol +
-      // "),0))*100.0";
-      // calc.setSQL(sql);
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("totalCases");
+      String sql = getTotalCasesSQL(aggregatedCaseQuery);
+      calc.setSQL(sql);
+    }
+
+    if (valueQuery.hasSelectableRef("cfr"))
+    {
+      String deathsCol = QueryUtil.getColumnName(AggregatedCase.getDeathsMd());
+      String casesSQL = getTotalCasesSQL(aggregatedCaseQuery);
+
+      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
+      String sql = "(SUM(" + deathsCol + "::FLOAT)/NULLIF(("+casesSQL+"),0))*100.0";
+      calc.setSQL(sql);
     }
 
     calculateIncidence(valueQuery, aggregatedCaseQuery, queryConfig, xml, 100);
@@ -639,17 +640,17 @@ public class AggregatedCase extends AggregatedCaseBase implements
     QueryUtil.validateQuery(valueQuery);
 
     valueQuery.WHERE(aggregatedCaseQuery.getDisease().EQ(Disease.getCurrent()));
-    
+
     return valueQuery;
   }
 
   private static void calculateIncidence(ValueQuery valueQuery, AggregatedCaseQuery caseQuery,
       JSONObject queryConfig, String xml, Integer multiplier)
   {
-    SelectableSQLDouble calc;
-    if (valueQuery.hasSelectableRef("sqldouble__incidence_" + multiplier))
+    SelectableSQLFloat calc;
+    if (valueQuery.hasSelectableRef("incidence_" + multiplier))
     {
-      calc = (SelectableSQLDouble) valueQuery.getSelectableRef("sqldouble__incidence_" + multiplier);
+      calc = (SelectableSQLFloat) valueQuery.getSelectableRef("incidence_" + multiplier);
     }
     else
     {
@@ -707,16 +708,41 @@ public class AggregatedCase extends AggregatedCaseBase implements
       throw new IncidencePopulationException(e);
     }
 
-    String columnAlias = s.getDbQualifiedName();
-    String casesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.CASES);
     String startDateCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.STARTDATE);
 
-    String sql = "(SUM(" + casesCol + "::FLOAT)/";
+    String sql = getTotalCasesSQL(caseQuery);
+    String columnAlias = s.getDbQualifiedName();
+    sql += "/";
     sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
-        + startDateCol + ")),0))*" + multiplier;
+        + startDateCol + ")),0)*" + multiplier;
 
     calc.setSQL(sql);
 
+    // OLD calc
+    // String sql = "(SUM(" + casesCol + "::FLOAT)/";
+
+    // Total Cases = Sum(Cases with confirmed positive diagnosis) +
+    // (Sum(Cases with clinical diagnosis) *
+    // (Sum(Cases with confirmed positive diagnosis) /
+    // (Sum(Cases with confirmed positive diagnosis) + Sum(Cases with confirmed
+    // negative diagnosis))))
+
+    calc.setSQL(sql);
+
+  }
+
+  private static String getTotalCasesSQL(AggregatedCaseQuery caseQuery)
+  {
+    String casesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.CASES);
+    String posCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.POSITIVECASES);
+    String negCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.NEGATIVECASES);
+
+    String sql = "(SUM(" + posCasesCol + ")";
+    sql += "+";
+    sql += "(SUM(" + casesCol + ") * SUM(" + posCasesCol + ")/";
+    sql += "(SUM(" + posCasesCol + ") + SUM(" + negCasesCol + "))))";
+
+    return sql;
   }
 
   public static void joinPatientTypes(ValueQuery valueQuery, AggregatedCaseQuery aggregatedCaseQuery)
@@ -744,7 +770,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
       for (Term patientTypeAmount : Term.getRootChildren(CasePatientTypeView.getPatientCategoryMd()))
       {
         String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
-        String ammountCol = AggregatedCaseView.CASEPATIENTTYPE + "__" + patientTypeMoID + patientTypeAmountMoID;
+        String ammountCol = AggregatedCaseView.CASEPATIENTTYPE + "__" + patientTypeMoID
+            + patientTypeAmountMoID;
 
         if (valueQuery.hasSelectableRef(ammountCol))
         {
@@ -794,7 +821,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
       for (Term patientTypeAmount : Term.getRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
       {
         String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
-        String ammountCol = AggregatedCaseView.CASEDIAGNOSISTYPE+"__"+patientTypeMoID + patientTypeAmountMoID;
+        String ammountCol = AggregatedCaseView.CASEDIAGNOSISTYPE + "__" + patientTypeMoID
+            + patientTypeAmountMoID;
 
         if (valueQuery.hasSelectableRef(ammountCol))
         {
@@ -833,7 +861,8 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String child_id = "child_id";
     String parent_id = "parent_id";
     String patientTypeTable = MdBusiness.getMdBusiness(CaseDiseaseManifestation.CLASS).getTableName();
-    String patientTypeAmountTable = MdBusiness.getMdEntity(CaseDiseaseManifestationAmount.CLASS).getTableName();
+    String patientTypeAmountTable = MdBusiness.getMdEntity(CaseDiseaseManifestationAmount.CLASS)
+        .getTableName();
 
     boolean needsJoin = false;
 
@@ -842,10 +871,12 @@ public class AggregatedCase extends AggregatedCaseBase implements
     {
       String patientTypeMoID = patientType.getTermId().replace(":", "");
 
-      for (Term patientTypeAmount : Term.getRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd()))
+      for (Term patientTypeAmount : Term.getRootChildren(CaseDiseaseManifestationView
+          .getDiseaseCategoryMd()))
       {
         String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
-        String ammountCol = AggregatedCaseView.CASEDISEASEMANIFESTATION+"__"+patientTypeMoID + patientTypeAmountMoID;
+        String ammountCol = AggregatedCaseView.CASEDISEASEMANIFESTATION + "__" + patientTypeMoID
+            + patientTypeAmountMoID;
 
         if (valueQuery.hasSelectableRef(ammountCol))
         {
