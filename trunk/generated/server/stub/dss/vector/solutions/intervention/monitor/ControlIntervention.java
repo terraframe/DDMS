@@ -20,6 +20,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.InsecticideBrand;
@@ -330,15 +331,34 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
     if( needsView)
-    {      
-      String viewSql = "SELECT  point, 1 as premises, visited , treated, used, individual_premise_visit_metho.parent_id as visit, \n";
+    { 
+      
+      
+      MdEntityDAOIF individualVisit = MdEntityDAO.getMdEntityDAO(IndividualPremiseVisitMethod.CLASS);
+
+      String used = QueryUtil.getColumnName(individualVisit, IndividualPremiseVisitMethod.USED);
+      //String aggCase = QueryUtil.getColumnName(individualVisit, CasePatientType.AGGREGATEDCASE);
+      MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseMethod.CLASS );
+
+      String amount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
+  //    String id = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmount.ID);
+      String child_id = "child_id";
+      String parent_id = "parent_id";
+      String aggVisitTable = MdBusiness.getMdBusiness(AggregatedPremiseVisit.CLASS).getTableName();
+      String aggVisitMethodTable = MdEntity.getMdEntity(AggregatedPremiseMethod.CLASS).getTableName();
+      String individualVisitTable = MdBusiness.getMdEntity(IndividualPremiseVisit.CLASS).getTableName();
+      String individualVisitMethodTable = MdEntity.getMdEntity(IndividualPremiseVisitMethod.CLASS).getTableName();
+      
+      
+      
+      String viewSql = "SELECT  point, 1 as "+premises+", "+visited+" , "+treated+", "+used+", individual_premise_visit_metho.parent_id as visit, \n";
       viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel\n";
-      viewSql += " FROM individual_premise_visit , individual_premise_visit_metho  LEFT JOIN term as term0 on individual_premise_visit_metho.child_id = term0.id\n";
+      viewSql += " FROM "+individualVisitTable+" individual_premise_visit , "+individualVisitMethodTable+" individual_premise_visit_metho  LEFT JOIN term as term0 on individual_premise_visit_metho.child_id = term0.id\n";
       viewSql += " WHERE  individual_premise_visit_metho.parent_id = individual_premise_visit.id\n";
       viewSql += " UNION ALL\n";
-      viewSql += " SELECT  point, premises, visited , treated, amount, aggregated_premise_method.parent_id as visit, \n";
+      viewSql += " SELECT  point,"+premises+", "+visited+" , "+treated+", "+amount+", aggregated_premise_method.parent_id as visit, \n";
       viewSql += " aggregated_premise_method.child_id as id,  term0.name as childId_displayLabel\n";
-      viewSql += " FROM aggregated_premise_visit , aggregated_premise_method  LEFT JOIN term as term0 on aggregated_premise_method.child_id = term0.id\n";
+      viewSql += " FROM "+aggVisitTable+" aggregated_premise_visit , "+aggVisitMethodTable+" aggregated_premise_method  LEFT JOIN term as term0 on aggregated_premise_method.child_id = term0.id\n";
       viewSql += " WHERE  aggregated_premise_method.parent_id = aggregated_premise_visit.id\n";
       
       
