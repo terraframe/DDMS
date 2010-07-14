@@ -79,6 +79,9 @@ public class AttributeRootImporter implements Reloadable
   private void importDefault(HSSFRow row)
   {
     String key = ExcelUtil.getString(row.getCell(0));
+    if (key == null) {
+    	return;
+    }
 
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
     if (mdAttribute == null)
@@ -123,7 +126,10 @@ public class AttributeRootImporter implements Reloadable
   private void importRoots(HSSFRow row)
   {
     String key = ExcelUtil.getString(row.getCell(0));
-
+    if (key == null) {
+    	return;
+    }
+    
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
 
     if (mdAttribute == null)
