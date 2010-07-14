@@ -23,7 +23,7 @@
 <mjl:form name="search" method="POST" id ="searchOperatorSpray">
   <dl>
     <dt>
-      <label><fmt:message key="Geo_Id"/></label>
+      <label><fmt:message key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" populated="false" spray="true" />

@@ -22,7 +22,7 @@
       <input type="radio" name="planningType" class="planningOption" id="planningType.operator" ${operator}/> <fmt:message key="Operator_Planning"/>
     </dd>
     <dt>
-      <label><fmt:message key="Geo_Id"/></label>
+      <label><fmt:message key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false" political="false" populated="false" spray="true" />

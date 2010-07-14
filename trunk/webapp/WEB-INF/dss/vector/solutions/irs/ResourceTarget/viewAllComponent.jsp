@@ -22,7 +22,7 @@
 <mjl:form name="dss.vector.solutions.irs.GeoTargetController.view.mojo" method="POST" id="searchResourceTargets">
   <dl>
     <dt>
-      <label><fmt:message key="Geo_Id"/></label>
+      <label><fmt:message key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false"political="false" populated="false" spray="true" />

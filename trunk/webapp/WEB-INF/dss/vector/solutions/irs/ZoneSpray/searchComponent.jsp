@@ -16,7 +16,7 @@
 
 <mjl:form name="search" method="POST" id ="searchZoneSpray">
   <dl>
-    <dt> <fmt:message key="Geo_Id"/> </dt>
+    <dt> <fmt:message key="Geo_Entity"/> </dt>
     <dd> 
       <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" spray="true" />
     </dd>
