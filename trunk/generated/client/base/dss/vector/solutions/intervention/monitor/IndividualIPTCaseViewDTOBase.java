@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1374222384)
+@com.runwaysdk.business.ClassSignature(hash = 2037630288)
 public abstract class IndividualIPTCaseViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseView";
-  private static final long serialVersionUID = 1374222384;
+  private static final long serialVersionUID = 2037630288;
   
   protected IndividualIPTCaseViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -18,6 +18,7 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.runwaysdk.busines
   
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String FACILITY = "facility";
+  public static java.lang.String FACILITYNAME = "facilityName";
   public static java.lang.String ID = "id";
   public static java.lang.String PATIENT = "patient";
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
@@ -94,6 +95,43 @@ public abstract class IndividualIPTCaseViewDTOBase extends com.runwaysdk.busines
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFacilityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACILITY).getAttributeMdDTO();
+  }
+  
+  public String getFacilityName()
+  {
+    return getValue(FACILITYNAME);
+  }
+  
+  public void setFacilityName(String value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYNAME, "");
+    }
+    else
+    {
+      setValue(FACILITYNAME, value);
+    }
+  }
+  
+  public boolean isFacilityNameWritable()
+  {
+    return isWritable(FACILITYNAME);
+  }
+  
+  public boolean isFacilityNameReadable()
+  {
+    return isReadable(FACILITYNAME);
+  }
+  
+  public boolean isFacilityNameModified()
+  {
+    return isModified(FACILITYNAME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFacilityNameMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FACILITYNAME).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.PersonDTO getPatient()

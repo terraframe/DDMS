@@ -45,6 +45,7 @@ private static final long serialVersionUID = 1253643992282L;
       
       vQuery.map(IndividualIPTView.CONCRETEID, query.getId());
       vQuery.map(IndividualIPTView.FACILITY, query.getFacility().getGeoId());
+      vQuery.map(IndividualIPTView.FACILITYNAME, query.getFacility().getEntityName());
       vQuery.map(IndividualIPTView.SERVICEDATE, query.getServiceDate());
       vQuery.map(IndividualIPTView.IPTCASE, query.getIptCase());
       vQuery.map(IndividualIPTView.PATIENTTYPE, query.getPatientType());

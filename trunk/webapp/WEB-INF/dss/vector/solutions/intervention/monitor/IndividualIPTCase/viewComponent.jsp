@@ -28,7 +28,7 @@
   <mjl:columns>
     <mjl:attributeColumn attributeName="facility">
       <mjl:row>
-        ${current.facility}
+        ${current.facilityName}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="serviceDate">

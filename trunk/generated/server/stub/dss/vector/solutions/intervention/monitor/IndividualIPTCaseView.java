@@ -45,6 +45,7 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
     if (instance != null)
     {
       this.setFacility(instance.getFacility());
+      this.setFacilityName(instance.getFacilityName());
       this.setServiceDate(instance.getServiceDate());
     }
   }

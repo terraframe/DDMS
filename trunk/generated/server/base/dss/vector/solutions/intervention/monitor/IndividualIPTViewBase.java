@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 2010430562)
+@com.runwaysdk.business.ClassSignature(hash = 601897002)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,6 +17,7 @@ public abstract class IndividualIPTViewBase extends com.runwaysdk.business.View 
   public static java.lang.String DOSENUMBER = "doseNumber";
   public static java.lang.String DOSETYPE = "doseType";
   public static java.lang.String FACILITY = "facility";
+  public static java.lang.String FACILITYNAME = "facilityName";
   public static java.lang.String ID = "id";
   public static java.lang.String IPTCASE = "iptCase";
   public static java.lang.String ISANCVISIT = "isANCVisit";
@@ -26,7 +27,7 @@ public abstract class IndividualIPTViewBase extends com.runwaysdk.business.View 
   public static java.lang.String RECEIVEDSUPPLEMENT = "receivedSupplement";
   public static java.lang.String SERVICEDATE = "serviceDate";
   public static java.lang.String VISITNUMBER = "visitNumber";
-  private static final long serialVersionUID = 2010430562;
+  private static final long serialVersionUID = 601897002;
   
   public IndividualIPTViewBase()
   {
@@ -212,6 +213,34 @@ public abstract class IndividualIPTViewBase extends com.runwaysdk.business.View 
     else
     {
       setValue(FACILITY, value);
+    }
+  }
+  
+  public String getFacilityName()
+  {
+    return getValue(FACILITYNAME);
+  }
+  
+  public void validateFacilityName()
+  {
+    this.validateAttribute(FACILITYNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFacilityNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualIPTView.CLASS);
+    return mdClassIF.definesAttribute(FACILITYNAME);
+  }
+  
+  public void setFacilityName(String value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYNAME, "");
+    }
+    else
+    {
+      setValue(FACILITYNAME, value);
     }
   }
   

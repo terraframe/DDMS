@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -931375440)
+@com.runwaysdk.business.ClassSignature(hash = 1570707152)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,11 +13,12 @@ public abstract class IndividualIPTCaseViewBase extends com.runwaysdk.business.V
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.IndividualIPTCaseView";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String FACILITY = "facility";
+  public static java.lang.String FACILITYNAME = "facilityName";
   public static java.lang.String ID = "id";
   public static java.lang.String PATIENT = "patient";
   public static java.lang.String RESIDENTIALLOCATION = "residentialLocation";
   public static java.lang.String SERVICEDATE = "serviceDate";
-  private static final long serialVersionUID = -931375440;
+  private static final long serialVersionUID = 1570707152;
   
   public IndividualIPTCaseViewBase()
   {
@@ -77,6 +78,34 @@ public abstract class IndividualIPTCaseViewBase extends com.runwaysdk.business.V
     else
     {
       setValue(FACILITY, value);
+    }
+  }
+  
+  public String getFacilityName()
+  {
+    return getValue(FACILITYNAME);
+  }
+  
+  public void validateFacilityName()
+  {
+    this.validateAttribute(FACILITYNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFacilityNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.IndividualIPTCaseView.CLASS);
+    return mdClassIF.definesAttribute(FACILITYNAME);
+  }
+  
+  public void setFacilityName(String value)
+  {
+    if(value == null)
+    {
+      setValue(FACILITYNAME, "");
+    }
+    else
+    {
+      setValue(FACILITYNAME, value);
     }
   }
   

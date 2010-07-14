@@ -22,7 +22,7 @@
         <span class="formatDate">${current.serviceDate}</span>
       </td>
       <td class = "${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}"> 
-        ${current.facility}
+        ${current.facilityName}
       </td>
       <td class = "${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}"> 
         <mjl:commandLink name="view.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.view.mojo">
