@@ -317,7 +317,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExaminedSum + ", 0.0)");
       
       // this calculation only valid for premises with data for inhabitants
-      if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberInhabitantsSum + ", 0.0)*100.0"))
+      if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberInhabitantsSum + ", 0.0)"))
       {
         valueQuery.WHERE(collectionPremiseQuery.getNumberInhabitants().NE(""));
       }
