@@ -2,11 +2,6 @@
   <listener-class>dss.vector.solutions.ContextListenerManager</listener-class>
 </listener>
 
-<error-page>
-  <error-code>404</error-code>
-  <location>/WEB-INF/404.jsp</location>
-</error-page>
-
 <filter>
   <filter-name>LoginFilter</filter-name>
   <filter-class>com.runwaysdk.defaults.LoginFilter</filter-class>
@@ -120,4 +115,29 @@
   <url-pattern>*.mojax</url-pattern>
   <url-pattern>*.mojo</url-pattern>
 </filter-mapping>
+
+<error-page>
+  <error-code>404</error-code>
+  <location>/WEB-INF/404.jsp</location>
+</error-page>
+
+<error-page>
+  <exception-type>com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException</exception-type>
+  <location>/permissionError.jsp</location>
+</error-page>
+
+<error-page>
+  <exception-type>com.runwaysdk.session.ReadTypePermissionExceptionDTO</exception-type>
+  <location>/noreadpermissions.jsp</location>
+</error-page>
+
+<error-page>
+  <exception-type>com.runwaysdk.session.ExecuteStaticPermissionExceptionDTO</exception-type>
+  <location>/noreadpermissions.jsp</location>
+</error-page>
+
+<error-page>
+  <exception-type>java.lang.Throwable</exception-type>
+  <location>/error.jsp</location>
+</error-page>
 
