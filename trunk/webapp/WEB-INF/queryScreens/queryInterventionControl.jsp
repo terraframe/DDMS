@@ -78,9 +78,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%= (String) request.getAttribute("queryList") %>;
 
-   var individualPremiseVisitMethodMaps = {<%=(String) request.getAttribute("individualPremiseVisit")%>};
-  var aggregatedPremiseVisitMaps = {<%=(String) request.getAttribute("aggregatedPremiseVisit")%>};
-  var personInterventionMaps = {<%=(String) request.getAttribute("PersonIntervention")%>};
+    var individualPremiseVisitMethodMaps = {<%=(String) request.getAttribute("individualPremiseVisit")%>};
+    var aggregatedPremiseVisitMaps = {<%=(String) request.getAttribute("aggregatedPremiseVisit")%>};
+    var personInterventionMaps = {<%=(String) request.getAttribute("PersonIntervention")%>};
     
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
@@ -215,7 +215,7 @@ YAHOO.util.Event.onDOMReady(function(){
                              "productName",
                              "concentrationQualifier",
                              "concentrationQuantifier",
-                             "activeIngredient","amount",
+                             "activeIngredient",
                              "unitQualifier", "unitQuantifier",
                              "unitsPerApplication", "useDetail"];
 
