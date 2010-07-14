@@ -10,7 +10,7 @@
 <%@page import="dss.vector.solutions.ontology.BrowserFieldDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootController"%><c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
 
-<mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST">
+<mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST" >
   <mjl:input type="hidden" param="universal" value="${universal}" />
   <mjl:input type="hidden" param="actor" value="${actor}" />
 
@@ -26,8 +26,11 @@
             </td>
             <td>
               <c:choose >
-                <c:when test="${view.attributeRequired}">
-                  <mjl:boolean param="readPermission" value="${view.readPermission}" disabled="disabled"/>
+                <c:when test="${actor == 'mdss.GUIVisibility'}">
+                  <mjl:boolean param="readPermission" value="${view.readPermission}" disabled="disabled" />
+                </c:when>
+                 <c:when test="${view.attributeRequired == true}">
+                  <mjl:boolean classes="requiredAttributes" param="readPermission" value="${view.readPermission}" />
                 </c:when>
                 <c:otherwise>
                   <mjl:boolean param="readPermission" value="${view.readPermission}" />
@@ -49,7 +52,7 @@
         </mjl:components>
       </table>
 
-  <mjl:command value="save" action="dss.vector.solutions.util.ReadableAttributeController.setAttributes.mojo" name="dss.vector.solutions.util.ReadableAttributeController.form.create.button" />
+  <mjl:command classes="submitButton"value="save" action="dss.vector.solutions.util.ReadableAttributeController.setAttributes.mojo" name="dss.vector.solutions.util.ReadableAttributeController.form.create.button" />
 </mjl:form>
 
 <div id="modal" style="scroll:auto"></div>
@@ -117,4 +120,39 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
     new MDSS.ReadableAttributeForm();
   });
 })();
+
+// TODO -- Remove this horrific hack by fixing the mjl:command generated javascript
+var oldHandler;
+(function(){ 
+    var buttons = YAHOO.util.Dom.getElementsByClassName("submitButton");      
+
+    for each (el in buttons) {
+      oldHandler = el.onclick;
+      el.onclick = function(){
+          if (checkHiddenMandatoryFields()) {
+              oldHandler();
+          }
+      }
+      break;
+    }
+})();
+
+
+function checkHiddenMandatoryFields() {
+	var needToConfirm = false;
+
+	var buttons = YAHOO.util.Dom.getElementsByClassName("requiredAttributes");      
+    for each (el in buttons) {
+      if (el.checked && el.value=='false') {
+          needToConfirm = true;
+          break;
+      }
+    }
+	
+	var confirmed = true;
+	if (needToConfirm) {
+		confirmed = confirm('<fmt:message key="Hidden_Mandatory_Fields_Warning"/>');
+	}
+	return confirmed;
+}
 </script> 
