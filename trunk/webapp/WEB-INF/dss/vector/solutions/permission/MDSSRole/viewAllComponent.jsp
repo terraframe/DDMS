@@ -8,8 +8,6 @@
 <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.permission.MDSSRoleController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="roleName">
-    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="displayLabel">
     </mjl:attributeColumn>
     <mjl:freeColumn>

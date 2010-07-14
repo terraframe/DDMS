@@ -31,14 +31,17 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
   private void populateConcrete(Roles role)
   {
-    String _roleName = this.getRoleName();
-
-    if (!_roleName.contains("."))
+    if (!this.hasConcrete())
     {
-      _roleName = MDSSRoleInfo.MDSS_PREFIX + "." + _roleName;
+      String _roleName = this.getDisplayLabel().replace(" ", "").trim();
+
+      if (!_roleName.contains("."))
+      {
+        _roleName = MDSSRoleInfo.MDSS_PREFIX + "." + _roleName;
+      }
+      role.setRoleName(_roleName);
     }
 
-    role.setRoleName(_roleName);
     role.getDisplayLabel().setValue(this.getDisplayLabel());
   }
 
@@ -88,14 +91,14 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public MDSSRole getConcrete()
   {
-    if(this.hasConcrete())
+    if (this.hasConcrete())
     {
       return MDSSRole.get(this.getConcreteId());
     }
-    
+
     return null;
   }
 

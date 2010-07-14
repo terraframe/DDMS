@@ -11,6 +11,8 @@ import com.runwaysdk.session.PermissionMap;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class UniversalPermissionView extends UniversalPermissionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -24,7 +26,7 @@ public class UniversalPermissionView extends UniversalPermissionViewBase impleme
   public static UniversalPermissionView[] getPermissions(MDSSRoleView role)
   {
     List<UniversalPermissionView> list = new ArrayList<UniversalPermissionView>();
-    
+
     RoleDAOIF roleDAO = role.getRole();
     PermissionMap permissions = roleDAO.getOperations();
 
@@ -32,8 +34,11 @@ public class UniversalPermissionView extends UniversalPermissionViewBase impleme
 
     for (GeoHierarchyView universal : universals)
     {
-      UniversalPermissionView view = UniversalPermissionView.getView(universal, permissions);
-      list.add(view);
+      if (!universal.getGeneratedType().equals(Earth.CLASS) && !universal.getGeneratedType().equals(GeoEntity.CLASS))
+      {
+        UniversalPermissionView view = UniversalPermissionView.getView(universal, permissions);
+        list.add(view);
+      }
     }
 
     return list.toArray(new UniversalPermissionView[list.size()]);
@@ -42,7 +47,7 @@ public class UniversalPermissionView extends UniversalPermissionViewBase impleme
   private static UniversalPermissionView getView(GeoHierarchyView universal, PermissionMap permissions)
   {
     MdBusinessDAOIF mdBusiness = MdBusinessDAO.get(universal.getReferenceId());
-        
+
     UniversalPermissionView permission = new UniversalPermissionView();
     permission.setLabel(universal.getDisplayLabel());
     permission.setUniversalId(mdBusiness.getId());

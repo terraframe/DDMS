@@ -9,9 +9,6 @@
   <mjl:form id="dss.vector.solutions.permission.MDSSRole.form.id" name="dss.vector.solutions.permission.MDSSRole.form.name" method="POST">
     <mjl:input param="id" value="${item.concreteId}" type="hidden" />
     <mjl:component param="dto" item="${item}">
-      <mjl:dt attribute="roleName">
-        ${item.roleName}
-      </mjl:dt>
       <mjl:dt attribute="displayLabel">
         ${item.displayLabel}
       </mjl:dt>
