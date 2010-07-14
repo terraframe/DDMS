@@ -5,6 +5,8 @@ import java.io.StringWriter;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.runwaysdk.business.rbac.RoleDAO;
+import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -12,11 +14,13 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionIF;
 
 import dss.vector.solutions.PanicButton;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
+import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.ontology.Term;
 
 /**
@@ -27,7 +31,9 @@ import dss.vector.solutions.ontology.Term;
 public class MenuGenerator implements Reloadable {
 	private Disease disease = null;
 
-	private GuiMenuItem menu = new GuiMenuItem("menu", "menu", null);;
+	private GuiMenuItem menu = new GuiMenuItem("menu", "menu", null, false);
+	
+	private final SessionIF session = Session.getCurrentSession();
 
 	private MenuGenerator() {
 		super();
@@ -43,17 +49,15 @@ public class MenuGenerator implements Reloadable {
 	 */
 	public class GuiMenuItem implements Reloadable {
 		private String id;
-
 		private String name;
-
 		private String label;
-
 		private String url;
+		private boolean disabled = false;
 
 		private Map<String, GuiMenuItem> children = new TreeMap<String, GuiMenuItem>();
 
-		public GuiMenuItem(MenuItem menuItem) {
-			this(menuItem.getTerm().getTermId(), menuItem.getTerm().getTermDisplayLabel().getValue(), menuItem.getUrl().getUrl());
+		public GuiMenuItem(MenuItem menuItem, boolean disabled) {
+			this(menuItem.getTerm().getTermId(), menuItem.getTerm().getTermDisplayLabel().getValue(), menuItem.getUrl().getUrl(), disabled);
 		}
 
 		public GuiMenuItem(Term term) {
@@ -61,14 +65,23 @@ public class MenuGenerator implements Reloadable {
 		}
 
 		public GuiMenuItem(String id, String label, String url) {
-			this(id, label.replace(' ', '_'), label, url);
+			this(id, label, url, false);
+		}
+		
+		public GuiMenuItem(String id, String label, String url, boolean disabled) {
+			this(id, label.replace(' ', '_'), label, url, disabled);
 		}
 
 		public GuiMenuItem(String id, String name, String label, String url) {
+			this(id, name, label, url, false);
+		}
+		
+		public GuiMenuItem(String id, String name, String label, String url, boolean disabled) {
 			this.id = id;
 			this.name = name;
 			this.label = label;
 			this.url = url;
+			this.disabled = disabled;
 		}
 
 		public Map<String, GuiMenuItem> getChildren() {
@@ -89,6 +102,10 @@ public class MenuGenerator implements Reloadable {
 
 		public String getUrl() {
 			return this.url;
+		}
+		
+		public boolean isDisabled() {
+			return this.disabled;
 		}
 
 		public String toString() {
@@ -140,7 +157,7 @@ public class MenuGenerator implements Reloadable {
 			while (it.hasNext()) {
 				MenuItem menuItem = it.next();
 				if (menuItem.getTerm().isLeaf()) {
-					GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem);
+					GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem, !this.hasAccess(menuItem));
 					this.processMenuItem(menuItem.getTerm(), guiMenuItem);
 				}
 			}
@@ -231,6 +248,9 @@ public class MenuGenerator implements Reloadable {
 	private void printItem(PrintWriter out, int level, GuiMenuItem guiMenuItem) {
 		if (guiMenuItem.getChildren().size() == 0) {
 			String label = "text: '" + guiMenuItem.getLabel() + "', id: '" + guiMenuItem.getName() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'";
+			if (guiMenuItem.isDisabled()) {
+				label += ", disabled: true";
+			}
 			if (guiMenuItem.getUrl().equals("#")) {
 				label += ", checked: true";
 			}
@@ -287,5 +307,24 @@ public class MenuGenerator implements Reloadable {
 				consolidateMenu(existing, child);
 			}
 		}
+	}
+	
+	private boolean hasAccess(MenuItem menuItem) {
+		Map<String, String> roles = this.session.getUserRoles();
+		if (roles == null) {
+			return false;
+		} else {
+			if (roles.containsKey(RoleDAOIF.ADMIN_ROLE)) {
+				return true;
+			}
+		}
+
+		// Get the read role of the current diesease
+		RoleDAO readRole = menuItem.getUrl().getReadRoleDAO();
+		if (readRole == null) {
+			return false;
+		}
+
+		return roles.containsKey(readRole.getRoleName());
 	}
 }
