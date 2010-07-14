@@ -8,6 +8,8 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
+import dss.vector.solutions.util.ErrorUtility;
+
 public class TermController extends TermControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/ontology/Term/";
@@ -59,21 +61,22 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
       dto.delete();
       this.viewAll();
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
   public void failDelete(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    // req.setAttribute("ontology",
+    // dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(),
+    // "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -101,7 +104,9 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
 
   public void failUpdate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    // req.setAttribute("ontology",
+    // dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(),
+    // "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
@@ -112,7 +117,9 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     utility.put("id", id);
     utility.checkURL(this.getClass().getSimpleName(), "view");
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
-//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    // req.setAttribute("ontology",
+    // dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(),
+    // "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dss.vector.solutions.ontology.TermDTO.get(clientRequest, id));
     render("viewComponent.jsp");
   }
@@ -128,7 +135,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     try
     {
       dto.applyWithParent(parentId, false, null, inactive);
-      
+
       resp.getWriter().print(dto.getId());
     }
     catch (ProblemExceptionDTO e)
@@ -147,7 +154,9 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
 
   public void failCreate(dss.vector.solutions.ontology.TermDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
-//    req.setAttribute("ontology", dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+    // req.setAttribute("ontology",
+    // dss.vector.solutions.ontology.OntologyDTO.getAllInstances(super.getClientSession().getRequest(),
+    // "keyName", true, 0, 0).getResultSet());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
@@ -167,7 +176,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     {
       TermDTO dto = new TermDTO(this.getClientRequest());
       populateReqForTerm(dto);
-      
+
       render("createComponent.jsp");
     }
     catch (ProblemExceptionDTO e)
@@ -188,18 +197,18 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
   {
     resp.sendError(500);
   }
-  
+
   private void populateReqForTerm(TermDTO dto)
   {
     InactivePropertyDTO prop = dto.getInactiveByDisease();
     boolean inactive = prop.getInactive();
     String inactiveLabel = prop.getInactiveMd().getDisplayLabel();
-    
+
     req.setAttribute("inactive", inactive);
     req.setAttribute("inactiveLabel", inactiveLabel);
-    
+
     req.setAttribute("item", dto);
-    
+
     req.setAttribute("isRoot", dto instanceof RootTermDTO);
   }
 
@@ -209,7 +218,7 @@ public class TermController extends TermControllerBase implements com.runwaysdk.
     {
       dss.vector.solutions.ontology.TermDTO dto = dss.vector.solutions.ontology.TermDTO.lock(super.getClientRequest(), id);
       populateReqForTerm(dto);
-      
+
       render("editComponent.jsp");
     }
     catch (ProblemExceptionDTO e)

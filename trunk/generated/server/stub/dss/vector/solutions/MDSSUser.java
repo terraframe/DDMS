@@ -84,7 +84,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
 
     // First clear all existing roles
-    Roles[] roles = MDSSRole.getRoles();
+    Roles[] roles = MDSSRole.getAssignableRoles();
 
     for (Roles role : roles)
     {
@@ -150,6 +150,6 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     {
       return disease.getKeyName();
     }
-    return Disease.MALARIA;
+    return Disease.MALARIA;    
   }
 }

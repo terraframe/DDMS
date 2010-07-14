@@ -55,15 +55,14 @@ public class EmailController extends EmailControllerBase implements Reloadable
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -82,15 +81,14 @@ public class EmailController extends EmailControllerBase implements Reloadable
 
       this.viewAll();
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -131,15 +129,14 @@ public class EmailController extends EmailControllerBase implements Reloadable
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 

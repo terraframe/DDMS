@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
@@ -34,17 +33,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -76,17 +72,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -119,17 +112,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
   }
 
@@ -144,15 +134,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
     {
       view(SurveyPointDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }
@@ -190,7 +179,7 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       }
     }
   }
-  
+
   @Override
   public void failCancel(SurveyPointViewDTO dto) throws IOException, ServletException
   {
@@ -204,17 +193,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
       dto.deleteConcrete();
       this.viewAll();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -255,17 +241,14 @@ public class SurveyPointController extends SurveyPointControllerBase implements 
 
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }

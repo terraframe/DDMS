@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -35,17 +34,14 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     {
       this.edit(LarvaeDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -78,17 +74,14 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
       this.newInstance(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
 
   }
@@ -145,17 +138,14 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
       dto.apply();
       this.view(dto.getId());
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -171,17 +161,14 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -217,15 +204,14 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
     {
       view(LarvaeDiscriminatingDoseAssayDTO.get(this.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 

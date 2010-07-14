@@ -60,21 +60,18 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
       String[] targetIds = this.getTargetIds(id, geoId, request);
 
       DataGrid grid = new ResourceTargetGridBuilder(request, targetIds, season).build();
-      
+
       req.setAttribute("grid", grid);
       render("viewComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.viewAll();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.viewAll();
+      if (!redirected)
+      {
+        this.viewAll();
+      }
     }
 
   }

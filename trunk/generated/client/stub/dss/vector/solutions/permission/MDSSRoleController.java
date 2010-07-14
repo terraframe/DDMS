@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
@@ -35,17 +34,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -100,17 +96,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
 
       this.edit(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -134,17 +127,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -180,17 +170,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
       dto.deleteConcrete();
       this.viewAll();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -225,17 +212,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
 
       this.newInstance(new MDSSRoleViewDTO(clientRequest));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
   }
 
@@ -262,17 +246,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
 
       this.getPermissions(dto, permissions);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failGetPermissions(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failGetPermissions(id);
+      if (!redirected)
+      {
+        this.failGetPermissions(id);
+      }
     }
   }
 
@@ -282,7 +263,7 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
 
     List<PermissionOptionMasterDTO> options = PermissionOptionDTO.allItems(clientRequest);
     Collections.reverse(options);
-    
+
     PermissionViewDTO header = new PermissionViewDTO(clientRequest);
 
     req.setAttribute("urlLabel", header.getLabelMd().getDisplayLabel());
@@ -306,14 +287,14 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
     try
     {
       dto.setPermissions(permissions);
-      
+
       this.view(dto);
     }
     catch (Throwable t)
     {
       boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      if(!redirect)
+      if (!redirect)
       {
         this.failSetPermissions(dto, permissions);
       }
@@ -325,7 +306,7 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
   {
     this.getPermissions(dto, permissions);
   }
-  
+
   @Override
   public void getUniversalPermissions(String id) throws IOException, ServletException
   {
@@ -337,28 +318,25 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
 
       this.getUniversalPermissions(dto, permissions);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failGetPermissions(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failGetPermissions(id);
+      if (!redirected)
+      {
+        this.failGetPermissions(id);
+      }
     }
   }
-  
+
   private void getUniversalPermissions(MDSSRoleViewDTO dto, UniversalPermissionViewDTO[] permissions) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     UniversalPermissionViewDTO header = new UniversalPermissionViewDTO(clientRequest);
     String labelLabel = header.getLabelMd().getDisplayLabel();
     String permissionLabel = header.getPermissionMd().getDisplayLabel();
-    
+
     req.setAttribute("permissions", Arrays.asList(permissions));
     req.setAttribute("universalLabel", labelLabel);
     req.setAttribute("permissionLabel", permissionLabel);
@@ -372,27 +350,27 @@ public class MDSSRoleController extends MDSSRoleControllerBase implements com.ru
   {
     this.view(id);
   }
-  
+
   @Override
   public void setUniversalPermissions(MDSSRoleViewDTO dto, UniversalPermissionViewDTO[] permissions) throws IOException, ServletException
   {
     try
     {
       dto.setUniversalPermissions(permissions);
-      
+
       this.view(dto);
     }
     catch (Throwable t)
     {
       boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      if(!redirect)
+      if (!redirect)
       {
         this.failSetUniversalPermissions(dto, permissions);
       }
     }
   }
-  
+
   @Override
   public void failSetUniversalPermissions(MDSSRoleViewDTO dto, UniversalPermissionViewDTO[] permissions) throws IOException, ServletException
   {

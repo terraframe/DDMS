@@ -6,7 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -56,15 +55,14 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -82,15 +80,14 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
       dto.delete();
       this.viewAll();
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -147,15 +144,14 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -179,15 +175,14 @@ public class EmailConfigurationController extends EmailConfigurationControllerBa
       req.setAttribute("item", dto);
       render("viewComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }

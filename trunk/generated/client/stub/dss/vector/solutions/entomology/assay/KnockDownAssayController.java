@@ -36,17 +36,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -103,17 +100,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
       this.edit(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -181,17 +175,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
       this.newInstance(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
 
   }
@@ -216,15 +207,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     {
       view(KnockDownAssayDTO.get(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -252,17 +242,14 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 

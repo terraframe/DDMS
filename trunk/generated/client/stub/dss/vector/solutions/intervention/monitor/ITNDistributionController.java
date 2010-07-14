@@ -8,7 +8,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -41,15 +40,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     {
       view(ITNDistributionDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -81,15 +79,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       dto.applyAll(targetGroups);
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto, targetGroups);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto, targetGroups);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto, targetGroups);
+      }
     }
   }
 
@@ -107,15 +104,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       dto.deleteConcrete();
       this.search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -166,15 +162,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
         render("selectRecipient.jsp");
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failSearchRecipient(itn, recipient);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failSearchRecipient(itn, recipient);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failSearchRecipient(itn, recipient);
+      }
     }
   }
 
@@ -210,21 +205,16 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
       render("createComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDistributionDate = ( distributionDate == null ) ? null : new DefaultConverter(Date.class).format(distributionDate, req.getLocale());
-
-      this.failNewInstance(person, facility, batchNumber, failDistributionDate);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDistributionDate = ( distributionDate == null ) ? null : new DefaultConverter(Date.class).format(distributionDate, req.getLocale());
+      if (!redirected)
+      {
+        String failDistributionDate = ( distributionDate == null ) ? null : new DefaultConverter(Date.class).format(distributionDate, req.getLocale());
 
-      this.failNewInstance(person, facility, batchNumber, failDistributionDate);
+        this.failNewInstance(person, facility, batchNumber, failDistributionDate);
+      }
     }
   }
 
@@ -249,15 +239,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
     {
       edit(ITNDistributionDTO.lockView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failEdit(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -328,15 +317,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       dto.applyAll(targetGroups);
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto, targetGroups);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto, targetGroups);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto, targetGroups);
+      }
     }
   }
 
@@ -414,15 +402,14 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failViewHistory(view);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failViewHistory(view);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failViewHistory(view);
+      }
     }
   }
 

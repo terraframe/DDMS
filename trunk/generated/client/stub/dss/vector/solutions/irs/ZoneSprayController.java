@@ -50,7 +50,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
     {
       boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      if(!redirect)
+      if (!redirect)
       {
         this.failCreate(dto);
       }
@@ -72,17 +72,14 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -110,15 +107,14 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
     {
       this.view(ZoneSprayDTO.getView(this.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -137,7 +133,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
     String operators = buildOperatorsMap(teams);
 
     this.setupReferences(dto);
-    
+
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("teams", teamMap);
     req.setAttribute("operators", operators);
@@ -222,17 +218,14 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -325,21 +318,16 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
         render("createComponent.jsp");
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = ( date == null ? null : date.toString() );
-
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDate = ( date == null ? null : date.toString() );
+      if (!redirected)
+      {
+        String failDate = ( date == null ? null : date.toString() );
 
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod);
+        this.failSearchByParameters(brand, geoId, failDate, sprayMethod);
+      }
     }
   }
 

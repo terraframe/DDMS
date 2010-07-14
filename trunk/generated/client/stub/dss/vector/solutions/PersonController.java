@@ -9,13 +9,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.attributes.AttributeDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
-import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.ontology.TermDTO;
@@ -70,17 +68,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
       PersonViewDTO view = new PersonViewDTO(clientRequest);
       renderCreate(view);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
 
   }
@@ -109,17 +104,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
       person.apply();
       this.view(person.getPersonId());
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.renderCreate(person);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.renderCreate(person);
+      if (!redirected)
+      {
+        this.renderCreate(person);
+      }
     }
   }
 
@@ -150,17 +142,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
       renderEdit(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -173,17 +162,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
       person.apply();
       this.view(person.getPersonId());
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.renderEdit(person);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.renderEdit(person);
+      if (!redirected)
+      {
+        this.renderEdit(person);
+      }
     }
   }
 
@@ -207,17 +193,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
       PersonDTO.lock(super.getClientRequest(), person.getPersonId()).delete();
       viewAll();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDeleteFromView(person);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDeleteFromView(person);
+      if (!redirected)
+      {
+        this.failDeleteFromView(person);
+      }
     }
   }
 
@@ -307,15 +290,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
 
       renderView(view);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }
@@ -405,17 +387,14 @@ public class PersonController extends PersonControllerBase implements Reloadable
       dto.delete();
       this.viewAll();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -441,12 +420,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     ClientRequestIF request = this.getClientRequest();
     PersonViewDTO dto = new PersonViewDTO(request);
-    
+
     if (id != null && !id.equals(""))
     {
       dto = PersonDTO.getView(request, id);
     }
-    
+
     this.editRecipient(dto);
   }
 
@@ -454,7 +433,6 @@ public class PersonController extends PersonControllerBase implements Reloadable
   {
     try
     {
-
 
       req.setAttribute("sex", dto.getSex());
       req.setAttribute("item", dto);
@@ -500,31 +478,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
         resp.getWriter().print(id);
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      if (this.isAsynchronous())
-      {
-        JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-        resp.setStatus(500);
-        resp.getWriter().print(jsonE.getJSON());
-      }
-      else
-      {
-        ErrorUtility.prepareProblems(e, req);
-        this.failUpdateRecipient(patient);
-      }
-    }
     catch (Throwable t)
     {
-      if (this.isAsynchronous())
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if(!redirected)
       {
-        JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
-        resp.setStatus(500);
-        resp.getWriter().print(jsonE.getJSON());
-      }
-      else
-      {
-        ErrorUtility.prepareThrowable(t, req);
         this.failUpdateRecipient(patient);
       }
     }
@@ -549,12 +508,12 @@ public class PersonController extends PersonControllerBase implements Reloadable
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
       mdss.changeDisease(diseaseName);
-      
+
       DiseaseDTO.setCurrentDimension(clientRequest);
     }
 
     req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
-    
+
     Map<String, String> menus = (Map<String, String>) req.getSession().getAttribute("menus");
 
     if (menus == null)
@@ -566,23 +525,23 @@ public class PersonController extends PersonControllerBase implements Reloadable
     {
       menus.put(diseaseName, DiseaseDTO.getMenuJson(getClientRequest()));
     }
-    
+
     req.getSession().setAttribute("menus", menus);
 
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
-  
+
   @Override
   public void editPhysician(String id) throws IOException, ServletException
   {
     ClientRequestIF request = this.getClientRequest();
     PersonViewDTO dto = new PersonViewDTO(request);
-    
+
     if (id != null && !id.equals(""))
     {
       dto = PhysicianDTO.getView(request, id);
     }
-    
+
     this.editRecipient(dto);
   }
 

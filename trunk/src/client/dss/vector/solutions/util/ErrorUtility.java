@@ -6,6 +6,7 @@ import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -14,9 +15,11 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.InformationDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorExceptionDTO;
+import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
+import com.runwaysdk.session.ReadTypePermissionExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 public class ErrorUtility implements Reloadable
 {
@@ -28,12 +31,7 @@ public class ErrorUtility implements Reloadable
 
   public static final String MESSAGE_ARRAY       = "messageArray";
 
-  public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req)
-  {
-    ErrorUtility.prepareProblems(e, req, true);
-  }
-  
-  public static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req, boolean ignoreNotifications)
+  private static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req, boolean ignoreNotifications)
   {
     List<String> messages = new LinkedList<String>();
 
@@ -75,6 +73,8 @@ public class ErrorUtility implements Reloadable
 
   public static boolean prepareThrowable(Throwable t, HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronus, boolean ignoreNotifications) throws IOException
   {
+    t = ErrorUtility.filterServletException(t);
+    
     if (isAsynchronus)
     {
       if (t instanceof ProblemExceptionDTO)
@@ -94,7 +94,15 @@ public class ErrorUtility implements Reloadable
     }
     else
     {
-      if (t instanceof ProblemExceptionDTO)
+     if (t instanceof ClientReadAttributePermissionException)
+      {
+        throw (ClientReadAttributePermissionException) t;
+      }
+      else if (t instanceof ReadTypePermissionExceptionDTO)
+      {
+        throw (ReadTypePermissionExceptionDTO) t;
+      }
+      else if (t instanceof ProblemExceptionDTO)
       {
         ErrorUtility.prepareProblems((ProblemExceptionDTO) t, req, ignoreNotifications);
       }
@@ -107,7 +115,18 @@ public class ErrorUtility implements Reloadable
     return false;
   }
 
-  public static void prepareThrowable(Throwable t, HttpServletRequest req)
+  private static Throwable filterServletException(Throwable t)
+  {
+    int i = 0;
+    while(t instanceof ServletException && i < 50)
+    {
+      t = t.getCause();
+      i++;
+    }
+    return t;
+  }
+
+  private static void prepareThrowable(Throwable t, HttpServletRequest req)
   {
     req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
 
@@ -125,21 +144,6 @@ public class ErrorUtility implements Reloadable
       }
     }
 
-  }
-
-  public static void forceProblems(ProblemExceptionDTO e, HttpServletRequest req)
-  {
-    List<String> messages = new LinkedList<String>();
-
-    for (ProblemDTOIF problem : e.getProblems())
-    {
-      messages.add(problem.getMessage());
-    }
-
-    if (messages.size() > 0)
-    {
-      req.setAttribute(ErrorUtility.ERROR_MESSAGE_ARRAY, messages.toArray(new String[messages.size()]));
-    }
   }
 
   private static String getErrorMessage(HttpServletRequest req)

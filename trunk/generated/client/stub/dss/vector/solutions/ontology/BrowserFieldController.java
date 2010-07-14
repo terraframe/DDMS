@@ -96,15 +96,14 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
 
       render("viewAllComponent.jsp");
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failViewAll();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failViewAll();
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failViewAll();
+      }
     }
   }
 
@@ -118,12 +117,12 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-      
+
       BrowserFieldViewDTO field = BrowserFieldDTO.getView(clientRequest, id);
-      
+
       TermDTO defaultValue = field.getDefaultValue();
       BrowserRootViewDTO[] roots = field.getRoots();
-      
+
       req.setAttribute("buttonId", field.getMdAttributeId() + "_defaultTermBtn");
       req.setAttribute("defaultValue", defaultValue);
       req.setAttribute("field", field);
@@ -154,15 +153,14 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -193,15 +191,14 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -242,15 +239,14 @@ public class BrowserFieldController extends BrowserFieldControllerBase implement
       dto.delete();
       this.viewAll();
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 

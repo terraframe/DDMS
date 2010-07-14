@@ -50,26 +50,38 @@ public class PopulationDataController extends PopulationDataControllerBase imple
   @Override
   public void search() throws IOException, ServletException
   {
-    if (!this.isAsynchronous())
+    try
     {
-      RedirectUtility utility = new RedirectUtility(req, resp);
-      utility.checkURL(this.getClass().getSimpleName(), "search");
+      if (!this.isAsynchronous())
+      {
+        RedirectUtility utility = new RedirectUtility(req, resp);
+        utility.checkURL(this.getClass().getSimpleName(), "search");
 
-      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
-      
-      List<ConditionalAction> actions = new LinkedList<ConditionalAction>();
-      actions.add(new ToggleUniversalAction("populationType.negative", "populationType.positive", HealthFacilityDTO.CLASS));
+        new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "search");
 
-      req.setAttribute("actions", actions);
-      req.setAttribute("item", new PopulationDataViewDTO(this.getClientRequest()));
-      render("searchComponent.jsp");
+        List<ConditionalAction> actions = new LinkedList<ConditionalAction>();
+        actions.add(new ToggleUniversalAction("populationType.negative", "populationType.positive", HealthFacilityDTO.CLASS));
+
+        req.setAttribute("actions", actions);
+        req.setAttribute("item", new PopulationDataViewDTO(this.getClientRequest()));
+        render("searchComponent.jsp");
+      }
     }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failSearch();
+      }
+    }
+
   }
 
   @Override
   public void failSearch() throws IOException, ServletException
   {
-    // This should never happen
     req.getRequestDispatcher("index.jsp").forward(req, resp);
   }
 
@@ -104,10 +116,9 @@ public class PopulationDataController extends PopulationDataControllerBase imple
       item.setGeoEntity(geoId);
       item.setYearOfData(yearOfData);
       item.setPopulationType(populationType);
-      
-      String[] keys = {"ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate", "Estimated"};
 
-      
+      String[] keys = { "ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate", "Estimated" };
+
       ColumnSetup population = new ColumnSetup(false, true);
       population.setSum(item.getPopulationType());
 
@@ -121,7 +132,6 @@ public class PopulationDataController extends PopulationDataControllerBase imple
       map.put("GrowthRate", new ColumnSetup(false, true));
       map.put("Estimated", new ColumnSetup(true, false));
 
-
       req.setAttribute(ITEM, item);
       req.setAttribute("calculatedValues", calcuatedValues);
       req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));
@@ -129,26 +139,20 @@ public class PopulationDataController extends PopulationDataControllerBase imple
 
       render("viewComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String year = ( yearOfData == null ? null : yearOfData.toString() );
-      String failPopulationType = populationType != null ? populationType.toString() : "true";
-
-      this.failSearchForPopulationData(geoId, year, failPopulationType);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String year = ( yearOfData == null ? null : yearOfData.toString() );
-      String failPopulationType = populationType != null ? populationType.toString() : "true";
-      
-      this.failSearchForPopulationData(geoId, year, failPopulationType);
+      if (!redirected)
+      {
+        String year = ( yearOfData == null ? null : yearOfData.toString() );
+        String failPopulationType = populationType != null ? populationType.toString() : "true";
+
+        this.failSearchForPopulationData(geoId, year, failPopulationType);
+      }
     }
   }
-  
+
   @Override
   public void failSearchForPopulationData(String geoId, String yearOfData, String populationType) throws IOException, ServletException
   {

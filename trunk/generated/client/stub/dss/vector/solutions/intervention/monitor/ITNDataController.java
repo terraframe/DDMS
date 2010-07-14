@@ -46,15 +46,14 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     {
       this.view(ITNDataDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }
@@ -95,17 +94,14 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       dto.deleteConcrete();
       this.search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -124,17 +120,14 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       dto.applyAll(nets, targetGroups, services);
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto, nets, targetGroups, services);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto, nets, targetGroups, services);
+      if (!redirected)
+      {
+        this.failCreate(dto, nets, targetGroups, services);
+      }
     }
   }
 
@@ -153,17 +146,14 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       dto.applyAll(nets, targetGroups, services);
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto, nets, targetGroups, services);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto, nets, targetGroups, services);
+      if (!redirected)
+      {
+        this.failUpdate(dto, nets, targetGroups, services);
+      }
     }
   }
 
@@ -240,17 +230,14 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -287,23 +274,17 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
         render("createComponent.jsp");
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failPeriod = period == null ? null : period.toString();
-      String failYear = year == null ? null : year.toString();
-
-      this.failSearchByGeoIdAndPeriod(geoId, periodType, failPeriod, failYear);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failPeriod = period == null ? null : period.toString();
-      String failYear = year == null ? null : year.toString();
+      if (!redirected)
+      {
+        String failPeriod = period == null ? null : period.toString();
+        String failYear = year == null ? null : year.toString();
 
-      this.failSearchByGeoIdAndPeriod(geoId, periodType, failPeriod, failYear);
+        this.failSearchByGeoIdAndPeriod(geoId, periodType, failPeriod, failYear);
+      }
     }
   }
 
@@ -342,17 +323,14 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
       }
 
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchByView(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSearchByView(dto);
+      if (!redirected)
+      {
+        this.failSearchByView(dto);
+      }
     }
   }
 

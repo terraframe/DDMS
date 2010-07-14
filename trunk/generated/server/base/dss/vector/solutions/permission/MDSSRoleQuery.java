@@ -1,6 +1,6 @@
 package dss.vector.solutions.permission;
 
-@com.runwaysdk.business.ClassSignature(hash = 446494448)
+@com.runwaysdk.business.ClassSignature(hash = 1829295860)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.permission;
 public  class MDSSRoleQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 446494448;
+private static final long serialVersionUID = 1829295860;
 
   public MDSSRoleQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -417,7 +417,7 @@ private static final long serialVersionUID = 446494448;
  implements MDSSRoleQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 780626446;
+private static final long serialVersionUID = 420827286;
 
   public MDSSRoleQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.util.ErrorUtility;
@@ -16,7 +15,7 @@ import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class ApplicationRateController extends ApplicationRateControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1240976699468L;
+  private static final long  serialVersionUID = 1240976699468L;
 
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/irs/ApplicationRate/";
 
@@ -34,7 +33,7 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
     AreaStandardsViewDTO dto = AreaStandardsViewDTO.getMostRecent(clientRequest);
 
-    if(dto == null)
+    if (dto == null)
     {
       dto = new AreaStandardsViewDTO(clientRequest);
     }
@@ -46,28 +45,28 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
   {
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
-    // not create a new object   
+    // not create a new object
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.checkURL(this.getClass().getSimpleName(), "view");
-    
-//    Map<String, RowSetup> rowMap = new HashMap<String, RowSetup>();
-//    rowMap.put("Brand", new RowSetup("getBrandView"));
-//    rowMap.put("Nozzle", new RowSetup("getNozzleView"));
-//    
-//    Map<String, String> map = new HashMap<String, String>();
-//    map.put("Brand", InsecticideBrandViewDTO.class.getName());
-//    map.put("Nozzle", NozzleViewDTO.class.getName());
-//
-//    String deleteColumn = "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
 
-    
-    //this.setupBrandGrid();
+    // Map<String, RowSetup> rowMap = new HashMap<String, RowSetup>();
+    // rowMap.put("Brand", new RowSetup("getBrandView"));
+    // rowMap.put("Nozzle", new RowSetup("getNozzleView"));
+    //    
+    // Map<String, String> map = new HashMap<String, String>();
+    // map.put("Brand", InsecticideBrandViewDTO.class.getName());
+    // map.put("Nozzle", NozzleViewDTO.class.getName());
+    //
+    // String deleteColumn =
+    // "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
+
+    // this.setupBrandGrid();
     this.setupNozzleGrid();
     this.setupConfigurationGrid();
 
-    req.setAttribute("targetUnits", TargetUnitDTO.allItems(this.getClientRequest())); 
+    req.setAttribute("targetUnits", TargetUnitDTO.allItems(this.getClientRequest()));
     req.setAttribute("dto", dto);
-    render("viewComponent.jsp");    
+    render("viewComponent.jsp");
   }
 
   private void setupBrandGrid()
@@ -76,27 +75,27 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
     InsecticideBrandViewDTO view = new InsecticideBrandViewDTO(clientRequest);
     InsecticideBrandViewDTO[] data = InsecticideBrandViewDTO.getAll(clientRequest);
-    String[] keys = {"InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled"};
+    String[] keys = { "InsecticdeId", "BrandName", "ActiveIngredient", "Amount", "Weight", "SachetsPerRefill", "Enabled" };
 
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("InsecticdeId", new ColumnSetup(true, false));
     map.put("BrandName", new ColumnSetup(false, true));
     map.put("ActiveIngredient", new ColumnSetup(false, true));
-    map.put("Amount", new ColumnSetup(false, true, "validateAmount", null, null));    
+    map.put("Amount", new ColumnSetup(false, true, "validateAmount", null, null));
     map.put("Weight", new ColumnSetup(false, true));
-    map.put("SachetsPerRefill", new ColumnSetup(false, true));   
+    map.put("SachetsPerRefill", new ColumnSetup(false, true));
     map.put("Enabled", new ColumnSetup(false, true));
-    
+
     req.setAttribute("brandGrid", new ViewDataGrid(view, map, keys, data));
   }
-  
+
   private void setupNozzleGrid()
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     NozzleViewDTO view = new NozzleViewDTO(clientRequest);
     NozzleViewDTO[] data = NozzleViewDTO.getAll(clientRequest);
-    String[] keys = {"NozzleId", "DisplayLabel", "Ratio", "Enabled"};
+    String[] keys = { "NozzleId", "DisplayLabel", "Ratio", "Enabled" };
 
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("NozzleId", new ColumnSetup(true, false));
@@ -106,21 +105,21 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
     req.setAttribute("nozzleGrid", new ViewDataGrid(view, map, keys, data));
   }
-  
+
   private void setupConfigurationGrid()
   {
     ClientRequestIF clientRequest = this.getClientRequest();
-    
+
     InsecticideNozzleViewDTO view = new InsecticideNozzleViewDTO(clientRequest);
     InsecticideNozzleViewDTO[] data = InsecticideNozzleViewDTO.getAll(clientRequest);
-    String[] keys = {"InsecticideNozzleId", "ConfigurationDate", "Brand", "Nozzle", "Enabled"};
+    String[] keys = { "InsecticideNozzleId", "ConfigurationDate", "Brand", "Nozzle", "Enabled" };
 
     ColumnSetup brandSetup = new ColumnSetup(false, true, null, InsecticideBrandViewDTO.class.getName(), "getNozzleInsecticideBrands");
     ColumnSetup nozzleSetup = new ColumnSetup(false, true, null, NozzleViewDTO.class.getName(), "getAllActive");
-    
+
     brandSetup.setGetter("getBrandView");
     nozzleSetup.setGetter("getNozzleView");
-    
+
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("InsecticideNozzleId", new ColumnSetup(true, false));
     map.put("ConfigurationDate", new ColumnSetup(false, true));
@@ -129,7 +128,7 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
     map.put("Enabled", new ColumnSetup(false, true));
     map.put("BrandLabel", new ColumnSetup(true, false));
     map.put("NozzleLabel", new ColumnSetup(true, false));
-    
+
     req.setAttribute("configurationGrid", new ViewDataGrid(view, map, keys, data));
   }
 
@@ -148,17 +147,14 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
       view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -177,17 +173,14 @@ public class ApplicationRateController extends ApplicationRateControllerBase imp
 
       view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 

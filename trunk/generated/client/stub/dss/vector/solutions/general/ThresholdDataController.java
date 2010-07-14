@@ -99,28 +99,24 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
       String[] keys = getAttributeKeys(weeks);
       Map<String, ColumnSetup> map = getColumns(weeks, thresholdType);
-      
+
       req.setAttribute(ITEM, item);
       req.setAttribute(ITEMS, data);
-      req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));      
+      req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));
       req.setAttribute("season", season);
       req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
 
       render("viewComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failThresholdType = thresholdType != null ? thresholdType.toString() : "true";
-      this.failSearchForThresholdData(geoId, season, failThresholdType);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failThresholdType = thresholdType != null ? thresholdType.toString() : "true";
-      this.failSearchForThresholdData(geoId, season, failThresholdType);
+      if (!redirected)
+      {
+        String failThresholdType = thresholdType != null ? thresholdType.toString() : "true";
+        this.failSearchForThresholdData(geoId, season, failThresholdType);
+      }
     }
   }
 
@@ -260,7 +256,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
     req.setAttribute("thresholdCalculation", item);
     req.setAttribute("active", percentComplete != -1);
-    req.setAttribute("percentComplete", (percentComplete == null ? -1 : percentComplete.intValue()));
+    req.setAttribute("percentComplete", ( percentComplete == null ? -1 : percentComplete.intValue() ));
 
     render("editThresholdConfiguration.jsp");
   }

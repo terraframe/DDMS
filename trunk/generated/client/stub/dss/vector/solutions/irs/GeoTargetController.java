@@ -58,29 +58,26 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
       GeoTargetViewDTO[] data = GeoTargetViewDTO.getGeoTargetViews(clientRequest, geoEntity.getGeoId(), season);
 
       EpiDateDTO[] weeks = season.getEpiWeeks();
-      
+
       String[] keys = this.getKeys(weeks);
       Map<String, ColumnSetup> map = this.getColumns(weeks);
-      
+
       JSONObject calculated = this.getCalculatedTargets(data);
-      
+
       req.setAttribute("item", view);
       req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
       req.setAttribute("calculated", calculated);
-      
-      render("viewComponent.jsp");
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
 
-      this.viewAll();
+      render("viewComponent.jsp");
     }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.viewAll();
+      if (!redirected)
+      {
+        this.viewAll();
+      }
     }
   }
 
@@ -124,41 +121,41 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
   {
     resp.sendError(500);
   }
-  
+
   private String[] getKeys(EpiDateDTO[] weeks)
   {
     List<String> keys = new LinkedList<String>();
-    
+
     keys.add(GeoTargetViewDTO.TARGETID);
     keys.add(GeoTargetViewDTO.GEOENTITY);
     keys.add(GeoTargetViewDTO.ENTITYNAME);
     keys.add(GeoTargetViewDTO.SEASON);
-    
+
     for (EpiDateDTO week : weeks)
     {
       Integer numberOfWeeks = week.getNumberOfEpiWeeks();
       int index = ( week.getPeriod() % numberOfWeeks );
-      String key = GenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);      
+      String key = GenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
 
       keys.add(key);
     }
-    
+
     String[] array = keys.toArray(new String[keys.size()]);
-    
+
     this.upperFirstCharacter(array);
-    
+
     return array;
   }
-  
+
   private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks)
   {
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    
+
     map.put("TargetId", new ColumnSetup(true, false));
     map.put("GeoEntity", new ColumnSetup(true, false));
     map.put("EntityName", new ColumnSetup(false, false));
     map.put("Season", new ColumnSetup(true, false));
-    
+
     for (EpiDateDTO week : weeks)
     {
       String startDate = Halp.getFormatedDate(req, week.getStartDate());
@@ -179,20 +176,20 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
     }
 
     return map;
-  }  
-  
+  }
+
   private JSONObject getCalculatedTargets(GeoTargetViewDTO[] data) throws JSONException
   {
     JSONObject calcuatedTargets = new JSONObject();
-    
-    for(GeoTargetViewDTO geoTarget : data)
+
+    for (GeoTargetViewDTO geoTarget : data)
     {
-      calcuatedTargets.put(geoTarget.getGeoEntity().getId(), new JSONArray(Arrays.asList(geoTarget.getCalculatedTargets()))); 
+      calcuatedTargets.put(geoTarget.getGeoEntity().getId(), new JSONArray(Arrays.asList(geoTarget.getCalculatedTargets())));
     }
-    
+
     return calcuatedTargets;
   }
-  
+
   private void upperFirstCharacter(String[] array)
   {
     for (int i = 0; i < array.length; i++)

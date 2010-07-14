@@ -15,7 +15,6 @@ import org.apache.commons.fileupload.FileItemFactory;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.util.FileIO;
@@ -52,15 +51,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
     {
       this.view(PropertyDTO.get(this.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -94,17 +92,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
       this.newInstance();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -154,22 +149,34 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
   public void viewAll() throws IOException, ServletException
   {
-    new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
+    try
+    {
+      new RedirectUtility(req, resp).checkURL(this.getClass().getSimpleName(), "viewAll");
 
-    ClientRequestIF clientRequest = super.getClientRequest();
+      ClientRequestIF clientRequest = super.getClientRequest();
 
-    PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
-    DefaultGeoEntityQueryDTO query2 = DefaultGeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
+      PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
+      DefaultGeoEntityQueryDTO query2 = DefaultGeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
 
-    req.setAttribute("query", query);
-    req.setAttribute("query2", query2);
+      req.setAttribute("query", query);
+      req.setAttribute("query2", query2);
 
-    render("viewAllComponent.jsp");
+      render("viewAllComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failViewAll();
+      }
+    }
   }
 
   public void failViewAll() throws IOException, ServletException
   {
-    resp.sendError(500);
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   public void update(PropertyDTO dto) throws IOException, ServletException
@@ -180,17 +187,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       dto.apply();
       this.view(dto.getId());
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -207,17 +211,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
   }
 
@@ -228,20 +229,32 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
   public void newInstance() throws IOException, ServletException
   {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    /*
-     * PropertyDTO dto = new PropertyDTO(clientRequest);
-     */
-    PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+      /*
+       * PropertyDTO dto = new PropertyDTO(clientRequest);
+       */
+      PropertyDTO dto = PropertyDTO.getByPackageAndName(clientRequest, PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
-    req.setAttribute("item", dto);
-    req.setAttribute("configuration", new EpiConfigurationDTO(clientRequest));
-    render("epiWeekComponent.jsp");
+      req.setAttribute("item", dto);
+      req.setAttribute("configuration", new EpiConfigurationDTO(clientRequest));
+      render("epiWeekComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
+    }
   }
 
   public void failNewInstance() throws IOException, ServletException
   {
-    this.viewAll();
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   @Override
@@ -253,17 +266,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
       render("editFlagComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEditFlag();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEditFlag();
+      if (!redirected)
+      {
+        this.failEditFlag();
+      }
     }
   }
 
@@ -309,17 +319,14 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
       this.editFlag();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSetFlag();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSetFlag();
+      if (!redirected)
+      {
+        this.failSetFlag();
+      }
     }
   }
 

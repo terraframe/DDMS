@@ -36,7 +36,8 @@ public class ExcelExportServlet extends HttpServlet implements Reloadable
     }
     catch (Exception e)
     {
-      ErrorUtility.prepareThrowable(e, req);
+      ErrorUtility.prepareThrowable(e, req, res, false);
+      
       req.getRequestDispatcher("/WEB-INF/excelExportFail.jsp").forward(req, res);
 //      req.getRequestDispatcher(req.getHeader("referer")).forward(req, res);
     }

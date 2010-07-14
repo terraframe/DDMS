@@ -1,0 +1,25 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.permission.MDSSRole">
+        <create>
+          <mdMethod
+            name="getAssignableRoles"
+            label="Get Assignable Roles"
+            static="true"
+            returnType="com.runwaysdk.system.Roles[]" />
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.permission.MDSSRole.getAssignableRoles"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

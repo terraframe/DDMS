@@ -104,15 +104,14 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
       render("viewInfectionComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failGetInfectionAssays(collectionId);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failGetInfectionAssays(collectionId);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failGetInfectionAssays(collectionId);
+      }
     }
   }
 
@@ -274,15 +273,14 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
       render("viewMechanismComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failGetMechanismAssays(collectionId);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failGetMechanismAssays(collectionId);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failGetMechanismAssays(collectionId);
+      }
     }
   }
 
@@ -337,9 +335,9 @@ public class AssayController extends AssayControllerBase implements Reloadable
     }
     catch (Throwable t)
     {
-      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      if (!redirect)
+      if (!redirected)
       {
         this.failGetResistanceAssays(collectionId);
       }

@@ -2,9 +2,6 @@ package dss.vector.solutions.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
@@ -149,7 +146,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
     return builder.toString();
   }
-  
+
   public static String loadTypes(String[] types)
   {
     return Halp.loadTypes(Arrays.asList(types));
@@ -284,7 +281,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
   {
     return label + "^^^^" + value;
   }
-  
+
   private static JSONObject getLabeledPair(String label, String value)
   {
     JSONObject object = new JSONObject();
@@ -471,7 +468,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
   public static String getColumnSetup(ViewDTO view, String[] attributes, String extra_rows, boolean autoload, Map<String, ColumnSetup> map) throws JSONException
   {
     ViewDataGrid grid = new ViewDataGrid(view, map, attributes, new ViewDTO[0]);
-    
+
     return grid.getColumnSetup(extra_rows);
   }
 
@@ -561,32 +558,13 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
   // This renders a jsp to a string, usefull for emails and inside out
   // rendering
-  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render)
+  public static String renderJspToString(HttpServletRequest request, HttpServletResponse response, String jsp_to_render) throws ServletException, IOException
   {
     // we are rendering inside out, so we have to set the date format here,
     // because the header has not been rendered yet.
     Halp.getDateFormatString(request);
 
-    try
-    {
-      return renderJspToByteArray(request, response, jsp_to_render).toString("UTF-8");
-    }
-    catch (Exception exception)
-    {
-      exception.printStackTrace(System.out);
-      String text = "<pre> ";
-      text += request.getAttribute("javax.servlet.forward.request_uri") + "\n\n";
-      text += "Error in class: ";
-      text += exception.getClass().getName() + "\n\n";
-      text += exception.getLocalizedMessage() + "\n\n";
-      text += request.getQueryString() + "\n\n";
-      final Writer result = new StringWriter();
-      final PrintWriter printWriter = new PrintWriter(result);
-      exception.printStackTrace(printWriter);
-      text += result.toString() + "\n\n</pre>";
-
-      return text;
-    }
+    return renderJspToByteArray(request, response, jsp_to_render).toString("UTF-8");
   }
 
   public static String getDefaultValues(ViewDTO view, String[] keys)

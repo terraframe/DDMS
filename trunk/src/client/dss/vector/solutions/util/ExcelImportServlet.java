@@ -147,17 +147,13 @@ public class ExcelImportServlet extends HttpServlet
         }
       }
     }
-    catch (ProblemExceptionDTO p)
-    {
-      ErrorUtility.prepareProblems(p, req);
-    }
     catch (InvocationTargetException e)
     {
-      ErrorUtility.prepareThrowable(e.getTargetException(), req);
+      ErrorUtility.prepareThrowable(e.getTargetException(), req, res, false);
     }
     catch (Exception e)
     {
-      ErrorUtility.prepareThrowable(e, req);
+      ErrorUtility.prepareThrowable(e, req, res, false);
     }
 
     if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)

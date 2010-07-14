@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -38,17 +37,14 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       ClientRequestIF clientRequest = super.getClientRequest();
       renderCreate(clientRequest, new SprayTeamDTO(clientRequest));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
   }
 
@@ -62,13 +58,9 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       this.view(team.getId());
       return;
     }
-    catch (ProblemExceptionDTO p)
-    {
-      ErrorUtility.prepareProblems(p, req);
-    }
     catch (Exception e)
     {
-      ErrorUtility.prepareThrowable(e, req);
+      ErrorUtility.prepareThrowable(e, req, resp, this.isAsynchronous());
     }
 
     req.setAttribute("leaderId", leaderId);
@@ -170,17 +162,14 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -195,13 +184,9 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
 
       return;
     }
-    catch (ProblemExceptionDTO p)
-    {
-      ErrorUtility.prepareProblems(p, req);
-    }
     catch (Exception e)
     {
-      ErrorUtility.prepareThrowable(e, req);
+      ErrorUtility.prepareThrowable(e, req, resp, this.isAsynchronous());
     }
 
     req.setAttribute("leaderId", leaderId);
@@ -309,15 +294,14 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       SprayTeamDTO sprayTeamDTO = SprayTeamDTO.get(clientRequest, id);
       renderView(sprayTeamDTO);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }
@@ -362,17 +346,14 @@ public class SprayTeamController extends SprayTeamControllerBase implements Relo
       dto.delete();
       this.viewAll();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 

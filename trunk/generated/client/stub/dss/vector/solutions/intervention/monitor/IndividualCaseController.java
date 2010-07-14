@@ -70,7 +70,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
         individualCase.setDiagnosisDate(diagnosisDate);
         individualCase.setCaseReportDate(caseReportDate);
-        
+
         renderCreate(individualCase, personId);
       }
       else
@@ -98,24 +98,30 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     if (diagnosisDate == null)
     {
       problems.add(new RequiredDiagnosisDateProblemDTO(clientRequest, req.getLocale()));
-    } else {
-        if (personId != null) {
-      	  PersonDTO person = PersonDTO.get(clientRequest, personId);
-      	  if (person != null && diagnosisDate.before(person.getDateOfBirth())) {
-      	  
-      	  // we need an instance of IndividualCase to use its metadata display labels,
-      	  // but this should be replaced with calls to static metadata accessors.
-      	  String attrDL = new IndividualCaseDTO(clientRequest).getDiagnosisDateMd().getDisplayLabel();
-      	    
-      		RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
-      		problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
-      		problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
-      		problem.setAttributeDisplayLabel(attrDL);
-      		problem.setRelation(MDSSProperties.getString("Compare_AE"));
-      		problem.setRelativeAttributeLabel(person.getDateOfBirthMd().getDisplayLabel());
-      		problems.add(problem);
-      	  }
+    }
+    else
+    {
+      if (personId != null)
+      {
+        PersonDTO person = PersonDTO.get(clientRequest, personId);
+        if (person != null && diagnosisDate.before(person.getDateOfBirth()))
+        {
+
+          // we need an instance of IndividualCase to use its metadata display
+          // labels,
+          // but this should be replaced with calls to static metadata
+          // accessors.
+          String attrDL = new IndividualCaseDTO(clientRequest).getDiagnosisDateMd().getDisplayLabel();
+
+          RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
+          problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
+          problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
+          problem.setAttributeDisplayLabel(attrDL);
+          problem.setRelation(MDSSProperties.getString("Compare_AE"));
+          problem.setRelativeAttributeLabel(person.getDateOfBirthMd().getDisplayLabel());
+          problems.add(problem);
         }
+      }
     }
 
     if (problems.size() > 0)
@@ -140,7 +146,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     PersonViewDTO person = PersonDTO.getView(clientRequest, personId);
     individualCase.setResidenceText(AttributeUtil.getString(PersonViewDTO.RESIDENTIALINFORMATION, person));
     individualCase.setWorkplaceText(AttributeUtil.getString(PersonViewDTO.WORKINFORMATION, person));
-    
+
     // Case stuff
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
@@ -148,7 +154,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     req.setAttribute("personId", personId);
 
     // Instance Stuff
-    req.setAttribute("item", dto);    
+    req.setAttribute("item", dto);
     req.setAttribute("healthFacility", AttributeUtil.getValue(IndividualInstanceDTO.HEALTHFACILITY, dto));
     req.setAttribute("diagnosisType", DiagnosisTypeDTO.allItems(clientRequest));
     req.setAttribute("symptoms", Arrays.asList(symptoms));
@@ -203,15 +209,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     {
       renderView(IndividualCaseDTO.get(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -244,15 +249,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
       this.newInstance();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -268,15 +272,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
       IndividualCaseDTO dto = IndividualCaseDTO.lock(super.getClientRequest(), id);
       renderEdit(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failEdit(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
   }
 
@@ -325,15 +328,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
       this.view(dto.getId());
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -350,17 +352,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
       IndividualCaseViewDTO dto = new IndividualCaseViewDTO(clientRequest);
       renderSearch(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
   }
 
@@ -368,9 +367,9 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
   {
     req.setAttribute("item", dto);
     req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
-                                                                            // this
-                                                                            // for
-                                                                            // labels
+    // this
+    // for
+    // labels
     render("searchComponent.jsp");
   }
 
@@ -391,15 +390,14 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
       renderView(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto, personId, instance, symptoms);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto, personId, instance, symptoms);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto, personId, instance, symptoms);
+      }
     }
   }
 

@@ -120,21 +120,16 @@ public class StockEventController extends StockEventControllerBase implements co
 
       searchByParameters(geoId, item, date, EventOptionDTO.STOCK_IN);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
-
-      this.failSearchInStock(geoId, item, failDate);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
+      if (!redirected)
+      {
+        String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
 
-      this.failSearchInStock(geoId, item, failDate);
+        this.failSearchInStock(geoId, item, failDate);
+      }
     }
   }
 
@@ -155,21 +150,16 @@ public class StockEventController extends StockEventControllerBase implements co
 
       searchByParameters(geoId, item, date, EventOptionDTO.STOCK_OUT);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
-
-      this.failSearchInStock(geoId, item, failDate);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
+      if (!redirected)
+      {
+        String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
 
-      this.failSearchInStock(geoId, item, failDate);
+        this.failSearchInStock(geoId, item, failDate);
+      }
     }
   }
 
@@ -195,7 +185,7 @@ public class StockEventController extends StockEventControllerBase implements co
     this.req.setAttribute("term", item);
     this.req.setAttribute("date", new DefaultConverter(Date.class).format(date, req.getLocale()));
 
-    String[] keys = {"ConcreteId", "StockDepot", "Staff", "StaffLabel", "OtherParty", "EventDate", "Item", "TransactionType", "ItemLabel", "AvailableStock", "Quantity", "Cost"};
+    String[] keys = { "ConcreteId", "StockDepot", "Staff", "StaffLabel", "OtherParty", "EventDate", "Item", "TransactionType", "ItemLabel", "AvailableStock", "Quantity", "Cost" };
 
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("ConcreteId", new ColumnSetup(true, false));
@@ -210,9 +200,9 @@ public class StockEventController extends StockEventControllerBase implements co
     map.put("AvailableStock", new ColumnSetup(false, false));
     map.put("Quantity", new ColumnSetup(false, true));
     map.put("Cost", new ColumnSetup(false, true));
-    
+
     StockEventViewDTO view = new StockEventViewDTO(request);
-    
+
     this.req.setAttribute(ITEM, view);
     this.req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
     this.req.setAttribute("staff", Arrays.asList(staff));
@@ -293,23 +283,17 @@ public class StockEventController extends StockEventControllerBase implements co
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
-      String failEndDate = new DefaultConverter(Date.class).format(endDate, req.getLocale());
-
-      this.failSearchPage(geoId, item, failDate, failEndDate);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
-      String failEndDate = new DefaultConverter(Date.class).format(endDate, req.getLocale());
+      if (!redirected)
+      {
+        String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
+        String failEndDate = new DefaultConverter(Date.class).format(endDate, req.getLocale());
 
-      this.failSearchPage(geoId, item, failDate, failEndDate);
+        this.failSearchPage(geoId, item, failDate, failEndDate);
+      }
     }
   }
 

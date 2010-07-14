@@ -7,14 +7,11 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.system.RolesDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.permission.MDSSRoleDTO;
-import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
-import dss.vector.solutions.surveillance.AggregatedAgeGroupQueryDTO;
 
 public class ReadableAttributeController extends ReadableAttributeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -30,32 +27,53 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   @Override
   public void getUniversal(String actor) throws IOException, ServletException
   {
-    if (actor == null)
+    try
     {
-      actor = MDSSRoleInfo.GUI_VISIBILITY;
-    }
-
-    ClientRequestIF clientRequest = super.getClientRequest();
-    
-    List<RolesDTO> roles = new LinkedList<RolesDTO>();
-    
-    RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
-    RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
-    
-    RolesDTO[][] allRoles = new RolesDTO[][]{systemRoles, mdssRoles};
-    
-    for(int i = 0; i < allRoles.length; i++)
-    {
-      for(int j = 0; j < allRoles[i].length; j++)
+      // Ensure the user has permissions to read this page
+      new ReadableAttributeViewDTO(getClientRequest());
+      
+      if (actor == null)
       {
-        roles.add(allRoles[i][j]);
+        actor = MDSSRoleInfo.GUI_VISIBILITY;
+      }
+
+      ClientRequestIF clientRequest = super.getClientRequest();
+
+      List<RolesDTO> roles = new LinkedList<RolesDTO>();
+
+      RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
+      RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
+
+      RolesDTO[][] allRoles = new RolesDTO[][] { systemRoles, mdssRoles };
+
+      for (int i = 0; i < allRoles.length; i++)
+      {
+        for (int j = 0; j < allRoles[i].length; j++)
+        {
+          roles.add(allRoles[i][j]);
+        }
+      }
+
+      req.setAttribute("actor", actor);
+      req.setAttribute("actorOptions", roles);
+
+      render("selectUniversal.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failGetUniversal(actor);
       }
     }
-
-    req.setAttribute("actor", actor);
-    req.setAttribute("actorOptions", roles);
-
-    render("selectUniversal.jsp");
+  }
+  
+  @Override
+  public void failGetUniversal(String actor) throws IOException, ServletException
+  {
+    this.req.getRequestDispatcher("/index").forward(this.req, this.resp);
   }
 
   @Override
@@ -67,22 +85,21 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       utility.put("universal", universal);
       utility.put("actor", actor);
       utility.checkURL(this.getClass().getSimpleName(), "getAttributes");
-      
+
       ReadableAttributeViewDTO[] attributeViews = ReadableAttributeViewDTO.getActorAttributes(super.getClientRequest(), universal, actor);
       req.setAttribute("views", Arrays.asList(attributeViews));
       req.setAttribute("universal", universal);
       req.setAttribute("actor", actor);
       render("view.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.forceProblems(e, req);
-      this.failGetAttributes(universal, actor);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failGetAttributes(universal, actor);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failGetAttributes(universal, actor);
+      }
     }
   }
 
@@ -100,18 +117,17 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       ReadableAttributeViewDTO.setActorAttributes(super.getClientRequest(), universal, actor, attributeViews);
       render("success.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.forceProblems(e, req);
-      this.failSetAttributes(universal, actor, attributeViews);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failSetAttributes(universal, actor, attributeViews);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failSetAttributes(universal, actor, attributeViews);
+      }
     }
   }
-  
+
   @Override
   public void failSetAttributes(String universal, String actor, ReadableAttributeViewDTO[] attributeViews) throws IOException, ServletException
   {

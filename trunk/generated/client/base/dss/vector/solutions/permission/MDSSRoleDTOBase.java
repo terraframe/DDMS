@@ -1,10 +1,10 @@
 package dss.vector.solutions.permission;
 
-@com.runwaysdk.business.ClassSignature(hash = 1128088761)
+@com.runwaysdk.business.ClassSignature(hash = 1977102795)
 public abstract class MDSSRoleDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.permission.MDSSRole";
-  private static final long serialVersionUID = 1128088761;
+  private static final long serialVersionUID = 1977102795;
   
   protected MDSSRoleDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -403,6 +403,14 @@ public abstract class MDSSRoleDTOBase extends com.runwaysdk.business.BusinessDTO
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public static final com.runwaysdk.system.RolesDTO[] getAssignableRoles(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.permission.MDSSRoleDTO.CLASS, "getAssignableRoles", _declaredTypes);
+    return (com.runwaysdk.system.RolesDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.RolesDTO[] getRoles(com.runwaysdk.constants.ClientRequestIF clientRequest)

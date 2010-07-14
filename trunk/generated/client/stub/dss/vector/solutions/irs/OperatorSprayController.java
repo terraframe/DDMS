@@ -43,17 +43,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -73,17 +70,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -101,15 +95,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     {
       this.view(OperatorSprayDTO.getView(this.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -124,7 +117,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     InsecticideBrandDTO brand = dto.getBrand();
 
     this.setupReferences(dto);
-    
+
     req.setAttribute("grid", this.getGrid(dto, request));
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("item", dto);
@@ -138,22 +131,21 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
     view.setValue(HouseholdSprayStatusViewDTO.SPRAY, dto.getConcreteId());
 
     HouseholdSprayStatusViewDTO[] data = dto.getStatus();
-    
-    // If the order of these attributes are changed, you need to change the javascript indexes at the bottom!
-    String[] keys = {"ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures",
-         "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures",
-         "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other"};
+
+    // If the order of these attributes are changed, you need to change the
+    // javascript indexes at the bottom!
+    String[] keys = { "ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures", "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures", "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other" };
 
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("ConcreteId", new ColumnSetup(true, false));
     map.put("Spray", new ColumnSetup(true, false));
-    map.put("Households", new ColumnSetup(true, false));    
+    map.put("Households", new ColumnSetup(true, false));
     map.put("Structures", new ColumnSetup(true, false));
-    map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
-    map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));    
-    map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));    
+    map.put("SprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));
+    map.put("SprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));
+    map.put("PrevSprayedHouseholds", new ColumnSetup(false, true, "validateValue", null, null));
     map.put("PrevSprayedStructures", new ColumnSetup(false, true, "validateValue", null, null));
-    
+
     return new ViewDataGrid(view, map, keys, data);
   }
 
@@ -179,17 +171,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
   }
 
@@ -228,17 +217,14 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
       this.search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -310,21 +296,16 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
         render("createComponent.jsp");
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = ( date == null ? null : date.toString() );
-
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, teamId, operator);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDate = ( date == null ? null : date.toString() );
+      if (!redirected)
+      {
+        String failDate = ( date == null ? null : date.toString() );
 
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, teamId, operator);
+        this.failSearchByParameters(brand, geoId, failDate, sprayMethod, teamId, operator);
+      }
     }
   }
 

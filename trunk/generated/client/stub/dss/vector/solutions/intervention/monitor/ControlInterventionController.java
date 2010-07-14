@@ -9,7 +9,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 
 import dss.vector.solutions.entomology.PupalCollectionViewDTO;
@@ -46,15 +45,14 @@ public class ControlInterventionController extends ControlInterventionController
 
       view(ControlInterventionDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }
@@ -311,7 +309,7 @@ public class ControlInterventionController extends ControlInterventionController
   {
     this.view(view);
   }
-  
+
   @Override
   public void getInsecticideIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
   {
@@ -336,22 +334,22 @@ public class ControlInterventionController extends ControlInterventionController
       }
     }
   }
-  
+
   @Override
   public void failGetInsecticideIntervention(ControlInterventionViewDTO view) throws IOException, ServletException
   {
     this.view(view);
   }
-  
+
   @Override
   public void exportExcelTemplate() throws IOException, ServletException
   {
     try
     {
       ClientRequestIF clientRequest = this.getClientRequest();
-      
+
       InputStream stream = FacadeDTO.exportControlIntervention(clientRequest);
-      
+
       FileDownloadUtil.writeXLS(resp, "ControlInterventionExcelView", stream);
     }
     catch (Throwable t)

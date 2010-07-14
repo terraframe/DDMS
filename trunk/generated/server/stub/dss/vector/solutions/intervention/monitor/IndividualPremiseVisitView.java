@@ -14,7 +14,6 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.surveillance.SortedGridComparator;
 
 public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase implements com.runwaysdk.generation.loader.Reloadable

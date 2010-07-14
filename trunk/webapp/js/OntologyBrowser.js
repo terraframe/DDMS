@@ -1,3 +1,4 @@
+
 // FIXME put focus on search text when browser opens
 // FIXME have enter keypress fire save event on browser
 
@@ -20,7 +21,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       // map of termId, termName
       this._cache = {};
       
-      // map of termId to its children 
+      // map of termId to its children
       this._childCache = {};
       
       // temporary cache of TermViews while a search is being performed
@@ -109,8 +110,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
     
     /**
-     * Puts focus on the search input and clears any previous value.
-     */
+   * Puts focus on the search input and clears any previous value.
+   */
     _focusSearch : function()
     {
       var search = document.getElementById(this._searchInput);
@@ -124,9 +125,9 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
     
     /**
-     * Sets the content of the main pane with a list of items
-     * that map to the given TermView objects.
-     */
+   * Sets the content of the main pane with a list of items that map to the
+   * given TermView objects.
+   */
     _setContent : function(views)
     {
       // new content is being added so clear prior parent term ids.
@@ -143,11 +144,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
 
     /**
-     * Fetches and populates the root nodes for the ontology browser.
-     * If no restricting class and attribute are specified then the
-     * system-wide default roots are returned (terms that are never
-     * children in a relationship).
-     */
+   * Fetches and populates the root nodes for the ontology browser. If no
+   * restricting class and attribute are specified then the system-wide
+   * default roots are returned (terms that are never children in a
+   * relationship).
+   */
     _getRootContent : function()
     {
       var cached = this._getCachedChildren(this._ROOT);
@@ -254,7 +255,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       if(this._selection[termId])
       {
         // term has already been added
-        this.hide();
+        if(!this.isMultiSelect())
+        {
+          this.hide();
+        }
+        
         return;
       }
       
@@ -284,7 +289,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       if(!this.isMultiSelect())
       {
-        //this._save();
+        // this._save();
       }      
     },
     
@@ -323,9 +328,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
     
     /**
-     * Adds an individual Term as the last child
-     * of the selection list.
-     */
+   * Adds an individual Term as the last child of the selection list.
+   */
     _getSelectionLi : function(termId)
     {
       var term = this._cacheGet(termId);
@@ -406,7 +410,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       html += '  </div>';
       html += '  <div class="browserBreadcrumbs autosize">';
       html += '    <div>'; // wrapper div for auto-sizing
-      html += '    <div class="browserResizeRestrict">'; // restricts auto-sizing
+      html += '    <div class="browserResizeRestrict">'; // restricts
+                              // auto-sizing
       html += '    <ul class="breadcrumbsNav" id="'+this._breadcrumbId+'">';
       html += this._getBreadcrumbs();
       html += '    </ul>';
@@ -529,11 +534,10 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
     
     /**
-     * Resets the browser to its default state, meaning
-     * the breadcrumbs will go back to root, the default
-     * roots will be displayed, and no terms will be shown
-     * as selected.
-     */
+   * Resets the browser to its default state, meaning the breadcrumbs will go
+   * back to root, the default roots will be displayed, and no terms will be
+   * shown as selected.
+   */
     reset : function()
     {
       this._breadcrumbs = this._breadcrumbs.slice(0, 1);
@@ -543,9 +547,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     },
     
     /**
-     * Sets the currently selected Term(s) by providing
-     * an array of term ids.
-     */
+   * Sets the currently selected Term(s) by providing an array of term ids.
+   */
     setSelection : function(termIds)
     {
       var toFetch = [];
@@ -786,7 +789,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       return label;
     },
     
-    // Extracts the term name from the display created with formatLabelFromView()
+    // Extracts the term name from the display created with
+  // formatLabelFromView()
     extractName : function(html)
     {
       html = Mojo.Util.trim(html);
@@ -1099,7 +1103,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
     
     addSelection : function(label, id)
     {
-      //IMPORTANT: Must check that this id is not already being displayed
+      // IMPORTANT: Must check that this id is not already being displayed
       if(this.map[id] == null)
       {
         var resultEl = document.getElementById(this.attributeName + 'ResultList');        
@@ -1170,8 +1174,8 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
 });
 
 /**
- * Custom BaseCellEditor subclass to spawn an ontology browser instance
- * when a user clicks on a cell that needs to select terms.
+ * Custom BaseCellEditor subclass to spawn an ontology browser instance when a
+ * user clicks on a cell that needs to select terms.
  */
 YAHOO.widget.OntologyTermEditor = function(oConfigs) {
     this._sId = Mojo.Util.generateId();
@@ -1181,7 +1185,12 @@ YAHOO.widget.OntologyTermEditor = function(oConfigs) {
     
     var attributeName = this._attribute.substring(0,1).toLowerCase() + this._attribute.substring(1);
     
-    this._browser = new MDSS.OntologyBrowser(false , this._klass, attributeName ); // FIXME pass in klass + attribute
+    this._browser = new MDSS.OntologyBrowser(false , this._klass, attributeName ); // FIXME
+                                          // pass
+                                          // in
+                                          // klass
+                                          // +
+                                          // attribute
     this._browser.setHandler(this._setSelected, this);
     this._lastSelected = null;
     
@@ -1201,7 +1210,7 @@ _setSelected : function(views)
 
 /**
  * Render a form with select element.
- *
+ * 
  * @method renderForm
  */
 renderForm : function() {
@@ -1210,9 +1219,9 @@ renderForm : function() {
 },
 
 /**
- * After rendering form, if disabledBtns is set to true, then sets up a mechanism
- * to save input without them. 
- *
+ * After rendering form, if disabledBtns is set to true, then sets up a
+ * mechanism to save input without them.
+ * 
  * @method handleDisabledBtns
  */
 handleDisabledBtns : function() {
@@ -1220,7 +1229,7 @@ handleDisabledBtns : function() {
 
 /**
  * Resets OntologyTermEditor UI to initial state.
- *
+ * 
  * @method resetForm
  */
 resetForm : function() {
@@ -1230,7 +1239,7 @@ resetForm : function() {
 
 /**
  * Sets focus in OntologyTermEditor.
- *
+ * 
  * @method focus
  */
 focus : function() {
@@ -1266,7 +1275,7 @@ focus : function() {
 
 /**
  * Retrieves input value from OntologyTermEditor.
- *
+ * 
  * @method getInputValue
  */
 getInputValue : function() {

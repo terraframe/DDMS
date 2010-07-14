@@ -1,17 +1,20 @@
 package dss.vector.solutions.geo.generated;
 
+import dss.vector.solutions.util.ErrorUtility;
+
 public class GeoEntityController extends GeoEntityControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR = "WEB-INF/dss/vector/solutions/geo/generated/GeoEntity/";
-  public static final String LAYOUT = "/layout.jsp";
-  
-  private static final long serialVersionUID = 1255627160683L;
-  
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/geo/generated/GeoEntity/";
+
+  public static final String LAYOUT           = "/layout.jsp";
+
+  private static final long  serialVersionUID = 1255627160683L;
+
   public GeoEntityController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   public void update(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -19,23 +22,24 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.runwaysdk.ProblemExceptionDTO e)
+    catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
+
   public void failUpdate(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("term", dto.getTerm());
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+
   public void view(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.util.RedirectUtility utility = new dss.vector.solutions.util.RedirectUtility(req, resp);
@@ -47,10 +51,12 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
+
   public void failView(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.viewAll();
   }
+
   public void viewPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -58,10 +64,12 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
+
   public void failViewPage(java.lang.String sortAttribute, java.lang.String isAscending, java.lang.String pageSize, java.lang.String pageNumber) throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+
   public void viewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     com.runwaysdk.constants.ClientRequestIF clientRequest = super.getClientRequest();
@@ -69,10 +77,12 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }
+
   public void failViewAll() throws java.io.IOException, javax.servlet.ServletException
   {
     resp.sendError(500);
   }
+
   public void edit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     dss.vector.solutions.geo.generated.GeoEntityDTO dto = dss.vector.solutions.geo.generated.GeoEntityDTO.lock(super.getClientRequest(), id);
@@ -80,19 +90,23 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
     req.setAttribute("item", dto);
     render("editComponent.jsp");
   }
+
   public void failEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
   {
     this.view(id);
   }
+
   public void cancel(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     dto.unlock();
     this.view(dto.getId());
   }
+
   public void failCancel(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     this.edit(dto.getId());
   }
+
   public void create(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -100,23 +114,24 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       dto.apply();
       this.view(dto.getId());
     }
-    catch(com.runwaysdk.ProblemExceptionDTO e)
+    catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
+
   public void failCreate(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("term", dto.getTerm());
     req.setAttribute("item", dto);
     render("createComponent.jsp");
   }
+
   public void delete(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     try
@@ -124,17 +139,17 @@ public class GeoEntityController extends GeoEntityControllerBase implements com.
       dto.delete();
       this.viewAll();
     }
-    catch(com.runwaysdk.ProblemExceptionDTO e)
+    catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
-    catch(java.lang.Throwable t)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
+
   public void failDelete(dss.vector.solutions.geo.generated.GeoEntityDTO dto) throws java.io.IOException, javax.servlet.ServletException
   {
     req.setAttribute("term", dto.getTerm());

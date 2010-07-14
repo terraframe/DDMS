@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.ClientSession;
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -56,33 +55,30 @@ public class LoginController extends LoginControllerBase implements Reloadable
       GlobalSessionListener globalSessionListener = new GlobalSessionListener(clientSession.getSessionId());
       globalSessionListener.setCookie(this.getResponse());
       req.getSession().setAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER, globalSessionListener);
-      
+
       DiseaseDTO.setCurrentDimension(clientRequest);
-            
+
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
-            
-      req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
-      Map<String,String> menus = new HashMap<String,String>();
-      menus.put(mdss.getDiseaseName(), DiseaseDTO.getMenuJson(this.getClientRequest()));
-      req.getSession().setAttribute("menus" , menus);
-      
-      req.getRequestDispatcher("index.jsp").forward(req, resp);
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
 
-      this.failLogin(username, password);
+      req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
+      Map<String, String> menus = new HashMap<String, String>();
+      menus.put(mdss.getDiseaseName(), DiseaseDTO.getMenuJson(this.getClientRequest()));
+      req.getSession().setAttribute("menus", menus);
+
+      req.getRequestDispatcher("index.jsp").forward(req, resp);
     }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failLogin(username, password);
+      if (!redirected)
+      {
+        this.failLogin(username, password);
+      }
     }
   }
-  
+
   @Override
   public void failLogin(String username, String password) throws IOException, ServletException
   {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.permission;
 
-@com.runwaysdk.business.ClassSignature(hash = -1278696647)
+@com.runwaysdk.business.ClassSignature(hash = -2143591605)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,7 +24,7 @@ public abstract class MDSSRoleBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1278696647;
+  private static final long serialVersionUID = -2143591605;
   
   public MDSSRoleBase()
   {
@@ -349,6 +349,12 @@ public abstract class MDSSRoleBase extends com.runwaysdk.business.Business imple
   public static MDSSRole getByKey(String key)
   {
     return (MDSSRole) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static com.runwaysdk.system.Roles[] getAssignableRoles()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.permission.MDSSRole.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static com.runwaysdk.system.Roles[] getRoles()

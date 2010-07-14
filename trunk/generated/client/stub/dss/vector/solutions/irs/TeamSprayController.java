@@ -43,17 +43,14 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -104,17 +101,14 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -131,15 +125,14 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     {
       this.view(TeamSprayDTO.getView(this.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -153,7 +146,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
     InsecticideBrandDTO brand = dto.getBrand();
 
     this.setupReferences(dto);
-    
+
     req.setAttribute("brand", InsecticideBrandDTO.getView(request, brand.getId()));
     req.setAttribute("item", dto);
     req.setAttribute("operators", this.buildOperatorsMap(dto));
@@ -203,17 +196,14 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -308,21 +298,16 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
         render("createComponent.jsp");
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failDate = ( date == null ? null : date.toString() );
-
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, team);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failDate = ( date == null ? null : date.toString() );
+      if (!redirected)
+      {
+        String failDate = ( date == null ? null : date.toString() );
 
-      this.failSearchByParameters(brand, geoId, failDate, sprayMethod, team);
+        this.failSearchByParameters(brand, geoId, failDate, sprayMethod, team);
+      }
     }
   }
 

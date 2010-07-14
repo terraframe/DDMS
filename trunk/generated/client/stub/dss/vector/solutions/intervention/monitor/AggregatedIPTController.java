@@ -64,17 +64,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       }
 
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchByView(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSearchByView(dto);
+      if (!redirected)
+      {
+        this.failSearchByView(dto);
+      }
     }
   }
 
@@ -124,23 +121,17 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       }
 
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String failPeriod = period == null ? null : period.toString();
-      String failYear = year == null ? null : year.toString();
-
-      this.failSearchByGeoIdAndPeriod(geoId, periodType, failPeriod, failYear);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String failPeriod = period == null ? null : period.toString();
-      String failYear = year == null ? null : year.toString();
+      if (!redirected)
+      {
+        String failPeriod = period == null ? null : period.toString();
+        String failYear = year == null ? null : year.toString();
 
-      this.failSearchByGeoIdAndPeriod(geoId, periodType, failPeriod, failYear);
+        this.failSearchByGeoIdAndPeriod(geoId, periodType, failPeriod, failYear);
+      }
     }
 
   }
@@ -215,17 +206,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       req.setAttribute("item", dto);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -249,17 +237,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance();
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance();
+      if (!redirected)
+      {
+        this.failNewInstance();
+      }
     }
   }
 
@@ -296,15 +281,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
     {
       this.view(AggregatedIPTDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
 
   }
@@ -332,17 +316,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       dto.deleteConcrete();
       this.search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -360,17 +341,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       dto.applyAll(patients, visits, doses, treatments);
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto, patients, visits, doses, treatments);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto, patients, visits, doses, treatments);
+      if (!redirected)
+      {
+        this.failUpdate(dto, patients, visits, doses, treatments);
+      }
     }
   }
 
@@ -388,17 +366,14 @@ public class AggregatedIPTController extends AggregatedIPTControllerBase impleme
       dto.applyAll(patients, visits, doses, treatments);
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto, patients, visits, doses, treatments);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto, patients, visits, doses, treatments);
+      if (!redirected)
+      {
+        this.failCreate(dto, patients, visits, doses, treatments);
+      }
     }
   }
 

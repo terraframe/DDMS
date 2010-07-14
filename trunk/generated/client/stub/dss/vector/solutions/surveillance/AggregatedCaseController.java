@@ -42,17 +42,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreate(dto);
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -80,17 +77,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failUpdate(dto);
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -130,17 +124,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       dto.deleteConcrete();
       this.search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failDelete(dto);
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -160,17 +151,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
       req.setAttribute("item", view);
       render("editComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -186,15 +174,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     {
       this.view(AggregatedCaseDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -264,17 +251,14 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
         render("editComponent.jsp");
       }
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchByView(view);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSearchByView(view);
+      if (!redirected)
+      {
+        this.failSearchByView(view);
+      }
     }
   }
 
@@ -327,16 +311,16 @@ public class AggregatedCaseController extends AggregatedCaseControllerBase imple
     // This should never occur
     super.failSearch();
   }
-  
+
   @Override
   public void exportExcelTemplate() throws IOException, ServletException
   {
     try
     {
       ClientRequestIF clientRequest = this.getClientRequest();
-      
+
       InputStream stream = FacadeDTO.exportAggregatedCases(clientRequest);
-      
+
       FileDownloadUtil.writeXLS(resp, "AggregatedCaseExcelView", stream);
     }
     catch (Throwable t)

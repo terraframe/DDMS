@@ -7,13 +7,11 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.system.RolesDTO;
 
 import dss.vector.solutions.permission.MDSSRoleDTO;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class RoleController extends RoleControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -56,20 +54,11 @@ public class RoleController extends RoleControllerBase implements com.runwaysdk.
       MDSSUserDTO userDTO = MDSSUserDTO.get(clientRequest, id);
 
       // Start by assuming that the user has no roles
-      RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
-      List<RolesDTO> roles = new LinkedList<RolesDTO>(Arrays.asList(MDSSRoleDTO.getRoles(clientRequest)));
+      List<RolesDTO> roles = new LinkedList<RolesDTO>(Arrays.asList(MDSSRoleDTO.getAssignableRoles(clientRequest)));
       List<? extends RolesDTO> assigned = userDTO.getAllAssignedRole();
       List<String> list = new LinkedList<String>();
-                  
-      for(RolesDTO role : systemRoles)
-      {
-        if(role.getRoleName().equalsIgnoreCase(MDSSRoleInfo.SYSTEM))
-        {
-          roles.add(0, role);
-        }
-      }
-     
-      for(RolesDTO role : assigned)
+
+      for (RolesDTO role : assigned)
       {
         list.add(role.getId());
       }
@@ -79,20 +68,17 @@ public class RoleController extends RoleControllerBase implements com.runwaysdk.
       req.setAttribute("roles", roles);
       req.setAttribute("user", userDTO);
       req.setAttribute("view", new MDSSUserViewDTO(clientRequest));
-      
-      render("edit.jsp");
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
 
-      this.viewAll();
+      render("edit.jsp");
     }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.viewAll();
+      if (!redirected)
+      {
+        this.viewAll();
+      }
     }
   }
 
@@ -101,23 +87,22 @@ public class RoleController extends RoleControllerBase implements com.runwaysdk.
   {
     try
     {
-    ClientRequestIF clientRequest = super.getClientRequest();
-    MDSSUserDTO.updateRoles(clientRequest, id, assigned, revoked);
+      ClientRequestIF clientRequest = super.getClientRequest();
+      MDSSUserDTO.updateRoles(clientRequest, id, assigned, revoked);
 
-    render("success.jsp");
-    }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failSave(id, assigned, revoked);
+      render("success.jsp");
     }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failSave(id, assigned, revoked);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failSave(id, assigned, revoked);
+      }
     }
   }
-  
+
   @Override
   public void failSave(String id, String[] assigned, String[] revoked) throws IOException, ServletException
   {

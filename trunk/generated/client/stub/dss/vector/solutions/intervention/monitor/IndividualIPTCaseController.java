@@ -69,15 +69,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     {
       view(IndividualIPTCaseDTO.getView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failView(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failView(id);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
     }
   }
 
@@ -126,17 +125,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       this.newInstance(view, dto, instance);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failNewInstance(patientId);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failNewInstance(patientId);
+      if (!redirected)
+      {
+        this.failNewInstance(patientId);
+      }
     }
   }
 
@@ -181,15 +177,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -202,17 +197,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failCreateCaseAndInstance(dto, instance);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failCreateCaseAndInstance(dto, instance);
+      if (!redirected)
+      {
+        this.failCreateCaseAndInstance(dto, instance);
+      }
     }
   }
 
@@ -234,17 +226,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     {
       this.edit(IndividualIPTCaseDTO.lockView(super.getClientRequest(), id));
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failEdit(id);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failEdit(id);
+      if (!redirected)
+      {
+        this.failEdit(id);
+      }
     }
 
   }
@@ -273,15 +262,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       dto.apply();
       this.view(dto);
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -320,15 +308,14 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       this.search();
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 
@@ -344,7 +331,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
       req.setAttribute("serviceDate", req.getParameter("serviceDate"));
       req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));
-      
+
       // need this for labels
       render("searchComponent.jsp");
     }
@@ -378,21 +365,16 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       render("viewAllComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      String date = ( serviceDate == null ) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
-
-      this.failViewCasePage(null, null, null, null, date, patientId);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      String date = ( serviceDate == null ) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+      if (!redirected)
+      {
+        String date = ( serviceDate == null ) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
 
-      this.failViewCasePage(null, null, null, null, date, patientId);
+        this.failViewCasePage(null, null, null, null, date, patientId);
+      }
     }
   }
 

@@ -58,15 +58,14 @@ public class OntologyController extends OntologyControllerBase implements com.ru
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failCreate(dto);
-    }
     catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failCreate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failCreate(dto);
+      }
     }
   }
 
@@ -83,15 +82,14 @@ public class OntologyController extends OntologyControllerBase implements com.ru
       dto.apply();
       this.view(dto.getId());
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failUpdate(dto);
-    }
     catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failUpdate(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failUpdate(dto);
+      }
     }
   }
 
@@ -136,15 +134,14 @@ public class OntologyController extends OntologyControllerBase implements com.ru
       dto.delete();
       this.viewAll();
     }
-    catch (com.runwaysdk.ProblemExceptionDTO e)
-    {
-      dss.vector.solutions.util.ErrorUtility.prepareProblems(e, req);
-      this.failDelete(dto);
-    }
     catch (java.lang.Throwable t)
     {
-      dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req);
-      this.failDelete(dto);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failDelete(dto);
+      }
     }
   }
 

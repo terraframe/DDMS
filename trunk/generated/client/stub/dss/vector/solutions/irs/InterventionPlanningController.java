@@ -85,9 +85,9 @@ public class InterventionPlanningController extends InterventionPlanningControll
       TimeInterventionPlanningViewDTO item = new TimeInterventionPlanningViewDTO(request);
       item.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
       item.setSeason(season);
-      
-      String[] keys = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "Operators", "RequiredDays"};
-      
+
+      String[] keys = { "Id", "GeoEntity", "EntityLabel", "Season", "Targets", "Operators", "RequiredDays" };
+
       Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
       map.put("Id", new ColumnSetup(true, false));
       map.put("GeoEntity", new ColumnSetup(true, false));
@@ -104,17 +104,14 @@ public class InterventionPlanningController extends InterventionPlanningControll
 
       render("viewTimeComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchForTimePlanning(geoId, season);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSearchForTimePlanning(geoId, season);
+      if (!redirected)
+      {
+        this.failSearchForTimePlanning(geoId, season);
+      }
     }
   }
 
@@ -168,7 +165,7 @@ public class InterventionPlanningController extends InterventionPlanningControll
       InsecticideInterventionPlanningViewDTO view = new InsecticideInterventionPlanningViewDTO(request);
       view.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
       view.setSeason(season);
-      
+
       Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
       map.put("Id", new ColumnSetup(true, false));
       map.put("GeoEntity", new ColumnSetup(true, false));
@@ -177,7 +174,7 @@ public class InterventionPlanningController extends InterventionPlanningControll
       map.put("SeasonLabel", new ColumnSetup(true, false));
       map.put("RequiredInsecticide", new ColumnSetup(false, false));
 
-      String[] keys = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "RequiredInsecticide"};
+      String[] keys = { "Id", "GeoEntity", "EntityLabel", "Season", "Targets", "RequiredInsecticide" };
 
       InsecticideNozzleViewDTO[] configurations = InsecticideNozzleViewDTO.getAllActive(request);
 
@@ -187,17 +184,14 @@ public class InterventionPlanningController extends InterventionPlanningControll
 
       render("viewInsecticideComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchForInsceticidePlanning(geoId, season);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSearchForInsceticidePlanning(geoId, season);
+      if (!redirected)
+      {
+        this.failSearchForInsceticidePlanning(geoId, season);
+      }
     }
   }
 
@@ -221,9 +215,9 @@ public class InterventionPlanningController extends InterventionPlanningControll
       OperatorInterventionPlanningViewDTO item = new OperatorInterventionPlanningViewDTO(request);
       item.setGeoEntity(GeoEntityDTO.searchByGeoId(request, geoId));
       item.setSeason(season);
-      
-      String[] keys = {"Id", "GeoEntity", "EntityLabel", "Season", "Targets", "NumberofDays", "UnitsPerDay", "RequiredOperators"};
-      
+
+      String[] keys = { "Id", "GeoEntity", "EntityLabel", "Season", "Targets", "NumberofDays", "UnitsPerDay", "RequiredOperators" };
+
       Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
       map.put("Id", new ColumnSetup(true, false));
       map.put("GeoEntity", new ColumnSetup(true, false));
@@ -231,26 +225,22 @@ public class InterventionPlanningController extends InterventionPlanningControll
       map.put("Season", new ColumnSetup(true, false));
       map.put("SeasonLabel", new ColumnSetup(true, false));
       map.put("RequiredOperators", new ColumnSetup(false, false));
-      map.put("NumberofDays",  new ColumnSetup(false, true, "validateNumberofDays", null, null));    
-      map.put("UnitsPerDay",  new ColumnSetup(false, true, "validateUnitsPerDay", null, null));    
-
+      map.put("NumberofDays", new ColumnSetup(false, true, "validateNumberofDays", null, null));
+      map.put("UnitsPerDay", new ColumnSetup(false, true, "validateUnitsPerDay", null, null));
 
       req.setAttribute("grid", new ViewDataGrid(item, map, keys, views));
       req.setAttribute(ITEM, item);
 
       render("viewOperatorComponent.jsp");
     }
-    catch (ProblemExceptionDTO e)
-    {
-      ErrorUtility.prepareProblems(e, req);
-
-      this.failSearchForOperatorPlanning(geoId, season);
-    }
     catch (Throwable t)
     {
-      ErrorUtility.prepareThrowable(t, req);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-      this.failSearchForOperatorPlanning(geoId, season);
+      if (!redirected)
+      {
+        this.failSearchForOperatorPlanning(geoId, season);
+      }
     }
   }
 
