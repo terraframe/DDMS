@@ -12,6 +12,8 @@ public class YUIColumn implements Reloadable
 {
   private Boolean   writable;
 
+  private String    attributeName;
+
   private String    key;
 
   private YUIEditor editor;
@@ -60,6 +62,7 @@ public class YUIColumn implements Reloadable
 
       this.postfix = postfix;
       this.writable = view.isWritable(attributeMd.getName());
+      this.attributeName = attributeMd.getName();
       this.key = GenerationUtil.upperFirstCharacter(attributeMd.getName());
       this.hidden = setup.isHidden();
       this.editable = setup.isEditable();
@@ -167,7 +170,7 @@ public class YUIColumn implements Reloadable
   {
     return this.options;
   }
-  
+
   public Integer getWidth()
   {
     return width;
@@ -189,12 +192,24 @@ public class YUIColumn implements Reloadable
       }
       else
       {
-        object = facade.getValue();
-      }
+        if (this.isHidden())
+        {
+          object = view.getValue(attributeName);
 
-      if (object != null)
-      {
-        return this.editor.getValue(object);
+          if (object != null)
+          {
+            return object.toString();
+          }
+        }
+        else
+        {
+          object = facade.getValue();
+
+          if (object != null)
+          {
+            return this.editor.getValue(object);
+          }
+        }
       }
 
       return null;
