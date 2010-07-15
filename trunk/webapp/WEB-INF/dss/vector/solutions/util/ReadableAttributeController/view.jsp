@@ -13,7 +13,8 @@
 <mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST" >
   <mjl:input type="hidden" param="universal" value="${universal}" />
   <mjl:input type="hidden" param="actor" value="${actor}" />
-
+  
+	  <h2>${actorLabel}</h2>
       <table class="displayTable">
         <mjl:components items="${views}" param="attributeViews" var="view" varStatus="status">
           <mjl:input type="hidden" param="attributeName" value="${view.attributeName}"/>
@@ -26,7 +27,7 @@
             </td>
             <td>
               <c:choose >
-                <c:when test="${actor == 'mdss.GUIVisibility'}">
+                <c:when test="${actor == 'mdss.GUIVisibility' && view.attributeRequired == true}">
                   <mjl:boolean param="readPermission" value="${view.readPermission}" disabled="disabled" />
                 </c:when>
                  <c:when test="${view.attributeRequired == true}">
@@ -44,7 +45,7 @@
               <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired}" value="${view.attributeRequired || view.notBlank}"/>
             </td>
             <td>
-              <c:if test="${view.fieldId != ''}">
+              <c:if test="${view.fieldId != '' && actor == 'mdss.GUIVisibility'}">
                 <button type="button" id="${view.fieldId}" class="root.button"> <fmt:message key="Roots"/> </button>         
               </c:if>
             </td>

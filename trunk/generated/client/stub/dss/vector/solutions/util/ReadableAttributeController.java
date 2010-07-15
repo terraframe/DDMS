@@ -2,11 +2,12 @@ package dss.vector.solutions.util;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
+import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.system.RolesDTO;
 
@@ -39,23 +40,10 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
 
       ClientRequestIF clientRequest = super.getClientRequest();
 
-      List<RolesDTO> roles = new LinkedList<RolesDTO>();
-
-      RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
-      RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
-
-      RolesDTO[][] allRoles = new RolesDTO[][] { systemRoles, mdssRoles };
-
-      for (int i = 0; i < allRoles.length; i++)
-      {
-        for (int j = 0; j < allRoles[i].length; j++)
-        {
-          roles.add(allRoles[i][j]);
-        }
-      }
+      Map<String, RolesDTO> roles = this.getAllRoles(clientRequest);
 
       req.setAttribute("actor", actor);
-      req.setAttribute("actorOptions", roles);
+      req.setAttribute("actorOptions", roles.values());
 
       render("selectUniversal.jsp");
     }
@@ -70,7 +58,23 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     }
   }
   
-  @Override
+  private Map<String, RolesDTO> getAllRoles(ClientRequestIF clientRequest) {
+      Map<String, RolesDTO> roles = new LinkedHashMap<String, RolesDTO>();
+
+      RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
+      for (int i = 0; i < systemRoles.length; i++) {
+          roles.put(systemRoles[i].getRoleName(), systemRoles[i]);
+      }
+      
+      RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
+      for (int i = 0; i < mdssRoles.length; i++) {
+          roles.put(mdssRoles[i].getRoleName(), mdssRoles[i]);
+      }
+
+      return roles;
+}
+
+@Override
   public void failGetUniversal(String actor) throws IOException, ServletException
   {
     this.req.getRequestDispatcher("/index").forward(this.req, this.resp);
@@ -81,15 +85,18 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   {
     try
     {
+      ClientRequestIF clientRequest = super.getClientRequest();
+        
       RedirectUtility utility = new RedirectUtility(req, resp);
       utility.put("universal", universal);
       utility.put("actor", actor);
       utility.checkURL(this.getClass().getSimpleName(), "getAttributes");
 
-      ReadableAttributeViewDTO[] attributeViews = ReadableAttributeViewDTO.getActorAttributes(super.getClientRequest(), universal, actor);
+      ReadableAttributeViewDTO[] attributeViews = ReadableAttributeViewDTO.getActorAttributes(clientRequest, universal, actor);
       req.setAttribute("views", Arrays.asList(attributeViews));
       req.setAttribute("universal", universal);
       req.setAttribute("actor", actor);
+      req.setAttribute("actorLabel", this.getAllRoles(clientRequest).get(actor).getDisplayLabel());
       render("view.jsp");
     }
     catch (Throwable t)
