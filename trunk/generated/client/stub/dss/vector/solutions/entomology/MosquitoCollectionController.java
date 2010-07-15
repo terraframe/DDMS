@@ -20,6 +20,7 @@ import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO;
 import dss.vector.solutions.geo.generated.CollectionSiteDTO;
+import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -124,7 +125,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
   {
     this.setupReferences(dto);
 
-    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
+    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS, SentinelSiteDTO.CLASS });
 
     SubCollectionViewDTO view = new SubCollectionViewDTO(this.getClientRequest());
     view.setTotal(0);
@@ -308,7 +309,7 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
 
       MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.getMostRecent(request);
       SearchMosquitoCollectionViewDTO view = new SearchMosquitoCollectionViewDTO(request);
-      List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
+      List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS, SentinelSiteDTO.CLASS });
 
       this.setupReferences(view);
 
