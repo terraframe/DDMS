@@ -102,6 +102,7 @@ import dss.vector.solutions.surveillance.CaseTreatmentDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentMethodDTO;
 import dss.vector.solutions.surveillance.CaseTreatmentStockDTO;
 import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
+import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.MDSSProperties;
@@ -234,7 +235,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -323,19 +329,19 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   public void queryAggregatedCases() throws IOException, ServletException
   {
     try
-    {
+    {      
       loadQuerySpecifics(AggregatedCaseDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_CASE);
 
       ClientRequestIF request = this.getClientRequest();
 
-      JSONObject ordered = new JSONObject();      
-      
+      JSONObject ordered = new JSONObject();
+
       JSONObject methods = new JSONObject();
       methods.put("type", TermDTO.CLASS);
       methods.put("label", MDSSProperties.getObject("Amount"));
       methods.put("relType", CaseTreatmentMethodDTO.CLASS);
       methods.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
-      methods.put("options", getAllTermsForGrid(request,AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASETREATMENTMETHOD));
+      methods.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASETREATMENTMETHOD));
       ordered.put("methods", methods);
 
       JSONObject treatments = new JSONObject();
@@ -369,7 +375,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       diagnosticsP.put("relAttribute", CaseDiagnosticDTO.AMOUNTPOSITIVE);
       diagnosticsP.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSTIC));
       ordered.put("diagnosticsPositive", diagnosticsP);
-      
+
       JSONObject referrals = new JSONObject();
       referrals.put("type", TermDTO.CLASS);
       referrals.put("label", MDSSProperties.getObject("Amount"));
@@ -385,15 +391,15 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       stockReferrals.put("relAttribute", CaseStockReferralDTO.AMOUNT);
       stockReferrals.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASESTOCKREFERRAL));
       ordered.put("stockReferrals", stockReferrals);
-      
+
       JSONObject typeOfDiagnosis = new JSONObject();
       typeOfDiagnosis.put("type", TermDTO.CLASS);
       typeOfDiagnosis.put("label", MDSSProperties.getObject("Amount"));
       typeOfDiagnosis.put("relType", CaseDiagnosisTypeDTO.CLASS);
       typeOfDiagnosis.put("relAttribute", CaseDiagnosisTypeDTO.TERM);
       typeOfDiagnosis.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSISTYPE));
-      ordered.put("diagnosisTypes",typeOfDiagnosis);
-      
+      ordered.put("diagnosisTypes", typeOfDiagnosis);
+
       JSONObject diagnosisTypeAmounts = new JSONObject();
       diagnosisTypeAmounts.put("type", TermDTO.CLASS);
       diagnosisTypeAmounts.put("label", MDSSProperties.getObject("Amount"));
@@ -401,15 +407,15 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       diagnosisTypeAmounts.put("relAttribute", CaseDiagnosisTypeAmountDTO.AMOUNT);
       diagnosisTypeAmounts.put("options", getAllTermsForGrid(request, CaseDiagnosisTypeViewDTO.CLASS, CaseDiagnosisTypeViewDTO.DIAGNOSISCATEGORY));
       ordered.put("diagnosisTypeAmounts", diagnosisTypeAmounts);
-          
+
       JSONObject manifestations = new JSONObject();
       manifestations.put("type", TermDTO.CLASS);
       manifestations.put("label", MDSSProperties.getObject("Amount"));
       manifestations.put("relType", CaseDiseaseManifestationDTO.CLASS);
       manifestations.put("relAttribute", CaseDiseaseManifestationDTO.TERM);
-      manifestations.put("options", getAllTermsForGrid(request,AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDISEASEMANIFESTATION ));
-      ordered.put("manifestations", manifestations);     
-      
+      manifestations.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDISEASEMANIFESTATION));
+      ordered.put("manifestations", manifestations);
+
       JSONObject manifestationAmmounts = new JSONObject();
       manifestationAmmounts.put("type", TermDTO.CLASS);
       manifestationAmmounts.put("label", MDSSProperties.getObject("Amount"));
@@ -417,7 +423,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       manifestationAmmounts.put("relAttribute", CaseDiseaseManifestationAmountDTO.AMOUNT);
       manifestationAmmounts.put("options", getAllTermsForGrid(request, CaseDiseaseManifestationViewDTO.CLASS, CaseDiseaseManifestationViewDTO.DISEASECATEGORY));
       ordered.put("manifestationAmmounts", manifestationAmmounts);
-      
+
       JSONObject patientTypes = new JSONObject();
       patientTypes.put("type", TermDTO.CLASS);
       patientTypes.put("label", MDSSProperties.getObject("Amount"));
@@ -425,7 +431,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       patientTypes.put("relAttribute", CasePatientTypeDTO.TERM);
       patientTypes.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEPATIENTTYPE));
       ordered.put("patientTypes", patientTypes);
-      
+
       JSONObject patientTypeAmounts = new JSONObject();
       patientTypeAmounts.put("type", TermDTO.CLASS);
       patientTypeAmounts.put("label", MDSSProperties.getObject("Amount"));
@@ -433,8 +439,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       patientTypeAmounts.put("relAttribute", CasePatientTypeAmountDTO.AMOUNT);
       patientTypeAmounts.put("options", getAllTermsForGrid(request, CasePatientTypeViewDTO.CLASS, CasePatientTypeViewDTO.PATIENTCATEGORY));
       ordered.put("patientTypeAmounts", patientTypeAmounts);
-      
-      
+
       req.setAttribute("orderedGrids", ordered.toString());
 
       req.getRequestDispatcher(QUERY_AGGREGATED_CASES).forward(req, resp);
@@ -442,9 +447,18 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
-    }
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
+      if (!redirected)
+      {
+        this.failQuery();
+      }
+    }
+  }
+
+  private void failQuery() throws ServletException, IOException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   private void loadGrid(String relationshipClass, String className, String attributeName, JSONObject gridMeta, JSONArray ordered)
@@ -571,7 +585,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -622,7 +641,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -669,7 +693,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -707,7 +736,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -729,7 +763,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -755,7 +794,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -781,7 +825,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -807,7 +856,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -832,7 +886,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -874,7 +933,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -888,7 +952,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       loadQuerySpecifics(ControlInterventionDTO.CLASS, QueryConstants.QueryType.QUERY_INTERVENTION_CONTROL);
 
       ClientRequestIF request = this.getClientRequest();
-      
+
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
@@ -951,7 +1015,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1003,7 +1072,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1019,14 +1093,18 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
-      
 
       req.getRequestDispatcher(QUERY_EFFICACY_ASSAY).forward(req, resp);
 
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1072,7 +1150,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1118,7 +1201,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1158,7 +1246,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1178,7 +1271,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO operatorSpray = request.getQuery(OperatorSprayDTO.CLASS);
       String sprayDataMap = Halp.getDropDownMaps(operatorSpray, request, ", ");
       req.setAttribute("operatorSprayMap", sprayDataMap);
-      
+
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
@@ -1188,7 +1281,12 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
     }
   }
 
@@ -1240,4 +1338,123 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     super.deleteQuery(savedQueryView);
   }
 
+  @Override
+  public void failQueryAggregatedCases() throws IOException, ServletException
+  {
+    failQuery();
+  }
+
+  @Override
+  public void failQueryAggregatedIPT() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryAggregatedITN() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryEfficacyAssay() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryEntomology() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryImmatureContainerCollection() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryIndicatorSurvey() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryIndividualCases() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryIndividualIPT() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryInterventionControl() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryIRS() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryITNCommunityDistribution() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryITNDistribution() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryLarvacide() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryMosquitoCollections() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryPupalContainerCollection() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryResistance() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryResistanceBioassay() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQueryStock() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  @Override
+  public void failQuerySurvey() throws IOException, ServletException
+  {
+    this.failQuery();
+  }
 }
