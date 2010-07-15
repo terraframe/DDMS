@@ -14,6 +14,9 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.MosquitoCollectionView;
 import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.CollectionSite;
+import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -106,6 +109,8 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     {
       builder.add(hierarchy);
     }
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(CollectionSite.CLASS));
+    builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
 }
