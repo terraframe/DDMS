@@ -5,8 +5,6 @@
 <%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.surveillance.AggregatedCaseViewDTO"%>
-
-
 <%@page import="dss.vector.solutions.surveillance.CaseTreatmentStockViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CaseTreatmentViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CaseTreatmentMethodViewDTO"%>
@@ -18,9 +16,32 @@
 <%@page import="dss.vector.solutions.surveillance.CaseDiseaseManifestationViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CaseDiseaseManifestationAmountViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CasePatientTypeAmountViewDTO"%>
-<%@page import="dss.vector.solutions.surveillance.CasePatientTypeViewDTO"%><mjl:messages>
-  <mjl:message />
-</mjl:messages>
+<%@page import="dss.vector.solutions.surveillance.CasePatientTypeViewDTO"%>
+
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-liner {
+overflow: hidden;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:225px;
+  display:block;
+  position:relative;
+  top:108px;
+  left:103px;
+}
+</style>
 
 <c:set var="page_title" value="Edit_Aggregated_Case"  scope="request"/>
 

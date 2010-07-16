@@ -14,6 +14,5 @@
 
 <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="form.id" method="POST">
   <dl>
-    <%@ include file="writeForm.jsp"%>
   </dl>
 </mjl:form>

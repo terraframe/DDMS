@@ -13,9 +13,32 @@
 <%@page import="dss.vector.solutions.surveillance.CaseDiagnosticViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CaseStockReferralViewDTO"%>
 <%@page import="dss.vector.solutions.surveillance.CasePatientTypeViewDTO"%>
-<%@page import="dss.vector.solutions.surveillance.CasePatientTypeAmountViewDTO"%><mjl:messages>
-  <mjl:message />
-</mjl:messages>
+<%@page import="dss.vector.solutions.surveillance.CasePatientTypeAmountViewDTO"%>
+
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:none;
+}
+
+.yui-dt-liner {
+overflow: hidden;
+}
+
+.yui-dt-label
+{
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:225px;
+  display:block;
+  position:relative;
+  top:108px;
+  left:103px;
+}
+</style>
 
 <c:set var="page_title" value="View_Aggregated_Case"  scope="request"/>
 
