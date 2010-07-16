@@ -8225,7 +8225,7 @@
           <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" />
           <reference name="intervention" label="Intervention" type="dss.vector.solutions.intervention.monitor.ControlIntervention" required="true" />
           <reference name="interventionMethod" label="Intervention Method" type="dss.vector.solutions.ontology.Term" required="true" />
-          <reference name="insecticide" label="Insecticide Formulation" type="dss.vector.solutions.irs.InsecticideBrand" required="true" />
+          <reference name="insecticide" label="Insecticide Formulation" type="dss.vector.solutions.irs.InsecticideBrand" required="false" />
           <reference name="unit" label="Unit" type="dss.vector.solutions.ontology.Term" />
           <reference name="disease" label="Disease" required="true" immutable="true" type="dss.vector.solutions.general.Disease" indexType="non-unique index" />
         </attributes>

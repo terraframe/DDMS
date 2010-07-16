@@ -22,7 +22,7 @@
             name="insecticide"
             label="Insecticide Formulation"
             type="dss.vector.solutions.irs.InsecticideBrand"
-            required="true" />
+            required="false" />
           <integer
             name="quantity"
             label="Quantity"
