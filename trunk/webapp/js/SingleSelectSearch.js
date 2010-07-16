@@ -308,9 +308,14 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     _clickHandler : function(e)
     {
       var initialized = this._selectSearch.isInitialized();
-      var geoId = this._geoInput.value;
       
-      this._selectSearch.setGeoId(geoId);
+      // avoid setting the geo id in 101 if there isn't a valid value
+      if(this._geoElement.value !== '')
+      {
+        var geoId = this._geoInput.value;
+        this._selectSearch.setGeoId(geoId);
+      }
+      
       this._openPicker(e, this._geoInput);
       this._genericSearch.resetCache();
       this._setTreeValidator();
