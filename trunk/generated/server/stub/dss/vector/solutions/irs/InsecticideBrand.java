@@ -21,6 +21,7 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.RelativeValueProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -145,9 +146,9 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 		view.setEnabled(this.getEnabled());
 	}
 
-	public static InsecticideBrand getByName(String name) {
+	public static InsecticideBrand getByTerm(Term productTerm) {
 		InsecticideBrandQuery query = new InsecticideBrandQuery(new QueryFactory());
-		query.WHERE(query.getProductName().EQ(name));
+		query.WHERE(query.getProductName().EQ(productTerm));
 		OIterator<? extends InsecticideBrand> iterator = query.getIterator();
 		try {
 			if (iterator.hasNext()) {
@@ -159,8 +160,15 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 		return null;
 	}
 
+	/**
+	 * Converts the given string into an insecticide product term and then fetches the corresponding InsecticideBrand
+	 * 
+	 * @param name name, display label, or termId of an insecticide
+	 * @return InsecticideBrand
+	 */
 	public static InsecticideBrand validateByName(String name) {
-		InsecticideBrand brand = InsecticideBrand.getByName(name);
+  	    Term term = Term.validateByDisplayLabel(name, getProductNameMd());
+		InsecticideBrand brand = InsecticideBrand.getByTerm(term);
 
 		if (brand == null) {
 			String msg = "An insecticide brand with the name [" + name + "] does not exist";

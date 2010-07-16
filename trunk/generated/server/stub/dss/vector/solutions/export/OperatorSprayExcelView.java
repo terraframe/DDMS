@@ -90,6 +90,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       }
 
       osv.setTeamSprayWeek(this.getTeamSprayWeek());
+      osv.setOperatorSprayWeek(this.getOperatorSprayWeek());
       osv.setTarget(this.getTarget());
       osv.setReceived(this.getReceived());
       osv.setRefills(this.getRefills());

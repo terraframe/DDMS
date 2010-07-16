@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
@@ -70,33 +71,19 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
 
   private PupalCollectionView getCollection()
   {
-    PupalCollectionView collection;
     String cid = this.getCollectionId();
+    PupalCollectionView collection = new PupalCollectionView();
+    collection.setGeoEntity(this.getGeoEntity());
+    collection.setStartDate(this.getStartDate());
+    collection.setEndDate(this.getEndDate());
+    collection.setCollectionId(cid);
+    collection.setPremiseType(Term.validateByDisplayLabel(this.getPremiseType(), PupalCollectionView.getPremiseTypeMd()));
     
-    PupalCollectionQuery query = new PupalCollectionQuery(new QueryFactory());
-    query.WHERE(query.getCollectionId().EQ(cid));
-    OIterator<? extends PupalCollection> iterator = query.getIterator();
-    if (iterator.hasNext())
-    {
-      collection = iterator.next().getView();
-    }
-    else
-    {
-      collection = new PupalCollectionView();
-      
-      collection.setGeoEntity(this.getGeoEntity());
-      collection.setStartDate(this.getStartDate());
-      collection.setEndDate(this.getEndDate());
-      collection.setCollectionId(cid);
-      collection.setPremiseType(Term.validateByDisplayLabel(this.getPremiseType(), PupalCollectionView.getPremiseTypeMd()));
-      collection.setNotes(this.getNotes());
-      collection.setNumberExamined(this.getNumberExamined());
-      collection.setPremiseSize(this.getPremiseSize());
-      collection.setNumberInhabitants(this.getNumberInhabitants());
-      
-      collection.apply();
-    }
-    iterator.close();
+    collection = PupalCollectionView.getCollection(collection);
+    collection.setNotes(this.getNotes());
+    collection.setNumberExamined(this.getNumberExamined());
+    collection.setPremiseSize(this.getPremiseSize());
+    collection.setNumberInhabitants(this.getNumberInhabitants());
     
     return collection;
   }
