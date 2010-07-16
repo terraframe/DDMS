@@ -27,7 +27,7 @@
             </td>
             <td>
               <c:choose >
-                <c:when test="${actor == 'mdss.GUIVisibility' && view.attributeRequired == true}">
+                <c:when test="${actor == 'mdss.GUIVisibility' && (view.attributeRequired || view.notBlank)}">
                   <mjl:boolean param="readPermission" value="${view.readPermission}" disabled="disabled" />
                 </c:when>
                  <c:when test="${view.attributeRequired == true}">
@@ -42,7 +42,7 @@
               </mjl:messages>
             </td>
             <td>
-              <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired}" value="${view.attributeRequired || view.notBlank}"/>
+              <mdss:checkBoolean param="notBlank" disabled="${view.attributeRequired || actor != 'mdss.GUIVisibility'}" value="${view.attributeRequired || view.notBlank}" />
             </td>
             <td>
               <c:if test="${view.fieldId != '' && actor == 'mdss.GUIVisibility'}">
@@ -83,6 +83,15 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
 
       // hide all panels spawned by the search modal
       this._modal.subscribe('beforeHide', this._beforeHide, this, this);
+
+	 var inputs = document.getElementsByTagName("input");      
+	
+	 for each (el in inputs) {
+	     if (el.type=='checkbox' && !el.disabled) {
+	     	YAHOO.util.Event.on(el, 'click', this.checkboxHandler, this, this);
+	   	}
+	 }
+
     },    
 
     clickHandler : function(e) {
@@ -97,10 +106,25 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
           eval(executable);          
         }
       });
-            
+
       var id = e.originalTarget.id;
         
       Mojo.$.dss.vector.solutions.ontology.BrowserFieldController.view(request, id);        
+    },
+
+    checkboxHandler : function(e) {
+        var fieldName = e.target.name.split('.')[0]  + '.readPermission';
+        var radioButtons = document.getElementsByName(fieldName);
+    	for each (rb in radioButtons) {
+        	if (e.target.checked) {
+		    	if (rb.value=='true') {
+			    	rb.checked = true;
+		    	}
+		    	rb.disabled = true;
+        	} else {
+            	rb.disabled = false;
+        	}
+    	}
     },
 
     _beforeHide : function() {
@@ -130,7 +154,7 @@ var oldHandler;
     for each (el in buttons) {
       oldHandler = el.onclick;
       el.onclick = function(){
-          if (checkHiddenMandatoryFields()) {
+          if (checkHiddenMandatoryFields(el)) {
               oldHandler();
           }
       }
@@ -138,22 +162,31 @@ var oldHandler;
     }
 })();
 
-
-function checkHiddenMandatoryFields() {
-	var needToConfirm = false;
-
-	var buttons = YAHOO.util.Dom.getElementsByClassName("requiredAttributes");      
-    for each (el in buttons) {
-      if (el.checked && el.value=='false') {
-          needToConfirm = true;
-          break;
-      }
-    }
-	
+function checkHiddenMandatoryFields(el) {
 	var confirmed = true;
+
+<c:if test="${actor != 'mdss.GUIVisibility'}">
+	var needToConfirm = false;
+	var inputs = document.getElementsByTagName("input");      
+	
+	for each (el in inputs) {
+	    if (el.type=='checkbox' && el.checked) {
+	        var fieldName = el.name.split('.')[0]  + '.readPermission';
+	        var radioButtons = document.getElementsByName(fieldName);
+	    	for each (rb in radioButtons) {
+	        	if (rb.value == 'false' && rb.checked) {
+			    	needToConfirm = true;
+			    	break;
+	        	}
+	    	}
+	  	}
+	}
+
 	if (needToConfirm) {
 		confirmed = confirm('<fmt:message key="Hidden_Mandatory_Fields_Warning"/>');
 	}
+</c:if>    
+	
 	return confirmed;
 }
 </script> 

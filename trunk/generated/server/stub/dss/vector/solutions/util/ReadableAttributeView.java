@@ -177,6 +177,10 @@ public class ReadableAttributeView extends ReadableAttributeViewBase implements 
       MdAttributeDimensionDAOIF _mdAttributeDimension = mdAttributeDAO.getMdAttributeDimension(_mdDimension);
 
       Boolean permission = view.getReadPermission();
+      if (MDSSRoleInfo.GUI_VISIBILITY.equals(actorName) && view.getNotBlank() != null  && view.getNotBlank()) {
+    	  // GUI Visibility cannot hide notBlank fields!
+    	  permission = new Boolean(true);
+      }
       Boolean existing = !existingPermissions.containsPermission(_mdAttributeDimension.getPermissionKey(), Operation.DENY_READ);
 
       if (permission != null && permission != existing)
