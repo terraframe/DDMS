@@ -90,13 +90,23 @@ public class AttributeRootExporter
 
     for (BrowserField field : iterator)
     {
+      int totalRoots = 0;
       List<ExportData> commonRoots = ExportData.getCommonRoots(field);
       writeRootRow(field, commonRoots, null);
+      totalRoots += commonRoots.size();
       
       for (Disease disease : allDiseases)
       {
         List<ExportData> rootsByDisease = ExportData.getRootsByDisease(field, disease, commonRoots);
         writeRootRow(field, rootsByDisease, disease);
+        totalRoots += rootsByDisease.size();
+      }
+      
+      // This means that there is a field, but no roots have been assigned to it yet.
+      // We still want to export a line for it, though, so that roots can be added.
+      if (totalRoots==0)
+      {
+        writeFieldInfo(field, null);
       }
     }
 
@@ -112,7 +122,6 @@ public class AttributeRootExporter
       }
     }
     
-    System.out.println(maxCellCount);
     for (short s = 0; s < maxCellCount; s++)
     {
       sheet.autoSizeColumn(s);
@@ -126,6 +135,23 @@ public class AttributeRootExporter
       return;
     }
     
+    HSSFRow row = writeFieldInfo(field, disease);
+    
+    int cellCount = 5;
+    for (ExportData root : roots)
+    {
+      createAndSet(row, cellCount++, root.getTermId());
+      row.createCell(cellCount++).setCellValue(root.getSelectable());
+    }
+    
+    if (cellCount > maxCellCount)
+    {
+      maxCellCount = (short) cellCount;
+    }
+  }
+
+  private HSSFRow writeFieldInfo(BrowserField field, Disease disease)
+  {
     MdAttribute mdAttribute = field.getMdAttribute();
     MdClass mdClass = mdAttribute.getAllDefiningClass().next();
     String attributeLabel = mdAttribute.getDisplayLabel().getDefaultValue();
@@ -140,10 +166,10 @@ public class AttributeRootExporter
     // Create a row for this root-default-disease triple
     HSSFRow row = sheet.createRow(rowCount++);
     
-    int cellCount = 0;
-    createAndSet(row, cellCount++, mdAttribute.getKey());
-    createAndSet(row, cellCount++, mdClass.getDisplayLabel().getDefaultValue());
-    createAndSet(row, cellCount++, attributeLabel);
+    int c = 0;
+    createAndSet(row, c++, mdAttribute.getKey());
+    createAndSet(row, c++, mdClass.getDisplayLabel().getDefaultValue());
+    createAndSet(row, c++, attributeLabel);
     
     MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
     String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
@@ -153,24 +179,13 @@ public class AttributeRootExporter
     {
       defaultTermValue = Term.get(defaultTermId).getTermId();
     }
-    createAndSet(row, cellCount++, defaultTermValue);
+    createAndSet(row, c++, defaultTermValue);
     
     if (disease!=null)
     {
-      createAndSet(row, cellCount, disease.getKey());
+      createAndSet(row, c, disease.getKey());
     }
-    cellCount++;
-    
-    for (ExportData root : roots)
-    {
-      createAndSet(row, cellCount++, root.getTermId());
-      row.createCell(cellCount++).setCellValue(root.getSelectable());
-//        createAndSet(row, cellCount++, root.getDisease());
-    }
-    if (cellCount > maxCellCount)
-    {
-      maxCellCount = (short) cellCount;
-    }
+    return row;
   }
 
   private void createAndSet(HSSFRow row, int cellNum, String value)
