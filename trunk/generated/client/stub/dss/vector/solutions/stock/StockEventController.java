@@ -180,6 +180,7 @@ public class StockEventController extends StockEventControllerBase implements co
 
     StockEventViewDTO[] data = StockEventViewDTO.getViews(request, geoId, item, date, option);
     StockStaffDTO[] staff = StockStaffDTO.getAll(request);
+    item = TermDTO.get(request, item.getId());
 
     this.req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
     this.req.setAttribute("term", item);
