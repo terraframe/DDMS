@@ -168,10 +168,10 @@ public class ITNInstance extends ITNInstanceBase implements com.runwaysdk.genera
   {
     if (this.getYearReceived() != null && this.getYearReceived() > Calendar.getInstance().get(Calendar.YEAR))
     {
-      String msg = "Year of net retreatment cannont be greater than the current year";
+      String msg = "Year net is received cannont be greater than the current year";
       CurrentYearProblem p = new CurrentYearProblem(msg);
-      p.setNotification(this, YEARRETREATED);
-      p.setYearOfDate(this.getYearRetreated());
+      p.setNotification(this, YEARRECEIVED);
+      p.setYearOfDate(this.getYearReceived());
       p.apply();
 
       p.throwIt();
