@@ -30,11 +30,11 @@ th[colspan="1"] .yui-dt-label {
   /*writing-mode: tb-rl;*/
   -moz-transform: rotate(-90deg);
   width:10px;
-  height:240px;
+  height:225px;
   display:block;
   position:relative;
-  top:110px;
-  left:110px;
+  top:108px;
+  left:103px;
 }
 
 .yui-dt-col-EntityLabel .yui-dt-label {

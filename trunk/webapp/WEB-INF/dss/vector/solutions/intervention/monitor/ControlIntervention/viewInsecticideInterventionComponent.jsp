@@ -34,11 +34,11 @@ overflow: hidden;
   /*writing-mode: tb-rl;*/
   -moz-transform: rotate(-90deg);
   width:10px;
-  height:160px;
+  height:225px;
   display:block;
   position:relative;
-  top:70px;
-  left:70px;
+  top:108px;
+  left:103px;
 }
 </style>
 
