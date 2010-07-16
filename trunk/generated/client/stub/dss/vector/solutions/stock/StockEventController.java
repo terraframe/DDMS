@@ -180,6 +180,8 @@ public class StockEventController extends StockEventControllerBase implements co
 
     StockEventViewDTO[] data = StockEventViewDTO.getViews(request, geoId, item, date, option);
     StockStaffDTO[] staff = StockStaffDTO.getAll(request);
+    
+    // We must refresh the term in order to get the term display label
     item = TermDTO.get(request, item.getId());
 
     this.req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
