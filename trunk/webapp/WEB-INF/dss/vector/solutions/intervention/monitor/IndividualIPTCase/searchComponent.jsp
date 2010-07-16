@@ -47,10 +47,10 @@
         
           <span class="clickable" id="recipient.span">
             <span id="createPatient">
-              <fmt:message key="Create_new_Patient"/>        
+              <fmt:message key="Create_new_recipient"/>        
             </span>
             <span id="editPatient" >
-              <fmt:message key="Edit_Patient"/>        
+              <fmt:message key="Edit_recipient"/>        
             </span>
           </span>
         </td>
