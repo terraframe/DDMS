@@ -1011,7 +1011,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     query.WHERE(brq.getTerm().EQ(apq.getParentTerm()));
     query.WHERE(bfq.getId().EQ(brq.getBrowserField().getId()));
     query.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
-    query.WHERE(brq.getDisease().EQ(Disease.getMalaria()));
+    query.WHERE(brq.getDisease().EQ(Disease.getCurrent()));
     
     OIterator<ValueObject> iterator = query.getIterator();
 
