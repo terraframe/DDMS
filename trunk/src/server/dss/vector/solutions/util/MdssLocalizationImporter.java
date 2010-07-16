@@ -303,12 +303,13 @@ public class MdssLocalizationImporter implements Reloadable
         }
 
         HSSFCell cell = row.getCell(c);
-        if (cell == null)
+        String value = getStringValue(cell);
+        if (value == null)
         {
-          continue;
+          value = new String();
         }
 
-        data += key + '=' + getStringValue(cell) + '\n';
+        data += key + '=' + value + '\n';
       }
       
       // Don't bother writing if no keys were specified
