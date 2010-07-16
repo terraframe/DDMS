@@ -17,6 +17,15 @@
   background:none;
 }
 
+.yui-dt-first .yui-dt-label {
+-moz-transform: none !important;
+position: static;
+height: auto;
+width: auto;
+display: block;
+text-align: center;
+}
+
 .yui-dt-label
 {
   /*writing-mode: tb-rl;*/

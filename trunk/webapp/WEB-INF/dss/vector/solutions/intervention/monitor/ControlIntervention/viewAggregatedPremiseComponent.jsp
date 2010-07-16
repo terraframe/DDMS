@@ -17,8 +17,12 @@
   background:none;
 }
 
-.yui-dt-label
-{
+.yui-dt-first th[rowspan="1"] .yui-dt-label {
+text-align: center;
+display:block;
+}
+
+th[colspan="1"] .yui-dt-label {
   /*writing-mode: tb-rl;*/
   -moz-transform: rotate(-90deg);
   width:10px;
@@ -27,6 +31,15 @@
   position:relative;
   top:110px;
   left:110px;
+}
+
+.yui-dt-col-EntityLabel .yui-dt-label {
+-moz-transform: none !important;
+position: static !important;
+height: auto !important;
+width: auto !important;
+display: block;
+vertical-align: baseline;
 }
 </style>
 

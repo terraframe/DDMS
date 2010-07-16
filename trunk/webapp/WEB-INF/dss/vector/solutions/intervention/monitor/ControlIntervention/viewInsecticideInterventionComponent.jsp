@@ -17,6 +17,14 @@
   background:none;
 }
 
+.yui-dt-col-InterventionMethod .yui-dt-label {
+-moz-transform: none !important;
+position: static !important;
+height: auto !important;
+width: auto !important;
+display: block;
+}
+
 .yui-dt-label
 {
   /*writing-mode: tb-rl;*/

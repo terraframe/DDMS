@@ -19,16 +19,25 @@
   background:none;
 }
 
+.yui-dt-first .yui-dt-label {
+-moz-transform: none !important;
+position: static;
+height: auto;
+width: auto;
+display: block;
+text-align: center;
+}
+
 .yui-dt-label
 {
   /*writing-mode: tb-rl;*/
   -moz-transform: rotate(-90deg);
   width:10px;
-  height:160px;
+  height:190px;
   display:block;
   position:relative;
-  top:70px;
-  left:70px;
+  top:88px;
+  left:88px;
 }
 </style>
 
