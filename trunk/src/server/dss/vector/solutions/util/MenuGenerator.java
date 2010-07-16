@@ -2,6 +2,7 @@ package dss.vector.solutions.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Collection;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -20,7 +21,6 @@ import dss.vector.solutions.PanicButton;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
-import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.ontology.Term;
 
 /**
@@ -85,7 +85,7 @@ public class MenuGenerator implements Reloadable {
 		}
 
 		public Map<String, GuiMenuItem> getChildren() {
-			return children;
+			return this.children;
 		}
 
 		public String getId() {
@@ -106,6 +106,10 @@ public class MenuGenerator implements Reloadable {
 		
 		public boolean isDisabled() {
 			return this.disabled;
+		}	
+		
+		public void setDisabled(boolean disabled) {
+			this.disabled = disabled;
 		}
 
 		public String toString() {
@@ -133,6 +137,7 @@ public class MenuGenerator implements Reloadable {
 		this.menu.addChild(new GuiMenuItem("ZZZZ:7000000", "Log_Out", MDSSProperties.getString("Log_Out"), "com.runwaysdk.defaults.LoginController.logout.mojo"));
 		this.menu.addChild(new GuiMenuItem("ZZZZ:8000000", "About", MDSSProperties.getString("About"), "about.jsp"));
 		this.menu.addChild(new GuiMenuItem("ZZZZ:9000000", "Print", "&nbsp;", "javascript:window.print()"));
+		this.disableSubmenus(this.menu);
 	}
 
 	private void generateEmergencyMenu() {
@@ -227,6 +232,22 @@ public class MenuGenerator implements Reloadable {
 		this.menu.addChild(diseaseSubMenu);
 	}
 
+	private void disableSubmenus(GuiMenuItem menuItem) {
+		Collection<GuiMenuItem> children = menuItem.getChildren().values();
+		boolean disable = true;
+		
+		for (GuiMenuItem child: children) {
+			this.disableSubmenus(child);
+			if (!child.isDisabled()) {
+				disable = false;
+			}
+		}
+		
+		if (children.size() > 0 && disable) {
+			menuItem.setDisabled(true);
+		}
+	}
+
 	public String getJson() {
 		StringWriter out = new StringWriter();
 		this.printMenu(new PrintWriter(out), 0, this.menu);
@@ -258,6 +279,9 @@ public class MenuGenerator implements Reloadable {
 		} else {
 			this.printIndented(out, level, "{ text: '" + guiMenuItem.getLabel() + "',");
 			this.printIndented(out, level, "  id: '" + guiMenuItem.getId() + "',");
+			if (guiMenuItem.isDisabled()) {
+				this.printIndented(out, level, "  classname: 'grayed',");
+			}
 			this.printIndented(out, level, "  submenu: {");
 			this.printIndented(out, level, "    id: '" + guiMenuItem.getName() + "_Submenu',");
 			this.printIndented(out, level, "    itemdata: [");

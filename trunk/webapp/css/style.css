@@ -179,6 +179,11 @@ h2 {
 	text-decoration: none;
 }
 
+
+.yui-skin-sam .grayed .yuimenubaritemlabel, .yui-skin-sam .grayed .yuimenuitemlabel {
+	color: #A6A6A6;
+}
+
 .yui-skin-sam .yuimenubaritemlabel:visited {
 	color:#FFF;
 }
