@@ -26,6 +26,10 @@ display: block;
 text-align: center;
 }
 
+.yui-dt-liner {
+overflow: hidden;
+}
+
 .yui-dt-label
 {
   /*writing-mode: tb-rl;*/

@@ -25,6 +25,10 @@ width: auto !important;
 display: block;
 }
 
+.yui-dt-liner {
+overflow: hidden;
+}
+
 .yui-dt-label
 {
   /*writing-mode: tb-rl;*/

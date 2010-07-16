@@ -22,6 +22,10 @@ text-align: center;
 display:block;
 }
 
+th[colspan="1"] .yui-dt-liner {
+overflow: hidden;
+}
+
 th[colspan="1"] .yui-dt-label {
   /*writing-mode: tb-rl;*/
   -moz-transform: rotate(-90deg);
