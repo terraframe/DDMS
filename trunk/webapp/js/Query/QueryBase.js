@@ -1957,10 +1957,10 @@ Mojo.Meta.newClass('MDSS.Independent',{
   },
   
   Static : {
-    factory : function(attribute, excludes)
+    factory : function(attribute, excludes, propagate)
     {
       return Mojo.Util.isArray(attribute) ?
-        new MDSS.GroupIndependent(attribute, excludes) : new MDSS.SingleIndependent(attribute, excludes);
+        new MDSS.GroupIndependent(attribute, excludes, propagate) : new MDSS.SingleIndependent(attribute, excludes, propagate);
     }
   }
 });

@@ -655,10 +655,10 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     MdEntityDAOIF mdIndInst = MdEntityDAO.getMdEntityDAO(IndividualInstance.CLASS);
     String tableName = mdIndInst.getTableName();
     String indCaseCol = QueryUtil.getColumnName(mdIndInst, IndividualInstance.INDIVIDUALCASE);
-    String caseReportDate = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.CASEREPORTDATE);
+    String onset = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
 
     String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))/";
-    sql += " AVG(NULLIF(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + caseReportDate + "),0.0)))*" + multiplier;
+    sql += " AVG(NULLIF(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + onset + "),0.0)))*" + multiplier;
 
     calc.setSQL(sql);
   }

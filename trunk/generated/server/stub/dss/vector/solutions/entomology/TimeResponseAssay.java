@@ -10,6 +10,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.general.Disease;
@@ -160,6 +161,19 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
           needsJoin = QueryUtil.setSelectabeSQL(valueQuery, stageAmmountCol, sql) || needsJoin;
         }
       }
+    }
+    
+    if(valueQuery.hasSelectableRef("Resistance_Ratio"))
+    {
+      needsJoin = true;
+      
+      SelectableSQL calc = (SelectableSQL) valueQuery.getSelectableRef("Resistance_Ratio");
+      
+      String testCol = QueryUtil.getColumnName(TimeResponseAssay.getTestStrainResultMd());
+      String refCol = QueryUtil.getColumnName(TimeResponseAssay.getReferenceStrainResultMd());
+      
+      String sql = testCol+"/NULLIF("+refCol+",0.0)";
+      calc.setSQL(sql);
     }
 
     if (needsJoin)

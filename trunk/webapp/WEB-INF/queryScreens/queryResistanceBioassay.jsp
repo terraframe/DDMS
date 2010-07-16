@@ -67,7 +67,7 @@
 
 <%=Halp.loadTypes(loadables)%>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 // Setting both values to false will select *all* univerals
 
 YAHOO.util.Event.onDOMReady(function(){
@@ -103,10 +103,7 @@ YAHOO.util.Event.onDOMReady(function(){
     collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
       return this.contains(attrib);
     }, available);    
-    var collectionColumns = [];
-
-
-
+    var collectionColumns = collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_col', dropDownMaps:{}});
     
     var diagnosticAssayAttribs = ["activeIngredient","assay","lifeStage","outcome","species","synergist"];
 
@@ -119,8 +116,8 @@ YAHOO.util.Event.onDOMReady(function(){
       return this.contains(attrib);
     }, available);   
        
-    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_diag', dropDownMaps:diagnosticAssayMaps});
-    var diagnosticColumns =  collectionColumns.concat(diagnosticAssayAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnosticAssay, suffix:'_diag', dropDownMaps:diagnosticAssayMaps}));
+//    collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_diag', dropDownMaps:diagnosticAssayMaps});
+    var diagnosticColumns =  diagnosticAssayAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnosticAssay, suffix:'_diag', dropDownMaps:diagnosticAssayMaps});
 
     
     var timeAssay = new  dss.vector.solutions.entomology.TimeResponseAssay();
@@ -132,12 +129,21 @@ YAHOO.util.Event.onDOMReady(function(){
     timeAttribs = Mojo.Iter.filter(timeAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
+
+
     
-    collectionColumns =  collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_time', dropDownMaps:timeResponseMaps});
-    var timeColumns =  collectionColumns.concat(timeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:timeAssay, suffix:'_time', dropDownMaps:timeResponseMaps}));
+//    collectionColumns =  collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_time', dropDownMaps:timeResponseMaps});
+    var timeColumns = timeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:timeAssay, suffix:'_time', dropDownMaps:timeResponseMaps});
+
+    timeColumns.push({
+      key:'Resistance_Ratio',
+      type:'sqlfloat',
+      attributeName:'Resistance_Ratio'
+    });
 
 
-
+    // The lines below can be uncommented to enable taxo calculations
+    /*
     var mapterm = function(term,index){
      
        var row = {};
@@ -179,17 +185,33 @@ YAHOO.util.Event.onDOMReady(function(){
    var taxonCalcGroups = orderedGrids.assayType.options.map(mapterm, orderedGrids);
 
     
-    var selectableGroups = [
-              {title:"Diagnostic_Dose_Assay", values:diagnosticColumns, group:"diag", klass:dss.vector.solutions.entomology.DiagnosticAssay.CLASS},
-              {title:"Time_Response_Assay", values:timeColumns, group:"time", klass:dss.vector.solutions.entomology.TimeResponseAssay.CLASS},
-    ];
 
     selectableGroups = selectableGroups.concat(taxonCalcGroups);
-
+    */
+    
+    var selectableGroups = [
+              {title:"Collection", values:collectionColumns, group:"res", klass:mosquitoCollection.CLASS},
+              {title:"Diagnostic_Dose_Assay", values:diagnosticColumns, group:"res", klass:dss.vector.solutions.entomology.DiagnosticAssay.CLASS},
+              {title:"Time_Response_Assay", values:timeColumns, group:"res", klass:dss.vector.solutions.entomology.TimeResponseAssay.CLASS},
+    ];
     
     var query = new MDSS.QueryResistanceBioassay(selectableGroups, queryList);
     query.render();
 
+    var dm = query.getDependencyManager();
+    dm.excludes({
+      independent: diagnosticColumns,
+      dependent: timeColumns,
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: true
+    });
+
+    dm.includes({
+      independent: 'Resistance_Ratio',
+      dependent: ['collectionId_col','assay_time','lifeStage_time','species_time'],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
 });
 
 </script>
