@@ -89,11 +89,13 @@ overflow: hidden;
           index:index,
           id:id,
           onSuccess : function(view) {
-            var obj = {activeIngredient:view.getActiveIngredient(), concentrationQuantifier:view.getConcentrationQuantifier(), concentrationQualifier:view.getConcentrationQualifier()};
+            if(view != null) {
+              var obj = {activeIngredient:view.getActiveIngredient(), concentrationQuantifier:view.getConcentrationQuantifier(), concentrationQualifier:view.getConcentrationQualifier()};
 
-            this.cache[this.id] = obj;
+              this.cache[this.id] = obj;
 
-            setLabels(this.index, obj);   
+              setLabels(this.index, obj);
+            }
           }
         });
 

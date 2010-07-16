@@ -180,35 +180,29 @@ public class YUIColumn implements Reloadable
   {
     try
     {
-
       DTOFacade facade = new DTOFacade(key, view);
 
-      Object object = null;
+      Object object = view.getValue(attributeName);
 
-      if (this.getter != null && this.getter.length() > 0)
+      if (this.isHidden() && object != null)
       {
-        Class<? extends ViewDTO> klass = view.getClass();
-        object = klass.getMethod(getter).invoke(view);
+        return object.toString();
       }
       else
       {
-        if (this.isHidden())
+        if (this.getter != null && this.getter.length() > 0)
         {
-          object = view.getValue(attributeName);
-
-          if (object != null)
-          {
-            return object.toString();
-          }
+          Class<? extends ViewDTO> klass = view.getClass();
+          object = klass.getMethod(getter).invoke(view);
         }
         else
         {
           object = facade.getValue();
+        }
 
-          if (object != null)
-          {
-            return this.editor.getValue(object);
-          }
+        if (object != null)
+        {
+          return this.editor.getValue(object);
         }
       }
 

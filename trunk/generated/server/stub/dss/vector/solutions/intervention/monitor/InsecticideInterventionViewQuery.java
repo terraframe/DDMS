@@ -46,9 +46,6 @@ public class InsecticideInterventionViewQuery extends dss.vector.solutions.inter
       vQuery.map(InsecticideInterventionView.INTERVENTION, query.getIntervention());
       vQuery.map(InsecticideInterventionView.INTERVENTIONMETHOD, query.getInterventionMethod());
       vQuery.map(InsecticideInterventionView.INSECTICIDE, query.getInsecticide());
-      vQuery.map(InsecticideInterventionView.ACTIVEINGREDIENT, query.getInsecticide().getActiveIngredient().getTermDisplayLabel().getSessionLocale());
-      vQuery.map(InsecticideInterventionView.CONCENTRATIONQUANTIFIER, query.getInsecticide().getConcentrationQuantifier());
-      vQuery.map(InsecticideInterventionView.CONCENTRATIONQUALIFIER, query.getInsecticide().getConcentrationQualifier());
       vQuery.map(InsecticideInterventionView.QUANTITY, query.getQuantity());
       vQuery.map(InsecticideInterventionView.UNIT, query.getUnit());
     }

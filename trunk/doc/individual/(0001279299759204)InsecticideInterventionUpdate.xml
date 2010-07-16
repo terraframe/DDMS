@@ -12,6 +12,17 @@
             required="false" />
         </attributes>
       </mdBusiness>
+
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.InsecticideInterventionView">
+        <attributes>
+          <virtual
+            name="concentrationQuantifier"
+            concrete="concentrationQuantifier"
+            type="dss.vector.solutions.irs.InsecticideBrand"
+            required="false" />
+        </attributes>
+      </mdView>
     </update>
   </doIt>
   <undoIt>
