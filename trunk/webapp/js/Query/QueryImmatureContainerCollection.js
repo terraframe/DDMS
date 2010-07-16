@@ -12,8 +12,7 @@ Mojo.Meta.newClass('MDSS.QueryImmatureContainerCollection', {
   		this._mainQueryClass = this._groupByClass.CLASS;
 	
       this._larvacide = new this._groupByClass();
-            
-      this._dateAttribute = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.STARTDATE, this._groupByClass.STARTDATE);
+      //this._dateAttribute = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.STARTDATE, this._groupByClass.STARTDATE);
       
       var startDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.STARTDATE, this._groupByClass.STARTDATE);
       this._startDateSelectable = new MDSS.QueryXML.Selectable(startDateAttr);
