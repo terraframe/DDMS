@@ -1469,7 +1469,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       
       if(!checked)
       {
-        this._config.removeNumericCriteria(attribute.getKey())
+        this._config.removeNumberCriteria(attribute.getKey())
       }
     
     },
