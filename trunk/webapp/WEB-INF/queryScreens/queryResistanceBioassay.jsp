@@ -206,10 +206,18 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: true
     });
 
+    var ratioCols = ['collectionId_col','assay_time','lifeStage_time','species_time', 'activeIngredient_time'];
     dm.includes({
       independent: 'Resistance_Ratio',
-      dependent: ['collectionId_col','assay_time','lifeStage_time','species_time'],
+      dependent: ratioCols,
       type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+
+    dm.includes({
+      independent: ratioCols,
+      dependent: 'Resistance_Ratio',
+      type: MDSS.Dependent.UNCHECKED,
       bidirectional: false
     });
 });
