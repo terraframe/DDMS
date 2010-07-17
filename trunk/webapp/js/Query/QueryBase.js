@@ -1713,6 +1713,23 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
           this._transactions--;
         }
       }
+      
+      if(this._transactions === 0)
+      {
+        // uncheck any Select All boxes that don't contain checked siblings
+        var checked =YAHOO.util.Selector.query('input[type="checkbox"].selectAllCheck:checked');
+        for(var i=0; i<checked.length; i++)
+        {
+          var check = checked[i];
+          var ul = check.parentNode.parentNode;
+          var count = 0;
+          var cSiblings = YAHOO.util.Selector.query('input[type="checkbox"]:checked:not(.selectAllCheck)', ul);
+          if(cSiblings.length === 0)
+          {
+            check.checked = false;
+          }
+        }
+      }
    },
    
    _addEntry : function(ind, dep, type, excludes, propagate)
