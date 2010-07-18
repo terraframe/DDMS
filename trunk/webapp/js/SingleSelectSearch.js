@@ -310,7 +310,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       var initialized = this._selectSearch.isInitialized();
       
       // avoid setting the geo id in 101 if there isn't a valid value
-      if(this._geoElement.value !== '')
+      if(this._geoInput != null && this._geoInput.value !== '')
       {
         var geoId = this._geoInput.value;
         this._selectSearch.setGeoId(geoId);
