@@ -133,7 +133,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      * Maps a QueryBrowser object to a specific
      * attribute element (typically an LI).
      */
-    _attachBrowser : function(elementId, handler, attribute, fieldClass, fieldAttribute, multipleSelect)
+    _attachBrowser : function(elementId, handler, attribute, fieldClass, fieldAttribute)
     {
     	
     	var bound = null;
@@ -147,7 +147,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     		bound = Mojo.emptyFunction;
     	}
     		      
-      var browser = new MDSS.QueryBrowser(this, bound, attribute, fieldClass, fieldAttribute, multipleSelect);
+      var browser = new MDSS.QueryBrowser(this, bound, attribute, fieldClass, fieldAttribute);
       this._browsers[elementId] = browser;
     },
     
@@ -1573,15 +1573,14 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
 
   Instance : {
   
-    initialize : function(query, handler, attribute, fieldClass, fieldAttribute, multiSelect)
+    initialize : function(query, handler, attribute, fieldClass, fieldAttribute)
     {
       this._query = query;
       this._fieldClass = fieldClass;
       this._fieldAttribute = fieldAttribute;
-      this._multiSelect = multiSelect || false;
+      this._multiSelect = true;
       this._attribute = attribute;
       this._handler = handler;
-      
       this._browser = new MDSS.OntologyBrowser(this._multiSelect, this._fieldClass, this._fieldAttribute);
       this._browser.setHandler(this.setTermsHandler, this);
       
@@ -1647,14 +1646,38 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
      */
     setTermsHandler: function(terms)
     {
-      this._terms = Mojo.Iter.map(terms, function(term){
-        return term.getTermId(); 
-      });
+      this._terms = []; // reset the saved terms
+
+      // The terms could be a mix of TermViews and ValueObjects
+      // so be careful to call the correct id and display methods.
+      var idAttr = Mojo.$.dss.vector.solutions.ontology.Term.ID;
+      var TermView = Mojo.$.dss.vector.solutions.ontology.TermView;
+      var entries = Mojo.Iter.map(terms, function(term){
+        
+        var id;
+        var display;
+        if(term instanceof TermView)
+        {
+          id = term.getTermId();
+          display = MDSS.OntologyBrowser.formatLabelFromView(term);
+        }
+        else
+        {
+          id = term.getValue(idAttr);
+          display = MDSS.OntologyBrowser.formatLabelFromValueObject(term);
+        }
+        
+        this.push(id);
+        
+        return {id:id, display:display};
+        
+      }, this._terms);
+      
       this._query._config.addTerms(this._attribute.getKey(), this._terms);
     
       if(this._handler)
       {
-        this._handler(this, terms);
+        this._handler(this, entries);
       }
     }
     

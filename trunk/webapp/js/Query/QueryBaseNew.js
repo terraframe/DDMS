@@ -1055,7 +1055,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           var browserRootAttribute = this._getBrowserRootAttribute(attribute);
           
         	li.id = attribute.getKey()+'_li';
-          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass, browserRootAttribute, true);
+          this._attachBrowser(li.id, this._genericBrowserHandler, attribute, browserRootClass, browserRootAttribute);
         }
 
         visibleUl.appendChild(li);
@@ -1073,9 +1073,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._queryPanel.clearWhereCriteria(key);      
 
       Mojo.Iter.forEach(selected, function(sel){
-        //for display
-        var display = MDSS.OntologyBrowser.formatLabelFromView(sel);
-        this._queryPanel.addWhereCriteria(attribute.getKey(), sel.getTermId(), display);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), sel.id, sel.display);
       }, this); 
     },
     

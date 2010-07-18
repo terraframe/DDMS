@@ -580,34 +580,16 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
           {
             var views = query.getResultSet();
             
-            // combine the cached and fetched views and sort
-            // them by term name.
             var total = this.cached.concat(views);
-            total.sort(function(term1, term2){
-              var t1 = term1.getTermName();
-              var t2 = term2.getTermName();
-              if(t1 > t2)
-              {
-                return 1;
-              }
-              else if(t1 < t2)
-              {
-                return -1;
-              }
-              else
-              {
-                return 0;
-              }
-            });
             
             // Now reset the selection
-            Mojo.Iter.forEach(total, function(valueObject){
+            Mojo.Iter.forEach(total, function(term){
               
               // must add term to the cache first
-              var termId = valueObject.getValue(Mojo.$.dss.vector.solutions.ontology.Term.ID);
-              this._cacheSet(termId, valueObject);
+              var id = this._idFunction(term)
+              this._cacheSet(id, term);
               
-              this._addToSelection(termId); 
+              this._addToSelection(id); 
             }, this.that);
           }
         });
