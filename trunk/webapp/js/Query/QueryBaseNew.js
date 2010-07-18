@@ -1537,7 +1537,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         this._config.setNumberCriteria(attribute.getKey(), value);
         this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
       }
-     
+      else
+      {
+        this._config.removeNumberCriteria(attribute.getKey());
+      }
     }
   },
   Static : {
