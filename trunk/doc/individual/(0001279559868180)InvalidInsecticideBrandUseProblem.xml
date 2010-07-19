@@ -1,0 +1,22 @@
+<version
+	xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<doIt>
+		<create>
+			<mdProblem
+				name="dss.vector.solutions.irs.InvalidInsecticideBrandUseProblem"
+				label="Invalid Insecticide Brand Use Problem"
+				extends="dss.vector.solutions.NotificationProblem"
+				description="The insecticide product's use is not valid for this record."
+				message="The insecticide product's use is not valid for this record.">
+			</mdProblem>
+		</create>
+	</doIt>
+	<undoIt>
+		<delete>
+			<object
+				key="dss.vector.solutions.irs.InvalidInsecticideBrandUseProblem"
+				type="com.runwaysdk.system.metadata.MdProblem" />
+		</delete>
+	</undoIt>
+</version>
