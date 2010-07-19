@@ -53,8 +53,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 		super.validateBrand();
 		
 		if (this.getBrand() != null) {
-			if (!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.ITM) &&
-				!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.IRS)) {
+			if (!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.IRS)) {
 				InvalidInsecticideBrandUseProblem p = new InvalidInsecticideBrandUseProblem();
 				p.setNotification(this, BRAND);
 				p.throwIt();
