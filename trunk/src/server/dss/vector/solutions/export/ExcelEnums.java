@@ -37,6 +37,16 @@ public class ExcelEnums implements Reloadable
   
   public static DiagnosisType getDiagnosisType(String label)
   {
+    if (label==null)
+    {
+      return null;
+    }
+    
+    if (label.length()==0)
+    {
+      return null;
+    }
+    
     for (DiagnosisType diagnosisType : DiagnosisType.values())
     {
       if (diagnosisType.getEnumName().equalsIgnoreCase(label) ||

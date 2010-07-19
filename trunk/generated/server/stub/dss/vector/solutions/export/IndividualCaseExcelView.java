@@ -9,14 +9,17 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.Physician;
+import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.intervention.monitor.DiagnosisType;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
@@ -84,7 +87,29 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setPhysician(getPhysician());
     instance.setHealthFacility(this.getHealthFacility());
     instance.setDetectedBy(Term.validateByDisplayLabel(this.getDetectedBy(), IndividualInstance.getDetectedByMd()));
-    instance.addDiagnosisType(ExcelEnums.getDiagnosisType(this.getDiagnosisType()));
+    
+    String diagnosisTypeString = this.getDiagnosisType();
+    DiagnosisType diagType = ExcelEnums.getDiagnosisType(diagnosisTypeString);
+    if (diagType==null)
+    {
+      if (diagnosisTypeString!=null && diagnosisTypeString.length()>0)
+      {
+        InvalidDiagnosisTypeProblem invalidDiagnosisTypeProblem = new InvalidDiagnosisTypeProblem();
+        invalidDiagnosisTypeProblem.setDiagnosisType(diagnosisTypeString);
+        invalidDiagnosisTypeProblem.throwIt();
+      }
+      else
+      {
+        RequiredAttributeProblem requiredAttributeProblem = new RequiredAttributeProblem();
+        requiredAttributeProblem.setAttributeDisplayLabel(getDiagnosisTypeMd().getDisplayLabel(Session.getCurrentLocale()));
+        requiredAttributeProblem.throwIt();
+      }
+    }
+    else
+    {
+      instance.addDiagnosisType(diagType);
+    }
+    
     instance.setDiagnosis(Term.validateByDisplayLabel(this.getDiagnosis(), IndividualInstance.getDiagnosisMd()));
     instance.setConfirmedDiagnosis(Term.validateByDisplayLabel(this.getConfirmedDiagnosis(), IndividualInstance.getConfirmedDiagnosisMd()));
     instance.setConfirmedDiagnosisDate(this.getConfirmedDiagnosisDate());
