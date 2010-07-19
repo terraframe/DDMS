@@ -1,6 +1,7 @@
 package dss.vector.solutions.irs;
 
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -22,6 +23,7 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.IncidencePopulationException;
@@ -38,6 +40,28 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     super();
   }
 
+  @Override
+  public void apply()
+  {
+	this.validateBrand();
+	
+    super.apply();
+  }
+  
+	@Override
+	public void validateBrand() {
+		super.validateBrand();
+		
+		if (this.getBrand() != null) {
+			if (!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.ITM) &&
+				!this.getBrand().getInsecticideUse().contains(InsecticideBrandUse.IRS)) {
+				InvalidInsecticideBrandUseProblem p = new InvalidInsecticideBrandUseProblem();
+				p.setNotification(this, BRAND);
+				p.throwIt();
+			}
+		}
+	}
+	
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.

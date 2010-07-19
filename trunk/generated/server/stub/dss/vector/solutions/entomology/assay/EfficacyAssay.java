@@ -23,254 +23,229 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
+import dss.vector.solutions.irs.InsecticideBrandUse;
+import dss.vector.solutions.irs.InvalidInsecticideBrandUseProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
-public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.generation.loader.Reloadable
-{
-  private static final long serialVersionUID = 1236363373386L;
+public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.generation.loader.Reloadable {
+	private static final long serialVersionUID = 1236363373386L;
 
-  public EfficacyAssay()
-  {
-    super();
-  }  
-  
-  @Override
-  public String toString()
-  {
-    if (this.isNew())
-    {
-      return "New: "+ this.getClassDisplayLabel();
-    }
-    else if(this.getGeoEntity() != null && this.getInsecticideBrand() != null)
-    {
-      return "(" + this.getGeoEntity().getLabel() + ", " + this.getInsecticideBrand().toString() + ")";
-    }
-    
-    return super.toString();
-  }
+	public EfficacyAssay() {
+		super();
+	}
 
-  @Override
-  public void validateAgeRange()
-  {
-    super.validateAgeRange();
+	@Override
+	public String toString() {
+		if (this.isNew()) {
+			return "New: " + this.getClassDisplayLabel();
+		} else if (this.getGeoEntity() != null && this.getInsecticideBrand() != null) {
+			return "(" + this.getGeoEntity().getLabel() + ", " + this.getInsecticideBrand().toString() + ")";
+		}
 
-    new AdultAgeRangeValidator(this).validate();
-  }
+		return super.toString();
+	}
 
-  @Override
-  public void validateGravid()
-  {
-    super.validateGravid();
+	@Override
+	public void validateAgeRange() {
+		super.validateAgeRange();
 
-    new GravidValidator(this).validate();
-  }
+		new AdultAgeRangeValidator(this).validate();
+	}
 
-  @Override
-  public void validateFed()
-  {
-    super.validateFed();
+	@Override
+	public void validateGravid() {
+		super.validateGravid();
 
-    new FedValidator(this).validate();
-  }
+		new GravidValidator(this).validate();
+	}
 
-  @Override
-  public void validateQuantityDead()
-  {
-    super.validateQuantityDead();
+	@Override
+	public void validateFed() {
+		super.validateFed();
 
-    new QuantityDeadValidator(this).validate();
-  }
-  
-  @Override
-  public void validateGeoEntity()
-  {
-    if(this.getGeoEntity() != null && !(this.getGeoEntity() instanceof Surface))
-    {
-      throw new InvalidReferenceException("[" + this.getGeoEntity().getId() + "] is not a valid Surface geo id", (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
-    }
-  }
-  
-  @Override
-  public void apply()
-  {
-    validateGeoEntity();
-    validateQuantityDead();
-    validateAgeRange();
-    validateFed();
-    validateGravid();
+		new FedValidator(this).validate();
+	}
 
-    if (this.getQuantityDead() != null && this.getQuantityTested() != null && this.getQuantityDead() <= this.getQuantityTested())
-    {
-      float mortality = calculateMortality(this.getQuantityDead(), this.getQuantityTested());
+	@Override
+	public void validateQuantityDead() {
+		super.validateQuantityDead();
 
-      this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
-      this.setMortality(mortality);
-    }
-    else
-    {
-      this.setQuantityLive(0);
-      this.setMortality(new Float(0));
-    }
+		new QuantityDeadValidator(this).validate();
+	}
 
-    super.apply();
-  }
+	@Override
+	public void validateGeoEntity() {
+		if (this.getGeoEntity() != null && !(this.getGeoEntity() instanceof Surface)) {
+			throw new InvalidReferenceException("[" + this.getGeoEntity().getId() + "] is not a valid Surface geo id", (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+		}
+	}
 
-  private static float calculateMortality(Integer dead, Integer total)
-  {
-    return ( dead * 100F / total );
-  }
+	@Override
+	public void validateInsecticideBrand() {
+		super.validateInsecticideBrand();
+		
+		if (this.getInsecticideBrand() != null) {
+			if (!this.getInsecticideBrand().getInsecticideUse().contains(InsecticideBrandUse.ITM) &&
+				!this.getInsecticideBrand().getInsecticideUse().contains(InsecticideBrandUse.IRS)) {
+				InvalidInsecticideBrandUseProblem p = new InvalidInsecticideBrandUseProblem();
+				p.setNotification(this, INSECTICIDEBRAND);
+				p.throwIt();
+			}
+		}
+	}
 
-  public static EfficacyAssay[] searchByGeoEntityAndDate(GeoEntity geoEntity, Date collectionDate)
-  {
-    QueryFactory factory = new QueryFactory();
-    EfficacyAssayQuery query = new EfficacyAssayQuery(factory);
+	@Override
+	public void apply() {
+		validateGeoEntity();
+		validateQuantityDead();
+		validateAgeRange();
+		validateFed();
+		validateGravid();
+		validateInsecticideBrand();
 
-    query.WHERE(query.getGeoEntity().EQ(geoEntity));
-    query.AND(query.getTestDate().EQ(collectionDate));
+		if (this.getQuantityDead() != null && this.getQuantityTested() != null && this.getQuantityDead() <= this.getQuantityTested()) {
+			float mortality = calculateMortality(this.getQuantityDead(), this.getQuantityTested());
 
-    OIterator<? extends EfficacyAssay> iterator = query.getIterator();
+			this.setQuantityLive(this.getQuantityTested() - this.getQuantityDead());
+			this.setMortality(mortality);
+		} else {
+			this.setQuantityLive(0);
+			this.setMortality(new Float(0));
+		}
 
-    try
-    {
-      List<EfficacyAssay> list = new LinkedList<EfficacyAssay>();
+		super.apply();
+	}
 
-      while (iterator.hasNext())
-      {
-        list.add(iterator.next());
-      }
+	private static float calculateMortality(Integer dead, Integer total) {
+		return (dead * 100F / total);
+	}
 
-      return list.toArray(new EfficacyAssay[list.size()]);
-    }
-    finally
-    {
-      iterator.close();
-    }
-  }
+	public static EfficacyAssay[] searchByGeoEntityAndDate(GeoEntity geoEntity, Date collectionDate) {
+		QueryFactory factory = new QueryFactory();
+		EfficacyAssayQuery query = new EfficacyAssayQuery(factory);
 
-  @Override
-  public Float getOverallMortalityRate()
-  {
-    int dead = 0;
-    int total = 0;
-    EfficacyAssay[] assays = searchByGeoEntityAndDate(this.getGeoEntity(), this.getTestDate());
+		query.WHERE(query.getGeoEntity().EQ(geoEntity));
+		query.AND(query.getTestDate().EQ(collectionDate));
 
-    for (EfficacyAssay assay : assays)
-    {
-      dead += assay.getQuantityDead();
-      total += assay.getQuantityTested();
-    }
+		OIterator<? extends EfficacyAssay> iterator = query.getIterator();
 
-    if (total == 0)
-    {
-      return 0.0F;
-    }
+		try {
+			List<EfficacyAssay> list = new LinkedList<EfficacyAssay>();
 
-    return calculateMortality(dead, total);
-  }
-  
-  public EfficacyAssayView lockView()
-  {
-    this.lock();
-    
-    return this.getView();
-  }
-  
-  public EfficacyAssayView unlockView()
-  {
-    this.unlock();
-    
-    return this.getView();
-  }
-  
-  public EfficacyAssayView getView()
-  {
-    EfficacyAssayView view = new EfficacyAssayView();
-    
-    view.populateView(this);
-    
-    return view;
-  }
+			while (iterator.hasNext()) {
+				list.add(iterator.next());
+			}
 
-  
-  public static EfficacyAssayView getView(String id)
-  {
-    return EfficacyAssay.get(id).getView();
-  }
-  
-  /**
-   * Takes in an XML string and returns a ValueQuery representing the structured
-   * query in the XML.
-   *
-   * @param xml
-   * @return
-   */
-  public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
-  {
-    JSONObject queryConfig;
-    try
-    {
-      queryConfig = new JSONObject(config);
-    }
-    catch (JSONException e1)
-    {
-      throw new ProgrammingErrorException(e1);
-    }
-    
-    QueryFactory queryFactory = new QueryFactory();
+			return list.toArray(new EfficacyAssay[list.size()]);
+		} finally {
+			iterator.close();
+		}
+	}
 
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
+	@Override
+	public Float getOverallMortalityRate() {
+		int dead = 0;
+		int total = 0;
+		EfficacyAssay[] assays = searchByGeoEntityAndDate(this.getGeoEntity(), this.getTestDate());
 
-    // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);   
-   
-    EfficacyAssayQuery efficacyAssayQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
-    
-    AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
-    
-    if (efficacyAssayQuery != null)
-    {
-      QueryUtil.joinTermAllpaths(valueQuery,EfficacyAssay.CLASS, efficacyAssayQuery);
-      
-      // There are terms defined on the parent class as well, so grab
-      QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS,  efficacyAssayQuery.getSpecie().getDefiningTableAlias());
-      if(abstractAssayQuery != null)
-      {
-        valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
-      }
-      else
-      {
-        //ensure date is allways joined
-        SelectableMoment dateAttribute = efficacyAssayQuery.getTestDate();
-        for (Join join : dateAttribute.getJoinStatements())
-        {
-          valueQuery.WHERE((InnerJoin) join);
-        }
-      }
-      
-      QueryUtil.joinGeoDisplayLabels(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery);
-    }
-    
-    InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
-    
-    if(insecticideBrandQuery != null)
-    {
-      valueQuery.WHERE(efficacyAssayQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
-      
-      QueryUtil.joinEnumerationDisplayLabels(valueQuery,  InsecticideBrand.CLASS, insecticideBrandQuery);
-      QueryUtil.joinTermAllpaths(valueQuery,InsecticideBrand.CLASS,insecticideBrandQuery);
-    }
-    
-    
-    QueryUtil.setTermRestrictions(valueQuery, queryMap);
-    
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
-    
-    
-    return valueQuery; 
+		for (EfficacyAssay assay : assays) {
+			dead += assay.getQuantityDead();
+			total += assay.getQuantityTested();
+		}
 
-  }
+		if (total == 0) {
+			return 0.0F;
+		}
+
+		return calculateMortality(dead, total);
+	}
+
+	public EfficacyAssayView lockView() {
+		this.lock();
+
+		return this.getView();
+	}
+
+	public EfficacyAssayView unlockView() {
+		this.unlock();
+
+		return this.getView();
+	}
+
+	public EfficacyAssayView getView() {
+		EfficacyAssayView view = new EfficacyAssayView();
+
+		view.populateView(this);
+
+		return view;
+	}
+
+	public static EfficacyAssayView getView(String id) {
+		return EfficacyAssay.get(id).getView();
+	}
+
+	/**
+	 * Takes in an XML string and returns a ValueQuery representing the
+	 * structured query in the XML.
+	 * 
+	 * @param xml
+	 * @return
+	 */
+	public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer) {
+		JSONObject queryConfig;
+		try {
+			queryConfig = new JSONObject(config);
+		} catch (JSONException e1) {
+			throw new ProgrammingErrorException(e1);
+		}
+
+		QueryFactory queryFactory = new QueryFactory();
+
+		ValueQuery valueQuery = new ValueQuery(queryFactory);
+
+		// IMPORTANT: Required call for all query screens.
+		Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+
+		EfficacyAssayQuery efficacyAssayQuery = (EfficacyAssayQuery) queryMap.get(EfficacyAssay.CLASS);
+
+		AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
+
+		if (efficacyAssayQuery != null) {
+			QueryUtil.joinTermAllpaths(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery);
+
+			// There are terms defined on the parent class as well, so grab
+			QueryUtil.joinTermAllpaths(valueQuery, AbstractAssay.CLASS, efficacyAssayQuery.getSpecie().getDefiningTableAlias());
+			if (abstractAssayQuery != null) {
+				valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
+			} else {
+				// ensure date is allways joined
+				SelectableMoment dateAttribute = efficacyAssayQuery.getTestDate();
+				for (Join join : dateAttribute.getJoinStatements()) {
+					valueQuery.WHERE((InnerJoin) join);
+				}
+			}
+
+			QueryUtil.joinGeoDisplayLabels(valueQuery, EfficacyAssay.CLASS, efficacyAssayQuery);
+		}
+
+		InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+
+		if (insecticideBrandQuery != null) {
+			valueQuery.WHERE(efficacyAssayQuery.getInsecticideBrand().EQ(insecticideBrandQuery));
+
+			QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
+			QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
+		}
+
+		QueryUtil.setTermRestrictions(valueQuery, queryMap);
+
+		QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+
+		QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+
+		return valueQuery;
+
+	}
 
 }
