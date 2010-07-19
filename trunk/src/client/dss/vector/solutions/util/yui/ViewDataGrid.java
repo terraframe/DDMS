@@ -12,11 +12,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.business.ViewDTO;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.Halp;
@@ -42,7 +42,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   {
     this("", true, view, map, keys, data, "");
   }
-  
+
   public ViewDataGrid(String tableId, boolean readable, ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data)
   {
     this(tableId, readable, view, map, keys, data, "");
@@ -50,13 +50,13 @@ public class ViewDataGrid extends DataGrid implements Reloadable
 
   public ViewDataGrid(ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data, String postfix)
   {
-    this("", true, view, map, keys, data, postfix);    		
+    this("", true, view, map, keys, data, postfix);
   }
 
   public ViewDataGrid(String tableId, boolean readable, ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data, String postfix)
   {
     super(tableId, readable);
-    
+
     this.view = view;
     this.data = data;
     this.yuiColumns = new LinkedHashMap<String, YUIColumn>();
@@ -65,7 +65,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
 
     for (String accessorName : view.getAttributeNames())
     {
-      String key = GenerationUtil.upperFirstCharacter(accessorName);
+      String key = CommonGenerationUtil.upperFirstCharacter(accessorName);
 
       // Do not include columns for attributes which cannot be read
       if (!view.isReadable(accessorName))
@@ -172,7 +172,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
         }
         catch (JSONException e)
         {
-          throw new ApplicationException(e);
+          throw new ClientException(e);
         }
       }
     }
@@ -226,7 +226,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ClientException(e);
       }
     }
 
@@ -245,7 +245,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
 
       list.add(column.getDropDownOptions());
     }
-    
+
     return list;
   }
 }

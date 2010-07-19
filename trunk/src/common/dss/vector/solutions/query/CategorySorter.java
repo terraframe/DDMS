@@ -4,12 +4,13 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.CommonExceptionProcessor;
+import com.runwaysdk.constants.ClientExceptions;
 import com.runwaysdk.generation.loader.Reloadable;
 
 public class CategorySorter implements Reloadable
 {
-  
+
     private static class AbstractComparator implements Comparator<AbstractCategoryIF>, Reloadable
     {
 
@@ -41,7 +42,10 @@ public class CategorySorter implements Reloadable
         {
           String error = "Could not compare the categories" + " [" + o1.getClass().getSimpleName()
               + "] and [" + o2.getClass().getSimpleName() + "]";
-          throw new ApplicationException(error);
+
+          CommonExceptionProcessor.processException(
+        	        ClientExceptions.ConfigurationException.getExceptionClass(), error);
+          return 0;
         }
 
         return ret;
@@ -112,7 +116,12 @@ public class CategorySorter implements Reloadable
       }
       else
       {
-        throw new ApplicationException("Could not compare the ranges [" + r1 + "] and [" + r2 + "].");
+        String error = "Could not compare the ranges [" + r1 + "] and [" + r2 + "].";
+
+        CommonExceptionProcessor.processException(
+    	        ClientExceptions.ConfigurationException.getExceptionClass(), error);
+
+        return 0;
       }
 
     }
@@ -182,5 +191,5 @@ public class CategorySorter implements Reloadable
       Collections.sort(categories, new AbstractComparator());
       Collections.reverse(categories);
     }
-  
+
 }

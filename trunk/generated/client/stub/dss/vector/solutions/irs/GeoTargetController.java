@@ -17,8 +17,8 @@ import org.json.JSONObject;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.general.EpiDateDTO;
@@ -135,7 +135,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
     {
       Integer numberOfWeeks = week.getNumberOfEpiWeeks();
       int index = ( week.getPeriod() % numberOfWeeks );
-      String key = GenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
+      String key = CommonGenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
 
       keys.add(key);
     }
@@ -163,7 +163,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
       Integer numberOfWeeks = week.getNumberOfEpiWeeks();
 
       int index = ( week.getPeriod() % numberOfWeeks );
-      String key = GenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
+      String key = CommonGenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
       String label = new Integer(index + 1).toString();
 
       ColumnSetup setup = new ColumnSetup(false, true);
@@ -194,7 +194,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
   {
     for (int i = 0; i < array.length; i++)
     {
-      array[i] = GenerationUtil.upperFirstCharacter(array[i]);
+      array[i] = CommonGenerationUtil.upperFirstCharacter(array[i]);
     }
   }
 

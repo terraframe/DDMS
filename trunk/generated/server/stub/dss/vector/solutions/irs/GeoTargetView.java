@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ConfigurationException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.Session;
 
@@ -48,7 +48,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.ge
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ConfigurationException(e);
       }
     }
 
@@ -91,7 +91,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.ge
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ConfigurationException(e);
       }
     }
   }
@@ -117,7 +117,7 @@ public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.ge
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ConfigurationException(e);
       }
     }
 

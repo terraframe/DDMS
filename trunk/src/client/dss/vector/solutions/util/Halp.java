@@ -27,7 +27,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.business.ComponentDTO;
@@ -260,7 +260,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
         }
         catch (Exception x)
         {
-          // throw new ApplicationException(x);
+          // throw new ClientException(x);
           // System.out.println(x + " " + x.getCause());
         }
       }
@@ -493,9 +493,9 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
      * properties.put("mail.smtp.host", "terraframe.com");
      * properties.put("mail.smtp.port", "25"); properties.put("mail.smtp.auth",
      * true); Session session = Session.getDefaultInstance(properties, null);
-     * 
+     *
      * try {
-     * 
+     *
      * Message message = new MimeMessage(session); message.setFrom(new
      * InternetAddress(from)); message.setRecipient(Message.RecipientType.TO,
      * new InternetAddress(to)); message.setSubject(subject);
@@ -637,7 +637,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
           }
           else
           {
-            throw new ApplicationException(t);
+            throw new ClientException(t);
           }
         }
       }
@@ -647,7 +647,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ClientException(e);
       }
     }
 

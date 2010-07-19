@@ -2,10 +2,10 @@ package dss.vector.solutions.util.yui;
 
 import java.util.Map;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.business.ViewDTO;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.controller.DTOFacade;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.TermDTO;
@@ -23,8 +23,8 @@ public class TermSetup implements Reloadable
 
   public TermSetup(String labelKey, String termKey)
   {
-    this.labelKey = GenerationUtil.upperFirstCharacter(labelKey);
-    this.termKey = GenerationUtil.upperFirstCharacter(termKey);
+    this.labelKey = CommonGenerationUtil.upperFirstCharacter(labelKey);
+    this.termKey = CommonGenerationUtil.upperFirstCharacter(termKey);
   }
 
   public String getLabelKey()
@@ -45,10 +45,10 @@ public class TermSetup implements Reloadable
 
       setup.setLabel(termDTO.getTermDisplayLabel().getValue());
     }
-    
+
     if(termKey != null)
     {
-      
+
       try
       {
         DTOFacade facade = new DTOFacade(termKey, view);
@@ -56,7 +56,7 @@ public class TermSetup implements Reloadable
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ClientException(e);
       }
     }
   }

@@ -6,9 +6,8 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ConfigurationException;
 import com.runwaysdk.SystemException;
-import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdViewDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
@@ -21,8 +20,6 @@ import com.runwaysdk.query.ViewArrayExcelExporter;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.InstallProperties;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class ThresholdDataView extends ThresholdDataViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -205,7 +202,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -217,7 +214,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -366,7 +363,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
    *          GeoEntity
    * @param date
    *          Date
-   * 
+   *
    * @return An array of the Thresholds [T1, T2] for a given GeoEntity on the
    *         give Date. If thresholds are not defined then null is returned.
    */

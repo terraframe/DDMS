@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.RequiredCollectionProblemDTO;
@@ -213,7 +213,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
   {
     for (int i = 0; i < array.length; i++)
     {
-      array[i] = GenerationUtil.upperFirstCharacter(array[i]);
+      array[i] = CommonGenerationUtil.upperFirstCharacter(array[i]);
     }
   }
 

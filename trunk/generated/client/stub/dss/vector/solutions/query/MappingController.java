@@ -13,7 +13,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
@@ -32,7 +32,7 @@ public class MappingController extends MappingControllerBase implements
   private static final long   serialVersionUID     = 1241150593672L;
 
   private static final String JSP_DIR              = "/WEB-INF/mapScreens/";
-  
+
   private static final String ADD_TEXT_JSP         = JSP_DIR+"addText.jsp";
 
   public static final String GENERATE_MAPS = JSP_DIR+"generateMaps.jsp";
@@ -42,7 +42,7 @@ public class MappingController extends MappingControllerBase implements
   {
     super(req, resp, isAsynchronous);
   }
-  
+
   @Override
   public void addText() throws IOException, ServletException
   {
@@ -50,9 +50,9 @@ public class MappingController extends MappingControllerBase implements
     {
       FreeTextDTO text = new FreeTextDTO(this.getClientRequest());
       req.setAttribute("freeText", text);
-      
+
       StylesController.setFontStylesAndFamiles(req, this.getClientRequest());
-      
+
       req.getRequestDispatcher(ADD_TEXT_JSP).forward(req, resp);
     }
     catch (Throwable t)
@@ -62,7 +62,7 @@ public class MappingController extends MappingControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   @Override
   public void exportShapefile(String mapId, String namedMapId) throws IOException, ServletException
   {
@@ -70,7 +70,7 @@ public class MappingController extends MappingControllerBase implements
     {
       SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), namedMapId);
       InputStream stream = SavedMapDTO.exportShapefile(this.getClientRequest(), mapId);
-    
+
       String mapName;
       if(savedMap instanceof DefaultSavedMapDTO)
       {
@@ -80,7 +80,7 @@ public class MappingController extends MappingControllerBase implements
       {
         mapName = savedMap.getMapName();
       }
-      
+
       FileDownloadUtil.writeZIP(resp, mapName, stream);
     }
     catch (Throwable t)
@@ -88,7 +88,7 @@ public class MappingController extends MappingControllerBase implements
       resp.getWriter().write(t.getLocalizedMessage());
     }
   }
-  
+
   public void generateMaps() throws IOException, ServletException
   {
     try
@@ -103,29 +103,29 @@ public class MappingController extends MappingControllerBase implements
         JSONObject idAndName = new JSONObject();
         idAndName.put("id", map.getId());
         idAndName.put("name", map.getMapName());
-        
+
         maps.put(idAndName);
       }
       this.req.setAttribute("mapList", maps.toString());
-      
+
       this.req.getRequestDispatcher(GENERATE_MAPS).forward(req, resp);
-    } 
+    }
     catch (Throwable t)
     {
-      throw new ApplicationException(t);
+      throw new ClientException(t);
     }
   }
-  
+
   @Override
   public void refreshMap(String savedMapId) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
+
       SavedMapDTO map = SavedMapDTO.get(request, savedMapId);
-      
-      
+
+
       // Regenerate the database views
       String mapData = map.refreshMap();
 
@@ -134,10 +134,10 @@ public class MappingController extends MappingControllerBase implements
       {
         new SLDWriter(layer).write();
       }
-      
+
       JSONReturnObject json = new JSONReturnObject(mapData);
       json.setInformation(request.getInformation());
-      
+
       resp.getWriter().print(json.toString());
     }
     catch(ProblemExceptionDTO e)
@@ -153,7 +153,7 @@ public class MappingController extends MappingControllerBase implements
       resp.getWriter().print(jsonE.getJSON());
     }
   }
-  
+
   @Override
   public void uploadMapImage() throws IOException, ServletException
   {
@@ -176,11 +176,11 @@ public class MappingController extends MappingControllerBase implements
           file = item;
         }
       }
-      
+
       if(file != null)
       {
         String ext = file.getName().length() == 0 ? "" : file.getName().substring(file.getName().lastIndexOf("."));
-        
+
         if(ext.length() == 0 || !ext.matches("\\.(?i)(jpg|jpeg|bmp|png|tiff|gif)"))
         {
           ImageUploadOnlyExceptionDTO ex = new ImageUploadOnlyExceptionDTO(this.getClientRequest(), this.req.getLocale());
@@ -188,18 +188,18 @@ public class MappingController extends MappingControllerBase implements
           message = ex.getLocalizedMessage();
           return;
         }
-        
+
         String name = QueryConstants.MAP_IMAGES_DIR+System.currentTimeMillis()+ext;
         String deploy = DeployProperties.getDeployPath();
         if(!deploy.endsWith("/"))
         {
           deploy += "/";
         }
-        
+
         String path = deploy+name;
-        
+
         FileIO.write(path, file.get());
-        
+
         success = true;
         message = name;
       }
@@ -212,7 +212,7 @@ public class MappingController extends MappingControllerBase implements
     }
     catch(Throwable t)
     {
-      ApplicationException ex = new ApplicationException(t);
+      ClientException ex = new ClientException(t);
       message = ex.getLocalizedMessage();
     }
     finally
@@ -222,10 +222,10 @@ public class MappingController extends MappingControllerBase implements
       resp.getWriter().write("{\"success\":"+success+", \"message\":"+message+"}");
     }
   }
-  
+
   /**
    * Gets the legend of a saved search as a JSON object.
-   * 
+   *
   @Override
   public void getLegend(String savedMapId) throws IOException, ServletException
   {
@@ -241,14 +241,14 @@ public class MappingController extends MappingControllerBase implements
       {
         JSONObject legend = new JSONObject();
         JSONArray categoriesArr = new JSONArray();
-        
+
         legend.put("thematicVariable", variable.getDisplayLabel());
         legend.put("categories", categoriesArr);
-        
+
         List<? extends AbstractCategoryDTO> categories = thematic.getAllHasCategory();
         //Collections.sort(categories, new CategoryComparator());
         // FIXME need sorting again
-        
+
         for(AbstractCategoryDTO category : categories)
         {
           JSONArray values = new JSONArray();
@@ -265,15 +265,15 @@ public class MappingController extends MappingControllerBase implements
           JSONObject categoryObj = new JSONObject();
           categoryObj.put("values", values);
           categoryObj.put("color", category.getThematicColor());
-          
+
           categoriesArr.put(categoryObj);
         }
-        
+
         resp.getWriter().print(legend.toString());
       }
       else
       {
-        // no thematic variable so there can't be a legend 
+        // no thematic variable so there can't be a legend
         LegendWithoutVariableExceptionDTO ex = new LegendWithoutVariableExceptionDTO(this.getClientRequest(), this.req.getLocale());
         resp.getWriter().print(ex.getLocalizedMessage());
       }

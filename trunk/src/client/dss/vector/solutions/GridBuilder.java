@@ -3,7 +3,7 @@ package dss.vector.solutions;
 import java.util.HashMap;
 import java.util.Map;
 
-import com.runwaysdk.business.generation.GenerationUtil;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.yui.ColumnSetup;
@@ -32,10 +32,10 @@ public abstract class GridBuilder implements Reloadable
   {
     for (int i = 0; i < array.length; i++)
     {
-      array[i] = GenerationUtil.upperFirstCharacter(array[i]);
+      array[i] = CommonGenerationUtil.upperFirstCharacter(array[i]);
     }
   }
-  
+
   public static void setValidator(Map<String, ColumnSetup> columns, String key, String validator)
   {
     ColumnSetup setup = getSetup(columns, key);
@@ -51,7 +51,7 @@ public abstract class GridBuilder implements Reloadable
 
   public static ColumnSetup getSetup(Map<String, ColumnSetup> columns, String key)
   {
-    return columns.get(GenerationUtil.upperFirstCharacter(key));
+    return columns.get(CommonGenerationUtil.upperFirstCharacter(key));
   }
-  
+
 }

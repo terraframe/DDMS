@@ -11,12 +11,12 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -88,7 +88,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
             {
               geoEntityNames.add(entityName);
               parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
-              
+
               endPointEntityName = entityName;
               endPointEntityType = geoEntityClass.definesType();
             }
@@ -131,7 +131,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 
     MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF)instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
     Class<?> parameterClass = LoaderDecorator.load(mdAttributeDAO.getReferenceMdBusinessDAO().definesType());
-    String accessorName = GenerationUtil.upperFirstCharacter(mdAttributeDAO.definesAttribute());
+    String accessorName = CommonGenerationUtil.upperFirstCharacter(mdAttributeDAO.definesAttribute());
     excelClass.getMethod("set" + accessorName, parameterClass).invoke(instance, geoEntity);
   }
 

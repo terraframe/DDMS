@@ -11,8 +11,8 @@ import junit.framework.TestSuite;
 
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.DoNotWeave;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.TestConstants;
@@ -23,7 +23,7 @@ public class YUIColumnTest extends TestCase implements DoNotWeave
   protected static ClientSession   systemSession;
 
   protected static ClientRequestIF systemRequest;
-  
+
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
@@ -84,35 +84,35 @@ public class YUIColumnTest extends TestCase implements DoNotWeave
   {
     for (int i = 0; i < array.length; i++)
     {
-      array[i] = GenerationUtil.upperFirstCharacter(array[i]);
+      array[i] = CommonGenerationUtil.upperFirstCharacter(array[i]);
     }
   }
 
   public void testDynamicTermMetadata()
   {
     InfectionAssayViewDTO view = new InfectionAssayViewDTO(systemRequest);
-    
+
     String[] keys = this.getKeys();
-    
+
     Map<String, ColumnSetup> map = this.getColumns(keys);
-    
+
 //    DynamicTermDataGrid generator = new DynamicTermDataGrid(new TermDataGrid(view, map, keys, new TermSetup()), ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTMETHOD, "");
-//    
+//
 //    System.out.println(generator.getMetadata());
   }
-  
+
   public void testDynamicTermColumns()
   {
     InfectionAssayViewDTO view = new InfectionAssayViewDTO(systemRequest);
-    
+
     String[] keys = this.getKeys();
-    
+
     Map<String, ColumnSetup> map = this.getColumns(keys);
-        
+
 //    DynamicTermDataGrid generator = new DynamicTermDataGrid(new TermDataGrid(view, map, keys, new TermSetup()), ChildCaseViewDTO.CLASS, ChildCaseViewDTO.CASETREATMENTMETHOD, "");
-//    
+//
 //    List<String> columns = generator.getColumns();
-//    
+//
 //    for(String column : columns)
 //    {
 //      System.out.println(column);

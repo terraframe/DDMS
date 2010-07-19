@@ -2,7 +2,7 @@ package dss.vector.solutions.general;
 
 import java.util.Date;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ConfigurationException;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -22,10 +22,10 @@ public class EpiWeek extends EpiWeekBase implements com.runwaysdk.generation.loa
   public void apply()
   {
     validatePeriod();
-    
+
     super.apply();
   }
-  
+
   @Override
   public void validatePeriod()
   {
@@ -33,25 +33,25 @@ public class EpiWeek extends EpiWeekBase implements com.runwaysdk.generation.loa
     {
       String msg = "Epi Period can never be greater than 53";
 
-      throw new ApplicationException(msg);
+      throw new ConfigurationException(msg);
     }
   }
 
   public static EpiWeek getEpiWeek(Integer period, Integer year)
   {
     EpiDate week = EpiDate.getInstanceByPeriod(PeriodType.WEEK, period, year);
-    
+
     EpiWeekQuery query = new EpiWeekQuery(new QueryFactory());
     query.WHERE(AND.get(query.getPeriod().EQ(week.getActualPeriod()), query.getYearOfWeek().EQ(week.getActualYear())));
     OIterator<? extends EpiWeek> it = query.getIterator();
-    
+
     try
     {
       if(it.hasNext())
       {
         return it.next();
       }
-      
+
       return null;
     }
     finally
@@ -59,16 +59,16 @@ public class EpiWeek extends EpiWeekBase implements com.runwaysdk.generation.loa
       it.close();
     }
   }
-  
+
   public static EpiWeek getEpiWeek(Date date)
   {
     return EpiWeek.getEpiWeek(EpiDate.getEpiWeek(date));
   }
-  
+
   public static EpiWeek getEpiWeek(EpiDate date)
   {
     EpiWeek week = EpiWeek.getEpiWeek(date.getPeriod(), date.getYear());
-    
+
     if(week == null)
     {
       week = new EpiWeek();

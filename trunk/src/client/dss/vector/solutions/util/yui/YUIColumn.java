@@ -1,10 +1,10 @@
 package dss.vector.solutions.util.yui;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.business.ViewDTO;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.DTOFacade;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
@@ -63,7 +63,7 @@ public class YUIColumn implements Reloadable
       this.postfix = postfix;
       this.writable = view.isWritable(attributeMd.getName());
       this.attributeName = attributeMd.getName();
-      this.key = GenerationUtil.upperFirstCharacter(attributeMd.getName());
+      this.key = CommonGenerationUtil.upperFirstCharacter(attributeMd.getName());
       this.hidden = setup.isHidden();
       this.editable = setup.isEditable();
       this.sum = setup.isSum();
@@ -81,7 +81,7 @@ public class YUIColumn implements Reloadable
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ClientException(e);
     }
   }
 
@@ -210,7 +210,7 @@ public class YUIColumn implements Reloadable
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ClientException(e);
     }
 
   }

@@ -3,7 +3,7 @@ package dss.vector.solutions.util.yui;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.Halp;
@@ -42,12 +42,12 @@ public class YUIColumnGenerator implements Reloadable
       {
         buff.add("hidden:true");
       }
-      
+
       if (column.getWidth() != null)
       {
         buff.add("width:" + column.getWidth());
       }
-      
+
       buff.add(this.generateFormatter());
       buff.add(this.generateSaveFlag());
 
@@ -60,7 +60,7 @@ public class YUIColumnGenerator implements Reloadable
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ClientException(e);
     }
   }
 

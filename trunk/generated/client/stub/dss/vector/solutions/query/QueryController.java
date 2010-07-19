@@ -14,7 +14,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -160,7 +160,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   /**
    * Loads information common to query screens, including the Earth node for 061
    * and all available queries for the given query screen.
-   * 
+   *
    * @param queryClass
    * @param queryType
    * @throws JSONException
@@ -329,7 +329,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   public void queryAggregatedCases() throws IOException, ServletException
   {
     try
-    {      
+    {
       loadQuerySpecifics(AggregatedCaseDTO.CLASS, QueryConstants.QueryType.QUERY_AGGREGATED_CASE);
 
       ClientRequestIF request = this.getClientRequest();
@@ -482,7 +482,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       catch (JSONException e)
       {
         // Setup problem. Developer error.
-        throw new ApplicationException(e);
+        throw new ClientException(e);
       }
     }
   }

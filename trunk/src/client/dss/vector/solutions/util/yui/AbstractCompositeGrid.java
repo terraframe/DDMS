@@ -7,7 +7,7 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.Halp;
@@ -18,7 +18,7 @@ public abstract class AbstractCompositeGrid extends DataGrid implements Reloadab
   {
     super();
   }
-  
+
   public AbstractCompositeGrid(String tableId, boolean readable)
   {
     super(tableId, readable);
@@ -138,7 +138,7 @@ public abstract class AbstractCompositeGrid extends DataGrid implements Reloadab
           }
           catch (Exception e)
           {
-            throw new ApplicationException(e);
+            throw new ClientException(e);
           }
         }
 
@@ -168,7 +168,7 @@ public abstract class AbstractCompositeGrid extends DataGrid implements Reloadab
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ClientException(e);
     }
   }
 

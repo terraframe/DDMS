@@ -38,9 +38,9 @@ import au.com.bytecode.opencsv.CSVReader;
 
 import com.runwaysdk.constants.ClientProperties;
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.dataaccess.database.IDGenerator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.util.FileIO;
+import com.runwaysdk.util.IDGenerator;
 
 import dss.vector.solutions.query.QueryBuilderDTO;
 import dss.vector.solutions.query.QueryConstants;
@@ -83,9 +83,9 @@ public class ReportController extends ReportControllerBase implements Reloadable
     SavedSearchDTO search = SavedSearchDTO.get(this.getClientRequest(), savedSearchId);
     String queryType = search.getQueryType();
     String className = QueryConstants.getQueryClass(queryType);
-    
+
     return QueryBuilderDTO.exportQueryToCSV(request, className, queryXML, config, savedSearchId);
-    
+
     /*
     if(type.equals(QueryTypeDTO.AGGREGATED_CASES))
     {

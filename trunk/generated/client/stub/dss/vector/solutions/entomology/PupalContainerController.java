@@ -9,8 +9,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.DefaultConverter;
@@ -26,16 +26,16 @@ import dss.vector.solutions.util.yui.ViewDataGrid;
 public class PupalContainerController extends PupalContainerControllerBase implements Reloadable
 {
   private static final long serialVersionUID = -1295265360;
-  
+
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/entomology/PupalContainer/";
 
   public static final String LAYOUT           = "/layout.jsp";
-  
+
   public PupalContainerController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
- 
+
   @Override
   public void search() throws IOException, ServletException
   {
@@ -45,7 +45,7 @@ public class PupalContainerController extends PupalContainerControllerBase imple
   }
 
   private void search(PupalCollectionViewDTO view) throws IOException, ServletException
-  {    
+  {
     PupalCollectionViewQueryDTO query = PupalCollectionViewDTO.getMostRecent(this.getClientRequest());
 
     this.setupDates(view);
@@ -152,7 +152,7 @@ public class PupalContainerController extends PupalContainerControllerBase imple
     try
     {
       ClientRequestIF request = this.getClientRequest();
-      
+
       this.setupDates(dto);
       this.setupReferences(dto);
 
@@ -187,7 +187,7 @@ public class PupalContainerController extends PupalContainerControllerBase imple
     try
     {
       dto.deletePremise();
-      
+
       this.search();
     }
     catch (Throwable t)
@@ -200,7 +200,7 @@ public class PupalContainerController extends PupalContainerControllerBase imple
       }
     }
   }
-  
+
   @Override
   public void failDelete(PupalCollectionViewDTO dto) throws IOException, ServletException
   {
@@ -226,11 +226,11 @@ public class PupalContainerController extends PupalContainerControllerBase imple
       req.setAttribute("endDate", endDate);
     }
   }
-  
+
   private DataGrid getGrid(ClientRequestIF request, PupalCollectionViewDTO dto)
   {
     PupalContainerViewDTO[] views = dto.getContainers();
-    PupalContainerAmountViewDTO[][] amounts = PupalContainerViewDTO.getAmountsForViews(request, views);    
+    PupalContainerAmountViewDTO[][] amounts = PupalContainerViewDTO.getAmountsForViews(request, views);
 
     PupalContainerViewDTO view = new PupalContainerViewDTO(request);
     PupalContainerAmountViewDTO amount = new PupalContainerAmountViewDTO(request);
@@ -240,19 +240,19 @@ public class PupalContainerController extends PupalContainerControllerBase imple
 
     String[] amountKeys = this.getAmountKeys();
     Map<String, ColumnSetup> methodColumns = this.getColumns(amountKeys, 1, true);
-    
+
     ViewDataGrid viewGenerator = new ViewDataGrid(view, viewColumns, viewKeys, views);
-    
+
     String label = view.getPupaeAmountMd().getDisplayLabel();
     TermSetup setup = new TermSetup(PupalContainerAmountViewDTO.AMOUNT, PupalContainerAmountViewDTO.TERM);
 
     DynamicTermDataGrid dynamicGenerator = new DynamicTermDataGrid(amount, methodColumns, amountKeys, setup, PupalContainerViewDTO.CLASS, PupalContainerViewDTO.PUPAEAMOUNT, label, amounts);
-            
+
     CompositeDataGrid generator = new CompositeDataGrid("grid", true, viewGenerator, dynamicGenerator);
-    
+
     return generator;
   }
-  
+
   private String[] getContainerKeys()
   {
     String[] keys = new String[] { PupalContainerViewDTO.CONCRETEID, PupalContainerViewDTO.CONTAINERID, PupalContainerViewDTO.CONTAINERTYPE, PupalContainerViewDTO.SHAPE, PupalContainerViewDTO.HEIGHT, PupalContainerViewDTO.WIDTH, PupalContainerViewDTO.CONTAINERLENGTH,
@@ -263,16 +263,16 @@ public class PupalContainerController extends PupalContainerControllerBase imple
 
     return keys;
   }
-  
+
   private String[] getAmountKeys()
   {
     String[] keys = new String[] {PupalContainerAmountViewDTO.TERM, PupalContainerAmountViewDTO.AMOUNT};
-    
+
     this.upperFirstCharacter(keys);
-    
+
     return keys;
   }
-  
+
   private Map<String, ColumnSetup> getColumns(String[] keys, int hidden, boolean editable)
   {
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
@@ -290,11 +290,11 @@ public class PupalContainerController extends PupalContainerControllerBase imple
   private Map<String, ColumnSetup> getViewColumns(String[] keys, int hidden, boolean editable)
   {
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-    
+
     for (int i = 0; i < keys.length; i++)
     {
       ColumnSetup setup = ( i < hidden ? new ColumnSetup(true, editable) : new ColumnSetup(false, true) );
-      
+
       if(i == 4)
       {
         setup.setValidator("validateShape");
@@ -307,18 +307,18 @@ public class PupalContainerController extends PupalContainerControllerBase imple
       {
         setup.setValidator("validateCircle");
       }
-      
+
       map.put(keys[i], setup);
     }
-    
+
     return map;
   }
-  
+
   private void upperFirstCharacter(String[] array)
   {
     for (int i = 0; i < array.length; i++)
     {
-      array[i] = GenerationUtil.upperFirstCharacter(array[i]);
+      array[i] = CommonGenerationUtil.upperFirstCharacter(array[i]);
     }
   }
 }

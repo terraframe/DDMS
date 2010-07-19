@@ -5,7 +5,7 @@ import java.util.Date;
 
 import org.apache.commons.math.stat.descriptive.moment.StandardDeviation;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ConfigurationException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -74,10 +74,14 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 					clearInstance();
 				}
 			}
-		} catch (InstantiationException e) {
-			throw new ApplicationException(e);
-		} catch (IllegalAccessException e) {
-			throw new ApplicationException(e);
+		}
+		catch (InstantiationException e)
+		{
+			throw new ConfigurationException(e);
+		}
+		catch (IllegalAccessException e)
+		{
+			throw new ConfigurationException(e);
 		}
 		return season;
 	}
@@ -120,7 +124,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 	protected abstract GeoEntityQuery getRelatedEntitiesQuery(GeoEntity geoEntity, QueryFactory factory);
 
 	protected abstract double getIndividualCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
-	
+
 	protected abstract double getAggregatedCount(QueryFactory factory, GeoEntityQuery entityQuery, Date initialDate, Date finalDate);
 
 	protected abstract void setThresholdValues(WeeklyThreshold weeklyThreshold, double t1, double t2);

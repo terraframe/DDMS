@@ -6,7 +6,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.JspTag;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.business.ComponentDTOFacade;
 import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
@@ -88,7 +88,7 @@ public class BooleanCheckTagSupport extends BooleanTagSupport implements Reloada
         }
 
         tag += ">";
-          
+
         if(this.showAttributeLabel)
         {
           tag += attributeMdDTO.getDisplayLabel();
@@ -98,7 +98,7 @@ public class BooleanCheckTagSupport extends BooleanTagSupport implements Reloada
       }
       catch (Exception e)
       {
-        throw new ApplicationException(e);
+        throw new ClientException(e);
       }
     }
   }

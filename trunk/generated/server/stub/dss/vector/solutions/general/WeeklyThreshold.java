@@ -6,8 +6,9 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ConfigurationException;
 import com.runwaysdk.business.generation.GenerationUtil;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.session.Session;
 
 public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysdk.generation.loader.Reloadable
@@ -103,7 +104,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("setFirst" + accessor, date.getClass());
@@ -112,11 +113,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -124,7 +125,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("setLast" + accessor, week.getClass());
@@ -133,11 +134,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
 
   }
@@ -146,7 +147,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("setActual" + accessor, Double.class);
@@ -155,11 +156,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -167,7 +168,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("get" + accessor);
@@ -176,11 +177,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -188,7 +189,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("getActual" + accessor);
@@ -197,11 +198,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -209,7 +210,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("getLast" + accessor);
@@ -218,11 +219,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 
@@ -230,7 +231,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
   {
     try
     {
-      String accessor = GenerationUtil.upperFirstCharacter(attribute);
+      String accessor = CommonGenerationUtil.upperFirstCharacter(attribute);
 
       Class<? extends WeeklyThreshold> clazz = this.getClass();
       Method method = clazz.getMethod("getFirst" + accessor);
@@ -241,11 +242,11 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
     }
     catch (InvocationTargetException e)
     {
-      throw new ApplicationException(e.getTargetException());
+      throw new ConfigurationException(e.getTargetException());
     }
     catch (Exception e)
     {
-      throw new ApplicationException(e);
+      throw new ConfigurationException(e);
     }
   }
 

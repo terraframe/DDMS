@@ -6,10 +6,10 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import com.runwaysdk.ApplicationException;
+import com.runwaysdk.ClientException;
 import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -35,7 +35,7 @@ public class AbstractCategoryController extends AbstractCategoryControllerBase i
     }
     catch (Throwable e)
     {
-      throw new ApplicationException(e);
+      throw new ClientException(e);
     }
   }
 
