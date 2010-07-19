@@ -19,6 +19,7 @@ import dss.vector.solutions.PeriodWeekProblem;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.surveillance.PeriodType;
+import dss.vector.solutions.util.QueryUtil;
 
 public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -523,7 +524,7 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
 
     if (snapToFirstDay)
     {
-      startOrEnd = MalariaSeason.STARTDATE;
+      startOrEnd = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
       valueQuery.SELECT(seasonQuery.getStartDate(MalariaSeason.STARTDATE));
       SelectableSQLDate dist = valueQuery.aSQLDate("dist", "(age(" + startOrEnd + ", '" + formatter.format(snapable) + "'))", "dist");
       valueQuery.ORDER_BY_DESC(dist);
@@ -531,7 +532,7 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     }
     else
     {
-      startOrEnd = MalariaSeason.ENDDATE;
+      startOrEnd = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
       valueQuery.SELECT(seasonQuery.getEndDate(MalariaSeason.ENDDATE));
       SelectableSQLDate dist = valueQuery.aSQLDate("dist", "(age(" + startOrEnd + ", '" + formatter.format(snapable) + "'))", "dist");
       valueQuery.ORDER_BY_ASC(dist);
