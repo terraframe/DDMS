@@ -36,7 +36,7 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<c:set var="page_title" value="Query_Intervention_Control"  scope="request"/>
+<c:set var="page_title" value="Query_Aggregated_Cases"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
