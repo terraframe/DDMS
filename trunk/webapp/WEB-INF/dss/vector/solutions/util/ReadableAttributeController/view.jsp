@@ -10,7 +10,7 @@
 <%@page import="dss.vector.solutions.ontology.BrowserFieldDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootController"%><c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
 
-<mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST" >
+<mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST" onsubmit="return checkHiddenMandatoryFields(this);" >
   <mjl:input type="hidden" param="universal" value="${universal}" />
   <mjl:input type="hidden" param="actor" value="${actor}" />
   
@@ -146,23 +146,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
   });
 })();
 
-// TODO -- Remove this horrific hack by fixing the mjl:command generated javascript
-var oldHandler;
-(function(){ 
-    var buttons = YAHOO.util.Dom.getElementsByClassName("submitButton");      
-
-    for each (el in buttons) {
-      oldHandler = el.onclick;
-      el.onclick = function(){
-          if (checkHiddenMandatoryFields(el)) {
-              oldHandler();
-          }
-      }
-      break;
-    }
-})();
-
-function checkHiddenMandatoryFields(el) {
+function checkHiddenMandatoryFields(that) {
 	var confirmed = true;
 
 <c:if test="${actor != 'mdss.GUIVisibility'}">

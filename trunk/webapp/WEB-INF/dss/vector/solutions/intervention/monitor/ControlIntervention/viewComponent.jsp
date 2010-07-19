@@ -255,10 +255,12 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
     deleteConcrete : function(){
       var hasConcrete = this.hasConcreteId();
 
-      if(hasConcrete) { 
-        this._formEl.action = "dss.vector.solutions.intervention.monitor.ControlInterventionController.delete.mojo";
-        this._formEl.submit();
-      }      
+      if(hasConcrete) {
+        if (confirm('<fmt:message key="Delete_Intervention_Control_Warning"/>')) { 
+	        this._formEl.action = "dss.vector.solutions.intervention.monitor.ControlInterventionController.delete.mojo";
+    	    this._formEl.submit();
+        }
+      }     
     },
 
     hasConcreteId : function() {
