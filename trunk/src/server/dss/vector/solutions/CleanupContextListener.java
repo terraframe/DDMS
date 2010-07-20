@@ -539,7 +539,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _season_Id    VARCHAR; \n";
     sql += "  _target_Column  VARCHAR; \n";
     sql += "BEGIN \n";
-    sql += "  SELECT id FROM " + malariaSeasonTable + " AS ms WHERE _date BETWEEN ms." + startDateCol + " AND ms." + endDateCol + " \n AND md."+diseaseCol+" = _disease";
+    sql += "  SELECT id FROM " + malariaSeasonTable + " AS ms WHERE _date BETWEEN ms." + startDateCol + " AND ms." + endDateCol + " \n AND ms."+diseaseCol+" = _disease";
     sql += "    INTO _season_Id; \n";
     sql += "     \n";
     sql += "   IF _season_Id IS NULL THEN \n";
