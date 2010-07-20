@@ -115,8 +115,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      * Any last minute cleanup is done here. The this
      * reference is that of the QueryPanel.
      */
-    executeQuery : function()
+    executeQuery : function(resetPagination)
     {
+      
+      // If the run query button was pressed then we need to reset the
+      // state of the query back to page 1. 
+      if(resetPagination)
+      {
+        this.setCurrentPage(1);
+      }
+      
       // execute the query
       var queryXML = this._constructQuery();
       var xml = queryXML.getXML();

@@ -428,7 +428,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     paginationHandler : function(pageNumber)
     {
       this.setCurrentPage(pageNumber);
-      this.executeQuery();
+      this.executeQuery(false);
     },
   
     /**

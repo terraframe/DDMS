@@ -1237,7 +1237,7 @@ MDSS.QueryPanel.prototype = {
   {
     if(Mojo.Util.isFunction(this._config.executeQuery))
     {
-      this._config.executeQuery.call(this._queryClass);
+      this._config.executeQuery.call(this._queryClass, true);
     }
   },
 
