@@ -45,6 +45,7 @@ import com.runwaysdk.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
+import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.yui.ColumnSetup;
 import dss.vector.solutions.util.yui.ViewDataGrid;
@@ -415,6 +416,19 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
     }
 
     return ( Halp.join(dropdownbuff, delimeter) );
+  }
+  
+  public static String getDropDownMaps(String appendTo, InsecticideBrandViewDTO[] brands, String attribute) throws JSONException
+  {
+    
+    JSONObject brandsObj = new JSONObject();
+    for(InsecticideBrandViewDTO brand : brands)
+    {
+      brandsObj.put(brand.getInsecticdeId(), brand.getLabel());
+    }
+    
+    String key = attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
+    return appendTo +", " +key+":"+brandsObj.toString();
   }
 
   private static String generateDropDownMap(AttributeMdDTO md, ClientRequestIF request)

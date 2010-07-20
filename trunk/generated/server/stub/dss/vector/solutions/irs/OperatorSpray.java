@@ -226,7 +226,8 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = "+operSprayTable+"." + teamSprayWeekCol
         + ") AS planed_team_target,\n";
 
-    select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+","+abstractSprayTable+"."+sprayDateCol
+    String diseaseCol = QueryUtil.getColumnName(OperatorSpray.getDiseaseMd());
+    select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+","+abstractSprayTable+"."+sprayDateCol+","+operSprayTable+"."+diseaseCol+""
         + ") AS planed_area_target,\n";
    
     //spray stuff
@@ -244,7 +245,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     select += ""+lockedCol+",\n";
     select += ""+refusedCol+",\n";
     select += ""+otherCol+",\n";
-    
+    select += ""+operSprayTable+"."+diseaseCol+" AS disease,\n";    
     select += ""+receivedCol+",\n";
     select += ""+usedCol+",\n";
     select += ""+refillsCol+",\n";
@@ -297,7 +298,10 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     from += abstractSprayTable + " AS "+abstractSprayTable+"\n";
     from += " LEFT JOIN ";
     from += malariaSeasonTable + " AS sprayseason ";
-    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" \n";
+    
+    String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+    String diseaseId = Disease.getCurrent().getId();
+    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
 
     String where = "";
 
@@ -306,6 +310,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     where += "AND "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+"\n";
     where += "AND "+operSprayTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
     where += "AND sprayoperator."+personCol+" = "+personTable+".id \n";
+    where += "AND "+operSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);

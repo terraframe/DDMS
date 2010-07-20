@@ -214,8 +214,9 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = "+teamSprayTable+"." + teamSprayWeekCol
         + ") AS planed_team_target,\n";
 
-    select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+", "+abstractSprayTable+"."+sprayDateCol
-        + ") AS planed_area_target,\n";
+    String diseaseCol = QueryUtil.getColumnName(TeamSpray.getDiseaseMd());
+    select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+", "+abstractSprayTable+"."+sprayDateCol+","+teamSprayTable+"."+diseaseCol+""
+         +") AS planed_area_target,\n";
     //spray stuff
     select += ""+roomsCol+",\n";
     select += ""+structuresCol+",\n";
@@ -231,6 +232,7 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     select += ""+lockedCol+",\n";
     select += ""+refusedCol+",\n";
     select += ""+otherCol+",\n";
+    select += ""+teamSprayTable+"."+diseaseCol+" AS disease,\n";
     select += ""+operSprayStatusTable+"."+receivedCol+",\n";
     select += ""+operSprayStatusTable+"."+usedCol+",\n";
     select += ""+operSprayStatusTable+"."+refillsCol+",\n";
@@ -254,7 +256,10 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     from += ""+abstractSprayTable+"" + " AS "+abstractSprayTable+"\n";
     from += " LEFT JOIN ";
     from += malariaSeasonTable + " AS sprayseason ";
-    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" \n";
+    
+    String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+    String diseaseId = Disease.getCurrent().getId();
+    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
 
     String where = "";
 
@@ -263,6 +268,7 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     where += "AND "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+"\n";
     where += "AND "+operSprayStatusTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
     where += "AND sprayoperator."+personCol+" = "+personTable+".id \n";
+    where += "AND "+teamSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);

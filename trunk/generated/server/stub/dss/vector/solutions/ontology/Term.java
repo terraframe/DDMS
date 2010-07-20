@@ -264,17 +264,18 @@ public class Term extends TermBase implements Reloadable, OptionIF
     return q;
   }
 
-  public static TermViewQuery searchTerms(String searchValue, String[] parentTermIds)
-  {
-    QueryFactory f = new QueryFactory();
-
-    SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue, parentTermIds);
-    TermViewQuery q = new TermViewQuery(f, builder);
-
-    q.restrictRows(15, 1);
-
-    return q;
-  }
+// Replaced by Term.termQuery() to do weighted searches
+//  public static TermViewQuery searchTerms(String searchValue, String[] parentTermIds)
+//  {
+//    QueryFactory f = new QueryFactory();
+//
+//    SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue, parentTermIds);
+//    TermViewQuery q = new TermViewQuery(f, builder);
+//
+//    q.restrictRows(15, 1);
+//
+//    return q;
+//  }
 
   public static ValueQuery termQuery(String value, String[] parentTermIds)
   {

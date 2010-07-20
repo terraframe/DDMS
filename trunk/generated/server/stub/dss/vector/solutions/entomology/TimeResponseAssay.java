@@ -8,9 +8,12 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
+import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.general.Disease;
@@ -166,8 +169,17 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
     if(valueQuery.hasSelectableRef("Resistance_Ratio"))
     {
       needsJoin = true;
-      
-      SelectableSQL calc = (SelectableSQL) valueQuery.getSelectableRef("Resistance_Ratio");
+     
+      SelectableSQL calc;
+      Selectable sel = valueQuery.getSelectableRef("Resistance_Ratio");
+      if(sel instanceof AggregateFunction)
+      {
+        calc = (SelectableSQL) ((AggregateFunction)sel).getSelectable();
+      }
+      else
+      {
+        calc = (SelectableSQL) sel;
+      }      
       
       String testCol = QueryUtil.getColumnName(TimeResponseAssay.getTestStrainResultMd());
       String refCol = QueryUtil.getColumnName(TimeResponseAssay.getReferenceStrainResultMd());

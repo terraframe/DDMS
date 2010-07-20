@@ -3,8 +3,6 @@ package dss.vector.solutions.irs;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.eclipse.equinox.internal.app.IBranding;
-
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
@@ -15,11 +13,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.EnumerationMaster;
-import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
-import dss.vector.solutions.RelativeValueProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.MDSSProperties;
@@ -279,6 +274,7 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 		String unitsPerApplicationCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.UNITSPERAPPLICATION);
 		String unitQuantifierCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.UNITQUANTIFIER);
 		String concentrationQuantifierCol = QueryUtil.getColumnName(insectBrandMd, InsecticideBrand.CONCENTRATIONQUANTIFIER);
+    String diseaseCol = QueryUtil.getColumnName(InsecticideBrand.getDiseaseMd());
 
 		MdEntityDAOIF nozzleMd = MdEntityDAO.getMdEntityDAO(Nozzle.CLASS);
 		String nozzleTable = nozzleMd.getTableName();
@@ -293,8 +289,11 @@ public class InsecticideBrand extends InsecticideBrandBase implements com.runway
 		String unitAreaNozzleCovCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.UNITNOZZLEAREACOVERAGE);
 		String targetUnitCol = QueryUtil.getColumnName(areaStandardsMd, AreaStandards.TARGETUNIT);
 
+		
+		
 		String select = "SELECT " + insectBrandTable + ".id,\n";
 		select += "COALESCE(start_date,'1900-01-01'::date) start_date,\n";
+		select += insectBrandTable+"."+diseaseCol +" disease,\n";
 		select += "COALESCE(end_Date,'2100-01-01'::date) end_date, \n";
 		select += "COALESCE((SELECT i." + configDateCol + " FROM " + insectNozzleTable + " i WHERE " + insectNozzleTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = i." + RelationshipDAOIF.PARENT_ID_COLUMN + " \n";
 		select += "AND " + insectNozzleTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = i." + RelationshipDAOIF.CHILD_ID_COLUMN + "  AND " + insectNozzleTable + "." + configDateCol + " < i." + configDateCol + " ORDER BY i." + configDateCol + " DESC LIMIT 1 ),'1900-01-01'::date) nozzleStart, \n";

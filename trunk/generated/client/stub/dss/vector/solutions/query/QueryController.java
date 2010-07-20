@@ -80,6 +80,7 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonTreatmentLocation
 import dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO;
 import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
+import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
@@ -955,6 +956,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      
+      // Product names for Intervention Control
+      InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getControlInterventionInsecticideBrands(this.getClientRequest());
+      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);      
+      
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       // Load label map for Adult Discriminating Dose Assay
@@ -1092,6 +1098,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      
+      // Product names for Efficacy Assay
+      InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(this.getClientRequest());
+      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);      
+      
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       req.getRequestDispatcher(QUERY_EFFICACY_ASSAY).forward(req, resp);
@@ -1274,6 +1285,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
+      
+      // Product names for IRS only
+      InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(this.getClientRequest());
+      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);
+      
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       req.getRequestDispatcher(QUERY_IRS).forward(req, resp);

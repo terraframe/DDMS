@@ -163,7 +163,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var insectcide = new Mojo.$.dss.vector.solutions.irs.InsecticideBrand();
 
-    var insectcideAttribs = ["insecticideUse",
+    var insectcideAttribs = [
                              "productName",
                              "concentrationQualifier",
                              "concentrationQuantifier",

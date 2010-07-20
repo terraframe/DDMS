@@ -262,10 +262,9 @@ public class QueryUtil implements Reloadable
         + RelationshipDAOIF.PARENT_ID_COLUMN + " = pJoin.id" + " LEFT JOIN " + termTable
         + " tJoin on rJoin." + RelationshipDAOIF.CHILD_ID_COLUMN + " = tJoin.id)";
   }
-
+  
   public static String[] filterSelectedAttributes(ValueQuery valueQuery, String[] attributes)
   {
-
     ArrayList<String> selectedTerms = new ArrayList<String>();
 
     // make a list of terms that are included as selectables
@@ -283,9 +282,14 @@ public class QueryUtil implements Reloadable
         String attributeName = s.getDbColumnName();
         for (String termAttrib : Arrays.asList(attributes))
         {
-          if (attributeName.startsWith(termAttrib) && attributeName.endsWith(DISPLAY_LABEL_SUFFIX))
+          int ind = attributeName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
+          if(ind != -1)
           {
-            selectedTerms.add(termAttrib);
+            String attr = attributeName.substring(0, ind);
+            if(termAttrib.equals(attr))
+            {
+              selectedTerms.add(termAttrib);
+            }
           }
         }
       }

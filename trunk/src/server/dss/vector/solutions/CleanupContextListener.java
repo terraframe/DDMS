@@ -395,6 +395,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String malariaSeasonTable = malariaSeasonMd.getTableName();
     String startDateCol = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
     String endDateCol = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
+    String diseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
 
     String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
     String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
@@ -528,7 +529,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_date \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
-    sql += "  _date      DATE \n";
+    sql += "  _date      DATE, \n";
+    sql += "  _disease VARCHAR \n";
     sql += ") \n";
     sql += "RETURNS INT AS $$ \n";
     sql += "DECLARE \n";
@@ -537,7 +539,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _season_Id    VARCHAR; \n";
     sql += "  _target_Column  VARCHAR; \n";
     sql += "BEGIN \n";
-    sql += "  SELECT id FROM " + malariaSeasonTable + " AS ms WHERE _date BETWEEN ms." + startDateCol + " AND ms." + endDateCol + " \n";
+    sql += "  SELECT id FROM " + malariaSeasonTable + " AS ms WHERE _date BETWEEN ms." + startDateCol + " AND ms." + endDateCol + " \n AND md."+diseaseCol+" = _disease";
     sql += "    INTO _season_Id; \n";
     sql += "     \n";
     sql += "   IF _season_Id IS NULL THEN \n";

@@ -189,7 +189,9 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
 
     select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n" + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = " + teamSprayStatusTable + "." + teamSprayWeekCol + ") AS planed_team_target,\n";
 
-    select += "get_seasonal_spray_target_by_geoEntityId_and_date(" + abstractSprayTable + "." + geoEntityCol + "," + abstractSprayTable + "." + sprayDateCol + ") AS planed_area_target,\n";
+    String diseaseCol = QueryUtil.getColumnName(ZoneSpray.getDiseaseMd());
+    select += "get_seasonal_spray_target_by_geoEntityId_and_date(" + abstractSprayTable + "." + geoEntityCol + "," + abstractSprayTable + "." + sprayDateCol+","+zoneSprayTable+"."+diseaseCol+""
+    + ") AS planed_area_target,\n";
     // spray stuff
     select += "" + roomsCol + ",\n";
     select += "" + structuresCol + ",\n";
@@ -205,6 +207,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     select += "" + lockedCol + ",\n";
     select += "" + refusedCol + ",\n";
     select += "" + otherCol + ",\n";
+    select += "" + zoneSprayTable+"."+diseaseCol+" AS disease,\n";
     select += "" + teamSprayStatusTable + "." + receivedCol + ",\n";
     select += "" + teamSprayStatusTable + "." + usedCol + ",\n";
     select += "" + teamSprayStatusTable + "." + refillsCol + ",\n";
@@ -224,13 +227,17 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     from += abstractSprayTable + " AS " + abstractSprayTable + "\n";
     from += " LEFT JOIN ";
     from += malariaSeasonTable + " AS sprayseason ";
-    from += "ON " + abstractSprayTable + "." + sprayDateCol + " BETWEEN sprayseason." + startDateCol + " AND sprayseason." + endDateCol + " \n";
+    
+    String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+    String diseaseId = Disease.getCurrent().getId();
+    from += "ON " + abstractSprayTable + "." + sprayDateCol + " BETWEEN sprayseason." + startDateCol + " AND sprayseason." + endDateCol + " AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
 
     String where = "";
 
     // join main tables
     where += "AND " + abstractSprayTable + ".id = " + zoneSprayTable + ".id \n";
     where += "AND " + zoneSprayTable + ".id = " + teamSprayStatusTable + "." + sprayCol + " \n";
+    where += "AND "+zoneSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);

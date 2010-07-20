@@ -987,10 +987,23 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
           var options = [''];
           options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
-
+          
+          // Filter the aggregate functions if specified
+          var set = null;
+          if(Mojo.Util.isArray(visibleObj.includes))
+          {
+            set = new MDSS.Set(visibleObj.includes);
+          }
+          
           for(var j=0; j<options.length; j++)
           {
             var option = options[j];
+
+            if(option !== '' && set != null && !set.contains(option))
+            {
+              continue;
+            }
+            
             var optionEl = document.createElement('option');
             optionEl.id = attribute.getKey()+'-'+option;
             optionEl.innerHTML = option;
@@ -1051,6 +1064,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         else //Mo terms
         if(attribute.getTerm())
         {
+          // Don't attach the browser if
+          
           var browserRootClass = this._getBrowserRootClass(attribute);
           var browserRootAttribute = this._getBrowserRootAttribute(attribute);
           

@@ -211,7 +211,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var insecticideBrand = new dss.vector.solutions.irs.InsecticideBrand;
-    var insecticideBrandAttribs = ["insecticideUse",
+    var insecticideBrandAttribs = [
                              "productName",
                              "concentrationQualifier",
                              "concentrationQuantifier",

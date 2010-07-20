@@ -193,11 +193,16 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
     String brandCol = QueryUtil.getColumnName(abstractSprayQuery.getMdClassIF(), AbstractSpray.BRAND);
     String sprayDateCol = QueryUtil.getColumnName(abstractSprayQuery.getMdClassIF(), AbstractSpray.SPRAYDATE);
     
+    String diseaseCol = QueryUtil.getColumnName(InsecticideBrand.getDiseaseMd());
+    
     valueQuery.WHERE(new InnerJoinEq(brandCol, tableName, tableAlias, id, insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(sprayDateCol, tableName, tableAlias, "start_date", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(sprayDateCol, tableName, tableAlias, "end_date", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinGtEq(sprayDateCol, tableName, tableAlias, "nozzleStart", insecticideView, insecticideView));
     valueQuery.WHERE(new InnerJoinLtEq(sprayDateCol, tableName, tableAlias, "nozzleEnd", insecticideView, insecticideView));
+    
+    
+    valueQuery.WHERE(new InnerJoinEq(diseaseCol, sprayView, sprayView, "disease", insecticideView, insecticideView));
   }
 
   private static String getGeoType(ValueQuery valueQuery, JSONObject queryConfig, String xml, String attrib)
