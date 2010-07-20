@@ -105,7 +105,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         var _threshold = record.getData('ThresholdType');
         var thresholdType = (_threshold == 'true');
         
-        if(thresholdType == true && (record.getCount() < (data.rows.length - 1)))
+        if(thresholdType == true && (record.getCount() < (this.getModel().length() - 1)))
         {
           var str = '<form method = "post"';
           str += ' id="'+record.getData('GeoEntity')+'">';
@@ -114,7 +114,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
           str += '<input type="hidden" name="thresholdType" value="'+thresholdType+'"/>';
           str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
           str += record.getData('EntityLabel')+'</a></form>';
-          data.getDataTable().updateCell(record, 'EntityLabel', str);
+          this.getDataTable().updateCell(record, 'EntityLabel', str);
         }
       },
       customButtons : [{
