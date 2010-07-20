@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1126836062)
+@com.runwaysdk.business.ClassSignature(hash = 1567888300)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,6 +11,7 @@ package dss.vector.solutions.general;
 public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.View implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThresholdView";
+  public static java.lang.String DISEASELABEL = "diseaseLabel";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PERIOD = "period";
@@ -18,11 +19,39 @@ public abstract class WeeklyThresholdViewBase extends com.runwaysdk.business.Vie
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
   public static java.lang.String THRESHSOLDTYPE = "threshsoldType";
   public static java.lang.String YEAROFWEEK = "yearOfWeek";
-  private static final long serialVersionUID = 1126836062;
+  private static final long serialVersionUID = 1567888300;
   
   public WeeklyThresholdViewBase()
   {
     super();
+  }
+  
+  public String getDiseaseLabel()
+  {
+    return getValue(DISEASELABEL);
+  }
+  
+  public void validateDiseaseLabel()
+  {
+    this.validateAttribute(DISEASELABEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDiseaseLabelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.WeeklyThresholdView.CLASS);
+    return mdClassIF.definesAttribute(DISEASELABEL);
+  }
+  
+  public void setDiseaseLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASELABEL, "");
+    }
+    else
+    {
+      setValue(DISEASELABEL, value);
+    }
   }
   
   public String getEntityLabel()

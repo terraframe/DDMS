@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -840452642)
+@com.runwaysdk.business.ClassSignature(hash = -388025044)
 public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.WeeklyThresholdView";
-  private static final long serialVersionUID = -840452642;
+  private static final long serialVersionUID = -388025044;
   
   protected WeeklyThresholdViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -16,6 +16,7 @@ public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.
     return CLASS;
   }
   
+  public static java.lang.String DISEASELABEL = "diseaseLabel";
   public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String PERIOD = "period";
@@ -23,6 +24,43 @@ public abstract class WeeklyThresholdViewDTOBase extends com.runwaysdk.business.
   public static java.lang.String THRESHOLDVALUE = "thresholdValue";
   public static java.lang.String THRESHSOLDTYPE = "threshsoldType";
   public static java.lang.String YEAROFWEEK = "yearOfWeek";
+  public String getDiseaseLabel()
+  {
+    return getValue(DISEASELABEL);
+  }
+  
+  public void setDiseaseLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(DISEASELABEL, "");
+    }
+    else
+    {
+      setValue(DISEASELABEL, value);
+    }
+  }
+  
+  public boolean isDiseaseLabelWritable()
+  {
+    return isWritable(DISEASELABEL);
+  }
+  
+  public boolean isDiseaseLabelReadable()
+  {
+    return isReadable(DISEASELABEL);
+  }
+  
+  public boolean isDiseaseLabelModified()
+  {
+    return isModified(DISEASELABEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDiseaseLabelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISEASELABEL).getAttributeMdDTO();
+  }
+  
   public String getEntityLabel()
   {
     return getValue(ENTITYLABEL);

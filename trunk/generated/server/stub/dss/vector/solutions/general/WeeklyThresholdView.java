@@ -50,6 +50,7 @@ public class WeeklyThresholdView extends WeeklyThresholdViewBase implements com.
       
       List<String> attributes = new LinkedList<String>();
       
+      attributes.add(WeeklyThresholdView.DISEASELABEL);
       attributes.add(WeeklyThresholdView.ENTITYLABEL);
       attributes.add(WeeklyThresholdView.PERIOD);
       attributes.add(WeeklyThresholdView.YEAROFWEEK);

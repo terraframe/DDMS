@@ -292,8 +292,6 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
   {
     try
     {
-      ClientRequestIF request = this.getClientRequest();
-
       thresholdCalculation.apply();
       this.editThresholdConfiguration();
     }

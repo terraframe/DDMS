@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.ConfigurationException;
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.session.Session;
 
@@ -252,6 +251,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
 
   public List<WeeklyThresholdView> export()
   {
+    Disease current = Disease.getCurrent();
     List<WeeklyThresholdView> list = new LinkedList<WeeklyThresholdView>();
 
     String[] accessors = { IDENTIFICATION, NOTIFICATION, FACILITYIDENTIFICATION, FACILITYNOTIFICATION };
@@ -276,6 +276,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
         view.setEntityLabel(entityLabel);
         view.setPeriod(period);
         view.setYearOfWeek(year);
+        view.setDiseaseLabel(current.getDisplayLabel());
 
         list.add(view);
       }
