@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.general.Disease;
@@ -100,9 +101,13 @@ public class TermNode implements Comparable<TermNode>
         rel.setOntologyRelationship(OntologyExcelImporter.getOntologyRelationship());
         rel.applyWithoutCreatingAllPaths();
       }
+      catch (DuplicateGraphPathException e) {
+    	  // Do nothing--this just means that the relationship already exists,
+    	  // so attempting to re-add it is pointless
+      }
       catch (Exception e)
       {
-        System.err.println(e);
+        System.err.println(this.getId() + " " + e);
       }
     }
   }
