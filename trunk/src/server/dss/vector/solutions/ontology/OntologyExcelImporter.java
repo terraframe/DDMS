@@ -80,14 +80,8 @@ public class OntologyExcelImporter
     stack = new LinkedList<TermNode>();
   }
 
-  public void read(InputStream stream)
-  {
-    setup();
-    transaction(stream);
-  }
-
   @Transaction
-  private void transaction(InputStream stream)
+  public void read(InputStream stream)
   {
     Iterator<HSSFRow> iterator = openStream(stream);
 
@@ -282,7 +276,6 @@ public class OntologyExcelImporter
     return ontologyRelationship;
   }
   
-  @Transaction
   private static void setup()
   {
     try

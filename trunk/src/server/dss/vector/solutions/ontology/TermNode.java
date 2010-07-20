@@ -1,13 +1,17 @@
 package dss.vector.solutions.ontology;
 
+import java.sql.Savepoint;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import com.runwaysdk.ProblemIF;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
+import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.Disease;
 
@@ -92,6 +96,8 @@ public class TermNode implements Comparable<TermNode>
     
     for (TermNode parentNode : parents)
     {
+      Savepoint savepoint = Database.setSavepoint();
+      
       Term parentTerm = parentNode.getTerm();
 //      if (!existing.contains(parentNode))
 //      {
@@ -101,13 +107,14 @@ public class TermNode implements Comparable<TermNode>
         rel.setOntologyRelationship(OntologyExcelImporter.getOntologyRelationship());
         rel.applyWithoutCreatingAllPaths();
       }
-      catch (DuplicateGraphPathException e) {
-    	  // Do nothing--this just means that the relationship already exists,
-    	  // so attempting to re-add it is pointless
-      }
-      catch (Exception e)
+      catch (DuplicateGraphPathException e2)
       {
-        System.err.println(this.getId() + " " + e);
+        // a relationship between this typedef and the ontology already exists
+        Database.rollbackSavepoint(savepoint);
+      }
+      finally
+      {
+        Database.releaseSavepoint(savepoint);
       }
     }
   }
