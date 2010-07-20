@@ -47,6 +47,8 @@ public class ColumnSetup implements Reloadable
   private String  setter;
 
   private Integer width;
+  
+  private Boolean includeBlank;
 
   public ColumnSetup()
   {
@@ -66,7 +68,7 @@ public class ColumnSetup implements Reloadable
     this.type = type;
     this.method = method;
     this.sum = false;
-
+    this.includeBlank = false;
     this.title = null;
     this.label = null;
   }
@@ -184,5 +186,15 @@ public class ColumnSetup implements Reloadable
   public void setWidth(Integer width)
   {
     this.width = width;
+  }
+  
+  public Boolean getIncludeBlank()
+  {
+    return includeBlank;
+  }
+  
+  public void setIncludeBlank(Boolean includeBlank)
+  {
+    this.includeBlank = includeBlank;
   }
 }

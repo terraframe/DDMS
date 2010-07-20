@@ -96,6 +96,9 @@ overflow: hidden;
 
               setLabels(this.index, obj);
             }
+            else {
+              setLabels(this.index, {activeIngredient:'', concentrationQuantifier:'', concentrationQualifier:''});
+            }
           }
         });
 

@@ -144,7 +144,7 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
   
   public static MDSSRoleView getViewByRoleName(String roleName)
   {
-    String prefixedName = MDSSRoleInfo.MDSS_PREFIX + "." + roleName;
+    String prefixedName = MDSSRoleInfo.MDSS_PREFIX + "." + roleName.replace(" ", "").trim();
     
     MDSSRoleQuery query = new MDSSRoleQuery(new QueryFactory());
     query.WHERE(query.getRole().getRoleName().EQ(prefixedName));

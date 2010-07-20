@@ -35,6 +35,7 @@ public class InsecticideInterventionGridBuilder extends GridBuilder implements R
     setup.setType(InsecticideBrandViewDTO.class.getName());
     setup.setMethod("getControlInterventionInsecticideBrands");
     setup.setGetter("getInsecticideView");
+    setup.setIncludeBlank(true);
     
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.INTERVENTIONMETHOD, false);
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.ACTIVEINGREDIENT, false);

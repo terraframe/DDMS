@@ -184,7 +184,7 @@ public class YUIColumn implements Reloadable
 
       Object object = view.getValue(attributeName);
 
-      if (this.isHidden() && object != null)
+      if (this.isHidden() && object != null && !(editor instanceof YUIEnumerationEditor))
       {
         return object.toString();
       }

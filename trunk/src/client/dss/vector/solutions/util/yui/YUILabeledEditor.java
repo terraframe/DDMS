@@ -22,12 +22,15 @@ public class YUILabeledEditor extends YUIEditor implements Reloadable
   private String method;
 
   private String key;
+  
+  private Boolean includeBlank;
 
   public YUILabeledEditor(AttributeMdDTO attribute, ColumnSetup setup, String key)
   {
     this.type = attribute.getJavaType().getName();
     this.method = "getAllActive";
     this.key = key;
+    this.includeBlank = setup.getIncludeBlank();
 
     if (setup.getType() != null)
     {
@@ -77,6 +80,11 @@ public class YUILabeledEditor extends YUIEditor implements Reloadable
     try
     {
       JSONArray options = new JSONArray();
+      
+      if(this.includeBlank)
+      {
+        options.put(this.getLabeledPair("", ""));
+      }
 
       Class<?> clazz = LoaderDecorator.load(type);
 
@@ -86,6 +94,7 @@ public class YUILabeledEditor extends YUIEditor implements Reloadable
       {
         options.put(this.getLabeledPair(term.getLabel(), term.getOptionId()));
       }
+            
       return key + "Options = " + options.toString() + ";";
     }
     catch (Exception e)
