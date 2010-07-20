@@ -24,7 +24,16 @@ public class WeeklyThresholdView extends WeeklyThresholdViewBase implements com.
   public static InputStream exportHistory()
   {
     List<WeeklyThresholdView> views = new LinkedList<WeeklyThresholdView>();
-    WeeklyThresholdQuery query = new WeeklyThresholdQuery(new QueryFactory());
+
+    QueryFactory factory = new QueryFactory();
+    
+    MalariaSeasonQuery seasonQuery = new MalariaSeasonQuery(factory);
+    ThresholdDataQuery thresholdQuery = new ThresholdDataQuery(factory);
+    WeeklyThresholdQuery query = new WeeklyThresholdQuery(factory);
+    
+    seasonQuery.WHERE(seasonQuery.getDisease().EQ(Disease.getCurrent()));
+    thresholdQuery.WHERE(thresholdQuery.getSeason().EQ(seasonQuery));
+    query.WHERE(query.parentId().EQ(thresholdQuery.getId()));
     
     OIterator<? extends WeeklyThreshold> iterator = query.getIterator();
     
