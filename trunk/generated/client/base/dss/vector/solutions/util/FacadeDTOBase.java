@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 40858656)
+@com.runwaysdk.business.ClassSignature(hash = 371572708)
 public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.Facade";
-  private static final long serialVersionUID = 40858656;
+  private static final long serialVersionUID = 371572708;
   
   protected FacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -382,6 +382,14 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "exportControlIntervention", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String getAttributeDisplayLabel(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String className, java.lang.String attributeName)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{className, attributeName};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "getAttributeDisplayLabel", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdClassQueryDTO getMDSSClasses(com.runwaysdk.constants.ClientRequestIF clientRequest)

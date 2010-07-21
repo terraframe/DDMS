@@ -25,6 +25,7 @@ import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -95,28 +96,39 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
+    
     if (diagnosisDate == null)
     {
       problems.add(new RequiredDiagnosisDateProblemDTO(clientRequest, req.getLocale()));
     }
     else
     {
+      if (caseReportDate != null && caseReportDate.before(diagnosisDate))
+      {
+        String caseReportLabel = FacadeDTO.getAttributeDisplayLabel(clientRequest, IndividualCaseDTO.CLASS, IndividualCaseDTO.CASEREPORTDATE);
+        String diagnosisDateLabel = FacadeDTO.getAttributeDisplayLabel(clientRequest, IndividualCaseDTO.CLASS, IndividualCaseDTO.DIAGNOSISDATE);
+
+        RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
+        problem.setAttributeName(IndividualCaseDTO.CASEREPORTDATE);
+        problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
+        problem.setAttributeDisplayLabel(caseReportLabel);
+        problem.setRelation(MDSSProperties.getString("Compare_AE"));
+        problem.setRelativeAttributeLabel(diagnosisDateLabel);
+        problems.add(problem);
+      }
+
       if (personId != null)
       {
         PersonDTO person = PersonDTO.get(clientRequest, personId);
+        
         if (person != null && diagnosisDate.before(person.getDateOfBirth()))
         {
-
-          // we need an instance of IndividualCase to use its metadata display
-          // labels,
-          // but this should be replaced with calls to static metadata
-          // accessors.
-          String attrDL = new IndividualCaseDTO(clientRequest).getDiagnosisDateMd().getDisplayLabel();
+          String diagnosisDateLabel = FacadeDTO.getAttributeDisplayLabel(clientRequest, IndividualCaseDTO.CLASS, IndividualCaseDTO.DIAGNOSISDATE);
 
           RelativeValueProblemDTO problem = new RelativeValueProblemDTO(clientRequest, req.getLocale());
           problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
           problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
-          problem.setAttributeDisplayLabel(attrDL);
+          problem.setAttributeDisplayLabel(diagnosisDateLabel);
           problem.setRelation(MDSSProperties.getString("Compare_AE"));
           problem.setRelativeAttributeLabel(person.getDateOfBirthMd().getDisplayLabel());
           problems.add(problem);

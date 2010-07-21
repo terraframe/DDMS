@@ -21,10 +21,13 @@ import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdViewInfo;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Condition;
@@ -32,6 +35,7 @@ import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.Roles;
+import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdClassQuery;
 import com.runwaysdk.system.metadata.MdElementQuery;
 
@@ -314,4 +318,14 @@ public abstract class Facade extends FacadeBase implements Reloadable
       }
     }
   }
+  
+  public static String getAttributeDisplayLabel(String className, String attributeName)
+  {
+    MdClassDAOIF mdClassDAO = MdClassDAO.getMdClassDAO(className);
+    MdAttributeDAOIF mdAttributeDAO = mdClassDAO.definesAttribute(attributeName);
+    MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
+    
+    return mdAttribute.getDisplayLabel().getValue();    
+  }
+
 }
