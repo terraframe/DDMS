@@ -16,6 +16,7 @@ import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
@@ -36,6 +37,7 @@ import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.InactiveByDisease;
 import dss.vector.solutions.ontology.InactiveProperty;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermRelationship;
 import dss.vector.solutions.ontology.TermTermDisplayLabel;
 
@@ -144,6 +146,8 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	private ValueQuery getMenuQuery(Disease disease) {
+		QueryFactory factory = new QueryFactory();
+		
 	    MdEntityDAOIF allPathsMd = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS);
 	    String allPathsTable = allPathsMd.getTableName();
 	    String allPathsChildTermCol = QueryUtil.getColumnName(allPathsMd, AllPaths.CHILDTERM);
@@ -183,18 +187,21 @@ public class MenuGenerator implements Reloadable {
 	    String inactivePropertyDiseaseCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.DISEASE);
 	    String inactivePropertyInactiveCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.INACTIVE);
 	    
+		TermQuery termQuery = new TermQuery(factory);
+		Coalesce labelCoalesce = termQuery.getTermDisplayLabel().localize();
 	    MdEntityDAOIF termTermDisplayLabelMd = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
-	    String termTermDisplayLabelTable = termTermDisplayLabelMd.getTableName();
+	    String termTermDisplayLabelTable = labelCoalesce.getDefiningTableName();
+	    String termTermDisplayLabelAlias = labelCoalesce.getDefiningTableAlias();
 	    String termTermDisplayLabelIdCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.ID);
 	    String termTermDisplayLabelDefaultLocaleCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.DEFAULTLOCALE);
 
 	    
-		ValueQuery query = new ValueQuery(new QueryFactory());
+		ValueQuery query = new ValueQuery(factory);
 	    SelectableSQLCharacter menuitemId = query.aSQLCharacter(MENUITEM_ID, "menuitem." + menuItemIdCol);
 	    SelectableSQLCharacter menuitemUrl = query.aSQLCharacter(SYSTEMURL_URL, "url." + systemUrlUrlCol);
 	    SelectableSQLCharacter ancestorId = query.aSQLCharacter(ANCESTOR_ID, "ancestor." + termIdCol);
 	    SelectableSQLCharacter ancestorTermId = query.aSQLCharacter(ANCESTOR_TERMID, "ancestor." + termTermIdCol);
-	    SelectableSQLCharacter ancestorLabel = query.aSQLCharacter(ANCESTOR_LABEL, "label." + termTermDisplayLabelDefaultLocaleCol);
+	    SelectableSQLCharacter ancestorLabel = query.aSQLCharacter(ANCESTOR_LABEL, labelCoalesce.getSQL());
 	    SelectableSQLCharacter ancestorParent = query.aSQLCharacter(ANCESTOR_PARENT, "tr." + termRelationshipParentIdCol);
 
 	    query.SELECT(new Selectable[] { menuitemId, menuitemUrl, ancestorId, ancestorTermId, ancestorLabel, ancestorParent });
@@ -205,7 +212,7 @@ public class MenuGenerator implements Reloadable {
 		    	"join " + termTable + " menuitem on ap." + allPathsChildTermCol + " = menuitem." + termIdCol + "\n" + 
 		    	"join " + termRelationshipTable + " tr on tr." + termRelationshipChildIdCol + " = ancestor." + termIdCol + "\n" + 
 		    	"join " + systemUrlTable + " url on mi." + menuItemUrlCol + " = url." + systemUrlIdCol + "\n" + 
-		    	"join " + termTermDisplayLabelTable + " label on label." + termTermDisplayLabelIdCol + " = ancestor." + termTermDisplayLabelCol + "\n" + 
+		    	"join " + termTermDisplayLabelTable + " " + termTermDisplayLabelAlias + " on " + termTermDisplayLabelAlias + "." + termTermDisplayLabelIdCol + " = ancestor." + termTermDisplayLabelCol + "\n" + 
 	    	"where ap." + allPathsChildTermCol + " in (" + "\n" + 
 	    	    // This selects all active, leaf terms underneath the given menu root that are associated with menuitems for the given disease 
 	    	    "select mi." + menuItemTermCol + "\n" + 
