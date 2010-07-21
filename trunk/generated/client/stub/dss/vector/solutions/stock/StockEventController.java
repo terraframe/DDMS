@@ -283,7 +283,9 @@ public class StockEventController extends StockEventControllerBase implements co
   {
     ClientRequestIF request = this.getClientRequest();
     
-    item = TermDTO.get(request, item.getId());
+    if (item != null) {
+    	item = TermDTO.get(request, item.getId());
+    }
     
     this.setupFailParameters(geoId, item, date);
     req.setAttribute("endDate", endDate);
