@@ -10,6 +10,7 @@ import java.util.TreeMap;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -163,8 +164,8 @@ public class MenuGenerator implements Reloadable {
 	    
 	    MdEntityDAOIF relationshipMd = MdEntityDAO.getMdEntityDAO(TermRelationship.CLASS);
 	    String termRelationshipTable = relationshipMd.getTableName();
-	    String termRelationshipParentIdCol = "parent_id";
-	    String termRelationshipChildIdCol = "child_id";
+	    String termRelationshipParentIdCol = RelationshipDAOIF.PARENT_ID_COLUMN;
+	    String termRelationshipChildIdCol = RelationshipDAOIF.CHILD_ID_COLUMN;
 	    
 	    MdEntityDAOIF systemUrlMd = MdEntityDAO.getMdEntityDAO(SystemURL.CLASS);
 	    String systemUrlTable = systemUrlMd.getTableName();
@@ -173,8 +174,8 @@ public class MenuGenerator implements Reloadable {
 	   
 	    MdEntityDAOIF inactiveByDiseaseMd = MdEntityDAO.getMdEntityDAO(InactiveByDisease.CLASS);
 	    String inactiveByDiseaseTable = inactiveByDiseaseMd.getTableName();
-	    String inactiveByDiseaseParentIdCol = "parent_id";
-	    String inactiveByDiseaseChildIdCol = "child_id";
+	    String inactiveByDiseaseParentIdCol = RelationshipDAOIF.PARENT_ID_COLUMN;
+	    String inactiveByDiseaseChildIdCol = RelationshipDAOIF.CHILD_ID_COLUMN;
 
 	    MdEntityDAOIF inactivePropertyMd = MdEntityDAO.getMdEntityDAO(InactiveProperty.CLASS);
 	    String inactivePropertyTable = inactivePropertyMd.getTableName();
