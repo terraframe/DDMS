@@ -274,7 +274,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
         view.setThresholdDate(date);
         view.setThreshsoldType(type);
         view.setEntityLabel(entityLabel);
-        view.setPeriod(period);
+        view.setPeriod(period+1);
         view.setYearOfWeek(year);
         view.setDiseaseLabel(current.getDisplayLabel());
 
