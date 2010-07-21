@@ -45,20 +45,14 @@ import dss.vector.solutions.ontology.TermTermDisplayLabel;
  */
 public class MenuGenerator implements Reloadable {
 	private static final String ANCESTOR_PARENT = "ancestor_parent";
-
 	private static final String ANCESTOR_LABEL = "ancestor_label";
-
 	private static final String ANCESTOR_TERMID = "ancestor_termid";
-
 	private static final String ANCESTOR_ID = "ancestor_id";
-
 	private static final String SYSTEMURL_URL = "systemurl_url";
-
 	private static final String MENUITEM_ID = "menuitem_id";
 
 	private Disease disease = null;
-
-	private GuiMenuItem menu = new GuiMenuItem("menu", "menu", null, false);
+	private GuiMenuItem menu = null;
 	
 	private final SessionIF session = Session.getCurrentSession();
 
