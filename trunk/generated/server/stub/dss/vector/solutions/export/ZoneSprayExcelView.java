@@ -34,19 +34,6 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
     super();
   }
 
-  public SprayMethod getSprayMethodByLabel(String label)
-  {
-    for (SprayMethod e : SprayMethod.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
-  }
-
   @Override
   @Transaction
   public void apply()
@@ -61,7 +48,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       p.throwIt();
     }
 
-    ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()));
+    ZoneSprayView zsv = ZoneSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()));
 
     if (zsv.getConcreteId() == null || zsv.getConcreteId().equals(""))
     {

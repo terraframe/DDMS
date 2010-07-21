@@ -32,19 +32,6 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     super();
   }
 
-  public SprayMethod getSprayMethodByLabel(String label)
-  {
-    for (SprayMethod e : SprayMethod.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
-  }
-
   @Override
   @Transaction
   public void apply()
@@ -67,7 +54,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       operatorId = operator.getId();
     }
 
-    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
+    OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
 
     // Only create values if one already exists do not update
     if (osv.getConcreteId() == null || osv.getConcreteId().equals(""))

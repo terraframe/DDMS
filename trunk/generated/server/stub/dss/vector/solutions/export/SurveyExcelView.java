@@ -66,19 +66,19 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     itn.setNetId(this.getNetId());
     itn.setHousehold(Household.get(house.getConcreteId()));
     itn.setNetBrand(Term.validateByDisplayLabel(this.getNetBrand(), ITNInstanceView.getNetBrandMd()));
-    itn.addMonthReceived(getMonthOfYearByLabel(this.getMonthReceived()));
+    itn.addMonthReceived(ExcelEnums.getMonthOfYear(this.getMonthReceived()));
     itn.setYearReceived(this.getYearReceived());
     itn.setObtained(Term.validateByDisplayLabel(this.getObtained(), ITNInstanceView.getObtainedMd()));
     itn.setPrice(this.getPrice());
     itn.setRetreated(this.getRetreated());
-    itn.addMonthRetreated(getMonthOfYearByLabel(this.getMonthRetreated()));
+    itn.addMonthRetreated(ExcelEnums.getMonthOfYear(this.getMonthRetreated()));
     itn.setYearRetreated(this.getYearRetreated());
     itn.setDamaged(Term.validateByDisplayLabel(this.getDamaged(), ITNInstanceView.getDamagedMd()));
     itn.setHanging(Term.validateByDisplayLabel(this.getHanging(), ITNInstanceView.getHangingMd()));
     itn.setNotUsedForSleeping(this.getNotUsedForSleeping());
     itn.setPurpose(Term.validateByDisplayLabel(this.getPurpose(), ITNInstanceView.getPurposeMd()));
     itn.setPurposeComments(this.getPurposeComments());
-    itn.addWashed(getResponseByLabel(this.getWashed()));
+    itn.addWashed(ExcelEnums.getResponse(this.getWashed()));
     itn.setWashFrequency(this.getWashFrequency());
     itn.setWashPeriod(Term.validateByDisplayLabel(this.getWashPeriod(), ITNInstanceView.getWashPeriodMd()));
     itn.apply();
@@ -120,11 +120,11 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     person.setPregnant(this.getPregnant());
     person.setImmuneCompromised(Term.validateByDisplayLabel(this.getImmuneCompromised(), SurveyedPersonView.getImmuneCompromisedMd()));
     person.setSleptUnderNet(getNetById(this.getSleptUnderNetId()));
-    person.addHaemoglobinMeasured(getRefusedResponseByLabel(this.getHaemoglobinMeasured()));
+    person.addHaemoglobinMeasured(ExcelEnums.getRefusedResponse(this.getHaemoglobinMeasured()));
     person.setHaemoglobin(this.getHaemoglobin());
     person.setAnaemiaTreatment(Term.validateByDisplayLabel(this.getAnaemiaTreatment(), SurveyedPersonView.getAnaemiaTreatmentMd()));
     person.setIron(this.getIron());
-    person.addPerformedRDT(getRefusedResponseByLabel(this.getPerformedRDT()));
+    person.addPerformedRDT(ExcelEnums.getRefusedResponse(this.getPerformedRDT()));
     person.setRdtResult(this.getRdtResult());
     person.setRdtDetail(Term.validateByDisplayLabel(this.getRdtDetail(), SurveyedPersonView.getRdtDetailMd()));
     person.setRdtTreatment(Term.validateByDisplayLabel(this.getRdtTreatment(), SurveyedPersonView.getRdtTreatmentMd()));
@@ -132,8 +132,8 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     person.setBloodslideReason(Term.validateByDisplayLabel(this.getBloodslideReason(), SurveyedPersonView.getBloodslideReasonMd()));
     person.setBloodslideResult(this.getBloodslideResult());
     person.setBloodslideDetail(Term.validateByDisplayLabel(this.getBloodslideDetail(), SurveyedPersonView.getBloodslideDetailMd()));
-    person.addFever(getResponseByLabel(this.getFever()));
-    person.addMalaria(getResponseByLabel(this.getMalaria()));
+    person.addFever(ExcelEnums.getResponse(this.getFever()));
+    person.addMalaria(ExcelEnums.getResponse(this.getMalaria()));
     person.setMalariaConformationTechnique(Term.validateByDisplayLabel(this.getMalariaConformationTechnique(), SurveyedPersonView.getMalariaConformationTechniqueMd()));
     person.setPayment(Term.validateByDisplayLabel(this.getPayment(), SurveyedPersonView.getPaymentMd()));
     
@@ -191,7 +191,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       house.setHasWindows(this.getHasWindows());
       house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), HouseholdView.getWindowTypeMd()));
       house.setRooms(this.getRooms());
-      house.addHasBeenSprayed(getResponseByLabel(this.getHasBeenSprayed()));
+      house.addHasBeenSprayed(ExcelEnums.getResponse(this.getHasBeenSprayed()));
       house.setLastSprayed(this.getLastSprayed());
       house.setNets(this.getNets());      
       house.apply();
@@ -290,44 +290,5 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   public void addTreatment(Term treatment)
   {
     treatments.add(treatment);
-  }
-
-  private MonthOfYear getMonthOfYearByLabel(String label)
-  {
-    for (MonthOfYear e : MonthOfYear.values())
-    {
-      if (e.getDisplayLabel().equalsIgnoreCase(label) ||
-          e.getEnumName().equalsIgnoreCase(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-  
-  private Response getResponseByLabel(String label)
-  {
-    for (Response e : Response.values())
-    {
-      if (e.getDisplayLabel().equalsIgnoreCase(label) ||
-          e.getEnumName().equalsIgnoreCase(label))
-      {
-        return e;
-      }
-    }
-    return null;
-  }
-  
-  private RefusedResponse getRefusedResponseByLabel(String label)
-  {
-    for (RefusedResponse e : RefusedResponse.values())
-    {
-      if (e.getDisplayLabel().equalsIgnoreCase(label) ||
-          e.getEnumName().equalsIgnoreCase(label))
-      {
-        return e;
-      }
-    }
-    return null;
   }
 }

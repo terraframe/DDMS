@@ -33,19 +33,6 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
   {
     super();
   }
-  
-  public SprayMethod getSprayMethodByLabel(String label)
-  {
-    for (SprayMethod e : SprayMethod.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
-  }
 
   @Override
   @Transaction
@@ -70,7 +57,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     }
 
     TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(),
-        getSprayMethodByLabel(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()),
+        ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()),
         teamId);
 
     if (tsv.getConcreteId() == null || tsv.getConcreteId().equals(""))

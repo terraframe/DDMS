@@ -117,23 +117,4 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     builder.add(GeoHierarchy.getGeoHierarchyFromType(HealthFacility.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
-
-  public static PeriodType getPeriodTypeByLabel(String label)
-  {
-    if (label == null || label.equals(""))
-    {
-      return null;
-    }
-
-    for (PeriodType e : PeriodType.values())
-    {
-      if (e.getDisplayLabel().equalsIgnoreCase(label) ||
-          e.getEnumName().equalsIgnoreCase(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + PeriodType.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(PeriodType.CLASS));
-  }
 }

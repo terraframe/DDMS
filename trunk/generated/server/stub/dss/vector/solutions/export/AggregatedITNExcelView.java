@@ -48,7 +48,7 @@ public class AggregatedITNExcelView extends AggregatedITNExcelViewBase implement
   {
     GeoEntity geoEntity = getGeoEntity();
 
-    PeriodType periodType = AggregatedCaseExcelView.getPeriodTypeByLabel(this.getPeriodType());
+    PeriodType periodType = ExcelEnums.getPeriodType(this.getPeriodType());
     
     ITNDataView data = ITNData.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getPeriodYear());
 

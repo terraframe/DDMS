@@ -102,22 +102,4 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     builder.add(GeoHierarchy.getGeoHierarchyFromType(Surface.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
-
-  public static SurfacePosition getSurfacePositionByLabel(String label)
-  {
-    if(label == null || label.equals(""))
-    {
-      return null;
-    }
-    
-    for (SurfacePosition e : SurfacePosition.values())
-    {
-      if (e.getDisplayLabel().equals(label))
-      {
-        return e;
-      }
-    }
-    String message = "[" + label + "] is not a valid display label for [" + SurfacePosition.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SurfacePosition.CLASS));
-  }
 }
