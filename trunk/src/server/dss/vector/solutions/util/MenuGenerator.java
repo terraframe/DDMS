@@ -187,13 +187,12 @@ public class MenuGenerator implements Reloadable {
 	    String inactivePropertyDiseaseCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.DISEASE);
 	    String inactivePropertyInactiveCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.INACTIVE);
 	    
+	    MdEntityDAOIF termTermDisplayLabelMd = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
+	    String termTermDisplayLabelIdCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.ID);
 		TermQuery termQuery = new TermQuery(factory);
 		Coalesce labelCoalesce = termQuery.getTermDisplayLabel().localize();
-	    MdEntityDAOIF termTermDisplayLabelMd = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
 	    String termTermDisplayLabelTable = labelCoalesce.getDefiningTableName();
 	    String termTermDisplayLabelAlias = labelCoalesce.getDefiningTableAlias();
-	    String termTermDisplayLabelIdCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.ID);
-	    String termTermDisplayLabelDefaultLocaleCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.DEFAULTLOCALE);
 
 	    
 		ValueQuery query = new ValueQuery(factory);
