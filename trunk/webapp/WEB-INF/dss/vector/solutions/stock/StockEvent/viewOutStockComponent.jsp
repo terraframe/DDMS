@@ -84,6 +84,9 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
         Mojo.$.<%=StockEventViewDTO.CLASS%>.applyAll(request, view_array);      
       }
+      else {
+        grid.enableSaveButton();         
+      }      
     };
       
     var data = {

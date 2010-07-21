@@ -70,7 +70,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-	  
+  
     var saveHandler = function(request, parameters) {
       var staff = document.getElementById('staff').value;
       var otherParty = document.getElementById('otherParty').value;
@@ -89,6 +89,9 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         }
 
         Mojo.$.<%=StockEventViewDTO.CLASS%>.applyAll(request, view_array);      
+      }
+      else {
+        grid.enableSaveButton();         
       }
     };
       
