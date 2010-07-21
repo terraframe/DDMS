@@ -87,6 +87,8 @@
   	<span class="nomatch"><fmt:message key="Search_Found_No_Results"/></span>
   </c:otherwise> 
 </c:choose>  
+<br />
+
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.MosquitoCollectionExcelView" name="excelType"/>
 </jsp:include>

@@ -71,8 +71,8 @@
   	<span class="nomatch"><fmt:message key="Search_Found_No_Results"/></span>
   </c:otherwise> 
 </c:choose>  
-
 <br />
+
 <form id="export" name="export" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.exportExcelTemplate.mojo" method="post" target="messageFrame">
   <fmt:message key="Excel_Export_Header" var="export_label"/>
   <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
