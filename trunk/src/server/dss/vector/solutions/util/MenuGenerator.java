@@ -229,6 +229,7 @@ public class MenuGenerator implements Reloadable {
 		//System.out.println(query.getSQL());
 		return query;
 	}
+	
 	/**
 	 * Generate the full menu for the current disease. This includes the
 	 * user-configurable menus, then the disease menu, then log out, about and
