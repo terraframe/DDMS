@@ -3,16 +3,21 @@ package dss.vector.solutions.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
+import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
@@ -121,6 +126,46 @@ public class MenuGenerator implements Reloadable {
 		}
 	}
 
+	private ValueQuery getMenuQuery(Disease disease) {
+		ValueQuery query = new ValueQuery(new QueryFactory());
+	    SelectableSQLCharacter menuitemId = query.aSQLCharacter("menuitem_id", "menuitem.id");
+	    SelectableSQLCharacter menuitemUrl = query.aSQLCharacter("menuitem_url", "url.url");
+	    SelectableSQLCharacter ancestorId = query.aSQLCharacter("ancestor_id", "ancestor.id");
+	    SelectableSQLCharacter ancestorTermId = query.aSQLCharacter("ancestor_term_id", "ancestor.term_id");
+	    SelectableSQLCharacter ancestorLabel = query.aSQLCharacter("ancestor_label", "ancestor.name");
+	    SelectableSQLCharacter ancestorParent = query.aSQLCharacter("ancestor_parent", "tr.parent_id");
+
+	    query.SELECT(new Selectable[] { menuitemId, menuitemUrl, ancestorId, ancestorTermId, ancestorLabel, ancestorParent });
+	    String from = 
+	    	"allpaths_ontology ap" + "\n" + 
+	    		"join menu_item mi on ap.child_term = mi.term" + "\n" + 
+		    	"join term ancestor on ap.parent_term = ancestor.id" + "\n" + 
+		    	"join term menuitem on ap.child_term = menuitem.id" + "\n" + 
+		    	"join term_relationship tr on tr.child_id = ancestor.id" + "\n" + 
+		    	"join system_url url on mi.url = url.id" + "\n" + 
+	    	"where ap.child_term in (" + "\n" + 
+	    	    // This selects all active, leaf terms underneath the given menu root that are associated with menuitems for the given disease 
+	    	    "select mi.term" + "\n" + 
+	    	    "from menu_item mi" + "\n" + 
+		    	    "join term on mi.term = term.id" + "\n" + 
+		    	    "join system_url url on mi.url = url.id" + "\n" + 
+		    	    "join allpaths_ontology undermenuroot on undermenuroot.child_term = mi.term and undermenuroot.parent_term = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
+		    	    "join allpaths_ontology isleaf on isleaf.parent_term = mi.term" + "\n" + 
+		    	    "join inactive_by_disease ibd on ibd.parent_id = term.id" + "\n" + 
+		    	    "join inactive_property ip on ibd.child_id = ip.id and ip.disease = mi.disease and ip.inactive = 0" + "\n" + 
+	    	    "where mi.disease = '" + disease.getId() + "'" + "\n" + 
+	    	    "group by mi.term" + "\n" + 
+	    	    "having count(*) = 1" + "\n" + 
+	    	")" + "\n" + 
+	    	"and parent_term in (" + "\n" + 
+	    	    //This selects all terms who are descendants of the given menu root
+	    	    "select child_term" + "\n" + 
+	    	    "from allpaths_ontology ap" + "\n" + 
+	    	    "where ap.parent_term = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
+	    	")";
+		query.FROM(from,"");
+		return query;
+	}
 	/**
 	 * Generate the full menu for the current disease. This includes the
 	 * user-configurable menus, then the disease menu, then log out, about and
@@ -128,7 +173,7 @@ public class MenuGenerator implements Reloadable {
 	 */
 	@Transaction
 	public void generateMenu() {
-		this.menu = new GuiMenuItem("menu", "menu", null);
+		this.menu = new GuiMenuItem(this.disease.getMenuRoot().getTermId(), "ROOT", null);
 		if (PanicButton.isEnabled()) {
 			this.generateEmergencyMenu();
 		}
@@ -153,6 +198,52 @@ public class MenuGenerator implements Reloadable {
 	 * menu structure.
 	 */
 	private void generateConfigurableMenu() {
+		Map<String, GuiMenuItem> guiMenuItems = new HashMap<String, GuiMenuItem>();
+		Map<String, String> children = new HashMap<String, String>();
+		guiMenuItems.put(this.disease.getMenuRoot().getId(), this.menu);
+
+		ValueQuery query = this.getMenuQuery(this.disease);
+		OIterator<ValueObject> i = query.getIterator();
+		//System.out.println(query.getSQL());
+		try {
+			for (ValueObject valueObject : i) {
+				String ancestorId = valueObject.getValue("ancestor_id");
+				String ancestorTermId = valueObject.getValue("ancestor_term_id");
+				String ancestorLabel = valueObject.getValue("ancestor_label");
+				String ancestorParent = valueObject.getValue("ancestor_parent");
+				String menuitemId = valueObject.getValue("menuitem_id");
+				String menuitemUrl = valueObject.getValue("menuitem_url");
+				if (!guiMenuItems.containsKey(ancestorId)) {
+					String url = null;
+					if (ancestorId.equals(menuitemId)) {
+						url = menuitemUrl;
+					}
+					GuiMenuItem guiMenuItem = new GuiMenuItem(ancestorTermId, ancestorLabel, url);
+					guiMenuItems.put(ancestorId, guiMenuItem);
+				}
+				children.put(ancestorId, ancestorParent);
+			}
+		} finally {
+			i.close();
+		}
+		
+		for (Map.Entry<String, String> e : children.entrySet()) {
+			GuiMenuItem child = guiMenuItems.get(e.getKey());
+			GuiMenuItem parent = guiMenuItems.get(e.getValue());
+			if (parent != null && child != null) {
+				parent.addChild(child);
+			} else {
+				System.out.println(e.getKey() + "->" + e.getValue());
+			}
+		}
+	}
+	
+	/**
+	 * Generate the user-configurable menus. For each MenuItem defined for the
+	 * current disease that references a leaf term, attempt to add it to the
+	 * menu structure.
+	 */
+	private void OLDgenerateConfigurableMenu() {
 		MenuItemQuery query = new MenuItemQuery(new QueryFactory());
 		query.WHERE(query.getDisease().EQ(this.disease));
 		query.ORDER_BY(query.getTerm().getTermId(), SortOrder.ASC);
@@ -334,6 +425,9 @@ public class MenuGenerator implements Reloadable {
 	}
 	
 	private boolean hasAccess(MenuItem menuItem) {
+		if (this.session == null) {
+			return false;
+		}
 		Map<String, String> roles = this.session.getUserRoles();
 		if (roles == null) {
 			return false;
