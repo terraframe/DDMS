@@ -9,8 +9,10 @@ import java.util.TreeMap;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -23,10 +25,18 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 
 import dss.vector.solutions.PanicButton;
+import dss.vector.solutions.Person;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
+import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.irs.TeamMember;
+import dss.vector.solutions.ontology.AllPaths;
+import dss.vector.solutions.ontology.InactiveByDisease;
+import dss.vector.solutions.ontology.InactiveProperty;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRelationship;
+import dss.vector.solutions.ontology.TermTermDisplayLabel;
 
 /**
  * @author chris
@@ -34,6 +44,18 @@ import dss.vector.solutions.ontology.Term;
  *         This class generates the menus.
  */
 public class MenuGenerator implements Reloadable {
+	private static final String ANCESTOR_PARENT = "ancestor_parent";
+
+	private static final String ANCESTOR_LABEL = "ancestor_label";
+
+	private static final String ANCESTOR_TERMID = "ancestor_termid";
+
+	private static final String ANCESTOR_ID = "ancestor_id";
+
+	private static final String SYSTEMURL_URL = "systemurl_url";
+
+	private static final String MENUITEM_ID = "menuitem_id";
+
 	private Disease disease = null;
 
 	private GuiMenuItem menu = new GuiMenuItem("menu", "menu", null, false);
@@ -127,43 +149,90 @@ public class MenuGenerator implements Reloadable {
 	}
 
 	private ValueQuery getMenuQuery(Disease disease) {
+	    MdEntityDAOIF allPathsMd = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS);
+	    String allPathsTable = allPathsMd.getTableName();
+	    String allPathsChildTermCol = QueryUtil.getColumnName(allPathsMd, AllPaths.CHILDTERM);
+	    String allPathsParentTermCol = QueryUtil.getColumnName(allPathsMd, AllPaths.PARENTTERM);
+
+	    MdEntityDAOIF menuItemMd = MdEntityDAO.getMdEntityDAO(MenuItem.CLASS);
+	    String menuItemTable = menuItemMd.getTableName();
+	    String menuItemTermCol = QueryUtil.getColumnName(menuItemMd, MenuItem.TERM);
+	    String menuItemUrlCol = QueryUtil.getColumnName(menuItemMd, MenuItem.URL);
+	    String menuItemDiseaseCol = QueryUtil.getColumnName(menuItemMd, MenuItem.DISEASE);
+	    String menuItemIdCol = QueryUtil.getColumnName(menuItemMd, MenuItem.ID);
+	    
+	    MdEntityDAOIF termMd = MdEntityDAO.getMdEntityDAO(Term.CLASS);
+	    String termTable = termMd.getTableName();
+	    String termIdCol = QueryUtil.getColumnName(termMd, Term.ID);
+	    String termTermIdCol = QueryUtil.getColumnName(termMd, Term.TERMID);
+	    String termTermDisplayLabelCol = QueryUtil.getColumnName(termMd, Term.TERMDISPLAYLABEL);
+	    
+	    MdEntityDAOIF relationshipMd = MdEntityDAO.getMdEntityDAO(TermRelationship.CLASS);
+	    String termRelationshipTable = relationshipMd.getTableName();
+	    String termRelationshipParentIdCol = "parent_id";
+	    String termRelationshipChildIdCol = "child_id";
+	    
+	    MdEntityDAOIF systemUrlMd = MdEntityDAO.getMdEntityDAO(SystemURL.CLASS);
+	    String systemUrlTable = systemUrlMd.getTableName();
+	    String systemUrlIdCol = QueryUtil.getColumnName(systemUrlMd, SystemURL.ID);
+	    String systemUrlUrlCol = QueryUtil.getColumnName(systemUrlMd, SystemURL.URL);
+	   
+	    MdEntityDAOIF inactiveByDiseaseMd = MdEntityDAO.getMdEntityDAO(InactiveByDisease.CLASS);
+	    String inactiveByDiseaseTable = inactiveByDiseaseMd.getTableName();
+	    String inactiveByDiseaseParentIdCol = "parent_id";
+	    String inactiveByDiseaseChildIdCol = "child_id";
+
+	    MdEntityDAOIF inactivePropertyMd = MdEntityDAO.getMdEntityDAO(InactiveProperty.CLASS);
+	    String inactivePropertyTable = inactivePropertyMd.getTableName();
+	    String inactivePropertyIdCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.ID);
+	    String inactivePropertyDiseaseCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.DISEASE);
+	    String inactivePropertyInactiveCol = QueryUtil.getColumnName(inactivePropertyMd, InactiveProperty.INACTIVE);
+	    
+	    MdEntityDAOIF termTermDisplayLabelMd = MdEntityDAO.getMdEntityDAO(TermTermDisplayLabel.CLASS);
+	    String termTermDisplayLabelTable = termTermDisplayLabelMd.getTableName();
+	    String termTermDisplayLabelIdCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.ID);
+	    String termTermDisplayLabelDefaultLocaleCol = QueryUtil.getColumnName(termTermDisplayLabelMd, TermTermDisplayLabel.DEFAULTLOCALE);
+
+	    
 		ValueQuery query = new ValueQuery(new QueryFactory());
-	    SelectableSQLCharacter menuitemId = query.aSQLCharacter("menuitem_id", "menuitem.id");
-	    SelectableSQLCharacter menuitemUrl = query.aSQLCharacter("menuitem_url", "url.url");
-	    SelectableSQLCharacter ancestorId = query.aSQLCharacter("ancestor_id", "ancestor.id");
-	    SelectableSQLCharacter ancestorTermId = query.aSQLCharacter("ancestor_term_id", "ancestor.term_id");
-	    SelectableSQLCharacter ancestorLabel = query.aSQLCharacter("ancestor_label", "ancestor.name");
-	    SelectableSQLCharacter ancestorParent = query.aSQLCharacter("ancestor_parent", "tr.parent_id");
+	    SelectableSQLCharacter menuitemId = query.aSQLCharacter(MENUITEM_ID, "menuitem." + menuItemIdCol);
+	    SelectableSQLCharacter menuitemUrl = query.aSQLCharacter(SYSTEMURL_URL, "url." + systemUrlUrlCol);
+	    SelectableSQLCharacter ancestorId = query.aSQLCharacter(ANCESTOR_ID, "ancestor." + termIdCol);
+	    SelectableSQLCharacter ancestorTermId = query.aSQLCharacter(ANCESTOR_TERMID, "ancestor." + termTermIdCol);
+	    SelectableSQLCharacter ancestorLabel = query.aSQLCharacter(ANCESTOR_LABEL, "label." + termTermDisplayLabelDefaultLocaleCol);
+	    SelectableSQLCharacter ancestorParent = query.aSQLCharacter(ANCESTOR_PARENT, "tr." + termRelationshipParentIdCol);
 
 	    query.SELECT(new Selectable[] { menuitemId, menuitemUrl, ancestorId, ancestorTermId, ancestorLabel, ancestorParent });
 	    String from = 
-	    	"allpaths_ontology ap" + "\n" + 
-	    		"join menu_item mi on ap.child_term = mi.term" + "\n" + 
-		    	"join term ancestor on ap.parent_term = ancestor.id" + "\n" + 
-		    	"join term menuitem on ap.child_term = menuitem.id" + "\n" + 
-		    	"join term_relationship tr on tr.child_id = ancestor.id" + "\n" + 
-		    	"join system_url url on mi.url = url.id" + "\n" + 
-	    	"where ap.child_term in (" + "\n" + 
+	    	allPathsTable + " ap" + "\n" + 
+	    		"join " + menuItemTable + " mi on ap." + allPathsChildTermCol + " = mi." + menuItemTermCol + "\n" + 
+		    	"join " + termTable + " ancestor on ap." + allPathsParentTermCol + " = ancestor." + termIdCol + "\n" + 
+		    	"join " + termTable + " menuitem on ap." + allPathsChildTermCol + " = menuitem." + termIdCol + "\n" + 
+		    	"join " + termRelationshipTable + " tr on tr." + termRelationshipChildIdCol + " = ancestor." + termIdCol + "\n" + 
+		    	"join " + systemUrlTable + " url on mi." + menuItemUrlCol + " = url." + systemUrlIdCol + "\n" + 
+		    	"join " + termTermDisplayLabelTable + " label on label." + termTermDisplayLabelIdCol + " = ancestor." + termTermDisplayLabelCol + "\n" + 
+	    	"where ap." + allPathsChildTermCol + " in (" + "\n" + 
 	    	    // This selects all active, leaf terms underneath the given menu root that are associated with menuitems for the given disease 
-	    	    "select mi.term" + "\n" + 
-	    	    "from menu_item mi" + "\n" + 
-		    	    "join term on mi.term = term.id" + "\n" + 
-		    	    "join system_url url on mi.url = url.id" + "\n" + 
-		    	    "join allpaths_ontology undermenuroot on undermenuroot.child_term = mi.term and undermenuroot.parent_term = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
-		    	    "join allpaths_ontology isleaf on isleaf.parent_term = mi.term" + "\n" + 
-		    	    "join inactive_by_disease ibd on ibd.parent_id = term.id" + "\n" + 
-		    	    "join inactive_property ip on ibd.child_id = ip.id and ip.disease = mi.disease and ip.inactive = 0" + "\n" + 
-	    	    "where mi.disease = '" + disease.getId() + "'" + "\n" + 
-	    	    "group by mi.term" + "\n" + 
+	    	    "select mi." + menuItemTermCol + "\n" + 
+	    	    "from " + menuItemTable + " mi" + "\n" + 
+		    	    "join " + termTable + " term on mi." + menuItemTermCol + " = term." + termIdCol + "\n" + 
+		    	    "join " + systemUrlTable + " url on mi." + menuItemUrlCol + " = url." + systemUrlIdCol + "\n" + 
+		    	    "join " + allPathsTable + " undermenuroot on undermenuroot." + allPathsChildTermCol + " = mi." + menuItemTermCol + " and undermenuroot." + allPathsParentTermCol + " = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
+		    	    "join " + allPathsTable + " isleaf on isleaf." + allPathsParentTermCol + " = mi." + menuItemTermCol + "\n" + 
+		    	    "join " + inactiveByDiseaseTable + " ibd on ibd." + inactiveByDiseaseParentIdCol + " = term." + termIdCol + "\n" + 
+		    	    "join " + inactivePropertyTable + " ip on ibd." + inactiveByDiseaseChildIdCol + " = ip." + inactivePropertyIdCol + " and ip." + inactivePropertyDiseaseCol + " = mi." + menuItemDiseaseCol + " and ip." + inactivePropertyInactiveCol + " = 0" + "\n" + 
+	    	    "where mi." + menuItemDiseaseCol + " = '" + disease.getId() + "'" + "\n" + 
+	    	    "group by mi." + menuItemTermCol + "\n" + 
 	    	    "having count(*) = 1" + "\n" + 
 	    	")" + "\n" + 
-	    	"and parent_term in (" + "\n" + 
+	    	"and ap." + allPathsParentTermCol + " in (" + "\n" + 
 	    	    //This selects all terms who are descendants of the given menu root
-	    	    "select child_term" + "\n" + 
-	    	    "from allpaths_ontology ap" + "\n" + 
-	    	    "where ap.parent_term = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
+	    	    "select ap." + allPathsChildTermCol + "\n" + 
+	    	    "from " + allPathsTable + " ap" + "\n" + 
+	    	    "where ap." + allPathsParentTermCol + " = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
 	    	")";
 		query.FROM(from,"");
+		//System.out.println(query.getSQL());
 		return query;
 	}
 	/**
@@ -207,16 +276,16 @@ public class MenuGenerator implements Reloadable {
 		//System.out.println(query.getSQL());
 		try {
 			for (ValueObject valueObject : i) {
-				String ancestorId = valueObject.getValue("ancestor_id");
-				String ancestorTermId = valueObject.getValue("ancestor_term_id");
-				String ancestorLabel = valueObject.getValue("ancestor_label");
-				String ancestorParent = valueObject.getValue("ancestor_parent");
-				String menuitemId = valueObject.getValue("menuitem_id");
-				String menuitemUrl = valueObject.getValue("menuitem_url");
+				String ancestorId = valueObject.getValue(ANCESTOR_ID);
+				String ancestorTermId = valueObject.getValue(ANCESTOR_TERMID);
+				String ancestorLabel = valueObject.getValue(ANCESTOR_LABEL);
+				String ancestorParent = valueObject.getValue(ANCESTOR_PARENT);
+				String menuitemId = valueObject.getValue(MENUITEM_ID);
+				String systemUrlUrl = valueObject.getValue(SYSTEMURL_URL);
 				if (!guiMenuItems.containsKey(ancestorId)) {
 					String url = null;
 					if (ancestorId.equals(menuitemId)) {
-						url = menuitemUrl;
+						url = systemUrlUrl;
 					}
 					GuiMenuItem guiMenuItem = new GuiMenuItem(ancestorTermId, ancestorLabel, url);
 					guiMenuItems.put(ancestorId, guiMenuItem);
@@ -233,7 +302,7 @@ public class MenuGenerator implements Reloadable {
 			if (parent != null && child != null) {
 				parent.addChild(child);
 			} else {
-				System.out.println(e.getKey() + "->" + e.getValue());
+				// System.out.println(e.getKey() + "->" + e.getValue());
 			}
 		}
 	}
