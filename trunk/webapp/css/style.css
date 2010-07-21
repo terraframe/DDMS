@@ -52,6 +52,46 @@ body {
 	background: #FFFFFF url(/MDSS/imgs/design/logo.gif) no-repeat 50% 50%;
 }
 
+/* CMR START */
+#header {
+		min-width: 1152px;
+}
+
+.navContainer {
+	overflow: hidden;
+}
+
+.navContainer ul {
+white-space: nowrap;
+}
+
+.yuimenubaritem {
+float: none !important;
+display: inline-block;
+}
+
+.first-of-type > .yuimenubaritem .yuimenubaritemlabel {
+border-bottom: 1px solid #FFFFFF;
+}
+
+.yuimenubaritem {
+background: url("/MDSS/imgs/design/sprite.png") repeat-x scroll 0 0 transparent;
+}
+
+.yuimenubaritemlabel {
+margin: -10px 0 0 0;
+}
+
+.first-of-type > .yuimenubaritem {
+	margin: -1px 0 0 0;
+}
+
+.first-of-type > .yuimenubaritem-hassubmenu {
+	margin: 0px 0 0 0;
+}
+
+/* CMR END */
+
 .pageTitle {
 	font-size: 32px;
 	color: #BBB;
@@ -151,8 +191,10 @@ h2 {
 	border: 1px solid #CCCCCC;
 	padding: 5px;
 	font-weight: bold;
-	background-image: url(/MDSS/imgs/design/table_header_back.gif);
-	background-repeat: repeat-x;
+	background-image: url(/MDSS/imgs/design/table_header_back.gif); 
+	background-repeat: repeat-x; 
+	background-position: bottom;
+	background-color: +++++;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 13px;
 	color: #FFFFFF;
@@ -205,9 +247,8 @@ h2 {
 	font-size: 12px;
 }
 
-#menuBar #Print {
+#menuBar #Print a {
 background: url("/MDSS/imgs/icons/printer.png") no-repeat center;
-border: 0px;
 }
 
 label {
