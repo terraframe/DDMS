@@ -49,7 +49,7 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
       }
     }
   }
-  
+
   @Override
   public void failSearch() throws IOException, ServletException
   {
@@ -152,13 +152,25 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
 
   public void view(String id) throws IOException, ServletException
   {
-    // go back to household view after entering person
-    RedirectUtility utility = new RedirectUtility(req, resp);
-    utility.put("id", id);
+    try
+    {
+      // go back to household view after entering person
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("id", id);
 
-    utility.checkURL(this.getClass().getSimpleName(), "view");
+      utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.view(PremiseTaxonDTO.getView(super.getClientRequest(), id));
+      this.view(PremiseTaxonDTO.getView(super.getClientRequest(), id));
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failView(id);
+      }
+    }
   }
 
   public void view(ImmatureCollectionViewDTO dto) throws IOException, ServletException
