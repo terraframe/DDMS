@@ -69,7 +69,6 @@ import com.vividsolutions.jts.io.ParseException;
 import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.WKTParsingProblem;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -80,7 +79,6 @@ import dss.vector.solutions.geo.GeoEntitySelectionProblem;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoHierarchyProperty;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.GeoSynonym;
 import dss.vector.solutions.geo.LocatedIn;
@@ -93,7 +91,6 @@ import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.GeoEntityImporter;
 import dss.vector.solutions.util.GeometryHelper;
-import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.QueryUtil;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.generation.loader.Reloadable
@@ -618,50 +615,14 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   @Override
   public GeoEntityView[] collectAllLocatedIn(Boolean includeParents, String filter)
   {
-    Set<GeoEntity> collected = new HashSet<GeoEntity>();
+    List<GeoEntityView> list = new LinkedList<GeoEntityView>();
 
-    collected.add(this);
+    list.addAll(GeoEntityViewQuery.getImmediateChildren(this, filter));
+    list.addAll(GeoEntityViewQuery.getAllParents(this, filter));
 
-    if (includeParents)
-    {
-      collected.addAll(this.getAllParents());
-    }
+    Collections.sort(list, new GeoEntityViewSorter());
 
-    // include this GeoEntity and its children
-    collected.addAll(this.getImmediateChildren());
-
-    // translate the GeoEntities into their views
-    // and filter out all unallowed types.
-    List<GeoEntityView> finalList = new LinkedList<GeoEntityView>();
-
-    Set<String> filteredTypes = new HashSet<String>();
-    if (filter != null && filter.trim().length() > 0)
-    {
-      String types[] = filteredTypes(filter);
-      filteredTypes.addAll(Arrays.asList(types));
-    }
-
-    for (GeoEntity geoEntity : collected)
-    {
-      boolean match = filteredTypes.size() == 0 ? true : false;
-      for (String filterType : filteredTypes)
-      {
-        // allow is_a children
-        if (LoaderDecorator.load(filterType).isAssignableFrom(geoEntity.getClass()))
-        {
-          match = true;
-        }
-      }
-
-      if (match)
-      {
-        finalList.add(geoEntity.getViewFromGeoEntity());
-      }
-    }
-
-    Collections.sort(finalList, new GeoEntityViewSorter());
-
-    return finalList.toArray(new GeoEntityView[finalList.size()]);
+    return list.toArray(new GeoEntityView[list.size()]);
   }
 
   /**
@@ -822,26 +783,29 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   {
     List<GeoEntity> allParents = new LinkedList<GeoEntity>();
 
-    getAllParents(allParents, this);
+    QueryFactory factory = new QueryFactory();
+    AllPathsQuery pathsQuery = new AllPathsQuery(factory);
+    GeoEntityQuery entityQuery = new GeoEntityQuery(factory);
+    
+    pathsQuery.WHERE(pathsQuery.getChildGeoEntity().EQ(this));
+    
+    entityQuery.WHERE(entityQuery.getId().EQ(pathsQuery.getParentGeoEntity().getId()));
+    
+    OIterator<? extends GeoEntity> iterator = entityQuery.getIterator();
+    
+    try
+    {
+      while(iterator.hasNext())
+      {
+        allParents.add(iterator.next());
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
 
     return allParents;
-  }
-
-  /**
-   * Recursive method that collects all parents for the given parent.
-   * 
-   * @param allChildren
-   * @param parent
-   * @return
-   */
-  private static void getAllParents(List<GeoEntity> allParents, GeoEntity child)
-  {
-    List<GeoEntity> parents = child.getImmediateParents();
-    for (GeoEntity parent : parents)
-    {
-      allParents.add(parent);
-      getAllParents(allParents, parent);
-    }
   }
 
   /**
