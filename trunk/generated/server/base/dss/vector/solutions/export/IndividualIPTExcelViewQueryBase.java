@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1054714745)
+@com.runwaysdk.business.ClassSignature(hash = 2092628878)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class IndividualIPTExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1054714745;
+private static final long serialVersionUID = 2092628878;
 
   public IndividualIPTExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -222,6 +222,24 @@ private static final long serialVersionUID = 1054714745;
   public com.runwaysdk.query.SelectableChar getPatientLastName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTLASTNAME, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPatientSex()
+  {
+    return getPatientSex(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPatientSex(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTSEX, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPatientSex(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.IndividualIPTExcelView.PATIENTSEX, alias, displayLabel);
 
   }
  

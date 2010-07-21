@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 691760770)
+@com.runwaysdk.business.ClassSignature(hash = -508403163)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,6 +22,7 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String PATIENTDOB = "patientDOB";
   public static java.lang.String PATIENTFIRSTNAME = "patientFirstName";
   public static java.lang.String PATIENTLASTNAME = "patientLastName";
+  public static java.lang.String PATIENTSEX = "patientSex";
   public static java.lang.String PATIENTTYPE = "patientType";
   public static java.lang.String RECEIVEDITN = "receivedITN";
   public static java.lang.String RECEIVEDSUPPLEMENT = "receivedSupplement";
@@ -30,7 +31,7 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String VISITNUMBER = "visitNumber";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
   public static java.lang.String WORKINFORMATION = "workInformation";
-  private static final long serialVersionUID = 691760770;
+  private static final long serialVersionUID = -508403163;
   
   public IndividualIPTExcelViewBase()
   {
@@ -337,6 +338,34 @@ public abstract class IndividualIPTExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(PATIENTLASTNAME, value);
+    }
+  }
+  
+  public String getPatientSex()
+  {
+    return getValue(PATIENTSEX);
+  }
+  
+  public void validatePatientSex()
+  {
+    this.validateAttribute(PATIENTSEX);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPatientSexMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.IndividualIPTExcelView.CLASS);
+    return mdClassIF.definesAttribute(PATIENTSEX);
+  }
+  
+  public void setPatientSex(String value)
+  {
+    if(value == null)
+    {
+      setValue(PATIENTSEX, "");
+    }
+    else
+    {
+      setValue(PATIENTSEX, value);
     }
   }
   

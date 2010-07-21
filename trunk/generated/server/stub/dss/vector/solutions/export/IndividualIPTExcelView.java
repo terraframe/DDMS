@@ -13,6 +13,7 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
+import dss.vector.solutions.PersonView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -60,6 +61,8 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     String firstName = this.getPatientFirstName();
     String lastName = this.getPatientLastName();
     Date dob = this.getPatientDOB();
+    String sexString = this.getPatientSex();
+    Term sex = Term.validateByDisplayLabel(sexString, PersonView.getSexMd());
     
     PersonQuery personQuery = new PersonQuery(new QueryFactory());
     if (firstName!=null && firstName.length()>0)
@@ -73,6 +76,10 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     if (dob!=null)
     {
       personQuery.WHERE(personQuery.getDateOfBirth().EQ(dob));
+    }
+    if (sex!=null)
+    {
+      personQuery.WHERE(personQuery.getSex().EQ(sex));
     }
     
     if (personQuery.getCount()>1)
@@ -97,6 +104,7 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
       person.setFirstName(firstName);
       person.setLastName(lastName);
       person.setDateOfBirth(dob);
+      person.setSex(sex);
       person.setResidentialGeoEntity(residential);
       person.setWorkGeoEntity(workGeo);
       person.setWorkInformation(this.getWorkInformation());
@@ -144,6 +152,7 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
     list.add(PATIENTFIRSTNAME);
     list.add(PATIENTLASTNAME);
     list.add(PATIENTDOB);
+    list.add(PATIENTSEX);
     list.add(WORKINFORMATION);
     list.add(SERVICEDATE);
     list.add(PATIENTTYPE);

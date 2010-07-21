@@ -13,6 +13,7 @@ import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
+import dss.vector.solutions.PersonView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;
@@ -69,6 +70,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     String firstName = this.getRecipientFirstName();
     String lastName = this.getRecipientLastName();
     Date dob = this.getRecipientDOB();
+    Term sex = Term.validateByDisplayLabel(this.getRecipientSex(), PersonView.getSexMd());
     
     PersonQuery query = new PersonQuery(new QueryFactory());
     if (firstName!=null && firstName.length()>0)
@@ -82,6 +84,10 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     if (dob!=null)
     {
       query.WHERE(query.getDateOfBirth().EQ(dob));
+    }
+    if (sex!=null)
+    {
+      query.WHERE(query.getSex().EQ(sex));
     }
     
     if (query.getCount()>1)
@@ -106,6 +112,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
       person.setFirstName(firstName);
       person.setLastName(lastName);
       person.setDateOfBirth(dob);
+      person.setSex(sex);
       person.apply();
     }
     iterator.close();
@@ -121,6 +128,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     list.add(RECIPIENTFIRSTNAME);
     list.add(RECIPIENTLASTNAME);
     list.add(RECIPIENTDOB);
+    list.add(RECIPIENTSEX);
     list.add(SERVICE);
     list.add(NET);
     list.add(NUMBERSOLD);

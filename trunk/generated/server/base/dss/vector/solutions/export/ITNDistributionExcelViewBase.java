@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1424345656)
+@com.runwaysdk.business.ClassSignature(hash = -1943847537)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,8 +23,9 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
   public static java.lang.String RECIPIENTDOB = "recipientDOB";
   public static java.lang.String RECIPIENTFIRSTNAME = "recipientFirstName";
   public static java.lang.String RECIPIENTLASTNAME = "recipientLastName";
+  public static java.lang.String RECIPIENTSEX = "recipientSex";
   public static java.lang.String SERVICE = "service";
-  private static final long serialVersionUID = -1424345656;
+  private static final long serialVersionUID = -1943847537;
   
   public ITNDistributionExcelViewBase()
   {
@@ -359,6 +360,34 @@ public abstract class ITNDistributionExcelViewBase extends com.runwaysdk.busines
     else
     {
       setValue(RECIPIENTLASTNAME, value);
+    }
+  }
+  
+  public String getRecipientSex()
+  {
+    return getValue(RECIPIENTSEX);
+  }
+  
+  public void validateRecipientSex()
+  {
+    this.validateAttribute(RECIPIENTSEX);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getRecipientSexMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ITNDistributionExcelView.CLASS);
+    return mdClassIF.definesAttribute(RECIPIENTSEX);
+  }
+  
+  public void setRecipientSex(String value)
+  {
+    if(value == null)
+    {
+      setValue(RECIPIENTSEX, "");
+    }
+    else
+    {
+      setValue(RECIPIENTSEX, value);
     }
   }
   

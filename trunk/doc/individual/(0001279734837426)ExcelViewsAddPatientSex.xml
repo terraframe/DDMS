@@ -1,0 +1,40 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.export.IndividualIPTExcelView"
+        publish="false">
+        <create>
+        <attributes>
+          <char
+            name="patientSex"
+            label="Sex of the Patient"
+            size="255"/>
+        </attributes>
+        </create>
+      </mdView>
+      <mdView
+        name="dss.vector.solutions.export.ITNDistributionExcelView"
+        publish="false">
+        <create>
+        <attributes>
+          <char
+            name="recipientSex"
+            label="Sex of the Recipient"
+            size="255"/>
+        </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.IndividualIPTExcelView.patientSex"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+      <object
+        key="dss.vector.solutions.export.ITNDistributionExcelView.recipientSex"
+        type="com.runwaysdk.system.metadata.MdAttributeCharacter"/>
+    </delete>
+  </undoIt>
+</version>
