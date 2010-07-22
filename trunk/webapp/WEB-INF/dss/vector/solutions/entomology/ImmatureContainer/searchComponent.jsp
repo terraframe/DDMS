@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
 
-<c:set var="page_title" value="Immatures_by_Container_Type"  scope="request"/>
+<c:set var="page_title" value="Enter_Immatures_by_Container_Type"  scope="request"/>
 
 <mjl:form name="ImmatureCollection.search" method="POST" id="searchImmatureCollections">
   <dl>

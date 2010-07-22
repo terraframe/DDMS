@@ -11,7 +11,7 @@
 <%@page import="dss.vector.solutions.entomology.PupalContainerAmountViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.PupalCollectionViewDTO"%>
 
-<c:set var="page_title" value="Pupal_by_individual_container"  scope="request"/>
+<c:set var="page_title" value="Enter_Pupae_by_Individual_Container"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 

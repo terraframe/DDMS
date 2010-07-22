@@ -4,7 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
-<c:set var="page_title" value="Immatures_by_Container_Type"  scope="request"/>
+<c:set var="page_title" value="Enter_Immatures_by_Container_Type"  scope="request"/>
 
 <!-- Removed because MdInformation messages were being duplicated in the header and in the popups
 <mjl:messages>

@@ -1,6 +1,6 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
 
-<c:set var="page_title" value="Pupal_by_individual_container"  scope="request"/>
+<c:set var="page_title" value="Enter_Pupae_by_Individual_Container"  scope="request"/>
 
 <mjl:form name="PupalCollection.search" method="POST" id="searchPupalCollections">
   <dl>

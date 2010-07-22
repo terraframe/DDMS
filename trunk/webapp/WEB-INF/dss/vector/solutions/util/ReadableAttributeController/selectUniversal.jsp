@@ -35,8 +35,44 @@
 </script>
 
 <c:set var="action" value="dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo" scope="page"/>
-
+  <!--  ADMINISTRATION -->
   <dl>
+    <dt><label><f:message key="Configure_System_Variables"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="System_Variables"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.Property">
+        <f:message key="System_Variables"/>
+      </mjl:commandLink>
+    </dd>
+    
+    <dt><label><f:message key="Configure_Malaria_Season"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Malaria_Season"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.MalariaSeason">
+        <f:message key="Malaria_Season"/>
+      </mjl:commandLink>
+    </dd>    
+    
+    <dt><label><f:message key="Configure_Epi_Week"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Configure_Epi_Week"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiConfiguration">
+        <f:message key="Configure_Epi_Week"/>
+      </mjl:commandLink>
+    </dd>    
+    
+    <dt><label><f:message key="Enter_Population_Data"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Population_Data"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.PopulationDataView">
+        <f:message key="Population_Data"/>
+      </mjl:commandLink>
+    </dd>        
+
     <dt><label><f:message key="Person_Management"/></label></dt>
     <dd>
       <mjl:commandLink
@@ -52,17 +88,122 @@
         <f:message key="User"/>
       </mjl:commandLink>    
     </dd>
-  </dl>
-  <dl>
-    <dt><label><f:message key="IRS_Team_Management"/></label></dt>
+
+    <dt><label><f:message key="Configure_Insecticide_Products"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="InsecticideBrand"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrand">
+        <f:message key="Insecticide_Brand"/>
+      </mjl:commandLink>    
+    </dd>
+    
+    <dt><label><f:message key="Ontology_Fields"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Browser_Root"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.ontology.BrowserRoot">
+        <f:message key="Browser_Root"/>
+      </mjl:commandLink>
+    </dd>    
+
+    <dt><label><f:message key="Ontology_Admin"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Term"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.ontology.Term">
+        <f:message key="Term"/>
+      </mjl:commandLink>
+    </dd>      
+    
+    <dt><label><f:message key="Configure_the_Universal_Tree"/></label></dt>
     <dd>
       <mjl:commandLink
         name="Universal"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayTeamView">
-        <f:message key="Spray_Team"/>
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.geo.GeoEntityDefinition">
+        <f:message key="Universal"/>
+      </mjl:commandLink>
+    </dd>    
+
+    <dt><label><f:message key="Manage_Geo_Entities"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Geo_Entity"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.geo.generated.GeoEntity">
+        <f:message key="Geo_Entity"/>
+      </mjl:commandLink>
+    </dd>       
+  </dl>
+  
+  <!--  CASE SURVEILLANCE -->
+  <dl>
+    <dt><label><f:message key="Aggregated_Cases_Management"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="AggregatedCaseView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.AggregatedCaseSearchView">
+        <f:message key="Aggregated_Case"/>
       </mjl:commandLink>    
     </dd>
-  </dl>
+    <dd>
+      <mjl:commandLink
+        name="CaseDiagnosisTypeView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CaseDiagnosisTypeView">
+        <f:message key="Case_Diagnosis_Type"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="CaseDiseaseManifestationView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CaseDiseaseManifestationView">
+        <f:message key="Case_Disease_Manifestation"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="CasePatientTypeView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CasePatientTypeView">
+        <f:message key="Case_Patient_Type"/>
+      </mjl:commandLink>    
+    </dd>
+    
+    <dt><label><f:message key="Manage_Individual_Cases"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Individual_Cases"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualCase">
+        <f:message key="Individual_Cases"/>
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mjl:commandLink
+        name="Individual_Instance"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualInstance">
+        <f:message key="Individual_Instance"/>
+      </mjl:commandLink>
+    </dd>
+    
+    <dt><label><f:message key="Manage_Thresholds"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Threshold_Calculation"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdCalculationTypeView">
+        <f:message key="Configure_Thresholds"/>
+      </mjl:commandLink>
+    </dd>    
+    
+    <dt><label><f:message key="Manage_Threshold_Data"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Threshold_Data"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdDataView">
+        <f:message key="Threshold_Data"/>
+      </mjl:commandLink>
+    </dd>        
+  </dl>  
+  
+  
+  <!-- ENTOMOLOGICAL SURVEILLANCE -->
   <dl>
     <dt><label><f:message key="Mosquito_Collection_Management"/></label></dt>
     <dd>
@@ -79,6 +220,29 @@
         <f:message key="Sub_Collection"/>
       </mjl:commandLink>    
     </dd>
+    <dd>
+      <mjl:commandLink
+        name="ImmatureCollectionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.ImmatureCollectionView">
+        <f:message key="Immatures_by_Container_Type"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="PupalCollectionView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PupalCollectionView">
+        <f:message key="Pupal_Collection"/>
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="PupalContainerView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PupalContainerView">
+        <f:message key="Pupal_Container"/>
+      </mjl:commandLink>    
+    </dd>
+  
+      <dt><label><f:message key="Assay_Management"/></label></dt>
     <dd>
       <mjl:commandLink
         name="InfectionAssay"
@@ -123,45 +287,11 @@
     </dd>    
     <dd>
       <mjl:commandLink
-        name="ImmatureCollectionView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.ImmatureCollectionView">
-        <f:message key="Immatures_by_Container_Type"/>
-      </mjl:commandLink>    
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="PupalCollectionView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PupalCollectionView">
-        <f:message key="Pupal_by_individual_container"/>
-      </mjl:commandLink>    
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="PupalContainerView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.PupalContainerView">
-        <f:message key="Pupae_by_Individual_Container"/>
-      </mjl:commandLink>    
-    </dd>
-  </dl>
-  <dl>
-    <dt><label><f:message key="Adult_Diagnostic_Assay_Management"/></label></dt>
-    <dd>
-      <mjl:commandLink
         name="AdultDiscriminatingDoseAssay"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
         <f:message key="Adult_Diagnostic_Assay"/>
       </mjl:commandLink>    
     </dd>
-    <dd>
-      <mjl:commandLink
-        name="Insecticide"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
-        <f:message key="Insecticide"/>
-      </mjl:commandLink>    
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Larvae_Diagnostic_Assay_Management"/></label></dt>
     <dd>
       <mjl:commandLink
         name="LarvaeDiscriminatingDoseAssay"
@@ -171,31 +301,11 @@
     </dd>
     <dd>
       <mjl:commandLink
-        name="Insecticide"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
-        <f:message key="Insecticide"/>
-      </mjl:commandLink>    
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Time_Response_Test_Management"/></label></dt>
-    <dd>
-      <mjl:commandLink
         name="KnockDownAssay"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.entomology.assay.KnockDownAssay">
         <f:message key="Time_Response_Test"/>
       </mjl:commandLink>    
     </dd>
-    <dd>
-      <mjl:commandLink
-        name="Insecticide"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
-        <f:message key="Insecticide"/>
-      </mjl:commandLink>    
-    </dd>
-  </dl>
-  <dl>
-    <dt><label><f:message key="Efficacy_Bioassay_Management"/></label></dt>
     <dd>
       <mjl:commandLink
         name="EfficacyAssayView"
@@ -205,43 +315,15 @@
     </dd>
     <dd>
       <mjl:commandLink
-        name="InsecticideBrand"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrand">
-        <f:message key="Insecticide_Brand"/>
+        name="Insecticide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.Insecticide">
+        <f:message key="Insecticide_Active_Ingredient"/>
       </mjl:commandLink>    
-    </dd>
+    </dd>    
   </dl>
-  <dl>
-    <dt><label><f:message key="Aggregated_Cases_Management"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="AggregatedCaseView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.AggregatedCaseSearchView">
-        <f:message key="Aggregated_Case"/>
-      </mjl:commandLink>    
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="CaseDiagnosisTypeView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CaseDiagnosisTypeView">
-        <f:message key="Case_Diagnosis_Type"/>
-      </mjl:commandLink>    
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="CaseDiseaseManifestationView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CaseDiseaseManifestationView">
-        <f:message key="Case_Disease_Manifestation"/>
-      </mjl:commandLink>    
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="CasePatientTypeView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.surveillance.CasePatientTypeView">
-        <f:message key="Case_Patient_Type"/>
-      </mjl:commandLink>    
-    </dd>
-  </dl>
+  
+  
+  <!--  SURVEYS -->
   <dl>
     <dt><label><f:message key="Indicator_Survey_Management"/></label></dt>
     <dd>
@@ -260,19 +342,22 @@
     </dd>
     <dd>
       <mjl:commandLink
+        name="SurveyedPersonView"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.SurveyedPersonView">
+        <f:message key="Surveyed_Person"/>
+      </mjl:commandLink>    
+    </dd>  
+    <dd>
+      <mjl:commandLink
         name="ITNInstanceView"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNInstanceView">
         <f:message key="ITNs"/>
       </mjl:commandLink>    
     </dd>
-    <dd>
-      <mjl:commandLink
-        name="SurveyedPersonView"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.SurveyedPersonView">
-        <f:message key="Surveyed_Person"/>
-      </mjl:commandLink>    
-    </dd>
   </dl>
+  
+  
+  <!-- INTERVENTION PLANNING -->
   <dl>
     <dt><label><f:message key="Configure_Application_Rate_Management"/></label></dt>
     <dd>
@@ -296,8 +381,16 @@
         <f:message key="Area_Standards"/>
       </mjl:commandLink>    
     </dd>
-  </dl>
-  <dl>
+
+    <dt><label><f:message key="IRS_Team_Management"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Universal"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.SprayTeamView">
+        <f:message key="Spray_Team"/>
+      </mjl:commandLink>    
+    </dd>
+
     <dt><label><f:message key="Target_Management"/></label></dt>
     <dd>
       <mjl:commandLink
@@ -312,8 +405,11 @@
         action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.GeoTargetView">
         <f:message key="Geo_Target"/>
       </mjl:commandLink>    
-    </dd>
+    </dd>  
   </dl>
+  
+  
+  <!-- INTERVENTION MONITORING -->
   <dl>
     <dt><label><f:message key="IRS_CRUD_Management"/></label></dt>
     <dd>
@@ -358,21 +454,72 @@
         <f:message key="Team_Spray_Status"/>
       </mjl:commandLink>    
     </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Aggregated_IPT_Information"/></label></dt>
+  
+    <dt><label><f:message key="Manage_Aggregated_IPT"/></label></dt>
     <dd>
       <mjl:commandLink
         name="AggregatedIPT"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.AggregatedIPTView">
         <f:message key="Aggregated_IPT_Information"/>
       </mjl:commandLink>
-    </dd>
+    </dd>  
     
-  </dl>
-  
-  <dl>
-    <dt><label><f:message key="Control_intervention"/></label></dt>
+    <dt><label><f:message key="Manage_Individual_IPT"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="IndividualIPTCase"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTCaseView">
+        <f:message key="Individual_IPT_Case"/>
+      </mjl:commandLink>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="IndividualIPT"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTView">
+        <f:message key="Individual_IPT"/>
+      </mjl:commandLink>
+    </dd>    
+
+    <dt><label><f:message key="ITN_Data_Distribution"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="ITNData"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDataView">
+        <f:message key="Aggregated_ITN_Data_Distribution"/>
+      </mjl:commandLink>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="ITNCommunityDistribution"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView">
+        <f:message key="ITN_Community_Distribution"/>
+      </mjl:commandLink>
+    </dd>
+    <dd>
+      <mjl:commandLink
+        name="ITNDistribution"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDistributionView">
+        <f:message key="ITN_Facility_Distribution"/>
+      </mjl:commandLink>
+    </dd>
+
+    <dt><label><f:message key="Control_of_Immatures"/></label></dt>
+    <dd>
+      <mjl:commandLink
+        name="Larvacide"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.Larvacide">
+        <f:message key="Larvacide"/>
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mjl:commandLink
+        name="Larvacide_Instance"
+        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.LarvacideInstanceView">
+        <f:message key="Larvacide_Instance"/>
+      </mjl:commandLink>
+    </dd>    
+
+    <dt><label><f:message key="Manage_Control_Intervention"/></label></dt>
     <dd>
       <mjl:commandLink
         name="ControlInterventionView"
@@ -409,87 +556,11 @@
       </mjl:commandLink>    
     </dd>
   </dl>
-  
-  
+
+
+  <!-- STOCK CONTROL -->
   <dl>
-    <dt><label><f:message key="ITN_Data_Distribution"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="ITNData"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDataView">
-        <f:message key="Aggregated_ITN_Data_Distribution"/>
-      </mjl:commandLink>
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="ITNCommunityDistribution"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView">
-        <f:message key="ITN_Community_Distribution"/>
-      </mjl:commandLink>
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="ITNDistribution"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.ITNDistributionView">
-        <f:message key="ITN_Facility_Distribution"/>
-      </mjl:commandLink>
-    </dd>
-    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Individual_IPT"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="IndividualIPTCase"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTCaseView">
-        <f:message key="Individual_IPT_Case"/>
-      </mjl:commandLink>
-    </dd>
-    <dd>
-      <mjl:commandLink
-        name="IndividualIPT"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualIPTView">
-        <f:message key="Individual_IPT"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Population_Data"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Population_Data"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.PopulationDataView">
-        <f:message key="Population_Data"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Configure_Thresholds"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Threshold_Data"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdCalculationTypeView">
-        <f:message key="Configure_Thresholds"/>
-      </mjl:commandLink>
-    </dd>    
-    <dt><label><f:message key="Threshold_Data"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Threshold_Data"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdDataView">
-        <f:message key="Threshold_Data"/>
-      </mjl:commandLink>
-    </dd>    
-    <dd>
-      <mjl:commandLink
-        name="Threshold_Calculation"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.ThresholdCalculationTypeView">
-        <f:message key="Threshold_Calculation"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Stock_Item"/></label></dt>
+    <dt><label><f:message key="Manage_Stock"/></label></dt>
     <dd>
       <mjl:commandLink
         name="Stock_Item"
@@ -504,119 +575,4 @@
         <f:message key="Stock_Event"/>
       </mjl:commandLink>
     </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Control_of_Immatures"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Larvacide"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.Larvacide">
-        <f:message key="Larvacide"/>
-      </mjl:commandLink>
-    </dd>    
-    <dd>
-      <mjl:commandLink
-        name="Larvacide_Instance"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.LarvacideInstanceView">
-        <f:message key="Larvacide_Instance"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Individual_Cases"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Individual_Cases"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualCase">
-        <f:message key="Individual_Cases"/>
-      </mjl:commandLink>
-    </dd>    
-    <dd>
-      <mjl:commandLink
-        name="Individual_Instance"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.intervention.monitor.IndividualInstance">
-        <f:message key="Individual_Instance"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Configure_System_Variables"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="System_Variables"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.Property">
-        <f:message key="System_Variables"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Configure_Malaria_Season"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Malaria_Season"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.MalariaSeason">
-        <f:message key="Malaria_Season"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Configure_Epi_Week"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Configure_Epi_Week"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiConfiguration">
-        <f:message key="Configure_Epi_Week"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Ontology_Fields"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Browser_Root"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.ontology.BrowserRoot">
-        <f:message key="Browser_Root"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Ontology_Admin"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Term"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.ontology.Term">
-        <f:message key="Term"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-    <dl>
-    <dt><label><f:message key="Configure_Insecticide_Products"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="InsecticideBrand"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.irs.InsecticideBrand">
-        <f:message key="Insecticide_Brand"/>
-      </mjl:commandLink>    
-    </dd>
-  </dl>
-  <dl>
-    <dt><label><f:message key="Configure_the_Universal_Tree"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Universal"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.geo.GeoEntityDefinition">
-        <f:message key="Universal"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-  <dl>
-    <dt><label><f:message key="Manage_Geo_Entities"/></label></dt>
-    <dd>
-      <mjl:commandLink
-        name="Geo_Entity"
-        action="${action}?actor=${actor}&universal=dss.vector.solutions.geo.generated.GeoEntity">
-        <f:message key="Geo_Entity"/>
-      </mjl:commandLink>
-    </dd>    
-  </dl>
-
+  </dl>  
