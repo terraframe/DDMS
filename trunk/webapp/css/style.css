@@ -57,10 +57,6 @@ body {
 		min-width: 1152px;
 }
 
-.navContainer {
-	overflow: hidden;
-}
-
 .navContainer ul {
 white-space: nowrap;
 }
