@@ -40,6 +40,7 @@ public class WriteAction extends PermissionAction implements Reloadable
       role.grantPermission(Operation.CREATE, mdClassDimension.getId());
       role.grantPermission(Operation.DELETE, mdClassDimension.getId());
       role.grantPermission(Operation.WRITE, mdClassDimension.getId());
+      role.grantPermission(Operation.WRITE_ALL, mdClassDimension.getId());
       
       if (metadata instanceof MdRelationshipDAOIF)
       {
@@ -47,14 +48,14 @@ public class WriteAction extends PermissionAction implements Reloadable
         role.grantPermission(Operation.ADD_PARENT, mdClass.getId());        
       }
 
-      List<? extends MdAttributeDAOIF> attributes = mdClass.definesAttributes();
-
-      for (MdAttributeDAOIF mdAttribute : attributes)
-      {
-        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-
-        role.grantPermission(Operation.WRITE, mdAttributeDimension.getId());
-      }
+//      List<? extends MdAttributeDAOIF> attributes = mdClass.definesAttributes();
+//
+//      for (MdAttributeDAOIF mdAttribute : attributes)
+//      {
+//        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+//
+//        role.grantPermission(Operation.WRITE, mdAttributeDimension.getId());
+//      }
     }
     else if (metadata instanceof MdMethodDAOIF)
     {

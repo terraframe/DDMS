@@ -39,12 +39,14 @@ public class ReadAction extends PermissionAction implements Reloadable
       MdClassDimensionDAOIF mdClassDimension = mdClass.getMdClassDimension(mdDimension);
 
       role.grantPermission(Operation.READ, mdClassDimension.getId());
+      role.grantPermission(Operation.READ_ALL, mdClassDimension.getId());
 
       if (mdClass instanceof MdViewDAOIF)
       {
         role.grantPermission(Operation.CREATE, mdClassDimension.getId());
         role.grantPermission(Operation.DELETE, mdClassDimension.getId());
         role.grantPermission(Operation.WRITE, mdClassDimension.getId());
+        role.grantPermission(Operation.WRITE_ALL, mdClassDimension.getId());
       }
       else if (metadata instanceof MdRelationshipDAOIF)
       {
@@ -52,21 +54,21 @@ public class ReadAction extends PermissionAction implements Reloadable
         role.grantPermission(Operation.READ_PARENT, mdClass.getId());                
       }
 
-
-
-      List<? extends MdAttributeDAOIF> attributes = mdClass.definesAttributes();
-
-      for (MdAttributeDAOIF mdAttribute : attributes)
-      {
-        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-
-        role.grantPermission(Operation.READ, mdAttributeDimension.getId());
-
-        if (mdClass instanceof MdViewDAOIF)
-        {
-          role.grantPermission(Operation.WRITE, mdAttributeDimension.getId());
-        }
-      }
+//
+//
+//      List<? extends MdAttributeDAOIF> attributes = mdClass.definesAttributes();
+//
+//      for (MdAttributeDAOIF mdAttribute : attributes)
+//      {
+//        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+//
+//        role.grantPermission(Operation.READ, mdAttributeDimension.getId());
+//
+//        if (mdClass instanceof MdViewDAOIF)
+//        {
+//          role.grantPermission(Operation.WRITE, mdAttributeDimension.getId());
+//        }
+//      }
     }
     else if (metadata instanceof MdMethodDAOIF)
     {
