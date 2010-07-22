@@ -28,9 +28,6 @@
       <mjl:dt attribute="distributionDate" >
         <mjl:input type="text" param="distributionDate" id="distributionDate" classes="DatePick NoFuture"/>
       </mjl:dt>
-      <mjl:dt attribute="batchNumber">
-        <mjl:input type="text" param="batchNumber" />
-      </mjl:dt>
       <mjl:dt attribute="person">
       <table>
         <tr>
