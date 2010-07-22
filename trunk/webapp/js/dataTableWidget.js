@@ -1077,13 +1077,13 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         //they have entered data so make sure to remove the calcuated style
         YAHOO.util.Dom.removeClass(this.myDataTable.getTdLinerEl(editedTd), "calculated");
         
-        var newData = parseInt(oArgs.newData,10);
+        var newData = parseFloat(oArgs.newData);
         newData = newData || 0;
         
-        var oldData = parseInt(oArgs.oldData,10);
+        var oldData = parseFloat(oArgs.oldData);
         oldData = oldData || 0;
 
-        var oldTotal = parseInt(lastRecord.getData(editor.getColumn().key),10);
+        var oldTotal = parseFloat(lastRecord.getData(editor.getColumn().key));
         oldTotal = oldTotal || 0;
 
         var newTotal = oldTotal + newData - oldData;
@@ -1099,14 +1099,14 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         var sum = 0;
 
         dt.getRecordSet().getRecords().map( function(row) {
-          var x = parseInt(row.getData(editor.getColumn().key),10);
+          var x = parseFloat(row.getData(editor.getColumn().key));
           if (x && dt.getRecordIndex(row) !== lastIndex){
             sum += x;
           }
         });
                 
         
-        if (parseInt(lastRecord.getData(editor.getColumn().key),10) != sum) {
+        if (parseFloat(lastRecord.getData(editor.getColumn().key)) != sum) {
           YAHOO.util.Dom.addClass(lastTd, "dataTableSumError");
         } else {
           YAHOO.util.Dom.removeClass(lastTd, "dataTableSumError");
