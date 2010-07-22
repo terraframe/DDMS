@@ -43,12 +43,13 @@ public class ControlInterventionExcelView extends ControlInterventionExcelViewBa
       this.civ.setEndDate(this.getEndDate());
       this.civ.setComments(this.getComments());
       
-      ControlInterventionViewQuery search = ControlInterventionView.search(this.civ, null, false, 10, 1);
-      OIterator<? extends ControlInterventionView> iterator = search.getIterator();
-      if (iterator.hasNext())
-      {
-        this.civ = iterator.next();
-      }
+//      ControlInterventionViewQuery search = ControlInterventionView.search(this.civ, null, false, 10, 1);
+//      OIterator<? extends ControlInterventionView> iterator = search.getIterator();
+//      if (iterator.hasNext())
+//      {
+//        this.civ = iterator.next();
+//      }
+      this.civ = ControlInterventionView.getIntervention(this.civ);
     }
     return this.civ;
   }
