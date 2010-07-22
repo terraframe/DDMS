@@ -1,5 +1,7 @@
 package dss.vector.solutions;
 
+import java.util.HashMap;
+
 import com.runwaysdk.business.generation.view.ContentListener;
 import com.runwaysdk.business.generation.view.CreateComponentListener;
 import com.runwaysdk.constants.GeneratedActions;
@@ -62,5 +64,17 @@ public class MDSSCreateComponentListener extends CreateComponentListener impleme
 
       writeCommand(link, linkName, linkDisplay);
     }
+  }
+  
+
+  @Override
+  protected void writeCommand(String action, String name, String value)
+  {
+    HashMap<String, String> updateMap = new HashMap<String, String>();
+    updateMap.put("action", action);
+    updateMap.put("name", name);
+    updateMap.put("value", value);
+
+    getWriter().writeEmptyEscapedTag(COMMAND_TAG, updateMap);
   }
 }

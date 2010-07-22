@@ -168,4 +168,15 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
 
     getWriter().writeEmptyTag(RUNWAY_DT_TAG, attributes);
   }
+
+  @Override
+  protected void writeCommand(String action, String name, String value)
+  {
+    HashMap<String, String> updateMap = new HashMap<String, String>();
+    updateMap.put("action", action);
+    updateMap.put("name", name);
+    updateMap.put("value", value);
+
+    getWriter().writeEmptyEscapedTag(COMMAND_TAG, updateMap);
+  }
 }
