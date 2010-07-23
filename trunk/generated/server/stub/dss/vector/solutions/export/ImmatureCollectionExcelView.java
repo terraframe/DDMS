@@ -2,6 +2,8 @@ package dss.vector.solutions.export;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
@@ -9,6 +11,8 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.entomology.CollectionContainer;
+import dss.vector.solutions.entomology.CollectionContainerQuery;
 import dss.vector.solutions.entomology.CollectionContainerView;
 import dss.vector.solutions.entomology.ImmatureCollection;
 import dss.vector.solutions.entomology.ImmatureCollectionQuery;
@@ -17,6 +21,7 @@ import dss.vector.solutions.entomology.ImmatureCollectionViewQuery;
 import dss.vector.solutions.entomology.PremiseTaxon;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -58,8 +63,8 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     }
     iterator.close();
     
-    CollectionContainerView c = new CollectionContainerView();
-    c.setTerm(Term.validateByDisplayLabel(this.getContainerTerm(), ImmatureCollectionView.getContainerGridMd()));
+    Term term = Term.validateByDisplayLabel(this.getContainerTerm(), ImmatureCollectionView.getContainerGridMd());
+    CollectionContainerView c = getContainerForTerm(i, term);
     c.setNumberContainers(this.getNumberContainers());
     c.setNumberWithWater(this.getNumberWithWater());
     c.setNumberDestroyed(this.getNumberDestroyed());
@@ -71,6 +76,30 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     c.setNumberPupaeCollected(this.getNumberPupaeCollected());
     
     i.applyWithContainers(new CollectionContainerView[] {c});
+  }
+  
+  private CollectionContainerView getContainerForTerm(ImmatureCollectionView immatureCollectionView, Term containerTerm)
+  {
+    CollectionContainerView ccv;
+    String taxonId = immatureCollectionView.getTaxonId();
+    String termId = containerTerm.getId();
+    
+    CollectionContainerQuery query = new CollectionContainerQuery(new QueryFactory());
+    query.WHERE(query.parentId().EQ(taxonId));
+    query.WHERE(query.childId().EQ(termId));
+    OIterator<? extends CollectionContainer> iterator = query.getIterator();
+    
+    if (iterator.hasNext())
+    {
+      ccv = iterator.next().getView();
+    }
+    else
+    {
+      ccv = new CollectionContainerView();
+      ccv.setTerm(containerTerm);
+    }
+    iterator.close();
+    return ccv;
   }
   
   public static List<String> customAttributeOrder()
