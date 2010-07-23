@@ -13,7 +13,6 @@ import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
-import dss.vector.solutions.intervention.monitor.InsecticideInterventionView;
 import dss.vector.solutions.ontology.Term;
 
 public class InsecticideInterventionListener implements ExcelExportListener, ImportListener, Reloadable

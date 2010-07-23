@@ -12,9 +12,6 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.entomology.PupalContainerView;
-import dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
-import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod;
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;
 import dss.vector.solutions.ontology.Term;
 
