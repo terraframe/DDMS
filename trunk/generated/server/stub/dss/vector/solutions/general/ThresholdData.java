@@ -336,7 +336,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 			count = ThresholdData.getCalculatedValue(entity, week, accessor);
 		}
 
-		if (count != null && cases >= count) {
+		if (count != null && Math.round(100d * cases) >= Math.round(100d * count)) {
 			if (threshold == null) {
 				ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
 				threshold = data.addEpiWeeks(week);
@@ -396,8 +396,8 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 				data.put("disease", MDSSProperties.getString("All_Diseases"));
 			}
 			data.put("thresholdType", accessor);
-			data.put("thresholdValue", threshold);
-			data.put("actualValue", count);
+			data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
+			data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
 			data.put("geoEntity", label);
 
 			emailSent = systemAlert.sendEmail(data);
