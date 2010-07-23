@@ -170,7 +170,7 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     ClientRequestIF clientRequest = this.getClientRequest();
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
 
-    PhysicianDTO physician = dto.getPhysician();
+    PhysicianDTO physician = (PhysicianDTO) AttributeUtil.getValue(IndividualInstanceDTO.PHYSICIAN, dto);
 
     if (physician != null)
     {
@@ -338,7 +338,9 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
-    PersonViewDTO physician = ( dto.getPhysician() == null ? null : dto.getPhysician().getView() );
+
+    PhysicianDTO _physician = (PhysicianDTO) AttributeUtil.getValue(IndividualInstanceDTO.PHYSICIAN, dto);
+    PersonViewDTO physician = ( _physician == null ? null : _physician.getView() );
 
     req.setAttribute("physician", physician);
     req.setAttribute("person", person);
