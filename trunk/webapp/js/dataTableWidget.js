@@ -568,25 +568,28 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       
       var column = this.myDataTable.getColumn(col);
       var record = this.myDataTable.getRecord(row);
-      var editor = column.editor;
       
-      if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){           
-        //data comes in as value instead of label, so we fix this.    
-        for( var i = 0; i < editor.dropdownOptions.length; i++) {
-          var optionValue = editor.dropdownOptions[i].value;
-          var label = editor.dropdownOptions[i].label;
+      if(column != null && record != null) {
+        var editor = column.editor;
+      
+        if (editor && editor instanceof YAHOO.widget.DropdownCellEditor){           
+          //data comes in as value instead of label, so we fix this.    
+          for( var i = 0; i < editor.dropdownOptions.length; i++) {
+            var optionValue = editor.dropdownOptions[i].value;
+            var label = editor.dropdownOptions[i].label;
             
-          if (value === optionValue) {
-            this.getDataTable().updateCell(record, col, label);
+            if (value === optionValue) {
+              this.getDataTable().updateCell(record, col, label);
+            }
           }
+        }      
+        else if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
+          var date = MDSS.Calendar.parseDate(record.getData(field.key));
+          this.getDataTable().updateCell(record, field.key, date);
         }
-      }      
-      else if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-        var date = MDSS.Calendar.parseDate(record.getData(field.key));
-        this.getDataTable().updateCell(record, field.key, date);
-      }
-      else {
-    this.getDataTable().updateCell(record, col, value);
+        else {
+          this.getDataTable().updateCell(record, col, value);
+        }
       }
     },
     
