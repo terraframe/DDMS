@@ -88,8 +88,11 @@
           <mdss:mo param="detectedBy" value="${detectedBy}" id="detectedBy"/>
         </mjl:dt>
       </div>
-      
-      <h2><fmt:message key="Basic_Case_Information" /></h2>
+
+      <div id="Basic_Case_Information">      
+        <h2><fmt:message key="Basic_Case_Information" /></h2>
+      </div>
+      <div id="Basic_Case_Information.content">
       
       <mjl:dt attribute="diagnosisType">
         <mjl:select param="diagnosisType" items="${diagnosisType}" var="current" valueAttribute="enumName" id="diagnosisType">
@@ -163,61 +166,76 @@
         <mjl:boolean param="diedInFacility" />
       </mjl:dt>
       <mjl:dt type="text" attribute="dateOfDeath" classes="DatePick  NoFuture" />
+      </div>
       
-      <h2><fmt:message key="Administrative_Information" /></h2>
-      <mjl:dt attribute="properlyRelease">
-        <mjl:boolean param="properlyRelease" />
-      </mjl:dt>
-      <mjl:dt attribute="referredTo">
-        <mjl:boolean param="referredTo" />
-      </mjl:dt>
-      <mjl:dt attribute="referredFrom">
-        <mjl:boolean param="referredFrom" />
-      </mjl:dt>
-      <mjl:dt attribute="referralReason">
-        <mdss:mo param="referralReason" value="${referralReason}"/>
-      </mjl:dt>
+      <div id="Administrative_Information">     
+        <h2><fmt:message key="Administrative_Information" /></h2>
+      </div>
+      <div id="Administrative_Information.content">      
+        <mjl:dt attribute="properlyRelease">
+          <mjl:boolean param="properlyRelease" />
+        </mjl:dt>
+        <mjl:dt attribute="referredTo">
+          <mjl:boolean param="referredTo" />
+        </mjl:dt>
+        <mjl:dt attribute="referredFrom">
+          <mjl:boolean param="referredFrom" />
+        </mjl:dt>
+        <mjl:dt attribute="referralReason">
+          <mdss:mo param="referralReason" value="${referralReason}"/>
+        </mjl:dt>
+      </div>
     
-      <h2><fmt:message key="Laboratory_Testing" /></h2>
-      
-      
-      <mjl:dt attribute="classification">
-        <mdss:mo param="classification" value="${classification}"/>
-      </mjl:dt>
-      <mjl:dt attribute="sampleType">
-        <mdss:mo param="sampleType" value="${sampleType}"/>
-      </mjl:dt>
-      <mjl:dt attribute="labTest">
-        <mdss:mo param="labTest" value="${labTest}"/>
-      </mjl:dt>
-      <mjl:dt type="text" attribute="testSampleDate" classes="DatePick  NoFuture" />
-      <mjl:dt type="text" attribute="labTestDate" classes="DatePick  NoFuture" />
-      <mjl:dt attribute="testResult">
-        <mdss:mo param="testResult" value="${testResult}"/>
-      </mjl:dt>
-      <mjl:dt attribute="malariaType">
-        <mdss:mo param="malariaType" value="${malariaType}"/>
-      </mjl:dt>
-      <mjl:dt attribute="primaryInfection">
-        <mdss:mo param="primaryInfection" value="${primaryInfection}"/>
-      </mjl:dt>
-    
-      <h2><fmt:message key="Treatment" /></h2>
-      <mjl:dt attribute="treatmentMethod">
-        <mdss:mo param="treatmentMethod" value="${treatmentMethod}"/>
-      </mjl:dt>
-      <mjl:dt attribute="treatment">
-        <mdss:mo param="treatment" value="${treatment}"/>
-      </mjl:dt>
-      <mjl:dt type="text" attribute="treatmentStartDate" classes="DatePick  NoFuture" />
-      
-      <h2><fmt:message key="Clinical_Findings" /></h2>
-      <mjl:dt attribute="symptomComments">
-        <mjl:textarea param="symptomComments" cols="3" rows="3"/>
-      </mjl:dt>
-      <mjl:dt attribute="symptom">
-        <mdss:multimo param="symptoms" id="symptoms" browserAttribute="symptom" value="${symptoms}" />
-      </mjl:dt>  
+      <div id="Laboratory_Testing">
+        <h2><fmt:message key="Laboratory_Testing" /></h2>      
+      </div>
+      <div id="Laboratory_Testing.content">      
+        <mjl:dt attribute="classification">
+          <mdss:mo param="classification" value="${classification}"/>
+        </mjl:dt>
+        <mjl:dt attribute="sampleType">
+          <mdss:mo param="sampleType" value="${sampleType}"/>
+        </mjl:dt>
+        <mjl:dt attribute="labTest">
+          <mdss:mo param="labTest" value="${labTest}"/>
+        </mjl:dt>
+        <mjl:dt type="text" attribute="testSampleDate" classes="DatePick  NoFuture" />
+        <mjl:dt type="text" attribute="labTestDate" classes="DatePick  NoFuture" />
+        <mjl:dt attribute="testResult">
+          <mdss:mo param="testResult" value="${testResult}"/>
+        </mjl:dt>
+        <mjl:dt attribute="malariaType">
+          <mdss:mo param="malariaType" value="${malariaType}"/>
+        </mjl:dt>
+        <mjl:dt attribute="primaryInfection">
+          <mdss:mo param="primaryInfection" value="${primaryInfection}"/>
+        </mjl:dt>
+      </div>
+
+      <div id="Treatment">          
+        <h2><fmt:message key="Treatment" /></h2>
+      </div>
+      <div id="Treatment.content">            
+        <mjl:dt attribute="treatmentMethod">
+          <mdss:mo param="treatmentMethod" value="${treatmentMethod}"/>
+        </mjl:dt>
+        <mjl:dt attribute="treatment">
+          <mdss:mo param="treatment" value="${treatment}"/>
+        </mjl:dt>
+        <mjl:dt type="text" attribute="treatmentStartDate" classes="DatePick  NoFuture" />
+      </div>
+
+      <div id = "Clinical_Findings">      
+        <h2><fmt:message key="Clinical_Findings" /></h2>
+      </div>
+      <div id="Clinical_Findings.content">     
+        <mjl:dt attribute="symptomComments">
+          <mjl:textarea param="symptomComments" cols="3" rows="3"/>
+        </mjl:dt>
+        <mjl:dt attribute="symptom">
+          <mdss:multimo param="symptoms" id="symptoms" browserAttribute="symptom" value="${symptoms}" />
+        </mjl:dt>  
+      </div>
     </mjl:component>
 
     <mjl:command value="Create" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.create.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.form.create.button" />
@@ -242,6 +260,13 @@
       new MDSS.PhysicianModal(prop);
     }
 
+    // Hide all headers which have no children
+    MDSS.Effect.toggleHeader('Clinical_Findings', 'Clinical_Findings.content');
+    MDSS.Effect.toggleHeader('Treatment', 'Treatment.content');
+    MDSS.Effect.toggleHeader('Laboratory_Testing', 'Laboratory_Testing.content');
+    MDSS.Effect.toggleHeader('Administrative_Information', 'Administrative_Information.content');
+    MDSS.Effect.toggleHeader('Basic_Case_Information', 'Basic_Case_Information.content');
+    
     
     //**********************************************************
     // SETUP FIELD HIDING

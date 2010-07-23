@@ -27,127 +27,147 @@
         ${item.detectedBy.displayLabel}
       </mjl:dt>
       
-      <h2><fmt:message key="Basic_Case_Information" /></h2>
-      <mjl:dt attribute="diagnosisType">
-        <c:forEach items="${item.diagnosisTypeEnumNames}" var="enumName">
-          <li>
-            ${item.diagnosisTypeMd.enumItems[enumName]}
-          </li>
-        </c:forEach>        
-      </mjl:dt>
-      <mjl:dt attribute="diagnosis">
-        ${item.diagnosis.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="confirmedDiagnosis">
-        ${item.confirmedDiagnosis.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="confirmedDiagnosisDate">
-        <span class="formatDate">
-          ${item.confirmedDiagnosisDate}
-        </span>      
-      </mjl:dt>
-      <mjl:dt attribute="facilityVisit">
-        <span class="formatDate">
-          ${item.facilityVisit}
-        </span>
-      </mjl:dt>
-      <mjl:dt attribute="patientCategory">
-        ${item.patientCategory.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="admissionDate">
-        <span class="formatDate">
-          ${item.admissionDate}
-        </span>
-      </mjl:dt>
-      <mjl:dt attribute="releaseDate">
-        <span class="formatDate">
-          ${item.releaseDate}
-        </span>
-      </mjl:dt>
-      <mjl:dt attribute="anaemiaPatient">
-        ${item.anaemiaPatient ? item.anaemiaPatientMd.positiveDisplayLabel : item.anaemiaPatientMd.negativeDisplayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="pregnant">
-        ${item.pregnant ? item.pregnantMd.positiveDisplayLabel : item.pregnantMd.negativeDisplayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="diedInFacility">
-        ${item.diedInFacility ? item.diedInFacilityMd.positiveDisplayLabel : item.diedInFacilityMd.negativeDisplayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="dateOfDeath">
-        <span class="formatDate">
-          ${item.dateOfDeath}
-        </span>
-      </mjl:dt>
-      
-      <h2><fmt:message key="Administrative_Information" /></h2>
-      <mjl:dt attribute="properlyRelease">
-        ${item.properlyRelease ? item.properlyReleaseMd.positiveDisplayLabel : item.properlyReleaseMd.negativeDisplayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="referredTo">
-        ${item.referredTo ? item.referredToMd.positiveDisplayLabel : item.referredToMd.negativeDisplayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="referredFrom">
-        ${item.referredFrom ? item.referredFromMd.positiveDisplayLabel : item.referredFromMd.negativeDisplayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="referralReason">
-        ${item.referralReason.displayLabel}
-      </mjl:dt>
-      
-      <h2><fmt:message key="Laboratory_Testing" /></h2>
-      <mjl:dt attribute="classification">
-        ${item.classification.displayLabel}
-      </mjl:dt>      
-      <mjl:dt attribute="sampleType">
-        ${item.sampleType.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="labTest">
-        ${item.labTest.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="testSampleDate">
-        <span class="formatDate">
-          ${item.testSampleDate}
-        </span>
-      </mjl:dt>
-      <mjl:dt attribute="labTestDate">
-        <span class="formatDate">
-          ${item.labTestDate}
-        </span>
-      </mjl:dt>
-      <mjl:dt attribute="testResult">
-        ${item.testResult.displayLabel}
-      </mjl:dt>      
-      <mjl:dt attribute="malariaType">
-        ${item.malariaType.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="primaryInfection">
-        ${item.primaryInfection.displayLabel}
-      </mjl:dt>
+      <div id="Basic_Case_Information">
+        <h2><fmt:message key="Basic_Case_Information" /></h2>
+      </div>
+      <div id="Basic_Case_Information.content">
+        <mjl:dt attribute="diagnosisType">
+          <c:forEach items="${item.diagnosisTypeEnumNames}" var="enumName">
+            <li>
+              ${item.diagnosisTypeMd.enumItems[enumName]}
+            </li>
+          </c:forEach>        
+        </mjl:dt>
+        <mjl:dt attribute="diagnosis">
+          ${item.diagnosis.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="confirmedDiagnosis">
+          ${item.confirmedDiagnosis.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="confirmedDiagnosisDate">
+          <span class="formatDate">
+            ${item.confirmedDiagnosisDate}
+          </span>      
+        </mjl:dt>
+        <mjl:dt attribute="facilityVisit">
+          <span class="formatDate">
+            ${item.facilityVisit}
+          </span>
+        </mjl:dt>
+        <mjl:dt attribute="patientCategory">
+          ${item.patientCategory.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="admissionDate">
+          <span class="formatDate">
+            ${item.admissionDate}
+          </span>
+        </mjl:dt>
+        <mjl:dt attribute="releaseDate">
+          <span class="formatDate">
+            ${item.releaseDate}
+          </span>
+        </mjl:dt>
+        <mjl:dt attribute="anaemiaPatient">
+          ${item.anaemiaPatient ? item.anaemiaPatientMd.positiveDisplayLabel : item.anaemiaPatientMd.negativeDisplayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="pregnant">
+          ${item.pregnant ? item.pregnantMd.positiveDisplayLabel : item.pregnantMd.negativeDisplayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="diedInFacility">
+          ${item.diedInFacility ? item.diedInFacilityMd.positiveDisplayLabel : item.diedInFacilityMd.negativeDisplayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="dateOfDeath">
+          <span class="formatDate">
+            ${item.dateOfDeath}
+          </span>
+        </mjl:dt>
+      </div>
       
       
-      <h2><fmt:message key="Treatment" /></h2>
-      <mjl:dt attribute="treatmentMethod">
-        ${item.treatmentMethod.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="treatment">
-        ${item.treatment.displayLabel}
-      </mjl:dt>
-      <mjl:dt attribute="treatmentStartDate">
-        <span class="formatDate">
-          ${item.treatmentStartDate}
-        </span>
-      </mjl:dt>
+      <div id="Administrative_Information">
+        <h2><fmt:message key="Administrative_Information" /></h2>
+      </div>
+      <div id="Administrative_Information.content">
+        <mjl:dt attribute="properlyRelease">
+          ${item.properlyRelease ? item.properlyReleaseMd.positiveDisplayLabel : item.properlyReleaseMd.negativeDisplayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="referredTo">
+          ${item.referredTo ? item.referredToMd.positiveDisplayLabel : item.referredToMd.negativeDisplayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="referredFrom">
+          ${item.referredFrom ? item.referredFromMd.positiveDisplayLabel : item.referredFromMd.negativeDisplayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="referralReason">
+          ${item.referralReason.displayLabel}
+        </mjl:dt>
+      </div>
       
-      <h2><fmt:message key="Clinical_Findings" /></h2>
-      <mjl:dt attribute="symptomComments">
-        ${item.symptomComments}
-      </mjl:dt>
-      <mjl:dt attribute="symptom">
-        <ul>
-          <c:forEach items="${symptoms}" var="current"> 
-            <li> ${current.displayLabel} </li> 
-          </c:forEach>
-        </ul>      
-      </mjl:dt>          
+      <div id="Laboratory_Testing">
+        <h2><fmt:message key="Laboratory_Testing" /></h2>
+      </div>
+      <div id="Laboratory_Testing.content">
+        <mjl:dt attribute="classification">
+          ${item.classification.displayLabel}
+        </mjl:dt>      
+        <mjl:dt attribute="sampleType">
+          ${item.sampleType.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="labTest">
+          ${item.labTest.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="testSampleDate">
+          <span class="formatDate">
+            ${item.testSampleDate}
+          </span>
+        </mjl:dt>
+        <mjl:dt attribute="labTestDate">
+          <span class="formatDate">
+            ${item.labTestDate}
+          </span>
+        </mjl:dt>
+        <mjl:dt attribute="testResult">
+          ${item.testResult.displayLabel}
+        </mjl:dt>      
+        <mjl:dt attribute="malariaType">
+          ${item.malariaType.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="primaryInfection">
+          ${item.primaryInfection.displayLabel}
+        </mjl:dt>
+      </div>
+      
+      <div id="Treatment">
+        <h2><fmt:message key="Treatment" /></h2>
+      </div>
+      <div id="Treatment.content">
+        <mjl:dt attribute="treatmentMethod">
+          ${item.treatmentMethod.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="treatment">
+          ${item.treatment.displayLabel}
+        </mjl:dt>
+        <mjl:dt attribute="treatmentStartDate">
+          <span class="formatDate">
+            ${item.treatmentStartDate}
+          </span>
+        </mjl:dt>
+      </div>
+      
+      <div id = "Clinical_Findings">
+        <h2><fmt:message key="Clinical_Findings" /></h2>
+      </div>
+      <div id="Clinical_Findings.content">      
+        <mjl:dt attribute="symptomComments">
+          ${item.symptomComments}
+        </mjl:dt>
+        <mjl:dt attribute="symptom">
+          <ul>
+            <c:forEach items="${symptoms}" var="current"> 
+              <li> ${current.displayLabel} </li> 
+            </c:forEach>
+          </ul>      
+        </mjl:dt>          
+      </div>
     </mjl:component>
     <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualInstance.form.edit.button" />
   </mjl:form>
@@ -163,3 +183,16 @@
 <mjl:commandLink name="search.link" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo">
   <fmt:message key="Search_another_Individual_Case" />
 </mjl:commandLink>
+
+<script type="text/javascript">
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){
+    // Hide all headers which have no children
+    MDSS.Effect.toggleHeader('Clinical_Findings', 'Clinical_Findings.content');
+    MDSS.Effect.toggleHeader('Treatment', 'Treatment.content');
+    MDSS.Effect.toggleHeader('Laboratory_Testing', 'Laboratory_Testing.content');
+    MDSS.Effect.toggleHeader('Administrative_Information', 'Administrative_Information.content');
+    MDSS.Effect.toggleHeader('Basic_Case_Information', 'Basic_Case_Information.content');
+  })
+})();
+</script>  

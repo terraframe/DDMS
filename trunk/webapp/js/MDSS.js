@@ -136,8 +136,19 @@ var MDSS = {
         }
 
       }, {toggle: toggleId, element: elementId, hidden: hiddenId}, this);
-    }
+    },
     
+    toggleHeader : function(headerId, contentId) {
+      var content = document.getElementById(contentId);      
+
+      if(content != null && content.children.length == 0) {
+        var header = document.getElementById(headerId);
+
+        if(header != null) {
+          header.innerHTML = "";
+        }
+      }
+    }    
   },
   
   ErrorModal : function(content)
