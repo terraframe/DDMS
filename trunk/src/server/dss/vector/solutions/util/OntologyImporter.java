@@ -19,10 +19,8 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdClass;
 
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;
-import dss.vector.solutions.ontology.InactiveProperty;
 import dss.vector.solutions.ontology.InvalidOBOFormatException;
 import dss.vector.solutions.ontology.MO;
 import dss.vector.solutions.ontology.OBO;

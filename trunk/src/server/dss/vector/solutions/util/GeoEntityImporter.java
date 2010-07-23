@@ -39,7 +39,6 @@ import com.vividsolutions.jts.geom.Geometry;
 import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.Universal;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.LocatedIn;

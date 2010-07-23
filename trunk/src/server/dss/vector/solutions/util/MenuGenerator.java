@@ -27,12 +27,10 @@ import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 
 import dss.vector.solutions.PanicButton;
-import dss.vector.solutions.Person;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.MenuItemQuery;
 import dss.vector.solutions.general.SystemURL;
-import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.InactiveByDisease;
 import dss.vector.solutions.ontology.InactiveProperty;
