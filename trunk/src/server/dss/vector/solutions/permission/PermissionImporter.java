@@ -135,6 +135,10 @@ public class PermissionImporter implements Reloadable
             {
               // Do nothing
             }
+            catch(DataNotFoundException e)
+            {
+              // Do nothing
+            }
             
             try
             {
@@ -144,6 +148,11 @@ public class PermissionImporter implements Reloadable
             {
               //Do nothing
             }
+            catch(DataNotFoundException e)
+            {
+              // Do nothing
+            }
+            
           }
           else if (action.equalsIgnoreCase("R"))
           {
@@ -155,6 +164,11 @@ public class PermissionImporter implements Reloadable
             {
               //Do nothing
             }
+            catch(DataNotFoundException e)
+            {
+              // Do nothing
+            }
+
           }
         }
       }
