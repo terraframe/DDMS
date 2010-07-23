@@ -1,17 +1,12 @@
 package dss.vector.solutions.ontology;
 
 import java.sql.Savepoint;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
-import com.runwaysdk.ProblemIF;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.general.Disease;
 

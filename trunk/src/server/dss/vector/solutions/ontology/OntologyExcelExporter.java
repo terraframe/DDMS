@@ -14,7 +14,6 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.util.FileIO;
 

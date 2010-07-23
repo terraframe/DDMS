@@ -7,14 +7,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Savepoint;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Stack;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -34,7 +31,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.export.ExcelVersionException;
-import dss.vector.solutions.util.MDSSProperties;
 
 public class OntologyExcelImporter
 {
