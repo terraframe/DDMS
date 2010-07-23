@@ -145,6 +145,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     MdEntityDAOIF teamMemberMd = MdEntityDAO.getMdEntityDAO(TeamMember.CLASS);
     String teamMemberTable = teamMemberMd.getTableName();
     String memberIdCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.MEMBERID);
+    String personCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.PERSON);
 
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     String sprayTeamTable = sprayTeamMd.getTableName();
@@ -174,7 +175,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     select += "" + teamSprayStatusTable + "." + sprayTeamCol + " AS sprayteam,\n";
     select += "(SELECT st." + teamIdCol + " FROM " + sprayTeamTable + " st WHERE st.id = " + teamSprayStatusTable + "." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += "" + teamSprayStatusTable + "." + teamLeaderCol + " AS sprayleader,\n";
-    select += "(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm.id AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
+    select += "(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm."+personCol+" AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
     select += "" + teamSprayStatusTable + "." + teamSprayWeekCol + " AS team_week,\n";
     select += "" + teamSprayStatusTable + "." + targetCol + " AS team_target,\n";
     // zone stuff

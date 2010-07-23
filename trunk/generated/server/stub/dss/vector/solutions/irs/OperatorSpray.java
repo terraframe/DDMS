@@ -207,7 +207,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     select += ""+operSprayTable+"." + sprayTeamCol + " AS sprayteam,\n";
     select += "(SELECT st." + teamId + " FROM "+ sprayTeamTable +" st WHERE st.id = "+operSprayTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += ""+operSprayTable+"." + teamLeaderCol + " AS sprayleader,\n";
-    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm.id AND tm.id = "+operSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
+    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+operSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
     select += ""+operSprayTable+"." + teamSprayWeekCol + " AS team_week,\n";
     select += "NULL AS team_target,\n";
     // zone stuff

@@ -197,7 +197,7 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     select += ""+teamSprayTable+"." + sprayTeamCol + " AS "+sprayTeamCol+",\n";
     select += "(SELECT st." + teamIdCold + " FROM "+sprayTeamTable+" st WHERE st.id = "+teamSprayTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += ""+teamSprayTable+"." + teamLeaderCol + " AS sprayleader,\n";
-    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm.id AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
+    select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
     select += ""+teamSprayTable+"." +teamSprayWeekCol + " AS team_week,\n";
     select += ""+teamSprayTable+"." + targetCol + " AS team_target,\n";
     // zone stuff
