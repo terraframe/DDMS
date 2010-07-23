@@ -11,6 +11,8 @@
 	<runwayproperties root="${profile.root}" />
 	<echo message="${java.ext.dirs}" />
 
+	<property name="local.src.server" value="${local.src}/server" />
+
 	<!-- execution path -->
 	<path id="framework.classpath">
 		<fileset dir="${local.lib}">
@@ -325,6 +327,34 @@
 		<echo message="Cleaned generated base stub and bin directories" />
 	</target>
 
+	<!-- Exports a jar containing client, server, and common code -->
+	<target name="build_aspect_jar" description="Exports all application aspects into a jar">
+
+		<mkdir dir="temp" />
+		<mkdir dir="temp/META-INF" />
+
+		<copy file="${local.ant}/aop.xml" todir="temp/META-INF" />
+
+		<!-- Instead of including source in the jar, just create a zip file that can still be referenced by eclipse for debugging -->
+		<iajc destDir="temp" source="1.5" target="1.5" verbose="false" X="notReweavable">
+			<src path="${local.src.server};"/>
+  		    <include name="**/*.aj" />
+
+			<classpath>
+				<path refid="framework.classpath" />
+			</classpath>
+		</iajc>
+
+		<jar destfile="${local.lib}/mdssaspect.jar" compress="true">
+			<fileset dir="temp">
+				<exclude name="**/*.java" />
+				<exclude name="**/*.aj" />
+			</fileset>
+		</jar>
+
+		<delete dir="temp" />
+	</target>
+
 	<target name="compile_generated">
 		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
@@ -360,16 +390,6 @@
 	<target name="update_db_source_and_classes">
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.runwaysdk.util.UpdateDatabaseSourceAndClasses" failonerror="true">
-			<classpath>
-				<path refid="framework.classpath" />
-			</classpath>
-		</java>
-	</target>
-
-	<target name="update_deploy_source">
-		<!-- Update the database with the new sources and classes -->
-		<java classname="com.runwaysdk.dataaccess.io.dataDefinition.DeployedMetadataUpdater" failonerror="true">
-			<arg value="${export.package}" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -551,7 +571,7 @@
 	<target name="get_version_number" description="Checks for root database and prompts for it if not found." unless="version.number">
 		<property name="${version.number}" value="0" />
 	</target>
-	
+
 	<target name="merge_model_v2_8" description="Creates a freshly merged schema for release 2.8">
 		<echo message="Merging Pre Country Schema (v2.8): (0001238646706000)" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true" fork="true">
@@ -578,7 +598,7 @@
 			</classpath>
 		</java>
 	</target>
-	
+
 	<target name="setup_model" description="Sets up the model directory for importing">
 		<echo message="Cleaning up of model directory" />
 		<delete>
@@ -587,7 +607,7 @@
 		<echo message="Copying over country specific files." />
 		<copy todir="${model.dir}">
 			<fileset dir="${version.dir}" includes="schema(0001238646707001).xml" />
-		</copy>		
+		</copy>
 		<echo message="Merging Post Country Schema (v3): ${model.dir}(0001238646707003)PostUniversal.xml" />
 		<java classname="com.runwaysdk.dataaccess.schemamanager.SchemaManager" failonerror="true"  fork="true">
 			<arg value="-timestamp" />
@@ -600,7 +620,7 @@
 			</classpath>
 		</java>
 	</target>
-	
+
 	<target name="rebuild_model" depends="setup_model" description="Rebuilds the entire domain model using a freshly merged schema">
 		<echo message="Update domain to the most recent schema" />
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
@@ -614,7 +634,7 @@
 
 	<target name="import_most_recent" description="Updates the domain model to the most recent schema" depends="get_version_number">
 		<echo message="Update domain to the most recent schema" />
-	<echoproperties></echoproperties>	
+	<echoproperties></echoproperties>
 		<java classname="com.runwaysdk.dataaccess.io.Versioning" failonerror="true">
 			<arg value="${version.dir}/" />
 			<arg value="${version.xsd}"/>
@@ -669,19 +689,6 @@
 		</java>
 	</target>
 
-	<target name="push_source" depends="">
-		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
-			<jvmarg value="-Xmx1024m" />
-			
-      
-			<classpath>
-				<path refid="framework.classpath" />
-			</classpath>
-			<arg value="${system.password}" />
-			<arg value="dss.vector.solutions%" />
-		</java>
-	</target>
-
 	<!-- =================================================================== -->
 	<!-- Import the geo data into the db                             -->
 	<!-- =================================================================== -->
@@ -689,8 +696,8 @@
 		<diagnostics/>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -713,8 +720,8 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -724,23 +731,23 @@
 		</java>
 
 	</target>
-	
+
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
 		<java classname="dss.vector.solutions.util.MdssLocalizationImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportLocalization">
 			<jvmarg value="-Xmx1512M" />
-			
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 			<arg value="../../../doc/DiseaseLocalizationDefaults.xls" />
 		</java>
 	</target>
-	
+
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
 		<java classname="dss.vector.solutions.ontology.OntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1512M" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -758,8 +765,8 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -776,15 +783,15 @@
 		-->
 		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
 			<arg value="../../../doc/menu/MenuItems.xls" />
 		</java>
 	</target>
-	
+
 	<!-- =================================================================== -->
 	<!-- Rebuild the geodata all paths table                                 -->
 	<!-- =================================================================== -->
@@ -796,8 +803,8 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -818,8 +825,8 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -837,8 +844,8 @@
 		-->
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -858,8 +865,8 @@
 		-->
 		<java classname="dss.vector.solutions.permission.PermissionImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="LoadPermissions">
 			<jvmarg value="-Xmx1024m" />
-			
-      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -879,8 +886,8 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx1024m" />
-			
-	      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -900,8 +907,8 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx1024m" />
-			
-	      
+
+
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
