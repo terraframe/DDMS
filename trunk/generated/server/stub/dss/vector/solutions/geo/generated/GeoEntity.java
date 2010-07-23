@@ -186,6 +186,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
       ids.add(this.getId());
     }
+    
+    if(this.getEntityName() == null || this.getEntityName().length() == 0)
+    {
+      this.setEntityName(this.getGeoId());
+    }
 
     super.apply();
 
