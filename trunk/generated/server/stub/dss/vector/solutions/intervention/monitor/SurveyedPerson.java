@@ -70,9 +70,16 @@ public class SurveyedPerson extends SurveyedPersonBase implements com.runwaysdk.
       HouseholdSurveyedPerson householdPerson = new HouseholdSurveyedPerson(this.getHousehold(), this);
       householdPerson.apply();
     }
-
+  }
+  
+  @Override
+  @Transaction
+  public void delete()
+  {
     ITNInstance net = this.getSleptUnderNet();
 
+    super.delete();
+    
     if (net != null)
     {
       net.lock();

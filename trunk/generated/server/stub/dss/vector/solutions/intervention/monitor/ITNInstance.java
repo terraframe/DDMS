@@ -87,6 +87,25 @@ public class ITNInstance extends ITNInstanceBase implements com.runwaysdk.genera
     }
   }
   
+  @Override
+  @Transaction
+  public void delete()
+  {
+    super.delete();
+    
+    Household household = this.getHousehold();
+
+    if(household != null)
+    {
+      household.lock();
+      
+      long count = ITNInstance.getCount(household);
+      
+      household.setNets((int) count);
+      household.apply();
+    }
+  }
+  
   private Date getDate(Integer year, List<MonthOfYear> list)
   {
     if(year != null)

@@ -182,6 +182,7 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.ru
   }
 
   @Override
+  @Transaction
   public void apply()
   {
     SurveyedPerson concrete = new SurveyedPerson();
@@ -191,6 +192,11 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.ru
       concrete = SurveyedPerson.get(this.getConcreteId());
     }
 
+    // We need to update the number of Nets if this person used to sleep under a
+    // net but no longer does.
+    ITNInstance newNet = this.getSleptUnderNet();
+    ITNInstance existingNet = concrete.getSleptUnderNet();
+
     // Build the attribute map between SurveyedPerson and
     // SurveyedPersonView for error handling
     this.buildAttributeMap(concrete);
@@ -199,7 +205,23 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.ru
 
     concrete.apply();
 
+    this.updateNet(newNet);
+    this.updateNet(existingNet);
+
     this.populateView(concrete);
+  }
+
+  private void updateNet(ITNInstance net)
+  {
+    if (net != null)
+    {
+      net.lock();
+
+      long count = SurveyedPerson.getCount(net);
+
+      net.setSleptUnderNet(count);
+      net.apply();
+    }
   }
 
   @Override
@@ -241,7 +263,7 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.ru
     if (locations != null && locations.length > 0)
     {
       List<Response> _malaria = this.getMalaria();
-      
+
       if (_malaria.size() > 0 && !_malaria.contains(Response.YES))
       {
         String msg = "Cannot have a treatment locations when malaria was not present";
@@ -262,7 +284,7 @@ public class SurveyedPersonView extends SurveyedPersonViewBase implements com.ru
     if (treatments != null && treatments.length > 0)
     {
       List<Response> _malaria = this.getMalaria();
-      
+
       if (_malaria.size() > 0 && !_malaria.contains(Response.YES))
       {
         String msg = "Cannot have a treatment when malaria was not present";
