@@ -108,17 +108,33 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var collectionColumns =   collectionColumns.concat(premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps}));
 
-    var containerAttribs = [ "containerId","containerLength", "containerType", "diameter","drawdownFrequency","drawdownPercent","fillFrequency","fillMethod","height",
-                             "lid","openingDiameter","openingLength","openingWidth","roof","shading","shape","width"];
-
-    var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:'_cont', dropDownMaps:containerMaps});
+    // NOTE that containerType, drawDownFrequency, fillMethod, and lid have dependencies with some of the calculations. Look at the calculations and DependencyManager
+    // below to see the mappings.
+    var containerType = 'containerType';
+    var lid = 'lid';
+    var fillMethod = 'fillMethod';
+    var drawDownFrequency = 'drawdownFrequency';
+    var CONTAINER_SUFFIX = '_cont';
+    var contAttribs = [containerType, lid, fillMethod, drawDownFrequency];
+    var containerAttribs = [ "containerId","containerLength", containerType, "diameter",drawDownFrequency,"drawdownPercent","fillFrequency",fillMethod,"height",
+                             lid,"openingDiameter","openingLength","openingWidth","roof","shading","shape","width"];
+    
+    var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:CONTAINER_SUFFIX, dropDownMaps:containerMaps});
 
     var taxonAmmountsColumns = orderedGrids.pupaeAmmount.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.pupaeAmmount);
     
    
 
 
-    mapterm = function(term,index){
+       // An map where each value is an array of selectables that has a dependency
+       // with attributes in the Dependency Manager
+       var dmCalcs = {};
+       dmCalcs[containerType] = [];
+       dmCalcs[lid] = [];
+       dmCalcs[fillMethod] = [];
+       dmCalcs[drawDownFrequency] = [];
+       
+       mapterm = function(term,index){
      
        var row = {};
        row.dtoType = "AttributeIntegerDTO";
@@ -130,9 +146,20 @@ YAHOO.util.Event.onDOMReady(function(){
 
        MDSS.Localized[row.attributeName]= term.displayLabel;
 
+       var containerTypeCalc = "percent_pupae_contribution_by_type_"+row.attributeName;
+       var lidCalc = "percent_pupae_contribution_by_lid_"+row.attributeName;
+       var fillMethodCalc = "percent_pupae_contribution_by_fill_"+row.attributeName;
+       var drawDownFrequencyCalc = "percent_pupae_contribution_by_frequency_"+row.attributeName;
+
+       // add the calc keys to the structure used by the Dependency Manager at the end
+       dmCalcs[containerType].push(containerTypeCalc);
+       dmCalcs[lid].push(lidCalc);
+       dmCalcs[fillMethod].push(fillMethodCalc);
+       dmCalcs[drawDownFrequency].push(drawDownFrequencyCalc);
+       
        var calculations = ([
                             
-                            row,                        
+                            row,
                             {
                               key:"percent_pupae_contribution_"+row.attributeName,
                               type:"sqlfloat",
@@ -161,9 +188,36 @@ YAHOO.util.Event.onDOMReady(function(){
                               attributeName:"pupae_per_person_per_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
-
+                            {
+                              key:containerTypeCalc,
+                              type:"sqlfloat",
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_type'),
+                              attributeName:"percent_pupae_contribution_by_typerow__"+row.attributeName,
+                              isAggregate:true
+                            },
+                            {
+                              key:lidCalc,
+                              type:"sqlfloat",
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_lid'),
+                              attributeName:"percent_pupae_contribution_by_lidrow__"+row.attributeName,
+                              isAggregate:true
+                            },
+                            {
+                              key:fillMethodCalc,
+                              type:"sqlfloat",
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_fill'),
+                              attributeName:"percent_pupae_contribution_by_fillrow__"+row.attributeName,
+                              isAggregate:true
+                            },
+                            {
+                              key:drawDownFrequencyCalc,
+                              type:"sqlfloat",
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_frequency'),
+                              attributeName:"percent_pupae_contribution_by_frequencyrow__"+row.attributeName,
+                              isAggregate:true
+                            }
                            ]);
-       
+
        var group = {title:row.attributeName, values:calculations, group:"c", klass:collection.CLASS};
     	 
       return group;      
@@ -183,6 +237,32 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var query = new MDSS.QueryPupalContainerCollection(selectableGroups, queryList);
     query.render();
+
+    var dm = query.getDependencyManager();
+
+
+    // For each container attribute that has a calculation associated with it,
+    // grab all calculation keys and add checkbox dependencies.
+    for(var i=0; i<contAttribs.length; i++)
+    {
+      var attrib = contAttribs[i];
+      var key = attrib+CONTAINER_SUFFIX;
+      var calcs = dmCalcs[attrib];
+            
+      dm.includes({
+        independent: calcs,
+        dependent: key,
+        type: MDSS.Dependent.BOTH,
+        bidirectional: false
+      });
+
+      dm.includes({
+        independent: key,
+        dependent: calcs,
+        type: MDSS.Dependent.UNCHECKED,
+        bidirectional: false
+      });
+    }    
 
 });
 
