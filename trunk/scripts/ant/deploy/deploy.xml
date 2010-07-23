@@ -462,6 +462,9 @@
 			<fileset dir="${webapp.root}/WEB-INF/platform" />
 		</copy>
 
+		<!-- Copy over the menu reset txt file -->
+		<copy tofile="${deploy.path}/panicButton.txt" file="${webapp.root}/panicButton.txt" />
+
 		<copy todir="${deploy.bin}" overwrite="true" verbose="true">
 
 			<fileset dir="${webapp.root}/WEB-INF/tlds" />
@@ -669,7 +672,7 @@
 	<target name="push_source" depends="">
 		<java classname="dss.vector.solutions.MdssDmu" fork="true" failonerror="true" dir="." timeout="4000000" taskname="pushSource">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -686,7 +689,7 @@
 		<diagnostics/>
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -710,7 +713,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -724,8 +727,8 @@
 	
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
 		<java classname="dss.vector.solutions.util.MdssLocalizationImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportLocalization">
-			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/galileo/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			<jvmarg value="-Xmx1512M" />
+			
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -735,8 +738,8 @@
 	
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
 		<java classname="dss.vector.solutions.ontology.OntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
-			<jvmarg value="-Xmx1024m" />
-
+			<jvmarg value="-Xmx1512M" />
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -755,7 +758,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -773,7 +776,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -793,7 +796,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -815,7 +818,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -834,7 +837,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -855,7 +858,7 @@
 		-->
 		<java classname="dss.vector.solutions.permission.PermissionImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="LoadPermissions">
 			<jvmarg value="-Xmx1024m" />
-
+			
       
 			<classpath>
 				<path refid="framework.classpath" />
@@ -876,7 +879,7 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx1024m" />
-
+			
 	      
 			<classpath>
 				<path refid="framework.classpath" />
@@ -897,7 +900,7 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx1024m" />
-
+			
 	      
 			<classpath>
 				<path refid="framework.classpath" />
