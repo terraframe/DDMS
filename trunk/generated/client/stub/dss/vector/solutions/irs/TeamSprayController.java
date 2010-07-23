@@ -19,6 +19,7 @@ import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -156,7 +157,7 @@ public class TeamSprayController extends TeamSprayControllerBase implements Relo
 
   private void setupReferences(TeamSprayViewDTO dto)
   {
-    req.setAttribute("surfaceType", dto.getSurfaceType());
+    req.setAttribute("surfaceType", AttributeUtil.getValue(TeamSprayViewDTO.SURFACETYPE, dto));
   }
 
   private JSONObject buildOperatorsMap(TeamSprayViewDTO view)

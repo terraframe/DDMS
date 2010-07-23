@@ -20,7 +20,7 @@
     <dd> 
       <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" spray="true" />
     </dd>
-    <dt> <fmt:message key="Insecticide_Brand"/> </dt>
+    <dt> <fmt:message key="Insecticide"/> </dt>
     <dd>
       <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >
        <mjl:option selected="${brand != null && current.id == brand.id ? 'selected' : 'false'}">

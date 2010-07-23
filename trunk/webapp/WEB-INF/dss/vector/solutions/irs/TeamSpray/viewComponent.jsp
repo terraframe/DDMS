@@ -161,6 +161,16 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
       }
     }
 
+    var getColumnIndex = function(key) {
+      for(var i = 0; i < data.columnDefs.length; i++) {
+        if(data.columnDefs[i].key == key) {
+          return i;
+        }
+      }
+
+      return null;
+    }
+    
     var loadUnusedOperators = function(e){
       var column = dataTable.getColumn('SprayOperator');
       var cell = e.editor.getTdEl();
@@ -209,14 +219,16 @@ TeamSprayViewDTO view = (TeamSprayViewDTO) request.getAttribute("item");
       else {
         selectEl.innerHTML = "<option selected value=\"\"></option>";             
       }
-   }
+    }
        
     SprayOperatorLabels=Mojo.Util.getValues(operators);
     SprayOperatorIds=Mojo.Util.getKeys(operators);   
+
+    var i = getColumnIndex('SprayOperator');
      
-    data.columnDefs[3].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
-    data.columnDefs[3].save_as_id = true;
-    data.columnDefs[3].editor.subscribe('showEvent', loadUnusedOperators);
+    data.columnDefs[i].editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayOperatorLabels,disableBtns:true,validator:validateSprayOperator});
+    data.columnDefs[i].save_as_id = true;
+    data.columnDefs[i].editor.subscribe('showEvent', loadUnusedOperators);
 
     var grid = MojoGrid.createDataTable(data);
     grid.addListener(beforeRowAdd);

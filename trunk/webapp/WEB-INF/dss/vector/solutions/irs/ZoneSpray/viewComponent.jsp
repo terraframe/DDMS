@@ -260,21 +260,37 @@ ZoneSprayViewDTO view = (ZoneSprayViewDTO) request.getAttribute("item");
          selectEl.innerHTML = "<option selected value=\"\"></option>";             
        }
      }
+
+     var getColumnIndex = function(key) {
+       for(var i = 0; i < data.columnDefs.length; i++) {
+         if(data.columnDefs[i].key == key) {
+           return i;
+         }
+       }
+
+       return null;
+     }
+       
+        
      
      SprayTeamLabels=Mojo.Util.getValues(teams);   
      SprayTeamIds=Mojo.Util.getKeys(teams);   
 
-     var sprayTeamColumnDef = data.columnDefs[3];
+     var sprayTeamIndex = getColumnIndex('SprayTeam');
+     var teamLeaderIndex = getColumnIndex('TeamLeader');
+
+     var sprayTeamColumnDef = data.columnDefs[sprayTeamIndex];
      
      sprayTeamColumnDef.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:SprayTeamLabels,disableBtns:true,validator:validateSprayTeam});
      sprayTeamColumnDef.save_as_id = true;
      sprayTeamColumnDef.editor.subscribe('showEvent', loadUnusedTeams);
 
+     if(teamLeaderIndex != null) {
+       var teamLeaderColumnDef = data.columnDefs[teamLeaderIndex];
 
-     var teamLeaderColumnDef = data.columnDefs[4];
-
-     teamLeaderColumnDef.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
-     teamLeaderColumnDef.editor.subscribe('showEvent', swap);
+       teamLeaderColumnDef.editor = new YAHOO.widget.DropdownCellEditor({dropdownOptions:[],disableBtns:true});
+       teamLeaderColumnDef.editor.subscribe('showEvent', swap);
+     }
      
      var grid = MojoGrid.createDataTable(data);
      grid.addListener(beforeRowAdd);

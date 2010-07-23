@@ -29,7 +29,7 @@
       <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" populated="false" spray="true" />
     </dd>
     <dt>
-      <label><fmt:message key="Insecticide_Brand"/></label>
+      <label><fmt:message key="Insecticide"/></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >

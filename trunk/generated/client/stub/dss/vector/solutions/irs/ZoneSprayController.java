@@ -153,7 +153,7 @@ public class ZoneSprayController extends ZoneSprayControllerBase implements Relo
       req.setAttribute("person", person);
     }
 
-    req.setAttribute("surfaceType", dto.getSurfaceType());
+    req.setAttribute("surfaceType", AttributeUtil.getValue(ZoneSprayViewDTO.SURFACETYPE, dto));
     req.setAttribute("supervisor", supervisor);
   }
 

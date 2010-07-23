@@ -151,7 +151,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
   private void setupReferences(OperatorSprayViewDTO dto)
   {
-    req.setAttribute("surfaceType", dto.getSurfaceType());
+    req.setAttribute("surfaceType", AttributeUtil.getValue(OperatorSprayViewDTO.SURFACETYPE, dto));
   }
 
   public void failView(String id) throws IOException, ServletException
