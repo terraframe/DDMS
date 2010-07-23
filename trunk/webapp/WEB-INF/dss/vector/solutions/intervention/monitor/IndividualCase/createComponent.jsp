@@ -229,16 +229,18 @@
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
-    var prop = {
-      input : 'physicianInput',
-      concrete : 'physician',
-      createLink : 'createPhysician',
-      editLink : 'editPhysician', 
-      clickable : 'physician.span', 
-      calendar : 'dateOfBirth'
-    };
+    if(document.getElementById('physician') != null) {
+      var prop = {
+        input : 'physicianInput',
+        concrete : 'physician',
+        createLink : 'createPhysician',
+        editLink : 'editPhysician', 
+        clickable : 'physician.span', 
+        calendar : 'dateOfBirth'
+      };
       
-    new MDSS.PhysicianModal(prop);
+      new MDSS.PhysicianModal(prop);
+    }
 
     
     //**********************************************************
