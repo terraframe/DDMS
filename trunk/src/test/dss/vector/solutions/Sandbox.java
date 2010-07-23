@@ -38,12 +38,16 @@ public class Sandbox
   @StartSession
   public static void main(String[] args) throws Exception
   {
-    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.CLASS, CaseDiseaseManifestationView.DISEASECATEGORY, true);
-    
-    for(Term term : terms)
-    {
-      System.out.println(term.getTermDisplayLabel().getValue());
-    }
+     Term term = new Term();
+     term.apply();
+
+
+//    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.CLASS, CaseDiseaseManifestationView.DISEASECATEGORY, true);
+//
+//    for(Term term : terms)
+//    {
+//      System.out.println(term.getTermDisplayLabel().getValue());
+//    }
   }
 
   private static String concatenate(Selectable[] selectableArray)
@@ -231,15 +235,15 @@ public class Sandbox
     // }
     /*
      * Mocambique Mozambique
-     * 
+     *
      * select metaphone('Mocambique', 255); select metaphone('Mozambique', 255);
-     * 
+     *
      * select dmetaphone('Mocambique'); select dmetaphone_alt('Mocambique');
-     * 
+     *
      * select dmetaphone('Mozambique'); select dmetaphone_alt('Mozambique');
-     * 
+     *
      * SELECT levenshtein('Mocambique', 'Mozambique');
-     * 
+     *
      * Bilene Bellene
      */
     // QueryFactory qf = new QueryFactory();

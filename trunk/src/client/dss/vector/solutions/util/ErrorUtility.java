@@ -15,8 +15,8 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.InformationDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorExceptionDTO;
-import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 import com.runwaysdk.session.ReadTypePermissionExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
@@ -74,7 +74,7 @@ public class ErrorUtility implements Reloadable
   public static boolean prepareThrowable(Throwable t, HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronus, boolean ignoreNotifications) throws IOException
   {
     t = ErrorUtility.filterServletException(t);
-    
+
     if (isAsynchronus)
     {
       if (t instanceof ProblemExceptionDTO)
@@ -94,9 +94,9 @@ public class ErrorUtility implements Reloadable
     }
     else
     {
-     if (t instanceof ClientReadAttributePermissionException)
+     if (t instanceof AttributeReadPermissionExceptionDTO)
       {
-        throw (ClientReadAttributePermissionException) t;
+        throw (AttributeReadPermissionExceptionDTO) t;
       }
       else if (t instanceof ReadTypePermissionExceptionDTO)
       {

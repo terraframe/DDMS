@@ -3,7 +3,6 @@ package dss.vector.solutions.sld;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.LayerDTO;
-import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.RangeCategoryDTO;
 
 public class RangeFilter extends Filter implements Reloadable

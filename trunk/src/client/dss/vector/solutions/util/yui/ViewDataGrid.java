@@ -15,9 +15,9 @@ import org.json.JSONObject;
 import com.runwaysdk.ClientException;
 import com.runwaysdk.business.ViewDTO;
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 
 import dss.vector.solutions.util.Halp;
 
@@ -220,7 +220,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
           defaults.add(defaultValue);
         }
       }
-      catch (ClientReadAttributePermissionException e)
+      catch (AttributeReadPermissionExceptionDTO e)
       {
         // Do nothing
       }

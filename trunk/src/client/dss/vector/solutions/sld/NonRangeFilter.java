@@ -4,7 +4,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.LayerDTO;
 import dss.vector.solutions.query.NonRangeCategoryDTO;
-import dss.vector.solutions.query.QueryConstants;
 
 public class NonRangeFilter extends Filter implements Reloadable
 {

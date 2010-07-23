@@ -1,15 +1,12 @@
 package dss.vector.solutions.util;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
 
 import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.DTOFacade;
-import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
@@ -28,7 +25,7 @@ public class AttributeUtil implements Reloadable
         throw e.getTargetException();
       }
     }
-    catch (ClientReadAttributePermissionException e)
+    catch (AttributeReadPermissionExceptionDTO e)
     {
       return null;
     }

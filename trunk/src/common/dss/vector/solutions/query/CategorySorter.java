@@ -5,7 +5,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import com.runwaysdk.CommonExceptionProcessor;
-import com.runwaysdk.constants.ClientExceptions;
+import com.runwaysdk.constants.ExceptionConstants;
 import com.runwaysdk.generation.loader.Reloadable;
 
 public class CategorySorter implements Reloadable
@@ -44,7 +44,7 @@ public class CategorySorter implements Reloadable
               + "] and [" + o2.getClass().getSimpleName() + "]";
 
           CommonExceptionProcessor.processException(
-        	        ClientExceptions.ConfigurationException.getExceptionClass(), error);
+        	        ExceptionConstants.ConfigurationException.getExceptionClass(), error);
           return 0;
         }
 
@@ -119,7 +119,7 @@ public class CategorySorter implements Reloadable
         String error = "Could not compare the ranges [" + r1 + "] and [" + r2 + "].";
 
         CommonExceptionProcessor.processException(
-    	        ClientExceptions.ConfigurationException.getExceptionClass(), error);
+        		ExceptionConstants.ConfigurationException.getExceptionClass(), error);
 
         return 0;
       }

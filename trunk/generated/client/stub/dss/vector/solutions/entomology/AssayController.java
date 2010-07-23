@@ -13,9 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 
 import dss.vector.solutions.RequiredCollectionProblemDTO;
 import dss.vector.solutions.ontology.TermDTO;
@@ -158,7 +158,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
       return false;
     }
-    catch (ClientReadAttributePermissionException e)
+    catch (AttributeReadPermissionExceptionDTO e)
     {
       return false;
     }
@@ -170,7 +170,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
     {
       return assay.getSex();
     }
-    catch (ClientReadAttributePermissionException e)
+    catch (AttributeReadPermissionExceptionDTO e)
     {
       return null;
     }

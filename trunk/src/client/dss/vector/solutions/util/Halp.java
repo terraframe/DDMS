@@ -35,8 +35,8 @@ import com.runwaysdk.business.ViewDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.Constants;
 import com.runwaysdk.controller.DTOFacade;
-import com.runwaysdk.dataaccess.attributes.ClientReadAttributePermissionException;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 import com.runwaysdk.system.EnumerationMasterDTO;
 import com.runwaysdk.transport.metadata.AttributeBooleanMdDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
@@ -643,7 +643,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
       {
         Throwable t = e.getTargetException();
 
-        if (! ( t instanceof ClientReadAttributePermissionException ))
+        if (! ( t instanceof AttributeReadPermissionExceptionDTO ))
         {
           if (t instanceof RuntimeException)
           {
@@ -655,7 +655,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
           }
         }
       }
-      catch (ClientReadAttributePermissionException e)
+      catch (AttributeReadPermissionExceptionDTO e)
       {
         // Do nothing
       }
