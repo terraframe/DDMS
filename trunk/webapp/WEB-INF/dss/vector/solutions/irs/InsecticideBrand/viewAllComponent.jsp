@@ -43,6 +43,9 @@
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="enabled">
+      <mjl:row>
+        ${item.enabled ? item.enabledMd.positiveDisplayLabel : item.enabledMd.negativeDisplayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
