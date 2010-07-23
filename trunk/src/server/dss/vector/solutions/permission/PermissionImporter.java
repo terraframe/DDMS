@@ -21,6 +21,7 @@ import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.constants.MetadataInfo;
+import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
@@ -126,12 +127,34 @@ public class PermissionImporter implements Reloadable
 
           if (action.equalsIgnoreCase("W"))
           {
-            role.addAscendant(writeRoleDAO);
-            role.addAscendant(readRoleDAO);
+            try
+            {
+              role.addAscendant(writeRoleDAO);
+            }
+            catch(DuplicateGraphPathException e)
+            {
+              // Do nothing
+            }
+            
+            try
+            {
+              role.addAscendant(readRoleDAO);
+            }
+            catch(DuplicateGraphPathException e)
+            {
+              //Do nothing
+            }
           }
           else if (action.equalsIgnoreCase("R"))
           {
-            role.addAscendant(readRoleDAO);
+            try
+            {
+              role.addAscendant(readRoleDAO);
+            }
+            catch(DuplicateGraphPathException e)
+            {
+              //Do nothing
+            }
           }
         }
       }
@@ -196,28 +219,40 @@ public class PermissionImporter implements Reloadable
     String key = ExcelUtil.getString(row.getCell(0));
     String diseaseName = ExcelUtil.getString(row.getCell(1));
 
-    MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
-
-    if (diseaseName != null && diseaseName.length() > 0)
+    if (key != null && key.length() > 0)
     {
-      MdDimensionDAOIF mdDimension = this.mdDimensions.get(diseaseName);
-      MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+      MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
 
-      role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
-    }
-    else
-    {
-      Set<String> keys = mdDimensions.keySet();
-
-      for (String dimensionKey : keys)
+      if (mdAttribute != null)
       {
-        MdDimensionDAOIF mdDimension = mdDimensions.get(dimensionKey);
 
-        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+        if (diseaseName != null && diseaseName.length() > 0)
+        {
+          MdDimensionDAOIF mdDimension = this.mdDimensions.get(diseaseName);
+          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
 
-        role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
+          role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
+        }
+        else
+        {
+          Set<String> keys = mdDimensions.keySet();
+
+          for (String dimensionKey : keys)
+          {
+            MdDimensionDAOIF mdDimension = mdDimensions.get(dimensionKey);
+
+            MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+
+            role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
+          }
+        }
+      }
+      else
+      {
+        throw new RuntimeException("Could not find a MdAttribute with the key [" + key + "]");
       }
     }
+
   }
 
   private void readURLRow(HSSFRow row)
@@ -300,11 +335,11 @@ public class PermissionImporter implements Reloadable
     while (row.getCell(i) != null)
     {
       String key = ExcelUtil.getString(row.getCell(i++));
-      if (key==null)
+      if (key == null)
       {
         continue;
       }
-      if (key.length()==0)
+      if (key.length() == 0)
       {
         continue;
       }

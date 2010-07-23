@@ -1,0 +1,74 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <object
+        type="dss.vector.solutions.Property"
+        key="newCasePeriod.MALARIA">
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.intervention.monitor" />
+        <attribute
+          name="propertyName"
+          value="newCasePeriod" />
+        <attributeReference
+          name="disease"
+          key="MALARIA" />
+        <attribute
+          name="displayLabel"
+          value="New case period (weeks)" />
+        <attribute
+          name="propertyValue"
+          value="4" />
+        <attribute
+          name="propertyType"
+          value="Integer" />
+        <attribute
+          name="propertyValidator"
+          value="^[1-9][0-9]*$" />
+        <attribute
+          name="validValues"
+          value="4, 6, 10" />
+        <attribute
+          name="description"
+          value="Number of weeks (from case diagnosis date) after which to create a new case" />
+      </object>
+      <object
+        type="dss.vector.solutions.Property"
+        key="newCasePeriod.DENGUE">
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.intervention.monitor" />
+        <attribute
+          name="propertyName"
+          value="newCasePeriod" />
+        <attributeReference
+          name="disease"
+          key="DENGUE" />
+        <attribute
+          name="displayLabel"
+          value="New case period (weeks)" />
+        <attribute
+          name="propertyValue"
+          value="4" />
+        <attribute
+          name="propertyType"
+          value="Integer" />
+        <attribute
+          name="propertyValidator"
+          value="^[1-9][0-9]*$" />
+        <attribute
+          name="validValues"
+          value="4, 6, 10" />
+        <attribute
+          name="description"
+          value="Number of weeks (from case diagnosis date) after which to create a new case" />
+      </object>
+
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
