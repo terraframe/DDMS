@@ -88,7 +88,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var stockEvent = new Mojo.$.dss.vector.solutions.stock.StockEvent();
 
-    var stockEventAttribs = ['cost','eventDate', 'stockDepot', 'otherParty','quantity','transactionType'];
+    var stockEventAttribs = ['stockDepot', 'eventDate','transactionType','quantity', 'cost','otherParty'];
     <%
     Halp.setReadableAttributes(request, "stockEventAttribs", StockEventViewDTO.CLASS, requestIF);
     %>
