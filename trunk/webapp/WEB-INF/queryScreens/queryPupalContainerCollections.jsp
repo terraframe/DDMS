@@ -85,11 +85,10 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var collection = new dss.vector.solutions.entomology.PupalCollection;
-    var pt = new dss.vector.solutions.entomology.PupalPremise;
     var premise = new dss.vector.solutions.entomology.PupalPremise;
     var container = new dss.vector.solutions.entomology.PupalContainer;
 
-    var collectionAttribs = [ "startDate","endDate","collectionId","geoEntity"];
+    var collectionAttribs = ["geoEntity","startDate","endDate","collectionId"];
     <%
     Halp.setReadableAttributes(request, "collectionAttribs", PupalCollectionDTO.CLASS, requestIF);
     %>
@@ -99,14 +98,13 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
     
     var collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_col', dropDownMaps:collectionMaps});
-
-    var premiseTaxonAttribs = [ ];
+    var colId = collectionColumns.pop();
     
-    var collectionColumns =   collectionColumns.concat(premiseTaxonAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pt, suffix:'_col', dropDownMaps:collectionMaps}));
-
-    var premiseAttribs = [ "numberExamined","numberInhabitants", "premiseSize", "premiseType"];
+    var premiseAttribs = ["premiseType", "numberExamined","premiseSize","numberInhabitants"];
+    var premiseAttribsColumns = premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps});
+    var premiseTypeCol = premiseAttribsColumns.shift();
     
-    var collectionColumns =   collectionColumns.concat(premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps}));
+    collectionColumns =   collectionColumns.concat([premiseTypeCol, colId], premiseAttribsColumns);
 
     // NOTE that containerType, drawDownFrequency, fillMethod, and lid have dependencies with some of the calculations. Look at the calculations and DependencyManager
     // below to see the mappings.
@@ -116,8 +114,8 @@ YAHOO.util.Event.onDOMReady(function(){
     var drawDownFrequency = 'drawdownFrequency';
     var CONTAINER_SUFFIX = '_cont';
     var contAttribs = [containerType, lid, fillMethod, drawDownFrequency];
-    var containerAttribs = [ "containerId","containerLength", containerType, "diameter",drawDownFrequency,"drawdownPercent","fillFrequency",fillMethod,"height",
-                             lid,"openingDiameter","openingLength","openingWidth","roof","shading","shape","width"];
+    var containerAttribs = [ "containerId", containerType,"shape","height","width","containerLength","openingWidth","openingLength",
+                             "diameter","openingDiameter","shading",lid, "roof",fillMethod,"fillFrequency",drawDownFrequency,"drawdownPercent",];
 
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:CONTAINER_SUFFIX, dropDownMaps:containerMaps});
 
@@ -161,12 +159,20 @@ YAHOO.util.Event.onDOMReady(function(){
                             
                             row,
                             {
-                              key:"percent_pupae_contribution_"+row.attributeName,
+                              key:"pupae_per_hectare_by_taxon_"+row.attributeName,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('percent_pupae_contribution'),
-                              attributeName:"percent_pupae_contributionrow__"+row.attributeName,
+                              displayLabel:MDSS.localize('pupae_per_hectare_by_taxon'),
+                              attributeName:"pupae_per_hectare_by_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
+
+                            {
+                              key:"pupae_per_person_per_taxon_"+row.attributeName,
+                              type:"sqlfloat",
+                              displayLabel:MDSS.localize('pupae_per_person_per_taxon'),
+                              attributeName:"pupae_per_person_per_taxonrow__"+row.attributeName,
+                              isAggregate:true
+                            },                            
                             {
                               key:"pupae_per_premise_by_taxon_"+row.attributeName,
                               type:"sqlfloat",
@@ -174,18 +180,12 @@ YAHOO.util.Event.onDOMReady(function(){
                               attributeName:"pupae_per_premise_by_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
+
                             {
-                              key:"pupae_per_hectare_by_taxon_"+row.attributeName,
+                              key:"percent_pupae_contribution_"+row.attributeName,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('pupae_per_hectare_by_taxon'),
-                              attributeName:"pupae_per_hectare_by_taxonrow__"+row.attributeName,
-                              isAggregate:true
-                            },
-                            {
-                              key:"pupae_per_person_per_taxon_"+row.attributeName,
-                              type:"sqlfloat",
-                              displayLabel:MDSS.localize('pupae_per_person_per_taxon'),
-                              attributeName:"pupae_per_person_per_taxonrow__"+row.attributeName,
+                              displayLabel:MDSS.localize('percent_pupae_contribution'),
+                              attributeName:"percent_pupae_contributionrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
