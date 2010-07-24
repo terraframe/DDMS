@@ -118,7 +118,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var contAttribs = [containerType, lid, fillMethod, drawDownFrequency];
     var containerAttribs = [ "containerId","containerLength", containerType, "diameter",drawDownFrequency,"drawdownPercent","fillFrequency",fillMethod,"height",
                              lid,"openingDiameter","openingLength","openingWidth","roof","shading","shape","width"];
-    
+
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:container, suffix:CONTAINER_SUFFIX, dropDownMaps:containerMaps});
 
     var taxonAmmountsColumns = orderedGrids.pupaeAmmount.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.pupaeAmmount);
