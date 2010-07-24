@@ -81,7 +81,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var collectionMaps = {<%=(String) request.getAttribute("collectionMaps")%>};
     var mosquitoCollection = new dss.vector.solutions.entomology.MosquitoCollection;
-    var collectionAttribs = ["collectionId","collectionMethod","geoEntity","collectionDate","lifeStage","abundance"];
+    var collectionAttribs = ["collectionId","geoEntity","collectionDate","collectionMethod","lifeStage","abundance"];
 
     <%
       Halp.setReadableAttributes(request, "collectionAttribs", SearchMosquitoCollectionViewDTO.CLASS, requestIF);
