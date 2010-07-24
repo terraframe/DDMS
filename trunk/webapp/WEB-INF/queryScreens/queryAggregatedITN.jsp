@@ -88,8 +88,8 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var aggreatedITN = new Mojo.$.dss.vector.solutions.intervention.monitor.ITNData();
     
-    var aITNAttribs = ["geoEntity","startDate","endDate","batchNumber","currencyReceived",
-                       "numberDistributed","numberSold","receivedForCommunityResponse","receivedForTargetGroups"];
+    var aITNAttribs = ["geoEntity","startDate","endDate","batchNumber","numberSold","currencyReceived",
+                       "numberDistributed","receivedForCommunityResponse","receivedForTargetGroups"];
     
     <%
       Halp.setReadableAttributes(request, "aITNAttribs", ITNDataViewDTO.CLASS, requestIF);
