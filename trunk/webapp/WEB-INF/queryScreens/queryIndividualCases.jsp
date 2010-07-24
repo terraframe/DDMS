@@ -82,10 +82,9 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var individualCase = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualCase();
-    var caseAttribs = ["diagnosisDate","caseReportDate","caseEntryDate",
-                           "workplace",
-                           "probableSource",
-                           "residence", "symptomOnset", "origin", "plasmaLeakageOnset", "hemorrhagicOnset"];
+    var caseAttribs = ["diagnosisDate","caseReportDate","caseEntryDate", "residence",
+                           "workplace", "probableSource", "origin",
+                           "symptomOnset", "plasmaLeakageOnset", "hemorrhagicOnset"];
     <%
     Halp.setReadableAttributes(request, "caseAttribs", IndividualCaseDTO.CLASS, requestIF);
     %>
@@ -98,15 +97,13 @@ YAHOO.util.Event.onDOMReady(function(){
     
 
     var individualInstance = new Mojo.$.dss.vector.solutions.intervention.monitor.IndividualInstance();  
-    var instanceAttribs = ["healthFacility", "caseIdentifier", "activelyDetected",
-                       "admissionDate","anaemiaPatient","diagnosisType", "diagnosis",
-                       "detectedBy","diedInFacility","facilityVisit",
-                       "patientCategory","pregnant","properlyRelease", "referredTo", "referredFrom",
-                       "referralReason","labTestDate",
-                       "releaseDate","sampleType","malariaType",
-                       "testSampleDate","treatment","treatmentMethod",
-                       "treatmentStartDate", "caseDetection", "confirmedDiagnosis", "confirmedDiagnosisDate",
-                       "dateOfDeath", "classification", "labTest", "testResult", "primaryInfection"];
+    var instanceAttribs = ["healthFacility", "caseIdentifier", "referredTo", "referredFrom",
+                           "referralReason","facilityVisit", "admissionDate","releaseDate", "properlyRelease",
+                           "diedInFacility", "dateOfDeath",   "activelyDetected", "caseDetection", "detectedBy","patientCategory",
+                           "diagnosisType","diagnosis", "confirmedDiagnosis", "confirmedDiagnosisDate",
+                           "classification", "sampleType", "labTest","testSampleDate","labTestDate",
+                       "testResult","malariaType", "primaryInfection", "anaemiaPatient", 
+                         "pregnant", "treatment","treatmentMethod", "treatmentStartDate"];
     <%
     Halp.setReadableAttributes(request, "instanceAttribs", IndividualInstanceDTO.CLASS, requestIF);
     %>
@@ -119,7 +116,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var instanceColumns = instanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
-    var personAttribs = ["identifier", "dateOfBirth", "age","firstName","lastName","sex", "birthEntity", "residentialGeoEntity", "residentialInformation", "workGeoEntity", "workInformation"];
+    var personAttribs = ["identifier", "firstName","lastName", "dateOfBirth", "age", "birthEntity", "sex"];
     <%
     Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
     %>

@@ -2,6 +2,9 @@ package dss.vector.solutions.query;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -18,6 +21,7 @@ import com.runwaysdk.ClientException;
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
@@ -156,6 +160,24 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   public QueryController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
+  }
+  
+  private static class TermComparator implements Comparator<TermDTO>, Reloadable
+  {
+
+    public int compare(TermDTO o1, TermDTO o2)
+    {
+      return o1.getDisplayLabel().compareTo(o2.getDisplayLabel());
+    }
+    
+    
+    private static TermDTO[] sort(TermDTO[] terms)
+    {
+      List<TermDTO> termsList = Arrays.asList(terms);
+      Collections.sort(termsList, new TermComparator());
+      return termsList.toArray(new TermDTO[termsList.size()]);
+    }
+    
   }
 
   /**
@@ -1059,6 +1081,8 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       TermDTO[] allSymptoms = TermDTO.getRootChildren(request, IndividualInstanceDTO.CLASS, IndividualInstanceDTO.SYMPTOM, false);
 
+      allSymptoms = TermComparator.sort(allSymptoms);
+      
       for (TermDTO term : allSymptoms)
       {
         JSONObject option = new JSONObject();
