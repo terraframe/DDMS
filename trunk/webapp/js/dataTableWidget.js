@@ -771,6 +771,20 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
             this.myDataTable.updateCell(record, field.key, date);
           }
+          else if (editor instanceof YAHOO.widget.DropdownCellEditor){           
+            //data comes in as value instead of label, so we fix this.
+        
+            for( var i = 0; i < editor.dropdownOptions.length; i++) {
+              var recordValue = record.getData(field.key);
+             
+              var optionValue = editor.dropdownOptions[i].value;
+              var label = editor.dropdownOptions[i].label;
+                
+              if (recordValue === optionValue){
+                record.setData(field.key, label);
+              }
+            }
+          }          
         }
       }
     },

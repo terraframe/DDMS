@@ -12,12 +12,15 @@ import dss.vector.solutions.util.Halp;
 public class YUIEnumerationEditor extends YUIEditor implements Reloadable
 {
   private AttributeEnumerationMdDTO attribute;
+  
+  private Boolean includeBlank;
 
-  public YUIEnumerationEditor(AttributeEnumerationMdDTO attribute)
+  public YUIEnumerationEditor(AttributeEnumerationMdDTO attribute, ColumnSetup setup)
   {
     this.attribute = attribute;
+    this.includeBlank = (setup.getIncludeBlank() != null ? setup.getIncludeBlank() : !attribute.isRequired());
   }
-
+  
   @Override
   public List<String> getOptions()
   {
@@ -25,7 +28,7 @@ public class YUIEnumerationEditor extends YUIEditor implements Reloadable
 
     List<String> dropdownOptions = new LinkedList<String>();
 
-    if(!attribute.isRequired())
+    if(includeBlank)
     {
       dropdownOptions.add("{label:'', value:''}");
     }

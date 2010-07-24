@@ -13,6 +13,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.GridBuilder;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -237,6 +238,9 @@ public class PupalContainerController extends PupalContainerControllerBase imple
 
     String[] viewKeys = this.getContainerKeys();
     Map<String, ColumnSetup> viewColumns = this.getViewColumns(viewKeys, 1, false);
+    
+    ColumnSetup shapeSetup = GridBuilder.getSetup(viewColumns, PupalContainerViewDTO.SHAPE);
+    shapeSetup.setIncludeBlank(false);
 
     String[] amountKeys = this.getAmountKeys();
     Map<String, ColumnSetup> methodColumns = this.getColumns(amountKeys, 1, true);

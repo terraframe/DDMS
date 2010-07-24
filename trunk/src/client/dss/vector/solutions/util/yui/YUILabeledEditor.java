@@ -30,7 +30,7 @@ public class YUILabeledEditor extends YUIEditor implements Reloadable
     this.type = attribute.getJavaType().getName();
     this.method = "getAllActive";
     this.key = key;
-    this.includeBlank = setup.getIncludeBlank();
+    this.includeBlank = (setup.getIncludeBlank() != null ? setup.getIncludeBlank() : false);
 
     if (setup.getType() != null)
     {

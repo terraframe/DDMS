@@ -281,16 +281,16 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
           var row = data.row;
           var value = data.value;
 
-          if(value == '') {              
+          if(value == '' || value == 'NO_SHAPE') {              
             grid.setData(row, 'Height', '');
           }
 
-          if(value == '' || value == 'RECTANGLE') {
+          if(value == '' || value == 'NO_SHAPE' || value == 'RECTANGLE') {
             grid.setData(row, 'Diameter', '');
             grid.setData(row, 'OpeningDiameter', '');
           }
 
-          if(value == '' || value == 'CIRCLE') {
+          if(value == '' || value == 'NO_SHAPE' || value == 'CIRCLE') {
             grid.setData(row, 'Width', '');
             grid.setData(row, 'ContainerLength', '');
             grid.setData(row, 'OpeningWidth', '');

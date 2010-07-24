@@ -47,7 +47,7 @@ public abstract class YUIEditor implements Reloadable
     }
     else if (attribute instanceof AttributeEnumerationMdDTO)
     {
-      return new YUIEnumerationEditor((AttributeEnumerationMdDTO) attribute);
+      return new YUIEnumerationEditor((AttributeEnumerationMdDTO) attribute, setup);
     }
     else if (attribute instanceof AttributeReferenceMdDTO)
     {
