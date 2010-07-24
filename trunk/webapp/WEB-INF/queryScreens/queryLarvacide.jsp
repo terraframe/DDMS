@@ -89,7 +89,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var larvacide = new Mojo.$.dss.vector.solutions.intervention.monitor.Larvacide();
 
-    var larvacideAttribs = [ "startDate","completionDate","geoDescription","geoEntity","natureOfControl", "personCount"];
+    var larvacideAttribs = ["geoEntity","geoDescription","startDate","completionDate","natureOfControl", "personCount"];
     <%
     Halp.setReadableAttributes(request, "larvacideAttribs", LarvacideDTO.CLASS, requestIF);
     %>
