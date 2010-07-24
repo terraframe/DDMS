@@ -85,11 +85,15 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var insectcideAttribs = [
                              "productName",
-                             "concentrationQualifier",
+                             "activeIngredient",
                              "concentrationQuantifier",
-                             "activeIngredient","amount",
-                             "unitQualifier", "unitQuantifier",
-                             "unitsPerApplication", "useDetail"];
+                             "concentrationQualifier",
+                             "insecticideUse",
+                             "useDetail",
+                             "unitsPerApplication",
+                             "unitQuantifier",
+                             "unitQualifier",
+                             ];
     <%
       Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideBrandDTO.CLASS, requestIF);
     %>
@@ -110,7 +114,24 @@ YAHOO.util.Event.onDOMReady(function(){
     %>
     
     //public static java.lang.String GEOENTITY = "geoEntity";
-    var efficacyAttribs = ["testDate","specie","testMethod", "geoEntity", "holdingTime","colonyName","sex","fed","gravid","quantityTested","quantityDead","quantityLive","mortality","surfacePostion", "surfaceType","timeOnSurface"];
+    var efficacyAttribs = [
+                           "geoEntity", 
+                           "surfaceType",
+                           "testDate",
+                           "testMethod", 
+                           "specie",
+                           "colonyName",
+                           "sex",
+                           "gravid",
+                           "fed",
+                           "timeOnSurface",
+                           "surfacePostion", 
+                           "holdingTime",
+                           "quantityTested",
+                           "quantityDead",
+                           "quantityLive",
+                           "mortality"
+                           ];
     available = new MDSS.Set(<%= request.getAttribute("efficacyAttribs") %>);
     efficacyAttribs = Mojo.Iter.filter(efficacyAttribs, function(attrib){
         if(attrib === 'geoEntity')
