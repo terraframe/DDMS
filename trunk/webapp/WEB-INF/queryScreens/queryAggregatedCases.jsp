@@ -81,7 +81,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var aggregatedCase = new dss.vector.solutions.surveillance.AggregatedCase;
-    var aggregatedCaseAttribs = [ "startDate","endDate","geoEntity","ageGroup","cases","deaths","negativeCases","positiveCases"];
+    var aggregatedCaseAttribs = ["geoEntity", "startDate","endDate","ageGroup","cases","positiveCases","negativeCases","deaths"];
 
     var calculations = ([
                          {
