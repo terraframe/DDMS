@@ -1565,7 +1565,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     }
   },
   Static : {
-      mapAttribs : function(attribName,index){
+      mapAttribs : function(attribName){
        var attrib = this.obj.attributeMap[attribName];
        var row = {};
        if(attrib){

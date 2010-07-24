@@ -90,7 +90,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var premise = new dss.vector.solutions.entomology.CollectionPremise;
     //var container = new dss.vector.solutions.entomology.CollectionContainer;
 
-    var collectionAttribs = [ "startDate","endDate","collectionId","geoEntity"];
+    var collectionAttribs = ["geoEntity","startDate","endDate","collectionId"];
     <%
     Halp.setReadableAttributes(request, "collectionAttribs", ImmatureCollectionDTO.CLASS, requestIF);
     %>
@@ -98,19 +98,21 @@ YAHOO.util.Event.onDOMReady(function(){
     collectionAttribs = Mojo.Iter.filter(collectionAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
-    
+
+    // collection
     var collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_col', dropDownMaps:collectionMaps});
-
-    var premiseTaxonAttribs = [ "taxon"];
+    var colId = collectionColumns.pop();
     
-    var collectionColumns =   collectionColumns.concat(premiseTaxonAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pt, suffix:'_col', dropDownMaps:collectionMaps}));
-
-    var premiseAttribs = [ "numberExamined","numberInhabitants", "numberWithLarvae", "numberWithPupae", "numberWithImmatures", "premiseSize", "premiseType"];
+    var premiseTaxonCol = MDSS.QueryBaseNew.mapAttribs.call({obj:pt, suffix:'_col', dropDownMaps:collectionMaps}, "taxon");
     
-    var collectionColumns =   collectionColumns.concat(premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps}));
+    var premiseAttribs = [ "premiseType", "numberExamined", "numberWithLarvae", "numberWithPupae", "numberWithImmatures", "premiseSize", "numberInhabitants"];
+    var premiseAttribsColumns =   premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps});
+    var premiseTypeCol = premiseAttribsColumns.shift();
+    
+    collectionColumns = collectionColumns.concat([premiseTypeCol, premiseTaxonCol, colId], premiseAttribsColumns);
 
-//    var containerAttribs = [ "numberContainers","numberDestroyed", "numberImmatures", "numberLarvae","numberLarvaeCollected","numberPupae","numberPupaeCollected","numberWithLarvicide","numberWithWater"];
-    var containerAttribs = [ "number_containers","number_destroyed", "number_immatures", "number_larvae","number_larvae_collected","number_pupae","number_pupae_collected","number_with_larvicide","number_with_water"];
+    // container
+    var containerAttribs = [ "number_containers","number_with_water","number_destroyed","number_with_larvicide", "number_immatures", "number_larvae","number_pupae","number_larvae_collected","number_pupae_collected"];
     
     var containerColumns =   containerAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_cont', dropDownMaps:collectionMaps});
 
@@ -127,7 +129,53 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var indexes = ([
-                                       
+                    {
+                      
+                      key:"bi_lp",
+                      type:"sqlfloat",
+                      attributeName:"bi_lp",
+                      isAggregate:true
+                    },
+
+                    {
+                      
+                      key:"bi_l",
+                      type:"sqlfloat",
+                      attributeName:"bi_l",
+                      isAggregate:true
+                    },
+
+                    {
+                      
+                      key:"bi_p",
+                      type:"sqlfloat",
+                      attributeName:"bi_p",
+                      isAggregate:true
+                    },         
+
+                    {
+                      
+                      key:"ci_lp",
+                      type:"sqlfloat",
+                      attributeName:"ci_lp",
+                      isAggregate:true
+                    },
+
+                    {
+                      
+                      key:"ci_l",
+                      type:"sqlfloat",
+                      attributeName:"ci_l",
+                      isAggregate:true
+                    },
+                    
+                    {
+                      
+                      key:"ci_p",
+                      type:"sqlfloat",
+                      attributeName:"ci_p",
+                      isAggregate:true
+                    },                                                  
                          {
                            
                            key:"hi_lp",
@@ -153,66 +201,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
                          {
                            
-                           key:"ci_lp",
-                           type:"sqlfloat",
-                           attributeName:"ci_lp",
-                           isAggregate:true
-                         },
-
-                         {
-                           
-                           key:"ci_l",
-                           type:"sqlfloat",
-                           attributeName:"ci_l",
-                           isAggregate:true
-                         },
-                         
-                         {
-                           
-                           key:"ci_p",
-                           type:"sqlfloat",
-                           attributeName:"ci_p",
-                           isAggregate:true
-                         },
-                         {
-                           
-                           key:"bi_lp",
-                           type:"sqlfloat",
-                           attributeName:"bi_lp",
-                           isAggregate:true
-                         },
-
-                         {
-                           
-                           key:"bi_l",
-                           type:"sqlfloat",
-                           attributeName:"bi_l",
-                           isAggregate:true
-                         },
-
-                         {
-                           
-                           key:"bi_p",
-                           type:"sqlfloat",
-                           attributeName:"bi_p",
-                           isAggregate:true
-                         },
-
-                         {
-                           
                            key:"pi",
                            type:"sqlfloat",
                            attributeName:"pi",
                            isAggregate:true
                          },
-                         
-                 {
-                           
-                           key:"pppr",
-                           type:"sqlfloat",
-                           attributeName:"pppr",
-                           isAggregate:true
-                         },
+
 
                          {
                            
@@ -220,13 +214,21 @@ YAHOO.util.Event.onDOMReady(function(){
                            type:"sqlfloat",
                            attributeName:"ppha",
                            isAggregate:true
-                         },
+                         },                         
                          
                          {
                            
                            key:"pppe",
                            type:"sqlfloat",
                            attributeName:"pppe",
+                           isAggregate:true
+                         },
+
+                         {
+                           
+                           key:"pppr",
+                           type:"sqlfloat",
+                           attributeName:"pppr",
                            isAggregate:true
                          },
 
@@ -277,30 +279,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var calculations = ([
-                                       
-                         {
-                           
-                           key:"percent_water_holding_immatures",
-                           type:"sqlfloat",
-                           attributeName:"percent_water_holding_immatures",
-                           isAggregate:true
-                         },
 
-                         {
-                           
-                           key:"percent_water_holding_larvae",
-                           type:"sqlfloat",
-                           attributeName:"percent_water_holding_larvae",
-                           isAggregate:true
-                         },
-
-                         {
-                           
-                           key:"percent_water_holding_pupae",
-                           type:"sqlfloat",
-                           attributeName:"percent_water_holding_pupae",
-                           isAggregate:true
-                         },
                          
                          {
                            
@@ -325,7 +304,30 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                          },
 
+                         
+                         {
+                           
+                           key:"percent_water_holding_immatures",
+                           type:"sqlfloat",
+                           attributeName:"percent_water_holding_immatures",
+                           isAggregate:true
+                         },
 
+                         {
+                           
+                           key:"percent_water_holding_larvae",
+                           type:"sqlfloat",
+                           attributeName:"percent_water_holding_larvae",
+                           isAggregate:true
+                         },
+
+                         {
+                           
+                           key:"percent_water_holding_pupae",
+                           type:"sqlfloat",
+                           attributeName:"percent_water_holding_pupae",
+                           isAggregate:true
+                         },
 
                         ]);
     
