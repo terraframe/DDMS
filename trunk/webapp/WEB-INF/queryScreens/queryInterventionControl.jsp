@@ -243,12 +243,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
  
       var selectableGroups = [
-                {title:"Intervention_Control", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
+                {title:"Intervention_Monitoring", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Calculations", values:calculations, group:"ic", klass:controlIntervention.CLASS},
-                {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ip", klass:controlIntervention.CLASS},
-                {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ap", klass:controlIntervention.CLASS},
-                {title:"Person_Intervention", values:personInterventionColumns, group:"pi",klass:controlIntervention.CLASS},
-                {title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"ii",klass:controlIntervention.CLASS},
+                {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
+                {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
+                {title:"Person_Intervention", values:personInterventionColumns, group:"ic",klass:controlIntervention.CLASS},
+                {title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"ic",klass:controlIntervention.CLASS},
       ];
 
 
@@ -268,6 +268,38 @@ YAHOO.util.Event.onDOMReady(function(){
       dependent: 'unitQualifier_ii',
       type: MDSS.Dependent.BOTH,
       bidirectional: true
+    });
+
+
+    dm.excludes({
+      independent:calculations,
+      dependent:individualPremiseVisitColumns.concat(aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent:individualPremiseVisitColumns,
+      dependent:calculations.concat(aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent:aggregatedPremiseVisitColumns,
+      dependent:individualPremiseVisitColumns.concat(calculations,personInterventionColumns,insecticideInterventionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent:personInterventionColumns,
+      dependent:individualPremiseVisitColumns.concat(aggregatedPremiseVisitColumns,calculations,insecticideInterventionColumns),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent:insecticideInterventionColumns,
+      dependent:individualPremiseVisitColumns.concat(aggregatedPremiseVisitColumns,personInterventionColumns,calculations),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
     });
 });
 
