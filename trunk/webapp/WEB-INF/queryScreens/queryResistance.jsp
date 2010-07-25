@@ -122,10 +122,10 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);    
     var collectionColumns = [];    
 
-    var abstractAssayAttribs = ["specie","identificationMethod","generation","isofemale","exposureTime","testDate","quantityTested"];
-
     var adultAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
-    var adultAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","sex","fed","gravid","holdingTime","mortality","kd50","kd95","controlTestMortality"]);
+    var adultAttribs = ["specie","identificationMethod","generation","sex","isofemale","testDate","exposureTime",
+                        "holdingTime","quantityTested","fed","gravid","quantityLive","quantityDead","controlTestMortality",
+                        "mortality","kd50","kd95"];
     <%
     Halp.setReadableAttributes(request, "adultAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
     %>
@@ -146,7 +146,8 @@ YAHOO.util.Event.onDOMReady(function(){
        });
 
     var larvaeAssay = new  dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
-    var larvaeAttribs = abstractAssayAttribs.concat(["quantityLive","quantityDead","startPoint","endPoint","controlTestMortality","lt50","lt95","mortality"]);
+    var larvaeAttribs = ["specie","identificationMethod","generation","isofemale","startPoint","endPoint","testDate","exposureTime",
+                         "quantityTested","quantityLive","quantityDead","controlTestMortality","mortality","lt50","lt95"];
     <%
     Halp.setReadableAttributes(request, "larvaeAttribs", LarvaeDiscriminatingDoseAssayDTO.CLASS, requestIF);
     %>
@@ -167,7 +168,8 @@ YAHOO.util.Event.onDOMReady(function(){
        });
 
     var knockDownAssay = new  dss.vector.solutions.entomology.assay.KnockDownAssay();
-    var knockDownAttribs = abstractAssayAttribs.concat(["sex","fed","gravid","kd50","kd95"]);
+    var knockDownAttribs = ["specie","identificationMethod","generation","isofemale","sex","testDate","exposureTime",
+                            "quantityTested","fed","gravid","quantityLive","quantityDead","kd50","kd95"];
     <%
     Halp.setReadableAttributes(request, "knockDownAttribs", KnockDownAssayDTO.CLASS, requestIF);
     %>
@@ -188,7 +190,7 @@ YAHOO.util.Event.onDOMReady(function(){
        });
 
     var pooledAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
-    var pooledAttribs = abstractAssayAttribs;
+    var pooledAttribs = ["specie","identificationMethod","generation","isofemale","testDate","exposureTime","quantityTested"];
     <%
     Halp.setReadableAttributes(request, "pooledAttribs", AdultDiscriminatingDoseAssayDTO.CLASS, requestIF);
     %>
