@@ -110,15 +110,6 @@ YAHOO.util.Event.onDOMReady(function(){
                            attributeName:"total_premises_not_treated",
                            isAggregate:true
                          },
-                         /*
-                         {
-                           
-                           key:"total_person_days",
-                           type:"sqlfloat",
-                           attributeName:"total_person_days",
-                           isAggregate:true
-                         },*/
-                      
                          {
                            
                            key:"percent_premises_visited",//Percentage of premises that were visited
@@ -180,7 +171,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var controlInterventionColumns =   controlInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:controlIntervention, suffix:'_ci', dropDownMaps:{}});
 
-    controlInterventionColumns = controlInterventionColumns.concat(calculations);
+    //controlInterventionColumns = controlInterventionColumns.concat(calculations);
     
 
     var individualPremiseVisit = new dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
@@ -232,6 +223,7 @@ YAHOO.util.Event.onDOMReady(function(){
  
       var selectableGroups = [
                 {title:"Intervention_Control", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
+                {title:"Calculations", values:calculations, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ip", klass:controlIntervention.CLASS},
                 {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ap", klass:controlIntervention.CLASS},
                 {title:"Person_Intervention", values:personInterventionColumns, group:"pi",klass:controlIntervention.CLASS},
