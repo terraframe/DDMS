@@ -139,7 +139,13 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
     
     var physicianColumns = physicianAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_phy', dropDownMaps:{}, deref:{'firstName':'person.', 'lastName':'person.'}, type:Mojo.$.dss.vector.solutions.Physician.CLASS});
-
+    // Prepend with "Physician"
+    var physicianPrepend = MDSS.localize('Physician_Prepend');
+    for(var p=0; p<physicianColumns.length; p++)
+    {
+      physicianColumns[p].displayLabel = physicianPrepend+' '+physicianColumns[p].displayLabel;
+    }
+    
     var calculations = ([
                           {
                            
@@ -153,6 +159,7 @@ YAHOO.util.Event.onDOMReady(function(){
                            key:"cases",
                            type:"sqlinteger",
                            attributeName:"cases",
+                           displayLabel:MDSS.localize("Adjusted_Case_Count"),
                            isAggregate:true
                           },
                           {

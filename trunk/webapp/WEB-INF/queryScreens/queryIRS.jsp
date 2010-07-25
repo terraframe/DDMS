@@ -165,11 +165,15 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var insectcideAttribs = [
                              "productName",
-                             "concentrationQualifier",
+                             "activeIngredient",
                              "concentrationQuantifier",
-                             "activeIngredient","amount",
-                             "unitQualifier", "unitQuantifier",
-                             "unitsPerApplication", "useDetail"];
+                             "concentrationQualifier",
+                             "insecticideUse",
+                             "useDetail",
+                             "unitsPerApplication",
+                             "unitQuantifier",
+                             "unitQualifier",
+                             ];
     <%
     Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideBrandViewDTO.CLASS, requestIF);
     %>

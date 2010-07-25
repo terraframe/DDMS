@@ -152,7 +152,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var selectableGroups = [
               {title:"Efficacy", values:efficacyColumns, group:"eff", klass:Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS},
-              {title:"Insecticide", values:insectcideColumns, group:"eff", klass:Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS},
+              {title:"Insecticide_Detail", values:insectcideColumns, group:"eff", klass:Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS},
     ];
 
     var query = new MDSS.QueryEfficacyAssay(selectableGroups, queryList);

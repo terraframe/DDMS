@@ -120,52 +120,39 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var aggregatedCaseColumns =   aggregatedCaseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedCase, suffix:'_ac', dropDownMaps:{}});
 
-    //aggregatedCaseColumns = controlInterventionColumns.concat(calculations);
-        
-
-//    var caseTreatmentMethod = new dss.vector.solutions.surveillance.CaseTreatmentMethod;
-//    var caseTreatmentMethodAttribs = [];
-//    var caseTreatmentMethodColumns =   caseTreatmentMethodAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:caseTreatmentMethod, suffix:'_ic', dropDownMaps:{}});
     var caseTreatmentMethodColumns = orderedGrids.methods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.methods);
 
-//     var  treatment = new dss.vector.solutions.surveillance.CaseTreatment;
-//     var treatmentAttribs = [];
-//     var treatmentColumns =   treatmentAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:treatment, suffix:'_ip1', dropDownMaps:{}});
      var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
 
-//     var stock = new dss.vector.solutions.surveillance.CaseTreatmentStock;
-//     var stockAttribs = [];
-//     var stockColumns =   stockAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stock, suffix:'_ip2', dropDownMaps:{}});
      var stockColumns = orderedGrids.stocks.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stocks);
      
-//     var referral = new dss.vector.solutions.surveillance.CaseReferral;
-//     var referralAttribs = [];
-//     var referralColumns =   referralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:referral, suffix:'_ip3', dropDownMaps:{}});
      var referralColumns = orderedGrids.referrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.referrals);
 
-//     var stockReferral = new dss.vector.solutions.surveillance.CaseStockReferral;
-//     var stockReferralAttribs = [];
-//     var stockReferralColumns =   stockReferralAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockReferral, suffix:'_ip4', dropDownMaps:{}});
      var stockReferralColumns = orderedGrids.stockReferrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stockReferrals);
       
-//     var diagnostic = new dss.vector.solutions.surveillance.CaseDiagnostic;
-//     var diagnosticAttribs = [];
-//     var diagnosticColumns =  diagnosticAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip5', dropDownMaps:{}});
      var diagnosticColumns = orderedGrids.diagnostics.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.diagnostics);
 
-//     var diagnosticPositiveAttribs = [];
-//     var diagnosticPositiveColumns =  diagnosticPositiveAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:diagnostic, suffix:'_ip6', dropDownMaps:{}});
+     // Prepend with "Tested"
+     var ttDelim = ' '+MDSS.localize('Term_Separator')+' ';
+     var testedPrepend = MDSS.localize('Tested_Prepend')+ttDelim;
+     var positivePrepend = MDSS.localize('Positive_Prepend')+ttDelim;
+     
+     for(var l=0; l<diagnosticColumns.length; l++)
+     {
+       diagnosticColumns[l].displayLabel = testedPrepend+diagnosticColumns[l].displayLabel;
+     }
+
+     // Prepend with "Positive"
      var diagnosticPositiveColumns = orderedGrids.diagnosticsPositive.options.map(mapMo, orderedGrids.diagnosticsPositive);
      var diagnosticColumns = diagnosticColumns.concat(diagnosticPositiveColumns);
 
- 
 
      function mapMo(term,index){
 
         var row = {};
        
         row.dtoType = "AttributeIntegerDTO";
-        row.displayLabel = term.displayLabel+' ('+MDSS.localize('Amount_Positive')+')';
+        row.displayLabel = positivePrepend+term.displayLabel;
         
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;
         row.type = 'sqlinteger';
@@ -192,7 +179,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
         var key = row.attributeName+attributeName;
 
-        MDSS.Localized[key]= row.displayLabel + " " + stage.displayLabel;
+        MDSS.Localized[key]= row.displayLabel + ttDelim + stage.displayLabel;
         
       	calculations = calculations.concat([
                               
@@ -227,7 +214,7 @@ YAHOO.util.Event.onDOMReady(function(){
                            key:"totalCases",
                            type:"sqlfloat",
                            attributeName:"totalCases",
-                           displayLabel:MDSS.localize("cases"),
+                           displayLabel:MDSS.localize("Adjusted_Case_Count"),
                            isAggregate:true
                           },                     
                           {
