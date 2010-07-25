@@ -220,8 +220,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     return view;
   }
-  
-  
+
   /**
    * Takes in an XML string and returns a ValueQuery representing the structured
    * query in the XML.
@@ -248,170 +247,173 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
+    ControlInterventionQuery controlInterventionQuery = (ControlInterventionQuery) queryMap.get(ControlIntervention.CLASS);
+
+    IndividualPremiseVisitQuery individualPremiseVisitQuery = (IndividualPremiseVisitQuery) queryMap.get(IndividualPremiseVisit.CLASS);
+
     
-    ControlInterventionQuery controlInterventionQuery  = (ControlInterventionQuery) queryMap.get(ControlIntervention.CLASS);
-    
-    IndividualPremiseVisitQuery individualPremiseVisitQuery  = (IndividualPremiseVisitQuery) queryMap.get(IndividualPremiseVisit.CLASS);
-    
-    SelectableSQLCharacter subGeo = (SelectableSQLCharacter) valueQuery.getSelectableRef("subGeoEntity_ic");
-    if (subGeo != null)
+    if (individualPremiseVisitQuery == null)
     {
-      if (individualPremiseVisitQuery == null)
-      {
-        individualPremiseVisitQuery = new IndividualPremiseVisitQuery(valueQuery);
-        valueQuery.WHERE(individualPremiseVisitQuery.getId().NE("0"));
-      }
-      
-      QueryUtil.subselectGeoDisplayLabels(subGeo, IndividualPremiseVisit.CLASS, IndividualPremiseVisit.GEOENTITY, individualPremiseVisitQuery.getTableAlias()+"."+"id");
+      individualPremiseVisitQuery = new IndividualPremiseVisitQuery(valueQuery);
     }
-    
+    if (valueQuery.hasSelectableRef("subGeoEntity_ic"))
+    {
+      SelectableSQLCharacter subGeo = (SelectableSQLCharacter) valueQuery.getSelectableRef("subGeoEntity_ic");
+      valueQuery.WHERE(individualPremiseVisitQuery.getId().NE("0"));
+
+      QueryUtil.subselectGeoDisplayLabels(subGeo, IndividualPremiseVisit.CLASS, IndividualPremiseVisit.GEOENTITY, individualPremiseVisitQuery.getTableAlias() + "." + "id");
+    }
+
     if (individualPremiseVisitQuery != null)
     {
+
       QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,RelationshipDAOIF.PARENT_ID_COLUMN);
-     
+      Boolean needsJoin = QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+      if (needsJoin)
+      {
+        valueQuery.WHERE(individualPremiseVisitQuery.getId().NE("0"));
+      }
+
     }
-    //IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery  = (IndividualPremiseVisitMethodQuery) queryMap.get(IndividualPremiseVisitMethod.CLASS);
+    // IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery =
+    // (IndividualPremiseVisitMethodQuery)
+    // queryMap.get(IndividualPremiseVisitMethod.CLASS);
+
+    AggregatedPremiseVisitQuery aggregatedPremiseVisitQuery = (AggregatedPremiseVisitQuery) queryMap.get(AggregatedPremiseVisit.CLASS);
+
     
-    
-    AggregatedPremiseVisitQuery  aggregatedPremiseVisitQuery  = (AggregatedPremiseVisitQuery) queryMap.get(AggregatedPremiseVisit.CLASS);
-    
-    subGeo = (SelectableSQLCharacter) valueQuery.getSelectableRef("subGeoEntity_ip");
-    if (subGeo != null)
+    if (valueQuery.hasSelectableRef("subGeoEntity_ip"))
     {
+      SelectableSQLCharacter subGeo = (SelectableSQLCharacter) valueQuery.getSelectableRef("subGeoEntity_ip");
       if (aggregatedPremiseVisitQuery == null)
       {
         aggregatedPremiseVisitQuery = new AggregatedPremiseVisitQuery(valueQuery);
         valueQuery.WHERE(aggregatedPremiseVisitQuery.getId().NE("0"));
       }
-      
-      
-      QueryUtil.subselectGeoDisplayLabels(subGeo, AggregatedPremiseVisit.CLASS, AggregatedPremiseVisit.GEOENTITY, aggregatedPremiseVisitQuery.getTableAlias()+"."+"id");
+
+      QueryUtil.subselectGeoDisplayLabels(subGeo, AggregatedPremiseVisit.CLASS, AggregatedPremiseVisit.GEOENTITY, aggregatedPremiseVisitQuery.getTableAlias() + "." + "id");
     }
-    if ( aggregatedPremiseVisitQuery != null)
+    if (aggregatedPremiseVisitQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,RelationshipDAOIF.PARENT_ID_COLUMN);
-      
-     
+      QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+
     }
-    //AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery  = (AggregatedPremiseReasonQuery) queryMap.get(AggregatedPremiseReason.CLASS);
-    //AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery  = (AggregatedPremiseMethodQuery) queryMap.get(AggregatedPremiseMethod.CLASS);
-    
-    
-    PersonInterventionQuery personInterventionQuery  = (PersonInterventionQuery) queryMap.get(PersonIntervention.CLASS);
-    
-    if ( personInterventionQuery != null)
+    // AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery =
+    // (AggregatedPremiseReasonQuery)
+    // queryMap.get(AggregatedPremiseReason.CLASS);
+    // AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery =
+    // (AggregatedPremiseMethodQuery)
+    // queryMap.get(AggregatedPremiseMethod.CLASS);
+
+    PersonInterventionQuery personInterventionQuery = (PersonInterventionQuery) queryMap.get(PersonIntervention.CLASS);
+
+    if (personInterventionQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery,personInterventionQuery.getTableAlias());
+      QueryUtil.getSingleAttribteGridSql(valueQuery, personInterventionQuery.getTableAlias());
     }
-    
-    
-    //PersonInterventionMethodQuery personInterventionMethodQuery  = (PersonInterventionMethodQuery) queryMap.get(PersonInterventionMethod.CLASS);
-    
-    
-    
-    InsecticideInterventionQuery insecticideInterventionQuery  = (InsecticideInterventionQuery) queryMap.get(InsecticideIntervention.CLASS);
-    if ( insecticideInterventionQuery != null)
+
+    // PersonInterventionMethodQuery personInterventionMethodQuery =
+    // (PersonInterventionMethodQuery)
+    // queryMap.get(PersonInterventionMethod.CLASS);
+
+    InsecticideInterventionQuery insecticideInterventionQuery = (InsecticideInterventionQuery) queryMap.get(InsecticideIntervention.CLASS);
+    if (insecticideInterventionQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideIntervention.CLASS, insecticideInterventionQuery);
     }
-    
-    
-    InsecticideBrandQuery insecticideBrandQuery  = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
-    if ( insecticideBrandQuery != null)
+
+    InsecticideBrandQuery insecticideBrandQuery = (InsecticideBrandQuery) queryMap.get(InsecticideBrand.CLASS);
+    if (insecticideBrandQuery != null)
     {
-      
-      if ( insecticideInterventionQuery != null)
+
+      if (insecticideInterventionQuery != null)
       {
         valueQuery.WHERE(insecticideInterventionQuery.getInsecticide().EQ(insecticideBrandQuery));
       }
-      
-      QueryUtil.joinEnumerationDisplayLabels(valueQuery,  InsecticideBrand.CLASS, insecticideBrandQuery);
+
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
     }
 
-    boolean needsView = false; 
+    boolean needsView = false;
     MdEntityDAOIF visitMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseVisit.CLASS);
     String id = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.ID);
     String treated = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.TREATED);
     String premises = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.PREMISES);
     String visited = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.VISITED);
-    
-    String treatedSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + treated + "))";
-    String premisesSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + premises + "))";
-    String visitedSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + visited + "))";
-    
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", ""+visitedSum+"") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", ""+treatedSum) || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", ""+premisesSum+"-"+treatedSum) || needsView;
-    //needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_person_days", "total_person_days") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_visited", "("+visitedSum+"/NULLIF("+premisesSum+",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "("+treatedSum+"/NULLIF("+premisesSum+",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "("+treatedSum+"/NULLIF("+visitedSum+",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "(("+premisesSum+"-"+treatedSum+")/NULLIF("+visitedSum+",0.0))*100") || needsView;
+
+    String treatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + treated + "))";
+    String premisesSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + premises + "))";
+    String visitedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + visited + "))";
+
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", "" + visitedSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", "" + treatedSum) || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + premisesSum + "-" + treatedSum) || needsView;
+    // needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_person_days",
+    // "total_person_days") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_visited", "(" + visitedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "(" + treatedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "(" + treatedSum + "/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + premisesSum + "-" + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "childId_displayLabel", "childid_displaylabel") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "method_qty", "SUM(used)") || needsView;
-    
-    
-    
+
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
-    if( needsView)
-    { 
-      
-      
+    if (needsView)
+    {
+
       MdEntityDAOIF individualVisit = MdEntityDAO.getMdEntityDAO(IndividualPremiseVisitMethod.CLASS);
 
       String used = QueryUtil.getColumnName(individualVisit, IndividualPremiseVisitMethod.USED);
-      //String aggCase = QueryUtil.getColumnName(individualVisit, CasePatientType.AGGREGATEDCASE);
-      MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseMethod.CLASS );
+      // String aggCase = QueryUtil.getColumnName(individualVisit,
+      // CasePatientType.AGGREGATEDCASE);
+      MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseMethod.CLASS);
 
       String amount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
-      //String id = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmount.ID);
+      // String id = QueryUtil.getColumnName(ammountMd,
+      // CasePatientTypeAmount.ID);
       String child_id = "child_id";
       String parent_id = "parent_id";
       String aggVisitTable = MdBusiness.getMdBusiness(AggregatedPremiseVisit.CLASS).getTableName();
       String aggVisitMethodTable = MdEntity.getMdEntity(AggregatedPremiseMethod.CLASS).getTableName();
       String individualVisitTable = MdBusiness.getMdEntity(IndividualPremiseVisit.CLASS).getTableName();
       String individualVisitMethodTable = MdEntity.getMdEntity(IndividualPremiseVisitMethod.CLASS).getTableName();
-      
-      
-      
-      String viewSql = "SELECT  point, 1 as "+premises+", "+visited+" , "+treated+", "+used+", individual_premise_visit_metho.parent_id as visit, \n";
+
+      String viewSql = "SELECT  point, 1 as " + premises + ", " + visited + " , " + treated + ", " + used + ", individual_premise_visit_metho.parent_id as visit, \n";
       viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel\n";
-      viewSql += " FROM "+individualVisitTable+" individual_premise_visit , "+individualVisitMethodTable+" individual_premise_visit_metho  LEFT JOIN term as term0 on individual_premise_visit_metho.child_id = term0.id\n";
+      viewSql += " FROM " + individualVisitTable + " individual_premise_visit , " + individualVisitMethodTable + " individual_premise_visit_metho  LEFT JOIN term as term0 on individual_premise_visit_metho.child_id = term0.id\n";
       viewSql += " WHERE  individual_premise_visit_metho.parent_id = individual_premise_visit.id\n";
       viewSql += " UNION ALL\n";
-      viewSql += " SELECT  point,"+premises+", "+visited+" , "+treated+", "+amount+", aggregated_premise_method.parent_id as visit, \n";
+      viewSql += " SELECT  point," + premises + ", " + visited + " , " + treated + ", " + amount + ", aggregated_premise_method.parent_id as visit, \n";
       viewSql += " aggregated_premise_method.child_id as id,  term0.name as childId_displayLabel\n";
-      viewSql += " FROM "+aggVisitTable+" aggregated_premise_visit , "+aggVisitMethodTable+" aggregated_premise_method  LEFT JOIN term as term0 on aggregated_premise_method.child_id = term0.id\n";
+      viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " aggregated_premise_method  LEFT JOIN term as term0 on aggregated_premise_method.child_id = term0.id\n";
       viewSql += " WHERE  aggregated_premise_method.parent_id = aggregated_premise_visit.id\n";
-      
-      
-      //(SELECT collection_container.id , term0.name as childId_displayLabel FROM collection_container 
-      //as collection_container LEFT JOIN term as term0 on collection_container.child_id = term0.id) dss_vector_solutions_entomology_CollectionContainerTermSubSel 
-      
-      String view = "dss_vector_solutions_intervention_monitor_IndividualPremiseVisitTermSubSel";    
-      
-      valueQuery.setSqlPrefix("WITH "+view+" AS (" + viewSql + ")");
+
+      // (SELECT collection_container.id , term0.name as childId_displayLabel
+      // FROM collection_container
+      // as collection_container LEFT JOIN term as term0 on
+      // collection_container.child_id = term0.id)
+      // dss_vector_solutions_entomology_CollectionContainerTermSubSel
+
+      String view = "dss_vector_solutions_intervention_monitor_IndividualPremiseVisitTermSubSel";
+
+      valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
       valueQuery.AND(new InnerJoinEq("id", controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
     }
-    
-    
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery, ControlIntervention.CLASS, controlInterventionQuery );
+
+    QueryUtil.joinGeoDisplayLabels(valueQuery, ControlIntervention.CLASS, controlInterventionQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-      
-    
+
     return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate());
 
   }
-  
+
   static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)
   {
     if (valueQuery.hasSelectableRef(ref))
@@ -423,7 +425,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         Function f = (Function) s;
         s = f.getSelectable();
       }
-      
+
       ( (SelectableSQL) s ).setSQL(sql);
       return true;
     }
