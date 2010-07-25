@@ -740,7 +740,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String sql = "(SUM(" + posCasesCol + ")";
     sql += "+";
     sql += "(SUM(" + casesCol + ") * SUM(" + posCasesCol + ")/";
-    sql += "(SUM(" + posCasesCol + ") + SUM(" + negCasesCol + "))))";
+    sql += "NULLIF(SUM(COALESCE(" + posCasesCol + ",0)) + SUM(COALESCE(" + negCasesCol + ",0)),0.0)))";
 
     return sql;
   }
