@@ -175,15 +175,36 @@ YAHOO.util.Event.onDOMReady(function(){
     
 
     var individualPremiseVisit = new dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
-    var individualPremiseVisitAttribs = [ "geoEntity","visited","treated","reasonsForNotTreated"];
-    var individualPremiseVisitColumns =   individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps});
+    var individualPremiseVisitAttribs = [ "visited","treated","reasonsForNotTreated"];
 
+    var individualPremiseVisitColumns = [{
+      key:"subGeoEntity_ic",
+      displayLabel: MDSS.localize('Sub_Geo_Entity'),
+      type:"sqlcharacter",
+      attributeName:"subGeoEntity",
+      dtoType:"AttributeCharacterDTO",
+      isGeoEntity : true
+      }];
+    individualPremiseVisitColumns =   individualPremiseVisitColumns.concat(individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps}));
+
+
+
+    
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
 
     
     var aggregatedPremiseVisit = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
-    var aggregatedPremiseVisitAttribs = [ "geoEntity","vehicleCoverage","premises","visited","treated"];
-    var aggregatedPremiseVisitColumns =   aggregatedPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedPremiseVisit, suffix:'_ip', dropDownMaps:aggregatedPremiseVisitMaps});
+    var aggregatedPremiseVisitAttribs = [ "vehicleCoverage","premises","visited","treated"];
+
+    var aggregatedPremiseVisitColumns = [{
+      key:"subGeoEntity_ip",
+      displayLabel: MDSS.localize('Sub_Geo_Entity'),
+      type:"sqlcharacter",
+      attributeName:"subGeoEntity",
+      dtoType:"AttributeCharacterDTO",
+      isGeoEntity : true
+      }];
+    aggregatedPremiseVisitColumns =   aggregatedPremiseVisitColumns.concat(aggregatedPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedPremiseVisit, suffix:'_ip', dropDownMaps:aggregatedPremiseVisitMaps}));
     
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionReasons));
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionMethods));
