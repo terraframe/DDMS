@@ -154,14 +154,15 @@ YAHOO.util.Event.onDOMReady(function(){
        dmCalcs[lid].push(lidCalc);
        dmCalcs[fillMethod].push(fillMethodCalc);
        dmCalcs[drawDownFrequency].push(drawDownFrequencyCalc);
-       
+
+       var suffix = ' '+MDSS.localize('Term_Separator')+' '+term.displayLabel;
        var calculations = ([
                             
                             row,
                             {
                               key:"pupae_per_hectare_by_taxon_"+row.attributeName,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('pupae_per_hectare_by_taxon'),
+                              displayLabel:MDSS.localize('pupae_per_hectare_by_taxon')+ suffix,
                               attributeName:"pupae_per_hectare_by_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
@@ -169,14 +170,14 @@ YAHOO.util.Event.onDOMReady(function(){
                             {
                               key:"pupae_per_person_per_taxon_"+row.attributeName,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('pupae_per_person_per_taxon'),
+                              displayLabel:MDSS.localize('pupae_per_person_per_taxon')+ suffix,
                               attributeName:"pupae_per_person_per_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },                            
                             {
                               key:"pupae_per_premise_by_taxon_"+row.attributeName,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('pupae_per_premise_by_taxon'),
+                              displayLabel:MDSS.localize('pupae_per_premise_by_taxon')+  suffix,
                               attributeName:"pupae_per_premise_by_taxonrow__"+row.attributeName,
                               isAggregate:true
                             },
@@ -184,35 +185,35 @@ YAHOO.util.Event.onDOMReady(function(){
                             {
                               key:"percent_pupae_contribution_"+row.attributeName,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('percent_pupae_contribution'),
+                              displayLabel:MDSS.localize('percent_pupae_contribution')+ suffix,
                               attributeName:"percent_pupae_contributionrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
                               key:containerTypeCalc,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('percent_pupae_contribution_by_type'),
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_type')+  suffix,
                               attributeName:"percent_pupae_contribution_by_typerow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
                               key:lidCalc,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('percent_pupae_contribution_by_lid'),
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_lid')+  suffix,
                               attributeName:"percent_pupae_contribution_by_lidrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
                               key:fillMethodCalc,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('percent_pupae_contribution_by_fill'),
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_fill')+ suffix,
                               attributeName:"percent_pupae_contribution_by_fillrow__"+row.attributeName,
                               isAggregate:true
                             },
                             {
                               key:drawDownFrequencyCalc,
                               type:"sqlfloat",
-                              displayLabel:MDSS.localize('percent_pupae_contribution_by_frequency'),
+                              displayLabel:MDSS.localize('percent_pupae_contribution_by_frequency')+  suffix,
                               attributeName:"percent_pupae_contribution_by_frequencyrow__"+row.attributeName,
                               isAggregate:true
                             }
