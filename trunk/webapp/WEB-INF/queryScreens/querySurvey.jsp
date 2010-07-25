@@ -135,6 +135,7 @@ YAHOO.util.Event.onDOMReady(function(){
           key:"prevalence",
           type:"sqlfloat",
           attributeName:"prevalence",
+          displayLabel:MDSS.localize('Prevalence_Survey'),
           isAggregate:true
         },
         ]);
