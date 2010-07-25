@@ -19,6 +19,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
+import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
@@ -252,23 +253,47 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     
     IndividualPremiseVisitQuery individualPremiseVisitQuery  = (IndividualPremiseVisitQuery) queryMap.get(IndividualPremiseVisit.CLASS);
     
+    SelectableSQLCharacter subGeo = (SelectableSQLCharacter) valueQuery.getSelectableRef("subGeoEntity_ic");
+    if (subGeo != null)
+    {
+      if (individualPremiseVisitQuery == null)
+      {
+        individualPremiseVisitQuery = new IndividualPremiseVisitQuery(valueQuery);
+        valueQuery.WHERE(individualPremiseVisitQuery.getId().NE("0"));
+      }
+      
+      QueryUtil.subselectGeoDisplayLabels(subGeo, IndividualPremiseVisit.CLASS, IndividualPremiseVisit.GEOENTITY, individualPremiseVisitQuery.getTableAlias()+"."+"id");
+    }
+    
     if (individualPremiseVisitQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery);
       QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,RelationshipDAOIF.PARENT_ID_COLUMN);
-     // QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery );
+     
     }
     //IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery  = (IndividualPremiseVisitMethodQuery) queryMap.get(IndividualPremiseVisitMethod.CLASS);
     
     
     AggregatedPremiseVisitQuery  aggregatedPremiseVisitQuery  = (AggregatedPremiseVisitQuery) queryMap.get(AggregatedPremiseVisit.CLASS);
     
-    
+    subGeo = (SelectableSQLCharacter) valueQuery.getSelectableRef("subGeoEntity_ip");
+    if (subGeo != null)
+    {
+      if (aggregatedPremiseVisitQuery == null)
+      {
+        aggregatedPremiseVisitQuery = new AggregatedPremiseVisitQuery(valueQuery);
+        valueQuery.WHERE(aggregatedPremiseVisitQuery.getId().NE("0"));
+      }
+      
+      
+      QueryUtil.subselectGeoDisplayLabels(subGeo, AggregatedPremiseVisit.CLASS, AggregatedPremiseVisit.GEOENTITY, aggregatedPremiseVisitQuery.getTableAlias()+"."+"id");
+    }
     if ( aggregatedPremiseVisitQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery);
       QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,RelationshipDAOIF.PARENT_ID_COLUMN);
-      //QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery );
+      
+     
     }
     //AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery  = (AggregatedPremiseReasonQuery) queryMap.get(AggregatedPremiseReason.CLASS);
     //AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery  = (AggregatedPremiseMethodQuery) queryMap.get(AggregatedPremiseMethod.CLASS);
