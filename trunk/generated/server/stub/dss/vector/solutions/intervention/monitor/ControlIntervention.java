@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.Function;
@@ -254,7 +255,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     if (individualPremiseVisitQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery,individualPremiseVisitQuery.getTableAlias());
+      QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,RelationshipDAOIF.PARENT_ID_COLUMN);
+     // QueryUtil.joinGeoDisplayLabels(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery );
     }
     //IndividualPremiseVisitMethodQuery individualPremiseVisitMethodQuery  = (IndividualPremiseVisitMethodQuery) queryMap.get(IndividualPremiseVisitMethod.CLASS);
     
@@ -265,7 +267,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     if ( aggregatedPremiseVisitQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedPremiseVisitQuery.getTableAlias());
+      QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,RelationshipDAOIF.PARENT_ID_COLUMN);
+      //QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery );
     }
     //AggregatedPremiseReasonQuery aggregatedPremiseReasonQuery  = (AggregatedPremiseReasonQuery) queryMap.get(AggregatedPremiseReason.CLASS);
     //AggregatedPremiseMethodQuery aggregatedPremiseMethodQuery  = (AggregatedPremiseMethodQuery) queryMap.get(AggregatedPremiseMethod.CLASS);
@@ -341,7 +344,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseMethod.CLASS );
 
       String amount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
-  //    String id = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmount.ID);
+      //String id = QueryUtil.getColumnName(ammountMd, CasePatientTypeAmount.ID);
       String child_id = "child_id";
       String parent_id = "parent_id";
       String aggVisitTable = MdBusiness.getMdBusiness(AggregatedPremiseVisit.CLASS).getTableName();
