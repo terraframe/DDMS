@@ -55,6 +55,10 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         {
           return 'dss.vector.solutions.intervention.monitor.ControlInterventionView';
         }
+        else if(type === 'dss.vector.solutions.intervention.monitor.InsecticideIntervention')
+        {
+          return 'dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView';
+        }
         else
         {
           return this.$_getBrowserRootClass(attribute);
