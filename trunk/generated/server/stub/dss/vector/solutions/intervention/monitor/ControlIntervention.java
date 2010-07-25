@@ -12,13 +12,10 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -357,7 +354,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "(" + treatedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "(" + treatedSum + "/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + premisesSum + "-" + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "childId_displayLabel", "childid_displaylabel") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "childId", "childid_displaylabel") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "method_qty", "SUM(used)") || needsView;
 
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
@@ -414,22 +411,6 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
   }
 
-  static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)
-  {
-    if (valueQuery.hasSelectableRef(ref))
-    {
-      Selectable s = valueQuery.getSelectableRef(ref);
 
-      while (s instanceof Function)
-      {
-        Function f = (Function) s;
-        s = f.getSelectable();
-      }
-
-      ( (SelectableSQL) s ).setSQL(sql);
-      return true;
-    }
-    return false;
-  }
 
 }
