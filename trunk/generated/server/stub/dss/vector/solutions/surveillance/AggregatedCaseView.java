@@ -83,7 +83,7 @@ public class AggregatedCaseView extends AggregatedCaseViewBase implements com.ru
     new AttributeNotificationMap(concrete, AggregatedCase.GEOENTITY, this, AggregatedCaseView.GEOENTITY);
     new AttributeNotificationMap(concrete, AggregatedCase.STARTDATE, this, AggregatedCaseView.STARTDATE);
     new AttributeNotificationMap(concrete, AggregatedCase.ENDDATE, this, AggregatedCaseView.ENDDATE);
-    new AttributeNotificationMap(concrete, AggregatedCase.CASES, this, AggregatedCaseView.ENDDATE);
+    new AttributeNotificationMap(concrete, AggregatedCase.CASES, this, AggregatedCaseView.CASES);
     new AttributeNotificationMap(concrete, AggregatedCase.NEGATIVECASES, this, AggregatedCaseView.NEGATIVECASES);
     new AttributeNotificationMap(concrete, AggregatedCase.POSITIVECASES, this, AggregatedCaseView.POSITIVECASES);
   }
