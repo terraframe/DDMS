@@ -131,28 +131,28 @@ public class PermissionImporter implements Reloadable
             {
               role.addAscendant(writeRoleDAO);
             }
-            catch(DuplicateGraphPathException e)
+            catch (DuplicateGraphPathException e)
             {
               // Do nothing
             }
-            catch(DataNotFoundException e)
+            catch (DataNotFoundException e)
             {
               // Do nothing
             }
-            
+
             try
             {
               role.addAscendant(readRoleDAO);
             }
-            catch(DuplicateGraphPathException e)
-            {
-              //Do nothing
-            }
-            catch(DataNotFoundException e)
+            catch (DuplicateGraphPathException e)
             {
               // Do nothing
             }
-            
+            catch (DataNotFoundException e)
+            {
+              // Do nothing
+            }
+
           }
           else if (action.equalsIgnoreCase("R"))
           {
@@ -160,11 +160,11 @@ public class PermissionImporter implements Reloadable
             {
               role.addAscendant(readRoleDAO);
             }
-            catch(DuplicateGraphPathException e)
+            catch (DuplicateGraphPathException e)
             {
-              //Do nothing
+              // Do nothing
             }
-            catch(DataNotFoundException e)
+            catch (DataNotFoundException e)
             {
               // Do nothing
             }
@@ -235,31 +235,11 @@ public class PermissionImporter implements Reloadable
 
     if (key != null && key.length() > 0)
     {
-      MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
+      MdAttributeDAOIF mdAttributeDAO = MdAttributeDAO.getByKey(key);
 
-      if (mdAttribute != null)
+      if (mdAttributeDAO != null)
       {
-
-        if (diseaseName != null && diseaseName.length() > 0)
-        {
-          MdDimensionDAOIF mdDimension = this.mdDimensions.get(diseaseName);
-          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-
-          role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
-        }
-        else
-        {
-          Set<String> keys = mdDimensions.keySet();
-
-          for (String dimensionKey : keys)
-          {
-            MdDimensionDAOIF mdDimension = mdDimensions.get(dimensionKey);
-
-            MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-
-            role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
-          }
-        }
+        this.setVisibility(role, diseaseName, mdAttributeDAO);
       }
       else
       {
@@ -267,6 +247,38 @@ public class PermissionImporter implements Reloadable
       }
     }
 
+  }
+
+  private void setVisibility(RoleDAO role, String diseaseName, MdAttributeDAOIF mdAttributeDAO)
+  {
+    List<MdAttributeDAOIF> list = new LinkedList<MdAttributeDAOIF>();
+
+    list.add(mdAttributeDAO);
+    list.add(mdAttributeDAO.getMdAttributeConcrete());
+
+    for (MdAttributeDAOIF mdAttribute : list)
+    {
+      if (diseaseName != null && diseaseName.length() > 0)
+      {
+        MdDimensionDAOIF mdDimension = this.mdDimensions.get(diseaseName);
+        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+
+        role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
+      }
+      else
+      {
+        Set<String> keys = mdDimensions.keySet();
+
+        for (String dimensionKey : keys)
+        {
+          MdDimensionDAOIF mdDimension = mdDimensions.get(dimensionKey);
+
+          MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
+
+          role.grantPermission(Operation.DENY_READ, mdAttributeDimension.getId());
+        }
+      }
+    }
   }
 
   private void readURLRow(HSSFRow row)
