@@ -44,7 +44,7 @@ public class LoginFilter implements Filter, Reloadable
 //          if (cookie != null && cookie.getName().equals("PrevLoadTime"))
 //          {
 //            filterConfig.getServletContext().log(cookie.getValue());
-//            System.out.println(cookie.getValue());
+//            MdssLog.debug(cookie.getValue());
 //            cookie.setValue("");
 //            cookie.setMaxAge(-1);
 //            httpRes.addCookie(cookie);

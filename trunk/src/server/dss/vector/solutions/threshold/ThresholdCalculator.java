@@ -11,6 +11,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Statistics;
 import dss.vector.solutions.general.CalculationInProgressException;
 import dss.vector.solutions.general.EpiDate;
@@ -150,7 +151,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 			while (it.hasNext()) {
 				GeoEntity geoEntity = it.next();
 				if (testingLimiter == null || testingLimiter.equals(geoEntity.getGeoId())) {
-					// System.out.println(geoEntity.getEntityName());
+					// MdssLog.debug(geoEntity.getEntityName());
 					this.calculateThresholds(calculationPeriod, geoEntity);
 					this.completedCount++;
 				}
@@ -165,7 +166,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 		ThresholdCalculationMethod t1Method = this.calculationType.getT1Method().get(0);
 		ThresholdCalculationMethod t2Method = this.calculationType.getT2Method().get(0);
 
-		System.out.println("Calculating thresholds: " + calculationPeriod.startingEpiWeek.getActualPeriod() + "/" + calculationPeriod.startingEpiWeek.getActualYear() + " - " + calculationPeriod.endingEpiWeek.getActualPeriod() + "/" + calculationPeriod.endingEpiWeek.getActualYear());
+		MdssLog.debug("Calculating thresholds: " + calculationPeriod.startingEpiWeek.getActualPeriod() + "/" + calculationPeriod.startingEpiWeek.getActualYear() + " - " + calculationPeriod.endingEpiWeek.getActualPeriod() + "/" + calculationPeriod.endingEpiWeek.getActualYear());
 		if (!calculationPeriod.startingEpiWeek.getEndDate().after(calculationPeriod.endingEpiWeek.getEndDate())) {
 			// For EACH EpiWeek in the calculation period
 			for (EpiDate currentEpiWeek = calculationPeriod.startingEpiWeek; !currentEpiWeek.getStartDate().after(calculationPeriod.endingEpiWeek.getStartDate()); currentEpiWeek = currentEpiWeek.getNext()) {
@@ -275,10 +276,10 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 			double seasonalMean = totalCases / (double) (this.calculationType.getWeeksBefore() + this.calculationType.getWeeksAfter() + 1);
 			weightedSeasonalMeans[i] = seasonalMean * this.calculationType.getWeights()[i] * (double) this.calculationType.getPriorYears() / sumOfWeights;
 
-			// System.out.println("COUNT for " + thisYear + " (" +
+			// MdssLog.debug("COUNT for " + thisYear + " (" +
 			// initialWeek.getStartDate() + "-" + finalWeek.getEndDate() +
 			// ") = " + query.getCount());
-			// System.out.println("WSM for " + thisYear + " = " +
+			// MdssLog.debug("WSM for " + thisYear + " = " +
 			// weightedSeasonalMeans[i]);
 		}
 
@@ -364,13 +365,13 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 	protected ThresholdData getThresholdData(GeoEntity geoEntity, MalariaSeason season) {
 		ThresholdData td = ThresholdData.getThresholdData(geoEntity, season);
 		if (td == null) {
-			// System.out.println("Creating Threshold Data");
+			// MdssLog.debug("Creating Threshold Data");
 			td = new ThresholdData();
 			td.setGeoEntity(geoEntity);
 			td.setSeason(season);
 			td.apply();
 		}
-		// System.out.println(td);
+		// MdssLog.debug(td);
 		return td;
 
 	}

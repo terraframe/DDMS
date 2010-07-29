@@ -221,7 +221,7 @@ public class PopulationData extends PopulationDataBase implements com.runwaysdk.
   @Transaction
   public static long calculateAnnualPopulation(String geoId, int year)
   {
-    // System.out.println("---------" + year + "---------");
+    // MdssLog.debug("---------" + year + "---------");
     long population = -1L;
 
     // Get all of the population data records that are for the year we requested
@@ -244,7 +244,7 @@ public class PopulationData extends PopulationDataBase implements com.runwaysdk.
       while (i.hasNext() && !finished)
       {
         PopulationData pd = i.next();
-        // System.out.println("DB " + pd.getGeoEntity().getGeoId() + "\t" +
+        // MdssLog.debug("DB " + pd.getGeoEntity().getGeoId() + "\t" +
         // pd.getYearOfData() + "\t" + pd.getPopulation() + "\t" +
         // pd.getGrowthRate());
 

@@ -37,6 +37,7 @@ import com.runwaysdk.system.metadata.MdEntity;
 import com.vividsolutions.jts.geom.Geometry;
 
 import dss.vector.solutions.DefaultGeoEntity;
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -125,7 +126,7 @@ public class GeoEntityImporter {
 	@Transaction
 	private void deleteGeoEntities() {
 		//this.deleteAllTableRecords(AllPaths.CLASS);
-		System.out.println("Deleting GeoEntities ");
+		MdssLog.debug("Deleting GeoEntities ");
 
 		int applyCount = 0;
 
@@ -147,7 +148,7 @@ public class GeoEntityImporter {
 			geoEntity.delete();
 		}
 
-		System.out.println("\nFINISHED\n");
+		MdssLog.debug("Finished deleting GeoEntities");
 	}
 
 	@StartSession
@@ -209,7 +210,7 @@ public class GeoEntityImporter {
 
 	@Transaction
 	private void createLocatedInRelationships() throws Exception {
-		System.out.println("Creating GeoEntity LocatedIn Relationships ");
+		MdssLog.debug("Creating GeoEntity LocatedIn Relationships ");
 
 		int applyCount = 0;
 
@@ -234,7 +235,7 @@ public class GeoEntityImporter {
 					try {
 						parentGeoEntity = GeoEntity.searchByGeoId(locatedIn);
 					} catch (InvalidIdException iie) {
-						System.out.println("\nWARNING: Parent" + locatedIn + " not found for child " + geoId);
+						MdssLog.warn("Parent" + locatedIn + " not found for child " + geoId);
 						parentGeoEntity = Earth.getEarthInstance();
 					}
 				} else {
@@ -266,7 +267,7 @@ public class GeoEntityImporter {
 				statement.close();
 			}
 		}
-		System.out.println("\nFINISHED\n");
+		MdssLog.debug("Finished Creating GeoEntity LocatedIn Relationships");
 	}
 
 	private String appendFileteredUniversalClause() {
@@ -306,13 +307,13 @@ public class GeoEntityImporter {
 	 * GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "
 	 */
 	private void createGeoEntities() throws Exception {
-		System.out.println("Creating GeoEntities ");
+		MdssLog.debug("Creating GeoEntities ");
 
 		int applyCount = 0;
 
 		String sql = " SELECT geom." + GEOM_MULTILINESTRING + ", geom." + GEOM_POINT + ", geom." + GEOM_MULTIPOLYGON + ",\n" + "        rel." + INSTANCE_OF + ", rel." + GEO_ID + ",\n" + "        ent." + GEO_NAME + ", ent." + ENTITY_ID + "\n" + "   FROM " + GEOGRAPHIC_ENTITIES_RELATIONS + " rel,\n" + "        " + GEOGRAPHIC_ENTITIES + " ent LEFT JOIN " + GEOGRAPHIC_ENTITIES_GEOMETRY + " geom ON ent." + GEO_ID + " = geom." + GEO_ID + "\n" + "  WHERE rel." + GEO_ID + " = ent." + GEO_ID + "\n" + appendFileteredUniversalClause();
 
-		System.out.println(sql);
+		MdssLog.debug(sql);
 		Statement statement = null;
 		ResultSet resultSet = null;
 		
@@ -360,12 +361,12 @@ public class GeoEntityImporter {
 						//businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, geometryHelper.getGeoMultiPolygon(g));
 					}
 				} catch (Exception e) {
-					System.out.println(geoName + "  geoId: " + geoId + "  type: " + type);
+					MdssLog.error(geoName + "  geoId: " + geoId + "  type: " + type, e);
 					throw e;
 				}
 
-				// System.out.println(geoPoint);
-				// System.out.println(geoMultiPolygon);
+				// MdssLog.debug(geoPoint);
+				// MdssLog.debug(geoMultiPolygon);
 				System.out.print(".");
 
 				applyCount++;
@@ -410,7 +411,7 @@ public class GeoEntityImporter {
 		  // No match found ... keep the current default
 		}
 		
-		System.out.println("\nFINISHED\n");
+		MdssLog.debug("Finished Creating GeoEntities");
 	}
 
 	@Transaction

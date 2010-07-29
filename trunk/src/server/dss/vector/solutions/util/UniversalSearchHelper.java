@@ -9,6 +9,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.StartSession;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.Earth;
@@ -47,7 +48,7 @@ public class UniversalSearchHelper implements Reloadable {
 	
 	@Transaction
 	public void createSearch(GeoHierarchy universal) {
-		System.out.println(universal);
+		MdssLog.debug(universal);
 		this.deleteSearch(universal);
 
 		SavedSearch search = new SavedSearch();

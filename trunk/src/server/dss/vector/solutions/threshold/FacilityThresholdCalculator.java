@@ -48,8 +48,7 @@ public class FacilityThresholdCalculator extends ThresholdCalculator implements 
 		ValueQuery valueQuery = new ValueQuery(factory);
 		AggregatedCaseQuery caseQuery = new AggregatedCaseQuery(factory);
 
-		// System.out.println("From: " + initialWeek.getStartDate());
-		// System.out.println("  To: " + finalWeek.getEndDate());
+        // MdssLog.debug("From: " + initialWeek.getStartDate() + "\n  To: " + finalWeek.getEndDate());
 		valueQuery.SELECT(F.SUM(caseQuery.getPositiveCases(), "positiveCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getNegativeCases(), "negativeCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));

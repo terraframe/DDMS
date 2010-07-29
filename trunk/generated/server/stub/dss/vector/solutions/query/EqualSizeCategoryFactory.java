@@ -3,6 +3,8 @@ package dss.vector.solutions.query;
 import java.util.ArrayList;
 import java.util.List;
 
+import dss.vector.solutions.MdssLog;
+
 public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 137489069;
 
@@ -39,7 +41,7 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 		double min = this.floor(dataMin, ulp);
 		double max = this.ceil(dataMax, ulp);
 		double step = (max - min) / (double) count;
-		System.out.println("min=" + min + " max=" + max + " step=" + step);
+		MdssLog.debug("min=" + min + " max=" + max + " step=" + step);
 
 		// If min and max are the same value create a single range with that
 		// value

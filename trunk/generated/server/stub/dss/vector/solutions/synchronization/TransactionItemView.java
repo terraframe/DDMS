@@ -6,6 +6,8 @@ import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.system.transaction.TransactionRecord;
 import com.runwaysdk.system.transaction.TransactionRecordQuery;
 
+import dss.vector.solutions.MdssLog;
+
 public class TransactionItemView extends TransactionItemViewBase implements Reloadable
 {
   private static final long serialVersionUID = -424846230;
@@ -47,7 +49,7 @@ public class TransactionItemView extends TransactionItemViewBase implements Relo
     
     query.restrictRows(pageSize, pageNumber);
 
-    System.out.println(query.getSQL());
+    MdssLog.debug(query.getSQL());
 
     return query;
   }

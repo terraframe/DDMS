@@ -231,7 +231,7 @@ public class MenuGenerator implements Reloadable {
 	    	    "where ap." + allPathsParentTermCol + " = '" + disease.getMenuRoot().getId() + "'" + "\n" + 
 	    	")";
 		query.FROM(from,"");
-		//System.out.println(query.getSQL());
+		//MdssLog.debug(query.getSQL());
 		return query;
 	}
 	
@@ -273,7 +273,7 @@ public class MenuGenerator implements Reloadable {
 
 		ValueQuery query = this.getMenuQuery(this.disease);
 		OIterator<ValueObject> i = query.getIterator();
-		//System.out.println(query.getSQL());
+		//MdssLog.debug(query.getSQL());
 		try {
 			for (ValueObject valueObject : i) {
 				String ancestorId = valueObject.getValue(ANCESTOR_ID);
@@ -302,7 +302,7 @@ public class MenuGenerator implements Reloadable {
 			if (parent != null && child != null) {
 				parent.addChild(child);
 			} else {
-				// System.out.println(e.getKey() + "->" + e.getValue());
+				// MdssLog.debug(e.getKey() + "->" + e.getValue());
 			}
 		}
 	}

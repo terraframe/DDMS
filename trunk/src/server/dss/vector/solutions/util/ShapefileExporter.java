@@ -16,6 +16,7 @@ import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 
@@ -113,7 +114,7 @@ public class ShapefileExporter implements Reloadable {
 	    ProcessBuilder pb = new ProcessBuilder(args);
 	    pb.directory(dir);
 		String output = this.run(pb);
-		System.out.println(output);
+		MdssLog.debug(output);
 	}
 
 	private String run(ProcessBuilder pb) {
@@ -143,9 +144,10 @@ public class ShapefileExporter implements Reloadable {
 	}
 
 	private void print(ProcessBuilder pb) {
+	    String message = new String();
 		for (String cmd: pb.command()) {
-			System.out.print(cmd + " ");
+		    message += cmd + "\n";
 		}
-		System.out.println();
+		MdssLog.debug(message);
 	}
 }

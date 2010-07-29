@@ -89,7 +89,7 @@ public class ControlPanel extends AbstractPanel
   {
     super(container, new BorderLayout());
 
-    // System.out.println(System.getProperty("user.dir"));
+    // MdssLog.debug(System.getProperty("user.dir"));
     bundle = ResourceBundle.getBundle("MdssControlPanel", locale);
 
     Enumeration<String> e = bundle.getKeys();
@@ -283,12 +283,12 @@ public class ControlPanel extends AbstractPanel
     catch (IOException e)
     {
       // Do nothing...use default
-      // System.out.println(e);
+      // MdssLog.debug(e);
     }
     catch (NumberFormatException e)
     {
       // Do nothing...use default
-      // System.out.println(e);
+      // MdssLog.debug(e);
     }
     finally
     {

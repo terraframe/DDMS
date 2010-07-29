@@ -73,13 +73,13 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		vQuery.SELECT(F.SUM(vQuery.aSQLLong("negative", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), "negativeCases"));
 		vQuery.SELECT(F.SUM(vQuery.aSQLLong("clinical", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " = 0 and " + clinicalColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), "clinicalCases"));
 		vQuery.FROM("(" + innerQuery.getSQL() + ")", "innerQuery");
-		//System.out.println(vQuery.getSQL());
+		//MdssLog.debug(vQuery.getSQL());
 		
 		for (ValueObject valueObject : vQuery.getIterator()) {
 			counts[POSITIVE_COUNT_INDEX] += this.getValue(valueObject, "positiveCases");
 			counts[NEGATIVE_COUNT_INDEX] += this.getValue(valueObject, "negativeCases");
 			counts[CLINICAL_COUNT_INDEX] += this.getValue(valueObject, "clinicalCases");
-			//System.out.println(sumPositiveCases + "\t" + sumNegativeCases + "\t" + sumClinicalCases);
+			//MdssLog.debug(sumPositiveCases + "\t" + sumNegativeCases + "\t" + sumClinicalCases);
 		}
 		
 		return counts;
@@ -90,8 +90,7 @@ public class PoliticalThresholdCalculator extends ThresholdCalculator implements
 		ValueQuery valueQuery = new ValueQuery(factory);
 		AggregatedCaseQuery caseQuery = new AggregatedCaseQuery(factory);
 
-		// System.out.println("From: " + initialWeek.getStartDate());
-		// System.out.println("  To: " + finalWeek.getEndDate());
+		// MdssLog.debug("From: " + initialWeek.getStartDate() + "\n  To: " + finalWeek.getEndDate());
 		valueQuery.SELECT(F.SUM(caseQuery.getPositiveCases(), "positiveCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getNegativeCases(), "negativeCases"));
 		valueQuery.SELECT(F.SUM(caseQuery.getCases(), "clinicalCases"));

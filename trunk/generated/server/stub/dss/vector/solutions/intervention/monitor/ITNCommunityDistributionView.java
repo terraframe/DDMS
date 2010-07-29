@@ -8,6 +8,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
@@ -255,7 +256,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
       query.restrictRows(pageSize, pageNumber);
     }
     
-    System.out.println(query.getSQL());
+    MdssLog.debug(query.getSQL());
 
     return query;
   }

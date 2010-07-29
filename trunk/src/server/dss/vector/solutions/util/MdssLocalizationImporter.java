@@ -38,6 +38,8 @@ import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.MdssLog;
+
 public class MdssLocalizationImporter implements Reloadable
 {
   private HSSFSheet    exceptionSheet;
@@ -401,6 +403,10 @@ public class MdssLocalizationImporter implements Reloadable
       if (Session.getCurrentSession()==null)
       {
         System.out.println(warning.getLocalizedMessage());
+      }
+      else
+      {
+        MdssLog.warn("Localization imported contained a row that did not reference valid data.", e);
       }
       return;
     }

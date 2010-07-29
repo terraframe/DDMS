@@ -7,6 +7,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.query.Layer;
 
 public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
@@ -321,7 +322,7 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
     String sql = "DROP VIEW IF EXISTS " + tableName + ";\n";
     sql += "CREATE VIEW " + tableName + " AS ";
     sql += TeamSprayStatus.getTempTableSQL() + ";\n";
-    System.out.println(sql);
+    MdssLog.debug(sql);
     Database.parseAndExecute(sql);
   }
 

@@ -13,6 +13,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
@@ -381,12 +382,12 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     //Date quarterStartDate = startOfQuarter.getTime();
     //Date quarterEndDate = endOfQuarter.getTime();
     
-    //System.out.println();
-    //System.out.println(cal.get(Calendar.MONTH));
-    //System.out.println(startDate);
-    //System.out.println(quarter);
-    //System.out.println(quarterStartDate);
-    //System.out.println(quarterEndDate);
+    //MdssLog.debug();
+    //MdssLog.debug(cal.get(Calendar.MONTH));
+    //MdssLog.debug(startDate);
+    //MdssLog.debug(quarter);
+    //MdssLog.debug(quarterStartDate);
+    //MdssLog.debug(quarterEndDate);
 
     int piviot = cal.get(period);
     int min = startOfQuarter.get(period);
@@ -540,7 +541,7 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     }
 
 
-    System.out.println(valueQuery.getSQL());
+    MdssLog.debug(valueQuery.getSQL());
 
     OIterator<? extends ValueObject> iterator = valueQuery.getIterator();
     try

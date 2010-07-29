@@ -345,7 +345,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   private static void runSql(String storedProcSource)
   {
-    // System.out.println(storedProcSource);
+    // MdssLog.debug(storedProcSource);
 
     Connection conn = Database.getConnection();
     Statement statement = null;

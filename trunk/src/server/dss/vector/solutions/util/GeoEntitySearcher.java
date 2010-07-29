@@ -31,6 +31,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.AmbigiousGeoEntityException;
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.ExcelReadException;
 import dss.vector.solutions.export.ExcelVersionException;
@@ -276,15 +277,15 @@ public class GeoEntitySearcher implements Reloadable
               unknownGeoEntityNameSet.add(endPointEntityName);
 
 
-//System.out.println("matches for: "+endPointEntityName+" "+endPointEntityType);
-//System.out.println("   Known Hierarchy: "+knownHierarchy);
-//System.out.println("   Possible synonym matches: "+delimitedSynonymList);
-//System.out.println("   Siblings: "+delimitedSiblingList+"\n");
+//              MdssLog.debug("matches for: " + endPointEntityName + " " + endPointEntityType +
+//                  "\n   Known Hierarchy: " + knownHierarchy + 
+//                  "\n   Possible synonym matches: " + delimitedSynonymList +
+//                  "\n   Siblings: " + delimitedSiblingList);
             }
             else if (geoEntityList.size() == 1)
             {
               // do nothing.  We found an exact match, which is what we wanted
-//System.out.println("match: "+geoEntityList.get(0).getEntityName());
+//MdssLog.debug("match: "+geoEntityList.get(0).getEntityName());
             }
             else // geoEntityList.size() > 1
             {

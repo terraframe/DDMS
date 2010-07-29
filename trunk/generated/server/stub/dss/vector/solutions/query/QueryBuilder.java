@@ -31,6 +31,7 @@ import com.runwaysdk.query.ValueQueryCSVExporter;
 import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.util.QueryUtil;
 
 public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
@@ -79,7 +80,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       throw ex;
     }
     
-    System.out.println(valueQuery.getSQL());
+    MdssLog.debug(valueQuery.getSQL());
     
     return valueQuery;
   }

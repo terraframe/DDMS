@@ -11,6 +11,8 @@ import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 
+import dss.vector.solutions.MdssLog;
+
 @com.runwaysdk.business.ClassSignature(hash = 1462504487)
 /**
  *
@@ -214,7 +216,7 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     query.restrictRows(15, 1);
     query.ORDER_BY_ASC(query.getCollectionId());
     
-    System.out.println(query.getSQL());
+    MdssLog.debug(query.getSQL());
 
     return query;
   }

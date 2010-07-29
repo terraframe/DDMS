@@ -8,6 +8,7 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
@@ -99,7 +100,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS ";
     sql += ZoneSpray.getTempTableSQL(viewName) + ";\n";
-    System.out.println(sql);
+    MdssLog.debug(sql);
     Database.parseAndExecute(sql);
   }
 

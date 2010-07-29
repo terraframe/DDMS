@@ -7,6 +7,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 
@@ -159,7 +160,7 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
     sql += ResourceTarget.getTempTableSQL();
     // sql += "ORDER BY season_id;\n";
     sql += ";\n";
-    System.out.println(sql);
+    MdssLog.debug(sql);
     Database.parseAndExecute(sql);
 
   }

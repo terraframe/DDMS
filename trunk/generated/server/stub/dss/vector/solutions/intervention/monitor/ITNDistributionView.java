@@ -11,6 +11,7 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -214,7 +215,7 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
 
     query.WHERE(condition);
     
-    System.out.println(query.getSQL());
+    MdssLog.debug(query.getSQL());
     
     return query;
   }

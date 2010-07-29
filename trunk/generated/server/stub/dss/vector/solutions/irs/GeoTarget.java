@@ -8,6 +8,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.LocatedIn;
@@ -183,7 +184,7 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     sql += " )\n";
     valueQuery.FROM(sql, "rr");
 
-    System.out.println(valueQuery.getSQL());
+    MdssLog.debug(valueQuery.getSQL());
 
     List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
 
@@ -256,7 +257,7 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     sql += " select " + sums + " from recursive_rollup \n";
     sql += " )\n";
 
-    System.out.println(sql);
+    MdssLog.debug(sql);
 
     valueQuery.FROM(sql, "rr");
 

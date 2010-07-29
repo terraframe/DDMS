@@ -18,6 +18,8 @@ import com.runwaysdk.system.metadata.MdUtil;
 import com.runwaysdk.system.metadata.MdUtilQuery;
 import com.runwaysdk.system.metadata.UtilInheritanceQuery;
 
+import dss.vector.solutions.MdssLog;
+
 public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1851169193;
 
@@ -156,7 +158,7 @@ public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBas
 	}	
 	
 	protected AbstractCategory createRange(Layer layer, String lowerBound, String upperBound, CategoryGen cg, int n, int total) {
-		System.out.println(lowerBound + "->" + upperBound);
+		MdssLog.debug(lowerBound + "->" + upperBound);
 		
 		RangeCategory cat = new RangeCategory();
 

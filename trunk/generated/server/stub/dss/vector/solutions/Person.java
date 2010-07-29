@@ -388,7 +388,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
 
     valueQuery.restrictRows(20, 1);
 
-    System.out.println(valueQuery.getSQL());
+    MdssLog.debug(valueQuery.getSQL());
 
     return valueQuery;
   }

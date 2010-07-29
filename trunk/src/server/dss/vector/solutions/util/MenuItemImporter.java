@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdEntity;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
@@ -80,7 +81,7 @@ public class MenuItemImporter {
 			if (diseaseKey != null && diseaseKey.length() > 0) {
 				Disease disease = Disease.getByKey(diseaseKey);
 				Term term = Term.getByTermId(termId);
-				System.out.println("DiseaseRoot: " + diseaseKey + "|" + termId);
+				MdssLog.debug("DiseaseRoot: " + diseaseKey + "|" + termId);
         
 				disease.appLock();
 				disease.setMenuRoot(term);
@@ -100,7 +101,7 @@ public class MenuItemImporter {
 		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
 			String urlId = this.getCellValue(row, 0);
 			String url = this.getCellValue(row, 1);
-			System.out.println("SystemURL: " + urlId + "|" + url);
+			MdssLog.debug("SystemURL: " + urlId + "|" + url);
 			if (urlId != null && urlId.length() > 0) {
 				SystemURL systemUrl = new SystemURL();
 				systemUrl.setUrl(url);
@@ -127,7 +128,7 @@ public class MenuItemImporter {
 				Term term = Term.getByTermId(termId);
 
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
-				System.out.println("MenuItem: " + diseaseKey + "|" + urlId + "|" + termId);
+				MdssLog.debug("MenuItem: " + diseaseKey + "|" + urlId + "|" + termId);
 				MenuItem menuItem = new MenuItem();
 				menuItem.setUrl(systemUrl);
 				menuItem.setTerm(term);

@@ -34,6 +34,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdRelationship;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.QueryBuilder;
@@ -1437,7 +1438,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     query.restrictRows(20, 1);
 
-    System.out.println(query.getSQL());
+    MdssLog.debug(query.getSQL());
 
     return query;
   }
