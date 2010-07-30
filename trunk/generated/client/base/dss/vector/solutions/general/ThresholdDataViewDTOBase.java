@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1950437601)
+@com.runwaysdk.business.ClassSignature(hash = 1448751357)
 public abstract class ThresholdDataViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.ThresholdDataView";
-  private static final long serialVersionUID = -1950437601;
+  private static final long serialVersionUID = 1448751357;
   
   protected ThresholdDataViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -4288,6 +4288,14 @@ public abstract class ThresholdDataViewDTOBase extends com.runwaysdk.business.Vi
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataViewDTO.CLASS, "getCalculatedThresholds", _declaredTypes);
     return (java.lang.Double[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Double[][] getCalculatedThresholdsForViews(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.general.MalariaSeasonDTO season, dss.vector.solutions.general.ThresholdDataViewDTO[] views)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.general.MalariaSeason", "[Ldss.vector.solutions.general.ThresholdDataView;"};
+    Object[] _parameters = new Object[]{season, views};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.ThresholdDataViewDTO.CLASS, "getCalculatedThresholdsForViews", _declaredTypes);
+    return (java.lang.Double[][]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.general.ThresholdDataViewDTO[] getFacilityViews(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, dss.vector.solutions.general.MalariaSeasonDTO season)

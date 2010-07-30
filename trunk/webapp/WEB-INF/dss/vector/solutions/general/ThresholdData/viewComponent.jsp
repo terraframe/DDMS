@@ -2,36 +2,21 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
-<%@page import="com.runwaysdk.constants.ClientConstants"%>
-<%@page import="dss.vector.solutions.util.Halp"%>
-
-<%@page import="dss.vector.solutions.general.MalariaSeasonDTO"%>
-<%@page import="java.util.Map"%>
-<%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Arrays"%>
+<%@page import="org.json.JSONObject"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 <%@page import="dss.vector.solutions.general.ThresholdDataController"%>
 <%@page import="dss.vector.solutions.general.ThresholdDataViewDTO"%>
-<%@page import="java.util.LinkedList"%>
-<%@page import="java.util.List"%>
+<%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.util.Halp"%>
 
-
-<%@page import="org.json.JSONObject"%>
-<%@page import="dss.vector.solutions.irs.GeoTargetViewDTO"%>
-<%@page import="org.json.JSONArray"%>
-<%@page import="dss.vector.solutions.util.yui.DataGrid"%><c:set var="page_title" value="Threshold_Data"  scope="request"/>
+<c:set var="page_title" value="Threshold_Data"  scope="request"/>
 
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 
 <%
-ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
-ThresholdDataViewDTO view = (ThresholdDataViewDTO) request.getAttribute(ThresholdDataController.ITEM);
-ThresholdDataViewDTO[] rows = (ThresholdDataViewDTO[]) request.getAttribute(ThresholdDataController.ITEMS);
-
+JSONObject calculatedTargets = (JSONObject) request.getAttribute("calculatedTargets");
 DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
 
@@ -179,17 +164,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
 
     <%
-    JSONObject calcuatedTargets = new JSONObject();
-    for(ThresholdDataViewDTO threshold :rows)
-    {
-      calcuatedTargets.put
-      (
-          threshold.getGeoEntity(),
-          new JSONArray(
-              Arrays.asList(
-                  threshold.getCalculatedThresholds()))); 
-    }
-    out.println("var calculatedTargets = "+calcuatedTargets+";");
+    out.println("var calculatedTargets = " + calculatedTargets + ";");
     %>
 
     

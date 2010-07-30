@@ -1,11 +1,7 @@
 package dss.vector.solutions.permission;
 
-import java.util.List;
-
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
-import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdClassDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
@@ -47,15 +43,6 @@ public class WriteAction extends PermissionAction implements Reloadable
         role.grantPermission(Operation.ADD_CHILD, mdClass.getId());        
         role.grantPermission(Operation.ADD_PARENT, mdClass.getId());        
       }
-
-//      List<? extends MdAttributeDAOIF> attributes = mdClass.definesAttributes();
-//
-//      for (MdAttributeDAOIF mdAttribute : attributes)
-//      {
-//        MdAttributeDimensionDAOIF mdAttributeDimension = mdAttribute.getMdAttributeDimension(mdDimension);
-//
-//        role.grantPermission(Operation.WRITE, mdAttributeDimension.getId());
-//      }
     }
     else if (metadata instanceof MdMethodDAOIF)
     {

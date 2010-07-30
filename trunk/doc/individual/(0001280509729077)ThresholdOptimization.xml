@@ -1,0 +1,37 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.ThresholdDataView">
+        <create>
+          <mdMethod
+            name="getCalculatedThresholdsForViews"
+            label="Get Calculated Thresholds For Views"
+            returnType="java.lang.Double[][]"
+            static="true">
+            <mdParameter
+              name="season"
+              label="Season"
+              order="0"
+              type="dss.vector.solutions.general.MalariaSeason" />
+            <mdParameter
+              name="views"
+              label="Views"
+              order="1"
+              type="dss.vector.solutions.general.ThresholdDataView[]" />
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.ThresholdDataView.getCalculatedThresholdsForViews"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

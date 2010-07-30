@@ -13,6 +13,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -100,6 +104,7 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
       String[] keys = getAttributeKeys(weeks);
       Map<String, ColumnSetup> map = getColumns(weeks, thresholdType);
 
+      req.setAttribute("calculatedTargets", this.getCalculatedThresholds(season, request, data));
       req.setAttribute(ITEM, item);
       req.setAttribute(ITEMS, data);
       req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));
@@ -118,6 +123,23 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
         this.failSearchForThresholdData(geoId, season, failThresholdType);
       }
     }
+  }
+
+  private JSONObject getCalculatedThresholds(MalariaSeasonDTO season, ClientRequestIF request, ThresholdDataViewDTO[] data) throws JSONException
+  {
+    Double[][] calculatedThresholds = ThresholdDataViewDTO.getCalculatedThresholdsForViews(request, season, data);
+    
+    JSONObject json = new JSONObject();
+
+    for (int i = 0; i < data.length; i++)
+    {
+      ThresholdDataViewDTO view = data[i];
+      String entity = view.getGeoEntity();
+      Double[] calculated = calculatedThresholds[i];
+      
+      json.put(entity, new JSONArray(Arrays.asList(calculated)));
+    }
+    return json;
   }
 
   private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks, boolean thresholdType)

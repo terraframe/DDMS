@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 962911519)
+@com.runwaysdk.business.ClassSignature(hash = -1081649016)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public abstract class ContainerShapeMasterBase extends com.runwaysdk.system.EnumerationMaster implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ContainerShapeMaster";
-  private static final long serialVersionUID = 962911519;
+  private static final long serialVersionUID = -1081649016;
   
   public ContainerShapeMasterBase()
   {

@@ -14,7 +14,6 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdType;
 
 import dss.vector.solutions.geo.AllowedIn;
@@ -25,398 +24,456 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.QueryUtil;
 
-public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.generation.loader.Reloadable {
-	private static final long serialVersionUID = 1256068147836L;
+public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.generation.loader.Reloadable
+{
+  private static final long serialVersionUID = 1256068147836L;
 
-	public ThresholdData() {
-		super();
-	}
+  public ThresholdData()
+  {
+    super();
+  }
 
-	@Override
-	public String toString() {
-		if (this.isNew()) {
-			return "New: " + this.getClassDisplayLabel();
-		} else if (this.getGeoEntity() != null && this.getSeason() != null) {
-			return this.buildKey();
-		}
+  @Override
+  public String toString()
+  {
+    if (this.isNew())
+    {
+      return "New: " + this.getClassDisplayLabel();
+    }
+    else if (this.getGeoEntity() != null && this.getSeason() != null)
+    {
+      return this.buildKey();
+    }
 
-		return super.toString();
-	}
+    return super.toString();
+  }
 
-	@Override
-	protected String buildKey() {
-		return this.getGeoEntity().getKey() + " - " + this.getSeason().getKey();
-	}
+  @Override
+  protected String buildKey()
+  {
+    return this.getGeoEntity().getKey() + " - " + this.getSeason().getKey();
+  }
 
-	public ThresholdDataView getView(boolean thresholdType) {
-		ThresholdDataView view = new ThresholdDataView();
-		view.setThresholdType(thresholdType);
-		view.populateView(this);
+  public ThresholdDataView getView(boolean thresholdType)
+  {
+    ThresholdDataView view = new ThresholdDataView();
+    view.setThresholdType(thresholdType);
+    view.populateView(this);
 
-		return view;
-	}
+    return view;
+  }
 
-	public ThresholdDataView getView() {
-		return this.getView(true);
-	}
+  public ThresholdDataView getView()
+  {
+    return this.getView(true);
+  }
 
-	@Override
-	public ThresholdDataView unlockView() {
-		this.unlock();
+  @Override
+  public ThresholdDataView unlockView()
+  {
+    this.unlock();
 
-		return this.getView();
-	}
+    return this.getView();
+  }
 
-	@Override
-	public ThresholdDataView lockView() {
-		this.lock();
+  @Override
+  public ThresholdDataView lockView()
+  {
+    this.lock();
 
-		return this.getView();
-	}
+    return this.getView();
+  }
 
-	@Override
-	public void apply() {
-		this.validateGeoEntity();
+  @Override
+  public void apply()
+  {
+    this.validateGeoEntity();
 
-		super.apply();
-	}
+    super.apply();
+  }
 
-	@Override
-	public void validateGeoEntity() {
-		GeoEntity entity = this.getGeoEntity();
+  @Override
+  public void validateGeoEntity()
+  {
+    GeoEntity entity = this.getGeoEntity();
 
-		if (entity != null) {
-			GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromType(entity.getType());
+    if (entity != null)
+    {
+      GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromType(entity.getType());
 
-			if (!geoHierarchy.getPopulationAllowed()) {
-				String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
-				String geoEntityName = entity.getEntityName();
+      if (!geoHierarchy.getPopulationAllowed())
+      {
+        String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
+        String geoEntityName = entity.getEntityName();
 
-				String label = geoEntityName + " (" + universal + ")";
+        String label = geoEntityName + " (" + universal + ")";
 
-				String msg = "The Geo Entity [" + label + "] does not allow population data.";
+        String msg = "The Geo Entity [" + label + "] does not allow population data.";
 
-				GeoEntityPopulationProblem p = new GeoEntityPopulationProblem(msg);
-				p.setEntityLabel(label);
-				p.apply();
-				p.throwIt();
-			}
-		}
-	}
+        GeoEntityPopulationProblem p = new GeoEntityPopulationProblem(msg);
+        p.setEntityLabel(label);
+        p.apply();
+        p.throwIt();
+      }
+    }
+  }
 
-	/**
-	 * @param entity
-	 *            GeoEntity
-	 * @param date
-	 *            Date
-	 * 
-	 * @return A WeeklyThreshold for a given GeoEntity on the give Date. If
-	 *         thresholds are not defined then null is returned.
-	 */
-	public static WeeklyThreshold getThresholds(GeoEntity entity, Date date) {
-		ThresholdData data = ThresholdData.getThresholdData(entity, date);
+  /**
+   * @param entity
+   *          GeoEntity
+   * @param date
+   *          Date
+   * 
+   * @return A WeeklyThreshold for a given GeoEntity on the give Date. If
+   *         thresholds are not defined then null is returned.
+   */
+  public static WeeklyThreshold getThresholds(GeoEntity entity, Date date)
+  {
+    ThresholdData data = ThresholdData.getThresholdData(entity, date);
 
-		if (data != null) {
-			EpiWeek week = EpiWeek.getEpiWeek(date);
+    if (data != null)
+    {
+      EpiWeek week = EpiWeek.getEpiWeek(date);
 
-			if (week != null) {
-				return week.getThresholdsRel(data);
-			}
-		}
+      if (week != null)
+      {
+        return week.getThresholdsRel(data);
+      }
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	public static ThresholdData getThresholdData(GeoEntity entity, Date date) {
-		QueryFactory factory = new QueryFactory();
+  public static ThresholdData getThresholdData(GeoEntity entity, Date date)
+  {
+    QueryFactory factory = new QueryFactory();
 
-		MalariaSeasonQuery season = MalariaSeason.getSeasonQueryByDate(date, factory);
+    MalariaSeasonQuery season = MalariaSeason.getSeasonQueryByDate(date, factory);
 
-		ThresholdDataQuery threshold = new ThresholdDataQuery(factory);
-		threshold.WHERE(AND.get(threshold.getGeoEntity().EQ(entity), threshold.getSeason().EQ(season)));
+    ThresholdDataQuery threshold = new ThresholdDataQuery(factory);
+    threshold.WHERE(AND.get(threshold.getGeoEntity().EQ(entity), threshold.getSeason().EQ(season)));
 
-		List<? extends ThresholdData> list = threshold.getIterator().getAll();
+    List<? extends ThresholdData> list = threshold.getIterator().getAll();
 
-		if (list.size() > 0) {
-			return list.get(0);
-		}
+    if (list.size() > 0)
+    {
+      return list.get(0);
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	public static ThresholdData getThresholdOrCreate(GeoEntity entity, Date date) {
-		ThresholdData data = ThresholdData.getThresholdData(entity, date);
+  public static ThresholdData getThresholdOrCreate(GeoEntity entity, Date date)
+  {
+    ThresholdData data = ThresholdData.getThresholdData(entity, date);
 
-		if (data == null) {
-			MalariaSeason season = MalariaSeason.getSeasonByDate(date);
+    if (data == null)
+    {
+      MalariaSeason season = MalariaSeason.getSeasonByDate(date);
 
-			data = new ThresholdData();
-			data.setGeoEntity(entity);
-			data.setSeason(season);
-			data.apply();
-		}
+      data = new ThresholdData();
+      data.setGeoEntity(entity);
+      data.setSeason(season);
+      data.apply();
+    }
 
-		return data;
-	}
+    return data;
+  }
 
-	public static ThresholdData getThresholdData(GeoEntity entity, MalariaSeason season) {
-		QueryFactory factory = new QueryFactory();
+  public static ThresholdData getThresholdData(GeoEntity entity, MalariaSeason season)
+  {
+    QueryFactory factory = new QueryFactory();
 
-		ThresholdDataQuery threshold = new ThresholdDataQuery(factory);
-		threshold.WHERE(AND.get(threshold.getGeoEntity().EQ(entity), threshold.getSeason().EQ(season)));
+    ThresholdDataQuery threshold = new ThresholdDataQuery(factory);
+    threshold.WHERE(AND.get(threshold.getGeoEntity().EQ(entity), threshold.getSeason().EQ(season)));
 
-		List<? extends ThresholdData> list = threshold.getIterator().getAll();
+    List<? extends ThresholdData> list = threshold.getIterator().getAll();
 
-		if (list.size() > 0) {
-			return list.get(0);
-		}
-		return null;
-	}
+    if (list.size() > 0)
+    {
+      return list.get(0);
+    }
+    return null;
+  }
 
-	/**
-	 * @param entity
-	 *            GeoEntity
-	 * @param date
-	 *            Date
-	 * 
-	 * @return A calulated value for outbreak
-	 */
-	public static Double getCalculatedValue(GeoEntity entity, EpiWeek week, String attribute) {
-		if (entity.getType().equals(Earth.CLASS)) {
-			return null;
-		}
+  /**
+   * @param entity
+   *          GeoEntity
+   * @param date
+   *          Date
+   * 
+   * @return A calulated value for outbreak
+   */
+  public static Double getCalculatedValue(GeoEntity entity, EpiWeek week, String attribute)
+  {
+    if (entity.getType().equals(Earth.CLASS))
+    {
+      return null;
+    }
 
     String geoHierarchyTable = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS).getTableName();
     String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
     String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
     String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
     String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
-      
-    
+
     String mdTypeTable = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS).getTableName();
     String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
     String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
-		
+
     String allowedInTable = MdEntityDAO.getMdEntityDAO(AllowedIn.CLASS).getTableName();
 
-    
     String geoEntityTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
     String typeCol = QueryUtil.getColumnName(GeoEntity.getTypeMd());
 
     String weeklyThresholdTable = MdEntityDAO.getMdEntityDAO(WeeklyThreshold.CLASS).getTableName();
-    
+
     String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
-    
+
     String thresholdDataTable = MdEntityDAO.getMdEntityDAO(ThresholdData.CLASS).getTableName();
     String geoEntityCol = QueryUtil.getColumnName(ThresholdData.getGeoEntityMd());
-    
+
     String locatedInTable = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS).getTableName();
-    
+
     String idCol = QueryUtil.getIdColumn();
-    
-		QueryFactory queryFactory = new QueryFactory();
-		ValueQuery valueQuery = new ValueQuery(queryFactory);
-		Double sum = 0d;
 
-		valueQuery.SELECT(valueQuery.aSQLDouble("summed_value", "summed_value"));
+    QueryFactory queryFactory = new QueryFactory();
+    ValueQuery valueQuery = new ValueQuery(queryFactory);
+    Double sum = 0d;
 
-		String sql = "(WITH RECURSIVE geohierarchy_flags AS(";
-		sql += " SELECT  (t1."+pckNameCol+" || '.' || t1."+nameCol+") AS parent_type,";
-		sql += "  g1."+politicalCol+" AS parent_political,";
-		sql += "  g1."+sprayTargetAllowedCol+" AS parent_spraytargetallowed,";
-		sql += "  g1."+populationAllowedCol+" AS parent_populationallowed,";
-		sql += "  (t2."+pckNameCol+" || '.' || t2."+nameCol+") AS child_type,";
-		sql += "  g2."+politicalCol+" AS child_political,";
-		sql += "  g2."+sprayTargetAllowedCol+" AS child_spraytargetallowed,";
-		sql += "  g2."+populationAllowedCol+" AS child_populationallowed";
-		sql += " FROM "+allowedInTable+" ,";
-		sql += "  "+geoHierarchyTable+" g1,";
-		sql += "  "+geoHierarchyTable+" g2,";
-		sql += "  "+mdTypeTable+" t1 ,";
-		sql += "  "+mdTypeTable+" t2 ";
-		sql += " WHERE  "+allowedInTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = g1.id";
-		sql += "  AND "+allowedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = g2.id";
-		sql += "  AND t1.id = g1."+geoEntityClassCol+"";
-		sql += "  AND t2.id = g2."+geoEntityClassCol+"";
-		sql += " )";
-		sql += " , recursive_rollup AS (";
-		sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+", 0 AS depth , "+geoEntityTable+"."+typeCol+" , ";
-		sql += " COALESCE((";
-		// this is the table with the sumable value
-		sql += " SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+", "+malariaSeasonTable+" ";
-		sql += "    WHERE "+weeklyThresholdTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + week.getId() + "'";
-		sql += "    AND "+thresholdDataTable+"."+geoEntityCol+" = "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+"";
-		sql += "    AND "+weeklyThresholdTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+thresholdDataTable+"."+idCol+"";
-		sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
-		sql += "    AND "+thresholdDataTable+"."+"season"+" = " + malariaSeasonTable+"."+"id";
-		sql += "    AND "+malariaSeasonTable+"."+"disease"+" = " + "'"+Disease.getCurrent().getId()+"'";
-		sql += "  ),0)as sumvalue";
-		sql += "  FROM "+locatedInTable+", geohierarchy_flags, "+geoEntityTable+"";
-		// --zambia";
-		sql += " WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = '" + entity.getId() + "'";
-		sql += "  AND "+locatedInTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+geoEntityTable+"."+idCol+"";
-		sql += "  AND "+geoEntityTable+"."+typeCol+" = geohierarchy_flags.parent_type";
-		sql += "  AND geohierarchy_flags.parent_political = 1";
-		sql += " UNION";
-		sql += " SELECT b."+RelationshipDAOIF.CHILD_ID_COLUMN+", b."+RelationshipDAOIF.PARENT_ID_COLUMN+", a.depth+1 , "+geoEntityTable+"."+typeCol+" , ";
-		// this is how we sum. We only sum if population is allowed";
-		sql += " a.sumvalue +  COALESCE((";
-		sql += "  SELECT " + attribute + " FROM "+weeklyThresholdTable+", "+thresholdDataTable+", "+malariaSeasonTable+"  ";
-		sql += "    WHERE "+weeklyThresholdTable+"."+RelationshipDAOIF.CHILD_ID_COLUMN+" = '" + week.getId() + "'";
-		sql += "    AND "+thresholdDataTable+"."+geoEntityCol+" = b."+RelationshipDAOIF.CHILD_ID_COLUMN+"";
-		sql += "    AND "+weeklyThresholdTable+"."+RelationshipDAOIF.PARENT_ID_COLUMN+" = "+thresholdDataTable+"."+idCol+"";
-		sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
-		sql += "    AND "+thresholdDataTable+"."+"season"+" = " + malariaSeasonTable+"."+"id";
-		sql += "    AND "+malariaSeasonTable+"."+"disease"+" = " + "'"+Disease.getCurrent().getId()+"'";
-		sql += " ),0)";
-		sql += " FROM recursive_rollup a, "+locatedInTable+" b , geohierarchy_flags, "+geoEntityTable+" ";
-		sql += " WHERE a."+RelationshipDAOIF.CHILD_ID_COLUMN+" = b."+RelationshipDAOIF.PARENT_ID_COLUMN+"";
-		sql += " AND b."+RelationshipDAOIF.CHILD_ID_COLUMN+" = "+geoEntityTable+"."+idCol+"";
-		sql += " AND "+geoEntityTable+"."+typeCol+" = geohierarchy_flags.parent_type";
-		// --must have political and populated allowed set to be counted";
-		// --however recursion does not stop when political = true and
-		// --population allowed = false";
-		sql += " AND geohierarchy_flags.parent_political = 1";
-		// --this will stop the recursion as soon as sumvalue is not null";
-		sql += " AND a.sumvalue = 0";
-		sql += " )";
-		sql += " select sum(sumvalue) as summed_value from recursive_rollup ";
-		sql += " )";
-		valueQuery.FROM(sql, "rr");
+    valueQuery.SELECT(valueQuery.aSQLDouble("summed_value", "summed_value"));
 
-		List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
+    String sql = "(WITH RECURSIVE geohierarchy_flags AS(";
+    sql += " SELECT  (t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type,";
+    sql += "  g1." + politicalCol + " AS parent_political,";
+    sql += "  g1." + sprayTargetAllowedCol + " AS parent_spraytargetallowed,";
+    sql += "  g1." + populationAllowedCol + " AS parent_populationallowed,";
+    sql += "  (t2." + pckNameCol + " || '.' || t2." + nameCol + ") AS child_type,";
+    sql += "  g2." + politicalCol + " AS child_political,";
+    sql += "  g2." + sprayTargetAllowedCol + " AS child_spraytargetallowed,";
+    sql += "  g2." + populationAllowedCol + " AS child_populationallowed";
+    sql += " FROM " + allowedInTable + " ,";
+    sql += "  " + geoHierarchyTable + " g1,";
+    sql += "  " + geoHierarchyTable + " g2,";
+    sql += "  " + mdTypeTable + " t1 ,";
+    sql += "  " + mdTypeTable + " t2 ";
+    sql += " WHERE  " + allowedInTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = g1.id";
+    sql += "  AND " + allowedInTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = g2.id";
+    sql += "  AND t1.id = g1." + geoEntityClassCol + "";
+    sql += "  AND t2.id = g2." + geoEntityClassCol + "";
+    sql += " )";
+    sql += " , recursive_rollup AS (";
+    sql += " SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + ", " + RelationshipDAOIF.PARENT_ID_COLUMN + ", 0 AS depth , " + geoEntityTable + "." + typeCol + " , ";
+    sql += " COALESCE((";
+    // this is the table with the sumable value
+    sql += " SELECT " + attribute + " FROM " + weeklyThresholdTable + ", " + thresholdDataTable + ", " + malariaSeasonTable + " ";
+    sql += "    WHERE " + weeklyThresholdTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + week.getId() + "'";
+    sql += "    AND " + thresholdDataTable + "." + geoEntityCol + " = " + locatedInTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + "";
+    sql += "    AND " + weeklyThresholdTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + thresholdDataTable + "." + idCol + "";
+    sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
+    sql += "    AND " + thresholdDataTable + "." + "season" + " = " + malariaSeasonTable + "." + "id";
+    sql += "    AND " + malariaSeasonTable + "." + "disease" + " = " + "'" + Disease.getCurrent().getId() + "'";
+    sql += "  ),0)as sumvalue";
+    sql += "  FROM " + locatedInTable + ", geohierarchy_flags, " + geoEntityTable + "";
+    // --zambia";
+    sql += " WHERE " + RelationshipDAOIF.PARENT_ID_COLUMN + " = '" + entity.getId() + "'";
+    sql += "  AND " + locatedInTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = " + geoEntityTable + "." + idCol + "";
+    sql += "  AND " + geoEntityTable + "." + typeCol + " = geohierarchy_flags.parent_type";
+    sql += "  AND geohierarchy_flags.parent_political = 1";
+    sql += " UNION";
+    sql += " SELECT b." + RelationshipDAOIF.CHILD_ID_COLUMN + ", b." + RelationshipDAOIF.PARENT_ID_COLUMN + ", a.depth+1 , " + geoEntityTable + "." + typeCol + " , ";
+    // this is how we sum. We only sum if population is allowed";
+    sql += " a.sumvalue +  COALESCE((";
+    sql += "  SELECT " + attribute + " FROM " + weeklyThresholdTable + ", " + thresholdDataTable + ", " + malariaSeasonTable + "  ";
+    sql += "    WHERE " + weeklyThresholdTable + "." + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + week.getId() + "'";
+    sql += "    AND " + thresholdDataTable + "." + geoEntityCol + " = b." + RelationshipDAOIF.CHILD_ID_COLUMN + "";
+    sql += "    AND " + weeklyThresholdTable + "." + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + thresholdDataTable + "." + idCol + "";
+    sql += "    AND geohierarchy_flags.parent_populationallowed = 1";
+    sql += "    AND " + thresholdDataTable + "." + "season" + " = " + malariaSeasonTable + "." + "id";
+    sql += "    AND " + malariaSeasonTable + "." + "disease" + " = " + "'" + Disease.getCurrent().getId() + "'";
+    sql += " ),0)";
+    sql += " FROM recursive_rollup a, " + locatedInTable + " b , geohierarchy_flags, " + geoEntityTable + " ";
+    sql += " WHERE a." + RelationshipDAOIF.CHILD_ID_COLUMN + " = b." + RelationshipDAOIF.PARENT_ID_COLUMN + "";
+    sql += " AND b." + RelationshipDAOIF.CHILD_ID_COLUMN + " = " + geoEntityTable + "." + idCol + "";
+    sql += " AND " + geoEntityTable + "." + typeCol + " = geohierarchy_flags.parent_type";
+    // --must have political and populated allowed set to be counted";
+    // --however recursion does not stop when political = true and
+    // --population allowed = false";
+    sql += " AND geohierarchy_flags.parent_political = 1";
+    // --this will stop the recursion as soon as sumvalue is not null";
+    sql += " AND a.sumvalue = 0";
+    sql += " )";
+    sql += " select sum(sumvalue) as summed_value from recursive_rollup ";
+    sql += " )";
+    valueQuery.FROM(sql, "rr");
 
-		for (ValueObject valueObject : valueObjectList) {
-			String value = valueObject.getValue("summed_value");
-			if (!value.equals("")) {
-				sum += Double.parseDouble(value);
-			}
-		}
+    List<ValueObject> valueObjectList = valueQuery.getIterator().getAll();
 
-		if (sum == 0) {
-			return null;
-		}
+    for (ValueObject valueObject : valueObjectList)
+    {
+      String value = valueObject.getValue("summed_value");
+      if (!value.equals(""))
+      {
+        sum += Double.parseDouble(value);
+      }
+    }
 
-		return sum;
-	}
+    if (sum == 0)
+    {
+      return null;
+    }
 
-	@Transaction
-	@Authenticate
-	public static void checkThresholdViolation(Date date, GeoEntity entity, double count) {
-		if (entity.getType().equals(Earth.CLASS)) {
-			return;
-		}
+    return sum;
+  }
 
-		ThresholdData.checkThreshold(WeeklyThreshold.IDENTIFICATION, date, entity, count, false);
-		ThresholdData.checkThreshold(WeeklyThreshold.NOTIFICATION, date, entity, count, false);
-	}
+  @Transaction
+  @Authenticate
+  public static void checkThresholdViolation(Date date, GeoEntity entity, double count)
+  {
+    if (entity.getType().equals(Earth.CLASS))
+    {
+      return;
+    }
 
-	@Transaction
-	@Authenticate
-	public static void checkFacilityThresholdViolation(Date date, GeoEntity entity, double count) {
-		if (entity.getType().equals(Earth.CLASS)) {
-			return;
-		}
+    ThresholdData.checkThreshold(WeeklyThreshold.IDENTIFICATION, date, entity, count, false);
+    ThresholdData.checkThreshold(WeeklyThreshold.NOTIFICATION, date, entity, count, false);
+  }
 
-		ThresholdData.checkThreshold(WeeklyThreshold.FACILITYIDENTIFICATION, date, entity, count, true);
-		ThresholdData.checkThreshold(WeeklyThreshold.FACILITYNOTIFICATION, date, entity, count, true);
-	}
+  @Transaction
+  @Authenticate
+  public static void checkFacilityThresholdViolation(Date date, GeoEntity entity, double count)
+  {
+    if (entity.getType().equals(Earth.CLASS))
+    {
+      return;
+    }
 
-	private static void checkThreshold(String accessor, Date date, GeoEntity entity, double cases, boolean facility) {
-		WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
-		EpiWeek week = EpiWeek.getEpiWeek(date);
+    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYIDENTIFICATION, date, entity, count, true);
+    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYNOTIFICATION, date, entity, count, true);
+  }
 
-		Double count = null;
+  private static void checkThreshold(String accessor, Date date, GeoEntity entity, double cases, boolean facility)
+  {
+    WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
+    EpiWeek week = EpiWeek.getEpiWeek(date);
 
-		if (threshold != null) {
-			count = threshold.getThreshold(accessor);
-		}
+    Double count = null;
 
-		if (count == null && !facility) {
-			count = ThresholdData.getCalculatedValue(entity, week, accessor);
-		}
+    if (threshold != null)
+    {
+      count = threshold.getThreshold(accessor);
+    }
 
-		if (count != null && Math.round(100d * cases) >= Math.round(100d * count)) {
-			if (threshold == null) {
-				ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
-				threshold = data.addEpiWeeks(week);
-				threshold.apply();
-			}
+    if (count == null && !facility)
+    {
+      count = ThresholdData.getCalculatedValue(entity, week, accessor);
+    }
 
-			boolean performedAlert = threshold.getPerformedAlert(accessor);
+    if (count != null && Math.round(100d * cases) >= Math.round(100d * count))
+    {
+      if (threshold == null)
+      {
+        ThresholdData data = ThresholdData.getThresholdOrCreate(entity, date);
+        threshold = data.addEpiWeeks(week);
+        threshold.apply();
+      }
 
-			if (!performedAlert) {
+      boolean performedAlert = threshold.getPerformedAlert(accessor);
 
-				// Perform the alert
-				performAlert(accessor, entity, count, cases);
+      if (!performedAlert)
+      {
 
-				threshold.reachedThreshold(accessor, count);
-			}
-		}
-	}
+        // Perform the alert
+        performAlert(accessor, entity, count, cases);
 
-	private static void performAlert(String accessor, GeoEntity entity, double threshold, double count) {
-		SystemAlertType alertType = null;
-		if (accessor == WeeklyThreshold.IDENTIFICATION) {
-			alertType = SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION;
-		} else if (accessor == WeeklyThreshold.NOTIFICATION) {
-			alertType = SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION;
-		} else if (accessor == WeeklyThreshold.FACILITYIDENTIFICATION) {
-			alertType = SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION;
-		} else if (accessor == WeeklyThreshold.FACILITYNOTIFICATION) {
-			alertType = SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION;
-		} else {
-			// this should not be reachable
-		}
-		
-		String alertLevel = MDSSProperties.getString("Outbreak");
-	    ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
-	    if (config.getEpidemicUniversal().equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType()))) {
-    		alertLevel = MDSSProperties.getString("Epidemic");
-	    } else {
-		    for (GeoHierarchy u: config.getEpidemicUniversal().getAllParents()) {
-		    	if (u.equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType()))) {
-		    		alertLevel = MDSSProperties.getString("Epidemic");
-		    		break;
-		    	}
-		    }
-	    }
+        threshold.reachedThreshold(accessor, count);
+      }
+    }
+  }
 
-		SystemAlert systemAlert = SystemAlert.get(alertType);
-		String label = entity.getLabel();
-		boolean emailSent = false;
+  private static void performAlert(String accessor, GeoEntity entity, double threshold, double count)
+  {
+    SystemAlertType alertType = null;
+    if (accessor == WeeklyThreshold.IDENTIFICATION)
+    {
+      alertType = SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION;
+    }
+    else if (accessor == WeeklyThreshold.NOTIFICATION)
+    {
+      alertType = SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION;
+    }
+    else if (accessor == WeeklyThreshold.FACILITYIDENTIFICATION)
+    {
+      alertType = SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION;
+    }
+    else if (accessor == WeeklyThreshold.FACILITYNOTIFICATION)
+    {
+      alertType = SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION;
+    }
+    else
+    {
+      // this should not be reachable
+    }
 
-		if (systemAlert.getIsEmailActive()) {
-			HashMap<String, Object> data = new HashMap<String, Object>();
-			data.put("alertType", alertType.getDisplayLabel());
-			data.put("alertLevel", alertLevel);
-			if (systemAlert.getDisease() != null) {
-				data.put("disease", systemAlert.getDisease().getDisplayLabel());
-			} else {
-				data.put("disease", MDSSProperties.getString("All_Diseases"));
-			}
-			data.put("thresholdType", accessor);
-			data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
-			data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
-			data.put("geoEntity", label);
+    String alertLevel = MDSSProperties.getString("Outbreak");
+    ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
+    if (config.getEpidemicUniversal().equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType())))
+    {
+      alertLevel = MDSSProperties.getString("Epidemic");
+    }
+    else
+    {
+      for (GeoHierarchy u : config.getEpidemicUniversal().getAllParents())
+      {
+        if (u.equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType())))
+        {
+          alertLevel = MDSSProperties.getString("Epidemic");
+          break;
+        }
+      }
+    }
 
-			emailSent = systemAlert.sendEmail(data);
-		}
+    SystemAlert systemAlert = SystemAlert.get(alertType);
+    String label = entity.getLabel();
+    boolean emailSent = false;
 
-		if (systemAlert.getIsOnscreenActive()) {
-			OutbreakAlert alert = new OutbreakAlert();
-			alert.setAlertType(alertType.getDisplayLabel());
-			alert.setAlertLevel(alertLevel);
-			alert.setThresholdType(accessor);
-			alert.setThresholdValue(threshold);
-			alert.setActualValue(count);
-			alert.setGeoEntity(label);
-			if (systemAlert.getIsEmailActive() & !emailSent) {
-				alert.setEmailFailure(true);
-			}
-			alert.apply();
+    if (systemAlert.getIsEmailActive())
+    {
+      HashMap<String, Object> data = new HashMap<String, Object>();
+      data.put("alertType", alertType.getDisplayLabel());
+      data.put("alertLevel", alertLevel);
+      if (systemAlert.getDisease() != null)
+      {
+        data.put("disease", systemAlert.getDisease().getDisplayLabel());
+      }
+      else
+      {
+        data.put("disease", MDSSProperties.getString("All_Diseases"));
+      }
+      data.put("thresholdType", accessor);
+      data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
+      data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
+      data.put("geoEntity", label);
 
-			alert.throwIt();
-		}
-	}
+      emailSent = systemAlert.sendEmail(data);
+    }
+
+    if (systemAlert.getIsOnscreenActive())
+    {
+      OutbreakAlert alert = new OutbreakAlert();
+      alert.setAlertType(alertType.getDisplayLabel());
+      alert.setAlertLevel(alertLevel);
+      alert.setThresholdType(accessor);
+      alert.setThresholdValue(threshold);
+      alert.setActualValue(count);
+      alert.setGeoEntity(label);
+      if (systemAlert.getIsEmailActive() & !emailSent)
+      {
+        alert.setEmailFailure(true);
+      }
+      alert.apply();
+
+      alert.throwIt();
+    }
+  }
 }

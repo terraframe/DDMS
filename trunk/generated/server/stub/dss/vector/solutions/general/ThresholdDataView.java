@@ -375,32 +375,69 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
   @Override
   public Double[] getCalculatedThresholds()
   {
-    Double[] thresholds = new Double[106];
     EpiDate[] weeks = this.getSeason().getEpiWeeks();
-    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
+        
+    int startWeek = 0;
+    int weeksInYear = 0;
 
+    if(weeks.length > 0)
+    {
+      startWeek = weeks[0].getPeriod();
+      weeksInYear = weeks[0].getNumberOfEpiWeeks();
+    }
+    
+    return this.getCalculatedThresholds(weeks, startWeek, weeksInYear);
+  }
+  
+  public Double[] getCalculatedThresholds(EpiDate[] weeks, int startWeek, int weeksInYear)
+  {
+    Double[] thresholds = new Double[106];
+    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoEntity());
+    
     if (weeks.length > 0)
     {
-      int startWeek = weeks[0].getPeriod();
-      int weeksInYear = weeks[0].getNumberOfEpiWeeks();
-
       int i = startWeek;
-
+      
       for (EpiDate week : weeks)
       {
         EpiWeek epiWeek = EpiWeek.getEpiWeek(week);
-
+        
         Double notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
         Double identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);
-
+        
         thresholds[i * 2] = notification;
         thresholds[i * 2 + 1] = identificaiton;
         i++;
-
+        
         i = ( i % weeksInYear );
       }
     }
+    
+    return thresholds;
+  }
+  
+  public static Double[][] getCalculatedThresholdsForViews(MalariaSeason season, ThresholdDataView[] views)
+  {
+    EpiDate[] weeks = season.getEpiWeeks();
+    
+    int startWeek = 0;
+    int weeksInYear = 0;
 
+    if(weeks.length > 0)
+    {
+      startWeek = weeks[0].getPeriod();
+      weeksInYear = weeks[0].getNumberOfEpiWeeks();
+    }
+
+    Double[][] thresholds = new Double[views.length][];
+    
+    for(int i = 0; i < views.length; i++)
+    {
+      ThresholdDataView view = views[i];
+      
+      thresholds[i] = view.getCalculatedThresholds(weeks, startWeek, weeksInYear);
+    }
+    
     return thresholds;
   }
 }

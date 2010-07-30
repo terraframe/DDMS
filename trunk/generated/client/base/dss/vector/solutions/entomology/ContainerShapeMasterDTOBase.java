@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -444486753)
+@com.runwaysdk.business.ClassSignature(hash = 1926498056)
 public abstract class ContainerShapeMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.ContainerShapeMaster";
-  private static final long serialVersionUID = -444486753;
+  private static final long serialVersionUID = 1926498056;
   
   protected ContainerShapeMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
