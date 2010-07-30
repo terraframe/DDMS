@@ -26,12 +26,10 @@
         <mjl:input type="text" param="colonyName" />
       </mjl:dt>
       <mjl:dt attribute="ageRange">
-        <dl>
-          <mjl:struct param="ageRange">
-            <mjl:dt attribute="startPoint" type="text"  />
-            <mjl:dt attribute="endPoint" type="text"  />
-          </mjl:struct>
-        </dl>
+        <mjl:struct param="ageRange">
+          <mjl:dt attribute="startPoint" type="text"  />
+          <mjl:dt attribute="endPoint" type="text"  />
+        </mjl:struct>
       </mjl:dt>
       <mjl:dt attribute="sex">
         <mdss:mo param="sex" value="${sex}"/>
