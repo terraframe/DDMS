@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 121525100)
+@com.runwaysdk.business.ClassSignature(hash = 1712508031)
 public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayView";
-  private static final long serialVersionUID = 121525100;
+  private static final long serialVersionUID = 1712508031;
   
   protected TeamSprayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -26,7 +26,6 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public dss.vector.solutions.irs.InsecticideBrandDTO getBrand()
   {
     if(getValue(BRAND) == null || getValue(BRAND).trim().equals(""))
@@ -402,43 +401,6 @@ public abstract class TeamSprayViewDTOBase extends com.runwaysdk.business.ViewDT
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTeamLeaderMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isTeamSprayWeekWritable()
-  {
-    return isWritable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekReadable()
-  {
-    return isReadable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekModified()
-  {
-    return isModified(TEAMSPRAYWEEK);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public final void deleteConcrete()

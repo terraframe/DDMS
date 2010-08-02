@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1353118659)
+@com.runwaysdk.business.ClassSignature(hash = -589836864)
 public abstract class TeamSprayDTOBase extends dss.vector.solutions.irs.AbstractSprayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSpray";
-  private static final long serialVersionUID = 1353118659;
+  private static final long serialVersionUID = -589836864;
   
   protected TeamSprayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -35,7 +35,6 @@ public abstract class TeamSprayDTOBase extends dss.vector.solutions.irs.Abstract
   public static java.lang.String SPRAYTEAM = "sprayTeam";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public dss.vector.solutions.irs.InsecticideBrandDTO getBrandForIndex()
   {
     if(getValue(BRANDFORINDEX) == null || getValue(BRANDFORINDEX).trim().equals(""))
@@ -365,43 +364,6 @@ public abstract class TeamSprayDTOBase extends dss.vector.solutions.irs.Abstract
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTeamLeaderMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isTeamSprayWeekWritable()
-  {
-    return isWritable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekReadable()
-  {
-    return isReadable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekModified()
-  {
-    return isModified(TEAMSPRAYWEEK);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.irs.OperatorSprayStatusViewDTO[] getStatusViews()

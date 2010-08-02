@@ -58,9 +58,7 @@
       <mjl:dt attribute="surfaceType">
         <mdss:mo param="surfaceType" value="${surfaceType}"/>
       </mjl:dt>                  
-      <mjl:dt attribute="teamSprayWeek" type="text"/>
       <mjl:dt attribute="target" type="text"/>
-      <mjl:dt attribute="operatorSprayWeek" type="text" />
       <mjl:dt attribute="received" type="text"/>
       <mjl:dt attribute="refills" type="text"/>
       <mjl:dt attribute="returned" type="text"/>

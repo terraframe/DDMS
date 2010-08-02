@@ -71,11 +71,9 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     new AttributeNotificationMap(spray, OperatorSpray.SURFACETYPE, this, OperatorSprayView.SURFACETYPE);
     new AttributeNotificationMap(spray, OperatorSpray.TEAMLEADER, this, OperatorSprayView.TEAMLEADER);
     new AttributeNotificationMap(spray, OperatorSpray.TARGET, this, OperatorSprayView.TARGET);
-    new AttributeNotificationMap(spray, OperatorSpray.TEAMSPRAYWEEK, this, OperatorSprayView.TEAMSPRAYWEEK);
     new AttributeNotificationMap(spray, OperatorSpray.RECEIVED, this, OperatorSprayView.RECEIVED);
     new AttributeNotificationMap(spray, OperatorSpray.REFILLS, this, OperatorSprayView.REFILLS);
     new AttributeNotificationMap(spray, OperatorSpray.RETURNED, this, OperatorSprayView.RETURNED);        
-    new AttributeNotificationMap(spray, OperatorSpray.OPERATORSPRAYWEEK, this, OperatorSprayView.OPERATORSPRAYWEEK);
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYOPERATOR, this, OperatorSprayView.SPRAYOPERATOR);
     new AttributeNotificationMap(spray, OperatorSpray.SPRAYTEAM, this, OperatorSprayView.SPRAYTEAM);
   }
@@ -86,10 +84,8 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     concrete.setBrand(this.getBrand());
     concrete.setGeoEntity(this.getGeoEntity());
     concrete.setSurfaceType(this.getSurfaceType());
-    concrete.setOperatorSprayWeek(this.getOperatorSprayWeek());
     concrete.setSprayOperator(this.getSprayOperator());
     concrete.setTarget(this.getTarget());
-    concrete.setTeamSprayWeek(this.getTeamSprayWeek());    
     concrete.setReceived(this.getReceived());
     concrete.setRefills(this.getRefills());
     concrete.setReturned(this.getReturned());
@@ -111,10 +107,8 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
     this.setBrand(concrete.getBrand());
     this.setGeoEntity(concrete.getGeoEntity());
     this.setSurfaceType(concrete.getSurfaceType());
-    this.setOperatorSprayWeek(concrete.getOperatorSprayWeek());
     this.setSprayOperator(concrete.getSprayOperator());
     this.setTarget(concrete.getTarget());
-    this.setTeamSprayWeek(concrete.getTeamSprayWeek());    
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());

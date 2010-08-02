@@ -31,7 +31,6 @@
       <mjl:dt attribute="surfaceType">
         <mdss:mo param="surfaceType" value="${surfaceType}"/>
       </mjl:dt>                  
-      <mjl:dt attribute="sprayWeek" type="text"/>
       <mjl:dt attribute="supervisor">
         <mjl:select var="current" valueAttribute="supervisorId" items="${supervisors}" param="supervisor" includeBlank="true" >
          <mjl:option selected="${supervisor != null && current.id == supervisor.id ? 'selected' : 'false'}">
@@ -39,5 +38,4 @@
          </mjl:option>
         </mjl:select>        
       </mjl:dt>
-      <mjl:dt attribute="target" type="text"/>
     </mjl:component>

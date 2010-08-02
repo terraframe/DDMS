@@ -43,7 +43,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     this.setOther(concrete.getOther());
     this.setRefused(concrete.getRefused());
     this.setSprayOperator(concrete.getSprayOperator());
-    this.setOperatorSprayWeek(concrete.getOperatorSprayWeek());    
+    this.setOperatorTarget(concrete.getOperatorTarget());    
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());
@@ -81,7 +81,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     concrete.setOther(this.getOther());
     concrete.setRefused(this.getRefused());
     concrete.setSprayOperator(this.getSprayOperator());
-    concrete.setOperatorSprayWeek(this.getOperatorSprayWeek());
+    concrete.setOperatorTarget(this.getOperatorTarget());
     concrete.setReceived(this.getReceived());
     concrete.setRefills(this.getRefills());
     concrete.setReturned(this.getReturned());
@@ -105,7 +105,7 @@ public class OperatorSprayStatusView extends OperatorSprayStatusViewBase impleme
     new AttributeNotificationMap(concrete, OperatorSprayStatus.LOCKED, this, OperatorSprayStatusView.LOCKED);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.OTHER, this, OperatorSprayStatusView.OTHER);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.REFUSED, this, OperatorSprayStatusView.REFUSED);
-    new AttributeNotificationMap(concrete, OperatorSprayStatus.OPERATORSPRAYWEEK, this, OperatorSprayStatusView.OPERATORSPRAYWEEK);
+    new AttributeNotificationMap(concrete, OperatorSprayStatus.OPERATORTARGET, this, OperatorSprayStatusView.OPERATORTARGET);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.SPRAYOPERATOR, this, OperatorSprayStatusView.SPRAYOPERATOR);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.RECEIVED, this, OperatorSprayStatusView.RECEIVED);
     new AttributeNotificationMap(concrete, OperatorSprayStatus.REFILLS, this, OperatorSprayStatusView.REFILLS);

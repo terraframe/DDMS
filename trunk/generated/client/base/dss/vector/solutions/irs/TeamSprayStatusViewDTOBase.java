@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 868424258)
+@com.runwaysdk.business.ClassSignature(hash = -1397334315)
 public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.TeamSprayStatusView";
-  private static final long serialVersionUID = 868424258;
+  private static final long serialVersionUID = -1397334315;
   
   protected TeamSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -40,7 +40,6 @@ public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLABEL = "teamLabel";
   public static java.lang.String TEAMLEADER = "teamLeader";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
   public Integer getBedNets()
   {
@@ -912,43 +911,6 @@ public abstract class TeamSprayStatusViewDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTeamLeaderMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TEAMLEADER).getAttributeMdDTO();
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isTeamSprayWeekWritable()
-  {
-    return isWritable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekReadable()
-  {
-    return isReadable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekModified()
-  {
-    return isModified(TEAMSPRAYWEEK);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getUsed()

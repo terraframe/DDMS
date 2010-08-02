@@ -19,16 +19,18 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
   {
     super();
   }
-  
+
   @Override
-  public void apply() {
-	    if (this.isNew() && this.getDisease() == null) {
-	    	this.setDisease(Disease.getCurrent());
-	    }
-	    
-	super.apply();
+  public void apply()
+  {
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+
+    super.apply();
   }
-  
+
   @Override
   public String toString()
   {

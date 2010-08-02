@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -889817095)
+@com.runwaysdk.business.ClassSignature(hash = -1074647476)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class TeamSprayStatusViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -889817095;
+private static final long serialVersionUID = -1074647476;
 
   public TeamSprayStatusViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -461,24 +461,6 @@ private static final long serialVersionUID = -889817095;
     return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getSelectable(dss.vector.solutions.irs.TeamSprayStatusView.TEAMLEADER, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek()
-  {
-    return getTeamSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.TeamSprayStatusView.TEAMSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.TeamSprayStatusView.TEAMSPRAYWEEK, alias, displayLabel);
-
-  }
- 
   public com.runwaysdk.query.SelectableInteger getUsed()
   {
     return getUsed(null);

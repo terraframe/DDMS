@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1856069699)
+@com.runwaysdk.business.ClassSignature(hash = -12845599)
 public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.AbstractSprayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ZoneSpray";
-  private static final long serialVersionUID = -1856069699;
+  private static final long serialVersionUID = -12845599;
   
   protected ZoneSprayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -32,9 +32,7 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
   public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
   public static java.lang.String SPRAYDATEFORINDEX = "sprayDateForIndex";
   public static java.lang.String SPRAYMETHODFORINDEX = "sprayMethodForIndex";
-  public static java.lang.String SPRAYWEEK = "sprayWeek";
   public static java.lang.String SUPERVISOR = "supervisor";
-  public static java.lang.String TARGET = "target";
   public dss.vector.solutions.irs.InsecticideBrandDTO getBrandForIndex()
   {
     if(getValue(BRANDFORINDEX) == null || getValue(BRANDFORINDEX).trim().equals(""))
@@ -241,43 +239,6 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPRAYMETHODFORINDEX).getAttributeMdDTO();
   }
   
-  public Integer getSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
-  }
-  
-  public void setSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(SPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isSprayWeekWritable()
-  {
-    return isWritable(SPRAYWEEK);
-  }
-  
-  public boolean isSprayWeekReadable()
-  {
-    return isReadable(SPRAYWEEK);
-  }
-  
-  public boolean isSprayWeekModified()
-  {
-    return isModified(SPRAYWEEK);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSprayWeekMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPRAYWEEK).getAttributeMdDTO();
-  }
-  
   public dss.vector.solutions.irs.SupervisorDTO getSupervisor()
   {
     if(getValue(SUPERVISOR) == null || getValue(SUPERVISOR).trim().equals(""))
@@ -320,43 +281,6 @@ public abstract class ZoneSprayDTOBase extends dss.vector.solutions.irs.Abstract
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSupervisorMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SUPERVISOR).getAttributeMdDTO();
-  }
-  
-  public Integer getTarget()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
-  }
-  
-  public void setTarget(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TARGET, "");
-    }
-    else
-    {
-      setValue(TARGET, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isTargetWritable()
-  {
-    return isWritable(TARGET);
-  }
-  
-  public boolean isTargetReadable()
-  {
-    return isReadable(TARGET);
-  }
-  
-  public boolean isTargetModified()
-  {
-    return isModified(TARGET);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTargetMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
   }
   
   public static final java.io.InputStream exportQueryToCSV(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)

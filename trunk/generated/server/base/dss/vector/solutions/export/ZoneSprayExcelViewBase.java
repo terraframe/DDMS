@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1950051849)
+@com.runwaysdk.business.ClassSignature(hash = -821374776)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,6 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
   public static java.lang.String SPRAYTEAM = "sprayTeam";
-  public static java.lang.String SPRAYWEEK = "sprayWeek";
   public static java.lang.String SPRAYEDHOUSEHOLDS = "sprayedHouseholds";
   public static java.lang.String SPRAYEDROOMS = "sprayedRooms";
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
@@ -36,14 +35,12 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String SUPERVISORNAME = "supervisorName";
   public static java.lang.String SUPERVISORSURNAME = "supervisorSurname";
   public static java.lang.String SURFACETYPE = "surfaceType";
-  public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMRECEIVED = "teamReceived";
   public static java.lang.String TEAMREFILLS = "teamRefills";
   public static java.lang.String TEAMRETURNED = "teamReturned";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String TEAMTARGET = "teamTarget";
   public static java.lang.String TEAMUSED = "teamUsed";
-  private static final long serialVersionUID = 1950051849;
+  private static final long serialVersionUID = -821374776;
   
   public ZoneSprayExcelViewBase()
   {
@@ -521,34 +518,6 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     }
   }
   
-  public Integer getSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
-  }
-  
-  public void validateSprayWeek()
-  {
-    this.validateAttribute(SPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYWEEK);
-  }
-  
-  public void setSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(SPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
   public Integer getSprayedHouseholds()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYEDHOUSEHOLDS));
@@ -745,34 +714,6 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     }
   }
   
-  public Integer getTarget()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
-  }
-  
-  public void validateTarget()
-  {
-    this.validateAttribute(TARGET);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
-  }
-  
-  public void setTarget(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TARGET, "");
-    }
-    else
-    {
-      setValue(TARGET, java.lang.Integer.toString(value));
-    }
-  }
-  
   public Integer getTeamReceived()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMRECEIVED));
@@ -854,34 +795,6 @@ public abstract class ZoneSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(TEAMRETURNED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void validateTeamSprayWeek()
-  {
-    this.validateAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.ZoneSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
     }
   }
   

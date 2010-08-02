@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1446524925)
+@com.runwaysdk.business.ClassSignature(hash = -1022274187)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,11 +17,9 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
   public static java.lang.String ID = "id";
   public static java.lang.String SPRAYDATE = "sprayDate";
   public static java.lang.String SPRAYMETHOD = "sprayMethod";
-  public static java.lang.String SPRAYWEEK = "sprayWeek";
   public static java.lang.String SUPERVISOR = "supervisor";
   public static java.lang.String SURFACETYPE = "surfaceType";
-  public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = -1446524925;
+  private static final long serialVersionUID = -1022274187;
   
   public ZoneSprayViewBase()
   {
@@ -208,34 +206,6 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     return mdClassIF.definesAttribute(SPRAYMETHOD);
   }
   
-  public Integer getSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
-  }
-  
-  public void validateSprayWeek()
-  {
-    this.validateAttribute(SPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(SPRAYWEEK);
-  }
-  
-  public void setSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(SPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
   public dss.vector.solutions.irs.Supervisor getSupervisor()
   {
     if (getValue(SUPERVISOR).trim().equals(""))
@@ -303,34 +273,6 @@ public abstract class ZoneSprayViewBase extends com.runwaysdk.business.View impl
     else
     {
       setValue(SURFACETYPE, value.getId());
-    }
-  }
-  
-  public Integer getTarget()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
-  }
-  
-  public void validateTarget()
-  {
-    this.validateAttribute(TARGET);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSprayView.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
-  }
-  
-  public void setTarget(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TARGET, "");
-    }
-    else
-    {
-      setValue(TARGET, java.lang.Integer.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -2104754961)
+@com.runwaysdk.business.ClassSignature(hash = 632721633)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,7 +22,7 @@ public abstract class OperatorSprayStatusBase extends com.runwaysdk.business.Bus
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
+  public static java.lang.String OPERATORTARGET = "operatorTarget";
   public static java.lang.String OTHER = "other";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String PEOPLE = "people";
@@ -44,7 +44,7 @@ public abstract class OperatorSprayStatusBase extends com.runwaysdk.business.Bus
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String TYPE = "type";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -2104754961;
+  private static final long serialVersionUID = 632721633;
   
   public OperatorSprayStatusBase()
   {
@@ -315,31 +315,31 @@ public abstract class OperatorSprayStatusBase extends com.runwaysdk.business.Bus
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
-  public Integer getOperatorSprayWeek()
+  public Integer getOperatorTarget()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORTARGET));
   }
   
-  public void validateOperatorSprayWeek()
+  public void validateOperatorTarget()
   {
-    this.validateAttribute(OPERATORSPRAYWEEK);
+    this.validateAttribute(OPERATORTARGET);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorSprayWeekMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorTargetMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSprayStatus.CLASS);
-    return mdClassIF.definesAttribute(OPERATORSPRAYWEEK);
+    return mdClassIF.definesAttribute(OPERATORTARGET);
   }
   
-  public void setOperatorSprayWeek(Integer value)
+  public void setOperatorTarget(Integer value)
   {
     if(value == null)
     {
-      setValue(OPERATORSPRAYWEEK, "");
+      setValue(OPERATORTARGET, "");
     }
     else
     {
-      setValue(OPERATORSPRAYWEEK, java.lang.Integer.toString(value));
+      setValue(OPERATORTARGET, java.lang.Integer.toString(value));
     }
   }
   

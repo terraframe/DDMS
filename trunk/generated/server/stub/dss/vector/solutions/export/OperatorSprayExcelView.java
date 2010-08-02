@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -17,7 +16,6 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
-import dss.vector.solutions.irs.SprayMethod;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.ontology.Term;
@@ -76,8 +74,6 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
         }
       }
 
-      osv.setTeamSprayWeek(this.getTeamSprayWeek());
-      osv.setOperatorSprayWeek(this.getOperatorSprayWeek());
       osv.setTarget(this.getTarget());
       osv.setReceived(this.getReceived());
       osv.setRefills(this.getRefills());
@@ -137,9 +133,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(OPERATORID);
     list.add(LEADERID);
     list.add(SURFACETYPE);
-    list.add(TEAMSPRAYWEEK);
     list.add(TARGET);
-    list.add(OPERATORSPRAYWEEK);
     list.add(RECEIVED);
     list.add(REFILLS);
     list.add(RETURNED);

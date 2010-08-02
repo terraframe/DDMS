@@ -90,22 +90,14 @@
           </mjl:dt>
         </td>
         <td>
-          <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>
-        </td>
-        <td>
           <mjl:dt attribute="used"> ${item.used} </mjl:dt>
         </td>
-      </tr>
-      <tr>
         <td>
           <mjl:dt attribute="surfaceType" >
             <c:if test="${surfaceType != null}">
               ${surfaceType.displayLabel}
             </c:if>
           </mjl:dt>
-        </td>
-        <td>
-          <mjl:dt attribute="operatorSprayWeek"> ${item.operatorSprayWeek} </mjl:dt>
         </td>
       </tr>
     </table>

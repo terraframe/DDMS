@@ -8,6 +8,9 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -55,12 +58,26 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
     {
       validateParameters(id, season, geoId);
 
+      boolean sum = !id.equals("ALL");
+
       ClientRequestIF request = super.getClientRequest();
 
       String[] targetIds = this.getTargetIds(id, geoId, request);
+      ResourceTargetViewDTO[] data = ResourceTargetViewDTO.getResourceTargets(request, targetIds, season);
 
-      DataGrid grid = new ResourceTargetGridBuilder(request, targetIds, season).build();
+      DataGrid grid = new ResourceTargetGridBuilder(request, data, season, sum, req).build();
+      
+      JSONObject calculatedTargets = new JSONObject();
+      
+      Integer[][] targets = ResourceTargetViewDTO.getCalculatedTargetsFoViews(request, data);
+      
+      for(int i = 0; i < targets.length; i++)
+      {
+        String targeterId = data[i].getValue(ResourceTargetViewDTO.TARGETER);
+        calculatedTargets.put(targeterId, new JSONArray(Arrays.asList(targets[i])));
+      }
 
+      req.setAttribute("calculatedTargets", calculatedTargets);
       req.setAttribute("grid", grid);
       render("viewComponent.jsp");
     }
@@ -76,23 +93,22 @@ public class ResourceTargetController extends ResourceTargetControllerBase imple
 
   }
 
-  private String[] getTargetIds(String id, String geoId, ClientRequestIF request)
+  private String[] getTargetIds(String teamId, String geoId, ClientRequestIF request)
   {
     List<String> targetIds = new ArrayList<String>();
     List<SprayTeamDTO> sprayTeams = new ArrayList<SprayTeamDTO>();
     List<TeamMemberDTO> sprayOperators = new ArrayList<TeamMemberDTO>();
 
-    if (id.equals("ALL"))
+    if (teamId.equals("ALL"))
     {
       // Get the GeoEntity which corresponds to the GeoId
       sprayTeams.addAll(Arrays.asList(SprayTeamDTO.findByLocation(request, geoId)));
     }
     else
     {
-      SprayTeamDTO team = SprayTeamDTO.get(request, id);
+      SprayTeamDTO team = SprayTeamDTO.get(request, teamId);
 
-      // We do not want to show the team summary row since weeks do not add up
-      // sprayTeams.add(team);
+      sprayTeams.add(team);
 
       sprayOperators.addAll(team.getAllSprayTeamMembers());
     }

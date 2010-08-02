@@ -9,35 +9,13 @@
 <%@page import="java.util.List"%>
 <%@page import="java.util.Map"%>
 <%@page import="dss.vector.solutions.util.yui.ColumnSetup"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 
-
-<%@page import="dss.vector.solutions.util.yui.DataGrid"%><mjl:messages>
-  <mjl:message />
-</mjl:messages>
 <c:set var="page_title" value="Edit_Spray_Team_Target"  scope="request"/>
+
 <div id="ResourceTargets"></div>
 <br/>
 
-<style type="text/css">
-.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
-{
-  vertical-align:bottom;
-  background-color:#DDDDDD;
-  background:none;
-}
-
-.yui-dt-label
-{
-  /*writing-mode: tb-rl;*/
-  -moz-transform: rotate(-90deg);
-  width:10px;
-  height:240px;
-  display:block;
-  position:relative;
-  top:110px;
-  left:110px;
-}
-</style>
 <%
 DataGrid grid = (DataGrid) request.getAttribute("grid");
 %>
@@ -47,7 +25,9 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    ResourceTargetData = {
+	var calculatedTargets = <%=request.getAttribute("calculatedTargets")%>;
+	
+    var data = {
       rows:<%=grid.getData()%>,
       columnDefs:<%=grid.getColumnSetup("")%>,
       defaults:<%=grid.getDefaultValues()%>,
@@ -55,10 +35,43 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       data_type: "Mojo.$.dss.vector.solutions.irs.ResourceTargetView",
       saveFunction: "applyAll",
       addButton:false,
-      excelButtons:false
+      excelButtons:false,
+      after_row_edit:function(record) {
+        setRowCaluatedValues(record);
+      }
     };
     
-    var grid = MojoGrid.createDataTable(ResourceTargetData);
+    var grid = MojoGrid.createDataTable(data);
+
+    var dt = grid.getDataTable();
+
+    var setRowCaluatedValues = function(row) {
+      var targeterId = row.getData('Targeter');      
+      var calulated = calculatedTargets[targeterId];
+
+      if(calulated && calulated != '')
+      {  
+        for (var i =0; i<53 ;i++)
+        {
+          if(! row.getData('Target_'+i))
+          {
+            if(calulated[i])
+            {
+              var col = dt.getColumn('Target_'+i);
+              dt.updateCell(row, col, calulated[i] );
+  
+              var lastTd = dt.getTdEl( {
+                record : row,
+                column : col
+              });
+              YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
+            }
+          }
+        }
+      }
+    }
+
+    dt.getRecordSet().getRecords().map(setRowCaluatedValues);    
   });
 })();                  
 </script>

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 907579582)
+@com.runwaysdk.business.ClassSignature(hash = 2116484588)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,7 +20,6 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String LEADERID = "leaderId";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String OPERATORID = "operatorId";
-  public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
@@ -41,9 +40,8 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 907579582;
+  private static final long serialVersionUID = 2116484588;
   
   public OperatorSprayExcelViewBase()
   {
@@ -294,34 +292,6 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(OPERATORID, value);
-    }
-  }
-  
-  public Integer getOperatorSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
-  }
-  
-  public void validateOperatorSprayWeek()
-  {
-    this.validateAttribute(OPERATORSPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(OPERATORSPRAYWEEK);
-  }
-  
-  public void setOperatorSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OPERATORSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(OPERATORSPRAYWEEK, java.lang.Integer.toString(value));
     }
   }
   
@@ -882,34 +852,6 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(TARGET, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void validateTeamSprayWeek()
-  {
-    this.validateAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
-    return mdClassIF.definesAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
     }
   }
   

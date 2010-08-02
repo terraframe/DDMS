@@ -134,13 +134,11 @@ public class HouseholdSprayStatusTest extends TestCase
     spray.setSprayDate(new Date());
     spray.addSprayMethod(SprayMethod.MAIN_SPRAY);
     spray.setSurfaceType(surfaceType);
-    spray.setOperatorSprayWeek(2);
     spray.setReceived(2);
     spray.setRefills(3);
     spray.setReturned(2);
     spray.setSprayOperator(operator);
     spray.setTarget(232);
-    spray.setTeamSprayWeek(24);
     spray.setUsed(3);
     spray.apply();
 
@@ -150,13 +148,11 @@ public class HouseholdSprayStatusTest extends TestCase
     mopupSpray.setSprayDate(new Date());
     mopupSpray.addSprayMethod(SprayMethod.MOP_UP);
     mopupSpray.setSurfaceType(surfaceType);
-    mopupSpray.setOperatorSprayWeek(2);
     mopupSpray.setReceived(2);
     mopupSpray.setRefills(3);
     mopupSpray.setReturned(2);
     mopupSpray.setSprayOperator(operator);
     mopupSpray.setTarget(232);
-    mopupSpray.setTeamSprayWeek(24);
     mopupSpray.setUsed(3);
     mopupSpray.apply();
   }

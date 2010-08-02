@@ -4,9 +4,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.business.ProblemDTOIF;
-import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.BasicCondition;
@@ -15,7 +12,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
@@ -48,21 +44,24 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     this.setRefused(concrete.getRefused());
     this.setSprayTeam(concrete.getSprayTeam());
     this.setTeamLeader(concrete.getTeamLeader());
-    this.setTeamSprayWeek(concrete.getTeamSprayWeek());
     this.setTarget(concrete.getTarget());
-    if (concrete.getSprayTeam() != null) {
-        this.setTeamLabel(concrete.getSprayTeam().getLabel());
-    } else {
-        RequiredAttributeProblem p = new RequiredAttributeProblem();
-        p.setNotification(this, SPRAYTEAM);
-        p.apply();
+    
+    if (concrete.getSprayTeam() != null)
+    {
+      this.setTeamLabel(concrete.getSprayTeam().getLabel());
+    }
+    else
+    {
+      RequiredAttributeProblem p = new RequiredAttributeProblem();
+      p.setNotification(this, SPRAYTEAM);
+      p.apply();
 
-        p.throwIt();
+      p.throwIt();
     }
     this.setReceived(concrete.getReceived());
     this.setRefills(concrete.getRefills());
     this.setReturned(concrete.getReturned());
-    this.setUsed(concrete.getUsed());    
+    this.setUsed(concrete.getUsed());
   }
 
   protected void populateConcrete(TeamSprayStatus concrete)
@@ -84,14 +83,13 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     concrete.setRefused(this.getRefused());
     concrete.setSprayTeam(this.getSprayTeam());
     concrete.setTeamLeader(this.getTeamLeader());
-    concrete.setTeamSprayWeek(this.getTeamSprayWeek());
     concrete.setTarget(this.getTarget());
     concrete.setReceived(this.getReceived());
     concrete.setRefills(this.getRefills());
     concrete.setReturned(this.getReturned());
-    concrete.setUsed(this.getUsed());    
+    concrete.setUsed(this.getUsed());
   }
-  
+
   private void populateMapping(TeamSprayStatus concrete)
   {
     new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAY, this, TeamSprayStatusView.SPRAY);
@@ -111,7 +109,6 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     new AttributeNotificationMap(concrete, TeamSprayStatus.REFUSED, this, TeamSprayStatusView.REFUSED);
     new AttributeNotificationMap(concrete, TeamSprayStatus.SPRAYTEAM, this, TeamSprayStatusView.SPRAYTEAM);
     new AttributeNotificationMap(concrete, TeamSprayStatus.TEAMLEADER, this, TeamSprayStatusView.TEAMLEADER);
-    new AttributeNotificationMap(concrete, TeamSprayStatus.TEAMSPRAYWEEK, this, TeamSprayStatusView.TEAMSPRAYWEEK);
     new AttributeNotificationMap(concrete, TeamSprayStatus.TARGET, this, TeamSprayStatusView.TARGET);
     new AttributeNotificationMap(concrete, TeamSprayStatus.RECEIVED, this, TeamSprayStatusView.RECEIVED);
     new AttributeNotificationMap(concrete, TeamSprayStatus.REFILLS, this, TeamSprayStatusView.REFILLS);
@@ -124,16 +121,16 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
   public void apply()
   {
     TeamSprayStatus concrete = new TeamSprayStatus();
-    
+
     if (this.hasConcrete())
     {
       concrete = TeamSprayStatus.lock(this.getConcreteId());
     }
-        
+
     this.populateMapping(concrete);
 
     this.populateConcrete(concrete);
-        
+
     concrete.apply();
 
     this.populateView(concrete);
@@ -143,7 +140,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public void deleteConcrete()
   {
     if (this.hasConcrete())
@@ -151,7 +148,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
       TeamSprayStatus.get(this.getConcreteId()).delete();
     }
   }
-  
+
   @Transaction
   public static TeamSprayStatusView[] applyAll(TeamSprayStatusView[] views)
   {

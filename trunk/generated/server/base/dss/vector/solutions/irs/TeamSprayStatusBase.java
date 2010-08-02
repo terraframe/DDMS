@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 906319087)
+@com.runwaysdk.business.ClassSignature(hash = -295908628)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -43,10 +43,9 @@ public abstract class TeamSprayStatusBase extends com.runwaysdk.business.Busines
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String TYPE = "type";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 906319087;
+  private static final long serialVersionUID = -295908628;
   
   public TeamSprayStatusBase()
   {
@@ -906,34 +905,6 @@ public abstract class TeamSprayStatusBase extends com.runwaysdk.business.Busines
     else
     {
       setValue(TEAMLEADER, value.getId());
-    }
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void validateTeamSprayWeek()
-  {
-    this.validateAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.TeamSprayStatus.CLASS);
-    return mdClassIF.definesAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
     }
   }
   

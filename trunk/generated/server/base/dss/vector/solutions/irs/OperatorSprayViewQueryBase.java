@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -375033905)
+@com.runwaysdk.business.ClassSignature(hash = -120898179)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class OperatorSprayViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -375033905;
+private static final long serialVersionUID = -120898179;
 
   public OperatorSprayViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -133,24 +133,6 @@ private static final long serialVersionUID = -375033905;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.ID, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek()
-  {
-    return getOperatorSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.OPERATORSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.OPERATORSPRAYWEEK, alias, displayLabel);
 
   }
  
@@ -352,24 +334,6 @@ private static final long serialVersionUID = -375033905;
   public com.runwaysdk.query.SelectableChar getTeamOperator(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMOPERATOR, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek()
-  {
-    return getTeamSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.irs.OperatorSprayView.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
  

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -287701131)
+@com.runwaysdk.business.ClassSignature(hash = -517443805)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class OperatorSprayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -287701131;
+private static final long serialVersionUID = -517443805;
 
   public OperatorSprayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -186,24 +186,6 @@ private static final long serialVersionUID = -287701131;
   public com.runwaysdk.query.SelectableChar getOperatorId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.OPERATORID, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek()
-  {
-    return getOperatorSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.OPERATORSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.OPERATORSPRAYWEEK, alias, displayLabel);
 
   }
  
@@ -564,24 +546,6 @@ private static final long serialVersionUID = -287701131;
   public com.runwaysdk.query.SelectableInteger getTarget(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.TARGET, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek()
-  {
-    return getTeamSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.TEAMSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.OperatorSprayExcelView.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
  

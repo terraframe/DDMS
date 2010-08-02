@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1034179824)
+@com.runwaysdk.business.ClassSignature(hash = -1380457807)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  class OperatorSprayQuery extends dss.vector.solutions.irs.AbstractSprayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1034179824;
+private static final long serialVersionUID = -1380457807;
 
   public OperatorSprayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -106,23 +106,6 @@ private static final long serialVersionUID = -1034179824;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX);
 
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek()
-  {
-    return getOperatorSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.OPERATORSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.OPERATORSPRAYWEEK, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -296,23 +279,6 @@ private static final long serialVersionUID = -1034179824;
     return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.OperatorSpray.TEAMLEADER, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek()
-  {
-    return getTeamSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.TEAMSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.OperatorSpray.TEAMSPRAYWEEK, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableInteger getUsed()
   {
     return getUsed(null);
@@ -405,9 +371,6 @@ private static final long serialVersionUID = -1034179824;
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex();
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias);
     public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek();
-    public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias);
-    public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getReceived();
     public com.runwaysdk.query.SelectableInteger getReceived(String alias);
     public com.runwaysdk.query.SelectableInteger getReceived(String alias, String displayLabel);
@@ -435,9 +398,6 @@ private static final long serialVersionUID = -1034179824;
     public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader();
     public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias);
     public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getTeamSprayWeek();
-    public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias);
-    public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getUsed();
     public com.runwaysdk.query.SelectableInteger getUsed(String alias);
     public com.runwaysdk.query.SelectableInteger getUsed(String alias, String displayLabel);
@@ -456,7 +416,7 @@ private static final long serialVersionUID = -1034179824;
  implements OperatorSprayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 225733166;
+private static final long serialVersionUID = 762736079;
 
   public OperatorSprayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -524,23 +484,6 @@ private static final long serialVersionUID = 225733166;
   public dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF getGeoEntityForIndex(String alias, String displayLabel)
   {
     return (dss.vector.solutions.geo.generated.GeoEntityQuery.GeoEntityQueryReferenceIF)this.get(dss.vector.solutions.irs.OperatorSpray.GEOENTITYFORINDEX,  alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek()
-  {
-    return getOperatorSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.OPERATORSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getOperatorSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.OPERATORSPRAYWEEK, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getReceived()
@@ -694,23 +637,6 @@ private static final long serialVersionUID = 225733166;
   public dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF getTeamLeader(String alias, String displayLabel)
   {
     return (dss.vector.solutions.irs.TeamMemberQuery.TeamMemberQueryReferenceIF)this.get(dss.vector.solutions.irs.OperatorSpray.TEAMLEADER,  alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek()
-  {
-    return getTeamSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.TEAMSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.OperatorSpray.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getUsed()

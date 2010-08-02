@@ -3,11 +3,8 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
-import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -15,7 +12,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
-import dss.vector.solutions.irs.SprayMethod;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
@@ -53,9 +49,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
     if (zsv.getConcreteId() == null || zsv.getConcreteId().equals(""))
     {
       zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
-      zsv.setSprayWeek(this.getSprayWeek());
       zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
-      zsv.setTarget(this.getTarget());
 
       zsv.apply();
     }
@@ -66,7 +60,6 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
       view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));
       view.setTeamLeader(TeamMember.getMemberById(this.getLeaderId()));
-      view.setTeamSprayWeek(this.getTeamSprayWeek());
       view.setTarget(this.getTeamTarget());
       view.setReceived(this.getTeamReceived());
       view.setRefills(this.getTeamRefills());
@@ -97,13 +90,10 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
     list.add(SPRAYDATE);
     list.add(SPRAYMETHOD);
     list.add(SURFACETYPE);
-    list.add(SPRAYWEEK);
     list.add(SUPERVISORNAME);
     list.add(SUPERVISORSURNAME);
-    list.add(TARGET);
     list.add(SPRAYTEAM);
     list.add(LEADERID);
-    list.add(TEAMSPRAYWEEK);
     list.add(TEAMTARGET);
     list.add(TEAMRECEIVED);
     list.add(TEAMREFILLS);

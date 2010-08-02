@@ -72,11 +72,6 @@
             <mjl:dt attribute="sprayDate"> <span id="testDateSpan" class="formatDate"> ${item.sprayDate} </span> </mjl:dt>
           </td>
           <td>
-            <mjl:dt attribute="teamSprayWeek"> ${item.teamSprayWeek} </mjl:dt>
-          </td>      
-        </tr>
-        <tr>
-          <td>
             <mjl:dt attribute="sprayMethod">
               <ul>
                 <c:forEach var="enumName" items="${item.sprayMethodEnumNames}">
@@ -85,11 +80,11 @@
               </ul>            
             </mjl:dt>
           </td>
+        </tr>
+        <tr>
           <td>
             <mjl:dt attribute="target"> ${item.target} </mjl:dt>
           </td>
-        </tr>
-        <tr>
           <td>
             <mjl:dt attribute="surfaceType" >          
               <c:if test="${surfaceType != null}"> ${surfaceType.displayLabel} </c:if>

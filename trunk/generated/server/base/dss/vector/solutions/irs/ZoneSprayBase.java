@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 966876733)
+@com.runwaysdk.business.ClassSignature(hash = -1723109535)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,10 +16,8 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
   public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
   public static java.lang.String SPRAYDATEFORINDEX = "sprayDateForIndex";
   public static java.lang.String SPRAYMETHODFORINDEX = "sprayMethodForIndex";
-  public static java.lang.String SPRAYWEEK = "sprayWeek";
   public static java.lang.String SUPERVISOR = "supervisor";
-  public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = 966876733;
+  private static final long serialVersionUID = -1723109535;
   
   public ZoneSprayBase()
   {
@@ -187,34 +185,6 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     }
   }
   
-  public Integer getSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPRAYWEEK));
-  }
-  
-  public void validateSprayWeek()
-  {
-    this.validateAttribute(SPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(SPRAYWEEK);
-  }
-  
-  public void setSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(SPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(SPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
   public dss.vector.solutions.irs.Supervisor getSupervisor()
   {
     if (getValue(SUPERVISOR).trim().equals(""))
@@ -247,34 +217,6 @@ public abstract class ZoneSprayBase extends dss.vector.solutions.irs.AbstractSpr
     else
     {
       setValue(SUPERVISOR, value.getId());
-    }
-  }
-  
-  public Integer getTarget()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TARGET));
-  }
-  
-  public void validateTarget()
-  {
-    this.validateAttribute(TARGET);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTargetMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.ZoneSpray.CLASS);
-    return mdClassIF.definesAttribute(TARGET);
-  }
-  
-  public void setTarget(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TARGET, "");
-    }
-    else
-    {
-      setValue(TARGET, java.lang.Integer.toString(value));
     }
   }
   

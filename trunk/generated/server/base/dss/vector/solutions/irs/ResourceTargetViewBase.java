@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1079426262)
+@com.runwaysdk.business.ClassSignature(hash = 1626573022)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -69,7 +69,7 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
   public static java.lang.String TARGET_9 = "target_9";
   public static java.lang.String TARGETER = "targeter";
   public static java.lang.String TARGETERNAME = "targeterName";
-  private static final long serialVersionUID = -1079426262;
+  private static final long serialVersionUID = 1626573022;
   
   public ResourceTargetViewBase()
   {
@@ -1728,6 +1728,18 @@ public abstract class ResourceTargetViewBase extends com.runwaysdk.business.View
   {
     ResourceTargetView _instance = ResourceTargetView.get(id);
     _instance.deleteConcrete();
+  }
+  
+  public static java.lang.Integer[] getCalculatedTargets(dss.vector.solutions.irs.Targeter targeter, dss.vector.solutions.general.MalariaSeason season)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.ResourceTargetView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.Integer[][] getCalculatedTargetsFoViews(dss.vector.solutions.irs.ResourceTargetView[] views)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.ResourceTargetView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.irs.ResourceTargetView[] getResourceTargets(java.lang.String[] targeterIds, dss.vector.solutions.general.MalariaSeason season)

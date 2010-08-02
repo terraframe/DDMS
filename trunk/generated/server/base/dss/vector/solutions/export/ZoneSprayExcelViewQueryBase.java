@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1665617216)
+@com.runwaysdk.business.ClassSignature(hash = 588689919)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class ZoneSprayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1665617216;
+private static final long serialVersionUID = 588689919;
 
   public ZoneSprayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -333,24 +333,6 @@ private static final long serialVersionUID = 1665617216;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getSprayWeek()
-  {
-    return getSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.SPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.SPRAYWEEK, alias, displayLabel);
-
-  }
- 
   public com.runwaysdk.query.SelectableInteger getSprayedHouseholds()
   {
     return getSprayedHouseholds(null);
@@ -477,24 +459,6 @@ private static final long serialVersionUID = 1665617216;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getTarget()
-  {
-    return getTarget(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTarget(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.TARGET, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTarget(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.TARGET, alias, displayLabel);
-
-  }
- 
   public com.runwaysdk.query.SelectableInteger getTeamReceived()
   {
     return getTeamReceived(null);
@@ -546,24 +510,6 @@ private static final long serialVersionUID = 1665617216;
   public com.runwaysdk.query.SelectableInteger getTeamReturned(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.TEAMRETURNED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek()
-  {
-    return getTeamSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.TEAMSPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTeamSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.ZoneSprayExcelView.TEAMSPRAYWEEK, alias, displayLabel);
 
   }
  

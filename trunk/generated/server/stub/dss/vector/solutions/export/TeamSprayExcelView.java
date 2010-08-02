@@ -5,7 +5,6 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -16,7 +15,6 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
-import dss.vector.solutions.irs.SprayMethod;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSpray;
@@ -79,7 +77,6 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
         }
       }
       
-      tsv.setTeamSprayWeek(this.getTeamSprayWeek());
       tsv.setTarget(this.getTarget());
       tsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
       tsv.apply();
@@ -89,7 +86,6 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     {
       OperatorSprayStatusView view = new OperatorSprayStatusView();
       view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
-      view.setOperatorSprayWeek(this.getOperatorSprayWeek());
       view.setReceived(this.getOperatorReceived());
       view.setRefills(this.getOperatorRefills());
       view.setReturned(this.getOperatorReturned());
@@ -122,10 +118,8 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     list.add(SPRAYTEAM);
     list.add(LEADERID);
     list.add(SURFACETYPE);
-    list.add(TEAMSPRAYWEEK);
     list.add(TARGET);
     list.add(OPERATORID);
-    list.add(OPERATORSPRAYWEEK);
     list.add(OPERATORRECEIVED);
     list.add(OPERATORREFILLS);
     list.add(OPERATORRETURNED);

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1407782758)
+@com.runwaysdk.business.ClassSignature(hash = 947464084)
 public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSprayView";
-  private static final long serialVersionUID = 1407782758;
+  private static final long serialVersionUID = 947464084;
   
   protected OperatorSprayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -22,7 +22,6 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
   public static java.lang.String FLOATINGOPERATOR = "floatingOperator";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
   public static java.lang.String RECEIVED = "received";
   public static java.lang.String REFILLS = "refills";
   public static java.lang.String RETURNED = "returned";
@@ -34,7 +33,6 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
   public static java.lang.String TEAMOPERATOR = "teamOperator";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
   public String getAssignedOperator()
   {
@@ -233,43 +231,6 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
-  }
-  
-  public Integer getOperatorSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
-  }
-  
-  public void setOperatorSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OPERATORSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(OPERATORSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isOperatorSprayWeekWritable()
-  {
-    return isWritable(OPERATORSPRAYWEEK);
-  }
-  
-  public boolean isOperatorSprayWeekReadable()
-  {
-    return isReadable(OPERATORSPRAYWEEK);
-  }
-  
-  public boolean isOperatorSprayWeekModified()
-  {
-    return isModified(OPERATORSPRAYWEEK);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOperatorSprayWeekMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OPERATORSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getReceived()
@@ -714,43 +675,6 @@ public abstract class OperatorSprayViewDTOBase extends com.runwaysdk.business.Vi
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTeamOperatorMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TEAMOPERATOR).getAttributeMdDTO();
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isTeamSprayWeekWritable()
-  {
-    return isWritable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekReadable()
-  {
-    return isReadable(TEAMSPRAYWEEK);
-  }
-  
-  public boolean isTeamSprayWeekModified()
-  {
-    return isModified(TEAMSPRAYWEEK);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTeamSprayWeekMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TEAMSPRAYWEEK).getAttributeMdDTO();
   }
   
   public Integer getUsed()

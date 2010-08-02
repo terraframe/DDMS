@@ -1,9 +1,13 @@
 package dss.vector.solutions.irs;
 
 import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
 
+import com.runwaysdk.ConfigurationException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.general.MalariaSeason;
 
@@ -43,7 +47,7 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
       }
       catch (Exception e)
       {
-        e.printStackTrace();
+        throw new ConfigurationException(e);
       }
     }
 
@@ -132,7 +136,7 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
 
     return views;
   }
-
+  
   @Transaction
   public static ResourceTargetView sum(Targeter resource, ResourceTargetView[] views)
   {
@@ -161,6 +165,83 @@ public class ResourceTargetView extends ResourceTargetViewBase implements Reload
     }
 
     return newView;
+  }
+  
+  public static Integer[] getCalculatedTargets(Targeter targeter, MalariaSeason season)
+  {
+    Integer[] targets = new Integer[53];
+    
+    if(targeter instanceof SprayTeam)
+    {
+      SprayTeam team = (SprayTeam) targeter;
+
+      List<String> memberIds = new LinkedList<String>();
+      OIterator<? extends TeamMember> it = team.getAllSprayTeamMembers();
+      
+      try
+      {
+        while(it.hasNext())
+        {
+          memberIds.add(it.next().getId());
+        }
+      }
+      finally
+      {
+        it.close();
+      }
+      
+      String[] ids = memberIds.toArray(new String[memberIds.size()]);
+      
+      ResourceTargetView[] views = ResourceTargetView.getResourceTargets(ids, season);
+      
+      try
+      {
+        for (int i = 0; i < 53; i++)
+        {
+          String getterName = "getTarget_" + i;
+          Integer sum = 0;
+
+          for (ResourceTargetView view : views)
+          {
+            Integer value = (Integer) ResourceTargetView.class.getMethod(getterName).invoke(view);
+            
+            if(value != null)
+            {
+              sum += value;
+            }
+          }
+          
+          if(sum != 0)
+          {
+            targets[i] = sum;
+          }
+        }
+        
+      }
+      catch (Exception e)
+      {
+        throw new ConfigurationException(e);
+      }
+      
+    }
+    
+    return targets;
+  }
+  
+  @Transaction
+  public static Integer[][] getCalculatedTargetsFoViews(ResourceTargetView[] views)
+  {
+    Integer[][] targets = new Integer[views.length][];
+    
+    for(int i = 0; i < views.length; i++)
+    {
+      Targeter targeter = views[i].getTargeter();
+      MalariaSeason season = views[i].getSeason();
+      
+      targets[i] = ResourceTargetView.getCalculatedTargets(targeter, season);
+    }
+    
+    return targets;
   }
 
 }

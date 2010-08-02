@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1904327081)
+@com.runwaysdk.business.ClassSignature(hash = -821933233)
 public abstract class OperatorSprayStatusViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.OperatorSprayStatusView";
-  private static final long serialVersionUID = 1904327081;
+  private static final long serialVersionUID = -821933233;
   
   protected OperatorSprayStatusViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -22,7 +22,7 @@ public abstract class OperatorSprayStatusViewDTOBase extends com.runwaysdk.busin
   public static java.lang.String ID = "id";
   public static java.lang.String LOCKED = "locked";
   public static java.lang.String OPERATORLABEL = "operatorLabel";
-  public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
+  public static java.lang.String OPERATORTARGET = "operatorTarget";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
   public static java.lang.String PREVSPRAYEDHOUSEHOLDS = "prevSprayedHouseholds";
@@ -225,41 +225,41 @@ public abstract class OperatorSprayStatusViewDTOBase extends com.runwaysdk.busin
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OPERATORLABEL).getAttributeMdDTO();
   }
   
-  public Integer getOperatorSprayWeek()
+  public Integer getOperatorTarget()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORTARGET));
   }
   
-  public void setOperatorSprayWeek(Integer value)
+  public void setOperatorTarget(Integer value)
   {
     if(value == null)
     {
-      setValue(OPERATORSPRAYWEEK, "");
+      setValue(OPERATORTARGET, "");
     }
     else
     {
-      setValue(OPERATORSPRAYWEEK, java.lang.Integer.toString(value));
+      setValue(OPERATORTARGET, java.lang.Integer.toString(value));
     }
   }
   
-  public boolean isOperatorSprayWeekWritable()
+  public boolean isOperatorTargetWritable()
   {
-    return isWritable(OPERATORSPRAYWEEK);
+    return isWritable(OPERATORTARGET);
   }
   
-  public boolean isOperatorSprayWeekReadable()
+  public boolean isOperatorTargetReadable()
   {
-    return isReadable(OPERATORSPRAYWEEK);
+    return isReadable(OPERATORTARGET);
   }
   
-  public boolean isOperatorSprayWeekModified()
+  public boolean isOperatorTargetModified()
   {
-    return isModified(OPERATORSPRAYWEEK);
+    return isModified(OPERATORTARGET);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOperatorSprayWeekMd()
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getOperatorTargetMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OPERATORSPRAYWEEK).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(OPERATORTARGET).getAttributeMdDTO();
   }
   
   public Integer getOther()

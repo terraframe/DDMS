@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1546634410)
+@com.runwaysdk.business.ClassSignature(hash = 34125662)
 public abstract class ResourceTargetViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.ResourceTargetView";
-  private static final long serialVersionUID = 1546634410;
+  private static final long serialVersionUID = 34125662;
   
   protected ResourceTargetViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -2219,6 +2219,22 @@ public abstract class ResourceTargetViewDTOBase extends com.runwaysdk.business.V
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ResourceTargetViewDTO.CLASS, "deleteConcrete", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Integer[] getCalculatedTargets(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.TargeterDTO targeter, dss.vector.solutions.general.MalariaSeasonDTO season)
+  {
+    String[] _declaredTypes = new String[]{"dss.vector.solutions.irs.Targeter", "dss.vector.solutions.general.MalariaSeason"};
+    Object[] _parameters = new Object[]{targeter, season};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ResourceTargetViewDTO.CLASS, "getCalculatedTargets", _declaredTypes);
+    return (java.lang.Integer[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.Integer[][] getCalculatedTargetsFoViews(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.ResourceTargetViewDTO[] views)
+  {
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.ResourceTargetView;"};
+    Object[] _parameters = new Object[]{views};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.ResourceTargetViewDTO.CLASS, "getCalculatedTargetsFoViews", _declaredTypes);
+    return (java.lang.Integer[][]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.irs.ResourceTargetViewDTO[] getResourceTargets(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] targeterIds, dss.vector.solutions.general.MalariaSeasonDTO season)

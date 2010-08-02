@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1616568780)
+@com.runwaysdk.business.ClassSignature(hash = -706892662)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  class ZoneSprayQuery extends dss.vector.solutions.irs.AbstractSprayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1616568780;
+private static final long serialVersionUID = -706892662;
 
   public ZoneSprayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -142,23 +142,6 @@ private static final long serialVersionUID = -1616568780;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.ZoneSpray.SPRAYMETHODFORINDEX, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getSprayWeek()
-  {
-    return getSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ZoneSpray.SPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ZoneSpray.SPRAYWEEK, alias, displayLabel);
-
-  }
   public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
   {
     return getSupervisor(null);
@@ -180,23 +163,6 @@ private static final long serialVersionUID = -1616568780;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.irs.ZoneSpray.SUPERVISOR);
 
     return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.irs.ZoneSpray.SUPERVISOR, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getTarget()
-  {
-    return getTarget(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTarget(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ZoneSpray.TARGET, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTarget(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.ZoneSpray.TARGET, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
@@ -272,15 +238,9 @@ private static final long serialVersionUID = -1616568780;
     public com.runwaysdk.query.SelectableChar getSprayMethodForIndex();
     public com.runwaysdk.query.SelectableChar getSprayMethodForIndex(String alias);
     public com.runwaysdk.query.SelectableChar getSprayMethodForIndex(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getSprayWeek();
-    public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias);
-    public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias, String displayLabel);
     public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor();
     public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias);
     public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getTarget();
-    public com.runwaysdk.query.SelectableInteger getTarget(String alias);
-    public com.runwaysdk.query.SelectableInteger getTarget(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.ZoneSpray zoneSpray);
 
@@ -296,7 +256,7 @@ private static final long serialVersionUID = -1616568780;
  implements ZoneSprayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -524378670;
+private static final long serialVersionUID = -951520980;
 
   public ZoneSprayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -400,23 +360,6 @@ private static final long serialVersionUID = -524378670;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.ZoneSpray.SPRAYMETHODFORINDEX, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getSprayWeek()
-  {
-    return getSprayWeek(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.ZoneSpray.SPRAYWEEK, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getSprayWeek(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.ZoneSpray.SPRAYWEEK, alias, displayLabel);
-
-  }
   public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor()
   {
     return getSupervisor(null);
@@ -432,23 +375,6 @@ private static final long serialVersionUID = -524378670;
   public dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF getSupervisor(String alias, String displayLabel)
   {
     return (dss.vector.solutions.irs.SupervisorQuery.SupervisorQueryReferenceIF)this.get(dss.vector.solutions.irs.ZoneSpray.SUPERVISOR,  alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getTarget()
-  {
-    return getTarget(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTarget(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.ZoneSpray.TARGET, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getTarget(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.ZoneSpray.TARGET, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

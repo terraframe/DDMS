@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1738464935)
+@com.runwaysdk.business.ClassSignature(hash = -1257151750)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,7 +14,6 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
   public static java.lang.String BRANDFORINDEX = "brandForIndex";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String GEOENTITYFORINDEX = "geoEntityForIndex";
-  public static java.lang.String OPERATORSPRAYWEEK = "operatorSprayWeek";
   public static java.lang.String RECEIVED = "received";
   public static java.lang.String REFILLS = "refills";
   public static java.lang.String RETURNED = "returned";
@@ -24,9 +23,8 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
   public static java.lang.String SPRAYTEAM = "sprayTeam";
   public static java.lang.String TARGET = "target";
   public static java.lang.String TEAMLEADER = "teamLeader";
-  public static java.lang.String TEAMSPRAYWEEK = "teamSprayWeek";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = -1738464935;
+  private static final long serialVersionUID = -1257151750;
   
   public OperatorSprayBase()
   {
@@ -135,34 +133,6 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     else
     {
       setValue(GEOENTITYFORINDEX, value.getId());
-    }
-  }
-  
-  public Integer getOperatorSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORSPRAYWEEK));
-  }
-  
-  public void validateOperatorSprayWeek()
-  {
-    this.validateAttribute(OPERATORSPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(OPERATORSPRAYWEEK);
-  }
-  
-  public void setOperatorSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(OPERATORSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(OPERATORSPRAYWEEK, java.lang.Integer.toString(value));
     }
   }
   
@@ -436,34 +406,6 @@ public abstract class OperatorSprayBase extends dss.vector.solutions.irs.Abstrac
     else
     {
       setValue(TEAMLEADER, value.getId());
-    }
-  }
-  
-  public Integer getTeamSprayWeek()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TEAMSPRAYWEEK));
-  }
-  
-  public void validateTeamSprayWeek()
-  {
-    this.validateAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getTeamSprayWeekMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.OperatorSpray.CLASS);
-    return mdClassIF.definesAttribute(TEAMSPRAYWEEK);
-  }
-  
-  public void setTeamSprayWeek(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(TEAMSPRAYWEEK, "");
-    }
-    else
-    {
-      setValue(TEAMSPRAYWEEK, java.lang.Integer.toString(value));
     }
   }
   

@@ -95,7 +95,6 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     new AttributeNotificationMap(spray, TeamSpray.SURFACETYPE, this, TeamSprayView.SURFACETYPE);
     new AttributeNotificationMap(spray, TeamSpray.TEAMLEADER, this, TeamSprayView.TEAMLEADER);
     new AttributeNotificationMap(spray, TeamSpray.TARGET, this, TeamSprayView.TARGET);
-    new AttributeNotificationMap(spray, TeamSpray.TEAMSPRAYWEEK, this, TeamSprayView.TEAMSPRAYWEEK);
     new AttributeNotificationMap(spray, TeamSpray.SPRAYTEAM, this, TeamSprayView.SPRAYTEAM);
   }
 
@@ -107,7 +106,6 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     concrete.setSurfaceType(this.getSurfaceType());
     concrete.setSprayTeam(this.getSprayTeam());
     concrete.setTarget(this.getTarget());
-    concrete.setTeamSprayWeek(this.getTeamSprayWeek());    
     concrete.setTeamLeader(this.getTeamLeader());
     concrete.clearSprayMethod();
 
@@ -124,10 +122,8 @@ public class TeamSprayView extends TeamSprayViewBase implements com.runwaysdk.ge
     this.setBrand(concrete.getBrand());
     this.setGeoEntity(concrete.getGeoEntity());
     this.setSurfaceType(concrete.getSurfaceType());
-    this.setTeamSprayWeek(concrete.getTeamSprayWeek());
     this.setSprayTeam(concrete.getSprayTeam());
     this.setTarget(concrete.getTarget());
-    this.setTeamSprayWeek(concrete.getTeamSprayWeek());    
     this.setTeamLeader(concrete.getTeamLeader());
     this.clearSprayMethod();
     

@@ -62,17 +62,9 @@ background:none;
         <mjl:dt attribute="brand"> ${brand.productName.termDisplayLabel.value} </mjl:dt>
       </td>
       <td>
-        <mjl:dt attribute="sprayWeek"> ${item.sprayWeek} </mjl:dt>
-      </td>
-    </tr>
-    <tr>
-      <td>
         <mjl:dt attribute="sprayDate">
           <span id="testDateSpan" class="formatDate">${item.sprayDate}</span>
         </mjl:dt>          
-      </td>
-      <td>
-        <mjl:dt attribute="target"> ${item.target} </mjl:dt>
       </td>
     </tr>
     <tr>
@@ -85,8 +77,6 @@ background:none;
           </ul>            
         </mjl:dt>
       </td>
-    </tr>    
-    <tr>
       <td>
         <mjl:dt attribute="surfaceType" >
           <c:if test="${surfaceType != null}">
@@ -94,7 +84,7 @@ background:none;
           </c:if>
         </mjl:dt>
       </td>
-    </tr>
+    </tr>    
   </table>
 </mjl:component>
     

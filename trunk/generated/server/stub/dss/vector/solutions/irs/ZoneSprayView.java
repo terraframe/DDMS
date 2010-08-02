@@ -85,8 +85,6 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
     new AttributeNotificationMap(spray, ZoneSpray.SPRAYDATE, this, ZoneSprayView.SPRAYDATE);
     new AttributeNotificationMap(spray, ZoneSpray.SPRAYMETHOD, this, ZoneSprayView.SPRAYMETHOD);
     new AttributeNotificationMap(spray, ZoneSpray.SURFACETYPE, this, ZoneSprayView.SURFACETYPE);
-    new AttributeNotificationMap(spray, ZoneSpray.TARGET, this, ZoneSprayView.TARGET);
-    new AttributeNotificationMap(spray, ZoneSpray.SPRAYWEEK, this, ZoneSprayView.SPRAYWEEK);
     new AttributeNotificationMap(spray, ZoneSpray.SUPERVISOR, this, ZoneSprayView.SUPERVISOR);
   }
 
@@ -96,9 +94,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
     concrete.setBrand(this.getBrand());
     concrete.setGeoEntity(this.getGeoEntity());
     concrete.setSurfaceType(this.getSurfaceType());
-    concrete.setTarget(this.getTarget());
     concrete.setSupervisor(this.getSupervisor());
-    concrete.setSprayWeek(this.getSprayWeek());    
     concrete.clearSprayMethod();
 
     for (SprayMethod method : this.getSprayMethod())
@@ -114,9 +110,7 @@ public class ZoneSprayView extends ZoneSprayViewBase implements com.runwaysdk.ge
     this.setBrand(concrete.getBrand());
     this.setGeoEntity(concrete.getGeoEntity());
     this.setSurfaceType(concrete.getSurfaceType());
-    this.setTarget(concrete.getTarget());
     this.setSupervisor(concrete.getSupervisor());
-    this.setSprayWeek(concrete.getSprayWeek());
     
     this.clearSprayMethod();
     

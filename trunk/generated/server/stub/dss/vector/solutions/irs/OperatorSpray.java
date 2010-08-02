@@ -130,10 +130,10 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     MdEntityDAOIF operSprayMd = MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
     String operSprayTable = operSprayMd.getTableName();
     String sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
-    String operSprayWeekCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.OPERATORSPRAYWEEK);
+//    String operSprayWeekCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.OPERATORSPRAYWEEK);
     String teamLeaderCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMLEADER);
     String sprayTeamCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYTEAM);
-    String teamSprayWeekCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMSPRAYWEEK);
+//    String teamSprayWeekCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMSPRAYWEEK);
     String targetCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TARGET);
     String receivedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.RECEIVED);
     String usedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.USED);
@@ -201,14 +201,14 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     // operator stuff
     select += ""+operSprayTable+"." + sprayOperatorCol + " AS sprayoperator,\n";
     select += "sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+" || ' ' || "+personTable+"."+lastNameCol+" AS sprayoperator_defaultLocale,\n";
-    select += ""+operSprayTable+"." + operSprayWeekCol + " AS operator_week,\n";
+//    select += ""+operSprayTable+"." + operSprayWeekCol + " AS operator_week,\n";
     select += ""+operSprayTable+"." + targetCol + " AS operator_target,\n";
     // team stuff
     select += ""+operSprayTable+"." + sprayTeamCol + " AS sprayteam,\n";
     select += "(SELECT st." + teamId + " FROM "+ sprayTeamTable +" st WHERE st.id = "+operSprayTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += ""+operSprayTable+"." + teamLeaderCol + " AS sprayleader,\n";
     select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+operSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
-    select += ""+operSprayTable+"." + teamSprayWeekCol + " AS team_week,\n";
+//    select += ""+operSprayTable+"." + teamSprayWeekCol + " AS team_week,\n";
     select += "NULL AS team_target,\n";
     // zone stuff
     select += "''::TEXT AS zone_supervisor,\n";
@@ -219,11 +219,13 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     select += "sprayseason.id  AS spray_season,\n";
     
     select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" 
-    + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = "+operSprayTable+"." + operSprayWeekCol
+    + "AND spray_target_view.season_id = sprayseason.id \n"
+//    + "AND spray_target_view.target_week = "+operSprayTable+"." + operSprayWeekCol
         + ") AS planed_operator_target,\n";
     
     select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+operSprayTable+"." + sprayTeamCol + " \n" 
-    + "AND spray_target_view.season_id = sprayseason.id \n" + "AND spray_target_view.target_week = "+operSprayTable+"." + teamSprayWeekCol
+    + "AND spray_target_view.season_id = sprayseason.id \n"
+//    + "AND spray_target_view.target_week = "+operSprayTable+"." + teamSprayWeekCol
         + ") AS planed_team_target,\n";
 
     String diseaseCol = QueryUtil.getColumnName(OperatorSpray.getDiseaseMd());
