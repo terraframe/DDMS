@@ -36,14 +36,12 @@
       </mjl:dt>
       <mjl:dt attribute="ageRange">      
         <mjl:struct param="ageRange">        
-        <dl>
           <mjl:dt attribute="startPoint">
             ${item.ageRange.startPoint}
           </mjl:dt>
           <mjl:dt attribute="endPoint">
             ${item.ageRange.endPoint}
           </mjl:dt>
-        </dl>
         </mjl:struct>
       </mjl:dt>
       <mjl:dt attribute="sex">

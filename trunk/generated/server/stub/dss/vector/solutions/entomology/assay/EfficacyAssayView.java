@@ -8,6 +8,7 @@ import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.attributes.InvalidReferenceException;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AttributeStruct;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
@@ -192,7 +193,19 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
       sortAttribute = COLONYNAME;
     }
 
-    SelectablePrimitive selectable = (SelectablePrimitive) query.getComponentQuery().getSelectableRef(sortAttribute);
+    SelectablePrimitive selectable = query.getColonyName();
+      
+    if (sortAttribute.contains("-"))
+    {
+      String[] attributeNames = sortAttribute.split("-");
+
+      AttributeStruct attributeStruct = (AttributeStruct) query.get(attributeNames[0]);
+      selectable = (SelectablePrimitive) attributeStruct.get(attributeNames[1]);
+    }
+    else
+    {
+      selectable = (SelectablePrimitive) query.getComponentQuery().getSelectableRef(sortAttribute);
+    }      
 
     if (isAscending)
     {
