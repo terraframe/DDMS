@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 1427573412)
+@com.runwaysdk.business.ClassSignature(hash = 801044946)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public class AggregatedPremiseVisitQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1427573412;
+private static final long serialVersionUID = 801044946;
 
   protected AggregatedPremiseVisitQueryDTO(String type)
   {

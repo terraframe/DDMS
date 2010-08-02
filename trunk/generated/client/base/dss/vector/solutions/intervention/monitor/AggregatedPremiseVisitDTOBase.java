@@ -1,10 +1,10 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = 169200845)
+@com.runwaysdk.business.ClassSignature(hash = -437608439)
 public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit";
-  private static final long serialVersionUID = 169200845;
+  private static final long serialVersionUID = -437608439;
   
   protected AggregatedPremiseVisitDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -40,11 +40,12 @@ public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.busine
   public static java.lang.String OWNER = "owner";
   public static java.lang.String POINT = "point";
   public static java.lang.String PREMISES = "premises";
+  public static java.lang.String PREMISESAVAILABLE = "premisesAvailable";
+  public static java.lang.String PREMISESINCLUDED = "premisesIncluded";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String TYPE = "type";
-  public static java.lang.String VEHICLECOVERAGE = "vehicleCoverage";
   public static java.lang.String VISITED = "visited";
   public java.util.Date getCreateDate()
   {
@@ -486,6 +487,80 @@ public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.busine
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREMISES).getAttributeMdDTO();
   }
   
+  public Integer getPremisesAvailable()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREMISESAVAILABLE));
+  }
+  
+  public void setPremisesAvailable(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PREMISESAVAILABLE, "");
+    }
+    else
+    {
+      setValue(PREMISESAVAILABLE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isPremisesAvailableWritable()
+  {
+    return isWritable(PREMISESAVAILABLE);
+  }
+  
+  public boolean isPremisesAvailableReadable()
+  {
+    return isReadable(PREMISESAVAILABLE);
+  }
+  
+  public boolean isPremisesAvailableModified()
+  {
+    return isModified(PREMISESAVAILABLE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPremisesAvailableMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREMISESAVAILABLE).getAttributeMdDTO();
+  }
+  
+  public Integer getPremisesIncluded()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREMISESINCLUDED));
+  }
+  
+  public void setPremisesIncluded(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PREMISESINCLUDED, "");
+    }
+    else
+    {
+      setValue(PREMISESINCLUDED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isPremisesIncludedWritable()
+  {
+    return isWritable(PREMISESINCLUDED);
+  }
+  
+  public boolean isPremisesIncludedReadable()
+  {
+    return isReadable(PREMISESINCLUDED);
+  }
+  
+  public boolean isPremisesIncludedModified()
+  {
+    return isModified(PREMISESINCLUDED);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getPremisesIncludedMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(PREMISESINCLUDED).getAttributeMdDTO();
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -571,43 +646,6 @@ public abstract class AggregatedPremiseVisitDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTreatedMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TREATED).getAttributeMdDTO();
-  }
-  
-  public Integer getVehicleCoverage()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VEHICLECOVERAGE));
-  }
-  
-  public void setVehicleCoverage(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(VEHICLECOVERAGE, "");
-    }
-    else
-    {
-      setValue(VEHICLECOVERAGE, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isVehicleCoverageWritable()
-  {
-    return isWritable(VEHICLECOVERAGE);
-  }
-  
-  public boolean isVehicleCoverageReadable()
-  {
-    return isReadable(VEHICLECOVERAGE);
-  }
-  
-  public boolean isVehicleCoverageModified()
-  {
-    return isModified(VEHICLECOVERAGE);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getVehicleCoverageMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(VEHICLECOVERAGE).getAttributeMdDTO();
   }
   
   public Integer getVisited()

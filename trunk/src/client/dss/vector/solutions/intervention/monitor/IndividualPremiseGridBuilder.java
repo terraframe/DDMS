@@ -62,6 +62,8 @@ public class IndividualPremiseGridBuilder extends GridBuilder implements Reloada
     GridBuilder.setValidator(columns, IndividualPremiseVisitViewDTO.TREATED, "validateTreated");
     GridBuilder.setValidator(columns, IndividualPremiseVisitViewDTO.REASONSFORNOTTREATED, "validateNotTreated");
     GridBuilder.setEditable(columns, IndividualPremiseVisitViewDTO.ENTITYLABEL, false);
+    ColumnSetup setup = GridBuilder.getSetup(columns, IndividualPremiseVisitViewDTO.VISITED);
+    setup.setIncludeBlank(true);
 
     return new ViewDataGrid(view, columns, keys, data);
   }

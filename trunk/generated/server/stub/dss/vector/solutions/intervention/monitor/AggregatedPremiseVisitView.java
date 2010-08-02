@@ -32,7 +32,8 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
     this.setConcreteId(concrete.getId());
     this.setPoint(concrete.getPoint());
     this.setGeoEntity(entity);
-    this.setVehicleCoverage(concrete.getVehicleCoverage());
+    this.setPremisesAvailable(concrete.getPremisesAvailable());
+    this.setPremisesIncluded(concrete.getPremisesIncluded());
     this.setPremises(concrete.getPremises());
     this.setVisited(concrete.getVisited());
     this.setTreated(concrete.getTreated());
@@ -47,7 +48,8 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   {
     concrete.setPoint(this.getPoint());
     concrete.setGeoEntity(this.getGeoEntity());
-    concrete.setVehicleCoverage(this.getVehicleCoverage());
+    concrete.setPremisesAvailable(this.getPremisesAvailable());
+    concrete.setPremisesIncluded(this.getPremisesIncluded());
     concrete.setPremises(this.getPremises());
     concrete.setVisited(this.getVisited());
     concrete.setTreated(this.getTreated());
@@ -59,7 +61,8 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
     new AttributeNotificationMap(concrete, AggregatedPremiseVisit.POINT, this, AggregatedPremiseVisitView.POINT);
     new AttributeNotificationMap(concrete, AggregatedPremiseVisit.GEOENTITY, this, AggregatedPremiseVisitView.GEOENTITY);
     new AttributeNotificationMap(concrete, AggregatedPremiseVisit.GEOENTITY, this, AggregatedPremiseVisitView.ENTITYLABEL);
-    new AttributeNotificationMap(concrete, AggregatedPremiseVisit.VEHICLECOVERAGE, this, AggregatedPremiseVisitView.VEHICLECOVERAGE);
+    new AttributeNotificationMap(concrete, AggregatedPremiseVisit.PREMISESAVAILABLE, this, AggregatedPremiseVisitView.PREMISESAVAILABLE);
+    new AttributeNotificationMap(concrete, AggregatedPremiseVisit.PREMISESINCLUDED, this, AggregatedPremiseVisitView.PREMISESINCLUDED);
     new AttributeNotificationMap(concrete, AggregatedPremiseVisit.PREMISES, this, AggregatedPremiseVisitView.PREMISES);
     new AttributeNotificationMap(concrete, AggregatedPremiseVisit.VISITED, this, AggregatedPremiseVisitView.VISITED);
     new AttributeNotificationMap(concrete, AggregatedPremiseVisit.TREATED, this, AggregatedPremiseVisitView.TREATED);

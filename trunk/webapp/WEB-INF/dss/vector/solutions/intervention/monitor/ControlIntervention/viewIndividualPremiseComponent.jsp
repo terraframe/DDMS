@@ -152,7 +152,7 @@ overflow: hidden;
           var row = data.row;
           var value = data.value;
 
-          if(value == 'false') {
+          if(value == null || value == '' || value == 'false') {
             var columns = grid.getColumnDefinitions();
 
             clearColumns(row, columns, ['Visited']);

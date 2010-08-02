@@ -83,7 +83,8 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
       }
     }
 
-    GridBuilder.setValidator(columns, AggregatedPremiseVisitViewDTO.VEHICLECOVERAGE, "MDSS.CellValidator.validatePercentage");
+    GridBuilder.setValidator(columns, AggregatedPremiseVisitViewDTO.PREMISESAVAILABLE, "YAHOO.widget.DataTable.validateNumber");
+    GridBuilder.setValidator(columns, AggregatedPremiseVisitViewDTO.PREMISESINCLUDED, "YAHOO.widget.DataTable.validateNumber");
     GridBuilder.setEditable(columns, AggregatedPremiseVisitViewDTO.ENTITYLABEL, false);
        
     return new ViewDataGrid(view, columns, keys, data);
@@ -91,7 +92,7 @@ public class AggregatedPremiseGridBuilder extends GridBuilder implements Reloada
   
   private String[] getViewKeys()
   {
-    String[] keys = new String[] { AggregatedPremiseVisitViewDTO.CONCRETEID, AggregatedPremiseVisitViewDTO.GEOENTITY, AggregatedPremiseVisitViewDTO.ENTITYLABEL, AggregatedPremiseVisitViewDTO.VEHICLECOVERAGE, AggregatedPremiseVisitViewDTO.PREMISES, AggregatedPremiseVisitViewDTO.VISITED, AggregatedPremiseVisitViewDTO.TREATED};
+    String[] keys = new String[] { AggregatedPremiseVisitViewDTO.CONCRETEID, AggregatedPremiseVisitViewDTO.GEOENTITY, AggregatedPremiseVisitViewDTO.ENTITYLABEL, AggregatedPremiseVisitViewDTO.PREMISESAVAILABLE, AggregatedPremiseVisitViewDTO.PREMISESINCLUDED, AggregatedPremiseVisitViewDTO.PREMISES, AggregatedPremiseVisitViewDTO.VISITED, AggregatedPremiseVisitViewDTO.TREATED};
 
     upperFirstCharacter(keys);
 

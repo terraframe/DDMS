@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 288566952)
+@com.runwaysdk.business.ClassSignature(hash = -546153003)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class AggregatedPremiseExcelViewQueryBase extends dss.vector.solutions.export.ControlInterventionExcelViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 288566952;
+private static final long serialVersionUID = -546153003;
 
   public AggregatedPremiseExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -78,24 +78,6 @@ private static final long serialVersionUID = 288566952;
   public com.runwaysdk.query.SelectableInteger getTreated(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.TREATED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getVehicleCoverage()
-  {
-    return getVehicleCoverage(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getVehicleCoverage(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.VEHICLECOVERAGE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getVehicleCoverage(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.VEHICLECOVERAGE, alias, displayLabel);
 
   }
  

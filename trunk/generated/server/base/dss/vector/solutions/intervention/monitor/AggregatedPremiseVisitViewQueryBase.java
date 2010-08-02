@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -344973753)
+@com.runwaysdk.business.ClassSignature(hash = -1997830616)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.intervention.monitor;
 public  abstract  class AggregatedPremiseVisitViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -344973753;
+private static final long serialVersionUID = -1997830616;
 
   public AggregatedPremiseVisitViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -174,6 +174,42 @@ private static final long serialVersionUID = -344973753;
 
   }
  
+  public com.runwaysdk.query.SelectableInteger getPremisesAvailable()
+  {
+    return getPremisesAvailable(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesAvailable(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.PREMISESAVAILABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesAvailable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.PREMISESAVAILABLE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesIncluded()
+  {
+    return getPremisesIncluded(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesIncluded(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.PREMISESINCLUDED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesIncluded(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.PREMISESINCLUDED, alias, displayLabel);
+
+  }
+ 
   public com.runwaysdk.query.SelectableInteger getTreated()
   {
     return getTreated(null);
@@ -189,24 +225,6 @@ private static final long serialVersionUID = -344973753;
   public com.runwaysdk.query.SelectableInteger getTreated(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.TREATED, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getVehicleCoverage()
-  {
-    return getVehicleCoverage(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getVehicleCoverage(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.VEHICLECOVERAGE, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getVehicleCoverage(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.VEHICLECOVERAGE, alias, displayLabel);
 
   }
  

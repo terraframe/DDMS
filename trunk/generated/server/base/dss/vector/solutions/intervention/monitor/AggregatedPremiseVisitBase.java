@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -106996147)
+@com.runwaysdk.business.ClassSignature(hash = -1519313271)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -24,13 +24,14 @@ public abstract class AggregatedPremiseVisitBase extends com.runwaysdk.business.
   public static java.lang.String OWNER = "owner";
   public static java.lang.String POINT = "point";
   public static java.lang.String PREMISES = "premises";
+  public static java.lang.String PREMISESAVAILABLE = "premisesAvailable";
+  public static java.lang.String PREMISESINCLUDED = "premisesIncluded";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TREATED = "treated";
   public static java.lang.String TYPE = "type";
-  public static java.lang.String VEHICLECOVERAGE = "vehicleCoverage";
   public static java.lang.String VISITED = "visited";
-  private static final long serialVersionUID = -106996147;
+  private static final long serialVersionUID = -1519313271;
   
   public AggregatedPremiseVisitBase()
   {
@@ -385,6 +386,62 @@ public abstract class AggregatedPremiseVisitBase extends com.runwaysdk.business.
     }
   }
   
+  public Integer getPremisesAvailable()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREMISESAVAILABLE));
+  }
+  
+  public void validatePremisesAvailable()
+  {
+    this.validateAttribute(PREMISESAVAILABLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesAvailableMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit.CLASS);
+    return mdClassIF.definesAttribute(PREMISESAVAILABLE);
+  }
+  
+  public void setPremisesAvailable(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PREMISESAVAILABLE, "");
+    }
+    else
+    {
+      setValue(PREMISESAVAILABLE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPremisesIncluded()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREMISESINCLUDED));
+  }
+  
+  public void validatePremisesIncluded()
+  {
+    this.validateAttribute(PREMISESINCLUDED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesIncludedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit.CLASS);
+    return mdClassIF.definesAttribute(PREMISESINCLUDED);
+  }
+  
+  public void setPremisesIncluded(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PREMISESINCLUDED, "");
+    }
+    else
+    {
+      setValue(PREMISESINCLUDED, java.lang.Integer.toString(value));
+    }
+  }
+  
   public Long getSeq()
   {
     return com.runwaysdk.constants.MdAttributeLongUtil.getTypeSafeValue(getValue(SEQ));
@@ -459,34 +516,6 @@ public abstract class AggregatedPremiseVisitBase extends com.runwaysdk.business.
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit.CLASS);
     return mdClassIF.definesAttribute(TYPE);
-  }
-  
-  public Integer getVehicleCoverage()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VEHICLECOVERAGE));
-  }
-  
-  public void validateVehicleCoverage()
-  {
-    this.validateAttribute(VEHICLECOVERAGE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVehicleCoverageMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit.CLASS);
-    return mdClassIF.definesAttribute(VEHICLECOVERAGE);
-  }
-  
-  public void setVehicleCoverage(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(VEHICLECOVERAGE, "");
-    }
-    else
-    {
-      setValue(VEHICLECOVERAGE, java.lang.Integer.toString(value));
-    }
   }
   
   public Integer getVisited()

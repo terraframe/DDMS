@@ -235,24 +235,17 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
     _setObjectValue : function(object, key, value){
       var attributeName = key.substring(0, 1).toLowerCase() + key.substring(1);
 
-      var setter_exists = Mojo.Util.isFunction(object['set' + key]);
-        
-      if (setter_exists) {
-        if (value) {
-          if (object.attributeMap[attributeName] instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
-            object['set' + key](MDSS.Calendar.parseDate(value));
-          }
-          else {
-            object['set' + key](value);
-          }
-        } 
-      }
-      else{
-        // enum setters start with "add" instead of "set"
-        var setter_exists = Mojo.Util.isFunction(object['add' + key]);
-        
-        if (setter_exists) {
-          object['add' + key](value);
+      var attribute = object.getAttributeDTO(attributeName);
+      
+      if (attribute) {
+        if (value != null && attribute instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
+          attribute.setValue(MDSS.Calendar.parseDate(value));
+        }
+        else if(value != null && attribute instanceof com.runwaysdk.transport.attributes.AttributeEnumerationDTO) {
+          attribute.addValue(value);
+        }
+        else {
+          attribute.setValue(value);
         }
       }
     },

@@ -1,0 +1,54 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.vehicleCoverage"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit.vehicleCoverage"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.IndividualPremiseVisit">
+        <attributes>
+          <boolean
+            name="visited"
+            required="false"
+            defaultValue="" />
+        </attributes>
+      </mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit">
+        <create>
+          <attributes>
+            <integer
+              name="premisesAvailable"
+              label="# premises available for vehicle-based spraying" />
+            <integer
+              name="premisesIncluded"
+              label="# premises included in vehicle-based spraying" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView
+        name="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView">
+        <create>
+          <attributes>
+            <virtual
+              concrete="premisesAvailable"
+              type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"/>
+            <virtual
+              concrete="premisesIncluded"
+              type="dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit"/>
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

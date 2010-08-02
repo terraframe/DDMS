@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1233225087)
+@com.runwaysdk.business.ClassSignature(hash = -792931860)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,9 +14,8 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
   public static java.lang.String PREMISEGEOENTITY = "premiseGeoEntity";
   public static java.lang.String PREMISES = "premises";
   public static java.lang.String TREATED = "treated";
-  public static java.lang.String VEHICLECOVERAGE = "vehicleCoverage";
   public static java.lang.String VISITED = "visited";
-  private static final long serialVersionUID = 1233225087;
+  private static final long serialVersionUID = -792931860;
   
   public AggregatedPremiseExcelViewBase()
   {
@@ -111,34 +110,6 @@ public abstract class AggregatedPremiseExcelViewBase extends dss.vector.solution
     else
     {
       setValue(TREATED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getVehicleCoverage()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VEHICLECOVERAGE));
-  }
-  
-  public void validateVehicleCoverage()
-  {
-    this.validateAttribute(VEHICLECOVERAGE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVehicleCoverageMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedPremiseExcelView.CLASS);
-    return mdClassIF.definesAttribute(VEHICLECOVERAGE);
-  }
-  
-  public void setVehicleCoverage(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(VEHICLECOVERAGE, "");
-    }
-    else
-    {
-      setValue(VEHICLECOVERAGE, java.lang.Integer.toString(value));
     }
   }
   

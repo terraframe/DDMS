@@ -13,8 +13,6 @@ import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
-import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodView;
-import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -46,7 +44,7 @@ public class AggregatedPremiseExcelView extends AggregatedPremiseExcelViewBase i
     ControlInterventionView controlPoint = this.getControlPoint();
     AggregatedPremiseVisitView apv = new AggregatedPremiseVisitView();
     apv.setGeoEntity(this.getPremiseGeoEntity());
-    apv.setVehicleCoverage(this.getVehicleCoverage());
+//    apv.setVehicleCoverage(this.getVehicleCoverage());
     apv.setPremises(this.getPremises());
     apv.setVisited(this.getVisited());
     apv.setTreated(this.getTreated());
@@ -73,7 +71,7 @@ public class AggregatedPremiseExcelView extends AggregatedPremiseExcelViewBase i
   public static List<String> customAttributeOrder()
   {
     List<String> list = ControlInterventionExcelView.customAttributeOrder();
-    list.add(VEHICLECOVERAGE);
+//    list.add(VEHICLECOVERAGE);
     list.add(PREMISES);
     list.add(VISITED);
     list.add(TREATED);

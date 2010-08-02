@@ -39,7 +39,7 @@ public abstract class YUIEditor implements Reloadable
   {
     if (attribute instanceof AttributeBooleanMdDTO)
     {
-      return new YUIBooleanEditor((AttributeBooleanMdDTO) attribute);
+      return new YUIBooleanEditor((AttributeBooleanMdDTO) attribute, setup);
     }
     else if (attribute instanceof AttributeDateMdDTO)
     {

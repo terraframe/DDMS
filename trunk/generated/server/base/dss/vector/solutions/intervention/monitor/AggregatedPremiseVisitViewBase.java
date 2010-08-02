@@ -1,6 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
-@com.runwaysdk.business.ClassSignature(hash = -922673072)
+@com.runwaysdk.business.ClassSignature(hash = 252916401)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,10 +19,11 @@ public abstract class AggregatedPremiseVisitViewBase extends com.runwaysdk.busin
   public static java.lang.String NONTREATMENTREASON = "nonTreatmentReason";
   public static java.lang.String POINT = "point";
   public static java.lang.String PREMISES = "premises";
+  public static java.lang.String PREMISESAVAILABLE = "premisesAvailable";
+  public static java.lang.String PREMISESINCLUDED = "premisesIncluded";
   public static java.lang.String TREATED = "treated";
-  public static java.lang.String VEHICLECOVERAGE = "vehicleCoverage";
   public static java.lang.String VISITED = "visited";
-  private static final long serialVersionUID = -922673072;
+  private static final long serialVersionUID = 252916401;
   
   public AggregatedPremiseVisitViewBase()
   {
@@ -269,6 +270,62 @@ public abstract class AggregatedPremiseVisitViewBase extends com.runwaysdk.busin
     }
   }
   
+  public Integer getPremisesAvailable()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREMISESAVAILABLE));
+  }
+  
+  public void validatePremisesAvailable()
+  {
+    this.validateAttribute(PREMISESAVAILABLE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesAvailableMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.CLASS);
+    return mdClassIF.definesAttribute(PREMISESAVAILABLE);
+  }
+  
+  public void setPremisesAvailable(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PREMISESAVAILABLE, "");
+    }
+    else
+    {
+      setValue(PREMISESAVAILABLE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPremisesIncluded()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PREMISESINCLUDED));
+  }
+  
+  public void validatePremisesIncluded()
+  {
+    this.validateAttribute(PREMISESINCLUDED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPremisesIncludedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.CLASS);
+    return mdClassIF.definesAttribute(PREMISESINCLUDED);
+  }
+  
+  public void setPremisesIncluded(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PREMISESINCLUDED, "");
+    }
+    else
+    {
+      setValue(PREMISESINCLUDED, java.lang.Integer.toString(value));
+    }
+  }
+  
   public Integer getTreated()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(TREATED));
@@ -294,34 +351,6 @@ public abstract class AggregatedPremiseVisitViewBase extends com.runwaysdk.busin
     else
     {
       setValue(TREATED, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getVehicleCoverage()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(VEHICLECOVERAGE));
-  }
-  
-  public void validateVehicleCoverage()
-  {
-    this.validateAttribute(VEHICLECOVERAGE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getVehicleCoverageMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView.CLASS);
-    return mdClassIF.definesAttribute(VEHICLECOVERAGE);
-  }
-  
-  public void setVehicleCoverage(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(VEHICLECOVERAGE, "");
-    }
-    else
-    {
-      setValue(VEHICLECOVERAGE, java.lang.Integer.toString(value));
     }
   }
   

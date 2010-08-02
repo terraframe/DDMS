@@ -11,12 +11,15 @@ import dss.vector.solutions.util.Halp;
 public class YUIBooleanEditor extends YUIEditor implements Reloadable
 {
   private AttributeBooleanMdDTO attributeMd;
+  
+  private Boolean includeBlank;
 
-  public YUIBooleanEditor(AttributeBooleanMdDTO attributeMd) throws Exception
+  public YUIBooleanEditor(AttributeBooleanMdDTO attributeMd, ColumnSetup setup) throws Exception
   {
     super();
 
     this.attributeMd = attributeMd;
+    this.includeBlank = (setup.getIncludeBlank() != null ? setup.getIncludeBlank() : false);
   }
 
   public String getType()
@@ -32,6 +35,12 @@ public class YUIBooleanEditor extends YUIEditor implements Reloadable
     String negativeLabel = attributeMd.getNegativeDisplayLabel().replaceAll("'", "\\\\'");
 
     List<String> radioOptions = new LinkedList<String>();
+        
+    if(includeBlank)
+    {
+      radioOptions.add("{label:'', value:''}");
+    }
+    
     radioOptions.add("{label:'" + positiveLabel + "', value:'true'}");
     radioOptions.add("{label:'" + negativeLabel + "', value:'false'}");
 
