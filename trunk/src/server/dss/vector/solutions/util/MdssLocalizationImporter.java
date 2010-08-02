@@ -400,14 +400,7 @@ public class MdssLocalizationImporter implements Reloadable
       warning.setSheet(sheetName);
       warning.setRow(row.getRowNum()+1);
       warning.throwIt();
-      if (Session.getCurrentSession()==null)
-      {
-        System.out.println(warning.getLocalizedMessage());
-      }
-      else
-      {
-        MdssLog.warn("Localization imported contained a row that did not reference valid data.", e);
-      }
+
       return;
     }
 

@@ -162,7 +162,6 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
     sql += ResourceTarget.getTempTableSQL();
     // sql += "ORDER BY season_id;\n";
     sql += ";\n";
-    MdssLog.debug(sql);
     Database.parseAndExecute(sql);
 
   }

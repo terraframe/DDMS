@@ -216,8 +216,6 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     query.restrictRows(15, 1);
     query.ORDER_BY_ASC(query.getCollectionId());
     
-    MdssLog.debug(query.getSQL());
-
     return query;
   }
 }

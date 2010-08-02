@@ -41,7 +41,6 @@ public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase imple
 		double min = this.floor(dataMin, ulp);
 		double max = this.ceil(dataMax, ulp);
 		double step = (max - min) / (double) count;
-		MdssLog.debug("min=" + min + " max=" + max + " step=" + step);
 
 		// If min and max are the same value create a single range with that
 		// value

@@ -256,8 +256,6 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
       query.restrictRows(pageSize, pageNumber);
     }
     
-    MdssLog.debug(query.getSQL());
-
     return query;
   }
 

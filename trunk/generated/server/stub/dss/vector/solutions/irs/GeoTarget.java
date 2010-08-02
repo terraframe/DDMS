@@ -257,8 +257,6 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
     sql += " select " + sums + " from recursive_rollup \n";
     sql += " )\n";
 
-    MdssLog.debug(sql);
-
     valueQuery.FROM(sql, "rr");
 
     ValueObject valueObject = valueQuery.getIterator().next();

@@ -158,7 +158,6 @@ public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBas
 	}	
 	
 	protected AbstractCategory createRange(Layer layer, String lowerBound, String upperBound, CategoryGen cg, int n, int total) {
-		MdssLog.debug(lowerBound + "->" + upperBound);
 		
 		RangeCategory cat = new RangeCategory();
 

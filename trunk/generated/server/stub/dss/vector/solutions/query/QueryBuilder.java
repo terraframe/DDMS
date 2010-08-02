@@ -80,6 +80,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       throw ex;
     }
     
+    // IMPORTANT: Keep this debug here because the generated SQL is
+    // required for even the most basic query screen troubleshooting.
     MdssLog.debug(valueQuery.getSQL());
     
     return valueQuery;

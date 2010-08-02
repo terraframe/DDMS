@@ -49,8 +49,6 @@ public class TransactionItemView extends TransactionItemViewBase implements Relo
     
     query.restrictRows(pageSize, pageNumber);
 
-    MdssLog.debug(query.getSQL());
-
     return query;
   }
 

@@ -1438,7 +1438,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     query.restrictRows(20, 1);
 
-    MdssLog.debug(query.getSQL());
 
     return query;
   }

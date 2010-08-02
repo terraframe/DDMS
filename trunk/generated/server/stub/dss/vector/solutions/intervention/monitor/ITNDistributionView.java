@@ -215,8 +215,6 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
 
     query.WHERE(condition);
     
-    MdssLog.debug(query.getSQL());
-    
     return query;
   }
 

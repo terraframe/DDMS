@@ -114,7 +114,6 @@ public class ShapefileExporter implements Reloadable {
 	    ProcessBuilder pb = new ProcessBuilder(args);
 	    pb.directory(dir);
 		String output = this.run(pb);
-		MdssLog.debug(output);
 	}
 
 	private String run(ProcessBuilder pb) {
@@ -148,6 +147,5 @@ public class ShapefileExporter implements Reloadable {
 		for (String cmd: pb.command()) {
 		    message += cmd + "\n";
 		}
-		MdssLog.debug(message);
 	}
 }

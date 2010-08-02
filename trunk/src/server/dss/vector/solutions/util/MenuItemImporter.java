@@ -81,7 +81,6 @@ public class MenuItemImporter {
 			if (diseaseKey != null && diseaseKey.length() > 0) {
 				Disease disease = Disease.getByKey(diseaseKey);
 				Term term = Term.getByTermId(termId);
-				MdssLog.debug("DiseaseRoot: " + diseaseKey + "|" + termId);
         
 				disease.appLock();
 				disease.setMenuRoot(term);
@@ -101,7 +100,6 @@ public class MenuItemImporter {
 		while (row != null && row.getCell(0) != null && row.getCell(0).getCellType() != HSSFCell.CELL_TYPE_BLANK) {
 			String urlId = this.getCellValue(row, 0);
 			String url = this.getCellValue(row, 1);
-			MdssLog.debug("SystemURL: " + urlId + "|" + url);
 			if (urlId != null && urlId.length() > 0) {
 				SystemURL systemUrl = new SystemURL();
 				systemUrl.setUrl(url);
@@ -128,7 +126,6 @@ public class MenuItemImporter {
 				Term term = Term.getByTermId(termId);
 
 				SystemURL systemUrl = SystemURL.getByKey(urlId);
-				MdssLog.debug("MenuItem: " + diseaseKey + "|" + urlId + "|" + termId);
 				MenuItem menuItem = new MenuItem();
 				menuItem.setUrl(systemUrl);
 				menuItem.setTerm(term);

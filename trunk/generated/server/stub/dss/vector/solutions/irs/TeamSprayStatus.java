@@ -322,7 +322,6 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
     String sql = "DROP VIEW IF EXISTS " + tableName + ";\n";
     sql += "CREATE VIEW " + tableName + " AS ";
     sql += TeamSprayStatus.getTempTableSQL() + ";\n";
-    MdssLog.debug(sql);
     Database.parseAndExecute(sql);
   }
 

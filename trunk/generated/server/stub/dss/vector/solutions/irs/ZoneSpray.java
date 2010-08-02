@@ -100,7 +100,6 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
     sql += "CREATE TEMP TABLE " + tableName + " AS ";
     sql += ZoneSpray.getTempTableSQL(viewName) + ";\n";
-    MdssLog.debug(sql);
     Database.parseAndExecute(sql);
   }
 

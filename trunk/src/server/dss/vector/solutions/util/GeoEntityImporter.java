@@ -126,7 +126,6 @@ public class GeoEntityImporter {
 	@Transaction
 	private void deleteGeoEntities() {
 		//this.deleteAllTableRecords(AllPaths.CLASS);
-		MdssLog.debug("Deleting GeoEntities ");
 
 		int applyCount = 0;
 
@@ -148,7 +147,6 @@ public class GeoEntityImporter {
 			geoEntity.delete();
 		}
 
-		MdssLog.debug("Finished deleting GeoEntities");
 	}
 
 	@StartSession
@@ -210,7 +208,6 @@ public class GeoEntityImporter {
 
 	@Transaction
 	private void createLocatedInRelationships() throws Exception {
-		MdssLog.debug("Creating GeoEntity LocatedIn Relationships ");
 
 		int applyCount = 0;
 
@@ -235,7 +232,6 @@ public class GeoEntityImporter {
 					try {
 						parentGeoEntity = GeoEntity.searchByGeoId(locatedIn);
 					} catch (InvalidIdException iie) {
-						MdssLog.warn("Parent" + locatedIn + " not found for child " + geoId);
 						parentGeoEntity = Earth.getEarthInstance();
 					}
 				} else {
@@ -267,7 +263,6 @@ public class GeoEntityImporter {
 				statement.close();
 			}
 		}
-		MdssLog.debug("Finished Creating GeoEntity LocatedIn Relationships");
 	}
 
 	private String appendFileteredUniversalClause() {
@@ -307,13 +302,11 @@ public class GeoEntityImporter {
 	 * GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "
 	 */
 	private void createGeoEntities() throws Exception {
-		MdssLog.debug("Creating GeoEntities ");
 
 		int applyCount = 0;
 
 		String sql = " SELECT geom." + GEOM_MULTILINESTRING + ", geom." + GEOM_POINT + ", geom." + GEOM_MULTIPOLYGON + ",\n" + "        rel." + INSTANCE_OF + ", rel." + GEO_ID + ",\n" + "        ent." + GEO_NAME + ", ent." + ENTITY_ID + "\n" + "   FROM " + GEOGRAPHIC_ENTITIES_RELATIONS + " rel,\n" + "        " + GEOGRAPHIC_ENTITIES + " ent LEFT JOIN " + GEOGRAPHIC_ENTITIES_GEOMETRY + " geom ON ent." + GEO_ID + " = geom." + GEO_ID + "\n" + "  WHERE rel." + GEO_ID + " = ent." + GEO_ID + "\n" + appendFileteredUniversalClause();
 
-		MdssLog.debug(sql);
 		Statement statement = null;
 		ResultSet resultSet = null;
 		
@@ -361,7 +354,7 @@ public class GeoEntityImporter {
 						//businessClass.getMethod("setMultiPolygon", MultiPolygon.class).invoke(geoEntity, geometryHelper.getGeoMultiPolygon(g));
 					}
 				} catch (Exception e) {
-					MdssLog.error(geoName + "  geoId: " + geoId + "  type: " + type, e);
+					MdssLog.error("Error importing GeoEntity ["+geoName + "]  geoId: [" + geoId + "]  type: [" + type+"]", e);
 					throw e;
 				}
 
@@ -410,8 +403,6 @@ public class GeoEntityImporter {
 		{
 		  // No match found ... keep the current default
 		}
-		
-		MdssLog.debug("Finished Creating GeoEntities");
 	}
 
 	@Transaction

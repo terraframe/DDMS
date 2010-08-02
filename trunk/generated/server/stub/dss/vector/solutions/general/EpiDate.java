@@ -541,8 +541,6 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     }
 
 
-    MdssLog.debug(valueQuery.getSQL());
-
     OIterator<? extends ValueObject> iterator = valueQuery.getIterator();
     try
     {

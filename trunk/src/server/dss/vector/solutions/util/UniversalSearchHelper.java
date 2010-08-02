@@ -48,7 +48,6 @@ public class UniversalSearchHelper implements Reloadable {
 	
 	@Transaction
 	public void createSearch(GeoHierarchy universal) {
-		MdssLog.debug(universal);
 		this.deleteSearch(universal);
 
 		SavedSearch search = new SavedSearch();
