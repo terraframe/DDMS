@@ -13,7 +13,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.ValueQuery;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.PeriodMonthProblem;
 import dss.vector.solutions.PeriodQuarterProblem;
 import dss.vector.solutions.PeriodWeekProblem;
@@ -526,18 +525,18 @@ public class EpiDate extends EpiDateBase implements com.runwaysdk.generation.loa
     if (snapToFirstDay)
     {
       startOrEnd = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
-      valueQuery.SELECT(seasonQuery.getStartDate(MalariaSeason.STARTDATE));
+      valueQuery.SELECT(seasonQuery.getStartDate(startOrEnd));
       SelectableSQLDate dist = valueQuery.aSQLDate("dist", "(age(" + startOrEnd + ", '" + formatter.format(snapable) + "'))", "dist");
       valueQuery.ORDER_BY_DESC(dist);
-      valueQuery.WHERE(seasonQuery.getStartDate(MalariaSeason.STARTDATE).LE(formatter.format(snapable)));
+      valueQuery.WHERE(seasonQuery.getStartDate(startOrEnd).LE(formatter.format(snapable)));
     }
     else
     {
       startOrEnd = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
-      valueQuery.SELECT(seasonQuery.getEndDate(MalariaSeason.ENDDATE));
+      valueQuery.SELECT(seasonQuery.getEndDate(startOrEnd));
       SelectableSQLDate dist = valueQuery.aSQLDate("dist", "(age(" + startOrEnd + ", '" + formatter.format(snapable) + "'))", "dist");
       valueQuery.ORDER_BY_ASC(dist);
-      valueQuery.WHERE(seasonQuery.getEndDate(MalariaSeason.ENDDATE).GE(formatter.format(snapable)));
+      valueQuery.WHERE(seasonQuery.getEndDate(startOrEnd).GE(formatter.format(snapable)));
     }
 
 
