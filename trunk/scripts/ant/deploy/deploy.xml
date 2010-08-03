@@ -336,7 +336,7 @@
 		<copy file="${local.ant}/aop.xml" todir="temp/META-INF" />
 
 		<!-- Instead of including source in the jar, just create a zip file that can still be referenced by eclipse for debugging -->
-		<iajc destDir="temp" source="1.5" target="1.5" verbose="false" X="notReweavable">
+		<iajc destDir="temp" source="1.6" target="1.6" verbose="false" X="notReweavable">
 			<src path="${local.src.server};"/>
   		    <include name="**/*.aj" />
 
