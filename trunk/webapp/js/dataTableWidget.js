@@ -238,11 +238,15 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
       var attribute = object.getAttributeDTO(attributeName);
       
       if (attribute) {
-        if (value != null && attribute instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
-          attribute.setValue(MDSS.Calendar.parseDate(value));
+        if (attribute instanceof com.runwaysdk.transport.attributes.AttributeDateDTO) {
+          if(value != null) {
+            attribute.setValue(MDSS.Calendar.parseDate(value));
+          }
         }
-        else if(value != null && attribute instanceof com.runwaysdk.transport.attributes.AttributeEnumerationDTO) {
-          attribute.addValue(value);
+        else if(attribute instanceof com.runwaysdk.transport.attributes.AttributeEnumerationDTO) {
+          if(value != null) {
+            attribute.add(value);
+          }
         }
         else {
           attribute.setValue(value);
