@@ -781,7 +781,16 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
                 record.setData(field.key, label);
               }
             }
-          }          
+          }
+          else {
+            // We must determine if the value is a number and if-so limit its decimals to 2 places
+            var value = record.getData(field.key);
+            
+            if(Mojo.Util.isNumber(value)) {
+              var formattedNumber = value.toFixed(value);
+              record.setData(field.key, formattedNumber);              
+            }
+          }
         }
       }
     },
