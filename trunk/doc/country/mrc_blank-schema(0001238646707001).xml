@@ -1,293 +1,301 @@
-<version xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-<!-- Created on Wed May 05 09:31:34 MDT 2010 from ./doc/country/mrc_blank-universals.xls -->
-<doIt>
-<create>
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.Country"
-   label="Country"
-   description="Country"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+<version
+  xsi:noNamespaceSchemaLocation="../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <!-- Created on Wed May 05 09:31:34 MDT 2010 from ./doc/country/mrc_blank-universals.xls -->
+  <doIt>
+    <create>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.Country"
+        label="Country"
+        description="Country"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.SprayZone"
-   label="Spray Zone"
-   description="Spray Zone"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.SprayZone"
+        label="Spray Zone"
+        description="Spray Zone"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.HealthFacility"
-   label="Health Facility"
-   description="Health Facility"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.HealthFacility"
+        label="Health Facility"
+        description="Health Facility"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.StockDepot"
-   label="Stock Depot"
-   description="Stock Depot"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.StockDepot"
+        label="Stock Depot"
+        description="Stock Depot"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.SentinelSite"
-   label="Sentinel Site"
-   description="Sentinel Site"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.SentinelSite"
+        label="Sentinel Site"
+        description="Sentinel Site"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.Surface"
-   label="Surface"
-   description="Surface"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.Surface"
+        label="Surface"
+        description="Surface"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-<mdBusiness
-   name="dss.vector.solutions.geo.generated.CollectionSite"
-   label="Collection Site"
-   description="Collection Site"
-   removable="true"
-   extends="dss.vector.solutions.geo.generated.GeoEntity">
-</mdBusiness>
+      <mdBusiness
+        name="dss.vector.solutions.geo.generated.CollectionSite"
+        label="Collection Site"
+        description="Collection Site"
+        removable="true"
+        extends="dss.vector.solutions.geo.generated.GeoEntity">
+      </mdBusiness>
 
-</create>
+    </create>
 
-<create>
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.Country">
-   <attribute
-      name="political"
-      value="true" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="true" />
-   <attribute
-      name="urban"
-      value="true" />
-   <attribute
-      name="populationAllowed"
-      value="true" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.Country"/>
-</object>
+    <create>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.Country">
+        <attribute
+          name="political"
+          value="true" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <attribute
+          name="urban"
+          value="true" />
+        <attribute
+          name="populationAllowed"
+          value="true" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.Country" />
+      </object>
 
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.SprayZone">
-   <attribute
-      name="political"
-      value="false" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="true" />
-   <attribute
-      name="urban"
-      value="false" />
-   <attribute
-      name="populationAllowed"
-      value="false" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.SprayZone"/>
-</object>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.SprayZone">
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="true" />
+        <attribute
+          name="urban"
+          value="false" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.SprayZone" />
+      </object>
 
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.HealthFacility">
-   <attribute
-      name="political"
-      value="false" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="false" />
-   <attribute
-      name="urban"
-      value="false" />
-   <attribute
-      name="populationAllowed"
-      value="true" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.HealthFacility"/>
-</object>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.HealthFacility">
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <attribute
+          name="urban"
+          value="false" />
+        <attribute
+          name="populationAllowed"
+          value="true" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.HealthFacility" />
+      </object>
 
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.StockDepot">
-   <attribute
-      name="political"
-      value="false" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="false" />
-   <attribute
-      name="urban"
-      value="false" />
-   <attribute
-      name="populationAllowed"
-      value="false" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.StockDepot"/>
-</object>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.StockDepot">
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <attribute
+          name="urban"
+          value="false" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.StockDepot" />
+      </object>
 
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.SentinelSite">
-   <attribute
-      name="political"
-      value="false" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="false" />
-   <attribute
-      name="urban"
-      value="false" />
-   <attribute
-      name="populationAllowed"
-      value="false" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.SentinelSite"/>
-</object>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.SentinelSite">
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <attribute
+          name="urban"
+          value="false" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.SentinelSite" />
+      </object>
 
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.Surface">
-   <attribute
-      name="political"
-      value="false" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="false" />
-   <attribute
-      name="urban"
-      value="false" />
-   <attribute
-      name="populationAllowed"
-      value="false" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.Surface"/>
-</object>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.Surface">
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <attribute
+          name="urban"
+          value="false" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.Surface" />
+      </object>
 
-<object
-   type="dss.vector.solutions.geo.GeoHierarchy"
-   key="dss.vector.solutions.geo.generated.CollectionSite">
-   <attribute
-      name="political"
-      value="false" />
-   <attribute
-      name="sprayTargetAllowed"
-      value="false" />
-   <attribute
-      name="urban"
-      value="false" />
-   <attribute
-      name="populationAllowed"
-      value="false" />
-   <attributeReference
-      name="geoEntityClass"
-      key="dss.vector.solutions.geo.generated.CollectionSite"/>
-</object>
+      <object
+        type="dss.vector.solutions.geo.GeoHierarchy"
+        key="dss.vector.solutions.geo.generated.CollectionSite">
+        <attribute
+          name="political"
+          value="false" />
+        <attribute
+          name="sprayTargetAllowed"
+          value="false" />
+        <attribute
+          name="urban"
+          value="false" />
+        <attribute
+          name="populationAllowed"
+          value="false" />
+        <attributeReference
+          name="geoEntityClass"
+          key="dss.vector.solutions.geo.generated.CollectionSite" />
+      </object>
 
-</create>
+    </create>
 
-<create>
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="CountryInEarth"
-   childKey="dss.vector.solutions.geo.generated.Country"
-   parentKey="dss.vector.solutions.geo.generated.Earth">
-</relationship>
+    <create>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="CountryInEarth"
+        childKey="dss.vector.solutions.geo.generated.Country"
+        parentKey="dss.vector.solutions.geo.generated.Earth">
+      </relationship>
 
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="SprayZoneInCountry"
-   childKey="dss.vector.solutions.geo.generated.SprayZone"
-   parentKey="dss.vector.solutions.geo.generated.Country">
-</relationship>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="SprayZoneInCountry"
+        childKey="dss.vector.solutions.geo.generated.SprayZone"
+        parentKey="dss.vector.solutions.geo.generated.Country">
+      </relationship>
 
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="HealthFacilityInCountry"
-   childKey="dss.vector.solutions.geo.generated.HealthFacility"
-   parentKey="dss.vector.solutions.geo.generated.Country">
-</relationship>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="HealthFacilityInCountry"
+        childKey="dss.vector.solutions.geo.generated.HealthFacility"
+        parentKey="dss.vector.solutions.geo.generated.Country">
+      </relationship>
 
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="StockDepotInCountry"
-   childKey="dss.vector.solutions.geo.generated.StockDepot"
-   parentKey="dss.vector.solutions.geo.generated.Country">
-</relationship>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="StockDepotInCountry"
+        childKey="dss.vector.solutions.geo.generated.StockDepot"
+        parentKey="dss.vector.solutions.geo.generated.Country">
+      </relationship>
 
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="SentinelSiteInCountry"
-   childKey="dss.vector.solutions.geo.generated.SentinelSite"
-   parentKey="dss.vector.solutions.geo.generated.Country">
-</relationship>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="SentinelSiteInCountry"
+        childKey="dss.vector.solutions.geo.generated.SentinelSite"
+        parentKey="dss.vector.solutions.geo.generated.Country">
+      </relationship>
 
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="SurfaceInCountry"
-   childKey="dss.vector.solutions.geo.generated.Surface"
-   parentKey="dss.vector.solutions.geo.generated.Country">
-</relationship>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="SurfaceInCountry"
+        childKey="dss.vector.solutions.geo.generated.Surface"
+        parentKey="dss.vector.solutions.geo.generated.Country">
+      </relationship>
 
-<relationship
-   type="dss.vector.solutions.geo.AllowedIn"
-   key="CollectionSiteInCountry"
-   childKey="dss.vector.solutions.geo.generated.CollectionSite"
-   parentKey="dss.vector.solutions.geo.generated.Country">
-</relationship>
+      <relationship
+        type="dss.vector.solutions.geo.AllowedIn"
+        key="CollectionSiteInCountry"
+        childKey="dss.vector.solutions.geo.generated.CollectionSite"
+        parentKey="dss.vector.solutions.geo.generated.Country">
+      </relationship>
 
-</create>
+    </create>
 
-<create>
-<object
-   type="dss.vector.solutions.Property"
-   key="countryGeoId">
-   <attribute
-      name="propertyName"
-      value="countryGeoId" />
-   <attribute
-      name="displayLabel"
-      value="Country Geo ID" />
-   <attribute
-      name="propertyPackage"
-      value="dss.vector.solutions.system.install" />
-   <attribute
-      name="propertyValue"
-      value="000000"/>
-   <attribute
-      name="propertyType"
-      value="STRING" />
-   <attribute
-      name="propertyValidator"
-      value="^[0-9A-Za-z]{1,16}$" />
-   <attribute
-      name="validValues"
-      value="12323,ABCD,23AB,ZZZ456" />
-   <attribute
-      name="description"
-      value="The GeoID of the Country in which this server is installed"/>
-</object>
+    <create>
+      <object
+        type="dss.vector.solutions.Property"
+        key="countryGeoId">
+        <attribute
+          name="propertyName"
+          value="countryGeoId" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Country Geo ID" />
+        </attributeStruct>
+        <attribute
+          name="propertyPackage"
+          value="dss.vector.solutions.system.install" />
+        <attribute
+          name="propertyValue"
+          value="000000" />
+        <attribute
+          name="propertyType"
+          value="STRING" />
+        <attribute
+          name="propertyValidator"
+          value="^[0-9A-Za-z]{1,16}$" />
+        <attribute
+          name="validValues"
+          value="12323,ABCD,23AB,ZZZ456" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="The GeoID of the Country in which this server is installed" />
+        </attributeStruct>
+      </object>
 
-</create>
+    </create>
 
-</doIt>
-<undoIt>
-</undoIt>
+  </doIt>
+  <undoIt>
+  </undoIt>
 </version>
