@@ -1,15 +1,20 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create></create>
     <update>
-		<object
-			type="dss.vector.solutions.Property"
- 			key="SHORT_ID_OFFSET">
-			<attribute
-				name="displayLabel"
-				value="Installation Identifier" />
-		</object>
-	</update>
+      <object
+        type="dss.vector.solutions.Property"
+        key="SHORT_ID_OFFSET">
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Installation Identifier" />
+        </attributeStruct>
+      </object>
+    </update>
   </doIt>
   <undoIt>
     <delete></delete>

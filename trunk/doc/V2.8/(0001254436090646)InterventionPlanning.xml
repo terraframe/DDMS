@@ -9,9 +9,12 @@
         <attribute
           name="propertyName"
           value="sprayedUnitsPerDay" />
-        <attribute
-          name="displayLabel"
-          value="number of units to be sprayed by operator by day" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="number of units to be sprayed by operator by day" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.irs.Standards" />
@@ -27,9 +30,12 @@
         <attribute
           name="validValues"
           value="5" />
-        <attribute
-          name="description"
-          value="number of units to be sprayed by operator by day" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="number of units to be sprayed by operator by day" />
+        </attributeStruct>
       </object>
 
       <mdView

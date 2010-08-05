@@ -34,10 +34,10 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
     }
     else if (this.getDisplayLabel() != null)
     {
-      return this.getDisplayLabel();
+      return this.getDisplayLabel().getValue();
     }
 
-    return super.toString();
+    return this.getClassDisplayLabel();
   }
 
   protected String buildKey()

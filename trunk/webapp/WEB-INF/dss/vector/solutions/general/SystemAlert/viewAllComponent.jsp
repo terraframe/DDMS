@@ -20,8 +20,14 @@
 			</mjl:row>
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isOnscreenActive">
+		  <mjl:row>
+            ${item.isOnscreenActive ? item.isOnscreenActiveMd.positiveDisplayLabel : item.isOnscreenActiveMd.negativeDisplayLabel}		    
+		  </mjl:row>
 		</mjl:attributeColumn>
 		<mjl:attributeColumn attributeName="isEmailActive">
+		  <mjl:row>
+            ${item.isEmailActive ? item.isEmailActiveMd.positiveDisplayLabel : item.isEmailActiveMd.negativeDisplayLabel}		    
+		  </mjl:row>
 		</mjl:attributeColumn>
 		<mjl:freeColumn>
 			<mjl:header>

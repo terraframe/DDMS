@@ -10610,12 +10610,18 @@
     <create>
       <object type="dss.vector.solutions.Property" key="epiStartWeekDay">
         <attribute name="propertyName" value="epiStartWeekDay" />
-        <attribute name="displayLabel" value="First Weekday of the Epi Year" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="First Weekday of the Epi Year" />
+        </attributeStruct>
         <attribute name="propertyPackage" value="dss.vector.solutions.surveillance.EpiWeek" />
         <attribute name="propertyValue" value="0" />
         <attribute name="propertyType" value="Integer" />
         <attribute name="propertyValidator" value="^[0-6]$" />
-        <attribute name="description" value="Sunday is the (WHO/PAHO) Standard" />
+        <attributeStruct
+           name="description">
+          <attribute name="defaultLocale" value="Sunday is the (WHO/PAHO) Standard" />
+        </attributeStruct>
         <attribute name="validValues" value="0,1,2,3,4,5,6" />
         <attribute name="editable" value="false" />
       </object>
@@ -10813,13 +10819,19 @@
     <create>
       <object type="dss.vector.solutions.Property" key="sprayedUnitsPerDay">
         <attribute name="propertyName" value="sprayedUnitsPerDay" />
-        <attribute name="displayLabel" value="number of units to be sprayed by operator by day" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="number of units to be sprayed by operator by day" />
+        </attributeStruct>
         <attribute name="propertyPackage" value="dss.vector.solutions.irs.Standards" />
         <attribute name="propertyValue" value="1" />
         <attribute name="propertyType" value="Integer" />
         <attribute name="propertyValidator" value="^[1-9][0-9]*$" />
         <attribute name="validValues" value="5" />
-        <attribute name="description" value="number of units to be sprayed by operator by day" />
+        <attributeStruct
+           name="description">
+          <attribute name="defaultLocale" value="number of units to be sprayed by operator by day" />
+        </attributeStruct>
       </object>
     </create>
     <create>
@@ -10961,21 +10973,33 @@
       </object>
       <object type="dss.vector.solutions.Property" key="epidemicUniversal">
         <attribute name="propertyName" value="epidemicUniversal" />
-        <attribute name="displayLabel" value="Level of epidemic" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="Level of epidemic" />
+        </attributeStruct>
         <attribute name="propertyPackage" value="dss.vector.solutions" />
         <attribute name="propertyValue" value="null" />
         <attribute name="propertyType" value="String" />
         <attribute name="propertyValidator" value="^[a-z|A-Z|0-9]*$" />
-        <attribute name="description" value="The universal level where an outbreak becomes and epidemic" />
+        <attributeStruct
+           name="description">
+          <attribute name="defaultLocale" value="The universal level where an outbreak becomes and epidemic" />
+        </attributeStruct>
       </object>
       <object type="dss.vector.solutions.Property" key="isEpiWeek">
         <attribute name="propertyName" value="isEpiWeek" />
-        <attribute name="displayLabel" value="Is Epi Week" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="Is Epi Week" />
+        </attributeStruct>
         <attribute name="propertyPackage" value="dss.vector.solutions" />
         <attribute name="propertyValue" value="EPI_WEEK" />
         <attribute name="propertyType" value="String" />
         <attribute name="propertyValidator" value="^[a-z|A-Z|0-9|_]*$" />
-        <attribute name="description" value="Flag denoting if outbreak notification should use epi week or sliding week for calculations" />
+        <attributeStruct
+           name="description">
+          <attribute name="defaultLocale" value="Flag denoting if outbreak notification should use epi week or sliding week for calculations" />
+        </attributeStruct>
       </object>
     </create>
     <create>
@@ -11508,28 +11532,43 @@
         <attribute name="propertyPackage" value="dss.vector.solutions.intervention.monitor" />
         <attribute name="propertyName" value="newCasePeriod" />
         <attributeReference name="disease" key="MALARIA" />
-        <attribute name="displayLabel" value="New Case Period (weeks)" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="New Case Period (weeks)" />
+        </attributeStruct>
         <attribute name="propertyValue" value="4" />
         <attribute name="propertyType" value="Integer" />
         <attribute name="propertyValidator" value="^[1-9][0-9]*$" />
         <attribute name="validValues" value="4, 6, 10" />
-        <attribute name="description" value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        <attributeStruct
+           name="description">
+          <attribute name="defaultLocale" value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        </attributeStruct>
       </object>
       <object type="dss.vector.solutions.Property" key="newCasePeriod.DENGUE">
         <attribute name="propertyPackage" value="dss.vector.solutions.intervention.monitor" />
         <attribute name="propertyName" value="newCasePeriod" />
         <attributeReference name="disease" key="DENGUE" />
-        <attribute name="displayLabel" value="New Case Period (weeks)" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="New Case Period (weeks)" />
+        </attributeStruct>
         <attribute name="propertyValue" value="4" />
         <attribute name="propertyType" value="Integer" />
         <attribute name="propertyValidator" value="^[1-9][0-9]*$" />
         <attribute name="validValues" value="4, 6, 10" />
-        <attribute name="description" value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        <attributeStruct
+           name="description">
+          <attribute name="defaultLocale" value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        </attributeStruct>
       </object>
     </create>
     <update>
       <object type="dss.vector.solutions.Property" key="SHORT_ID_OFFSET">
-        <attribute name="displayLabel" value="Installation Identifier" />
+        <attributeStruct
+           name="displayLabel">
+          <attribute name="defaultLocale" value="Installation Identifier" />
+        </attributeStruct>
       </object>
     </update>
     <create>

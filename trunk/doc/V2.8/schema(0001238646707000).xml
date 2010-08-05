@@ -2329,11 +2329,11 @@
             required="true"
             size="255" />
           <reference
-			name="disease"
-			label="Disease"
-			type="dss.vector.solutions.general.Disease"
-			required="false" />
-          <char
+            name="disease"
+            label="Disease"
+            type="dss.vector.solutions.general.Disease"
+            required="false" />
+          <localChar
             name="displayLabel"
             label="Display Label"
             required="true"
@@ -2358,7 +2358,7 @@
             required="true"
             label="Validator Regexp"
             size="255" />
-          <char
+          <localChar
             name="description"
             required="false"
             label="Description"
@@ -2514,9 +2514,12 @@
         <attribute
           name="propertyName"
           value="aDDAR" />
-        <attribute
-          name="displayLabel"
-          value="Adult Diagnostic Dose Assay Resistant" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Adult Diagnostic Dose Assay Resistant" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
@@ -2532,9 +2535,12 @@
         <attribute
           name="validValues"
           value="0-100" />
-        <attribute
-          name="description"
-          value="% mortality that the population is resistant – Less Than" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is resistant – Less Than" />
+        </attributeStruct>
       </object>
 
       <object
@@ -2543,9 +2549,12 @@
         <attribute
           name="propertyName"
           value="aDDAS" />
-        <attribute
-          name="displayLabel"
-          value="Adult Diagnostic Dose Assay Susceptible" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Adult Diagnostic Dose Assay Susceptible" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
@@ -2561,9 +2570,12 @@
         <attribute
           name="validValues"
           value="0-100" />
-        <attribute
-          name="description"
-          value="% mortality that the population is susceptible – Greater than or Equal to" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is susceptible – Greater than or Equal to" />
+        </attributeStruct>
       </object>
 
       <object
@@ -2572,9 +2584,12 @@
         <attribute
           name="propertyName"
           value="lDDAR" />
-        <attribute
-          name="displayLabel"
-          value="Larvae Diagnostic Dose Assay Resistant" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Larvae Diagnostic Dose Assay Resistant" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
@@ -2590,9 +2605,12 @@
         <attribute
           name="validValues"
           value="0-100" />
-        <attribute
-          name="description"
-          value="% mortality that the population is resistant – Less Than" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is resistant – Less Than" />
+        </attributeStruct>
       </object>
 
       <object
@@ -2601,9 +2619,12 @@
         <attribute
           name="propertyName"
           value="lDDAS" />
-        <attribute
-          name="displayLabel"
-          value="Larvae Diagnostic Dose Assay Susceptible" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="Larvae Diagnostic Dose Assay Susceptible" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.entomology.ResistantanceCutOff" />
@@ -2619,9 +2640,12 @@
         <attribute
           name="propertyValidator"
           value="^[0-9]+$" />
-        <attribute
-          name="description"
-          value="% mortality that the population is susceptible – Greater than or Equal to" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="% mortality that the population is susceptible – Greater than or Equal to" />
+        </attributeStruct>
       </object>
 
       <object
@@ -2630,9 +2654,12 @@
         <attribute
           name="propertyName"
           value="SHORT_ID_SEGMENTS" />
-        <attribute
-          name="displayLabel"
-          value="SHORT_ID_SEGMENTS" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="SHORT_ID_SEGMENTS" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.system.global" />
@@ -2648,9 +2675,12 @@
         <attribute
           name="validValues"
           value="1024" />
-        <attribute
-          name="description"
-          value="Number of address space segments(installs), NOT EDITABLE" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="Number of address space segments(installs), NOT EDITABLE" />
+        </attributeStruct>
         <attribute
           name="editable"
           value="false" />
@@ -2661,9 +2691,12 @@
         <attribute
           name="propertyName"
           value="SHORT_ID_OFFSET" />
-        <attribute
-          name="displayLabel"
-          value="SHORT_ID_OFFSET" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="SHORT_ID_OFFSET" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.system.install" />
@@ -2679,9 +2712,12 @@
         <attribute
           name="validValues"
           value="0-999" />
-        <attribute
-          name="description"
-          value="The id address space offset or install number, MUST be unique for each server, 0-999" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="The id address space offset or install number, MUST be unique for each server, 0-999" />
+        </attributeStruct>
       </object>
       <!--
         <object type="dss.vector.solutions.Property" id="dateFormat"> <attribute name="propertyName" value="dateFormat" /> <attribute name="displayLabel" value="Date Format" /> <attribute name="propertyPackage" value="dss.vector.solutions" /> <attribute name="propertyValue" value="mm/dd/yyyy" /> <attribute name="propertyType" value="String" /> <attribute name="propertyValidator" value="^[MmDdYy/- ]+$" /> <attribute name="description" value="Date Format For Display" /> <attribute

@@ -29,7 +29,7 @@
       </dd>
     </c:forEach>        
     <dd>
-      <mjl:command name="save" action="dss.vector.solutions.RoleController.save.mojo"/>
+      <mjl:command name="save" action="dss.vector.solutions.RoleController.save.mojo" value="Submit"/>
     </dd>    
   </dl>
   

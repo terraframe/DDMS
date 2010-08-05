@@ -141,9 +141,12 @@
         <attribute
           name="propertyName"
           value="epiStartWeekDay" />
-        <attribute
-          name="displayLabel"
-          value="First Weekday of the Epi Year" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="First Weekday of the Epi Year" />
+        </attributeStruct>
         <attribute
           name="propertyPackage"
           value="dss.vector.solutions.surveillance.EpiWeek" />
@@ -156,9 +159,12 @@
         <attribute
           name="propertyValidator"
           value="^[0-6]$" />
-        <attribute
-          name="description"
-          value="Sunday is the (WHO/PAHO) Standard" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="Sunday is the (WHO/PAHO) Standard" />
+        </attributeStruct>
         <attribute
           name="validValues"
           value="0,1,2,3,4,5,6" />

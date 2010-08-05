@@ -31,10 +31,11 @@
   catch (Exception e)
   {
   }
-  SimpleDateFormat wd = new SimpleDateFormat("EEE");
-  SimpleDateFormat fullWd = new SimpleDateFormat("EEEEEEEE");
-  SimpleDateFormat mf = new SimpleDateFormat("MMM");
-  SimpleDateFormat df = new SimpleDateFormat("dd");
+  
+  SimpleDateFormat wd = new SimpleDateFormat("EEE", request.getLocale());
+  SimpleDateFormat fullWd = new SimpleDateFormat("EEEEEEEE", request.getLocale());
+  SimpleDateFormat mf = new SimpleDateFormat("MMM", request.getLocale());
+  SimpleDateFormat df = new SimpleDateFormat("dd", request.getLocale());
 
   week.set(Calendar.DAY_OF_WEEK, 1);
 

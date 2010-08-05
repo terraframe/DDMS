@@ -15,9 +15,12 @@
         <attributeReference
           name="disease"
           key="MALARIA" />
-        <attribute
-          name="displayLabel"
-          value="New case period (weeks)" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="New case period (weeks)" />
+        </attributeStruct>
         <attribute
           name="propertyValue"
           value="4" />
@@ -30,9 +33,12 @@
         <attribute
           name="validValues"
           value="4, 6, 10" />
-        <attribute
-          name="description"
-          value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        </attributeStruct>
       </object>
       <object
         type="dss.vector.solutions.Property"
@@ -46,9 +52,12 @@
         <attributeReference
           name="disease"
           key="DENGUE" />
-        <attribute
-          name="displayLabel"
-          value="New case period (weeks)" />
+        <attributeStruct
+          name="displayLabel">
+          <attribute
+            name="defaultLocale"
+            value="New case period (weeks)" />
+        </attributeStruct>
         <attribute
           name="propertyValue"
           value="4" />
@@ -61,9 +70,12 @@
         <attribute
           name="validValues"
           value="4, 6, 10" />
-        <attribute
-          name="description"
-          value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        <attributeStruct
+          name="description">
+          <attribute
+            name="defaultLocale"
+            value="Number of weeks (from case diagnosis date) after which to create a new case" />
+        </attributeStruct>
       </object>
 
     </update>

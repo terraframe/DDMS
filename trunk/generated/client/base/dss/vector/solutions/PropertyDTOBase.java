@@ -1,10 +1,10 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1529617788)
+@com.runwaysdk.business.ClassSignature(hash = 725338948)
 public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.Property";
-  private static final long serialVersionUID = 1529617788;
+  private static final long serialVersionUID = 725338948;
   
   protected PropertyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -106,21 +106,9 @@ public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(CREATEDBY).getAttributeMdDTO();
   }
   
-  public String getDescription()
+  public dss.vector.solutions.PropertyDescriptionDTO getDescription()
   {
-    return getValue(DESCRIPTION);
-  }
-  
-  public void setDescription(String value)
-  {
-    if(value == null)
-    {
-      setValue(DESCRIPTION, "");
-    }
-    else
-    {
-      setValue(DESCRIPTION, value);
-    }
+    return (dss.vector.solutions.PropertyDescriptionDTO) this.getAttributeStructDTO(DESCRIPTION).getStructDTO();
   }
   
   public boolean isDescriptionWritable()
@@ -138,9 +126,9 @@ public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO
     return isModified(DESCRIPTION);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDescriptionMd()
+  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDescriptionMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DESCRIPTION).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.general.DiseaseDTO getDisease()
@@ -187,21 +175,9 @@ public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(DISEASE).getAttributeMdDTO();
   }
   
-  public String getDisplayLabel()
+  public dss.vector.solutions.PropertyDisplayLabelDTO getDisplayLabel()
   {
-    return getValue(DISPLAYLABEL);
-  }
-  
-  public void setDisplayLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(DISPLAYLABEL, "");
-    }
-    else
-    {
-      setValue(DISPLAYLABEL, value);
-    }
+    return (dss.vector.solutions.PropertyDisplayLabelDTO) this.getAttributeStructDTO(DISPLAYLABEL).getStructDTO();
   }
   
   public boolean isDisplayLabelWritable()
@@ -219,9 +195,9 @@ public abstract class PropertyDTOBase extends com.runwaysdk.business.BusinessDTO
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public Boolean getEditable()

@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -909521156)
+@com.runwaysdk.business.ClassSignature(hash = 1783867844)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,8 +14,12 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DESCRIPTION = "description";
+  private com.runwaysdk.business.Struct description = null;
+  
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String DISPLAYLABEL = "displayLabel";
+  private com.runwaysdk.business.Struct displayLabel = null;
+  
   public static java.lang.String EDITABLE = "editable";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -33,11 +37,13 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = -909521156;
+  private static final long serialVersionUID = 1783867844;
   
   public PropertyBase()
   {
     super();
+    description = super.getStruct("description");
+    displayLabel = super.getStruct("displayLabel");
   }
   
   public java.util.Date getCreateDate()
@@ -79,9 +85,9 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
     return mdClassIF.definesAttribute(CREATEDBY);
   }
   
-  public String getDescription()
+  public dss.vector.solutions.PropertyDescription getDescription()
   {
-    return getValue(DESCRIPTION);
+    return (dss.vector.solutions.PropertyDescription) description;
   }
   
   public void validateDescription()
@@ -93,18 +99,6 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Property.CLASS);
     return mdClassIF.definesAttribute(DESCRIPTION);
-  }
-  
-  public void setDescription(String value)
-  {
-    if(value == null)
-    {
-      setValue(DESCRIPTION, "");
-    }
-    else
-    {
-      setValue(DESCRIPTION, value);
-    }
   }
   
   public dss.vector.solutions.general.Disease getDisease()
@@ -142,9 +136,9 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
     }
   }
   
-  public String getDisplayLabel()
+  public dss.vector.solutions.PropertyDisplayLabel getDisplayLabel()
   {
-    return getValue(DISPLAYLABEL);
+    return (dss.vector.solutions.PropertyDisplayLabel) displayLabel;
   }
   
   public void validateDisplayLabel()
@@ -156,18 +150,6 @@ public abstract class PropertyBase extends com.runwaysdk.business.Business imple
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.Property.CLASS);
     return mdClassIF.definesAttribute(DISPLAYLABEL);
-  }
-  
-  public void setDisplayLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(DISPLAYLABEL, "");
-    }
-    else
-    {
-      setValue(DISPLAYLABEL, value);
-    }
   }
   
   public Boolean getEditable()
