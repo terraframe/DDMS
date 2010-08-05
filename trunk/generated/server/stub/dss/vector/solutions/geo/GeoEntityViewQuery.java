@@ -145,6 +145,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
 
       vQuery.WHERE(this.locatedInQuery.parentId().EQ(geoEntity.getId()));
       vQuery.AND(this.geoEntityQuery.locatedInGeoEntity(this.locatedInQuery));
+      vQuery.AND(this.geoEntityQuery.getActivated().EQ(true));
 
       vQuery.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
 
@@ -233,7 +234,8 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       
       vQuery.WHERE(this.pathsQuery.getChildGeoEntity().EQ(geoEntity));
       vQuery.AND(this.geoEntityQuery.getId().EQ(this.pathsQuery.getParentGeoEntity().getId()));
-      
+      vQuery.AND(this.geoEntityQuery.getActivated().EQ(true));
+
       vQuery.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
       
       // filter by type if possible (and all of type's child subclasses)

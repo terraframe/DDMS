@@ -167,7 +167,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
      */
     eventHandler : function(e) {
       if(e.getType() == MDSS.Event.BEFORE_SEARCH) {
-    var autocomplete = e.getValue().autocomplete;
+        var autocomplete = e.getValue().autocomplete;
     
         var searchedId = autocomplete.getDisplayElement().id;
           

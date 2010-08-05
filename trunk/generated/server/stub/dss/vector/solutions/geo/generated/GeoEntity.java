@@ -263,7 +263,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
 
-    Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
+    Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
 
     if (enforceRoot)
     {
@@ -416,7 +416,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       }
     }
 
-    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()) };
+    Condition[] conditions = new Condition[] { condition, F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
 
     if (enforceRoot)
     {

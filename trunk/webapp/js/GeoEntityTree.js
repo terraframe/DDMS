@@ -1029,6 +1029,7 @@ MDSS.GeoEntityTree = (function(){
     var oTarget = this.contextEventTarget;
 
     var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvhtml") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvhtml");
+    
     if (htmlNode) {
       _selectedNode = _geoTree.getNodeByElement(htmlNode);
       
@@ -1047,21 +1048,23 @@ MDSS.GeoEntityTree = (function(){
         {
           var item = this.itemData[0];
           item.cfg.setProperty('disabled', true);
-        
-          // SMETHIE: FINISH THIS
-          var request = new MDSS.Request({
-            item : item,
-            onSend : function(){},
-            onComplete : function(){},
-            onFailure : function(){},
-            onProblemExceptionDTO : function(){},
-            onSuccess : function()
-            {
-              this.item.cfg.setProperty('disabled', false);
-            }
-          });
+
+          if(geoEntityView.getActivated()) {
           
-          _validator(request, geoId);
+            var request = new MDSS.Request({
+              item : item,
+              onSend : function(){},
+              onComplete : function(){},
+              onFailure : function(){},
+              onProblemExceptionDTO : function(){},
+              onSuccess : function()
+              {
+                this.item.cfg.setProperty('disabled', false);
+              }
+            });
+          
+            _validator(request, geoId);
+          }
         }
         
       }
