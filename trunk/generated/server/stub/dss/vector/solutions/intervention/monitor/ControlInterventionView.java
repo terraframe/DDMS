@@ -376,7 +376,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     return views;
   }
 
-  private ControlIntervention getConcrete()
+  public ControlIntervention getConcrete()
   {
     if (this.hasConcreteId())
     {

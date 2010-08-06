@@ -28,15 +28,15 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   public void populateView(IndividualPremiseVisit concrete)
   {
     GeoEntity entity = concrete.getGeoEntity();
-    
+
     this.setConcreteId(concrete.getId());
     this.setPoint(concrete.getPoint());
     this.setGeoEntity(entity);
     this.setVisited(concrete.getVisited());
     this.setTreated(concrete.getTreated());
     this.setReasonsForNotTreated(concrete.getReasonsForNotTreated());
-    
-    if(entity != null)
+
+    if (entity != null)
     {
       this.setEntityLabel(entity.getLabel());
     }
@@ -102,7 +102,7 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   @Override
   public IndividualPremiseVisitMethodView[] getInterventionMethods()
   {
@@ -175,39 +175,37 @@ public class IndividualPremiseVisitView extends IndividualPremiseVisitViewBase i
     return views;
   }
 
-  public static IndividualPremiseVisitView getView(ControlIntervention point, GeoEntity entity)
+  public static IndividualPremiseVisitView getView(ControlIntervention concrete, GeoEntity entity)
   {
     IndividualPremiseVisitQuery query = new IndividualPremiseVisitQuery(new QueryFactory());
 
-    Condition condition = query.getGeoEntity().EQ(entity);
-    
-    if(point != null)
+    if (concrete != null)
     {
-      condition = AND.get(condition, query.getPoint().EQ(point));
-    }
+      Condition condition = query.getGeoEntity().EQ(entity);
+      condition = AND.get(condition, query.getPoint().EQ(concrete));
+      query.WHERE(condition);
 
-    query.WHERE(condition);
+      OIterator<? extends IndividualPremiseVisit> it = query.getIterator();
 
-    OIterator<? extends IndividualPremiseVisit> it = query.getIterator();
-
-    try
-    {
-      if (it.hasNext())
+      try
       {
-        return it.next().getView();
+        if (it.hasNext())
+        {
+          return it.next().getView();
+        }
       }
-
-      IndividualPremiseVisitView view = new IndividualPremiseVisitView();
-      view.setGeoEntity(entity);
-      view.setEntityLabel(entity.getLabel());
-      view.setPoint(point);
-
-      return view;
+      finally
+      {
+        it.close();
+      }
     }
-    finally
-    {
-      it.close();
-    }
+
+    IndividualPremiseVisitView view = new IndividualPremiseVisitView();
+    view.setGeoEntity(entity);
+    view.setEntityLabel(entity.getLabel());
+    view.setPoint(concrete);
+
+    return view;
   }
 
 }

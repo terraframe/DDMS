@@ -249,38 +249,35 @@ public class AggregatedPremiseVisitView extends AggregatedPremiseVisitViewBase i
   }
   
   public static AggregatedPremiseVisitView getView(ControlIntervention point, GeoEntity entity)
-  {
-    AggregatedPremiseVisitQuery query = new AggregatedPremiseVisitQuery(new QueryFactory());
-
-    Condition condition = query.getGeoEntity().EQ(entity);
-    
+  {    
     if(point != null)
     {
+      AggregatedPremiseVisitQuery query = new AggregatedPremiseVisitQuery(new QueryFactory());
+      
+      Condition condition = query.getGeoEntity().EQ(entity);
       condition = AND.get(condition, query.getPoint().EQ(point));
-    }
-
-    query.WHERE(condition);
-
-    OIterator<? extends AggregatedPremiseVisit> it = query.getIterator();
-
-    try
-    {
-      if (it.hasNext())
+      query.WHERE(condition);
+      OIterator<? extends AggregatedPremiseVisit> it = query.getIterator();
+      
+      try
       {
-        return it.next().getView();
+        if (it.hasNext())
+        {
+          return it.next().getView();
+        }
       }
-
-      AggregatedPremiseVisitView view = new AggregatedPremiseVisitView();
-      view.setGeoEntity(entity);
-      view.setEntityLabel(entity.getLabel());
-      view.setPoint(point);
-
-      return view;
+      finally
+      {
+        it.close();
+      }
     }
-    finally
-    {
-      it.close();
-    }
+    
+    AggregatedPremiseVisitView view = new AggregatedPremiseVisitView();
+    view.setGeoEntity(entity);
+    view.setEntityLabel(entity.getLabel());
+    view.setPoint(point);
+    
+    return view;
   }
 
 }
