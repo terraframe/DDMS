@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 2071176791)
+@com.runwaysdk.business.ClassSignature(hash = 1929597584)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,6 +22,7 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String OPERATORRECEIVED = "operatorReceived";
   public static java.lang.String OPERATORREFILLS = "operatorRefills";
   public static java.lang.String OPERATORRETURNED = "operatorReturned";
+  public static java.lang.String OPERATORTARGET = "operatorTarget";
   public static java.lang.String OPERATORUSED = "operatorUsed";
   public static java.lang.String OTHER = "other";
   public static java.lang.String PEOPLE = "people";
@@ -39,7 +40,7 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
-  private static final long serialVersionUID = 2071176791;
+  private static final long serialVersionUID = 1929597584;
   
   public TeamSprayExcelViewBase()
   {
@@ -346,6 +347,34 @@ public abstract class TeamSprayExcelViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(OPERATORRETURNED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getOperatorTarget()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(OPERATORTARGET));
+  }
+  
+  public void validateOperatorTarget()
+  {
+    this.validateAttribute(OPERATORTARGET);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOperatorTargetMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.TeamSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(OPERATORTARGET);
+  }
+  
+  public void setOperatorTarget(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(OPERATORTARGET, "");
+    }
+    else
+    {
+      setValue(OPERATORTARGET, java.lang.Integer.toString(value));
     }
   }
   

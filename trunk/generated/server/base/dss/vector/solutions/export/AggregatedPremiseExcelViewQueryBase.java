@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -546153003)
+@com.runwaysdk.business.ClassSignature(hash = -1832219511)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class AggregatedPremiseExcelViewQueryBase extends dss.vector.solutions.export.ControlInterventionExcelViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -546153003;
+private static final long serialVersionUID = -1832219511;
 
   public AggregatedPremiseExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -60,6 +60,42 @@ private static final long serialVersionUID = -546153003;
   public com.runwaysdk.query.SelectableInteger getPremises(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.PREMISES, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesAvailable()
+  {
+    return getPremisesAvailable(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesAvailable(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.PREMISESAVAILABLE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesAvailable(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.PREMISESAVAILABLE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesIncluded()
+  {
+    return getPremisesIncluded(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesIncluded(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.PREMISESINCLUDED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getPremisesIncluded(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.AggregatedPremiseExcelView.PREMISESINCLUDED, alias, displayLabel);
 
   }
  

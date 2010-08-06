@@ -6,6 +6,7 @@ import java.util.List;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -15,6 +16,7 @@ import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
+import dss.vector.solutions.irs.TeamSprayStatusQuery;
 import dss.vector.solutions.irs.TeamSprayStatusView;
 import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.irs.ZoneSprayView;
@@ -53,9 +55,24 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
 
       zsv.apply();
     }
-
+    
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {
+      // Check for duplicates
+      TeamSprayStatusQuery query = new TeamSprayStatusQuery(new QueryFactory());
+      query.WHERE(query.getSpray().getId().EQ(zsv.getConcreteId()));
+      query.WHERE(query.getSprayTeam().getTeamId().EQ(this.getSprayTeam()));
+      if (query.getCount()>0)
+      {
+        DuplicateZoneSprayImportException dex = new DuplicateZoneSprayImportException();
+        dex.setSprayDate(this.getSprayDate());
+        dex.setGeoEntity(this.getGeoEntity());
+        dex.setInsecticideTerm(this.getInsecticideTerm());
+        dex.setSprayMethod(this.getSprayMethod());
+        dex.setSprayTeam(this.getSprayTeam());
+        throw dex;
+      }
+      
       TeamSprayStatusView view = new TeamSprayStatusView();
       view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
       view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));

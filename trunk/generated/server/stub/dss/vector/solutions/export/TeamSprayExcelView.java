@@ -8,16 +8,19 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.OperatorSprayStatusQuery;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSpray;
+import dss.vector.solutions.irs.TeamSprayStatusQuery;
 import dss.vector.solutions.irs.TeamSprayView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -84,8 +87,24 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
 
     if (this.getOperatorId() != null && !this.getOperatorId().equals(""))
     {
+      // Check for duplication
+      OperatorSprayStatusQuery query = new OperatorSprayStatusQuery(new QueryFactory());
+      query.WHERE(query.getSpray().getId().EQ(tsv.getConcreteId()));
+      query.WHERE(query.getSprayOperator().getMemberId().EQ(this.getOperatorId()));
+      if (query.getCount()>0)
+      {
+        DuplicateTeamSprayImportException dex = new DuplicateTeamSprayImportException();
+        dex.setSprayDate(this.getSprayDate());
+        dex.setSprayTeam(this.getSprayTeam());
+        dex.setInsecticideTerm(this.getInsecticideTerm());
+        dex.setSprayMethod(this.getSprayMethod());
+        dex.setOperatorId(this.getOperatorId());
+        throw dex;
+      }
+      
       OperatorSprayStatusView view = new OperatorSprayStatusView();
       view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
+      view.setOperatorTarget(this.getOperatorTarget());
       view.setReceived(this.getOperatorReceived());
       view.setRefills(this.getOperatorRefills());
       view.setReturned(this.getOperatorReturned());
@@ -120,6 +139,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
     list.add(SURFACETYPE);
     list.add(TARGET);
     list.add(OPERATORID);
+    list.add(OPERATORTARGET);
     list.add(OPERATORRECEIVED);
     list.add(OPERATORREFILLS);
     list.add(OPERATORRETURNED);

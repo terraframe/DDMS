@@ -44,7 +44,8 @@ public class AggregatedPremiseExcelView extends AggregatedPremiseExcelViewBase i
     ControlInterventionView controlPoint = this.getControlPoint();
     AggregatedPremiseVisitView apv = new AggregatedPremiseVisitView();
     apv.setGeoEntity(this.getPremiseGeoEntity());
-//    apv.setVehicleCoverage(this.getVehicleCoverage());
+    apv.setPremisesAvailable(this.getPremisesAvailable());
+    apv.setPremisesIncluded(this.getPremisesIncluded());
     apv.setPremises(this.getPremises());
     apv.setVisited(this.getVisited());
     apv.setTreated(this.getTreated());
@@ -71,7 +72,8 @@ public class AggregatedPremiseExcelView extends AggregatedPremiseExcelViewBase i
   public static List<String> customAttributeOrder()
   {
     List<String> list = ControlInterventionExcelView.customAttributeOrder();
-//    list.add(VEHICLECOVERAGE);
+    list.add(PREMISESAVAILABLE);
+    list.add(PREMISESINCLUDED);
     list.add(PREMISES);
     list.add(VISITED);
     list.add(TREATED);

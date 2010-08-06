@@ -8,9 +8,12 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.irs.HouseholdSprayStatusQuery;
 import dss.vector.solutions.irs.HouseholdSprayStatusView;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSpray;
@@ -97,10 +100,27 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
 
       osv.apply();
     }
-
-    // Popluate the Household Spray Status data
+    
+    // Populate the Household Spray Status data
     if (this.getHouseholdId() != null && !this.getHouseholdId().equals(""))
     {
+      // Check for duplication
+      HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
+      query.WHERE(query.getSpray().getId().EQ(osv.getConcreteId()));
+      query.WHERE(query.getHouseholdId().EQ(this.getHouseholdId()));
+      query.WHERE(query.getStructureId().EQ(this.getStructureId()));
+      if (query.getCount()>0)
+      {
+        DuplicateOperatorSprayImportException dex = new DuplicateOperatorSprayImportException();
+        dex.setSprayDate(this.getSprayDate());
+        dex.setOperatorId(this.getOperatorId());
+        dex.setInsecticideTerm(this.getInsecticideTerm());
+        dex.setSprayMethod(this.getSprayMethod());
+        dex.setHouseholdId(this.getHouseholdId());
+        dex.setStructureId(this.getStructureId());
+        throw dex;
+      }
+      
       HouseholdSprayStatusView view = new HouseholdSprayStatusView();
       view.setHouseholdId(this.getHouseholdId());
       view.setStructureId(this.getStructureId());
