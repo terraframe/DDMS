@@ -2,8 +2,7 @@
   <doIt>
     <update>
       <mdView
-        name="dss.vector.solutions.export.AggregatedPremiseExcelView"
-        publish="false">
+        name="dss.vector.solutions.export.AggregatedPremiseExcelView">
         <create>
           <attributes>
             <virtual

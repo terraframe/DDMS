@@ -3,6 +3,9 @@
  * 
  * (c) 2009
  */
+// TODO use self-executing function to return Mojo
+// and add private variables for commonly used properties/functions
+// like TO_STRING and util funcs (that can later be copied to a class)
 var Mojo = {
 
   /**
@@ -27,9 +30,9 @@ var Mojo = {
     {
       if (!Mojo.Meta.classExists(type))
       {
-      	throw new Mojo.$.com.runwaysdk.Exception("Unable to newInstance " + type + ". The specified class does not exist.");
+        throw new Mojo.$.com.runwaysdk.Exception("Unable to newInstance " + type + ". The specified class does not exist.");
       }
-    	
+      
       var klass = Mojo.Meta._classes[type];
       var args = [].splice.call(arguments, 1);
       
@@ -103,9 +106,9 @@ var Mojo = {
       // FIXME remove all aliases and shorthand
       if (!Mojo.Meta.classExists(type))
       {
-    	  throw new Mojo.$.com.runwaysdk.Exception("Unable to dropClass " + type + ". The specified class does not exist.");
-    	}
-    	
+        throw new Mojo.$.com.runwaysdk.Exception("Unable to dropClass " + type + ". The specified class does not exist.");
+      }
+      
       delete Mojo.Meta._classes[type];
     },
     
@@ -138,8 +141,10 @@ var Mojo = {
           
           if(instance == null)
           {
-            // FIXME avoid this swapping mechanism. (probably need magic in initialize closure
-            // to check for __metaClass.isSingleton() with getInstance sending special args
+            // FIXME avoid this swapping mechanism. (probably need magic in
+      // initialize closure
+            // to check for __metaClass.isSingleton() with getInstance sending
+      // special args
             var temp = klass.prototype.initialize;
             klass.prototype.initialize = sInit;
             instance = new klass();
@@ -168,7 +173,8 @@ var Mojo = {
         
         if(arguments.length === 1 && arguments[0] === Mojo.Meta._pseudoConstructor)
         {
-          Mojo.Meta._pseudoConstructor(); // for "reflective" newInstance() calls.
+          Mojo.Meta._pseudoConstructor(); // for "reflective" newInstance()
+                      // calls.
         }
         else
         {
@@ -345,7 +351,8 @@ var Mojo = {
         }
         else
         {
-          // FIXME wrap static props in a Property class and have them optionally
+          // FIXME wrap static props in a Property class and have them
+      // optionally
           // inherited (or use visibility modifiers?)
           klass[m] = statics[m];
         }
@@ -408,12 +415,11 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
     initialize : function()
     {
       // Default Constructor
-      
     },
   
     equals : function(obj)
     {
-      return obj != null && this === obj;
+      return this === obj;
     },
   
     clone : function()
@@ -540,10 +546,12 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
           definition.klass = overridden.getDefiningClass();
         }
         
+        // add the method metadata
         var method = new mKlass(definition, this);
-          
         this._staticMethods[i] = method;
-        this._klass[i] = method.getMethod();
+        
+        // add the actual method to the class
+        this._klass[i] = definition.method;
       }
 
       // set constants
@@ -567,7 +575,8 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         
         if(notBase && this._constants[constObj.getName()])
         {
-        // FIXME remove _setOverride and use same methodology as instance/static methods above
+        // FIXME remove _setOverride and use same methodology as instance/static
+    // methods above
           constObj._setDefiningClass(this._constants[constObj.getName()].getDefiningClass());
           constObj._setOverrideClass(this._klass);
         }
@@ -927,31 +936,32 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
         throw new com.runwaysdk.Exception(msg);
       }
       
-      var method;
       if(this._isAbstract)
       {
-        method = (function(name){
-          return function(){
- 
-            var definingClass = this.getMetaClass().getMethod(name).getDefiningClass().getMetaClass().getQualifiedName();
- 
-            var msg = "Cannot invoke the abstract method ["+name+"] on ["+definingClass+"].";
-            throw new com.runwaysdk.Exception(msg);
-          };
-        })(this._name);
-        
-        // Add the abstract method to always throw an error. This
-        // will replace any method already on the prototype.
-        this._klass.prototype[this._name] = method;
+        this._createAbstractMethod();
+        this._arity = 0;
       }
       else
       {
-        method = config.method;
+        this._arity = config.method.length;
       }
       
-      this._method = method;
-      
       this._aspects = [];
+    },
+    
+    _createAbstractMethod : function()
+    {
+      // Add the abstract method to always throw an error. This
+      // will replace any method already on the prototype.
+      this._klass.prototype[this._name] = (function(name){
+        return function(){
+
+          var definingClass = this.getMetaClass().getMethod(name).getDefiningClass().getMetaClass().getQualifiedName();
+
+          var msg = "Cannot invoke the abstract method ["+name+"] on ["+definingClass+"].";
+          throw new com.runwaysdk.Exception(msg);
+        };
+      })(this._name);
     },
     
     isAbstract : function()
@@ -976,7 +986,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
     
     getArity : function()
     {
-      return this._method.length;
+      return this._arity;
     },
     
     isOverride : function()
@@ -996,7 +1006,8 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
     
     getMethod : function()
     {
-      return this._method;
+      var klass = this._overrideKlass || this._klass;
+      return this._isStatic ? klass[this._name] : klass.prototype[this._name];
     },
   
     getName : function()
@@ -1113,6 +1124,11 @@ Mojo.Meta.newClass('Mojo.Util', {
     
     bind : function(thisRef, func)
     {
+      if (!Mojo.Util.isFunction(func))
+      {
+        throw new Mojo.$.com.runwaysdk.Exception("Mojo.Util.bind: Unable to bind,  the second parameter is not a function.");
+      }
+    
       var args = [].splice.call(arguments, 2);
       return function(){
         return func.apply(thisRef, args.concat([].splice.call(arguments, 0)))
@@ -1128,9 +1144,9 @@ Mojo.Meta.newClass('Mojo.Util', {
     },
     
     /**
-     * Extracts all script tag contents and returns
-     * a string of executable code that can be evaluated.
-     */
+   * Extracts all script tag contents and returns a string of executable code
+   * that can be evaluated.
+   */
     extractScripts : function(html)
     {
       var scripts = html.match(/<script\b[^>]*>[\s\S]*?<\/script>/img);
@@ -1148,9 +1164,9 @@ Mojo.Meta.newClass('Mojo.Util', {
     },
 
     /**
-     * Removes all scripts from the HTML and returns
-     * a string of the processed HTML.
-     */
+   * Removes all scripts from the HTML and returns a string of the processed
+   * HTML.
+   */
     removeScripts : function(html)
     {
       return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
@@ -1259,12 +1275,11 @@ Mojo.Meta.newClass('Mojo.Util', {
 
     toISO8601 : function (date, ignoreTimezone)
     {
-      /* 
-         ISO8601 format:
-         Complete date plus hours, minutes, seconds and a decimal
-         fraction of a second
-         YYYY-MM-DDThh:mm:ssZ (eg 1997-07-16T19:20:30.45-0100)
-      */
+      /*
+     * ISO8601 format: Complete date plus hours, minutes, seconds and a
+     * decimal fraction of a second YYYY-MM-DDThh:mm:ssZ (eg
+     * 1997-07-16T19:20:30.45-0100)
+     */
       var format = 6;
       var offset = date.getTimezoneOffset()/60;
       
@@ -1299,9 +1314,10 @@ Mojo.Meta.newClass('Mojo.Util', {
     },
     
     /**
-     * This JSON object is based on the reference code provided by Douglas Crockford.
-     * The original, commented source is located at http://json.org/json2.js.
-     */    
+   * This JSON object is based on the reference code provided by Douglas
+   * Crockford. The original, commented source is located at
+   * http://json.org/json2.js.
+   */    
     JSON : (function(){
 
         var cx = /[\u0000\u00ad\u0600-\u0604\u070f\u17b4\u17b5\u200c-\u200f\u2028-\u202f\u2060-\u206f\ufeff\ufff0-\uffff]/g,
@@ -1583,7 +1599,8 @@ Mojo.Meta.newClass('Mojo.Util', {
         {
           return Mojo.Meta.findClass(value.enumType)[value.enumName];
         }
-        // special case for ValueObjectDTOs, which define both a dto_type and _type property
+        // special case for ValueObjectDTOs, which define both a dto_type and
+    // _type property
         else if('dto_type' in value && value.dto_type === Mojo.BUSINESS_PACKAGE+'ValueObjectDTO')
         {
           return Mojo.Meta.newInstance(value.dto_type, value);
@@ -1940,7 +1957,8 @@ Mojo.Meta.newClass("Mojo.log.Logger", {
 });
 
 // FIXME iterate over different object types
-// Look at prototype 1.6 and http://closure-library.googlecode.com/svn/trunk/closure/goog/docs/closure_goog_iter_iter.js.source.html
+// Look at prototype 1.6 and
+// http://closure-library.googlecode.com/svn/trunk/closure/goog/docs/closure_goog_iter_iter.js.source.html
 // for more iter methods and integrated iteration
 Mojo.Meta.newClass('Mojo.Iter', {
 
@@ -2301,6 +2319,198 @@ Mojo.Meta.newClass('Mojo.ClientSession', {
   }
 });
 
+Mojo.Meta.newClass('Mojo.Ajax', {
+
+  Instance : {
+    
+    initialize: function (url, parameters, options)
+    {
+      if (url == null || url == "")
+      {
+        throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', "URL of Ajax call is undefined or incorrect.");
+      }
+      
+      // encode the parameters if given a map
+      this.paramStr = '';
+      if(Mojo.Util.isObject(parameters))
+      {
+        var paramArray = [];
+        for(var i in parameters)
+        {
+        paramArray.push(encodeURIComponent(i)+'='+encodeURIComponent(parameters[i]));
+        }
+        this.paramStr = paramArray.join('&');
+      }
+      else if (parameters != null)
+      {
+        this.paramStr = parameters.toString();
+      }
+      
+      this.options = {};
+          Mojo.Util.copy(Mojo.ClientSession.getDefaultOptions(), this.options);
+          Mojo.Util.copy(options, this.options);
+      
+      this.url = url;
+      
+      // bind their handle functions so that they can access the xmlhttp object and stuff
+      if (Mojo.Util.isFunction(options.onSend))
+      {
+        this.options.onSend = Mojo.Util.bind(this, options.onSend);
+      }
+      if (Mojo.Util.isFunction(options.onSuccess))
+      {
+        this.options.onSuccess = Mojo.Util.bind(this, options.onSuccess);
+      }
+      if (Mojo.Util.isFunction(options.onFailure))
+      {
+        this.options.onFailure = Mojo.Util.bind(this, options.onFailure);
+      }
+    },
+    
+    apply: function ()
+    {
+      try
+      {
+        // Firefox, Opera 8.0+, Safari
+        this.xmlhttp = new XMLHttpRequest();
+      }
+      catch (e)
+      {
+        // Internet Explorer
+        try
+        {
+        this.xmlhttp = new ActiveXObject("Msxml2.XMLHTTP");
+        }
+        catch (e)
+        {
+        try
+        {
+          this.xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        catch (e)
+        {
+          var message = "The browser does not support Ajax";
+          throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', message);
+        }
+        }
+      }
+      
+      var onreadystatechange = function ()
+      {
+        if(this.xmlhttp.readyState == 4)
+        {
+          if (Mojo.Util.isFunction(this.options.onReturn))
+        {
+          this.options.onReturn();
+        }
+        
+        if(this.xmlhttp.status >= this.options.successRange[0]
+          && this.xmlhttp.status <= this.options.successRange[1])
+        {
+          if (Mojo.Util.isFunction(this.options.onSuccess))
+          {
+            this.options.onSuccess();
+          }
+        }
+        else
+        {
+          if (Mojo.Util.isFunction(this.options.onFailure))
+          {
+            this.options.onFailure();
+          }
+        }
+        }
+      };
+      
+      if (Mojo.Util.isFunction(this.options.onSend))
+      {
+        this.options.onSend();
+      }
+      
+      var bound = Mojo.Util.bind(this, onreadystatechange);
+      if(this.options.method == 'post')
+      {
+        this.xmlhttp.open(this.options.method, this.url, this.options.asynchronous);
+        this.xmlhttp.onreadystatechange = bound;
+        this.xmlhttp.setRequestHeader("Content-type", this.options.contentType + "; charset="+this.options.encoding);
+        this.xmlhttp.setRequestHeader("Content-length", this.paramStr.length);
+        this.xmlhttp.setRequestHeader("Connection", "close");
+    
+        this.xmlhttp.send(this.paramStr);
+      }
+      else
+      {
+        this.xmlhttp.open(this.options.method, this.url+"?"+this.paramStr, this.options.asynchronous);
+        
+        this.xmlhttp.send();
+      }
+    }
+  
+  }
+
+});
+
+Mojo.Meta.newClass('Mojo.AjaxCallList', {
+
+  Instance : {
+    
+    initialize: function ()
+    {
+      this.array = new Array();
+    },
+    
+    add: function(obj)
+    {
+      // FIXME use Interface/superclass to accept other request types
+      if ( !(obj instanceof Mojo.Meta.findClass("Mojo.Ajax")) )
+      {
+        throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', "Mojo.AjaxCallList.add: Unable to add object to the call list, the provided object is not an AjaxCall");
+      }
+      
+      this.array.push(obj);
+    },
+    
+    apply: function(sequential)
+    {
+      var key = 0;
+      while(key < this.array.length)
+      {
+        if (sequential)
+        {
+          if (key+1 < this.array.length) // set the onReturn method to call the apply of the next AjaxCall
+          {
+            this.array[key].options._nextAjaxCall = Mojo.Util.bind(this.array[key+1], this.array[key+1].apply);
+          
+            if (Mojo.Util.isFunction(this.array[key].options.onReturn))
+            {
+              this.array[key].options._userOnReturn = Mojo.Util.bind(this.array[key].options, this.array[key].options.onReturn);
+            
+              this.array[key].options.onReturn = function () { this._userOnReturn(); this._nextAjaxCall(); };
+            }
+            else
+            {
+              this.array[key].options.onReturn = function () { this._nextAjaxCall(); };
+            }
+          }
+        }
+        else
+        {
+          this.array[key].apply();
+        }
+        
+        key++;
+      }
+      
+      if (sequential)
+      {
+        this.array[0].apply();
+      }
+    }
+    
+  }
+
+});
+
 Mojo.Meta.newClass('Mojo.AjaxCall', {
 
     Instance : {
@@ -2432,12 +2642,12 @@ Mojo.Meta.newClass('Mojo.Facade', {
   Static : {
 
     /**
-     * Import Types.
-     *
-     * @param clientRequest
-     * @param types
-     * @param options
-     */
+   * Import Types.
+   * 
+   * @param clientRequest
+   * @param types
+   * @param options
+   */
     importTypes : function(clientRequest, types, options)
     {
       if(Mojo.Util.isString(types))
@@ -2491,16 +2701,16 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * Wrapper for generated Facade methods.
-     */
+   * Wrapper for generated Facade methods.
+   */
     _methodWrapper : function(clientRequest, params)
     {
       new Mojo.AjaxCall(Mojo.JSON_ENDPOINT, clientRequest, params);
     },
   
     /**
-     * Wrapper for generated controller methods
-     */
+   * Wrapper for generated controller methods
+   */
     _controllerWrapper : function(endpoint, clientRequest, params)
     {
       if(Mojo.Util.isObject(params))
@@ -2510,8 +2720,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * Login
-     */
+   * Login
+   */
     login : function (clientRequest, username, password)
     {
       var params = {
@@ -2523,8 +2733,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * LoginUser
-     */
+   * LoginUser
+   */
     loginUser : function (clientRequest, username, password)
     {
       var params = {
@@ -2536,8 +2746,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * ChangeLogin
-     */
+   * ChangeLogin
+   */
     changeLogin : function (clientRequest, username, password)
     {
       var params = {
@@ -2549,8 +2759,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * LoginAnonymous
-     */
+   * LoginAnonymous
+   */
     loginAnonymous : function (clientRequest)
     {
       var params = {
@@ -2561,8 +2771,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * Logout
-     */
+   * Logout
+   */
     logout : function (clientRequest)
     {
       var params = {
@@ -2572,8 +2782,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * NewBusiness
-     */
+   * NewBusiness
+   */
     newBusiness : function (clientRequest, type)
     {
       var params = {
@@ -2584,8 +2794,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * CreateSessionComponent
-     */
+   * CreateSessionComponent
+   */
     createSessionComponent : function(clientRequest, sessionDTO)
     {
       // convert the BusinessDTO into a JSON String
@@ -2599,8 +2809,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * CreateBusiness
-     */
+   * CreateBusiness
+   */
     createBusiness : function (clientRequest, businessDTO)
     {
       // convert the BusinessDTO into a JSON String
@@ -2614,8 +2824,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * NewStruct
-     */
+   * NewStruct
+   */
     newStruct : function (clientRequest, type)
     {
       var params = {
@@ -2626,8 +2836,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * NewEntity
-     */
+   * NewEntity
+   */
     newEntity : function (clientRequest, type)
     {
       var params = {
@@ -2638,8 +2848,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * CreateStruct
-     */
+   * CreateStruct
+   */
     createStruct : function (clientRequest, structDTO)
     {
       // convert the StructDTO into a JSON String
@@ -2653,8 +2863,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * CreateRelationship
-     */
+   * CreateRelationship
+   */
     createRelationship : function (clientRequest, relationshipDTO)
     {
       // convert the RelationshipDTO into a JSON String
@@ -2668,8 +2878,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * CheckAdminScreenAccess
-     */
+   * CheckAdminScreenAccess
+   */
     checkAdminScreenAccess : function (clientRequest)
     {
       var params = {
@@ -2680,8 +2890,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * Update
-     */
+   * Update
+   */
     update : function (clientRequest, mutableDTO)
     {
       // convert the MutableDTO into a JSON String
@@ -2695,8 +2905,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * DeleteBusiness
-     */
+   * DeleteBusiness
+   */
     deleteEntity : function (clientRequest, id)
     {
       var params = {
@@ -2707,8 +2917,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetInstance
-     */
+   * GetInstance
+   */
     get : function (clientRequest, id)
     {
       var params = {
@@ -2728,8 +2938,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetQuery
-     */
+   * GetQuery
+   */
     getQuery : function(clientRequest, type)
     {
       var params = {
@@ -2741,8 +2951,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * AddChild
-     */
+   * AddChild
+   */
     addChild : function(clientRequest, parentId, childId, relationshipType)
     {
       var params = {
@@ -2755,8 +2965,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * AddParent
-     */
+   * AddParent
+   */
     addParent : function(clientRequest, parentId, childId, relationshipType)
     {
       var params = {
@@ -2769,8 +2979,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * DeleteChild
-     */
+   * DeleteChild
+   */
     deleteChild : function(clientRequest, relationshipId)
     {
       var params = {
@@ -2781,8 +2991,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * DeleteParent
-     */
+   * DeleteParent
+   */
     deleteParent : function(clientRequest, relationshipId)
     {
       var params = {
@@ -2793,8 +3003,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * DeleteChildren
-     */
+   * DeleteChildren
+   */
     deleteChildren : function(clientRequest, parentId, relationshipType)
     {
       var params = {
@@ -2806,8 +3016,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * DeleteParents
-     */
+   * DeleteParents
+   */
     deleteParents : function(clientRequest, childId, relationshipType)
     {
       var params = {
@@ -2819,8 +3029,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * getChildren
-     */
+   * getChildren
+   */
     getChildren : function(clientRequest, parentId, relationshipType)
     {
       var params = {
@@ -2832,8 +3042,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetChildRelationships
-     */
+   * GetChildRelationships
+   */
     getChildRelationships : function(clientRequest, parentId, relationshipType)
     {
       var params = {
@@ -2845,8 +3055,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetParentRelationship
-     */
+   * GetParentRelationship
+   */
     getParentRelationships : function(clientRequest, childId, relationshipType)
     {
       var params = {
@@ -2859,8 +3069,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
   
   
     /**
-     * getParents
-     */
+   * getParents
+   */
     getParents : function(clientRequest, childId, relationshipType)
     {
       var params = {
@@ -2873,8 +3083,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
   
   
     /**
-     * Lock
-     */
+   * Lock
+   */
     lock : function(clientRequest, id)
     {
       var params = {
@@ -2885,8 +3095,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * Unlock
-     */
+   * Unlock
+   */
     unlock : function(clientRequest, id)
     {
       var params = {
@@ -2897,8 +3107,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GrantTypePermission
-     */
+   * GrantTypePermission
+   */
     grantTypePermission : function(clientRequest, actorId, mdTypeId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -2918,8 +3128,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GrantStatePermission
-     */
+   * GrantStatePermission
+   */
     grantStatePermission : function(clientRequest, actorId, stateId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -2939,8 +3149,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GrantAttributePermission
-     */
+   * GrantAttributePermission
+   */
     grantAttributePermission : function(clientRequest, actorId, mdAttributeId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -2960,8 +3170,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GrantAttributeStatePermission
-     */
+   * GrantAttributeStatePermission
+   */
     grantAttributeStatePermission : function(clientRequest, actorId, mdAttributeId, stateId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -2982,8 +3192,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * PromoteObject
-     */
+   * PromoteObject
+   */
     promoteObject : function(callback, businessJSON, transitionName)
     {
        var params = {
@@ -2995,8 +3205,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * RevokeTypePermission
-     */
+   * RevokeTypePermission
+   */
     revokeTypePermission : function(clientRequest, actorId, mdTypeId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -3016,8 +3226,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * RevokeStatePermission
-     */
+   * RevokeStatePermission
+   */
     revokeStatePermission : function(clientRequest, actorId, stateId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -3037,8 +3247,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * RevokeAttributePermission
-     */
+   * RevokeAttributePermission
+   */
     revokeAttributePermission : function(clientRequest, actorId, mdAttributeId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -3058,8 +3268,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * RevokeAttributeStatePermission
-     */
+   * RevokeAttributeStatePermission
+   */
     revokeAttributeStatePermission : function(clientRequest, actorId, mdAttributeId, stateId, operationNames)
     {
       if(!Mojo.Util.isArray(operationNames))
@@ -3080,8 +3290,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * InvokeMethod
-     */
+   * InvokeMethod
+   */
     invokeMethod : function(clientRequest, metadata, mutableDTO, parameters)
     {
       var mutableDTOJSON = Mojo.Util.getJSON(mutableDTO);
@@ -3110,8 +3320,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetEnumeration
-     */
+   * GetEnumeration
+   */
     getEnumeration : function(clientRequest, enumType, enumName)
     {
       var params = {
@@ -3123,8 +3333,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetEnumerations
-     */
+   * GetEnumerations
+   */
     getEnumerations : function(clientRequest, enumType, enumNames)
     {
       var enumNamesJSON = Mojo.Util.getJSON(enumNames);
@@ -3138,8 +3348,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * GetAllEnumerations
-     */
+   * GetAllEnumerations
+   */
     getAllEnumerations : function(clientRequest, enumType)
     {
       var params = {
@@ -3150,8 +3360,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * QueryBusinesses
-     */
+   * QueryBusinesses
+   */
     queryBusinesses : function(clientRequest, queryDTO)
     {
       queryDTO.clearAttributes();
@@ -3179,8 +3389,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * QueryStructs
-     */
+   * QueryStructs
+   */
     queryStructs : function(clientRequest, queryDTO)
     {
       queryDTO.clearAttributes();
@@ -3195,8 +3405,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * QueryEntities
-     */
+   * QueryEntities
+   */
     queryEntities : function(clientRequest, queryDTO)
     {
       queryDTO.clearAttributes();
@@ -3211,8 +3421,8 @@ Mojo.Meta.newClass('Mojo.Facade', {
     },
   
     /**
-     * QueryRelationships
-     */
+   * QueryRelationships
+   */
     queryRelationships : function(clientRequest, queryDTO)
     {
       queryDTO.clearAttributes();
@@ -4107,8 +4317,8 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'SystemAttributeProblemDTO', {
 /**
  * Exception
  * 
- * This is the actual exception that can be thrown and caught.
- * There is no Mojo Java counterpart, so we throw it in the root namespace.
+ * This is the actual exception that can be thrown and caught. There is no Mojo
+ * Java counterpart, so we throw it in the root namespace.
  */
 Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Exception', {
 
@@ -5066,9 +5276,8 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeStructDTO', {
     },
     
     /**
-     * Should only be called when setting the type-safe version
-     * of the struct.
-     */
+   * Should only be called when setting the type-safe version of the struct.
+   */
     setStructDTO : function(structDTO)
     {
       this.structDTO = structDTO;

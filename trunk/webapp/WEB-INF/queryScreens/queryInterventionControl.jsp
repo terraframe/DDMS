@@ -90,6 +90,12 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var calculations = ([
                          {
+                           key:'total_premises_available',
+                           type:'sqlfloat',
+                           attributeName:'total_premises_available',
+                           isAggregate:true
+                         },
+                         {
                            
                            key:"total_premises_visited",
                            type:"sqlfloat",
@@ -118,7 +124,6 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                          },
                          {
-                           
                            key:"percent_premises_treated",//Percentage of premises that were treated
                            type:"sqlfloat",
                            attributeName:"percent_premises_treated",
@@ -140,21 +145,23 @@ YAHOO.util.Event.onDOMReady(function(){
                            isAggregate:true
                          },
                          {
-                           key:"childId",
+                           key:"childId_tm",
                            displayLabel: MDSS.localize('Treatment_Method'),
                            type:"dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod",
                            attributeName:"childId",
                            dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
                            isTerm : true
 
-                           },
+                          },
 
-                           {
-                             key:"method_qty",
-                             type:"sqlfloat",
-                             attributeName:"method_qty",
-                             isAggregate:true
-                           },
+                          {
+                            key:'childId_r',
+                            displayLabel: MDSS.localize('reason_not_treated'),
+                            attributeName:'childId',
+                            type:"dss.vector.solutions.intervention.monitor.AggregatedPremiseReason",
+                            dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+                            isTerm: true
+                          }
                       
                         ]);
 
@@ -171,9 +178,6 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var controlInterventionColumns =   controlInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:controlIntervention, suffix:'_ci', dropDownMaps:{}});
 
-    //controlInterventionColumns = controlInterventionColumns.concat(calculations);
-    
-
     var individualPremiseVisit = new dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
     var individualPremiseVisitAttribs = [ "visited","treated","reasonsForNotTreated"];
 
@@ -186,15 +190,12 @@ YAHOO.util.Event.onDOMReady(function(){
       isGeoEntity : true
       }];
     individualPremiseVisitColumns =   individualPremiseVisitColumns.concat(individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps}));
-
-
-
     
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
 
     
     var aggregatedPremiseVisit = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
-    var aggregatedPremiseVisitAttribs = [ "vehicleCoverage","premises","visited","treated"];
+    var aggregatedPremiseVisitAttribs = ["premises","visited","treated"];
 
     var aggregatedPremiseVisitColumns = [{
       key:"subGeoEntity_ip",
@@ -212,6 +213,36 @@ YAHOO.util.Event.onDOMReady(function(){
     var personIntervention = new dss.vector.solutions.intervention.monitor.PersonIntervention;
     var personInterventionAttribs = ["vehicleDays"];
 
+    var vehicleBasedSprayingColumns = [
+      {
+        key:"subGeoEntity_v",
+        displayLabel: MDSS.localize('Sub_Geo_Entity'),
+        type:"sqlcharacter",
+        attributeName:"subGeoEntity",
+        dtoType:"AttributeCharacterDTO",
+        isGeoEntity : true
+      },
+      {
+        key:'premises_available_for_vehicle_spraying',
+        type:'sqlfloat',
+        displayLabel: aggregatedPremiseVisit.getPremisesAvailableMd().getDisplayLabel(),
+        attributeName:'premises_available_for_vehicle_spraying',
+        isAggregate:true
+      },
+      {
+        key:'premises_included_for_vehicle_spraying',
+        type:'sqlfloat',
+        displayLabel: aggregatedPremiseVisit.getPremisesIncludedMd().getDisplayLabel(),
+        attributeName:'premises_included_for_vehicle_spraying',
+        isAggregate:true
+      },
+      {
+        key:'percent_treated_with_vehicle_spraying',
+        type:'sqlfloat',
+        attributeName:'percent_treated_with_vehicle_spraying',
+        isAggregate:true
+      }
+    ];
     
     var personInterventionColumns =  personInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:personIntervention, suffix:'_ap', dropDownMaps:personInterventionMaps});
 
@@ -247,6 +278,7 @@ YAHOO.util.Event.onDOMReady(function(){
                 {title:"Calculations", values:calculations, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
+                {title:"Vehicle_Calculator_Subheading", values:vehicleBasedSprayingColumns, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Person_Intervention", values:personInterventionColumns, group:"ic",klass:controlIntervention.CLASS},
                 {title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"ic",klass:controlIntervention.CLASS},
       ];
@@ -269,37 +301,48 @@ YAHOO.util.Event.onDOMReady(function(){
       type: MDSS.Dependent.BOTH,
       bidirectional: true
     });
-
-
+    // TODO optimize these excludes within a dynamic loop
     dm.excludes({
       independent:calculations,
-      dependent:individualPremiseVisitColumns.concat(aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
+      dependent:individualPremiseVisitColumns.concat(vehicleBasedSprayingColumns,aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.excludes({
       independent:individualPremiseVisitColumns,
-      dependent:calculations.concat(aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
+      dependent:calculations.concat(vehicleBasedSprayingColumns,aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.excludes({
       independent:aggregatedPremiseVisitColumns,
-      dependent:individualPremiseVisitColumns.concat(calculations,personInterventionColumns,insecticideInterventionColumns),
+      dependent:individualPremiseVisitColumns.concat(vehicleBasedSprayingColumns,calculations,personInterventionColumns,insecticideInterventionColumns),
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.excludes({
       independent:personInterventionColumns,
-      dependent:individualPremiseVisitColumns.concat(aggregatedPremiseVisitColumns,calculations,insecticideInterventionColumns),
+      dependent:individualPremiseVisitColumns.concat(vehicleBasedSprayingColumns,aggregatedPremiseVisitColumns,calculations,insecticideInterventionColumns),
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
     dm.excludes({
       independent:insecticideInterventionColumns,
-      dependent:individualPremiseVisitColumns.concat(aggregatedPremiseVisitColumns,personInterventionColumns,calculations),
+      dependent:individualPremiseVisitColumns.concat(vehicleBasedSprayingColumns,aggregatedPremiseVisitColumns,personInterventionColumns,calculations),
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
+    });
+    dm.excludes({
+      independent:vehicleBasedSprayingColumns,
+      dependent:individualPremiseVisitColumns.concat(insecticideInterventionColumns,aggregatedPremiseVisitColumns,personInterventionColumns,calculations),
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: ['childId_tm', 'total_premises_treated', 'percent_premises_treated', 'percent_visited_treated'],
+      dependent: ['childId_r', 'total_premises_not_treated', 'percent_visited_not_treated'],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: true
     });
 });
 
