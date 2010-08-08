@@ -51,9 +51,13 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         {
           return type;
         }
-        else if(attribute.getAttributeName() === 'childId')
+        else if(attribute.getKey() === 'childId_tm')
         {
           return 'dss.vector.solutions.intervention.monitor.ControlInterventionView';
+        }
+        else if(attribute.getKey() === 'childId_r')
+        {
+          return 'dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView';
         }
         else if(type === 'dss.vector.solutions.intervention.monitor.InsecticideIntervention')
         {
@@ -67,9 +71,13 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       
       _getBrowserRootAttribute : function(attribute)
       {
-        if(attribute.getAttributeName() === 'childId')
+        if(attribute.getKey() === 'childId_tm')
         {
           return 'insecticideIntervention';
+        }
+        else if(attribute.getKey() === 'childId_r')
+        {
+          return 'reasonsForNotTreated';
         }
         else
         {
