@@ -59,7 +59,8 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         {
           return 'dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView';
         }
-        else if(type === 'dss.vector.solutions.intervention.monitor.InsecticideIntervention')
+        else if(type === 'dss.vector.solutions.intervention.monitor.InsecticideIntervention' 
+          && attribute.getAttributeName() !== 'unit')
         {
           return 'dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView';
         }
