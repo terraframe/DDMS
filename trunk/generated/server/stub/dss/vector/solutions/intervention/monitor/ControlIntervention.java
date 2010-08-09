@@ -28,7 +28,9 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
+import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ControlIntervention extends ControlInterventionBase implements com.runwaysdk.generation.loader.Reloadable
@@ -285,7 +287,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
             individualPremiseVisitQuery = new IndividualPremiseVisitQuery(valueQuery);
             break;
           }
-          else if(aggregatedPremiseVisitQuery == null && alias.contains(AggregatedPremiseMethod.CLASS.replaceAll("\\.", "_")))
+          else if(aggregatedPremiseVisitQuery == null &&
+              (alias.contains(AggregatedPremiseMethod.CLASS.replaceAll("\\.", "_")) || alias.contains(AggregatedPremiseReason.CLASS.replaceAll("\\.", "_"))))
           {
             aggregatedPremiseVisitQuery = new AggregatedPremiseVisitQuery(valueQuery);
             break;
@@ -324,6 +327,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     // uses the same sub-geoentity as aggregated intervention (the geoentity is set the same in the CRUD).
     // Also note that the two selectables are mutually exclusive.
     String subGeoAlias = null;
+    boolean vehicleBasedSprayGeo = false;
     if(valueQuery.hasSelectableRef("subGeoEntity_ip"))
     {
       subGeoAlias = "subGeoEntity_ip";
@@ -331,6 +335,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     else if(valueQuery.hasSelectableRef("subGeoEntity_v"))
     {
       subGeoAlias = "subGeoEntity_v";
+      vehicleBasedSprayGeo = true;
     }
     
     if (subGeoAlias != null)
@@ -389,8 +394,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     // "used" is the column for the union of used and amount on individual and aggregated methods, respectively.
     String used = QueryUtil.getColumnName(individualVisit, IndividualPremiseVisitMethod.USED);
 
-    boolean joinTerms = valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("childId_tm");
-    boolean needsView = joinTerms;
+    boolean needsView = valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("childId_tm");
     
     String view = "premiseVisitUnion";
     MdEntityDAOIF visitMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseVisit.CLASS);
@@ -441,6 +445,9 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       String parentTerm = QueryUtil.getColumnName(AllPaths.getParentTermMd());
       String viewTerm = "view_term";
 
+      String iGE = QueryUtil.getColumnName(IndividualPremiseVisit.getGeoEntityMd());
+      String aGE = QueryUtil.getColumnName(AggregatedPremiseVisit.getGeoEntityMd());
+      
       String viewSql;
       if(hasReason)
       {
@@ -451,7 +458,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql = "SELECT  point, CASE WHEN " + visited + " is null THEN 0 ELSE 1 END AS "+ premises +", "+visited+
           " , " + treated + ", "+individualVisitTable+"."+idCol+" as visit, \n";
         viewSql += "CASE WHEN "+reasonCol+" is null THEN 0 ELSE 1 END AS amount, "+individualVisitTable+".id as id, term0.name as childId_displayLabel,\n";
-        viewSql += " term0.id AS "+viewTerm+" \n";
+        viewSql += " term0.id AS "+viewTerm+", "+iGE+" AS geo_entity \n";
         viewSql += " FROM " + individualVisitTable + " individual_premise_visit LEFT JOIN term as term0 on "+individualVisitTable+"."+reasonCol+" = term0.id\n";
         viewSql += "WHERE treated = 1"; // Ensure that only records that have been not been treated are included
         
@@ -460,7 +467,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql += " SELECT  point," + premises + ", " + visited + 
           " , " + treated + ", "+aggPresmiseReaonTable+".parent_id as visit, \n";
         viewSql += " "+amount+", "+aggPresmiseReaonTable+".id as id,  term0.name as childId_displayLabel,\n";
-        viewSql += " term0.id AS "+viewTerm+" \n";
+        viewSql += " term0.id AS "+viewTerm+", "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggPresmiseReaonTable + " "+aggPresmiseReaonTable+"  LEFT JOIN term as term0 on "+aggPresmiseReaonTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggPresmiseReaonTable+".parent_id = aggregated_premise_visit.id\n";
       }
@@ -473,7 +480,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql = "SELECT  point, CASE WHEN " + visited + " is null THEN 0 ELSE 1 END AS "+ premises +", "+visited+
           ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
         viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel,\n";
-        viewSql += " term0.id AS "+viewTerm+" \n";
+        viewSql += " term0.id AS "+viewTerm+", "+iGE+" AS geo_entity \n";
         viewSql += " FROM " + individualVisitTable + " individual_premise_visit , " + individualVisitMethodTable + " "+individualVisitMethodTable+"  LEFT JOIN term as term0 on "+individualVisitMethodTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+individualVisitMethodTable+".parent_id = individual_premise_visit.id\n";
       
@@ -481,7 +488,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       
         viewSql += " SELECT  point," + premises + ", " + visited + " , " + treated + ", " + apAmount + ", "+available+", "+included+", "+aggVisitMethodTable+".parent_id as visit, \n";
         viewSql += " aggregated_premise_method.child_id as id,  term0.name as childId_displayLabel,\n";
-        viewSql += " term0.id AS "+viewTerm+" \n";
+        viewSql += " term0.id AS "+viewTerm+", "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+"  LEFT JOIN term as term0 on "+aggVisitMethodTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id\n";
       }
@@ -490,11 +497,20 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
       valueQuery.AND(new InnerJoinEq("id", controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
 
+      // join the sub-geoentity if we're querying vehicle-based spraying
+      if(vehicleBasedSprayGeo)
+      {
+        String aggGeo = aggregatedPremiseVisitQuery.getTableAlias()+"."+QueryUtil.getColumnName(AggregatedPremiseVisit.getGeoEntityMd());
+        valueQuery.AND(valueQuery.aSQLCharacter("unionSubEntity", view+".geo_entity")
+            .EQ(valueQuery.aSQLCharacter("aggPremiseSubEntity", aggGeo)));
+      }
+      
       // Join the view and main query on the terms, so WHERE criteria will be applied to the view
-      if(joinTerms)
+      if(hasTermCriteria(valueQuery, queryMap))
       {
         valueQuery.AND(valueQuery.aSQLCharacter("ontology_parent_term", parentTerm).EQ(valueQuery.aSQLCharacter(viewTerm, viewTerm)));
       }
+      
     }
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ControlIntervention.CLASS, controlInterventionQuery);
@@ -505,6 +521,28 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate());
 
+  }
+  
+  /**
+   * Looks for Term criteria for the Treatment Method and Reason Not Treated terms in
+   * the calculations.
+   * 
+   * @param queryMap
+   */
+  private static boolean hasTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    if(valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("childId_tm"))
+    {
+      for(GeneratedEntityQuery q : queryMap.values())
+      {
+        if(q instanceof AllPathsQuery)
+        {
+          return true;
+        }
+      }
+    }
+    
+    return false;
   }
 
 
