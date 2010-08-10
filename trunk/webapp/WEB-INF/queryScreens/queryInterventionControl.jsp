@@ -272,10 +272,11 @@ YAHOO.util.Event.onDOMReady(function(){
 
     insecticideInterventionColumns = insecticideInterventionColumns.concat(insecticideBrandColumns);
 
+    var calculationsSection = "Calculations";
  
       var selectableGroups = [
                 {title:"Intervention_Monitoring", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
-                {title:"Calculations", values:calculations, group:"ic", klass:controlIntervention.CLASS},
+                {title:calculationsSection, values:calculations, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
                 {title:"Vehicle_Calculator_Subheading", values:vehicleBasedSprayingColumns, group:"ic", klass:controlIntervention.CLASS},
@@ -285,7 +286,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     
-    var query = new MDSS.QueryInterventionControl(selectableGroups, queryList);
+    var query = new MDSS.QueryInterventionControl(selectableGroups, queryList, calculationsSection);
     query.render();
 
     var dm = query.getDependencyManager();

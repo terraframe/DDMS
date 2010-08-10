@@ -4,9 +4,9 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
   
   Instance : {
   
-    initialize : function(selectableGroups, queryList)
+    initialize : function(selectableGroups, queryList, calculationsSection)
     {
-
+      this._calculationsSection = calculationsSection;
   		
   		this._groupByClass = dss.vector.solutions.intervention.monitor.ControlIntervention;
   		this._mainQueryClass = this._groupByClass.CLASS;
@@ -84,6 +84,35 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         {
           return this.$_getBrowserRootAttribute(attribute);
         }
-      }
+      },
+      
+      /**
+       * Override to omit the calculations section (which does not allow
+       * all checkboxes to be checked due to mutual exclusion).
+       */
+      _attachSelectAll : function(ul,klass, divName)
+      {
+        // Match the div name against the calculations section
+        if(divName === this._calculationsSection)
+        {
+          return;
+        }
+        
+        var check = document.createElement('input');
+        YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+        YAHOO.util.Dom.addClass(check,'selectAllCheck');
+        YAHOO.util.Dom.addClass(check,klass);
+        YAHOO.util.Event.on(check, 'click', this._toggleSelectAll, ul, this);
+        this._defaults.push({element:check, checked:false, bypass:true});      
+
+        var span = document.createElement('span');
+        span.innerHTML = MDSS.Localized.Select_All;
+
+        var li = document.createElement('li');
+        li.appendChild(check);
+        li.appendChild(span);
+
+        ul.appendChild(li);
+      },
     }
 });

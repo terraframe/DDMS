@@ -942,8 +942,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
 
       that._toggleVisibility(toggleDiv, visibleUl);
-
-      that._attachSelectAll(visibleUl,checkClass);
+      that._attachSelectAll(visibleUl,checkClass, divName);
+      
       for(var i=0; i<visibleAttributes.length; i++)
       {
         var visibleObj = visibleAttributes[i];
@@ -1129,7 +1129,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     /**
      * Attaches an option to select all items in the given list.
      */
-    _attachSelectAll : function(ul,klass)
+    _attachSelectAll : function(ul,klass, divName)
     {
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
