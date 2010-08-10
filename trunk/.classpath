@@ -77,7 +77,6 @@
 	<classpathentry kind="lib" path="lib/client/js.jar"/>
 	<classpathentry kind="lib" path="lib/client/yuicompressor-2.4.2.jar"/>
 	<classpathentry kind="lib" path="lib/common/poi-3.2-FINAL-20081019.jar"/>
-	<classpathentry kind="lib" path="lib/common/runwaysdk_gis.jar"/>
 	<classpathentry kind="lib" path="lib/common/opencsv-1.8.jar"/>
 	<classpathentry kind="lib" path="lib/client/chartengineapi.jar"/>
 	<classpathentry kind="lib" path="lib/client/com.ibm.icu_3.8.1.v20080530.jar"/>
@@ -108,5 +107,8 @@
 	<classpathentry kind="lib" path="lib/common/log4j-1.2.16.jar"/>
 	<classpathentry kind="lib" path="lib/common/runwaysdk-common.jar"/>
 	<classpathentry kind="lib" path="lib/client/runwaysdk-client.jar"/>
+	<classpathentry kind="lib" path="lib/server/runwaysdk-gis-server.jar"/>
+	<classpathentry kind="lib" path="lib/common/runwaysdk-gis-common.jar"/>
+	<classpathentry kind="lib" path="lib/client/runwaysdk-gis-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
