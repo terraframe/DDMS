@@ -100,8 +100,35 @@ YAHOO.util.Event.onDOMReady(function(){
     var collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:collection, suffix:'_col', dropDownMaps:collectionMaps});
     var colId = collectionColumns.pop();
     
-    var premiseAttribs = ["premiseType", "numberExamined","premiseSize","numberInhabitants"];
+    var premiseAttribs = ["premiseType"];
     var premiseAttribsColumns = premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps});
+    premiseAttribsColumns = premiseAttribsColumns.concat([
+     {
+       key:'number_examined',
+       type:"sqlfloat",
+       displayLabel:premise.getNumberExaminedMd().getDisplayLabel(),
+       attributeName:'number_examined',
+       dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+       isAggregate:true
+     },
+     {
+       key:'premise_size',
+       type:"sqlfloat",
+       displayLabel:premise.getPremiseSizeMd().getDisplayLabel(),
+       attributeName:'premise_size',
+       dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+       isAggregate:true
+     },
+     {
+       key:'number_inhabitants',
+       type:"sqlfloat",
+       displayLabel:premise.getNumberInhabitantsMd().getDisplayLabel(),
+       attributeName:'number_inhabitants',
+       dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+       isAggregate:true
+     }                               
+    ]);
+
     var premiseTypeCol = premiseAttribsColumns.shift();
     
     collectionColumns =   collectionColumns.concat([premiseTypeCol, colId], premiseAttribsColumns);
