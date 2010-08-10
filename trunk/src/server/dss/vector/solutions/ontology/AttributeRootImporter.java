@@ -29,7 +29,7 @@ import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.export.ExcelVersionException;
@@ -41,7 +41,7 @@ import dss.vector.solutions.general.Disease;
  * deployed container (Run in Eclipse, see in Tomcat), you'll need a profile
  * with database.properties set up for deploy but environment=develop or you'll
  * get ClassCastExceptions. Unfortunately, this cannot be helped.
- * 
+ *
  * @author Eric Grunzke
  */
 public class AttributeRootImporter implements Reloadable
@@ -129,7 +129,7 @@ public class AttributeRootImporter implements Reloadable
     if (key == null) {
     	return;
     }
-    
+
     MdAttributeDAOIF mdAttribute = MdAttributeDAO.getByKey(key);
 
     if (mdAttribute == null)
@@ -200,7 +200,7 @@ public class AttributeRootImporter implements Reloadable
 
   /**
    * Opens the stream and returns an initialized row iterator
-   * 
+   *
    * @param stream
    * @return
    * @throws IOException
@@ -227,7 +227,7 @@ public class AttributeRootImporter implements Reloadable
     }
   }
 
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
     String fileName = "AttributeRoots.xls";

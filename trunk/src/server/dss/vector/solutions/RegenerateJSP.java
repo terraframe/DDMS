@@ -12,11 +12,11 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.BusinessDAOQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 public class RegenerateJSP implements Reloadable
 {
-  @StartSession
+  @Request
   public static void main(String[] args)
   {
     Collection<MdEntityDAOIF> mdEntities = new LinkedList<MdEntityDAOIF>();
@@ -24,24 +24,24 @@ public class RegenerateJSP implements Reloadable
     QueryFactory qFactory = new QueryFactory();
     BusinessDAOQuery mdTypeQ = qFactory.businessDAOQuery(MdEntityInfo.CLASS);
     OIterator<BusinessDAOIF> it = mdTypeQ.getIterator();
-    
+
     while (it.hasNext())
-    { 
+    {
       MdEntityDAOIF mdTypeIF = (MdEntityDAOIF)it.next();
       mdEntities.add(mdTypeIF);
     }
-    
+
     for (MdEntityDAOIF mdEntity : mdEntities)
     {
       if (GenerationUtil.isReservedType(mdEntity))
       {
         continue;
       }
-      
+
       if (mdEntity.hasMdController())
       {
          new ProviderFactory().getProvider(mdEntity).generateContent();
       }
-    }    
+    }
   }
 }

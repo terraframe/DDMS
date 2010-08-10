@@ -2,11 +2,11 @@ package dss.vector.solutions;
 
 import com.runwaysdk.dataaccess.io.UpdateVersion;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 public class Revisioner
 {
-  @StartSession
+  @Request
   public static void main(String[] args)
   {
     go();

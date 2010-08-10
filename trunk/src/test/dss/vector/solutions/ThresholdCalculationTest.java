@@ -9,7 +9,8 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
+import com.runwaysdk.session.RequestType;
 import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
@@ -187,7 +188,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 
 	private void assertThresholds(boolean checkPolitical, int week, int year, ThresholdData td, double t1, double t2) {
 		final double DELTA = 0.5d;
-		
+
 		assertNotNull(td);
 		WeeklyThreshold weeklyThreshold = td.getEpiWeeksRel(EpiWeek.getEpiWeek(week, year));
 		assertNotNull(weeklyThreshold);
@@ -657,8 +658,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 	/* TESTS START HERE */
 	/******************************************************************************/
 
-	@StartSession
-	public void testCreateNewInstanceData(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCreateNewInstanceData(String sessionId)
+	{
 		this.createData4();
 		try {
 			Date initialDate = createDate(2005, Calendar.NOVEMBER, 14);
@@ -692,7 +694,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 			vQuery.SELECT(F.SUM(vQuery.aSQLLong("clinical", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " = 0 and " + clinicalColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), "clinicalCases"));
 			vQuery.FROM("(" + innerQuery.getSQL() + ")", "innerQuery");
 			//System.out.println(vQuery.getSQL());
-			
+
 			long sumClinicalCases = 0l;
 			long sumPositiveCases = 0l;
 			long sumNegativeCases = 0l;
@@ -713,9 +715,10 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		}
 		output("Done!");
 	}
-	
-	@StartSession
-	public void testCreateData(String sessionId) {
+
+	@Request(RequestType.SESSION)
+	public void testCreateData(String sessionId)
+	{
 
 		System.out.println(Disease.getCurrent());
 		if (CREATE_DATA_ONCE) {
@@ -723,8 +726,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		}
 	}
 
-	@StartSession
-	public void testCalculatePoliticalIndividualMeanThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalIndividualMeanThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -740,8 +744,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculatePoliticalIndividualQuartileThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalIndividualQuartileThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -757,8 +762,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculatePoliticalIndividualBinomialThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalIndividualBinomialThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -774,8 +780,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculatePoliticalAggregatedMeanThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalAggregatedMeanThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -791,8 +798,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculatePoliticalAggregatedQuartileThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalAggregatedQuartileThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -808,8 +816,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculatePoliticalAggregatedBinomialThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalAggregatedBinomialThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -825,8 +834,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculateFacilityIndividualMeanThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityIndividualMeanThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -842,8 +852,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculateFacilityIndividualQuartileThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityIndividualQuartileThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -859,8 +870,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculateFacilityIndividualBinomialThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityIndividualBinomialThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -876,8 +888,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculateFacilityAggregatedMeanThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityAggregatedMeanThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -893,8 +906,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculateFacilityAggregatedQuartileThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityAggregatedQuartileThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -910,8 +924,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculateFacilityAggregatedBinomialThresholds(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityAggregatedBinomialThresholds(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -927,8 +942,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		output("Done!");
 	}
 
-	@StartSession
-	public void testCalculatePoliticalIndividualMeanThresholdsWithMinimums(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculatePoliticalIndividualMeanThresholdsWithMinimums(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -937,7 +953,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		calcType.lock();
 		calcType.setNotificationMinimum(100.01d);
 		calcType.setIdentificationMinimum(200.02d);
-		calcType.apply();		
+		calcType.apply();
 		if (!CALCULATE_ALL_THRESHOLDS) {
 			ThresholdCalculator.testingLimiter = DJIBOUTI.getGeoId();
 		}
@@ -949,8 +965,9 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 	}
 
 
-	@StartSession
-	public void testCalculateFacilityIndividualMeanThresholdsWithMinumums(String sessionId) {
+	@Request(RequestType.SESSION)
+	public void testCalculateFacilityIndividualMeanThresholdsWithMinumums(String sessionId)
+	{
 		if (!CREATE_DATA_ONCE) {
 			this.createData();
 		}
@@ -959,7 +976,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		calcType.lock();
 		calcType.setNotificationMinimum(100.01d);
 		calcType.setIdentificationMinimum(200.02d);
-		calcType.apply();		
+		calcType.apply();
 		if (!CALCULATE_ALL_THRESHOLDS) {
 			ThresholdCalculator.testingLimiter = KABWE_MINE_HOSPITAL.getGeoId();
 		}
@@ -969,7 +986,7 @@ public class ThresholdCalculationTest extends RunwayTestCase {
 		assertThresholds(false, 46, 2010, td, 100, 200);
 		output("Done!");
 	}
-	
+
 	protected long getValue(ValueObject valueObject, String key) {
 		long value = 0;
 		String valueString = valueObject.getValue(key);

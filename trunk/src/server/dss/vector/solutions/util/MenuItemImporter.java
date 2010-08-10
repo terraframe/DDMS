@@ -10,10 +10,9 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdEntity;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
@@ -29,7 +28,7 @@ public class MenuItemImporter {
 	 * @param args
 	 * @throws Exception
 	 */
-	@StartSession
+	@Request
 	public static void main(String[] args) throws Exception {
 		switch (args.length) {
 		case 1:
@@ -81,7 +80,7 @@ public class MenuItemImporter {
 			if (diseaseKey != null && diseaseKey.length() > 0) {
 				Disease disease = Disease.getByKey(diseaseKey);
 				Term term = Term.getByTermId(termId);
-        
+
 				disease.appLock();
 				disease.setMenuRoot(term);
 				disease.apply();

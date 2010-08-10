@@ -6,10 +6,9 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.MDSSInfo;
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.Earth;
@@ -18,17 +17,19 @@ import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchQuery;
 
 public class UniversalSearchHelper implements Reloadable {
-	@StartSession
-	public static void main(String[] args) {
+	@Request
+	public static void main(String[] args)
+	{
 		UniversalSearchHelper helper = new UniversalSearchHelper();
 		helper.createAllSearches();
 	}
 
 	@Transaction
-	public void createAllSearches() {
+	public void createAllSearches()
+	{
 		QueryFactory f = new QueryFactory();
 		GeoHierarchyQuery q = new GeoHierarchyQuery(f);
-		
+
 		Condition condition = q.getGeoEntityClass().getKeyName().NE(GeoEntity.CLASS);
 		condition = AND.get(condition, q.getGeoEntityClass().getKeyName().NE(Earth.CLASS));
 
@@ -45,9 +46,10 @@ public class UniversalSearchHelper implements Reloadable {
 			i.close();
 		}
 	}
-	
+
 	@Transaction
-	public void createSearch(GeoHierarchy universal) {
+	public void createSearch(GeoHierarchy universal)
+	{
 		this.deleteSearch(universal);
 
 		SavedSearch search = new SavedSearch();
@@ -55,12 +57,13 @@ public class UniversalSearchHelper implements Reloadable {
 		search.setQueryType(GeoHierarchy.getQueryType());
 		search.setConfig(this.getConfig(universal));
 		search.setQueryXml(this.getXML(universal));
-		
+
 		search.apply();
 	}
-	
+
 	@Transaction
-	public void deleteSearch(GeoHierarchy universal) {
+	public void deleteSearch(GeoHierarchy universal)
+	{
 		QueryFactory f = new QueryFactory();
 		SavedSearchQuery q = new SavedSearchQuery(f);
 		q.WHERE(q.getQueryName().EQ(this.getQueryName(universal)));
@@ -76,15 +79,17 @@ public class UniversalSearchHelper implements Reloadable {
 			i.close();
 		}
 	}
-	
+
 	// JN
-	public String getConfig(GeoHierarchy universal) {
+	public String getConfig(GeoHierarchy universal)
+	{
 	  String type = universal.getQualifiedType();
 		return "{'date_attribute':{},'terms':{},'criteriaEntities':{},'selectedUniversals':{'"+type+"':['"+type+"']}}";
 	}
-	
+
 	// JN
-	public String getXML(GeoHierarchy universal) {
+	public String getXML(GeoHierarchy universal)
+	{
 		String universalClass = this.getLongClassName(universal);
 		String underscoredUniversalClass = universalClass.replace('.', '_');
 		StringBuilder sb = new StringBuilder();
@@ -120,13 +125,14 @@ public class UniversalSearchHelper implements Reloadable {
 		sb.append("</query>");
 		return sb.toString();
 	}
-	
+
 	private String getQueryName(GeoHierarchy universal)
 	{
 	  return this.getLongClassName(universal).substring(MDSSInfo.GENERATED_GEO_PACKAGE.length()+1);
 	}
-		
-	private String getLongClassName(GeoHierarchy universal) {
+
+	private String getLongClassName(GeoHierarchy universal)
+	{
 		return universal.getQualifiedType();
 	}
 }

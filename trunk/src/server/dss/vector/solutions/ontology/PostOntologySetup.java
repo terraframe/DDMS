@@ -7,7 +7,7 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.Person;
@@ -27,14 +27,14 @@ public class PostOntologySetup
   /**
    * @param args
    */
-  @StartSession
+	@Request
   public static void main(String[] args)  throws Exception
   {
     //Setup root values
-    AttributeRootImporter.main(args);    
+    AttributeRootImporter.main(args);
 
     setupMDSSUser();
-    
+
     setupApplicationRate();
   }
 
@@ -42,20 +42,20 @@ public class PostOntologySetup
   private static void setupMDSSUser()
   {
     String UNKNOWN = "MDSS:0000320";
-    
+
     Calendar calendar = Calendar.getInstance();
     calendar.clear();
     calendar.set(Calendar.YEAR, 2009);
     calendar.set(Calendar.MONTH, 1);
     calendar.set(Calendar.DAY_OF_YEAR, 1);
-    
+
     Person person = new Person();
     person.setDateOfBirth(calendar.getTime());
     person.setFirstName("MDSS");
     person.setLastName("User");
     person.setSex(Term.getByTermId(UNKNOWN));
     person.apply();
-    
+
     MDSSUser user = new MDSSUser();
     user.setUsername("MDSS");
     user.setPassword("mdsstest2");
@@ -64,9 +64,9 @@ public class PostOntologySetup
     user.apply();
 
     RoleDAO.findRole(RoleDAOIF.ADMIN_ROLE).assignMember(UserDAO.get(user.getId()));
-    
+
     person.setUserDelegate(user);
-    person.apply();    
+    person.apply();
   }
 
   @Transaction
@@ -77,7 +77,7 @@ public class PostOntologySetup
     final String K_OTHERINE_WG_250 = "MDSS:0000476";
     final String DDT_WP_75 = "MDSS:0000477";
     final Disease DEFAULT_DISEASE = Disease.getMalaria();
-    
+
     InsecticideBrand deltamethrin = new InsecticideBrand();
     deltamethrin.setProductName(Term.getByTermId(K_OTHERINE_WG_250));
     deltamethrin.addInsecticideUse(InsecticideBrandUse.IRS);
@@ -90,7 +90,7 @@ public class PostOntologySetup
     deltamethrin.setUnitsPerApplication(1);
     deltamethrin.setEnabled(true);
     deltamethrin.apply();
-    
+
     InsecticideBrand ddt = new InsecticideBrand();
     ddt.setProductName(Term.getByTermId(DDT_WP_75));
     ddt.addInsecticideUse(InsecticideBrandUse.IRS);
@@ -103,21 +103,21 @@ public class PostOntologySetup
     ddt.setUnitsPerApplication(1);
     ddt.setEnabled(true);
     ddt.apply();
-    
+
     Nozzle n8001E = new Nozzle();
     n8001E.setDisease(DEFAULT_DISEASE);
     n8001E.setDisplayLabel("8001 E");
     n8001E.setRatio(new BigDecimal(2.00));
     n8001E.setEnabled(true);
     n8001E.apply();
-    
+
     Nozzle n8002E = new Nozzle();
     n8002E.setDisease(DEFAULT_DISEASE);
     n8002E.setDisplayLabel("8002 E");
     n8002E.setRatio(new BigDecimal(1.00));
     n8002E.setEnabled(true);
     n8002E.apply();
-    
+
     InsecticideNozzle configuration = new InsecticideNozzle(deltamethrin, n8001E);
     configuration.setDisease(DEFAULT_DISEASE);
     configuration.setEnabled(true);
@@ -127,7 +127,7 @@ public class PostOntologySetup
     configuration2.setDisease(DEFAULT_DISEASE);
     configuration2.setEnabled(true);
     configuration2.apply();
-    
+
     AreaStandards standards = new AreaStandards();
     standards.setDisease(DEFAULT_DISEASE);
     standards.setUnitNozzleAreaCoverage(250.0F);
@@ -135,7 +135,7 @@ public class PostOntologySetup
     standards.setStructureArea(100F);
     standards.setHousehold(300F);
     standards.addTargetUnit(TargetUnit.ROOM);
-    standards.apply();    
+    standards.apply();
   }
 
 }

@@ -10,7 +10,7 @@ import junit.framework.TestCase;
 import com.runwaysdk.ClientSession;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.Person;
@@ -73,7 +73,7 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
     request = clientSession.getRequest();
   }
 
-  @StartSession
+  @Request
   @Transaction
   protected static void setupVars()
   {
@@ -139,13 +139,13 @@ public abstract class InterventionPlanningPermissionTest extends TestCase
     tearDownVars();
   }
 
-  @StartSession
+  @Request
   protected static void tearDownVars()
   {
     site.delete();
 
     TestFixture.delete(person);
-    
+
     season.delete();
     configuration.delete();
     brand.delete();

@@ -23,9 +23,9 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
-import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.util.IdParser;
@@ -46,7 +46,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   /**
    * @param args
    */
-  @StartSession
+  @Request
   public static void main(String[] args)
   {
     rebuildAllPaths();
@@ -107,7 +107,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
       "  "+AllPaths.getChildTermMd().getMdAttributeConcrete().getColumnName()+",\n" +
       "  "+AllPaths.getOntologyRelationshipMd().getMdAttributeConcrete().getColumnName()+"\n" +
       ") \n" +
-      
+
       "SELECT  \n" +
       "    md5(term1."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" || term2."+AllPaths.getIdMd().getMdAttributeConcrete().getColumnName()+" ) || '"+allPathsRootTypeId+"',\n" +
       "    '"+sitemaster+"'                                       AS "+AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName()+",\n" +

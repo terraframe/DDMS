@@ -9,7 +9,7 @@ import javax.swing.SwingWorker;
 
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.transaction.TransactionExportManager;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.InstallProperties;
 
@@ -78,7 +78,7 @@ public class ExportManager extends SwingWorker<Void, Void>
     this.location = location;
   }
 
-  @StartSession
+  @Request
   private void export()
   {
     try
@@ -171,12 +171,12 @@ public class ExportManager extends SwingWorker<Void, Void>
 
     return null;
   }
-  
+
   @Override
   protected void done()
   {
     super.done();
-    
+
     component.complete();
   }
 }

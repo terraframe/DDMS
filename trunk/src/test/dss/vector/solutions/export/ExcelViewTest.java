@@ -27,7 +27,8 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.facade.Facade;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
+import com.runwaysdk.session.RequestType;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.MDSSUserQuery;
@@ -56,7 +57,7 @@ public class ExcelViewTest extends TestCase
   {
     super.run(testResult);
   }
-  
+
   private static String sessionId;
 
   public static Test suite()
@@ -80,14 +81,14 @@ public class ExcelViewTest extends TestCase
 
     return wrapper;
   }
-  
+
   private static final String DIRECTORY = "doc/exampleMoViews/";
-  
+
   private static Person john;
   private static Insecticide deltamethrin;
   private static Surface surface;
   private static SprayTeam sprayTeam;
-  
+
   protected static void classSetUp()
   {
     sessionId = Facade.login("MDSS", "mdsstest2", new Locale[]{Locale.US});
@@ -102,7 +103,7 @@ public class ExcelViewTest extends TestCase
     }
   }
 
-  @StartSession
+  @Request
   private static void setupWithSession()
   {
     john = new Person();
@@ -114,27 +115,27 @@ public class ExcelViewTest extends TestCase
     john.setDateOfBirth(calendar.getTime());
     john.setResidentialGeoEntity(GeoEntity.searchByGeoId("700707"));
     john.apply();
-    
+
     TeamMember member = new TeamMember();
     member.setMemberId("member2");
     member.setIsSprayLeader(true);
     member.setIsSprayOperator(true);
     member.apply();
-    
+
     john.lock();
     john.setTeamMemberDelegate(member);
     john.apply();
-    
+
     sprayTeam = new SprayTeam();
     sprayTeam.setTeamId("team1");
     sprayTeam.create("2828007", member.getId(), new String[] {member.getId()});
-    
+
     deltamethrin = new Insecticide();
     deltamethrin.setActiveIngredient(Term.getByTermId("MIRO:10000133"));
     deltamethrin.setAmount(25.0);
     deltamethrin.setUnits(Term.getByTermId("MDSS:0000381"));
     deltamethrin.apply();
-    
+
     try
     {
       surface = (Surface)GeoEntity.searchByGeoId("TestSurfaceId");
@@ -153,22 +154,22 @@ public class ExcelViewTest extends TestCase
     cleanupWithSession(sessionId);
   }
 
-  @StartSession
+  @Request
   private static void cleanupWithSession(String sessionId)
   {
     john.delete();
     deltamethrin.delete();
     sprayTeam.delete();
   }
-  
+
 //  public void testMopUpSpray() throws IOException
 //  {
 //    importOperatorSprayView(sessionId, "(027) OperatorSprayMopUp.xls");
-//    
+//
 //    // If we get here the import was successful.  Clean up the imported records
-//    
+//
 //  }
-  
+
   public void testSuccessfulIndividualCase() throws IOException
   {
     importIndividualCaseExcelView(sessionId, "(001) IndividualCaseExcelView.xls");
@@ -177,28 +178,28 @@ public class ExcelViewTest extends TestCase
 //  public void testSuccessfulMorphologicalSpecieGroup() throws IOException
 //  {
 //    importMorphologicalSpecieGroup(sessionId, "(016) MorphologicalSpecieGroupExcelView.xls");
-//    
+//
 //    Calendar calendar = Calendar.getInstance();
 //    calendar.clear();
 //    calendar.set(2009, 10, 2);
 //    MosquitoCollectionPoint mcp = MosquitoCollectionPoint.findOrCreate(GeoEntity.searchByGeoId("1110000"), calendar.getTime());
-//    
+//
 //    MorphologicalSpecieGroupQuery query = new MorphologicalSpecieGroupQuery(new QueryFactory());
 //    query.WHERE(query.getCollection().EQ(mcp));
 //    OIterator<? extends MorphologicalSpecieGroup> iterator = query.getIterator();
-//    
+//
 //    if (!iterator.hasNext())
 //    {
 //      fail("No morphological specie group created");
 //    }
-//    
+//
 //    MorphologicalSpecieGroup msg = iterator.next();
 //    if (iterator.hasNext())
 //    {
 //      iterator.close();
 //      fail("Multiple morphological specie groups created.  Expected only one.  Data may be corrupt.");
 //    }
-//    
+//
 //    try
 //    {
 //      assertEquals("MIRO:30000042", msg.getIdentificationMethod().getTermId());
@@ -213,24 +214,24 @@ public class ExcelViewTest extends TestCase
 //      delete(sessionId, mcp);
 //    }
 //  }
-//  
+//
 //  public void testSuccessfulMosquitoCollection() throws IOException
 //  {
 //    importMosquitoCollection(sessionId, "(024) MosquitoCollectionView.xls");
-//    
+//
 //    Calendar calendar = Calendar.getInstance();
 //    calendar.clear();
 //    calendar.set(2009, 9, 31);
 //    MosquitoCollection collection = MosquitoCollection.searchByGeoEntityAndDate(GeoEntity.searchByGeoId("100011"), calendar.getTime());
 //    assertNotNull(collection);
-//    
+//
 //    MorphologicalSpecieGroup msg = null;
 //    try
 //    {
 //      assertEquals("MDSS:0000316", collection.getCollectionMethod().getTermId());
 //      MorphologicalSpecieGroupView[] groups = collection.getMorphologicalSpecieGroups();
 //      assertEquals(1, groups.length);
-//      
+//
 //      msg = MorphologicalSpecieGroup.get(groups[0].getGroupId());
 //      assertEquals("MIRO:30000042", msg.getIdentificationMethod().getTermId());
 //      assertEquals(10, msg.getQuantity().intValue());
@@ -244,29 +245,29 @@ public class ExcelViewTest extends TestCase
 //      delete(sessionId, collection);
 //    }
 //  }
-  
+
   public void testSuccessfulEfficacyAssay() throws IOException
   {
     importEfficacyAssay(sessionId, "(025) EfficacyAssayExcelView.xls");
-    
+
     EfficacyAssayQuery query = new EfficacyAssayQuery(new QueryFactory());
     query.WHERE(query.getGeoEntity().EQ(surface));
 //    query.WHERE(query.getInsecticideBrand().getProductName().getName().EQ(deltamethrin));
     query.WHERE(query.getColonyName().EQ("Test Colony"));
     OIterator<? extends EfficacyAssay> iterator = query.getIterator();
-    
+
     if (!iterator.hasNext())
     {
       fail("No assay created");
     }
-    
+
     EfficacyAssay assay = iterator.next();
     if (iterator.hasNext())
     {
       iterator.close();
       fail("Multiple assays created.  Expected only one.  Data may be corrupt.");
     }
-    
+
     try
     {
       AdultAgeRange ageRange = assay.getAgeRange();
@@ -290,27 +291,27 @@ public class ExcelViewTest extends TestCase
       delete(sessionId, assay);
     }
   }
-  
+
 //  public void testSuccessfulIndicatorSurvey() throws IOException
 //  {
 //    importSurveyExcelView(sessionId, "(026) SurveyExcelView.xls");
-//    
+//
 //    Calendar calendar = Calendar.getInstance();
 //    calendar.clear();
 //    calendar.set(2007, 8, 1);
 //    SurveyPoint surveyPoint = SurveyPoint.searchByGeoEntityAndDate(GeoEntity.searchByGeoId("700707"), calendar.getTime());
-//    
+//
 //    assertNotNull(surveyPoint);
 //  }
 
   public void testSuccessfulGeoEntity() throws IOException
   {
     importGeoEntityView(sessionId, "(111) GeoEntityExcelView.xls");
-    
+
     GeoEntity canada = GeoEntity.searchByGeoId("8675307");
     GeoEntity mexico = GeoEntity.searchByGeoId("8675308");
     GeoEntity usa = GeoEntity.searchByGeoId("8675309");
-    
+
     assertEquals(Boolean.TRUE, canada.getActivated());
     assertEquals(Boolean.TRUE, mexico.getActivated());
     assertEquals(Boolean.TRUE, usa.getActivated());
@@ -321,39 +322,39 @@ public class ExcelViewTest extends TestCase
     assertEquals(Country.CLASS, mexico.getType());
     assertEquals(Country.CLASS, usa.getType());
   }
-  
+
   public void testSuccessfulPerson() throws IOException
   {
     importPersonView(sessionId, "(114) PersonExcelView.xls");
-    
+
     // Check the imported data for accuracy
     MDSSUserQuery query = new MDSSUserQuery(new QueryFactory());
     query.WHERE(query.getUsername().EQ("Brian.J.Lewis@trash2009.com"));
     OIterator<? extends MDSSUser> iterator = query.getIterator();
-    
+
     if (!iterator.hasNext())
     {
       fail("No user created.  Expected to create user Brian Lewis");
     }
-    
+
     MDSSUser user = iterator.next();
     if (iterator.hasNext())
     {
       iterator.close();
       fail("Multiple users created.  Expected only one.  Data may be corrupt.");
     }
-    
+
     if (!user.passwordEquals("vaness"))
     {
       fail("User password does not equal [vaness] as expected");
     }
-    
+
     Person person = user.getPerson();
     if (person==null)
     {
       fail("Person not correctly associated with User.  Data may be corrupt");
     }
-    
+
     try
     {
       assertEquals("Brian", person.getFirstName());
@@ -362,15 +363,15 @@ public class ExcelViewTest extends TestCase
       assertEquals("Brian", person.getFirstName());
       assertEquals("Brian", person.getFirstName());
       assertEquals("Brian", person.getFirstName());
-      
+
       TeamMember sprayLeader = person.getTeamMemberDelegate();
       assertNotNull(sprayLeader);
       assertEquals("e13371", sprayLeader.getMemberId());
-      
+
       GeoEntity residentialGeoEntity = person.getResidentialGeoEntity();
       assertNotNull(residentialGeoEntity);
       assertEquals("800803130070", residentialGeoEntity.getGeoId());
-      
+
       GeoEntity workGeoEntity = person.getWorkGeoEntity();
       assertNotNull(workGeoEntity);
       assertEquals("88000136", workGeoEntity.getGeoId());
@@ -381,7 +382,7 @@ public class ExcelViewTest extends TestCase
     }
   }
 
-  @StartSession
+  @Request(RequestType.SESSION)
   private void delete(String sessionId, Mutable instance)
   {
     if (instance!=null)
@@ -389,40 +390,40 @@ public class ExcelViewTest extends TestCase
       instance.delete();
     }
   }
-  
-  @StartSession
+
+  @Request(RequestType.SESSION)
   private void importIndividualCaseExcelView(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
     IndividualCaseExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
-  
-  @StartSession
+
+  @Request(RequestType.SESSION)
   private void importOperatorSprayView(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
     OperatorSprayExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
-  
-  @StartSession
+
+  @Request(RequestType.SESSION)
   public void importEfficacyAssay(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
     EfficacyAssayExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
-  
-  @StartSession
+
+  @Request(RequestType.SESSION)
   public void importSurveyExcelView(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
     SurveyExcelView.setupImportListener(importer.getContexts().get(0));
     printImportErrors(importer, DIRECTORY + fileName);
   }
-  
-  @StartSession
+
+  @Request(RequestType.SESSION)
   public void importGeoEntityView(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
@@ -430,8 +431,8 @@ public class ExcelViewTest extends TestCase
     GeoEntityExcelView.setupImportListener(importer.getContexts().get(0), earth.getId());
     printImportErrors(importer, DIRECTORY + fileName);
   }
-  
-  @StartSession
+
+  @Request(RequestType.SESSION)
   public void importPersonView(String sessionId, String fileName) throws IOException
   {
     ExcelImporter importer = new ExcelImporter(new FileInputStream(fileName));
@@ -447,7 +448,7 @@ public class ExcelViewTest extends TestCase
     if (bytes.length > 0)
     {
       String errorMessage = "\n==================================\nErrors found in import of " + fileName + "\n";
-      
+
       POIFSFileSystem fileSystem = new POIFSFileSystem(new ByteArrayInputStream(bytes));
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet errorSheet = workbook.getSheetAt(1);

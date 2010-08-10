@@ -18,7 +18,8 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
+import com.runwaysdk.session.RequestType;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -27,7 +28,6 @@ import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.CaseDiseaseManifestationView;
 
 public class Sandbox
 {
@@ -35,7 +35,7 @@ public class Sandbox
 
   private static int           feedbackMod = 50;
 
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
      Term term = new Term();
@@ -142,7 +142,7 @@ public class Sandbox
     return vQ;
   }
 
-  @StartSession
+  @Request(RequestType.SESSION)
   public static void testGeoEntityQuery(String sessionId)
   {
     new CleanupContextListener().contextInitialized(null);
@@ -151,7 +151,7 @@ public class Sandbox
     System.out.println(geoId);
   }
 
-  @StartSession
+  @Request
   public static void testNoLogin()
   {
 
@@ -271,7 +271,7 @@ public class Sandbox
     // }
   }
 
-  @StartSession
+  @Request(RequestType.SESSION)
   public static void test(String sessionId)
   {
 
@@ -306,7 +306,7 @@ public class Sandbox
     // System.out.println(v.getSQL());
   }
 
-  @StartSession
+  @Request
   private static void testAllPaths()
   {
     // defineDatatypesForAllPaths();
@@ -584,7 +584,7 @@ public class Sandbox
     return parentIdList;
   }
 
-  @StartSession
+  @Request
   private static void testQueries()
   {
     // QueryFactory qf = new QueryFactory();

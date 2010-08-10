@@ -9,7 +9,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.AllPaths;
@@ -23,7 +23,7 @@ public class GeoEntityAllPathBuilder
   /**
    * @param args
    */
-  @StartSession
+  @Request
   public static void main(String[] args)
   {
     rebuildAllPaths();
@@ -34,7 +34,7 @@ public class GeoEntityAllPathBuilder
     MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
 
     mdBusiness.deleteAllTableRecords();
-    
+
     GeoEntity.buildAllPathsFast();
 
     //updateAllPaths();
@@ -74,7 +74,7 @@ public class GeoEntityAllPathBuilder
       i.close();
     }
   }
-  
+
   @Transaction
   public static int updateBatchOfPaths(List<String> ids, int applyCount) {
 	  for (String id: ids) {

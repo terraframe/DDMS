@@ -10,13 +10,13 @@ import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.LockHolder;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 public class EmailContextListener implements ServletContextListener
 {
   private static final String EMAILTYPE = "dss.vector.solutions.general.Email";
   private static final String CONFIGTYPE = "dss.vector.solutions.general.EmailConfiguration";
-  
+
   public void contextInitialized(ServletContextEvent arg0)
   {
     startDaemon();
@@ -26,7 +26,7 @@ public class EmailContextListener implements ServletContextListener
   {
     stopDaemon();
   }
-  
+
   private static class EmailDaemon implements Runnable
   {
     private static final long MINUTE_IN_MILLISECONDS = 60000;
@@ -63,8 +63,9 @@ public class EmailContextListener implements ServletContextListener
       }
     }
 
-    @StartSession
-    private void runOnce() {
+    @Request
+    private void runOnce()
+    {
         LockHolder.lock(this);
         long current = System.currentTimeMillis();
         Object config = configInvoke(null, "getDefault");
@@ -75,7 +76,7 @@ public class EmailContextListener implements ServletContextListener
           this.lastRun = current;
         }
     }
-    
+
     public void start()
     {
       if (!running)
@@ -91,7 +92,7 @@ public class EmailContextListener implements ServletContextListener
       this.running = false;
     }
   }
-  
+
   private static EmailDaemon daemon = new EmailDaemon();
 
   public static void startDaemon()
@@ -103,7 +104,7 @@ public class EmailContextListener implements ServletContextListener
   {
     daemon.stop();
   }
-  
+
   private static Object emailInvoke(String methodName)
   {
     try
@@ -126,7 +127,7 @@ public class EmailContextListener implements ServletContextListener
       }
     }
   }
-  
+
   private static Object configInvoke(Object config, String methodName)
   {
     try

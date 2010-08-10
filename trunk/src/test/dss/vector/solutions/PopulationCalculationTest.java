@@ -2,30 +2,30 @@ package dss.vector.solutions;
 
 import java.util.Calendar;
 
-
 import junit.framework.TestCase;
 
-import com.runwaysdk.session.StartSession;
-import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class PopulationCalculationTest extends TestCase {
 	private static String GEOENTITY = "22220002";
-	
+
 	public void setUp() throws Exception {
 	}
 
 	public void tearDown() throws Exception {
 	}
 
-	@StartSession
-	public void testDataCreation() {
+	@Request
+	public void testDataCreation()
+	{
 		MdBusiness mdBusiness = MdBusiness.getMdBusiness(PopulationData.CLASS);
 	    mdBusiness.deleteAllTableRecords();
-	    
+
 		createData(1990, 50000L, null);
 		createData(1900, null, 0.027D);
 		createData(1902, 100000L, null);
@@ -37,9 +37,10 @@ public class PopulationCalculationTest extends TestCase {
 		createData(1921, 150000L, null);
 		createData(1924, null, 0.05D);
 	}
-	
-	@StartSession
-	public void testAnnualPopulations() {
+
+	@Request
+	public void testAnnualPopulations()
+	{
 		assertEquals(-1L,     PopulationData.calculateAnnualPopulation(GEOENTITY,1901));
 		assertEquals(100000L, PopulationData.calculateAnnualPopulation(GEOENTITY,1902));
 		assertEquals(102700L, PopulationData.calculateAnnualPopulation(GEOENTITY,1903));
@@ -67,13 +68,13 @@ public class PopulationCalculationTest extends TestCase {
 		assertEquals(162272L, PopulationData.calculateAnnualPopulation(GEOENTITY,1925));
 		assertEquals(170386L, PopulationData.calculateAnnualPopulation(GEOENTITY,1926));
 	}
-	
-	@StartSession
+
+	@Request
 	public void testSeasonalPopulations() {
 		assertEquals(117568L, PopulationData.calculateSeasonalPopulation(GEOENTITY, this.getCalendar(1908, 10, 1), this.getCalendar(1909, 4, 30)));
 		assertEquals(116312L, PopulationData.calculateSeasonalPopulation(GEOENTITY, this.getCalendar(1908, 6, 1), this.getCalendar(1908, 8, 1)));
 	}
-	
+
 	@Transaction
 	private void createData(int year, Long population, Double growthRate) {
 		PopulationData data = new PopulationData();
@@ -82,13 +83,13 @@ public class PopulationCalculationTest extends TestCase {
 		if (population != null) {
 			data.setPopulation(population);
 		}
-	
+
 		if (growthRate != null) {
 			data.setGrowthRate(growthRate);
 		}
 		data.apply();
 	}
-	
+
 	private Calendar getCalendar(int year, int month, int day) {
 		Calendar c = Calendar.getInstance();
 		c.clear();

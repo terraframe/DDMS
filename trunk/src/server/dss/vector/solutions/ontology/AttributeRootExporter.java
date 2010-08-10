@@ -17,7 +17,7 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeVirtual;
@@ -27,8 +27,8 @@ import com.runwaysdk.util.FileIO;
 import dss.vector.solutions.general.Disease;
 
 /**
- * 
- * 
+ *
+ *
  * @author Eric Grunzke
  */
 public class AttributeRootExporter
@@ -36,14 +36,14 @@ public class AttributeRootExporter
   private HSSFWorkbook workbook;
 
   private HSSFSheet    sheet;
-  
+
   private Disease[]    allDiseases;
-  
+
   private int rowCount;
-  
+
   private short maxCellCount;
 
-  @StartSession
+  @Request
   public static void main(String[] args) throws IOException
   {
     String fileName = "AttributeRoots.xls";
@@ -76,7 +76,7 @@ public class AttributeRootExporter
   {
     BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
     query.ORDER_BY(query.getKeyName(), SortOrder.ASC);
-    
+
     OIterator<? extends BrowserField> iterator = query.getIterator();
 
     HSSFRow header = sheet.createRow(rowCount++);
@@ -92,14 +92,14 @@ public class AttributeRootExporter
       List<ExportData> commonRoots = ExportData.getCommonRoots(field);
       writeRootRow(field, commonRoots, null);
       totalRoots += commonRoots.size();
-      
+
       for (Disease disease : allDiseases)
       {
         List<ExportData> rootsByDisease = ExportData.getRootsByDisease(field, disease, commonRoots);
         writeRootRow(field, rootsByDisease, disease);
         totalRoots += rootsByDisease.size();
       }
-      
+
       // This means that there is a field, but no roots have been assigned to it yet.
       // We still want to export a line for it, though, so that roots can be added.
       if (totalRoots==0)
@@ -119,29 +119,29 @@ public class AttributeRootExporter
         createAndSet(header, s, "Selectable #" + (s-3)/2);
       }
     }
-    
+
     for (short s = 0; s < maxCellCount; s++)
     {
       sheet.autoSizeColumn(s);
     }
   }
-  
+
   private void writeRootRow(BrowserField field, List<ExportData> roots, Disease disease)
   {
     if (roots.size()==0)
     {
       return;
     }
-    
+
     HSSFRow row = writeFieldInfo(field, disease);
-    
+
     int cellCount = 5;
     for (ExportData root : roots)
     {
       createAndSet(row, cellCount++, root.getTermId());
       row.createCell(cellCount++).setCellValue(root.getSelectable());
     }
-    
+
     if (cellCount > maxCellCount)
     {
       maxCellCount = (short) cellCount;
@@ -160,25 +160,25 @@ public class AttributeRootExporter
       MdAttributeConcrete concrete = virtual.getAllConcreteAttribute().next();
       attributeLabel = concrete.getDisplayLabel().getDefaultValue();
     }
-    
+
     // Create a row for this root-default-disease triple
     HSSFRow row = sheet.createRow(rowCount++);
-    
+
     int c = 0;
     createAndSet(row, c++, mdAttribute.getKey());
     createAndSet(row, c++, mdClass.getDisplayLabel().getDefaultValue());
     createAndSet(row, c++, attributeLabel);
-    
+
     MdAttributeDAOIF mdAttributeDAO = (MdAttributeDAOIF) BusinessFacade.getEntityDAO(mdAttribute);
     String defaultTermId = mdAttributeDAO.getMdAttributeConcrete().getDefaultValue();
     String defaultTermValue = new String();
-    
+
     if (defaultTermId.length() > 0)
     {
       defaultTermValue = Term.get(defaultTermId).getTermId();
     }
     createAndSet(row, c++, defaultTermValue);
-    
+
     if (disease!=null)
     {
       createAndSet(row, c, disease.getKey());
@@ -194,7 +194,7 @@ public class AttributeRootExporter
   /**
    * Writes the workbook to a byte array, which can then be written to the
    * filesystem or streamed across the net.
-   * 
+   *
    * @return
    */
   public byte[] write()

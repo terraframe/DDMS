@@ -32,7 +32,7 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.gis.dataaccess.database.PostGIS;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.vividsolutions.jts.geom.Geometry;
 
@@ -51,7 +51,7 @@ import dss.vector.solutions.ontology.TermQuery;
 
 /**
  * @author chris
- * 
+ *
  */
 public class GeoEntityImporter {
 	private static String UNIVERSAL_ID = "universal_id";
@@ -76,9 +76,9 @@ public class GeoEntityImporter {
 	private static String GEO_ID = "geo_id";
 	private static String ENTITY_ID = "entity_id";
 	private static String GEO_NAME = "geo_name";
-	
+
 	private static int BATCH_SIZE = 1000;
-	
+
 	private String dbUser;
 	private String dbPassword;
 	private String dbName;
@@ -89,11 +89,11 @@ public class GeoEntityImporter {
 	private Connection conn;
 
 	private GeometryHelper geometryHelper = new GeometryHelper();
-	
+
 	private class UniversalSubtype {
 		public GeoHierarchy geoHierarchy;
 		public Term moTerm;
-		
+
 		public UniversalSubtype(GeoHierarchy geoHierarchy, Term moTerm) {
 			this.geoHierarchy = geoHierarchy;
 			this.moTerm = moTerm;
@@ -107,7 +107,7 @@ public class GeoEntityImporter {
 	/**
 	 * @param args
 	 */
-	@StartSession
+	@Request
 	public static void main(String[] args) throws Exception {
 		if (args.length != 4) {
 			String errMsg = "\nIncorrect usage\n\n" + "Expected arguments:\n" + "1) database user name\n" + "2) database password\n" + "3) database name\n" + "4) universal spreadsheet filename";
@@ -122,7 +122,7 @@ public class GeoEntityImporter {
 		MdEntity biz = MdEntity.getMdEntity(className);
 		biz.deleteAllTableRecords();
 	}
-	
+
 	@Transaction
 	private void deleteGeoEntities() {
 		//this.deleteAllTableRecords(AllPaths.CLASS);
@@ -149,11 +149,11 @@ public class GeoEntityImporter {
 
 	}
 
-	@StartSession
+	@Request
 	public static void importGeoEntities(String[] args) throws Exception {
 		if (!"mrc_blank".equals(args[2])) {
 			GeoEntityImporter geoEntityImporter = null;
-	
+
 			try {
 				geoEntityImporter = new GeoEntityImporter(args[0], args[1], args[2], args[3]);
 				geoEntityImporter.importGeoEntities();
@@ -298,7 +298,7 @@ public class GeoEntityImporter {
 	 * "+GEOGRAPHIC_ENTITIES_RELATIONS+" rel, "+GEOGRAPHIC_ENTITIES+" ent\n"+ "
 	 * WHERE rel."+GEO_ID+" = geom."+GEO_ID+"\n"+ " AND rel."+GEO_ID+" =
 	 * ent."+GEO_ID;
-	 * 
+	 *
 	 * GEOGRAPHIC_ENTITIES_GEOMETRY+" geom, "
 	 */
 	private void createGeoEntities() throws Exception {
@@ -309,7 +309,7 @@ public class GeoEntityImporter {
 
 		Statement statement = null;
 		ResultSet resultSet = null;
-		
+
 		ArrayList<GeoEntity> batch = new ArrayList<GeoEntity>(BATCH_SIZE);
 
 		try {
@@ -330,9 +330,9 @@ public class GeoEntityImporter {
 
 				geoEntity.setGeoId(Long.toString(geoId));
 				geoEntity.setEntityName(geoName);
-				
+
 				geoEntity.setTerm(universalSubtype.moTerm);
-				
+
 				JtsGeometry pointField = (JtsGeometry) resultSet.getObject(GEOM_POINT);
 				JtsGeometry multiLineStringField = (JtsGeometry) resultSet.getObject(GEOM_MULTILINESTRING);
 				JtsGeometry multiPolygonField = (JtsGeometry) resultSet.getObject(GEOM_MULTIPOLYGON);
@@ -386,14 +386,14 @@ public class GeoEntityImporter {
 		}
 
 		this.applyBatch(batch);
-		
+
 		// All GeoEntities have been created so attempt to set the
 		// default based on the system property.
 		try
 		{
 		  String geoId = Property.getStr(PropertyInfo.INSTALL_PACKAGE, PropertyInfo.COUNTRY_GEO_ID);
 		  GeoEntity geoEntity = GeoEntity.searchByGeoId(geoId);
-		  
+
 		  DefaultGeoEntity defaultGeoEntity = DefaultGeoEntity.getDefaultGeoEntity();
 		  defaultGeoEntity.appLock();
 		  defaultGeoEntity.setGeoEntity(geoEntity);
@@ -411,7 +411,7 @@ public class GeoEntityImporter {
 			businessObject.apply();
 		}
 	}
-	
+
 	private String getCellValue(HSSFRow row, int col) {
 		return ExcelUtil.getString(row.getCell(col));
 	}
@@ -462,7 +462,7 @@ public class GeoEntityImporter {
 			// throw new RuntimeException(errMsg);
 		}
 	}
-	
+
 	private Term lookupTerm(String termId) {
 		QueryFactory f = new QueryFactory();
 		TermQuery q = new TermQuery(f);

@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 public class InstallStoredProcedures
 {
@@ -17,7 +17,7 @@ public class InstallStoredProcedures
   /**
    * @param args
    */
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
     for (String procedurePath : args)

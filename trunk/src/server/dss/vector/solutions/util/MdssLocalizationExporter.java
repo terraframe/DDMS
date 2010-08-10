@@ -45,7 +45,7 @@ import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdAction;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeDimension;
@@ -71,7 +71,7 @@ public class MdssLocalizationExporter implements Reloadable
   public static final String CLIENT_EXCEPTIONS = "Client Exceptions";
   public static final String SERVER_EXCEPTIONS = "Server Exceptions";
   public static final String MD_EXCEPTIONS = "Custom Exceptions";
-  
+
   /**
    * The in memory representation of the xls file
    */
@@ -89,7 +89,7 @@ public class MdssLocalizationExporter implements Reloadable
   private List<LocaleDimension> columns;
   private List<String> typeExemptions;
 
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
     long start = System.currentTimeMillis();
@@ -101,7 +101,7 @@ public class MdssLocalizationExporter implements Reloadable
     long stop = System.currentTimeMillis();
     System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
   }
-  
+
   public MdssLocalizationExporter()
   {
     locales = new LinkedList<Locale>();
@@ -114,7 +114,7 @@ public class MdssLocalizationExporter implements Reloadable
     typeExemptions.add(MdMethod.CLASS);
     typeExemptions.add(MdAttributeDimension.CLASS);
   }
-  
+
   public void addLocale(Locale l)
   {
     if (!locales.contains(l))
@@ -132,7 +132,7 @@ public class MdssLocalizationExporter implements Reloadable
       columns.add(new LocaleDimension(localeString, dim));
     }
   }
-  
+
   public void export()
   {
     workbook = new HSSFWorkbook();
@@ -145,7 +145,7 @@ public class MdssLocalizationExporter implements Reloadable
     commonSheet = workbook.createSheet(COMMON_EXCEPTIONS);
     propertySheet = workbook.createSheet(MDSS_PROPERTIES);
     controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
-    
+
     prepareExceptions();
     prepareDisplayLabels();
     prepareTermLabels();
@@ -165,17 +165,17 @@ public class MdssLocalizationExporter implements Reloadable
     {
       HSSFRow row = sheet.createRow(0);
       int i=0;
-      
+
       boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
-      
+
       if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet))
       {
         row.createCell(i++).setCellValue(new HSSFRichTextString("Type"));
         row.createCell(i++).setCellValue(new HSSFRichTextString("Attribute Name"));
       }
-      
+
       row.createCell(i++).setCellValue(new HSSFRichTextString("Key"));
-      
+
       for (LocaleDimension c : columns)
       {
         if (ignoreDimensions && c.hasDimension())
@@ -184,7 +184,7 @@ public class MdssLocalizationExporter implements Reloadable
         }
         row.createCell(i++).setCellValue(new HSSFRichTextString(c.getColumnName()));
       }
-      
+
       for (short s=0; s<i; s++)
       {
         sheet.autoSizeColumn(s);
@@ -201,7 +201,7 @@ public class MdssLocalizationExporter implements Reloadable
       cell.setCellValue(new HSSFRichTextString(message));
     }
   }
-  
+
   private void prepareDisplayLabels()
   {
     QueryFactory qf = new QueryFactory();
@@ -213,14 +213,14 @@ public class MdssLocalizationExporter implements Reloadable
     prepareAttributeList(labelSheet, iterator.getAll());
     iterator.close();
   }
-  
+
   private void prepareDescriptions()
   {
 //    List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
 //    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(Metadata.getDescriptionMd());
 //    list.add(local);
 //    prepareAttributeList(descriptionSheet, list);
-    
+
     QueryFactory qf = new QueryFactory();
     MdAttributeLocalQuery localQuery = new MdAttributeLocalQuery(qf);
     localQuery.WHERE(localQuery.getAttributeName().EQ(Metadata.DESCRIPTION));
@@ -228,7 +228,7 @@ public class MdssLocalizationExporter implements Reloadable
     prepareAttributeList(descriptionSheet, iterator.getAll());
     iterator.close();
   }
-  
+
   private void prepareExceptions()
   {
     List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
@@ -236,7 +236,7 @@ public class MdssLocalizationExporter implements Reloadable
     list.add(local);
     prepareAttributeList(exceptionSheet, list);
   }
-  
+
   private void prepareTermLabels()
   {
     List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
@@ -255,23 +255,23 @@ public class MdssLocalizationExporter implements Reloadable
       Boolean enforceSiteMaster = MdAttributeBooleanUtil.getTypeSafeValue(mdLocalStruct.getValue(MdLocalStructInfo.ENFORCE_SITE_MASTER));
       String definingType = mdType.definesType();
       String attributeName = local.getAttributeName();
-      
+
       if (typeExemptions.contains(definingType))
       {
         continue;
       }
-      
+
       for (String id : EntityDAO.getEntityIdsDB(definingType))
       {
         EntityDAOIF entity = EntityDAO.get(id);
         StructDAOIF struct = StructDAO.get(entity.getValue(attributeName));
-        
+
         // Don't export instances mastered at another site
         if (enforceSiteMaster && !struct.getValue(StructInfo.SITE_MASTER).equals(ServerProperties.getDomain()))
         {
           continue;
         }
-        
+
         // Some attributes are re-created at the top of every hierarchy.  Ignore them.
         if (entity instanceof MdAttributeDAOIF)
         {
@@ -290,7 +290,7 @@ public class MdssLocalizationExporter implements Reloadable
               {
                 continue;
               }
-          
+
           // Selectively get rid of create dates
           if (definedAttribute.equalsIgnoreCase(Metadata.CREATEDATE))
               {
@@ -301,7 +301,7 @@ public class MdssLocalizationExporter implements Reloadable
       	  			continue;
       	  		}
               }
-          
+
           if (definedAttribute.equalsIgnoreCase(Metadata.SITEMASTER))
               {
     	  		if (mdType.definesType().equals("com.runwaysdk.system.transaction.TransactionRecord")) {
@@ -309,14 +309,14 @@ public class MdssLocalizationExporter implements Reloadable
       	  		}
               }
         }
-        
+
         // Ignore attribute dimensions
         if (entity instanceof MdAttributeDimensionDAOIF)
         {
           continue;
         }
-        
-        // We don't want to export the attribute definitions of the locales on our MdLocalStructs 
+
+        // We don't want to export the attribute definitions of the locales on our MdLocalStructs
         if (entity instanceof MdAttributeCharDAOIF)
         {
           MdAttributeCharDAOIF mdAttribute = (MdAttributeCharDAOIF) entity;
@@ -326,23 +326,23 @@ public class MdssLocalizationExporter implements Reloadable
             continue;
           }
         }
-        
+
         HSSFRow row = sheet.createRow(r++);
         int c=0;
         row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getType()));
         row.createCell(c++).setCellValue(new HSSFRichTextString(attributeName));
         row.createCell(c++).setCellValue(new HSSFRichTextString(entity.getKey()));
 //        row.createCell(c++).setCellValue(new HSSFRichTextString(struct.getValue(MdAttributeLocalInfo.DEFAULT_LOCALE)));
-        
+
         for (LocaleDimension col : columns)
         {
           HSSFCell cell = row.createCell(c++);
-          
+
           if (mdLocalStruct.definesAttribute(col.getAttributeName())==null)
           {
             continue;
           }
-          
+
           String value = struct.getValue(col.getAttributeName());
           if (value.trim().length()>0)
           {
@@ -352,7 +352,7 @@ public class MdssLocalizationExporter implements Reloadable
       }
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   private void prepareProperties(String bundleName, HSSFSheet sheet)
   {
@@ -377,7 +377,7 @@ public class MdssLocalizationExporter implements Reloadable
         throw new SystemException(e);
       }
     }
-    
+
     int r = 1;
     // First, read the keys from the default
     for (Entry<String, String> e : getProperties(lines).entrySet())
@@ -385,7 +385,7 @@ public class MdssLocalizationExporter implements Reloadable
       HSSFRow row = sheet.createRow(r++);
       row.createCell(0).setCellValue(new HSSFRichTextString(e.getKey()));
     }
-    
+
     // Now read each locale
     int c=0;
     boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
@@ -396,13 +396,13 @@ public class MdssLocalizationExporter implements Reloadable
         continue;
       }
       c++;
-      
+
       File localFile = new File(dir, l.getPropertyFileName(bundleName));
       if (!localFile.exists())
       {
         continue;
       }
-      
+
       Map<String, String> properties = null;
       try
       {
@@ -412,14 +412,14 @@ public class MdssLocalizationExporter implements Reloadable
       {
         throw new FileReadException(localFile, e);
       }
-      
+
       Iterator<HSSFRow> rowIterator = sheet.rowIterator();
       while (rowIterator.hasNext())
       {
         HSSFRow row = rowIterator.next();
         String key = ExcelUtil.getString(row.getCell(0));
         String value = properties.get(key);
-        
+
         if (value!=null)
         {
           row.createCell(c).setCellValue(new HSSFRichTextString(value));
@@ -427,7 +427,7 @@ public class MdssLocalizationExporter implements Reloadable
       }
     }
   }
-  
+
   public static Map<String, String> getProperties(List<String> lines)
   {
     LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
@@ -438,7 +438,7 @@ public class MdssLocalizationExporter implements Reloadable
       {
         continue;
       }
-      
+
       String[] split = line.split("=", 2);
       if (split.length!=2)
       {

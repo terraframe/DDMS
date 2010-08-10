@@ -16,7 +16,7 @@ import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdClass;
 
 import dss.vector.solutions.ontology.AllPaths;
@@ -61,7 +61,7 @@ public class OntologyImporter
   private static final String OBO_FIELD_IS_TRANSITIVE                = "is_transitive";
   private static final String OBO_FIELD_IS_OBSOLETE                  = "is_obsolete";
   private static final String OBO_FIELD_IS_ANTI_SYMMETRIC            = "is_anti_symmetric";
-  
+
   private String ontologyTitle;
   private String fileName;
   private Ontology ontology = null;
@@ -132,7 +132,7 @@ public class OntologyImporter
   /**
    * @param args
    */
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
     OntologyImporter oi = null;
@@ -700,7 +700,7 @@ public class OntologyImporter
     	  // The parent is not found.  This is bad...
     	  throw dnfe;
       }
-      
+
       Term referencedTerm = null;
       try {
     	  referencedTerm = Term.getByKey(termRelationshipInfo.getChildTermId());
@@ -709,11 +709,11 @@ public class OntologyImporter
     	  // but the child was not (because it was obsolete), so we can ignore it.
     	  // Do nothing here, just leave referencedTerm null
       }
-      
+
       if (term != null && referencedTerm != null) {
 	      TermRelationship termRelationship = new TermRelationship(term, referencedTerm);
 	      termRelationship.setOntologyRelationship(this.ontologyRelationshipByNameMap.get(termRelationshipInfo.getRelationshipName()));
-	
+
 	      if (this.displayStatusToSysOut)
 	      {
 	        if (applyCount % feedbackMod == 0)
@@ -723,7 +723,7 @@ public class OntologyImporter
 	        System.out.print(".");
 	        applyCount++;
 	      }
-	
+
 	      // create save point
 	      Savepoint savepoint = Database.setSavepoint();
 	      try
@@ -744,12 +744,12 @@ public class OntologyImporter
 
     attachRoots();
   }
-  
+
   private void attachRoots()
   {
     Ontology ontology = Ontology.getByKey(MO.KEY);
     OntologyRelationship ontologyRel = OntologyRelationship.getByKey(OBO.IS_A);
-    
+
     String rootStr = MDSSProperties.getString("ROOT");
     RootTerm root = new RootTerm();
     root.setTermId(rootStr);
@@ -757,22 +757,22 @@ public class OntologyImporter
     root.getTermDisplayLabel().setValue(rootStr);
     root.setOntology(ontology);
     root.apply();
-    
+
     QueryFactory f = new QueryFactory();
     TermQuery q = new TermQuery(f);
     TermRelationshipQuery r = new TermRelationshipQuery(f);
-    
+
     q.WHERE(q.getId().SUBSELECT_NOT_IN(r.childId()));
     q.AND(q.getId().NE(root.getId()));
-    
+
     OIterator<? extends Term> iter = q.getIterator();
-    
+
     try
     {
       while(iter.hasNext())
       {
         Term oldRoot = iter.next();
-      
+
         TermRelationship rel = root.addChildTerm(oldRoot);
         rel.setOntologyRelationship(ontologyRel);
         rel.applyWithoutCreatingAllPaths();
@@ -835,7 +835,7 @@ public class OntologyImporter
         {
           String obsoleteString = this.extractFieldValue(OBO_FIELD_IS_OBSOLETE, line);
           term = initTerm(term, termId);
-          
+
           isObsolete = Boolean.parseBoolean(obsoleteString);
 //          term.setObsolete(Boolean.parseBoolean(obsoleteString));
         }
@@ -943,7 +943,7 @@ public class OntologyImporter
     {
       TermRelationshipInfo termRelationshipInfo = new TermRelationshipInfo(referencedTermId, term.getTermId(), relationshipName);
       this.termRelationshipInfoList.add(termRelationshipInfo);
-      
+
       return true;
     }
 

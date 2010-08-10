@@ -8,7 +8,7 @@ import junit.framework.TestCase;
 import junit.framework.TestResult;
 import junit.framework.TestSuite;
 
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -90,7 +90,7 @@ public class MosquitoCollectionTest extends TestCase
     sentinelSite.delete();
     nonSentinelSite.delete();
     fixedTrap.delete();
-    
+
     collectionMethod.delete();
     specie.delete();
     identificationMethod.delete();
@@ -120,7 +120,7 @@ public class MosquitoCollectionTest extends TestCase
     }
   }
 
-  @StartSession
+  @Request
   public void testNonSentinelSiteCollection()
   {
     MosquitoCollection collection = new MosquitoCollection();

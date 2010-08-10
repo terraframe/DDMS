@@ -6,7 +6,7 @@ import java.util.Locale;
 import javax.swing.SwingWorker;
 
 import com.runwaysdk.dataaccess.transaction.TransactionImportManager;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.util.MDSSProperties;
@@ -36,7 +36,7 @@ public class ImportManager extends SwingWorker<Void, Void>
     return null;
   }
 
-  @StartSession
+  @Request
   private void importFile()
   {
     try

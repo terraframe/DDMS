@@ -16,7 +16,7 @@ import javax.mail.internet.MimeMessage;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 public class Email extends EmailBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -55,7 +55,7 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
     sendAll(EmailConfiguration.getDefault());
   }
 
-  @StartSession
+  @Request
   public static void sendAll(EmailConfiguration config)
   {
     Calendar cutoff = Calendar.getInstance();
@@ -139,14 +139,14 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
       msg.setText(this.getBody());
       /*
        * Multipart mp = new MimeMultipart("alternative");
-       * 
+       *
        * Iterator iterator = doc.getBodyParts().keySet().iterator(); while
        * (iterator.hasNext()) { String mimeType = (String)iterator.next();
        * String partContent = (String) doc.getBodyParts().get(mimeType);
-       * 
+       *
        * BodyPart part = new MimeBodyPart(); part.setContent(partContent,
        * mimeType); mp.addBodyPart(part); }
-       * 
+       *
        * msg.setContent(mp);
        */
 

@@ -8,7 +8,7 @@ import com.runwaysdk.ClientSession;
 import com.runwaysdk.DoNotWeave;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.Person;
@@ -63,7 +63,7 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
   private static CollectionSite    collectionSite;
 
   private static SprayZone         sprayZone;
-  
+
   private static StockDepot        depot;
 
   private static Term              term;
@@ -82,7 +82,7 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
     systemRequest = systemSession.getRequest();
   }
 
-  @StartSession
+  @Request
   @Transaction
   public static void setupVars()
   {
@@ -113,7 +113,7 @@ public abstract class PermissionTest extends TestCase implements DoNotWeave
     tearDownVars();
   }
 
-  @StartSession
+  @Request
   protected static void tearDownVars()
   {
     term.delete();

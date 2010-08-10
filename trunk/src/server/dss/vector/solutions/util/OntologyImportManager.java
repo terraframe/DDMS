@@ -2,7 +2,7 @@ package dss.vector.solutions.util;
 
 import java.io.File;
 
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 /**
  * Use this class to import a directory of ontologies.  Assumes the file:
@@ -17,7 +17,7 @@ public class OntologyImportManager
   /**
    * @param args
    */
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
     if (args.length != 3)

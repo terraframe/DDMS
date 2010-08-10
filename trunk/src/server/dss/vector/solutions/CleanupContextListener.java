@@ -22,7 +22,7 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
@@ -48,7 +48,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     doCleanup();
   }
 
-  @StartSession
+  @Request
   private void doCleanup()
   {
     // Clean up all database map views
@@ -56,7 +56,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     runSql(getDropSql());
   }
 
-  @StartSession
+  @Request
   public void contextInitialized(ServletContextEvent arg0)
   {
     SavedMap.cleanOldViews(System.currentTimeMillis());
@@ -71,7 +71,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   {
     runSql(getGeoDisplayViewSQL());
   }
-  
+
   private String getDropSql()
   {
     String sql = "";
@@ -155,7 +155,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     }
     return list;
   }
-  
+
   private static List<String> getLocaleColumns() throws SQLException
   {
     MdEntityDAOIF mdDisLabel = MdEntityDAO.getMdEntityDAO(MetadataDisplayLabel.CLASS);
@@ -398,7 +398,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
     String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
     String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
-    
+
     String sql = "";
 
     sql += "CREATE OR REPLACE FUNCTION sum_stringified_id_int_pairs(anyarray) RETURNS Double Precision AS $$ \n";

@@ -37,7 +37,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.export.ExcelVersionException;
@@ -407,7 +407,7 @@ public class PermissionImporter implements Reloadable
 
   /**
    * Opens the stream and returns an initialized row iterator
-   * 
+   *
    * @param stream
    * @return
    * @throws IOException
@@ -431,7 +431,7 @@ public class PermissionImporter implements Reloadable
     }
   }
 
-  @StartSession
+  @Request
   public static void main(String[] args) throws Exception
   {
     String fileName = "Permissions.xls";

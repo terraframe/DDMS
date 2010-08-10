@@ -4,7 +4,7 @@ import java.util.HashMap;
 
 import junit.framework.TestCase;
 
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Email;
@@ -25,7 +25,7 @@ public class EmailTest extends TestCase {
 		Email email = new Email("mdsstest@teravation.com", "chris@reigrut.net", "Test Subject " + System.currentTimeMillis(), "This is a test of sending a " + "plain text e-mail through Teravation from Java.\n" + "Here is line 2.");
 		email.setCcAddresses("chris@teravation.com");
 		email.apply();
-		if (!email.send("mail.teravation.com", EmailProtocol.SMTP, null, null)) { 
+		if (!email.send("mail.teravation.com", EmailProtocol.SMTP, null, null)) {
 			fail();
 		}
 	}
@@ -66,9 +66,10 @@ public class EmailTest extends TestCase {
 			fail();
 		}
 	}
-*/	
-	@StartSession
-	public void testSendNotification() {
+*/
+	@Request
+	public void testSendNotification()
+	{
 		HashMap<String,Object> data = new HashMap<String,Object>();
         data.put("alertType", "AlertType");
         data.put("thresholdType", "ThresholdType");
@@ -81,8 +82,9 @@ public class EmailTest extends TestCase {
 		}
 	}
 
-	@StartSession
-	public void testSendIdentification() {
+	@Request
+	public void testSendIdentification()
+	{
 		HashMap<String,Object> data = new HashMap<String,Object>();
         data.put("alertType", "AlertType");
         data.put("thresholdType", "ThresholdType");
@@ -94,12 +96,13 @@ public class EmailTest extends TestCase {
 			fail();
 		}
 	}
-	
-	@StartSession
-	public void testSendAll() {
+
+	@Request
+	public void testSendAll()
+	{
 		Email email = new Email(null, "mdsstest@gmail.com", "mdsstest@gmail.com", "Test Subject " + System.currentTimeMillis(), "This is a test of resending a " + "plain text e-mail through the configured server from Java.\n" + "Here is line 2.");
 		email.apply(); // Save the email
 		Email.sendAll();
 	}
-	
+
 }

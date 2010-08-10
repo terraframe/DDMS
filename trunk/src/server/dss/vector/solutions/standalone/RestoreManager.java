@@ -7,7 +7,7 @@ import javax.swing.JTextArea;
 import javax.swing.SwingWorker;
 
 import com.runwaysdk.dataaccess.io.Restore;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 
 public class RestoreManager extends SwingWorker<Void, Void>
 {
@@ -21,7 +21,7 @@ public class RestoreManager extends SwingWorker<Void, Void>
     this.file = file;
   }
 
-  @StartSession
+  @Request
   protected Void doInBackground() throws Exception
   {
     try
