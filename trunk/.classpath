@@ -16,7 +16,6 @@
 	<classpathentry kind="lib" path="lib/client/commons-io-1.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/client/fileupload-progress.jar"/>
 	<classpathentry kind="lib" path="lib/client/jstl.jar"/>
-	<classpathentry kind="lib" path="lib/client/servlet-api-2.5-6.1.3.jar"/>
 	<classpathentry kind="lib" path="lib/client/standard.jar"/>
 	<classpathentry kind="lib" path="lib/client/taglibs-string.jar"/>
 	<classpathentry kind="lib" path="lib/common/activation.jar"/>
@@ -53,7 +52,6 @@
 	<classpathentry kind="lib" path="lib/server/hsqldb.jar"/>
 	<classpathentry kind="lib" path="lib/server/jtds-1.2.jar"/>
 	<classpathentry kind="lib" path="lib/server/junit.jar"/>
-	<classpathentry kind="lib" path="lib/server/log4j-1.2.14.jar"/>
 	<classpathentry kind="lib" path="lib/server/mailapi.jar"/>
 	<classpathentry kind="lib" path="lib/server/mysql-connector-java-5.0.4-bin.jar"/>
 	<classpathentry kind="lib" path="lib/server/ojdbc14.jar"/>
@@ -67,16 +65,48 @@
 	<classpathentry kind="lib" path="lib/server/xercesImpl.jar"/>
 	<classpathentry kind="lib" path="lib/server/xml-apis.jar"/>
 	<classpathentry kind="lib" path="lib/server/xstream-1.1.3.jar"/>
-	<classpathentry kind="lib" path="lib/terraframe.jar">
-		<attributes>
-			<attribute name="org.eclipse.ajdt.aspectpath" value="true"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/server/ajde.jar"/>
 	<classpathentry kind="lib" path="lib/server/org.eclipse.equinox.common_3.3.0.v20070426.jar"/>
 	<classpathentry kind="lib" path="lib/server/postgresql-8.3-604.jdbc3.jar"/>
 	<classpathentry kind="lib" path="lib/server/drej.jar"/>
 	<classpathentry kind="lib" path="lib/server/vecmath.jar"/>
+	<classpathentry kind="lib" path="lib/common/servlet-api-2.5-6.1.3.jar"/>
+	<classpathentry kind="lib" path="lib/client/jsp-api.jar"/>
+	<classpathentry kind="lib" path="lib/client/jawr-3.2.1.jar"/>
+	<classpathentry kind="lib" path="lib/client/js.jar"/>
+	<classpathentry kind="lib" path="lib/client/yuicompressor-2.4.2.jar"/>
+	<classpathentry kind="lib" path="lib/common/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="lib/common/runwaysdk_gis.jar"/>
+	<classpathentry kind="lib" path="lib/common/opencsv-1.8.jar"/>
+	<classpathentry kind="lib" path="lib/client/chartengineapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/com.ibm.icu_3.8.1.v20080530.jar"/>
+	<classpathentry kind="lib" path="lib/client/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="lib/client/coreapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/crosstabcoreapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/dataadapterapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/dataaggregationapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/dataextraction.jar"/>
+	<classpathentry kind="lib" path="lib/client/dteapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/engineapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/flute.jar"/>
+	<classpathentry kind="lib" path="lib/client/modelapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/modelodaapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/odadesignapi.jar"/>
+	<classpathentry kind="lib" path="lib/client/org.apache.commons.codec_1.3.0.v20080530-1600.jar"/>
+	<classpathentry kind="lib" path="lib/client/org.eclipse.emf.common_2.4.0.v200808251517.jar"/>
+	<classpathentry kind="lib" path="lib/client/org.eclipse.emf.ecore_2.4.1.v200808251517.jar"/>
+	<classpathentry kind="lib" path="lib/client/org.eclipse.emf.ecore.xmi_2.4.1.v200808251517.jar"/>
+	<classpathentry kind="lib" path="lib/client/org.w3c.css.sac_1.3.0.v200805290154.jar"/>
+	<classpathentry kind="lib" path="lib/client/scriptapi.jar"/>
+	<classpathentry kind="lib" path="lib/server/postgis_jts_1.3.5.jar"/>
+	<classpathentry kind="lib" path="lib/server/velocity-1.6.2.jar"/>
+	<classpathentry kind="lib" path="lib/ant-launcher.jar"/>
+	<classpathentry kind="lib" path="lib/server/relaxngDatatype.jar"/>
+	<classpathentry kind="lib" path="lib/server/xsom.jar"/>
+	<classpathentry kind="lib" path="lib/server/runwaysdk-server.jar"/>
+	<classpathentry kind="lib" path="lib/common/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="lib/common/runwaysdk-common.jar"/>
+	<classpathentry kind="lib" path="lib/client/runwaysdk-client.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
