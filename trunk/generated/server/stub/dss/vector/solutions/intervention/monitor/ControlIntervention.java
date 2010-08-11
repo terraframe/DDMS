@@ -544,6 +544,12 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         valueQuery.AND(valueQuery.aSQLCharacter("ontology_parent_term", parentTerm).EQ(valueQuery.aSQLCharacter(viewTerm, viewTerm)));
       }
       
+      // Don't display rows that have a null term when selecting reasons for untreated
+      if(byReasonNotTreated)
+      {
+        valueQuery.AND(valueQuery.aSQLCharacter("ignoreEmptyTerms", view+".childId_displayLabel").NE((String)null));
+      }
+      
     }
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ControlIntervention.CLASS, controlInterventionQuery);
