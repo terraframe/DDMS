@@ -340,8 +340,8 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: false
     });
     dm.excludes({
-      independent: ['childId_tm', 'total_premises_treated', 'percent_premises_treated', 'percent_visited_treated'],
-      dependent: ['childId_r', 'total_premises_not_treated', 'percent_visited_not_treated'],
+      independent: 'childId_tm',
+      dependent: 'childId_r',
       type: MDSS.Dependent.CHECKED,
       bidirectional: true
     });

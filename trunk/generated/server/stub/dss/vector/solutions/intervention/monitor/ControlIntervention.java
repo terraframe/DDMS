@@ -30,7 +30,6 @@ import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.QueryBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ControlIntervention extends ControlInterventionBase implements com.runwaysdk.generation.loader.Reloadable
@@ -396,6 +395,12 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     boolean needsView = valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("childId_tm");
     
+    // The way we fetch columns and group the data depends on whether or not
+    // the user is trying to group by the treatment method, reasons not treated,
+    // or none at all (default). Note that the two options are mutually exclusive.
+    boolean byTreatmentMethod = valueQuery.hasSelectableRef("childId_tm");
+    boolean byReasonNotTreated = valueQuery.hasSelectableRef("childId_r");
+    
     String view = "premiseVisitUnion";
     MdEntityDAOIF visitMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseVisit.CLASS);
     String available = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.PREMISESAVAILABLE);
@@ -409,32 +414,41 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     String availableSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + view+"."+available + "))";
     String includedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + view+"."+included + "))";
     
-    String treatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + treated + "))";
+    String treatedCol = byTreatmentMethod ? used : treated;
+    String treatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + treatedCol + "))";
     String premisesSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + premises + "))";
     String visitedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + visited + "))";
 //    String notTreatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " +amount + "))";
 
+    
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_available_for_vehicle_spraying", "" + availableSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_included_for_vehicle_spraying", "" + includedSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_treated_with_vehicle_spraying", "(" + includedSum + "/NULLIF(" + availableSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_available", "" + premisesSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", "" + visitedSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", "" + treatedSum) || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + visitedSum + " - " + treatedSum +"") || needsView;
+    
+    if(byReasonNotTreated)
+    {
+      String amountSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + amount + "))";
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + amountSum +"") || needsView;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + amountSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
+    }
+    else
+    {
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + visitedSum + " - " + treatedSum +"") || needsView;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + visitedSum + " - " + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
+    }
+
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_visited", "(" + visitedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "(" + treatedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "(" + treatedSum + "/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + visitedSum + " - " + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
 //    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + visitedSum + "-" + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
     if (needsView)
     {
-      // treatment method and refusal reason are mutually exclusive, so change the relationship class
-      // depending on which is selected (we can safely default to treatment method is refusal reason is not chosen).
-      boolean hasReason = valueQuery.hasSelectableRef("childId_r") || valueQuery.hasSelectableRef("total_premises_not_treated")
-        || valueQuery.hasSelectableRef("percent_visited_not_treated");
       String idCol = QueryUtil.getIdColumn();
 
       MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseMethod.CLASS);
@@ -449,18 +463,18 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       String aGE = QueryUtil.getColumnName(AggregatedPremiseVisit.getGeoEntityMd());
       
       String viewSql;
-      if(hasReason)
+      if(byReasonNotTreated)
       {
         String aggPresmiseReaonTable = MdEntity.getMdEntity(AggregatedPremiseReason.CLASS).getTableName();
         String reasonCol = QueryUtil.getColumnName(IndividualPremiseVisit.getReasonsForNotTreatedMd());
         
         
-        viewSql = "SELECT  point, CASE WHEN " + visited + " is null THEN 0 ELSE 1 END AS "+ premises +", "+visited+
+        viewSql = "SELECT  point, " + visited + " AS "+ premises +", "+visited+
           " , " + treated + ", "+individualVisitTable+"."+idCol+" as visit, \n";
         viewSql += "CASE WHEN "+reasonCol+" is null THEN 0 ELSE 1 END AS amount, "+individualVisitTable+".id as id, term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+iGE+" AS geo_entity \n";
         viewSql += " FROM " + individualVisitTable + " individual_premise_visit LEFT JOIN term as term0 on "+individualVisitTable+"."+reasonCol+" = term0.id\n";
-        viewSql += "WHERE treated = 1"; // Ensure that only records that have been not been treated are included
+        viewSql += "WHERE "+visited+" IS NOT NULL";
         
         viewSql += " UNION ALL\n";
         
@@ -471,18 +485,18 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggPresmiseReaonTable + " "+aggPresmiseReaonTable+"  LEFT JOIN term as term0 on "+aggPresmiseReaonTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggPresmiseReaonTable+".parent_id = aggregated_premise_visit.id\n";
       }
-      else
+      else if(byTreatmentMethod)
       {
         String individualVisitMethodTable = MdEntity.getMdEntity(IndividualPremiseVisitMethod.CLASS).getTableName();
         String aggVisitMethodTable = MdEntity.getMdEntity(AggregatedPremiseMethod.CLASS).getTableName();
         String apAmount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
 
-        viewSql = "SELECT  point, CASE WHEN " + visited + " is null THEN 0 ELSE 1 END AS "+ premises +", "+visited+
+        viewSql = "SELECT  point, "+visited+" AS "+ premises +", "+visited+
           ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
         viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+iGE+" AS geo_entity \n";
         viewSql += " FROM " + individualVisitTable + " individual_premise_visit , " + individualVisitMethodTable + " "+individualVisitMethodTable+"  LEFT JOIN term as term0 on "+individualVisitMethodTable+".child_id = term0.id\n";
-        viewSql += " WHERE  "+individualVisitMethodTable+".parent_id = individual_premise_visit.id\n";
+        viewSql += " WHERE  "+individualVisitMethodTable+".parent_id = individual_premise_visit.id AND "+visited+" IS NOT null \n";
       
         viewSql += " UNION ALL\n";
       
@@ -490,7 +504,26 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql += " aggregated_premise_method.child_id as id,  term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+"  LEFT JOIN term as term0 on "+aggVisitMethodTable+".child_id = term0.id\n";
-        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id\n";
+        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
+      }
+      else
+      {
+        String individualVisitMethodTable = MdEntity.getMdEntity(IndividualPremiseVisitMethod.CLASS).getTableName();
+        String aggVisitMethodTable = MdEntity.getMdEntity(AggregatedPremiseMethod.CLASS).getTableName();
+        String apAmount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
+
+        viewSql = "SELECT  point, "+visited+" AS "+ premises +", "+visited+
+          ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
+        viewSql += individualVisitTable+"."+idCol+" AS id, "+iGE+" AS geo_entity \n";
+        viewSql += " FROM " + individualVisitTable + " individual_premise_visit , " + individualVisitMethodTable + " "+individualVisitMethodTable+" \n";
+        viewSql += " WHERE  "+individualVisitMethodTable+".parent_id = individual_premise_visit.id AND "+visited+" IS NOT null \n";
+      
+        viewSql += " UNION ALL\n";
+      
+        viewSql += " SELECT  point," + premises + ", " + visited + " , " + treated + ", " + apAmount + ", "+available+", "+included+", "+aggVisitMethodTable+".parent_id as visit, \n";
+        viewSql += " aggregated_premise_method.child_id as id, "+aGE+" AS geo_entity \n";
+        viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+" \n";
+        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
       }
 
 

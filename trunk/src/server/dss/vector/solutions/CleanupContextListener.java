@@ -22,7 +22,7 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.Request;
+import com.runwaysdk.session.StartSession;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
@@ -48,7 +48,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     doCleanup();
   }
 
-  @Request
+  @StartSession
   private void doCleanup()
   {
     // Clean up all database map views
@@ -56,7 +56,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     runSql(getDropSql());
   }
 
-  @Request
+  @StartSession
   public void contextInitialized(ServletContextEvent arg0)
   {
     SavedMap.cleanOldViews(System.currentTimeMillis());
@@ -404,6 +404,27 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "CREATE OR REPLACE FUNCTION sum_stringified_id_int_pairs(anyarray) RETURNS Double Precision AS $$ \n";
     sql += "SELECT \n";
     sql += "sum (split_part($1[i]::varchar,'~',2)::Double Precision) FROM \n";
+    sql += "generate_series(array_lower($1,1),  \n";
+    sql += "array_upper($1,1)) g(i);  \n";
+    sql += "$$ LANGUAGE sql IMMUTABLE; \n";
+    
+    sql += "CREATE OR REPLACE FUNCTION min_stringified_id_int_pairs(anyarray) RETURNS Double Precision AS $$ \n";
+    sql += "SELECT \n";
+    sql += "min (split_part($1[i]::varchar,'~',2)::Double Precision) FROM \n";
+    sql += "generate_series(array_lower($1,1),  \n";
+    sql += "array_upper($1,1)) g(i);  \n";
+    sql += "$$ LANGUAGE sql IMMUTABLE; \n";
+    
+    sql += "CREATE OR REPLACE FUNCTION max_stringified_id_int_pairs(anyarray) RETURNS Double Precision AS $$ \n";
+    sql += "SELECT \n";
+    sql += "max (split_part($1[i]::varchar,'~',2)::Double Precision) FROM \n";
+    sql += "generate_series(array_lower($1,1),  \n";
+    sql += "array_upper($1,1)) g(i);  \n";
+    sql += "$$ LANGUAGE sql IMMUTABLE; \n";
+    
+    sql += "CREATE OR REPLACE FUNCTION avg_stringified_id_int_pairs(anyarray) RETURNS Double Precision AS $$ \n";
+    sql += "SELECT \n";
+    sql += "avg (split_part($1[i]::varchar,'~',2)::Double Precision) FROM \n";
     sql += "generate_series(array_lower($1,1),  \n";
     sql += "array_upper($1,1)) g(i);  \n";
     sql += "$$ LANGUAGE sql IMMUTABLE; \n";
