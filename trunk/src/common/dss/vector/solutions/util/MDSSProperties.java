@@ -3,9 +3,10 @@ package dss.vector.solutions.util;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
-import com.runwaysdk.business.Business;
-import com.runwaysdk.dataaccess.MdDimensionDAOIF;
-import com.runwaysdk.session.Session;
+import com.runwaysdk.CommonExceptionProcessor;
+import com.runwaysdk.constants.BusinessDTOInfo;
+import com.runwaysdk.constants.ExceptionConstants;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 
 /**
  * A wrapper for access to the MDSS.properties bundle, this fixes isolated
@@ -16,16 +17,34 @@ import com.runwaysdk.session.Session;
 public class MDSSProperties
 {
   private static final String NAME = "MDSS";
-  private static ClassLoader LOADER = Business.class.getClassLoader();
+  private static ClassLoader LOADER = BusinessDTOInfo.class.getClassLoader();
 
   public static String getString(String key)
   {
-    return ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER).getString(key);
+    Locale locale = null;
+    try
+    {
+      locale = (Locale) LoaderDecorator.load("com.runwaysdk.session.Session").getMethod("getCurrentLocale").invoke(null);
+    }catch(Exception e)
+    {
+      CommonExceptionProcessor.processException(ExceptionConstants.ConversionException.getExceptionClass(), e.getLocalizedMessage());
+    }
+    
+    return ResourceBundle.getBundle(getBundleName(), locale, LOADER).getString(key);
   }
 
   public static Object getObject(String key)
   {
-    return ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER).getObject(key);
+    Locale locale = null;
+    try
+    {
+      locale = (Locale) LoaderDecorator.load("com.runwaysdk.session.Session").getMethod("getCurrentLocale").invoke(null);
+    }catch(Exception e)
+    {
+      CommonExceptionProcessor.processException(ExceptionConstants.ConversionException.getExceptionClass(), e.getLocalizedMessage());
+    }
+    
+    return ResourceBundle.getBundle(getBundleName(),locale, LOADER).getObject(key);
   }
   
   public static String getString(String key, Locale locale)
@@ -42,14 +61,20 @@ public class MDSSProperties
   
   private static String getBundleName()
   {
-    MdDimensionDAOIF currentDimension = Session.getCurrentDimension();
-    if (currentDimension!=null)
+    Object dimension = null;
+    try
     {
-      return NAME +  "-" + currentDimension.getName();
-    }
-    else
+      dimension = (Locale) LoaderDecorator.load("com.runwaysdk.session.Session").getMethod("getCurrentDimension").invoke(null);
+      if (dimension!=null)
+      {
+        String name = (String) LoaderDecorator.load("com.runwaysdk.dataaccess.MdDimensionDAOIF").getMethod("getName").invoke(dimension);
+        return NAME +  "-" + name;
+      }
+    }catch(Exception e)
     {
-      return NAME;
+      CommonExceptionProcessor.processException(ExceptionConstants.ConversionException.getExceptionClass(), e.getLocalizedMessage());
     }
+    
+    return NAME;
   }
 }
