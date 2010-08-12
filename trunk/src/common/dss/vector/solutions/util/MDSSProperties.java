@@ -64,7 +64,7 @@ public class MDSSProperties
     Object dimension = null;
     try
     {
-      dimension = (Locale) LoaderDecorator.load("com.runwaysdk.session.Session").getMethod("getCurrentDimension").invoke(null);
+      dimension = LoaderDecorator.load("com.runwaysdk.session.Session").getMethod("getCurrentDimension").invoke(null);
       if (dimension!=null)
       {
         String name = (String) LoaderDecorator.load("com.runwaysdk.dataaccess.MdDimensionDAOIF").getMethod("getName").invoke(dimension);
