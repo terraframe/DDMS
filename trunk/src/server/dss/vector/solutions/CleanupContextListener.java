@@ -22,7 +22,7 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.StartSession;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
@@ -48,7 +48,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     doCleanup();
   }
 
-  @StartSession
+  @Request
   private void doCleanup()
   {
     // Clean up all database map views
@@ -56,7 +56,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     runSql(getDropSql());
   }
 
-  @StartSession
+  @Request
   public void contextInitialized(ServletContextEvent arg0)
   {
     SavedMap.cleanOldViews(System.currentTimeMillis());
