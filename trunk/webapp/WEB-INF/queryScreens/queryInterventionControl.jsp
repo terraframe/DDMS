@@ -272,7 +272,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     insecticideInterventionColumns = insecticideInterventionColumns.concat(insecticideBrandColumns);
 
-    var calculationsSection = "Calculations";
+    var calculationsSection = "Calculations_for_premises_visit_outcome";
  
       var selectableGroups = [
                 {title:"Intervention_Monitoring", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},

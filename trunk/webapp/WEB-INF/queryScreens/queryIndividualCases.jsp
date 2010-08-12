@@ -143,7 +143,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var physicianPrepend = MDSS.localize('Physician_Prepend');
     for(var p=0; p<physicianColumns.length; p++)
     {
-      physicianColumns[p].displayLabel = physicianPrepend+' '+physicianColumns[p].displayLabel;
+      physicianColumns[p].displayLabel = physicianPrepend+' '+physicianColumns[p].displayLabel.toLowerCase();
     }
     
     var calculations = ([

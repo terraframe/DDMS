@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<c:set var="page_title" value="Adult_DDA"  scope="request"/>
+<c:set var="page_title" value="Edit_Adult_DDA"  scope="request"/>
 
 
 <mjl:messages>

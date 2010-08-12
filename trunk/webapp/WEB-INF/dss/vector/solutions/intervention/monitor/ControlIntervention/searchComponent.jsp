@@ -2,7 +2,7 @@
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
-<c:set var="page_title" value="Control_intervention"  scope="request"/>
+<c:set var="page_title" value="Edit_Control_intervention"  scope="request"/>
 
 <mjl:form name="ControlIntervention.search" method="POST" id="ControlIntervention">
   <dl>

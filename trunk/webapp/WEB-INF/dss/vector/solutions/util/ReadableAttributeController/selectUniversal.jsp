@@ -58,9 +58,9 @@
     <dt><label><f:message key="Configure_Epi_Week"/></label></dt>
     <dd>
       <mjl:commandLink
-        name="Configure_Epi_Week"
+        name="Epi_Week"
         action="${action}?actor=${actor}&universal=dss.vector.solutions.general.EpiConfiguration">
-        <f:message key="Configure_Epi_Week"/>
+        <f:message key="Epi_Week"/>
       </mjl:commandLink>
     </dd>    
     

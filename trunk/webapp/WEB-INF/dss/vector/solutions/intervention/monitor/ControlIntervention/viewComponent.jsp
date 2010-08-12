@@ -20,7 +20,7 @@
 <%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.PersonInterventionMethodViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.InsecticideInterventionViewDTO"%>
-<%@page import="dss.vector.solutions.irs.InsecticideBrandLabelDTO"%><c:set var="page_title" value="Control_intervention"  scope="request"/>
+<%@page import="dss.vector.solutions.irs.InsecticideBrandLabelDTO"%><c:set var="page_title" value="Edit_Control_intervention"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
