@@ -8,7 +8,6 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
@@ -169,7 +168,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     select += "'' AS structure_id,\n";
     select += "'' AS sprayoperator,\n";
     select += "'' sprayoperator_defaultLocale,\n";
-    select += "NULL AS operator_week,\n";
+//    select += "NULL AS operator_week,\n";
     select += "NULL AS operator_target,\n";
     // team stuff
     select += "" + teamSprayStatusTable + "." + sprayTeamCol + " AS sprayteam,\n";

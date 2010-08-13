@@ -7,7 +7,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdBusiness;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 

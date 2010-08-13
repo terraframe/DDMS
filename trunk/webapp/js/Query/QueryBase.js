@@ -1048,6 +1048,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     {
       var queryXML = new MDSS.QueryXML.Query();
   
+      // get the order of the selectables for sorting
+      var columnSet = this._queryPanel.getColumnSet();
+      var columns = columnSet.keys;
+      var order = Mojo.Iter.map(columns, function(col){ return col.getKey(); });
+      this._config.setProperty('sortOrder', order);
+      
       // Add GeoEntity criteria on any geo attribute
       var attributeKeys = Mojo.Util.getKeys(this._allPathQueries);
       for(var i=0; i<attributeKeys.length; i++)

@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -7,6 +8,8 @@ import java.util.Map;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
@@ -20,6 +23,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
@@ -309,6 +313,15 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       QueryUtil.subselectGeoDisplayLabels(subGeo, IndividualPremiseVisit.CLASS, IndividualPremiseVisit.GEOENTITY, individualPremiseVisitQuery.getTableAlias() + "." + "id");
     }
 
+    // include InvidualPremiseVisitQuery if the user is selecting the calculation columns.
+    if(setIndividualCalculations(valueQuery))
+    {
+      if (individualPremiseVisitQuery == null)
+      {
+        individualPremiseVisitQuery = new IndividualPremiseVisitQuery(valueQuery);
+      }
+    }
+    
     if (individualPremiseVisitQuery != null)
     {
 
@@ -320,6 +333,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       }
 
       valueQuery.WHERE(individualPremiseVisitQuery.getPoint().EQ(controlInterventionQuery));
+      valueQuery.AND(individualPremiseVisitQuery.getVisited().NE((Boolean) null)); // a nullified visit field MUST be excluded entirely
     }
     
     // Grab the sub-geoentity for aggregated intervention. Note that vehicle-based spraying
@@ -559,7 +573,78 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
     return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate());
+  }
+  
+  /**
+   * Attempts to set IndividualPremiseVisit calculations on the value query.
+   * @param valueQuery
+   * @return true if the calculations were specified and added; otherwise, false.
+   */
+  private static boolean setIndividualCalculations(ValueQuery valueQuery)
+  {
+    final String suffix = "_ind"; // suffix used in the query screen.
+    MdAttributeDAOIF[] attribs = new MdAttributeDAOIF[]{IndividualPremiseVisit.getVisitedMd(), IndividualPremiseVisit.getTreatedMd(), 
+        IndividualPremiseVisit.getReasonsForNotTreatedMd()};
+    
+    boolean added = false;
+    Map<String, Selectable> total = new HashMap<String, Selectable>();
+    List<String> agg = new LinkedList<String>();
+    for(MdAttributeDAOIF attrib : attribs)
+    {
+      String alias = attrib.definesAttribute()+suffix;
+      if(valueQuery.hasSelectableRef(alias))
+      {
+        added = true;
+        
+        Selectable sel = valueQuery.getSelectableRef(alias);
+        
+        SelectableSQL selSQL;
+        if(sel instanceof Function)
+        {
+          selSQL = (SelectableSQL) ((Function)sel).getSelectable();
+          agg.add(alias);
+        }
+        else
+        {
+          selSQL = (SelectableSQL) sel;
+        }
+        
+        total.put(alias, sel);
 
+        String col = QueryUtil.getColumnName(attrib);
+        
+        String sql;
+        if(attrib instanceof MdAttributeBooleanDAOIF)
+        {
+          // nulls will be excluded (set in WHERE criteria), so treating the boolean
+          // values 0 or 1 as integers is perfectly fine.
+          sql = col;
+        }
+        else
+        {
+          // A value in a reference attribute is treated as boolean true (1)
+          sql = "CASE WHEN "+col+" IS null THEN 0 ELSE 1 END";
+        }
+        
+        selSQL.setSQL(sql);
+      }
+    }
+    
+    // group by the other selectables that are not aggregates
+    if(agg.size() > 0)
+    {
+      for(String aggAlias : agg)
+      {
+        total.remove(aggAlias);
+      }
+      
+      for(Selectable toGroup : total.values())
+      {
+        valueQuery.GROUP_BY((SelectableSingle) toGroup);
+      }
+    }
+    
+    return added;
   }
   
   /**

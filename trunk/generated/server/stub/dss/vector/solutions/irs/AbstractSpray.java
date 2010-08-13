@@ -1,7 +1,6 @@
 package dss.vector.solutions.irs;
 
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map;
 
 import org.json.JSONArray;
@@ -23,7 +22,6 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.IncidencePopulationException;

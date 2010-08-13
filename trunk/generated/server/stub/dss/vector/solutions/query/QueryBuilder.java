@@ -6,6 +6,10 @@ import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.runwaysdk.RunwayException;
 import com.runwaysdk.business.SmartException;
 import com.runwaysdk.business.rbac.Authenticate;
@@ -79,6 +83,29 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       ProgrammingErrorException ex = new ProgrammingErrorException(t);
       throw ex;
     }
+
+    // Enforce a sort order
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+      JSONArray sortOrder = queryConfig.getJSONArray("sortOrder");
+      for(int i=0; i<sortOrder.length(); i++)
+      {
+        String alias = sortOrder.getString(i);
+        Selectable sel = valueQuery.getSelectableRef(alias);
+        
+        if(sel instanceof SelectablePrimitive)
+        {
+          valueQuery.ORDER_BY_ASC((SelectablePrimitive) sel);
+        }
+      }
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+    
     
     // IMPORTANT: Keep this debug here because the generated SQL is
     // required for even the most basic query screen troubleshooting.

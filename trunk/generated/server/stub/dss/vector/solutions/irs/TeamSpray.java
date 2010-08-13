@@ -203,8 +203,8 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     // zone stuff
     select += "''::TEXT AS zone_supervisor,\n";
     select += "''::TEXT AS zone_supervisor_defaultLocale,\n";
-    select += "NULL::INT  AS zone_week,\n";
-    select += "NULL::INT  AS zone_target,\n";
+//    select += "NULL::INT  AS zone_week,\n";
+//    select += "NULL::INT  AS zone_target,\n";
     // target stuff
     select += "sprayseason.id  AS spray_season,\n";
     

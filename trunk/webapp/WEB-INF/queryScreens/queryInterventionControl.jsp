@@ -179,16 +179,39 @@ YAHOO.util.Event.onDOMReady(function(){
     var controlInterventionColumns =   controlInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:controlIntervention, suffix:'_ci', dropDownMaps:{}});
 
     var individualPremiseVisit = new dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
-    var individualPremiseVisitAttribs = [ "visited","treated","reasonsForNotTreated"];
+    var individualPremiseVisitAttribs = [];
 
-    var individualPremiseVisitColumns = [{
-      key:"subGeoEntity_ic",
-      displayLabel: MDSS.localize('Sub_Geo_Entity'),
-      type:"sqlcharacter",
-      attributeName:"subGeoEntity",
-      dtoType:"AttributeCharacterDTO",
-      isGeoEntity : true
-      }];
+    var individualPremiseVisitColumns = [
+      {
+        key:"subGeoEntity_ic",
+        displayLabel: MDSS.localize('Sub_Geo_Entity'),
+        type:"sqlcharacter",
+        attributeName:"subGeoEntity",
+        dtoType:"AttributeCharacterDTO",
+        isGeoEntity : true
+      },
+      {
+        key: individualPremiseVisit.constructor.VISITED+'_ind',
+        type:"sqlfloat",
+        displayLabel:individualPremiseVisit.getVisitedMd().getDisplayLabel(),
+        attributeName:'visited',
+        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+      },
+      {
+        key:individualPremiseVisit.constructor.TREATED+'_ind',
+        type:"sqlfloat",
+        displayLabel:individualPremiseVisit.getTreatedMd().getDisplayLabel(),
+        attributeName:'treated',
+        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+      },
+      {
+        key:individualPremiseVisit.constructor.REASONSFORNOTTREATED+'_ind',
+        type:"sqlfloat",
+        displayLabel:individualPremiseVisit.getReasonsForNotTreatedMd().getDisplayLabel(),
+        attributeName:'reasonsForNotTreated',
+        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+      } 
+    ];
     individualPremiseVisitColumns =   individualPremiseVisitColumns.concat(individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps}));
     
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
