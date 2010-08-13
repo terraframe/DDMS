@@ -40,7 +40,18 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
     PupalCollectionView collection = getCollection();
     
     PupalContainerView container = new PupalContainerView();
-    container.setContainerId(this.getContainerId());
+    
+    String cid = this.getContainerId();
+    if (cid.length()==0)
+    {
+      ContainerIdRequiredProblem problem = new ContainerIdRequiredProblem();
+      problem.throwIt();
+    }
+    else
+    {
+      container.setContainerId(cid);
+    }
+    
     container.setContainerType(Term.validateByDisplayLabel(this.getContainerType(), PupalContainerView.getContainerTypeMd()));
     container.addShape(ExcelEnums.getContainerShape(this.getShape()));
     container.setHeight(this.getHeight());
