@@ -234,7 +234,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     String pupalContainerTable = MdBusiness.getMdBusiness(PupalContainer.CLASS).getTableName();
     String pupalContainerAmmountTable = MdBusiness.getMdEntity(PupalContainerAmount.CLASS).getTableName();
     
-    String numberExaminedSum = "avg_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + numberExamined + "))";
+    String numberExaminedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + numberExamined + "))";
     String numberSizeSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + premiseSize + "))";
     String numberInhabitantsSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + numberInhabitants + "))";  
     
