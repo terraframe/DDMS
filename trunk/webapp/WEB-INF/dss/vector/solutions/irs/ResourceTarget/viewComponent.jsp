@@ -25,8 +25,8 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-	var calculatedTargets = <%=request.getAttribute("calculatedTargets")%>;
-	
+    var calculatedTargets = <%=request.getAttribute("calculatedTargets")%>;
+  
     var data = {
       rows:<%=grid.getData()%>,
       columnDefs:<%=grid.getColumnSetup("")%>,
@@ -41,10 +41,6 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       }
     };
     
-    var grid = MojoGrid.createDataTable(data);
-
-    var dt = grid.getDataTable();
-
     var setRowCaluatedValues = function(row) {
       var targeterId = row.getData('Targeter');      
       var calulated = calculatedTargets[targeterId];
@@ -71,7 +67,22 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       }
     }
 
-    dt.getRecordSet().getRecords().map(setRowCaluatedValues);    
+    var showCalculatedValues = function() {
+      dt.getRecordSet().getRecords().map(setRowCaluatedValues);            
+    }
+
+    var listener = function(event) {
+      if(event.getType() == MDSS.Event.AFTER_SAVE) {
+        showCalculatedValues();
+      }
+    }
+
+    var grid = MojoGrid.createDataTable(data);
+    var dt = grid.getDataTable();
+    
+    grid.addListener(listener);
+    
+    showCalculatedValues();
   });
 })();                  
 </script>
