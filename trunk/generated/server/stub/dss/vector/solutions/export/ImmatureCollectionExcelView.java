@@ -140,7 +140,7 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllUrban())
     {
       builder.add(hierarchy);
     }
