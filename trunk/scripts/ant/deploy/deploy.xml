@@ -356,19 +356,19 @@
 	</target>
 
 	<target name="compile_generated">
-		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${local.bin}" sourceroots="${local.src}" debug="true" source="1.6" target="1.6" aspectpath="${common.lib}/runwaysdk-common.jar;${server.lib}/runwaysdk-server.jar;${client.lib}/runwaysdk-client.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.6" target="1.6" aspectpath="${common.lib}/runwaysdk-common.jar"  maxmem="1024m">
 			<classpath refid="framework.classpath" />
 		</iajc>
-		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.6" target="1.6" aspectpath="${common.lib}/runwaysdk-common.jar;${client.lib}/runwaysdk-client.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
 			</classpath>
 		</iajc>
-		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc destdir="${server.bin}" sourceroots="${server.src}" debug="true" source="1.6" target="1.6" aspectpath="${common.lib}/runwaysdk-common.jar;${server.lib}/runwaysdk-server.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
@@ -405,7 +405,7 @@
 			<arg value="${deploy.profile}" />
 			<arg value="$$${deploy.appname}_tmp" />
 			<classpath>
-				<fileset file="${local.lib}/runwaysdk.jar" />
+				<fileset file="${common.lib}/runwaysdk-common.jar" />
 				<pathelement location="${profile.root}" />
 			</classpath>
 		</java>
@@ -514,7 +514,7 @@
 
 		<!-- compile and jar the application library (e.g., servlet filters) -->
 		<!-- You can comment this section out to speed up deploy if you want to use the class files produced by eclipse -->
-		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.6" target="1.6" aspectpath="${local.lib}/runwaysdk.jar"  maxmem="1024m">
+		<iajc sourceroots="${local.src}" destDir="${deploy.bin}" debug="true" source="1.6" target="1.6" aspectpath="${common.lib}/runwaysdk-common.jar;${server.lib}/runwaysdk-server.jar;${client.lib}/runwaysdk-client.jar"  maxmem="1024m">
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${client.bin}" />

@@ -17,7 +17,7 @@
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" location="/usr/bin/" />
+	<property name="postgres.bin" location="/Library/PostgreSQL/8.4/bin/" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
@@ -827,7 +827,7 @@
 		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/individual/schema(0001238646707001).xml" overwrite="true" />
 		<copy file="../../../webapp/imgs/flags/${geodata.db}.gif" tofile="../../../webapp/imgs/flags/current" overwrite="true" />
 	</target>
-	
+
 	<target name="sleep" depends="">
 		<echo message="Starting the build in 15 seconds..." />
 		<sleep seconds="15" />
