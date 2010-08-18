@@ -287,6 +287,14 @@ public class GeoEntitySearcher implements Reloadable
               // do nothing.  We found an exact match, which is what we wanted
 //MdssLog.debug("match: "+geoEntityList.get(0).getEntityName());
             }
+            /*
+             
+            This final else condition accounts for an ambiguous geo entry.
+            However, we really are just checking for unknown entries which
+            can have synonyms attached to them.  Exceptions about ambiguous
+            entries should be thrown in the context of the import, where
+            row number can be captured and returned to the user.
+             
             else // geoEntityList.size() > 1
             {
               String msg = "Geo Entity ending with [" + endPointEntityName + "] is ambiguous (It has more than one possible solution)";
@@ -295,6 +303,7 @@ public class GeoEntitySearcher implements Reloadable
               e.apply();
               throw e;
             }
+            */
 
           } // if (!endPointEntityName.trim().equals(""))
 
