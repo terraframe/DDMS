@@ -222,11 +222,12 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     + "AND spray_target_view.season_id = sprayseason.id \n"
 //    + "AND spray_target_view.target_week = "+operSprayTable+"." + operSprayWeekCol
         + ") AS planed_operator_target,\n";
-    
-    select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+operSprayTable+"." + sprayTeamCol + " \n" 
-    + "AND spray_target_view.season_id = sprayseason.id \n"
-//    + "AND spray_target_view.target_week = "+operSprayTable+"." + teamSprayWeekCol
-        + ") AS planed_team_target,\n";
+
+    /* TODO IRS*/
+//    select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+operSprayTable+"." + sprayTeamCol + " \n" 
+//    + "AND spray_target_view.season_id = sprayseason.id \n"
+////    + "AND spray_target_view.target_week = "+operSprayTable+"." + teamSprayWeekCol
+//        + ") AS planed_team_target,\n";
 
     String diseaseCol = QueryUtil.getColumnName(OperatorSpray.getDiseaseMd());
     select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+","+abstractSprayTable+"."+sprayDateCol+","+operSprayTable+"."+diseaseCol+""

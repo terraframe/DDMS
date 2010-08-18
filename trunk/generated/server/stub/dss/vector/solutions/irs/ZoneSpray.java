@@ -187,10 +187,11 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
 
     select += "NULL AS planed_operator_target,\n";
 
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n"
-           + "AND spray_target_view.season_id = sprayseason.id \n"
-//           + "AND spray_target_view.target_week = " + teamSprayStatusTable + "." + teamSprayWeekCol
-           + ") AS planed_team_target,\n";
+    /* TODO IRS*/
+//    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n"
+//           + "AND spray_target_view.season_id = sprayseason.id \n"
+////           + "AND spray_target_view.target_week = " + teamSprayStatusTable + "." + teamSprayWeekCol
+//           + ") AS planed_team_target,\n"; 
 
     String diseaseCol = QueryUtil.getColumnName(ZoneSpray.getDiseaseMd());
     select += "get_seasonal_spray_target_by_geoEntityId_and_date(" + abstractSprayTable + "." + geoEntityCol + "," + abstractSprayTable + "." + sprayDateCol+","+zoneSprayTable+"."+diseaseCol+""

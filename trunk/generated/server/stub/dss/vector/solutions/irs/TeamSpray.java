@@ -214,10 +214,11 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
 //        + "AND spray_target_view.target_week = "+operSprayStatusTable+"." + operSprayWeekCol
         + ") AS planed_operator_target,\n";
     
-    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
-        + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = " + teamSprayTable+ "." + teamSprayWeekCol
-        + ") AS planed_team_target,\n";
+    /* TODO IRS*/
+//    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
+//        + "AND spray_target_view.season_id = sprayseason.id \n"
+////        + "AND spray_target_view.target_week = " + teamSprayTable+ "." + teamSprayWeekCol
+//        + ") AS planed_team_target,\n";
 
     String diseaseCol = QueryUtil.getColumnName(TeamSpray.getDiseaseMd());
     select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+", "+abstractSprayTable+"."+sprayDateCol+","+teamSprayTable+"."+diseaseCol+""

@@ -8,7 +8,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.ValueQuery;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.LocatedIn;

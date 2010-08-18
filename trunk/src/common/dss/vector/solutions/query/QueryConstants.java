@@ -41,6 +41,12 @@ public class QueryConstants implements Reloadable
   public static final String DOB_CRITERIA = "dobCriteria";
 
   private static final String NAMESPACE_DELIM = ":";
+  
+  /*
+   * Constant used to query IndividualPremiseVisit.REASONSFORNOTTREATED
+   * in the Intervention Control query builder.
+   */
+  public static final String REASONS_FOR_NOT_TREATED_PREFIX = "r__";
 
   public enum QueryType implements Reloadable {
     

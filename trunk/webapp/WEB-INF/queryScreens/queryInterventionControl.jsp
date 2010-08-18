@@ -203,19 +203,36 @@ YAHOO.util.Event.onDOMReady(function(){
         displayLabel:individualPremiseVisit.getTreatedMd().getDisplayLabel(),
         attributeName:'treated',
         dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
-      },
+      }
+
+      /*
       {
         key:individualPremiseVisit.constructor.REASONSFORNOTTREATED+'_ind',
         type:"sqlfloat",
         displayLabel:individualPremiseVisit.getReasonsForNotTreatedMd().getDisplayLabel(),
         attributeName:'reasonsForNotTreated',
         dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
-      } 
+      }
+      */ 
     ];
     individualPremiseVisitColumns =   individualPremiseVisitColumns.concat(individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps}));
     
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
 
+    var reasons = <%= request.getAttribute("reasons") %>;
+    var reasonCols = [];
+    for(var i=0; i<reasons.length; i++)
+    {
+      var reason = reasons[i];
+      reasonCols.push({
+        key: reason.key,
+        displayLabel: reason.label,
+        attributeName: reason.key,
+        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+        type:'sqlfloat'
+      });
+    }
+    individualPremiseVisitColumns = individualPremiseVisitColumns.concat(reasonCols);
     
     var aggregatedPremiseVisit = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
     var aggregatedPremiseVisitAttribs = ["premises","visited","treated"];
@@ -230,8 +247,8 @@ YAHOO.util.Event.onDOMReady(function(){
       }];
     aggregatedPremiseVisitColumns =   aggregatedPremiseVisitColumns.concat(aggregatedPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedPremiseVisit, suffix:'_ip', dropDownMaps:aggregatedPremiseVisitMaps}));
     
-    aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionReasons));
     aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionMethods));
+    aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionReasons));
     
     var personIntervention = new dss.vector.solutions.intervention.monitor.PersonIntervention;
     var personInterventionAttribs = ["vehicleDays"];

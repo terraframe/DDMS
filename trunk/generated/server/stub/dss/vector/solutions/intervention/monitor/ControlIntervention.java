@@ -33,7 +33,9 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ControlIntervention extends ControlInterventionBase implements com.runwaysdk.generation.loader.Reloadable
@@ -285,7 +287,8 @@ public class ControlIntervention extends ControlInterventionBase implements com.
             personInterventionQuery = new PersonInterventionQuery(valueQuery);
             break;
           }
-          else if(individualPremiseVisitQuery == null && alias.contains(IndividualPremiseVisitMethod.CLASS.replaceAll("\\.", "_")))
+          else if(individualPremiseVisitQuery == null && 
+              (alias.contains(IndividualPremiseVisitMethod.CLASS.replaceAll("\\.", "_")) || alias.startsWith(QueryConstants.REASONS_FOR_NOT_TREATED_PREFIX)))
           {
             individualPremiseVisitQuery = new IndividualPremiseVisitQuery(valueQuery);
             break;
@@ -460,6 +463,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
+    String reasonCol = QueryUtil.getColumnName(IndividualPremiseVisit.getReasonsForNotTreatedMd());
     if (needsView)
     {
       String idCol = QueryUtil.getIdColumn();
@@ -478,7 +482,6 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       if(byReasonNotTreated)
       {
         String aggPresmiseReaonTable = MdEntity.getMdEntity(AggregatedPremiseReason.CLASS).getTableName();
-        String reasonCol = QueryUtil.getColumnName(IndividualPremiseVisit.getReasonsForNotTreatedMd());
         
         String pvu2 = "";
         pvu2 += "   SELECT  point, visited AS premises, visited, treated, individual_premise_visit.id as visit \n";
@@ -580,6 +583,31 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       
     }
 
+    // Set the SQL for IndividualPremiseVisitView.REASONSFORNOTTREATED, which although a reference
+    // attribute it is treated more like a grid.
+    for(Selectable sel : valueQuery.getSelectableRefs())
+    {
+      String alias = sel.getUserDefinedAlias();
+      if(alias.startsWith(QueryConstants.REASONS_FOR_NOT_TREATED_PREFIX))
+      {
+        String termId = alias.substring((QueryConstants.REASONS_FOR_NOT_TREATED_PREFIX).length());
+        sel.setColumnAlias("_"+termId.substring(0, 32)); // Make the column alias shorter so it won't be truncated
+        String sql = "CASE WHEN "+reasonCol+" = '"+termId+"' THEN 1 ELSE 0 END";
+        
+        SelectableSQL selSql;
+        if(sel instanceof Function)
+        {
+          selSql = (SelectableSQL) ((Function)sel).getSelectable();
+        }
+        else
+        {
+          selSql = ((SelectableSQL)sel);
+        }
+          
+        selSql.setSQL(sql);
+      }
+    }
+    
     QueryUtil.joinGeoDisplayLabels(valueQuery, ControlIntervention.CLASS, controlInterventionQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);

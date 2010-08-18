@@ -1003,10 +1003,25 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       interventionMethods.put("relAttribute", IndividualPremiseVisitMethodDTO.USED);
       interventionMethods.put("options", getAllTermsForGrid(request, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitViewDTO.INTERVENTIONMETHOD));
       ordered.put("individualPremiseVisitMethod", interventionMethods);
+      
+      // Treat IndividualPremiseVisitDTO.REASONSFORNOTTREATED more like a Grid instead of a reference attribute.
+      TermDTO[] reasons = TermDTO.getAllTermsForField(request, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitViewDTO.REASONSFORNOTTREATED);
+      JSONArray reasonsArr = new JSONArray();
+      for(TermDTO reason : reasons)
+      {
+        JSONObject r = new JSONObject();
+        r.put("id", reason.getId());
+        r.put("key", QueryConstants.REASONS_FOR_NOT_TREATED_PREFIX+reason.getId());
+        r.put("label", reason.getDisplayLabel());
+        reasonsArr.put(r);
+      }
+      req.setAttribute("reasons", reasonsArr.toString());
 
+      
       ClassQueryDTO aim = request.getQuery(AggregatedPremiseVisitDTO.CLASS);
       String aimap = Halp.getDropDownMaps(aim, request, ", ");
       req.setAttribute("aggregatedPremiseVisit", aimap);
+      
 
       JSONObject aggInterventionMethods = new JSONObject();
       aggInterventionMethods.put("type", TermDTO.CLASS);
