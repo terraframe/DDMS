@@ -416,6 +416,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     boolean byReasonNotTreated = valueQuery.hasSelectableRef("childId_r");
     
     String view = "premiseVisitUnion";
+    String view2 = "premiseVisitUnion2";
     MdEntityDAOIF visitMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseVisit.CLASS);
     String available = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.PREMISESAVAILABLE);
     String included = QueryUtil.getColumnName(visitMd, AggregatedPremiseVisit.PREMISESINCLUDED);
@@ -429,22 +430,21 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     String includedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + view+"."+included + "))";
     
     String treatedCol = byTreatmentMethod ? used : treated;
-    String treatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + treatedCol + "))";
-    String premisesSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + premises + "))";
-    String visitedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + visited + "))";
-//    String notTreatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " +amount + "))";
-
+    String treatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(byReasonNotTreated ? view2 : view)+".visit || '~' || " + treatedCol + "))";
+    String premisesSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(byReasonNotTreated ? view2 : view)+".visit || '~' || " + premises + "))";
+    String visitedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(byReasonNotTreated ? view2 : view)+".visit || '~' || " + visited + "))";
     
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_available_for_vehicle_spraying", "" + availableSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_included_for_vehicle_spraying", "" + includedSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_treated_with_vehicle_spraying", "(" + includedSum + "/NULLIF(" + availableSum + ",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_available", "" + premisesSum + "") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", "" + visitedSum + "") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", "" + treatedSum) || needsView;
+
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_available",  premisesSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", visitedSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", treatedSum) || needsView;
     
     if(byReasonNotTreated)
     {
-      String amountSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + amount + "))";
+      String amountSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+view+".visit || '~' || " + view+"."+amount + "))";
       needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + amountSum +"") || needsView;
       needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + amountSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     }
@@ -457,7 +457,6 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_visited", "(" + visitedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "(" + treatedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "(" + treatedSum + "/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
-//    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + visitedSum + "-" + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
@@ -476,15 +475,22 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       String iGE = QueryUtil.getColumnName(IndividualPremiseVisit.getGeoEntityMd());
       String aGE = QueryUtil.getColumnName(AggregatedPremiseVisit.getGeoEntityMd());
       
-      String viewSql;
       if(byReasonNotTreated)
       {
         String aggPresmiseReaonTable = MdEntity.getMdEntity(AggregatedPremiseReason.CLASS).getTableName();
         String reasonCol = QueryUtil.getColumnName(IndividualPremiseVisit.getReasonsForNotTreatedMd());
         
+        String pvu2 = "";
+        pvu2 += "   SELECT  point, visited AS premises, visited, treated, individual_premise_visit.id as visit \n";
+        pvu2 += "   FROM individual_premise_visit individual_premise_visit \n";
+        pvu2 += "   WHERE  visited IS NOT null \n"; 
+        pvu2 += "   UNION ALL \n";
+        pvu2 += "   SELECT  point,premises, visited , treated, aggregated_premise_visit.id as visit \n";
+        pvu2 += "   FROM aggregated_premise_visit aggregated_premise_visit \n";
+        pvu2 += "   WHERE  visited IS NOT null \n";
         
-        viewSql = "SELECT  point, " + visited + " AS "+ premises +", "+visited+
-          " , " + treated + ", "+individualVisitTable+"."+idCol+" as visit, \n";
+        String  viewSql = "";
+        viewSql = "SELECT  point, "+individualVisitTable+"."+idCol+" as visit, \n";
         viewSql += "CASE WHEN "+reasonCol+" is null THEN 0 ELSE 1 END AS amount, "+individualVisitTable+".id as id, term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+iGE+" AS geo_entity \n";
         viewSql += " FROM " + individualVisitTable + " individual_premise_visit LEFT JOIN term as term0 on "+individualVisitTable+"."+reasonCol+" = term0.id\n";
@@ -492,12 +498,15 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         
         viewSql += " UNION ALL\n";
         
-        viewSql += " SELECT  point," + premises + ", " + visited + 
-          " , " + treated + ", "+aggPresmiseReaonTable+".parent_id as visit, \n";
+        viewSql += " SELECT  point, "+aggPresmiseReaonTable+".parent_id as visit, \n";
         viewSql += " "+amount+", "+aggPresmiseReaonTable+".id as id,  term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggPresmiseReaonTable + " "+aggPresmiseReaonTable+"  LEFT JOIN term as term0 on "+aggPresmiseReaonTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggPresmiseReaonTable+".parent_id = aggregated_premise_visit.id\n";
+        
+        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + "),\n "+view2+" AS ("+pvu2+")");
+        valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
+        valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view2, view2));
       }
       else if(byTreatmentMethod)
       {
@@ -505,6 +514,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         String aggVisitMethodTable = MdEntity.getMdEntity(AggregatedPremiseMethod.CLASS).getTableName();
         String apAmount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
 
+        String viewSql = "";
         viewSql = "SELECT  point, "+visited+" AS "+ premises +", "+visited+
           ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
         viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel,\n";
@@ -519,6 +529,9 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql += " term0.id AS "+viewTerm+", "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+"  LEFT JOIN term as term0 on "+aggVisitMethodTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
+
+        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
+        valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
       }
       else
       {
@@ -526,6 +539,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         String aggVisitMethodTable = MdEntity.getMdEntity(AggregatedPremiseMethod.CLASS).getTableName();
         String apAmount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
 
+        String viewSql = "";
         viewSql = "SELECT  point, "+visited+" AS "+ premises +", "+visited+
           ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
         viewSql += individualVisitTable+"."+idCol+" AS id, "+iGE+" AS geo_entity \n";
@@ -538,11 +552,11 @@ public class ControlIntervention extends ControlInterventionBase implements com.
         viewSql += " aggregated_premise_method.child_id as id, "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+" \n";
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
+      
+        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
+        valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
       }
 
-
-      valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
-      valueQuery.AND(new InnerJoinEq("id", controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
 
       // join the sub-geoentity if we're querying vehicle-based spraying
       if(vehicleBasedSprayGeo)
