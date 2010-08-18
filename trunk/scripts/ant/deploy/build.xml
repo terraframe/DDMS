@@ -13,7 +13,7 @@
 	<property name="root.user" value="postgres" />
 	<property name="root.pass" value="postgres" />
 	<property name="root.db" value="template_postgis" />
-	<property name="max_memory_use" value="2048M" />
+	<property name="max_memory_use" value="1400m" />
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
@@ -36,7 +36,7 @@
 	<!-- so that posgres does not require a password from localhost  -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="build_all" depends="copy_country_schema,develop_rebuild_import,deploy_all_files,import_ontology,import_geodata,develop_build_all_paths_ontology,develop_build_all_paths_geodata,import_ontology_roots,import_menuitems,develop_create_univeral_queries,import_localization_data,load_permissions" description="Rebuild Develop from scratch and then copy everything to deploy.">
+	<target name="build_all" depends="copy_country_schema,develop_rebuild_import,deploy_all_files,import_ontology,import_geodata,develop_build_all_paths_ontology,develop_build_all_paths_geodata,import_ontology_roots,import_menuitems,develop_create_univeral_queries,import_localization_data,load_permissions, copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
 		<echo message="Building All" />
 	</target>
 
@@ -145,8 +145,6 @@
 
 	<!-- Deploy Incremental Schema Update -->
 	<target name="deploy_incremental_schema_update_and_files" depends="deploy_all_application_files, deploy_incremental_schema_update, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
-		<antcall target="call_reload_jsp">
-		</antcall>
 	</target>
 	<!-- depends="deploy_delete_generated_all, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes" -->
 
@@ -484,7 +482,6 @@
 	<target name="call_reload_jsp" description="Make tomcat reload all its classes">
 		<!-- get reload.jsp to force tomcat to dump its cache-->
 		<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
-		<delete file="./delme.html" />
 	</target>
 
 	<!-- =================================================================== -->
@@ -521,17 +518,32 @@
 		</java>
 	</target>
 
-	<target name="import_ontology_roots" description="imports ontology roots into the develop db">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
-			<jvmarg value="-Xmx${max_memory_use}" />
-			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-			</classpath>
-			<arg value="-buildfile" />
-			<arg file="deploy.xml" />
-			<arg value="import_ontology_roots" />
-		</java>
-	</target>
+  <target name="import_localization_data" description="Imports the localization xls file">
+    <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
+      <jvmarg value="-Xmx${max_memory_use}" />
+      <classpath>
+        <pathelement location="${ant.home}/lib/ant-launcher.jar" />
+      </classpath>
+      <arg value="-buildfile" />
+      <arg file="deploy.xml" />
+      <arg value="-Droot.user=${root.user}" />
+      <arg value="-Droot.pass=${root.pass}" />
+      <arg value="-Dgeodata.db=${geodata.db}" />
+      <arg value="import_localization_disease_defaults" />
+    </java>
+  </target>
+
+		<target name="import_ontology_roots" description="imports ontology roots into the develop db">
+			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
+				<jvmarg value="-Xmx${max_memory_use}" />
+				<classpath>
+					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+				</classpath>
+				<arg value="-buildfile" />
+				<arg file="deploy.xml" />
+				<arg value="import_ontology_roots" />
+			</java>
+		</target>
 
 	<target name="import_menuitems" description="imports default MenuItems into the develop db">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import_menuitems">
@@ -542,21 +554,6 @@
 			<arg value="-buildfile" />
 			<arg file="deploy.xml" />
 			<arg value="import_menuitems" />
-		</java>
-	</target>
-
-	<target name="import_localization_data" description="Imports the localization xls file">
-		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
-			<jvmarg value="-Xmx${max_memory_use}" />
-			<classpath>
-				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-			</classpath>
-			<arg value="-buildfile" />
-			<arg file="deploy.xml" />
-			<arg value="-Droot.user=${root.user}" />
-			<arg value="-Droot.pass=${root.pass}" />
-			<arg value="-Dgeodata.db=${geodata.db}" />
-			<arg value="import_localization_disease_defaults" />
 		</java>
 	</target>
 
