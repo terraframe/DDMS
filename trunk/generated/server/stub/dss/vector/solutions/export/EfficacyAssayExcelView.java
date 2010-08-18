@@ -37,7 +37,7 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     
     eav.setGeoId(getGeoEntity().getGeoId());
 
-    eav.setTestMethod(Term.validateByDisplayLabel(this.getSurfaceType(), EfficacyAssayView.getSurfaceTypeMd()));
+    eav.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), EfficacyAssayView.getSurfaceTypeMd()));
     eav.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), EfficacyAssayView.getTestMethodMd()));
     eav.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
     eav.setTestDate(this.getTestDate());
