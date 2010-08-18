@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,7 +29,9 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
@@ -61,12 +64,59 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   @Override
   public void apply()
   {
+    this.validateStartDate();
+    this.validateEndDate();
+    
     if (this.isNew() && this.getDisease() == null)
     {
       this.setDisease(Disease.getCurrent());
     }
 
     super.apply();
+  }
+  
+  @Override
+  public void validateEndDate()
+  {
+    Date end = this.getEndDate();
+    
+    if (end!=null && end.after(new Date()))
+    {
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(end);
+      p.setCurrentDate(new Date());
+      p.setNotification(this, ENDDATE);
+      p.apply();
+      p.throwIt();
+    }
+  }
+  
+  @Override
+  public void validateStartDate()
+  {
+    Date start = this.getStartDate();
+    
+    if (start!=null && start.after(new Date()))
+    {
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(start);
+      p.setCurrentDate(new Date());
+      p.setNotification(this, STARTDATE);
+      p.apply();
+      p.throwIt();
+    }
+
+    Date end = this.getEndDate();
+    if(start != null && end != null)
+    {
+      if(start.after(end))
+      {
+        MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
+        p.apply();
+        
+        p.throwIt();
+      }
+    }
   }
 
   @Override
