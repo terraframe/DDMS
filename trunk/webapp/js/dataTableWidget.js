@@ -441,6 +441,9 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       // the data comes from the server as ids, we need to set the labels      
       this._initializeRecords();
       
+      // Setup the column titles
+      this._initializeTitles(this._columnDefs);
+      
       if(this._div != null)
       {         
         this.myDataTable.set("selectionMode","singlecell");
@@ -468,6 +471,29 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       
       //set this so it accessable by other methods in the jsp
       this.myDataTable.dataGrid = this;          
+    },
+    
+    _initializeTitles : function(definitions) {
+      for(var i in definitions) {
+        var definition = definitions[i];
+        
+        if(definition.children != null) {
+          this._initializeTitles(definition.children);
+        }
+        else {
+          var title = (definition.title != null ? definition.title : definition.label); 
+            
+          if(title != null) {
+            var column = this.getDataTable().getColumn(definition.key);
+              
+            if(column != null) {
+              var element = this.getDataTable().getThEl(column);
+             
+              element.title = title;
+            }
+          }
+        }
+      }    
     },
     
     _initializeField : function(c) {
