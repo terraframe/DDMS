@@ -1,5 +1,6 @@
 package dss.vector.solutions.intervention.monitor;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -16,6 +17,7 @@ import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.general.TooManyRowsException;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -27,8 +29,8 @@ import dss.vector.solutions.surveillance.GridComparator;
 public class ControlInterventionView extends ControlInterventionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1672865679;
-  
-  private static final long MAXIMUM_COUNT = 500L;
+
+  private static final long MAXIMUM_COUNT    = 500L;
 
   public ControlInterventionView()
   {
@@ -215,15 +217,15 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     GeoEntityQuery query = new GeoEntityQuery(factory);
     Condition condition = query.getId().EQ(pathsQuery.getChildGeoEntity().getId());
     query.WHERE(condition);
-    
+
     long count = query.getCount();
-    
-    if(count > MAXIMUM_COUNT)
+
+    if (count > MAXIMUM_COUNT)
     {
       TooManyRowsException exception = new TooManyRowsException();
       exception.apply();
-      
-      throw exception;      
+
+      throw exception;
     }
 
     OIterator<? extends GeoEntity> it = query.getIterator();
@@ -266,15 +268,15 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     GeoEntityQuery query = new GeoEntityQuery(factory);
     Condition condition = query.getId().EQ(pathsQuery.getChildGeoEntity().getId());
     query.WHERE(condition);
-        
+
     long count = query.getCount();
-    
-    if(count > MAXIMUM_COUNT)
+
+    if (count > MAXIMUM_COUNT)
     {
       TooManyRowsException exception = new TooManyRowsException();
       exception.apply();
-      
-      throw exception;      
+
+      throw exception;
     }
 
     OIterator<? extends GeoEntity> it = query.getIterator();
@@ -337,7 +339,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
         while (it.hasNext())
         {
           InsecticideInterventionView view = it.next().clone();
-          
+
           // We will only want grid options methods which are active
           // All active methods are already in the set. Thus, if
           // the set already contains an entry for the Grid Option
@@ -358,7 +360,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
     return set.toArray(new InsecticideInterventionView[set.size()]);
   }
-  
+
   @Override
   @Transaction
   public InsecticideInterventionView[] applyWithInsecticideInterventionViews(InsecticideInterventionView[] views)
@@ -391,33 +393,72 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     return this.getConcreteId() != null && this.getConcreteId().length() > 0;
   }
 
-  private void validateSearch()
+  private boolean validateSearch()
   {
+    boolean valid = true;
+
+    Date start = this.getStartDate();
+    Date end = this.getEndDate();
+
     if (this.getGeoEntity() == null)
     {
       RequiredAttributeProblem p = new RequiredAttributeProblem();
       p.setNotification(this, ControlInterventionView.GEOENTITY);
       p.apply();
       p.throwIt();
+
+      valid = false;
     }
 
-    if (this.getStartDate() == null)
+    if (start == null)
     {
       RequiredAttributeProblem p = new RequiredAttributeProblem();
       p.setNotification(this, ControlInterventionView.STARTDATE);
       p.apply();
       p.throwIt();
+
+      valid = false;
     }
 
-    if (this.getEndDate() == null)
+    if (end == null)
     {
       RequiredAttributeProblem p = new RequiredAttributeProblem();
       p.setNotification(this, ControlInterventionView.ENDDATE);
       p.apply();
       p.throwIt();
+
+      valid = false;
     }
+
+    if (start != null && end != null && start.after(end))
+    {
+      MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
+      p.apply();
+      p.throwIt();
+
+      valid = false;
+    }
+
+    return valid;
   }
 
+  private boolean validateSearchDates()
+  {
+    Date start = this.getStartDate();
+    Date end = this.getEndDate();
+    
+    if (start != null && end != null && start.after(end))
+    {
+      MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
+      p.apply();
+      p.throwIt();
+      
+      return false;
+    }
+    
+    return true;
+  }
+  
   private ControlInterventionView searchClone()
   {
     ControlInterventionView view = new ControlInterventionView();
@@ -433,8 +474,11 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     return ControlInterventionViewQuery.searchCollections();
   }
 
+  @Transaction  
   public static ControlInterventionViewQuery search(ControlInterventionView criteria, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
+    criteria.validateSearchDates();
+    
     ControlInterventionViewQuery query = ControlInterventionViewQuery.searchCollections(criteria);
 
     if (sortAttribute != null)
@@ -464,30 +508,31 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
   @Transaction
   public static ControlInterventionView getIntervention(ControlInterventionView intervention)
   {
-    intervention.validateSearch();
-
-    QueryFactory factory = new QueryFactory();
-
-    ControlInterventionQuery query = new ControlInterventionQuery(factory);
-
-    Condition collectionCondition = query.getGeoEntity().EQ(intervention.getGeoEntity());
-    collectionCondition = AND.get(collectionCondition, query.getStartDate().EQ(intervention.getStartDate()));
-    collectionCondition = AND.get(collectionCondition, query.getEndDate().EQ(intervention.getEndDate()));
-    collectionCondition = AND.get(collectionCondition, query.getDisease().EQ(Disease.getCurrent()));
-    query.WHERE(collectionCondition);
-
-    OIterator<? extends ControlIntervention> it = query.getIterator();
-
-    try
+    if (intervention.validateSearch())
     {
-      if (it.hasNext())
+      QueryFactory factory = new QueryFactory();
+
+      ControlInterventionQuery query = new ControlInterventionQuery(factory);
+
+      Condition collectionCondition = query.getGeoEntity().EQ(intervention.getGeoEntity());
+      collectionCondition = AND.get(collectionCondition, query.getStartDate().EQ(intervention.getStartDate()));
+      collectionCondition = AND.get(collectionCondition, query.getEndDate().EQ(intervention.getEndDate()));
+      collectionCondition = AND.get(collectionCondition, query.getDisease().EQ(Disease.getCurrent()));
+      query.WHERE(collectionCondition);
+
+      OIterator<? extends ControlIntervention> it = query.getIterator();
+
+      try
       {
-        return it.next().getView();
+        if (it.hasNext())
+        {
+          return it.next().getView();
+        }
       }
-    }
-    finally
-    {
-      it.close();
+      finally
+      {
+        it.close();
+      }
     }
 
     return intervention.searchClone();

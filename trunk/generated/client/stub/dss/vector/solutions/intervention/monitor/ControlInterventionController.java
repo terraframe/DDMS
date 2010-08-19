@@ -127,19 +127,37 @@ public class ControlInterventionController extends ControlInterventionController
   @Override
   public void searchByView(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, ControlInterventionViewDTO view) throws IOException, ServletException
   {
-    isAscending = ( isAscending == null ? true : isAscending );
-    pageSize = ( pageSize == null ? 15 : pageSize );
-    pageNumber = ( pageNumber == null ? 1 : pageNumber );
+    try
+    {
+      isAscending = ( isAscending == null ? true : isAscending );
+      pageSize = ( pageSize == null ? 15 : pageSize );
+      pageNumber = ( pageNumber == null ? 1 : pageNumber );
 
-    ClientRequestIF request = this.getClientRequest();
+      ClientRequestIF request = this.getClientRequest();
 
-    ControlInterventionViewQueryDTO query = ControlInterventionViewDTO.search(request, view, sortAttribute, isAscending, pageSize, pageNumber);
+      ControlInterventionViewQueryDTO query = ControlInterventionViewDTO.search(request, view, sortAttribute, isAscending, pageSize, pageNumber);
 
-    this.setupDates(view);
-    req.setAttribute("query", query);
-    req.setAttribute("item", view);
+      this.setupDates(view);
+      req.setAttribute("query", query);
+      req.setAttribute("item", view);
 
-    render("searchComponent.jsp");
+      render("searchComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      
+      if(!redirected)
+      {
+        this.failSearchByView(null, null, null, null, view);
+      }
+    }
+  }
+  
+  @Override
+  public void failSearchByView(String sortAttribute, String isAscending, String pageSize, String pageNumber, ControlInterventionViewDTO view) throws IOException, ServletException
+  {
+    this.search(view);
   }
 
   private void setupDates(ControlInterventionViewDTO dto)

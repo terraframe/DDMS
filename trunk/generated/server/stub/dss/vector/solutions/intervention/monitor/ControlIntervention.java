@@ -36,7 +36,6 @@ import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.ontology.AllPathsQuery;
-import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
@@ -95,6 +94,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
   public void validateStartDate()
   {
     Date start = this.getStartDate();
+    Date end = this.getEndDate();
     
     if (start!=null && start.after(new Date()))
     {
@@ -106,7 +106,6 @@ public class ControlIntervention extends ControlInterventionBase implements com.
       p.throwIt();
     }
 
-    Date end = this.getEndDate();
     if(start != null && end != null)
     {
       if(start.after(end))
