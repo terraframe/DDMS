@@ -85,8 +85,11 @@ overflow: hidden;
       var record = this.getCellEditor().getRecord();
       var index = this.getRecordIndex(record);
 
-      var visited = (grid.getData(index, 'Visited') == 'true');
-      var treated = (grid.getData(index, 'Treated') == 'true');
+      var _visited = grid.getData(index, 'Visited');
+      var _treated = grid.getData(index, 'Treated');
+            
+      var visited = (_visited == 'true' || _visited == true);
+      var treated = (_treated == 'true' || _treated == true);
 
       if(visited && treated) {
         return oData;
@@ -99,7 +102,8 @@ overflow: hidden;
       var record = this.getCellEditor().getRecord();
       var index = this.getRecordIndex(record);
 
-      var visited = (grid.getData(index, 'Visited') == 'true');
+      var _visited = grid.getData(index, 'Visited');      
+      var visited = (_visited == 'true' || _visited == true);
 
       if(visited) {
         return oData;
@@ -115,8 +119,11 @@ overflow: hidden;
         var record = editor.getRecord();
         var index = this.getRecordIndex(record);
 
-        var visited = (grid.getData(index, 'Visited') == 'true');
-        var treated = (grid.getData(index, 'Treated') == 'true');
+        var _visited = grid.getData(index, 'Visited');
+        var _treated = grid.getData(index, 'Treated');
+              
+        var visited = (_visited == 'true' || _visited == true);
+        var treated = (_treated == 'true' || _treated == true);
 
         if(visited && !treated) {
           return oData;
@@ -152,7 +159,7 @@ overflow: hidden;
           var row = data.row;
           var value = data.value;
 
-          if(value == null || value == '' || value == 'false') {
+          if(value == null || value == '' || value == 'false' || value == false) {
             var columns = grid.getColumnDefinitions();
 
             clearColumns(row, columns, ['Visited']);
@@ -164,12 +171,12 @@ overflow: hidden;
           var row = data.row;
           var value = data.value;
 
-          if(value == 'false') {
+          if(value == 'false' || value == false) {
             var columns = grid.getColumnDefinitions();
 
             clearColumns(row, columns, ['Visited', 'Treated', 'ReasonsForNotTreated']);
           }
-          else if(value == 'true') {
+          else if(value == 'true' || value == true) {
             grid.setData(row, 'ReasonsForNotTreated', '');
           }
           
