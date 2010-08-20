@@ -8,6 +8,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.general.UniqueValueProblem;
+
 public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long    serialVersionUID = 1240860647013L;
@@ -48,6 +50,29 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     view.populateView(this);
 
     return view;
+  }
+  
+  @Override
+  public void validateStructureId()
+  {
+    if(this.getStructureId() != null)
+    {
+      HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
+      query.WHERE(query.getId().NE(this.getId()));
+      query.AND(query.getStructureId().EQ(this.getStructureId()));
+      
+      long count = query.getCount();
+      
+      if(count > 0)
+      {
+        UniqueValueProblem p = new UniqueValueProblem();
+        p.setDisplayLabel(getStructureIdMd().getDisplayLabel(Session.getCurrentLocale()));
+        p.setValue(this.getStructureId());
+        p.apply();
+        
+        p.throwIt();
+      }
+    }
   }
 
   public void validateHouseholds(SprayMethod method)
@@ -414,6 +439,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       this.setHouseholds(null);
       this.setStructures(null);
     }
+    
+    validateStructureId();
 
     // Validate MOP-UP
     validateHouseholds(method);
