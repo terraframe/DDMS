@@ -1182,6 +1182,10 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       this.getDataTable().render();
     },
     
+    cancelCellEditor : function() {
+      this.getDataTable().cancelCellEditor();
+    },
+    
     onCellClick : function(oArgs) {
       var target = oArgs.target;
       //this.myDataTable.focusTbodyEl();

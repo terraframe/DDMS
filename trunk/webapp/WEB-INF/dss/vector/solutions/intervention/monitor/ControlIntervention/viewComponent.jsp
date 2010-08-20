@@ -304,6 +304,11 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
         }
       });
 
+      // Cancel any cell editors which may still be open
+      if (this._grid != null) {
+        this._grid.cancelCellEditor();
+      }
+
       var action = e.originalTarget.action;
       var params = Mojo.Util.collectFormValues('ControlIntervention.form');
 
