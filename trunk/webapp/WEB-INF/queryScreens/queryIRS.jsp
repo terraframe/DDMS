@@ -107,34 +107,38 @@ YAHOO.util.Event.onDOMReady(function(){
     var targetManagementColumns = [
 
                           {
-                            
-                            key:"operator_target",
+                            key:"operator_actual_target",
+                            //key:"operator_target",
                             type:"sqlinteger",
-                            attributeName:"operator_target",
+                            attributeName:"operator_actual_target",
+                            isAggregate:true
                           },
                           {
-                            
-                            key:"team_target",
+                            key:"team_actual_target",
+                            //key:"team_target",
                             type:"sqlinteger",
-                            attributeName:"team_target",
+                            attributeName:"team_actual_target",
+                            isAggregate:true
                           },
                           {
-                            
-                            key:"planed_operator_target",
+                            key:"operator_planned_target",
+                            //key:"planed_operator_target",
                             type:"sqlinteger",
-                            attributeName:"planed_operator_target",
+                            attributeName:"operator_planned_target",
+                            isAggregate:true
                           },
                           {
-                            
-                            key:"planed_team_target",
+                            key:"team_planned_target",
+                            //key:"planed_team_target",
                             type:"sqlinteger",
-                            attributeName:"planed_team_target",
+                            attributeName:"team_planned_target",
+                            isAggregate:true
                           },
                           {
-                            
-                            key:"planed_area_target",
+                            key:"area_planned_target",
+                            //key:"planed_area_target",
                             type:"sqlinteger",
-                            attributeName:"planed_area_target",
+                            attributeName:"area_planned_target",
                             isAggregate:true
                           },
                           /* OLD
@@ -522,7 +526,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 
     var selectableGroups = [
- 	                         {title:"IRS_Target_Management", values:targetManagementColumns, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
+ 	                         {title:"Target_Management_Query", values:targetManagementColumns, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
                              {title:"Insecticide", values:Insecticide_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Spray_Details", values:Spray_Details, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
  	                         {title:"Calculations", values:Coverage, group:"spray", klass:Mojo.$.dss.vector.solutions.irs.AbstractSpray.CLASS},
