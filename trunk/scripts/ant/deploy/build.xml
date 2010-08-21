@@ -519,7 +519,7 @@
 	</target>
 
   <target name="import_localization_data" description="Imports the localization xls file">
-    <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
+    <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="Import Default Localization Data">
       <jvmarg value="-Xmx${max_memory_use}" />
       <classpath>
         <pathelement location="${ant.home}/lib/ant-launcher.jar" />
