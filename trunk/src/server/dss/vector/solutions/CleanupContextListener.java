@@ -579,6 +579,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String geoTargetTable = geoTargetMd.getTableName();
     String seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
     String geoEntityTargetCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
+    String idCol = QueryUtil.getIdColumn();
 
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar \n";
     sql += "( \n";
@@ -618,6 +619,23 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
 
+    sql += "CREATE OR REPLACE FUNCTION get_area_spray_target_by_id_and_tar \n";
+    sql += "( \n";
+    sql += "  _geo_target_id VARCHAR, \n";
+    sql += "  _target_column VARCHAR \n";
+    sql += ") \n";
+    sql += "RETURNS INT AS $$ \n";
+    sql += "DECLARE \n ";
+    sql += "  _target  INT; \n";
+    sql += "BEGIN \n";
+    sql += "EXECUTE 'SELECT '|| _target_Column ||' FROM "+geoTargetTable+"  WHERE "+idCol+" = $1' \n";
+    sql += "  INTO _target  \n";
+    sql += "  USING _geo_target_id; \n";
+    sql += "  \n";
+    sql += "  RETURN _target;  \n";
+    sql += "END; \n";
+    sql += "$$ LANGUAGE plpgsql; \n";
+    
     sql += "CREATE OR REPLACE FUNCTION get_epiWeek_from_date \n";
     sql += "( \n";
     sql += "  _date      DATE, \n";
