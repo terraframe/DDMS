@@ -12,6 +12,7 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.InnerJoinGtEq;
@@ -27,12 +28,11 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.irs.IRSUnionIF.ALIAS;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
-public class IRSQuery
+public class IRSQuery implements Reloadable
 {
     private ValueQuery valueQuery;
     private Map<String, GeneratedEntityQuery> queryMap;
@@ -60,60 +60,6 @@ public class IRSQuery
     
     String sprayDate;
     
-    String operSprayTable;
-
-    String sprayOperatorCol;
-
-    String sprayTeamCol;
-
-    String teamLeaderCol;
-
-    String targetCol;
-
-    String receivedCol;
-
-    String usedCol;
-
-    String refillsCol;
-
-    String returnCol;
-
-    String householdSprayStatusTable;
-
-    String sprayCol;
-
-    String householdIdCol;
-
-    String structureIdCol;
-
-    String roomsCol;
-
-    String structuresCol;
-
-    String householdsCol;
-
-    String sprayedRoomsCol;
-
-    String sprayedStructuresCol;
-
-    String sprayedHouseholdsCol;
-
-    String prevSprayedStructuresCol;
-
-    String prevSprayedHouseholdsCol;
-
-    String peopleCol;
-
-    String bedNetsCol;
-
-    String roomsWithBedNetsCol;
-
-    String lockedCol;
-
-    String refusedCol;
-
-    String otherCol;
-
     String personTable;
 
     String lastNameCol;
@@ -126,7 +72,7 @@ public class IRSQuery
 
     String personCol;
 
-    String teamId;
+    String teamIdCol;
 
     String sprayTeamTable;
 
@@ -188,37 +134,6 @@ public class IRSQuery
       
       this.sprayDate = QueryUtil.getColumnName(AbstractSpray.getSprayDateMd());
       
-      MdEntityDAOIF operSprayMd = MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
-      this.operSprayTable = operSprayMd.getTableName();
-      this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
-      this.teamLeaderCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMLEADER);
-      this.sprayTeamCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYTEAM);
-      this.targetCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TARGET);
-      this.receivedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.RECEIVED);
-      this.usedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.USED);
-      this.refillsCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.REFILLS);
-      this.returnCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.RETURNED);    
-      
-      MdEntityDAOIF householdSprayStatusMd = MdEntityDAO.getMdEntityDAO(HouseholdSprayStatus.CLASS);
-      this.householdSprayStatusTable = householdSprayStatusMd.getTableName();
-      this.sprayCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.SPRAY);
-      this.householdIdCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.HOUSEHOLDID);
-      this.structureIdCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.STRUCTUREID);
-      this.roomsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.ROOMS);
-      this.structuresCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.STRUCTURES);
-      this.householdsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.HOUSEHOLDS);
-      this.sprayedRoomsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.SPRAYEDROOMS);
-      this.sprayedStructuresCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.SPRAYEDSTRUCTURES);
-      this.sprayedHouseholdsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.SPRAYEDHOUSEHOLDS);
-      this.prevSprayedStructuresCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.PREVSPRAYEDSTRUCTURES);
-      this.prevSprayedHouseholdsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.PREVSPRAYEDHOUSEHOLDS);
-      this.peopleCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.PEOPLE);
-      this.bedNetsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.BEDNETS);
-      this.roomsWithBedNetsCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.ROOMSWITHBEDNETS);
-      this.lockedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.LOCKED);
-      this.refusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.REFUSED);
-      this.otherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.OTHER);
-      
       MdEntityDAOIF personMd = MdEntityDAO.getMdEntityDAO(Person.CLASS);
       this.personTable = personMd.getTableName();
       this.firstNameCol = QueryUtil.getColumnName(personMd, Person.FIRSTNAME);
@@ -230,8 +145,9 @@ public class IRSQuery
       this.personCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.PERSON);
       
       MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
-      this.teamId = QueryUtil.getColumnName(sprayTeamMd, SprayTeam.TEAMID);
+      this.teamIdCol = QueryUtil.getColumnName(sprayTeamMd, SprayTeam.TEAMID);
       this.sprayTeamTable = sprayTeamMd.getTableName();
+      
       
       MdEntityDAOIF abstractSprayMd = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS);
       this.abstractSprayTable = abstractSprayMd.getTableName();
@@ -303,7 +219,9 @@ public class IRSQuery
         // Planned
         
         // Actual
-        new ActualTeamSprayTarget()
+        new ActualOperatorSprayTarget(),
+        new ActualTeamSprayTarget(),
+        new ActualZoneSprayTarget()
           
       };
       
@@ -312,13 +230,14 @@ public class IRSQuery
       for(IRSUnionIF union : unions)
       {
         union.setIRSQuery(this);
+        sql += getUnionSQL(union);
         
-        if(count != unions.length-1)
+        if(count < unions.length-1)
         {
           sql += "\nUNION\n";
         }
         
-        sql += getUnionSQL(union);
+        count++;
       }
       
       return sql;
@@ -343,9 +262,10 @@ public class IRSQuery
       String geoTargetViewQuery = GeoTarget.getTempTableSQL();
       String insecticideBrandQuery = InsecticideBrand.getTempTableSQL();
 
-      String sprayQuery = OperatorSpray.getTempTableSQL(RESOURCE_TARGET_VIEW, isGrouped);
-      sprayQuery += "\nUNION\n" + TeamSpray.getTempTableSQL(RESOURCE_TARGET_VIEW);
-      sprayQuery += "\nUNION\n" + ZoneSpray.getTempTableSQL(RESOURCE_TARGET_VIEW);
+//      String sprayQuery = OperatorSpray.getTempTableSQL(RESOURCE_TARGET_VIEW, isGrouped);
+//      sprayQuery += "\nUNION\n" + TeamSpray.getTempTableSQL(RESOURCE_TARGET_VIEW);
+//      sprayQuery += "\nUNION\n" + ZoneSpray.getTempTableSQL(RESOURCE_TARGET_VIEW);
+      String sprayQuery = createUnion();
 
       String sql = "WITH ";
       
@@ -363,9 +283,6 @@ public class IRSQuery
         sql += "," + SPRAY_VIEW + " AS \n";
         sql += "(" + sprayQuery + ")\n";
       }
-      
-      sql += ", " + "targeterView" + " AS \n";
-      sql += "(" + getTargeterView() + ")\n";
 
       valueQuery.setSqlPrefix(sql);
       
@@ -582,51 +499,51 @@ public class IRSQuery
     private String getUnionSQL(IRSUnionIF union)
     {
       String sql = "SELECT \n";
-      sql += union.setId(ALIAS.ID)+", \n";
-      sql += union.setSprayDate(ALIAS.SPRAY_DATE)+", \n";
-      sql += union.setAggregationLevel(ALIAS.AGGREGATION_LEVEL)+", \n";
-      sql += union.setHouseholdId(ALIAS.HOUSEHOLD_ID)+", \n";
-      sql += union.setStructureId(ALIAS.STRUCTURE_ID)+", \n";
-      sql += union.setSprayOperator(ALIAS.SPRAY_OPERATOR)+", \n";
-      sql += union.setSprayOperatorDefaultLocale(ALIAS.SPRAY_OPERATOR_DEFAULT_LOCALE)+", \n";
-      sql += union.setOperatorActualTarget(ALIAS.OPERATORY_ACTUAL_TARGET)+", \n";
-      sql += union.setSprayTeam(ALIAS.SPRAY_TEAM)+", \n";
-      sql += union.setSprayTeamDefaultLocale(ALIAS.SPRAY_TEAM_DEFAULT_LOCALE)+", \n";
-      sql += union.setSprayLeader(ALIAS.SPRAY_LEADER)+", \n";
-      sql += union.setSprayLeaderDefaultLocale(ALIAS.SPRAY_LEADER_DEFAULT_LOCALE)+", \n";
-      sql += union.setTeamActualTarget(ALIAS.TEAM_ACTUAL_TARGET)+", \n";
-      sql += union.setZoneSuperVisor(ALIAS.ZONE_SUPERVISOR)+", \n";
-      sql += union.setZoneSuperVisorDefaultLocale(ALIAS.ZONE_SUPERVISOR_DEFAULT_LOCALE)+", \n";
-      sql += union.setZoneActualTarget(ALIAS.ZONE_ACTUAL_TARGET)+", \n";
-      sql += union.setSpraySeason(ALIAS.SPRAY_SEASON)+", \n";
-      sql += union.setOperatorPlannedTarget(ALIAS.OPERATOR_PLANNED_TARGET)+", \n";
-      sql += union.setTeamPlannedTarget(ALIAS.TEAM_PLANNED_TARGET)+", \n";
-      sql += union.setAreaPlannedTarget(ALIAS.AREA_PLANNED_TARGET)+", \n";
-      sql += union.setRooms(ALIAS.ROOMS)+", \n";
-      sql += union.setStructures(ALIAS.STRUCTURES)+", \n";
-      sql += union.setHouseholds(ALIAS.HOUSEHOLDS)+", \n";
-      sql += union.setSprayedRooms(ALIAS.SPRAYED_ROOMS)+", \n";
-      sql += union.setSprayedStructures(ALIAS.SPRAYED_STRUCTURES)+", \n";
-      sql += union.setSprayedHouseholds(ALIAS.SPRAYED_HOUSEHOLDS)+", \n";
-      sql += union.setPrevSprayedStructures(ALIAS.PREV_SPRAYED_STRUCTURES)+", \n";
-      sql += union.setPrevSprayedHouseholds(ALIAS.PREV_SPRAYED_HOUSEHOLDS)+", \n";
-      sql += union.setPeople(ALIAS.PEOPLE)+", \n";
-      sql += union.setBedNets(ALIAS.BEDNETS)+", \n";
-      sql += union.setRoomsWithBedNets(ALIAS.ROOMS_WITH_BED_NETS)+", \n";
-      sql += union.setLocked(ALIAS.LOCKED)+", \n";
-      sql += union.setRefused(ALIAS.REFUSED)+", \n";
-      sql += union.setOther(ALIAS.OTHER)+", \n";
-      sql += union.setDisease(ALIAS.DISEASE)+", \n";
-      sql += union.setReceived(ALIAS.RECEIVED)+", \n";
-      sql += union.setUsed(ALIAS.USED)+", \n";
-      sql += union.setRefills(ALIAS.REFILLS)+", \n";
-      sql += union.setReturn(ALIAS.RETURN)+", \n";
-      sql += union.setRoomUnsprayed(ALIAS.ROOMS_UNSPRAYED)+", \n";
-      sql += union.setStructureUnsprayed(ALIAS.STRUCTURES_UNSPRAYED)+", \n";
-      sql += union.setHouseholdUnsprayed(ALIAS.HOUSEHOLDS_UNSPRAYED)+", \n";
-      sql += union.setSprayedRoomsShare(ALIAS.SPRAYED_ROOMS_SHARE)+", \n";
-      sql += union.setSprayedStructuresShare(ALIAS.SPRAYED_STRUCTURES_SHARE)+", \n";
-      sql += union.setSprayedHouseholdsShare(ALIAS.SPRAYED_HOUSEHOLDS_SHARE)+" \n";
+      sql += union.setId(Alias.ID)+", \n";
+      sql += union.setSprayDate(Alias.SPRAY_DATE)+", \n";
+      sql += union.setAggregationLevel(Alias.AGGREGATION_LEVEL)+", \n";
+      sql += union.setHouseholdId(Alias.HOUSEHOLD_ID)+", \n";
+      sql += union.setStructureId(Alias.STRUCTURE_ID)+", \n";
+      sql += union.setSprayOperator(Alias.SPRAY_OPERATOR)+", \n";
+      sql += union.setSprayOperatorDefaultLocale(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE)+", \n";
+      sql += union.setOperatorActualTarget(Alias.OPERATORY_ACTUAL_TARGET)+", \n";
+      sql += union.setSprayTeam(Alias.SPRAY_TEAM)+", \n";
+      sql += union.setSprayTeamDefaultLocale(Alias.SPRAY_TEAM_DEFAULT_LOCALE)+", \n";
+      sql += union.setSprayLeader(Alias.SPRAY_LEADER)+", \n";
+      sql += union.setSprayLeaderDefaultLocale(Alias.SPRAY_LEADER_DEFAULT_LOCALE)+", \n";
+      sql += union.setTeamActualTarget(Alias.TEAM_ACTUAL_TARGET)+", \n";
+      sql += union.setZoneSuperVisor(Alias.ZONE_SUPERVISOR)+", \n";
+      sql += union.setZoneSuperVisorDefaultLocale(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE)+", \n";
+      sql += union.setZoneActualTarget(Alias.ZONE_ACTUAL_TARGET)+", \n";
+      sql += union.setSpraySeason(Alias.SPRAY_SEASON)+", \n";
+      sql += union.setOperatorPlannedTarget(Alias.OPERATOR_PLANNED_TARGET)+", \n";
+      sql += union.setTeamPlannedTarget(Alias.TEAM_PLANNED_TARGET)+", \n";
+      sql += union.setAreaPlannedTarget(Alias.AREA_PLANNED_TARGET)+", \n";
+      sql += union.setRooms(Alias.ROOMS)+", \n";
+      sql += union.setStructures(Alias.STRUCTURES)+", \n";
+      sql += union.setHouseholds(Alias.HOUSEHOLDS)+", \n";
+      sql += union.setSprayedRooms(Alias.SPRAYED_ROOMS)+", \n";
+      sql += union.setSprayedStructures(Alias.SPRAYED_STRUCTURES)+", \n";
+      sql += union.setSprayedHouseholds(Alias.SPRAYED_HOUSEHOLDS)+", \n";
+      sql += union.setPrevSprayedStructures(Alias.PREV_SPRAYED_STRUCTURES)+", \n";
+      sql += union.setPrevSprayedHouseholds(Alias.PREV_SPRAYED_HOUSEHOLDS)+", \n";
+      sql += union.setPeople(Alias.PEOPLE)+", \n";
+      sql += union.setBedNets(Alias.BEDNETS)+", \n";
+      sql += union.setRoomsWithBedNets(Alias.ROOMS_WITH_BED_NETS)+", \n";
+      sql += union.setLocked(Alias.LOCKED)+", \n";
+      sql += union.setRefused(Alias.REFUSED)+", \n";
+      sql += union.setOther(Alias.OTHER)+", \n";
+      sql += union.setDisease(Alias.DISEASE)+", \n";
+      sql += union.setReceived(Alias.RECEIVED)+", \n";
+      sql += union.setUsed(Alias.USED)+", \n";
+      sql += union.setRefills(Alias.REFILLS)+", \n";
+      sql += union.setReturned(Alias.RETURNED)+", \n";
+      sql += union.setRoomUnsprayed(Alias.ROOMS_UNSPRAYED)+", \n";
+      sql += union.setStructureUnsprayed(Alias.STRUCTURES_UNSPRAYED)+", \n";
+      sql += union.setHouseholdUnsprayed(Alias.HOUSEHOLDS_UNSPRAYED)+", \n";
+      sql += union.setSprayedRoomsShare(Alias.SPRAYED_ROOMS_SHARE)+", \n";
+      sql += union.setSprayedStructuresShare(Alias.SPRAYED_STRUCTURES_SHARE)+", \n";
+      sql += union.setSprayedHouseholdsShare(Alias.SPRAYED_HOUSEHOLDS_SHARE)+" \n";
       
       sql += "FROM \n  "+union.from()+" \n";
       

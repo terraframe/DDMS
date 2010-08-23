@@ -13,7 +13,6 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
-import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.general.Disease;

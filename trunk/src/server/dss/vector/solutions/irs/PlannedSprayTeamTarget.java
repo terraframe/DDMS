@@ -1,6 +1,8 @@
 package dss.vector.solutions.irs;
 
-public class PlannedSprayTeamTarget extends PlannedResourceTarget
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Reloadable
 {
 
 }

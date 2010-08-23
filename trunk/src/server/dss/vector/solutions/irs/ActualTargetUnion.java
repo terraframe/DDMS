@@ -1,18 +1,19 @@
 package dss.vector.solutions.irs;
 
-import dss.vector.solutions.irs.IRSUnionIF.ALIAS;
+import com.runwaysdk.generation.loader.Reloadable;
 
 
-public abstract class ActualTargetUnion extends AbstractTargetUnion
+
+public abstract class ActualTargetUnion extends AbstractTargetUnion implements Reloadable
 {
-  public String setSprayDate(ALIAS alias)
+  
+  public final String setSprayDate(Alias alias)
   {
     return set(this.q.sprayDate, alias);
   }
 
-  public String setAggregationLevel(ALIAS alias)
+  public final String setSpraySeason(Alias alias)
   {
-    return set("'3'::TEXT", alias);
-  }
-
+    return set("sprayseason", q.idCol, alias);
+  };
 }

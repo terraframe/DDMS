@@ -1,6 +1,8 @@
 package dss.vector.solutions.irs;
 
-public abstract class PlannedTargetUnion extends AbstractTargetUnion
+import com.runwaysdk.generation.loader.Reloadable;
+
+public abstract class PlannedTargetUnion extends AbstractTargetUnion implements Reloadable
 {
 
 

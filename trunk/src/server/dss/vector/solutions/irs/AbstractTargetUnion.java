@@ -1,7 +1,11 @@
 package dss.vector.solutions.irs;
 
+import com.runwaysdk.generation.loader.Reloadable;
 
-public abstract class AbstractTargetUnion implements IRSUnionIF
+import dss.vector.solutions.general.Disease;
+
+
+public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
 {
   public static final String EMPTY = "''";
   
@@ -17,10 +21,13 @@ public abstract class AbstractTargetUnion implements IRSUnionIF
    * by the subclasses.
    */
   protected IRSQuery q;
+  
+  protected String diseaseId;
 
   public AbstractTargetUnion()
   {
     q = null;
+    diseaseId = Disease.getCurrent().getId();
   }
   
   public final void setIRSQuery(IRSQuery irsQuery)
@@ -28,296 +35,296 @@ public abstract class AbstractTargetUnion implements IRSUnionIF
     this.q = irsQuery;
   }
   
-  public String set(String table, String column, IRSUnionIF.ALIAS alias)
+  public String set(String table, String column, Alias alias)
   {
     return set(table+"."+column, alias);
   }
 
-  public String set(String value, IRSUnionIF.ALIAS alias)
+  public String set(String value, Alias alias)
   {
     return value + " " + AS + " "+  alias;
   }
   
-  public String setEmpty(IRSUnionIF.ALIAS alias)
+  public String setEmpty(Alias alias)
   {
     return set(EMPTY, alias);
   }
   
-  public String setNULL(IRSUnionIF.ALIAS alias)
+  public String setNULL(Alias alias)
   {
     return set(NULL, alias);
   }
   
-  public String setZero(IRSUnionIF.ALIAS alias)
+  public String setZero(Alias alias)
   {
     return set(ZERO, alias);
   }
 
-  public String setAggregationLevel(ALIAS alias)
+  public String setAggregationLevel(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setAreaPlannedTarget(ALIAS alias)
+  public String setAreaPlannedTarget(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setBedNets(ALIAS alias)
+  public String setBedNets(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setDisease(ALIAS alias)
+  public String setDisease(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setHouseholdId(ALIAS alias)
+  public String setHouseholdId(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setHouseholdUnsprayed(ALIAS alias)
+  public String setHouseholdUnsprayed(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setHouseholds(ALIAS alias)
+  public String setHouseholds(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setId(ALIAS alias)
+  public String setId(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setLocked(ALIAS alias)
+  public String setLocked(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setOperatorActualTarget(ALIAS alias)
+  public String setOperatorActualTarget(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setOperatorPlannedTarget(ALIAS alias)
+  public String setOperatorPlannedTarget(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setOther(ALIAS alias)
+  public String setOther(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setPeople(ALIAS alias)
+  public String setPeople(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setPrevSprayedHouseholds(ALIAS alias)
+  public String setPrevSprayedHouseholds(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setPrevSprayedStructures(ALIAS alias)
+  public String setPrevSprayedStructures(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setReceived(ALIAS alias)
+  public String setReceived(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setRefills(ALIAS alias)
+  public String setRefills(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setRefused(ALIAS alias)
+  public String setRefused(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setReturn(ALIAS alias)
+  public String setReturned(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setRoomUnsprayed(ALIAS alias)
+  public String setRoomUnsprayed(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setRooms(ALIAS alias)
+  public String setRooms(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setRoomsWithBedNets(ALIAS alias)
+  public String setRoomsWithBedNets(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayDate(ALIAS alias)
+  public String setSprayDate(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayLeader(ALIAS alias)
+  public String setSprayLeader(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayLeaderDefaultLocale(ALIAS alias)
+  public String setSprayLeaderDefaultLocale(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayOperator(ALIAS alias)
+  public String setSprayOperator(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayOperatorDefaultLocale(ALIAS alias)
+  public String setSprayOperatorDefaultLocale(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSpraySeason(ALIAS alias)
+  public String setSpraySeason(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayTeam(ALIAS alias)
+  public String setSprayTeam(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayTeamDefaultLocale(ALIAS alias)
+  public String setSprayTeamDefaultLocale(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayedHouseholds(ALIAS alias)
+  public String setSprayedHouseholds(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayedHouseholdsShare(ALIAS alias)
+  public String setSprayedHouseholdsShare(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayedRooms(ALIAS alias)
+  public String setSprayedRooms(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayedRoomsShare(ALIAS alias)
+  public String setSprayedRoomsShare(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayedStructures(ALIAS alias)
+  public String setSprayedStructures(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setSprayedStructuresShare(ALIAS alias)
+  public String setSprayedStructuresShare(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setStructureId(ALIAS alias)
+  public String setStructureId(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setStructureUnsprayed(ALIAS alias)
+  public String setStructureUnsprayed(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setStructures(ALIAS alias)
+  public String setStructures(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setTeamActualTarget(ALIAS alias)
+  public String setTeamActualTarget(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setTeamPlannedTarget(ALIAS alias)
+  public String setTeamPlannedTarget(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setUsed(ALIAS alias)
+  public String setUsed(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setZoneActualTarget(ALIAS alias)
+  public String setZoneActualTarget(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setZoneSuperVisor(ALIAS alias)
+  public String setZoneSuperVisor(Alias alias)
   {
 
     return setNULL(alias);
   }
 
-  public String setZoneSuperVisorDefaultLocale(ALIAS alias)
+  public String setZoneSuperVisorDefaultLocale(Alias alias)
   {
 
     return setNULL(alias);
