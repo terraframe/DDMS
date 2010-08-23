@@ -1,16 +1,12 @@
 package dss.vector.solutions.export;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
-import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.entomology.PupalCollection;
-import dss.vector.solutions.entomology.PupalCollectionQuery;
 import dss.vector.solutions.entomology.PupalCollectionView;
 import dss.vector.solutions.entomology.PupalContainerAmountView;
 import dss.vector.solutions.entomology.PupalContainerView;
@@ -82,6 +78,8 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
 
   private PupalCollectionView getCollection()
   {
+    if(this.getStartDate().after(new Date()))
+      System.out.println();
     String cid = this.getCollectionId();
     PupalCollectionView collection = new PupalCollectionView();
     collection.setGeoEntity(this.getGeoEntity());
@@ -145,7 +143,7 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
   private static DynamicGeoColumnListener createExcelGeoListener()
   {
     HierarchyBuilder builder = new HierarchyBuilder();
-    for (GeoHierarchy hierarchy : GeoHierarchy.getAllPoliticals())
+    for (GeoHierarchy hierarchy : GeoHierarchy.getAllUrban())
     {
       builder.add(hierarchy);
     }
