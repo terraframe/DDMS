@@ -11,6 +11,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -130,10 +132,8 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     MdEntityDAOIF operSprayMd = MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
     String operSprayTable = operSprayMd.getTableName();
     String sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
-//    String operSprayWeekCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.OPERATORSPRAYWEEK);
     String teamLeaderCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMLEADER);
     String sprayTeamCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYTEAM);
-//    String teamSprayWeekCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMSPRAYWEEK);
     String targetCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TARGET);
     String receivedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.RECEIVED);
     String usedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.USED);
@@ -198,61 +198,59 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
       select += ""+householdSprayStatusTable+"." + householdIdCol + " AS household_id,\n";
       select += ""+householdSprayStatusTable+"." + structureIdCol + " AS structure_id,\n";
     }
+    
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    
     // operator stuff
     select += ""+operSprayTable+"." + sprayOperatorCol + " AS sprayoperator,\n";
     select += "sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+" || ' ' || "+personTable+"."+lastNameCol+" AS sprayoperator_defaultLocale,\n";
-//    select += ""+operSprayTable+"." + operSprayWeekCol + " AS operator_week,\n";
-    select += ""+operSprayTable+"." + targetCol + " AS operator_target,\n";
+    select += ""+operSprayTable+"." + targetCol + " AS operator_actual_target,\n";
     // team stuff
     select += ""+operSprayTable+"." + sprayTeamCol + " AS sprayteam,\n";
     select += "(SELECT st." + teamId + " FROM "+ sprayTeamTable +" st WHERE st.id = "+operSprayTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += ""+operSprayTable+"." + teamLeaderCol + " AS sprayleader,\n";
     select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+operSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
-//    select += ""+operSprayTable+"." + teamSprayWeekCol + " AS team_week,\n";
-    select += "NULL AS team_target,\n";
+    select += "NULL AS team_actual_target,\n";
     // zone stuff
     select += "''::TEXT AS zone_supervisor,\n";
     select += "''::TEXT AS zone_supervisor_defaultLocale,\n";
-//    select += "NULL::INT  AS zone_week,\n";
-//    select += "NULL::INT  AS zone_target,\n";
     // target stuff
     select += "sprayseason.id  AS spray_season,\n";
     
     select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" 
     + "AND spray_target_view.season_id = sprayseason.id \n"
-//    + "AND spray_target_view.target_week = "+operSprayTable+"." + operSprayWeekCol
-        + ") AS planed_operator_target,\n";
+    + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
+        + ") AS operator_planned_target,\n";
 
-    /* TODO IRS*/
-//    select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+operSprayTable+"." + sprayTeamCol + " \n" 
-//    + "AND spray_target_view.season_id = sprayseason.id \n"
-////    + "AND spray_target_view.target_week = "+operSprayTable+"." + teamSprayWeekCol
-//        + ") AS planed_team_target,\n";
+    select += "(SELECT weekly_target FROM " + targetView + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+operSprayTable+"." + sprayTeamCol + " \n" 
+    + "AND spray_target_view.season_id = sprayseason.id \n"
+    + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
+        + ") AS team_planned_target,\n";
 
     String diseaseCol = QueryUtil.getColumnName(OperatorSpray.getDiseaseMd());
     select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+","+abstractSprayTable+"."+sprayDateCol+","+operSprayTable+"."+diseaseCol+""
-        + ") AS planed_area_target,\n";
-   
+        + ") AS area_planned_target,\n";
+    
     //spray stuff
-    select += ""+roomsCol+",\n";
-    select += ""+structuresCol+",\n";
-    select += ""+householdsCol+",\n";
+    select += ""+roomsCol+" as rooms,\n";
+    select += ""+structuresCol+" as structures,\n";
+    select += ""+householdsCol+" as households,\n";
     select += ""+sprayedRoomsCol+" AS sprayedRooms,\n";
     select += ""+sprayedStructuresCol+" AS sprayedStructures,\n";
     select += ""+sprayedHouseholdsCol+" AS sprayedHouseholds,\n";
     select += ""+prevSprayedStructuresCol+" AS prevSprayedStructures,\n";
     select += ""+prevSprayedHouseholdsCol+" AS prevSprayedHouseholds,\n";
-    select += ""+peopleCol+",\n";
+    select += ""+peopleCol+" as people, \n";
     select += ""+bedNetsCol+" AS bedNets,\n";
     select += ""+roomsWithBedNetsCol+" AS roomsWithBedNets,\n";
-    select += ""+lockedCol+",\n";
-    select += ""+refusedCol+",\n";
-    select += ""+otherCol+",\n";
+    select += ""+lockedCol+", as locked\n";
+    select += ""+refusedCol+" as refused,\n";
+    select += ""+otherCol+" as other,\n";
     select += ""+operSprayTable+"."+diseaseCol+" AS disease,\n";    
-    select += ""+receivedCol+",\n";
-    select += ""+usedCol+",\n";
-    select += ""+refillsCol+",\n";
-    select += ""+returnCol+",\n";
+    select += ""+receivedCol+" as received,\n";
+    select += ""+usedCol+" as used,\n";
+    select += ""+refillsCol+" as refills,\n";
+    select += ""+returnCol+" return,\n";
     select += "("+roomsCol+" - "+sprayedRoomsCol+") AS room_unsprayed,\n";
     select += "("+structuresCol+" - "+sprayedStructuresCol+") AS structure_unsprayed,\n";
     select += "("+householdsCol+" - "+sprayedHouseholdsCol+") AS household_unsprayed,\n";

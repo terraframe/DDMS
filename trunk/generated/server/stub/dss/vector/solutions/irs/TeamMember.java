@@ -1,5 +1,7 @@
 package dss.vector.solutions.irs;
 
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
@@ -13,10 +15,15 @@ import com.runwaysdk.query.ValueQuery;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.geo.generated.SprayZone;
 import dss.vector.solutions.query.QueryBuilder;
+import dss.vector.solutions.util.QueryUtil;
 
 public class TeamMember extends TeamMemberBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -256,5 +263,62 @@ public class TeamMember extends TeamMemberBase implements com.runwaysdk.generati
     valueQuery.restrictRows(15, 1);
 
     return valueQuery;
+  }
+  
+  public static String getTempTableSQL()
+  {
+    MdEntityDAOIF personMd = MdEntityDAO.getMdEntityDAO(Person.CLASS);
+    String personTable = personMd.getTableName();
+    String firstNameCol = QueryUtil.getColumnName(personMd, Person.FIRSTNAME);
+    String lastNameCol = QueryUtil.getColumnName(personMd, Person.LASTNAME);
+    
+    MdEntityDAOIF teamMemberMd = MdEntityDAO.getMdEntityDAO(TeamMember.CLASS);
+    String teamMemberTable = teamMemberMd.getTableName();
+    String memberIdCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.MEMBERID);
+    String personCol = QueryUtil.getColumnName(teamMemberMd, TeamMember.PERSON);
+    
+    MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
+    String teamIdCold = QueryUtil.getColumnName(sprayTeamMd, SprayTeam.TEAMID);
+    String sprayTeamTable = sprayTeamMd.getTableName();
+    
+    MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
+    String malariaSeasonTable = malariaSeasonMd.getTableName();
+    String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
+    String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    
+    String select = "SELECT "+teamMemberTable+".id,\n";
+    
+    // actual targets
+    select += "0 AS operator_actual_target,\n";
+    select += "0 AS area_actual_target,\n";
+    select += "0 AS team_actual_target,\n";
+
+    // planned targets
+    select += "0 AS operator_planned_target,\n";
+    select += "0 AS area_planned_target,\n";
+    select += "0 AS team_planned_target,\n";
+    
+    // team/member details
+    select += "''::TEXT AS sprayoperator_defaultLocale,\n";
+    select += "''::TEXT AS sprayteam_defaultLocale,\n";
+    select += "''::TEXT AS sprayleader_defaultLocale,\n";
+    select += "''::TEXT AS zone_supervisor_defaultLocale\n";
+    
+
+    String from = " FROM ";
+    // get the main tables
+    from += teamMemberTable + " AS "+teamMemberTable+"\n";
+//    from += ""+teamMemberTable+"" + " AS sprayoperator,\n";
+//    from += personTable + " AS "+personTable+",\n";
+    
+
+    // join main tables
+    String where = "";
+
+
+
+    return select + "\n" + from + "\n" + where;
   }
 }

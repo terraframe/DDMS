@@ -13,6 +13,8 @@ public class EpiWeek extends EpiWeekBase implements com.runwaysdk.generation.loa
 {
   private static final long serialVersionUID = 1256576864448L;
 
+  public static final int NUMBER_OF_WEEKS = 53;
+  
   public EpiWeek()
   {
     super();

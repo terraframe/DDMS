@@ -508,9 +508,9 @@ YAHOO.util.Event.onDOMReady(function(){
                                 */
                                 {
                                   
-                                  key:"zone_supervisor",
+                                  key:"zone_supervisor_defaultLocale",
                                   type:"sqlcharacter",
-                                  attributeName:"zone_supervisor",
+                                  attributeName:"zone_supervisor_defaultLocale",
                                 },
                                 /* OLD
                                 {

@@ -11,6 +11,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.Person;
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -132,7 +134,6 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     String operSprayStatusTable = operSprayStatusMd.getTableName();
     String sprayCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.SPRAY);
     String sprayOperatorCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.SPRAYOPERATOR);
-//    String operSprayWeekCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OPERATORSPRAYWEEK);
     String receivedCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.RECEIVED);
     String usedCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.USED);
     String refillsCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.REFILLS);
@@ -170,7 +171,6 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     String teamSprayTable = teamSprayMd.getTableName();
     String teamLeaderCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TEAMLEADER);
     String sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
-//    String teamSprayWeekCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TEAMSPRAYWEEK);
     String targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
     
     MdEntityDAOIF abstractSprayMd = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS);
@@ -182,6 +182,8 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     String malariaSeasonTable = malariaSeasonMd.getTableName();
     String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
     String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     
     String select = "SELECT "+teamSprayTable+".id,\n";
 
@@ -191,38 +193,33 @@ public class TeamSpray extends TeamSprayBase implements com.runwaysdk.generation
     select += "'' AS structure_id,\n";
     select += ""+operSprayStatusTable+"." + sprayOperatorCol + " AS sprayoperator,\n";
     select += "sprayoperator."+memberIdCol+" || ' - ' || "+personTable+"."+firstNameCol+" || ' ' || "+personTable+"."+lastNameCol+" AS sprayoperator_defaultLocale,\n";
-//    select += ""+operSprayStatusTable+"." + operSprayWeekCol + " AS operator_week,\n";
-    select += "NULL AS operator_target,\n";
+    select += "NULL AS operator_actual_target,\n";
     // team stuff
     select += ""+teamSprayTable+"." + sprayTeamCol + " AS "+sprayTeamCol+",\n";
     select += "(SELECT st." + teamIdCold + " FROM "+sprayTeamTable+" st WHERE st.id = "+teamSprayTable+"." + sprayTeamCol + ") AS sprayteam_defaultLocale,\n";
     select += ""+teamSprayTable+"." + teamLeaderCol + " AS sprayleader,\n";
     select += "(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ") AS sprayleader_defaultLocale,\n";
-//    select += ""+teamSprayTable+"." +teamSprayWeekCol + " AS team_week,\n";
-    select += ""+teamSprayTable+"." + targetCol + " AS team_target,\n";
+    select += ""+teamSprayTable+"." + targetCol + " AS team_planned_target,\n";
     // zone stuff
     select += "''::TEXT AS zone_supervisor,\n";
     select += "''::TEXT AS zone_supervisor_defaultLocale,\n";
-//    select += "NULL::INT  AS zone_week,\n";
-//    select += "NULL::INT  AS zone_target,\n";
     // target stuff
     select += "sprayseason.id  AS spray_season,\n";
     
     select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE "
         + "spray_target_view.target_id = sprayoperator.id \n"
         + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = "+operSprayStatusTable+"." + operSprayWeekCol
-        + ") AS planed_operator_target,\n";
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
+        + ") AS operator_planned_target,\n";
     
-    /* TODO IRS*/
-//    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
-//        + "AND spray_target_view.season_id = sprayseason.id \n"
-////        + "AND spray_target_view.target_week = " + teamSprayTable+ "." + teamSprayWeekCol
-//        + ") AS planed_team_target,\n";
+    select += "(SELECT weekly_target FROM " + viewName + " AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
+        + "AND spray_target_view.season_id = sprayseason.id \n"
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
+        + ") AS team_planned_target,\n";
 
     String diseaseCol = QueryUtil.getColumnName(TeamSpray.getDiseaseMd());
     select += "get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+", "+abstractSprayTable+"."+sprayDateCol+","+teamSprayTable+"."+diseaseCol+""
-         +") AS planed_area_target,\n";
+         +") AS area_planned_target,\n";
     //spray stuff
     select += ""+roomsCol+",\n";
     select += ""+structuresCol+",\n";

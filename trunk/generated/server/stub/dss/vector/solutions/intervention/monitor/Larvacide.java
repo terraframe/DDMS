@@ -10,10 +10,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableMoment;
-import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 

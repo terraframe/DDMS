@@ -8,6 +8,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 
 public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.generation.loader.Reloadable
@@ -176,10 +177,8 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
 
   public static String getTargetSQL(String tableName, String targetColumn)
   {
-    Integer number_of_weeks = 53;
-
     String weeks = "";
-    for (Integer i = 0; i < number_of_weeks; i++)
+    for (Integer i = 0; i < EpiWeek.NUMBER_OF_WEEKS; i++)
     {
       weeks += "target_" + i + ",";
       if (i % 10 == 0)
@@ -187,14 +186,14 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
     }
     weeks = weeks.substring(0, weeks.length() - 1);
 
-    String select = "SELECT tar.targeter AS target_id,\n";
+    String select = "SELECT current_date AS spray_date, tar.targeter AS target_id,\n";
     select += "tar.season AS season_id,\n";
     select += "i AS target_week,\n";
     select += "target_array[i] AS weekly_target,\n";
 
     String from = "FROM ";
     from += "(SELECT " + targetColumn + " AS targeter, season, ARRAY[" + weeks + "] AS target_array FROM " + tableName + ") AS tar ";
-    from += "CROSS JOIN generate_series(1, " + ( number_of_weeks + 1 ) + ") AS i \n";
+    from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 ) + ") AS i \n";
 
     select = select.substring(0, select.length() - 2);
     from = from.substring(0, from.length() - 2);
