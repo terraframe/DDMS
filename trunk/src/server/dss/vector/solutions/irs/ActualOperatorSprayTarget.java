@@ -4,7 +4,6 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -154,6 +153,31 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   {
     return set("(SELECT tm."+q.memberIdCol+" || ' - ' || p."+q.firstNameCol+" || ' ' || p."+q.lastNameCol+" FROM "+q.teamMemberTable+
         " tm , "+q.personTable + " AS p WHERE p.id = tm."+q.personCol+" AND tm.id = "+operSprayTable+"." + teamLeaderCol + ")", alias);
+  }
+  
+  @Override
+  public String setOperatorPlannedTarget(Alias alias)
+  {
+    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE " + "spray_target_view.target_id = sprayoperator.id \n" 
+        + "AND spray_target_view.season_id = sprayseason.id \n"
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+            + ")", alias);
+  }
+  
+  @Override
+  public String setTeamPlannedTarget(Alias alias)
+  {
+    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE " + "spray_target_view.target_id = "+operSprayTable+"." + sprayTeamCol + " \n" 
+        + "AND spray_target_view.season_id = sprayseason.id \n"
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+            + ")", alias);
+  }
+  
+  @Override
+  public String setAreaPlannedTarget(Alias alias)
+  {
+    return set("get_seasonal_spray_target_by_geoEntityId_and_date("+q.abstractSprayTable+"."+q.geoEntityCol+","+
+        q.abstractSprayTable+"."+q.sprayDateCol+","+operSprayTable+"."+diseaseCol+""+ ")", alias);
   }
   
   @Override

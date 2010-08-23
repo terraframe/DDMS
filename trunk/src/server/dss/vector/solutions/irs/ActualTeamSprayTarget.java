@@ -38,6 +38,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   private String returnCol;
   private String teamIdCold;
   private String sprayTeamTable;
+  private String targetCol;
   
   public ActualTeamSprayTarget()
   {
@@ -48,6 +49,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     teamLeaderCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TEAMLEADER);
     sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
     diseaseCol = QueryUtil.getColumnName(TeamSpray.getDiseaseMd());
+    targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
     
     MdEntityDAOIF operSprayStatusMd = MdEntityDAO.getMdEntityDAO(OperatorSprayStatus.CLASS);
     operSprayStatusTable = operSprayStatusMd.getTableName();
@@ -124,6 +126,38 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   {
     return set("(SELECT tm."+q.memberIdCol+" || ' - ' || p."+q.firstNameCol+" || ' ' || p."+q.lastNameCol+" FROM "+q.teamMemberTable+" tm , "+q.personTable + 
         " AS p WHERE p.id = tm."+q.personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ")", alias);
+  }
+  
+  @Override
+  public String setTeamActualTarget(Alias alias)
+  {
+    return set(teamSprayTable, targetCol, alias);
+  }
+  
+  @Override
+  public String setOperatorPlannedTarget(Alias alias)
+  {
+    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE "
+        + "spray_target_view.target_id = sprayoperator.id \n"
+        + "AND spray_target_view.season_id = sprayseason.id \n"
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+        + ")", alias);
+  }
+  
+  @Override
+  public String setTeamPlannedTarget(Alias alias)
+  {
+    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
+        + "AND spray_target_view.season_id = sprayseason.id \n"
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+        + ")", alias);
+  }
+  
+  @Override
+  public String setAreaPlannedTarget(Alias alias)
+  {
+    return set("get_seasonal_spray_target_by_geoEntityId_and_date("+q.abstractSprayTable+"."+q.geoEntityCol+
+        ", "+q.abstractSprayTable+"."+q.sprayDateCol+","+teamSprayTable+"."+diseaseCol+")", alias);
   }
   
   @Override

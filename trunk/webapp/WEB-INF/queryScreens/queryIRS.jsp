@@ -509,6 +509,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                 {
                                   
                                   key:"zone_supervisor_defaultLocale",
+                                  displayLabel:MDSS.localize('zone_supervisor'),
                                   type:"sqlcharacter",
                                   attributeName:"zone_supervisor_defaultLocale",
                                 },

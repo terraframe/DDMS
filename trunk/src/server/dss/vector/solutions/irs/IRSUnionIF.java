@@ -23,7 +23,6 @@ public interface IRSUnionIF extends Reloadable
   String setTeamActualTarget(Alias alias);
   String setZoneSuperVisor(Alias alias);
   String setZoneSuperVisorDefaultLocale(Alias alias);
-  String setZoneActualTarget(Alias alias);
   String setSpraySeason(Alias alias);
   String setOperatorPlannedTarget(Alias alias);
   String setTeamPlannedTarget(Alias alias);

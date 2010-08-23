@@ -246,11 +246,26 @@ public class IRSQuery implements Reloadable
     private void setTargetManagmentCalculations()
     {
       // actual targets
+      calculateOperatorActualTargets();      
+      calculateTeamActualTargets();
       
       // planned targets
       calculateAreaPlannedTargets();      
       calculateOperatorPlannedTargets();
       calculateTeamPlannedTargets();
+      
+      // planned coverage
+      calculateAreaPlannedCoverage();      
+      calculateOperatorPlannedCoverage();
+      calculateTeamPlannedCoverage();
+      
+      // targeted coverage
+      calculateOperatorTargetedCoverage();
+      calculateTeamTargetedCoverage();
+      
+      // divergence
+      calculateTeamTargetDivergence();
+      calculateOperatorTargetDivergence();
     }
     
     private void setWithQuerySQL()
@@ -373,7 +388,8 @@ public class IRSQuery implements Reloadable
         return;
       }
       
-      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
     }
     
     private void calculateTeamPlannedTargets()
@@ -388,7 +404,151 @@ public class IRSQuery implements Reloadable
         return;
       }
       
-      String sql = "";
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+    
+    private void calculateOperatorTargetDivergence()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("operator_target_divergence"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("operator_target_divergence");
+      }
+      else
+      {
+        return;
+      }
+      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+    
+    private void calculateTeamTargetDivergence()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("team_target_divergence"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("team_target_divergence");
+      }
+      else
+      {
+        return;
+      }
+      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }    
+    
+    private void calculateOperatorTargetedCoverage()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("operator_targeted_coverage"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("operator_targeted_coverage");
+      }
+      else
+      {
+        return;
+      }
+      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+    
+    private void calculateTeamTargetedCoverage()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("team_targeted_coverage"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("team_targeted_coverage");
+      }
+      else
+      {
+        return;
+      }
+      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+    
+    private void calculateOperatorPlannedCoverage()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("operator_planned_coverage"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("operator_planned_coverage");
+      }
+      else
+      {
+        return;
+      }
+
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+    
+    private void calculateTeamPlannedCoverage()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("team_planned_coverage"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("team_planned_coverage");
+      }
+      else
+      {
+        return;
+      }
+      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+
+    private void calculateAreaPlannedCoverage()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("area_planned_coverage"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("area_planned_coverage");
+      }
+      else
+      {
+        return;
+      }
+
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+
+    private void calculateOperatorActualTargets()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("operator_actual_target"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("operator_actual_target");
+      }
+      else
+      {
+        return;
+      }
+
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
+      calc.setSQL(sql);
+    }
+    
+    private void calculateTeamActualTargets()
+    {
+      SelectableSQL calc;
+      if (valueQuery.hasSelectableRef("team_actual_target"))
+      {
+        calc = (SelectableSQL) valueQuery.getSelectableRef("team_actual_target");
+      }
+      else
+      {
+        return;
+      }
+      
+      String sql = "SUM("+calc.getUserDefinedAlias()+")";
       calc.setSQL(sql);
     }
 
@@ -439,7 +599,7 @@ public class IRSQuery implements Reloadable
       }
       else
       {
-        // FIXME throw error?
+        throw new IncidencePopulationException();
       }
       
       calc.setSQL(sql);
@@ -500,7 +660,7 @@ public class IRSQuery implements Reloadable
     {
       String sql = "SELECT \n";
       sql += union.setId(Alias.ID)+", \n";
-      sql += union.setSprayDate(Alias.SPRAY_DATE)+", \n";
+//      sql += union.setSprayDate(Alias.SPRAY_DATE)+", \n";
       sql += union.setAggregationLevel(Alias.AGGREGATION_LEVEL)+", \n";
       sql += union.setHouseholdId(Alias.HOUSEHOLD_ID)+", \n";
       sql += union.setStructureId(Alias.STRUCTURE_ID)+", \n";
@@ -514,7 +674,6 @@ public class IRSQuery implements Reloadable
       sql += union.setTeamActualTarget(Alias.TEAM_ACTUAL_TARGET)+", \n";
       sql += union.setZoneSuperVisor(Alias.ZONE_SUPERVISOR)+", \n";
       sql += union.setZoneSuperVisorDefaultLocale(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE)+", \n";
-      sql += union.setZoneActualTarget(Alias.ZONE_ACTUAL_TARGET)+", \n";
       sql += union.setSpraySeason(Alias.SPRAY_SEASON)+", \n";
       sql += union.setOperatorPlannedTarget(Alias.OPERATOR_PLANNED_TARGET)+", \n";
       sql += union.setTeamPlannedTarget(Alias.TEAM_PLANNED_TARGET)+", \n";

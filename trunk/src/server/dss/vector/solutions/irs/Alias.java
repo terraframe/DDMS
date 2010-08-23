@@ -19,7 +19,6 @@ public enum Alias implements Reloadable
   TEAM_ACTUAL_TARGET("team_actual_target"),
   ZONE_SUPERVISOR("zone_supervisor"),
   ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale"),
-  ZONE_ACTUAL_TARGET("zone_actual_target"),
   SPRAY_SEASON("spray_season"),
   OPERATOR_PLANNED_TARGET("operator_planned_target"),
   TEAM_PLANNED_TARGET("team_planned_target"),

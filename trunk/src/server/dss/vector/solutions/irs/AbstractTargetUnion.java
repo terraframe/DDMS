@@ -2,6 +2,8 @@ package dss.vector.solutions.irs;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 
 
@@ -22,12 +24,15 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
    */
   protected IRSQuery q;
   
+  protected int startDay;
+  
   protected String diseaseId;
 
   public AbstractTargetUnion()
   {
     q = null;
     diseaseId = Disease.getCurrent().getId();
+    startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
   }
   
   public final void setIRSQuery(IRSQuery irsQuery)

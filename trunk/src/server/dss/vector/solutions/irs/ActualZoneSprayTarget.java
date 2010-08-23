@@ -106,6 +106,22 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   }
   
   @Override
+  public String setTeamPlannedTarget(Alias alias)
+  {
+    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n"
+        + "AND spray_target_view.season_id = sprayseason.id \n"
+        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+        + ")", alias);
+  }
+  
+  @Override
+  public String setAreaPlannedTarget(Alias alias)
+  {
+    return set("get_seasonal_spray_target_by_geoEntityId_and_date(" + q.abstractSprayTable + "." + q.geoEntityCol + "," + 
+        q.abstractSprayTable + "." + q.sprayDateCol+","+zoneSprayTable+"."+diseaseCol+")", alias);
+  }
+  
+  @Override
   public String setRooms(Alias alias)
   {
     return set(teamSprayStatusTable, roomsCol, alias);
