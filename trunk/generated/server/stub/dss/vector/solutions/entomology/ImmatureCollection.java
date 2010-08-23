@@ -1,5 +1,6 @@
 package dss.vector.solutions.entomology;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -16,6 +17,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
@@ -95,6 +97,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
   {
     this.populateCollectionId();
     this.validateStartDate();
+    this.validateEndDate();
     if (this.isNew() && this.getDisease() == null)
     {
       this.setDisease(Disease.getCurrent());
@@ -105,15 +108,44 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
   @Override
   public void validateStartDate()
   {
-    if (this.getStartDate() != null && this.getEndDate() != null)
+    Date start = this.getStartDate();
+    
+    if (start!=null && start.after(new Date()))
     {
-      if (this.getStartDate().after(this.getEndDate()))
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(start);
+      p.setCurrentDate(new Date());
+      p.setNotification(this, STARTDATE);
+      p.apply();
+      p.throwIt();
+    }
+    
+    Date end = this.getEndDate();
+    if (start != null && end != null)
+    {
+      if (start.after(this.getEndDate()))
       {
         MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
         p.apply();
 
         p.throwIt();
       }
+    }
+  }
+  
+  @Override
+  public void validateEndDate()
+  {
+    Date end = this.getEndDate();
+    
+    if (end!=null && end.after(new Date()))
+    {
+      CurrentDateProblem p = new CurrentDateProblem();
+      p.setGivenDate(end);
+      p.setCurrentDate(new Date());
+      p.setNotification(this, ENDDATE);
+      p.apply();
+      p.throwIt();
     }
   }
 
