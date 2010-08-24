@@ -55,11 +55,12 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
   @Override
   public void validateStructureId()
   {
-    if(this.getStructureId() != null)
+    if(this.getStructureId() != null && this.getSpray() != null)
     {
       HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getId().NE(this.getId()));
       query.AND(query.getStructureId().EQ(this.getStructureId()));
+      query.AND(query.getSpray().EQ(this.getSpray()));
       
       long count = query.getCount();
       

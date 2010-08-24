@@ -48,7 +48,7 @@ public class TeamSprayStatusView extends TeamSprayStatusViewBase implements com.
     
     if (concrete.getSprayTeam() != null)
     {
-      this.setTeamLabel(concrete.getSprayTeam().getLabel());
+      this.setTeamLabel(concrete.getSprayTeam().getTeamId());
     }
     else
     {
