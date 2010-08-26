@@ -118,6 +118,26 @@ public class QueryUtil implements Reloadable
 
   public static final String  SHORT_DISPLAY_LABEL          = "short_Display_Label";
 
+  public static String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+  }
+
+  public static String minColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return "min_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+  }
+  
+  public static String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return "max_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+  }
+  
+  public static String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
+  {
+    return "avg_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+  }
+  
   /**
    * Performs basic validation on the ValueQuery to ensure the query is valid.
    * 

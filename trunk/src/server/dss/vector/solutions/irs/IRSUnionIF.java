@@ -10,18 +10,18 @@ public interface IRSUnionIF extends Reloadable
   // template methods
   String setId(Alias alias);
   String setSprayDate(Alias alias);
+//  String setBrand(Alias alias);
+//  String setGeoEntity(Alias alias);
+//  String setSprayMethod(Alias alias);
+//  String setSurfaceType(Alias alias);
   String setAggregationLevel(Alias alias);
   String setHouseholdId(Alias alias);
   String setStructureId(Alias alias);
-  String setSprayOperator(Alias alias);
   String setSprayOperatorDefaultLocale(Alias alias);
   String setOperatorActualTarget(Alias alias);
-  String setSprayTeam(Alias alias);
   String setSprayTeamDefaultLocale(Alias alias);
-  String setSprayLeader(Alias alias);
   String setSprayLeaderDefaultLocale(Alias alias);
   String setTeamActualTarget(Alias alias);
-  String setZoneSuperVisor(Alias alias);
   String setZoneSuperVisorDefaultLocale(Alias alias);
   String setSpraySeason(Alias alias);
   String setOperatorPlannedTarget(Alias alias);

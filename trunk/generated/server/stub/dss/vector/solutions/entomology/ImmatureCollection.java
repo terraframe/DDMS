@@ -347,9 +347,10 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       
       // we need to deuplicate the sum so the same collection is not counted
       // twice
-      String numberExaminedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + numberExamined + "))";
-      String numberSizeSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + premiseSize + "))";
-      String numberInhabitantsSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + collectionPremiseQuery.getTableAlias() + "." + id + " || '~' || " + numberInhabitants + "))";
+      
+      String numberExaminedSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), id, null, numberExamined);
+      String numberSizeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), id, null, premiseSize);
+      String numberInhabitantsSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), id, null, numberInhabitants);
 
 
       QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM(" + numberimmatures + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");

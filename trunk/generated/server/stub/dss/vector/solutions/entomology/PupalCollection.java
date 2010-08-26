@@ -267,9 +267,9 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     String pupalContainerTable = MdBusiness.getMdBusiness(PupalContainer.CLASS).getTableName();
     String pupalContainerAmmountTable = MdBusiness.getMdEntity(PupalContainerAmount.CLASS).getTableName();
     
-    String numberExaminedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + numberExamined + "))";
-    String numberSizeSum =     "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + premiseSize + "))";
-    String numberInhabitantsSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + numberInhabitants + "))";  
+    String numberExaminedSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberExamined);
+    String numberSizeSum =     QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, premiseSize);
+    String numberInhabitantsSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberInhabitants);  
     
     String taxonSql = "SELECT pc."+id+" ";
     for (Term taxon : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
@@ -312,24 +312,24 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
         String sql;
         if(sel instanceof SUM)
         {
-          sql = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + alias + "))";
+          sql = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, alias);
         }
         if(sel instanceof AVG)
         {
-          sql = "avg_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + alias + "))";
+          sql = QueryUtil.avgColumnForId(premiseQuery.getTableAlias(), id, null, alias);
         }
         else if(sel instanceof MIN)
         {
-          sql = "min_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + alias + "))";
+          sql = QueryUtil.minColumnForId(premiseQuery.getTableAlias(), id, null, alias);
         }
         else if(sel instanceof MAX)
         {
-          sql = "max_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + alias + "))";
+          sql = QueryUtil.maxColumnForId(premiseQuery.getTableAlias(), id, null, alias);
         }
         else
         {
           // We have to SUM by default to avoid a cross-product
-          sql = "sum_stringified_id_int_pairs(array_agg(DISTINCT " + premiseQuery.getTableAlias() + "." + id + " || '~' || " + alias + "))";
+          sql = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, alias);
         }
         
         SelectableSQL newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias);

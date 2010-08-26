@@ -203,11 +203,11 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     return setNULL(alias);
   }
 
-  public String setSprayLeader(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
+//  public String setSprayLeader(Alias alias)
+//  {
+//
+//    return setNULL(alias);
+//  }
 
   public String setSprayLeaderDefaultLocale(Alias alias)
   {
@@ -215,11 +215,11 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     return setNULL(alias);
   }
 
-  public String setSprayOperator(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
+//  public String setSprayOperator(Alias alias)
+//  {
+//
+//    return setNULL(alias);
+//  }
 
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
@@ -233,11 +233,11 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     return setNULL(alias);
   }
 
-  public String setSprayTeam(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
+//  public String setSprayTeam(Alias alias)
+//  {
+//
+//    return setNULL(alias);
+//  }
 
   public String setSprayTeamDefaultLocale(Alias alias)
   {
@@ -317,17 +317,11 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     return setNULL(alias);
   }
 
-  public String setZoneActualTarget(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
-
-  public String setZoneSuperVisor(Alias alias)
-  {
-
-    return setNULL(alias);
-  }
+//  public String setZoneSuperVisor(Alias alias)
+//  {
+//
+//    return setNULL(alias);
+//  }
 
   public String setZoneSuperVisorDefaultLocale(Alias alias)
   {

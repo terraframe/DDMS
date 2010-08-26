@@ -478,13 +478,15 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     String amount = QueryUtil.getColumnName(AggregatedPremiseReason.getAmountMd());
 
     // available and included for vehicle-based spraying
-    String availableSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + view+"."+available + "))";
-    String includedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT visit || '~' || " + view+"."+included + "))";
+    String visit = "visit";
+    
+    String availableSum = QueryUtil.sumColumnForId(null, visit, view, available);
+    String includedSum = QueryUtil.sumColumnForId(null, visit, view, included);
     
     String treatedCol = byTreatmentMethod ? used : treated;
-    String treatedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(byReasonNotTreated ? view2 : view)+".visit || '~' || " + treatedCol + "))";
-    String premisesSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(byReasonNotTreated ? view2 : view)+".visit || '~' || " + premises + "))";
-    String visitedSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(byReasonNotTreated ? view2 : view)+".visit || '~' || " + visited + "))";
+    String treatedSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, treatedCol);
+    String premisesSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, premises);
+    String visitedSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, visited);
     
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_available_for_vehicle_spraying", "" + availableSum + "") || needsView;
     needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_included_for_vehicle_spraying", "" + includedSum + "") || needsView;
@@ -496,7 +498,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
     
     if(byReasonNotTreated)
     {
-      String amountSum = "sum_stringified_id_int_pairs(array_agg(DISTINCT "+view+".visit || '~' || " + view+"."+amount + "))";
+      String amountSum = QueryUtil.sumColumnForId(view, visit, view, amount);
       needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + amountSum +"") || needsView;
       needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + amountSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     }

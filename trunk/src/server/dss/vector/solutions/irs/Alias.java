@@ -9,7 +9,7 @@ public enum Alias implements Reloadable
   AGGREGATION_LEVEL("aggregation_level"),
   HOUSEHOLD_ID("household_id"),
   STRUCTURE_ID("structure_id"),
-  SPRAY_OPERATOR("sprayedoprator"),
+  SPRAY_OPERATOR("sprayoperator"),
   SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale"),
   OPERATORY_ACTUAL_TARGET("operator_actual_target"),
   SPRAY_TEAM("sprayteam"),
