@@ -30,7 +30,7 @@
 	  <mjl:columns>
 	    <mjl:attributeColumn attributeName="collectionMethod">
 	      <mjl:row>
-	        ${current.collectionMethodLabel}
+	        ${current.collectionMethod.displayLabel}
 	      </mjl:row>
 	    </mjl:attributeColumn>
 	    <mjl:attributeColumn attributeName="collectionDate">
