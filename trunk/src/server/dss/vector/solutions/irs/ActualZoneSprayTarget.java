@@ -71,7 +71,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   
   public String setId(Alias alias)
   {
-    return set(this.zoneSprayTable, this.q.idCol, alias);
+    return set(this.zoneSprayTable, this.idCol, alias);
   }
   
   public String setAggregationLevel(Alias alias)
@@ -88,7 +88,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setSprayTeamDefaultLocale(Alias alias)
   {
-    return set("(SELECT st." + q.teamIdCol + " FROM " + q.sprayTeamTable + 
+    return set("(SELECT st." + teamIdCol + " FROM " + sprayTeamTable + 
         " st WHERE st.id = " + teamSprayStatusTable + "." + sprayTeamCol + ")", alias);
   }
   
@@ -101,24 +101,24 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setSprayLeaderDefaultLocale(Alias alias)
   {
-    return set("(SELECT tm." + q.memberIdCol + " || ' - ' || p." + q.firstNameCol + " || ' ' || p." + q.lastNameCol + " FROM " + q.teamMemberTable + " tm , " + q.personTable + 
-        " AS p WHERE p.id = tm."+q.personCol+" AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ")", alias);
+    return set("(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || ' ' || p." + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + 
+        " AS p WHERE p.id = tm."+personCol+" AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ")", alias);
   }
   
 //  @Override
 //  public String setTeamPlannedTarget(Alias alias)
 //  {
-//    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n"
+//    return set("(SELECT weekly_target FROM "+RESOURCE_TARGET_VIEW+" AS  spray_target_view WHERE " + "spray_target_view.target_id = " + teamSprayStatusTable + "." + sprayTeamCol + " \n"
 //        + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
 //        + ")", alias);
 //  }
 //  
 //  @Override
 //  public String setAreaPlannedTarget(Alias alias)
 //  {
-//    return set("get_seasonal_spray_target_by_geoEntityId_and_date(" + q.abstractSprayTable + "." + q.geoEntityCol + "," + 
-//        q.abstractSprayTable + "." + q.sprayDateCol+","+zoneSprayTable+"."+diseaseCol+")", alias);
+//    return set("get_seasonal_spray_target_by_geoEntityId_and_date(" + abstractSprayTable + "." + geoEntityCol + "," + 
+//        abstractSprayTable + "." + sprayDateCol+","+zoneSprayTable+"."+diseaseCol+")", alias);
 //  }
   
   @Override
@@ -276,15 +276,15 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   {
     String from = "";
     from += zoneSprayTable + " AS " + zoneSprayTable + " LEFT JOIN "+teamSprayStatusTable + " AS " + teamSprayStatusTable + " ON \n";
-    from += zoneSprayTable + "."+q.idCol+" = " + teamSprayStatusTable + "." + sprayCol + ",\n";
-    from += q.abstractSprayTable + " AS " + q.abstractSprayTable + "\n";
+    from += zoneSprayTable + "."+idCol+" = " + teamSprayStatusTable + "." + sprayCol + ",\n";
+    from += abstractSprayTable + " AS " + abstractSprayTable + "\n";
     from += " LEFT JOIN ";
-    from += q.malariaSeasonTable + " AS sprayseason ";
+    from += malariaSeasonTable + " AS sprayseason ";
     
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
     String diseaseId = Disease.getCurrent().getId();
-    from += "ON " + q.abstractSprayTable + "." + q.sprayDateCol + " BETWEEN sprayseason." + q.startDateCol + 
-      " AND sprayseason." + q.endDateCol + " AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
+    from += "ON " + abstractSprayTable + "." + sprayDateCol + " BETWEEN sprayseason." + startDateCol + 
+      " AND sprayseason." + endDateCol + " AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
     
     
     return from;
@@ -294,7 +294,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   public String where()
   {
     String where = "";
-    where += "" + q.abstractSprayTable + ".id = " + zoneSprayTable + ".id \n";
+    where += "" + abstractSprayTable + ".id = " + zoneSprayTable + ".id \n";
     where += "AND "+zoneSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
     
     return where;

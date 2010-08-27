@@ -4,16 +4,18 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public interface IRSUnionIF extends Reloadable
 {
+  static final String RESOURCE_TARGET_VIEW = "resourceTargetView";
+  
   // get/set owning IRSQuery
   void setIRSQuery(IRSQuery irsQuery);
   
   // template methods
   String setId(Alias alias);
   String setSprayDate(Alias alias);
-//  String setBrand(Alias alias);
-//  String setGeoEntity(Alias alias);
-//  String setSprayMethod(Alias alias);
-//  String setSurfaceType(Alias alias);
+  String setBrand(Alias alias);
+  String setGeoEntity(Alias alias);
+  String setSprayMethod(Alias alias);
+  String setSurfaceType(Alias alias);
   String setAggregationLevel(Alias alias);
   String setHouseholdId(Alias alias);
   String setStructureId(Alias alias);

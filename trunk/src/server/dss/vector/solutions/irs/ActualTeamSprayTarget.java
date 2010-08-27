@@ -81,7 +81,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   
   public String setId(Alias alias)
   {
-    return set(this.teamSprayTable, this.q.idCol, alias);
+    return set(this.teamSprayTable, this.idCol, alias);
   }
   
   public String setAggregationLevel(Alias alias)
@@ -98,8 +98,8 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
-    return set("sprayoperator."+q.memberIdCol+" || ' - ' || person."+q.firstNameCol+
-        " || ' ' || "+q.personTable+"."+q.lastNameCol, alias);
+    return set("sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+
+        " || ' ' || "+personTable+"."+lastNameCol, alias);
   }
   
 //  @Override
@@ -124,8 +124,8 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   @Override
   public String setSprayLeaderDefaultLocale(Alias alias)
   {
-    return set("(SELECT tm."+q.memberIdCol+" || ' - ' || p."+q.firstNameCol+" || ' ' || p."+q.lastNameCol+" FROM "+q.teamMemberTable+" tm , "+q.personTable + 
-        " AS p WHERE p.id = tm."+q.personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ")", alias);
+    return set("(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + 
+        " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ")", alias);
   }
   
   @Override
@@ -137,28 +137,28 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
 //  @Override
 //  public String setOperatorPlannedTarget(Alias alias)
 //  {
-//    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE "
+//    return set("(SELECT weekly_target FROM "+RESOURCE_TARGET_VIEW+" AS  spray_target_view WHERE "
 //        + "spray_target_view.target_id = sprayoperator.id \n"
 //        + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
 //        + ")", alias);
 //  }
 //  
 //  @Override
 //  public String setTeamPlannedTarget(Alias alias)
 //  {
-//    return set("(SELECT weekly_target FROM resourceTargetView AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
+//    return set("(SELECT weekly_target FROM "+RESOURCE_TARGET_VIEW+" AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
 //        + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+q.sprayDateCol+"," + startDay + ")-1"
+//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
 //        + ")", alias);
 //  }
-//  
-//  @Override
-//  public String setAreaPlannedTarget(Alias alias)
-//  {
-//    return set("get_seasonal_spray_target_by_geoEntityId_and_date("+q.abstractSprayTable+"."+q.geoEntityCol+
-//        ", "+q.abstractSprayTable+"."+q.sprayDateCol+","+teamSprayTable+"."+diseaseCol+")", alias);
-//  }
+  
+  @Override
+  public String setAreaPlannedTarget(Alias alias)
+  {
+    return set("get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+
+        ", "+abstractSprayTable+"."+sprayDateCol+","+teamSprayTable+"."+diseaseCol+")", alias);
+  }
   
   @Override
   public String setRooms(Alias alias)
@@ -318,15 +318,15 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     
     String from = "";
     from += teamSprayTable + " AS "+teamSprayTable+" LEFT JOIN "+operSprayStatusTable + " AS "+operSprayStatusTable+" ON "+teamSprayTable+".id = "+operSprayStatusTable+"."+sprayCol+" \n";
-    from += " LEFT JOIN "+q.teamMemberTable+"" + " AS sprayoperator ON "+operSprayStatusTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
-    from += " LEFT JOIN "+q.personTable + " AS "+q.personTable+" ON sprayoperator."+q.personCol+" = "+q.personTable+"."+q.idCol+", \n";
-    from += ""+q.abstractSprayTable+"" + " AS "+q.abstractSprayTable+"\n";
+    from += " LEFT JOIN "+teamMemberTable+"" + " AS sprayoperator ON "+operSprayStatusTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
+    from += " LEFT JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+"."+idCol+", \n";
+    from += ""+abstractSprayTable+"" + " AS "+abstractSprayTable+"\n";
     from += " LEFT JOIN ";
-    from += q.malariaSeasonTable + " AS sprayseason ";
+    from += malariaSeasonTable + " AS sprayseason ";
     
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
     String diseaseId = Disease.getCurrent().getId();
-    from += "ON "+q.abstractSprayTable+"."+q.sprayDateCol+" BETWEEN sprayseason."+q.startDateCol+" AND sprayseason."+q.endDateCol+" AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
+    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
     
     
     return from;
@@ -337,7 +337,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   {
     String where = "";
 
-    where += ""+q.abstractSprayTable+".id = "+teamSprayTable+".id\n";
+    where += ""+abstractSprayTable+".id = "+teamSprayTable+".id\n";
     where += "AND "+teamSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
     
     return where;

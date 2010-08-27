@@ -60,7 +60,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
     _getBrowserRootClass : function(attribute)
     {
       var type = attribute.getType();
-      if(type === 'dss.vector.solutions.irs.AbstractSpray')
+      if(type === 'dss.vector.solutions.irs.AbstractSpray' || attribute.getAttributeName() === 'surfaceType')
       {
         return 'dss.vector.solutions.irs.OperatorSprayView';
       }
@@ -73,6 +73,7 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
         return this.$_getBrowserRootClass(attribute);
       }
     }
+    
 	}
     
 });

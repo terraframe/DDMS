@@ -212,10 +212,16 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           }else if(t == 'sqldouble')
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', n, k));
-          }else if(t == 'sqlinteger')
+          }
+          else if(t == 'sqlinteger')
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', n, k));
-          }else
+          }
+          else if(t == 'sqldate')
+          {
+            var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldate('', n, k));
+          }
+          else
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
             if (addedEntities.indexOf(t) < 0) {
@@ -439,6 +445,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         selectable.attribute = attribute;
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
+      }else
+        if(attribute.getType() == 'sqldate'){
+          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldate('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+          selectable.attribute = attribute;
+          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+          column.attribute = attribute;
       }
       else
       {

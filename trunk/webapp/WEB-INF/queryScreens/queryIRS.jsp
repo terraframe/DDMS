@@ -50,7 +50,8 @@
 
 <%@page import="dss.vector.solutions.irs.OperatorSprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayStatusDTO"%>
-<%@page import="dss.vector.solutions.irs.TeamSprayViewDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
+<%@page import="dss.vector.solutions.irs.TeamSprayViewDTO"%>
+<%@page import="dss.vector.solutions.irs.AbstractSprayDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
@@ -295,7 +296,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     
     // OperatorSpray, TeamSpray, ZoneSpray
-    var abstractSprayAtribs = ["geoEntity","sprayDate","sprayMethod","surfaceType"];
+    var abstractSprayAtribs = [];
     <%
       Halp.setReadableAttributes(request, "abstractSprayAtribs_os", OperatorSprayViewDTO.CLASS, requestIF);
       Halp.setReadableAttributes(request, "abstractSprayAtribs_ts", TeamSprayViewDTO.CLASS, requestIF);
@@ -318,8 +319,54 @@ YAHOO.util.Event.onDOMReady(function(){
                             type:"sqlcharacter",
                             attributeName:"aggregation_level",
                             dropDownMap:{'1':'1','2':'2','3':'3'}
-                          },
+                          }
+
                          ]);
+    
+    if(available.contains('<%= AbstractSprayDTO.SPRAYDATE %>'))
+    {
+      Spray_Details.push({
+        key:'<%= AbstractSprayDTO.SPRAYDATE %>',
+        type:'sqldate',
+        attributeName:'<%= AbstractSprayDTO.SPRAYDATE %>',
+        displayLabel:abstractSpray.getSprayDateMd().getDisplayLabel()
+      });
+    }
+
+    if(available.contains('<%= AbstractSprayDTO.GEOENTITY %>'))
+    {
+      Spray_Details.push({
+        key:'<%= AbstractSprayDTO.GEOENTITY %>',
+        type:'sqlcharacter',
+        attributeName:'<%= AbstractSprayDTO.GEOENTITY %>',
+        displayLabel:abstractSpray.getGeoEntityMd().getDisplayLabel()
+      });
+    }
+    
+    if(available.contains('<%= AbstractSprayDTO.SPRAYMETHOD %>'))
+    {
+      Spray_Details.push({
+        key:'<%= AbstractSprayDTO.SPRAYMETHOD %>',
+        type:'sqlcharacter',
+        attributeName:'<%= AbstractSprayDTO.SPRAYMETHOD %>',
+        displayLabel:abstractSpray.getSprayMethodMd().getDisplayLabel(),
+        dropDownMap:operatorSprayMap
+      });
+    }
+
+    
+    if(available.contains('<%= AbstractSprayDTO.SURFACETYPE %>'))
+    {
+      Spray_Details.push({
+        key:'<%= AbstractSprayDTO.SURFACETYPE %>',
+        type:'sqlcharacter',
+        attributeName:'<%= AbstractSprayDTO.SURFACETYPE %>',
+        displayLabel:abstractSpray.getSurfaceTypeMd().getDisplayLabel(),
+        type:"dss.vector.solutions.irs.AbstractSpray",
+        dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
+        isTerm:true
+      });
+    }
 
 
     // HouseholdSprayStatus, OperatorSprayStatus, TeamSprayStatus (Used for Spray_Details and Household_Structure_Details)
@@ -339,6 +386,7 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available); 
 
     Spray_Details = Spray_Details.concat(abstractSprayAtribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:abstractSpray, suffix:'_spray', dropDownMaps:operatorSprayMap, type:'dss.vector.solutions.irs.AbstractSpray'}));
+
     Spray_Details = Spray_Details.concat(sprayStatusAttribs.map(MDSS.QueryBaseNew.mapInts, {obj:sprayStatus, suffix:'_spray', dropDownMaps:{}, type:'dss.vector.solutions.irs.AbstractSpray'}));
 
     // The last three unsprayed columns (locked, refused, other) go after the calculations

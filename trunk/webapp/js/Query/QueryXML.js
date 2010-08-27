@@ -610,12 +610,13 @@ MDSS.QueryXML.Sqlcharacter.prototype = {
   }
 }
 
-MDSS.QueryXML.Sqldate = function(entityAlias, name, userAlias, userDisplayLabel)
+MDSS.QueryXML.Sqldate = function(entityAlias, name, userAlias, userDisplayLabel, isAggregate)
 {
   this._entityAlias = entityAlias;
   this._name = name;
   this._userAlias = userAlias || '';
   this._userDisplayLabel = userDisplayLabel || '';
+  this._isAggregate = isAggregate || false;
 }
 MDSS.QueryXML.Sqldate.prototype = {
 
@@ -631,7 +632,8 @@ MDSS.QueryXML.Sqldate.prototype = {
       'sqldate': {
         'name': this._name,
         'userAlias': this._userAlias,
-        'userDisplayLabel': this._userDisplayLabel
+        'userDisplayLabel': this._userDisplayLabel,
+        'isaggregate': this._isAggregate
       }
     };
 
