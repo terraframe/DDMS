@@ -50,26 +50,26 @@ public class AbstractSprayTest extends TestCase
   {
   }
 
-  public void testCreateTempTable()
-  {
-    String insecticideView = "insecticide_view";
-    String resourceTargetView = "resource_target_view";
-    String zoneSprayView = "zone_spray_view";
-    String sprayStatusView = "spray_status_view";
-    String tableName = "all_levels_spray_view";
-
-    //SprayStatus.createTempTable(sprayStatusView);
-    //InsecticideBrand.createTempTable(insecticideView);
-    ResourceTarget.createDatabaseView(resourceTargetView);
-
-    //OperatorSpray.createTempTable("operator_spray_view");
-    //TeamSpray.createTempTable("team_spray_view");
-    //ZoneSpray.createTempTable(zoneSprayView);
-
-     ZoneSpray.createTempTable(tableName,resourceTargetView);
-
-
-  }
+//  public void testCreateTempTable()
+//  {
+//    String insecticideView = "insecticide_view";
+//    String resourceTargetView = "resource_target_view";
+//    String zoneSprayView = "zone_spray_view";
+//    String sprayStatusView = "spray_status_view";
+//    String tableName = "all_levels_spray_view";
+//
+//    //SprayStatus.createTempTable(sprayStatusView);
+//    //InsecticideBrand.createTempTable(insecticideView);
+//    ResourceTarget.createDatabaseView(resourceTargetView);
+//
+//    //OperatorSpray.createTempTable("operator_spray_view");
+//    //TeamSpray.createTempTable("team_spray_view");
+//    //ZoneSpray.createTempTable(zoneSprayView);
+//
+//     ZoneSpray.createTempTable(tableName,resourceTargetView);
+//
+//
+//  }
 
 
 
