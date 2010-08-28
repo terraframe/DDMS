@@ -1,6 +1,5 @@
 package dss.vector.solutions.irs;
 
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
@@ -10,7 +9,6 @@ import com.runwaysdk.query.SelectableInteger;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -18,7 +16,6 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String TARGET_WEEK = "target_week";
   
   private static final long serialVersionUID = 1240267420514L;
 
@@ -209,32 +206,6 @@ public class GeoTarget extends GeoTargetBase implements com.runwaysdk.generation
   }
    */
 
-  public static String getTempTableSQL()
-  {
-    MdEntityDAOIF geoTargetMd = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS);
-    String geoTargetTable = geoTargetMd.getTableName();
-    String seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
-    String geoEntityTargetCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
-    String diseaseCol = QueryUtil.getColumnName(GeoTarget.getDiseaseMd());
-    
-    String sql = "SELECT \n";
-    sql += "current_date AS spray_date, \n";
-    sql += "tar."+diseaseCol+" AS disease, \n";
-    sql += "tar."+geoEntityTargetCol+" AS geo_entity, \n";
-    sql += "tar."+seasonCol+" AS season, \n";
-    sql += "i AS "+TARGET_WEEK+", \n";
-    sql += "target_array[i] AS weekly_target \n";
-    sql += "FROM (SELECT "+diseaseCol+", "+geoEntityTargetCol+", "+seasonCol+", ARRAY[target_0, \n";
-    sql += "target_1,target_2,target_3,target_4,target_5,target_6,target_7,target_8,target_9,target_10, \n";
-    sql += "target_11,target_12,target_13,target_14,target_15,target_16,target_17,target_18,target_19,target_20, \n";
-    sql += "target_21,target_22,target_23,target_24,target_25,target_26,target_27,target_28,target_29,target_30, \n";
-    sql += "target_31,target_32,target_33,target_34,target_35,target_36,target_37,target_38,target_39,target_40, \n";
-    sql += "target_41,target_42,target_43,target_44,target_45,target_46,target_47,target_48,target_49,target_50, \n";
-    sql += "target_51,target_52] AS target_array FROM "+geoTargetTable+") AS tar CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 ) + ") AS i \n";
-    
-    return sql;
-  }
-  
   public static Integer[] getCalculatedTargets(String geoid, String malariaSeasonId)
   {
 

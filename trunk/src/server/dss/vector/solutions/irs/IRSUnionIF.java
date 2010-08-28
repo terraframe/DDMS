@@ -6,12 +6,17 @@ public interface IRSUnionIF extends Reloadable
 {
   static final String RESOURCE_TARGET_VIEW = "resourceTargetView";
   
+  public static final String INTEGER = "integer";
+  public static final String TEXT = "text";
+  public static final String DATE = "date";
+  
   // get/set owning IRSQuery
   void setIRSQuery(IRSQuery irsQuery);
   
   // template methods
   String setId(Alias alias);
   String setSprayDate(Alias alias);
+  String setTargetWeek(Alias alias);
   String setBrand(Alias alias);
   String setGeoEntity(Alias alias);
   String setSprayMethod(Alias alias);

@@ -36,7 +36,6 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   private String usedCol;
   private String refillsCol;
   private String returnCol;
-  private String teamIdCold;
   private String sprayTeamTable;
   private String targetCol;
   
@@ -75,7 +74,6 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     otherCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OTHER);
    
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
-    teamIdCold = QueryUtil.getColumnName(sprayTeamMd, SprayTeam.TEAMID);
     sprayTeamTable = sprayTeamMd.getTableName();
   }
   
@@ -89,12 +87,6 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     return set("'2'::TEXT", alias);
   }
   
-//  @Override
-//  public String setSprayOperator(Alias alias)
-//  {
-//    return set(this.operSprayStatusTable, this.sprayOperatorCol, alias);
-//  }
-  
   @Override
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
@@ -102,24 +94,12 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
         " || ' ' || "+personTable+"."+lastNameCol, alias);
   }
   
-//  @Override
-//  public String setSprayTeam(Alias alias)
-//  {
-//    return set(teamSprayTable, sprayTeamCol, alias);
-//  }
-  
   @Override
   public String setSprayTeamDefaultLocale(Alias alias)
   {
-    return set("(SELECT st." + teamIdCold + " FROM "+sprayTeamTable+
+    return set("(SELECT st." + teamIdCol + " FROM "+sprayTeamTable+
         " st WHERE st.id = "+teamSprayTable+"." + sprayTeamCol + ")", alias);
   }
-  
-//  @Override
-//  public String setSprayLeader(Alias alias)
-//  {
-//    return set(teamSprayTable, teamLeaderCol, alias);
-//  }
   
   @Override
   public String setSprayLeaderDefaultLocale(Alias alias)
@@ -132,32 +112,6 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   public String setTeamActualTarget(Alias alias)
   {
     return set(teamSprayTable, targetCol, alias);
-  }
-  
-//  @Override
-//  public String setOperatorPlannedTarget(Alias alias)
-//  {
-//    return set("(SELECT weekly_target FROM "+RESOURCE_TARGET_VIEW+" AS  spray_target_view WHERE "
-//        + "spray_target_view.target_id = sprayoperator.id \n"
-//        + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
-//        + ")", alias);
-//  }
-//  
-//  @Override
-//  public String setTeamPlannedTarget(Alias alias)
-//  {
-//    return set("(SELECT weekly_target FROM "+RESOURCE_TARGET_VIEW+" AS  spray_target_view WHERE " + "spray_target_view.target_id = "+teamSprayTable+"." + sprayTeamCol + " \n"
-//        + "AND spray_target_view.season_id = sprayseason.id \n"
-//        + "AND spray_target_view.target_week = get_epiWeek_from_date("+sprayDateCol+"," + startDay + ")-1"
-//        + ")", alias);
-//  }
-  
-  @Override
-  public String setAreaPlannedTarget(Alias alias)
-  {
-    return set("get_seasonal_spray_target_by_geoEntityId_and_date("+abstractSprayTable+"."+geoEntityCol+
-        ", "+abstractSprayTable+"."+sprayDateCol+","+teamSprayTable+"."+diseaseCol+")", alias);
   }
   
   @Override

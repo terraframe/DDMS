@@ -44,7 +44,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this._startDate = null;
       this._endDate = null;
-      this._dateGroupSelectables = [];
+      this._dateGroupSelectables = {};
   
       this._config = new MDSS.Query.Config();
   
@@ -196,7 +196,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         var column = this._queryPanel.getColumn(group.toLowerCase());
         this._queryPanel.removeColumn(column);
-        this._dateGroupSelectables[group] = null;
+        delete this._dateGroupSelectables[group];
       }
     },
   
@@ -454,7 +454,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         var column = this._queryPanel.getColumn(range.toLowerCase());
         this._queryPanel.removeColumn(column);
-        this._dateGroupSelectables[range] = null;
+        delete this._dateGroupSelectables[range];
       }
   
     },
@@ -1712,6 +1712,26 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
       this._dependencies = {};
       this._enabled = true;
       this._transactions = 0;
+      this._allTransactionsStartListeners = [];
+      this._allTransactionsFinishListeners = [];
+    },
+    
+    addAllTransactionsStartListener : function(handler)
+    {
+      this._allTransactionsStartListeners.push(handler);
+    },
+
+    addAllTransactionsFinishListener : function(handler)
+    {
+      this._allTransactionsFinishListeners.push(handler);
+    },
+    
+    _fireAllListeners : function(listeners, triggerId, independents)
+    {
+      for(var i=0; i<listeners.length; i++)
+      {
+        listeners[i](triggerId, independents);
+      }
     },
     
     enable : function() { this._enabled = true; },
@@ -1720,10 +1740,16 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
     
     notifyAll : function(e)
     {
-      var dArr = this._dependencies[e.target.id];
+      var id = e.target.id;
+      var dArr = this._dependencies[id];
       if(!dArr || !this._enabled)
       {
         return;
+      }
+      
+      if(this._transactions === 0)
+      {
+        this._fireAllListeners(this._allTransactionsStartListeners, id, dArr);
       }
       
       if(Mojo.Util.isArray(dArr))
@@ -1758,23 +1784,26 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
             check.checked = false;
           }
         }
+        
+        // We are completely done with all transactions!
+        this._fireAllListeners(this._allTransactionsFinishListeners, id, dArr);
       }
    },
    
-   _addEntry : function(ind, dep, type, excludes, propagate)
+   _addEntry : function(ind, dep, type, excludes, propagate, name)
    {
      if(Mojo.Util.isArray(ind))
      {
        for(var i=0; i<ind.length; i++)
        {
-         this._addEntry(ind[i], dep, type, excludes, propagate);
+         this._addEntry(ind[i], dep, type, excludes, propagate, name);
        }
        
        return;
      }     
      
-     var indO = MDSS.Independent.factory(ind, excludes, propagate);
-     var depO = MDSS.Dependent.factory(dep, type);
+     var indO = MDSS.Independent.factory(ind, excludes, propagate, name);
+     var depO = MDSS.Dependent.factory(dep, type, name);
      
      indO.setDependent(depO);
      
@@ -1807,15 +1836,16 @@ Mojo.Meta.newClass('MDSS.DependencyManager', {
      var type = config.type;
      var bidirectional = config.bidirectional;
      var propagate = config.propagate || false;
+     var name = config.name || Mojo.Util.generateId(6);
      
      var indIds = this._getIds(ind);
      var depIds = this._getIds(dep);
      
-     this._addEntry(indIds, depIds, type, excludes, propagate);
+     this._addEntry(indIds, depIds, type, excludes, propagate, name);
      
      if(bidirectional)
      {
-       this._addEntry(depIds, indIds, type, excludes, propagate);
+       this._addEntry(depIds, indIds, type, excludes, propagate, name);
      }
    },
    
@@ -1839,17 +1869,16 @@ Mojo.Meta.newClass('MDSS.Dependent', {
   Constants : {
     CHECKED : 'checked',
     UNCHECKED : 'unchecked',
-    BOTH : 'both',
+    BOTH : 'both'
   },
 
   Instance : {
-    initialize : function(type, group)
+    initialize : function(type, name)
     {
       this._type = type;
-      this._dependent = null;
-      this._group = group || null;
+      this._name = name;
     },
-
+    
     getType : function()
     {
       return this._type;
@@ -1866,10 +1895,10 @@ Mojo.Meta.newClass('MDSS.Dependent', {
   },
 
   Static : {
-    factory : function(attribute, type)
+    factory : function(attribute, type, name)
     {
       return Mojo.Util.isArray(attribute) ? 
-        new MDSS.GroupDependent(attribute, type) : new MDSS.SingleDependent(attribute, type);
+        new MDSS.GroupDependent(attribute, type, name) : new MDSS.SingleDependent(attribute, type, null, name);
     }  
   }
 
@@ -1880,14 +1909,14 @@ Mojo.Meta.newClass('MDSS.GroupDependent', {
   Extends : MDSS.Dependent,
 
   Instance : {
-    initialize : function(attributes, type)
+    initialize : function(attributes, type, name)
     {
-      this.$initialize(type);
+      this.$initialize(type, name);
 
       this._group = [];
       for(var i=0; i<attributes.length; i++)
       {
-        this._group.push(new MDSS.SingleDependent(attributes[i], type, this));
+        this._group.push(new MDSS.SingleDependent(attributes[i], type, this, name));
       }
     },
 
@@ -1914,12 +1943,18 @@ Mojo.Meta.newClass('MDSS.SingleDependent', {
   Extends : MDSS.Dependent,
 
   Instance : {
-    initialize : function(attribute, type)
+    initialize : function(attribute, type, group, name)
     {
       this.$initialize(type);
+      this._group = group || null;
       this._single = Mojo.Util.isString(attribute) ? document.getElementById(attribute) : attribute;
     },
 
+    getGroup : function()
+    {
+      return this._group;
+    },
+    
     doCheck : function(dependsOn)
     {
       if(!this._single.checked)
@@ -1943,11 +1978,17 @@ Mojo.Meta.newClass('MDSS.Independent',{
   IsAbstract : true,
   
   Instance : {
-    initialize : function(excludes, propagate)
+    initialize : function(excludes, propagate, name)
     {
       this._dependent = null;
       this._excludes = excludes;
       this._propagate = propagate;
+      this._name = name;
+    },
+    
+    getName : function()
+    {
+      return this._name;
     },
     
     doesPropagate : function()
@@ -1973,7 +2014,7 @@ Mojo.Meta.newClass('MDSS.Independent',{
     notify : function(e)
     {
       var type = this._dependent.getType();
-      var checked = e.target.checked;
+      var checked = this.isChecked();
       var excludes = this.doesExclude();
       if(checked && (type === MDSS.Dependent.CHECKED
         || type === MDSS.Dependent.BOTH))
@@ -2003,10 +2044,10 @@ Mojo.Meta.newClass('MDSS.Independent',{
   },
   
   Static : {
-    factory : function(attribute, excludes, propagate)
+    factory : function(attribute, excludes, propagate, name)
     {
       return Mojo.Util.isArray(attribute) ?
-        new MDSS.GroupIndependent(attribute, excludes, propagate) : new MDSS.SingleIndependent(attribute, excludes, propagate);
+        new MDSS.GroupIndependent(attribute, excludes, propagate, name) : new MDSS.SingleIndependent(attribute, excludes, propagate, null, name);
     }
   }
 });
@@ -2016,11 +2057,16 @@ Mojo.Meta.newClass('MDSS.SingleIndependent', {
   Extends : MDSS.Independent,
   
   Instance : {
-    initialize : function(attribute, excludes, propagates, group)
+    initialize : function(attribute, excludes, propagates, group, name)
     {
-      this.$initialize(excludes, propagates);
+      this.$initialize(excludes, propagates, name);
       this._group = group || null;
       this._attribute = attribute;
+    },
+    
+    isChecked : function()
+    {
+      return document.getElementById(this._attribute).checked;
     },
     
     toString : function()
@@ -2037,14 +2083,14 @@ Mojo.Meta.newClass('MDSS.GroupIndependent', {
   Extends : MDSS.Independent,
   
   Instance : {
-  initialize : function(attributes, excludes, propagates)
+  initialize : function(attributes, excludes, propagates, name)
   {
-    this.$initialize(excludes, propagates);
+    this.$initialize(excludes, propagates, name);
     
     this._group = [];
     for(var i=0; i<attributes.length; i++)
     {
-      this._group.push(new MDSS.SingleIndependent(attributes[i], excludes, propagates, this));
+      this._group.push(new MDSS.SingleIndependent(attributes[i], excludes, propagates, this, name));
     }
   }
 }

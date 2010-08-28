@@ -10,7 +10,6 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   @Override
   public final String setSprayDate(Alias alias)
   {
-//    return set("get_epiWeek_from_date("+this.sprayDateCol+","+this.startDay+")", alias);
     return set(this.sprayDateCol, alias);
   }
 

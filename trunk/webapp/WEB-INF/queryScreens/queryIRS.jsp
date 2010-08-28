@@ -86,7 +86,7 @@
 
 <%=Halp.loadTypes(loadables)%>
 
-<script type="text/javascript"><!--
+<script type="text/javascript">
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -109,47 +109,34 @@ YAHOO.util.Event.onDOMReady(function(){
 
                           {
                             key:"operator_actual_target",
-                            //key:"operator_target",
                             type:"sqlinteger",
                             attributeName:"operator_actual_target",
                             isAggregate:true
                           },
                           {
                             key:"team_actual_target",
-                            //key:"team_target",
                             type:"sqlinteger",
                             attributeName:"team_actual_target",
                             isAggregate:true
                           },
                           {
                             key:"operator_planned_target",
-                            //key:"planed_operator_target",
                             type:"sqlinteger",
                             attributeName:"operator_planned_target",
                             isAggregate:true
                           },
                           {
                             key:"team_planned_target",
-                            //key:"planed_team_target",
                             type:"sqlinteger",
                             attributeName:"team_planned_target",
                             isAggregate:true
                           },
                           {
                             key:"area_planned_target",
-                            //key:"planed_area_target",
                             type:"sqlinteger",
                             attributeName:"area_planned_target",
                             isAggregate:true
                           },
-                          /* OLD
-                          {
-                            key:"planned_coverage",
-                            type:"sqldouble",
-                            attributeName:"planned_coverage",
-                            isAggregate:true
-                          },
-                          */
                           { // NEW
                             key:"operator_planned_coverage",
                             type:"sqldouble",
@@ -193,23 +180,6 @@ YAHOO.util.Event.onDOMReady(function(){
                             attributeName:"team_targeted_coverage",
                             isAggregate:true
                           }
-                          
-                          /* OLD
-                          {
-                            
-                            key:"zone_target",
-                            type:"sqlinteger",
-                            attributeName:"zone_target",
-                          },
-                          */
-                          /* OLD
-                          {
-                            
-                            key:"targetUnit_displayLabel",
-                            type:"sqlcharacter",
-                            attributeName:"targetUnit_displayLabel",
-                          },
-                          */
                    ];
     
 
@@ -350,7 +320,7 @@ YAHOO.util.Event.onDOMReady(function(){
         type:'sqlcharacter',
         attributeName:'<%= AbstractSprayDTO.SPRAYMETHOD %>',
         displayLabel:abstractSpray.getSprayMethodMd().getDisplayLabel(),
-        dropDownMap:operatorSprayMap
+        dropDownMap:operatorSprayMap.SprayMethod
       });
     }
 
@@ -600,9 +570,56 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: true
     });
 
+    var operatorCalcs = ['operator_actual_target','operator_planned_target','operator_planned_coverage','operator_target_divergence','operator_targeted_coverage'];
+    var operatorCol = 'sprayoperator_defaultLocale';
+
+    // Operator
+    dm.includes({
+      independent: operatorCalcs,
+      dependent: operatorCol,
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false,
+      name: MDSS.QueryIRS.DATE_GROUP
+    });
+    dm.includes({
+      independent: operatorCol,
+      dependent: operatorCalcs,
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
+
+    // Team
+    var targetCalcs = ['team_actual_target','team_planned_target','team_planned_coverage','team_target_divergence','team_targeted_coverage'];
+    var teamCol = 'sprayteam_defaultLocale';
+    dm.includes({
+      independent: targetCalcs,
+      dependent: teamCol,
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false,
+      name: MDSS.QueryIRS.DATE_GROUP
+    });
+    dm.includes({
+      independent: teamCol,
+      dependent: targetCalcs,
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
+
+    // Area
+    var areaCalcs = ['area_planned_target','area_planned_coverage'];
+    // FIXME finish
+    
+    // FIXME uncheck targets if no more date grouping exists
+    
+    
+    var targetIds = Mojo.Iter.map(targetManagementColumns, function(t) { return t.key; });
+    var targets = new MDSS.Set(targetIds);
+
+    var handler = Mojo.Util.bind(query, query.ensureDateGroupChecked, targets);
+    dm.addAllTransactionsFinishListener(handler);
 });
 
---></script>
+</script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
 

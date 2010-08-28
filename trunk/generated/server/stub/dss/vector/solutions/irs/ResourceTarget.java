@@ -2,13 +2,10 @@ package dss.vector.solutions.irs;
 
 import java.lang.reflect.Method;
 
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 
 public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.generation.loader.Reloadable
@@ -155,49 +152,5 @@ public class ResourceTarget extends ResourceTargetBase implements com.runwaysdk.
     return searchByTargeterAndSeason(Targeter.get(id), season);
   }
 
-  public static void createDatabaseView(String viewName)
-  {
-    String sql = "DROP VIEW IF EXISTS " + viewName + ";\n";
-    sql += "CREATE VIEW " + viewName + " AS ";
-    sql += ResourceTarget.getTempTableSQL();
-    // sql += "ORDER BY season_id;\n";
-    sql += ";\n";
-    Database.parseAndExecute(sql);
 
-  }
-
-  public static String getTempTableSQL()
-  {
-    String sql = "";
-    sql += ResourceTarget.getTargetSQL(MdBusiness.getMdBusiness(ResourceTarget.CLASS).getTableName(), "targeter");
-    sql += " ";
-    return sql;
-
-  }
-
-  public static String getTargetSQL(String tableName, String targetColumn)
-  {
-    String weeks = "";
-    for (Integer i = 0; i < EpiWeek.NUMBER_OF_WEEKS; i++)
-    {
-      weeks += "target_" + i + ",";
-      if (i % 10 == 0)
-        weeks += "\n";
-    }
-    weeks = weeks.substring(0, weeks.length() - 1);
-
-    String select = "SELECT current_date AS spray_date, tar.targeter AS target_id,\n";
-    select += "tar.season AS season_id,\n";
-    select += "i AS target_week,\n";
-    select += "target_array[i] AS weekly_target,\n";
-
-    String from = "FROM ";
-    from += "(SELECT " + targetColumn + " AS targeter, season, ARRAY[" + weeks + "] AS target_array FROM " + tableName + ") AS tar ";
-    from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 ) + ") AS i \n";
-
-    select = select.substring(0, select.length() - 2);
-    from = from.substring(0, from.length() - 2);
-
-    return select + "\n" + from + "\n";
-  }
 }

@@ -4,9 +4,11 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public enum Alias implements Reloadable
 {
+  
   ID("id"),
-  SPRAY_DATE("spray_date"),
-  AGGREGATION_LEVEL("aggregation_level"),
+  SPRAY_DATE("spray_date", IRSUnionIF.DATE),
+  TARGET_WEEK("target_week", IRSUnionIF.INTEGER),
+  AGGREGATION_LEVEL("aggregation_level", IRSUnionIF.TEXT),
   GEO_ENTITY("geo_entity"),
   SPRAY_METHOD("spray_method"),
   SURFACE_TYPE("surface_type"),
@@ -15,18 +17,18 @@ public enum Alias implements Reloadable
   STRUCTURE_ID("structure_id"),
   SPRAY_OPERATOR("sprayoperator"),
   SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale"),
-  OPERATORY_ACTUAL_TARGET("operator_actual_target"),
+  OPERATORY_ACTUAL_TARGET("operator_actual_target", IRSUnionIF.INTEGER),
   SPRAY_TEAM("sprayteam"),
   SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale"),
   SPRAY_LEADER("sprayleader"),
   SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale"),
-  TEAM_ACTUAL_TARGET("team_actual_target"),
+  TEAM_ACTUAL_TARGET("team_actual_target", IRSUnionIF.INTEGER),
   ZONE_SUPERVISOR("zone_supervisor"),
   ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale"),
   SPRAY_SEASON("spray_season"),
-  OPERATOR_PLANNED_TARGET("operator_planned_target"),
-  TEAM_PLANNED_TARGET("team_planned_target"),
-  AREA_PLANNED_TARGET("area_planned_target"),
+  OPERATOR_PLANNED_TARGET("operator_planned_target", IRSUnionIF.INTEGER),
+  TEAM_PLANNED_TARGET("team_planned_target", IRSUnionIF.INTEGER),
+  AREA_PLANNED_TARGET("area_planned_target", IRSUnionIF.INTEGER),
   ROOMS("rooms"),
   STRUCTURES("structures"),
   HOUSEHOLDS("households"),
@@ -55,9 +57,23 @@ public enum Alias implements Reloadable
   
   private String alias;
   
+  private String type;
+  
   private Alias(String alias)
   {
     this.alias = alias;
+    this.type = null;
+  }
+  
+  private Alias(String alias, String type)
+  {
+    this(alias);
+    this.type = type;
+  }
+  
+  public String getType()
+  {
+    return type;
   }
   
   public String getAlias()

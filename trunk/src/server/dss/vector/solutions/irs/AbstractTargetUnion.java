@@ -56,6 +56,8 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
   protected String           startDateCol;
 
   protected String           endDateCol;
+  
+  protected String targeter;
 
   /**
    * The owning IRSQuery instance of this union. The variable is protected for
@@ -74,6 +76,8 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     diseaseId = Disease.getCurrent().getId();
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
+    this.targeter = QueryUtil.getColumnName(ResourceTarget.getTargeterMd());
+    
     MdEntityDAOIF personMd = MdEntityDAO.getMdEntityDAO(Person.CLASS);
     this.personTable = personMd.getTableName();
     this.firstNameCol = QueryUtil.getColumnName(personMd, Person.FIRSTNAME);
@@ -116,7 +120,8 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
 
   public String set(String value, Alias alias)
   {
-    return value + " " + AS + " " + alias;
+    String type = alias.getType();
+    return value + " " + (type != null ? "::"+type+" ":"") + AS + " " + alias;
   }
 
   public String setEmpty(Alias alias)
@@ -146,6 +151,11 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
   }
   
   public String setSprayMethod(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
+  public String setTargetWeek(Alias alias)
   {
     return setNULL(alias);
   }
@@ -418,13 +428,10 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     return setNULL(alias);
   }
 
-  public String from()
-  {
-    return EMPTY;
-  }
-
   public String where()
   {
-    return EMPTY;
+    return "";
   }
+  
+  public abstract String from();
 }
