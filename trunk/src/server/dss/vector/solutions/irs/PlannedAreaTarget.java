@@ -7,6 +7,12 @@ import dss.vector.solutions.util.QueryUtil;
 public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
 {
   @Override
+  public final String setId(Alias alias)
+  {
+    return set(IRSQuery.GEO_TARGET_VIEW, idCol, alias);
+  }
+  
+  @Override
   public String setDisease(Alias alias)
   {
     return set("disease", alias);
@@ -28,7 +34,7 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   @Override
   public String from()
   {
-    String sql = "";
+    String sql = "--Planned Area Target\n"; 
     sql += IRSQuery.GEO_TARGET_VIEW + " " + IRSQuery.GEO_TARGET_VIEW + " \n";
     
     return sql;

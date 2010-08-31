@@ -34,8 +34,10 @@ public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Rel
   @Override
   public String from()
   {
-    String sql = IRSQuery.RESOURCE_TARGET_VIEW + " " + IRSQuery.RESOURCE_TARGET_VIEW + " INNER JOIN "+sprayTeamTable+" ON " +
-    		" "+IRSQuery.RESOURCE_TARGET_VIEW+"."+targeter+" = "+sprayTeamTable+"."+idCol+" \n";
+    String sql = "--Planned Spray Team Target\n"; 
+    sql +=   IRSQuery.RESOURCE_TARGET_VIEW + " " + IRSQuery.RESOURCE_TARGET_VIEW + " INNER JOIN "+resourceTargetTable + " " + resourceTargetTable+" ON "
+      + IRSQuery.RESOURCE_TARGET_VIEW+"."+idCol+" = "+resourceTargetTable+"."+idCol+" \n";
+    sql += " INNER JOIN "+sprayTeamTable+" "+sprayTeamTable+" ON " +resourceTargetTable+"."+targeter+" = "+sprayTeamTable+"."+idCol+" \n";
     
     return sql;
   }

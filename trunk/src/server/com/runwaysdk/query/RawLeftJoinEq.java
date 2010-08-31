@@ -37,5 +37,4 @@ public class RawLeftJoinEq extends LeftJoinEq implements com.runwaysdk.generatio
 
     return super.getSQL();
   }
-
 }

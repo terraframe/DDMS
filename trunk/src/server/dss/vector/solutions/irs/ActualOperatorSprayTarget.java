@@ -29,7 +29,6 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   private String refusedCol;
   private String otherCol;
   private String operSprayTable;
-  private String sprayOperatorCol;
   private String sprayTeamCol;
   private String teamLeaderCol;
   private String targetCol;
@@ -37,6 +36,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   private String usedCol;
   private String refillsCol;
   private String returnCol;
+  private String sprayOperatorCol;
   
   public ActualOperatorSprayTarget()
   {
@@ -46,7 +46,6 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     
     MdEntityDAOIF operSprayMd = MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
     this.operSprayTable = operSprayMd.getTableName();
-    this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
     this.teamLeaderCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TEAMLEADER);
     this.sprayTeamCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYTEAM);
     this.targetCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TARGET);
@@ -54,6 +53,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.usedCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.USED);
     this.refillsCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.REFILLS);
     this.returnCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.RETURNED);
+    this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
     
     MdEntityDAOIF householdSprayStatusMd = MdEntityDAO.getMdEntityDAO(HouseholdSprayStatus.CLASS);
     this.householdSprayStatusTable = householdSprayStatusMd.getTableName();
@@ -88,26 +88,26 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   
   public String setHouseholdId(Alias alias)
   {
-    if(this.q.isGrouped())
-    {
-      return setNULL(alias);
-    }
-    else
-    {
+//    if(this.q.isGrouped())
+//    {
+//      return setNULL(alias);
+//    }
+//    else
+//    {
       return set(this.householdSprayStatusTable, householdIdCol, alias);
-    }
+//    }
   }
   
   public String setStructureId(Alias alias)
   {
-    if(this.q.isGrouped())
-    {
-      return setNULL(alias);
-    }
-    else
-    {
+//    if(this.q.isGrouped())
+//    {
+//      return setNULL(alias);
+//    }
+//    else
+//    {
       return set(this.householdSprayStatusTable, structureIdCol, alias);
-    }
+//    }
   }
   
   @Override
@@ -133,8 +133,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setSprayTeamDefaultLocale(Alias alias)
   {
-    return set("(SELECT st." + teamIdCol + " FROM "+ sprayTeamTable +
-        " st WHERE st.id = "+operSprayTable+"." + sprayTeamCol + ")", alias);
+    return set(sprayTeamTable, teamIdCol, alias);
   }
   
   @Override
@@ -300,42 +299,15 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String from()
   {
-    // FIXME look at grouping in OperatorSpray to fix grouping
     String from = "";
     
-    if (q.isGrouped())
-    {
-      String hss_grouped = "SELECT spray,\n" ;
-        
-      hss_grouped += "SUM("+roomsCol+") "+roomsCol+",\n";
-      hss_grouped += "SUM("+structuresCol+") "+structuresCol+",\n";
-      hss_grouped += "SUM("+householdsCol+") "+householdsCol+",\n";
-      hss_grouped += "SUM("+sprayedRoomsCol+") "+sprayedRoomsCol+",\n";
-      hss_grouped += "SUM("+sprayedStructuresCol+") "+sprayedStructuresCol+",\n";
-      hss_grouped += "SUM("+sprayedHouseholdsCol+") "+sprayedHouseholdsCol+",\n";
-      hss_grouped += "SUM("+prevSprayedStructuresCol+") "+prevSprayedStructuresCol+",\n";
-      hss_grouped += "SUM("+prevSprayedHouseholdsCol+") "+prevSprayedHouseholdsCol+",\n";
-      hss_grouped += "SUM("+peopleCol+") "+peopleCol+",\n";
-      hss_grouped += "SUM("+bedNetsCol+") "+bedNetsCol+",\n";
-      hss_grouped += "SUM("+roomsWithBedNetsCol+") "+roomsWithBedNetsCol+",\n";
-      hss_grouped += "SUM("+refusedCol+") "+refusedCol+",\n";
-      hss_grouped += "SUM("+lockedCol+") "+lockedCol+",\n";
-      hss_grouped += "SUM("+otherCol+") "+otherCol+"\n";
-      hss_grouped += "FROM " +  householdSprayStatusTable + "\n";
-      hss_grouped += "GROUP BY spray";
-      
-      from += "("+hss_grouped +")" + " AS "+householdSprayStatusTable+",\n";
-      from += operSprayTable + " AS "+operSprayTable+",\n";
-      
-    }
-    else
-    {
-      from += operSprayTable + " AS "+operSprayTable+" LEFT JOIN ";
-      from += householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+",\n";
-    }    
+    from += operSprayTable + " AS "+operSprayTable+" LEFT JOIN ";
+    from += householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+" \n";
+
+    from += "LEFT JOIN "+teamMemberTable + " AS sprayoperator ON sprayoperator.id = "+operSprayTable+"."+sprayOperatorCol+" \n"; 
+    from += "LEFT JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+".id \n";
+    from += "LEFT JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+sprayTeamTable+"."+idCol+" = "+operSprayTable+"."+sprayTeamCol+", \n";
     
-    from += teamMemberTable + " AS sprayoperator,\n";
-    from += personTable + " AS "+personTable+",\n";
     from += abstractSprayTable + " AS "+abstractSprayTable+"\n";
     from += " LEFT JOIN ";
     from += malariaSeasonTable + " AS sprayseason ";
@@ -352,8 +324,6 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   {
     String where = "";
     where += ""+abstractSprayTable+".id = "+operSprayTable+".id\n";
-    where += "AND "+operSprayTable+"."+sprayOperatorCol+" = sprayoperator.id \n";
-    where += "AND sprayoperator."+personCol+" = "+personTable+".id \n";
     where += "AND "+operSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
     
     

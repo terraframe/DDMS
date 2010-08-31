@@ -891,22 +891,9 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-
-  /**
-   * Joins the ValueQuery with any selected/restricting geo entity information.
-   * This method does not perform the final join between the AllPathsQuery and
-   * the GeneratedEntityQuery that exists in the calling code.
-   * 
-   * @param queryFactory
-   * @param valueQuery
-   * @param xml
-   * @param thematicLayer
-   * @param includeGeometry
-   * @param selectedUniversals
-   * @return
-   */
+  
   public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
-      ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
+      ValueQuery valueQuery, String xml, JSONObject config, Layer layer, ValueQuery geoProxyVQ)
   {
     Map<String, GeneratedEntityQuery> queryMap;
 
@@ -1017,13 +1004,32 @@ public class QueryUtil implements Reloadable
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
       List<ValueQuery> leftJoinValueQueries = joinData.attributeKeysAndJoins.get(attributeKey);
 
-      restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery,
+      restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, geoProxyVQ,
           queryMap);
     }
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
 
     return queryMap;
+  }
+
+  /**
+   * Joins the ValueQuery with any selected/restricting geo entity information.
+   * This method does not perform the final join between the AllPathsQuery and
+   * the GeneratedEntityQuery that exists in the calling code.
+   * 
+   * @param queryFactory
+   * @param valueQuery
+   * @param xml
+   * @param thematicLayer
+   * @param includeGeometry
+   * @param selectedUniversals
+   * @return
+   */
+  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
+      ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
+  {
+    return joinQueryWithGeoEntities(queryFactory, valueQuery, xml, config, layer, valueQuery);
   }
 
   private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory,

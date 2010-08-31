@@ -5,69 +5,59 @@ import com.runwaysdk.generation.loader.Reloadable;
 public enum Alias implements Reloadable
 {
   
-  ID("id"),
+  ID("id", IRSUnionIF.TEXT),
   SPRAY_DATE("spray_date", IRSUnionIF.DATE),
-  TARGET_WEEK("target_week", IRSUnionIF.INTEGER),
+  TARGET_WEEK("target_week", IRSUnionIF.FLOAT),
   AGGREGATION_LEVEL("aggregation_level", IRSUnionIF.TEXT),
-  GEO_ENTITY("geo_entity"),
-  SPRAY_METHOD("spray_method"),
-  SURFACE_TYPE("surface_type"),
-  BRAND("brand"),
-  HOUSEHOLD_ID("household_id"),
-  STRUCTURE_ID("structure_id"),
-  SPRAY_OPERATOR("sprayoperator"),
-  SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale"),
-  OPERATORY_ACTUAL_TARGET("operator_actual_target", IRSUnionIF.INTEGER),
-  SPRAY_TEAM("sprayteam"),
-  SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale"),
-  SPRAY_LEADER("sprayleader"),
-  SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale"),
-  TEAM_ACTUAL_TARGET("team_actual_target", IRSUnionIF.INTEGER),
-  ZONE_SUPERVISOR("zone_supervisor"),
-  ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale"),
-  SPRAY_SEASON("spray_season"),
-  OPERATOR_PLANNED_TARGET("operator_planned_target", IRSUnionIF.INTEGER),
-  TEAM_PLANNED_TARGET("team_planned_target", IRSUnionIF.INTEGER),
-  AREA_PLANNED_TARGET("area_planned_target", IRSUnionIF.INTEGER),
-  ROOMS("rooms"),
-  STRUCTURES("structures"),
-  HOUSEHOLDS("households"),
-  SPRAYED_ROOMS("sprayedRooms"),
-  SPRAYED_STRUCTURES("sprayedStructures"),
-  SPRAYED_HOUSEHOLDS("sprayedHouseholds"),
-  PREV_SPRAYED_STRUCTURES("prevSprayedStructures"),
-  PREV_SPRAYED_HOUSEHOLDS("prevSprayedHouseholds"),
-  PEOPLE("people"),
-  BEDNETS("bedNets"),
-  ROOMS_WITH_BED_NETS("roomsWithBedNets"),
-  LOCKED("locked"),
-  REFUSED("refused"),
-  OTHER("other"),
-  DISEASE("disease"),    
-  RECEIVED("received"),
-  USED("used"),
-  REFILLS("refills"),
-  RETURNED("returned"),
-  ROOMS_UNSPRAYED("room_unsprayed"),
-  STRUCTURES_UNSPRAYED("structure_unsprayed"),
-  HOUSEHOLDS_UNSPRAYED("household_unsprayed"),
-  SPRAYED_ROOMS_SHARE("sprayedrooms_share"),
-  SPRAYED_STRUCTURES_SHARE("sprayedstructures_share"),
-  SPRAYED_HOUSEHOLDS_SHARE("sprayedhouseholds_share");
+  GEO_ENTITY("geo_entity", IRSUnionIF.TEXT),
+  SPRAY_METHOD("spray_method", IRSUnionIF.TEXT),
+  SURFACE_TYPE("surface_type", IRSUnionIF.TEXT),
+  BRAND("brand", IRSUnionIF.TEXT),
+  HOUSEHOLD_ID("household_id", IRSUnionIF.TEXT),
+  STRUCTURE_ID("structure_id", IRSUnionIF.TEXT),
+  SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale", IRSUnionIF.TEXT),
+  OPERATORY_ACTUAL_TARGET("operator_actual_target", IRSUnionIF.FLOAT),
+  SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", IRSUnionIF.TEXT),
+  SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", IRSUnionIF.TEXT),
+  TEAM_ACTUAL_TARGET("team_actual_target", IRSUnionIF.FLOAT),
+  ZONE_SUPERVISOR_DEFAULT_LOCALE("zone_supervisor_defaultLocale", IRSUnionIF.TEXT),
+  SPRAY_SEASON("spray_season", IRSUnionIF.TEXT),
+  OPERATOR_PLANNED_TARGET("operator_planned_target", IRSUnionIF.FLOAT),
+  TEAM_PLANNED_TARGET("team_planned_target", IRSUnionIF.FLOAT),
+  AREA_PLANNED_TARGET("area_planned_target", IRSUnionIF.FLOAT),
+  ROOMS("rooms", IRSUnionIF.FLOAT),
+  STRUCTURES("structures", IRSUnionIF.FLOAT),
+  HOUSEHOLDS("households", IRSUnionIF.FLOAT),
+  SPRAYED_ROOMS("sprayedRooms", IRSUnionIF.FLOAT),
+  SPRAYED_STRUCTURES("sprayedStructures", IRSUnionIF.FLOAT),
+  SPRAYED_HOUSEHOLDS("sprayedHouseholds", IRSUnionIF.FLOAT),
+  PREV_SPRAYED_STRUCTURES("prevSprayedStructures", IRSUnionIF.FLOAT),
+  PREV_SPRAYED_HOUSEHOLDS("prevSprayedHouseholds", IRSUnionIF.FLOAT),
+  PEOPLE("people", IRSUnionIF.FLOAT),
+  BEDNETS("bedNets", IRSUnionIF.FLOAT),
+  ROOMS_WITH_BED_NETS("roomsWithBedNets", IRSUnionIF.FLOAT),
+  LOCKED("locked", IRSUnionIF.FLOAT),
+  REFUSED("refused", IRSUnionIF.FLOAT),
+  OTHER("other", IRSUnionIF.FLOAT),
+  DISEASE("disease", IRSUnionIF.TEXT),    
+  RECEIVED("received", IRSUnionIF.FLOAT),
+  USED("used", IRSUnionIF.FLOAT),
+  REFILLS("refills", IRSUnionIF.FLOAT),
+  RETURNED("returned", IRSUnionIF.FLOAT),
+  ROOMS_UNSPRAYED("room_unsprayed", IRSUnionIF.FLOAT),
+  STRUCTURES_UNSPRAYED("structure_unsprayed", IRSUnionIF.FLOAT),
+  HOUSEHOLDS_UNSPRAYED("household_unsprayed", IRSUnionIF.FLOAT),
+  SPRAYED_ROOMS_SHARE("sprayedrooms_share", IRSUnionIF.FLOAT),
+  SPRAYED_STRUCTURES_SHARE("sprayedstructures_share", IRSUnionIF.FLOAT),
+  SPRAYED_HOUSEHOLDS_SHARE("sprayedhouseholds_share", IRSUnionIF.FLOAT);
   
   private String alias;
   
   private String type;
   
-  private Alias(String alias)
-  {
-    this.alias = alias;
-    this.type = null;
-  }
-  
   private Alias(String alias, String type)
   {
-    this(alias);
+    this.alias = alias;
     this.type = type;
   }
   

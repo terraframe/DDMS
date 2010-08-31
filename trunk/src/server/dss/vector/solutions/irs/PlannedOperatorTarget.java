@@ -11,10 +11,20 @@ public class PlannedOperatorTarget extends PlannedResourceTarget implements Relo
   }
   
   @Override
+  public String setSprayOperatorDefaultLocale(Alias alias)
+  {
+    return set("sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+
+        " || ' ' || "+personTable+"."+lastNameCol, alias);
+  }
+  
+  @Override
   public String from()
   {
-    String sql = IRSQuery.RESOURCE_TARGET_VIEW + " " + IRSQuery.RESOURCE_TARGET_VIEW + " INNER JOIN "+teamMemberTable+" ON " +
-    " "+IRSQuery.RESOURCE_TARGET_VIEW+"."+targeter+" = "+teamMemberTable+"."+idCol+" \n";
+    String sql = "--Planned Operator Target\n"; 
+    sql +=   IRSQuery.RESOURCE_TARGET_VIEW + " " + IRSQuery.RESOURCE_TARGET_VIEW + " INNER JOIN "+resourceTargetTable + " " + resourceTargetTable+" ON "
+      +IRSQuery.RESOURCE_TARGET_VIEW+"."+idCol+" = "+resourceTargetTable+"."+idCol+" \n";
+    sql += " INNER JOIN "+teamMemberTable+" sprayoperator ON "+resourceTargetTable+"."+targeter+" = sprayoperator."+idCol+" \n";
+    sql += " INNER JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+".id\n";
 
     return sql;
   }

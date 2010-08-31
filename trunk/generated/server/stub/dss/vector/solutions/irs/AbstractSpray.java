@@ -7,6 +7,8 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.GeoProxyValueQuery;
+import com.runwaysdk.query.IRSValueQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
@@ -64,13 +66,14 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
 
     QueryFactory queryFactory = new QueryFactory();
 
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
+    IRSValueQuery valueQuery = new IRSValueQuery(queryFactory);
+    GeoProxyValueQuery geoProxyVQ = new GeoProxyValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
     Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
     
     
-    IRSQuery irsQ = new IRSQuery(valueQuery, queryMap, queryConfig, xml);
+    IRSQuery irsQ = new IRSQuery(valueQuery, queryMap, queryConfig, xml, geoProxyVQ);
     irsQ.populate();
 
 
