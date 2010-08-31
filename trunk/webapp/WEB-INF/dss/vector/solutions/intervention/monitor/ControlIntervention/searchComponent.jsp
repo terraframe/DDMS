@@ -19,7 +19,7 @@
       </mjl:dt>
     </mjl:component>
     <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.searchByView.mojo" name="search.button" value="Search"/>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.forward.mojo" name="create.button" value="Create"/>
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.forward.mojo" name="create.button" value="Go_Create"/>
   </dl>
 </mjl:form>
 
