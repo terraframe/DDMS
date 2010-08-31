@@ -11,8 +11,6 @@ import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 
-import dss.vector.solutions.MdssLog;
-
 @com.runwaysdk.business.ClassSignature(hash = 1462504487)
 /**
  *
@@ -59,17 +57,16 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
       CONCAT entityLabel = F.CONCAT(query.getGeoEntity().getEntityName(), " (");
       entityLabel = F.CONCAT(entityLabel, query.getGeoEntity().getGeoId());
       entityLabel = F.CONCAT(entityLabel, ")");
-      
+
       vQuery.map(MosquitoCollectionView.CONCRETEID, query.getId());
       vQuery.map(MosquitoCollectionView.GEOENTITY, query.getGeoEntity());
       vQuery.map(MosquitoCollectionView.GEOENTITYLABEL, entityLabel);
       vQuery.map(MosquitoCollectionView.COLLECTIONDATE, query.getCollectionDate());
       vQuery.map(MosquitoCollectionView.COLLECTIONID, query.getCollectionId());
       vQuery.map(MosquitoCollectionView.COLLECTIONMETHOD, query.getCollectionMethod());
-      vQuery.map(MosquitoCollectionView.COLLECTIONMETHODLABEL, query.getCollectionMethod().getName());
       vQuery.map(MosquitoCollectionView.LIFESTAGE, query.getLifeStage());
       vQuery.map(MosquitoCollectionView.ABUNDANCE, query.getAbundance());
-      
+
     }
 
     /**
@@ -85,7 +82,7 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
   {
     private SearchMosquitoCollectionView view;
 
-    private Condition              condition;
+    private Condition                    condition;
 
     protected SearchQueryBuilder(QueryFactory queryFactory, SearchMosquitoCollectionView view)
     {
@@ -104,21 +101,21 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
       {
         this.addCondition(vQuery.getAbundance().EQ(view.getAbundance()));
       }
-      
-      if(view.getStartDate() != null)
+
+      if (view.getStartDate() != null)
       {
-        this.addCondition(vQuery.getCollectionDate().GE(view.getStartDate()));        
+        this.addCondition(vQuery.getCollectionDate().GE(view.getStartDate()));
       }
       else if (view.getCollectionDate() != null)
       {
         this.addCondition(vQuery.getCollectionDate().GE(view.getCollectionDate()));
       }
-      
+
       if (view.getEndDate() != null)
       {
         this.addCondition(vQuery.getCollectionDate().LE(view.getEndDate()));
       }
-      
+
       if (view.getCollectionId() != null && !view.getCollectionId().equals(""))
       {
         this.addCondition(vQuery.getCollectionId().EQ(view.getCollectionId()));
@@ -183,7 +180,7 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
       Condition condition = vQuery.getCollectionId().LIKEi(search);
       condition = OR.get(condition, vQuery.getGeoEntity().getEntityName().LIKEi(search));
       condition = OR.get(condition, vQuery.getGeoEntity().getGeoId().LIKEi(search));
-      
+
       vQuery.WHERE(condition);
     }
   }
@@ -192,7 +189,7 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
   {
     MosquitoCollectionViewQuery query = new MosquitoCollectionViewQuery(new QueryFactory());
     query.restrictRows(15, 1);
-    
+
     return query;
   }
 
@@ -215,7 +212,7 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     MosquitoCollectionViewQuery query = new MosquitoCollectionViewQuery(factory, builder);
     query.restrictRows(15, 1);
     query.ORDER_BY_ASC(query.getCollectionId());
-    
+
     return query;
   }
 }

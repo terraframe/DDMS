@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -2134031826)
+@com.runwaysdk.business.ClassSignature(hash = 1119724461)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,14 +15,13 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  public static java.lang.String COLLECTIONMETHODLABEL = "collectionMethodLabel";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
-  private static final long serialVersionUID = -2134031826;
+  private static final long serialVersionUID = 1119724461;
   
   public MosquitoCollectionViewBase()
   {
@@ -145,34 +144,6 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     else
     {
       setValue(COLLECTIONMETHOD, value.getId());
-    }
-  }
-  
-  public String getCollectionMethodLabel()
-  {
-    return getValue(COLLECTIONMETHODLABEL);
-  }
-  
-  public void validateCollectionMethodLabel()
-  {
-    this.validateAttribute(COLLECTIONMETHODLABEL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionMethodLabelMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(COLLECTIONMETHODLABEL);
-  }
-  
-  public void setCollectionMethodLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(COLLECTIONMETHODLABEL, "");
-    }
-    else
-    {
-      setValue(COLLECTIONMETHODLABEL, value);
     }
   }
   

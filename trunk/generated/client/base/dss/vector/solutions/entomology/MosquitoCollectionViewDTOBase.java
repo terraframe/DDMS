@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1742229678)
+@com.runwaysdk.business.ClassSignature(hash = 1648603693)
 public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = 1742229678;
+  private static final long serialVersionUID = 1648603693;
   
   protected MosquitoCollectionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -20,7 +20,6 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
-  public static java.lang.String COLLECTIONMETHODLABEL = "collectionMethodLabel";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
@@ -180,43 +179,6 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getCollectionMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(COLLECTIONMETHOD).getAttributeMdDTO();
-  }
-  
-  public String getCollectionMethodLabel()
-  {
-    return getValue(COLLECTIONMETHODLABEL);
-  }
-  
-  public void setCollectionMethodLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(COLLECTIONMETHODLABEL, "");
-    }
-    else
-    {
-      setValue(COLLECTIONMETHODLABEL, value);
-    }
-  }
-  
-  public boolean isCollectionMethodLabelWritable()
-  {
-    return isWritable(COLLECTIONMETHODLABEL);
-  }
-  
-  public boolean isCollectionMethodLabelReadable()
-  {
-    return isReadable(COLLECTIONMETHODLABEL);
-  }
-  
-  public boolean isCollectionMethodLabelModified()
-  {
-    return isModified(COLLECTIONMETHODLABEL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getCollectionMethodLabelMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLLECTIONMETHODLABEL).getAttributeMdDTO();
   }
   
   public String getConcreteId()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 2117427287)
+@com.runwaysdk.business.ClassSignature(hash = -913711146)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2117427287;
+private static final long serialVersionUID = -913711146;
 
   public MosquitoCollectionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -99,24 +99,6 @@ private static final long serialVersionUID = 2117427287;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHOD, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getCollectionMethodLabel()
-  {
-    return getCollectionMethodLabel(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getCollectionMethodLabel(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHODLABEL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getCollectionMethodLabel(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONMETHODLABEL, alias, displayLabel);
-
-  }
- 
   public com.runwaysdk.query.SelectableChar getConcreteId()
   {
     return getConcreteId(null);

@@ -2,23 +2,41 @@ package dss.vector.solutions.entomology;
 
 import java.util.List;
 
+import org.apache.commons.lang.ArrayUtils;
+
 import com.runwaysdk.business.Entity;
+import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.F;
+import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 
+import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.GeoEntityView;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
+import dss.vector.solutions.query.QueryBuilder;
 
 public class MosquitoCollectionView extends MosquitoCollectionViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -52,16 +70,6 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     for (LifeStage stage : concrete.getLifeStage())
     {
       this.addLifeStage(stage);
-    }
-
-    if (entity != null)
-    {
-      this.setGeoEntityLabel(entity.getLabel());
-    }
-
-    if (method != null)
-    {
-      this.setCollectionMethodLabel(method.getTermDisplayLabel().getValue());
     }
   }
 
@@ -371,7 +379,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       }
       else if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.COLLECTIONMETHOD))
       {
-        attribute = query.getCollectionMethodLabel();
+        attribute = query.getCollectionMethod().getTermDisplayLabel().localize();
       }
       else if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.COLLECTIONID))
       {
@@ -474,5 +482,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
       it.close();
     }
   }
+
+
 
 }
