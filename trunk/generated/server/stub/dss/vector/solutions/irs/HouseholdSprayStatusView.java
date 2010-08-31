@@ -1,7 +1,12 @@
 package dss.vector.solutions.irs;
 
+import java.util.Iterator;
+import java.util.Set;
+import java.util.TreeSet;
+
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.LocalProperty;
 
@@ -111,17 +116,27 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     }
   }
 
-  @Transaction
   public static HouseholdSprayStatusView[] applyAll(HouseholdSprayStatusView[] views)
   {
-    String householdId = "";
-    
+    synchronized (HouseholdSprayStatusView.class)
+    {
+      HouseholdSprayStatusView.applyAllSynchronized(views);      
+    }
+
+    return views;
+  }
+
+  @Transaction
+  private static void applyAllSynchronized(HouseholdSprayStatusView[] views)
+  {
+    Set<String> uncountedHouseholdIds = HouseholdSprayStatusView.getUncountedHouseholdIds(views);
+
     for (HouseholdSprayStatusView view : views)
     {
-      if(!view.getHouseholdId().equals(householdId))
+      if(uncountedHouseholdIds.contains(view.getHouseholdId()))
       {
-        householdId = view.getHouseholdId();
         view.setHouseholds(1);
+        uncountedHouseholdIds.remove(view.getHouseholdId());
       }
       else
       {
@@ -130,13 +145,67 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
       
       view.apply();
     }
-
-    return views;
   }
+
+  private static Set<String> getUncountedHouseholdIds(HouseholdSprayStatusView[] views)
+  {
+    Set<String> householdIds = HouseholdSprayStatusView.getHouseholdIds(views);
+    Set<String> concreteIds = HouseholdSprayStatusView.getConcreteIds(views);
+    
+    Iterator<String> it = householdIds.iterator();
+    while(it.hasNext())
+    {
+      String householdId = it.next();
+      HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
+      query.WHERE(query.getHouseholdId().EQ(householdId));
+      query.AND(query.getHouseholds().EQ(1));
+      
+      for(String conreteId : concreteIds)
+      {
+        query.AND(query.getId().NE(conreteId));
+      }
+      
+      if(query.getCount() > 0)
+      {
+        it.remove();
+      }
+    }
+    
+    return householdIds;
+  }
+  
+  private static Set<String> getConcreteIds(HouseholdSprayStatusView[] views)
+  {
+    Set<String> set = new TreeSet<String>();
+    
+    for(HouseholdSprayStatusView view : views)
+    {
+      String concreteId = view.getConcreteId();
+      
+      if(concreteId != null && concreteId.length() > 0)
+      {
+        set.add(concreteId);
+      }
+    }
+    
+    return set;
+  }
+
+  private static Set<String> getHouseholdIds(HouseholdSprayStatusView[] views)
+  {
+    Set<String> set = new TreeSet<String>();
+    
+    for(HouseholdSprayStatusView view : views)
+    {
+      set.add(view.getHouseholdId());
+    }
+    
+    return set;
+  }
+
 
   public static String[] getGeneratedIds()
   {
     return new String[] { LocalProperty.getNextId(), LocalProperty.getNextId() };
   }
-
 }
