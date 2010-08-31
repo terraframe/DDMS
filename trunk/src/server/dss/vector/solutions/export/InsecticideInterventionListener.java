@@ -12,6 +12,7 @@ import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.ontology.Term;
 
@@ -39,23 +40,68 @@ public class InsecticideInterventionListener implements ExcelExportListener, Imp
     
     for (Term method : Term.getRootChildren(ControlInterventionView.getInsecticideInterventionMd()))
     {
-      collection.addInterventionMethod(method);
       String methodTerm = method.getTermId();
+      String brandName = methodTerm + BRAND;
+      String quantityName = methodTerm + QUANTITY;
+      String unitName = methodTerm + UNIT;
+      
+      String methodLabel = method.getTermDisplayLabel().getValue();
+      String brandLabel= methodLabel + BRAND;
+      String quantityLabel= methodLabel + QUANTITY;
+      String unitLabel= methodLabel + UNIT;
+      
+      String brand = null;
+      Integer quantity = null;
+      String unit = null;
       for (ExcelColumn column : extraColumns)
       {
-        if (column.getAttributeName().equals(methodTerm + BRAND))
+        if (column.getAttributeName().equals(brandName))
         {
-          String b = ExcelUtil.getString(row.getCell(column.getIndex()));
-          collection.addInsecticide(b);
+          brand = ExcelUtil.getString(row.getCell(column.getIndex()));
         }
-        if (column.getAttributeName().equals(methodTerm + QUANTITY))
+        if (column.getAttributeName().equals(quantityName))
         {
-          collection.addQuantity(ExcelUtil.getInteger(row.getCell(column.getIndex())));
+          quantity = ExcelUtil.getInteger(row.getCell(column.getIndex()));
         }
-        if (column.getAttributeName().equals(methodTerm + UNIT))
+        if (column.getAttributeName().equals(unitName))
         {
-          collection.addUnit(ExcelUtil.getString(row.getCell(column.getIndex())));
+          unit = ExcelUtil.getString(row.getCell(column.getIndex()));
         }
+      }
+      
+//      When commented out, grid rows without all necessary data are simply ignored.
+//      Uncomment to force all grids to be present.
+//      if (brand==null)
+//      {
+//        RequiredAttributeProblem rap = new RequiredAttributeProblem();
+//        rap.setAttributeName(brandName);
+//        rap.setAttributeDisplayLabel(brandLabel);
+//        rap.throwIt();
+//      }
+//      
+//      if (quantity==null)
+//      {
+//        RequiredAttributeProblem rap = new RequiredAttributeProblem();
+//        rap.setAttributeName(quantityName);
+//        rap.setAttributeDisplayLabel(quantityLabel);
+//        rap.throwIt();
+//      }
+//      
+//      if (unit==null)
+//      {
+//        RequiredAttributeProblem rap = new RequiredAttributeProblem();
+//        rap.setAttributeName(unitName);
+//        rap.setAttributeDisplayLabel(unitLabel);
+//        rap.throwIt();
+//      }
+      
+      // Only add a grid row if all necessary information is present.
+      if (brand!=null && unit !=null && quantity !=null)
+      {
+        collection.addInterventionMethod(method);
+        collection.addInsecticide(brand);
+        collection.addQuantity(quantity);
+        collection.addUnit(unit);
       }
     }
   }
