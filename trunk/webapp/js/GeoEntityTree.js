@@ -82,6 +82,12 @@ MDSS.GeoEntityTree = (function(){
       outer.appendChild(contentDiv);
 
       _uploadModal.subscribe('hide', function(){
+        // Clear out the status list of any existing imports
+        var myIFrame = document.getElementById('importIframe');
+        
+        if(myIFrame != null) {
+          myIFrame.contentWindow.document.body.innerHTML = "";
+        }
         
         _selectedNode.collapse();
         _selectedNode.dynamicLoadComplete = false;
