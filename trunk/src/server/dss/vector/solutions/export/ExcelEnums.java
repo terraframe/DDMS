@@ -35,7 +35,8 @@ public class ExcelEnums implements Reloadable
         return lifeStage;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + LifeStage.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(LifeStage.CLASS));
   }
   
   public static ContainerShape getContainerShape(String label)
@@ -58,7 +59,8 @@ public class ExcelEnums implements Reloadable
         return containerShape;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + ContainerShape.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(ContainerShape.CLASS));
   }
   
   public static DiagnosisType getDiagnosisType(String label)
@@ -81,7 +83,8 @@ public class ExcelEnums implements Reloadable
         return diagnosisType;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + DiagnosisType.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(DiagnosisType.CLASS));
   }
 
   public static PeriodType getPeriodType(String label)
@@ -162,7 +165,8 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + MonthOfYear.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MonthOfYear.CLASS));
   }
   
   public static Response getResponse(String label)
@@ -185,7 +189,9 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + Response.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(Response.CLASS));
+
   }
   
   public static RefusedResponse getRefusedResponse(String label)
@@ -208,6 +214,7 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    return null;
+    String message = "[" + label + "] is not a valid display label for [" + RefusedResponse.CLASS + "]";
+    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(RefusedResponse.CLASS));
   }
 }
