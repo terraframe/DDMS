@@ -2,6 +2,7 @@ package dss.vector.solutions.export;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
@@ -9,9 +10,11 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MonthOfYear;
 import dss.vector.solutions.RefusedResponse;
+import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.Response;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.SentinelSite;
@@ -47,6 +50,32 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   @Transaction
   public void apply()
   {
+    Locale currentLocale = Session.getCurrentLocale();
+    boolean fail = false;
+    if (this.getGeoEntity()==null)
+    {
+      RequiredAttributeProblem geoRequired = new RequiredAttributeProblem();
+      geoRequired.setAttributeName(GEOENTITY);
+      geoRequired.setAttributeDisplayLabel(getGeoEntityMd().getDisplayLabel(currentLocale));
+      geoRequired.throwIt();
+      fail = true;
+    }
+
+    if (this.getSurveyDate()==null)
+    {
+      RequiredAttributeProblem dateRequired = new RequiredAttributeProblem();
+      dateRequired.setAttributeName(SURVEYDATE);
+      dateRequired.setAttributeDisplayLabel(getSurveyDateMd().getDisplayLabel(currentLocale));
+      dateRequired.throwIt();
+      fail = true;
+    }
+    
+    // If we're missing critical information, there's no point in proceeding
+    if (fail)
+    {
+      return;
+    }
+    
     HouseholdView house = getHousehold();
     
     applyItnInstance(house);
