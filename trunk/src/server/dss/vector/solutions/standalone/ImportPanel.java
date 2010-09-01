@@ -3,8 +3,6 @@ package dss.vector.solutions.standalone;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,11 +15,11 @@ import javax.swing.JProgressBar;
 
 import com.runwaysdk.ProblemException;
 import com.runwaysdk.ProblemIF;
-import com.runwaysdk.dataaccess.transaction.TransactionPropertyChangeEvent;
+import com.runwaysdk.dataaccess.transaction.ITaskListener;
 
 import dss.vector.solutions.util.MDSSProperties;
 
-public class ImportPanel extends AbstractPanel implements ActionListener, PropertyChangeListener
+public class ImportPanel extends AbstractPanel implements ActionListener, ITaskListener
 {
   /**
    * 
@@ -92,16 +90,6 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
     else if (command.equals(REFRESH_COMMAND))
     {
       this.updateServerStatus();
-    }
-  }
-
-  public void propertyChange(PropertyChangeEvent evt)
-  {
-    if (TransactionPropertyChangeEvent.PROGRESS == evt.getPropertyName())
-    {
-      int progress = (Integer) evt.getNewValue();
-
-      progressBar.setValue(progress);
     }
   }
 
@@ -187,5 +175,25 @@ public class ImportPanel extends AbstractPanel implements ActionListener, Proper
   public void lock()
   {
     this.importButton.setEnabled(false);
+  }
+
+  @Override
+  public void done()
+  {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public void taskProgress(int percent)
+  {
+    progressBar.setValue(percent);
+  }
+
+  @Override
+  public void taskStart(String name, int amount)
+  {
+    // TODO Auto-generated method stub
+
   }
 }

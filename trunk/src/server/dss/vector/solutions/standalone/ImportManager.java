@@ -54,7 +54,7 @@ public class ImportManager extends SwingWorker<Void, Void>
       // of the application file artifacts.
       manager.setImportApplicationFiles(!InstallProperties.isMaster());
 
-      manager.addPropertyChangeListener(component);
+      manager.addListener(component);
       manager.importTransactions();
 
     }

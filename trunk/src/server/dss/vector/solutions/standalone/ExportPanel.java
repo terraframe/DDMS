@@ -5,8 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.util.Locale;
 
 import javax.swing.BorderFactory;
@@ -17,11 +15,11 @@ import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JRadioButton;
 
-import com.runwaysdk.dataaccess.transaction.TransactionPropertyChangeEvent;
+import com.runwaysdk.dataaccess.transaction.ITaskListener;
 
 import dss.vector.solutions.util.MDSSProperties;
 
-public class ExportPanel extends AbstractPanel implements ActionListener, PropertyChangeListener
+public class ExportPanel extends AbstractPanel implements ActionListener, ITaskListener
 {
   /**
    * 
@@ -201,25 +199,6 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
     }
   }
 
-  public void propertyChange(PropertyChangeEvent evt)
-  {
-    if (TransactionPropertyChangeEvent.PROGRESS == evt.getPropertyName())
-    {
-      int progress = (Integer) evt.getNewValue();
-
-      progressBar.setValue(progress);
-      
-      if(progress >= 100)
-      {
-        statusLabel.setText(MDSSProperties.getString("Cleaning_up_temp_files", locale));
-      }
-      else
-      {
-        statusLabel.setText(MDSSProperties.getString("Exporting_transactions", locale));        
-      }
-    }
-  }
-
   public void unlock()
   {
     this.exportButton.setEnabled(true);
@@ -235,5 +214,23 @@ public class ExportPanel extends AbstractPanel implements ActionListener, Proper
   {
     this.statusLabel.setText(MDSSProperties.getString("Export_complete", locale));
     this.unlockContainer();    
+  }
+
+  @Override
+  public void done()
+  {
+    this.complete();
+  }
+
+  @Override
+  public void taskProgress(int percent)
+  {
+    progressBar.setValue(percent);
+  }
+
+  @Override
+  public void taskStart(String name, int amount)
+  {
+    statusLabel.setText(MDSSProperties.getString(name, locale));
   }
 }
