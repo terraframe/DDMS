@@ -35,8 +35,12 @@ public class ExcelEnums implements Reloadable
         return lifeStage;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + LifeStage.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(LifeStage.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(LifeStage.CLASS);
+    iep.throwIt();
+    return null;
   }
   
   public static ContainerShape getContainerShape(String label)
@@ -59,8 +63,12 @@ public class ExcelEnums implements Reloadable
         return containerShape;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + ContainerShape.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(ContainerShape.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(ContainerShape.CLASS);
+    iep.throwIt();
+    return null;
   }
   
   public static DiagnosisType getDiagnosisType(String label)
@@ -83,8 +91,12 @@ public class ExcelEnums implements Reloadable
         return diagnosisType;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + DiagnosisType.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(DiagnosisType.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(DiagnosisType.CLASS);
+    iep.throwIt();
+    return null;
   }
 
   public static PeriodType getPeriodType(String label)
@@ -102,8 +114,12 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + PeriodType.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(PeriodType.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(PeriodType.CLASS);
+    iep.throwIt();
+    return null;
   }
 
 //  public static SurfacePosition getSurfacePosition(String label)
@@ -141,8 +157,12 @@ public class ExcelEnums implements Reloadable
       }
     }
     
-    String message = "[" + label + "] is not a valid display label for [" + SprayMethod.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(SprayMethod.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(SprayMethod.CLASS);
+    iep.throwIt();
+    return null;
   }
   
   public static MonthOfYear getMonthOfYear(String label)
@@ -165,8 +185,12 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + MonthOfYear.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(MonthOfYear.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(MonthOfYear.CLASS);
+    iep.throwIt();
+    return null;
   }
   
   public static Response getResponse(String label)
@@ -189,8 +213,12 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + Response.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(Response.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(Response.CLASS);
+    iep.throwIt();
+    return null;
 
   }
   
@@ -214,7 +242,11 @@ public class ExcelEnums implements Reloadable
         return e;
       }
     }
-    String message = "[" + label + "] is not a valid display label for [" + RefusedResponse.CLASS + "]";
-    throw new DataNotFoundException(message, MdTypeDAO.getMdTypeDAO(RefusedResponse.CLASS));
+    
+    InvalidEnumProblem iep = new InvalidEnumProblem();
+    iep.setEnumName(label);
+    iep.setLabelFromQualifiedName(RefusedResponse.CLASS);
+    iep.throwIt();
+    return null;
   }
 }
