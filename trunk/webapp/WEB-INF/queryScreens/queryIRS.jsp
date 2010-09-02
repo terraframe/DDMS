@@ -607,7 +607,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
     // Area
     var areaCalcs = ['area_planned_target','area_planned_coverage'];
-    // FIXME finish
+    dm.includes({
+      independent: areaCalcs,
+      dependent: [],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false,
+      name: MDSS.QueryIRS.DATE_GROUP
+    });
     
     // FIXME uncheck targets if no more date grouping exists
     
