@@ -20,12 +20,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.RawLeftJoinEq;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
@@ -93,7 +91,7 @@ public class IRSQuery implements Reloadable
 
   private ValueQuery            irsVQ;
 
-  private ValueQuery            geoProxyVQ;
+  private ValueQuery            geoVQ;
 
   private JSONObject            queryConfig;
 
@@ -137,7 +135,7 @@ public class IRSQuery implements Reloadable
     }
     QueryFactory queryFactory = new QueryFactory();
 
-    this.geoProxyVQ = new ValueQuery(queryFactory);
+    this.geoVQ = new ValueQuery(queryFactory);
     this.irsVQ = new ValueQuery(queryFactory);
     this.insecticideVQ = new ValueQuery(queryFactory);
 
@@ -198,15 +196,13 @@ public class IRSQuery implements Reloadable
 
     for (String termAttr : Term.getTermAttributes(InsecticideBrand.CLASS))
     {
-      insecticideSQLs.add(termAttr+QueryUtil.DISPLAY_LABEL_SUFFIX);
-    }
-    
-    for (String enumAttr : QueryUtil.getEnumAttributes(InsecticideBrand.CLASS))
-    {
-      insecticideSQLs.add(enumAttr+QueryUtil.DISPLAY_LABEL_SUFFIX);
+      insecticideSQLs.add(termAttr + QueryUtil.DISPLAY_LABEL_SUFFIX);
     }
 
-    
+    for (String enumAttr : QueryUtil.getEnumAttributes(InsecticideBrand.CLASS))
+    {
+      insecticideSQLs.add(enumAttr + QueryUtil.DISPLAY_LABEL_SUFFIX);
+    }
 
     // remove insecticide selectables from the irsQuery
     List<Selectable> irsSels = new LinkedList<Selectable>();
@@ -215,13 +211,13 @@ public class IRSQuery implements Reloadable
     {
       String alias = sel.getUserDefinedAlias();
       String name = sel._getAttributeName();
-      
-      if (sel.getDefiningTableName().equals(insecticideTable) 
-          || insecticideSQLs.contains(alias) 
+
+      if (sel.getDefiningTableName().equals(insecticideTable) || insecticideSQLs.contains(alias)
           || insecticideSQLs.contains(name))
       {
         Selectable iSel = insecticideVQ.getSelectableRef(alias);
-        iSel.setColumnAlias(iSel.getColumnAlias()+"_i"); // namespace to avoid a bug in grouping
+        iSel.setColumnAlias(iSel.getColumnAlias() + "_i"); // namespace to avoid
+                                                           // a bug in grouping
         insecticideSels.add(iSel);
       }
       else
@@ -256,13 +252,11 @@ public class IRSQuery implements Reloadable
     QueryFactory queryFactory = this.irsVQ.getQueryFactory();
 
     // IMPORTANT: Required call for all query screens.
-    ValueQueryParser parser = new ValueQueryParser(xml, irsVQ);
-    ValueQueryParser parser2 = new ValueQueryParser(xml, insecticideVQ);
-
     Map<String, GeneratedEntityQuery> queryMap1 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        irsVQ, xml, queryConfig, layer, geoProxyVQ, parser);
+        irsVQ, xml, queryConfig, layer);
     Map<String, GeneratedEntityQuery> queryMap2 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        insecticideVQ, xml, queryConfig, layer, geoProxyVQ, parser2);
+        insecticideVQ, xml, queryConfig, layer);
+    QueryUtil.joinQueryWithGeoEntities(queryFactory, geoVQ, xml, queryConfig, layer);
 
     this.abstractSprayQuery = (AbstractSprayQuery) queryMap1.get(AbstractSpray.CLASS);
     this.insecticideQuery = (InsecticideBrandQuery) queryMap2.get(InsecticideBrand.CLASS);
@@ -370,9 +364,10 @@ public class IRSQuery implements Reloadable
   private void joinMainQueryTables()
   {
     String abstractSprayTable = abstractSprayQuery.getMdClassIF().getTableName();
-    IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol, abstractSprayTable, this.sprayViewAlias);
+    IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol,
+        abstractSprayTable, this.sprayViewAlias);
     irsVQ.AND(join);
-    
+
     StringBuffer str = new StringBuffer();
     String idCol = QueryUtil.getIdColumn();
     String diseaseCol = QueryUtil.getColumnName(InsecticideBrand.getDiseaseMd());
@@ -399,9 +394,9 @@ public class IRSQuery implements Reloadable
           insecticideVQ.aSQLCharacter("i_view", INSECTICIDE_VIEW + "." + idCol)));
 
       String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
-      str.append(" "+joinType+" (" + insecticideVQ.getSQL() + ") " + insecticideQuery.getTableAlias()
-          + " ON " + leftAlias + "." + Alias.BRAND + " = " + insecticideQuery.getTableAlias() + "."
-          + insecticideId);
+      str.append(" " + joinType + " (" + insecticideVQ.getSQL() + ") "
+          + insecticideQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.BRAND + " = "
+          + insecticideQuery.getTableAlias() + "." + insecticideId);
     }
 
     // always join on the insecticide view
