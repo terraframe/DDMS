@@ -1,19 +1,8 @@
 package dss.vector.solutions.irs;
 
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.GeoProxyValueQuery;
-import com.runwaysdk.query.IRSValueQuery;
-import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.util.QueryUtil;
 
 public abstract class AbstractSpray extends AbstractSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -54,29 +43,7 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    JSONObject queryConfig;
-    try
-    {
-      queryConfig = new JSONObject(config);
-    }
-    catch (JSONException e1)
-    {
-      throw new ProgrammingErrorException(e1);
-    }
-
-    QueryFactory queryFactory = new QueryFactory();
-
-    IRSValueQuery valueQuery = new IRSValueQuery(queryFactory);
-    GeoProxyValueQuery geoProxyVQ = new GeoProxyValueQuery(queryFactory);
-
-    // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
-    
-    
-    IRSQuery irsQ = new IRSQuery(valueQuery, queryMap, queryConfig, xml, geoProxyVQ);
-    irsQ.populate();
-
-
-    return valueQuery;
+    IRSQuery irsQ = new IRSQuery(config, xml, layer);
+    return irsQ.populate();
   }
 }
