@@ -127,7 +127,7 @@ public class ImmatureCollectionViewQuery extends dss.vector.solutions.entomology
 
       if (view.getCollectionId() != null && !view.getCollectionId().equals(""))
       {
-        this.addCondition(vQuery.getCollectionId().EQ(view.getCollectionId()));
+        this.addCondition(vQuery.getCollectionId().EQi(view.getCollectionId()));
       }
 
       if (view.getPremiseType() != null)
