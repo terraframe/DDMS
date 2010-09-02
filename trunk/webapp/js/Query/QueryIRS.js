@@ -78,13 +78,18 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       }
     },
     
+    getDateGroupIds : function()
+    {
+      return Mojo.Iter.map(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts), function(opt){ return opt.toLowerCase(); });
+    },
+    
 	  /**
 	   * At least one date group checkbox must be checked when any of the target management
 	   * calculations are selected. This method is the callback used when the DependencyManager
 	   * is done firing on the IRS query checkboxes, and the target management dependencies
 	   * need to be filtered out.
 	   */
-	  ensureDateGroupChecked : function(targets, triggerId, independents)
+	  ensureDateGroupChecked : function(targets, dateGroups, triggerId, independents)
 	  {
       if(targets.contains(triggerId) && Mojo.Util.getKeys(this._dateGroupSelectables).length === 0)
       {
@@ -98,6 +103,18 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
             document.getElementById(epi_week).click();
 
             break;
+          }
+        }
+      }
+      else if(dateGroups.contains(triggerId) && Mojo.Util.getKeys(this._dateGroupSelectables).length === 0)
+      {
+        var ids = targets.values();
+        for(var i=0; i<ids.length; i++)
+        {
+          var check = document.getElementById(ids[i]);
+          if(check.checked)
+          {
+            check.click();
           }
         }
       }

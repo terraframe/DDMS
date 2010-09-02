@@ -86,7 +86,7 @@
 
 <%=Halp.loadTypes(loadables)%>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -614,18 +614,29 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: false,
       name: MDSS.QueryIRS.DATE_GROUP
     });
-    
-    // FIXME uncheck targets if no more date grouping exists
-    
-    
-    var targetIds = Mojo.Iter.map(targetManagementColumns, function(t) { return t.key; });
-    var targets = new MDSS.Set(targetIds);
 
-    var handler = Mojo.Util.bind(query, query.ensureDateGroupChecked, targets);
+    // This will ensure the transaction lister fires after checking/unchecking a date group
+    var dateGroupsArr = query.getDateGroupIds();
+    dm.includes({
+      independent: dateGroupsArr,
+      dependent: [],
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false,
+      name: MDSS.QueryIRS.DATE_GROUP
+    });
+    
+    // include planned targets for date grouping
+    var targetIds = ['area_planned_target','team_planned_target','operator_planned_target',
+                     'team_planned_coverage','operator_planned_coverage','area_planned_coverage',
+                     'team_target_divergence','operator_target_divergence'];
+    var targets = new MDSS.Set(targetIds);
+    var dateGroups = new MDSS.Set(dateGroupsArr);
+
+    var handler = Mojo.Util.bind(query, query.ensureDateGroupChecked, targets, dateGroups);
     dm.addAllTransactionsFinishListener(handler);
 });
 
-</script>
+--></script>
 
 <jsp:include page="queryContainer.jsp"></jsp:include>
 

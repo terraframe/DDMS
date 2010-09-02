@@ -198,6 +198,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         this._queryPanel.removeColumn(column);
         delete this._dateGroupSelectables[group];
       }
+      
+      this._dm.notifyAll(e);
     },
   
   
