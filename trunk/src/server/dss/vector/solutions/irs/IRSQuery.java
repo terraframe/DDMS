@@ -687,6 +687,8 @@ public class IRSQuery implements Reloadable
       String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
+      
+      this.needsOperatorActual = true;
     }
   }
 
@@ -698,6 +700,8 @@ public class IRSQuery implements Reloadable
       String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
+      
+      this.needsTeamsActual = true;
     }
   }
 
@@ -713,6 +717,8 @@ public class IRSQuery implements Reloadable
         String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
             + ",0))*100.0";
         calc.setSQL(sql);
+        
+        this.needsTeamsActual = true;
       }
       else
       {
