@@ -45,11 +45,6 @@ public class InsecticideInterventionListener implements ExcelExportListener, Imp
       String quantityName = methodTerm + QUANTITY;
       String unitName = methodTerm + UNIT;
       
-      String methodLabel = method.getTermDisplayLabel().getValue();
-      String brandLabel= methodLabel + BRAND;
-      String quantityLabel= methodLabel + QUANTITY;
-      String unitLabel= methodLabel + UNIT;
-      
       String brand = null;
       Integer quantity = null;
       String unit = null;
@@ -71,6 +66,12 @@ public class InsecticideInterventionListener implements ExcelExportListener, Imp
       
 //      When commented out, grid rows without all necessary data are simply ignored.
 //      Uncomment to force all grids to be present.
+//      
+//      String methodLabel = method.getTermDisplayLabel().getValue();
+//      String brandLabel= methodLabel + BRAND;
+//      String quantityLabel= methodLabel + QUANTITY;
+//      String unitLabel= methodLabel + UNIT;
+//      
 //      if (brand==null)
 //      {
 //        RequiredAttributeProblem rap = new RequiredAttributeProblem();
