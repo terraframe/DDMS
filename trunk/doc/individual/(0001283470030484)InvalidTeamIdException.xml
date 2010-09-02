@@ -1,0 +1,25 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.export.InvalidTeamIdException"
+        label="Invalid Team ID Exception"
+        description="Thrown when an import contains an invalid Team Id"
+        message="No Spray Team found with ID [{teamId}]">
+        <attributes>
+          <char
+            name="teamId"
+            label="Spray Team ID"
+            size="255"/>
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.InvalidTeamIdException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>

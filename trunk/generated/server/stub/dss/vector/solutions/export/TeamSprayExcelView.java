@@ -49,17 +49,20 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       p.throwIt();
     }
 
-    SprayTeam team = SprayTeam.getByTeamId(this.getSprayTeam());
-    String teamId = "";
+    String teamId = this.getSprayTeam();
+    SprayTeam team = SprayTeam.getByTeamId(teamId);
 
-    if (team != null)
+    // Team is required
+    if (team == null)
     {
-      teamId = team.getId();
+      InvalidTeamIdException e = new InvalidTeamIdException();
+      e.setTeamId(teamId);
+      throw e;
     }
-
+    
     TeamSprayView tsv = TeamSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(),
         ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()),
-        teamId);
+        team.getId());
 
     if (tsv.getConcreteId() == null || tsv.getConcreteId().equals(""))
     {
@@ -95,7 +98,7 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       {
         DuplicateTeamSprayImportException dex = new DuplicateTeamSprayImportException();
         dex.setSprayDate(this.getSprayDate());
-        dex.setSprayTeam(this.getSprayTeam());
+        dex.setSprayTeam(teamId);
         dex.setInsecticideTerm(this.getInsecticideTerm());
         dex.setSprayMethod(this.getSprayMethod());
         dex.setOperatorId(this.getOperatorId());
