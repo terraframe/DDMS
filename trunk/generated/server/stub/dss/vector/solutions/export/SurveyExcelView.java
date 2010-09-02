@@ -86,14 +86,30 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   
   private void applyItnInstance(HouseholdView house)
   {
-    if (getNetById(this.getNetId())!=null)
+    // Check to ensure that a net ID is specified before proceeding
+    String nid = this.getNetId();
+    if (nid.length()==0)
     {
       return;
     }
     
-    ITNInstanceView itn = new ITNInstanceView();
-    itn.setNetId(this.getNetId());
-    itn.setHousehold(Household.get(house.getConcreteId()));
+    ITNInstanceView itn;
+    
+    // Search first
+    ITNInstance netById = getNetById(nid);
+    if (netById!=null)
+    {
+      // Update if found
+      itn = netById.lockView();
+    }
+    else
+    {
+      // Create if not
+      itn = new ITNInstanceView();
+      itn.setNetId(nid);
+      itn.setHousehold(Household.get(house.getConcreteId()));
+    }
+    
     itn.setNetBrand(Term.validateByDisplayLabel(this.getNetBrand(), ITNInstanceView.getNetBrandMd()));
     itn.addMonthReceived(ExcelEnums.getMonthOfYear(this.getMonthReceived()));
     itn.setYearReceived(this.getYearReceived());
@@ -130,18 +146,35 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
 
   private void applyPerson(HouseholdView house)
   {
-    SurveyedPersonQuery query = new SurveyedPersonQuery(new QueryFactory());
-    query.WHERE(query.getPersonId().EQ(this.getPersonId()));
-    OIterator<? extends SurveyedPerson> iterator = query.getIterator();
-    if (iterator.hasNext())
+    // Check to ensure that a person ID was specified before proceeding
+    String pid = this.getPersonId();
+    if (pid.length()==0)
     {
-      iterator.close();
       return;
     }
     
-    SurveyedPersonView person = new SurveyedPersonView();
-    person.setHousehold(Household.get(house.getConcreteId()));
-    person.setPersonId(this.getPersonId());
+    SurveyedPersonView person;
+    
+    // Search first
+    SurveyedPersonQuery query = new SurveyedPersonQuery(new QueryFactory());
+    query.WHERE(query.getPersonId().EQ(pid));
+    OIterator<? extends SurveyedPerson> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      // Update if found
+      SurveyedPerson next = iterator.next();
+      person = next.lockView();
+    }
+    else
+    {
+      // Create if not
+      person = new SurveyedPersonView();
+      person.setPersonId(pid);
+      person.setHousehold(Household.get(house.getConcreteId()));
+    }
+    // close the iterator no matter what
+    iterator.close();
+    
     person.setHeadOfHousehold(Term.validateByDisplayLabel(this.getHeadOfHousehold(), SurveyedPersonView.getHeadOfHouseholdMd()));
     person.setDob(this.getDob());
     person.setAge(this.getAge());
