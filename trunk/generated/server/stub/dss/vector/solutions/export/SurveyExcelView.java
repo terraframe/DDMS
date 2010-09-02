@@ -126,6 +126,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     itn.addWashed(ExcelEnums.getResponse(this.getWashed()));
     itn.setWashFrequency(this.getWashFrequency());
     itn.setWashPeriod(Term.validateByDisplayLabel(this.getWashPeriod(), ITNInstanceView.getWashPeriodMd()));
+    itn.setSleptUnderNet(this.getSleptUnderNet());
     itn.apply();
   }
 
