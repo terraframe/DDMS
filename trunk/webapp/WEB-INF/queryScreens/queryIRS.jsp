@@ -570,6 +570,23 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: true
     });
 
+    
+    var rateAndRatio = ['standard_application_rate', 'standard_application_rate_mg', 'unit_application_rate', 'unit_application_rate_mg', 'unit_application_ratio'];
+    var productName = 'productName_spray';
+    dm.includes({
+      independent: rateAndRatio,
+      dependent: productName,
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: productName,
+      dependent: rateAndRatio,
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
+    
+
     var operatorCalcs = ['operator_actual_target','operator_planned_target','operator_planned_coverage','operator_target_divergence','operator_targeted_coverage'];
     var operatorCol = 'sprayoperator_defaultLocale';
 
