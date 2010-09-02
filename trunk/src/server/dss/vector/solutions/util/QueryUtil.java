@@ -540,7 +540,7 @@ public class QueryUtil implements Reloadable
    * @param className
    * @return
    */
-  private static String[] getEnumAttributes(String className)
+  public static String[] getEnumAttributes(String className)
   {
     MdBusiness md = MdBusiness.getMdBusiness(className);
     List<String> list = new LinkedList<String>();
@@ -893,11 +893,9 @@ public class QueryUtil implements Reloadable
   }
   
   public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
-      ValueQuery valueQuery, String xml, JSONObject config, Layer layer, ValueQuery geoProxyVQ)
+      ValueQuery valueQuery, String xml, JSONObject config, Layer layer, ValueQuery geoProxyVQ, ValueQueryParser valueQueryParser)
   {
     Map<String, GeneratedEntityQuery> queryMap;
-
-    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
 
     // If we're mapping, dereference the MdAttribute that will be joined with
     // the GeoEntity
@@ -1029,7 +1027,9 @@ public class QueryUtil implements Reloadable
   public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
       ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
   {
-    return joinQueryWithGeoEntities(queryFactory, valueQuery, xml, config, layer, valueQuery);
+    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
+    
+    return joinQueryWithGeoEntities(queryFactory, valueQuery, xml, config, layer, valueQuery, valueQueryParser);
   }
 
   private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory,
