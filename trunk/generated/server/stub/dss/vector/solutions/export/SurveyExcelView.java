@@ -229,6 +229,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   private HouseholdView getHousehold()
   {
     HouseholdView house;
+    SurveyPoint surveyPoint = this.getSurveyPoint();
     
     String name = this.getHouseholdName();
     HouseholdQuery query = new HouseholdQuery(new QueryFactory());
@@ -239,12 +240,20 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     {
       Household concrete = iterator.next();
       house = concrete.lockView();
+      
+      if (!house.getSurveyPoint().equals(surveyPoint))
+      {
+        // Problem!
+        HouseholdAlreadyAssignedException e = new HouseholdAlreadyAssignedException();
+        e.setHousehold(name);
+        throw e;
+      }
     }
     else
     {
       house = new HouseholdView();
       house.setHouseholdName(name);
-      house.setSurveyPoint(this.getSurveyPoint());
+      house.setSurveyPoint(surveyPoint);
       house.setUrban(this.getUrban());
       house.setPeople(this.getPeople());
       house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), HouseholdView.getWallMd()));

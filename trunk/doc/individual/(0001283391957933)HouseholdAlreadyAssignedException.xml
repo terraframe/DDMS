@@ -1,0 +1,25 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.export.HouseholdAlreadyAssignedException"
+        label="Household Already Assigned Exception"
+        description="Thrown when a user attempts to import an existing surveyed household against a different survey point"
+        message="Household {household} is already assigned to another survey location and cannot be reassigned.">
+        <attributes>
+          <char
+            name="household"
+            label="Household ID"
+            size="255"/>
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.HouseholdAlreadyAssignedException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>
