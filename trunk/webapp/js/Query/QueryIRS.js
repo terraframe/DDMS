@@ -99,9 +99,15 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
         {
           if(document.getElementById(ids[i]).checked)
           {
-            var epi_week = 'DATEGROUP_EPIWEEK'.toLowerCase(); // FIXME should be a constant
-            document.getElementById(epi_week).click();
+            var epi_week = 'DATEGROUP_EPIWEEK'; // FIXME should be a constant
+            document.getElementById(epi_week.toLowerCase()).click();
 
+            var dateGroup = this._queryPanel.getDateGroupBy();
+            
+            dateGroup.value = epi_week;
+            var option = dateGroup.options[dateGroup.selectedIndex];
+            this._fireClickOnOption(option);
+            
             break;
           }
         }
