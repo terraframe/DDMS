@@ -217,7 +217,7 @@ public class IRSQuery implements Reloadable
       {
         Selectable iSel = insecticideVQ.getSelectableRef(alias);
         iSel.setColumnAlias(iSel.getColumnAlias() + "_i"); // namespace to avoid
-                                                           // a bug in grouping
+        // a bug in grouping
         insecticideSels.add(iSel);
       }
       else
@@ -705,10 +705,19 @@ public class IRSQuery implements Reloadable
   {
     if (irsVQ.hasSelectableRef(AREA_PLANNED_COVERAGE))
     {
-      SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
-          + ",0))*100.0";
-      calc.setSQL(sql);
+      String geoType = getGeoType(AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY);
+
+      if (irsVQ.hasSelectableRef(geoType))
+      {
+        SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
+        String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
+            + ",0))*100.0";
+        calc.setSQL(sql);
+      }
+      else
+      {
+        throw new IncidencePopulationException();
+      }
     }
   }
 
