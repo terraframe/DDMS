@@ -1303,20 +1303,24 @@ MDSS.GeoEntityTree = (function(){
       var id = ids[i];
 
       var nodeIds = _geoEntityIdToNodeIdMap[id];
-      for(var j=0; j<nodeIds.length; j++)
+      
+      if(nodeIds != null)
       {
-        var el = document.getElementById(nodeIds[j]);
-        var nodeDiv = new YAHOO.util.Element(el.firstChild);
+        for(var j=0; j<nodeIds.length; j++)
+        {
+          var el = document.getElementById(nodeIds[j]);
+          var nodeDiv = new YAHOO.util.Element(el.firstChild);
 
-        if(activated === true)
-        {
-          nodeDiv.removeClass('inactiveEntity');
-          nodeDiv.addClass('activeEntity');
-        }
-        else
-        {
-          nodeDiv.removeClass('activeEntity');
-          nodeDiv.addClass('inactiveEntity');
+          if(activated === true)
+          {
+            nodeDiv.removeClass('inactiveEntity');
+            nodeDiv.addClass('activeEntity');
+          }
+          else
+          {
+            nodeDiv.removeClass('activeEntity');
+            nodeDiv.addClass('inactiveEntity');
+          }
         }
       }
     }
