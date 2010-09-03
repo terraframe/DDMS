@@ -216,19 +216,16 @@ public class ExportPanel extends AbstractPanel implements ActionListener, ITaskL
     this.unlockContainer();    
   }
 
-  @Override
   public void done()
   {
     this.complete();
   }
 
-  @Override
   public void taskProgress(int percent)
   {
     progressBar.setValue(percent);
   }
 
-  @Override
   public void taskStart(String name, int amount)
   {
     statusLabel.setText(MDSSProperties.getString(name, locale));

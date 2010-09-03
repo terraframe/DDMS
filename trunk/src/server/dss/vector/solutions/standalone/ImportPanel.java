@@ -177,20 +177,17 @@ public class ImportPanel extends AbstractPanel implements ActionListener, ITaskL
     this.importButton.setEnabled(false);
   }
 
-  @Override
   public void done()
   {
     // TODO Auto-generated method stub
 
   }
 
-  @Override
   public void taskProgress(int percent)
   {
     progressBar.setValue(percent);
   }
 
-  @Override
   public void taskStart(String name, int amount)
   {
     // TODO Auto-generated method stub
