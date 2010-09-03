@@ -110,7 +110,7 @@ public class QueryUtil implements Reloadable
 
   public static final String  END_DATE_RANGE               = "end_date_range";
 
-  private static final String DATE_ATTRIBUTE               = "date_attribute";
+  public static final String DATE_ATTRIBUTE               = "date_attribute";
 
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
@@ -1172,9 +1172,9 @@ public class QueryUtil implements Reloadable
           .getChildGeoEntity()));
     }
   }
-
+  
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,
-      Map<String, GeneratedEntityQuery> queryMap)
+      Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria)
   {
     String attributeName = null;
     String startValue = null;
@@ -1210,15 +1210,23 @@ public class QueryUtil implements Reloadable
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         startValue = dateObj.getString("start");
-        AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-        valueQuery.AND(dateAttriute.GE(startValue));
+        
+        if(!ignoreCriteria)
+        {
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+          valueQuery.AND(dateAttriute.GE(startValue));
+        }
 
       }
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
         endValue = dateObj.getString("end");
-        AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-        valueQuery.AND(dateAttriute.LE(endValue));
+        
+        if(!ignoreCriteria)
+        {
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+          valueQuery.AND(dateAttriute.LE(endValue));
+        }
       }
 
       // now we set the columns that show the restictions
@@ -1249,7 +1257,13 @@ public class QueryUtil implements Reloadable
     {
       throw new ProgrammingErrorException(e);
     }
+    
+  }
 
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,
+      Map<String, GeneratedEntityQuery> queryMap)
+  {
+    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target,

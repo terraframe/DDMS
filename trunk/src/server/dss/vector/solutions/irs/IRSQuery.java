@@ -17,7 +17,9 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
@@ -26,6 +28,8 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
+import dss.vector.solutions.Property;
+import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -188,7 +192,7 @@ public class IRSQuery implements Reloadable
 
   private void filterSelectables()
   {
-    
+
     List<String> spraySQLs = Arrays.asList(new String[] { AbstractSpray.SPRAYMETHOD + "_spray",
         AbstractSpray.SURFACETYPE + "_spray" });
 
@@ -229,7 +233,7 @@ public class IRSQuery implements Reloadable
         // a bug in grouping
         insecticideSels.add(iSel);
       }
-      else if(spraySQLs.contains(alias))
+      else if (spraySQLs.contains(alias))
       {
         Selectable sSel = sprayVQ.getSelectableRef(alias);
         sSel.setColumnAlias(sSel.getColumnAlias() + "_s"); // namespace to
@@ -248,8 +252,8 @@ public class IRSQuery implements Reloadable
     sprayVQ.clearSelectClause();
 
     irsVQ.SELECT(irsSels.toArray(new Selectable[irsSels.size()]));
-    
-    if(insecticideQuery != null)
+
+    if (insecticideQuery != null)
     {
       insecticideVQ.SELECT(insecticideSels.toArray(new Selectable[insecticideSels.size()]));
       insecticideVQ.SELECT(insecticideQuery.getId(InsecticideBrand.ID));
@@ -260,15 +264,15 @@ public class IRSQuery implements Reloadable
             + sel.getColumnAlias(), sel.getUserDefinedAlias()));
       }
     }
-    
-    if(spraySels.size() > 0)
+
+    if (spraySels.size() > 0)
     {
       this.hasSprayEnumOrTerm = true;
-      
+
       sprayVQ.SELECT(spraySels.toArray(new Selectable[spraySels.size()]));
       sprayVQ.SELECT(abstractSprayQuery.getId(AbstractSpray.ID));
 
-      for(Selectable sel : spraySels)
+      for (Selectable sel : spraySels)
       {
         irsVQ.SELECT(irsVQ.aSQLCharacter(sel.getColumnAlias(), abstractSprayQuery.getTableAlias() + "."
             + sel.getColumnAlias(), sel.getUserDefinedAlias()));
@@ -371,7 +375,9 @@ public class IRSQuery implements Reloadable
 
     QueryUtil.setNumericRestrictions(irsVQ, queryConfig);
 
-    QueryUtil.setQueryDates(xml, irsVQ, queryConfig, queryMap1);
+    QueryUtil.setQueryDates(xml, irsVQ, queryConfig, queryMap1, true);
+
+    addPlannedTargetDateCriteria();
 
     joinMainQueryTables();
 
@@ -414,6 +420,43 @@ public class IRSQuery implements Reloadable
     return this.irsVQ;
   }
 
+  private void addPlannedTargetDateCriteria()
+  {
+    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    
+    try
+    {
+      JSONObject dateObj = queryConfig.getJSONObject(QueryUtil.DATE_ATTRIBUTE);
+
+      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
+      {
+        String startValue = dateObj.getString("start");
+        
+        Condition or =OR.get(irsVQ.aSQLDate("epi_start_week", this.sprayViewAlias + "." + Alias.TARGET_WEEK).GE(
+            irsVQ.aSQLDate("epi_start_val", "get_epiWeek_from_date('"+startValue+"',"+startDay+")")),
+            irsVQ.aSQLDate("start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(
+                irsVQ.aSQLDate("start_val","'"+startValue+"'")));
+        
+        irsVQ.AND(or);
+      }
+      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
+      {
+        String endValue = dateObj.getString("end");
+        
+        Condition or = OR.get(irsVQ.aSQLDate("epi_end_week", this.sprayViewAlias + "." + Alias.TARGET_WEEK).LE(
+            irsVQ.aSQLDate("epi_end_val", "get_epiWeek_from_date('"+endValue+"',"+startDay+")")),
+            irsVQ.aSQLDate("end_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).LE(
+                irsVQ.aSQLDate("end_val","'"+endValue+"'")));
+        
+        irsVQ.AND(or);
+      }
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   /**
    * Joins the necessary tables to make the main query work (this also includes
    * setting the proper WHERE criteria on dates).
@@ -453,17 +496,17 @@ public class IRSQuery implements Reloadable
       String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
       str.append(" " + joinType + " (" + insecticideVQ.getSQL() + ") "
           + insecticideQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.BRAND + " = "
-          + insecticideQuery.getTableAlias() + "." + insecticideId+ " \n");
+          + insecticideQuery.getTableAlias() + "." + insecticideId + " \n");
     }
-    
-    if(this.hasSprayEnumOrTerm)
+
+    if (this.hasSprayEnumOrTerm)
     {
       String sprayId = sprayVQ.getSelectableRef(AbstractSpray.ID).getColumnAlias();
 
       String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
-      str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") "
-          + abstractSprayQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.ID + " = "
-          + abstractSprayQuery.getTableAlias() + "." + sprayId+ " \n");
+      str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") " + abstractSprayQuery.getTableAlias()
+          + " ON " + leftAlias + "." + Alias.ID + " = " + abstractSprayQuery.getTableAlias() + "."
+          + sprayId + " \n");
     }
 
     // always join on the insecticide view
