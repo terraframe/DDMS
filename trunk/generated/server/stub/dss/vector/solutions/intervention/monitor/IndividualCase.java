@@ -535,14 +535,14 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       calc.setSQL(sql);
     }
 
+    String tableAlias = caseQuery.getTableAlias();
+    String adjustedCases = "COUNT(DISTINCT " + tableAlias + "." + idCol + ")";
     if (valueQuery.hasSelectableRef("cases"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
-      String tableAlias = caseQuery.getTableAlias();
       // String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName +
       // " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))";
-      String sql = "COUNT(DISTINCT " + tableAlias + "." + idCol + ")";
-      calc.setSQL(sql);
+      calc.setSQL(adjustedCases);
     }
 
     if (valueQuery.hasSelectableRef("deaths"))
@@ -555,12 +555,12 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 
     if (valueQuery.hasSelectableRef("cfr"))
     {
-      String indCaseCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.INDIVIDUALCASE);
+//      String indCaseCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.INDIVIDUALCASE);
       String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.DIEDINFACILITY);
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
-      String tableAlias = caseQuery.getTableAlias();
-      String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
-      String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + "." + idCol + ")))*100.0";
+//      String tableName = MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
+//      String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + "." + idCol + ")))*100.0";
+      String sql = "(SUM(" + diedInFacCol + ")::float/NULLIF(("+adjustedCases+"),0))*100.0";
       calc.setSQL(sql);
     }
 
