@@ -422,6 +422,11 @@ MDSS.QueryPanel.prototype = {
       this._endDateRangeCheck.disabled = disableEnd;
     }
   },
+  
+  getDateGroupBy : function()
+  {
+    return this._dateGroupBy;
+  },
 
   /**
    */

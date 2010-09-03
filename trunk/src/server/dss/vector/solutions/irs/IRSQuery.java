@@ -18,14 +18,12 @@ import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.EnumerationMaster;
-import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.general.EpiWeek;
@@ -89,9 +87,13 @@ public class IRSQuery implements Reloadable
    */
   private boolean               hasPlannedTargets;
 
+  private boolean               hasLeftJoinVQ;
+
+  private boolean               hasSprayEnumOrTerm;
+
   private ValueQuery            irsVQ;
 
-  private ValueQuery            geoVQ;
+  private ValueQuery            sprayVQ;
 
   private JSONObject            queryConfig;
 
@@ -135,9 +137,12 @@ public class IRSQuery implements Reloadable
     }
     QueryFactory queryFactory = new QueryFactory();
 
-    this.geoVQ = new ValueQuery(queryFactory);
+    this.sprayVQ = new ValueQuery(queryFactory);
     this.irsVQ = new ValueQuery(queryFactory);
     this.insecticideVQ = new ValueQuery(queryFactory);
+
+    this.hasLeftJoinVQ = false;
+    this.hasSprayEnumOrTerm = false;
 
     this.needsAreaPlanned = false;
     this.needsAreaActual = false;
@@ -183,17 +188,19 @@ public class IRSQuery implements Reloadable
 
   private void filterSelectables()
   {
-    if (insecticideQuery == null)
-    {
-      return;
-    }
+    
+    List<String> spraySQLs = Arrays.asList(new String[] { AbstractSpray.SPRAYMETHOD + "_spray",
+        AbstractSpray.SURFACETYPE + "_spray" });
 
-    String insecticideTable = insecticideQuery.getMdClassIF().getTableName();
+    String insecticideTable = MdEntityDAO.getMdEntityDAO(InsecticideBrand.CLASS).getTableName();
     List<String> insecticideSQLs = new LinkedList<String>();
+
+    // insecticide calculations
     insecticideSQLs.addAll(Arrays.asList(new String[] { "nozzle_defaultLocale", "nozzle_ratio",
         "active_ingredient_per_can", "standard_application_rate", "standard_application_rate_mg",
         "units_per_can" }));
 
+    // insecticide terms and enums
     for (String termAttr : Term.getTermAttributes(InsecticideBrand.CLASS))
     {
       insecticideSQLs.add(termAttr + QueryUtil.DISPLAY_LABEL_SUFFIX);
@@ -207,6 +214,7 @@ public class IRSQuery implements Reloadable
     // remove insecticide selectables from the irsQuery
     List<Selectable> irsSels = new LinkedList<Selectable>();
     List<Selectable> insecticideSels = new LinkedList<Selectable>();
+    List<Selectable> spraySels = new LinkedList<Selectable>();
     for (Selectable sel : irsVQ.getSelectableRefs())
     {
       String alias = sel.getUserDefinedAlias();
@@ -216,9 +224,18 @@ public class IRSQuery implements Reloadable
           || insecticideSQLs.contains(name))
       {
         Selectable iSel = insecticideVQ.getSelectableRef(alias);
-        iSel.setColumnAlias(iSel.getColumnAlias() + "_i"); // namespace to avoid
+        iSel.setColumnAlias(iSel.getColumnAlias() + "_i"); // namespace to
+        // avoid
         // a bug in grouping
         insecticideSels.add(iSel);
+      }
+      else if(spraySQLs.contains(alias))
+      {
+        Selectable sSel = sprayVQ.getSelectableRef(alias);
+        sSel.setColumnAlias(sSel.getColumnAlias() + "_s"); // namespace to
+        // avoid
+        // a bug in grouping
+        spraySels.add(sSel);
       }
       else
       {
@@ -228,15 +245,34 @@ public class IRSQuery implements Reloadable
 
     irsVQ.clearSelectClause();
     insecticideVQ.clearSelectClause();
+    sprayVQ.clearSelectClause();
 
     irsVQ.SELECT(irsSels.toArray(new Selectable[irsSels.size()]));
-    insecticideSels.add(insecticideQuery.getId(InsecticideBrand.ID));
-    insecticideVQ.SELECT(insecticideSels.toArray(new Selectable[insecticideSels.size()]));
-
-    for (Selectable sel : insecticideSels)
+    
+    if(insecticideQuery != null)
     {
-      irsVQ.SELECT(irsVQ.aSQLCharacter(sel.getColumnAlias(), insecticideQuery.getTableAlias() + "."
-          + sel.getColumnAlias(), sel.getUserDefinedAlias()));
+      insecticideVQ.SELECT(insecticideSels.toArray(new Selectable[insecticideSels.size()]));
+      insecticideVQ.SELECT(insecticideQuery.getId(InsecticideBrand.ID));
+
+      for (Selectable sel : insecticideSels)
+      {
+        irsVQ.SELECT(irsVQ.aSQLCharacter(sel.getColumnAlias(), insecticideQuery.getTableAlias() + "."
+            + sel.getColumnAlias(), sel.getUserDefinedAlias()));
+      }
+    }
+    
+    if(spraySels.size() > 0)
+    {
+      this.hasSprayEnumOrTerm = true;
+      
+      sprayVQ.SELECT(spraySels.toArray(new Selectable[spraySels.size()]));
+      sprayVQ.SELECT(abstractSprayQuery.getId(AbstractSpray.ID));
+
+      for(Selectable sel : spraySels)
+      {
+        irsVQ.SELECT(irsVQ.aSQLCharacter(sel.getColumnAlias(), abstractSprayQuery.getTableAlias() + "."
+            + sel.getColumnAlias(), sel.getUserDefinedAlias()));
+      }
     }
   }
 
@@ -256,12 +292,12 @@ public class IRSQuery implements Reloadable
         irsVQ, xml, queryConfig, layer);
     Map<String, GeneratedEntityQuery> queryMap2 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
         insecticideVQ, xml, queryConfig, layer);
-    QueryUtil.joinQueryWithGeoEntities(queryFactory, geoVQ, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap3 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        sprayVQ, xml, queryConfig, layer);
 
-    this.abstractSprayQuery = (AbstractSprayQuery) queryMap1.get(AbstractSpray.CLASS);
+    this.sprayViewAlias = queryMap1.get(AbstractSpray.CLASS).getTableAlias();
     this.insecticideQuery = (InsecticideBrandQuery) queryMap2.get(InsecticideBrand.CLASS);
-
-    this.sprayViewAlias = abstractSprayQuery.getTableAlias();
+    this.abstractSprayQuery = (AbstractSprayQuery) queryMap3.get(AbstractSpray.CLASS);
 
     filterSelectables();
 
@@ -273,7 +309,28 @@ public class IRSQuery implements Reloadable
       QueryUtil.setNumericRestrictions(insecticideVQ, queryConfig);
     }
 
-    setAbstractSprayAttributes();
+    String sprayDate = QueryUtil.getColumnName(AbstractSpray.getSprayDateMd());
+
+    // Spray Date
+    QueryUtil.setSelectabeSQL(irsVQ, AbstractSpray.SPRAYDATE, sprayViewAlias + "." + sprayDate);
+
+    // Geo Entity
+    if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
+    {
+      SelectableSQLCharacter subGeo = (SelectableSQLCharacter) irsVQ
+          .getSelectableRef(AbstractSpray.GEOENTITY);
+      QueryUtil.subselectGeoDisplayLabels(subGeo, AbstractSpray.CLASS, AbstractSpray.GEOENTITY,
+          sprayViewAlias + "." + idCol);
+    }
+
+    if (this.hasSprayEnumOrTerm)
+    {
+      QueryUtil.joinEnumerationDisplayLabels(sprayVQ, AbstractSpray.CLASS, abstractSprayQuery);
+      QueryUtil.joinTermAllpaths(sprayVQ, AbstractSpray.CLASS, abstractSprayQuery);
+      QueryUtil.setTermRestrictions(sprayVQ, queryMap3);
+    }
+
+    // setAbstractSprayAttributes();
 
     String avilableUnits = "(CASE WHEN spray_unit = 'ROOM' THEN rooms  WHEN spray_unit = 'STRUCTURE' THEN structures WHEN spray_unit = 'HOUSEHOLD' THEN households END )";
     sprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN sprayedRooms  WHEN spray_unit = 'STRUCTURE' THEN sprayedStructures WHEN spray_unit = 'HOUSEHOLD' THEN sprayedHouseholds END )";
@@ -363,7 +420,7 @@ public class IRSQuery implements Reloadable
    */
   private void joinMainQueryTables()
   {
-    String abstractSprayTable = abstractSprayQuery.getMdClassIF().getTableName();
+    String abstractSprayTable = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS).getTableName();
     IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol,
         abstractSprayTable, this.sprayViewAlias);
     irsVQ.AND(join);
@@ -396,7 +453,17 @@ public class IRSQuery implements Reloadable
       String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
       str.append(" " + joinType + " (" + insecticideVQ.getSQL() + ") "
           + insecticideQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.BRAND + " = "
-          + insecticideQuery.getTableAlias() + "." + insecticideId);
+          + insecticideQuery.getTableAlias() + "." + insecticideId+ " \n");
+    }
+    
+    if(this.hasSprayEnumOrTerm)
+    {
+      String sprayId = sprayVQ.getSelectableRef(AbstractSpray.ID).getColumnAlias();
+
+      String joinType = this.hasPlannedTargets ? "LEFT JOIN" : "INNER JOIN";
+      str.append(" " + joinType + " (" + sprayVQ.getSQL() + ") "
+          + abstractSprayQuery.getTableAlias() + " ON " + leftAlias + "." + Alias.ID + " = "
+          + abstractSprayQuery.getTableAlias() + "." + sprayId+ " \n");
     }
 
     // always join on the insecticide view
@@ -432,40 +499,35 @@ public class IRSQuery implements Reloadable
    */
   private void setAbstractSprayAttributes()
   {
-    String sprayDate = QueryUtil.getColumnName(AbstractSpray.getSprayDateMd());
 
-    // Spray Date
-    QueryUtil.setSelectabeSQL(irsVQ, AbstractSpray.SPRAYDATE, sprayViewAlias + "." + sprayDate);
-
-    // Geo Entity
-    if (irsVQ.hasSelectableRef(AbstractSpray.GEOENTITY))
-    {
-      SelectableSQLCharacter subGeo = (SelectableSQLCharacter) irsVQ
-          .getSelectableRef(AbstractSpray.GEOENTITY);
-      QueryUtil.subselectGeoDisplayLabels(subGeo, AbstractSpray.CLASS, AbstractSpray.GEOENTITY,
-          sprayViewAlias + "." + idCol);
-    }
-
-    // Spray Method (enum)
-    if (irsVQ.hasSelectableRef(AbstractSpray.SPRAYMETHOD))
-    {
-      String sql = "("
-          + QueryUtil
-              .getEnumerationDisplayLabelSubSelect(AbstractSpray.CLASS, AbstractSpray.SPRAYMETHOD) + ")";
-      String subSelect = "sprayEnumSubSel";
-      String table = MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName();
-      irsVQ.AND(new InnerJoinEq(idCol, table, sprayViewAlias, idCol, sql, subSelect));
-
-      QueryUtil.setSelectabeSQL(irsVQ, AbstractSpray.SPRAYMETHOD, "sprayMethod_displayLabel");
-    }
-
-    // Surface Type
-    if (irsVQ.hasSelectableRef(AbstractSpray.SURFACETYPE))
-    {
-      irsVQ.getSelectableRef(AbstractSpray.SURFACETYPE).setColumnAlias("surfaceType_displayLabel");
-
-      QueryUtil.leftJoinTermDisplayLabels(irsVQ, abstractSprayQuery, sprayViewAlias + "." + idCol);
-    }
+    //    
+    // // Spray Method (enum)
+    // if (irsVQ.hasSelectableRef(AbstractSpray.SPRAYMETHOD+"_displayLabel"))
+    // {
+    // String sql = "("
+    // + QueryUtil
+    // .leftJoinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS,
+    // abstractSprayQuery, AbstractSpray.SPRAYMETHOD) + ")";
+    // String subSelect = "sprayEnumSubSel";
+    // String table =
+    // MdBusiness.getMdBusiness(AbstractSpray.CLASS).getTableName();
+    // irsVQ.AND(new InnerJoinEq(idCol, table, sprayViewAlias, idCol, sql,
+    // subSelect));
+    // QueryUtil
+    // .leftJoinEnumerationDisplayLabels(irsVQ, AbstractSpray.CLASS,
+    // abstractSprayQuery, AbstractSpray.SPRAYMETHOD);
+    // QueryUtil.setSelectabeSQL(irsVQ, AbstractSpray.SPRAYMETHOD,
+    // "sprayMethod_displayLabel");
+    // }
+    //
+    // // Surface Type
+    // if (irsVQ.hasSelectableRef(AbstractSpray.SURFACETYPE))
+    // {
+    // irsVQ.getSelectableRef(AbstractSpray.SURFACETYPE).setColumnAlias("surfaceType_displayLabel");
+    //
+    // QueryUtil.leftJoinTermDisplayLabels(irsVQ, abstractSprayQuery,
+    // sprayViewAlias + "." + idCol);
+    // }
   }
 
   private String createUnion(IRSUnionIF[] unions)
@@ -687,7 +749,7 @@ public class IRSQuery implements Reloadable
       String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
-      
+
       this.needsOperatorActual = true;
     }
   }
@@ -700,7 +762,7 @@ public class IRSQuery implements Reloadable
       String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
-      
+
       this.needsTeamsActual = true;
     }
   }
@@ -717,7 +779,7 @@ public class IRSQuery implements Reloadable
         String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
             + ",0))*100.0";
         calc.setSQL(sql);
-        
+
         this.needsTeamsActual = true;
       }
       else
@@ -757,8 +819,7 @@ public class IRSQuery implements Reloadable
 
       if (irsVQ.hasSelectableRef(geoType))
       {
-        String sql = "SUM(" + this.abstractSprayQuery.getTableAlias() + "." + Alias.AREA_PLANNED_TARGET
-            + ")";
+        String sql = "SUM(" + sprayViewAlias + "." + Alias.AREA_PLANNED_TARGET + ")";
 
         calc.setSQL(sql);
         this.needsAreaPlanned = true;

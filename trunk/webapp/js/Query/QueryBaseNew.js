@@ -969,8 +969,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
         var li = document.createElement('li');
 
+        var hoverTitle = visibleObj.hoverTitle ? visibleObj.hoverTitle : attribute.getDisplayLabel();
+        
         var check = document.createElement('input');
         YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
+        YAHOO.util.Dom.setAttribute(check, 'title', hoverTitle)
         //this is the marker for the mutual exculsion group
         YAHOO.util.Dom.addClass(check,checkClass);
 
@@ -1053,6 +1056,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
         var span = document.createElement('span');
         span.innerHTML = attribute.getDisplayLabel();
+        span.title = hoverTitle;
         li.appendChild(span);
 
         if (visibleObj.dropDownMap)

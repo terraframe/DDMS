@@ -141,44 +141,51 @@ YAHOO.util.Event.onDOMReady(function(){
                             key:"operator_planned_coverage",
                             type:"sqldouble",
                             attributeName:"operator_planned_coverage",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('operator_planned_coverage_hover')
                           },
                           { // NEW
                             key:"team_planned_coverage",
                             type:"sqldouble",
                             attributeName:"team_planned_coverage",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('team_planned_coverage_hover')
                           },
                           { // NEW
                             key:"area_planned_coverage",
                             type:"sqldouble",
                             attributeName:"area_planned_coverage",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('area_planned_coverage_hover')
                           },
                           { // NEW
                             key:"operator_target_divergence",
                             type:"sqldouble",
                             attributeName:"operator_target_divergence",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('operator_target_divergence_hover')
                           },
                           { // NEW
                             key:"team_target_divergence",
                             type:"sqldouble",
                             attributeName:"team_target_divergence",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('team_target_divergence_hover')
                           },
                           { // NEW
                             key:"operator_targeted_coverage",
                             type:"sqldouble",
                             attributeName:"operator_targeted_coverage",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('operator_targeted_coverage_hover')
                           },
                           {
                             // NEW
                             key:"team_targeted_coverage",
                             type:"sqldouble",
                             attributeName:"team_targeted_coverage",
-                            isAggregate:true
+                            isAggregate:true,
+                            hoverTitle: MDSS.localize('team_targeted_coverage_hover')
                           }
                    ];
     
@@ -266,7 +273,8 @@ YAHOO.util.Event.onDOMReady(function(){
     
     
     // OperatorSpray, TeamSpray, ZoneSpray
-    var abstractSprayAtribs = [];
+//    var abstractSprayAtribs = ["geoEntity","sprayDate","sprayMethod","surfaceType"];
+    var abstractSprayAtribs = ['sprayMethod', 'surfaceType'];
     <%
       Halp.setReadableAttributes(request, "abstractSprayAtribs_os", OperatorSprayViewDTO.CLASS, requestIF);
       Halp.setReadableAttributes(request, "abstractSprayAtribs_ts", TeamSprayViewDTO.CLASS, requestIF);
@@ -292,7 +300,6 @@ YAHOO.util.Event.onDOMReady(function(){
                           }
 
                          ]);
-    
     if(available.contains('<%= AbstractSprayDTO.SPRAYDATE %>'))
     {
       Spray_Details.push({
@@ -312,32 +319,6 @@ YAHOO.util.Event.onDOMReady(function(){
         displayLabel:abstractSpray.getGeoEntityMd().getDisplayLabel()
       });
     }
-    
-    if(available.contains('<%= AbstractSprayDTO.SPRAYMETHOD %>'))
-    {
-      Spray_Details.push({
-        key:'<%= AbstractSprayDTO.SPRAYMETHOD %>',
-        type:'sqlcharacter',
-        attributeName:'<%= AbstractSprayDTO.SPRAYMETHOD %>',
-        displayLabel:abstractSpray.getSprayMethodMd().getDisplayLabel(),
-        dropDownMap:operatorSprayMap.SprayMethod
-      });
-    }
-
-    
-    if(available.contains('<%= AbstractSprayDTO.SURFACETYPE %>'))
-    {
-      Spray_Details.push({
-        key:'<%= AbstractSprayDTO.SURFACETYPE %>',
-        type:'sqlcharacter',
-        attributeName:'<%= AbstractSprayDTO.SURFACETYPE %>',
-        displayLabel:abstractSpray.getSurfaceTypeMd().getDisplayLabel(),
-        type:"dss.vector.solutions.irs.AbstractSpray",
-        dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
-        isTerm:true
-      });
-    }
-
 
     // HouseholdSprayStatus, OperatorSprayStatus, TeamSprayStatus (Used for Spray_Details and Household_Structure_Details)
     <%
