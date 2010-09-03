@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 780108638)
+@com.runwaysdk.business.ClassSignature(hash = 2012361268)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,11 +11,127 @@ package dss.vector.solutions.export;
 public abstract class AggregatedCaseReferralsExcelViewBase extends dss.vector.solutions.export.AggregatedCaseExcelView implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.AggregatedCaseReferralsExcelView";
-  private static final long serialVersionUID = 780108638;
+  public static java.lang.String CASES = "cases";
+  public static java.lang.String DEATHS = "deaths";
+  public static java.lang.String NEGATIVECASES = "negativeCases";
+  public static java.lang.String POSITIVECASES = "positiveCases";
+  private static final long serialVersionUID = 2012361268;
   
   public AggregatedCaseReferralsExcelViewBase()
   {
     super();
+  }
+  
+  public Integer getCases()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(CASES));
+  }
+  
+  public void validateCases()
+  {
+    this.validateAttribute(CASES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCasesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
+    return mdClassIF.definesAttribute(CASES);
+  }
+  
+  public void setCases(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(CASES, "");
+    }
+    else
+    {
+      setValue(CASES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getDeaths()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DEATHS));
+  }
+  
+  public void validateDeaths()
+  {
+    this.validateAttribute(DEATHS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDeathsMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
+    return mdClassIF.definesAttribute(DEATHS);
+  }
+  
+  public void setDeaths(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DEATHS, "");
+    }
+    else
+    {
+      setValue(DEATHS, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getNegativeCases()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(NEGATIVECASES));
+  }
+  
+  public void validateNegativeCases()
+  {
+    this.validateAttribute(NEGATIVECASES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNegativeCasesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
+    return mdClassIF.definesAttribute(NEGATIVECASES);
+  }
+  
+  public void setNegativeCases(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(NEGATIVECASES, "");
+    }
+    else
+    {
+      setValue(NEGATIVECASES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getPositiveCases()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(POSITIVECASES));
+  }
+  
+  public void validatePositiveCases()
+  {
+    this.validateAttribute(POSITIVECASES);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPositiveCasesMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.AggregatedCaseReferralsExcelView.CLASS);
+    return mdClassIF.definesAttribute(POSITIVECASES);
+  }
+  
+  public void setPositiveCases(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(POSITIVECASES, "");
+    }
+    else
+    {
+      setValue(POSITIVECASES, java.lang.Integer.toString(value));
+    }
   }
   
   protected String getDeclaredType()

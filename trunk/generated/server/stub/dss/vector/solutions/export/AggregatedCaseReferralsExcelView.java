@@ -58,6 +58,32 @@ public class AggregatedCaseReferralsExcelView extends AggregatedCaseReferralsExc
   {
     AggregatedCaseView acv = this.getAggregatedCaseView();
     
+    // Attempt to set optional attributes
+    Integer cases = this.getCases();
+    if (cases!=null)
+    {
+      acv.setCases(cases);
+    }
+    
+    Integer positiveCases = this.getPositiveCases();
+    if (positiveCases!=null)
+    {
+      acv.setPositiveCases(positiveCases);
+    }
+    
+    Integer negativeCases = this.getNegativeCases();
+    if (negativeCases!=null)
+    {
+      acv.setNegativeCases(negativeCases);
+    }
+    
+    Integer deaths = this.getDeaths();
+    if (deaths!=null)
+    {
+      acv.setDeaths(deaths);
+    }
+    
+    // Handle grids
     CaseStockReferralView[] referralArray = new CaseStockReferralView[referrals.size()];
     for (int i=0; i< referrals.size(); i++)
     {
@@ -89,6 +115,10 @@ public class AggregatedCaseReferralsExcelView extends AggregatedCaseReferralsExc
   public static List<String> customAttributeOrder()
   {
     List<String> list = AggregatedCaseExcelView.customAttributeOrder();
+    list.add(CASES);
+    list.add(POSITIVECASES);
+    list.add(NEGATIVECASES);
+    list.add(DEATHS);
     return list;
   }
   

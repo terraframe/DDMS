@@ -56,30 +56,6 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
       AggregatedAgeGroup ageGroup = iterator.next();
       iterator.close();
       acv = AggregatedCaseSearchView.searchByDates(this.getGeoEntity(), this.getStartDate(), this.getEndDate(), ageGroup);
-      
-      Integer cases = this.getCases();
-      if (cases!=null)
-      {
-        acv.setCases(cases);
-      }
-      
-      Integer positiveCases = this.getPositiveCases();
-      if (positiveCases!=null)
-      {
-        acv.setPositiveCases(positiveCases);
-      }
-      
-      Integer negativeCases = this.getNegativeCases();
-      if (negativeCases!=null)
-      {
-        acv.setNegativeCases(negativeCases);
-      }
-      
-      Integer deaths = this.getDeaths();
-      if (deaths!=null)
-      {
-        acv.setDeaths(deaths);
-      }
     }
     return this.acv;
   }
@@ -90,10 +66,6 @@ public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase impleme
     list.add(STARTDATE);
     list.add(ENDDATE);
     list.add(DISPLAYLABEL);
-    list.add(CASES);
-    list.add(POSITIVECASES);
-    list.add(NEGATIVECASES);
-    list.add(DEATHS);
     return list;
   }
 

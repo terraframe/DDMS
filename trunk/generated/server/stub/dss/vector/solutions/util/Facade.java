@@ -42,8 +42,10 @@ import com.runwaysdk.system.metadata.MdElementQuery;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.export.AggregatedCaseReferralsExcelView;
 import dss.vector.solutions.export.AggregatedCaseTreatmentsExcelView;
-import dss.vector.solutions.export.AggregatedCaseTypesExcelView;
 import dss.vector.solutions.export.AggregatedPremiseExcelView;
+import dss.vector.solutions.export.CaseDiagnosisTypeExcelView;
+import dss.vector.solutions.export.CaseDiseaseManifestationExcelView;
+import dss.vector.solutions.export.CasePatientTypeExcelView;
 import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.export.IndividualPremiseExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
@@ -178,14 +180,6 @@ public abstract class Facade extends FacadeBase implements Reloadable
       String referralSheetName = workbook.getSheetName(0);
       
       exporter = new ExcelExporter();
-      AggregatedCaseTypesExcelView.setupExportListener(exporter);
-      exporter.addTemplate(AggregatedCaseTypesExcelView.CLASS);
-      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
-      workbook = new HSSFWorkbook(fileSystem);
-      HSSFSheet typesSheet = workbook.getSheetAt(0);
-      String typesSheetName = workbook.getSheetName(0);
-      
-      exporter = new ExcelExporter();
       AggregatedCaseTreatmentsExcelView.setupExportListener(exporter);
       exporter.addTemplate(AggregatedCaseTreatmentsExcelView.CLASS);
       fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
@@ -193,10 +187,36 @@ public abstract class Facade extends FacadeBase implements Reloadable
       HSSFSheet treatmentSheet = workbook.getSheetAt(0);
       String treatmentSheetName = workbook.getSheetName(0);
       
+      exporter = new ExcelExporter();
+      CaseDiagnosisTypeExcelView.setupExportListener(exporter);
+      exporter.addTemplate(CaseDiagnosisTypeExcelView.CLASS);
+      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
+      workbook = new HSSFWorkbook(fileSystem);
+      HSSFSheet diagnosisSheet = workbook.getSheetAt(0);
+      String diagnosisSheetName = workbook.getSheetName(0);
+      
+      exporter = new ExcelExporter();
+      CaseDiseaseManifestationExcelView.setupExportListener(exporter);
+      exporter.addTemplate(CaseDiseaseManifestationExcelView.CLASS);
+      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
+      workbook = new HSSFWorkbook(fileSystem);
+      HSSFSheet diseaseSheet = workbook.getSheetAt(0);
+      String diseaseSheetName = workbook.getSheetName(0);
+      
+      exporter = new ExcelExporter();
+      CasePatientTypeExcelView.setupExportListener(exporter);
+      exporter.addTemplate(CasePatientTypeExcelView.CLASS);
+      fileSystem = new POIFSFileSystem(new ByteArrayInputStream(exporter.write()));
+      workbook = new HSSFWorkbook(fileSystem);
+      HSSFSheet patientSheet = workbook.getSheetAt(0);
+      String patientSheetName = workbook.getSheetName(0);
+      
       workbook = new HSSFWorkbook();
       copySheetIntoWorkbook(workbook, referralSheet, referralSheetName);
-      copySheetIntoWorkbook(workbook, typesSheet, typesSheetName);
       copySheetIntoWorkbook(workbook, treatmentSheet, treatmentSheetName);
+      copySheetIntoWorkbook(workbook, diagnosisSheet, diagnosisSheetName);
+      copySheetIntoWorkbook(workbook, diseaseSheet, diseaseSheetName);
+      copySheetIntoWorkbook(workbook, patientSheet, patientSheetName);
       
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       BufferedOutputStream buffer = new BufferedOutputStream(bytes);
