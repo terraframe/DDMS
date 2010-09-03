@@ -192,7 +192,6 @@ public class IRSQuery implements Reloadable
 
   private void filterSelectables()
   {
-
     List<String> spraySQLs = Arrays.asList(new String[] { AbstractSpray.SPRAYMETHOD + "_spray",
         AbstractSpray.SURFACETYPE + "_spray" });
 
@@ -248,8 +247,9 @@ public class IRSQuery implements Reloadable
     }
 
     irsVQ.clearSelectClause();
-    insecticideVQ.clearSelectClause();
-    sprayVQ.clearSelectClause();
+    
+    insecticideVQ = new ValueQuery(irsVQ.getQueryFactory());
+    sprayVQ = new ValueQuery(irsVQ.getQueryFactory());
 
     irsVQ.SELECT(irsSels.toArray(new Selectable[irsSels.size()]));
 
