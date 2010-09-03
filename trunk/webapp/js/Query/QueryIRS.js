@@ -103,26 +103,21 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
 	   */
 	  ensureDateGroupChecked : function(targets, dateGroups, triggerId, independents)
 	  {
-      if(targets.contains(triggerId) && Mojo.Util.getKeys(this._dateGroupSelectables).length === 0)
+      if(targets.contains(triggerId) && document.getElementById(triggerId).checked)
       {
-        // Checking a group only applies if at least one target is checked
-        var ids = targets.values();
-        for(var i=0; i<ids.length; i++)
+        // if no date-groups are selected automatically group by epi-week
+        var epi_week = 'DATEGROUP_EPIWEEK'; // FIXME should be a constant
+        if(Mojo.Util.getKeys(this._dateGroupSelectables).length === 0)
         {
-          if(document.getElementById(ids[i]).checked)
-          {
-            var epi_week = 'DATEGROUP_EPIWEEK'; // FIXME should be a constant
-            document.getElementById(epi_week.toLowerCase()).click();
-
-            var dateGroup = this._queryPanel.getDateGroupBy();
-            
-            dateGroup.value = epi_week;
-            var option = dateGroup.options[dateGroup.selectedIndex];
-            this._fireClickOnOption(option);
-            
-            break;
-          }
+          document.getElementById(epi_week.toLowerCase()).click();
         }
+        
+        // always snap to epi-week
+        var dateGroup = this._queryPanel.getDateGroupBy();
+        
+        dateGroup.value = epi_week;
+        var option = dateGroup.options[dateGroup.selectedIndex];
+        this._fireClickOnOption(option);
       }
       else if(dateGroups.contains(triggerId) && Mojo.Util.getKeys(this._dateGroupSelectables).length === 0)
       {
