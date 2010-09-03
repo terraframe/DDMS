@@ -61,6 +61,18 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       picker.setSprayTargetAllowed(true);
     },
     
+    _sqlCharacterHandler : function(entityAlias, attributeName, userAlias, operator, value)
+    {
+      if(userAlias === 'aggregation_level')
+      {
+        var item = this._menuItems[userAlias+'-'+value];
+        item.checked = true;
+        var attribute = item.onclick.obj.attribute;
+        var display = item.onclick.obj.display;
+        this._queryPanel.addWhereCriteria(attribute.getKey(), value, display);
+      }
+    },
+    
     _getBrowserRootClass : function(attribute)
     {
       var type = attribute.getType();

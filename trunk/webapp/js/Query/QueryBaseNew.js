@@ -847,6 +847,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       });
 
       parser.parseCriteria({
+        sqlcharacter:function(entityAlias, attributeName, userAlias, operator, value)
+        {
+          thisRef._sqlCharacterHandler(entityAlias, attributeName, userAlias, operator, value);
+        },
         attribute : function(entityAlias, attributeName, userAlias, operator, value){
       	  var sd = thisRef._startDateSelectable;
       	  var ed = thisRef._endDateSelectable;
@@ -905,6 +909,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
         }
       });
+    },
+    
+    _sqlCharacterHandler : function(entityAlias, attributeName, userAlias, operator, value)
+    {
+      // do nothing
     },
 
     /**
