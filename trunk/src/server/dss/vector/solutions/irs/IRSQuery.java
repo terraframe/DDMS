@@ -341,8 +341,8 @@ public class IRSQuery implements Reloadable
     String unsprayedUnits = "(CASE WHEN spray_unit = 'ROOM' THEN (room_unsprayed)  WHEN spray_unit = 'STRUCTURE' THEN (structure_unsprayed) WHEN spray_unit = 'HOUSEHOLD' THEN (household_unsprayed)  END )";
     String shareOfCans = "(CASE WHEN spray_unit = 'ROOM' THEN (sprayedrooms_share)  WHEN spray_unit = 'STRUCTURE' THEN (sprayedstructures_share) WHEN spray_unit = 'HOUSEHOLD' THEN (sprayedhouseholds_share)  END )";
 
-    String unit_operational_coverage = "SUM(" + sprayedUnits + "))::float / nullif(SUM(" + avilableUnits
-        + "),0";
+    String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + avilableUnits
+        + "),0)";
 
     String unit_application_rate = "SUM(refills::FLOAT * " + shareOfCans
         + " * active_ingredient_per_can) / nullif(SUM(" + sprayedUnits + " * unitarea),0)";
@@ -356,7 +356,7 @@ public class IRSQuery implements Reloadable
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate_mg", "1000.0 *" + "("
         + unit_application_rate + ")");
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_ratio", unit_application_ratio);
-    QueryUtil.setSelectabeSQL(irsVQ, "unit_operational_coverage", unit_operational_coverage);
+    QueryUtil.setSelectabeSQL(irsVQ, "unit_operational_coverage", unit_operational_coverage+" * 100.0");
 
     QueryUtil.setSelectabeSQL(irsVQ, "calculated_rooms_sprayed", "(" + unit_operational_coverage
         + ") * SUM(rooms)");
