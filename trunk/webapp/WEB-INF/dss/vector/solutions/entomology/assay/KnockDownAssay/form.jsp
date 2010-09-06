@@ -123,7 +123,7 @@
   </div>  
 </mjl:component>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
 
 <script type="text/javascript">  
 (function(){

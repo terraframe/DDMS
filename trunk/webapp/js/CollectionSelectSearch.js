@@ -2,22 +2,30 @@ MDSS.collectionSearch = function(config) {
   var searchEl = Mojo.Util.isString(config.search) ? document.getElementById(config.search) : config.search;
   var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
 
-  var listFunction = function(view) {    
+  var listFunction = function(valueObject) {    
+    var entityName = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.ENTITYNAME);    
+    var geoId = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.GEOID);    
+    var moSubType = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.MOSUBTYPE);    
+    var typeDisplayLabel = valueObject.getValue("displayLabel");    
+    var geoEntityLabel = MDSS.AbstractSelectSearch.formatDisplay2(entityName, typeDisplayLabel, geoId, moSubType)
+  
+    var collectionDate = valueObject.getValue(Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONDATE);    
+    var collectionId = valueObject.getValue(Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID);    
 
-    var formattedDate = MDSS.Calendar.getLocalizedString(view.getCollectionDate());
+    var formattedDate = MDSS.Calendar.getLocalizedString(collectionDate);
 
-    return view.getGeoEntityLabel() + ', ' + formattedDate + ' - ' + view.getCollectionId();
+    return geoEntityLabel + ', ' + formattedDate + ' - ' + collectionId;
   };
 
-  var idFunction = function(view) {
-    return view.getConcreteId();
+  var idFunction = function(valueObject) {
+    return valueObject.getValue(Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.ID);    
   };
 
-  var displayFunction = function(view) {    
-    return view.getCollectionId();
+  var displayFunction = function(valueObject) {    
+    return valueObject.getValue(Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID);    
   };
 
-  var searchFunction = Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.searchCollection;
+  var searchFunction = Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.searchByValueQuery;
 
   var selectEventHandler = function() {};
    

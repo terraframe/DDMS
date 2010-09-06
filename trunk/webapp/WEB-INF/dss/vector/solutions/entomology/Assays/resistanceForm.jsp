@@ -6,6 +6,7 @@
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 
 <mjl:form name="form.name" id="form.id" method="GET">
   <dl>
@@ -20,7 +21,7 @@
   </dl>  
 </mjl:form>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
 
 <script type="text/javascript">
 

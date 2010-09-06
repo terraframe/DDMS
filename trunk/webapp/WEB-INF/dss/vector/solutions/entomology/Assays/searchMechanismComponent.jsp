@@ -6,6 +6,7 @@
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="java.util.Arrays"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 
 <c:set var="page_title" value="Enter_Collection" scope="request" />
 
@@ -26,7 +27,7 @@
   
 </mjl:form>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
 
 <script type="text/javascript">  
 (function(){

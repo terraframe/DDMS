@@ -7,12 +7,12 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.util.Arrays"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
-<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"%>
 <%@page import="dss.vector.solutions.entomology.assay.CollectionAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.assay.AbstractAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 
 <mjl:component item="${item}" param="dto">
   <mjl:dt attribute="collection">
@@ -86,7 +86,7 @@
   </mjl:dt>
 </mjl:component>
 
-<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS}))%>
+<%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
 
 <script type="text/javascript">  
 (function(){

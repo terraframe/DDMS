@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1648603693)
+@com.runwaysdk.business.ClassSignature(hash = -1082654277)
 public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.MosquitoCollectionView";
-  private static final long serialVersionUID = 1648603693;
+  private static final long serialVersionUID = -1082654277;
   
   protected MosquitoCollectionViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -22,7 +22,6 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String GEOENTITY = "geoEntity";
-  public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
@@ -260,43 +259,6 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getGeoEntityMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(GEOENTITY).getAttributeMdDTO();
-  }
-  
-  public String getGeoEntityLabel()
-  {
-    return getValue(GEOENTITYLABEL);
-  }
-  
-  public void setGeoEntityLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITYLABEL, "");
-    }
-    else
-    {
-      setValue(GEOENTITYLABEL, value);
-    }
-  }
-  
-  public boolean isGeoEntityLabelWritable()
-  {
-    return isWritable(GEOENTITYLABEL);
-  }
-  
-  public boolean isGeoEntityLabelReadable()
-  {
-    return isReadable(GEOENTITYLABEL);
-  }
-  
-  public boolean isGeoEntityLabelModified()
-  {
-    return isModified(GEOENTITYLABEL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getGeoEntityLabelMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(GEOENTITYLABEL).getAttributeMdDTO();
   }
   
   @SuppressWarnings("unchecked")
@@ -596,6 +558,14 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     Object[] _parameters = new Object[]{collectionId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "getViewByCollectionId", _declaredTypes);
     return (dss.vector.solutions.entomology.MosquitoCollectionViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.business.ValueQueryDTO searchByValueQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{value};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.MosquitoCollectionViewDTO.CLASS, "searchByValueQuery", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.entomology.MosquitoCollectionViewQueryDTO searchCollection(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value)

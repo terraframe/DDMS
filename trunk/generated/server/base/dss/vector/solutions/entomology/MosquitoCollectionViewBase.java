@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1119724461)
+@com.runwaysdk.business.ClassSignature(hash = -1785367749)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,11 +17,10 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
   public static java.lang.String CONCRETEID = "concreteId";
   public static java.lang.String GEOENTITY = "geoEntity";
-  public static java.lang.String GEOENTITYLABEL = "geoEntityLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String RESISTANCEASSAYCOMMENTS = "resistanceAssayComments";
-  private static final long serialVersionUID = 1119724461;
+  private static final long serialVersionUID = -1785367749;
   
   public MosquitoCollectionViewBase()
   {
@@ -207,34 +206,6 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     else
     {
       setValue(GEOENTITY, value.getId());
-    }
-  }
-  
-  public String getGeoEntityLabel()
-  {
-    return getValue(GEOENTITYLABEL);
-  }
-  
-  public void validateGeoEntityLabel()
-  {
-    this.validateAttribute(GEOENTITYLABEL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityLabelMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.MosquitoCollectionView.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITYLABEL);
-  }
-  
-  public void setGeoEntityLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITYLABEL, "");
-    }
-    else
-    {
-      setValue(GEOENTITYLABEL, value);
     }
   }
   
@@ -487,6 +458,12 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
   }
   
   public static dss.vector.solutions.entomology.MosquitoCollectionView getViewByCollectionId(java.lang.String collectionId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static com.runwaysdk.query.ValueQuery searchByValueQuery(java.lang.String value)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.MosquitoCollectionView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

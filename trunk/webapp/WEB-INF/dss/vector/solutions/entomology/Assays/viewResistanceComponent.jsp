@@ -14,8 +14,7 @@
 <%@page import="dss.vector.solutions.entomology.DiagnosticAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.TimeResponseAssayViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionController"%>
-
-
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 
@@ -99,7 +98,7 @@ DataGrid diagnostic = (DataGrid) request.getAttribute(AssayController.DIAGNOSTIC
 DataGrid timeresponse = (DataGrid) request.getAttribute(AssayController.TIME_RESPONSE_GRID);
 %>
 
-<%=Halp.loadTypes(new String[]{MosquitoCollectionViewDTO.CLASS, DiagnosticAssayViewDTO.CLASS, TimeResponseAssayViewDTO.CLASS, MosquitoCollectionController.CLASS})%>
+<%=Halp.loadTypes(new String[]{MosquitoCollectionViewDTO.CLASS, DiagnosticAssayViewDTO.CLASS, TimeResponseAssayViewDTO.CLASS, MosquitoCollectionController.CLASS, GeoEntityViewDTO.CLASS})%>
 
 <script type="text/javascript">
 Mojo.Meta.newClass('MDSS.Form', {

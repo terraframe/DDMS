@@ -2,10 +2,7 @@ package dss.vector.solutions.entomology;
 
 import java.util.List;
 
-import org.apache.commons.lang.ArrayUtils;
-
 import com.runwaysdk.business.Entity;
-import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
@@ -15,23 +12,17 @@ import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
-import dss.vector.solutions.DefaultGeoEntity;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQuery;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQuery;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.GeoHierarchyView;
-import dss.vector.solutions.geo.SearchParameter;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
@@ -481,6 +472,41 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     {
       it.close();
     }
+  }
+
+  public static ValueQuery searchByValueQuery(String value)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    ValueQuery valueQuery = new ValueQuery(factory);
+    MosquitoCollectionQuery cQ = new MosquitoCollectionQuery(valueQuery);
+    MdBusinessQuery mdQ = new MdBusinessQuery(valueQuery);
+    GeoEntityQuery q = new GeoEntityQuery(valueQuery);
+    TermQuery tq = new TermQuery(valueQuery);
+
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { cQ.getId(MosquitoCollection.ID), cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), cQ.getCollectionDate(MosquitoCollectionView.COLLECTIONDATE), q.getEntityName(GeoEntityView.ENTITYNAME), q.getGeoId(GeoEntityView.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusiness.DISPLAYLABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
+
+    Condition[] conditions = new Condition[] {q.getId().EQ(cQ.getGeoEntity().getId()), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
+
+    LeftJoinEq[] joins = new LeftJoinEq[] { q.getTerm("geoTermId").LEFT_JOIN_EQ(tq.getId("termId")) };
+
+    if (value != null && !value.equals(""))
+    {
+      String[] tokens = value.split(" ");
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] { cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), q.getEntityName(GeoEntityView.ENTITYNAME), q.getGeoId(GeoEntityView.GEOID) };
+
+      QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, conditions, joins);
+    }
+    else
+    {
+      QueryBuilder.orderedLookup(valueQuery, factory, cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), selectables, conditions, joins);
+    }
+
+    valueQuery.restrictRows(20, 1);
+    
+    System.out.println(valueQuery.getSQL());
+
+    return valueQuery;
   }
 
 
