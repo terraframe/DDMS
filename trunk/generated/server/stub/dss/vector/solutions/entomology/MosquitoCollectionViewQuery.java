@@ -54,13 +54,8 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
     {
       MosquitoCollectionViewQuery vQuery = this.getViewQuery();
 
-      CONCAT entityLabel = F.CONCAT(query.getGeoEntity().getEntityName(), " (");
-      entityLabel = F.CONCAT(entityLabel, query.getGeoEntity().getGeoId());
-      entityLabel = F.CONCAT(entityLabel, ")");
-
       vQuery.map(MosquitoCollectionView.CONCRETEID, query.getId());
       vQuery.map(MosquitoCollectionView.GEOENTITY, query.getGeoEntity());
-      vQuery.map(MosquitoCollectionView.GEOENTITYLABEL, entityLabel);
       vQuery.map(MosquitoCollectionView.COLLECTIONDATE, query.getCollectionDate());
       vQuery.map(MosquitoCollectionView.COLLECTIONID, query.getCollectionId());
       vQuery.map(MosquitoCollectionView.COLLECTIONMETHOD, query.getCollectionMethod());
