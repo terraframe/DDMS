@@ -4,9 +4,7 @@ import java.util.List;
 
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
-import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.Condition;
-import com.runwaysdk.query.F;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
