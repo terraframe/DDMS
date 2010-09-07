@@ -1,5 +1,6 @@
 package dss.vector.solutions.export;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,13 +9,19 @@ import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.RequiredAttributeProblem;
+import dss.vector.solutions.entomology.LifeStage;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.MosquitoCollectionView;
+import dss.vector.solutions.entomology.SubCollection;
+import dss.vector.solutions.entomology.SubCollectionQuery;
 import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.CollectionSite;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
@@ -34,8 +41,24 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   {
     MosquitoCollectionView view = getCollection();
     
-    SubCollectionView sub = new SubCollectionView();
-    sub.setSubCollectionId(this.getSubCollectionId());
+    SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
+    query.WHERE(query.getCollection().getId().EQ(view.getConcreteId()));
+    query.WHERE(query.getSubCollectionId().EQ(this.getSubCollectionId()));
+    OIterator<? extends SubCollection> iterator = query.getIterator();
+    
+    SubCollectionView sub;
+    if (iterator.hasNext())
+    {
+      SubCollection next = iterator.next();
+      sub = next.lockView();
+    }
+    else
+    {
+      sub = new SubCollectionView();
+      sub.setSubCollectionId(this.getSubCollectionId());
+    }
+    iterator.close();
+    
     sub.setIdentMethod(Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd()));
     sub.setTaxon(Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd()));
     sub.setEggs(this.getEggs());
@@ -51,24 +74,61 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   private MosquitoCollectionView getCollection()
   {
     MosquitoCollectionView view = new MosquitoCollectionView();
+    String cid = this.getCollectionId();
     
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
-    query.WHERE(query.getCollectionId().EQ(this.getCollectionId()));
+    query.WHERE(query.getCollectionId().EQ(cid));
     OIterator<? extends MosquitoCollection> iterator = query.getIterator();
     if (iterator.hasNext())
     {
       view = iterator.next().getView();
-      iterator.close();
     }
     else
     {
-      view.setCollectionMethod(Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollectionView.getCollectionMethodMd()));
-      view.setCollectionDate(this.getCollectionDate());
-      view.setGeoEntity(this.getGeoEntity());
-      view.setCollectionId(this.getCollectionId());
-      view.setAbundance(this.getAbundance());
-      view.addLifeStage(ExcelEnums.getLifeStage(this.getLifeStage()));
+      if (cid.length()==0)
+      {
+        RequiredAttributeProblem rap = new RequiredAttributeProblem();
+        rap.setAttributeName(COLLECTIONID);
+        rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getCollectionIdMd().getDisplayLabel(Session.getCurrentLocale()));
+        rap.throwIt();
+      }
+      else
+      {
+        view.setCollectionId(cid);
+      }
     }
+    iterator.close();
+    
+    Term colMethod = Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollectionView.getCollectionMethodMd());
+    if (colMethod!=null)
+    {
+      view.setCollectionMethod(colMethod);
+    }
+    
+    Date colDate = this.getCollectionDate();
+    if (colDate!=null)
+    {
+      view.setCollectionDate(colDate);
+    }
+    
+    GeoEntity geo = this.getGeoEntity();
+    if (geo!=null)
+    {
+      view.setGeoEntity(geo);
+    }
+    
+    Boolean abund = this.getAbundance();
+    if (abund!=null)
+    {
+      view.setAbundance(abund);
+    }
+    
+    LifeStage life = ExcelEnums.getLifeStage(this.getLifeStage());
+    if (life!=null)
+    {
+      view.addLifeStage(life);
+    }
+    
     return view;
   }
   
