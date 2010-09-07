@@ -1,5 +1,7 @@
 package dss.vector.solutions.export;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -20,6 +22,7 @@ import dss.vector.solutions.entomology.ImmatureCollectionView;
 import dss.vector.solutions.entomology.ImmatureCollectionViewQuery;
 import dss.vector.solutions.entomology.PremiseTaxon;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -37,7 +40,8 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
   public void apply()
   {
     ImmatureCollectionView i = new ImmatureCollectionView();
-    i.setCollectionId(this.getCollectionId());
+    String cid = this.getCollectionId();
+    i.setCollectionId(cid);
     i.setPremiseType(Term.validateByDisplayLabel(this.getPremiseType(), ImmatureCollectionView.getPremiseTypeMd()));
     i.setTaxon(Term.validateByDisplayLabel(this.getTaxon(), ImmatureCollectionView.getTaxonMd()));
 
@@ -47,21 +51,9 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     {
       i = PremiseTaxon.getView(iterator.next().getTaxonId());
     }
-    else
-    {
-      i.setGeoEntity(this.getGeoEntity());
-      i.setStartDate(this.getStartDate());
-      i.setEndDate(this.getEndDate());
-      i.setCollectionId(this.getCollectionId());
-      i.setNotes(this.getNotes());
-      i.setNumberExamined(this.getNumberExamined());
-      i.setNumberWithLarvae(this.getNumberWithLarvae());
-      i.setNumberWithPupae(this.getNumberWithPupae());
-      i.setNumberWithImmatures(this.getNumberWithImmatures());
-      i.setPremiseSize(this.getPremiseSize());
-      i.setNumberInhabitants(this.getNumberInhabitants());
-    }
     iterator.close();
+    
+    updateView(i);
     
     Term term = Term.validateByDisplayLabel(this.getContainerTerm(), ImmatureCollectionView.getContainerGridMd());
     CollectionContainerView c = getContainerForTerm(i, term);
@@ -76,6 +68,68 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     c.setNumberPupaeCollected(this.getNumberPupaeCollected());
     
     i.applyWithContainers(new CollectionContainerView[] {c});
+  }
+
+  private void updateView(ImmatureCollectionView i)
+  {
+    GeoEntity geo = this.getGeoEntity();
+    if (geo != null)
+    {
+      i.setGeoEntity(geo);
+    }
+
+    Date start = this.getStartDate();
+    if (start != null)
+    {
+      i.setStartDate(start);
+    }
+
+    Date end = this.getEndDate();
+    if (end != null)
+    {
+      i.setEndDate(end);
+    }
+
+    String note = this.getNotes();
+    if (note.length() > 0)
+    {
+      i.setNotes(note);
+    }
+
+    Integer examined = this.getNumberExamined();
+    if (examined != null)
+    {
+      i.setNumberExamined(examined);
+    }
+
+    Integer larvae = this.getNumberWithLarvae();
+    if (larvae != null)
+    {
+      i.setNumberWithLarvae(larvae);
+    }
+
+    Integer pupae = this.getNumberWithPupae();
+    {
+      i.setNumberWithPupae(pupae);
+    }
+
+    Integer immatures = this.getNumberWithImmatures();
+    if (immatures != null)
+    {
+      i.setNumberWithImmatures(immatures);
+    }
+
+    BigDecimal size = this.getPremiseSize();
+    if (size != null)
+    {
+      i.setPremiseSize(size);
+    }
+
+    Integer inhabitants = this.getNumberInhabitants();
+    if (inhabitants != null)
+    {
+      i.setNumberInhabitants(inhabitants);
+    }
   }
   
   private CollectionContainerView getContainerForTerm(ImmatureCollectionView immatureCollectionView, Term containerTerm)
@@ -112,6 +166,9 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
     list.add(TAXON);
     list.add(NOTES);
     list.add(NUMBEREXAMINED);
+    list.add(NUMBERWITHLARVAE);
+    list.add(NUMBERWITHPUPAE);
+    list.add(NUMBERWITHIMMATURES);
     list.add(PREMISESIZE);
     list.add(NUMBERINHABITANTS);
     list.add(CONTAINERTERM);
