@@ -8,9 +8,12 @@ import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.general.PopulationDataQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -28,9 +31,25 @@ public class PopulationDataExcelView extends PopulationDataExcelViewBase impleme
   public void apply()
   {
     PopulationData populationData = new PopulationData();
+    GeoEntity geo = this.getGeoEntity();
+    Integer year = this.getYearOfData();
     
-    populationData.setGeoEntity(this.getGeoEntity());
-    populationData.setYearOfData(this.getYearOfData());
+    PopulationDataQuery query = new PopulationDataQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntity().EQ(geo));
+    query.WHERE(query.getYearOfData().EQ(year));
+    OIterator<? extends PopulationData> iterator = query.getIterator();
+    
+    if (iterator.hasNext())
+    {
+      populationData = iterator.next();
+      populationData.lock();
+    }
+    else
+    {
+      populationData.setGeoEntity(geo);
+      populationData.setYearOfData(year);
+    }
+    
     populationData.setPopulation(this.getPopulation());
     Double rate = this.getGrowthRate();
     if (rate != null)
