@@ -535,8 +535,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       calc.setSQL(sql);
     }
 
-    String tableAlias = caseQuery.getTableAlias();
-    String adjustedCases = "COUNT(DISTINCT " + tableAlias + "." + idCol + ")";
+    String adjustedCases = getTotalCasesSQL(caseQuery);
     if (valueQuery.hasSelectableRef("cases"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("cases");
@@ -650,16 +649,26 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 
     String columnAlias = s.getDbQualifiedName();
 
-    String tableAlias = caseQuery.getTableAlias();
+//    String tableAlias = caseQuery.getTableAlias();
 
-    MdEntityDAOIF mdIndInst = MdEntityDAO.getMdEntityDAO(IndividualInstance.CLASS);
-    String tableName = mdIndInst.getTableName();
-    String indCaseCol = QueryUtil.getColumnName(mdIndInst, IndividualInstance.INDIVIDUALCASE);
+//    MdEntityDAOIF mdIndInst = MdEntityDAO.getMdEntityDAO(IndividualInstance.CLASS);
+//    String tableName = mdIndInst.getTableName();
+//    String indCaseCol = QueryUtil.getColumnName(mdIndInst, IndividualInstance.INDIVIDUALCASE);
     String onset = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
 
-    String sql = "(SUM(1.0/(SELECT COUNT(*) FROM " + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))/";
-    sql += " AVG(NULLIF(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + onset + "),0.0)))*" + multiplier;
+    String sql = "("+getTotalCasesSQL(caseQuery)+")";
+    sql += "/NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + onset + ")),0.0)*" + multiplier;
 
     calc.setSQL(sql);
+  }
+  
+  private static String getTotalCasesSQL(IndividualCaseQuery caseQuery)
+  {
+    String idCol = QueryUtil.getIdColumn();
+    String tableAlias = caseQuery.getTableAlias();
+    
+    String adjustedCases = "COUNT(DISTINCT " + tableAlias + "." + idCol + ")";
+    
+    return adjustedCases;
   }
 }

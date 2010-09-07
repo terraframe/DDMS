@@ -710,11 +710,11 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     String startDateCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.STARTDATE);
 
-    String sql = getTotalCasesSQL(caseQuery);
+    String sql = "("+getTotalCasesSQL(caseQuery)+")";
     String columnAlias = s.getDbQualifiedName();
     sql += "/";
     sql += " NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
-        + startDateCol + ")),0)*" + multiplier;
+        + startDateCol + ")),0.0)*" + multiplier;
 
     calc.setSQL(sql);
 
