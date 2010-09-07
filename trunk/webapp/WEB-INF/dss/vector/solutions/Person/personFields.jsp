@@ -298,6 +298,9 @@
 
    YAHOO.util.Event.on(memberId, 'keyup', Mojo.Util.curry(copyValue, operatorId, memberId));
    YAHOO.util.Event.on(operatorId, 'keyup', Mojo.Util.curry(copyValue, memberId, operatorId));
+
+   YAHOO.util.Event.on(memberId, 'blur', Mojo.Util.curry(copyValue, operatorId, memberId));
+   YAHOO.util.Event.on(operatorId, 'blur', Mojo.Util.curry(copyValue, memberId, operatorId));
    
    YAHOO.util.Event.on(password, 'blur', validatePassword);
    YAHOO.util.Event.on(repassword, 'blur', validatePassword);
