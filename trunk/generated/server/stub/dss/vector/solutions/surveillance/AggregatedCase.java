@@ -726,8 +726,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
     // (Sum(Cases with confirmed positive diagnosis) /
     // (Sum(Cases with confirmed positive diagnosis) + Sum(Cases with confirmed
     // negative diagnosis))))
-
-    calc.setSQL(sql);
+//    calc.setSQL(sql);
 
   }
 
@@ -737,10 +736,26 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String posCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.POSITIVECASES);
     String negCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.NEGATIVECASES);
 
-    String sql = "(SUM(" + posCasesCol + ")";
-    sql += "+";
-    sql += "(SUM(" + casesCol + ") * SUM(" + posCasesCol + ")/";
-    sql += "NULLIF(SUM(COALESCE(" + posCasesCol + ",0)) + SUM(COALESCE(" + negCasesCol + ",0)),0.0)))";
+//    String sql = "(SUM(" + posCasesCol + ")";
+//    sql += "+";
+//    sql += "(SUM(" + casesCol + ") * SUM(" + posCasesCol + ")/";
+//    sql += "NULLIF(SUM(COALESCE(" + posCasesCol + ",0)) + SUM(COALESCE(" + negCasesCol + ",0)),0.0)))";
+    
+    String sql = "";
+    sql += "SUM(COALESCE("+posCasesCol+",0.0))::float +  \n";
+    sql += "( \n";
+    sql += " SUM(COALESCE("+casesCol+",0.0))::float * \n";
+    sql += " ( \n";
+    sql += "  SUM(COALESCE("+posCasesCol+",0.0))::float / \n";
+    sql += "  ( \n";
+    sql += "   NULLIF \n";
+    sql += "   ( \n";
+    sql += "     SUM(COALESCE("+posCasesCol+",0.0))::float + SUM(COALESCE("+negCasesCol+",0.0))::float \n";
+    sql += "     ,0.0 \n";
+    sql += "   ) \n";
+    sql += "  ) \n";
+    sql += " ) \n";
+    sql += ") \n";   
 
     return sql;
   }
