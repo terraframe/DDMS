@@ -1,5 +1,6 @@
 package dss.vector.solutions.export;
 
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.ControlInterventionViewQuery;
@@ -38,20 +40,38 @@ public class ControlInterventionExcelView extends ControlInterventionExcelViewBa
     {
       this.civ = new ControlInterventionView();
       
-      this.civ.setGeoEntity(this.getGeoEntity());
-      this.civ.setStartDate(this.getStartDate());
-      this.civ.setEndDate(this.getEndDate());
-      this.civ.setComments(this.getComments());
-      
-//      ControlInterventionViewQuery search = ControlInterventionView.search(this.civ, null, false, 10, 1);
-//      OIterator<? extends ControlInterventionView> iterator = search.getIterator();
-//      if (iterator.hasNext())
-//      {
-//        this.civ = iterator.next();
-//      }
+      populateView();
       this.civ = ControlInterventionView.getIntervention(this.civ);
+      populateView();
     }
     return this.civ;
+  }
+
+  private void populateView()
+  {
+    GeoEntity geo = this.getGeoEntity();
+    if (geo != null)
+    {
+      this.civ.setGeoEntity(geo);
+    }
+
+    Date start = this.getStartDate();
+    if (start != null)
+    {
+      this.civ.setStartDate(start);
+    }
+
+    Date end = this.getEndDate();
+    if (end != null)
+    {
+      this.civ.setEndDate(end);
+    }
+
+    String comment = this.getComments();
+    if (comment.length() > 0)
+    {
+      this.civ.setComments(comment);
+    }
   }
 
   public static List<String> customAttributeOrder()

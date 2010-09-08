@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -780323579)
+@com.runwaysdk.business.ClassSignature(hash = 25320404)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class InsecticideInterventionExcelViewQueryBase extends dss.vector.solutions.export.ControlInterventionExcelViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -780323579;
+private static final long serialVersionUID = 25320404;
 
   public InsecticideInterventionExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -26,6 +26,78 @@ private static final long serialVersionUID = -780323579;
   {
     return dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS;
   }
+  public com.runwaysdk.query.SelectableChar getInsecticide()
+  {
+    return getInsecticide(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInsecticide(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.INSECTICIDE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInsecticide(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.INSECTICIDE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInterventionMethod()
+  {
+    return getInterventionMethod(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInterventionMethod(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.INTERVENTIONMETHOD, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getInterventionMethod(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.INTERVENTIONMETHOD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantity()
+  {
+    return getQuantity(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantity(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.QUANTITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getQuantity(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.QUANTITY, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUnit()
+  {
+    return getUnit(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUnit(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.UNIT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUnit(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.InsecticideInterventionExcelView.UNIT, alias, displayLabel);
+
+  }
+ 
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

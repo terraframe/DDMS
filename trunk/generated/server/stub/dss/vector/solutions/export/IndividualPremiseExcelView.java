@@ -9,6 +9,8 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodView;
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;
@@ -35,17 +37,47 @@ public class IndividualPremiseExcelView extends IndividualPremiseExcelViewBase i
   public void apply()
   {
     ControlInterventionView controlPoint = this.getControlPoint();
+    GeoEntity premiseGeo = this.getPremiseGeoEntity();
+    
     IndividualPremiseVisitView ipv = new IndividualPremiseVisitView();
-    ipv.setGeoEntity(this.getPremiseGeoEntity());
+    ipv.setGeoEntity(premiseGeo);
+    
+    // Search for an existing view
+    for (IndividualPremiseVisitView existing : controlPoint.getIndividualPremiseViews())
+    {
+      // Use IDs to avoid cost of instantiating the whole object
+      if (existing.getValue(IndividualPremiseVisitView.GEOENTITY).equals(premiseGeo.getId()))
+      {
+        ipv = existing;
+        break;
+      }
+    }
+    
     ipv.setVisited(this.getVisited());
     ipv.setTreated(this.getTreated());
     ipv.setReasonsForNotTreated(Term.validateByDisplayLabel(this.getReasonsForNotTreated(), IndividualPremiseVisitView.getReasonsForNotTreatedMd()));
     
+    IndividualPremiseVisitMethodView[] existingMethods = ipv.getInterventionMethods();
     IndividualPremiseVisitMethodView[][] methodArray = new IndividualPremiseVisitMethodView[1][interventionMethod.size()];
     for (int i = 0; i < interventionMethod.size(); i++)
     {
+      // Default to a new relationship
+      Term term = interventionMethod.get(i);
       methodArray[0][i] = new IndividualPremiseVisitMethodView();
-      methodArray[0][i].setTerm(interventionMethod.get(i));
+      methodArray[0][i].setTerm(term);
+      
+      // If a relationship already exists, use it instead
+      for (IndividualPremiseVisitMethodView existing : existingMethods)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(IndividualPremiseVisitMethodView.TERM).equals(term.getId()))
+        {
+          methodArray[0][i] = existing;
+          break;
+        }
+      }
+
+      // Set the amount
       methodArray[0][i].setUsed(interventionMethodUsed.get(i));
     }
     

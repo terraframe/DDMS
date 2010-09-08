@@ -7,15 +7,10 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodView;
-import dss.vector.solutions.intervention.monitor.AggregatedPremiseReasonView;
-import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.PersonInterventionMethodView;
 import dss.vector.solutions.intervention.monitor.PersonInterventionView;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PersonInterventionExcelView extends PersonInterventionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -38,13 +33,36 @@ public class PersonInterventionExcelView extends PersonInterventionExcelViewBase
   {
     ControlInterventionView controlPoint = this.getControlPoint();
     PersonInterventionView piv = new PersonInterventionView();
+
+    PersonInterventionView[] existingPersonInterventions = controlPoint.getPersonInterventionViews();
+    // There's no criteria to check against; we only expect 1 row
+    if (existingPersonInterventions.length>0)
+    {
+      piv = existingPersonInterventions[0];
+    }
     piv.setVehicleDays(this.getVehicleDays());
 
+    PersonInterventionMethodView[] existingMethods = piv.getInterventionMethods();
     PersonInterventionMethodView[][] methodArray = new PersonInterventionMethodView[1][interventionMethod.size()];
     for (int i = 0; i < interventionMethod.size(); i++)
     {
+      // Default to a new relationship
       methodArray[0][i] = new PersonInterventionMethodView();
-      methodArray[0][i].setTerm(interventionMethod.get(i));
+      Term term = interventionMethod.get(i);
+      methodArray[0][i].setTerm(term);
+      
+      // If a relationship already exists, use it instead
+      for (PersonInterventionMethodView existing : existingMethods)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(PersonInterventionMethodView.TERM).equals(term.getId()))
+        {
+          methodArray[0][i] = existing;
+          break;
+        }
+      }
+
+      // Set the amount
       methodArray[0][i].setAmount(interventionMethodAmount.get(i));
     }
     

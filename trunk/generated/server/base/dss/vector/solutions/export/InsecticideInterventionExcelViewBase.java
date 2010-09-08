@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -335051492)
+@com.runwaysdk.business.ClassSignature(hash = 1374107883)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,11 +11,127 @@ package dss.vector.solutions.export;
 public abstract class InsecticideInterventionExcelViewBase extends dss.vector.solutions.export.ControlInterventionExcelView implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.InsecticideInterventionExcelView";
-  private static final long serialVersionUID = -335051492;
+  public static java.lang.String INSECTICIDE = "insecticide";
+  public static java.lang.String INTERVENTIONMETHOD = "interventionMethod";
+  public static java.lang.String QUANTITY = "quantity";
+  public static java.lang.String UNIT = "unit";
+  private static final long serialVersionUID = 1374107883;
   
   public InsecticideInterventionExcelViewBase()
   {
     super();
+  }
+  
+  public String getInsecticide()
+  {
+    return getValue(INSECTICIDE);
+  }
+  
+  public void validateInsecticide()
+  {
+    this.validateAttribute(INSECTICIDE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInsecticideMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
+    return mdClassIF.definesAttribute(INSECTICIDE);
+  }
+  
+  public void setInsecticide(String value)
+  {
+    if(value == null)
+    {
+      setValue(INSECTICIDE, "");
+    }
+    else
+    {
+      setValue(INSECTICIDE, value);
+    }
+  }
+  
+  public String getInterventionMethod()
+  {
+    return getValue(INTERVENTIONMETHOD);
+  }
+  
+  public void validateInterventionMethod()
+  {
+    this.validateAttribute(INTERVENTIONMETHOD);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterventionMethodMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
+    return mdClassIF.definesAttribute(INTERVENTIONMETHOD);
+  }
+  
+  public void setInterventionMethod(String value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVENTIONMETHOD, "");
+    }
+    else
+    {
+      setValue(INTERVENTIONMETHOD, value);
+    }
+  }
+  
+  public Integer getQuantity()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(QUANTITY));
+  }
+  
+  public void validateQuantity()
+  {
+    this.validateAttribute(QUANTITY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getQuantityMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
+    return mdClassIF.definesAttribute(QUANTITY);
+  }
+  
+  public void setQuantity(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(QUANTITY, "");
+    }
+    else
+    {
+      setValue(QUANTITY, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public String getUnit()
+  {
+    return getValue(UNIT);
+  }
+  
+  public void validateUnit()
+  {
+    this.validateAttribute(UNIT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUnitMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.InsecticideInterventionExcelView.CLASS);
+    return mdClassIF.definesAttribute(UNIT);
+  }
+  
+  public void setUnit(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIT, "");
+    }
+    else
+    {
+      setValue(UNIT, value);
+    }
   }
   
   protected String getDeclaredType()

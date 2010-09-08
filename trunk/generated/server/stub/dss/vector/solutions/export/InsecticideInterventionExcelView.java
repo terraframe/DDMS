@@ -1,6 +1,5 @@
 package dss.vector.solutions.export;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
@@ -9,7 +8,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.InsecticideInterventionView;
-import dss.vector.solutions.intervention.monitor.PersonInterventionMethodView;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.ontology.Term;
 
@@ -17,18 +15,9 @@ public class InsecticideInterventionExcelView extends InsecticideInterventionExc
 {
   private static final long serialVersionUID = -784221955;
   
-  private List<Term> interventionMethods;
-  private List<InsecticideBrand> insecticides;
-  private List<Integer> quantities;
-  private List<Term> units;
-  
   public InsecticideInterventionExcelView()
   {
     super();
-    interventionMethods = new LinkedList<Term>();
-    insecticides = new LinkedList<InsecticideBrand>();
-    quantities = new LinkedList<Integer>();
-    units = new LinkedList<Term>();
   }
   
   @Override
@@ -36,55 +25,50 @@ public class InsecticideInterventionExcelView extends InsecticideInterventionExc
   public void apply()
   {
     ControlInterventionView controlPoint = this.getControlPoint();
-
-    InsecticideInterventionView[] array = new InsecticideInterventionView[interventionMethods.size()];
-    for (int i = 0; i < interventionMethods.size(); i++)
+    
+    InsecticideInterventionView[] existingArray = controlPoint.getInsecticideInterventionViews();
+    
+    // Default to a new relationship
+    Term method = Term.validateByDisplayLabel(this.getInterventionMethod(), ControlInterventionView.getInsecticideInterventionMd());
+    InsecticideInterventionView iiv = new InsecticideInterventionView();
+    iiv.setInterventionMethod(method);
+    
+    // If a relationship already exists, use it instead
+    for (InsecticideInterventionView existing : existingArray)
     {
-      array[i] = new InsecticideInterventionView();
-      array[i].setInterventionMethod(interventionMethods.get(i));
-      array[i].setInsecticide(insecticides.get(i));
-      array[i].setQuantity(quantities.get(i));
-      array[i].setUnit(units.get(i));
+      // Use IDs to avoid cost of instantiating the whole object
+      if (existing.getValue(InsecticideInterventionView.INTERVENTIONMETHOD).equals(method.getId()))
+      {
+        iiv = existing;
+        break;
+      }
     }
     
-    controlPoint.applyWithInsecticideInterventionViews(array);
+    // Set the information
+    iiv.setInsecticide(InsecticideBrand.validateByName(this.getInsecticide()));
+    iiv.setQuantity(this.getQuantity());
+    iiv.setUnit(Term.validateByDisplayLabel(this.getUnit(), InsecticideInterventionView.getUnitMd()));
+    
+    controlPoint.applyWithInsecticideInterventionViews(new InsecticideInterventionView[] {iiv});
   }
 
   public static List<String> customAttributeOrder()
   {
     List<String> list = ControlInterventionExcelView.customAttributeOrder();
+    list.add(INTERVENTIONMETHOD);
+    list.add(INSECTICIDE);
+    list.add(QUANTITY);
+    list.add(UNIT);
     return list;
   }
   
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     ControlInterventionExcelView.setupExportListener(exporter, params);
-    exporter.addListener(new InsecticideInterventionListener());
   }
   
   public static void setupImportListener(ImportContext context, String... params)
   {
     ControlInterventionExcelView.setupImportListener(context, params);
-    context.addListener(new InsecticideInterventionListener());
-  }
-
-  public void addInterventionMethod(Term method)
-  {
-    interventionMethods.add(method);
-  }
-
-  public void addInsecticide(String brand)
-  {
-    insecticides.add(InsecticideBrand.validateByName(brand));
-  }
-
-  public void addQuantity(Integer quantity)
-  {
-    quantities.add(quantity);
-  }
-
-  public void addUnit(String unitLabel)
-  {
-    units.add(Term.validateByDisplayLabel(unitLabel, InsecticideInterventionView.getUnitMd()));
   }
 }
