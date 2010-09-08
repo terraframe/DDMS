@@ -61,43 +61,103 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
     ipt.setNumberPregnantIron(this.getNumberPregnantIron());
     ipt.setNumberPregnantITN(this.getNumberPregnantITN());
     ipt.setTotalITN(this.getTotalITN());
-
+    
+    IPTPatients[] existingPatients = ipt.getIPTPatients();
     IPTPatients[] patientArray = new IPTPatients[patients.size()];
     for (int i = 0; i < patientArray.length; i++)
     {
+      // Default to a new relationship
+      String termId = patients.get(i).getId();
+      patientArray[i] = new IPTPatients(ipt.getConcreteId(), termId);
+      
+      // If a relationship already exists, use it instead
+      for (IPTPatients existing : existingPatients)
+      {
+        if (existing.getChildId().equals(termId))
+        {
+          existing.lock();
+          patientArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       if (i < patientAmounts.size())
       {
-        patientArray[i] = new IPTPatients(ipt.getConcreteId(), patients.get(i).getId());
         patientArray[i].setAmount((patientAmounts.get(i)));
       }
     }
     
+    IPTANCVisit[] existingVisits = ipt.getIPTANCVisits();
     IPTANCVisit[] visitArray = new IPTANCVisit[visits.size()];
     for (int i = 0; i < visitArray.length; i++)
     {
+      // Default to a new relationship
+      String termId = visits.get(i).getId();
+      visitArray[i] = new IPTANCVisit(ipt.getConcreteId(), termId);
+      
+      // If a relationship already exists, use it instead
+      for (IPTANCVisit existing : existingVisits)
+      {
+        if (existing.getChildId().equals(termId))
+        {
+          existing.lock();
+          visitArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       if (i < visitAmounts.size())
       {
-        visitArray[i] = new IPTANCVisit(ipt.getConcreteId(), visits.get(i).getId());
         visitArray[i].setAmount((visitAmounts.get(i)));
       }
     }
     
+    IPTDose[] existingDoses = ipt.getIPTDoses();
     IPTDose[] doseArray = new IPTDose[doses.size()];
     for (int i = 0; i < doseArray.length; i++)
     {
+      // Default to a new relationship
+      String termId = doses.get(i).getId();
+      doseArray[i] = new IPTDose(ipt.getConcreteId(), termId);
+      
+      // If a relationship already exists, use it instead
+      for (IPTDose existing : existingDoses)
+      {
+        if (existing.getChildId().equals(termId))
+        {
+          existing.lock();
+          doseArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       if (i < doseAmounts.size())
       {
-        doseArray[i] = new IPTDose(ipt.getConcreteId(), doses.get(i).getId());
         doseArray[i].setAmount((doseAmounts.get(i)));
       }
     }
     
+    IPTTreatment[] existingTreatments = ipt.getIPTTreatments();
     IPTTreatment[] treatmentArray = new IPTTreatment[treatments.size()];
     for (int i = 0; i < treatmentArray.length; i++)
     {
+      // Default to a new relationship
+      String termId = treatments.get(i).getId();
+      treatmentArray[i] = new IPTTreatment(ipt.getConcreteId(), termId);
+      
+      // If a relationship already exists, use it instead
+      for (IPTTreatment existing : existingTreatments)
+      {
+        if (existing.getChildId().equals(termId))
+        {
+          existing.lock();
+          treatmentArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       if (i < treatmentAmounts.size())
       {
-        treatmentArray[i] = new IPTTreatment(ipt.getConcreteId(), treatments.get(i).getId());
         treatmentArray[i].setAmount((treatmentAmounts.get(i)));
       }
     }
