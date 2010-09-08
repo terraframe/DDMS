@@ -8,11 +8,13 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.HouseholdSprayStatusQuery;
 import dss.vector.solutions.irs.HouseholdSprayStatusView;
 import dss.vector.solutions.irs.InsecticideBrand;
@@ -104,27 +106,23 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     // Populate the Household Spray Status data
     if (this.getHouseholdId() != null && !this.getHouseholdId().equals(""))
     {
-      // Check for duplication
+      HouseholdSprayStatusView view = new HouseholdSprayStatusView();
+      
+      // Check for existing records
       HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getSpray().getId().EQ(osv.getConcreteId()));
       query.WHERE(query.getHouseholdId().EQ(this.getHouseholdId()));
       query.WHERE(query.getStructureId().EQ(this.getStructureId()));
-      if (query.getCount()>0)
+      OIterator<? extends HouseholdSprayStatus> iterator = query.getIterator();
+      if (iterator.hasNext())
       {
-        DuplicateOperatorSprayImportException dex = new DuplicateOperatorSprayImportException();
-        dex.setSprayDate(this.getSprayDate());
-        dex.setOperatorId(this.getOperatorId());
-        dex.setInsecticideTerm(this.getInsecticideTerm());
-        dex.setSprayMethod(this.getSprayMethod());
-        dex.setHouseholdId(this.getHouseholdId());
-        dex.setStructureId(this.getStructureId());
-        throw dex;
+        view = iterator.next().getView();
       }
+      iterator.close();
       
-      HouseholdSprayStatusView view = new HouseholdSprayStatusView();
-      view.setHouseholdId(this.getHouseholdId());
-      view.setStructureId(this.getStructureId());
-      view.setSpray(OperatorSpray.get(osv.getConcreteId()));
+//      view.setHouseholdId(this.getHouseholdId());
+//      view.setStructureId(this.getStructureId());
+//      view.setSpray(OperatorSpray.get(osv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());

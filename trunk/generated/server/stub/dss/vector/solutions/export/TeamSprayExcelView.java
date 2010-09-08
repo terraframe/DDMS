@@ -8,11 +8,13 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
+import dss.vector.solutions.irs.OperatorSprayStatus;
 import dss.vector.solutions.irs.OperatorSprayStatusQuery;
 import dss.vector.solutions.irs.OperatorSprayStatusView;
 import dss.vector.solutions.irs.OperatorSprayView;
@@ -90,29 +92,26 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
 
     if (this.getOperatorId() != null && !this.getOperatorId().equals(""))
     {
-      // Check for duplication
+      OperatorSprayStatusView view = new OperatorSprayStatusView();
+      
+      // Check for existing records
       OperatorSprayStatusQuery query = new OperatorSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getSpray().getId().EQ(tsv.getConcreteId()));
       query.WHERE(query.getSprayOperator().getMemberId().EQ(this.getOperatorId()));
-      if (query.getCount()>0)
+      OIterator<? extends OperatorSprayStatus> iterator = query.getIterator();
+      if (iterator.hasNext())
       {
-        DuplicateTeamSprayImportException dex = new DuplicateTeamSprayImportException();
-        dex.setSprayDate(this.getSprayDate());
-        dex.setSprayTeam(teamId);
-        dex.setInsecticideTerm(this.getInsecticideTerm());
-        dex.setSprayMethod(this.getSprayMethod());
-        dex.setOperatorId(this.getOperatorId());
-        throw dex;
+        view = iterator.next().lockView();
       }
+      iterator.close();
       
-      OperatorSprayStatusView view = new OperatorSprayStatusView();
-      view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
+//      view.setSpray(TeamSpray.get(tsv.getConcreteId()));
+//      view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
       view.setOperatorTarget(this.getOperatorTarget());
       view.setReceived(this.getOperatorReceived());
       view.setRefills(this.getOperatorRefills());
       view.setReturned(this.getOperatorReturned());
       view.setUsed(this.getOperatorUsed());
-      view.setSpray(TeamSpray.get(tsv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());
