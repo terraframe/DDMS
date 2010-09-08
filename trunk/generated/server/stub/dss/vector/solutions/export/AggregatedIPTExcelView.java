@@ -56,6 +56,12 @@ public class AggregatedIPTExcelView extends AggregatedIPTExcelViewBase implement
     PeriodType periodType = ExcelEnums.getPeriodType(this.getPeriodType());
     
     AggregatedIPTView ipt = AggregatedIPT.searchByGeoEntityAndEpiDate(geoEntity, periodType, this.getPeriod(), this.getPeriodYear());
+    
+    if (ipt.hasConcrete())
+    {
+      ipt = AggregatedIPT.lockView(ipt.getConcreteId());
+    }
+    
     ipt.setNumberPregnant(this.getNumberPregnant());
     ipt.setNumberNatalCare(this.getNumberNatalCare());
     ipt.setNumberPregnantIron(this.getNumberPregnantIron());
