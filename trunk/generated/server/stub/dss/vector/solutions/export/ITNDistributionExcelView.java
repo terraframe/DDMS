@@ -16,9 +16,12 @@ import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
+import dss.vector.solutions.intervention.monitor.ITNDistribution;
 import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
+import dss.vector.solutions.intervention.monitor.ITNDistributionViewQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.CaseReferralView;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class ITNDistributionExcelView extends ITNDistributionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -41,23 +44,50 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
   {
     ITNDistributionView view = new ITNDistributionView();
     
-    view.setDistributionDate(this.getDistributionDate());
-    view.setFacility(this.getFacility().getGeoId());
-    view.setService(Term.validateByDisplayLabel(this.getService(), ITNDistributionView.getServiceMd()));
-    view.setBatchNumber(this.getBatchNumber());
     view.setPerson(searchForRecipient());
+    view.setFacility(this.getFacility().getGeoId());
+    view.setDistributionDate(this.getDistributionDate());
+    view.setBatchNumber(this.getBatchNumber());
+    ITNDistributionViewQuery search = ITNDistributionView.searchHistory(view);
+    OIterator<? extends ITNDistributionView> iterator = search.getIterator();
+    if (iterator.hasNext())
+    {
+      view = ITNDistribution.lockView(iterator.next().getConcreteId());
+    }
+    iterator.close();
+    
+    view.setService(Term.validateByDisplayLabel(this.getService(), ITNDistributionView.getServiceMd()));
     view.setNet(Term.validateByDisplayLabel(this.getNet(), ITNDistributionView.getNetMd()));
     view.setNumberSold(this.getNumberSold());
     view.setCurrencyReceived(this.getCurrencyReceived());
     view.setDistributorName(this.getDistributorName());
     view.setDistributorSurname(this.getDistributorSurname());
     
+    ITNDistributionTargetGroup[] existingGroups = view.getDistributionTargetGroups();
     ITNDistributionTargetGroup[] targetGroupArray = new ITNDistributionTargetGroup[targetGroups.size()];
     for (int i = 0; i < targetGroupArray.length; i++)
     {
+      // Default to a new record
+      String termId = targetGroups.get(i).getId();
+      targetGroupArray[i] = new ITNDistributionTargetGroup(view.getConcreteId(), termId);
+      
+      // If a record already exists, use it instead
+      for (ITNDistributionTargetGroup existing : existingGroups)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getChildId().equals(termId))
+        {
+          if (!existing.isNew())
+          {
+            existing.lock();
+          }
+          targetGroupArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       if (i < targetGroupAmounts.size())
       {
-        targetGroupArray[i] = new ITNDistributionTargetGroup(view.getConcreteId(), targetGroups.get(i).getId());
         targetGroupArray[i].setAmount((targetGroupAmounts.get(i)));
       }
     }
@@ -105,6 +135,7 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
     if (iterator.hasNext())
     {
       person = iterator.next();
+      person.lock();
     }
     else
     {
