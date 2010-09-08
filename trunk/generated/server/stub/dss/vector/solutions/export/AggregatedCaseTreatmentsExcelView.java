@@ -55,27 +55,72 @@ public class AggregatedCaseTreatmentsExcelView extends AggregatedCaseTreatmentsE
   {
     AggregatedCaseView acv = this.getAggregatedCaseView();
     
+    CaseTreatmentView[] existingTreatments = acv.getTreatments();
     CaseTreatmentView[] treatmentArray = new CaseTreatmentView[treatments.size()];
     for (int i=0; i< treatments.size(); i++)
     {
+      // Default to a new record
       treatmentArray[i] = new CaseTreatmentView();
-      treatmentArray[i].setTerm(treatments.get(i));
+      Term treatment = treatments.get(i);
+      treatmentArray[i].setTerm(treatment);
+      
+      // If a record already exists, use it instead
+      for (CaseTreatmentView existing : existingTreatments)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseTreatmentView.TERM).equals(treatment.getId()))
+        {
+          treatmentArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       treatmentArray[i].setAmount(treatmentAmounts.get(i));
     }
     
+    CaseTreatmentMethodView[] existingMethods = acv.getTreatmentMethods();
     CaseTreatmentMethodView[] methodArray = new CaseTreatmentMethodView[methods.size()];
     for (int i=0; i< methods.size(); i++)
     {
+      // Default to a new record
       methodArray[i] = new CaseTreatmentMethodView();
-      methodArray[i].setTerm(methods.get(i));
+      Term method = methods.get(i);
+      methodArray[i].setTerm(method);
+      
+      // If a record already exists, use it instead
+      for (CaseTreatmentMethodView existing : existingMethods)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseTreatmentMethodView.TERM).equals(method.getId()))
+        {
+          methodArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       methodArray[i].setAmount(methodAmounts.get(i));
     }
     
+    CaseTreatmentStockView[] existingStocks = acv.getTreatmentStocks();
     CaseTreatmentStockView[] stockArray = new CaseTreatmentStockView[stock.size()];
     for (int i=0; i< stock.size(); i++)
     {
+      // Default to a new record
       stockArray[i] = new CaseTreatmentStockView();
-      stockArray[i].setTerm(stock.get(i));
+      Term term = stock.get(i);
+      stockArray[i].setTerm(term);
+      
+      // If a record already exists, use it instead
+      for (CaseTreatmentStockView existing : existingStocks)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseTreatmentStockView.TERM).equals(term.getId()))
+        {
+          stockArray[i] = existing;
+        }
+      }
+      
+      // Set out of stock
       stockArray[i].setOutOfStock(stockValues.get(i));
     }
     

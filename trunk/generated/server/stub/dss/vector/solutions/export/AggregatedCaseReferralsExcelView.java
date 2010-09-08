@@ -7,6 +7,7 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.intervention.monitor.IPTPatients;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountView;
@@ -83,28 +84,72 @@ public class AggregatedCaseReferralsExcelView extends AggregatedCaseReferralsExc
       acv.setDeaths(deaths);
     }
     
-    // Handle grids
+    CaseStockReferralView[] existingReferrals = acv.getStockReferrals();
     CaseStockReferralView[] referralArray = new CaseStockReferralView[referrals.size()];
     for (int i=0; i< referrals.size(); i++)
     {
+      // Default to a new record
       referralArray[i] = new CaseStockReferralView();
-      referralArray[i].setTerm(referrals.get(i));
+      Term referral = referrals.get(i);
+      referralArray[i].setTerm(referral);
+      
+      // If a record already exists, use it instead
+      for (CaseStockReferralView existing : existingReferrals)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseStockReferralView.TERM).equals(referral.getId()))
+        {
+          referralArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       referralArray[i].setAmount(referralAmounts.get(i));
     }
     
+    CaseReferralView[] existingReasons = acv.getReferrals();
     CaseReferralView[] reasonArray = new CaseReferralView[reasons.size()];
     for (int i=0; i< reasons.size(); i++)
     {
+      // Default to a new record
       reasonArray[i] = new CaseReferralView();
-      reasonArray[i].setTerm(reasons.get(i));
+      Term reason = reasons.get(i);
+      reasonArray[i].setTerm(reason);
+      
+      // If a record already exists, use it instead
+      for (CaseReferralView existing : existingReasons)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseReferralView.TERM).equals(reason.getId()))
+        {
+          reasonArray[i] = existing;
+        }
+      }
+      
+      // Set the amount
       reasonArray[i].setAmount(reasonAmounts.get(i));
     }
     
+    CaseDiagnosticView[] existingDiagnostics = acv.getDiagnosticMethods();
     CaseDiagnosticView[] diagnosticArray = new CaseDiagnosticView[diagnostics.size()];
     for (int i=0; i< diagnostics.size(); i++)
     {
+      // Default to a new record
       diagnosticArray[i] = new CaseDiagnosticView();
-      diagnosticArray[i].setTerm(diagnostics.get(i));
+      Term diagnostic = diagnostics.get(i);
+      diagnosticArray[i].setTerm(diagnostic);
+      
+      // If a record already exists, use it instead
+      for (CaseDiagnosticView existing : existingDiagnostics)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseDiagnosticView.TERM).equals(diagnostic.getId()))
+        {
+          diagnosticArray[i] = existing;
+        }
+      }
+      
+      // Set the amounts
       diagnosticArray[i].setAmount(diagnosticAmounts.get(i));
       diagnosticArray[i].setAmountPositive(diagnosticPositives.get(i));
     }

@@ -47,18 +47,43 @@ public class CaseDiseaseManifestationExcelView extends CaseDiseaseManifestationE
     
     CaseDiseaseManifestationView[] diseaseArray;
     CaseDiseaseManifestationAmountView[][] diseaseAmountArray;
+    // Default to a new CaseDiseaseManifestationView
     CaseDiseaseManifestationView cdmv = new CaseDiseaseManifestationView();
     Term diseaseTerm = Term.validateByDisplayLabel(this.getDiseaseManifestation(), AggregatedCaseView.getCaseDiseaseManifestationMd());
     if (diseaseTerm!=null)
     {
       cdmv.setTerm(diseaseTerm);
+      
+      // If a CaseDiseaseManifestationView already exists, use it instead
+      for (CaseDiseaseManifestationView existing : acv.getDiseaseManifestations())
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseDiseaseManifestationView.TERM).equals(diseaseTerm.getId()))
+        {
+          cdmv = existing;
+        }
+      }
+      
+      CaseDiseaseManifestationAmountView[] existingAmounts = cdmv.getAmounts();
       diseaseArray = new CaseDiseaseManifestationView[]{cdmv};
       diseaseAmountArray = new CaseDiseaseManifestationAmountView[1][diseaseCategory.size()];
-      
+
       for (int i=0; i<diseaseCategory.size(); i++)
       {
         diseaseAmountArray[0][i] = new CaseDiseaseManifestationAmountView();
-        diseaseAmountArray[0][i].setTerm(diseaseCategory.get(i));
+        Term category = diseaseCategory.get(i);
+        diseaseAmountArray[0][i].setTerm(category);
+        // If a CaseDiseaseManifestationAmountView already exists, use it instead
+        for (CaseDiseaseManifestationAmountView existing : existingAmounts)
+        {
+          // Use IDs to avoid cost of instantiating the whole object
+          if (existing.getValue(CaseDiseaseManifestationAmountView.TERM).equals(category.getId()))
+          {
+            diseaseAmountArray[0][i] = existing;
+          }
+        }
+        
+        // Set the amount
         diseaseAmountArray[0][i].setAmount(diseaseCategoryAmount.get(i));
       }
       acv.applyAll(new CaseTreatmentView[0], new CaseTreatmentMethodView[0], new CaseTreatmentStockView[0], new CaseDiagnosticView[0], new CaseReferralView[0], new CaseStockReferralView[0], new CaseDiagnosisTypeView[0], new CaseDiagnosisTypeAmountView[0][0], diseaseArray, diseaseAmountArray, new CasePatientTypeView[0], new CasePatientTypeAmountView[0][0]);

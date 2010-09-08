@@ -47,18 +47,45 @@ public class CaseDiagnosisTypeExcelView extends CaseDiagnosisTypeExcelViewBase i
     
     CaseDiagnosisTypeView[] diagnosisArray;
     CaseDiagnosisTypeAmountView[][] diagnosisAmountArray;
+    // Default to a new CaseDiagnosisTypeView
     CaseDiagnosisTypeView cdtv = new CaseDiagnosisTypeView();
     Term diagnosisTerm = Term.validateByDisplayLabel(this.getDiagnosisType(), AggregatedCaseView.getCaseDiagnosisTypeMd());
     if (diagnosisTerm!=null)
     {
       cdtv.setTerm(diagnosisTerm);
+      
+      // If a CaseDiagnosisTypeView already exists, use it instead
+      for (CaseDiagnosisTypeView existing : acv.getDiagnosticTypes())
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CaseDiagnosisTypeView.TERM).equals(diagnosisTerm.getId()))
+        {
+          cdtv = existing;
+        }
+      }
+      
+      CaseDiagnosisTypeAmountView[] existingAmounts = cdtv.getAmounts();
       diagnosisArray = new CaseDiagnosisTypeView[]{cdtv};
       diagnosisAmountArray = new CaseDiagnosisTypeAmountView[1][diagnosisType.size()];
       
       for (int i=0; i<diagnosisType.size(); i++)
       {
+        // Default to a new CaseDiagnosisTypeAmountView
         diagnosisAmountArray[0][i] = new CaseDiagnosisTypeAmountView();
-        diagnosisAmountArray[0][i].setTerm(diagnosisType.get(i));
+        Term type = diagnosisType.get(i);
+        diagnosisAmountArray[0][i].setTerm(type);
+        
+        // If a CaseDiagnosisTypeAmountView already exists, use it instead
+        for (CaseDiagnosisTypeAmountView existing : existingAmounts)
+        {
+          // Use IDs to avoid cost of instantiating the whole object
+          if (existing.getValue(CaseDiagnosisTypeAmountView.TERM).equals(type.getId()))
+          {
+            diagnosisAmountArray[0][i] = existing;
+          }
+        }
+        
+        // Set the amount
         diagnosisAmountArray[0][i].setAmount(diagnosisTypeAmount.get(i));
       }
       acv.applyAll(new CaseTreatmentView[0], new CaseTreatmentMethodView[0], new CaseTreatmentStockView[0], new CaseDiagnosticView[0], new CaseReferralView[0], new CaseStockReferralView[0], diagnosisArray, diagnosisAmountArray, new CaseDiseaseManifestationView[0], new CaseDiseaseManifestationAmountView[0][0], new CasePatientTypeView[0], new CasePatientTypeAmountView[0][0]);

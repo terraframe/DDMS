@@ -47,18 +47,45 @@ public class CasePatientTypeExcelView extends CasePatientTypeExcelViewBase imple
     
     CasePatientTypeView[] patientArray;
     CasePatientTypeAmountView[][] patientAmountArray;
+    // Default to a new CasePatientTypeView
     CasePatientTypeView cptv = new CasePatientTypeView();
     Term patientTerm = Term.validateByDisplayLabel(this.getPatientType(), AggregatedCaseView.getCasePatientTypeMd());
     if (patientTerm!=null)
     {
       cptv.setTerm(patientTerm);
+      
+      // If a CaseDiagnosisTypeView already exists, use it instead
+      for (CasePatientTypeView existing : acv.getPatientTypes())
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(CasePatientTypeView.TERM).equals(patientTerm.getId()))
+        {
+          cptv = existing;
+        }
+      }
+      
+      CasePatientTypeAmountView[] existingAmounts = cptv.getAmounts();
       patientArray = new CasePatientTypeView[]{cptv};
       patientAmountArray = new CasePatientTypeAmountView[1][patientType.size()];
       
       for (int i=0; i<patientType.size(); i++)
       {
+        // Default to a new CasePatientTypeAmountView
         patientAmountArray[0][i] = new CasePatientTypeAmountView();
-        patientAmountArray[0][i].setTerm(patientType.get(i));
+        Term type = patientType.get(i);
+        patientAmountArray[0][i].setTerm(type);
+        
+        // If a CaseDiagnosisTypeAmountView already exists, use it instead
+        for (CasePatientTypeAmountView existing : existingAmounts)
+        {
+          // Use IDs to avoid cost of instantiating the whole object
+          if (existing.getValue(CasePatientTypeAmountView.TERM).equals(type.getId()))
+          {
+            patientAmountArray[0][i] = existing;
+          }
+        }
+        
+        // Set the amount
         patientAmountArray[0][i].setAmount(patientTypeAmount.get(i));
       }
       
