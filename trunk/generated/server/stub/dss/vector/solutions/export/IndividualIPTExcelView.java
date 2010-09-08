@@ -18,9 +18,11 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
+import dss.vector.solutions.intervention.monitor.IndividualIPT;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCase;
 import dss.vector.solutions.intervention.monitor.IndividualIPTCaseQuery;
 import dss.vector.solutions.intervention.monitor.IndividualIPTView;
+import dss.vector.solutions.intervention.monitor.IndividualIPTViewQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -37,10 +39,26 @@ public class IndividualIPTExcelView extends IndividualIPTExcelViewBase implement
   @Transaction
   public void apply()
   {
+    IndividualIPTCase iptCase = searchForCase();
+    String facilityGeoId = this.getFacility().getGeoId();
+    Date service = this.getServiceDate();
+    
     IndividualIPTView view = new IndividualIPTView();
-    view.setIptCase(searchForCase());
-    view.setFacility(this.getFacility().getGeoId());
-    view.setServiceDate(this.getServiceDate());
+    view.setIptCase(iptCase);
+    view.setFacility(facilityGeoId);
+    view.setServiceDate(service);
+    
+    IndividualIPTViewQuery query = new IndividualIPTViewQuery(new QueryFactory());
+    query.WHERE(query.getIptCase().EQ(iptCase));
+    query.WHERE(query.getFacility().EQ(facilityGeoId));
+    query.WHERE(query.getServiceDate().EQ(service));
+    OIterator<? extends IndividualIPTView> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      view = IndividualIPT.lockView(iterator.next().getConcreteId());
+    }
+    iterator.close();
+    
     view.setPatientType(Term.validateByDisplayLabel(this.getPatientType(), IndividualIPTView.getPatientTypeMd()));
     view.setIsANCVisit(this.getIsANCVisit());
     view.setVisitNumber(Term.validateByDisplayLabel(this.getVisitNumber(), IndividualIPTView.getVisitNumberMd()));
