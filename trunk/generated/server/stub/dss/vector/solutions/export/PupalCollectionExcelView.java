@@ -13,6 +13,7 @@ import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.surveillance.CaseStockReferralView;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PupalCollectionExcelView extends PupalCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -48,6 +49,14 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
       container.setContainerId(cid);
     }
     
+    for (PupalContainerView existing : collection.getContainers())
+    {
+      if (existing.getContainerId().equals(cid))
+      {
+        container = existing;
+      }
+    }
+    
     container.setContainerType(Term.validateByDisplayLabel(this.getContainerType(), PupalContainerView.getContainerTypeMd()));
     container.addShape(ExcelEnums.getContainerShape(this.getShape()));
     container.setHeight(this.getHeight());
@@ -65,11 +74,26 @@ public class PupalCollectionExcelView extends PupalCollectionExcelViewBase imple
     container.setDrawdownFrequency(Term.validateByDisplayLabel(this.getDrawdownFrequency(), PupalContainerView.getDrawdownFrequencyMd()));
     container.setDrawdownPercent(this.getDrawdownPercent());
 
+    PupalContainerAmountView[] existingAmounts = container.getAmounts();
     PupalContainerAmountView[][] pupaeArray = new PupalContainerAmountView[1][pupae.size()];
     for (int i = 0; i < pupaeAmounts.size(); i++)
     {
+      // Default to a new record
       pupaeArray[0][i] = new PupalContainerAmountView();
-      pupaeArray[0][i].setTerm(pupae.get(i));
+      Term term = pupae.get(i);
+      pupaeArray[0][i].setTerm(term);
+      
+      // If a record already exists, use it instead
+      for (PupalContainerAmountView existing : existingAmounts)
+      {
+        // Use IDs to avoid cost of instantiating the whole object
+        if (existing.getValue(PupalContainerAmountView.TERM).equals(term.getId()))
+        {
+          pupaeArray[0][i] = existing;
+        }
+      }
+      
+      // Set the amount
       pupaeArray[0][i].setAmount(pupaeAmounts.get(i));
     }
     
