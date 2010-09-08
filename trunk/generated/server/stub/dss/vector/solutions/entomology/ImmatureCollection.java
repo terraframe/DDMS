@@ -1,6 +1,7 @@
 package dss.vector.solutions.entomology;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -12,9 +13,15 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.MAX;
+import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SUM;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.CurrentDateProblem;
@@ -24,7 +31,8 @@ import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
-public class ImmatureCollection extends ImmatureCollectionBase implements com.runwaysdk.generation.loader.Reloadable
+public class ImmatureCollection extends ImmatureCollectionBase implements
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 746053127;
 
@@ -109,8 +117,8 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
   public void validateStartDate()
   {
     Date start = this.getStartDate();
-    
-    if (start!=null && start.after(new Date()))
+
+    if (start != null && start.after(new Date()))
     {
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(start);
@@ -119,7 +127,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       p.apply();
       p.throwIt();
     }
-    
+
     Date end = this.getEndDate();
     if (start != null && end != null)
     {
@@ -132,13 +140,13 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       }
     }
   }
-  
+
   @Override
   public void validateEndDate()
   {
     Date end = this.getEndDate();
-    
-    if (end!=null && end.after(new Date()))
+
+    if (end != null && end.after(new Date()))
     {
       CurrentDateProblem p = new CurrentDateProblem();
       p.setGivenDate(end);
@@ -190,12 +198,31 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
+        valueQuery, xml, queryConfig, layer);
 
-    ImmatureCollectionQuery collectionQuery = (ImmatureCollectionQuery) queryMap.get(ImmatureCollection.CLASS);
-    CollectionPremiseQuery collectionPremiseQuery = (CollectionPremiseQuery) queryMap.get(CollectionPremise.CLASS);
+    ImmatureCollectionQuery collectionQuery = (ImmatureCollectionQuery) queryMap
+        .get(ImmatureCollection.CLASS);
+    CollectionPremiseQuery collectionPremiseQuery = (CollectionPremiseQuery) queryMap
+        .get(CollectionPremise.CLASS);
     PremiseTaxonQuery premiseTaxonQuery = (PremiseTaxonQuery) queryMap.get(PremiseTaxon.CLASS);
-    CollectionContainerQuery collectionContainerQuery = (CollectionContainerQuery) queryMap.get(CollectionContainer.CLASS);
+    CollectionContainerQuery collectionContainerQuery = (CollectionContainerQuery) queryMap
+        .get(CollectionContainer.CLASS);
+
+    if (collectionPremiseQuery == null)
+    {
+      collectionPremiseQuery = new CollectionPremiseQuery(valueQuery);
+    }
+
+    if (premiseTaxonQuery == null)
+    {
+      premiseTaxonQuery = new PremiseTaxonQuery(valueQuery);
+    }
+
+    if (collectionContainerQuery == null)
+    {
+      collectionContainerQuery = new CollectionContainerQuery(valueQuery);
+    }
 
     if (collectionPremiseQuery != null)
     {
@@ -233,6 +260,21 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
       QueryUtil.joinTermAllpaths(valueQuery, CollectionContainer.CLASS, collectionContainerQuery);
       valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
     }
+    
+    MdEntityDAOIF premiseMd = MdEntityDAO.getMdEntityDAO(CollectionPremise.CLASS);
+    String idCol = QueryUtil.getIdColumn();
+
+    String numberExamined = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBEREXAMINED);
+    String numberInhabitants = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERINHABITANTS);
+    String premiseSize = QueryUtil.getColumnName(premiseMd, CollectionPremise.PREMISESIZE);    
+    String numberWithImmatures = QueryUtil.getColumnName(premiseMd,
+        CollectionPremise.NUMBERWITHIMMATURES);
+    String numberWithLarvae = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHLARVAE);
+    String numberWithPupae = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHPUPAE);
+    
+    // The aliases are the same as the column name
+    String[] aliases = {numberExamined, numberWithImmatures, numberWithLarvae, numberWithPupae, numberInhabitants, premiseSize};
+    setCollectionAttribsAsCalculations(aliases, idCol, valueQuery, collectionPremiseQuery);    
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ImmatureCollection.CLASS, collectionQuery);
 
@@ -240,142 +282,163 @@ public class ImmatureCollection extends ImmatureCollectionBase implements com.ru
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    boolean needsJoin = false;
 
     MdEntityDAOIF containerMd = MdEntityDAO.getMdEntityDAO(CollectionContainer.CLASS);
-    String numberContainers = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERCONTAINERS);
-    needsJoin = valueQuery.hasSelectableRef(numberContainers) || needsJoin;
-
-    String numberdestroyed = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERDESTROYED);
-    needsJoin = valueQuery.hasSelectableRef(numberdestroyed) || needsJoin;
-
-    String numberwithlarvicide = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERWITHLARVICIDE);
-    needsJoin = valueQuery.hasSelectableRef(numberwithlarvicide) || needsJoin;
 
     String numberwithwater = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERWITHWATER);
-    needsJoin = valueQuery.hasSelectableRef(numberwithwater) || needsJoin;
+    String numberwithwaterSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(),
+        idCol, null, numberwithwater);
 
     String numberimmatures = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERIMMATURES);
-    needsJoin = valueQuery.hasSelectableRef(numberimmatures) || needsJoin;
+    String numberimmaturesSum =QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberimmatures);
 
     String numberlarvae = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERLARVAE);
-    needsJoin = valueQuery.hasSelectableRef(numberlarvae) || needsJoin;
+    String numberlarvaeSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberlarvae);
 
     String numberpupae = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERPUPAE);
-    needsJoin = valueQuery.hasSelectableRef(numberpupae) || needsJoin;
+    String numberpupaeSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null, numberpupae);
 
-    String numberlarvaecollected = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERLARVAECOLLECTED);
-    needsJoin = valueQuery.hasSelectableRef(numberlarvaecollected) || needsJoin;
+    String numberlarvaecollected = QueryUtil.getColumnName(containerMd,
+        CollectionContainer.NUMBERLARVAECOLLECTED);
 
-    String numberpupaecollected = QueryUtil.getColumnName(containerMd, CollectionContainer.NUMBERPUPAECOLLECTED);
-    needsJoin = valueQuery.hasSelectableRef(numberpupaecollected) || needsJoin;
+    String numberpupaecollected = QueryUtil.getColumnName(containerMd,
+        CollectionContainer.NUMBERPUPAECOLLECTED);
+    String numberpupaecollectedSum = QueryUtil.sumColumnForId(collectionContainerQuery.getTableAlias(), idCol, null,
+        numberpupaecollected);
 
-    MdEntityDAOIF premiseMd = MdEntityDAO.getMdEntityDAO(CollectionPremise.CLASS);
-    String numberInhabitants = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERINHABITANTS);
-    String numberWithImmatures = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHIMMATURES);
-    String numberExamined = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBEREXAMINED);
-    String numberWithLarvae = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHLARVAE);
-    String numberWithPupae = QueryUtil.getColumnName(premiseMd, CollectionPremise.NUMBERWITHPUPAE);
-    String premiseSize = QueryUtil.getColumnName(premiseMd, CollectionPremise.PREMISESIZE);
-    String id = QueryUtil.getColumnName(premiseMd, CollectionPremise.ID);
 
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "SUM(" + numberWithImmatures + ")/NULLIF(SUM(" + numberExamined + "), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "SUM(" + numberWithLarvae + ")/NULLIF(SUM(" + numberExamined + "), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "SUM(" + numberWithPupae + ")/NULLIF(SUM(" + numberExamined + "), 0.0)*100.0") || needsJoin;
+    String numberWithImmaturesSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(),
+        idCol, null, numberWithImmatures);
 
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "SUM(" + numberimmatures + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "SUM(" + numberlarvae + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "SUM(" + numberpupae + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
 
-    needsJoin = valueQuery.hasSelectableRef("bi_lp") || needsJoin;
-    needsJoin = valueQuery.hasSelectableRef("bi_l") || needsJoin;
-    needsJoin = valueQuery.hasSelectableRef("bi_p") || needsJoin;
+    String numberWithLarvaeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol,
+        null, numberWithLarvae);
 
-    needsJoin = valueQuery.hasSelectableRef("pi") || needsJoin;
-    needsJoin = valueQuery.hasSelectableRef("pppr") || needsJoin;
-    needsJoin = valueQuery.hasSelectableRef("ppha") || needsJoin;
-    needsJoin = valueQuery.hasSelectableRef("pppe") || needsJoin;
+    String numberWithPupaeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol,
+        null, numberWithPupae);
 
-//    if (valueQuery.hasSelectableRef("container_term"))
-//    {
-//      needsJoin = true;
-//    }
 
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "SUM(" + numberimmatures + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
-    // Percentage of water-holding containers with larvae by container type:
-    // Number with larvae/Number with water*100
+    String numberExaminedSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol,
+        null, numberExamined);
+    String numberSizeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), idCol, null,
+        premiseSize);
+    String numberInhabitantsSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(),
+        idCol, null, numberInhabitants);
 
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "SUM(" + numberlarvae + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "SUM(" + numberpupae + ")/NULLIF(SUM(" + numberwithwater + "), 0.0)*100.0") || needsJoin;
-    
-    String s = "(SUM(coalesce(" + numberlarvaecollected + ",0.0))\n"+
-        "+\n" +
-        "SUM(coalesce(" + numberpupaecollected + ",0.0)))\n" +
-        "/\n" +
-        "NULLIF(" +
-         "SUM(SUM(coalesce(" + numberlarvaecollected + ",0.0))) OVER ()\n" +
-         "+ " +
-         "SUM(SUM(coalesce(" + numberpupaecollected + ",0.0))) OVER ()\n" +
-        ",0.0)*100.0\n";
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", s) || needsJoin;
-    
-    
-    
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM(" + numberlarvaecollected + ")/NULLIF(SUM(SUM(" + numberlarvaecollected + ")) OVER (), 0.0)*100.0") || needsJoin;
-    needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM(" + numberpupaecollected + ")/NULLIF(SUM(SUM(" + numberpupaecollected + ")) OVER (), 0.0)*100.0") || needsJoin;
+    QueryUtil.setSelectabeSQL(valueQuery, "hi_lp", "" + numberWithImmaturesSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "hi_l", "" + numberWithLarvaeSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "hi_p", "" + numberWithPupaeSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)*100.0");
 
-    if (needsJoin)
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_lp", "" + numberimmaturesSum + "::float/NULLIF("
+        + numberwithwaterSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_l", "" + numberlarvaeSum + "::float/NULLIF("
+        + numberwithwaterSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "ci_p", "" + numberpupaeSum + "::float/NULLIF("
+        + numberwithwaterSum + ", 0.0)*100.0");
+
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_immatures", "" + numberimmaturesSum
+        + "::float/NULLIF(" + numberwithwaterSum + ", 0.0)*100.0");
+
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_larvae", "" + numberlarvaeSum
+        + "::float/NULLIF(" + numberwithwaterSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_water_holding_pupae", "" + numberpupaeSum
+        + "::float/NULLIF(" + numberwithwaterSum + ", 0.0)*100.0");
+
+    String s = "(SUM(coalesce(" + numberlarvaecollected + ",0.0))\n" + "+\n" + "SUM(coalesce("
+        + numberpupaecollected + ",0.0)))\n" + "/\n" + "NULLIF(" + "SUM(SUM(coalesce("
+        + numberlarvaecollected + ",0.0))) OVER ()\n" + "+ " + "SUM(SUM(coalesce("
+        + numberpupaecollected + ",0.0))) OVER ()\n" + ",0.0)*100.0\n";
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_immature_contribution", s);
+
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_larve_contribution", "SUM(" + numberlarvaecollected
+        + ")/NULLIF(SUM(SUM(" + numberlarvaecollected + ")) OVER (), 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution", "SUM(" + numberpupaecollected
+        + ")/NULLIF(SUM(SUM(" + numberpupaecollected + ")) OVER (), 0.0)*100.0");
+
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "" + numberimmaturesSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "" + numberlarvaeSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "" + numberpupaeSum + "::float/NULLIF(" + numberExaminedSum
+        + ", 0.0)*100.0");
+
+    QueryUtil.setSelectabeSQL(valueQuery, "pi", "" + numberpupaecollectedSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)*100.0");
+    QueryUtil.setSelectabeSQL(valueQuery, "ppha", "" + numberpupaecollectedSum + "::float/NULLIF("
+        + numberSizeSum + ", 0.0)");
+    QueryUtil.setSelectabeSQL(valueQuery, "pppr", "" + numberpupaecollectedSum + "::float/NULLIF("
+        + numberExaminedSum + ", 0.0)");
+
+    // this calculation only valid for premises with data for inhabitants
+    if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "" + numberpupaecollectedSum + "::float/NULLIF("
+        + numberInhabitantsSum + ", 0.0)"))
     {
-      if (collectionPremiseQuery == null)
+      valueQuery.WHERE(collectionPremiseQuery.getNumberInhabitants().NE(""));
+    }
+
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(),
+        collectionQuery.getEndDate());
+  }
+  
+  public static void setCollectionAttribsAsCalculations(String[] aliases, String id, ValueQuery valueQuery, CollectionPremiseQuery premiseQuery)
+  {
+    Map<String, Selectable> override = new HashMap<String, Selectable>();
+    
+    for(String alias : aliases)
+    {
+      if(valueQuery.hasSelectableRef(alias))
       {
-        collectionPremiseQuery = new CollectionPremiseQuery(valueQuery);
-        valueQuery.WHERE(collectionPremiseQuery.getCollection().EQ(collectionQuery));
-      }
-
-      if (premiseTaxonQuery == null)
-      {
-        premiseTaxonQuery = new PremiseTaxonQuery(valueQuery);
-        valueQuery.WHERE(premiseTaxonQuery.getPremise().EQ(collectionPremiseQuery));
-      }
-
-      if (collectionContainerQuery == null)
-      {
-        collectionContainerQuery = new CollectionContainerQuery(valueQuery);
-        valueQuery.WHERE(collectionContainerQuery.hasParent(premiseTaxonQuery));
-      }
-      
-      
-      // we need to deuplicate the sum so the same collection is not counted
-      // twice
-      
-      String numberExaminedSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), id, null, numberExamined);
-      String numberSizeSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), id, null, premiseSize);
-      String numberInhabitantsSum = QueryUtil.sumColumnForId(collectionPremiseQuery.getTableAlias(), id, null, numberInhabitants);
-
-
-      QueryUtil.setSelectabeSQL(valueQuery, "bi_lp", "SUM(" + numberimmatures + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
-      QueryUtil.setSelectabeSQL(valueQuery, "bi_l", "SUM(" + numberlarvae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
-      QueryUtil.setSelectabeSQL(valueQuery, "bi_p", "SUM(" + numberpupae + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
-
-      QueryUtil.setSelectabeSQL(valueQuery, "pi", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExaminedSum + ", 0.0)*100.0");
-      QueryUtil.setSelectabeSQL(valueQuery, "ppha", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberSizeSum + ", 0.0)");
-      QueryUtil.setSelectabeSQL(valueQuery, "pppr", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberExaminedSum + ", 0.0)");
-      
-      // this calculation only valid for premises with data for inhabitants
-      if (QueryUtil.setSelectabeSQL(valueQuery, "pppe", "SUM(" + numberpupaecollected + ")/NULLIF(" + numberInhabitantsSum + ", 0.0)"))
-      {
-        valueQuery.WHERE(collectionPremiseQuery.getNumberInhabitants().NE(""));
+        Selectable sel = valueQuery.getSelectableRef(alias);
+        String sql;
+        if(sel instanceof SUM)
+        {
+          sql = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, alias);
+        }
+        if(sel instanceof AVG)
+        {
+          sql = QueryUtil.avgColumnForId(premiseQuery.getTableAlias(), id, null, alias);
+        }
+        else if(sel instanceof MIN)
+        {
+          sql = QueryUtil.minColumnForId(premiseQuery.getTableAlias(), id, null, alias);
+        }
+        else if(sel instanceof MAX)
+        {
+          sql = QueryUtil.maxColumnForId(premiseQuery.getTableAlias(), id, null, alias);
+        }
+        else
+        {
+          // We have to SUM by default to avoid a cross-product
+          sql = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, alias);
+        }
+        
+        SelectableSQL newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias);
+        override.put(alias, newSel);
       }
     }
-//
-//    if (valueQuery.hasSelectableRef("container_term"))
-//    {
-//      String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
-//      String idCol = QueryUtil.getIdColumn();
-//      String sql = "SELECT " + Term.NAME + " as " + "container_term" + "_displayLabel FROM " + termTable + " tt WHERE tt." + idCol + " = " + collectionContainerQuery.getTableAlias() + "." + RelationshipDAOIF.CHILD_ID_COLUMN;
-//      QueryUtil.setSelectabeSQL(valueQuery, "container_term", sql);
-//    }
-
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
+    
+    // Reset the ValueQuery selectables since it is not possible to reset only one at a time
+    if(override.size() > 0)
+    {
+      List<Selectable> all = valueQuery.getSelectableRefs();
+      List<Selectable> reAdd = new LinkedList<Selectable>();
+      for(Selectable sel : all)
+      {
+        if(override.containsKey(sel.getUserDefinedAlias()))
+        {
+          reAdd.add(override.get(sel.getUserDefinedAlias()));
+        }
+        else
+        {
+          reAdd.add(sel);
+        }
+      }
+      
+      valueQuery.clearSelectClause();
+      valueQuery.SELECT(reAdd.toArray(new Selectable[reAdd.size()]));
+    }
   }
 }

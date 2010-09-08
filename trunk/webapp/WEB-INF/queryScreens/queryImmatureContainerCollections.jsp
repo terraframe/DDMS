@@ -105,8 +105,60 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var premiseTaxonCol = MDSS.QueryBaseNew.mapAttribs.call({obj:pt, suffix:'_col', dropDownMaps:collectionMaps}, "taxon");
     
-    var premiseAttribs = [ "premiseType", "numberExamined", "numberWithLarvae", "numberWithPupae", "numberWithImmatures", "premiseSize", "numberInhabitants"];
+    var premiseAttribs = [ "premiseType"];
     var premiseAttribsColumns =   premiseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:premise, suffix:'_col', dropDownMaps:collectionMaps});
+
+    premiseAttribsColumns = premiseAttribsColumns.concat([
+                                                          {
+                                                            key:'number_examined',
+                                                            type:"sqlfloat",
+                                                            displayLabel:premise.getNumberExaminedMd().getDisplayLabel(),
+                                                            attributeName:'number_examined',
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            isAggregate:true
+                                                          },
+                                                          {
+                                                            key:'number_with_larvae',
+                                                            type:"sqlfloat",
+                                                            displayLabel:premise.getNumberWithLarvaeMd().getDisplayLabel(),
+                                                            attributeName:'number_with_larvae',
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            isAggregate:true
+                                                          },
+                                                          {
+                                                            key:'number_with_pupae',
+                                                            type:"sqlfloat",
+                                                            displayLabel:premise.getNumberWithPupaeMd().getDisplayLabel(),
+                                                            attributeName:'number_with_pupae',
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            isAggregate:true
+                                                          },
+                                                          {
+                                                            key:'number_with_immatures',
+                                                            type:"sqlfloat",
+                                                            displayLabel:premise.getNumberWithImmaturesMd().getDisplayLabel(),
+                                                            attributeName:'number_with_immatures',
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            isAggregate:true
+                                                          },
+                                                          {
+                                                            key:'premise_size',
+                                                            type:"sqlfloat",
+                                                            displayLabel:premise.getPremiseSizeMd().getDisplayLabel(),
+                                                            attributeName:'premise_size',
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            isAggregate:true
+                                                          },
+                                                          {
+                                                            key:'number_inhabitants',
+                                                            type:"sqlfloat",
+                                                            displayLabel:premise.getNumberInhabitantsMd().getDisplayLabel(),
+                                                            attributeName:'number_inhabitants',
+                                                            dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+                                                            isAggregate:true
+                                                          }                               
+                                                         ]);
+
     var premiseTypeCol = premiseAttribsColumns.shift();
     
     collectionColumns = collectionColumns.concat([premiseTypeCol, premiseTaxonCol, colId], premiseAttribsColumns);
