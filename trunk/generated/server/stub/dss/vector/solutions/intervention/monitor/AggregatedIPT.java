@@ -169,7 +169,7 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
 
     if (concrete != null)
     {
-      return concrete.getView();
+      return concrete.lockView();
     }
 
     AggregatedIPTView view = new AggregatedIPTView();
