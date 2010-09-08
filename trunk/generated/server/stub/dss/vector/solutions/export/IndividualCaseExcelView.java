@@ -22,6 +22,7 @@ import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.intervention.monitor.DiagnosisType;
 import dss.vector.solutions.intervention.monitor.IndividualCase;
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
+import dss.vector.solutions.intervention.monitor.IndividualInstanceQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -44,44 +45,56 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     Person person = getPerson();
     
     IndividualCase individualCase = IndividualCase.searchForExistingCase(this.getDiagnosisDate(), person.getId());
-    if (individualCase.isNew())
-    {
-      individualCase.setCaseReportDate(this.getCaseReportDate());
-      individualCase.setDiagnosisDate(this.getDiagnosisDate());
-      individualCase.setAge(this.getAge());
-      individualCase.setProbableSource(this.getProbableSource());
-      individualCase.setOtherSettlements(this.getOtherSettlements());
-      individualCase.setOrigin(Term.validateByDisplayLabel(this.getOrigin(), IndividualCase.getOriginMd()));
-      individualCase.setPlasmaLeakageOnset(this.getPlasmaLeakageOnset());
-      individualCase.setHemorrhagicOnset(this.getHemorrhagicOnset());
-      individualCase.setSymptomOnset(this.getSymptomOnset());
-      
-      GeoEntity res = this.getResidence();
-      if (res!=null)
-      {
-        individualCase.setResidence(res);
-      }
-      else
-      {
-        individualCase.setResidence(person.getResidentialGeoEntity());
-      }
-      
-      GeoEntity work = this.getWorkplace();
-      if (work!=null)
-      {
-        individualCase.setWorkplace(work);
-      }
-      else
-      {
-        individualCase.setWorkplace(person.getWorkGeoEntity());
-      }
-    }
-    else
+    if (!individualCase.isNew())
     {
       individualCase.lock();
     }
     
+    individualCase.setCaseReportDate(this.getCaseReportDate());
+    individualCase.setDiagnosisDate(this.getDiagnosisDate());
+    individualCase.setAge(this.getAge());
+    individualCase.setProbableSource(this.getProbableSource());
+    individualCase.setOtherSettlements(this.getOtherSettlements());
+    individualCase.setOrigin(Term.validateByDisplayLabel(this.getOrigin(), IndividualCase.getOriginMd()));
+    individualCase.setPlasmaLeakageOnset(this.getPlasmaLeakageOnset());
+    individualCase.setHemorrhagicOnset(this.getHemorrhagicOnset());
+    individualCase.setSymptomOnset(this.getSymptomOnset());
+    
+    GeoEntity res = this.getResidence();
+    if (res!=null)
+    {
+      individualCase.setResidence(res);
+    }
+    else
+    {
+      individualCase.setResidence(person.getResidentialGeoEntity());
+    }
+    
+    GeoEntity work = this.getWorkplace();
+    if (work!=null)
+    {
+      individualCase.setWorkplace(work);
+    }
+    else
+    {
+      individualCase.setWorkplace(person.getWorkGeoEntity());
+    }
+    
+    Date visit = this.getFacilityVisit();
     IndividualInstance instance = new IndividualInstance();
+    instance.setFacilityVisit(visit);
+
+    // Search for an existing instance
+    IndividualInstanceQuery query = individualCase.getInstances();
+    query.WHERE(query.getFacilityVisit().EQ(visit));
+    OIterator<? extends IndividualInstance> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      instance = iterator.next();
+      instance.lock();
+    }
+    iterator.close();
+    
     instance.setActivelyDetected(this.getActivelyDetected());
     instance.setCaseIdentifier(this.getCaseIdentifier());
     instance.setPhysician(getPhysician());
@@ -113,7 +126,6 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setDiagnosis(Term.validateByDisplayLabel(this.getDiagnosis(), IndividualInstance.getDiagnosisMd()));
     instance.setConfirmedDiagnosis(Term.validateByDisplayLabel(this.getConfirmedDiagnosis(), IndividualInstance.getConfirmedDiagnosisMd()));
     instance.setConfirmedDiagnosisDate(this.getConfirmedDiagnosisDate());
-    instance.setFacilityVisit(this.getFacilityVisit());
     instance.setPatientCategory(Term.validateByDisplayLabel(this.getPatientCategory(), IndividualInstance.getPatientCategoryMd()));
     instance.setAdmissionDate(this.getAdmissionDate());
     instance.setReleaseDate(this.getReleaseDate());
