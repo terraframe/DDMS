@@ -8,8 +8,11 @@ import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
 
 import dss.vector.solutions.PersonView;
+import dss.vector.solutions.PersonWithDelegatesView;
+import dss.vector.solutions.PersonWithDelegatesViewQuery;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -38,6 +41,14 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     personView.setLastName(this.getLastName());
     personView.setDateOfBirth(this.getDateOfBirth());
     personView.setSex(Term.validateByDisplayLabel(this.getSex(), PersonView.getSexMd()));
+    
+    PersonWithDelegatesViewQuery query = personView.searchForDuplicates();
+    OIterator<? extends PersonWithDelegatesView> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      personView = iterator.next();
+    }
+    iterator.close();
     
     if(residentialEntity != null)
     {

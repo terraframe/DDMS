@@ -301,7 +301,10 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     // method.
     person.apply(false);
 
-    this.setPersonId(person.getId());
+    if (!this.getPersonId().equals(person.getId()))
+    {
+      this.setPersonId(person.getId());
+    }
   }
 
   private ITNRecipient applyITNRecipient(Person person)
