@@ -24,7 +24,10 @@ public class CaseDiagnosisTypeView extends CaseDiagnosisTypeViewBase implements 
   
   public void populateView(CaseDiagnosisType concrete)
   {
-    this.setConcreteId(concrete.getId());
+    if (!this.getConcreteId().equals(concrete.getId()))
+    {
+      this.setConcreteId(concrete.getId());
+    }
     this.setAggregatedCase(concrete.getAggregatedCase());
     this.setTerm(concrete.getTerm());
   }

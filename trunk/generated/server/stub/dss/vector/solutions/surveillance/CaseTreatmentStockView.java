@@ -22,7 +22,10 @@ public class CaseTreatmentStockView extends CaseTreatmentStockViewBase implement
   
   public void populateView(CaseTreatmentStock concrete)
   {
-    this.setConcreteId(concrete.getId());
+    if (!this.getConcreteId().equals(concrete.getId()))
+    {
+      this.setConcreteId(concrete.getId());
+    }
     this.setAggregatedCase(concrete.getAggregatedCase());
     this.setTerm(concrete.getTerm());
     this.setOutOfStock(concrete.getOutOfStock());

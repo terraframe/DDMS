@@ -22,7 +22,10 @@ public class CaseStockReferralView extends CaseStockReferralViewBase implements 
   
   public void populateView(CaseStockReferral concrete)
   {
-    this.setConcreteId(concrete.getId());
+    if (!this.getConcreteId().equals(concrete.getId()))
+    {
+      this.setConcreteId(concrete.getId());
+    }
     this.setAggregatedCase(concrete.getAggregatedCase());
     this.setTerm(concrete.getTerm());
     this.setAmount(concrete.getAmount());

@@ -25,7 +25,10 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
   
   public void populateView(CasePatientType concrete)
   {
-    this.setConcreteId(concrete.getId());
+    if (!this.getConcreteId().equals(concrete.getId()))
+    {
+      this.setConcreteId(concrete.getId());
+    }
     this.setAggregatedCase(concrete.getAggregatedCase());
     this.setTerm(concrete.getTerm());
   }

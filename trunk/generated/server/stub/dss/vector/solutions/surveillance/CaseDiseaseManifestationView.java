@@ -24,7 +24,10 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
 
   public void populateView(CaseDiseaseManifestation concrete)
   {
-    this.setConcreteId(concrete.getId());
+    if (!this.getConcreteId().equals(concrete.getId()))
+    {
+      this.setConcreteId(concrete.getId());
+    }
     this.setAggregatedCase(concrete.getAggregatedCase());
     this.setTerm(concrete.getTerm());
   }

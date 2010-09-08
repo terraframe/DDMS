@@ -22,7 +22,10 @@ public class CaseDiagnosticView extends CaseDiagnosticViewBase implements Reload
 
   public void populateView(CaseDiagnostic concrete)
   {
-    this.setConcreteId(concrete.getId());
+    if (!this.getConcreteId().equals(concrete.getId()))
+    {
+      this.setConcreteId(concrete.getId());
+    }
     this.setAggregatedCase(concrete.getAggregatedCase());
     this.setTerm(concrete.getTerm());
     this.setAmount(concrete.getAmount());
