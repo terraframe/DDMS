@@ -3,7 +3,6 @@ package dss.vector.solutions.export;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -16,6 +15,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.UnknownTermProblem;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.AllPathsQuery;
@@ -37,19 +37,48 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
   @Transaction
   public void apply()
   {
+    GeoEntity entity;
+    String newGeoId = this.getGeoId();
+    boolean update;
+    
     String entityType = getEntityType();
-    if (entityType == null) {
-    	throw new DataNotFoundException("Invalid value: " + this.getGeoType(), MdTypeDAO.getMdTypeDAO(GeoHierarchy.CLASS));
+    if (entityType == null)
+    {
+      throw new DataNotFoundException("Invalid value: " + this.getGeoType(), MdTypeDAO.getMdTypeDAO(GeoHierarchy.CLASS));
     }
-    GeoEntity entity = (GeoEntity) BusinessFacade.newBusiness(entityType);
+    
+    dss.vector.solutions.geo.AllPathsQuery query = new dss.vector.solutions.geo.AllPathsQuery(new QueryFactory());
+    query.WHERE(query.getChildGeoEntity().getGeoId().EQ(newGeoId));
+    query.WHERE(query.getParentGeoEntity().getId().EQ(parentGeoEntityId));
+    OIterator<? extends AllPaths> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      entity = iterator.next().getChildGeoEntity();
+      entity.lock();
+      update = true;
+    }
+    else
+    {
+      entity = (GeoEntity) BusinessFacade.newBusiness(entityType);
+      update = false;
+    }
+    
     entity.setEntityName(this.getEntityName());
     entity.setActivated(this.getActivated() != null && this.getActivated());
-    entity.setGeoId(this.getGeoId());
+    entity.setGeoId(newGeoId);
     entity.setTerm(this.validateGeoSubtypeByDisplayLabel(entity, this.getSubType(), GeoEntity.getTermMd()));
     
     MdAttributeGeometry geometry = GeoHierarchy.getGeometry(entityType);
     entity.setGeoData(this.getGeometryWKT());
-    entity.applyWithParent(parentGeoEntityId, false, null);
+    
+    if (update)
+    {
+      entity.apply();
+    }
+    else
+    {
+      entity.applyWithParent(parentGeoEntityId, false, null);
+    }
   }
 
   private String getEntityType()
