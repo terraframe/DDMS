@@ -157,7 +157,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           {
                            
                            key:"cases",
-                           type:"sqlinteger",
+                           type:"sqlfloat",
                            attributeName:"cases",
                            displayLabel:MDSS.localize("Adjusted_Case_Count"),
                            isAggregate:true
