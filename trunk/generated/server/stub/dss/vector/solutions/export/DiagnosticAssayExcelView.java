@@ -4,7 +4,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
+import dss.vector.solutions.entomology.DiagnosticAssay;
+import dss.vector.solutions.entomology.DiagnosticAssayQuery;
 import dss.vector.solutions.entomology.DiagnosticAssayView;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.ontology.Term;
@@ -22,10 +26,34 @@ public class DiagnosticAssayExcelView extends DiagnosticAssayExcelViewBase imple
   public void apply()
   {
     DiagnosticAssayView assay = new DiagnosticAssayView();
-    assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    assay.setActiveIngredient(Term.validateByDisplayLabel(this.getActiveIngredient(), DiagnosticAssayView.getActiveIngredientMd()));
-    assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(), DiagnosticAssayView.getSpeciesMd()));
-    assay.setLifeStage(Term.validateByDisplayLabel(this.getLifeStage(), DiagnosticAssayView.getLifeStageMd()));
+    
+    MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
+    Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(), DiagnosticAssayView.getActiveIngredientMd());
+    Term specie = Term.validateByDisplayLabel(this.getSpecies(), DiagnosticAssayView.getSpeciesMd());
+    Term stage = Term.validateByDisplayLabel(this.getLifeStage(), DiagnosticAssayView.getLifeStageMd());
+    
+    // Search for an existing record
+    DiagnosticAssayQuery query = new DiagnosticAssayQuery(new QueryFactory());
+    query.WHERE(query.getCollection().EQ(collection));
+    query.WHERE(query.getActiveIngredient().EQ(ingredient));
+    query.WHERE(query.getSpecies().EQ(specie));
+    query.WHERE(query.getLifeStage().EQ(stage));
+    OIterator<? extends DiagnosticAssay> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      DiagnosticAssay next = iterator.next();
+      next.lock();
+      assay.populateView(next);
+    }
+    else
+    {
+      assay.setCollection(collection);
+      assay.setActiveIngredient(ingredient);
+      assay.setSpecies(specie);
+      assay.setLifeStage(stage);
+    }
+    iterator.close();
+    
     assay.setSynergist(this.getSynergist());
     assay.setOutcome(Term.validateByDisplayLabel(this.getOutcome(), DiagnosticAssayView.getOutcomeMd()));
     assay.apply();

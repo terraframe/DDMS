@@ -3,7 +3,12 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+
 import dss.vector.solutions.entomology.MosquitoCollection;
+import dss.vector.solutions.entomology.TimeResponseAssay;
+import dss.vector.solutions.entomology.TimeResponseAssayQuery;
 import dss.vector.solutions.entomology.TimeResponseAssayView;
 import dss.vector.solutions.ontology.Term;
 
@@ -20,11 +25,36 @@ public class TimeResponseAssayExcelView extends TimeResponseAssayExcelViewBase i
   public void apply()
   {
     TimeResponseAssayView assay = new TimeResponseAssayView();
-    assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    assay.setAssay(Term.validateByDisplayLabel(this.getAssay(), TimeResponseAssayView.getAssayMd()));
-    assay.setActiveIngredient(Term.validateByDisplayLabel(this.getActiveIngredient(), TimeResponseAssayView.getActiveIngredientMd()));
-    assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(), TimeResponseAssayView.getSpeciesMd()));
-    assay.setLifeStage(Term.validateByDisplayLabel(this.getLifeStage(), TimeResponseAssayView.getLifeStageMd()));
+    MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
+    Term assayTerm = Term.validateByDisplayLabel(this.getAssay(), TimeResponseAssayView.getAssayMd());
+    Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(), TimeResponseAssayView.getActiveIngredientMd());
+    Term specie = Term.validateByDisplayLabel(this.getSpecies(), TimeResponseAssayView.getSpeciesMd());
+    Term stage = Term.validateByDisplayLabel(this.getLifeStage(), TimeResponseAssayView.getLifeStageMd());
+    
+    // Search for an existing record
+    TimeResponseAssayQuery query = new TimeResponseAssayQuery(new QueryFactory());
+    query.WHERE(query.getCollection().EQ(collection));
+    query.WHERE(query.getAssay().EQ(assayTerm));
+    query.WHERE(query.getActiveIngredient().EQ(ingredient));
+    query.WHERE(query.getSpecies().EQ(specie));
+    query.WHERE(query.getLifeStage().EQ(stage));
+    OIterator<? extends TimeResponseAssay> iterator = query.getIterator();
+    if (iterator.hasNext())
+    {
+      TimeResponseAssay next = iterator.next();
+      next.lock();
+      assay.populateView(next);
+    }
+    else
+    {
+      assay.setCollection(collection);
+      assay.setAssay(assayTerm);
+      assay.setActiveIngredient(ingredient);
+      assay.setSpecies(specie);
+      assay.setLifeStage(stage);
+    }
+    iterator.close();
+    
     assay.setSynergist(this.getSynergist());
     assay.setTestStrainResult(this.getTestStrainResult());
     assay.setReferenceStrainResult(this.getReferenceStrainResult());
