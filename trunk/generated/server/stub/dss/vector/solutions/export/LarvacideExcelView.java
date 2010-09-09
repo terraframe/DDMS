@@ -13,6 +13,7 @@ import com.runwaysdk.query.QueryFactory;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstance;
+import dss.vector.solutions.intervention.monitor.LarvacideInstanceQuery;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
 import dss.vector.solutions.intervention.monitor.LarvacideQuery;
 import dss.vector.solutions.irs.TeamMember;
@@ -48,6 +49,8 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.ru
 
   private Larvacide getLarvacide()
   {
+    Larvacide larvacide = new Larvacide();
+    
     LarvacideQuery larvacideQuery = new LarvacideQuery(new QueryFactory());
     larvacideQuery.WHERE(larvacideQuery.getStartDate().EQ(this.getStartDate()));
     larvacideQuery.WHERE(larvacideQuery.getCompletionDate().EQ(this.getCompletionDate()));
@@ -57,19 +60,35 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.ru
 
     if (larvacideIterator.hasNext())
     {
-      Larvacide match = larvacideIterator.next();
-      larvacideIterator.close();
-      return match;
+      larvacide = larvacideIterator.next();
+    }
+    else
+    {
+      larvacide.setStartDate(this.getStartDate());
+      larvacide.setCompletionDate(this.getCompletionDate());
+      larvacide.setGeoEntity(this.getGeoEntity());
+      larvacide.setNatureOfControl(this.getNatureOfControl());
+    }
+    larvacideIterator.close();
+
+    String description = this.getGeoDescription();
+    if (description.length() > 0)
+    {
+      larvacide.setGeoDescription(description);
     }
 
-    Larvacide larvacide = new Larvacide();
-    larvacide.setStartDate(this.getStartDate());
-    larvacide.setCompletionDate(this.getCompletionDate());
-    larvacide.setGeoEntity(this.getGeoEntity());
-    larvacide.setGeoDescription(this.getGeoDescription());
-    larvacide.setNatureOfControl(this.getNatureOfControl());
-    larvacide.setPersonCount(this.getPersonCount());
-    larvacide.setTeamLeader(TeamMember.getSprayLeaderById(this.getTeamLeaderId()));
+    Integer count = this.getPersonCount();
+    if (count != null)
+    {
+      larvacide.setPersonCount(count);
+    }
+
+    String leaderId = this.getTeamLeaderId();
+    if (leaderId.length() > 0)
+    {
+      larvacide.setTeamLeader(TeamMember.getSprayLeaderById(leaderId));
+    }
+    
     larvacide.apply();
     return larvacide;
   }
