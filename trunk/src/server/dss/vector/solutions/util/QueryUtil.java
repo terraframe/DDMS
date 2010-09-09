@@ -30,6 +30,7 @@ import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.AttributeReference;
@@ -40,9 +41,12 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.Join;
+import com.runwaysdk.query.MAX;
+import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableMoment;
@@ -110,7 +114,7 @@ public class QueryUtil implements Reloadable
 
   public static final String  END_DATE_RANGE               = "end_date_range";
 
-  public static final String DATE_ATTRIBUTE               = "date_attribute";
+  public static final String  DATE_ATTRIBUTE               = "date_attribute";
 
   private static final String DATE_REGEX                   = "\\d\\d\\d\\d-[0-1]\\d-[0-3]\\d";
 
@@ -120,24 +124,111 @@ public class QueryUtil implements Reloadable
 
   public static String sumColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "sum_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+    return "sum_stringified_id_int_pairs(array_agg(DISTINCT "
+        + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||"
+        + ( table != null ? table + "." : "" ) + column + "))";
   }
 
   public static String minColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "min_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+    return "min_stringified_id_int_pairs(array_agg(DISTINCT "
+        + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||"
+        + ( table != null ? table + "." : "" ) + column + "))";
   }
-  
+
   public static String maxColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "max_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+    return "max_stringified_id_int_pairs(array_agg(DISTINCT "
+        + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||"
+        + ( table != null ? table + "." : "" ) + column + "))";
   }
-  
+
   public static String avgColumnForId(String sourceTable, String uniqueId, String table, String column)
   {
-    return "avg_stringified_id_int_pairs(array_agg(DISTINCT "+(sourceTable != null ? sourceTable+".":"")+uniqueId+"|| '~' ||"+(table != null ? table+"." : "")+column+"))";
+    return "avg_stringified_id_int_pairs(array_agg(DISTINCT "
+        + ( sourceTable != null ? sourceTable + "." : "" ) + uniqueId + "|| '~' ||"
+        + ( table != null ? table + "." : "" ) + column + "))";
   }
   
+  /**
+   * Builds a unique DB alias based on the given terms.
+   * 
+   * @param termIds
+   * @return
+   */
+  public static String aliasTerms(Term ... terms)
+  {
+    String aliases = "";
+    
+    for(Term term : terms)
+    {
+      aliases += ""+term.getId().substring(0,16);
+    }
+    
+    return aliases;
+  }
+
+  public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery,
+      GeneratedEntityQuery query)
+  {
+    Map<String, Selectable> override = new HashMap<String, Selectable>();
+
+    for (String alias : aliases)
+    {
+      if (valueQuery.hasSelectableRef(alias))
+      {
+        Selectable sel = valueQuery.getSelectableRef(alias);
+        String sql;
+        if (sel instanceof SUM)
+        {
+          sql = QueryUtil.sumColumnForId(query.getTableAlias(), id, null, alias);
+        }
+        if (sel instanceof AVG)
+        {
+          sql = QueryUtil.avgColumnForId(query.getTableAlias(), id, null, alias);
+        }
+        else if (sel instanceof MIN)
+        {
+          sql = QueryUtil.minColumnForId(query.getTableAlias(), id, null, alias);
+        }
+        else if (sel instanceof MAX)
+        {
+          sql = QueryUtil.maxColumnForId(query.getTableAlias(), id, null, alias);
+        }
+        else
+        {
+          // We have to SUM by default to avoid a cross-product
+          sql = QueryUtil.sumColumnForId(query.getTableAlias(), id, null, alias);
+        }
+
+        SelectableSQL newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias);
+        override.put(alias, newSel);
+      }
+    }
+
+    // Reset the ValueQuery selectables since it is not possible to reset only
+    // one at a time
+    if (override.size() > 0)
+    {
+      List<Selectable> all = valueQuery.getSelectableRefs();
+      List<Selectable> reAdd = new LinkedList<Selectable>();
+      for (Selectable sel : all)
+      {
+        if (override.containsKey(sel.getUserDefinedAlias()))
+        {
+          reAdd.add(override.get(sel.getUserDefinedAlias()));
+        }
+        else
+        {
+          reAdd.add(sel);
+        }
+      }
+
+      valueQuery.clearSelectClause();
+      valueQuery.SELECT(reAdd.toArray(new Selectable[reAdd.size()]));
+    }
+  }
+
   /**
    * Performs basic validation on the ValueQuery to ensure the query is valid.
    * 
@@ -282,7 +373,7 @@ public class QueryUtil implements Reloadable
         + RelationshipDAOIF.PARENT_ID_COLUMN + " = pJoin.id" + " LEFT JOIN " + termTable
         + " tJoin on rJoin." + RelationshipDAOIF.CHILD_ID_COLUMN + " = tJoin.id)";
   }
-  
+
   public static String[] filterSelectedAttributes(ValueQuery valueQuery, String[] attributes)
   {
     ArrayList<String> selectedTerms = new ArrayList<String>();
@@ -303,10 +394,10 @@ public class QueryUtil implements Reloadable
         for (String termAttrib : Arrays.asList(attributes))
         {
           int ind = attributeName.lastIndexOf(DISPLAY_LABEL_SUFFIX);
-          if(ind != -1)
+          if (ind != -1)
           {
             String attr = attributeName.substring(0, ind);
-            if(termAttrib.equals(attr))
+            if (termAttrib.equals(attr))
             {
               selectedTerms.add(termAttrib);
             }
@@ -389,8 +480,8 @@ public class QueryUtil implements Reloadable
       String id = getIdColumn();
 
       String sql = "(" + QueryUtil.getTermSubSelect(klass, termAttributes) + ")";
-//      String subSelect = klass.replace('.', '_') + "TermSubSel";
-      String subSelect = tableAlias+"_TermSubSel";
+      // String subSelect = klass.replace('.', '_') + "TermSubSel";
+      String subSelect = tableAlias + "_TermSubSel";
       String table = MdEntity.getMdEntity(klass).getTableName();
       valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
     }
@@ -555,14 +646,15 @@ public class QueryUtil implements Reloadable
 
     return list.toArray(new String[list.size()]);
   }
-  
-  
+
   public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias)
   {
-    return getSingleAttribteGridSql(valueQuery, tableAlias, RelationshipDAOIF.PARENT_ID_COLUMN, RelationshipDAOIF.CHILD_ID_COLUMN);
+    return getSingleAttribteGridSql(valueQuery, tableAlias, RelationshipDAOIF.PARENT_ID_COLUMN,
+        RelationshipDAOIF.CHILD_ID_COLUMN);
   }
 
-  public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias, String parentColumn, String childColumn)
+  public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias,
+      String parentColumn, String childColumn)
   {
     boolean foundGrid = false;
 
@@ -607,9 +699,8 @@ public class QueryUtil implements Reloadable
             attrCol = getColumnName(mdRel, attrib);
           }
 
-          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE "
-              + parentColumn + " = '" + term_id + "' " + "AND "
-              + childColumn + " = " + tableAlias + ".id";
+          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + parentColumn + " = '"
+              + term_id + "' " + "AND " + childColumn + " = " + tableAlias + ".id";
 
           ( (SelectableSQL) s ).setSQL(sql);
         }
@@ -648,11 +739,14 @@ public class QueryUtil implements Reloadable
           // class/attribute mapping.
           String table;
           String alias;
-          if(attributeQuery instanceof GeneratedRelationshipQuery &&
-              (attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID)))
+          if (attributeQuery instanceof GeneratedRelationshipQuery
+              && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol
+                  .equals(RelationshipInfo.PARENT_ID) ))
           {
-            // We don't have metadata for childId or parentId so we have to manually get the table and alias
-            // IMPORTANT: this does not take inheritance into account (i.e., if child_id or parent_id are
+            // We don't have metadata for childId or parentId so we have to
+            // manually get the table and alias
+            // IMPORTANT: this does not take inheritance into account (i.e., if
+            // child_id or parent_id are
             // defined by an MdRelationship superclass).
             MdRelationshipDAOIF md = (MdRelationshipDAOIF) attributeQuery.getMdClassIF();
             table = md.getTableName();
@@ -729,7 +823,7 @@ public class QueryUtil implements Reloadable
         else
         {
           value = value.trim();
-          
+
           // exact value
           if (sel instanceof SelectableNumber && !value.equals("NULL"))
           {
@@ -891,9 +985,10 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-  
+
   public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory,
-      ValueQuery valueQuery, String xml, JSONObject config, Layer layer, ValueQuery geoProxyVQ, ValueQueryParser valueQueryParser)
+      ValueQuery valueQuery, String xml, JSONObject config, Layer layer, ValueQuery geoProxyVQ,
+      ValueQueryParser valueQueryParser)
   {
     Map<String, GeneratedEntityQuery> queryMap;
 
@@ -1028,8 +1123,9 @@ public class QueryUtil implements Reloadable
       ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
   {
     ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
-    
-    return joinQueryWithGeoEntities(queryFactory, valueQuery, xml, config, layer, valueQuery, valueQueryParser);
+
+    return joinQueryWithGeoEntities(queryFactory, valueQuery, xml, config, layer, valueQuery,
+        valueQueryParser);
   }
 
   private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory,
@@ -1172,7 +1268,7 @@ public class QueryUtil implements Reloadable
           .getChildGeoEntity()));
     }
   }
-  
+
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,
       Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria)
   {
@@ -1210,8 +1306,8 @@ public class QueryUtil implements Reloadable
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         startValue = dateObj.getString("start");
-        
-        if(!ignoreCriteria)
+
+        if (!ignoreCriteria)
         {
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.GE(startValue));
@@ -1221,8 +1317,8 @@ public class QueryUtil implements Reloadable
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
         endValue = dateObj.getString("end");
-        
-        if(!ignoreCriteria)
+
+        if (!ignoreCriteria)
         {
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.LE(endValue));
@@ -1257,7 +1353,7 @@ public class QueryUtil implements Reloadable
     {
       throw new ProgrammingErrorException(e);
     }
-    
+
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,

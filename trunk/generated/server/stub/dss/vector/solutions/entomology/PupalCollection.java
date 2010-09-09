@@ -1,7 +1,6 @@
 package dss.vector.solutions.entomology;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -14,15 +13,11 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
-import com.runwaysdk.query.MAX;
-import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
@@ -253,7 +248,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     
     // The aliases are the same as the column name
     String[] aliases = {numberExamined, numberInhabitants, premiseSize};
-    setCollectionAttribsAsCalculations(aliases, id, valueQuery, premiseQuery);
+    QueryUtil.setAttributesAsAggregated(aliases, id, valueQuery, premiseQuery);
     
     boolean needsJoin = false; 
     boolean needsView = 
@@ -274,9 +269,10 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     String taxonSql = "SELECT pc."+id+" ";
     for (Term taxon : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
     {
-      String moID = taxon.getTermId().replace(":", "");
+//      String moID = taxon.getTermId().replace(":", "");
+      String moID = QueryUtil.aliasTerms(taxon);
       
-      String taxonAmmountCol = moID+"_amt";
+      String taxonAmmountCol = "_"+moID+"_amt";
       
       taxonSql += ",(SELECT "+amount+" FROM "+pupalContainerAmmountTable+" pca WHERE "+child_id+" = '"+taxon.getId()+"'  AND "+parent_id+"  = pc."+id+"  ) AS "+taxonAmmountCol+" ";
            
@@ -298,65 +294,6 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     }
     
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
-  }
-  
-  private static void setCollectionAttribsAsCalculations(String[] aliases, String id, ValueQuery valueQuery, PupalPremiseQuery premiseQuery)
-  {
-    Map<String, Selectable> override = new HashMap<String, Selectable>();
-    
-    for(String alias : aliases)
-    {
-      if(valueQuery.hasSelectableRef(alias))
-      {
-        Selectable sel = valueQuery.getSelectableRef(alias);
-        String sql;
-        if(sel instanceof SUM)
-        {
-          sql = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, alias);
-        }
-        if(sel instanceof AVG)
-        {
-          sql = QueryUtil.avgColumnForId(premiseQuery.getTableAlias(), id, null, alias);
-        }
-        else if(sel instanceof MIN)
-        {
-          sql = QueryUtil.minColumnForId(premiseQuery.getTableAlias(), id, null, alias);
-        }
-        else if(sel instanceof MAX)
-        {
-          sql = QueryUtil.maxColumnForId(premiseQuery.getTableAlias(), id, null, alias);
-        }
-        else
-        {
-          // We have to SUM by default to avoid a cross-product
-          sql = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, alias);
-        }
-        
-        SelectableSQL newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias);
-        override.put(alias, newSel);
-      }
-    }
-    
-    // Reset the ValueQuery selectables since it is not possible to reset only one at a time
-    if(override.size() > 0)
-    {
-      List<Selectable> all = valueQuery.getSelectableRefs();
-      List<Selectable> reAdd = new LinkedList<Selectable>();
-      for(Selectable sel : all)
-      {
-        if(override.containsKey(sel.getUserDefinedAlias()))
-        {
-          reAdd.add(override.get(sel.getUserDefinedAlias()));
-        }
-        else
-        {
-          reAdd.add(sel);
-        }
-      }
-      
-      valueQuery.clearSelectClause();
-      valueQuery.SELECT(reAdd.toArray(new Selectable[reAdd.size()]));
-    }
   }
   
   static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)

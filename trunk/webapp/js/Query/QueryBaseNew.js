@@ -946,7 +946,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
       var labelDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(labelDiv, 'queryItemLabel');
-      labelDiv.innerHTML = MDSS.localize(divName);
+      labelDiv.innerHTML =  MDSS.Localized[divName] || divName
 
       var toggleDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
@@ -957,13 +957,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       visibleDiv.appendChild(toggleDiv);
 
       var visibleUl = document.createElement('ul');
-      visibleUl.id = divName + "Li";
+      visibleUl.id = 'ul_'+Mojo.Util.generateId(16);
       YAHOO.util.Dom.addClass(visibleUl, 'gridList');
       YAHOO.util.Dom.setStyle(visibleUl, 'clear', 'both');
       YAHOO.util.Dom.setStyle(visibleUl, 'display', 'none');
 
       that._toggleVisibility(toggleDiv, visibleUl);
-      that._attachSelectAll(visibleUl,checkClass, divName);
+      that._attachSelectAll(visibleUl,checkClass);
       
       for(var i=0; i<visibleAttributes.length; i++)
       {
@@ -1154,7 +1154,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     /**
      * Attaches an option to select all items in the given list.
      */
-    _attachSelectAll : function(ul,klass, divName)
+    _attachSelectAll : function(ul,klass)
     {
       var check = document.createElement('input');
       YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
@@ -1675,7 +1675,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          
          row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
          row.type = 'sqlinteger';
-         row.attributeName = 'term' + term.MOID.replace(':','');
+         //row.attributeName = 'term' + term.MOID.replace(':','');
+         row.attributeName = 'term'+MDSS.QueryBase.aliasTerm(term.id);
          
         return row;
       },
@@ -1687,7 +1688,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           
           row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
           row.type = 'sqlinteger';
-          row.attributeName = 'term' + term.MOID.replace(':','');
+          //row.attributeName = 'term' + term.MOID.replace(':','');
+          row.attributeName = 'term'+MDSS.QueryBase.aliasTerm(term.id);
           row.dropDownMap = {'0':'0','1':'1'};
          return row;
        }

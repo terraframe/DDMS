@@ -156,7 +156,8 @@ YAHOO.util.Event.onDOMReady(function(){
         
         row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;
         row.type = 'sqlinteger';
-        row.attributeName = this._relAttribute+'__term' + term.MOID.replace(':','');
+//        row.attributeName = this._relAttribute+'__term' + term.MOID.replace(':','');
+        row.attributeName = this._relAttribute+'__term' + MDSS.QueryBase.aliasTerm(term.id);
 
        return row;
      };
@@ -165,7 +166,8 @@ YAHOO.util.Event.onDOMReady(function(){
        
        var row = {};
        row.displayLabel = term.displayLabel;
-       row.attributeName = this.ns+'__'+term.MOID.replace(':','');
+//       row.attributeName = this.ns+'__'+term.MOID.replace(':','');
+       row.attributeName = this.ns+'__'+MDSS.QueryBase.aliasTerm(term.id);
 
        MDSS.Localized[row.attributeName]= term.displayLabel;
 
@@ -175,7 +177,8 @@ YAHOO.util.Event.onDOMReady(function(){
        
        this.grid.options.forEach( function(stage){
 
-      	var attributeName = stage.MOID.replace(':','');
+      	//var attributeName = stage.MOID.replace(':','');
+      	var attributeName = MDSS.QueryBase.aliasTerm(stage.id);
 
         var key = row.attributeName+attributeName;
 

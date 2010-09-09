@@ -127,8 +127,9 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
       for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
       {
 
-        String stageAmmountCol = assay.getTermId().replace(":", "")
-            + lifeStage.getTermId().replace(":", "");
+//        String stageAmmountCol = assay.getTermId().replace(":", "")
+//            + lifeStage.getTermId().replace(":", "");
+        String stageAmmountCol = QueryUtil.aliasTerms(assay, lifeStage);
 
         needsJoin = valueQuery.hasSelectableRef(stageAmmountCol);
 
@@ -141,8 +142,9 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
       for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
       {
 
-        String stageAmmountCol = assay.getTermId().replace(":", "")
-            + lifeStage.getTermId().replace(":", "");
+//        String stageAmmountCol = assay.getTermId().replace(":", "")
+//            + lifeStage.getTermId().replace(":", "");
+        String stageAmmountCol = QueryUtil.aliasTerms(assay, lifeStage);
         String idStr = assay.getId() + lifeStage.getId();
 
         if(valueQuery.hasSelectableRef(stageAmmountCol))

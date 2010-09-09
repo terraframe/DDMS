@@ -1410,6 +1410,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     }
   
     
+  },
+  
+  Static :
+  {
+    aliasTerm : function(termId)
+    {
+      return termId.substring(0,16);
+    }
   }
 });
 

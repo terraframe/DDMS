@@ -167,9 +167,10 @@ YAHOO.util.Event.onDOMReady(function(){
        
        row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
        row.type = 'sqlinteger';
-       row.attributeName = 'term' + term.MOID.replace(':','');
+//       row.attributeName = 'term' + term.MOID.replace(':','');
+       row.attributeName = 'term'+MDSS.QueryBase.aliasTerm(term.id);
 
-       MDSS.Localized[row.attributeName]= term.displayLabel;
+//       MDSS.Localized[row.attributeName]= term.displayLabel;
 
        var containerTypeCalc = "percent_pupae_contribution_by_type_"+row.attributeName;
        var lidCalc = "percent_pupae_contribution_by_lid_"+row.attributeName;
@@ -246,7 +247,7 @@ YAHOO.util.Event.onDOMReady(function(){
                             }
                            ]);
 
-       var group = {title:row.attributeName, values:calculations, group:"c", klass:collection.CLASS};
+       var group = {title:term.displayLabel, values:calculations, group:"c", klass:collection.CLASS};
     	 
       return group;      
     }

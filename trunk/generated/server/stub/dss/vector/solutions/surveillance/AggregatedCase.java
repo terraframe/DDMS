@@ -780,11 +780,13 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
     for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCasePatientTypeMd()))
     {
-      String patientTypeMoID = patientType.getTermId().replace(":", "");
+//      String patientTypeMoID = patientType.getTermId().replace(":", "");
+      String patientTypeMoID = QueryUtil.aliasTerms(patientType);
 
       for (Term patientTypeAmount : Term.getRootChildren(CasePatientTypeView.getPatientCategoryMd()))
       {
-        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+//        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+        String patientTypeAmountMoID = QueryUtil.aliasTerms(patientTypeAmount);
         String ammountCol = AggregatedCaseView.CASEPATIENTTYPE + "__" + patientTypeMoID
             + patientTypeAmountMoID;
 
@@ -831,11 +833,13 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
     for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCaseDiagnosisTypeMd()))
     {
-      String patientTypeMoID = patientType.getTermId().replace(":", "");
+//      String patientTypeMoID = patientType.getTermId().replace(":", "");
+      String patientTypeMoID = QueryUtil.aliasTerms(patientType);
 
       for (Term patientTypeAmount : Term.getRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
       {
-        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+//        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+        String patientTypeAmountMoID = QueryUtil.aliasTerms(patientTypeAmount);
         String ammountCol = AggregatedCaseView.CASEDIAGNOSISTYPE + "__" + patientTypeMoID
             + patientTypeAmountMoID;
 
@@ -884,12 +888,14 @@ public class AggregatedCase extends AggregatedCaseBase implements
     String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
     for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCaseDiseaseManifestationMd()))
     {
-      String patientTypeMoID = patientType.getTermId().replace(":", "");
-
+//      String patientTypeMoID = patientType.getTermId().replace(":", "");
+      String patientTypeMoID = QueryUtil.aliasTerms(patientType);
+      
       for (Term patientTypeAmount : Term.getRootChildren(CaseDiseaseManifestationView
           .getDiseaseCategoryMd()))
       {
-        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+//        String patientTypeAmountMoID = patientTypeAmount.getTermId().replace(":", "");
+        String patientTypeAmountMoID = QueryUtil.aliasTerms(patientTypeAmount);
         String ammountCol = AggregatedCaseView.CASEDISEASEMANIFESTATION + "__" + patientTypeMoID
             + patientTypeAmountMoID;
 
