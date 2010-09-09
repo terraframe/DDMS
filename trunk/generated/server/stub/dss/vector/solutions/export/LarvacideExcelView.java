@@ -61,6 +61,7 @@ public class LarvacideExcelView extends LarvacideExcelViewBase implements com.ru
     if (larvacideIterator.hasNext())
     {
       larvacide = larvacideIterator.next();
+      larvacide.lock();
     }
     else
     {
