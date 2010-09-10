@@ -13,6 +13,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.F;
@@ -531,7 +532,8 @@ public class IndividualCase extends IndividualCaseBase implements
 
     if (physicianQuery != null)
     {
-      valueQuery.WHERE(instanceQuery.getPhysician().EQ(physicianQuery));
+      valueQuery.WHERE(instanceQuery.getPhysician().LEFT_JOIN_EQ(physicianQuery));
+//      valueQuery.WHERE(instanceQuery.getPhysician().EQ(physicianQuery));
     }
 
     valueQuery.WHERE(personQuery.getPatientDelegate().EQ(caseQuery.getPatient()));
@@ -612,7 +614,8 @@ public class IndividualCase extends IndividualCaseBase implements
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100000, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000000, diagnosisAliases);
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
+    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
+        RelationshipDAOIF.PARENT_ID_COLUMN);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
