@@ -159,6 +159,10 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\birt
     File /r birt\*
     
+    !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing MDSS Manager"
+    SetOutPath $INSTDIR\manager
+    File /r manager\*
+    
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Java"
     SetOutPath $INSTDIR\Java
     File /r Java\*
