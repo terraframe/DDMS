@@ -291,7 +291,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var insecticideIntervention = new dss.vector.solutions.intervention.monitor.InsecticideIntervention;
     var insecticideInterventionAttribs = [ "interventionMethod","quantity","unit"];
     var insecticideInterventionColumns =  insecticideInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideIntervention, suffix:'_pi', dropDownMaps:{}});
-
+    
     
     var insecticideBrand = new dss.vector.solutions.irs.InsecticideBrand;
     var insecticideBrandAttribs = [
@@ -309,8 +309,9 @@ YAHOO.util.Event.onDOMReady(function(){
     var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
     var insecticideBrandColumns =   insecticideBrandAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideBrand, suffix:'_ii', dropDownMaps:insecticideBrandMap});
 
-
-    insecticideInterventionColumns = insecticideInterventionColumns.concat(insecticideBrandColumns);
+    // move quantity and unit to the end of the array
+    var endColumns = insecticideInterventionColumns.splice(1,2);
+    insecticideInterventionColumns = insecticideInterventionColumns.concat(insecticideBrandColumns, endColumns);
 
     var calculationsSection = "Calculations_for_premises_visit_outcome";
  
