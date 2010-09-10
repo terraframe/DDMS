@@ -203,12 +203,12 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
       if(xml.indexOf(">frequencyR<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyR");
-        s.setSQL("100.0 * (SUM("+numberrrCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("(SUM("+numberrrCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
       if(xml.indexOf(">frequencyS<") > 0)
       {
         SelectableSQL s = (SelectableSQL) valueQuery.getSelectableRef("frequencyS");
-        s.setSQL("100.0 * (SUM("+numberssCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
+        s.setSQL("(SUM("+numberssCol+" +(0.5*"+numberrsCol+") ) ) / SUM("+numberrrCol+"+"+numberrsCol+"+"+numberssCol+")");
       }
     }
     
