@@ -770,8 +770,12 @@ public class IndividualCase extends IndividualCaseBase implements
     sql += "     ( \n";
     sql += "      SUM(" + diagnosisAliases.get(posCases) + ") / \n";
     sql += "      ( \n";
-    sql += "       SUM(" + diagnosisAliases.get(posCases) + ") + \n";
-    sql += "       SUM(" + diagnosisAliases.get(negCases) + ") \n";
+    sql += "       NULLIF \n";
+    sql += "       ( \n";
+    sql += "        SUM(" + diagnosisAliases.get(posCases) + ") + \n";
+    sql += "        SUM(" + diagnosisAliases.get(negCases) + ") \n";
+    sql += "        ,0.0 \n";
+    sql += "       ) \n";
     sql += "      ) \n";
     sql += "     ) \n";
     sql += "    )  \n";
