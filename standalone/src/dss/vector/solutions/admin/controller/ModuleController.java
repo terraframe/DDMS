@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
-import org.eclipse.swt.widgets.Display;
 
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.io.Backup;
@@ -32,11 +31,8 @@ public class ModuleController implements IModuleController
 
   private List<IControllerListener> listeners;
 
-  private Display                   display;
-
-  public ModuleController(Display display)
+  public ModuleController()
   {
-    this.display = display;
     this.listeners = Collections.synchronizedList(new ArrayList<IControllerListener>());
   }
 
@@ -70,7 +66,7 @@ public class ModuleController implements IModuleController
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
         {
-          monitor.beginTask(Localizer.getMessage("Backup"), IProgressMonitor.UNKNOWN);
+          monitor.beginTask(Localizer.getMessage("BACKUP"), IProgressMonitor.UNKNOWN);
 
           EventOutputStream out = new EventOutputStream(monitor);
           PrintStream print = new PrintStream(out, true);
@@ -287,53 +283,34 @@ public class ModuleController implements IModuleController
   {
     try
     {
+      fireEvent(new ControllerEvent(IControllerEvent.BEFORE_SERVER_CHANGE));
 
-      Runtime.getRuntime().exec(command);
-      // final Process pr = rt.exec(command);
+      Runtime rt = Runtime.getRuntime();
+      final Process pr = rt.exec(command);
 
-      fireEvent(new ControllerEvent(IControllerEvent.SERVER_STATUS_CHANGE));
-      // Thread outputThread = new Thread()
-      // {
-      // public void run()
-      // {
-      // BufferedReader input = new BufferedReader(new
-      // InputStreamReader(pr.getInputStream()));
-      //
-      // String line = null;
-      //
-      // // fireEvent(new ControllerEvent(IControllerEvent.START_COMMAND));
-      //
-      // try
-      // {
-      // while ( ( line = input.readLine() ) != null)
-      // {
-      // // fireOutputEvent(line);
-      // }
-      //
-      // int exitVal = pr.waitFor();
-      //
-      // // fireOutputEvent("Exit code: " + exitVal);
-      // }
-      // catch (IOException e)
-      // {
-      // // fireOutputEvent(e.toString());
-      // }
-      // catch (InterruptedException e)
-      // {
-      // // Do nothing);
-      // }
-      // finally
-      // {
-      // }
-      // }
-      // };
-      // outputThread.start();
+      Thread outputThread = new Thread()
+      {
+        public void run()
+        {
+          try
+          {
+            pr.waitFor();
+          }
+          catch (InterruptedException e)
+          {
+            fireErrorEvent(e.getLocalizedMessage());
+          }
+          finally
+          {            
+            fireEvent(new ControllerEvent(IControllerEvent.AFTER_STATUS_CHANGE));
+          }
+        }
+      };
+      outputThread.start();
     }
     catch (Exception e)
     {
-      e.printStackTrace();
       this.fireErrorEvent(e.getLocalizedMessage());
-      // fireOutputEvent(e.toString());
     }
 
   }

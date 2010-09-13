@@ -10,7 +10,9 @@ public interface IControllerEvent
 
   public static final int    EXECUTE_TASK         = 4;
 
-  public static final int    SERVER_STATUS_CHANGE = 5;
+  public static final int    AFTER_STATUS_CHANGE  = 5;
+
+  public static final int    BEFORE_SERVER_CHANGE = 6;
 
   public static final String KEY                  = "KEY";
 

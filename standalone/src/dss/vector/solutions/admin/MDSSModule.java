@@ -104,7 +104,7 @@ public class MDSSModule implements IModule, IControllerListener
     {
       public void run()
       {
-        IModuleController controller = new ModuleController(display);
+        IModuleController controller = new ModuleController();
         IModule module = new MDSSModule(controller);
         MainWindow window = new MainWindow(module);
         window.run();

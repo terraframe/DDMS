@@ -15,6 +15,7 @@ import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.FileDialog;
 import org.eclipse.swt.widgets.Label;
@@ -78,7 +79,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
 
     Composite timeoutComposite = new Composite(composite, SWT.NONE);
     timeoutComposite.setLayout(new FillLayout());
-    timeoutComposite.setLayoutData(new FormData(200, 20));
+    timeoutComposite.setLayoutData(new FormData(400, 20));
 
     Label label = new Label(timeoutComposite, SWT.LEFT);
     label.setText(Localizer.getMessage(TIMEOUT) + " ");
@@ -175,9 +176,26 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
     restoreButton.setEnabled(!started);
   }
 
+  private void disableButtons()
+  {
+    startButton.setEnabled(false);
+    stopButton.setEnabled(false);
+    backupButton.setEnabled(false);
+    restoreButton.setEnabled(false);
+  }
+
   void setButtons()
   {
-    this.setButtons(controller.isServerUp());
+    Display display = composite.getDisplay();
+
+    display.asyncExec(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        setButtons(controller.isServerUp());
+      }
+    });
   }
 
   @Override
@@ -210,8 +228,13 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
           MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
         }
         break;
-      case IControllerEvent.SERVER_STATUS_CHANGE:
+      case IControllerEvent.AFTER_STATUS_CHANGE:
+//        this.closeMessageDialog();
         this.setButtons();
+        break;
+      case IControllerEvent.BEFORE_SERVER_CHANGE:
+//        this.openMessageDialog();
+        this.disableButtons();
         break;
       case IControllerEvent.ERROR:
         String msg = (String) event.getData(IControllerEvent.MESSAGE);
