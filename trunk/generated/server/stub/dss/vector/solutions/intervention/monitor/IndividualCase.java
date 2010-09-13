@@ -762,7 +762,7 @@ public class IndividualCase extends IndividualCaseBase implements
     }
 
     // adjusted case count
-    String sql = "";
+    String sql = "CASE WHEN SUM(" + diagnosisAliases.get(posCases) + ") + SUM(" + diagnosisAliases.get(negCases) + ") = 0 THEN 1 ELSE ";
     sql += "( \n";
     sql += "    SUM(" + diagnosisAliases.get(posCases) + ") + \n";
     sql += "    ( \n";
@@ -780,6 +780,7 @@ public class IndividualCase extends IndividualCaseBase implements
     sql += "     ) \n";
     sql += "    )  \n";
     sql += "  ) \n";
+    sql += " END";
     return sql;
   }
 }

@@ -4,16 +4,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
-
-import dss.vector.solutions.Person;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.MalariaSeason;
-import dss.vector.solutions.util.QueryUtil;
 
 public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -96,6 +87,7 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
     return view;
   }
 
+  /*
   public static void createTempTable(String tableName, String viewName)
   {
     String sql = "DROP TABLE IF EXISTS " + tableName + ";\n";
@@ -244,5 +236,6 @@ public class ZoneSpray extends ZoneSprayBase implements com.runwaysdk.generation
 
     return select + "\n" + from + "\n" + where;
   }
+  */
 
 }

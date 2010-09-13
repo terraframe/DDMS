@@ -5,18 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.Person;
-import dss.vector.solutions.Property;
-import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.util.QueryUtil;
 
 public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -125,6 +118,7 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
     }
   }
 
+  /*
   public static String getTempTableSQL(String targetView, boolean grouped)
   {
     grouped = false;
@@ -319,4 +313,5 @@ public class OperatorSpray extends OperatorSprayBase implements com.runwaysdk.ge
 
     return select + "\n" + from + "\n" + where;
   }
+  */
 }
