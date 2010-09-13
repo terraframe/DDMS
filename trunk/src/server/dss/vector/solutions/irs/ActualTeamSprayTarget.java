@@ -88,6 +88,12 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   }
   
   @Override
+  public String setSprayTeam(Alias alias)
+  {
+    return set(this.teamSprayTable, this.sprayTeamCol, alias);
+  }
+  
+  @Override
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
     return set("sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+
@@ -107,6 +113,13 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     return set("(SELECT tm."+memberIdCol+" || ' - ' || p."+firstNameCol+" || ' ' || p."+lastNameCol+" FROM "+teamMemberTable+" tm , "+personTable + 
         " AS p WHERE p.id = tm."+personCol+" AND tm.id = "+teamSprayTable+"." + teamLeaderCol + ")", alias);
   }
+  
+//  @Override
+//  public String setTeamPlannedTarget(Alias alias)
+//  {
+//    String sql = "(SELECT SUM("+IRSQuery.WEEKLY_TARGET+") FROM "+IRSQuery.RESOURCE_TARGET_VIEW+" rtv WHERE rtv."+this.q.getTargeter()+" = "+this.teamSprayTable+"."+this.sprayTeamCol+" AND get_epiWeek_from_date("+this.sprayDateCol+", "+this.q.getStartDay()+") = "+IRSQuery.TARGET_WEEK+")";
+//    return set(sql, alias);
+//  }
   
   @Override
   public String setTeamActualTarget(Alias alias)

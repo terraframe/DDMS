@@ -19,6 +19,8 @@ public interface IRSUnionIF extends Reloadable
   String setTargetWeek(Alias alias);
   String setBrand(Alias alias);
   String setGeoEntity(Alias alias);
+  String setSprayOperator(Alias alias);
+  String setSprayTeam(Alias alias);
   String setSprayMethod(Alias alias);
   String setSurfaceType(Alias alias);
   String setAggregationLevel(Alias alias);

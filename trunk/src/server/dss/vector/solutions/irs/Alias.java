@@ -10,6 +10,8 @@ public enum Alias implements Reloadable
   TARGET_WEEK("target_week", IRSUnionIF.FLOAT),
   AGGREGATION_LEVEL("aggregation_level", IRSUnionIF.TEXT),
   GEO_ENTITY("geo_entity", IRSUnionIF.TEXT),
+  SPRAY_OPERATOR("spray_operator", IRSUnionIF.TEXT),
+  SPRAY_TEAM("spray_team", IRSUnionIF.TEXT),
   SPRAY_METHOD("spray_method", IRSUnionIF.TEXT),
   SURFACE_TYPE("surface_type", IRSUnionIF.TEXT),
   BRAND("brand", IRSUnionIF.TEXT),

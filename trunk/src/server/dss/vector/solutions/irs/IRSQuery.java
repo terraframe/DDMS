@@ -106,7 +106,7 @@ public class IRSQuery implements Reloadable
   public static final String    RESOURCE_TARGET_VIEW       = "resourceTargetView";
 
   public static final String    GEO_TARGET_VIEW            = "geoTargetView";
-
+  
   public static final String    SPRAY_VIEW                 = "sprayView";
 
   public static final String    INSECTICIDE_VIEW           = "insecticideView";
@@ -121,7 +121,7 @@ public class IRSQuery implements Reloadable
 
   private String                sprayViewAlias;
 
-  protected String              idCol;
+  private String              idCol;
 
   private String                sprayedUnits;
 
@@ -129,8 +129,15 @@ public class IRSQuery implements Reloadable
 
   private ValueQuery            insecticideVQ;
 
+  private String                targeter;
+  private String                geoEntity;
+  
+  private int startDay;
+  
   public IRSQuery(String config, String xml, Layer layer)
   {
+    startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
+    
     try
     {
       this.queryConfig = new JSONObject(config);
@@ -168,6 +175,23 @@ public class IRSQuery implements Reloadable
     this.sprayedUnits = null;
 
     this.idCol = QueryUtil.getIdColumn();
+    this.targeter = QueryUtil.getColumnName(ResourceTarget.getTargeterMd());
+    this.geoEntity = QueryUtil.getColumnName(ZoneSpray.getGeoEntityMd());
+  }
+  
+  public String getGeoEntity()
+  {
+    return this.geoEntity;
+  }
+  
+  public String getTargeter()
+  {
+    return this.targeter;
+  }
+  
+  int getStartDay()
+  {
+    return startDay;
   }
 
   public String getSprayViewAlias()
@@ -247,7 +271,7 @@ public class IRSQuery implements Reloadable
     }
 
     irsVQ.clearSelectClause();
-    
+
     insecticideVQ = new ValueQuery(irsVQ.getQueryFactory());
     sprayVQ = new ValueQuery(irsVQ.getQueryFactory());
 
@@ -356,7 +380,8 @@ public class IRSQuery implements Reloadable
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_rate_mg", "1000.0 *" + "("
         + unit_application_rate + ")");
     QueryUtil.setSelectabeSQL(irsVQ, "unit_application_ratio", unit_application_ratio);
-    QueryUtil.setSelectabeSQL(irsVQ, "unit_operational_coverage", unit_operational_coverage+" * 100.0");
+    QueryUtil
+        .setSelectabeSQL(irsVQ, "unit_operational_coverage", unit_operational_coverage + " * 100.0");
 
     QueryUtil.setSelectabeSQL(irsVQ, "calculated_rooms_sprayed", "(" + unit_operational_coverage
         + ") * SUM(rooms)");
@@ -422,8 +447,8 @@ public class IRSQuery implements Reloadable
 
   private void addPlannedTargetDateCriteria()
   {
-    int startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
-    
+    int startDay = this.getStartDay();
+
     try
     {
       JSONObject dateObj = queryConfig.getJSONObject(QueryUtil.DATE_ATTRIBUTE);
@@ -431,23 +456,25 @@ public class IRSQuery implements Reloadable
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         String startValue = dateObj.getString("start");
-        
-        Condition or =OR.get(irsVQ.aSQLDate("epi_start_week", this.sprayViewAlias + "." + Alias.TARGET_WEEK).GE(
-            irsVQ.aSQLDate("epi_start_val", "get_epiWeek_from_date('"+startValue+"',"+startDay+")")),
-            irsVQ.aSQLDate("start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(
-                irsVQ.aSQLDate("start_val","'"+startValue+"'")));
-        
+
+        Condition or = OR.get(irsVQ.aSQLDate("epi_start_week",
+            this.sprayViewAlias + "." + Alias.TARGET_WEEK).GE(
+            irsVQ.aSQLDate("epi_start_val", "get_epiWeek_from_date('" + startValue + "'," + startDay
+                + ")")), irsVQ.aSQLDate("start_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).GE(
+            irsVQ.aSQLDate("start_val", "'" + startValue + "'")));
+
         irsVQ.AND(or);
       }
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
       {
         String endValue = dateObj.getString("end");
-        
-        Condition or = OR.get(irsVQ.aSQLDate("epi_end_week", this.sprayViewAlias + "." + Alias.TARGET_WEEK).LE(
-            irsVQ.aSQLDate("epi_end_val", "get_epiWeek_from_date('"+endValue+"',"+startDay+")")),
-            irsVQ.aSQLDate("end_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE).LE(
-                irsVQ.aSQLDate("end_val","'"+endValue+"'")));
-        
+
+        Condition or = OR.get(
+            irsVQ.aSQLDate("epi_end_week", this.sprayViewAlias + "." + Alias.TARGET_WEEK).LE(
+                irsVQ.aSQLDate("epi_end_val", "get_epiWeek_from_date('" + endValue + "'," + startDay
+                    + ")")), irsVQ.aSQLDate("end_date", this.sprayViewAlias + "." + Alias.SPRAY_DATE)
+                .LE(irsVQ.aSQLDate("end_val", "'" + endValue + "'")));
+
         irsVQ.AND(or);
       }
     }
@@ -697,12 +724,54 @@ public class IRSQuery implements Reloadable
 
     return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, TEAM_ACTUAL_TARGET);
   }
+  
+  private String sumAreaPlannedTargetsSubSelect()
+  {
+    String sql = "";
+    sql += "( \n";
+    sql += "  SELECT gtv."+WEEKLY_TARGET+" \n";
+    sql += "  FROM "+GEO_TARGET_VIEW+" gtv \n";
+    sql += "  WHERE "+sprayViewAlias+"."+Alias.SPRAY_DATE+" IS NOT NULL \n";
+    sql += "  AND gtv."+TARGET_WEEK+" = get_epiWeek_from_date("+sprayViewAlias+"."+Alias.SPRAY_DATE+", "+startDay+") \n";
+    sql += "  AND gtv."+geoEntity+" = "+sprayViewAlias+"."+Alias.GEO_ENTITY+" \n";
+    sql += ") \n";
+    
+    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, null, sql);
+  }
+  
+  private String sumOperatorPlannedTargetsSubSelect()
+  {
+    String sql = "";
+    sql += "( \n";
+    sql += "  SELECT rtv."+WEEKLY_TARGET+" \n";
+    sql += "  FROM "+RESOURCE_TARGET_VIEW+" rtv \n";
+    sql += "  WHERE "+sprayViewAlias+"."+Alias.SPRAY_DATE+" IS NOT NULL \n";
+    sql += "  AND rtv."+TARGET_WEEK+" = get_epiWeek_from_date("+sprayViewAlias+"."+Alias.SPRAY_DATE+", "+startDay+") \n";
+    sql += "  AND rtv."+targeter+" = "+sprayViewAlias+"."+Alias.SPRAY_OPERATOR+" \n";
+    sql += ") \n";
+    
+    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, null, sql);
+  }
 
   private String sumOperatorPlannedTargets()
   {
     this.needsOperatorPlanned = true;
 
     return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_PLANNED_TARGET);
+  }
+  
+  private String sumTeamPlannedTargetsSubSelect()
+  {
+    String sql = "";
+    sql += "( \n";
+    sql += "  SELECT rtv."+WEEKLY_TARGET+" \n";
+    sql += "  FROM "+RESOURCE_TARGET_VIEW+" rtv \n";
+    sql += "  WHERE "+sprayViewAlias+"."+Alias.SPRAY_DATE+" IS NOT NULL \n";
+    sql += "  AND rtv."+TARGET_WEEK+" = get_epiWeek_from_date("+sprayViewAlias+"."+Alias.SPRAY_DATE+", "+startDay+") \n";
+    sql += "  AND rtv."+targeter+" = "+sprayViewAlias+"."+Alias.SPRAY_TEAM+" \n";
+    sql += ") \n";
+    
+    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, null, sql);
   }
 
   private String sumTeamPlannedTargets()
@@ -744,8 +813,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_TARGET_DIVERGENCE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_TARGET_DIVERGENCE);
-      String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" + this.sumOperatorPlannedTargets()
-          + ",0))*100.0";
+      String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" + this.sumOperatorPlannedTargetsSubSelect() + ",0))*100.0";
       calc.setSQL(sql);
     }
   }
@@ -756,7 +824,7 @@ public class IRSQuery implements Reloadable
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_TARGET_DIVERGENCE);
 
-      String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" + this.sumTeamPlannedTargets()
+      String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" + this.sumTeamPlannedTargetsSubSelect()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -789,7 +857,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_PLANNED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargets()
+      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargetsSubSelect()
           + ",0))*100.0";
       calc.setSQL(sql);
 
@@ -802,7 +870,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(TEAM_PLANNED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargets()
+      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargetsSubSelect()
           + ",0))*100.0";
       calc.setSQL(sql);
 
@@ -819,11 +887,11 @@ public class IRSQuery implements Reloadable
       if (irsVQ.hasSelectableRef(geoType))
       {
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
-        String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
+        String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargetsSubSelect()
             + ",0))*100.0";
         calc.setSQL(sql);
 
-        this.needsTeamsActual = true;
+        this.needsAreaActual = true;
       }
       else
       {
@@ -862,7 +930,7 @@ public class IRSQuery implements Reloadable
 
       if (irsVQ.hasSelectableRef(geoType))
       {
-        String sql = "SUM(" + sprayViewAlias + "." + Alias.AREA_PLANNED_TARGET + ")";
+        String sql = this.sumAreaPlannedTargets();
 
         calc.setSQL(sql);
         this.needsAreaPlanned = true;
@@ -888,6 +956,8 @@ public class IRSQuery implements Reloadable
     sql += union.setSprayDate(Alias.SPRAY_DATE) + ", \n";
     sql += union.setTargetWeek(Alias.TARGET_WEEK) + ", \n";
     sql += union.setGeoEntity(Alias.GEO_ENTITY) + ", \n";
+    sql += union.setSprayOperator(Alias.SPRAY_OPERATOR) + ", \n";
+    sql += union.setSprayTeam(Alias.SPRAY_TEAM) + ", \n";
     sql += union.setSprayMethod(Alias.SPRAY_METHOD) + ", \n";
     sql += union.setSurfaceType(Alias.SURFACE_TYPE) + ", \n";
     sql += union.setBrand(Alias.BRAND) + ", \n";
@@ -944,7 +1014,7 @@ public class IRSQuery implements Reloadable
     return sql;
   }
 
-  private String generateEpiWeekSeriesView(String sourceTable)
+  private String generateEpiWeekSeriesView(boolean isResource)
   {
     String weeks = "";
     for (Integer i = 0; i < EpiWeek.NUMBER_OF_WEEKS; i++)
@@ -955,12 +1025,41 @@ public class IRSQuery implements Reloadable
     }
     weeks = weeks.substring(0, weeks.length() - 1);
 
-    String select = "SELECT id AS id,\n";
-    select += "i AS target_week,\n";
-    select += "target_array[i] AS weekly_target\n";
+    String select = "SELECT " + idCol + " AS " + idCol + ",\n";
+    select += "i AS " + Alias.TARGET_WEEK + ",\n";
+    if (isResource)
+    {
+      select += this.targeter + " AS " + this.targeter + ", \n";
+    }
+    else
+    {
+      select += this.geoEntity + " AS " + this.geoEntity + ", \n";
+    }
+    
+    select += "target_array[i] AS " + WEEKLY_TARGET + " \n";
 
     String from = "FROM ";
-    from += "(SELECT id, ARRAY[" + weeks + "] AS target_array FROM " + sourceTable + ") AS tar ";
+    from += "(SELECT id, ";
+    if (isResource)
+    {
+      from += this.targeter + ", ";
+    }
+    else
+    {
+      from += this.geoEntity + ", ";
+    }
+
+    String sourceTable;
+    if (isResource)
+    {
+      sourceTable = MdEntityDAO.getMdEntityDAO(ResourceTarget.CLASS).getTableName();
+    }
+    else
+    {
+      sourceTable = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName();
+    }
+
+    from += "ARRAY[" + weeks + "] AS target_array FROM " + sourceTable + ") AS tar ";
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 )
         + ") AS i WHERE target_array[i] IS NOT NULL \n";
 
@@ -969,12 +1068,12 @@ public class IRSQuery implements Reloadable
 
   private String getGeoTargetView()
   {
-    return generateEpiWeekSeriesView(MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName());
+    return generateEpiWeekSeriesView(false);
   }
 
   private String getTargetResourceView()
   {
-    return generateEpiWeekSeriesView(MdEntityDAO.getMdEntityDAO(ResourceTarget.CLASS).getTableName());
+    return generateEpiWeekSeriesView(true);
   }
 
   private String getInsecticideView()

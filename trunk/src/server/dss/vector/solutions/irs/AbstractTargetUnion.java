@@ -138,6 +138,16 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
   {
     return set(ZERO, alias);
   }
+  
+  public String setSprayOperator(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
+  public String setSprayTeam(Alias alias)
+  {
+    return setNULL(alias);
+  }
 
   public String setAggregationLevel(Alias alias)
   {

@@ -81,6 +81,12 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     return set(this.operSprayTable, this.idCol, alias);
   }
   
+  @Override
+  public String setSprayOperator(Alias alias)
+  {
+    return set(this.operSprayTable, this.sprayOperatorCol, alias);
+  }
+  
   public String setAggregationLevel(Alias alias)
   {
     return set("'1'::TEXT", alias);
@@ -113,9 +119,16 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setSprayOperatorDefaultLocale(Alias alias)
   {
-    return set("sprayoperator."+memberIdCol+" || ' - ' || person."+firstNameCol+
+    return set(""+teamMemberTable + "."+memberIdCol+" || ' - ' || person."+firstNameCol+
         " || ' ' || "+personTable+"."+lastNameCol, alias);
   }
+  
+//  @Override
+//  public String setOperatorPlannedTarget(Alias alias)
+//  {
+//    String sql = "(SELECT SUM("+IRSQuery.WEEKLY_TARGET+") FROM "+IRSQuery.RESOURCE_TARGET_VIEW+" rtv WHERE rtv."+this.q.getTargeter()+" = "+this.operSprayTable+"."+this.sprayOperatorCol+" AND get_epiWeek_from_date("+this.sprayDateCol+", "+this.q.getStartDay()+") = "+IRSQuery.TARGET_WEEK+")";
+//    return set(sql, alias);
+//  }
   
   @Override
   public String setOperatorActualTarget(Alias alias)
@@ -304,8 +317,8 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     from += operSprayTable + " AS "+operSprayTable+" LEFT JOIN ";
     from += householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+" \n";
 
-    from += "LEFT JOIN "+teamMemberTable + " AS sprayoperator ON sprayoperator.id = "+operSprayTable+"."+sprayOperatorCol+" \n"; 
-    from += "LEFT JOIN "+personTable + " AS "+personTable+" ON sprayoperator."+personCol+" = "+personTable+".id \n";
+    from += "LEFT JOIN "+teamMemberTable + " AS "+teamMemberTable + " ON "+teamMemberTable + ".id = "+operSprayTable+"."+sprayOperatorCol+" \n"; 
+    from += "LEFT JOIN "+personTable + " AS "+personTable+" ON "+teamMemberTable + "."+personCol+" = "+personTable+".id \n";
     from += "LEFT JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+sprayTeamTable+"."+idCol+" = "+operSprayTable+"."+sprayTeamCol+", \n";
     
     from += abstractSprayTable + " AS "+abstractSprayTable+"\n";

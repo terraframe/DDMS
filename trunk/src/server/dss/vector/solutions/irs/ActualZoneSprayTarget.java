@@ -63,6 +63,8 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   private String supervisorTable;
 
   private String supervisorPersonCol;
+  
+  private String geoEntityCol;
 
   public ActualZoneSprayTarget()
   {
@@ -75,6 +77,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     zoneSprayTable = zoneSprayMd.getTableName();
     diseaseCol = QueryUtil.getColumnName(ZoneSpray.getDiseaseMd());
     supervisorCol = QueryUtil.getColumnName(ZoneSpray.getSupervisorMd());
+    geoEntityCol = QueryUtil.getColumnName(ZoneSpray.getGeoEntityMd());
 
     MdEntityDAOIF teamSprayStatusMd = MdEntityDAO.getMdEntityDAO(TeamSprayStatus.CLASS);
     teamSprayStatusTable = teamSprayStatusMd.getTableName();
@@ -133,6 +136,13 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     return set("(SELECT tm." + memberIdCol + " || ' - ' || p." + firstNameCol + " || ' ' || p."
         + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm."
         + personCol + " AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ")", alias);
+  }
+  
+  @Override
+  public String setAreaPlannedTarget(Alias alias)
+  {
+    String sql = "(SELECT SUM("+IRSQuery.WEEKLY_TARGET+") FROM "+IRSQuery.GEO_TARGET_VIEW+" gtv WHERE gtv."+this.q.getGeoEntity()+" = "+this.abstractSprayTable+"."+this.geoEntityCol+" AND get_epiWeek_from_date("+this.sprayDateCol+", "+this.q.getStartDay()+") = "+IRSQuery.TARGET_WEEK+")";
+    return set(sql, alias);
   }
 
   @Override
