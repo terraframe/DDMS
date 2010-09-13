@@ -27,7 +27,6 @@ import org.eclipse.ui.part.ViewPart;
 import com.runwaysdk.general.Localizer;
 import com.runwaysdk.view.IViewPart;
 
-import dss.vector.solutions.admin.controller.IControllerEvent;
 import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
 
@@ -159,6 +158,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       }
     });
 
+    this.disableButtons();
     this.setButtons();
   }
 
@@ -205,43 +205,40 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
   }
 
   @Override
-  public void handleEvent(IControllerEvent event)
+  public void afterCommand()
   {
-    switch (event.getType())
+    this.setButtons();
+  }
+
+  @Override
+  public void beforeCommand()
+  {
+    this.disableButtons();
+  }
+
+  @Override
+  public void error(String msg)
+  {
+    MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), msg);
+  }
+
+  @Override
+  public void execute(IRunnableWithProgress runnable)
+  {
+    Shell shell = this.getWidget().getShell();
+
+    try
     {
-      case IControllerEvent.EXECUTE_TASK:
-        Shell shell = this.getWidget().getShell();
-
-        try
-        {
-          IRunnableWithProgress runnable = (IRunnableWithProgress) event.getData(IControllerEvent.OBJECT);
-
-          ProgressMonitorDialog dialog = new ProgressMonitorDialog(shell);
-          dialog.run(true, false, runnable);
-        }
-        catch (InvocationTargetException e)
-        {
-          MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getCause().getLocalizedMessage());
-        }
-        catch (InterruptedException e)
-        {
-          MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
-        }
-        break;
-      case IControllerEvent.AFTER_STATUS_CHANGE:
-//        this.closeMessageDialog();
-        this.setButtons();
-        break;
-      case IControllerEvent.BEFORE_SERVER_CHANGE:
-//        this.openMessageDialog();
-        this.disableButtons();
-        break;
-      case IControllerEvent.ERROR:
-        String msg = (String) event.getData(IControllerEvent.MESSAGE);
-        MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), msg);
-        break;
-      default:
-        break;
+      ProgressMonitorDialog dialog = new ProgressMonitorDialog(shell);
+      dialog.run(true, false, runnable);
+    }
+    catch (InvocationTargetException e)
+    {
+      MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getCause().getLocalizedMessage());
+    }
+    catch (InterruptedException e)
+    {
+      MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
     }
   }
 }

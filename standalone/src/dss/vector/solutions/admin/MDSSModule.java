@@ -1,6 +1,9 @@
 package dss.vector.solutions.admin;
 
+import java.util.Locale;
+
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
@@ -18,31 +21,28 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.view.IViewPart;
 import com.runwaysdk.widgets.TabManager;
 
-import dss.vector.solutions.admin.controller.IControllerEvent;
-import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
 import dss.vector.solutions.admin.controller.ModuleController;
 import dss.vector.solutions.admin.view.ControlView;
 
-public class MDSSModule implements IModule, IControllerListener
+public class MDSSModule implements IModule
 {
   private IModuleController controller;
 
   private TabManager        manager;
 
+  private StatusLineManager statusManager;
+
   public MDSSModule(IModuleController controller)
   {
     this.controller = controller;
-    this.controller.addListener(this);
+    this.controller.setModule(this);
+    this.statusManager = new StatusLineManager();
   }
 
   @Override
   public void generateMenu(IMenuManager manager)
   {
-//    MenuManager transactionMenu = manager.getMenu(Localizer.getMessage("FILE_MENU"));
-//    transactionMenu.add(new BackupAction());
-//
-//    manager.addMenu(transactionMenu);
   }
 
   @Override
@@ -79,25 +79,57 @@ public class MDSSModule implements IModule, IControllerListener
   }
 
   @Override
-  public void handleEvent(IControllerEvent e)
+  public StatusLineManager createStatusLineManager()
   {
-    if(e.getType() == IControllerEvent.CLOSE_TAB)
-    {
-      String key = (String) e.getData(IControllerEvent.KEY);
-
-      manager.closeTab(key);
-    }
-    else if(e.getType() == IControllerEvent.OPEN_TAB)
-    {
-      ITabStrategy strategy = (ITabStrategy) e.getData(IControllerEvent.OBJECT);
-
-      manager.openTab(strategy);
-    }
+    return statusManager;
   }
-  
+
+  public void setStatus(final String msg)
+  {
+    final Display display = Display.getDefault();
+
+    display.asyncExec(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        statusManager.setMessage(msg);
+      }
+    });
+  }
+
+  public void clearStatus()
+  {
+    this.setStatus(null);
+  }
+
+  @Override
+  public boolean hasStatusLineManager()
+  {
+    return true;
+  }
+
   @Request
   public static void main(String[] args)
   {
+    Locale locale = Locale.getDefault();
+
+    if (args.length > 0)
+    {
+      String[] localeInfo = args[0].split("_");
+      switch (localeInfo.length)
+      {
+        case 1:
+          locale = new Locale(localeInfo[0]);
+        case 2:
+          locale = new Locale(localeInfo[0], localeInfo[1]);
+        case 3:
+          locale = new Locale(localeInfo[0], localeInfo[1], localeInfo[2]);
+      }
+    }
+
+    Localizer.setInstance(locale);
+
     final Display display = Display.getDefault();
 
     Realm.runWithDefault(SWTObservables.getRealm(display), new Runnable()

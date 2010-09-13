@@ -23,6 +23,8 @@ import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
 import com.runwaysdk.general.Localizer;
 
+import dss.vector.solutions.admin.MDSSModule;
+
 public class ModuleController implements IModuleController
 {
   private static final Integer      DEFAULT_TIMEOUT       = 86400;
@@ -31,9 +33,17 @@ public class ModuleController implements IModuleController
 
   private List<IControllerListener> listeners;
 
+  private MDSSModule                module;
+
   public ModuleController()
   {
     this.listeners = Collections.synchronizedList(new ArrayList<IControllerListener>());
+  }
+  
+  @Override
+  public void setModule(MDSSModule module)
+  {
+    this.module = module;
   }
 
   @Override
@@ -48,11 +58,11 @@ public class ModuleController implements IModuleController
     listeners.remove(listener);
   }
 
-  private void fireEvent(IControllerEvent event)
+  private void fireEvent(IModuleEventStrategy strategy)
   {
     for (IControllerListener listener : listeners)
     {
-      listener.handleEvent(event);
+      strategy.fireEvent(listener);
     }
   }
 
@@ -61,7 +71,7 @@ public class ModuleController implements IModuleController
   {
     if (file != null)
     {
-      IRunnableWithProgress runnable = new IRunnableWithProgress()
+      final IRunnableWithProgress runnable = new IRunnableWithProgress()
       {
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
@@ -78,10 +88,14 @@ public class ModuleController implements IModuleController
         }
       };
 
-      IControllerEvent event = new ControllerEvent(IControllerEvent.EXECUTE_TASK);
-      event.setData(IControllerEvent.OBJECT, runnable);
-
-      fireEvent(event);
+      fireEvent(new IModuleEventStrategy()
+      {
+        @Override
+        public void fireEvent(IControllerListener listener)
+        {
+          listener.execute(runnable);
+        }
+      });
     }
   }
 
@@ -90,7 +104,7 @@ public class ModuleController implements IModuleController
   {
     if (file != null)
     {
-      IRunnableWithProgress runnable = new IRunnableWithProgress()
+      final IRunnableWithProgress runnable = new IRunnableWithProgress()
       {
         @Override
         public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
@@ -107,10 +121,14 @@ public class ModuleController implements IModuleController
         }
       };
 
-      IControllerEvent event = new ControllerEvent(IControllerEvent.EXECUTE_TASK);
-      event.setData(IControllerEvent.OBJECT, runnable);
-
-      fireEvent(event);
+      fireEvent(new IModuleEventStrategy()
+      {
+        @Override
+        public void fireEvent(IControllerListener listener)
+        {
+          listener.execute(runnable);
+        }
+      });
     }
   }
 
@@ -127,11 +145,16 @@ public class ModuleController implements IModuleController
     }
   }
 
-  private void fireErrorEvent(String msg)
+  private void fireErrorEvent(final String msg)
   {
-    IControllerEvent event = new ControllerEvent(IControllerEvent.ERROR);
-    event.setData(IControllerEvent.MESSAGE, msg);
-    fireEvent(event);
+    fireEvent(new IModuleEventStrategy()
+    {
+      @Override
+      public void fireEvent(IControllerListener listener)
+      {
+        listener.error(msg);
+      }
+    });
   }
 
   @Override
@@ -279,11 +302,20 @@ public class ModuleController implements IModuleController
     return success;
   }
 
-  private void runCommand(String command)
+  private void runCommand(final String command)
   {
     try
     {
-      fireEvent(new ControllerEvent(IControllerEvent.BEFORE_SERVER_CHANGE));
+      fireEvent(new IModuleEventStrategy()
+      {
+        @Override
+        public void fireEvent(IControllerListener listener)
+        {
+          listener.beforeCommand();
+        }
+      });
+      
+      module.setStatus(Localizer.getMessage("RUNNING_COMMAND") + " " + command);
 
       Runtime rt = Runtime.getRuntime();
       final Process pr = rt.exec(command);
@@ -294,15 +326,39 @@ public class ModuleController implements IModuleController
         {
           try
           {
-            pr.waitFor();
+            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+
+            String line = null;
+
+            while ( ( line = input.readLine() ) != null)
+            {
+              System.out.println(line);
+            }
+
+            int exitVal = pr.waitFor();
+
+            System.out.println("Exit code: " + exitVal);
           }
           catch (InterruptedException e)
           {
             fireErrorEvent(e.getLocalizedMessage());
           }
+          catch (IOException e)
+          {
+            fireErrorEvent(e.getLocalizedMessage());
+          }
           finally
-          {            
-            fireEvent(new ControllerEvent(IControllerEvent.AFTER_STATUS_CHANGE));
+          {
+            module.clearStatus();
+
+            fireEvent(new IModuleEventStrategy()
+            {
+              @Override
+              public void fireEvent(IControllerListener listener)
+              {
+                listener.afterCommand();
+              }
+            });
           }
         }
       };
