@@ -131,7 +131,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       @Override
       public void handleEvent(Event arg0)
       {
-        FileDialog dialog = new FileDialog(composite.getShell());
+        FileDialog dialog = new FileDialog(composite.getShell(), SWT.SAVE);
         String file = dialog.open();
 
         if (file != null && file.length() > 0)
