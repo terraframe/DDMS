@@ -56,6 +56,8 @@ public class MenuGenerator implements Reloadable
 
   private static final String SYSTEMURL_URL   = "systemurl_url";
 
+  private static final String SYSTEMURL_ID    = "systemurl_id";
+
   private static final String MENUITEM_ID     = "menuitem_id";
 
   private Disease             disease         = null;
@@ -225,12 +227,13 @@ public class MenuGenerator implements Reloadable
     ValueQuery query = new ValueQuery(factory);
     SelectableSQLCharacter menuitemId = query.aSQLCharacter(MENUITEM_ID, "menuitem." + menuItemIdCol);
     SelectableSQLCharacter menuitemUrl = query.aSQLCharacter(SYSTEMURL_URL, "url." + systemUrlUrlCol);
+    SelectableSQLCharacter menuitemUrlId = query.aSQLCharacter(SYSTEMURL_ID, "url." + systemUrlIdCol);
     SelectableSQLCharacter ancestorId = query.aSQLCharacter(ANCESTOR_ID, "ancestor." + termIdCol);
     SelectableSQLCharacter ancestorTermId = query.aSQLCharacter(ANCESTOR_TERMID, "ancestor." + termTermIdCol);
     SelectableSQLCharacter ancestorLabel = query.aSQLCharacter(ANCESTOR_LABEL, labelCoalesce.getSQL());
     SelectableSQLCharacter ancestorParent = query.aSQLCharacter(ANCESTOR_PARENT, "tr." + termRelationshipParentIdCol);
 
-    query.SELECT(new Selectable[] { menuitemId, menuitemUrl, ancestorId, ancestorTermId, ancestorLabel, ancestorParent });
+    query.SELECT(new Selectable[] { menuitemId, menuitemUrl, menuitemUrlId, ancestorId, ancestorTermId, ancestorLabel, ancestorParent });
     String from = allPathsTable + " ap" + "\n" + "join " + menuItemTable + " mi on ap." + allPathsChildTermCol + " = mi." + menuItemTermCol + "\n" + "join " + termTable + " ancestor on ap." + allPathsParentTermCol + " = ancestor." + termIdCol + "\n" + "join " + termTable + " menuitem on ap." + allPathsChildTermCol + " = menuitem." + termIdCol + "\n" + "join " + termRelationshipTable + " tr on tr." + termRelationshipChildIdCol + " = ancestor." + termIdCol + "\n" + "join " + systemUrlTable
         + " url on mi." + menuItemUrlCol + " = url." + systemUrlIdCol + "\n" + "join " + termTermDisplayLabelTable + " " + termTermDisplayLabelAlias + " on " + termTermDisplayLabelAlias + "." + termTermDisplayLabelIdCol + " = ancestor." + termTermDisplayLabelCol + "\n" + "where ap."
         + allPathsChildTermCol
@@ -302,6 +305,8 @@ public class MenuGenerator implements Reloadable
         String ancestorParent = valueObject.getValue(ANCESTOR_PARENT);
         String menuitemId = valueObject.getValue(MENUITEM_ID);
         String systemUrlUrl = valueObject.getValue(SYSTEMURL_URL);
+        String systemUrlId = valueObject.getValue(SYSTEMURL_ID);
+
         if (!guiMenuItems.containsKey(ancestorId))
         {
           String url = null;
@@ -309,7 +314,8 @@ public class MenuGenerator implements Reloadable
           {
             url = systemUrlUrl;
           }
-          GuiMenuItem guiMenuItem = new GuiMenuItem(ancestorTermId, ancestorLabel, url);
+
+          GuiMenuItem guiMenuItem = new GuiMenuItem(ancestorTermId, ancestorLabel, url, !this.hasAccess(systemUrlId));
           guiMenuItems.put(ancestorId, guiMenuItem);
         }
         children.put(ancestorId, ancestorParent);
@@ -354,7 +360,7 @@ public class MenuGenerator implements Reloadable
         MenuItem menuItem = it.next();
         if (menuItem.getTerm().isLeaf())
         {
-          GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem, !this.hasAccess(menuItem));
+          GuiMenuItem guiMenuItem = new GuiMenuItem(menuItem, !this.hasAccess(menuItem.getUrl().getId()));
           this.processMenuItem(menuItem.getTerm(), guiMenuItem);
         }
       }
@@ -426,7 +432,6 @@ public class MenuGenerator implements Reloadable
   {
     int n = 6000000;
     GuiMenuItem diseaseSubMenu = new GuiMenuItem("ZZZZ:" + ( n++ ), MdBusinessDAO.getMdBusinessDAO(Disease.CLASS).getDisplayLabel(Session.getCurrentLocale()), null);
-
     for (Disease disease : Disease.getAllDiseases())
     {
       String label = disease.getDisplayLabel();
@@ -436,25 +441,12 @@ public class MenuGenerator implements Reloadable
       }
       else
       {
-        Term menuRoot = disease.getMenuRoot();
-
-        if (menuRoot != null)
+        if (disease.getMenuRoot() != null && disease.getMenuRoot().getInactiveByDisease() != null && !disease.getMenuRoot().getInactiveByDisease().getInactive())
         {
-          InactiveProperty property = menuRoot.getInactiveByDisease();
-          
-          if (property != null)
-          {
-            boolean active = !property.getInactive();
-            
-            if(active)
-            {
-              diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:" + ( n++ ), label, "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease.getKey()));
-            }
-          }
+          diseaseSubMenu.addChild(new GuiMenuItem("ZZZZ:" + ( n++ ), label, "dss.vector.solutions.PersonController.changeDisease.mojo?diseaseName=" + disease.getKey()));
         }
       }
     }
-
     this.menu.addChild(diseaseSubMenu);
   }
 
@@ -588,13 +580,14 @@ public class MenuGenerator implements Reloadable
     }
   }
 
-  private boolean hasAccess(MenuItem menuItem)
+  private boolean hasAccess(String systemUrlId)
   {
     if (this.session == null)
     {
       return false;
     }
     Map<String, String> roles = this.session.getUserRoles();
+
     if (roles == null)
     {
       return false;
@@ -608,7 +601,9 @@ public class MenuGenerator implements Reloadable
     }
 
     // Get the read role of the current diesease
-    RoleDAO readRole = menuItem.getUrl().getReadRoleDAO();
+    SystemURL url = SystemURL.get(systemUrlId);
+    RoleDAO readRole = url.getReadRoleDAO();
+
     if (readRole == null)
     {
       return false;
