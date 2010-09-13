@@ -31,6 +31,7 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.EpiWeek;
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
@@ -134,8 +135,12 @@ public class IRSQuery implements Reloadable
   
   private int startDay;
   
+  private boolean hasGeoSelection;
+  
   public IRSQuery(String config, String xml, Layer layer)
   {
+    hasGeoSelection = false;
+    
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
     
     try
@@ -303,6 +308,46 @@ public class IRSQuery implements Reloadable
       }
     }
   }
+  
+  /**
+   * Detects if this query contains any geo entity restrictions or universal columns.
+   * 
+   * @param queryMap
+   */
+  private void checkForGeoSelection(Map<String, GeneratedEntityQuery> queryMap)
+  {
+    // look for columns
+    try
+    {
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+      Iterator<?> keys = selectedUniMap.keys();
+      while (keys.hasNext())
+      {
+        String attributeKey = (String) keys.next();
+
+        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
+        if(universals.length() > 0)
+        {
+          hasGeoSelection = true;
+          return;
+        }
+      }
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    // look for restrictions
+    for(GeneratedEntityQuery query : queryMap.values())
+    {
+      if(query instanceof AllPathsQuery)
+      {
+        hasGeoSelection = true;
+        return;
+      }
+    }
+  }
 
   /**
    * Populates the ValueQuery with the necessary selects, joins, and criteria to
@@ -323,6 +368,8 @@ public class IRSQuery implements Reloadable
     Map<String, GeneratedEntityQuery> queryMap3 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
         sprayVQ, xml, queryConfig, layer);
 
+    checkForGeoSelection(queryMap1);
+    
     this.sprayViewAlias = queryMap1.get(AbstractSpray.CLASS).getTableAlias();
     this.insecticideQuery = (InsecticideBrandQuery) queryMap2.get(InsecticideBrand.CLASS);
     this.abstractSprayQuery = (AbstractSprayQuery) queryMap3.get(AbstractSpray.CLASS);
@@ -793,7 +840,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_PLANNED_TARGET))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_PLANNED_TARGET);
-      String sql = this.sumOperatorPlannedTargets();
+      String sql = hasGeoSelection ? this.sumOperatorPlannedTargetsSubSelect() : this.sumOperatorPlannedTargets();
       calc.setSQL(sql);
     }
   }
@@ -803,7 +850,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(TEAM_PLANNED_TARGET))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_PLANNED_TARGET);
-      String sql = this.sumTeamPlannedTargets();
+      String sql = hasGeoSelection ? this.sumTeamPlannedTargetsSubSelect() : this.sumTeamPlannedTargets();
       calc.setSQL(sql);
     }
   }
@@ -930,10 +977,11 @@ public class IRSQuery implements Reloadable
 
       if (irsVQ.hasSelectableRef(geoType))
       {
-        String sql = this.sumAreaPlannedTargets();
-
+//        String sql = this.sumAreaPlannedTargets();
+        String sql = hasGeoSelection ? this.sumAreaPlannedTargetsSubSelect() : this.sumAreaPlannedTargets();
         calc.setSQL(sql);
         this.needsAreaPlanned = true;
+        this.needsAreaActual = true; // include actual as well because it cannot be included as standalone
       }
       else
       {
