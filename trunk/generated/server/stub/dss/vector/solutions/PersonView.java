@@ -506,12 +506,12 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     
     if (firstName.length() > 0)
     {
-      query.WHERE(query.getFirstName().EQ(firstName));
+      query.WHERE(query.getFirstName().EQi(firstName));
     }
 
     if (lastName.length() > 0)
     {
-      query.WHERE(query.getLastName().EQ(lastName));
+      query.WHERE(query.getLastName().EQi(lastName));
     }
 
     if (dob != null)
