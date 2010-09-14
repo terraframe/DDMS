@@ -347,6 +347,7 @@ public class ModuleController implements IModuleController
           }
         }
       };
+      outputThread.setDaemon(true);
       outputThread.start();
     }
     catch (Exception e)
@@ -356,26 +357,50 @@ public class ModuleController implements IModuleController
 
   }
 
-  public boolean isServerUp()
+  public void pollServerStatus()
   {
-    try
-    {
-      String url = DeployProperties.getApplicationURL() + "/status.jsp";
-      URL server = new URL(url);
-      HttpURLConnection connection = (HttpURLConnection) server.openConnection();
-      connection.connect();
+    Thread thread = new Thread(new Runnable()
+    {      
+      @Override
+      public void run()
+      {
+        try
+        {
+          String url = DeployProperties.getApplicationURL() + "/status.jsp";
+          URL server = new URL(url);
+          HttpURLConnection connection = (HttpURLConnection) server.openConnection();
+          connection.connect();
 
-      BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-      in.readLine();
-      in.close();
+          BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+          in.readLine();
+          in.close();
 
-      connection.disconnect();
-    }
-    catch (Exception e)
-    {
-      return false;
-    }
-
-    return true;
+          connection.disconnect();
+          
+          fireEvent(new IModuleEventStrategy()
+          {          
+            @Override
+            public void fireEvent(IControllerListener listener)
+            {
+              listener.serverUp();
+            }
+          });
+        }
+        catch (Exception e)
+        {
+          fireEvent(new IModuleEventStrategy()
+          {          
+            @Override
+            public void fireEvent(IControllerListener listener)
+            {
+              listener.serverDown();
+            }
+          });
+        }
+      }
+    });
+    
+    thread.setDaemon(true);
+    thread.start();
   }
 }

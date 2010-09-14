@@ -12,4 +12,8 @@ public interface IControllerListener
   public void beforeCommand();
 
   public void afterCommand();
+
+  public void serverUp();
+
+  public void serverDown();
 }

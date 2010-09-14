@@ -22,7 +22,7 @@ public interface IModuleController
 
   public void restore(File file);
   
-  public boolean isServerUp();
+  public void pollServerStatus();
 
   public void setModule(MDSSModule module);
 }
