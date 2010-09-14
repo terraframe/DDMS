@@ -9,11 +9,7 @@ public interface IControllerListener
 
   public void error(String msg);
 
-  public void beforeCommand();
+  public void beforeServerStateChange();
 
-  public void afterCommand();
-
-  public void serverUp();
-
-  public void serverDown();
+  public void serverStateChange(boolean state);
 }

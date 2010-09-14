@@ -311,7 +311,7 @@ public class ModuleController implements IModuleController
         @Override
         public void fireEvent(IControllerListener listener)
         {
-          listener.beforeCommand();
+          listener.beforeServerStateChange();
         }
       });
       
@@ -335,15 +335,7 @@ public class ModuleController implements IModuleController
           finally
           {
             module.clearStatus();
-
-            fireEvent(new IModuleEventStrategy()
-            {
-              @Override
-              public void fireEvent(IControllerListener listener)
-              {
-                listener.afterCommand();
-              }
-            });
+            pollServerState();
           }
         }
       };
@@ -357,7 +349,7 @@ public class ModuleController implements IModuleController
 
   }
 
-  public void pollServerStatus()
+  public void pollServerState()
   {
     Thread thread = new Thread(new Runnable()
     {      
@@ -382,7 +374,7 @@ public class ModuleController implements IModuleController
             @Override
             public void fireEvent(IControllerListener listener)
             {
-              listener.serverUp();
+              listener.serverStateChange(true);
             }
           });
         }
@@ -393,7 +385,7 @@ public class ModuleController implements IModuleController
             @Override
             public void fireEvent(IControllerListener listener)
             {
-              listener.serverDown();
+              listener.serverStateChange(false);
             }
           });
         }
