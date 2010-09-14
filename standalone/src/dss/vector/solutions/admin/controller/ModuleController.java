@@ -326,24 +326,9 @@ public class ModuleController implements IModuleController
         {
           try
           {
-            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
-
-            String line = null;
-
-            while ( ( line = input.readLine() ) != null)
-            {
-              System.out.println(line);
-            }
-
-            int exitVal = pr.waitFor();
-
-            System.out.println("Exit code: " + exitVal);
+            pr.waitFor();
           }
           catch (InterruptedException e)
-          {
-            fireErrorEvent(e.getLocalizedMessage());
-          }
-          catch (IOException e)
           {
             fireErrorEvent(e.getLocalizedMessage());
           }
