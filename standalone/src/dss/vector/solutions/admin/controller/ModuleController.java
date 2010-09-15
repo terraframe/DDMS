@@ -334,7 +334,6 @@ public class ModuleController implements IModuleController
           }
           finally
           {
-            module.clearStatus();
             pollServerState();
           }
         }
@@ -376,7 +375,7 @@ public class ModuleController implements IModuleController
             {
               listener.serverStateChange(true);
             }
-          });
+          });          
         }
         catch (Exception e)
         {
@@ -388,6 +387,10 @@ public class ModuleController implements IModuleController
               listener.serverStateChange(false);
             }
           });
+        }
+        finally
+        {
+          module.clearStatus();
         }
       }
     });
