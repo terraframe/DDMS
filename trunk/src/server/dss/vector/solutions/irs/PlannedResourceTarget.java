@@ -22,6 +22,12 @@ public abstract class PlannedResourceTarget extends PlannedTargetUnion implement
   }
   
   @Override
+  public final String setSprayDate(Alias alias)
+  {
+    return set(IRSQuery.RESOURCE_TARGET_VIEW, IRSQuery.PLANNED_DATE, alias);
+  }
+  
+  @Override
   public String setSpraySeason(Alias alias)
   {
     return set(resourceTargetTable, spraySeason, alias);

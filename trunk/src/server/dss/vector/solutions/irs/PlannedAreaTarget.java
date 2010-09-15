@@ -10,6 +10,12 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   {
     return set(IRSQuery.GEO_TARGET_VIEW, idCol, alias);
   }
+  
+  @Override
+  public final String setSprayDate(Alias alias)
+  {
+    return set(IRSQuery.GEO_TARGET_VIEW, IRSQuery.PLANNED_DATE, alias);
+  }
 
   @Override
   public String setDisease(Alias alias)

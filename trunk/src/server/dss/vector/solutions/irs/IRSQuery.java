@@ -31,6 +31,7 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.EpiWeek;
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -106,6 +107,10 @@ public class IRSQuery implements Reloadable
 
   public static final String    RESOURCE_TARGET_VIEW       = "resourceTargetView";
 
+  public static final String    DATE_EXTRAPOLATION       = "dateExtrapolation";
+  
+  public static final String    PLANNED_DATE = "planned_date";
+
   public static final String    GEO_TARGET_VIEW            = "geoTargetView";
   
   public static final String    SPRAY_VIEW                 = "sprayView";
@@ -132,6 +137,9 @@ public class IRSQuery implements Reloadable
 
   private String                targeter;
   private String                geoEntity;
+  
+  
+  private String periodCol;
   
   private int startDay;
   
@@ -182,6 +190,8 @@ public class IRSQuery implements Reloadable
     this.idCol = QueryUtil.getIdColumn();
     this.targeter = QueryUtil.getColumnName(ResourceTarget.getTargeterMd());
     this.geoEntity = QueryUtil.getColumnName(ZoneSpray.getGeoEntityMd());
+    
+    this.periodCol = QueryUtil.getColumnName(EpiWeek.getPeriodMd());
   }
   
   public String getGeoEntity()
@@ -454,34 +464,32 @@ public class IRSQuery implements Reloadable
     joinMainQueryTables();
 
     /* POST PROCESSING */
-    if (this.hasPlannedTargets)
+    if (false && this.hasPlannedTargets)
     {
-      // Supplement the original date grouping to account for the planning
-      // target union rows,
-      // which don't have a date but an epi-week.
-      if (irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK))
-      {
-        SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
-        String original = sel.getSQL();
-
-        String caseStmt = "CASE WHEN " + sprayViewAlias + "." + Alias.SPRAY_DATE + " IS NOT NULL THEN "
-            + original + " ELSE " + sprayViewAlias + "." + Alias.TARGET_WEEK + " END";
-        sel.setSQL(caseStmt);
-      }
-
       // Set the other date groupings to null for the planning rows
-      String[] groups = new String[] { QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_MONTH,
+      String[] groups = new String[] {QueryUtil.DATEGROUP_EPIWEEK, QueryUtil.DATEGROUP_EPIYEAR, QueryUtil.DATEGROUP_MONTH,
           QueryUtil.DATEGROUP_QUARTER, QueryUtil.DATEGROUP_SEASON };
 
       for (String group : groups)
       {
         if (irsVQ.hasSelectableRef(group))
         {
-          SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(group);
+          SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(group);          
           String original = sel.getSQL();
 
+          String sql;
+          if(group.equals(QueryUtil.DATEGROUP_EPIWEEK))
+          {
+            sql = sprayViewAlias + "." + Alias.TARGET_WEEK;
+          }
+          else
+          {
+            sql = "NULL";
+          }
+          
+          
           String caseStmt = "CASE WHEN " + sprayViewAlias + "." + Alias.SPRAY_DATE
-              + " IS NOT NULL THEN " + original + " ELSE NULL END";
+              + " IS NOT NULL THEN " + original + " ELSE "+ sql +" END";
           sel.setSQL(caseStmt);
         }
       }
@@ -698,10 +706,14 @@ public class IRSQuery implements Reloadable
     String resourceTargetViewQuery = this.getTargetResourceView();
     String geoTargetViewQuery = this.getGeoTargetView();
     String insecticideBrandQuery = this.getInsecticideView();
+    String dateExtrapolationQuery = this.getDateExtrapolationView();
 
-    String sql = "WITH ";
+    String sql = "WITH";
 
-    sql += " " + RESOURCE_TARGET_VIEW + " AS \n";
+    sql += " " + DATE_EXTRAPOLATION + " AS \n";
+    sql += "(" + dateExtrapolationQuery + ")\n";
+    
+    sql += ", " + RESOURCE_TARGET_VIEW + " AS \n";
     sql += "(" + resourceTargetViewQuery + ")\n";
 
     sql += ", " + GEO_TARGET_VIEW + " AS \n";
@@ -756,6 +768,19 @@ public class IRSQuery implements Reloadable
     sql += "(" + createUnion(unions.toArray(new IRSUnionIF[unions.size()])) + ")\n";
 
     irsVQ.setSqlPrefix(sql);
+  }
+
+  private String getDateExtrapolationView()
+  {
+    String yearCol = QueryUtil.getColumnName(EpiWeek.getYearOfWeekMd());
+
+    String sql = "";
+     sql += "SELECT \n";
+     sql += " "+periodCol+" AS "+periodCol+", \n";
+     sql += " (get_epistart("+yearCol+", "+startDay+") + (to_char(("+periodCol+"-1)*7, '999')||' days')::interval)::date AS "+PLANNED_DATE+" \n";
+     sql += "FROM epi_week ";
+     
+     return sql;
   }
 
   private String sumOperatorActualTargets()
@@ -860,7 +885,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_TARGET_DIVERGENCE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_TARGET_DIVERGENCE);
-      String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" + this.sumOperatorPlannedTargetsSubSelect() + ",0))*100.0";
+      String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" + (hasGeoSelection ? this.sumOperatorPlannedTargetsSubSelect() : this.sumOperatorPlannedTargets()) + ",0))*100.0";
       calc.setSQL(sql);
     }
   }
@@ -871,7 +896,7 @@ public class IRSQuery implements Reloadable
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_TARGET_DIVERGENCE);
 
-      String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" + this.sumTeamPlannedTargetsSubSelect()
+      String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" + (hasGeoSelection ? this.sumTeamPlannedTargetsSubSelect() : this.sumTeamPlannedTargets())
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -904,7 +929,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_PLANNED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargetsSubSelect()
+      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + (hasGeoSelection ? this.sumOperatorPlannedTargetsSubSelect() : this.sumOperatorPlannedTargets())
           + ",0))*100.0";
       calc.setSQL(sql);
 
@@ -917,7 +942,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(TEAM_PLANNED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargetsSubSelect()
+      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + (hasGeoSelection ? this.sumTeamPlannedTargetsSubSelect() : this.sumTeamPlannedTargets())
           + ",0))*100.0";
       calc.setSQL(sql);
 
@@ -934,7 +959,7 @@ public class IRSQuery implements Reloadable
       if (irsVQ.hasSelectableRef(geoType))
       {
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
-        String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargetsSubSelect()
+        String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" +  (hasGeoSelection ? this.sumAreaPlannedTargetsSubSelect() : this.sumAreaPlannedTargets())
             + ",0))*100.0";
         calc.setSQL(sql);
 
@@ -981,7 +1006,7 @@ public class IRSQuery implements Reloadable
         String sql = hasGeoSelection ? this.sumAreaPlannedTargetsSubSelect() : this.sumAreaPlannedTargets();
         calc.setSQL(sql);
         this.needsAreaPlanned = true;
-        this.needsAreaActual = true; // include actual as well because it cannot be included as standalone
+//        this.needsAreaActual = true; // include actual as well because it cannot be included as standalone
       }
       else
       {
@@ -1073,7 +1098,8 @@ public class IRSQuery implements Reloadable
     }
     weeks = weeks.substring(0, weeks.length() - 1);
 
-    String select = "SELECT " + idCol + " AS " + idCol + ",\n";
+    String select = "SELECT tar." + idCol + " AS " + idCol + ",\n";
+    select += "de."+PLANNED_DATE+" AS "+PLANNED_DATE+", \n";
     select += "i AS " + Alias.TARGET_WEEK + ",\n";
     if (isResource)
     {
@@ -1106,11 +1132,17 @@ public class IRSQuery implements Reloadable
     {
       sourceTable = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName();
     }
-
+    
+    String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
+    String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
+    String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
+    
     from += "ARRAY[" + weeks + "] AS target_array FROM " + sourceTable + ") AS tar ";
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 )
-        + ") AS i WHERE target_array[i] IS NOT NULL \n";
-
+        + ") AS i, "+DATE_EXTRAPOLATION+" de, "+malariaSeasonTable+" ms \n";
+    from += " WHERE target_array[i] IS NOT NULL \n";
+    from += " AND i = de."+periodCol+" \n";
+    from += " AND de."+PLANNED_DATE+" BETWEEN ms."+startDate+" AND ms."+endDate+" \n";
     return select + from;
   }
 

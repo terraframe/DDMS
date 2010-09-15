@@ -81,10 +81,10 @@ public class IRSValueQuery extends ValueQuery implements Reloadable
 
     // Special case to include rows from the planned targets, which have no
     // dates
-    if (query.hasPlannedTargets())
-    {
-      str.append("OR " + leftAlias + "." + Alias.SPRAY_DATE + " IS NULL \n");
-    }
+//    if (query.hasPlannedTargets())
+//    {
+//      str.append("OR " + leftAlias + "." + Alias.SPRAY_DATE + " IS NULL \n");
+//    }
 
     str.append("\n");
 
