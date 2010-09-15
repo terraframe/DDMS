@@ -136,8 +136,8 @@ Section -Main SEC0000
     StrCmp $FPath "" installFireFox doneInstallFireFox
     installFireFox:
       !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Firefox"
-      File "Firefox Setup 3.6.2.exe"
-      ExecWait `"$INSTDIR\Firefox Setup 3.6.2.exe"`
+      File "Firefox Setup 3.6.7.exe"
+      ExecWait `"$INSTDIR\Firefox Setup 3.6.7.exe"`
       Call findFireFox
     doneInstallFireFox:
       
@@ -149,7 +149,9 @@ Section -Main SEC0000
     
     # Install the ScreenGrab addon
     installScreenGrab:
-    File "/oname=$FPath\extensions\screengrab-0.96.2-fx.xpi" "screengrab-0.96.2-fx.xpi"
+    #File "/oname=$FPath\extensions\screengrab-0.96.3-fx.xpi" "screengrab-0.96.3-fx.xpi"
+	File "screengrab-0.96.3-fx.xpi"
+	ExecWait `"$FPath\firefox.exe" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
     
     !insertmacro MUI_HEADER_TEXT "Installing MDSS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
@@ -242,7 +244,7 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512m -cp C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\lib\* dss/vector/solutions/standalone/StandaloneClient"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512m -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles dss/vector/solutions/admin/MDSSModule"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
     !insertmacro MUI_STARTMENU_WRITE_END
