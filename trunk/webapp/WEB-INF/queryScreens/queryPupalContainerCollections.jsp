@@ -242,7 +242,7 @@ YAHOO.util.Event.onDOMReady(function(){
                               key:drawDownFrequencyCalc,
                               type:"sqlfloat",
                               displayLabel:MDSS.localize('percent_pupae_contribution_by_frequency')+  suffix,
-                              attributeName:"percent_pupae_contribution_by_frequencyrow__"+row.attributeName,
+                              attributeName:"percent_pupae_contribution_by_freqrow__"+row.attributeName,
                               isAggregate:true
                             }
                            ]);
