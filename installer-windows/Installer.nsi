@@ -301,7 +301,7 @@ Function .onInit
     LogSet On
     SetOverwrite try
     InitPluginsDir
-    SetRebootFlag true;
+    SetRebootFlag true
     # Initialize the value of the text string
     StrCpy $InstallationNumber "1"
     StrCpy $Master_Value "init"
