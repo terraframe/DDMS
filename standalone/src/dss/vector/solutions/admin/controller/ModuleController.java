@@ -6,64 +6,47 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
 import com.runwaysdk.general.Localizer;
 
-import dss.vector.solutions.admin.MDSSModule;
+import dss.vector.solutions.admin.model.Server;
 
-public class ModuleController implements IModuleController
+public class ModuleController extends EventProvider implements IModuleController
 {
   private static final Integer      DEFAULT_TIMEOUT       = 86400;
 
   private static final String       SESSION_TIME_PROPERTY = "sessionTime";
 
-  private List<IControllerListener> listeners;
-
-  private MDSSModule                module;
+  private Server                    server;
 
   public ModuleController()
   {
-    this.listeners = Collections.synchronizedList(new ArrayList<IControllerListener>());
+    super();
+    
+    this.server = new Server();
   }
   
   @Override
-  public void setModule(MDSSModule module)
-  {
-    this.module = module;
-  }
-
-  @Override
   public void addListener(IControllerListener listener)
   {
-    listeners.add(listener);
+    super.addListener(listener);
+    
+    this.server.addListener(listener);
   }
-
+  
   @Override
   public void removeListener(IControllerListener listener)
   {
-    listeners.remove(listener);
-  }
-
-  private void fireEvent(IModuleEventStrategy strategy)
-  {
-    for (IControllerListener listener : listeners)
-    {
-      strategy.fireEvent(listener);
-    }
+    super.removeListener(listener);
+    
+    this.server.removeListener(listener);
   }
 
   @Override
@@ -137,7 +120,7 @@ public class ModuleController implements IModuleController
   {
     if (setTimeout(timeout))
     {
-      runCommand(CommandProperties.getStartCommand());
+      enableServer(true);
     }
     else
     {
@@ -145,22 +128,11 @@ public class ModuleController implements IModuleController
     }
   }
 
-  private void fireErrorEvent(final String msg)
-  {
-    fireEvent(new IModuleEventStrategy()
-    {
-      @Override
-      public void fireEvent(IControllerListener listener)
-      {
-        listener.error(msg);
-      }
-    });
-  }
 
   @Override
   public void stop()
   {
-    runCommand(CommandProperties.getStopCommand());
+    enableServer(false);
   }
 
   @Override
@@ -302,100 +274,24 @@ public class ModuleController implements IModuleController
     return success;
   }
 
-  private void runCommand(final String command)
+  private void enableServer(final boolean state)
   {
-    try
+    fireEvent(new IModuleEventStrategy()
     {
-      fireEvent(new IModuleEventStrategy()
-      {
-        @Override
-        public void fireEvent(IControllerListener listener)
-        {
-          listener.beforeServerStateChange();
-        }
-      });
-      
-      module.setStatus(Localizer.getMessage("RUNNING_COMMAND") + " " + command);
-
-      Runtime rt = Runtime.getRuntime();
-      final Process pr = rt.exec(command);
-
-      Thread outputThread = new Thread()
-      {
-        public void run()
-        {
-          try
-          {
-            pr.waitFor();
-          }
-          catch (InterruptedException e)
-          {
-            fireErrorEvent(e.getLocalizedMessage());
-          }
-          finally
-          {
-            pollServerState();
-          }
-        }
-      };
-      outputThread.setDaemon(true);
-      outputThread.start();
-    }
-    catch (Exception e)
-    {
-      this.fireErrorEvent(e.getLocalizedMessage());
-    }
-
-  }
-
-  public void pollServerState()
-  {
-    Thread thread = new Thread(new Runnable()
-    {      
       @Override
-      public void run()
+      public void fireEvent(IControllerListener listener)
       {
-        try
-        {
-          String url = DeployProperties.getApplicationURL() + "/status.jsp";
-          URL server = new URL(url);
-          HttpURLConnection connection = (HttpURLConnection) server.openConnection();
-          connection.connect();
-
-          BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-          in.readLine();
-          in.close();
-
-          connection.disconnect();
-          
-          fireEvent(new IModuleEventStrategy()
-          {          
-            @Override
-            public void fireEvent(IControllerListener listener)
-            {
-              listener.serverStateChange(true);
-            }
-          });          
-        }
-        catch (Exception e)
-        {
-          fireEvent(new IModuleEventStrategy()
-          {          
-            @Override
-            public void fireEvent(IControllerListener listener)
-            {
-              listener.serverStateChange(false);
-            }
-          });
-        }
-        finally
-        {
-          module.clearStatus();
-        }
+        listener.beforeServerStateChange(state);
       }
     });
-    
-    thread.setDaemon(true);
-    thread.start();
+
+    server.enableServer(state);
   }
+
+  @Override
+  public void refresh()
+  {
+    server.pollServerState();
+  }
+
 }

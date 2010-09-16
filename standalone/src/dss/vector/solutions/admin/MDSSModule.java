@@ -5,6 +5,7 @@ import java.util.Locale;
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.custom.CTabFolder;
 import org.eclipse.swt.layout.FillLayout;
@@ -21,11 +22,12 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.view.IViewPart;
 import com.runwaysdk.widgets.TabManager;
 
+import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
 import dss.vector.solutions.admin.controller.ModuleController;
 import dss.vector.solutions.admin.view.ControlView;
 
-public class MDSSModule implements IModule
+public class MDSSModule implements IModule, IControllerListener
 {
   private IModuleController controller;
 
@@ -36,7 +38,7 @@ public class MDSSModule implements IModule
   public MDSSModule(IModuleController controller)
   {
     this.controller = controller;
-    this.controller.setModule(this);
+    this.controller.addListener(this);
     this.statusManager = new StatusLineManager();
   }
 
@@ -142,5 +144,29 @@ public class MDSSModule implements IModule
         window.run();
       }
     });
+  }
+
+  @Override
+  public void beforeServerStateChange(boolean state)
+  {
+    setStatus(state ? Localizer.getMessage("START_SERVER") : Localizer.getMessage("STOP_SERVER"));
+  }
+
+  @Override
+  public void error(String msg)
+  {
+    // DO NOTHING
+  }
+
+  @Override
+  public void execute(IRunnableWithProgress runnable)
+  {
+    // DO NOTHING
+  }
+
+  @Override
+  public void serverStateChange(boolean state)
+  {
+    clearStatus();
   }
 }

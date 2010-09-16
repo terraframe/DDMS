@@ -186,7 +186,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
 
   void setButtons()
   {
-    controller.pollServerState();
+    controller.refresh();
   }
 
   @Override
@@ -196,15 +196,24 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
   }
 
   @Override
-  public void beforeServerStateChange()
+  public void beforeServerStateChange(boolean state)
   {
     this.disableButtons();
   }
 
   @Override
-  public void error(String msg)
+  public void error(final String msg)
   {
-    MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), msg);
+    Runnable runnable = new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), msg);
+      }
+    };
+    
+    this.asyncExec(runnable);
   }
 
   @Override
@@ -230,15 +239,22 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
   @Override
   public synchronized void serverStateChange(final boolean state)
   {
-    Display display = composite.getDisplay();
-
-    display.asyncExec(new Runnable()
+    Runnable runnable = new Runnable()
     {
       @Override
       public void run()
       {
         setButtons(state);
       }
-    });
+    };
+
+    this.asyncExec(runnable);
   }
+
+  private void asyncExec(Runnable runnable)
+  {
+    Display display = composite.getDisplay();
+    display.asyncExec(runnable);
+  }
+  
 }

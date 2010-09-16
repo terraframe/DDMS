@@ -50,5 +50,10 @@ public class CommandProperties
   public static String getServerURL()
   {
     return instance().getString("url.server");
+  }
+
+  public static String getProccess()
+  {
+    return instance().getString("server.proccess");
   }  
 }

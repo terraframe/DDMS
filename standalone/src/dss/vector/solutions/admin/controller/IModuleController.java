@@ -2,8 +2,6 @@ package dss.vector.solutions.admin.controller;
 
 import java.io.File;
 
-import dss.vector.solutions.admin.MDSSModule;
-
 public interface IModuleController
 {
   public void addListener(IControllerListener listener);
@@ -22,7 +20,5 @@ public interface IModuleController
 
   public void restore(File file);
   
-  public void pollServerState();
-
-  public void setModule(MDSSModule module);
+  public void refresh();
 }
