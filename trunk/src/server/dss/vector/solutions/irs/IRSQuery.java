@@ -33,7 +33,6 @@ import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
-import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
@@ -152,11 +151,9 @@ public class IRSQuery implements Reloadable
 
   private int                   startDay;
 
-  private boolean               hasGeoSelection;
-
   public IRSQuery(String config, String xml, Layer layer)
   {
-    hasGeoSelection = false;
+    this.layer = layer;
 
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
@@ -350,47 +347,6 @@ public class IRSQuery implements Reloadable
   }
 
   /**
-   * Detects if this query contains any geo entity restrictions or universal
-   * columns.
-   * 
-   * @param queryMap
-   */
-  private void checkForGeoSelection(Map<String, GeneratedEntityQuery> queryMap)
-  {
-    // look for columns
-    try
-    {
-      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      Iterator<?> keys = selectedUniMap.keys();
-      while (keys.hasNext())
-      {
-        String attributeKey = (String) keys.next();
-
-        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0)
-        {
-          hasGeoSelection = true;
-          return;
-        }
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-
-    // look for restrictions
-    for (GeneratedEntityQuery query : queryMap.values())
-    {
-      if (query instanceof AllPathsQuery)
-      {
-        hasGeoSelection = true;
-        return;
-      }
-    }
-  }
-
-  /**
    * Populates the ValueQuery with the necessary selects, joins, and criteria to
    * make the IRS query work correctly. ORDER IS IMPORTANT. Do not change the
    * calls within this method unless you know what you are doing! There are many
@@ -405,11 +361,9 @@ public class IRSQuery implements Reloadable
     Map<String, GeneratedEntityQuery> queryMap1 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
         irsVQ, xml, queryConfig, layer);
     Map<String, GeneratedEntityQuery> queryMap2 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        insecticideVQ, xml, queryConfig, layer);
+        insecticideVQ, xml, queryConfig, null);
     Map<String, GeneratedEntityQuery> queryMap3 = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        sprayVQ, xml, queryConfig, layer);
-
-    checkForGeoSelection(queryMap1);
+        sprayVQ, xml, queryConfig, null);
 
     this.sprayViewAlias = queryMap1.get(AbstractSpray.CLASS).getTableAlias();
     this.insecticideQuery = (InsecticideBrandQuery) queryMap2.get(InsecticideBrand.CLASS);
