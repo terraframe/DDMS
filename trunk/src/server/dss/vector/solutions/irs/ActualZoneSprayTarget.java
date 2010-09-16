@@ -137,13 +137,6 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
         + lastNameCol + " FROM " + teamMemberTable + " tm , " + personTable + " AS p WHERE p.id = tm."
         + personCol + " AND tm.id = " + teamSprayStatusTable + "." + teamLeaderCol + ")", alias);
   }
-  
-  @Override
-  public String setAreaPlannedTarget(Alias alias)
-  {
-    String sql = "(SELECT SUM("+IRSQuery.WEEKLY_TARGET+") FROM "+IRSQuery.GEO_TARGET_VIEW+" gtv WHERE gtv."+this.q.getGeoEntity()+" = "+this.abstractSprayTable+"."+this.geoEntityCol+" AND get_epiWeek_from_date("+this.sprayDateCol+", "+this.q.getStartDay()+") = "+IRSQuery.TARGET_WEEK+")";
-    return set(sql, alias);
-  }
 
   @Override
   public String setRooms(Alias alias)

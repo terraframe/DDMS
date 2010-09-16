@@ -22,9 +22,9 @@ public abstract class PlannedResourceTarget extends PlannedTargetUnion implement
   }
   
   @Override
-  public final String setSprayDate(Alias alias)
+  public final String setPlannedDate(Alias alias)
   {
-    return set(IRSQuery.RESOURCE_TARGET_VIEW, IRSQuery.PLANNED_DATE, alias);
+    return set(IRSQuery.RESOURCE_TARGET_VIEW,  Alias.PLANNED_DATE.getAlias(), alias);
   }
   
   @Override

@@ -7,6 +7,7 @@ public enum Alias implements Reloadable
   
   ID("id", IRSUnionIF.TEXT),
   SPRAY_DATE("spray_date", IRSUnionIF.DATE),
+  PLANNED_DATE("planned_date", IRSUnionIF.DATE),
   TARGET_WEEK("target_week", IRSUnionIF.FLOAT),
   AGGREGATION_LEVEL("aggregation_level", IRSUnionIF.TEXT),
   GEO_ENTITY("geo_entity", IRSUnionIF.TEXT),
@@ -18,7 +19,7 @@ public enum Alias implements Reloadable
   HOUSEHOLD_ID("household_id", IRSUnionIF.TEXT),
   STRUCTURE_ID("structure_id", IRSUnionIF.TEXT),
   SPRAY_OPERATOR_DEFAULT_LOCALE("sprayoperator_defaultLocale", IRSUnionIF.TEXT),
-  OPERATORY_ACTUAL_TARGET("operator_actual_target", IRSUnionIF.FLOAT),
+  OPERATOR_ACTUAL_TARGET("operator_actual_target", IRSUnionIF.FLOAT),
   SPRAY_TEAM_DEFAULT_LOCALE("sprayteam_defaultLocale", IRSUnionIF.TEXT),
   SPRAY_LEADER_DEFAULT_LOCALE("sprayleader_defaultLocale", IRSUnionIF.TEXT),
   TEAM_ACTUAL_TARGET("team_actual_target", IRSUnionIF.FLOAT),
