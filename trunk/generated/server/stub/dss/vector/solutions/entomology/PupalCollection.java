@@ -248,7 +248,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     
     // The aliases are the same as the column name
     String[] aliases = {numberExamined, numberInhabitants, premiseSize};
-    QueryUtil.setAttributesAsAggregated(aliases, id, valueQuery, premiseQuery);
+    QueryUtil.setAttributesAsAggregated(aliases, id, valueQuery, premiseQuery.getTableAlias(), false);
     
     boolean needsJoin = false; 
     boolean needsView = 
@@ -292,6 +292,8 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
       valueQuery.setSqlPrefix("WITH "+taxonAmountsView+" AS (" + taxonSql + ")");
       valueQuery.AND(new InnerJoinEq("id", pupalContainerTable, pupalContainerQuery.getTableAlias(), "id", taxonAmountsView, taxonAmountsView));
     }
+    
+//    valueQuery.HAVING( F.COUNT(collectionQuery.getId()).GT(0));
     
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
   }

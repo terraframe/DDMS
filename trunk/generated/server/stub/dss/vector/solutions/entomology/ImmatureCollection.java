@@ -267,7 +267,7 @@ public class ImmatureCollection extends ImmatureCollectionBase implements
     
     // The aliases are the same as the column name
     String[] aliases = {numberExamined, numberWithImmatures, numberWithLarvae, numberWithPupae, numberInhabitants, premiseSize};
-    QueryUtil.setAttributesAsAggregated(aliases, idCol, valueQuery, collectionPremiseQuery);    
+    QueryUtil.setAttributesAsAggregated(aliases, idCol, valueQuery, collectionPremiseQuery.getTableAlias(), false);    
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ImmatureCollection.CLASS, collectionQuery);
 

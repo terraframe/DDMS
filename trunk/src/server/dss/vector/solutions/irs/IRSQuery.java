@@ -25,6 +25,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
@@ -232,21 +233,6 @@ public class IRSQuery implements Reloadable
     return startDay;
   }
 
-  public String getSprayViewAlias()
-  {
-    return this.sprayViewAlias;
-  }
-
-  public boolean hasPlannedTargets()
-  {
-    return this.hasPlannedTargets;
-  }
-
-  public ValueQuery getInsecticideVQ()
-  {
-    return this.insecticideVQ;
-  }
-
   private void filterSelectables()
   {
     List<String> spraySQLs = Arrays.asList(new String[] { AbstractSpray.SPRAYMETHOD + "_spray",
@@ -371,6 +357,8 @@ public class IRSQuery implements Reloadable
 
     filterSelectables();
 
+    swapOutAttributesForAggregates();
+
     if (insecticideQuery != null)
     {
       QueryUtil.joinEnumerationDisplayLabels(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
@@ -477,6 +465,17 @@ public class IRSQuery implements Reloadable
     return this.irsVQ;
   }
 
+  /**
+   * Some attributes must be swapped out with custom selectables
+   */
+  private void swapOutAttributesForAggregates()
+  {
+    String[] aliases = new String[] { Alias.RECEIVED.getAlias(), Alias.USED.getAlias(),
+        Alias.REFILLS.getAlias(), Alias.RETURNED.getAlias() };
+
+    QueryUtil.setAttributesAsAggregated(aliases, idCol, irsVQ, sprayViewAlias, true);
+  }
+
   private void addPlannedTargetDateCriteria()
   {
     try
@@ -530,7 +529,7 @@ public class IRSQuery implements Reloadable
     String diseaseCol = QueryUtil.getColumnName(InsecticideBrand.getDiseaseMd());
 
     String leftTable = IRSQuery.SPRAY_VIEW;
-    String leftAlias = this.getSprayViewAlias();
+    String leftAlias = this.sprayViewAlias;
     String insecticideView = IRSQuery.INSECTICIDE_VIEW;
 
     // TODO refactor this to use more of the query API instead of string
@@ -676,8 +675,8 @@ public class IRSQuery implements Reloadable
     // true)
     boolean needsAllActual = !this.hasPlannedTargets && !this.needsTeamsActual && !this.needsAreaActual
         && !this.needsOperatorActual;
-    
-    if(needsAllActual)
+
+    if (needsAllActual)
     {
       needsTeamsActual = needsAreaActual = needsOperatorActual = needsAllActual;
     }
@@ -720,11 +719,11 @@ public class IRSQuery implements Reloadable
     // Note that operator actual targets are included if team actual targets
     // are included. This is because of the aggregation where team actuals have
     // estimates based off operator actuals.
-    if(this.needsTeamsActual)
+    if (this.needsTeamsActual)
     {
       this.needsOperatorActual = true;
     }
-    
+
     if (this.needsOperatorActual)
     {
       sql += "," + ACTUAL_OPERATOR + " AS \n";
@@ -787,85 +786,55 @@ public class IRSQuery implements Reloadable
 
     return sql;
   }
+  
+  /**
+   * Adds the alias to the group by clause of the query.
+   * 
+   * @param alias
+   * @return
+   */
+  private String forceGrouping(Alias alias)
+  {
+    String sql = sprayViewAlias + "." + alias.getAlias();
+    if (!irsVQ.hasSelectableRef(alias.getAlias()))
+    {
+      irsVQ.SELECT(irsVQ.aSQLCharacter(alias.getAlias(), sql));
+    }
+    
+    irsVQ.GROUP_BY((SelectableSingle) irsVQ.getSelectableRef(alias.getAlias()));
+    
+    return sql;
+  }
+  
 
   private String sumOperatorActualTargets()
   {
     this.needsOperatorActual = true;
-
-    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_ACTUAL_TARGET);
+    return forceGrouping(Alias.OPERATOR_ACTUAL_TARGET);
   }
 
   private String sumTeamActualTargets()
   {
     this.needsTeamsActual = true;
-
-    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, TEAM_ACTUAL_TARGET);
+    return forceGrouping(Alias.TEAM_ACTUAL_TARGET);
   }
-
-//  private String sumAreaPlannedTargetsSubSelect()
-//  {
-//    String sql = "";
-//    sql += "( \n";
-//    sql += "  SELECT gtv." + WEEKLY_TARGET + " \n";
-//    sql += "  FROM " + GEO_TARGET_VIEW + " gtv \n";
-//    sql += "  WHERE " + sprayViewAlias + "." + Alias.SPRAY_DATE + " IS NOT NULL \n";
-//    sql += "  AND gtv." + TARGET_WEEK + " = get_epiWeek_from_date(" + sprayViewAlias + "."
-//        + Alias.SPRAY_DATE + ", " + startDay + ") \n";
-//    sql += "  AND gtv." + geoEntity + " = " + sprayViewAlias + "." + Alias.GEO_ENTITY + " \n";
-//    sql += ") \n";
-//
-//    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, null, sql);
-//  }
-
-//  private String sumOperatorPlannedTargetsSubSelect()
-//  {
-//    String sql = "";
-//    sql += "( \n";
-//    sql += "  SELECT rtv." + WEEKLY_TARGET + " \n";
-//    sql += "  FROM " + RESOURCE_TARGET_VIEW + " rtv \n";
-//    sql += "  WHERE " + sprayViewAlias + "." + Alias.SPRAY_DATE + " IS NOT NULL \n";
-//    sql += "  AND rtv." + TARGET_WEEK + " = get_epiWeek_from_date(" + sprayViewAlias + "."
-//        + Alias.SPRAY_DATE + ", " + startDay + ") \n";
-//    sql += "  AND rtv." + targeter + " = " + sprayViewAlias + "." + Alias.SPRAY_OPERATOR + " \n";
-//    sql += ") \n";
-//
-//    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, null, sql);
-//  }
 
   private String sumOperatorPlannedTargets()
   {
     this.needsOperatorPlanned = true;
-
-    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_PLANNED_TARGET);
+    return forceGrouping(Alias.OPERATOR_PLANNED_TARGET);
   }
-
-//  private String sumTeamPlannedTargetsSubSelect()
-//  {
-//    String sql = "";
-//    sql += "( \n";
-//    sql += "  SELECT rtv." + WEEKLY_TARGET + " \n";
-//    sql += "  FROM " + RESOURCE_TARGET_VIEW + " rtv \n";
-//    sql += "  WHERE " + sprayViewAlias + "." + Alias.SPRAY_DATE + " IS NOT NULL \n";
-//    sql += "  AND rtv." + TARGET_WEEK + " = get_epiWeek_from_date(" + sprayViewAlias + "."
-//        + Alias.SPRAY_DATE + ", " + startDay + ") \n";
-//    sql += "  AND rtv." + targeter + " = " + sprayViewAlias + "." + Alias.SPRAY_TEAM + " \n";
-//    sql += ") \n";
-//
-//    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, null, sql);
-//  }
 
   private String sumTeamPlannedTargets()
   {
     this.needsTeamsPlanned = true;
-
-    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, TEAM_PLANNED_TARGET);
+    return forceGrouping(Alias.TEAM_PLANNED_TARGET);
   }
 
   private String sumAreaPlannedTargets()
   {
     this.needsAreaPlanned = true;
-
-    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, AREA_PLANNED_TARGET);
+    return forceGrouping(Alias.AREA_PLANNED_TARGET);
   }
 
   private void calculateOperatorPlannedTargets()
@@ -893,8 +862,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_TARGET_DIVERGENCE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_TARGET_DIVERGENCE);
-      String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF("
-          + sumOperatorPlannedTargets()
+      String sql = "(" + this.sumOperatorActualTargets() + "/NULLIF(" + sumOperatorPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -906,8 +874,7 @@ public class IRSQuery implements Reloadable
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_TARGET_DIVERGENCE);
 
-      String sql = "(" + this.sumTeamActualTargets() + "/NULLIF("
-          + this.sumTeamPlannedTargets()
+      String sql = "(" + this.sumTeamActualTargets() + "/NULLIF(" + this.sumTeamPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
     }
@@ -940,8 +907,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(OPERATOR_PLANNED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(OPERATOR_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF("
-          + this.sumOperatorPlannedTargets()
+      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
 
@@ -954,8 +920,7 @@ public class IRSQuery implements Reloadable
     if (irsVQ.hasSelectableRef(TEAM_PLANNED_COVERAGE))
     {
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(TEAM_PLANNED_COVERAGE);
-      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF("
-          + this.sumTeamPlannedTargets()
+      String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
 
@@ -1095,7 +1060,7 @@ public class IRSQuery implements Reloadable
       sql += join.setSprayedRoomsShare(Alias.SPRAYED_ROOMS_SHARE) + ", \n";
       sql += join.setSprayedStructuresShare(Alias.SPRAYED_STRUCTURES_SHARE) + ", \n";
       sql += join.setSprayedHouseholdsShare(Alias.SPRAYED_HOUSEHOLDS_SHARE) + " \n";
-      
+
       String from = join.from();
       if (from.length() > 0)
       {
@@ -1107,12 +1072,12 @@ public class IRSQuery implements Reloadable
       {
         sql += "WHERE \n  " + where;
       }
-      
+
       if (count < joins.size() - 1)
       {
         sql += "\nUNION\n";
       }
-      
+
       count++;
     }
 

@@ -12,6 +12,8 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.collections.ListUtils;
+import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -167,9 +169,9 @@ public class QueryUtil implements Reloadable
     
     return aliases;
   }
-
+  
   public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery,
-      GeneratedEntityQuery query)
+      String tableAlias, boolean allowNonAggregateDefault)
   {
     Map<String, Selectable> override = new HashMap<String, Selectable>();
 
@@ -178,30 +180,46 @@ public class QueryUtil implements Reloadable
       if (valueQuery.hasSelectableRef(alias))
       {
         Selectable sel = valueQuery.getSelectableRef(alias);
-        String sql;
+        String dislay = sel.getUserDefinedDisplayLabel();
+        
+        Selectable newSel;
         if (sel instanceof SUM)
         {
-          sql = QueryUtil.sumColumnForId(query.getTableAlias(), id, null, alias);
+          String sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
+          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
         }
-        if (sel instanceof AVG)
+        else if (sel instanceof AVG)
         {
-          sql = QueryUtil.avgColumnForId(query.getTableAlias(), id, null, alias);
+          String sql = QueryUtil.avgColumnForId(tableAlias, id, null, alias);
+          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
         }
         else if (sel instanceof MIN)
         {
-          sql = QueryUtil.minColumnForId(query.getTableAlias(), id, null, alias);
+          String sql = QueryUtil.minColumnForId(tableAlias, id, null, alias);
+          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
         }
         else if (sel instanceof MAX)
         {
-          sql = QueryUtil.maxColumnForId(query.getTableAlias(), id, null, alias);
+          String sql = QueryUtil.maxColumnForId(tableAlias, id, null, alias);
+          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
         }
         else
         {
-          // We have to SUM by default to avoid a cross-product
-          sql = QueryUtil.sumColumnForId(query.getTableAlias(), id, null, alias);
+          if(allowNonAggregateDefault)
+          {
+            String sql = sel.getSQL();
+            newSel = valueQuery.aSQLFloat(alias, sql, alias, dislay);
+          }
+          else
+          {
+            // We have to SUM by default to avoid a cross-product
+            String sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
+            newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
+          }
         }
 
-        SelectableSQL newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias);
+        newSel.setColumnAlias(sel.getColumnAlias());
+        
         override.put(alias, newSel);
       }
     }
