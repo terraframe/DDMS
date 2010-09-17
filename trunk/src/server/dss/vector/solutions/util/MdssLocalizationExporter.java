@@ -444,7 +444,7 @@ public class MdssLocalizationExporter implements Reloadable
       {
         continue;
       }
-      map.put(split[0], split [1]);
+      map.put(split[0].trim(), split[1].trim());
     }
     return map;
   }
