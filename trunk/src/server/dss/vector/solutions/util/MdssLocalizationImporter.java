@@ -3,6 +3,7 @@ package dss.vector.solutions.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -10,6 +11,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Map.Entry;
@@ -55,7 +57,7 @@ public class MdssLocalizationImporter implements Reloadable
 
   private HSSFSheet    propertySheet;
 
-  private HSSFSheet    controlPanelSheet;
+  private HSSFSheet    managerSheet;
 
   private static int modifiedCount = 0;
 
@@ -112,7 +114,8 @@ public class MdssLocalizationImporter implements Reloadable
     updateProperties("serverExceptions", serverSheet);
     updateProperties("commonExceptions", commonSheet);
     updateProperties("clientExceptions", clientSheet);
-    updateProperties("MdssControlPanel", controlPanelSheet);
+    updateProperties("admin", managerSheet);
+    copyAdminProperties();
 
     for (LocaleDimension ld : getColumnHeaders(propertySheet))
     {
@@ -121,6 +124,49 @@ public class MdssLocalizationImporter implements Reloadable
         mergeProperties(ld);
       }
     }
+  }
+
+  private void copyAdminProperties()
+  {
+    if (managerSheet==null)
+    {
+      return;
+    }
+    
+    ResourceBundle command = ResourceBundle.getBundle("command");
+    File destination = new File(command.getString("manager.profiles"));
+    if (!destination.exists())
+    {
+      return;
+    }
+    
+    File source = null;
+    try
+    {
+      source = FileIO.getDirectory("admin.properties");
+    }
+    catch (URISyntaxException e)
+    {
+      e.printStackTrace();
+      return;
+    }
+    
+    FilenameFilter filter = new FilenameFilter()
+    {
+      public boolean accept(File dir, String name)
+      {
+        if (name.startsWith("admin") && name.endsWith(".properties"))
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
+      }
+    };
+    
+    FileIO.copyFolder(source, destination, filter);
   }
 
   private void mergeProperties(LocaleDimension child)
@@ -211,7 +257,7 @@ public class MdssLocalizationImporter implements Reloadable
   private void checkLocales()
   {
     Set<String> allLocales = new TreeSet<String>();
-    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, termSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, controlPanelSheet};
+    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, termSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet};
     for (HSSFSheet sheet : sheets)
     {
       for (LocaleDimension ld : getColumnHeaders(sheet))
@@ -446,7 +492,7 @@ public class MdssLocalizationImporter implements Reloadable
       commonSheet = workbook.getSheet(MdssLocalizationExporter.COMMON_EXCEPTIONS);
       labelSheet = workbook.getSheet(MdssLocalizationExporter.DISPLAY_LABELS);
       propertySheet = workbook.getSheet(MdssLocalizationExporter.MDSS_PROPERTIES);
-      controlPanelSheet = workbook.getSheet(MdssLocalizationExporter.CONTROL_PANEL_PROPERTIES);
+      managerSheet = workbook.getSheet(MdssLocalizationExporter.MANAGER_PROPERTIES);
     }
     catch (IOException e)
     {
@@ -494,9 +540,9 @@ public class MdssLocalizationImporter implements Reloadable
     {
       return MdssLocalizationExporter.MDSS_PROPERTIES;
     }
-    else if (sheet.equals(controlPanelSheet))
+    else if (sheet.equals(managerSheet))
     {
-      return MdssLocalizationExporter.CONTROL_PANEL_PROPERTIES;
+      return MdssLocalizationExporter.MANAGER_PROPERTIES;
     }
     else
     {

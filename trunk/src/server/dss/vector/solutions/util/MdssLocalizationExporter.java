@@ -62,7 +62,7 @@ import dss.vector.solutions.ontology.Term;
 
 public class MdssLocalizationExporter implements Reloadable
 {
-  public static final String CONTROL_PANEL_PROPERTIES = "Control Panel";
+  public static final String MANAGER_PROPERTIES = "Manager";
   public static final String MDSS_PROPERTIES = "UI Text";
   public static final String DISPLAY_LABELS = "Display Labels";
   public static final String DESCRIPTIONS = "Descriptions";
@@ -84,7 +84,7 @@ public class MdssLocalizationExporter implements Reloadable
   private HSSFSheet serverSheet;
   private HSSFSheet commonSheet;
   private HSSFSheet propertySheet;
-  private HSSFSheet controlPanelSheet;
+  private HSSFSheet managerSheet;
   private List<Locale> locales;
   private List<LocaleDimension> columns;
   private List<String> typeExemptions;
@@ -144,7 +144,7 @@ public class MdssLocalizationExporter implements Reloadable
     clientSheet = workbook.createSheet(CLIENT_EXCEPTIONS);
     commonSheet = workbook.createSheet(COMMON_EXCEPTIONS);
     propertySheet = workbook.createSheet(MDSS_PROPERTIES);
-    controlPanelSheet = workbook.createSheet(CONTROL_PANEL_PROPERTIES);
+    managerSheet = workbook.createSheet(MANAGER_PROPERTIES);
 
     prepareExceptions();
     prepareDisplayLabels();
@@ -154,19 +154,19 @@ public class MdssLocalizationExporter implements Reloadable
     prepareProperties("serverExceptions", serverSheet);
     prepareProperties("commonExceptions", commonSheet);
     prepareProperties("clientExceptions", clientSheet);
-    prepareProperties("MdssControlPanel", controlPanelSheet);
+    prepareProperties("admin", managerSheet);
     prepareHeaders();
   }
 
   private void prepareHeaders()
   {
-    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, termSheet, descriptionSheet, propertySheet, controlPanelSheet};
+    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, termSheet, descriptionSheet, propertySheet, managerSheet};
     for (HSSFSheet sheet : sheets)
     {
       HSSFRow row = sheet.createRow(0);
       int i=0;
 
-      boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
+      boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(managerSheet);
 
       if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet))
       {
@@ -388,7 +388,7 @@ public class MdssLocalizationExporter implements Reloadable
 
     // Now read each locale
     int c=0;
-    boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(controlPanelSheet);
+    boolean ignoreDimensions = sheet.equals(serverSheet) || sheet.equals(clientSheet) || sheet.equals(commonSheet) || sheet.equals(managerSheet);
     for (LocaleDimension l : columns)
     {
       if (ignoreDimensions && l.hasDimension())
