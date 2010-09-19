@@ -12,7 +12,7 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
-import com.runwaysdk.controller.ConfigurationAdapter;
+import com.runwaysdk.controller.IConfiguration;
 import com.runwaysdk.controller.IExportStrategy;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
@@ -25,32 +25,84 @@ import dss.vector.solutions.admin.model.Server;
 
 public class ModuleController extends EventProvider implements IModuleController
 {
-  private static final Integer      DEFAULT_TIMEOUT       = 86400;
+  private static final Integer DEFAULT_TIMEOUT       = 86400;
 
-  private static final String       SESSION_TIME_PROPERTY = "sessionTime";
+  private static final String  SESSION_TIME_PROPERTY = "sessionTime";
 
-  private Server                    server;
+  private Server               server;
+
+  private IConfiguration       configuration;
 
   public ModuleController()
   {
     super();
-    
+
     this.server = new Server();
+    this.configuration = new SlaveConfiguration();
+
+    if (this.isMaster())
+    {
+      this.configuration = new MasterConfiguration();
+    }
   }
-  
+
+  private boolean isMaster()
+  {
+    boolean success = false;
+
+    File props = new File(CommandProperties.getInstall());
+
+    BufferedReader in = null;
+    
+    try
+    {
+      in = new BufferedReader(new FileReader(props));
+
+      String line;
+
+      while ( ( line = in.readLine() ) != null)
+      {
+        if(line != null && line.contains("master") && line.contains("true"))
+        {
+          return true;
+        }
+      }
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+    finally
+    {
+      if (in != null)
+      {
+        try
+        {
+          in.close();
+        }
+        catch (IOException e)
+        {
+          e.printStackTrace();
+        }
+      }
+    }
+
+    return false;
+  }
+
   @Override
   public void addListener(IControllerListener listener)
   {
     super.addListener(listener);
-    
+
     this.server.addListener(listener);
   }
-  
+
   @Override
   public void removeListener(IControllerListener listener)
   {
     super.removeListener(listener);
-    
+
     this.server.removeListener(listener);
   }
 
@@ -132,7 +184,6 @@ public class ModuleController extends EventProvider implements IModuleController
       fireErrorEvent(Localizer.getMessage("error.properties"));
     }
   }
-
 
   @Override
   public void stop()
@@ -298,7 +349,6 @@ public class ModuleController extends EventProvider implements IModuleController
   {
     server.pollServerState();
   }
-  
 
   @Override
   public void apply(IEntityObject arg0)
@@ -315,7 +365,7 @@ public class ModuleController extends EventProvider implements IModuleController
   {
     File location = new File(bean.getLocation());
     IExportStrategy strategy = bean.getExportStrategy();
-    ExportWorker runnable = new ExportWorker(location, strategy, new ConfigurationAdapter());
+    ExportWorker runnable = new ExportWorker(location, strategy, configuration);
 
     this.fireExecuteEvent(runnable);
   }
@@ -324,8 +374,8 @@ public class ModuleController extends EventProvider implements IModuleController
   public void importTransaction(ImportBean bean)
   {
     File location = new File(bean.getLocation());
-    
-    ImportWorker runnable = new ImportWorker(location, new ConfigurationAdapter());
+
+    ImportWorker runnable = new ImportWorker(location, configuration);
 
     this.fireExecuteEvent(runnable);
   }

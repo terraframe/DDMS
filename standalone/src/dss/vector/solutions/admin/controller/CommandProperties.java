@@ -55,5 +55,10 @@ public class CommandProperties
   public static String getProccess()
   {
     return instance().getString("server.proccess");
+  }
+
+  public static String getInstall()
+  {
+    return instance().getString("install.location");
   }  
 }
