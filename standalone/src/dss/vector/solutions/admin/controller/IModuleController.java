@@ -24,7 +24,5 @@ public interface IModuleController extends IAdminModuleController
 
   public void restore(File file);
   
-  public void pollServerState();
-
-  public void setModule(MDSSModule module);
+  public void refresh();
 }
