@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+import org.eclipse.jface.operation.IRunnableWithProgress;
+
 public abstract class EventProvider
 {
   private List<IControllerListener> listeners;
@@ -29,6 +31,18 @@ public abstract class EventProvider
     {
       strategy.fireEvent(listener);
     }
+  }
+  
+  protected void fireExecuteEvent(final IRunnableWithProgress runnable)
+  {
+    fireEvent(new IModuleEventStrategy()
+    {
+      @Override
+      public void fireEvent(IControllerListener listener)
+      {
+        listener.execute(runnable);
+      }
+    });
   }
 
   protected void fireErrorEvent(final String msg)

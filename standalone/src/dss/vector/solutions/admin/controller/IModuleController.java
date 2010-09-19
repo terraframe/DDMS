@@ -2,7 +2,11 @@ package dss.vector.solutions.admin.controller;
 
 import java.io.File;
 
-public interface IModuleController
+import com.runwaysdk.controller.IAdminModuleController;
+
+import dss.vector.solutions.admin.MDSSModule;
+
+public interface IModuleController extends IAdminModuleController
 {
   public void addListener(IControllerListener listener);
 
@@ -20,5 +24,7 @@ public interface IModuleController
 
   public void restore(File file);
   
-  public void refresh();
+  public void pollServerState();
+
+  public void setModule(MDSSModule module);
 }

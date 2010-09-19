@@ -24,8 +24,10 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
+import com.runwaysdk.controller.ImportWorker;
 import com.runwaysdk.general.Localizer;
 import com.runwaysdk.view.IViewPart;
+import com.runwaysdk.view.ImportMonitor;
 
 import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
@@ -228,10 +230,12 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
     }
     catch (InvocationTargetException e)
     {
+      e.printStackTrace();
       MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getCause().getLocalizedMessage());
     }
     catch (InterruptedException e)
     {
+      e.printStackTrace();
       MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
     }
   }

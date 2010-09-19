@@ -3,6 +3,8 @@ package dss.vector.solutions.admin;
 import java.util.Locale;
 
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.jface.action.Action;
+import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.operation.IRunnableWithProgress;
@@ -19,7 +21,9 @@ import com.runwaysdk.general.IMenuManager;
 import com.runwaysdk.general.Localizer;
 import com.runwaysdk.general.MainWindow;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.view.ExportDialog;
 import com.runwaysdk.view.IViewPart;
+import com.runwaysdk.view.ImportDialog;
 import com.runwaysdk.widgets.TabManager;
 
 import dss.vector.solutions.admin.controller.IControllerListener;
@@ -29,11 +33,41 @@ import dss.vector.solutions.admin.view.ControlView;
 
 public class MDSSModule implements IModule, IControllerListener
 {
+  class TransactionImportAction extends Action
+  {
+    public TransactionImportAction()
+    {
+      this.setText(Localizer.getMessage("IMPORT_TRANSACTION"));
+    }
+
+    @Override
+    public void run()
+    {
+      new ImportDialog(window.getShell(), controller).open();
+    }
+  }
+
+  class TransactionExportAction extends Action
+  {
+    public TransactionExportAction()
+    {
+      this.setText(Localizer.getMessage("EXPORT_TRANSACTION"));
+    }
+
+    @Override
+    public void run()
+    {
+      new ExportDialog(window.getShell(), controller).open();
+    }
+  }
+
   private IModuleController controller;
 
   private TabManager        manager;
 
   private StatusLineManager statusManager;
+
+  private MainWindow        window;
 
   public MDSSModule(IModuleController controller)
   {
@@ -45,6 +79,11 @@ public class MDSSModule implements IModule, IControllerListener
   @Override
   public void generateMenu(IMenuManager manager)
   {
+    MenuManager transactionMenu = manager.getMenu(Localizer.getMessage("TRANSACTION_MENU"));
+    transactionMenu.add(new TransactionExportAction());
+    transactionMenu.add(new TransactionImportAction());
+
+    manager.addMenu(transactionMenu);
   }
 
   @Override
@@ -111,6 +150,11 @@ public class MDSSModule implements IModule, IControllerListener
     return true;
   }
 
+  protected void setWindow(MainWindow window)
+  {
+    this.window = window;
+  }
+
   @Request
   public static void main(String[] args)
   {
@@ -139,8 +183,11 @@ public class MDSSModule implements IModule, IControllerListener
       public void run()
       {
         IModuleController controller = new ModuleController();
-        IModule module = new MDSSModule(controller);
+        MDSSModule module = new MDSSModule(controller);
         MainWindow window = new MainWindow(module);
+
+        module.setWindow(window);
+
         window.run();
       }
     });
