@@ -2,17 +2,12 @@ package dss.vector.solutions.admin.controller;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
-import java.util.List;
-import java.util.StringTokenizer;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
-import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.controller.IConfiguration;
-import com.runwaysdk.controller.IExportStrategy;
 import com.runwaysdk.controller.TransactionTaskListener;
-import com.runwaysdk.dataaccess.transaction.TransactionExportManager;
 import com.runwaysdk.dataaccess.transaction.TransactionImportManager;
 import com.runwaysdk.session.Request;
 

@@ -13,7 +13,6 @@ import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import com.runwaysdk.controller.ConfigurationAdapter;
-import com.runwaysdk.controller.ExportWorker;
 import com.runwaysdk.controller.IExportStrategy;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
@@ -21,7 +20,6 @@ import com.runwaysdk.general.Localizer;
 import com.runwaysdk.model.ExportBean;
 import com.runwaysdk.model.IEntityObject;
 import com.runwaysdk.model.ImportBean;
-import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.admin.model.Server;
 
@@ -313,7 +311,6 @@ public class ModuleController extends EventProvider implements IModuleController
   }
 
   @Override
-  @Request
   public void exportTransactions(ExportBean bean)
   {
     File location = new File(bean.getLocation());
@@ -324,7 +321,6 @@ public class ModuleController extends EventProvider implements IModuleController
   }
 
   @Override
-  @Request
   public void importTransaction(ImportBean bean)
   {
     File location = new File(bean.getLocation());
