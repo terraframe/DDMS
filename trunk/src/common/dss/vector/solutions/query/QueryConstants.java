@@ -47,6 +47,12 @@ public class QueryConstants implements Reloadable
    * in the Intervention Control query builder.
    */
   public static final String REASONS_FOR_NOT_TREATED_PREFIX = "r__";
+  
+  public static final String RDT_PREVALENCE = "rdt_prevalence";
+  
+  public static final String BLOODSLIDE_PREVALENCE = "bloodslide_prevalence";
+  
+  public static final String RDT_BLOODSLIDE_PREVALENCE = "rdt_bloodslide_prevalence";
 
   public enum QueryType implements Reloadable {
     

@@ -132,12 +132,28 @@ YAHOO.util.Event.onDOMReady(function(){
     personColumns = personColumns.concat(
         [                          {
           
-          key:"prevalence",
+          key:"rdt_prevalence",
           type:"sqlfloat",
-          attributeName:"prevalence",
-          displayLabel:MDSS.localize('Prevalence_Survey'),
+          attributeName:"rdt_prevalence",
+          displayLabel:MDSS.localize('RDT_Prevalence'),
           isAggregate:true
         },
+                            {
+          
+          key:"bloodslide_prevalence",
+          type:"sqlfloat",
+          attributeName:"bloodslide_prevalence",
+          displayLabel:MDSS.localize('Bloodslide_Prevalence'),
+          isAggregate:true
+        },
+                                {
+          
+          key:"rdt_bloodslide_prevalence",
+          type:"sqlfloat",
+          attributeName:"rdt_bloodslide_prevalence",
+          displayLabel:MDSS.localize('RDT_Bloodslide_Prevalence'),
+          isAggregate:true
+        }
         ]);
 
     var netMaps = {<%=(String) request.getAttribute("itnMap")%>};

@@ -19,7 +19,7 @@ import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableSQLFloat;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
@@ -29,6 +29,7 @@ import dss.vector.solutions.RefusedResponse;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.generation.loader.Reloadable
@@ -284,9 +285,10 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
 
     }
 
-    if (valueQuery.hasSelectableRef("prevalence"))
+    if (valueQuery.hasSelectableRef(QueryConstants.RDT_PREVALENCE) || 
+        valueQuery.hasSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE) ||
+        valueQuery.hasSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE))
     {
-      SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("prevalence");
       if (personQuery == null)
       {
         
@@ -312,14 +314,46 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
       String performedBloodSlideCol = QueryUtil.getColumnName(md, SurveyedPerson.PERFORMEDBLOODSLIDE);
       String rdtResultCol = QueryUtil.getColumnName(md, SurveyedPerson.RDTRESULT);
       String bloodSlideResultCol = QueryUtil.getColumnName(md, SurveyedPerson.BLOODSLIDERESULT);
+      
+      String yesId = RefusedResponse.YES.getId();
+      String rtdTested = "CASE " + tableAlias + "." + performedRDTCol + "_c WHEN '" + yesId + "' THEN 1 ELSE NULL END";
+      String rdtPositive = "SUM("+rdtResultCol+")";
+      String rdtTotal = "SUM("+rtdTested+")";
+      String rdtPrevalance = rdtPositive + "/NULLIF("+rdtTotal+",0.0)::float*100.0";
+      
+      String bloodslidePostive = "SUM("+bloodSlideResultCol+")";
+      String bloodslideTotal = "SUM("+performedBloodSlideCol+")";
+      String bloodslidePrevalence = bloodslidePostive+"/NULLIF("+bloodslideTotal+",0.0)::float*100.0";
+      
+//      String totalTested = "SUM(COALESCE(" + rtdTested + "," + performedBloodSlideCol + ",0))::FLOAT";
+//      String totalPositive = "SUM(COALESCE(" + rdtResultCol + "," + bloodSlideResultCol + ",0))::FLOAT";
 
-      String rtdTested = "CASE " + tableAlias + "." + performedRDTCol + "_c WHEN '" + RefusedResponse.YES.getId() + "' THEN 1 ELSE NULL END";
+      // if bs+ then add r
+      // else rdt+ then add r(+)
+      
+      if(valueQuery.hasSelectableRef(QueryConstants.RDT_PREVALENCE))
+      {
+        ((SelectableSQL)valueQuery.getSelectableRef(QueryConstants.RDT_PREVALENCE)).setSQL(rdtPrevalance);
+      }
+      
+      if(valueQuery.hasSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE))
+      {
+        ((SelectableSQL)valueQuery.getSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE)).setSQL(bloodslidePrevalence);
+      }
 
-      String totalTested = "SUM(COALESCE(" + rtdTested + "," + performedBloodSlideCol + ",0))::FLOAT";
-
-      String totalPositive = "SUM(COALESCE(" + rdtResultCol + "," + bloodSlideResultCol + ",0))::FLOAT";
-
-      calc.setSQL(totalPositive + " / NULLIF(" + totalTested + ",0.0)");
+      if(valueQuery.hasSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE))
+      {
+        String totalP = "SUM(CASE WHEN "+performedBloodSlideCol+" = 1 THEN "+bloodSlideResultCol+" ";
+        totalP += "WHEN " + tableAlias + "." + performedRDTCol + "_c = '"+yesId+"' THEN "+rdtResultCol+" ELSE NULL END) \n";
+        
+        String totalT = "SUM(CASE WHEN "+performedBloodSlideCol+" = 1 THEN 1 \n";
+        totalT += "WHEN " + tableAlias + "." + performedRDTCol + "_c = '"+yesId+"' THEN 1 ELSE NULL END) ";
+   
+        String rdtBloodslidePrevalence = totalP+"/NULLIF("+totalT+",0.0)::float*100.0";
+        
+        ((SelectableSQL)valueQuery.getSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE)).setSQL(rdtBloodslidePrevalence);
+      }
+      
     }
 
     if (valueQuery.hasSelectableRef("age"))

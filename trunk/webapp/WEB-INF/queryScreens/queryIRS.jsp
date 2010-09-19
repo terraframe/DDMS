@@ -477,14 +477,6 @@ YAHOO.util.Event.onDOMReady(function(){
                                   type:"sqlcharacter",
                                   attributeName:"sprayoperator_defaultLocale",
                                 },
-                                /* OLD
-                                {
-                                  
-                                  key:"operator_week",
-                                  type:"sqlinteger",
-                                  attributeName:"operator_week",
-                                },
-                                */
                                 {
                                   
                                   key:"sprayteam_defaultLocale",
@@ -497,31 +489,13 @@ YAHOO.util.Event.onDOMReady(function(){
                                   type:"sqlcharacter",
                                   attributeName:"sprayleader_defaultLocale",
                                 },
-                                /* OLD
-                                {
-                                  
-                                  key:"team_week",
-                                  type:"sqlinteger",
-                                  attributeName:"team_week",
-                                },
-                                */
                                 {
                                   
                                   key:"zone_supervisor_defaultLocale",
                                   displayLabel:MDSS.localize('zone_supervisor'),
                                   type:"sqlcharacter",
                                   attributeName:"zone_supervisor_defaultLocale",
-                                },
-                                /* OLD
-                                {
-                                  
-                                  key:"zone_week",
-                                  type:"sqlinteger",
-                                  attributeName:"zone_week",
                                 }
-                                */
-
-
                              ];
 
 
