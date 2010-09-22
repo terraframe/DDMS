@@ -40,7 +40,8 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<%@page import="dss.vector.solutions.PersonViewDTO"%><c:set var="page_title" value="Query_Individual_IPT"  scope="request"/>
+<%@page import="dss.vector.solutions.PersonViewDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%><c:set var="page_title" value="Query_Individual_IPT"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -134,6 +135,12 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var query = new MDSS.QueryIndividualIPT(selectableGroups, queryList);
     query.render();
+
+    var picker = query.getGeoPicker();
+    picker.setPolitical(true);
+    picker.setSprayTargetAllowed(false);
+    picker.setPopulated(false);
+    picker.addExtraUniversal('<%= HealthFacilityDTO.CLASS %>');
 
 });
 
