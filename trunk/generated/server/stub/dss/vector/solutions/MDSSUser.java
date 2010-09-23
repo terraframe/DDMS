@@ -43,12 +43,7 @@ public class MDSSUser extends MDSSUserBase implements com.runwaysdk.generation.l
     if(isNew)
     {
       UserSettings.createIfNotExists(this);
-    }
-    
-    // Assign this user to the GUIVisibility role
-    UserDAO userDAO = (UserDAO) BusinessFacade.getEntityDAO(this).getEntityDAO();
-
-    RoleDAO.findRole(MDSSRoleInfo.GUI_VISIBILITY).assignMember(userDAO);
+    }    
   }
   
   @Override
