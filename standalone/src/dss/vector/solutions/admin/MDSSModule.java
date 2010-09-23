@@ -1,5 +1,6 @@
 package dss.vector.solutions.admin;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
 import org.eclipse.core.databinding.observable.Realm;
@@ -206,7 +207,7 @@ public class MDSSModule implements IModule, IControllerListener
   }
 
   @Override
-  public void execute(IRunnableWithProgress runnable)
+  public void execute(IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException
   {
     // DO NOTHING
   }
@@ -215,5 +216,12 @@ public class MDSSModule implements IModule, IControllerListener
   public void serverStateChange(boolean state)
   {
     clearStatus();
+  }
+
+  @Override
+  public void message(String msg)
+  {
+    // TODO Auto-generated method stub
+    
   }
 }

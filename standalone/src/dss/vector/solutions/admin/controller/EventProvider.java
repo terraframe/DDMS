@@ -1,5 +1,6 @@
 package dss.vector.solutions.admin.controller;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -40,7 +41,18 @@ public abstract class EventProvider
       @Override
       public void fireEvent(IControllerListener listener)
       {
-        listener.execute(runnable);
+        try
+        {
+          listener.execute(runnable);
+        }
+        catch (InvocationTargetException e)
+        {
+          fireErrorEvent(e.getTargetException().getLocalizedMessage());
+        }
+        catch (InterruptedException e)
+        {
+          fireErrorEvent(e.getLocalizedMessage());
+        }
       }
     });
   }
@@ -53,6 +65,18 @@ public abstract class EventProvider
       public void fireEvent(IControllerListener listener)
       {
         listener.error(msg);
+      }
+    });
+  }
+  
+  protected void fireMessageEvent(final String msg)
+  {
+    fireEvent(new IModuleEventStrategy()
+    {
+      @Override
+      public void fireEvent(IControllerListener listener)
+      {
+        listener.message(msg);
       }
     });
   }

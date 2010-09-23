@@ -24,10 +24,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
-import com.runwaysdk.controller.ImportWorker;
 import com.runwaysdk.general.Localizer;
 import com.runwaysdk.view.IViewPart;
-import com.runwaysdk.view.ImportMonitor;
 
 import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
@@ -217,27 +215,31 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
     
     this.asyncExec(runnable);
   }
+  
+  @Override
+  public void message(final String msg)
+  {
+    Runnable runnable = new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        MessageDialog.openInformation(composite.getShell(), Localizer.getMessage("MESSAGE_TITLE"), msg);
+      }
+    };
+    
+    this.asyncExec(runnable);
+  }
+  
+
 
   @Override
-  public void execute(IRunnableWithProgress runnable)
+  public void execute(IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException
   {
     Shell shell = this.getWidget().getShell();
 
-    try
-    {
-      ProgressMonitorDialog dialog = new ProgressMonitorDialog(shell);
-      dialog.run(true, false, runnable);
-    }
-    catch (InvocationTargetException e)
-    {
-      e.printStackTrace();
-      MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getCause().getLocalizedMessage());
-    }
-    catch (InterruptedException e)
-    {
-      e.printStackTrace();
-      MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
-    }
+    ProgressMonitorDialog dialog = new ProgressMonitorDialog(shell);
+    dialog.run(true, false, runnable);
   }
 
   @Override
@@ -260,5 +262,5 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
     Display display = composite.getDisplay();
     display.asyncExec(runnable);
   }
-  
+
 }

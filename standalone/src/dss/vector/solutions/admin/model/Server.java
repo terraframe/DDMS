@@ -70,61 +70,32 @@ public class Server extends EventProvider
     thread.start();
   }
 
-  private void validateProcessState(final String command, final boolean result)
+  public void validateProcessState(final boolean condition, final Runnable runnable)
   {
     try
     {
-      String proccess = CommandProperties.getProccess();
+      String command = CommandProperties.getProccess();
+      
+      SynchronusProcess process = new SynchronusProcess();
+      String output = process.run(command);
 
-      Runtime rt = Runtime.getRuntime();
-      final Process pr = rt.exec(proccess);
-
-      Thread thread = new Thread(new Runnable()
+      if (output.contains("Bootstrap") == condition)
       {
-        @Override
-        public void run()
-        {
-          boolean status = false;
+        runnable.run();
+      }
+      else
+      {
+        fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
 
-          try
-          {
-            BufferedReader input = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+        pollServerState();
+      }
 
-            String line = null;
-
-            while ( ( line = input.readLine() ) != null)
-            {
-              if (line.contains("Bootstrap"))
-              {
-                status = true;
-              }
-            }
-
-            pr.waitFor();
-          }
-          catch (Exception e)
-          {
-          }
-
-          if (status == result)
-          {
-            runCommand(command);
-          }
-          else
-          {
-            fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
-            pollServerState();
-          }
-        }
-      });
-
-      thread.setDaemon(true);
-      thread.start();
     }
     catch (Exception e)
     {
 
     }
+    
   }
 
   private void runCommand(final String command)
@@ -164,24 +135,32 @@ public class Server extends EventProvider
   public void enableServer(boolean status)
   {
     final String command = status ? CommandProperties.getStartCommand() : CommandProperties.getStopCommand();
+    
+    Runnable runnable = new Runnable()
+    {      
+      @Override
+      public void run()
+      {
+        runCommand(command);
+      }
+    };
 
     if (status)
     {
       setLastCommand(status);
       
       // Ensure that the tomcat proccess does not already exist
-      this.validateProcessState(command, false);
+      this.validateProcessState(false, runnable);
     }
     else if(getLastCommand() == null || getLastCommand() != status)
     {
       setLastCommand(status);
       
-      this.validateProcessState(command, true);
+      this.validateProcessState(true, runnable);
     }
     else
     {
       this.pollServerState();
     }
-
   }
 }

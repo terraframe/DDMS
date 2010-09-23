@@ -1,10 +1,8 @@
 package dss.vector.solutions.admin.controller;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
@@ -48,46 +46,10 @@ public class ModuleController extends EventProvider implements IModuleController
 
   private boolean isMaster()
   {
-    boolean success = false;
+    PropertyReader reader = new PropertyReader(CommandProperties.getInstall());
+    String value = reader.getValue("master");
 
-    File props = new File(CommandProperties.getInstall());
-
-    BufferedReader in = null;
-    
-    try
-    {
-      in = new BufferedReader(new FileReader(props));
-
-      String line;
-
-      while ( ( line = in.readLine() ) != null)
-      {
-        if(line != null && line.contains("master") && line.contains("true"))
-        {
-          return true;
-        }
-      }
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-    }
-    finally
-    {
-      if (in != null)
-      {
-        try
-        {
-          in.close();
-        }
-        catch (IOException e)
-        {
-          e.printStackTrace();
-        }
-      }
-    }
-
-    return false;
+    return ( value != null && value.contains("true") );
   }
 
   @Override
@@ -109,67 +71,75 @@ public class ModuleController extends EventProvider implements IModuleController
   @Override
   public void backup(final File file)
   {
-    if (file != null)
+    Runnable runnable = new Runnable()
     {
-      final IRunnableWithProgress runnable = new IRunnableWithProgress()
+      @Override
+      public void run()
       {
-        @Override
-        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+        if (file != null)
         {
-          monitor.beginTask(Localizer.getMessage("BACKUP"), IProgressMonitor.UNKNOWN);
+          final IRunnableWithProgress progress = new IRunnableWithProgress()
+          {
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+            {
+              monitor.beginTask(Localizer.getMessage("BACKUP"), IProgressMonitor.UNKNOWN);
 
-          EventOutputStream out = new EventOutputStream(monitor);
-          PrintStream print = new PrintStream(out, true);
+              EventOutputStream out = new EventOutputStream(monitor);
+              PrintStream print = new PrintStream(out, true);
 
-          Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
-          backup.backup();
+              Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
+              backup.backup();
 
-          print.close();
+              print.close();
+              
+              fireMessageEvent(Localizer.getMessage("BACKUP_COMPLETE"));
+            }
+          };
+          
+          fireExecuteEvent(progress);
         }
-      };
-
-      fireEvent(new IModuleEventStrategy()
-      {
-        @Override
-        public void fireEvent(IControllerListener listener)
-        {
-          listener.execute(runnable);
-        }
-      });
-    }
+      }
+    };
+    
+    server.validateProcessState(false, runnable);
   }
 
   @Override
   public void restore(final File file)
   {
-    if (file != null)
-    {
-      final IRunnableWithProgress runnable = new IRunnableWithProgress()
+    Runnable runnable = new Runnable()
+    {      
+      @Override
+      public void run()
       {
-        @Override
-        public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+        if (file != null)
         {
-          monitor.beginTask(Localizer.getMessage("RESTORE"), IProgressMonitor.UNKNOWN);
+          final IRunnableWithProgress progress = new IRunnableWithProgress()
+          {
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+            {
+              monitor.beginTask(Localizer.getMessage("RESTORE"), IProgressMonitor.UNKNOWN);
 
-          EventOutputStream out = new EventOutputStream(monitor);
-          PrintStream print = new PrintStream(out, true);
+              EventOutputStream out = new EventOutputStream(monitor);
+              PrintStream print = new PrintStream(out, true);
 
-          Restore restore = new Restore(print, file.getAbsolutePath());
-          restore.restore();
+              Restore restore = new Restore(print, file.getAbsolutePath());
+              restore.restore();
 
-          print.close();
+              print.close();
+              
+              fireMessageEvent(Localizer.getMessage("RESTORE_COMPLETE"));
+            }
+          };
+
+          fireExecuteEvent(progress);
         }
-      };
-
-      fireEvent(new IModuleEventStrategy()
-      {
-        @Override
-        public void fireEvent(IControllerListener listener)
-        {
-          listener.execute(runnable);
-        }
-      });
-    }
+      }
+    };
+    
+    server.validateProcessState(false, runnable);
   }
 
   @Override
@@ -250,84 +220,9 @@ public class ModuleController extends EventProvider implements IModuleController
   {
     String propertiesPath = CommandProperties.getTimeoutLocation();
 
-    return this.writeProperty(propertiesPath, SESSION_TIME_PROPERTY, timeout.toString());
-  }
+    PropertyWriter writer = new PropertyWriter(propertiesPath);
 
-  private boolean writeProperty(String propertyPath, String propertyName, String propertyValue)
-  {
-    boolean success = false;
-
-    BufferedReader in = null;
-    BufferedWriter out = null;
-
-    File newprops = new File(propertyPath + ".new");
-    File props = new File(propertyPath);
-
-    try
-    {
-      in = new BufferedReader(new FileReader(props));
-      out = new BufferedWriter(new FileWriter(newprops));
-      String line;
-      while ( ( line = in.readLine() ) != null)
-      {
-        if (line.trim().startsWith(propertyName))
-        {
-          out.write(propertyName + "=" + propertyValue);
-        }
-        else
-        {
-          out.write(line);
-        }
-        out.write("\n");
-      }
-      success = true;
-    }
-    catch (Exception e)
-    {
-      success = false;
-    }
-    finally
-    {
-      if (in != null)
-      {
-        try
-        {
-          in.close();
-        }
-        catch (IOException e)
-        {
-          success = false;
-        }
-      }
-      if (out != null)
-      {
-        try
-        {
-          out.close();
-        }
-        catch (IOException e)
-        {
-          success = false;
-        }
-      }
-    }
-
-    if (success)
-    {
-      success = false;
-      File oldprops = new File(propertyPath + ".old");
-
-      if (props.renameTo(oldprops))
-      {
-        if (newprops.renameTo(props))
-        {
-          oldprops.delete();
-          success = true;
-        }
-      }
-    }
-
-    return success;
+    return writer.write(SESSION_TIME_PROPERTY, timeout.toString());
   }
 
   private void enableServer(final boolean state)
