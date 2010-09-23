@@ -57,6 +57,8 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
 
   private Button              restoreButton;
 
+  private Button              refreshButton;
+
   private Text                timeoutField;
 
   private Composite           composite;
@@ -158,6 +160,17 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       }
     });
 
+    refreshButton = new Button(buttons, SWT.BORDER);
+    refreshButton.setText(Localizer.getMessage("REFRESH"));
+    refreshButton.addListener(SWT.Selection, new Listener()
+    {
+      @Override
+      public void handleEvent(Event arg0)
+      {
+        controller.refresh();
+      }
+    });
+
     this.disableButtons();
     this.setButtons();
   }
@@ -212,10 +225,10 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
         MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), msg);
       }
     };
-    
+
     this.asyncExec(runnable);
   }
-  
+
   @Override
   public void message(final String msg)
   {
@@ -227,11 +240,9 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
         MessageDialog.openInformation(composite.getShell(), Localizer.getMessage("MESSAGE_TITLE"), msg);
       }
     };
-    
+
     this.asyncExec(runnable);
   }
-  
-
 
   @Override
   public void execute(IRunnableWithProgress runnable) throws InvocationTargetException, InterruptedException
