@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 
 import dss.vector.solutions.entomology.PupalCollectionViewDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
@@ -75,7 +76,17 @@ public class ControlInterventionController extends ControlInterventionController
   private void setUniversal(ControlInterventionViewDTO dto, ClientRequestIF clientRequest, String attribute)
   {
     GeoHierarchyViewDTO universal = null;
-    String id = dto.getValue(attribute);
+    
+    String id = null;
+    
+    try
+    {
+      id = dto.getValue(attribute);
+    }
+    catch (AttributeReadPermissionExceptionDTO e)
+    {
+      // Do nothing
+    }
 
     if (id != null && id.length() > 0)
     {
