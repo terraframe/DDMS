@@ -112,7 +112,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
     <%
     Halp.setReadableAttributes(request, "acAttribs", AggregatedCaseDTO.CLASS, requestIF);
+    Halp.setReadableAttributes(request, "acvAttribs", AggregatedCaseViewDTO.CLASS, requestIF);
     %>
+    
     var available = new MDSS.Set(<%= request.getAttribute("acAttribs") %>);
     aggregatedCaseAttribs = Mojo.Iter.filter(aggregatedCaseAttribs, function(attrib){
       return this.contains(attrib);
@@ -177,14 +179,14 @@ YAHOO.util.Event.onDOMReady(function(){
        
        this.grid.options.forEach( function(stage){
 
-      	//var attributeName = stage.MOID.replace(':','');
-      	var attributeName = MDSS.QueryBase.aliasTerm(stage.id);
+        //var attributeName = stage.MOID.replace(':','');
+        var attributeName = MDSS.QueryBase.aliasTerm(stage.id);
 
         var key = row.attributeName+attributeName;
 
         MDSS.Localized[key]= row.displayLabel + ttDelim + stage.displayLabel;
         
-      	calculations = calculations.concat([
+        calculations = calculations.concat([
                               
                               {
                                 key:key,
@@ -262,21 +264,57 @@ YAHOO.util.Event.onDOMReady(function(){
                           },
 
                          ]);      
-     
-      var selectableGroups = ([
-              {title:"Aggregated_Cases", values:aggregatedCaseColumns, group:"ag", klass:aggregatedCase.CLASS},
-              {title:"Grid_treatment_by_drug", values:treatmentColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Grid_treatment_by_method", values:caseTreatmentMethodColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Grid_treatment_by_stock", values:stockColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Grid_referrals_and_Shortages", values:stockReferralColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Grid_referral_Reasons", values:referralColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Grid_diagnostic_methods", values:diagnosticColumns, group:"ag",klass:aggregatedCase.CLASS},
-              {title:"Calculations", values:calculations, group:"ag", klass:aggregatedCase.CLASS}
-      ]);
 
-      selectableGroups = selectableGroups.concat(diagnosisTypeGroups);
-      selectableGroups = selectableGroups.concat(patientTypeGroups);
-      selectableGroups = selectableGroups.concat(manifestationGroups);
+      var availableGrids = new MDSS.Set(<%= request.getAttribute("acvAttribs") %>);
+     
+      var selectableGroups = ([{title:"Aggregated_Cases", values:aggregatedCaseColumns, group:"ag", klass:aggregatedCase.CLASS}]);
+
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASETREATMENTS%>"))
+      {
+        selectableGroups = selectableGroups.concat({title:"Grid_treatment_by_drug", values:treatmentColumns, group:"ag",klass:aggregatedCase.CLASS});
+      }
+
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASETREATMENTMETHOD%>"))
+      {
+        selectableGroups = selectableGroups.concat({title:"Grid_treatment_by_method", values:caseTreatmentMethodColumns, group:"ag",klass:aggregatedCase.CLASS});
+      }
+      
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASESTOCKS%>"))
+      {
+        selectableGroups = selectableGroups.concat({title:"Grid_treatment_by_stock", values:stockColumns, group:"ag",klass:aggregatedCase.CLASS});
+      }
+            
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASESTOCKREFERRAL%>"))
+      {
+        selectableGroups = selectableGroups.concat({title:"Grid_referrals_and_Shortages", values:stockReferralColumns, group:"ag",klass:aggregatedCase.CLASS});
+      }
+      
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASEREFERRALS%>"))
+      {
+        selectableGroups = selectableGroups.concat({title:"Grid_referral_Reasons", values:referralColumns, group:"ag",klass:aggregatedCase.CLASS});
+      }
+      
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASEDIAGNOSTIC%>"))
+      {
+        selectableGroups = selectableGroups.concat({title:"Grid_diagnostic_methods", values:diagnosticColumns, group:"ag",klass:aggregatedCase.CLASS});
+      }
+      
+      selectableGroups = selectableGroups.concat({title:"Calculations", values:calculations, group:"ag", klass:aggregatedCase.CLASS});
+
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASEDIAGNOSISTYPE%>"))
+      {
+        selectableGroups = selectableGroups.concat(diagnosisTypeGroups);
+      }
+      
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASEPATIENTTYPE%>"))
+      {
+        selectableGroups = selectableGroups.concat(patientTypeGroups);
+      }
+      
+      if(availableGrids.contains("<%=AggregatedCaseViewDTO.CASEDISEASEMANIFESTATION%>"))
+      {
+        selectableGroups = selectableGroups.concat(manifestationGroups);
+      }      
 
     
     var query = new MDSS.QueryAggregatedCases(selectableGroups, queryList);
