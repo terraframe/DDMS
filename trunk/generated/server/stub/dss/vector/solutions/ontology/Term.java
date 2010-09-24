@@ -34,7 +34,6 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdRelationship;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.QueryBuilder;
@@ -265,18 +264,20 @@ public class Term extends TermBase implements Reloadable, OptionIF
     return q;
   }
 
-// Replaced by Term.termQuery() to do weighted searches
-//  public static TermViewQuery searchTerms(String searchValue, String[] parentTermIds)
-//  {
-//    QueryFactory f = new QueryFactory();
-//
-//    SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue, parentTermIds);
-//    TermViewQuery q = new TermViewQuery(f, builder);
-//
-//    q.restrictRows(15, 1);
-//
-//    return q;
-//  }
+  // Replaced by Term.termQuery() to do weighted searches
+  // public static TermViewQuery searchTerms(String searchValue, String[]
+  // parentTermIds)
+  // {
+  // QueryFactory f = new QueryFactory();
+  //
+  // SearchQueryBuilder builder = new SearchQueryBuilder(f, searchValue,
+  // parentTermIds);
+  // TermViewQuery q = new TermViewQuery(f, builder);
+  //
+  // q.restrictRows(15, 1);
+  //
+  // return q;
+  // }
 
   public static ValueQuery termQuery(String value, String[] parentTermIds)
   {
@@ -1006,7 +1007,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     BrowserRootQuery brq = new BrowserRootQuery(query);
     AllPathsQuery apq = new AllPathsQuery(query);
     TermQuery tq = new TermQuery(query);
-    
+
     tq.WHERE(OR.get(tq.getName().EQi(displayLabel), tq.getTermDisplayLabel().localize().EQi(displayLabel), tq.getTermId().EQ(displayLabel)));
     query.SELECT_DISTINCT(tq.getId());
     query.WHERE(apq.getChildTerm().EQ(tq.getId()));
@@ -1014,7 +1015,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     query.WHERE(bfq.getId().EQ(brq.getBrowserField().getId()));
     query.WHERE(bfq.getMdAttribute().EQ(mdAttribute));
     query.WHERE(brq.getDisease().EQ(Disease.getCurrent()));
-    
+
     OIterator<ValueObject> iterator = query.getIterator();
 
     try
@@ -1143,11 +1144,21 @@ public class Term extends TermBase implements Reloadable, OptionIF
         children.add(term);
       }
 
-      for (Term child : term.getAllChildTerm())
+      if (returnOnlySelectable)
       {
-        children.add(child);
+        for (Term child : term.getActiveChildren())
+        {
+          children.add(child);
+        }
       }
-
+      else
+      {
+        for (Term child : term.getAllChildTerm())
+        {
+          children.add(child);
+        }
+      }
+      
     }
 
     List<Term> sorted = new ArrayList<Term>(children);
@@ -1260,11 +1271,11 @@ public class Term extends TermBase implements Reloadable, OptionIF
         list.add( ( (MdAttributeReference) mdAttr ).getAttributeName());
       }
     }
-    
-    if(md instanceof MdRelationship)
+
+    if (md instanceof MdRelationship)
     {
       MdBusiness childMd = ( (MdRelationship) md ).getChildMdBusiness();
-      if(childMd.definesType().equals(Term.CLASS))
+      if (childMd.definesType().equals(Term.CLASS))
       {
         list.add("childId");
       }
@@ -1437,7 +1448,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
     }
 
     query.restrictRows(20, 1);
-
 
     return query;
   }
