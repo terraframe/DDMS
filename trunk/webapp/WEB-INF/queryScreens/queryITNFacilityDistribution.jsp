@@ -105,7 +105,6 @@ YAHOO.util.Event.onDOMReady(function(){
     ITNAttribs = Mojo.Iter.filter(ITNAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
-    var hasTargetGroups = available.contains('<%= ITNDistributionViewDTO.TARGETGROUPS %>');
     
     var ITNColumns =   ITNAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:itn, suffix:'_itn', dropDownMaps:{}});
     
@@ -138,7 +137,7 @@ YAHOO.util.Event.onDOMReady(function(){
    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
    selectableGroups.push({title:"Recipient", values:personColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.Person.CLASSS});
 
-   if(hasTargetGroups)
+   if(available.contains('<%= ITNDistributionViewDTO.TARGETGROUPS %>'))
    {   
      var targetGroupsColumns = orderedGrids.targetGroups.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.targetGroups);
      selectableGroups.push({title:"TargetGroups", values:targetGroupsColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup.CLASS});

@@ -170,6 +170,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     <%
     Halp.setReadableAttributes(request, "ciAttribs", ControlInterventionDTO.CLASS, requestIF);
+    Halp.setReadableAttributes(request, "civAttribs", ControlInterventionViewDTO.CLASS, requestIF);
     %>
     var available = new MDSS.Set(<%= request.getAttribute("ciAttribs") %>);
     controlInterventionAttribs = Mojo.Iter.filter(controlInterventionAttribs, function(attrib){
@@ -315,18 +316,35 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var calculationsSection = "Calculations_for_premises_visit_outcome";
  
-      var selectableGroups = [
-                {title:"Intervention_Monitoring", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
-                {title:calculationsSection, values:calculations, group:"ic", klass:controlIntervention.CLASS},
-                {title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
-                {title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS},
-                {title:"Vehicle_Calculator_Subheading", values:vehicleBasedSprayingColumns, group:"ic", klass:controlIntervention.CLASS},
-                {title:"Person_Intervention", values:personInterventionColumns, group:"ic",klass:controlIntervention.CLASS},
-                {title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"ic",klass:controlIntervention.CLASS},
-      ];
+    var selectableGroups = [
+      {title:"Intervention_Monitoring", values:controlInterventionColumns, group:"ic", klass:controlIntervention.CLASS},
+      {title:calculationsSection, values:calculations, group:"ic", klass:controlIntervention.CLASS}
+    ];
 
+    var availableForView = new MDSS.Set(<%= request.getAttribute("civAttribs") %>);
 
+    if(availableForView.contains("<%=ControlInterventionViewDTO.INDIVIDULPREMISEUNIVERSAL%>"))
+    {
+      selectableGroups = selectableGroups.concat({title:"Individual_Premise_Visit", values:individualPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS});
+    }
+  
+    if(availableForView.contains("<%=ControlInterventionViewDTO.AGGREGATEDPREMISEUNIVERSAL%>"))
+    {
+      selectableGroups = selectableGroups.concat({title:"Aggregated_Premise_Visit", values:aggregatedPremiseVisitColumns, group:"ic", klass:controlIntervention.CLASS});
+    }
     
+    selectableGroups = selectableGroups.concat({title:"Vehicle_Calculator_Subheading", values:vehicleBasedSprayingColumns, group:"ic", klass:controlIntervention.CLASS});
+  
+    if(availableForView.contains("<%=ControlInterventionViewDTO.PERSONINTERVENTION%>"))
+    {
+      selectableGroups = selectableGroups.concat({title:"Person_Intervention", values:personInterventionColumns, group:"ic",klass:controlIntervention.CLASS});
+    }
+  
+    if(availableForView.contains("<%=ControlInterventionViewDTO.INSECTICIDEINTERVENTION%>"))
+    {
+      selectableGroups = selectableGroups.concat({title:"InsecticideIntervention", values:insecticideInterventionColumns, group:"ic",klass:controlIntervention.CLASS});
+    }
+      
     var query = new MDSS.QueryInterventionControl(selectableGroups, queryList, calculationsSection);
     query.render();
 
