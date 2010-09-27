@@ -51,14 +51,14 @@ public class PostOntologySetup
 
     Person person = new Person();
     person.setDateOfBirth(calendar.getTime());
-    person.setFirstName("MDSS");
+    person.setFirstName("DDMS");
     person.setLastName("User");
     person.setSex(Term.getByTermId(UNKNOWN));
     person.apply();
 
     MDSSUser user = new MDSSUser();
-    user.setUsername("MDSS");
-    user.setPassword("mdsstest2");
+    user.setUsername("admin");
+    user.setPassword("admin");
     user.setSessionLimit(25);
     user.setPerson(person);
     user.apply();
