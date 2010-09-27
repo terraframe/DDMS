@@ -315,11 +315,12 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
     try
     {
       thresholdCalculation.apply();
+      
       this.editThresholdConfiguration();
     }
     catch (java.lang.Throwable t)
     {
-      boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
       if (!redirect)
       {

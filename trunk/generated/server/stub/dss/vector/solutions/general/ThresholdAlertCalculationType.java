@@ -17,8 +17,6 @@ public class ThresholdAlertCalculationType extends ThresholdAlertCalculationType
 
 	@Override
 	protected String buildKey() {
-		String key = this.getDisease().getKeyName();
-
 		return this.getDisease().getKeyName();
 	}
 
