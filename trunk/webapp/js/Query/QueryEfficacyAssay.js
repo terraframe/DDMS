@@ -50,8 +50,9 @@ Mojo.Meta.newClass('MDSS.QueryEfficacyAssay', {
       
 
       var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
+      picker.setPolitical(true);
       picker.setSprayTargetAllowed(false);
+      picker.addExtraUniversal(dss.vector.solutions.geo.generated.Surface.CLASS);
       },
       
       _getBrowserRootClass : function(attribute)

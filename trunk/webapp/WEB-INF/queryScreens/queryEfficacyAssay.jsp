@@ -39,7 +39,8 @@
 <%@page import="dss.vector.solutions.entomology.assay.EfficacyAssayViewDTO"%>
 <%@page import="dss.vector.solutions.irs.InsecticideBrandDTO"%>
 
-<c:set var="page_title" value="Query_Efficacy"  scope="request"/>
+
+<%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -56,6 +57,7 @@
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
     loadables.addAll(Arrays.asList(queryTypes));
+    loadables.add(SurfaceDTO.CLASS);
 %>
 
 <%=Halp.loadTypes(loadables)%>
