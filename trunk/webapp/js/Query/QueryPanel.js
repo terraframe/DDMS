@@ -64,6 +64,10 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
 
   // map between query list entries (LI tags) and context menu builder functions
   this._queryMenuBuilders = {};
+  
+  this.waitForRefresh = false;
+  this._columnBatch = [];
+  this._deleteBatch = [];
 };
 
 MDSS.QueryPanel.prototype = {
@@ -536,7 +540,7 @@ MDSS.QueryPanel.prototype = {
 
     this._buildQueryItems();
 
-    this._buildContentGrid();
+    this._buildContentGrid([]);
 
     this._buildQuerySummary();
 
@@ -1030,17 +1034,27 @@ MDSS.QueryPanel.prototype = {
   /**
    * Builds the content grid to contain the query criteria.
    */
-  _buildContentGrid : function()
+  _buildContentGrid : function(columns)
   {
     // build the DataSource (required)
-    var dataSource = new YAHOO.util.DataSource([]);
-    dataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
+    var dataSource;
+    if(this._dataTable)
+    {
+      dataSource = this._dataTable.getDataSource();
+      this._dataTable.destroy();
+      this._dataTable = null;
+    }
+    else
+    {
+      dataSource = new YAHOO.util.DataSource([]);
+      dataSource.responseType = YAHOO.util.DataSource.TYPE_JSARRAY;
 
-    dataSource.responseSchema = {
-      fields: []
-    };
+      dataSource.responseSchema = {
+        fields: []
+      };
+    }
 
-    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, [], dataSource,{draggableColumns:true,resizeableColumns:true});
+    this._dataTable = new YAHOO.widget.DataTable(this.QUERY_DATA_TABLE, columns, dataSource,{draggableColumns:true,resizeableColumns:true});
 
     this._dataTable.render();
 
@@ -1087,7 +1101,16 @@ MDSS.QueryPanel.prototype = {
   {
     var attrib = column.attribute;
   	column.resizeable = true;
-  	column = this._dataTable.insertColumn(column);
+  	
+  	if(this.waitForRefresh)
+  	{
+  	  this._columnBatch.push(column.getDefinition());
+  	}
+  	else
+  	{
+  	  column = this._dataTable.insertColumn(column);
+  	}
+  	
   	column.attribute = attrib;
 
     if(Mojo.Util.isFunction(menuBuilder))
@@ -1100,13 +1123,50 @@ MDSS.QueryPanel.prototype = {
 
     return column;
   },
+  
+  refreshBatch : function()
+  {
+    if(this._columnBatch.length > 0 || this._deleteBatch.length > 0)
+    {
+      var all = this.getColumnSet().getDefinitions().concat(this._columnBatch);
+      if(this._deleteBatch.length > 0)
+      {
+        var toExclude = new MDSS.Set(this._deleteBatch);
+        var temp = [];
+        for(var i=0; i<all.length; i++)
+        {
+          var c = all[i];
+          if(!toExclude.contains(c.key))
+          {
+            temp.push(c);
+          }
+        }
+        
+        all = temp;
+      }
+      
+      this._buildContentGrid(all);
+    }
+    
+    this._columnBatch = [];
+    this._deleteBatch = [];
+    this.waitForRefresh = false;
+  },
 
   /**
    * Removes the specified column from the table.
    */
   removeColumn : function(column)
   {
-    this._dataTable.removeColumn(column);
+    if(this.waitForRefresh)
+    {
+      this._deleteBatch.push(column.getKey());
+    }
+    else
+    {
+      this._dataTable.removeColumn(column);
+    }
+
     this._removeSelectedColumn(column);
   },
 

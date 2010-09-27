@@ -1182,6 +1182,13 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var checks = YAHOO.util.Selector.query('input[type="checkbox"]', ul);
       var doCheck = check.checked;
 
+      var limit = 10;
+      
+      if(checks.length > limit)
+      {
+        this._queryPanel.waitForRefresh = true;
+      }
+      
       for(var i=0; i<checks.length; i++)
       {
         var check = checks[i];
@@ -1189,6 +1196,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         {
           check.click();
         }
+      }
+      
+      if(checks.length > limit)
+      {
+        var bound = Mojo.Util.bind(this._queryPanel, this._queryPanel.refreshBatch);
+        setTimeout(bound, 15);
       }
     },
 
