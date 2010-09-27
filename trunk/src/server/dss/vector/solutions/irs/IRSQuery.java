@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -36,6 +37,7 @@ import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
@@ -332,6 +334,37 @@ public class IRSQuery implements Reloadable
     }
   }
 
+  public String getUniversalsInCriteria()
+  {
+    try
+    {
+      String[] selectedUniversals = null;
+
+      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+
+      JSONArray universals = selectedUniMap.getJSONArray(AbstractSpray.CLASS + "."
+          + AbstractSpray.GEOENTITY);
+      selectedUniversals = new String[universals.length()];
+      
+      if(universals.length() == 0)
+      {
+        return null;
+      }
+      
+      for (int i = 0; i < universals.length(); i++)
+      {
+        selectedUniversals[i] = "'"+universals.getString(i)+"'";
+      }
+      
+      return StringUtils.join(selectedUniversals, ",");
+    }
+
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+  }
+
   /**
    * Populates the ValueQuery with the necessary selects, joins, and criteria to
    * make the IRS query work correctly. ORDER IS IMPORTANT. Do not change the
@@ -457,6 +490,49 @@ public class IRSQuery implements Reloadable
     }
 
     joinMainQueryTables();
+
+    // if (this.needsAreaPlanned)
+    // {
+    // GeoEntityQuery geoQ = new GeoEntityQuery(irsVQ);
+    //      
+    // irsVQ.FROM(geoQ);
+    // irsVQ.WHERE(geoQ.getId().EQ(irsVQ.aSQLCharacter("exactMatch",
+    // this.sprayViewAlias+"."+Alias.GEO_ENTITY)));
+    //      
+    // String exactMatch = "AND g." + this.idCol + " = " + this.geoEntity +
+    // " \n";
+    //
+    // try
+    // {
+    // String[] selectedUniversals = null;
+    //
+    // JSONObject selectedUniMap =
+    // queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+    //
+    // JSONArray universals = selectedUniMap.getJSONArray(AbstractSpray.CLASS +
+    // "."
+    // + AbstractSpray.GEOENTITY);
+    // selectedUniversals = new String[universals.length()];
+    // for (int i = 0; i < universals.length(); i++)
+    // {
+    // selectedUniversals[i] = universals.getString(i);
+    // }
+    //
+    // if (selectedUniversals.length > 0)
+    // {
+    // irsVQ.WHERE(geoQ.getType().IN(selectedUniversals));
+    //          
+    // String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
+    // exactMatch += " AND g." + type + " IN(" +
+    // StringUtils.join(selectedUniversals, ",") + ") \n";
+    // }
+    // }
+    //
+    // catch (JSONException e)
+    // {
+    // throw new ProgrammingErrorException(e);
+    // }
+    // }
 
     // Note: setWithQuerySQL() must go last
     // so the target management flags will be set correctly.
@@ -786,7 +862,7 @@ public class IRSQuery implements Reloadable
 
     return sql;
   }
-  
+
   /**
    * Adds the alias to the group by clause of the query.
    * 
@@ -800,12 +876,11 @@ public class IRSQuery implements Reloadable
     {
       irsVQ.SELECT(irsVQ.aSQLCharacter(alias.getAlias(), sql));
     }
-    
+
     irsVQ.GROUP_BY((SelectableSingle) irsVQ.getSelectableRef(alias.getAlias()));
-    
+
     return sql;
   }
-  
 
   private String sumOperatorActualTargets()
   {
@@ -1011,6 +1086,8 @@ public class IRSQuery implements Reloadable
     int count = 0;
     for (TargetJoin join : joins)
     {
+      join.setIRSQuery(this);
+      
       sql += "SELECT \n";
       sql += join.setId(Alias.ID) + ", \n";
       sql += join.setAggregationLevel(Alias.AGGREGATION_LEVEL) + ", \n";
