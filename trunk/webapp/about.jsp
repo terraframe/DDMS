@@ -12,6 +12,8 @@
 <div class="pageTitle"><fmt:message key="About"/></div>
 
 <dl>
+  <dt><fmt:message key="About_System_Name"/>:</dt>
+  <dd><fmt:message key="About_Version"/></dd>
   <dt><fmt:message key="developed_by"/>:</dt>
   <dd>
     <ul>
