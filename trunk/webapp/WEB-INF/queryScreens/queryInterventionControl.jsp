@@ -296,7 +296,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     
     var insecticideBrand = new dss.vector.solutions.irs.InsecticideBrand;
-    var insectcideBrandAttribs = [
+    var insecticideBrandAttribs = [
                              "productName",
                              "activeIngredient",
                              "concentrationQuantifier",
@@ -313,7 +313,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var availableForInsecticide = new MDSS.Set(<%= request.getAttribute("insecticideAttribs") %>);
 
-    insectcideBrandAttribs = Mojo.Iter.filter(insectcideBrandAttribs, function(attrib){
+    insecticideBrandAttribs = Mojo.Iter.filter(insecticideBrandAttribs, function(attrib){
       return this.contains(attrib);
     }, availableForInsecticide);    
 
