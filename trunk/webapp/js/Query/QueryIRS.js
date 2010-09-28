@@ -90,11 +90,6 @@ Mojo.Meta.newClass('MDSS.QueryIRS', {
       }
     },
     
-    getDateGroupIds : function()
-    {
-      return Mojo.Iter.map(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts), function(opt){ return opt.toLowerCase(); });
-    },
-    
 	  /**
 	   * At least one date group checkbox must be checked when any of the target management
 	   * calculations are selected. This method is the callback used when the DependencyManager

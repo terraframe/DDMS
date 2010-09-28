@@ -328,7 +328,7 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
     Disease disease = Disease.getCurrent();
     valueQuery.AND(aggregatedIPTQuery.getDisease().EQ(disease));
     
-    return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, aggregatedIPTQuery.getStartDate(), aggregatedIPTQuery.getEndDate());
+    return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, aggregatedIPTQuery.getStartDate(), aggregatedIPTQuery.getEndDate(), aggregatedIPTQuery.getDisease());
 
   }
   

@@ -4,7 +4,6 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -65,6 +64,8 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   private String supervisorPersonCol;
   
   private String geoEntityCol;
+  
+  private String targetCol;
 
   public ActualZoneSprayTarget()
   {
@@ -104,6 +105,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     lockedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.LOCKED);
     refusedCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.REFUSED);
     otherCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.OTHER);
+    targetCol = QueryUtil.getColumnName(teamSprayStatusMd, TeamSprayStatus.TARGET);
   }
 
   public String setId(Alias alias)
@@ -114,6 +116,12 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   public String setAggregationLevel(Alias alias)
   {
     return set("'3'::TEXT", alias);
+  }
+  
+  @Override
+  public String setTeamActualTarget(Alias alias)
+  {
+    return set(this.teamSprayStatusTable, this.targetCol, alias);
   }
 
   @Override
@@ -302,9 +310,8 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
     from += malariaSeasonTable + " AS sprayseason ";
 
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
-    String diseaseId = Disease.getCurrent().getId();
     from += "ON " + abstractSprayTable + "." + sprayDateCol + " BETWEEN sprayseason." + startDateCol
-        + " AND sprayseason." + endDateCol + " AND '" + diseaseId + "' = sprayseason."
+        + " AND sprayseason." + endDateCol + " AND '" + this.q.getDiseaseId() + "' = sprayseason."
         + seasonDiseaseCol + " \n";
 
     return from;
@@ -315,7 +322,7 @@ public class ActualZoneSprayTarget extends ActualTargetUnion implements Reloadab
   {
     String where = "";
     where += "" + abstractSprayTable + ".id = " + zoneSprayTable + ".id \n";
-    where += "AND " + zoneSprayTable + "." + diseaseCol + " = '" + diseaseId + "' \n";
+    where += "AND " + zoneSprayTable + "." + diseaseCol + " = '" + this.q.getDiseaseId() + "' \n";
 
     return where;
   }

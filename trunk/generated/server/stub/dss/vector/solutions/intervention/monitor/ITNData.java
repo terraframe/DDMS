@@ -338,7 +338,7 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
       valueQuery.FROM(itnQuery.getMdClassIF().getTableName(), itnQuery.getTableAlias());
     }
    
-    return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, itnQuery.getStartDate(), itnQuery.getEndDate());
+    return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, itnQuery.getStartDate(), itnQuery.getEndDate(), itnQuery.getDisease());
 
   }
   

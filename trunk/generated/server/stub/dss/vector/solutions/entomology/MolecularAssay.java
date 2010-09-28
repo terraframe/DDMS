@@ -223,7 +223,7 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
 
 
     return valueQuery;

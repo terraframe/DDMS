@@ -373,6 +373,6 @@ public class ImmatureCollection extends ImmatureCollectionBase implements
     }
 
     return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(),
-        collectionQuery.getEndDate());
+        collectionQuery.getEndDate(), collectionQuery.getDisease());
   }
 }

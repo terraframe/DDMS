@@ -393,7 +393,7 @@ public class SurveyPoint extends SurveyPointBase implements com.runwaysdk.genera
       dobSel.setSQL(sql);
     }
     
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyPointQuery.getDisease());
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 

@@ -33,11 +33,11 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
@@ -74,15 +74,9 @@ public class IRSQuery implements Reloadable
   // required to make the query work so as to not include superfluous rows.
   private boolean               needsAreaPlanned;
 
-  private boolean               needsAreaActual;
-
   private boolean               needsTeamsPlanned;
 
-  private boolean               needsTeamsActual;
-
   private boolean               needsOperatorPlanned;
-
-  private boolean               needsOperatorActual;
 
   /**
    * Set of all aliases that are not used with actual spray data or
@@ -117,11 +111,7 @@ public class IRSQuery implements Reloadable
 
   public static final String    PLANNED_AREA               = "plannedArea";
 
-  public static final String    ACTUAL_OPERATOR            = "actualOperator";
-
-  public static final String    ACTUAL_TEAM                = "actualTeam";
-
-  public static final String    ACTUAL_AREA                = "actualArea";
+  public static final String    ALL_ACTUALS                = "allActuals";
 
   // The final view of all actual and planned targets
   public static final String    SPRAY_VIEW                 = "sprayView";
@@ -154,8 +144,12 @@ public class IRSQuery implements Reloadable
 
   private int                   startDay;
 
+  private String                diseaseId;
+
   public IRSQuery(String config, String xml, Layer layer)
   {
+    diseaseId = Disease.getCurrent().getId();
+
     this.layer = layer;
 
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
@@ -177,11 +171,8 @@ public class IRSQuery implements Reloadable
     this.hasSprayEnumOrTerm = false;
 
     this.needsAreaPlanned = false;
-    this.needsAreaActual = false;
     this.needsOperatorPlanned = false;
-    this.needsOperatorActual = false;
     this.needsTeamsPlanned = false;
-    this.needsTeamsActual = false;
 
     this.hasPlannedTargets = false;
 
@@ -218,6 +209,11 @@ public class IRSQuery implements Reloadable
     nonActuals.add(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE.getAlias());
+  }
+
+  public String getDiseaseId()
+  {
+    return this.diseaseId;
   }
 
   public String getGeoEntity()
@@ -334,6 +330,12 @@ public class IRSQuery implements Reloadable
     }
   }
 
+  public boolean hasAreaCalcs()
+  {
+    return this.irsVQ.hasSelectableRef(AREA_PLANNED_TARGET)
+        || this.irsVQ.hasSelectableRef(AREA_PLANNED_COVERAGE);
+  }
+
   public String getUniversalsInCriteria()
   {
     try
@@ -345,17 +347,17 @@ public class IRSQuery implements Reloadable
       JSONArray universals = selectedUniMap.getJSONArray(AbstractSpray.CLASS + "."
           + AbstractSpray.GEOENTITY);
       selectedUniversals = new String[universals.length()];
-      
-      if(universals.length() == 0)
+
+      if (universals.length() == 0)
       {
         return null;
       }
-      
+
       for (int i = 0; i < universals.length(); i++)
       {
-        selectedUniversals[i] = "'"+universals.getString(i)+"'";
+        selectedUniversals[i] = "'" + universals.getString(i) + "'";
       }
-      
+
       return StringUtils.join(selectedUniversals, ",");
     }
 
@@ -459,7 +461,11 @@ public class IRSQuery implements Reloadable
 
     QueryUtil.setNumericRestrictions(irsVQ, queryConfig);
 
-    QueryUtil.setQueryDates(xml, irsVQ, queryConfig, queryMap1, true);
+    SelectableSQL diseaseSel = irsVQ.aSQLCharacter(Alias.DISEASE.getAlias(), Alias.DISEASE.getAlias());
+
+    DiseaseSelectableWrapper wrapper = new DiseaseSelectableWrapper(diseaseSel, this.sprayViewAlias);
+
+    QueryUtil.setQueryDates(xml, irsVQ, queryConfig, queryMap1, true, wrapper);
 
     addPlannedTargetDateCriteria();
 
@@ -490,49 +496,6 @@ public class IRSQuery implements Reloadable
     }
 
     joinMainQueryTables();
-
-    // if (this.needsAreaPlanned)
-    // {
-    // GeoEntityQuery geoQ = new GeoEntityQuery(irsVQ);
-    //      
-    // irsVQ.FROM(geoQ);
-    // irsVQ.WHERE(geoQ.getId().EQ(irsVQ.aSQLCharacter("exactMatch",
-    // this.sprayViewAlias+"."+Alias.GEO_ENTITY)));
-    //      
-    // String exactMatch = "AND g." + this.idCol + " = " + this.geoEntity +
-    // " \n";
-    //
-    // try
-    // {
-    // String[] selectedUniversals = null;
-    //
-    // JSONObject selectedUniMap =
-    // queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-    //
-    // JSONArray universals = selectedUniMap.getJSONArray(AbstractSpray.CLASS +
-    // "."
-    // + AbstractSpray.GEOENTITY);
-    // selectedUniversals = new String[universals.length()];
-    // for (int i = 0; i < universals.length(); i++)
-    // {
-    // selectedUniversals[i] = universals.getString(i);
-    // }
-    //
-    // if (selectedUniversals.length > 0)
-    // {
-    // irsVQ.WHERE(geoQ.getType().IN(selectedUniversals));
-    //          
-    // String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
-    // exactMatch += " AND g." + type + " IN(" +
-    // StringUtils.join(selectedUniversals, ",") + ") \n";
-    // }
-    // }
-    //
-    // catch (JSONException e)
-    // {
-    // throw new ProgrammingErrorException(e);
-    // }
-    // }
 
     // Note: setWithQuerySQL() must go last
     // so the target management flags will be set correctly.
@@ -743,103 +706,27 @@ public class IRSQuery implements Reloadable
     sql += ", " + INSECTICIDE_VIEW + " AS \n";
     sql += "(" + insecticideBrandQuery + ")\n";
 
-    // Set<IRSUnionIF> unions = new HashSet<IRSUnionIF>();
-
-    // This is the final check to see if all actual targets are
-    // required in the query. This occurs when any non-target management
-    // calculations are selected (so no actual or planned targets flags are
-    // true)
-    boolean needsAllActual = !this.hasPlannedTargets && !this.needsTeamsActual && !this.needsAreaActual
-        && !this.needsOperatorActual;
-
-    if (needsAllActual)
-    {
-      needsTeamsActual = needsAreaActual = needsOperatorActual = needsAllActual;
-    }
-
-    // Sometimes the user wants to view actual data but only when planned
-    // calculations have
-    // been selected. If an actual related selectable exists then add the
-    // necessary actual target
-    // counterparts to the existing planned targets.
-    if (this.hasPlannedTargets)
-    {
-      boolean found = false;
-      for (Selectable sel : irsVQ.getSelectableRefs())
-      {
-        String alias = sel.getUserDefinedAlias();
-        if (!this.nonActuals.contains(alias))
-        {
-          found = true;
-          break;
-        }
-      }
-
-      if (found)
-      {
-        if (needsAreaPlanned)
-        {
-          needsAreaActual = true;
-        }
-        if (needsOperatorPlanned)
-        {
-          needsOperatorActual = true;
-        }
-        if (needsTeamsPlanned)
-        {
-          needsTeamsActual = true;
-        }
-      }
-    }
-
-    // Note that operator actual targets are included if team actual targets
-    // are included. This is because of the aggregation where team actuals have
-    // estimates based off operator actuals.
-    if (this.needsTeamsActual)
-    {
-      this.needsOperatorActual = true;
-    }
-
-    if (this.needsOperatorActual)
-    {
-      sql += "," + ACTUAL_OPERATOR + " AS \n";
-      sql += "(" + createUnion(new ActualOperatorSprayTarget()) + ")\n";
-      // unions.add(new ActualOperatorSprayTarget());
-    }
-
-    if (this.needsTeamsActual)
-    {
-      sql += "," + ACTUAL_TEAM + " AS \n";
-      sql += "(" + createUnion(new ActualTeamSprayTarget()) + ")\n";
-      // unions.add(new ActualTeamSprayTarget());
-    }
-
-    if (this.needsAreaActual)
-    {
-      sql += "," + ACTUAL_AREA + " AS \n";
-      sql += "(" + createUnion(new ActualZoneSprayTarget()) + ")\n";
-      // unions.add(new ActualZoneSprayTarget());
-    }
+    sql += "," + ALL_ACTUALS + " AS \n";
+    sql += "("
+        + createUnion(new ActualOperatorSprayTarget(), new ActualTeamSprayTarget(),
+            new ActualZoneSprayTarget()) + ")\n";
 
     if (this.needsAreaPlanned)
     {
       sql += "," + PLANNED_AREA + " AS \n";
       sql += "(" + createUnion(new PlannedAreaTarget()) + ")\n";
-      // unions.add(new PlannedAreaTarget());
     }
 
     if (this.needsTeamsPlanned)
     {
       sql += "," + PLANNED_TEAM + " AS \n";
       sql += "(" + createUnion(new PlannedSprayTeamTarget()) + ")\n";
-      // unions.add(new PlannedSprayTeamTarget());
     }
 
     if (this.needsOperatorPlanned)
     {
       sql += "," + PLANNED_OPERATOR + " AS \n";
       sql += "(" + createUnion(new PlannedOperatorTarget()) + ")\n";
-      // unions.add(new PlannedOperatorTarget());
     }
 
     sql += "," + SPRAY_VIEW + " AS \n";
@@ -884,13 +771,13 @@ public class IRSQuery implements Reloadable
 
   private String sumOperatorActualTargets()
   {
-    this.needsOperatorActual = true;
+    // this.needsOperatorActual = true;
     return forceGrouping(Alias.OPERATOR_ACTUAL_TARGET);
   }
 
   private String sumTeamActualTargets()
   {
-    this.needsTeamsActual = true;
+    // this.needsTeamsActual = true;
     return forceGrouping(Alias.TEAM_ACTUAL_TARGET);
   }
 
@@ -985,8 +872,6 @@ public class IRSQuery implements Reloadable
       String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumOperatorPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
-
-      this.needsOperatorActual = true;
     }
   }
 
@@ -998,8 +883,6 @@ public class IRSQuery implements Reloadable
       String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumTeamPlannedTargets()
           + ",0))*100.0";
       calc.setSQL(sql);
-
-      this.needsTeamsActual = true;
     }
   }
 
@@ -1015,8 +898,6 @@ public class IRSQuery implements Reloadable
         String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
             + ",0))*100.0";
         calc.setSQL(sql);
-
-        this.needsAreaActual = true;
       }
       else
       {
@@ -1070,24 +951,35 @@ public class IRSQuery implements Reloadable
     String sql = "";
 
     List<TargetJoin> joins = new LinkedList<TargetJoin>();
-    if (needsAreaActual || needsAreaPlanned)
+    
+    if(this.hasPlannedTargets)
     {
-      joins.add(new AreaJoin(needsAreaActual, needsAreaPlanned));
+      if(needsAreaPlanned)
+      {
+        joins.add(new AreaJoin(true, needsAreaPlanned));
+      }
+      
+      if(needsTeamsPlanned)
+      {
+        joins.add(new TeamJoin(true, needsTeamsPlanned));
+      }
+      
+      if(needsOperatorPlanned)
+      {
+        joins.add(new OperatorJoin(true, needsOperatorPlanned));
+      }
     }
-    if (needsTeamsActual || needsTeamsPlanned)
+    else
     {
-      joins.add(new TeamJoin(needsTeamsActual, needsTeamsPlanned));
+      joins.add(new ActualJoin());
     }
-    if (needsOperatorActual || needsOperatorPlanned)
-    {
-      joins.add(new OperatorJoin(needsOperatorActual, needsOperatorPlanned));
-    }
+    
 
     int count = 0;
     for (TargetJoin join : joins)
     {
       join.setIRSQuery(this);
-      
+
       sql += "SELECT \n";
       sql += join.setId(Alias.ID) + ", \n";
       sql += join.setAggregationLevel(Alias.AGGREGATION_LEVEL) + ", \n";
@@ -1311,6 +1203,7 @@ public class IRSQuery implements Reloadable
     String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
     String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
     String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
+    String disease = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
 
     from += "ARRAY[" + weeks + "] AS target_array FROM " + sourceTable + ") AS tar ";
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 ) + ") AS i, "
@@ -1318,6 +1211,7 @@ public class IRSQuery implements Reloadable
     from += " WHERE target_array[i] IS NOT NULL \n";
     from += " AND i = de." + periodCol + " \n";
     from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
+    from += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
     return select + from;
   }
 

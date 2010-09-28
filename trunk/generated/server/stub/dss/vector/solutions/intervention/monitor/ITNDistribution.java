@@ -179,7 +179,7 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, itnQuery.getDisease());
 
     return valueQuery;
 

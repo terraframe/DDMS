@@ -665,7 +665,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate());
+    return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate(), controlInterventionQuery.getDisease());
   }
   
   /**

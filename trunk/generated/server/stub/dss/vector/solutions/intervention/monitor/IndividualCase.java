@@ -621,7 +621,7 @@ public class IndividualCase extends IndividualCaseBase implements
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, caseQuery.getDisease());
 
     Disease disease = Disease.getCurrent();
     valueQuery.AND(caseQuery.getDisease().EQ(disease));

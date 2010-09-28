@@ -7,7 +7,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -67,13 +66,10 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
 
   protected int              startDay;
 
-  protected String           diseaseId;
-
   public AbstractTargetUnion()
   {
     q = null;
     
-    diseaseId = Disease.getCurrent().getId();
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
     this.targeter = QueryUtil.getColumnName(ResourceTarget.getTargeterMd());

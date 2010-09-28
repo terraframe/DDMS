@@ -242,7 +242,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
 
 		QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-		QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+		QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, efficacyAssayQuery.getDisease());
 
 		return valueQuery;
 

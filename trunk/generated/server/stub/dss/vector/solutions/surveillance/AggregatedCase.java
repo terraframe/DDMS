@@ -635,7 +635,7 @@ public class AggregatedCase extends AggregatedCaseBase implements
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedCase.CLASS, aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, aggregatedCaseQuery.getStartDate(),
-        aggregatedCaseQuery.getEndDate());
+        aggregatedCaseQuery.getEndDate(), aggregatedCaseQuery.getDisease());
 
     QueryUtil.validateQuery(valueQuery);
 

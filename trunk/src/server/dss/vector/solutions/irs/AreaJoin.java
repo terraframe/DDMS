@@ -17,10 +17,12 @@ public class AreaJoin extends TargetJoin implements Reloadable
 
   public final String from()
   {
-    String a = IRSQuery.ACTUAL_AREA + " " + TargetJoin.ACTUAL_ALIAS;
+    String a = IRSQuery.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQuery.PLANNED_AREA + " " + TargetJoin.PLANNED_ALIAS;
 
-    if (hasActual && hasPlanned)
+    // Area targets work as follows: limit the planned targets by the universal columns,
+    // but sum the actual targets for all entities beneath the planned target geo entity.
+    if (hasPlanned)
     {
       String sql = "";
 
@@ -54,13 +56,9 @@ public class AreaJoin extends TargetJoin implements Reloadable
     
       return sql;
     }
-    else if (hasActual)
-    {
-      return a;
-    }
     else
     {
-      return p;
+      return a;
     }
   }
 

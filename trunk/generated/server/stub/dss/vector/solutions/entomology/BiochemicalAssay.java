@@ -195,7 +195,7 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.runway
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
 
     return valueQuery;
   }

@@ -12,10 +12,10 @@ public class OperatorJoin extends TargetJoin implements Reloadable
 
   public final String from()
   {
-    String a = IRSQuery.ACTUAL_OPERATOR + " " + TargetJoin.ACTUAL_ALIAS;
+    String a = IRSQuery.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQuery.PLANNED_OPERATOR + " " + TargetJoin.PLANNED_ALIAS;
 
-    if (hasActual && hasPlanned)
+    if (hasPlanned)
     {
       String sql = "";
 
@@ -28,13 +28,9 @@ public class OperatorJoin extends TargetJoin implements Reloadable
           + "." + Alias.DISEASE + " \n";
       return sql;
     }
-    else if (hasActual)
-    {
-      return a;
-    }
     else
     {
-      return p;
+      return a;
     }
   }
 }

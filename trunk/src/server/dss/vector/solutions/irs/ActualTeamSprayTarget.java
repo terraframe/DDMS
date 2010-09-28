@@ -4,7 +4,6 @@ import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -292,8 +291,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     from += malariaSeasonTable + " AS sprayseason ";
     
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
-    String diseaseId = Disease.getCurrent().getId();
-    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
+    from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+" AND sprayseason."+endDateCol+" AND '"+this.q.getDiseaseId()+"' = sprayseason."+seasonDiseaseCol+" \n";
     
     
     return from;
@@ -305,7 +303,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     String where = "";
 
     where += ""+abstractSprayTable+".id = "+teamSprayTable+".id\n";
-    where += "AND "+teamSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
+    where += "AND "+teamSprayTable+"."+diseaseCol+" = '"+this.q.getDiseaseId()+"' \n";
     
     return where;
   }

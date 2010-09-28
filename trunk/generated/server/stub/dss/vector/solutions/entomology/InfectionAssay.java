@@ -194,7 +194,7 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
       QueryUtil.setTermRestrictions(valueQuery, queryMap);
       QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-      QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+      QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     }
 
     if(unionQueries.size() == 1)
@@ -276,7 +276,7 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
 
     return valueQuery;
   }

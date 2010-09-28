@@ -129,6 +129,6 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    return QueryUtil.setQueryDates(xml, valueQuery, larvacideQuery, larvacideQuery.getStartDate());
+    return QueryUtil.setQueryDates(xml, valueQuery, larvacideQuery, larvacideQuery.getStartDate(), larvacideQuery.getDisease());
   }
 }

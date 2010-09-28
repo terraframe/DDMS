@@ -111,14 +111,17 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
     
     var stockItemColumns =   stockItemAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockItem, suffix:'_stockItem', dropDownMaps:stockMaps});
-
+    // remove the functions from the quantity selectable
+    stockItemColumns[2].includes = [];
+    
+    var quantityInStock = "quanity_instock";
     stockItemColumns = stockItemColumns.concat([
 
                                           {
                                           	 isAggregate:true,
-                                             key:"quanity_instock",
+                                             key:quantityInStock,
                                              type:"sqlinteger",
-                                             attributeName:"quanity_instock"
+                                             attributeName:quantityInStock
                                            }]);
 
     var person = new Mojo.$.dss.vector.solutions.Person();
@@ -135,7 +138,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
 
     var selectableGroups = [
-              {title:"StockItems", values:stockItemColumns, group:"s", klass:stockItem.CLASS},
+              {title:"StockItems", values:stockItemColumns, group:"e", klass:stockItem.CLASS},
               {title:"StockEvents", values:stockEventColumns, group:"e", klass:stockEvent.CLASS},
               {title:"Staff", values:personColumns, group:"e", klass:person.CLASS}
     ];
@@ -144,6 +147,18 @@ YAHOO.util.Event.onDOMReady(function(){
         
     query.render();
 
+    var dm = query.getDependencyManager();
+
+    var dateIds = query.getDateGroupIds();
+    var nonItems = stockEventColumns.concat(personColumns, dateIds);
+    dm.excludes({
+      independent: quantityInStock,
+      dependent: nonItems,
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: true
+    });
+    
+    /*
     YAHOO.util.Dom.addClass('itemId_stockItem','e');
     YAHOO.util.Dom.addClass('quantity_stockItem','e');
     YAHOO.util.Dom.addClass('unit_stockItem','e');
@@ -151,6 +166,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var StockItemsLi = document.getElementById('StockItemsLi');
     YAHOO.util.Dom.addClass(StockItemsLi.childNodes[0].childNodes[0],'e');
+    */
 
 });
 

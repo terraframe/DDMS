@@ -327,7 +327,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     
     String seasonDiseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
     from += "ON "+abstractSprayTable+"."+sprayDateCol+" BETWEEN sprayseason."+startDateCol+
-      " AND sprayseason."+endDateCol+" AND '"+diseaseId+"' = sprayseason."+seasonDiseaseCol+" \n";
+      " AND sprayseason."+endDateCol+" AND '"+this.q.getDiseaseId()+"' = sprayseason."+seasonDiseaseCol+" \n";
 
     return from;
   }
@@ -337,7 +337,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   {
     String where = "";
     where += ""+abstractSprayTable+".id = "+operSprayTable+".id\n";
-    where += "AND "+operSprayTable+"."+diseaseCol+" = '"+diseaseId+"' \n";
+    where += "AND "+operSprayTable+"."+diseaseCol+" = '"+this.q.getDiseaseId()+"' \n";
     
     
     return where;

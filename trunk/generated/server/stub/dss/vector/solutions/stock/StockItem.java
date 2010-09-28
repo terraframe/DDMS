@@ -231,7 +231,7 @@ public class StockItem extends StockItemBase implements com.runwaysdk.generation
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, stockEventQuery.getDisease());
 
     return valueQuery;
   }

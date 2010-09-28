@@ -197,7 +197,7 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
 
 
     return valueQuery;

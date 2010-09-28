@@ -12,8 +12,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.apache.commons.collections.ListUtils;
-import org.apache.commons.lang.ArrayUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -75,6 +73,7 @@ import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
@@ -1288,7 +1287,7 @@ public class QueryUtil implements Reloadable
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,
-      Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria)
+      Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria , Selectable diseaseSel)
   {
     String attributeName = null;
     String startValue = null;
@@ -1365,7 +1364,7 @@ public class QueryUtil implements Reloadable
       }
 
       return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery
-          .get(attributeName));
+          .get(attributeName), diseaseSel);
     }
     catch (JSONException e)
     {
@@ -1375,13 +1374,13 @@ public class QueryUtil implements Reloadable
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig,
-      Map<String, GeneratedEntityQuery> queryMap)
+      Map<String, GeneratedEntityQuery> queryMap, Selectable diseaseSel)
   {
-    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);
+    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel);
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target,
-      SelectableMoment daSel)
+      SelectableMoment daSel, Selectable diseaseSel)
   {
     String da = daSel.getDbQualifiedName();
     Set<String> found = new HashSet<String>();
@@ -1397,9 +1396,10 @@ public class QueryUtil implements Reloadable
       String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
       String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
       String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+      String disease = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.DISEASE);
 
       dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms " + " WHERE ms."
-          + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da);
+          + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da+ " AND ms."+disease+" = "+diseaseSel.getDbQualifiedName());
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
@@ -1496,9 +1496,9 @@ public class QueryUtil implements Reloadable
       valueQuery.WHERE(id1.EQ(id2));
     }
   }
-
+  
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target,
-      SelectableMoment sdSel, SelectableMoment edSel)
+      SelectableMoment sdSel, SelectableMoment edSel, DiseaseQueryReferenceIF diseaseSel)
   {
     String sd = sdSel.getDbQualifiedName();
     String ed = edSel.getDbQualifiedName();
@@ -1519,9 +1519,10 @@ public class QueryUtil implements Reloadable
       String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
       String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
       String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+      String disease = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.DISEASE);
 
       dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms" + " WHERE ms."
-          + startDateCol + " <= " + sd + " AND ms." + endDateCol + " >= " + ed);
+          + startDateCol + " <= " + sd + " AND ms." + endDateCol + " >= " + ed + " AND ms."+disease+" = "+diseaseSel.getDbQualifiedName());
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)

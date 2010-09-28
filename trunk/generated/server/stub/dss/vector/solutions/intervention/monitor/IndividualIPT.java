@@ -212,7 +212,7 @@ public class IndividualIPT extends IndividualIPTBase implements com.runwaysdk.ge
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap);
+    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, individualIPTCaseQuery.getDisease());
     
     Disease disease = Disease.getCurrent();
     valueQuery.AND(individualIPTCaseQuery.getDisease().EQ(disease));

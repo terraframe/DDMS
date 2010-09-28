@@ -295,7 +295,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     
 //    valueQuery.HAVING( F.COUNT(collectionQuery.getId()).GT(0));
     
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate());
+    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate(), collectionQuery.getDisease());
   }
   
   static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)
