@@ -20,6 +20,7 @@ import org.json.JSONObject;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.Entity;
+import com.runwaysdk.business.generation.CompilerException;
 import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -548,7 +549,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     synchronized (Object.class)
     {
-      ids = deleteGeoHierarchy2(geoHierarchyId);
+      try
+      {
+        ids = deleteGeoHierarchy2(geoHierarchyId);
+      }
+      catch (CompilerException e)
+      {
+        CannotDeleteUniversalException cdue = new CannotDeleteUniversalException();
+        cdue.setUniversalLabel(GeoHierarchy.get(geoHierarchyId).toString());
+        throw cdue;
+      }
       allowedInTree = null;
     }
 
