@@ -37,7 +37,8 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<c:set var="page_title" value="Query_Intervention_Control"  scope="request"/>
+
+<%@page import="dss.vector.solutions.irs.InsecticideBrandViewDTO"%><c:set var="page_title" value="Query_Intervention_Control"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -295,7 +296,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     
     var insecticideBrand = new dss.vector.solutions.irs.InsecticideBrand;
-    var insecticideBrandAttribs = [
+    var insectcideBrandAttribs = [
                              "productName",
                              "activeIngredient",
                              "concentrationQuantifier",
@@ -306,6 +307,15 @@ YAHOO.util.Event.onDOMReady(function(){
                              "unitQuantifier",
                              "unitQualifier",
                              ];
+    <%
+    Halp.setReadableAttributes(request, "insecticideAttribs", InsecticideBrandViewDTO.CLASS, requestIF);
+    %>
+    
+    var availableForInsecticide = new MDSS.Set(<%= request.getAttribute("insecticideAttribs") %>);
+
+    insectcideBrandAttribs = Mojo.Iter.filter(insectcideBrandAttribs, function(attrib){
+      return this.contains(attrib);
+    }, availableForInsecticide);    
 
     var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
     var insecticideBrandColumns =   insecticideBrandAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideBrand, suffix:'_ii', dropDownMaps:insecticideBrandMap});
