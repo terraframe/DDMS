@@ -237,6 +237,17 @@ YAHOO.util.Event.onDOMReady(function(){
     var aggregatedPremiseVisit = new dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
     var aggregatedPremiseVisitAttribs = ["premises","visited","treated"];
 
+    <%
+    Halp.setReadableAttributes(request, "aggregatedPremiseVisitAttribs", AggregatedPremiseVisitViewDTO.CLASS, requestIF);
+    %>
+    
+    var availableForAggregatedIntervention = new MDSS.Set(<%= request.getAttribute("aggregatedPremiseVisitAttribs") %>);
+
+    aggregatedPremiseVisitAttribs = Mojo.Iter.filter(aggregatedPremiseVisitAttribs, function(attrib){
+      return this.contains(attrib);
+    }, availableForAggregatedIntervention);    
+    
+
     var aggregatedPremiseVisitColumns = [{
       key:"subGeoEntity_ip",
       displayLabel: MDSS.localize('Sub_Geo_Entity'),
@@ -252,6 +263,17 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var personIntervention = new dss.vector.solutions.intervention.monitor.PersonIntervention;
     var personInterventionAttribs = ["vehicleDays"];
+
+    <%
+    Halp.setReadableAttributes(request, "personInterventionAttribs", PersonInterventionViewDTO.CLASS, requestIF);
+    %>
+    
+    var availableForPersonIntervention = new MDSS.Set(<%= request.getAttribute("personInterventionAttribs") %>);
+
+    personInterventionAttribs = Mojo.Iter.filter(personInterventionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, availableForPersonIntervention);    
+    
 
     var vehicleBasedSprayingColumns = [
       {
@@ -290,6 +312,18 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var insecticideIntervention = new dss.vector.solutions.intervention.monitor.InsecticideIntervention;
     var insecticideInterventionAttribs = [ "interventionMethod","quantity","unit"];
+
+    <%
+    Halp.setReadableAttributes(request, "insecticideInterventionAttribs", InsecticideInterventionViewDTO.CLASS, requestIF);
+    %>
+    
+    var availableForInsecticideIntervention = new MDSS.Set(<%= request.getAttribute("insecticideInterventionAttribs") %>);
+
+    insecticideInterventionAttribs = Mojo.Iter.filter(insecticideInterventionAttribs, function(attrib){
+      return this.contains(attrib);
+    }, availableForInsecticideIntervention);    
+
+    
     var insecticideInterventionColumns =  insecticideInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insecticideIntervention, suffix:'_pi', dropDownMaps:{}});
     
     
