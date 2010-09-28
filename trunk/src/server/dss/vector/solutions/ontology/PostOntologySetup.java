@@ -57,8 +57,8 @@ public class PostOntologySetup
     person.apply();
 
     MDSSUser user = new MDSSUser();
-    user.setUsername("admin");
-    user.setPassword("admin");
+    user.setUsername("ddms");
+    user.setPassword("ddms");
     user.setSessionLimit(25);
     user.setPerson(person);
     user.apply();
