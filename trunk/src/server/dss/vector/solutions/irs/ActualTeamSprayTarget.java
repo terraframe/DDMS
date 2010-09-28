@@ -37,6 +37,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   private String returnCol;
   private String sprayTeamTable;
   private String targetCol;
+  private String operTarget;
   
   public ActualTeamSprayTarget()
   {
@@ -71,6 +72,7 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
     lockedCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.LOCKED);
     refusedCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.REFUSED);
     otherCol = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OTHER);
+    operTarget = QueryUtil.getColumnName(operSprayStatusMd, OperatorSprayStatus.OPERATORTARGET);
    
     MdEntityDAOIF sprayTeamMd = MdEntityDAO.getMdEntityDAO(SprayTeam.CLASS);
     sprayTeamTable = sprayTeamMd.getTableName();
@@ -79,6 +81,12 @@ public class ActualTeamSprayTarget extends ActualTargetUnion implements Reloadab
   public String setId(Alias alias)
   {
     return set(this.teamSprayTable, this.idCol, alias);
+  }
+  
+  @Override
+  public String setOperatorActualTarget(Alias alias)
+  {
+    return set(this.operSprayStatusTable, this.operTarget, alias);
   }
   
   public String setAggregationLevel(Alias alias)
