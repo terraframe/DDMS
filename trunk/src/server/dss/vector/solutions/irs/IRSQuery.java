@@ -771,14 +771,15 @@ public class IRSQuery implements Reloadable
 
   private String sumOperatorActualTargets()
   {
-    // this.needsOperatorActual = true;
-    return forceGrouping(Alias.OPERATOR_ACTUAL_TARGET);
+    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_ACTUAL_TARGET);
+
+//    return forceGrouping(Alias.OPERATOR_ACTUAL_TARGET);
   }
 
   private String sumTeamActualTargets()
   {
-    // this.needsTeamsActual = true;
-    return forceGrouping(Alias.TEAM_ACTUAL_TARGET);
+    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_ACTUAL_TARGET);
+//    return forceGrouping(Alias.TEAM_ACTUAL_TARGET);
   }
 
   private String sumOperatorPlannedTargets()
