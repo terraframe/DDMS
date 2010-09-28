@@ -1015,10 +1015,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         {
         	li.id = attribute.getKey()+'_li';
         	 	
-          var select = document.createElement('select');
-
-          var options = [''];
-          options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
           
           // Filter the aggregate functions if specified
           var set = null;
@@ -1027,27 +1023,35 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
             set = new MDSS.Set(visibleObj.includes);
           }
           
-          for(var j=0; j<options.length; j++)
+          if(set === null || (set !== null && set.size() > 0))
           {
-            var option = options[j];
-
-            if(option !== '' && set != null && !set.contains(option))
-            {
-              continue;
-            }
+            var select = document.createElement('select');
             
-            var optionEl = document.createElement('option');
-            optionEl.id = attribute.getKey()+'-'+option;
-            optionEl.innerHTML = option;
-            YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
-
-            YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
-
-            select.appendChild(optionEl);
+            var options = [''];
+            options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
+  
+            for(var j=0; j<options.length; j++)
+            {
+              var option = options[j];
+  
+              if(option !== '' && set != null && !set.contains(option))
+              {
+                continue;
+              }
+              
+              var optionEl = document.createElement('option');
+              optionEl.id = attribute.getKey()+'-'+option;
+              optionEl.innerHTML = option;
+              YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+  
+              YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+  
+              select.appendChild(optionEl);
+            }
+            select.disabled = true; // default (must be checked to enabled)
+            this._defaults.push({element:select, index:0});
+            li.appendChild(select);
           }
-          select.disabled = true; // default (must be checked to enabled)
-          this._defaults.push({element:select, index:0});
-          li.appendChild(select);
 
             // Add single match and range
         	var items = [];
@@ -1327,8 +1331,15 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     	   
     	  var search = new MDSS.GenericSearch(searchEl, null, listFunction, displayFunction, idFunction, searchFunction, selectEventHandler, {minLength:0});
     	  
-    	  search.addParameter([attribute.getType(),attribute.getAttributeName()]);
-    	  
+    	  // look for custom search params (often set by SelectableSQL objects)
+    	  if(attribute.hasCustomSearch())
+    	  {
+    	    search.addParameter([attribute.getSearchType(),attribute.getSearchAttribute()]);
+    	  }
+    	  else
+    	  {
+    	    search.addParameter([attribute.getType(),attribute.getAttributeName()]);
+    	  }
     },
     
     _buildDateAttributesSelect : function(div)

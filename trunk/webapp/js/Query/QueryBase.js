@@ -72,6 +72,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
     },
     
+    getDateGroupIds : function()
+    {
+      return Mojo.Iter.map(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts), function(opt){ return opt.toLowerCase(); });
+    },
+    
     getDependencyManager : function()
     {
       return this._dm;
@@ -1447,6 +1452,9 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._isTerm = false;
       this._isEnum = false;
       
+      this._searchType = obj.searchType || null;
+      this._searchAttribute = obj.searchAttribute || null;
+      
       if(obj.isTerm){
       	this._isTerm = obj.isTerm;
       }
@@ -1463,6 +1471,21 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       {
         this._genKey();
       }
+    },
+    
+    hasCustomSearch : function()
+    {
+      return this._searchType != null && this._searchAttribute != null;
+    },
+    
+    getSearchType : function()
+    {
+      return this._searchType;
+    },
+    
+    getSearchAttribute : function()
+    {
+      return this._searchAttribute;
     },
     
     setTerm : function(isTerm)
