@@ -22,10 +22,12 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AttributePrimitive;
+import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.Join;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
@@ -36,7 +38,10 @@ import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MdssLog;
+import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.irs.TeamMember;
+import dss.vector.solutions.irs.TeamMemberQuery;
+import dss.vector.solutions.irs.TeamMemberView;
 import dss.vector.solutions.util.QueryUtil;
 
 public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
@@ -125,8 +130,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
    */
   @Transaction
   @Authenticate
-  public static com.runwaysdk.query.ValueQuery getQueryResults(String queryClass, String queryXML,
-      String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
+  public static com.runwaysdk.query.ValueQuery getQueryResults(String queryClass, String queryXML, String config, String sortBy, Boolean ascending, Integer pageNumber, Integer pageSize)
   {
     ValueQuery valueQuery = getValueQuery(queryClass, queryXML, config, null);
 
@@ -136,8 +140,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   }
 
   @Transaction
-  public static InputStream exportQueryToExcel(String queryClass, String queryXML, String config,
-      String savedSearchId)
+  public static InputStream exportQueryToExcel(String queryClass, String queryXML, String config, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -155,8 +158,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   }
 
   @Transaction
-  public static InputStream exportQueryToCSV(String queryClass, String queryXML, String config,
-      String savedSearchId)
+  public static InputStream exportQueryToCSV(String queryClass, String queryXML, String config, String savedSearchId)
   {
     if (savedSearchId == null || savedSearchId.trim().length() == 0)
     {
@@ -167,8 +169,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
 
-    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session
-        .getCurrentLocale());
+    DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
 
     ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
     return exporter.exportStream();
@@ -183,20 +184,61 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IRS QB special case for searching on Spray Operator, which doesn't follow
-    // the same logic
-    // as normal attribute searching.
+    // the same logic as normal attribute searching.
     if (TeamMember.CLASS.equals(klass) && TeamMember.PERSON.equals(attribute))
     {
-      
+      PersonQuery personQuery = new PersonQuery(valueQuery);
+      TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
+
+      CONCAT concat = F.CONCAT(F.CONCAT(F.CONCAT(F.CONCAT(personQuery.getFirstName(TeamMemberView.FIRSTNAME), " "), personQuery.getLastName(TeamMemberView.LASTNAME)), " - "), leaderQuery.getMemberId(TeamMemberView.MEMBERID), "attribute", "attribute");
+      COUNT count = F.COUNT(concat, "attributeCount", "attributeCount");
+
+      SelectablePrimitive[] selectables = new SelectablePrimitive[] { concat, count, leaderQuery.getMemberId(TeamMemberView.MEMBERID), personQuery.getFirstName(TeamMemberView.FIRSTNAME), personQuery.getLastName(TeamMemberView.LASTNAME) };
+
+      if (match != null && !match.equals(""))
+      {
+        valueQuery.SELECT(selectables);
+
+        String[] tokens = match.split(" ");
+
+        Condition condition = null;
+
+        for (String token : tokens)
+        {
+          String value = token + "%";
+
+          if (condition == null)
+          {
+            condition = OR.get(leaderQuery.getMemberId(TeamMemberView.MEMBERID).LIKEi(value), personQuery.getFirstName(TeamMemberView.FIRSTNAME).LIKEi(value), personQuery.getLastName(TeamMemberView.LASTNAME).LIKEi(value));
+          }
+          else
+          {
+            condition = OR.get(condition, leaderQuery.getMemberId(TeamMemberView.MEMBERID).LIKEi(value), personQuery.getFirstName(TeamMemberView.FIRSTNAME).LIKEi(value), personQuery.getLastName(TeamMemberView.LASTNAME).LIKEi(value));
+          }
+        }
+
+        valueQuery.WHERE(AND.get(leaderQuery.getIsSprayOperator().EQ(true), personQuery.getTeamMemberDelegate().EQ(leaderQuery), condition));
+
+        valueQuery.ORDER_BY_DESC(count);
+      }
+      else
+      {
+        Condition[] conditions = new Condition[] { leaderQuery.getIsSprayOperator().EQ(true), personQuery.getTeamMemberDelegate().EQ(leaderQuery) };
+        QueryBuilder.orderedLookup(valueQuery, queryFactory, personQuery.getFirstName(TeamMemberView.FIRSTNAME), selectables, conditions);
+      }
+
+      valueQuery.restrictRows(20, 1);
+
+      return valueQuery;
     }
     else
     {
       // The attribute may be in the form of attribute1.attribute2.attribute3,
-      // etc
-      // to represent a chain of attribute dependencies. This needs to be
+      // etc to represent a chain of attribute dependencies. This needs to be
       // dereferenced.
       MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(klass);
       String searchAttribute = attribute;
+
       if (attribute.contains("."))
       {
         String[] attrs = attribute.split("\\.");
@@ -213,8 +255,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
           }
           else if (i != attrs.length - 1)
           {
-            String error = "The attribute [" + attribute + "] on type [" + klass
-                + "] is not valid for chaining.";
+            String error = "The attribute [" + attribute + "] on type [" + klass + "] is not valid for chaining.";
             throw new ProgrammingErrorException(error);
           }
         }
@@ -236,23 +277,17 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       valueQuery.ORDER_BY_DESC(count);
     }
 
-
     valueQuery.restrictRows(20, 1);
 
     return valueQuery;
   }
 
-  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray,
-      SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray,
-      Condition[] conditionArray)
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
-    QueryBuilder.textLookup(valueQuery, qf, tokenArray, searchableArray, selectableArray,
-        conditionArray, new Join[] {});
+    QueryBuilder.textLookup(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray, new Join[] {});
   }
 
-  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray,
-      SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray,
-      Condition[] conditionArray, Join[] joins)
+  public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins)
   {
     long WEIGHT = 256;
 
@@ -265,15 +300,13 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       for (int i = 0; i < tokenArray.length; i++)
       {
         String token = tokenArray[i].toLowerCase();
-        valueQueryArray[i] = buildQueryForToken(qf, token, searchableArray, selectableArray,
-            conditionArray, joins, WEIGHT, i);
+        valueQueryArray[i] = buildQueryForToken(qf, token, searchableArray, selectableArray, conditionArray, joins, WEIGHT, i);
       }
       uQ.UNION(valueQueryArray);
     }
     else
     {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), searchableArray, selectableArray,
-          conditionArray, joins, WEIGHT, 0);
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), searchableArray, selectableArray, conditionArray, joins, WEIGHT, 0);
     }
 
     // Build outermost select clause. This would be cleaner if the API supported
@@ -305,9 +338,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     // }
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token,
-      SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray,
-      Condition[] conditionArray, Join[] joins, long weight, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
@@ -324,8 +355,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     String sql = Database.instance().escapeSQLCharacters(token);
 
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i)
-        + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql + "'),0))");
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql + "'),0))");
     vQ.SELECT_DISTINCT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + sql + "%"));
 
@@ -364,14 +394,12 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     return sb.toString();
   }
 
-  public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy,
-      SelectablePrimitive[] selectables, Condition[] conditions)
+  public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions)
   {
     QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions, new Join[] {});
   }
 
-  public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy,
-      SelectablePrimitive[] selectables, Condition[] conditions, Join[] joins)
+  public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions, Join[] joins)
   {
     Condition condition = null;
 
