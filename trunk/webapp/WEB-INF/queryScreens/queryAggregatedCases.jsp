@@ -119,20 +119,36 @@ YAHOO.util.Event.onDOMReady(function(){
     aggregatedCaseAttribs = Mojo.Iter.filter(aggregatedCaseAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
+
+    // Many of the sections share the same terms, so this function namespaces the attribute name
+    // so the column name/attribute name in the underlying SelectableSQL will be unique.
+    var namespaceColumns = function(columns, suffix)
+    {
+      for(var i=0; i<columns.length; i++)
+      {
+        columns[i].attributeName += suffix;
+      }
+    };
     
     var aggregatedCaseColumns =   aggregatedCaseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedCase, suffix:'_ac', dropDownMaps:{}});
 
     var caseTreatmentMethodColumns = orderedGrids.methods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.methods);
-
+    namespaceColumns(caseTreatmentMethodColumns, '_tmc');
+    
      var treatmentColumns = orderedGrids.treatments.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.treatments);
+    namespaceColumns(treatmentColumns, '_tc');
 
      var stockColumns = orderedGrids.stocks.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stocks);
+    namespaceColumns(stockColumns, '_sc');
      
      var referralColumns = orderedGrids.referrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.referrals);
+    namespaceColumns(referralColumns, '_rc');
 
      var stockReferralColumns = orderedGrids.stockReferrals.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.stockReferrals);
+    namespaceColumns(stockReferralColumns, '_src');
       
      var diagnosticColumns = orderedGrids.diagnostics.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.diagnostics);
+    namespaceColumns(diagnosticColumns, '_dc');
 
      // Prepend with "Tested"
      var ttDelim = ' '+MDSS.localize('Term_Separator')+' ';
