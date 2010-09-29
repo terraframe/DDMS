@@ -95,7 +95,7 @@ input[type="button"]:active {
 
 <dl>
   <dt><label> <fmt:message key="username" />: </label></dt>
-  <dd><mjl:input param="username" type="text" value="MDSS" /></dd>
+  <dd><mjl:input param="username" type="text" /></dd>
   <dt><label> <fmt:message key="password" />: </label></dt>
   <dd><mjl:input param="password" type="password" value="" /></dd>
 </dl>
