@@ -80,7 +80,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var action = this._getExportXLSAction();
       form.action = action;
   
-      xmlInput.innerHTML = xml;
+      xmlInput.textContent = xml; // use textContent to avoid unescaping XML escape characters
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
       queryClassInput.value = this._xmlToValueQueryClass;
@@ -103,7 +103,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var action = this._getExportCSVAction();
       form.action = action;
   
-      xmlInput.innerHTML = xml;
+      xmlInput.textContent = xml; // use textContent to avoid unescaping XML escape characters
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
       queryClassInput.value = this._xmlToValueQueryClass;

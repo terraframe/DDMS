@@ -41,6 +41,11 @@ MDSS.QueryXML.objectToXML = function(obj)
 {
   function toXML(name, content)
   {
+    if(name === 'userDisplayLabel' && Mojo.Util.isString(content))
+    {
+      content = content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/&/g, "&amp;").replace(/'/g, "&apos;").replace(/"/g, "&quot;");
+    }
+    
     return '<'+name+'>'+content+'</'+name+'>' + (MDSS.QueryXML.DEBUG ? '\n' : '');
   }
 

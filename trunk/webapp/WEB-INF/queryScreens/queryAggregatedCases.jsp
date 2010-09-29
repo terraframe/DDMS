@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
@@ -83,6 +83,8 @@ YAHOO.util.Event.onDOMReady(function(){
     var aggregatedCase = new dss.vector.solutions.surveillance.AggregatedCase;
     var aggregatedCaseAttribs = ["geoEntity", "startDate","endDate","ageGroup","cases","positiveCases","negativeCases","deaths"];
 
+    // FIXME these calculations don't appear to be used anywhere (cut and paste error, maybe?).
+    // Delete these in the future, but at least they don't appear to be doing any harm.
     var calculations = ([
                          {
                            
