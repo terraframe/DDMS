@@ -254,21 +254,22 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       house = new HouseholdView();
       house.setHouseholdName(name);
       house.setSurveyPoint(surveyPoint);
-      house.setUrban(this.getUrban());
-      house.setPeople(this.getPeople());
-      house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), HouseholdView.getWallMd()));
-      house.setWallInfo(this.getWallInfo());
-      house.setRoof(Term.validateByDisplayLabel(this.getRoofSurface(), HouseholdView.getRoofMd()));
-      house.setRoofInfo(this.getRoofInfo());
-      house.setHasWindows(this.getHasWindows());
-      house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), HouseholdView.getWindowTypeMd()));
-      house.setRooms(this.getRooms());
-      house.addHasBeenSprayed(ExcelEnums.getResponse(this.getHasBeenSprayed()));
-      house.setLastSprayed(this.getLastSprayed());
-      house.setNets(this.getNets());      
-      house.apply();
     }
     iterator.close();
+    
+    house.setUrban(this.getUrban());
+    house.setPeople(this.getPeople());
+    house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), HouseholdView.getWallMd()));
+    house.setWallInfo(this.getWallInfo());
+    house.setRoof(Term.validateByDisplayLabel(this.getRoofSurface(), HouseholdView.getRoofMd()));
+    house.setRoofInfo(this.getRoofInfo());
+    house.setHasWindows(this.getHasWindows());
+    house.setWindowType(Term.validateByDisplayLabel(this.getWindowType(), HouseholdView.getWindowTypeMd()));
+    house.setRooms(this.getRooms());
+    house.addHasBeenSprayed(ExcelEnums.getResponse(this.getHasBeenSprayed()));
+    house.setLastSprayed(this.getLastSprayed());
+    house.setNets(this.getNets());      
+    house.apply();
     
     return house;
   }
