@@ -38,6 +38,7 @@ public class IndividualPremiseExcelView extends IndividualPremiseExcelViewBase i
   {
     ControlInterventionView controlPoint = this.getControlPoint();
     GeoEntity premiseGeo = this.getPremiseGeoEntity();
+    controlPoint.setIndividulPremiseUniversal(GeoHierarchy.getGeoHierarchyFromType(premiseGeo.getType()));
     
     IndividualPremiseVisitView ipv = new IndividualPremiseVisitView();
     ipv.setGeoEntity(premiseGeo);
