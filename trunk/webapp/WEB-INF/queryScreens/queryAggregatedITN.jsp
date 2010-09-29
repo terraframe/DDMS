@@ -43,8 +43,9 @@
 <%@page import="dss.vector.solutions.intervention.monitor.ITNTargetGroupDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNServiceDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+<%@page import="com.runwaysdk.business.BusinessDTO"%>
 
-<%@page import="com.runwaysdk.business.BusinessDTO"%><c:set var="page_title" value="Query_Aggregated_ITN_Data_Distribution"  scope="request"/>
+<c:set var="page_title" value="Query_Aggregated_ITN_Data_Distribution"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -59,6 +60,7 @@
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));
     loadables.addAll(Arrays.asList(queryTypes));
+    loadables.add(dss.vector.solutions.geo.generated.HealthFacilityDTO.CLASS);
 %>
 
 <%=Halp.loadTypes(loadables)%>
