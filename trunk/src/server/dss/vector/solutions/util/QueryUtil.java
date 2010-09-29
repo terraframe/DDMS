@@ -814,7 +814,7 @@ public class QueryUtil implements Reloadable
           sel = f.getSelectable();
         }
 
-        if (value.contains("-"))
+        if (value.contains("-") && sel instanceof SelectableNumber)
         {
           String[] range = value.split("-");
           if (range.length == 2)
