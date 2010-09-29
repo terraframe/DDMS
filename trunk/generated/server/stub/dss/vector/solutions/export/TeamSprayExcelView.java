@@ -103,10 +103,13 @@ public class TeamSprayExcelView extends TeamSprayExcelViewBase implements
       {
         view = iterator.next().lockView();
       }
+      else
+      {
+        view.setSpray(TeamSpray.get(tsv.getConcreteId()));
+        view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
+      }
       iterator.close();
       
-//      view.setSpray(TeamSpray.get(tsv.getConcreteId()));
-//      view.setSprayOperator(TeamMember.getOperatorById(this.getOperatorId()));
       view.setOperatorTarget(this.getOperatorTarget());
       view.setReceived(this.getOperatorReceived());
       view.setRefills(this.getOperatorRefills());
