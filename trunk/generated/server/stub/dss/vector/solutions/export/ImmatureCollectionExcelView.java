@@ -12,7 +12,9 @@ import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.entomology.CollectionContainer;
 import dss.vector.solutions.entomology.CollectionContainerQuery;
 import dss.vector.solutions.entomology.CollectionContainerView;
@@ -40,10 +42,37 @@ public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase
   public void apply()
   {
     ImmatureCollectionView i = new ImmatureCollectionView();
+    
     String cid = this.getCollectionId();
+    if (cid==null || cid.length()==0)
+    {
+      RequiredAttributeProblem rap = new RequiredAttributeProblem();
+      rap.setAttributeName(COLLECTIONID);
+      rap.setAttributeDisplayLabel(ImmatureCollectionExcelView.getCollectionIdMd().getDisplayLabel(Session.getCurrentLocale()));
+      rap.throwIt();
+    }
+    
+    Term premiseTypeTerm = Term.validateByDisplayLabel(this.getPremiseType(), ImmatureCollectionView.getPremiseTypeMd());
+    if (premiseTypeTerm==null)
+    {
+      RequiredAttributeProblem rap = new RequiredAttributeProblem();
+      rap.setAttributeName(PREMISETYPE);
+      rap.setAttributeDisplayLabel(ImmatureCollectionExcelView.getPremiseTypeMd().getDisplayLabel(Session.getCurrentLocale()));
+      rap.throwIt();
+    }
+    
+    Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), ImmatureCollectionView.getTaxonMd());
+    if (taxonTerm==null)
+    {
+      RequiredAttributeProblem rap = new RequiredAttributeProblem();
+      rap.setAttributeName(TAXON);
+      rap.setAttributeDisplayLabel(ImmatureCollectionExcelView.getTaxonMd().getDisplayLabel(Session.getCurrentLocale()));
+      rap.throwIt();
+    }
+    
     i.setCollectionId(cid);
-    i.setPremiseType(Term.validateByDisplayLabel(this.getPremiseType(), ImmatureCollectionView.getPremiseTypeMd()));
-    i.setTaxon(Term.validateByDisplayLabel(this.getTaxon(), ImmatureCollectionView.getTaxonMd()));
+    i.setPremiseType(premiseTypeTerm);
+    i.setTaxon(taxonTerm);
 
     ImmatureCollectionViewQuery search = ImmatureCollectionViewQuery.searchCollections(i);
     OIterator<? extends ImmatureCollectionView> iterator = search.getIterator();
