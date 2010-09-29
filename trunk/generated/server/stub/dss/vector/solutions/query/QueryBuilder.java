@@ -190,7 +190,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
       PersonQuery personQuery = new PersonQuery(valueQuery);
       TeamMemberQuery leaderQuery = new TeamMemberQuery(valueQuery);
 
-      CONCAT concat = F.CONCAT(F.CONCAT(F.CONCAT(F.CONCAT(personQuery.getFirstName(TeamMemberView.FIRSTNAME), " "), personQuery.getLastName(TeamMemberView.LASTNAME)), " - "), leaderQuery.getMemberId(TeamMemberView.MEMBERID), "attribute", "attribute");
+      CONCAT concat = F.CONCAT(F.CONCAT(leaderQuery.getMemberId(TeamMemberView.MEMBERID), " - "), F.CONCAT(F.CONCAT(personQuery.getFirstName(TeamMemberView.FIRSTNAME), " "), personQuery.getLastName(TeamMemberView.LASTNAME)), "attribute", "attribute");
       COUNT count = F.COUNT(concat, "attributeCount", "attributeCount");
 
       SelectablePrimitive[] selectables = new SelectablePrimitive[] { concat, count, leaderQuery.getMemberId(TeamMemberView.MEMBERID), personQuery.getFirstName(TeamMemberView.FIRSTNAME), personQuery.getLastName(TeamMemberView.LASTNAME) };
