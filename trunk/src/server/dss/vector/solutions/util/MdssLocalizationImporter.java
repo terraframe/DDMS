@@ -151,7 +151,7 @@ public class MdssLocalizationImporter implements Reloadable
       return;
     }
     
-    FilenameFilter filter = new FilenameFilter()
+    class AdminFilter implements FilenameFilter, Reloadable
     {
       public boolean accept(File dir, String name)
       {
@@ -164,9 +164,9 @@ public class MdssLocalizationImporter implements Reloadable
           return false;
         }
       }
-    };
+    }
     
-    FileIO.copyFolder(source, destination, filter);
+    FileIO.copyFolder(source, destination, new AdminFilter());
   }
 
   private void mergeProperties(LocaleDimension child)
