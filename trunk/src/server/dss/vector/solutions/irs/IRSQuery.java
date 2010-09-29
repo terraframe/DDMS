@@ -50,23 +50,23 @@ public class IRSQuery implements Reloadable
 
   private static final String   TEAM_PLANNED_COVERAGE      = "team_planned_coverage";
 
-  private static final String   TEAM_PLANNED_TARGET        = "team_planned_target";
+  public static final String   TEAM_PLANNED_TARGET        = "team_planned_target";
 
   private static final String   TEAM_TARGETED_COVERAGE     = "team_targeted_coverage";
 
-  private static final String   TEAM_ACTUAL_TARGET         = "team_actual_target";
+  public static final String   TEAM_ACTUAL_TARGET         = "team_actual_target";
 
   private static final String   AREA_PLANNED_COVERAGE      = "area_planned_coverage";
 
-  private static final String   AREA_PLANNED_TARGET        = "area_planned_target";
+  public static final String   AREA_PLANNED_TARGET        = "area_planned_target";
 
   private static final String   OPERATOR_TARGET_DIVERGENCE = "operator_target_divergence";
 
-  private static final String   OPERATOR_ACTUAL_TARGET     = "operator_actual_target";
+  public static final String   OPERATOR_ACTUAL_TARGET     = "operator_actual_target";
 
   private static final String   OPERATOR_TARGETED_COVERAGE = "operator_targeted_coverage";
 
-  private static final String   OPERATOR_PLANNED_TARGET    = "operator_planned_target";
+  public static final String   OPERATOR_PLANNED_TARGET    = "operator_planned_target";
 
   private static final String   OPERATOR_PLANNED_COVERAGE  = "operator_planned_coverage";
 
@@ -145,9 +145,13 @@ public class IRSQuery implements Reloadable
   private int                   startDay;
 
   private String                diseaseId;
+  
+  private boolean hasEpiWeek;
 
   public IRSQuery(String config, String xml, Layer layer)
   {
+    hasEpiWeek = false;
+    
     diseaseId = Disease.getCurrent().getId();
 
     this.layer = layer;
@@ -393,6 +397,8 @@ public class IRSQuery implements Reloadable
     filterSelectables();
 
     swapOutAttributesForAggregates();
+
+    this.hasEpiWeek = irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
 
     if (insecticideQuery != null)
     {
@@ -778,26 +784,50 @@ public class IRSQuery implements Reloadable
 
   private String sumTeamActualTargets()
   {
-    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, OPERATOR_ACTUAL_TARGET);
+    return QueryUtil.sumColumnForId(sprayViewAlias, idCol, sprayViewAlias, TEAM_ACTUAL_TARGET);
 //    return forceGrouping(Alias.TEAM_ACTUAL_TARGET);
   }
 
   private String sumOperatorPlannedTargets()
   {
     this.needsOperatorPlanned = true;
-    return forceGrouping(Alias.OPERATOR_PLANNED_TARGET);
+    
+    if(!this.hasEpiWeek)
+    {
+      return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias, OPERATOR_PLANNED_TARGET);
+    }
+    else
+    {
+      return forceGrouping(Alias.OPERATOR_PLANNED_TARGET);
+    }
   }
 
   private String sumTeamPlannedTargets()
   {
     this.needsTeamsPlanned = true;
-    return forceGrouping(Alias.TEAM_PLANNED_TARGET);
+    
+    if(!this.hasEpiWeek)
+    {
+      return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias, TEAM_PLANNED_TARGET);
+    }
+    else
+    {
+      return forceGrouping(Alias.TEAM_PLANNED_TARGET);
+    }
   }
 
   private String sumAreaPlannedTargets()
   {
     this.needsAreaPlanned = true;
-    return forceGrouping(Alias.AREA_PLANNED_TARGET);
+    
+    if(!this.hasEpiWeek)
+    {
+      return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias, AREA_PLANNED_TARGET);
+    }
+    else
+    {
+      return forceGrouping(Alias.AREA_PLANNED_TARGET);
+    }
   }
 
   private void calculateOperatorPlannedTargets()
