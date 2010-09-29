@@ -204,7 +204,7 @@ YAHOO.util.Event.onDOMReady(function(){
                              "unitQualifier",
                              ];
     <%
-    Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideBrandViewDTO.CLASS, requestIF);
+      Halp.setReadableAttributes(request, "insectcideAttribs", InsecticideBrandDTO.CLASS, requestIF);
     %>
     var available = new MDSS.Set(<%= request.getAttribute("insectcideAttribs") %>);
     insectcideAttribs = Mojo.Iter.filter(insectcideAttribs, function(attrib){
@@ -476,25 +476,31 @@ YAHOO.util.Event.onDOMReady(function(){
                                   key:"sprayoperator_defaultLocale",
                                   type:"sqlcharacter",
                                   attributeName:"sprayoperator_defaultLocale",
+                                  dtoType: 'AttributeCharacterDTO',
+                                  searchType: 'dss.vector.solutions.irs.TeamMember',
+                                  searchAttribute: 'person'
                                 },
                                 {
                                   
                                   key:"sprayteam_defaultLocale",
                                   type:"sqlcharacter",
                                   attributeName:"sprayteam_defaultLocale",
+                                  dtoType: 'AttributeCharacterDTO',
+                                  searchType: 'dss.vector.solutions.irs.SprayTeam',
+                                  searchAttribute: 'teamId'
                                 },
                                 {
                                   
                                   key:"sprayleader_defaultLocale",
                                   type:"sqlcharacter",
-                                  attributeName:"sprayleader_defaultLocale",
+                                  attributeName:"sprayleader_defaultLocale"
                                 },
                                 {
                                   
                                   key:"zone_supervisor_defaultLocale",
                                   displayLabel:MDSS.localize('zone_supervisor'),
                                   type:"sqlcharacter",
-                                  attributeName:"zone_supervisor_defaultLocale",
+                                  attributeName:"zone_supervisor_defaultLocale"
                                 }
                              ];
 
