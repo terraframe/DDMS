@@ -36,6 +36,7 @@ import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.MdssLog;
+import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.util.QueryUtil;
 
 public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
@@ -181,47 +182,60 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
-    // The attribute may be in the form of attribute1.attribute2.attribute3, etc
-    // to represent a chain of attribute dependencies. This needs to be
-    // dereferenced.
-    MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(klass);
-    String searchAttribute = attribute;
-    if (attribute.contains("."))
+    // IRS QB special case for searching on Spray Operator, which doesn't follow
+    // the same logic
+    // as normal attribute searching.
+    if (TeamMember.CLASS.equals(klass) && TeamMember.PERSON.equals(attribute))
     {
-      String[] attrs = attribute.split("\\.");
-      for (int i = 0; i < attrs.length; i++)
+      
+    }
+    else
+    {
+      // The attribute may be in the form of attribute1.attribute2.attribute3,
+      // etc
+      // to represent a chain of attribute dependencies. This needs to be
+      // dereferenced.
+      MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(klass);
+      String searchAttribute = attribute;
+      if (attribute.contains("."))
       {
-        searchAttribute = attrs[i];
+        String[] attrs = attribute.split("\\.");
+        for (int i = 0; i < attrs.length; i++)
+        {
+          searchAttribute = attrs[i];
 
-        MdAttributeDAOIF attrMd = md.definesAttribute(searchAttribute);
-        if (attrMd instanceof MdAttributeReferenceDAOIF)
-        {
-          // This should only be valid for MdEntities so this downcast is valid.
-          md = (MdEntityDAOIF) ( (MdAttributeReferenceDAOIF) attrMd ).getReferenceMdBusinessDAO();
-        }
-        else if (i != attrs.length - 1)
-        {
-          String error = "The attribute [" + attribute + "] on type [" + klass
-              + "] is not valid for chaining.";
-          throw new ProgrammingErrorException(error);
+          MdAttributeDAOIF attrMd = md.definesAttribute(searchAttribute);
+          if (attrMd instanceof MdAttributeReferenceDAOIF)
+          {
+            // This should only be valid for MdEntities so this downcast is
+            // valid.
+            md = (MdEntityDAOIF) ( (MdAttributeReferenceDAOIF) attrMd ).getReferenceMdBusinessDAO();
+          }
+          else if (i != attrs.length - 1)
+          {
+            String error = "The attribute [" + attribute + "] on type [" + klass
+                + "] is not valid for chaining.";
+            throw new ProgrammingErrorException(error);
+          }
         }
       }
+
+      String attrCol = QueryUtil.getColumnName(md.definesType(), searchAttribute);
+      SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attrCol);
+
+      COUNT count = F.COUNT(attribSelectable, "attributeCount");
+
+      valueQuery.SELECT(attribSelectable, count);
+
+      String table = md.getTableName();
+
+      valueQuery.FROM(table, "auto_complete");
+
+      valueQuery.WHERE(attribSelectable.LIKEi(match + "%"));
+
+      valueQuery.ORDER_BY_DESC(count);
     }
 
-    String attrCol = QueryUtil.getColumnName(md.definesType(), searchAttribute);
-    SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attrCol);
-
-    COUNT count = F.COUNT(attribSelectable, "attributeCount");
-
-    valueQuery.SELECT(attribSelectable, count);
-
-    String table = md.getTableName();
-
-    valueQuery.FROM(table, "auto_complete");
-
-    valueQuery.WHERE(attribSelectable.LIKEi(match + "%"));
-
-    valueQuery.ORDER_BY_DESC(count);
 
     valueQuery.restrictRows(20, 1);
 
