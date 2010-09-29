@@ -44,6 +44,8 @@ public class AggregatedPremiseExcelView extends AggregatedPremiseExcelViewBase i
   {
     ControlInterventionView controlPoint = this.getControlPoint();
     GeoEntity subGeo = this.getPremiseGeoEntity();
+    controlPoint.setAggregatedPremiseUniversal(GeoHierarchy.getGeoHierarchyFromType(subGeo.getType()));
+
     AggregatedPremiseVisitView apv = new AggregatedPremiseVisitView();
     apv.setGeoEntity(subGeo);
     

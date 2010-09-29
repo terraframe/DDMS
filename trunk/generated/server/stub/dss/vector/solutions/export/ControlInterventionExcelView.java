@@ -53,7 +53,6 @@ public class ControlInterventionExcelView extends ControlInterventionExcelViewBa
     if (geo != null)
     {
       this.civ.setGeoEntity(geo);
-      this.civ.setAggregatedPremiseUniversal(GeoHierarchy.getGeoHierarchyFromType(geo.getType()));
     }
 
     Date start = this.getStartDate();
