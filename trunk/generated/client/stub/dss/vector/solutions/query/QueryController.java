@@ -995,7 +995,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO iim = request.getQuery(IndividualPremiseVisitDTO.CLASS);
       String iimap = Halp.getDropDownMaps(iim, request, ", ");
       req.setAttribute("individualPremiseVisit", iimap);
-
+      
       JSONObject interventionMethods = new JSONObject();
       interventionMethods.put("type", TermDTO.CLASS);
       interventionMethods.put("label", MDSSProperties.getObject("Amount"));
@@ -1020,8 +1020,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       
       ClassQueryDTO aim = request.getQuery(AggregatedPremiseVisitDTO.CLASS);
       String aimap = Halp.getDropDownMaps(aim, request, ", ");
-      req.setAttribute("aggregatedPremiseVisit", aimap);
-      
+      req.setAttribute("aggregatedPremiseVisit", aimap);      
 
       JSONObject aggInterventionMethods = new JSONObject();
       aggInterventionMethods.put("type", TermDTO.CLASS);
@@ -1052,7 +1051,21 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ordered.put("personInterventionMethods", personInterventionMethod);
 
       req.setAttribute("orderedGrids", ordered.toString());
+      
+      IndividualPremiseVisitViewDTO individualPremiseVisitViewDTO = new IndividualPremiseVisitViewDTO(this.getClientRequest());
+      
+      req.setAttribute("individualMethodLabel", individualPremiseVisitViewDTO.getInterventionMethodMd().getDisplayLabel());
+      req.setAttribute("individualReasonLabel", individualPremiseVisitViewDTO.getReasonsForNotTreatedMd().getDisplayLabel());
+            
+      AggregatedPremiseVisitViewDTO aggPremiseVisitViewDTO = new AggregatedPremiseVisitViewDTO(this.getClientRequest());
+      
+      req.setAttribute("aggMethodLabel", aggPremiseVisitViewDTO.getInterventionMethodMd().getDisplayLabel());
+      req.setAttribute("aggReasonLabel", aggPremiseVisitViewDTO.getNonTreatmentReasonMd().getDisplayLabel());      
 
+      PersonInterventionViewDTO personInterventionViewDTO = new PersonInterventionViewDTO(this.getClientRequest());
+      
+      req.setAttribute("personMethodLabel", personInterventionViewDTO.getInterventionMethodMd().getDisplayLabel());
+      
       req.getRequestDispatcher(QUERY_INTERVENTION_CONTROL).forward(req, resp);
 
     }

@@ -45,7 +45,7 @@
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-    String[] mosquitoTypes = new String[]{ ControlInterventionDTO.CLASS, IndividualPremiseVisit.CLASS, IndividualPremiseVisitMethodDTO.CLASS,  AggregatedPremiseReasonDTO.CLASS, AggregatedPremiseVisitDTO.CLASS,PersonInterventionDTO.CLASS ,PersonInterventionMethodDTO.CLASS, InsecticideBrandDTO.CLASS, InsecticideInterventionDTO.CLASS};
+    String[] mosquitoTypes = new String[]{ ControlInterventionDTO.CLASS, IndividualPremiseVisitDTO.CLASS, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitMethodDTO.CLASS,  AggregatedPremiseReasonDTO.CLASS, AggregatedPremiseVisitDTO.CLASS,PersonInterventionDTO.CLASS ,PersonInterventionMethodDTO.CLASS, InsecticideBrandDTO.CLASS, InsecticideInterventionDTO.CLASS};
     String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
@@ -216,8 +216,9 @@ YAHOO.util.Event.onDOMReady(function(){
       */ 
     ];
     individualPremiseVisitColumns =   individualPremiseVisitColumns.concat(individualPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualPremiseVisit, suffix:'_ic', dropDownMaps:individualPremiseVisitMethodMaps}));
-    
-    individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.individualPremiseVisitMethod));
+
+    var func = Mojo.Util.curry(MDSS.QueryBaseNew.mapMoWithPrepend, '<%=request.getAttribute("individualMethodLabel")%>');
+    individualPremiseVisitColumns = individualPremiseVisitColumns.concat(orderedGrids.individualPremiseVisitMethod.options.map(func, orderedGrids.individualPremiseVisitMethod));
 
     var reasons = <%= request.getAttribute("reasons") %>;
     var reasonCols = [];
@@ -226,7 +227,7 @@ YAHOO.util.Event.onDOMReady(function(){
       var reason = reasons[i];
       reasonCols.push({
         key: reason.key,
-        displayLabel: reason.label,
+        displayLabel: '<%=request.getAttribute("individualReasonLabel")%> - ' + reason.label,
         attributeName: reason.key,
         dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
         type:'sqlfloat'
@@ -257,9 +258,12 @@ YAHOO.util.Event.onDOMReady(function(){
       isGeoEntity : true
       }];
     aggregatedPremiseVisitColumns =   aggregatedPremiseVisitColumns.concat(aggregatedPremiseVisitAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedPremiseVisit, suffix:'_ip', dropDownMaps:aggregatedPremiseVisitMaps}));
+
+    var aggMethod = Mojo.Util.curry(MDSS.QueryBaseNew.mapMoWithPrepend, '<%=request.getAttribute("aggMethodLabel")%>');
+    var aggReason = Mojo.Util.curry(MDSS.QueryBaseNew.mapMoWithPrepend, '<%=request.getAttribute("aggReasonLabel")%>');
     
-    aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionMethods));
-    aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.aggInterventionReasons));
+    aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionMethods.options.map(aggMethod, orderedGrids.aggInterventionMethods));
+    aggregatedPremiseVisitColumns = aggregatedPremiseVisitColumns.concat(orderedGrids.aggInterventionReasons.options.map(aggReason, orderedGrids.aggInterventionReasons));
     
     var personIntervention = new dss.vector.solutions.intervention.monitor.PersonIntervention;
     var personInterventionAttribs = ["vehicleDays"];
@@ -308,7 +312,9 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var personInterventionColumns =  personInterventionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:personIntervention, suffix:'_ap', dropDownMaps:personInterventionMaps});
 
-    personInterventionColumns = personInterventionColumns.concat(orderedGrids.personInterventionMethods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.personInterventionMethods));
+    var personMethod = Mojo.Util.curry(MDSS.QueryBaseNew.mapMoWithPrepend, '<%=request.getAttribute("personMethodLabel")%>');
+    
+    personInterventionColumns = personInterventionColumns.concat(orderedGrids.personInterventionMethods.options.map(personMethod, orderedGrids.personInterventionMethods));
     
     var insecticideIntervention = new dss.vector.solutions.intervention.monitor.InsecticideIntervention;
     var insecticideInterventionAttribs = [ "interventionMethod","quantity","unit"];

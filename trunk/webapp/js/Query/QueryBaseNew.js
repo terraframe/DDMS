@@ -1705,6 +1705,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         return row;
       },
      
+      mapMoWithPrepend : function(prepend, term, index){
+    	  var row = {};
+    	  row.dtoType = "AttributeIntegerDTO";
+    	  row.displayLabel = prepend + " - " +term.displayLabel;
+    	  
+    	  row.key = this.relAttribute +'__'+ this.relType.replace(/[.]/g,'_') +'__'+ term.id;;
+    	  row.type = 'sqlinteger';
+    	  //row.attributeName = 'term' + term.MOID.replace(':','');
+    	  row.attributeName = 'term'+MDSS.QueryBase.aliasTerm(term.id);
+    	  
+    	  return row;
+      },
+      
      mapBooleanMo : function(term,index){
       	 var row = {};
           row.dtoType = "AttributeBooleanDTO";
