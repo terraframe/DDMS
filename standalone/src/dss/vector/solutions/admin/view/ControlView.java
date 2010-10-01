@@ -133,12 +133,19 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       @Override
       public void handleEvent(Event arg0)
       {
-        FileDialog dialog = new FileDialog(composite.getShell(), SWT.SAVE);
-        String file = dialog.open();
-
-        if (file != null && file.length() > 0)
+        if (!controller.isServerUp())
         {
-          controller.backup(new File(file));
+          FileDialog dialog = new FileDialog(composite.getShell(), SWT.SAVE);
+          String file = dialog.open();
+
+          if (file != null && file.length() > 0)
+          {
+            controller.backup(new File(file));
+          }
+        }
+        else
+        {
+          error(Localizer.getMessage("TOMCAT_ERROR"));
         }
       }
     });
@@ -150,12 +157,19 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       @Override
       public void handleEvent(Event arg0)
       {
-        FileDialog dialog = new FileDialog(composite.getShell());
-        String file = dialog.open();
-
-        if (file != null && file.length() > 0)
+        if (!controller.isServerUp())
         {
-          controller.restore(new File(file));
+          FileDialog dialog = new FileDialog(composite.getShell());
+          String file = dialog.open();
+
+          if (file != null && file.length() > 0)
+          {
+            controller.restore(new File(file));
+          }
+        }
+        else
+        {
+          error(Localizer.getMessage("TOMCAT_ERROR"));
         }
       }
     });

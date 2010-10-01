@@ -275,4 +275,10 @@ public class ModuleController extends EventProvider implements IModuleController
     this.fireExecuteEvent(runnable);
   }
 
+  @Override
+  public boolean isServerUp()
+  {
+    return server.isServerUp();
+  }
+
 }

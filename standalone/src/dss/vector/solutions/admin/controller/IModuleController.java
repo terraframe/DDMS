@@ -4,8 +4,6 @@ import java.io.File;
 
 import com.runwaysdk.controller.IAdminModuleController;
 
-import dss.vector.solutions.admin.MDSSModule;
-
 public interface IModuleController extends IAdminModuleController
 {
   public void addListener(IControllerListener listener);
@@ -25,4 +23,6 @@ public interface IModuleController extends IAdminModuleController
   public void restore(File file);
   
   public void refresh();
+  
+  public boolean isServerUp();  
 }

@@ -72,30 +72,18 @@ public class Server extends EventProvider
 
   public void validateProcessState(final boolean condition, final Runnable runnable)
   {
-    try
+    boolean status = this.isServerUp();
+
+    if (status == condition)
     {
-      String command = CommandProperties.getProccess();
-      
-      SynchronusProcess process = new SynchronusProcess();
-      String output = process.run(command);
-
-      if (output.contains("Bootstrap") == condition)
-      {
-        runnable.run();
-      }
-      else
-      {
-        fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
-
-        pollServerState();
-      }
-
+      runnable.run();
     }
-    catch (Exception e)
+    else
     {
+      fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
 
+      pollServerState();
     }
-    
   }
 
   private void runCommand(final String command)
@@ -135,9 +123,9 @@ public class Server extends EventProvider
   public void enableServer(boolean status)
   {
     final String command = status ? CommandProperties.getStartCommand() : CommandProperties.getStopCommand();
-    
+
     Runnable runnable = new Runnable()
-    {      
+    {
       @Override
       public void run()
       {
@@ -148,19 +136,38 @@ public class Server extends EventProvider
     if (status)
     {
       setLastCommand(status);
-      
+
       // Ensure that the tomcat proccess does not already exist
       this.validateProcessState(false, runnable);
     }
-    else if(getLastCommand() == null || getLastCommand() != status)
+    else if (getLastCommand() == null || getLastCommand() != status)
     {
       setLastCommand(status);
-      
+
       this.validateProcessState(true, runnable);
     }
     else
     {
       this.pollServerState();
     }
+  }
+
+  public boolean isServerUp()
+  {
+    try
+    {
+      String command = CommandProperties.getProccess();
+
+      SynchronusProcess process = new SynchronusProcess();
+      String output = process.run(command);
+
+      return output.contains("Bootstrap");
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+    }
+
+    return false;
   }
 }
