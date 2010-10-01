@@ -141,17 +141,15 @@ Section -Main SEC0000
       Call findFireFox
     doneInstallFireFox:
       
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing the ScrenGrab Plugin"
-    StrCmp $FPath "" fireFoxNotFound installScreenGrab
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Verifying Firefox Installation"
+    StrCmp $FPath "" fireFoxNotFound fireFoxFound
     fireFoxNotFound:
       MessageBox MB_OK "Could not find FireFox.  Please install again and ensure that FireFox installs correctly"
       Abort
     
-    # Install the ScreenGrab addon
-    installScreenGrab:
-    #File "/oname=$FPath\extensions\screengrab-0.96.3-fx.xpi" "screengrab-0.96.3-fx.xpi"
-	File "screengrab-0.96.3-fx.xpi"
-	ExecWait `"$FPath\firefox.exe" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
+    fireFoxFound:
+    # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
+	ExecWait `"$FPath\firefox.exe"`
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
@@ -177,6 +175,12 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\tomcat6
     File /r tomcat6\*
     SetOutPath $INSTDIR
+    
+    # Install the ScreenGrab addon
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing the ScrenGrab Plugin"
+    #File "/oname=$FPath\extensions\screengrab-0.96.3-fx.xpi" "screengrab-0.96.3-fx.xpi"
+	File "screengrab-0.96.3-fx.xpi"
+	ExecWait `"$FPath\firefox.exe" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
     
     # Install Postgres
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSql"
@@ -228,7 +232,7 @@ Section -Main SEC0000
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
     # Update terraframe.properties
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\MDSS\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $InstallationNumber $Master_Value`
+    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $InstallationNumber $Master_Value`
     
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
 SectionEnd
@@ -239,7 +243,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $SMPROGRAMS\$StartMenuGroup
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/MDSS/"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/DDMS/"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
