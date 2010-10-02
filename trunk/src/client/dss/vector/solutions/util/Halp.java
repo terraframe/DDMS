@@ -424,7 +424,7 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
     JSONObject brandsObj = new JSONObject();
     for(InsecticideBrandViewDTO brand : brands)
     {
-      brandsObj.put(brand.getInsecticdeId(), brand.getLabel());
+      brandsObj.put(brand.getValue(InsecticideBrandViewDTO.PRODUCTNAME), brand.getLabel());
     }
     
     String key = attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
