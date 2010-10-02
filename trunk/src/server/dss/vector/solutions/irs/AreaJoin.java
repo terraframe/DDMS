@@ -27,8 +27,8 @@ public class AreaJoin extends TargetJoin implements Reloadable
       String sql = "";
 
       sql += a + " FULL OUTER JOIN " + p + " \n";
-      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = "
-          + TargetJoin.ACTUAL_ALIAS + "." + Alias.GEO_ENTITY + " \n";
+//      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = "
+//          + TargetJoin.ACTUAL_ALIAS + "." + Alias.GEO_ENTITY + " \n";
       sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.TARGET_WEEK + " = "
           + TargetJoin.ACTUAL_ALIAS + "." + Alias.TARGET_WEEK + " \n";
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
