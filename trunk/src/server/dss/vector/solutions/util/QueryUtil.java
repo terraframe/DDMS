@@ -795,7 +795,11 @@ public class QueryUtil implements Reloadable
       if (matcher.find())
       {
         attributeName = matcher.group(1);
-
+        if(!valueQuery.hasSelectableRef(attributeName))
+        {
+          continue;
+        }
+        
         String value;
         try
         {
@@ -806,6 +810,7 @@ public class QueryUtil implements Reloadable
           String error = "Could not extract the key [" + key + "] when setting numeric restrictions.";
           throw new ProgrammingErrorException(error, e);
         }
+        
         Selectable sel = valueQuery.getSelectableRef(attributeName);
 
         while (sel instanceof Function)
