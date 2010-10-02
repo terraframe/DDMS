@@ -20,40 +20,48 @@ public class AreaJoin extends TargetJoin implements Reloadable
     String a = IRSQuery.ALL_ACTUALS + " " + TargetJoin.ACTUAL_ALIAS;
     String p = IRSQuery.PLANNED_AREA + " " + TargetJoin.PLANNED_ALIAS;
 
-    // Area targets work as follows: limit the planned targets by the universal columns,
-    // but sum the actual targets for all entities beneath the planned target geo entity.
+    // Area targets work as follows: limit the planned targets by the universal
+    // columns,
+    // but sum the actual targets for all entities beneath the planned target
+    // geo entity.
     if (hasPlanned)
     {
       String sql = "";
 
       sql += a + " FULL OUTER JOIN " + p + " \n";
-//      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = "
-//          + TargetJoin.ACTUAL_ALIAS + "." + Alias.GEO_ENTITY + " \n";
+
+      // sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY +
+      // " = "
+      // + TargetJoin.ACTUAL_ALIAS + "." + Alias.GEO_ENTITY + " \n";
       sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.TARGET_WEEK + " = "
           + TargetJoin.ACTUAL_ALIAS + "." + Alias.TARGET_WEEK + " \n";
       sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.DISEASE + " = " + TargetJoin.ACTUAL_ALIAS
           + "." + Alias.DISEASE + " \n";
-      
-      String geoTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
-     
-      sql += "INNER JOIN "+geoTable+" geo \n";
-      sql += "ON "+TargetJoin.PLANNED_ALIAS+"."+Alias.GEO_ENTITY+" = geo."+this.idCol+" \n";
-      
-      String universals = this.q.getUniversalsInCriteria();
-      if(universals != null)
-      {
-        String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
-        sql += "AND geo."+type+" IN("+universals+") \n";
-      }
-      
-      String allpathsTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
+
+      String pathsTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
       String childGeo = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
       String parentGeo = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
-      
-      sql += "INNER JOIN "+allpathsTable+" g ON \n";
-      sql += TargetJoin.PLANNED_ALIAS+"." + Alias.GEO_ENTITY + " = g."+parentGeo+" \n";
-      sql += "AND "+TargetJoin.ACTUAL_ALIAS+"." + Alias.GEO_ENTITY + " = g."+childGeo+" \n";
-    
+      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = (SELECT " + parentGeo
+          + " FROM " + pathsTable + " WHERE" + " " + parentGeo + " = " + TargetJoin.PLANNED_ALIAS + "."
+          + Alias.GEO_ENTITY + " AND " + childGeo + " = " + TargetJoin.ACTUAL_ALIAS + "."
+          + Alias.GEO_ENTITY + ")";
+
+      String geoTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
+
+      sql += "INNER JOIN " + geoTable + " geo \n";
+      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = geo." + this.idCol + " \n";
+
+      String universals = this.q.getUniversalsInCriteria();
+      if (universals != null)
+      {
+        String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
+        sql += "AND geo." + type + " IN(" + universals + ") \n";
+      }
+
+//      sql += "INNER JOIN " + allpathsTable + " g ON \n";
+//      sql += TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = g." + parentGeo + " \n";
+//      sql += "AND " + TargetJoin.ACTUAL_ALIAS + "." + Alias.GEO_ENTITY + " = g." + childGeo + " \n";
+
       return sql;
     }
     else
