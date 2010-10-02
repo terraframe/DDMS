@@ -116,6 +116,8 @@ public class IRSQuery implements Reloadable
   public static final String    PLANNED_AREA               = "plannedArea";
 
   public static final String    ALL_ACTUALS                = "allActuals";
+  
+  public static final String ORIGINAL_ID = "original_id";
 
   // The final view of all actual and planned targets
   public static final String    SPRAY_VIEW                 = "sprayView";
@@ -1286,6 +1288,7 @@ public class IRSQuery implements Reloadable
     sql += "SELECT gt.geo_entity as parent_id \n";
     sql += ", gt.geo_entity as original_id \n";
     sql += ",gt.season \n";
+    sql += ",gt.disease \n";
 
     for (int i = 0; i < 53; i++)
     {
@@ -1298,6 +1301,7 @@ public class IRSQuery implements Reloadable
     sql += " SELECT b.child_id, \n";
     sql += "a.original_id \n";
     sql += ",a.season \n";
+    sql += ",a.disease \n";
 
     for (int i = 0; i < 53; i++)
     {
@@ -1317,11 +1321,13 @@ public class IRSQuery implements Reloadable
 
     sql += "select \n";
     sql += "original_id, \n";
+    sql += "de." + Alias.PLANNED_DATE + " AS " + Alias.PLANNED_DATE + ", \n";
     sql += "season as season, \n";
+    sql += "tar.disease as disease, \n";
     sql += "i as target_week, \n";
     sql += "target_array[i] AS weekly_target \n";
 
-    sql += "FROM (SELECT original_id, season, ARRAY[ \n";
+    sql += "FROM (SELECT original_id, season, disease, ARRAY[ \n";
 
     for (int i = 0; i < 53; i++)
     {
@@ -1332,10 +1338,19 @@ public class IRSQuery implements Reloadable
       sql += "SUM(target_" + i + ") \n";
     }
 
+    String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
+    String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
+    String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
+    String disease = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+    
     sql += "] \n";
     sql += "AS target_array FROM " + TARGET_ROLLUP
-        + " group by original_id, season) AS tar CROSS JOIN generate_series(1, 54) AS i \n";
-
+        + " group by original_id, season, disease) AS tar CROSS JOIN generate_series(1, 54) AS i, \n"
+    + DATE_EXTRAPOLATION + " de, " + malariaSeasonTable + " ms \n";
+    sql += " WHERE target_array[i] IS NOT NULL \n";
+    sql += " AND i = de." + periodCol + " \n";
+    sql += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
+    sql += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
     return sql;
   }
 

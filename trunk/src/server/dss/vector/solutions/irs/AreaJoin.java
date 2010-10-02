@@ -51,12 +51,12 @@ public class AreaJoin extends TargetJoin implements Reloadable
       sql += "INNER JOIN " + geoTable + " geo \n";
       sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = geo." + this.idCol + " \n";
 
-      String universals = this.q.getUniversalsInCriteria();
-      if (universals != null)
-      {
-        String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
-        sql += "AND geo." + type + " IN(" + universals + ") \n";
-      }
+//      String universals = this.q.getUniversalsInCriteria();
+//      if (universals != null)
+//      {
+//        String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
+//        sql += "AND geo." + type + " IN(" + universals + ") \n";
+//      }
 
 //      sql += "INNER JOIN " + allpathsTable + " g ON \n";
 //      sql += TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = g." + parentGeo + " \n";
