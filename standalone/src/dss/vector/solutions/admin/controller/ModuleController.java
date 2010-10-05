@@ -235,14 +235,14 @@ public class ModuleController extends EventProvider implements IModuleController
         listener.beforeServerStateChange(state);
       }
     });
-
+    
     server.enableServer(state);
   }
 
   @Override
   public void refresh()
   {
-    server.pollServerState();
+    server.pollURL();
   }
 
   @Override

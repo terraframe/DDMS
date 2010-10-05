@@ -13,6 +13,11 @@ import dss.vector.solutions.admin.controller.EventProvider;
 
 public class Server extends EventProvider
 {
+  /**
+   * Amount of time to wait before calling the status call back function
+   */
+  private static final long WAIT_TIME = 5000L;
+  
   private Boolean lastCommand;
 
   public Server()
@@ -32,7 +37,7 @@ public class Server extends EventProvider
     return this.lastCommand;
   }
 
-  public void pollServerState()
+  public void pollURL()
   {
     Thread thread = new Thread(new Runnable()
     {
@@ -70,6 +75,11 @@ public class Server extends EventProvider
     thread.start();
   }
 
+  public void pollProcess()
+  {
+    fireServerChange(this.isServerUp());
+  }
+  
   public void validateProcessState(final boolean condition, final Runnable runnable)
   {
     boolean status = this.isServerUp();
@@ -82,11 +92,11 @@ public class Server extends EventProvider
     {
       fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
 
-      pollServerState();
+      pollURL();
     }
   }
 
-  private void runCommand(final String command)
+  private void runCommand(final String command, final Runnable callback)
   {
     try
     {
@@ -107,7 +117,14 @@ public class Server extends EventProvider
           }
           finally
           {
-            pollServerState();
+            long wait = System.currentTimeMillis() + WAIT_TIME;
+            
+            while(System.currentTimeMillis() < wait)
+            {
+              Thread.yield();
+            }
+            
+            callback.run();
           }
         }
       };
@@ -120,35 +137,57 @@ public class Server extends EventProvider
     }
   }
 
-  public void enableServer(boolean status)
+  public void startServer()
   {
-    final String command = status ? CommandProperties.getStartCommand() : CommandProperties.getStopCommand();
-
     Runnable runnable = new Runnable()
     {
       @Override
       public void run()
       {
-        runCommand(command);
+        runCommand(CommandProperties.getStartCommand(), new Runnable()
+        {          
+          @Override
+          public void run()
+          {
+            pollURL();
+          }
+        });
       }
     };
 
-    if (status)
-    {
-      setLastCommand(status);
+    setLastCommand(true);
 
-      // Ensure that the tomcat proccess does not already exist
-      this.validateProcessState(false, runnable);
-    }
-    else if (getLastCommand() == null || getLastCommand() != status)
+    // Ensure that the tomcat proccess does not already exist
+    this.validateProcessState(false, runnable);
+  }
+
+  public void stopServer()
+  {
+    Runnable runnable = new Runnable()
     {
-      setLastCommand(status);
+      @Override
+      public void run()
+      {
+        runCommand(CommandProperties.getStopCommand(), new Runnable()
+        {          
+          @Override
+          public void run()
+          {
+            pollURL();
+          }
+        });
+      }
+    };
+
+    if (getLastCommand() == null || getLastCommand() != false)
+    {
+      setLastCommand(false);
 
       this.validateProcessState(true, runnable);
     }
     else
     {
-      this.pollServerState();
+      this.pollURL();
     }
   }
 
@@ -169,5 +208,17 @@ public class Server extends EventProvider
     }
 
     return false;
+  }
+
+  public void enableServer(boolean state)
+  {
+    if(state)
+    {
+      this.startServer();
+    }
+    else
+    {
+      this.stopServer();
+    }
   }
 }
