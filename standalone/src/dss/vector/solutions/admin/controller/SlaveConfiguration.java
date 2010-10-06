@@ -7,7 +7,7 @@ public class SlaveConfiguration extends ConfigurationAdapter
   @Override
   public boolean getExportStoredApplicationFiles()
   {
-    return false;
+    return true;
   }
   
   @Override

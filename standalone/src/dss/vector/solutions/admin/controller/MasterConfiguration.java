@@ -1,6 +1,5 @@
 package dss.vector.solutions.admin.controller;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -11,7 +10,7 @@ public class MasterConfiguration extends ConfigurationAdapter
   @Override
   public boolean getExportStoredApplicationFiles()
   {
-    return true;
+    return false;
   }
 
   @Override
@@ -19,13 +18,13 @@ public class MasterConfiguration extends ConfigurationAdapter
   {
     List<String> files = new LinkedList<String>();
 
-    files.add(File.separator + "WEB-INF" + File.separator + "dss");
-    files.add(File.separator + "js");
-    files.add(File.separator + "css");
-    files.add(File.separator + "imgs");
-    files.add(File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "com");
-    files.add(File.separator + "WEB-INF" + File.separator + "classes" + File.separator + "dss");
-    files.add(File.separator + "WEB-INF" + File.separator + "lib");
+    files.add("/WEB-INF/dss");
+    files.add("/js");
+    files.add("/css");
+    files.add("/imgs");
+    files.add("/WEB-INF/classes/com");
+    files.add("/WEB-INF/classes/dss");
+    files.add("/WEB-INF/lib");
 
     return files;
   }
