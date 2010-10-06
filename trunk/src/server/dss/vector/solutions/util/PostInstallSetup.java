@@ -23,7 +23,7 @@ public class PostInstallSetup
     else
     {
       editFile("false", "master", "C:/MDSS/tomcat6/webapps/DDMS/WEB-INF/classes/install.properties");
-      editFile(installationNumber + ".mdss.ivcc.com", "domain", "C:/DDMS/tomcat6/webapps/DDMS/WEB-INF/classes/terraframe.properties");
+      editFile(installationNumber + ".mdss.ivcc.com", "domain", "C:/MDSS/tomcat6/webapps/DDMS/WEB-INF/classes/terraframe.properties");
       editFile(installationNumber + ".mdss.ivcc.com", "domain", "C:/MDSS/manager/profiles/manager/common/terraframe.properties");
     }
   }
