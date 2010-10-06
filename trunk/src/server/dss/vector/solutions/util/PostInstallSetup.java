@@ -13,15 +13,19 @@ public class PostInstallSetup
     editFile(installationNumber + ".mdss.ivcc.com", "domain", "C:/MDSS/tomcat6/webapps/DDMS/WEB-INF/classes/terraframe.properties");
     
     Boolean isMaster = Boolean.parseBoolean(args[1]);
+    
     if (isMaster)
     {
       editFile("true", "master", "C:/MDSS/tomcat6/webapps/DDMS/WEB-INF/classes/install.properties");
       editFile("0.mdss.ivcc.com", "domain", "C:/MDSS/tomcat6/webapps/DDMS/WEB-INF/classes/terraframe.properties");
+      editFile("0.mdss.ivcc.com", "domain", "C:/MDSS/tomcat6/webapps/MDSS/WEB-INF/classes/terraframe.properties");
+      editFile("0.mdss.ivcc.com", "domain", "C:/MDSS/manager/profiles/manager/common/terraframe.properties");
     }
     else
     {
       editFile("false", "master", "C:/MDSS/tomcat6/webapps/DDMS/WEB-INF/classes/install.properties");
       editFile(installationNumber + ".mdss.ivcc.com", "domain", "C:/DDMS/tomcat6/webapps/MDSS/WEB-INF/classes/terraframe.properties");
+      editFile(installationNumber + ".mdss.ivcc.com", "domain", "C:/MDSS/manager/profiles/manager/common/terraframe.properties");
     }
   }
   
