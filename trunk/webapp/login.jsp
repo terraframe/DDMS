@@ -35,12 +35,12 @@ input[type="button"],input[type="submit"] {
 }
 
 .submitButton:hover {
-	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+	background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
 }
 
 .submitButton {
 	display: inline;
-	background-image: url(/MDSS/imgs/submitButtonBack.gif);
+	background-image: url(/DDMS/imgs/submitButtonBack.gif);
 	background-repeat: repeat-x;
 	height: 39px;
 	background-position: right top;
@@ -63,12 +63,12 @@ input[type="button"]:active {
 }
 
 .submitButton:hover {
-	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+	background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
 }
 
 .submitButton_bl {
 	width: 24px;
-	background-image: url(/MDSS/imgs/submitButtonLeft.gif);
+	background-image: url(/DDMS/imgs/submitButtonLeft.gif);
 	height: 39px;
 	float: left;
 	z-index: 4;

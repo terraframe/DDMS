@@ -24,7 +24,7 @@ body {
 	margin: 0 0 0 5px;
 	padding: 22px 5px 0 5px;
 	position: absolute;
-	background: #FFFFFF url(/MDSS/imgs/flags/current) no-repeat 95% 50%;
+	background: #FFFFFF url(/DDMS/imgs/flags/current) no-repeat 95% 50%;
 }
 
 #freeText {
@@ -49,7 +49,7 @@ body {
 	height: 80px;
 	width: 85px;
 	color: #000000;
-	background: #FFFFFF url(/MDSS/imgs/design/logo.gif) no-repeat 50% 50%;
+	background: #FFFFFF url(/DDMS/imgs/design/logo.gif) no-repeat 50% 50%;
 }
 
 /* CMR START */
@@ -71,7 +71,7 @@ border-bottom: 1px solid #FFFFFF;
 }
 
 .yuimenubaritem {
-background: url("/MDSS/imgs/design/sprite.png") repeat-x scroll 0 0 transparent;
+background: url("/DDMS/imgs/design/sprite.png") repeat-x scroll 0 0 transparent;
 }
 
 .yuimenubaritemlabel {
@@ -132,7 +132,7 @@ h2 {
 
 .submitButtonRound {
 	display: block;
-	background-image: url(/MDSS/imgs/design/submitButtonBack.gif);
+	background-image: url(/DDMS/imgs/design/submitButtonBack.gif);
 	background-repeat: repeat-x;
 	height: 62px;
 	background-position: right top;
@@ -146,12 +146,12 @@ h2 {
 }
 
 .submitButtonRound:hover {
-	background-image: url(/MDSS/imgs/submitButtonBackOver.gif);
+	background-image: url(/DDMS/imgs/submitButtonBackOver.gif);
 }
 
 .submitButtonRound .bl {
 	width: 36px;
-	background-image: url(/MDSS/imgs/submitButtonLeft.gif);
+	background-image: url(/DDMS/imgs/submitButtonLeft.gif);
 	height: 62px;
 	float: left;
 }
@@ -187,7 +187,7 @@ h2 {
 	border: 1px solid #CCCCCC;
 	padding: 5px;
 	font-weight: bold;
-	background-image: url(/MDSS/imgs/design/table_header_back.gif); 
+	background-image: url(/DDMS/imgs/design/table_header_back.gif); 
 	background-repeat: repeat-x; 
 	background-position: bottom;
 	background-color: #CA1413;
@@ -203,7 +203,7 @@ h2 {
 	line-height: 1.9;
 	border: solid 0px #866;
 	border-bottom: solid 0px #866;
-	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 0;
+	background: url(/DDMS/imgs/design/sprite.png) repeat-x 0 0;
 }
 
 .yui-skin-sam .yuimenubaritemlabel {
@@ -232,7 +232,7 @@ h2 {
 	background-color: darkgrey;
 }
 .yui-skin-sam .yuimenubaritem-selected {
-	background: url(/MDSS/imgs/design/sprite.png) repeat-x 0 -100px;
+	background: url(/DDMS/imgs/design/sprite.png) repeat-x 0 -100px;
 }
 /*this controls the width of the menus*/
 .yui-skin-sam .yuimenuitemlabel .helptext {
@@ -244,7 +244,7 @@ h2 {
 }
 
 #menuBar #Print a {
-background: url("/MDSS/imgs/icons/printer.png") no-repeat center;
+background: url("/DDMS/imgs/icons/printer.png") no-repeat center;
 }
 
 label {
@@ -325,14 +325,14 @@ textarea {
 
 .delete-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/icons/delete.png) no-repeat center center;
+	background: transparent url(/DDMS/imgs/icons/delete.png) no-repeat center center;
 	width: 16px;
 	height: 16px;
 }
 
 .insert-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/icons/add.png) no-repeat center center;
+	background: transparent url(/DDMS/imgs/icons/add.png) no-repeat center center;
 	width: 16px;
 	height: 16px;
 }
@@ -422,7 +422,7 @@ dl
 	border: 2px solid #CCC;
 	-moz-border-radius: 10px;
 	padding: 1em;
-	background: url(/MDSS/imgs/design/grad_white.png) repeat-x top right;
+	background: url(/DDMS/imgs/design/grad_white.png) repeat-x top right;
 	background-color: #E8E8E8;
 	min-width: 300px;
 	max-width: 860px;
@@ -460,7 +460,7 @@ select#mapList {
 	border: 2px solid #CCC;
 	-moz-border-radius: 10px;
 	padding: 1em;
-	background: url(/MDSS/imgs/design/grad_white.png) repeat-x top right;
+	background: url(/DDMS/imgs/design/grad_white.png) repeat-x top right;
 	background-color: #E8E8E8;
 	min-width: 300px;
 	max-width: 860px;
@@ -476,7 +476,7 @@ select#mapList {
 	border: 2px solid #ff0000;
 	-moz-border-radius: 10px;
 	padding: 1em;
-	background: url(/MDSS/imgs/design/grad_white.png) repeat-x top right;
+	background: url(/DDMS/imgs/design/grad_white.png) repeat-x top right;
 	background-color: #FFBBBB;
 	min-width: 300px;
 	max-width: 860px;
@@ -486,7 +486,7 @@ select#mapList {
 
 .alertbox > p
 {
-	background: url(/MDSS/imgs/icons/error_large.gif) no-repeat top left;
+	background: url(/DDMS/imgs/icons/error_large.gif) no-repeat top left;
 	min-height: 32px;
 	padding-left: 40px;
 }

@@ -102,7 +102,7 @@ Import Status:
 
 .delete-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/delete.png) no-repeat center
+	background: transparent url(/DDMS/imgs/delete.png) no-repeat center
 		center;
 	width: 16px;
 	height: 16px;
@@ -110,7 +110,7 @@ Import Status:
 
 .insert-button {
 	cursor: pointer;
-	background: transparent url(/MDSS/imgs/add.png) no-repeat center center;
+	background: transparent url(/DDMS/imgs/add.png) no-repeat center center;
 	width: 16px;
 	height: 16px;
 }
