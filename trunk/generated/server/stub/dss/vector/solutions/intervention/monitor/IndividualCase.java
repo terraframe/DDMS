@@ -573,7 +573,7 @@ public class IndividualCase extends IndividualCaseBase implements
     // means the inner valuequery has not been added to the primary value query.
     Map<String, String> diagnosisAliases = null;
 
-    String adjustedCases = getTotalCasesSQL(instanceQuery, valueQuery, diagnosisAliases);
+    String adjustedCases = getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases);
     if (valueQuery.hasSelectableRef("cases"))
     {
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cases");
@@ -604,7 +604,8 @@ public class IndividualCase extends IndividualCaseBase implements
       // String sql = "(SUM(" + diedInFacCol + ")/SUM(1/(SELECT COUNT(*) FROM "
       // + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias +
       // "." + idCol + ")))*100.0";
-      String sql = "(SUM(" + diedInFacCol + ")::float/NULLIF((" + adjustedCases + "),0))*100.0";
+      String deathSum = QueryUtil.sumColumnForId(instanceQuery.getTableAlias(), idCol, null, diedInFacCol);
+      String sql = "("+deathSum+"::float/NULLIF((" + adjustedCases + "),0))*100.0";
       calc.setSQL(sql);
     }
 
@@ -706,14 +707,14 @@ public class IndividualCase extends IndividualCaseBase implements
     // IndividualInstance.INDIVIDUALCASE);
     String onset = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
 
-    String sql = "(" + getTotalCasesSQL(instanceQuery, valueQuery, diagnosisAliases) + ")";
+    String sql = "(" + getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases) + ")";
     sql += "/NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
         + onset + ")),0.0)*" + multiplier;
 
     calc.setSQL(sql);
   }
 
-  private static String getTotalCasesSQL(IndividualInstanceQuery instanceQuery, ValueQuery valueQuery,
+  private static String getTotalCasesSQL(IndividualCaseQuery caseQuery, ValueQuery valueQuery,
       Map<String, String> diagnosisAliases)
   {
     String posCases = "positiveCases";
@@ -722,7 +723,7 @@ public class IndividualCase extends IndividualCaseBase implements
 
     if (diagnosisAliases == null)
     {
-      QueryFactory factory = instanceQuery.getQueryFactory();
+      QueryFactory factory = caseQuery.getQueryFactory();
       IndividualInstanceQuery iQuery = new IndividualInstanceQuery(factory);
 
       ValueQuery innerQuery = new ValueQuery(factory);
@@ -735,7 +736,7 @@ public class IndividualCase extends IndividualCaseBase implements
       SUM clinicalColumn = F.SUM(innerQuery.aSQLLong("clinical", "(case when "
           + iQuery.getDiagnosisType().getDbColumnName() + "_c = '"
           + DiagnosisType.CLINICAL_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "clinical");
-      innerQuery.SELECT(iQuery.getId("ii_id"));
+      innerQuery.SELECT(iQuery.getIndividualCase("ic_id"));
       innerQuery.SELECT(positiveColumn);
       innerQuery.SELECT(negativeColumn);
       innerQuery.SELECT(clinicalColumn);
@@ -749,31 +750,37 @@ public class IndividualCase extends IndividualCaseBase implements
       vQuery.SELECT(F.SUM(vQuery.aSQLLong("clinical", "(case when " + positiveColumn.getColumnAlias()
           + " = 0 and " + negativeColumn.getColumnAlias() + " = 0 and "
           + clinicalColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), clinCases));
-      vQuery.SELECT(vQuery.aSQLCharacter("ii", innerQuery.getSelectableRef("ii_id").getColumnAlias()));
+      vQuery.SELECT(vQuery.aSQLCharacter("ic", innerQuery.getSelectableRef("ic_id").getColumnAlias()));
       vQuery.FROM("(" + innerQuery.getSQL() + ")", "innerQuery");
 
       valueQuery.FROM("(" + vQuery.getSQL() + ")", "diagnosisCheck");
-      valueQuery.WHERE(vQuery.aSQLCharacter("ii", "diagnosisCheck.ii").EQ(instanceQuery.getId()));
+      valueQuery.WHERE(vQuery.aSQLCharacter("ic", "diagnosisCheck.ic").EQ(caseQuery.getId()));
 
       diagnosisAliases = new HashMap<String, String>();
       diagnosisAliases.put(posCases, vQuery.getSelectableRef(posCases).getColumnAlias());
       diagnosisAliases.put(negCases, vQuery.getSelectableRef(negCases).getColumnAlias());
       diagnosisAliases.put(clinCases, vQuery.getSelectableRef(clinCases).getColumnAlias());
     }
+    
+    String idCol = QueryUtil.getIdColumn();
+    String caseAlias = caseQuery.getTableAlias();
+    String posSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(posCases));
+    String negSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(negCases));
+    String clinSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(clinCases));
 
     // adjusted case count
-    String sql = "CASE WHEN SUM(" + diagnosisAliases.get(posCases) + ") + SUM(" + diagnosisAliases.get(negCases) + ") = 0 THEN 1 ELSE ";
+    String sql = "CASE WHEN (" + posSum + ") + (" + negSum + ") = 0 THEN 1 ELSE ";
     sql += "( \n";
-    sql += "    SUM(" + diagnosisAliases.get(posCases) + ") + \n";
+    sql += "    (" + posSum + ") + \n";
     sql += "    ( \n";
-    sql += "     SUM(" + diagnosisAliases.get(clinCases) + ") * \n";
+    sql += "     (" + clinSum + ") * \n";
     sql += "     ( \n";
-    sql += "      SUM(" + diagnosisAliases.get(posCases) + ") / \n";
+    sql += "      (" + posSum + ") / \n";
     sql += "      ( \n";
     sql += "       NULLIF \n";
     sql += "       ( \n";
-    sql += "        SUM(" + diagnosisAliases.get(posCases) + ") + \n";
-    sql += "        SUM(" + diagnosisAliases.get(negCases) + ") \n";
+    sql += "        (" + posSum + ") + \n";
+    sql += "        (" + negSum + ") \n";
     sql += "        ,0.0 \n";
     sql += "       ) \n";
     sql += "      ) \n";
