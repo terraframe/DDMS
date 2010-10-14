@@ -569,13 +569,12 @@ public class IndividualCase extends IndividualCaseBase implements
     // Map that stores the aliases of an inner valuequery used to detect if a
     // case
     // is clinical, positive, or negative. This map also acts like a flag that
-    // if null
-    // means the inner valuequery has not been added to the primary value query.
-    Map<String, String> diagnosisAliases = null;
+    // if size is zero then the inner valuequery has not been added to the primary value query.
+    Map<String, String> diagnosisAliases = new HashMap<String, String>();;
 
-    String adjustedCases = getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases);
     if (valueQuery.hasSelectableRef("cases"))
     {
+      String adjustedCases = getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases);
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cases");
       // String sql = "SUM(1/(SELECT COUNT(*) FROM " + tableName +
       // " AS ii WHERE ii." + indCaseCol + " = " + tableAlias + ".id))";
@@ -593,6 +592,7 @@ public class IndividualCase extends IndividualCaseBase implements
 
     if (valueQuery.hasSelectableRef("cfr"))
     {
+      String adjustedCases = getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases);
       // String indCaseCol =
       // QueryUtil.getColumnName(instanceQuery.getMdClassIF(),
       // IndividualInstance.INDIVIDUALCASE);
@@ -721,7 +721,7 @@ public class IndividualCase extends IndividualCaseBase implements
     String negCases = "negativeCases";
     String clinCases = "clinicalCases";
 
-    if (diagnosisAliases == null)
+    if (diagnosisAliases.size() == 0)
     {
       QueryFactory factory = caseQuery.getQueryFactory();
       IndividualInstanceQuery iQuery = new IndividualInstanceQuery(factory);
@@ -756,7 +756,6 @@ public class IndividualCase extends IndividualCaseBase implements
       valueQuery.FROM("(" + vQuery.getSQL() + ")", "diagnosisCheck");
       valueQuery.WHERE(vQuery.aSQLCharacter("ic", "diagnosisCheck.ic").EQ(caseQuery.getId()));
 
-      diagnosisAliases = new HashMap<String, String>();
       diagnosisAliases.put(posCases, vQuery.getSelectableRef(posCases).getColumnAlias());
       diagnosisAliases.put(negCases, vQuery.getSelectableRef(negCases).getColumnAlias());
       diagnosisAliases.put(clinCases, vQuery.getSelectableRef(clinCases).getColumnAlias());
