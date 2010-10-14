@@ -1336,7 +1336,7 @@ public class QueryUtil implements Reloadable
         }
 
       }
-      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("start").equals("null"))
+      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
       {
         endValue = dateObj.getString("end");
 
