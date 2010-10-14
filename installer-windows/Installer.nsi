@@ -10,14 +10,14 @@ Name DDMS
 !define URL "http://www.ivcc.com/"
 
 # MUI Symbol Definitions
-!define MUI_ICON "logo.ico"
+!define MUI_ICON "ivcc_roundel_1.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
 !define MUI_STARTMENUPAGE_REGISTRY_ROOT HKLM
 !define MUI_STARTMENUPAGE_NODISABLE
 !define MUI_STARTMENUPAGE_REGISTRY_KEY ${REGKEY}
 !define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 !define MUI_STARTMENUPAGE_DEFAULTFOLDER DDMS
-!define MUI_UNICON "logo.ico"
+!define MUI_UNICON "ivcc_roundel_1.ico"
 !define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
