@@ -735,6 +735,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var dateRestrictions = thisRef._config.getDateAttribute();
       if(dateRestrictions)
       {
+        if(this._dateAttributes)
+        {
+          for(var i=0; i<this._dateAttributes.length; i++)
+          {
+            var attr = this._dateAttributes[i];
+            if(attr.attribute === dateRestrictions.date_attribute && attr.klass === dateRestrictions.klass)
+            {
+              this._dateAttributeSelect.selectedIndex = i;
+              break;
+            }
+          }
+        }
+        
         if(dateRestrictions.start)
         {
           var start = thisRef._queryPanel.getStartDate();
@@ -748,7 +761,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           end.value = formatted;
         }
       }
-      
       
       var xml = view.getQueryXml();
       var parser = new MDSS.Query.Parser(xml);
@@ -1376,8 +1388,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       label.innerHTML = ' ';
       div.appendChild(label);
       
-      this._dateAttributeSelect = sel;
+      this._defaults.push({element:sel, index:0, active:true});
       
+      this._dateAttributeSelect = sel;
     },
     
     /**
