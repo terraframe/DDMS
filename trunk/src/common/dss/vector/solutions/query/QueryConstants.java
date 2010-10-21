@@ -53,6 +53,10 @@ public class QueryConstants implements Reloadable
   public static final String BLOODSLIDE_PREVALENCE = "bloodslide_prevalence";
   
   public static final String RDT_BLOODSLIDE_PREVALENCE = "rdt_bloodslide_prevalence";
+  
+  public static final String AGE_LOWEST = "age_lowest";
+  
+  public static final String AGE_HIGHEST = "age_highest";
 
   public enum QueryType implements Reloadable {
     

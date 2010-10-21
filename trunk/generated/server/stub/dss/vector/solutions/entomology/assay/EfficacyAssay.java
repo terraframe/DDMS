@@ -11,12 +11,16 @@ import org.json.JSONObject;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.attributes.InvalidReferenceException;
+import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoin;
+import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.Join;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
+import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -26,6 +30,7 @@ import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.irs.InsecticideBrandUse;
 import dss.vector.solutions.irs.InvalidInsecticideBrandUseProblem;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.generation.loader.Reloadable {
@@ -237,6 +242,47 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
 			QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
 			QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
 		}
+		
+		boolean needsAgeRange = false;
+		if(valueQuery.hasSelectableRef(QueryConstants.AGE_LOWEST))
+		{
+		   needsAgeRange = true; 
+		   SelectableSQLInteger ageSel;
+		   Selectable sel = valueQuery.getSelectableRef(QueryConstants.AGE_LOWEST);
+		   if(sel instanceof AggregateFunction)
+		   {
+		     ageSel = (SelectableSQLInteger) ((AggregateFunction)sel).getSelectable();
+		   }
+		   else
+		   {
+		     ageSel = (SelectableSQLInteger) sel;
+		   }
+		   ageSel.setSQL(QueryUtil.getColumnName(AdultAgeRange.getStartPointMd()));
+		}
+		
+		if(valueQuery.hasSelectableRef(QueryConstants.AGE_HIGHEST))
+		{
+		   needsAgeRange = true;
+	      SelectableSQLInteger ageSel;
+	      Selectable sel = valueQuery.getSelectableRef(QueryConstants.AGE_HIGHEST);
+	      if(sel instanceof AggregateFunction)
+	      {
+	        ageSel = (SelectableSQLInteger) ((AggregateFunction)sel).getSelectable();
+	      }
+	      else
+	      {
+	        ageSel = (SelectableSQLInteger) sel;
+	      }
+	      ageSel.setSQL(QueryUtil.getColumnName(AdultAgeRange.getEndPointMd()));
+		}
+		
+		if(needsAgeRange)
+		{
+		  AdultAgeRangeQuery arQuery = new AdultAgeRangeQuery(valueQuery);
+		  valueQuery.FROM(arQuery);
+		  valueQuery.WHERE(new InnerJoinEq(efficacyAssayQuery.getAgeRange(), arQuery.getId()));
+		}
+		
 
 		QueryUtil.setTermRestrictions(valueQuery, queryMap);
 

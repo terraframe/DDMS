@@ -40,7 +40,8 @@
 <%@page import="dss.vector.solutions.irs.InsecticideBrandDTO"%>
 
 
-<%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
+<%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%>
+<%@page import="dss.vector.solutions.query.QueryConstants"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -149,6 +150,26 @@ YAHOO.util.Event.onDOMReady(function(){
     //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
     var efficacyColumns =  efficacyAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});
+
+    if(available.contains('<%= EfficacyAssayDTO.AGERANGE %>'))
+    {
+      efficacyColumns.push(
+          {
+            key:'<%= QueryConstants.AGE_LOWEST %>',
+            attributeName:'<%= QueryConstants.AGE_LOWEST %>',
+            displayLabel:MDSS.localize('age_range_lowest'),
+            type:'sqlinteger',
+            dtoType:'AttributeIntegerDTO'
+          },
+          {
+            key:'<%= QueryConstants.AGE_HIGHEST %>',
+            attributeName:'<%= QueryConstants.AGE_HIGHEST %>',
+            displayLabel:MDSS.localize('age_range_highest'),
+            type:'sqlinteger',
+            dtoType:'AttributeIntegerDTO'
+          }
+      );
+    }
 
     //efficacyColumns[0].type = Mojo.$.dss.vector.solutions.entomology.assay.AbstractAssay.CLASS;
 

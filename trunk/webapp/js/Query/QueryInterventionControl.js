@@ -45,11 +45,11 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
                              },
                              {
                                keyName : this._indPremiseGeo,
-                               display : MDSS.localize('Sub geo entity - individual premises')
+                               display : MDSS.localize('sub_geoentity_individual_premises')
                              },
                              {
                                keyName : this._aggPremiseGeo,
-                               display : MDSS.localize('Sub geo entity - aggregated premises')
+                               display : MDSS.localize('sub_geoentity_aggregated_premises')
                              }
                            ];
       
