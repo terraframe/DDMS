@@ -420,13 +420,15 @@ YAHOO.util.Event.onDOMReady(function(){
       independent:individualPremiseVisitColumns,
       dependent:calculations.concat(vehicleBasedSprayingColumns,aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
       type: MDSS.Dependent.CHECKED,
-      bidirectional: false
+      bidirectional: false,
+      name: MDSS.QueryInterventionControl.INDIVIDUALS_GROUP
     });
     dm.excludes({
       independent:aggregatedPremiseVisitColumns,
       dependent:individualPremiseVisitColumns.concat(vehicleBasedSprayingColumns,calculations,personInterventionColumns,insecticideInterventionColumns),
       type: MDSS.Dependent.CHECKED,
-      bidirectional: false
+      bidirectional: false,
+      name: MDSS.QueryInterventionControl.AGGREGATES_GROUP
     });
     dm.excludes({
       independent:personInterventionColumns,
@@ -452,6 +454,9 @@ YAHOO.util.Event.onDOMReady(function(){
       type: MDSS.Dependent.CHECKED,
       bidirectional: true
     });
+
+    var handler = Mojo.Util.bind(query, query.togglePremises);
+    dm.addAllTransactionsFinishListener(handler);
 });
 
 </script>

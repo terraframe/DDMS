@@ -89,6 +89,7 @@ import dss.vector.solutions.irs.OperatorSprayDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
+import dss.vector.solutions.surveillance.AggregatedAgeGroupDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseDTO;
 import dss.vector.solutions.surveillance.AggregatedCaseViewDTO;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeAmountDTO;
@@ -358,6 +359,18 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClientRequestIF request = this.getClientRequest();
 
       JSONObject ordered = new JSONObject();
+      
+      AggregatedAgeGroupDTO[] ages = AggregatedAgeGroupDTO.getAll(request);
+      JSONObject aggCaseMap = new JSONObject();
+      JSONObject ageGroups = new JSONObject();
+      for(AggregatedAgeGroupDTO age : ages)
+      {
+        String display = age.getStartAge() + " - " + age.getEndAge();
+        ageGroups.put(age.getId(), display);
+      }
+      aggCaseMap.put("AgeGroup", ageGroups);
+      req.setAttribute("ageGroups", aggCaseMap.toString());
+      
 
       JSONObject methods = new JSONObject();
       methods.put("type", TermDTO.CLASS);

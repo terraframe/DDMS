@@ -2,6 +2,11 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
 
   Extends: MDSS.QueryBaseNew,
   
+  Constants : {
+    INDIVIDUALS_GROUP : 'individuals_group',
+    AGGREGATES_GROUP : 'aggregates_group'
+  },
+  
   Instance : {
   
     initialize : function(selectableGroups, queryList, calculationsSection)
@@ -20,19 +25,32 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       var endDateAttr = new MDSS.QueryXML.Attribute(this._groupByClass.CLASS, this._groupByClass.ENDDATE, this._groupByClass.ENDDATE);
       this._endDateSelectable = new MDSS.QueryXML.Selectable(endDateAttr);
 
+      this._IndividualPremiseVisit = Mojo.$.dss.vector.solutions.intervention.monitor.IndividualPremiseVisit;
+      this._AggregatedPremiseVisit = Mojo.$.dss.vector.solutions.intervention.monitor.AggregatedPremiseVisit;
+
       this._commonQueryClasses = [
-                                  this._groupByClass.CLASS,
+                                  this._groupByClass.CLASS
                                   ];
 
       this._exclusionClasses = [];
       
-
+      
+      this._indPremiseGeo = this._IndividualPremiseVisit.CLASS + '.' + this._IndividualPremiseVisit.GEOENTITY;
+      this._aggPremiseGeo = this._AggregatedPremiseVisit.CLASS + '.' + this._AggregatedPremiseVisit.GEOENTITY;
+      
       this._geoEntityAttribs = [
                              {
                                keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
                                display : this._larvacide.getGeoEntityMd().getDisplayLabel()
                              },
-                             
+                             {
+                               keyName : this._indPremiseGeo,
+                               display : MDSS.localize('Sub geo entity - individual premises')
+                             },
+                             {
+                               keyName : this._aggPremiseGeo,
+                               display : MDSS.localize('Sub geo entity - aggregated premises')
+                             }
                            ];
       
       this._queryType = this._mainQueryClass;
@@ -114,5 +132,52 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
 
         ul.appendChild(li);
       },
-    }
+    
+      /**
+       * This override adds temporary classes to the query if the geo entity attributes
+       * of those classes are being selected or restricted.
+       */
+      _constructQuery : function(forMapping)
+      {
+        // add the individual/aggregated premise visit classes if any selectino/restriction
+        // is being performed on them
+        if(this._config.getSelectedUniversals(this._indPremiseGeo).length > 0 ||
+            this._config.getCriteriaEntities(this._indPremiseGeo).length > 0)
+        {
+          this._commonQueryClasses.push(this._IndividualPremiseVisit.CLASS);
+        }
+        
+        if(this._config.getSelectedUniversals(this._aggPremiseGeo).length > 0 ||
+            this._config.getCriteriaEntities(this._aggPremiseGeo).length > 0)
+        {
+          this._commonQueryClasses.push(this._AggregatedPremiseVisit.CLASS);
+        }
+        
+        var obj = this.$_constructQuery(forMapping);
+        
+        // reset the query classes
+        this._commonQueryClasses = [
+                                    this._groupByClass.CLASS
+                                    ];
+        
+        return obj;
+      },
+      
+      togglePremises : function(triggerId, independents)
+      {
+        if(independents.length === 1)
+        {
+          var ind = independents[0];
+          var name = ind.getName();
+          if(name === this.constructor.INDIVIDUALS_GROUP)
+          {
+            this._hideHandler([],[],this._aggPremiseGeo);
+          }
+          else if(name === this.constructor.AGGREGATES_GROUP)
+          {
+            this._hideHandler([],[],this._indPremiseGeo);
+          }
+        }
+      }
+  }
 });

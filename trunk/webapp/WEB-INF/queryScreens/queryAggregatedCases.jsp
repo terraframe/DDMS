@@ -1,4 +1,4 @@
-  <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
@@ -80,6 +80,8 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
+    var ageGroups = <%= request.getAttribute("ageGroups") %>;
+    
     var aggregatedCase = new dss.vector.solutions.surveillance.AggregatedCase;
     var aggregatedCaseAttribs = ["geoEntity", "startDate","endDate","ageGroup","cases","positiveCases","negativeCases","deaths"];
 
@@ -132,7 +134,7 @@ YAHOO.util.Event.onDOMReady(function(){
       }
     };
     
-    var aggregatedCaseColumns =   aggregatedCaseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedCase, suffix:'_ac', dropDownMaps:{}});
+    var aggregatedCaseColumns =   aggregatedCaseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:aggregatedCase, suffix:'_ac', dropDownMaps:ageGroups});
 
     var caseTreatmentMethodColumns = orderedGrids.methods.options.map(MDSS.QueryBaseNew.mapMo, orderedGrids.methods);
     namespaceColumns(caseTreatmentMethodColumns, '_tmc');
