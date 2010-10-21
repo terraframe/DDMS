@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1007818911)
+@com.runwaysdk.business.ClassSignature(hash = -104706543)
 public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemURL";
-  private static final long serialVersionUID = 1007818911;
+  private static final long serialVersionUID = -104706543;
   
   protected SystemURLDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -422,6 +422,14 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUrlMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(URL).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.Boolean hasReadPermissions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String url)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{url};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.SystemURLDTO.CLASS, "hasReadPermissions", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   @SuppressWarnings("unchecked")

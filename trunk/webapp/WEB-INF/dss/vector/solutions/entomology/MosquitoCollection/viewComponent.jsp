@@ -59,18 +59,24 @@
          <mdss:selectBoolean param="abundance" id="abundance" includeBlank="true" value="${item.abundance == null ? '' : item.abundance}"/>
        </mjl:dt>
     </mjl:component>
-    <c:choose>
-      <c:when test="${diseaseName == 'MALARIA'}">
-        <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
-        <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
-        <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>      
-      </c:when>
-      <c:otherwise>
-        <mjl:command name="ra.button" id="ra.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="Bioassays"/>
-      </c:otherwise>
-    </c:choose>
-    <mjl:command name="ia.button" id="ia.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assays"/>
-    <mjl:command name="ma.button" id="ma.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="Mechanism_Assays"/>
+    <c:if test="${adaFlag}">
+      <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
+    </c:if>
+    <c:if test="${ldaFlag}">
+      <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
+    </c:if>
+    <c:if test="${kdaFlag}">
+      <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>      
+    </c:if>
+    <c:if test="${raFlag}">
+      <mjl:command name="ra.button" id="ra.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="Bioassays"/>
+    </c:if>
+    <c:if test="${iaFlag}">
+      <mjl:command name="ia.button" id="ia.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assays"/>
+    </c:if>
+    <c:if test="${maFlag}">
+      <mjl:command name="ma.button" id="ma.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="Mechanism_Assays"/>
+    </c:if>
     <mjl:command name="delete" id="delete.button" classes="button" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" value="Delete"/>
   </mjl:form>
 </dl>

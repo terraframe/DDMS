@@ -19,6 +19,7 @@ import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayQueryDT
 import dss.vector.solutions.entomology.assay.CollectionAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayQueryDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayQueryDTO;
+import dss.vector.solutions.general.SystemURLDTO;
 import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.geo.generated.SentinelSiteDTO;
 import dss.vector.solutions.util.DefaultConverter;
@@ -142,6 +143,13 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     req.setAttribute("kda", kda);
     req.setAttribute("item", dto);
     req.setAttribute("entityUniversals", entityUniversals);
+        
+    req.setAttribute("adaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.viewAll.mojo"));
+    req.setAttribute("ldaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo"));
+    req.setAttribute("kdaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.assay.KnockDownAssayController.viewAll.mojo"));
+    req.setAttribute("raFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchResistanceAssays.mojo"));
+    req.setAttribute("iaFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchInfectionAssay.mojo"));
+    req.setAttribute("maFlag" , SystemURLDTO.hasReadPermissions(this.getClientRequest(), "dss.vector.solutions.entomology.AssayController.searchMechanismAssay.mojo"));
 
     render("viewComponent.jsp");
   }

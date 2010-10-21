@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -9393633)
+@com.runwaysdk.business.ClassSignature(hash = -1461985391)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
-  private static final long serialVersionUID = -9393633;
+  private static final long serialVersionUID = -1461985391;
   
   public SystemURLBase()
   {
@@ -405,6 +405,12 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static SystemURL getByKey(String key)
   {
     return (SystemURL) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.Boolean hasReadPermissions(java.lang.String url)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.SystemURL.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static SystemURL lock(java.lang.String id)
