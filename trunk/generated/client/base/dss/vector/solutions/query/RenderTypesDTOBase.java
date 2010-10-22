@@ -52,7 +52,7 @@ public abstract class RenderTypesDTOBase extends com.runwaysdk.system.Enumeratio
   
   public static dss.vector.solutions.query.RenderTypesQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.RenderTypesQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.RenderTypes", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.RenderTypesQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.RenderTypesDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

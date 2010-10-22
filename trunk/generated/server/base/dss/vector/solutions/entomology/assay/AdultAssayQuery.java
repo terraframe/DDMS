@@ -105,7 +105,7 @@ private static final long serialVersionUID = 1374903765;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sex");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.AdultAssay.SEX);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.AdultAssay.SEX, mdAttributeIF, this, alias, null);
 
@@ -114,7 +114,7 @@ private static final long serialVersionUID = 1374903765;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getSex(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("sex");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.AdultAssay.SEX);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.AdultAssay.SEX, mdAttributeIF, this, alias, displayLabel);
 
@@ -123,7 +123,7 @@ private static final long serialVersionUID = 1374903765;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("sex")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.AdultAssay.SEX)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -217,11 +217,13 @@ private static final long serialVersionUID = -160893581;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.assay.AdultAssay adultAssay)
     {
+      if(adultAssay == null) return this.EQ((java.lang.String)null);
       return this.EQ(adultAssay.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.assay.AdultAssay adultAssay)
     {
+      if(adultAssay == null) return this.NE((java.lang.String)null);
       return this.NE(adultAssay.getId());
     }
 
@@ -297,7 +299,7 @@ private static final long serialVersionUID = -160893581;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("sex")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.AdultAssay.SEX)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

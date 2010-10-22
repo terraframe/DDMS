@@ -237,11 +237,13 @@ private static final long serialVersionUID = 1100090861;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay larvaeDiscriminatingDoseAssay)
     {
+      if(larvaeDiscriminatingDoseAssay == null) return this.EQ((java.lang.String)null);
       return this.EQ(larvaeDiscriminatingDoseAssay.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay larvaeDiscriminatingDoseAssay)
     {
+      if(larvaeDiscriminatingDoseAssay == null) return this.NE((java.lang.String)null);
       return this.NE(larvaeDiscriminatingDoseAssay.getId());
     }
 

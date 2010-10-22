@@ -52,7 +52,7 @@ public abstract class ThresholdCalculationCaseTypesMasterDTOBase extends com.run
   
   public static dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.ThresholdCalculationCaseTypesMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.ThresholdCalculationCaseTypesMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

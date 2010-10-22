@@ -175,11 +175,13 @@ private static final long serialVersionUID = -1659640971;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.SystemAlertTypeMaster systemAlertTypeMaster)
     {
+      if(systemAlertTypeMaster == null) return this.EQ((java.lang.String)null);
       return this.EQ(systemAlertTypeMaster.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.SystemAlertTypeMaster systemAlertTypeMaster)
     {
+      if(systemAlertTypeMaster == null) return this.NE((java.lang.String)null);
       return this.NE(systemAlertTypeMaster.getId());
     }
 

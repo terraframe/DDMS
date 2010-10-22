@@ -488,11 +488,13 @@ private static final long serialVersionUID = 1955162280;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.IndividualIPTCase individualIPTCase)
     {
+      if(individualIPTCase == null) return this.EQ((java.lang.String)null);
       return this.EQ(individualIPTCase.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.intervention.monitor.IndividualIPTCase individualIPTCase)
     {
+      if(individualIPTCase == null) return this.NE((java.lang.String)null);
       return this.NE(individualIPTCase.getId());
     }
 

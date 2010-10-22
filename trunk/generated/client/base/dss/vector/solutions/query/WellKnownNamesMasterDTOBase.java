@@ -52,7 +52,7 @@ public abstract class WellKnownNamesMasterDTOBase extends com.runwaysdk.system.E
   
   public static dss.vector.solutions.query.WellKnownNamesMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.query.WellKnownNamesMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.query.WellKnownNamesMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.query.WellKnownNamesMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.query.WellKnownNamesMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

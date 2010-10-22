@@ -488,11 +488,13 @@ private static final long serialVersionUID = -1551838931;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.MalariaSeason malariaSeason)
     {
+      if(malariaSeason == null) return this.EQ((java.lang.String)null);
       return this.EQ(malariaSeason.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.MalariaSeason malariaSeason)
     {
+      if(malariaSeason == null) return this.NE((java.lang.String)null);
       return this.NE(malariaSeason.getId());
     }
 

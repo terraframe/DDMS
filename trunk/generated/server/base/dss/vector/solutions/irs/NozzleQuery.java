@@ -628,11 +628,13 @@ private static final long serialVersionUID = -527915489;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.Nozzle nozzle)
     {
+      if(nozzle == null) return this.EQ((java.lang.String)null);
       return this.EQ(nozzle.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.irs.Nozzle nozzle)
     {
+      if(nozzle == null) return this.NE((java.lang.String)null);
       return this.NE(nozzle.getId());
     }
 

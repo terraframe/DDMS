@@ -732,11 +732,13 @@ private static final long serialVersionUID = -1051876733;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.Larvacide larvacide)
     {
+      if(larvacide == null) return this.EQ((java.lang.String)null);
       return this.EQ(larvacide.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.intervention.monitor.Larvacide larvacide)
     {
+      if(larvacide == null) return this.NE((java.lang.String)null);
       return this.NE(larvacide.getId());
     }
 

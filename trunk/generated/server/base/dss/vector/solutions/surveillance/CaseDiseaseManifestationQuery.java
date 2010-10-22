@@ -602,11 +602,13 @@ private static final long serialVersionUID = -1077575493;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.surveillance.CaseDiseaseManifestation caseDiseaseManifestation)
     {
+      if(caseDiseaseManifestation == null) return this.EQ((java.lang.String)null);
       return this.EQ(caseDiseaseManifestation.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.surveillance.CaseDiseaseManifestation caseDiseaseManifestation)
     {
+      if(caseDiseaseManifestation == null) return this.NE((java.lang.String)null);
       return this.NE(caseDiseaseManifestation.getId());
     }
 

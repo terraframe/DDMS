@@ -1548,11 +1548,13 @@ private static final long serialVersionUID = -57679914;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.GeoTarget geoTarget)
     {
+      if(geoTarget == null) return this.EQ((java.lang.String)null);
       return this.EQ(geoTarget.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.irs.GeoTarget geoTarget)
     {
+      if(geoTarget == null) return this.NE((java.lang.String)null);
       return this.NE(geoTarget.getId());
     }
 

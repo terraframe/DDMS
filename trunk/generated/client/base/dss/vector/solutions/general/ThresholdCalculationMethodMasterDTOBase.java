@@ -52,7 +52,7 @@ public abstract class ThresholdCalculationMethodMasterDTOBase extends com.runway
   
   public static dss.vector.solutions.general.ThresholdCalculationMethodMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.ThresholdCalculationMethodMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.ThresholdCalculationMethodMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.ThresholdCalculationMethodMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

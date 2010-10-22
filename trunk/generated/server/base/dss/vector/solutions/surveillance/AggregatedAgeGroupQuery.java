@@ -508,11 +508,13 @@ private static final long serialVersionUID = -1216351526;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.surveillance.AggregatedAgeGroup aggregatedAgeGroup)
     {
+      if(aggregatedAgeGroup == null) return this.EQ((java.lang.String)null);
       return this.EQ(aggregatedAgeGroup.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.surveillance.AggregatedAgeGroup aggregatedAgeGroup)
     {
+      if(aggregatedAgeGroup == null) return this.NE((java.lang.String)null);
       return this.NE(aggregatedAgeGroup.getId());
     }
 

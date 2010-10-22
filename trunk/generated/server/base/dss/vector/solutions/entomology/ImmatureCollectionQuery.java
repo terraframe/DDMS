@@ -538,11 +538,13 @@ private static final long serialVersionUID = -1860524584;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.ImmatureCollection immatureCollection)
     {
+      if(immatureCollection == null) return this.EQ((java.lang.String)null);
       return this.EQ(immatureCollection.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.ImmatureCollection immatureCollection)
     {
+      if(immatureCollection == null) return this.NE((java.lang.String)null);
       return this.NE(immatureCollection.getId());
     }
 

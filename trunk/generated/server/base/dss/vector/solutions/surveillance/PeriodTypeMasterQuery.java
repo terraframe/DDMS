@@ -155,11 +155,13 @@ private static final long serialVersionUID = 2075603440;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.surveillance.PeriodTypeMaster periodTypeMaster)
     {
+      if(periodTypeMaster == null) return this.EQ((java.lang.String)null);
       return this.EQ(periodTypeMaster.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.surveillance.PeriodTypeMaster periodTypeMaster)
     {
+      if(periodTypeMaster == null) return this.NE((java.lang.String)null);
       return this.NE(periodTypeMaster.getId());
     }
 

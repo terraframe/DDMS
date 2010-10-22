@@ -1096,11 +1096,13 @@ private static final long serialVersionUID = -1526925594;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution iTNCommunityDistribution)
     {
+      if(iTNCommunityDistribution == null) return this.EQ((java.lang.String)null);
       return this.EQ(iTNCommunityDistribution.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.intervention.monitor.ITNCommunityDistribution iTNCommunityDistribution)
     {
+      if(iTNCommunityDistribution == null) return this.NE((java.lang.String)null);
       return this.NE(iTNCommunityDistribution.getId());
     }
 

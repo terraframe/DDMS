@@ -648,11 +648,13 @@ private static final long serialVersionUID = -432742694;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.ontology.BrowserRoot browserRoot)
     {
+      if(browserRoot == null) return this.EQ((java.lang.String)null);
       return this.EQ(browserRoot.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.ontology.BrowserRoot browserRoot)
     {
+      if(browserRoot == null) return this.NE((java.lang.String)null);
       return this.NE(browserRoot.getId());
     }
 

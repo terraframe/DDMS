@@ -52,7 +52,7 @@ public abstract class MonthOfYearMasterDTOBase extends com.runwaysdk.system.Enum
   
   public static dss.vector.solutions.MonthOfYearMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.MonthOfYearMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.MonthOfYearMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.MonthOfYearMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.MonthOfYearMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

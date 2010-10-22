@@ -538,11 +538,13 @@ private static final long serialVersionUID = 2133901982;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.PupalCollection pupalCollection)
     {
+      if(pupalCollection == null) return this.EQ((java.lang.String)null);
       return this.EQ(pupalCollection.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.PupalCollection pupalCollection)
     {
+      if(pupalCollection == null) return this.NE((java.lang.String)null);
       return this.NE(pupalCollection.getId());
     }
 

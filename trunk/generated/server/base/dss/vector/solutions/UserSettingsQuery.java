@@ -518,11 +518,13 @@ private static final long serialVersionUID = -322385405;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.UserSettings userSettings)
     {
+      if(userSettings == null) return this.EQ((java.lang.String)null);
       return this.EQ(userSettings.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.UserSettings userSettings)
     {
+      if(userSettings == null) return this.NE((java.lang.String)null);
       return this.NE(userSettings.getId());
     }
 

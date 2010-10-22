@@ -692,11 +692,13 @@ private static final long serialVersionUID = 1946275288;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.query.SavedSearch savedSearch)
     {
+      if(savedSearch == null) return this.EQ((java.lang.String)null);
       return this.EQ(savedSearch.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.query.SavedSearch savedSearch)
     {
+      if(savedSearch == null) return this.NE((java.lang.String)null);
       return this.NE(savedSearch.getId());
     }
 

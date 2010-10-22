@@ -97,11 +97,13 @@ private static final long serialVersionUID = -640007361;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.ontology.RootTerm rootTerm)
     {
+      if(rootTerm == null) return this.EQ((java.lang.String)null);
       return this.EQ(rootTerm.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.ontology.RootTerm rootTerm)
     {
+      if(rootTerm == null) return this.NE((java.lang.String)null);
       return this.NE(rootTerm.getId());
     }
 

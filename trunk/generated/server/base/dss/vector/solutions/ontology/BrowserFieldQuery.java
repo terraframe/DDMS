@@ -572,11 +572,13 @@ private static final long serialVersionUID = 362287434;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.ontology.BrowserField browserField)
     {
+      if(browserField == null) return this.EQ((java.lang.String)null);
       return this.EQ(browserField.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.ontology.BrowserField browserField)
     {
+      if(browserField == null) return this.NE((java.lang.String)null);
       return this.NE(browserField.getId());
     }
 

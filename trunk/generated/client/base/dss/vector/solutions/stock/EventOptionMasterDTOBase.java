@@ -52,7 +52,7 @@ public abstract class EventOptionMasterDTOBase extends com.runwaysdk.system.Enum
   
   public static dss.vector.solutions.stock.EventOptionMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.stock.EventOptionMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.stock.EventOptionMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.stock.EventOptionMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.stock.EventOptionMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

@@ -868,11 +868,13 @@ private static final long serialVersionUID = 2109162881;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.TeamSprayStatus teamSprayStatus)
     {
+      if(teamSprayStatus == null) return this.EQ((java.lang.String)null);
       return this.EQ(teamSprayStatus.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.irs.TeamSprayStatus teamSprayStatus)
     {
+      if(teamSprayStatus == null) return this.NE((java.lang.String)null);
       return this.NE(teamSprayStatus.getId());
     }
 

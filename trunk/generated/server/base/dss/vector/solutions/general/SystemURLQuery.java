@@ -603,11 +603,13 @@ private static final long serialVersionUID = -2023599204;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.SystemURL systemURL)
     {
+      if(systemURL == null) return this.EQ((java.lang.String)null);
       return this.EQ(systemURL.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.SystemURL systemURL)
     {
+      if(systemURL == null) return this.NE((java.lang.String)null);
       return this.NE(systemURL.getId());
     }
 

@@ -97,11 +97,13 @@ private static final long serialVersionUID = -1883412095;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.geo.generated.WaterBody waterBody)
     {
+      if(waterBody == null) return this.EQ((java.lang.String)null);
       return this.EQ(waterBody.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.geo.generated.WaterBody waterBody)
     {
+      if(waterBody == null) return this.NE((java.lang.String)null);
       return this.NE(waterBody.getId());
     }
 

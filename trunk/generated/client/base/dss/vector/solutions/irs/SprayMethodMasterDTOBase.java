@@ -52,7 +52,7 @@ public abstract class SprayMethodMasterDTOBase extends com.runwaysdk.system.Enum
   
   public static dss.vector.solutions.irs.SprayMethodMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.irs.SprayMethodMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.irs.SprayMethodMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.irs.SprayMethodMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.irs.SprayMethodMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

@@ -602,11 +602,13 @@ private static final long serialVersionUID = 818384889;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.ThresholdData thresholdData)
     {
+      if(thresholdData == null) return this.EQ((java.lang.String)null);
       return this.EQ(thresholdData.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.ThresholdData thresholdData)
     {
+      if(thresholdData == null) return this.NE((java.lang.String)null);
       return this.NE(thresholdData.getId());
     }
 

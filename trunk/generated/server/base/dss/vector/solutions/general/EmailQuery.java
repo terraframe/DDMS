@@ -588,11 +588,13 @@ private static final long serialVersionUID = -727820654;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.Email email)
     {
+      if(email == null) return this.EQ((java.lang.String)null);
       return this.EQ(email.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.Email email)
     {
+      if(email == null) return this.NE((java.lang.String)null);
       return this.NE(email.getId());
     }
 

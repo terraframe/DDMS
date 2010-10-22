@@ -622,11 +622,13 @@ private static final long serialVersionUID = -495069476;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.intervention.monitor.PersonIntervention personIntervention)
     {
+      if(personIntervention == null) return this.EQ((java.lang.String)null);
       return this.EQ(personIntervention.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.intervention.monitor.PersonIntervention personIntervention)
     {
+      if(personIntervention == null) return this.NE((java.lang.String)null);
       return this.NE(personIntervention.getId());
     }
 

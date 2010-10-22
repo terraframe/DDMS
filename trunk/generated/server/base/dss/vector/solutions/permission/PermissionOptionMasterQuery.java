@@ -135,11 +135,13 @@ private static final long serialVersionUID = 719658136;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.permission.PermissionOptionMaster permissionOptionMaster)
     {
+      if(permissionOptionMaster == null) return this.EQ((java.lang.String)null);
       return this.EQ(permissionOptionMaster.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.permission.PermissionOptionMaster permissionOptionMaster)
     {
+      if(permissionOptionMaster == null) return this.NE((java.lang.String)null);
       return this.NE(permissionOptionMaster.getId());
     }
 

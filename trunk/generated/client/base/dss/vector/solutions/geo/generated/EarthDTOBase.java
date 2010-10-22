@@ -60,7 +60,7 @@ public abstract class EarthDTOBase extends dss.vector.solutions.geo.generated.Ge
   
   public static dss.vector.solutions.geo.generated.EarthQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.geo.generated.EarthQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.geo.generated.Earth", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.geo.generated.EarthQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.geo.generated.EarthDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

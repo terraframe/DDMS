@@ -52,7 +52,7 @@ public abstract class EmailProtocolMasterDTOBase extends com.runwaysdk.system.En
   
   public static dss.vector.solutions.general.EmailProtocolMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.EmailProtocolMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.EmailProtocolMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.EmailProtocolMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.EmailProtocolMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

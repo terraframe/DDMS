@@ -97,11 +97,13 @@ private static final long serialVersionUID = 335133614;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.query.DefaultSavedMap defaultSavedMap)
     {
+      if(defaultSavedMap == null) return this.EQ((java.lang.String)null);
       return this.EQ(defaultSavedMap.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.query.DefaultSavedMap defaultSavedMap)
     {
+      if(defaultSavedMap == null) return this.NE((java.lang.String)null);
       return this.NE(defaultSavedMap.getId());
     }
 

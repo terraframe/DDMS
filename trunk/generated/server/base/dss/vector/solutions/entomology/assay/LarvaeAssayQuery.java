@@ -48,7 +48,7 @@ private static final long serialVersionUID = -1012108955;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("endPoint");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT, mdAttributeIF, this, alias, null);
 
@@ -57,7 +57,7 @@ private static final long serialVersionUID = -1012108955;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getEndPoint(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("endPoint");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT, mdAttributeIF, this, alias, displayLabel);
 
@@ -71,7 +71,7 @@ private static final long serialVersionUID = -1012108955;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("startPoint");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT, mdAttributeIF, this, alias, null);
 
@@ -80,7 +80,7 @@ private static final long serialVersionUID = -1012108955;
   public dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF getStartPoint(String alias, String displayLabel)
   {
 
-    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap("startPoint");
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT);
 
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT, mdAttributeIF, this, alias, displayLabel);
 
@@ -89,11 +89,11 @@ private static final long serialVersionUID = -1012108955;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("endPoint")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("startPoint")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
@@ -167,11 +167,13 @@ private static final long serialVersionUID = -49291005;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.assay.LarvaeAssay larvaeAssay)
     {
+      if(larvaeAssay == null) return this.EQ((java.lang.String)null);
       return this.EQ(larvaeAssay.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.assay.LarvaeAssay larvaeAssay)
     {
+      if(larvaeAssay == null) return this.NE((java.lang.String)null);
       return this.NE(larvaeAssay.getId());
     }
 
@@ -213,11 +215,11 @@ private static final long serialVersionUID = -49291005;
   {
     String name = mdAttributeIF.definesAttribute();
     
-    if (name.equals("endPoint")) 
+    if (name.equals(dss.vector.solutions.entomology.assay.LarvaeAssay.ENDPOINT)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
-    else if (name.equals("startPoint")) 
+    else if (name.equals(dss.vector.solutions.entomology.assay.LarvaeAssay.STARTPOINT)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }

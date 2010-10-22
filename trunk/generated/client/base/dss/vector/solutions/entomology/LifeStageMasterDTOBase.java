@@ -52,7 +52,7 @@ public abstract class LifeStageMasterDTOBase extends com.runwaysdk.system.Enumer
   
   public static dss.vector.solutions.entomology.LifeStageMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.entomology.LifeStageMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.entomology.LifeStageMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.entomology.LifeStageMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.entomology.LifeStageMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

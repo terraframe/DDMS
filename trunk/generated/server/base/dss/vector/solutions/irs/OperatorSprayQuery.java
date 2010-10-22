@@ -427,11 +427,13 @@ private static final long serialVersionUID = 762736079;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.OperatorSpray operatorSpray)
     {
+      if(operatorSpray == null) return this.EQ((java.lang.String)null);
       return this.EQ(operatorSpray.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.irs.OperatorSpray operatorSpray)
     {
+      if(operatorSpray == null) return this.NE((java.lang.String)null);
       return this.NE(operatorSpray.getId());
     }
 

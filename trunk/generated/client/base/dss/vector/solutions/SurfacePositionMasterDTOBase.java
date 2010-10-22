@@ -52,7 +52,7 @@ public abstract class SurfacePositionMasterDTOBase extends com.runwaysdk.system.
   
   public static dss.vector.solutions.SurfacePositionMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.SurfacePositionMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.SurfacePositionMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.SurfacePositionMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.SurfacePositionMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

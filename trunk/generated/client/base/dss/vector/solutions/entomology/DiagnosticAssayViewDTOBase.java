@@ -12,7 +12,7 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
   }
   
   protected java.lang.String getDeclaredType()
-  {   
+  {
     return CLASS;
   }
   

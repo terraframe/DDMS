@@ -638,11 +638,13 @@ private static final long serialVersionUID = 466997546;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.TimeResponseAssay timeResponseAssay)
     {
+      if(timeResponseAssay == null) return this.EQ((java.lang.String)null);
       return this.EQ(timeResponseAssay.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.TimeResponseAssay timeResponseAssay)
     {
+      if(timeResponseAssay == null) return this.NE((java.lang.String)null);
       return this.NE(timeResponseAssay.getId());
     }
 

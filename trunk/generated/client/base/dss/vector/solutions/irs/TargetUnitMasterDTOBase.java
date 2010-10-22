@@ -52,7 +52,7 @@ public abstract class TargetUnitMasterDTOBase extends com.runwaysdk.system.Enume
   
   public static dss.vector.solutions.irs.TargetUnitMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.irs.TargetUnitMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.irs.TargetUnitMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.irs.TargetUnitMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.irs.TargetUnitMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

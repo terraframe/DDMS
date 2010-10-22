@@ -538,11 +538,13 @@ private static final long serialVersionUID = 788071485;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.LethalTimeProperty lethalTimeProperty)
     {
+      if(lethalTimeProperty == null) return this.EQ((java.lang.String)null);
       return this.EQ(lethalTimeProperty.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.LethalTimeProperty lethalTimeProperty)
     {
+      if(lethalTimeProperty == null) return this.NE((java.lang.String)null);
       return this.NE(lethalTimeProperty.getId());
     }
 

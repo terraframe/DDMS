@@ -52,7 +52,7 @@ public abstract class SurfaceTypeMasterDTOBase extends com.runwaysdk.system.Enum
   
   public static dss.vector.solutions.irs.SurfaceTypeMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.irs.SurfaceTypeMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.irs.SurfaceTypeMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.irs.SurfaceTypeMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.irs.SurfaceTypeMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

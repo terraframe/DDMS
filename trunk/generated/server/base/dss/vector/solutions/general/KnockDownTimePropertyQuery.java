@@ -538,11 +538,13 @@ private static final long serialVersionUID = 143346803;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.KnockDownTimeProperty knockDownTimeProperty)
     {
+      if(knockDownTimeProperty == null) return this.EQ((java.lang.String)null);
       return this.EQ(knockDownTimeProperty.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.general.KnockDownTimeProperty knockDownTimeProperty)
     {
+      if(knockDownTimeProperty == null) return this.NE((java.lang.String)null);
       return this.NE(knockDownTimeProperty.getId());
     }
 

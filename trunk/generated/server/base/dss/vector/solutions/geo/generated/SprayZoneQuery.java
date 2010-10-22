@@ -97,11 +97,13 @@ private static final long serialVersionUID = -1253281055;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.geo.generated.SprayZone sprayZone)
     {
+      if(sprayZone == null) return this.EQ((java.lang.String)null);
       return this.EQ(sprayZone.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.geo.generated.SprayZone sprayZone)
     {
+      if(sprayZone == null) return this.NE((java.lang.String)null);
       return this.NE(sprayZone.getId());
     }
 

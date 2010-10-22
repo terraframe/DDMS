@@ -317,11 +317,13 @@ private static final long serialVersionUID = 120964117;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.TeamSpray teamSpray)
     {
+      if(teamSpray == null) return this.EQ((java.lang.String)null);
       return this.EQ(teamSpray.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.irs.TeamSpray teamSpray)
     {
+      if(teamSpray == null) return this.NE((java.lang.String)null);
       return this.NE(teamSpray.getId());
     }
 

@@ -688,11 +688,13 @@ private static final long serialVersionUID = -326752365;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.BiochemicalAssay biochemicalAssay)
     {
+      if(biochemicalAssay == null) return this.EQ((java.lang.String)null);
       return this.EQ(biochemicalAssay.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.BiochemicalAssay biochemicalAssay)
     {
+      if(biochemicalAssay == null) return this.NE((java.lang.String)null);
       return this.NE(biochemicalAssay.getId());
     }
 

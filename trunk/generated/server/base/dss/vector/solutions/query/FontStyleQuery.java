@@ -155,11 +155,13 @@ private static final long serialVersionUID = 830298642;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.query.FontStyle fontStyle)
     {
+      if(fontStyle == null) return this.EQ((java.lang.String)null);
       return this.EQ(fontStyle.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.query.FontStyle fontStyle)
     {
+      if(fontStyle == null) return this.NE((java.lang.String)null);
       return this.NE(fontStyle.getId());
     }
 

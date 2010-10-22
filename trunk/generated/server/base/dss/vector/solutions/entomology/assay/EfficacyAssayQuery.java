@@ -527,11 +527,13 @@ private static final long serialVersionUID = 671258232;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.assay.EfficacyAssay efficacyAssay)
     {
+      if(efficacyAssay == null) return this.EQ((java.lang.String)null);
       return this.EQ(efficacyAssay.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.assay.EfficacyAssay efficacyAssay)
     {
+      if(efficacyAssay == null) return this.NE((java.lang.String)null);
       return this.NE(efficacyAssay.getId());
     }
 

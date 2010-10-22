@@ -843,11 +843,13 @@ private static final long serialVersionUID = -2087727412;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.InsecticideBrand insecticideBrand)
     {
+      if(insecticideBrand == null) return this.EQ((java.lang.String)null);
       return this.EQ(insecticideBrand.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.irs.InsecticideBrand insecticideBrand)
     {
+      if(insecticideBrand == null) return this.NE((java.lang.String)null);
       return this.NE(insecticideBrand.getId());
     }
 

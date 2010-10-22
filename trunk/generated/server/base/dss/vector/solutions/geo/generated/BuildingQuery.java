@@ -97,11 +97,13 @@ private static final long serialVersionUID = -670915636;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.geo.generated.Building building)
     {
+      if(building == null) return this.EQ((java.lang.String)null);
       return this.EQ(building.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.geo.generated.Building building)
     {
+      if(building == null) return this.NE((java.lang.String)null);
       return this.NE(building.getId());
     }
 

@@ -117,11 +117,13 @@ private static final long serialVersionUID = -784038157;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.query.NonRangeCategory nonRangeCategory)
     {
+      if(nonRangeCategory == null) return this.EQ((java.lang.String)null);
       return this.EQ(nonRangeCategory.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.query.NonRangeCategory nonRangeCategory)
     {
+      if(nonRangeCategory == null) return this.NE((java.lang.String)null);
       return this.NE(nonRangeCategory.getId());
     }
 

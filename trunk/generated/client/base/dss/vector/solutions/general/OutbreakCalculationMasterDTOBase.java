@@ -52,7 +52,7 @@ public abstract class OutbreakCalculationMasterDTOBase extends com.runwaysdk.sys
   
   public static dss.vector.solutions.general.OutbreakCalculationMasterQueryDTO getAllInstances(com.runwaysdk.constants.ClientRequestIF clientRequest, String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
   {
-    return (dss.vector.solutions.general.OutbreakCalculationMasterQueryDTO) clientRequest.getAllInstances("dss.vector.solutions.general.OutbreakCalculationMaster", sortAttribute, ascending, pageSize, pageNumber);
+    return (dss.vector.solutions.general.OutbreakCalculationMasterQueryDTO) clientRequest.getAllInstances(dss.vector.solutions.general.OutbreakCalculationMasterDTO.CLASS, sortAttribute, ascending, pageSize, pageNumber);
   }
   
   public void lock()

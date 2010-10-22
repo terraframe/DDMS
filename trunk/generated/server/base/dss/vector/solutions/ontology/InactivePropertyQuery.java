@@ -588,11 +588,13 @@ private static final long serialVersionUID = -1625208963;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.ontology.InactiveProperty inactiveProperty)
     {
+      if(inactiveProperty == null) return this.EQ((java.lang.String)null);
       return this.EQ(inactiveProperty.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.ontology.InactiveProperty inactiveProperty)
     {
+      if(inactiveProperty == null) return this.NE((java.lang.String)null);
       return this.NE(inactiveProperty.getId());
     }
 

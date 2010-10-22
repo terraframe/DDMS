@@ -135,11 +135,13 @@ private static final long serialVersionUID = 1037591571;
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.ContainerShapeMaster containerShapeMaster)
     {
+      if(containerShapeMaster == null) return this.EQ((java.lang.String)null);
       return this.EQ(containerShapeMaster.getId());
     }
 
     public com.runwaysdk.query.BasicCondition NE(dss.vector.solutions.entomology.ContainerShapeMaster containerShapeMaster)
     {
+      if(containerShapeMaster == null) return this.NE((java.lang.String)null);
       return this.NE(containerShapeMaster.getId());
     }
 
