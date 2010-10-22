@@ -4,7 +4,8 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
   
   Constants : {
     INDIVIDUALS_GROUP : 'individuals_group',
-    AGGREGATES_GROUP : 'aggregates_group'
+    AGGREGATES_GROUP : 'aggregates_group',
+    VEHICLES_GROUP : 'vehicles_group'
   },
   
   Instance : {
@@ -173,7 +174,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
           {
             this._hideHandler([],[],this._aggPremiseGeo);
           }
-          else if(name === this.constructor.AGGREGATES_GROUP)
+          else if(name === this.constructor.AGGREGATES_GROUP || name)
           {
             this._hideHandler([],[],this._indPremiseGeo);
           }

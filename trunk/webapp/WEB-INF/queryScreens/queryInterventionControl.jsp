@@ -56,7 +56,7 @@
 
 <%=Halp.loadTypes(loadables)%>
 
-<script type="text/javascript">
+<script type="text/javascript"><!--
 // Setting both values to false will select *all* univerals
 
 YAHOO.util.Event.onDOMReady(function(){
@@ -446,7 +446,8 @@ YAHOO.util.Event.onDOMReady(function(){
       independent:vehicleBasedSprayingColumns,
       dependent:individualPremiseVisitColumns.concat(insecticideInterventionColumns,aggregatedPremiseVisitColumns,personInterventionColumns,calculations),
       type: MDSS.Dependent.CHECKED,
-      bidirectional: false
+      bidirectional: false,
+      name: MDSS.QueryInterventionControl.VEHICLES_GROUP
     });
     dm.excludes({
       independent: 'childId_tm',
@@ -455,11 +456,11 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: true
     });
 
-    var handler = Mojo.Util.bind(query, query.togglePremises);
-    dm.addAllTransactionsFinishListener(handler);
+//    var handler = Mojo.Util.bind(query, query.togglePremises);
+//    dm.addAllTransactionsFinishListener(handler);
 });
 
-</script>
+--></script>
 <jsp:include page="queryContainer.jsp"></jsp:include>
 
 
