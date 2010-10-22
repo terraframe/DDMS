@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -22,7 +21,6 @@ import dss.vector.solutions.entomology.SubCollectionView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.geo.generated.SentinelSite;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -40,10 +38,38 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   public void apply()
   {
     MosquitoCollectionView view = getCollection();
+    String subId = this.getSubCollectionId();
+    if (subId==null || subId.length()==0)
+    {
+      RequiredAttributeProblem rap = new RequiredAttributeProblem();
+      rap.setAttributeName(SUBCOLLECTIONID);
+      rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getSubCollectionIdMd().getDisplayLabel(Session.getCurrentLocale()));
+      rap.throwIt();
+    }
+    
+    Term idMethod = Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd());
+    if (idMethod==null)
+    {
+      RequiredAttributeProblem rap = new RequiredAttributeProblem();
+      rap.setAttributeName(IDENTMETHOD);
+      rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getIdentMethodMd().getDisplayLabel(Session.getCurrentLocale()));
+      rap.throwIt();
+    }
+    
+    Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd());
+    if (taxonTerm==null)
+    {
+      RequiredAttributeProblem rap = new RequiredAttributeProblem();
+      rap.setAttributeName(TAXON);
+      rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getTaxonMd().getDisplayLabel(Session.getCurrentLocale()));
+      rap.throwIt();
+    }
     
     SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
     query.WHERE(query.getCollection().getId().EQ(view.getConcreteId()));
-    query.WHERE(query.getSubCollectionId().EQ(this.getSubCollectionId()));
+    query.WHERE(query.getSubCollectionId().EQ(subId));
+    query.WHERE(query.getIdentMethod().EQ(idMethod));
+    query.WHERE(query.getTaxon().EQ(taxonTerm));
     OIterator<? extends SubCollection> iterator = query.getIterator();
     
     SubCollectionView sub;
@@ -55,12 +81,12 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     else
     {
       sub = new SubCollectionView();
-      sub.setSubCollectionId(this.getSubCollectionId());
+      sub.setSubCollectionId(subId);
+      sub.setIdentMethod(idMethod);
+      sub.setTaxon(taxonTerm);
     }
     iterator.close();
     
-    sub.setIdentMethod(Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd()));
-    sub.setTaxon(Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd()));
     sub.setEggs(this.getEggs());
     sub.setMale(this.getMale());
     sub.setFemale(this.getFemale());
