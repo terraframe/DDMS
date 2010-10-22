@@ -137,7 +137,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       /**
        * This override adds temporary classes to the query if the geo entity attributes
        * of those classes are being selected or restricted.
-       */
+       *
       _constructQuery : function(forMapping)
       {
         // add the individual/aggregated premise visit classes if any selectino/restriction
@@ -163,6 +163,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         
         return obj;
       },
+      */
       
       togglePremises : function(triggerId, independents)
       {
