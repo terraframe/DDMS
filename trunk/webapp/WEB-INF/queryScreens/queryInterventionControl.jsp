@@ -397,6 +397,8 @@ YAHOO.util.Event.onDOMReady(function(){
     query.render();
 
     var dm = query.getDependencyManager();
+
+    
     dm.includes({
       independent: 'concentrationQuantifier_ii',
       dependent: 'concentrationQualifier_ii',
@@ -410,6 +412,18 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: true
     });
     // TODO optimize these excludes within a dynamic loop
+    dm.excludes({
+      independent: controlInterventionAttribs,
+      dependent:[],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.excludes({
+      independent: query.getDateGroupIds(),
+      dependent:[],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
     dm.excludes({
       independent:calculations,
       dependent:individualPremiseVisitColumns.concat(vehicleBasedSprayingColumns,aggregatedPremiseVisitColumns,personInterventionColumns,insecticideInterventionColumns),
@@ -456,8 +470,8 @@ YAHOO.util.Event.onDOMReady(function(){
       bidirectional: true
     });
 
-//    var handler = Mojo.Util.bind(query, query.togglePremises);
-//    dm.addAllTransactionsFinishListener(handler);
+    var handler = Mojo.Util.bind(query, query.togglePremises);
+    dm.addAllTransactionsFinishListener(handler);
 });
 
 --></script>

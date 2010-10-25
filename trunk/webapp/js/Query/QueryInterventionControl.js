@@ -5,7 +5,9 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
   Constants : {
     INDIVIDUALS_GROUP : 'individuals_group',
     AGGREGATES_GROUP : 'aggregates_group',
-    VEHICLES_GROUP : 'vehicles_group'
+    VEHICLES_GROUP : 'vehicles_group',
+    INDIVIDUALS_GEO_INDEX : 1,
+    AGGREGATES_GEO_INDEX : 2
   },
   
   Instance : {
@@ -43,7 +45,8 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
                              {
                                keyName :  this._groupByClass.CLASS+'.'+this._groupByClass.GEOENTITY,
                                display : this._larvacide.getGeoEntityMd().getDisplayLabel()
-                             },
+                             }
+                               ,
                              {
                                keyName : this._indPremiseGeo,
                                display : MDSS.localize('sub_geoentity_individual_premises')
@@ -54,13 +57,32 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
                              }
                            ];
       
-      this._queryType = this._mainQueryClass;
+      
+        this._queryType = this._mainQueryClass;
 
-      this.$initialize(selectableGroups, queryList);   
+        this.$initialize(selectableGroups, queryList);   
  
-      var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
-      picker.setSprayTargetAllowed(false);
+        var picker = this.getGeoPicker();      
+        picker.setPolitical(false);
+        picker.setSprayTargetAllowed(false);
+      
+        this._indOption = null;
+        this._aggOption = null;
+      },
+      
+      _customPostRender : function()
+      {
+        var select = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
+        this._indOption = select.options[this.constructor.INDIVIDUALS_GEO_INDEX];
+        this._aggOption = select.options[this.constructor.AGGREGATES_GEO_INDEX];
+      },
+      
+      _resetToDefault : function()
+      {
+        this._aggOption.disabled = false;
+        this._indOption.disabled = false;
+        
+        this.$_resetToDefault();
       },
      
       _getBrowserRootClass : function(attribute)
@@ -165,6 +187,11 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       },
       */
       
+      /**
+       * The geo selection/criteria is mutually exclusive for individuals and aggregated/vehicle
+       * premises, so this method is executed after any checkbox selection to toggle the selection/criteria
+       * appropriately.
+       */
       togglePremises : function(triggerId, independents)
       {
         if(independents.length === 1)
@@ -173,13 +200,25 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
           var name = ind.getName();
           if(name === this.constructor.INDIVIDUALS_GROUP)
           {
+            this._indOption.disabled = false;
+            this._aggOption.disabled = true;
             this._hideHandler([],[],this._aggPremiseGeo);
+            
+            return;
           }
-          else if(name === this.constructor.AGGREGATES_GROUP || name)
+          else if(name === this.constructor.AGGREGATES_GROUP || name === this.constructor.VEHICLES_GROUP)
           {
+            this._aggOption.disabled = false;
+            this._indOption.disabled = true;
             this._hideHandler([],[],this._indPremiseGeo);
+            
+            return;
           }
-        }
+        }          
+        
+        // re-enable all geo selection/criteria
+        this._aggOption.disabled = false;
+        this._indOption.disabled = false;
       }
   }
 });
