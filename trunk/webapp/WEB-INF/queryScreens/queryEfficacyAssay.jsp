@@ -153,7 +153,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     if(available.contains('<%= EfficacyAssayDTO.AGERANGE %>'))
     {
-      efficacyColumns.push(
+      efficacyColumns.splice(6, 0,
           {
             key:'<%= QueryConstants.AGE_LOWEST %>',
             attributeName:'<%= QueryConstants.AGE_LOWEST %>',
