@@ -31,7 +31,7 @@ MDSS.QueryXML = {
 
   GROUP_BY_FUNCTION : 'AG',
   COUNT_FUNCTION : 'COUNT',
-  RATIO_FUNCTION : 'ratio_of_this_row_to_total_count',
+  RATIO_FUNCTION : 'ratio_of_this_row_to_total_count'
 };
 
 /**

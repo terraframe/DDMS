@@ -6,6 +6,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
     INDIVIDUALS_GROUP : 'individuals_group',
     AGGREGATES_GROUP : 'aggregates_group',
     VEHICLES_GROUP : 'vehicles_group',
+    GEO_INDEX : 0,
     INDIVIDUALS_GEO_INDEX : 1,
     AGGREGATES_GEO_INDEX : 2
   },
@@ -68,6 +69,9 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       
         this._indOption = null;
         this._aggOption = null;
+        
+        this._usingAgg = false;
+        this._usingInd = false;
       },
       
       _customPostRender : function()
@@ -83,6 +87,17 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         this._indOption.disabled = false;
         
         this.$_resetToDefault();
+      },
+      
+      _displaySearch : function()
+      {
+        // don't open the picker if the select box is on a disabled option
+        var select = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
+        if(!select.options[select.selectedIndex].disabled)
+        {
+          this.$_displaySearch();
+        }
+        
       },
      
       _getBrowserRootClass : function(attribute)
@@ -159,7 +174,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       /**
        * This override adds temporary classes to the query if the geo entity attributes
        * of those classes are being selected or restricted.
-       *
+       */
       _constructQuery : function(forMapping)
       {
         // add the individual/aggregated premise visit classes if any selectino/restriction
@@ -185,7 +200,40 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         
         return obj;
       },
-      */
+      
+      _toggleCount : function(e, attribute)
+      {
+        this.$_toggleCount(e, attribute);
+
+        if(e.target.checked)
+        {
+          this._toggleGeoOptions();
+        }
+      },
+      
+      _toggleRatio : function(e, attribute)
+      {
+        this.$_toggleRatio(e, attribute);
+        
+        if(e.target.checked)
+        {
+          this._toggleGeoOptions();
+        }
+      },
+      
+      _toggleGeoOptions : function()
+      {
+        // re-enable all geo selection/criteria
+        if(!this._usingAgg)
+        {
+          this._indOption.disabled = false;
+        }
+        
+        if(!this._usingInd)
+        {
+          this._aggOption.disabled = false;
+        }
+      },
       
       /**
        * The geo selection/criteria is mutually exclusive for individuals and aggregated/vehicle
@@ -196,11 +244,19 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
       {
         if(independents.length === 1)
         {
+          var select = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
+          
           var ind = independents[0];
           var name = ind.getName();
+          
           if(name === this.constructor.INDIVIDUALS_GROUP)
           {
+            this._usingInd = true;
+            this._usingAgg = false;
+            
             this._indOption.disabled = false;
+            this._indOption.selected = true;
+            
             this._aggOption.disabled = true;
             this._hideHandler([],[],this._aggPremiseGeo);
             
@@ -208,17 +264,20 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
           }
           else if(name === this.constructor.AGGREGATES_GROUP || name === this.constructor.VEHICLES_GROUP)
           {
+            this._usingAgg = true;
+            this._usingInd = false;
+            
             this._aggOption.disabled = false;
+            this._aggOption.selected = true;
+            
             this._indOption.disabled = true;
             this._hideHandler([],[],this._indPremiseGeo);
-            
+
             return;
           }
         }          
         
-        // re-enable all geo selection/criteria
-        this._aggOption.disabled = false;
-        this._indOption.disabled = false;
+        this._toggleGeoOptions();
       }
   }
 });
