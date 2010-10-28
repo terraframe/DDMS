@@ -14,17 +14,18 @@
 -->
 <project name="MDSS" default="build" basedir=".">
   <taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="lib/ant/svnant.jar;lib/ant/svnClientAdapter.jar;lib/ant/svnkit.jar;lib/ant/svnjavahl.jar;lib/ant/ganymed.jar;" />
-  <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="C:/cruisecontrol-bin-2.8.3/lib/ant-contrib-1.0b3.jar" />
+  <taskdef resource="net/sf/antcontrib/antlib.xml" classpath="/usr/share/ant/lib/ant-contrib-1.0b3.jar" />
   
   <property name="country" value="blank" />
   <property name="geodata.db" value="mrc_${country}" />
   <property name="deploy.db" value="mdssdeploy" />
   <property name="develop.db" value="mdssdevelop" />
-  <property name="nsis.dir" location="C:/Program Files (x86)/NSIS" />
-  <property name="postgres.bin" location="C:/Program Files (x86)/PostgreSQL/8.4/bin"/>
+  <property name="nsis.dir" location="/usr/bin" />
+  <property name="postgres.bin" location="/usr/bin/"/>
   <property name="profile.root" location="profiles" />
-  <property name="stage.dir" location="C:/stage" />
-  <property name="artifacts.path" location="C:/stage/tomcat6" />
+  <property name="install.dir" location="/home/terraframe/DDMS/installs" />
+  <property name="stage.dir" location="/home/terraframe/DDMS/stage" />
+  <property name="artifacts.path" location="${stage.dir}/tomcat6" />
   <property name="stage.classes" location = "${artifacts.path}/webapps/DDMS/WEB-INF/classes"/>
   <property name="root.user" value="postgres" />
   <property name="root.pass" value="postgres" />
@@ -32,12 +33,12 @@
   <property name="max_memory_use" value="1024m" />
   <property name="domain" value="0.mdss.ivcc.com" />
   <property name="local.root" location="." />
-  <property name="deploy.root" location="C:/stage/tomcat6" />
-  <property name="manager.dest" location="C:/stage/manager" />
+  <property name="deploy.root" location="${stage.dir}/tomcat6" />
+  <property name="manager.dest" location="${stage.dir}/manager" />
   <property name="manager.dest.lib" location="${manager.dest}/lib" />
   <property name="manager.dest.bin" location="${manager.dest}/bin" />  
   <property name="manager.dest.profiles" location="${manager.dest}/profiles" />  
-  <property name="manager.source" location="C:/cruisecontrol-bin-2.8.3/projects/mdss/standalone" />
+  <property name="manager.source" location="/home/terraframe/DDMS/standalone" />
   <property name="manager.source.lib" location="${manager.source}/lib" />
   <property name="manager.source.profiles" location="${manager.source}/profiles" />    
   <property name="manager.src" location="${manager.source}/src" />
@@ -80,6 +81,12 @@
     </propertyfile>
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\\' replace="/" />
     <replaceregexp flags="g" byline="true" file="${profile.root}/default/common/terraframe.properties" match='\\\:' replace=":" />
+
+    <ant inheritall="false" antfile="deploy.xml" dir="scripts/ant/deploy">
+      <property name="profile.root" value="${profile.root}" />
+      <target name="compile_generated" />
+    </ant>
+
     <antcall target="remove_generated_universals" />
     <antcall target="copy_country_schema" />
     
@@ -89,7 +96,6 @@
       <property name="root.db" value="${root.db}" />
       <property name="geodata.db" value="${geodata.db}" />
       <property name="profile.root" value="${profile.root}" />
-      <!--<target name="compile_generated" />      -->
       <target name="rebuild_db" /> 
       <target name="rebuild_model" />
       <target name="import_most_recent" />
@@ -247,14 +253,15 @@
   </target>
   
   <target name="build_installer_exe">
-    <copy file="../installer-windows/Installer.nsi" todir="${stage.dir}/" overwrite="true"/>
+    <copy file="${install.dir}/Installer.nsi" todir="${stage.dir}/" overwrite="true"/>
     <exec executable="${nsis.dir}/makensis" dir="${stage.dir}" failonerror="true" searchpath="true" logError="true">
       <arg line="Installer.nsi" />
     </exec>
-    <copy file="${stage.dir}/InstallDDMS.exe" tofile="../installer-windows/InstallDDMS${country}.exe" overwrite="true"/>
+    <copy file="${stage.dir}/InstallDDMS.exe" tofile="${install.dir}/InstallDDMS${country}.exe" overwrite="true"/>
     <delete file="${stage.dir}/InstallDDMS.exe"/>
     <delete file="${stage.dir}/Installer.nsi"/>
   </target>
+
   <target name="remove_generated_universals" depends="" description="Remove all java files for selected (old) generated universals">
     <patternset id="generated.artifacts">
       <include name="**/*" />
