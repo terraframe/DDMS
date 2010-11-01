@@ -60,7 +60,7 @@ Page custom userInputPage exitUserInputPage
 !insertmacro MUI_LANGUAGE English
 
 # Installer attributes
-OutFile InstallDdms.exe
+OutFile InstallDDMS.exe
 InstallDir C:\MDSS
 CRCCheck on
 XPStyle on
@@ -302,7 +302,7 @@ SectionEnd
 
 # Installer functions
 Function .onInit
-    LogSet On
+    # LogSet On
     SetOverwrite try
     InitPluginsDir
     SetRebootFlag true
