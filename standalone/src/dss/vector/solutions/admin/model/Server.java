@@ -6,7 +6,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 import com.runwaysdk.constants.DeployProperties;
-import com.runwaysdk.general.Localizer;
+import com.runwaysdk.manager.general.Localizer;
 
 import dss.vector.solutions.admin.controller.CommandProperties;
 import dss.vector.solutions.admin.controller.EventProvider;

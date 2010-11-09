@@ -60,5 +60,10 @@ public class CommandProperties
   public static String getInstall()
   {
     return instance().getString("install.location");
+  }
+
+  public static String getLogLocation()
+  {
+    return instance().getString("log.location");
   }  
 }

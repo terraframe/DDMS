@@ -3,7 +3,7 @@ package dss.vector.solutions.admin.controller;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.controller.ConfigurationAdapter;
+import com.runwaysdk.manager.controller.ConfigurationAdapter;
 
 public class MasterConfiguration extends ConfigurationAdapter
 {

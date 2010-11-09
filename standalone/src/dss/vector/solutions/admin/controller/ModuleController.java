@@ -10,15 +10,12 @@ import java.lang.reflect.InvocationTargetException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
-import com.runwaysdk.controller.IConfiguration;
-import com.runwaysdk.controller.IExportStrategy;
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
-import com.runwaysdk.general.Localizer;
-import com.runwaysdk.model.ExportBean;
-import com.runwaysdk.model.IEntityObject;
-import com.runwaysdk.model.ImportBean;
+import com.runwaysdk.logging.LogLevel;
+import com.runwaysdk.manager.general.Localizer;
 
+import dss.vector.solutions.admin.LogConstants;
 import dss.vector.solutions.admin.model.Server;
 
 public class ModuleController extends EventProvider implements IModuleController
@@ -29,27 +26,11 @@ public class ModuleController extends EventProvider implements IModuleController
 
   private Server               server;
 
-  private IConfiguration       configuration;
-
   public ModuleController()
   {
     super();
 
     this.server = new Server();
-    this.configuration = new SlaveConfiguration();
-
-    if (this.isMaster())
-    {
-      this.configuration = new MasterConfiguration();
-    }
-  }
-
-  private boolean isMaster()
-  {
-    PropertyReader reader = new PropertyReader(CommandProperties.getInstall());
-    String value = reader.getValue("master");
-
-    return ( value != null && value.contains("true") );
   }
 
   @Override
@@ -246,35 +227,21 @@ public class ModuleController extends EventProvider implements IModuleController
   }
 
   @Override
-  public void apply(IEntityObject arg0)
+  public void setLogLevel(LogLevel level)
   {
+    PropertyWriter writer = new PropertyWriter(CommandProperties.getLogLocation());
+
+    boolean success = writer.write(LogConstants.THRESHOLD_PROPERTY, level.name());
+
+    if (success)
+    {
+      fireMessageEvent(Localizer.getMessage("SUCCESS_CHANGE_LOG"));
+    }
+    else
+    {
+      fireErrorEvent(Localizer.getMessage("FAIL_CHANGE_LOG"));
+    }
   }
-
-  @Override
-  public void delete(IEntityObject arg0)
-  {
-  }
-
-  @Override
-  public void exportTransactions(ExportBean bean)
-  {
-    File location = new File(bean.getLocation());
-    IExportStrategy strategy = bean.getExportStrategy();
-    ExportWorker runnable = new ExportWorker(location, strategy, configuration);
-
-    this.fireExecuteEvent(runnable);
-  }
-
-  @Override
-  public void importTransaction(ImportBean bean)
-  {
-    File location = new File(bean.getLocation());
-
-    ImportWorker runnable = new ImportWorker(location, configuration);
-
-    this.fireExecuteEvent(runnable);
-  }
-
   @Override
   public boolean isServerUp()
   {

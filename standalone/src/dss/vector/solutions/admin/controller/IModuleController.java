@@ -2,9 +2,9 @@ package dss.vector.solutions.admin.controller;
 
 import java.io.File;
 
-import com.runwaysdk.controller.IAdminModuleController;
+import com.runwaysdk.logging.LogLevel;
 
-public interface IModuleController extends IAdminModuleController
+public interface IModuleController
 {
   public void addListener(IControllerListener listener);
 
@@ -23,6 +23,8 @@ public interface IModuleController extends IAdminModuleController
   public void restore(File file);
   
   public void refresh();
+
+  public void setLogLevel(LogLevel level);
   
   public boolean isServerUp();  
 }

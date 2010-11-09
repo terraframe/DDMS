@@ -1,6 +1,6 @@
 package dss.vector.solutions.admin.controller;
 
-import com.runwaysdk.controller.ConfigurationAdapter;
+import com.runwaysdk.manager.controller.ConfigurationAdapter;
 
 public class SlaveConfiguration extends ConfigurationAdapter
 {

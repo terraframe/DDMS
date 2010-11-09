@@ -24,8 +24,8 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
-import com.runwaysdk.general.Localizer;
-import com.runwaysdk.view.IViewPart;
+import com.runwaysdk.manager.general.Localizer;
+import com.runwaysdk.manager.view.IViewPart;
 
 import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
