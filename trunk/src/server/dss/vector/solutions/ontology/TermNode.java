@@ -59,6 +59,7 @@ public class TermNode implements Comparable<TermNode>
       {
         ip.appLock();
         Disease disease = ip.getDisease();
+        
         if (disease.equals(Disease.getMalaria()))
         {
           ip.setInactive(!activeMalaria);
@@ -69,7 +70,8 @@ public class TermNode implements Comparable<TermNode>
         }
         else
         {
-          throw new RuntimeException("Disease " + disease + " not found for term name [" + name + "] and id [" + id + "]");
+          ip.setInactive(false);
+//          throw new RuntimeException("Disease " + disease + " not found for term name [" + name + "] and id [" + id + "]");
         }
         ip.apply();
       }

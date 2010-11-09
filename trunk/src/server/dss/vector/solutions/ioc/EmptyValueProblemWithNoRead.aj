@@ -13,7 +13,7 @@ import com.runwaysdk.session.AttributeReadPermissionException;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 import com.runwaysdk.session.SessionFacade;
-import com.runwaysdk.session.SessionManagement;
+import com.runwaysdk.session.RequestManagement;
 
 privileged public aspect EmptyValueProblemWithNoRead
 {
@@ -32,7 +32,7 @@ privileged public aspect EmptyValueProblemWithNoRead
 
       object = proceed();
 
-      List<ProblemIF> problemList = SessionManagement.aspectOf().getProblemList();
+      List<ProblemIF> problemList = RequestManagement.aspectOf().getProblemList();
 //      System.out.println("Problem size: "+problemList.size());
       this.processProblemList(problemList);
 
