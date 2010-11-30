@@ -17,6 +17,7 @@ import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
@@ -356,7 +357,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     }
     catch (SQLException e)
     {
-      e.printStackTrace();
+      MdssLog.fatal(e);
+      throw new DatabaseException(e);
     }
     finally
     {
@@ -368,7 +370,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
         }
         catch (SQLException e2)
         {
-          e2.printStackTrace();
+          MdssLog.fatal(e2);
+          throw new DatabaseException(e2);
         }
       }
     }
@@ -450,18 +453,34 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  SELECT population , year_of_data, growth_rate FROM population_data pd JOIN geo_displayLabel gd ON gd.id = pd.geo_entity \n";
     sql += "    WHERE pd.year_of_data  <= _year AND pd.geo_entity = _geo_Entity_Id  \n";
     sql += "    AND gd."+populationAllowedCol+" = 1 AND gd."+politicalCol+" = 1 \n";
+    sql += "    AND population IS NOT NULL \n";
     sql += "    ORDER BY pd.year_of_data DESC \n";
     sql += "    LIMIT 1 \n";
     sql += "    INTO _population, _prev_Year, _growth; \n";
     sql += "     \n";
     sql += "    IF _population IS NOT NULL THEN \n";
     sql += "      WHILE _prev_Year < _year LOOP \n";
+    // If the growth rate is null then grab the last known rate before the year
+    // of the population to extrapolate the population based on that prior rate.
+    sql += "        IF _growth IS NULL THEN \n";
+    sql += "          SELECT growth_rate FROM population_data pd JOIN geo_displayLabel gd ON gd.id = pd.geo_entity \n";
+    sql += "          WHERE pd.year_of_data <= _prev_Year AND pd.geo_entity = _geo_Entity_Id \n";
+    sql += "          AND gd."+populationAllowedCol+" = 1 AND gd."+politicalCol+" = 1 \n";
+    sql += "          AND growth_rate IS NOT NULL \n";
+    sql += "          ORDER BY pd.year_of_data DESC \n";
+    sql += "          LIMIT 1 \n";
+    sql += "          INTO _growth; \n";
+    sql += "        END IF;\n";
+    sql += "        IF _growth IS NULL THEN \n";
+    sql += "          _growth := 0.0; \n"; // No growth found
+    sql += "        END IF;\n";
     sql += "        IF _prev_Year = _year - 1  THEN \n";
     sql += "           _population := _population + (_population * (_growth * _percentage_Adjustment )); \n";
     sql += "        ELSE \n";
     sql += "           _population := _population + (_population * _growth); \n";
     sql += "        END IF; \n";
     sql += "        _prev_Year := _prev_Year + 1; \n";
+    sql += "        _growth := null; \n";
     sql += "       -- RAISE NOTICE '% % % %', _geo_Entity_Id,_year,_prev_Year,_population; \n";
     sql += "      END LOOP; \n";
     sql += "    ELSE \n";
@@ -730,7 +749,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  END IF; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-
     return sql;
   }
 
