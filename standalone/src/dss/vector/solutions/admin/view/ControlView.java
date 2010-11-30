@@ -24,6 +24,7 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.part.ViewPart;
 
+import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.general.Localizer;
 import com.runwaysdk.manager.view.IViewPart;
 
@@ -288,4 +289,9 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
     display.asyncExec(runnable);
   }
 
+  @Override
+  public void changeLogLevel(LogLevel level)
+  {
+    // Do nothing
+  }
 }

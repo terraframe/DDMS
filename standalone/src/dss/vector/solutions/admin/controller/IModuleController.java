@@ -26,5 +26,7 @@ public interface IModuleController
 
   public void setLogLevel(LogLevel level);
   
+  public LogLevel getLogLevel();
+  
   public boolean isServerUp();  
 }

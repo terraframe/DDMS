@@ -1,6 +1,7 @@
 package dss.vector.solutions.admin;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import org.eclipse.core.databinding.observable.Realm;
@@ -9,6 +10,7 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.operation.IRunnableWithProgress;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 
 import com.runwaysdk.logging.LogLevel;
@@ -76,30 +78,43 @@ public class MDSSModule implements IModule, IControllerListener
 
   private IWindow           window;
 
+  private LinkedHashMap<LogLevel, LogAction>   actions;
+
   public MDSSModule(IModuleController controller)
   {
     this.controller = controller;
     this.controller.addListener(this);
+    
     this.statusManager = new StatusLineManager();
     this.window = null;
+    this.actions = new LinkedHashMap<LogLevel, LogAction>();
+
+    this.actions.put(LogLevel.TRACE, new LogAction(Localizer.getMessage("TRACE"), LogLevel.TRACE, controller));
+    this.actions.put(LogLevel.DEBUG, new LogAction(Localizer.getMessage("DEBUG"), LogLevel.DEBUG, controller));
+    this.actions.put(LogLevel.INFO, new LogAction(Localizer.getMessage("INFO"), LogLevel.INFO, controller));
+    this.actions.put(LogLevel.WARN, new LogAction(Localizer.getMessage("WARN"), LogLevel.WARN, controller));
+    this.actions.put(LogLevel.ERROR, new LogAction(Localizer.getMessage("ERROR"), LogLevel.ERROR, controller));
+    this.actions.put(LogLevel.FATAL, new LogAction(Localizer.getMessage("FATAL"), LogLevel.FATAL, controller));
+    
+    this.changeLogLevel(controller.getLogLevel());
   }
 
   @Override
   public void generateMenu(IMenuManager manager)
   {
+
     MenuManager fileMenu = manager.getMenu(Localizer.getMessage("FILE_MENU"));
     fileMenu.add(new ControlAction());
 
     MenuManager logMenu = manager.getMenu(Localizer.getMessage("LOG_MENU"));
 
-    MenuManager setLogMenu = manager.getMenu(Localizer.getMessage("SET_LOG"));    
-    setLogMenu.add(new LogAction(Localizer.getMessage("TRACE"), LogLevel.TRACE, controller));
-    setLogMenu.add(new LogAction(Localizer.getMessage("DEBUG"), LogLevel.DEBUG, controller));
-    setLogMenu.add(new LogAction(Localizer.getMessage("INFO"), LogLevel.INFO, controller));
-    setLogMenu.add(new LogAction(Localizer.getMessage("WARN"), LogLevel.WARN, controller));
-    setLogMenu.add(new LogAction(Localizer.getMessage("ERROR"), LogLevel.ERROR, controller));
-    setLogMenu.add(new LogAction(Localizer.getMessage("FATAL"), LogLevel.FATAL, controller));
-    
+    MenuManager setLogMenu = manager.getMenu(Localizer.getMessage("SET_LOG"));
+
+    for (LogLevel key : actions.keySet())
+    {
+      setLogMenu.add(actions.get(key));
+    }
+
     logMenu.add(setLogMenu);
     manager.addMenu(logMenu);
   }
@@ -170,7 +185,7 @@ public class MDSSModule implements IModule, IControllerListener
   public void init(IWindow window)
   {
     this.window = window;
-    
+
     IViewStrategy strategy = new IViewStrategy()
     {
       public String getTitle()
@@ -263,14 +278,25 @@ public class MDSSModule implements IModule, IControllerListener
   @Override
   public void validateAction(String actionName)
   {
-    if(actionName.contains("IMPORT") || actionName.contains("EXPORT"))
+    if (actionName.contains("IMPORT") || actionName.contains("EXPORT"))
     {
-      if(controller.isServerUp())
+      if (controller.isServerUp())
       {
         String msg = Localizer.getMessage("INVALID_ACTION");
-        
+
         throw new RuntimeException(msg);
       }
     }
+  }
+
+  @Override
+  public void changeLogLevel(LogLevel level)
+  {
+    for (LogLevel key : actions.keySet())
+    {      
+      actions.get(key).setImageDescriptor(null);
+    }
+
+    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, "icons/checkbox.png"));    
   }
 }

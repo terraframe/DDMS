@@ -23,6 +23,7 @@ public class LogAction extends Action
   @Override
   public void run()
   {
+    this.setImageDescriptor(null);
     controller.setLogLevel(level);
   }
 

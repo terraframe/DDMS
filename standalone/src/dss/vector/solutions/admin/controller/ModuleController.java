@@ -73,16 +73,16 @@ public class ModuleController extends EventProvider implements IModuleController
               backup.backup();
 
               print.close();
-              
+
               fireMessageEvent(Localizer.getMessage("BACKUP_COMPLETE"));
             }
           };
-          
+
           fireExecuteEvent(progress);
         }
       }
     };
-    
+
     server.validateProcessState(false, runnable);
   }
 
@@ -90,7 +90,7 @@ public class ModuleController extends EventProvider implements IModuleController
   public void restore(final File file)
   {
     Runnable runnable = new Runnable()
-    {      
+    {
       @Override
       public void run()
       {
@@ -110,7 +110,7 @@ public class ModuleController extends EventProvider implements IModuleController
               restore.restore();
 
               print.close();
-              
+
               fireMessageEvent(Localizer.getMessage("RESTORE_COMPLETE"));
             }
           };
@@ -119,7 +119,7 @@ public class ModuleController extends EventProvider implements IModuleController
         }
       }
     };
-    
+
     server.validateProcessState(false, runnable);
   }
 
@@ -216,7 +216,7 @@ public class ModuleController extends EventProvider implements IModuleController
         listener.beforeServerStateChange(state);
       }
     });
-    
+
     server.enableServer(state);
   }
 
@@ -227,7 +227,7 @@ public class ModuleController extends EventProvider implements IModuleController
   }
 
   @Override
-  public void setLogLevel(LogLevel level)
+  public void setLogLevel(final LogLevel level)
   {
     PropertyWriter writer = new PropertyWriter(CommandProperties.getLogLocation());
 
@@ -235,13 +235,30 @@ public class ModuleController extends EventProvider implements IModuleController
 
     if (success)
     {
-      fireMessageEvent(Localizer.getMessage("SUCCESS_CHANGE_LOG"));
+      fireEvent(new IModuleEventStrategy()
+      {
+        @Override
+        public void fireEvent(IControllerListener listener)
+        {
+          listener.changeLogLevel(level);
+        }
+      });
     }
     else
     {
       fireErrorEvent(Localizer.getMessage("FAIL_CHANGE_LOG"));
     }
   }
+
+  public LogLevel getLogLevel()
+  {
+    PropertyReader reader = new PropertyReader(CommandProperties.getLogLocation());
+
+    String level = reader.getValue(LogConstants.THRESHOLD_PROPERTY);
+
+    return LogLevel.valueOf(level);
+  }
+
   @Override
   public boolean isServerUp()
   {
