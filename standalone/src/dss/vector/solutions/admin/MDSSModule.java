@@ -287,8 +287,7 @@ public class MDSSModule implements IModule, IControllerListener
         if(success)
         {          
           window.getDisplay().syncExec(new Runnable()
-          {
-            
+          {            
             @Override
             public void run()
             {
@@ -315,10 +314,14 @@ public class MDSSModule implements IModule, IControllerListener
               }
               catch (InvocationTargetException e)
               {
+                e.printStackTrace();
+                
                 error(e.getCause().getLocalizedMessage());
               }
               catch (InterruptedException e)
               {
+                e.printStackTrace(); 
+                
                 error(e.getLocalizedMessage());
               }
             }
