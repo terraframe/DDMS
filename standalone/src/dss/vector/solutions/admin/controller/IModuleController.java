@@ -28,5 +28,9 @@ public interface IModuleController
   
   public LogLevel getLogLevel();
   
-  public boolean isServerUp();  
+  public boolean isServerUp();
+
+  public void rebuildGeoPaths();  
+
+  public void rebuildTermPaths();  
 }

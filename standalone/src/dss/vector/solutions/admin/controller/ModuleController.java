@@ -6,14 +6,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.general.Localizer;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.admin.LogConstants;
 import dss.vector.solutions.admin.model.Server;
@@ -263,6 +266,52 @@ public class ModuleController extends EventProvider implements IModuleController
   public boolean isServerUp()
   {
     return server.isServerUp();
+  }
+
+  @Override
+  @Request
+  public void rebuildGeoPaths()
+  {
+    String className = "dss.vector.solutions.geo.generated.GeoEntity";
+    String methodName = "buildAllPathsFast";
+
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load(className);
+      Method method = clazz.getMethod(methodName);
+      method.invoke(null);
+    }
+    catch (InvocationTargetException e)
+    {
+      fireErrorEvent(e.getCause().getLocalizedMessage());
+    }
+    catch (Exception e)
+    {
+      fireErrorEvent(e.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  @Request
+  public void rebuildTermPaths()
+  {
+    String className = "dss.vector.solutions.ontology.AllPaths";
+    String methodName = "rebuildAllPaths";
+    
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load(className);
+      Method method = clazz.getMethod(methodName);
+      method.invoke(null);
+    }
+    catch (InvocationTargetException e)
+    {
+      fireErrorEvent(e.getCause().getLocalizedMessage());
+    }
+    catch (Exception e)
+    {
+      fireErrorEvent(e.getLocalizedMessage());
+    }
   }
 
 }

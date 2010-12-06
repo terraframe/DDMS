@@ -5,14 +5,17 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import org.eclipse.core.databinding.observable.Realm;
+import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.Action;
 import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.databinding.swt.SWTObservables;
+import org.eclipse.jface.dialogs.ProgressMonitorDialog;
 import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 
+import com.runwaysdk.dataaccess.transaction.ITaskListener;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.controller.IConfiguration;
 import com.runwaysdk.manager.controller.IModule;
@@ -213,19 +216,6 @@ public class MDSSModule implements IModule, IControllerListener
     window.show(strategy);
   }
 
-  @Override
-  public void lock()
-  {
-    // TODO Auto-generated method stub
-
-  }
-
-  @Override
-  public void unlock()
-  {
-    // TODO Auto-generated method stub
-  }
-
   public static boolean isMaster()
   {
     PropertyReader reader = new PropertyReader(CommandProperties.getInstall());
@@ -234,6 +224,112 @@ public class MDSSModule implements IModule, IControllerListener
     return ( value != null && value.contains("true") );
   }
 
+  @Override
+  public void validateAction(String actionName)
+  {
+    if (actionName.contains("IMPORT") || actionName.contains("EXPORT"))
+    {
+      if (controller.isServerUp())
+      {
+        String msg = Localizer.getMessage("INVALID_ACTION");
+
+        throw new RuntimeException(msg);
+      }
+    }
+  }
+
+  @Override
+  public void changeLogLevel(LogLevel level)
+  {
+    for (LogLevel key : actions.keySet())
+    {      
+      actions.get(key).setImageDescriptor(null);
+    }
+
+    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, "icons/checkbox.png"));    
+  }
+
+  @Override
+  public ITaskListener getExportListener()
+  {
+    return null;
+  }
+
+  @Override
+  public ITaskListener getImportListener()
+  {
+    ITaskListener listener = new ITaskListener()
+    {      
+      @Override
+      public void taskStart(String name, int amount)
+      {
+        // TODO Auto-generated method stub
+        
+      }
+      
+      @Override
+      public void taskProgress(int percent)
+      {
+        // TODO Auto-generated method stub
+        
+      }
+      
+      @Override
+      public void start()
+      {
+        // TODO Auto-generated method stub
+        
+      }
+      
+      @Override
+      public void done(boolean success)
+      {
+        if(success)
+        {          
+          window.getDisplay().syncExec(new Runnable()
+          {
+            
+            @Override
+            public void run()
+            {
+              ProgressMonitorDialog dialog = new ProgressMonitorDialog(window.getShell());
+
+              try
+              {
+                dialog.run(true, false, new IRunnableWithProgress()
+                {            
+                  @Override
+                  public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+                  {
+                    monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
+                    
+                    controller.rebuildGeoPaths();
+
+                    monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_TERM"), IProgressMonitor.UNKNOWN);
+
+                    controller.rebuildTermPaths();
+                    
+                    monitor.done();
+                  }
+                });
+              }
+              catch (InvocationTargetException e)
+              {
+                error(e.getCause().getLocalizedMessage());
+              }
+              catch (InterruptedException e)
+              {
+                error(e.getLocalizedMessage());
+              }
+            }
+          });
+        }
+      }
+    };
+    
+    return listener;
+  }
+  
   public static void main(String[] args)
   {
     Locale locale = Locale.getDefault();
@@ -273,30 +369,5 @@ public class MDSSModule implements IModule, IControllerListener
         window.run();
       }
     });
-  }
-
-  @Override
-  public void validateAction(String actionName)
-  {
-    if (actionName.contains("IMPORT") || actionName.contains("EXPORT"))
-    {
-      if (controller.isServerUp())
-      {
-        String msg = Localizer.getMessage("INVALID_ACTION");
-
-        throw new RuntimeException(msg);
-      }
-    }
-  }
-
-  @Override
-  public void changeLogLevel(LogLevel level)
-  {
-    for (LogLevel key : actions.keySet())
-    {      
-      actions.get(key).setImageDescriptor(null);
-    }
-
-    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, "icons/checkbox.png"));    
   }
 }
