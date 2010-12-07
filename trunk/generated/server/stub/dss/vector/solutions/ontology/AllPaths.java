@@ -70,7 +70,6 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     buildAllPathsFast();
   }
 
-  @Transaction
   public static void buildAllPathsFast()
   {
     String termTable = MdBusiness.getMdBusiness(Term.CLASS).getTableName();
