@@ -13,6 +13,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 
 import com.runwaysdk.dataaccess.io.Backup;
 import com.runwaysdk.dataaccess.io.Restore;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.general.Localizer;
@@ -272,9 +273,15 @@ public class ModuleController extends EventProvider implements IModuleController
   @Request
   public void rebuildGeoPaths()
   {
+    rebuildGeoPathsInTransaction();
+  }
+  
+  @Transaction
+  public void rebuildGeoPathsInTransaction()
+  {
     String className = "dss.vector.solutions.geo.generated.GeoEntity";
-    String methodName = "buildAllPathsFast";
-
+    String methodName = "buildAllPathsFastInner";
+    
     try
     {
       Class<?> clazz = LoaderDecorator.load(className);
@@ -292,15 +299,21 @@ public class ModuleController extends EventProvider implements IModuleController
       e.printStackTrace();
       
       fireErrorEvent(e.getLocalizedMessage());
-    }
+    }    
   }
 
   @Override
   @Request
   public void rebuildTermPaths()
   {
+    rebuildTermPathsInTransaction();
+  }
+  
+  @Transaction
+  public void rebuildTermPathsInTransaction()
+  {
     String className = "dss.vector.solutions.ontology.AllPaths";
-    String methodName = "rebuildAllPaths";
+    String methodName = "rebuildAllPathsInner";
     
     try
     {
@@ -315,7 +328,7 @@ public class ModuleController extends EventProvider implements IModuleController
     catch (Exception e)
     {
       fireErrorEvent(e.getLocalizedMessage());
-    }
+    }    
   }
 
 }
