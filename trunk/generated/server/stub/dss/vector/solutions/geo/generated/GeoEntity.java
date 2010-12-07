@@ -1687,6 +1687,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   @Transaction
   public static void buildAllPathsFast()
   {
+    buildAllPathsFastInner();
+  }
+
+  public static void buildAllPathsFastInner()
+  {
     MdBusiness allPathsMdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
 
     allPathsMdBusiness.deleteAllTableRecords();

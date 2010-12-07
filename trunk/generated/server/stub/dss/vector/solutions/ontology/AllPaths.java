@@ -58,6 +58,11 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   @Transaction
   public synchronized static void rebuildAllPaths()
   {
+    rebuildAllPathsInner();
+  }
+
+  public static void rebuildAllPathsInner()
+  {
     MdBusiness mdBusiness = MdBusiness.getMdBusiness(AllPaths.CLASS);
 
     mdBusiness.deleteAllTableRecords();
