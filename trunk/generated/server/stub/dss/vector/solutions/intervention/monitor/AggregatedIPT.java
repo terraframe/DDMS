@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
@@ -319,7 +320,8 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
     
     QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedIPT.CLASS, aggregatedIPTQuery);
     
-    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias());
+    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
+        RelationshipDAOIF.PARENT_ID_COLUMN);
     
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
     
