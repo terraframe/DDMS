@@ -283,10 +283,14 @@ public class ModuleController extends EventProvider implements IModuleController
     }
     catch (InvocationTargetException e)
     {
+      e.printStackTrace();
+      
       fireErrorEvent(e.getCause().getLocalizedMessage());
     }
     catch (Exception e)
     {
+      e.printStackTrace();
+      
       fireErrorEvent(e.getLocalizedMessage());
     }
   }
