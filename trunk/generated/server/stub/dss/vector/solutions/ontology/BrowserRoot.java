@@ -47,12 +47,13 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
       this.setDisease(Disease.getCurrent());
     }
     
+    super.apply();
+
+    // We must apply the browser root before we can create the relationship
     if(!applied)
     {
       this.addfield(this.getBrowserField()).apply();
-    }
-    
-    super.apply();
+    }    
   }
 
   @Override

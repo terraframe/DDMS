@@ -160,6 +160,7 @@ public class AttributeRootImporter implements Reloadable
           browserRoot.setDisease(disease);
 
           int index = allRoots.indexOf(browserRoot);
+          
           if (index != -1)
           {
             browserRoot = allRoots.get(index);

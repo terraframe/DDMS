@@ -74,7 +74,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       excelButtons:false,
       addButton:false,
       after_row_load:function(record){          
-        if(populationType == true && record.getCount() < (data.rows.length - 1))
+        if(populationType == true && record.getCount() < (data.rows.length))
         {
           var str = '<form method = "post"';
           str += ' id="'+record.getData('GeoEntity')+'">';
@@ -89,39 +89,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       },
     };        
 
-    var grid = MojoGrid.createDataTable(data);
-    
-    <%
-      out.println("var calculatedValues = " + request.getAttribute("calculatedValues") + ";");
-    %>
-
-    var dt = grid.getDataTable();
-
-    dt.getRecordSet().getRecords().map( function(row) {
-
-      if(!row.getData('Population'))
-      {
-        var calculated = calculatedValues[row.getData('GeoEntity')];
-
-        if(calculated && calculated != '')
-        {  
-          var value = calculated[0];
-          
-          if(value)
-          {
-            var col = dt.getColumn('Population');
-
-            dt.updateCell(row, col, value);
-  
-            var lastTd = dt.getTdEl( {record : row, column : col});
-            
-            YAHOO.util.Dom.addClass(dt.getTdLinerEl(lastTd), "calculated");
-          }
-        }
-      }
-    });
-     
-
+    MojoGrid.createDataTable(data);
   });
 })();
         

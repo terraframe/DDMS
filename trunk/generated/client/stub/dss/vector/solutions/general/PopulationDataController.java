@@ -1,7 +1,6 @@
 package dss.vector.solutions.general;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,9 +9,6 @@ import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
@@ -105,13 +101,6 @@ public class PopulationDataController extends PopulationDataControllerBase imple
         data = PopulationDataViewDTO.getFacilityViews(request, geoId, yearOfData);
       }
 
-      JSONObject calcuatedValues = new JSONObject();
-
-      for (PopulationDataViewDTO view : data)
-      {
-        calcuatedValues.put(view.getGeoEntity(), new JSONArray(Arrays.asList(view.getCalculatedPopulation())));
-      }
-
       PopulationDataViewDTO item = new PopulationDataViewDTO(request);
       item.setGeoEntity(geoId);
       item.setYearOfData(yearOfData);
@@ -120,7 +109,6 @@ public class PopulationDataController extends PopulationDataControllerBase imple
       String[] keys = { "ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate", "Estimated" };
 
       ColumnSetup population = new ColumnSetup(false, true);
-      population.setSum(item.getPopulationType());
 
       Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
       map.put("ConcreteId", new ColumnSetup(true, false));
@@ -133,7 +121,6 @@ public class PopulationDataController extends PopulationDataControllerBase imple
       map.put("Estimated", new ColumnSetup(true, false));
 
       req.setAttribute(ITEM, item);
-      req.setAttribute("calculatedValues", calcuatedValues);
       req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));
       req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
 

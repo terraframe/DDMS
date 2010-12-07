@@ -261,10 +261,7 @@ public class PopulationDataView extends PopulationDataViewBase implements com.ru
 
       list.add(view);
     }
-    
-    
-    list.add(PopulationDataView.getView(geoEntity, yearOfData));
-
+        
     return list.toArray(new PopulationDataView[list.size()]);
   }
 
