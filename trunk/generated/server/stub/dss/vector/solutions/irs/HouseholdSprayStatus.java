@@ -122,7 +122,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
         if (status == null)
         {
-          String msg = "A spray status of this household has already been not been set to 1";
+          String msg = "A spray status of this household has not been set to 1";
+          
           UncountedProblem p = new UncountedProblem(msg);
           p.setNotification(this, HOUSEHOLDS);
           p.setHouseholdId(this.getHouseholdId());
@@ -165,22 +166,8 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
 
   public void validateSprayedHouseholds()
   {
-    if (this.getHouseholds() != null && this.getSprayedHouseholds() != null && this.getHouseholds() < this.getSprayedHouseholds())
-    {
-      String msg = "The number of sprayed households cannot be greater than the number of households";
-
-      SprayedSumProblem p = new SprayedSumProblem(msg);
-      p.setNotification(this, SPRAYEDHOUSEHOLDS);
-      p.setObjectLabel(this.getMdAttributeDAO(HOUSEHOLDS).getDisplayLabel(Session.getCurrentLocale()));
-      p.setSprayedObjectLabel(this.getMdAttributeDAO(SPRAYEDHOUSEHOLDS).getDisplayLabel(Session.getCurrentLocale()));
-      p.setObjects(this.getHouseholds());
-      p.setSprayedObjects(this.getSprayedHouseholds());
-      p.apply();
-
-      p.throwIt();
-    }
-
     Integer value = this.getSprayedHouseholds();
+    
     if (value != null)
     {
       if (value != 1 && value != 0)
