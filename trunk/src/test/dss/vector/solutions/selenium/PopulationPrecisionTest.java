@@ -112,7 +112,8 @@ public class PopulationPrecisionTest extends SeleneseTestCase
       selenium.waitForPageToLoad("30000");
 
       assertTrue("Expected 7 in the DOM", selenium.isTextPresent("7"));
-      assertTrue("Expected 14.00 in the DOM", selenium.isTextPresent("14.00"));
+      assertTrue("Expected 14.00 (Precision of two decimal places)", selenium.isTextPresent("14.00"));
+      assertFalse("Precision exceeded 2 decimals", selenium.isTextPresent("14.000"));
     }
     finally
     {
