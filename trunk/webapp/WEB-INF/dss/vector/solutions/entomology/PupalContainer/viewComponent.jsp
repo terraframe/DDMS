@@ -11,6 +11,44 @@
 <%@page import="dss.vector.solutions.entomology.PupalContainerAmountViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.PupalCollectionViewDTO"%>
 
+<style type="text/css">
+.yui-skin-sam .yui-dt th, .yui-skin-sam .yui-dt th a
+{
+  vertical-align:bottom;
+  background-color:#DDDDDD;
+  background:#DDDDDD;
+}
+
+.yui-dt-first th[rowspan="1"] .yui-dt-label {
+text-align: center;
+display:block;
+}
+
+th[colspan="1"] .yui-dt-liner {
+overflow: hidden;
+}
+
+th[colspan="1"] .yui-dt-label {
+  /*writing-mode: tb-rl;*/
+  -moz-transform: rotate(-90deg);
+  width:10px;
+  height:225px;
+  display:block;
+  position:relative;
+  top:108px;
+  left:103px;
+}
+
+.yui-dt-col-EntityLabel .yui-dt-label {
+-moz-transform: none !important;
+position: static !important;
+height: auto !important;
+width: auto !important;
+display: block;
+vertical-align: baseline;
+}
+</style>
+
 <c:set var="page_title" value="Enter_Pupae_by_Individual_Container"  scope="request"/>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
