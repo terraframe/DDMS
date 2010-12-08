@@ -34,7 +34,12 @@
         ${item.geoDescription}
       </mjl:dt>
       <mjl:dt attribute="natureOfControl">
-        ${item.natureOfControl ? item.natureOfControlMd.positiveDisplayLabel : item.natureOfControlMd.negativeDisplayLabel}
+        <c:choose>
+          <c:when test="${item.natureOfControl == null}">-</c:when>
+          <c:otherwise>
+            ${item.natureOfControl ? item.natureOfControlMd.positiveDisplayLabel : item.natureOfControlMd.negativeDisplayLabel}
+          </c:otherwise>
+        </c:choose>        
       </mjl:dt>      
       <mjl:dt attribute="personCount">
         ${item.personCount}
