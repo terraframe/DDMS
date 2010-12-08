@@ -38,6 +38,15 @@ Mojo.Meta.newClass('MDSS.CellValidator', {
       }
   
       return undefined;
+    },
+    validateNumber : function(oData) {
+      var number = oData * 1;
+    
+      if(Mojo.Util.isNumber(number)) {
+        return oData;
+      }
+    
+      return undefined;
     }
   }
 });
@@ -122,16 +131,23 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
           var value = ""; 
           
           if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeEnumerationDTO) {
-        // IMPORTANT: The datagrid can only support single select enumerations
+            // IMPORTANT: The datagrid can only support single select enumerations
             var enumNames = attributeDTO.getEnumNames();
             
             if(enumNames.length == 1) {
               value = enumNames[0];
             }
           }
+          else if (attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDecDTO){
+            var number = parseFloat(attributeDTO.getValue());
+            var formattedNumber = value.toFixed(MDSS.DataGridModel.FLOAT_PRECISION);
+
+            // Format table input to 2 decimal places
+            value = formattedNumber.toString(); 
+          }
           else {
             value = attributeDTO.getValue();
-          }
+          }          
           
           this.setData(i, key, value);
           
@@ -334,6 +350,7 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
   },
   
   Static : {
+	FLOAT_PRECISION : 2, 
     getDefaultSaveHandler : function(saveFunction, dataType)  {
       saveFunction = (typeof saveFunction === 'undefined' ? "saveAll" : saveFunction);
     
@@ -635,7 +652,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         
           // Do not update the value for drop down or ontology editors
           if (!editor || ! (editor instanceof YAHOO.widget.DropdownCellEditor || editor instanceof YAHOO.widget.OntologyTermEditor)) {
-            record.setData(col, value);                  
+            record.setData(col, value);
           }
         }
       }
@@ -812,9 +829,14 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
             // We must determine if the value is a number and if-so limit its decimals to 2 places
             var value = record.getData(field.key);
             
-            if(Mojo.Util.isNumber(value)) {
-              var formattedNumber = value.toFixed(value);
-              record.setData(field.key, formattedNumber);              
+            if(value != null && isFinite(value)) {
+              var parsedValue = parseFloat(value);
+              
+              if(parsedValue !== Math.floor(parsedValue)) {
+                var formattedNumber = parsedValue.toFixed(MDSS.DataGridModel.FLOAT_PRECISION);
+              
+                record.setData(field.key, formattedNumber);
+              }
             }
           }
         }

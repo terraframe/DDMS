@@ -4,8 +4,6 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
 
-import junit.framework.TestSuite;
-
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -35,27 +33,10 @@ import dss.vector.solutions.irs.InsecticideBrandUnitQualifier;
 import dss.vector.solutions.irs.InsecticideBrandUse;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermDTO;
-import dss.vector.solutions.permissions.PermissionTest;
-import dss.vector.solutions.permissions.PermissionTestSetup;
 import dss.vector.solutions.stock.StockStaffDTO;
 
 public class TestFixture
 {
-  public static TestSuite getTestSuite(Class<? extends PermissionTest> klass, String... roles)
-  {
-    TestSuite suite = new TestSuite();
-
-    for (String role : roles)
-    {
-      TestSuite coordinator = new TestSuite(klass.getName() + " - " + role);
-      coordinator.addTestSuite(klass);
-
-      suite.addTest(new PermissionTestSetup(coordinator, role));
-    }
-
-    return suite;
-  }
-
   public static String getRandomTermId()
   {
     String geoId = new Long(new Date().getTime()).toString();

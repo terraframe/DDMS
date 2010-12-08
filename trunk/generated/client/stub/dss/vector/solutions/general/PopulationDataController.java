@@ -1,10 +1,8 @@
 package dss.vector.solutions.general;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,8 +21,7 @@ import dss.vector.solutions.irs.RequiredGeoIdProblemDTO;
 import dss.vector.solutions.surveillance.RequiredYearProblemDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
-import dss.vector.solutions.util.yui.ColumnSetup;
-import dss.vector.solutions.util.yui.ViewDataGrid;
+import dss.vector.solutions.util.yui.DataGrid;
 
 public class PopulationDataController extends PopulationDataControllerBase implements Reloadable
 {
@@ -90,38 +87,16 @@ public class PopulationDataController extends PopulationDataControllerBase imple
 
       ClientRequestIF request = this.getClientRequest();
 
-      PopulationDataViewDTO[] data = null;
-
-      if (populationType)
-      {
-        data = PopulationDataViewDTO.getViews(request, geoId, yearOfData);
-      }
-      else
-      {
-        data = PopulationDataViewDTO.getFacilityViews(request, geoId, yearOfData);
-      }
-
       PopulationDataViewDTO item = new PopulationDataViewDTO(request);
       item.setGeoEntity(geoId);
       item.setYearOfData(yearOfData);
       item.setPopulationType(populationType);
 
-      String[] keys = { "ConcreteId", "GeoEntity", "YearOfData", "EntityLabel", "Population", "GrowthRate", "Estimated" };
-
-      ColumnSetup population = new ColumnSetup(false, true);
-
-      Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-      map.put("ConcreteId", new ColumnSetup(true, false));
-      map.put("GeoEntity", new ColumnSetup(true, false));
-      map.put("YearOfData", new ColumnSetup(true, false));
-      map.put("PopulationType", new ColumnSetup(true, false));
-      map.put("EntityLabel", new ColumnSetup(false, false));
-      map.put("Population", population);
-      map.put("GrowthRate", new ColumnSetup(false, true));
-      map.put("Estimated", new ColumnSetup(true, false));
+      PopulationGridBuilder builder = new PopulationGridBuilder(request, item);
+      DataGrid grid = builder.build();
 
       req.setAttribute(ITEM, item);
-      req.setAttribute("grid", new ViewDataGrid(item, map, keys, data));
+      req.setAttribute("grid", grid);
       req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
 
       render("viewComponent.jsp");
