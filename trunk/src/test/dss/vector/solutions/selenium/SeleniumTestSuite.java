@@ -9,7 +9,7 @@ public class SeleniumTestSuite
   public static Test suite()
   {
     TestSuite suite = new TestSuite();
-    suite.addTestSuite(PopulationPrecision.class);
+    suite.addTestSuite(PopulationPrecisionTest.class);
     return suite;
   }
 
