@@ -97,7 +97,7 @@ public class AggregatedAgeGroupController extends AggregatedAgeGroupControllerBa
   public void failUpdate(AggregatedAgeGroupDTO dto) throws IOException, ServletException
   {
     req.setAttribute("item", dto);
-    render("updateComponent.jsp");
+    render("editComponent.jsp");
   }
 
   public void create(AggregatedAgeGroupDTO dto) throws IOException, ServletException
