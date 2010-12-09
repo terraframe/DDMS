@@ -27,6 +27,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.ThresholdCalculationTypeView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
@@ -718,26 +719,33 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     String posCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.POSITIVECASES);
     String negCasesCol = QueryUtil.getColumnName(caseQuery.getMdClassIF(), AggregatedCase.NEGATIVECASES);
 
-    // String sql = "(SUM(" + posCasesCol + ")";
-    // sql += "+";
-    // sql += "(SUM(" + casesCol + ") * SUM(" + posCasesCol + ")/";
-    // sql += "NULLIF(SUM(COALESCE(" + posCasesCol + ",0)) + SUM(COALESCE(" +
-    // negCasesCol + ",0)),0.0)))";
+    
+    String caseAlias = caseQuery.getTableAlias();
+    String idCol = QueryUtil.getIdColumn();
+    String casesSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, casesCol);
+    String posSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, posCasesCol);
+    String negSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, negCasesCol);
 
-    String sql = "";
-    sql += "SUM(COALESCE(" + posCasesCol + ",0.0))::float +  \n";
+    // TODO cache this per request
+    String percentPositive = ThresholdCalculationTypeView.getCalculationThreshold().getClinicalPositivePercentage().toString();
+    
+    String sql = "CASE WHEN COALESCE("+posSum+") = 0 THEN (COALESCE("+posSum+",0.0) + (COALESCE("+casesSum+",0.0) * "+percentPositive+"/100.00)) ELSE ";
     sql += "( \n";
-    sql += " SUM(COALESCE(" + casesCol + ",0.0))::float * \n";
+    sql += "COALESCE("+posSum+",0.0)::float +  \n";
+    sql += "( \n";
+    sql += " COALESCE("+casesSum+",0.0)::float * \n";
     sql += " ( \n";
-    sql += "  SUM(COALESCE(" + posCasesCol + ",0.0))::float / \n";
+    sql += "  COALESCE("+posSum+",0.0)::float / \n";
     sql += "  ( \n";
     sql += "   NULLIF \n";
     sql += "   ( \n";
-    sql += "     SUM(COALESCE(" + posCasesCol + ",0.0))::float + SUM(COALESCE(" + negCasesCol + ",0.0))::float \n";
+    sql += "     COALESCE("+posSum+",0.0)::float + COALESCE("+negSum+",0.0)::float \n";
     sql += "     ,0.0 \n";
     sql += "   ) \n";
     sql += "  ) \n";
     sql += " ) \n";
+    sql += ") \n";
+    sql += ") END \n";
     sql += ") \n";
 
     return sql;
