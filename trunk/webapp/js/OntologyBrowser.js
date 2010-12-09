@@ -113,10 +113,13 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
    * Puts focus on the search input and clears any previous value.
    */
     _focusSearch : function()
-    {
-      var search = document.getElementById(this._searchInput);
-      search.value = '';
-      search.focus();
+    {      
+      setTimeout(Mojo.Util.bind(this, function(){
+        var search = document.getElementById(this._searchInput);        
+        search.value = '';
+        
+        search.focus();      
+      }),15);
     },
       
     hide : function()

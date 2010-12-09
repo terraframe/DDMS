@@ -350,7 +350,7 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
   },
   
   Static : {
-	FLOAT_PRECISION : 2, 
+FLOAT_PRECISION : 2, 
     getDefaultSaveHandler : function(saveFunction, dataType)  {
       saveFunction = (typeof saveFunction === 'undefined' ? "saveAll" : saveFunction);
     
@@ -976,6 +976,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
       if (e.keyCode === 9  || e.keyCode === 13) {
 
         e.preventDefault();
+        
         YAHOO.util.Event.stopEvent(e);
 
         if(MojoGrid.cellLock)
@@ -990,16 +991,19 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
 
         try
         {
-          var editor = this.myDataTable.getCellEditor();
-          var cell = editor.getTdEl();
-          
-          var nextCell = this.findNext(cell, e, false);
-
+          // Save the current cell before tabbing
           this.myDataTable.saveCellEditor();
+          
+          // Get the saved cell
+          var cell = this.myDataTable.getLastSelectedCell();
+
+          // Find the next selectable cell
+          var nextCell = this.findNext(cell, e, false);
+          
           if (nextCell) {
             this.myDataTable.unselectAllCells();
-            this.myDataTable.showCellEditor(nextCell);
             this.myDataTable.selectCell(nextCell);
+            this.myDataTable.showCellEditor(nextCell);
           }
         }
         finally
@@ -1032,8 +1036,8 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
     
           if (nextCell) {
             this.myDataTable.unselectAllCells();
-            this.myDataTable.showCellEditor(nextCell);
             this.myDataTable.selectCell(nextCell);
+            this.myDataTable.showCellEditor(nextCell);
           }
         }
         finally {
