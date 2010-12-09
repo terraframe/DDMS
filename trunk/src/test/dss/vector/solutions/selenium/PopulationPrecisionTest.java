@@ -6,23 +6,22 @@ import org.junit.Test;
 import org.openqa.selenium.server.SeleniumServer;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.session.Request;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.SeleneseTestCase;
 
 import dss.vector.solutions.general.PopulationData;
-import dss.vector.solutions.geo.generated.District;
-import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.Country;
 
 public class PopulationPrecisionTest extends SeleneseTestCase
 {
   private SeleniumServer server;
 
-  private Country        country;
+  private GeoEntity      parentEntity;
 
-  private District       district;
+  private GeoEntity      childEntity;
 
   private PopulationData population;
 
@@ -39,28 +38,35 @@ public class PopulationPrecisionTest extends SeleneseTestCase
   }
 
   @Request
-  private void buildData()
+  private void buildData()  throws Exception
   {
     buildDataInTransaction();
   }
 
   @Transaction
-  private void buildDataInTransaction()
+  private void buildDataInTransaction() throws Exception
   {
-    country = new Country();
-    country.setEntityName("Test Country");
-    country.setGeoId("Country1");
-    country.applyWithParent(Earth.getEarthInstance().getId(), false, null);
+    GeoEntity zambia = GeoEntity.searchByGeoId("1107");
+    
+    GeoHierarchyView[] universals = GeoHierarchyView.getUrbanHierarchies(zambia.getId());
+    
+    String parentType = universals[1].getGeneratedType();
+    String childType = universals[2].getGeneratedType();
+    
+    parentEntity = (GeoEntity) LoaderDecorator.load(parentType).newInstance();
+    parentEntity.setEntityName("Test Parent Entity");
+    parentEntity.setGeoId("Parent1");
+    parentEntity.applyWithParent(zambia.getId(), false, null);
 
-    district = new District();
-    district.setEntityName("Test District");
-    district.setGeoId("District1");
-    district.applyWithParent(country.getId(), false, null);
+    childEntity = (GeoEntity) LoaderDecorator.load(childType).newInstance();
+    childEntity.setEntityName("Test Child Entity");
+    childEntity.setGeoId("Child1");
+    childEntity.applyWithParent(parentEntity.getId(), false, null);
 
     GeoEntity.buildAllPathsFast();
 
     population = new PopulationData();
-    population.setGeoEntity(district);
+    population.setGeoEntity(childEntity);
     population.setYearOfData(2010);
     population.setPopulation(7L);
     population.setGrowthRate(.14D);
@@ -89,8 +95,8 @@ public class PopulationPrecisionTest extends SeleneseTestCase
   {
     population.delete();
 
-    district.deleteEntity();
-    country.deleteEntity();
+    childEntity.deleteEntity();
+    parentEntity.deleteEntity();
   }
 
   @Test
@@ -105,7 +111,7 @@ public class PopulationPrecisionTest extends SeleneseTestCase
     try
     {
       selenium.open("/DDMS/dss.vector.solutions.general.PopulationDataController.search.mojo");
-      selenium.type("geoId", country.getGeoId());
+      selenium.type("geoId", parentEntity.getGeoId());
       selenium.type("year", population.getYearOfData().toString());
       selenium.click("search");
       selenium.waitForPageToLoad("30000");
