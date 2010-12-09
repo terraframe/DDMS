@@ -12,6 +12,7 @@ import com.thoughtworks.selenium.SeleneseTestCase;
 
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.District;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Country;
 
@@ -46,12 +47,10 @@ public class PopulationPrecisionTest extends SeleneseTestCase
   @Transaction
   private void buildDataInTransaction()
   {
-    GeoEntity zambia = GeoEntity.searchByGeoId("1107");
-
     country = new Country();
     country.setEntityName("Test Country");
     country.setGeoId("Country1");
-    country.applyWithParent(zambia.getId(), false, null);
+    country.applyWithParent(Earth.getEarthInstance().getId(), false, null);
 
     district = new District();
     district.setEntityName("Test District");
