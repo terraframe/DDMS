@@ -1,20 +1,28 @@
 package dss.vector.solutions.selenium;
 
-import junit.framework.Test;
-import junit.framework.TestSuite;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
+import org.junit.runners.Suite;
+import org.junit.runners.Suite.SuiteClasses;
+import org.openqa.selenium.server.SeleniumServer;
 
+@RunWith(Suite.class)
+@SuiteClasses( {AgeGroupInvalidInputTest.class, PopulationPrecisionTest.class })
 public class SeleniumTestSuite
 {
+  private static SeleniumServer server;
 
-  public static Test suite()
+  @BeforeClass
+  public static void setUp() throws Exception
   {
-    TestSuite suite = new TestSuite();
-    suite.addTestSuite(PopulationPrecisionTest.class);
-    return suite;
+    server = new SeleniumServer();
+    server.start();
   }
 
-  public static void main(String[] args)
+  @AfterClass
+  public static void tearDown() throws Exception
   {
-    junit.textui.TestRunner.run(suite());
+    server.stop();
   }
 }

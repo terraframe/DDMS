@@ -3,7 +3,6 @@ package dss.vector.solutions.selenium;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.server.SeleniumServer;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -17,8 +16,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class PopulationPrecisionTest extends SeleneseTestCase
 {
-  private SeleniumServer server;
-
   private GeoEntity      parentEntity;
 
   private GeoEntity      childEntity;
@@ -29,9 +26,6 @@ public class PopulationPrecisionTest extends SeleneseTestCase
   public void setUp() throws Exception
   {
     buildData();
-
-    server = new SeleniumServer();
-    server.start();
 
     selenium = new DefaultSelenium("localhost", 4444, "*chrome", "http://127.0.0.1:8080/");
     selenium.start();
@@ -78,8 +72,6 @@ public class PopulationPrecisionTest extends SeleneseTestCase
   public void tearDown() throws Exception
   {
     selenium.stop();
-
-    server.stop();
 
     deleteData();
   }
