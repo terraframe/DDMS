@@ -13,13 +13,13 @@ import com.thoughtworks.selenium.SeleneseTestCase;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.geo.generated.Province;
+import dss.vector.solutions.geo.generated.Country;
 
 public class PopulationPrecisionTest extends SeleneseTestCase
 {
   private SeleniumServer server;
 
-  private Province       province;
+  private Country        country;
 
   private District       district;
 
@@ -48,15 +48,15 @@ public class PopulationPrecisionTest extends SeleneseTestCase
   {
     GeoEntity zambia = GeoEntity.searchByGeoId("1107");
 
-    province = new Province();
-    province.setEntityName("Test Province");
-    province.setGeoId("Province1");
-    province.applyWithParent(zambia.getId(), false, null);
+    country = new Country();
+    country.setEntityName("Test Country");
+    country.setGeoId("Country1");
+    country.applyWithParent(zambia.getId(), false, null);
 
     district = new District();
     district.setEntityName("Test District");
     district.setGeoId("District1");
-    district.applyWithParent(province.getId(), false, null);
+    district.applyWithParent(country.getId(), false, null);
 
     GeoEntity.buildAllPathsFast();
 
@@ -91,7 +91,7 @@ public class PopulationPrecisionTest extends SeleneseTestCase
     population.delete();
 
     district.deleteEntity();
-    province.deleteEntity();
+    country.deleteEntity();
   }
 
   @Test
@@ -106,7 +106,7 @@ public class PopulationPrecisionTest extends SeleneseTestCase
     try
     {
       selenium.open("/DDMS/dss.vector.solutions.general.PopulationDataController.search.mojo");
-      selenium.type("geoId", province.getGeoId());
+      selenium.type("geoId", country.getGeoId());
       selenium.type("year", population.getYearOfData().toString());
       selenium.click("search");
       selenium.waitForPageToLoad("30000");
