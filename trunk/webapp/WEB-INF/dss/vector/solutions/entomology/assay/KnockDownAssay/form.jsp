@@ -40,12 +40,10 @@
     <mdss:mo param="identificationMethod" value="${identificationMethod}"/>
   </mjl:dt>  
   <mjl:dt attribute="ageRange">
-  <dl>
     <mjl:struct param="ageRange">
       <mjl:dt attribute="startPoint" type="text"  />
       <mjl:dt attribute="endPoint" type="text"  />
     </mjl:struct>
-  </dl>
   </mjl:dt>
   <mjl:dt attribute="fed">
     <mjl:input type="text" param="fed" />
