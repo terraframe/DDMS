@@ -7,6 +7,8 @@ import java.util.Date;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.entomology.ImmatureCollectionView;
 import dss.vector.solutions.entomology.LifeStageDTO;
@@ -37,7 +39,7 @@ import dss.vector.solutions.stock.StockStaffDTO;
 
 public class TestFixture
 {
-  public static String getRandomTermId()
+  public static String getRandomId()
   {
     String geoId = new Long(new Date().getTime()).toString();
     return geoId;
@@ -46,7 +48,7 @@ public class TestFixture
   public static Term createRandomTerm()
   {
     Term term = new Term();
-    term.setTermId(TestFixture.getRandomTermId());
+    term.setTermId(TestFixture.getRandomId());
     term.setName("Test Term");
     term.setComment("Test Comment");
 //    term.setObsolete(false);
@@ -67,6 +69,19 @@ public class TestFixture
     insecticide.apply();
 
     return insecticide;
+  }
+  
+  public static Term getTerm(MdAttributeDAOIF mdAttributeIF)
+  {
+    MdAttribute mdAttribute = MdAttribute.get(mdAttributeIF.getId());
+    Term[] terms = Term.getAllTermsByAttribute(mdAttribute);
+    
+    if(terms != null && terms.length > 0)
+    {
+      return terms[terms.length - 1];
+    }
+
+    return null;
   }
   
   public static InsecticideBrand createInsecticideBrand()
@@ -177,7 +192,7 @@ public class TestFixture
   public static TermDTO createRandomTerm(ClientRequestIF request)
   {
     TermDTO term = new TermDTO(request);
-    term.setTermId(TestFixture.getRandomTermId());
+    term.setTermId(TestFixture.getRandomId());
     term.setName("Test Term");
     term.setComment("Test Comment");
 //    term.setObsolete(false);
@@ -379,7 +394,7 @@ public class TestFixture
     collection.setGeoEntity(entity);
     collection.setStartDate(new Date());
     collection.setEndDate(new Date());
-    collection.setCollectionId(TestFixture.getRandomTermId());
+    collection.setCollectionId(TestFixture.getRandomId());
     collection.setPremiseType(premiseType);
     collection.setNumberExamined(5);
     collection.setPremiseSize(new BigDecimal(8));

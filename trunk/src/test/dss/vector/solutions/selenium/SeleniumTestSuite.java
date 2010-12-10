@@ -8,7 +8,7 @@ import org.junit.runners.Suite.SuiteClasses;
 import org.openqa.selenium.server.SeleniumServer;
 
 @RunWith(Suite.class)
-@SuiteClasses( {AgeGroupInvalidInputTest.class, PopulationPrecisionTest.class })
+@SuiteClasses( {PreserveCollectionTest.class, PopulationPrecisionTest.class, AgeGroupInvalidInputTest.class})
 public class SeleniumTestSuite
 {
   private static SeleniumServer server;
