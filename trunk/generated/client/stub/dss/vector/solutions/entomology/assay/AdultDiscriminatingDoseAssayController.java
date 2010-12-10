@@ -152,10 +152,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public void failCreate(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
-
-    render("createComponent.jsp");
+    this.newInstance(dto);
   }
 
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
@@ -186,11 +183,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
         dto.setValue(AdultDiscriminatingDoseAssayDTO.COLLECTION, collectionId);
       }
 
-      this.setupRequest();
-      this.setupReferences(dto);
-      req.setAttribute("item", dto);
-
-      render("createComponent.jsp");
+      this.newInstance(dto);
     }
     catch (Throwable t)
     {
@@ -201,6 +194,15 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
         this.failNewInstance();
       }
     }
+  }
+
+  private void newInstance(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
+  {
+    this.setupRequest();
+    this.setupReferences(dto);
+    req.setAttribute("item", dto);
+
+    render("createComponent.jsp");
   }
 
   public void failNewInstance() throws IOException, ServletException
