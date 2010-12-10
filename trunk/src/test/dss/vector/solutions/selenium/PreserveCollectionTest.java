@@ -112,4 +112,52 @@ public class PreserveCollectionTest
       selenium.waitForPageToLoad("30000");
     }
   }
+
+  @Test
+  public void testLDDAPreserveCollection() throws Exception
+  {
+    selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    selenium.type("username", "ddms");
+    selenium.type("password", "ddms");
+    selenium.click("submitLogin");
+    try
+    {
+      selenium.waitForPageToLoad("30000");
+      selenium.open("/DDMS/dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo");
+      selenium.type("collectionId", collection.getConcreteId());
+      selenium.click("name=dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.create.button");
+      selenium.waitForPageToLoad("30000");
+      
+      assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
+    }
+    finally
+    {
+      selenium.click("link=Log out");
+      selenium.waitForPageToLoad("30000");
+    }
+  }
+
+  @Test
+  public void testKDAPreserveCollection() throws Exception
+  {
+    selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    selenium.type("username", "ddms");
+    selenium.type("password", "ddms");
+    selenium.click("submitLogin");
+    try
+    {
+      selenium.waitForPageToLoad("30000");
+      selenium.open("/DDMS/dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo");
+      selenium.type("collectionId", collection.getConcreteId());
+      selenium.click("name=dss.vector.solutions.entomology.assay.KnockDownAssay.form.create.button");
+      selenium.waitForPageToLoad("30000");
+      
+      assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
+    }
+    finally
+    {
+      selenium.click("link=Log out");
+      selenium.waitForPageToLoad("30000");
+    }
+  }
 }
