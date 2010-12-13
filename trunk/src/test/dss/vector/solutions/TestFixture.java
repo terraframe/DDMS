@@ -3,11 +3,17 @@ package dss.vector.solutions;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.system.metadata.MdAttribute;
 
 import dss.vector.solutions.entomology.ImmatureCollectionView;
@@ -19,6 +25,9 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.generated.CollectionSite;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -51,7 +60,7 @@ public class TestFixture
     term.setTermId(TestFixture.getRandomId());
     term.setName("Test Term");
     term.setComment("Test Comment");
-//    term.setObsolete(false);
+    // term.setObsolete(false);
     term.apply();
 
     return term;
@@ -70,20 +79,20 @@ public class TestFixture
 
     return insecticide;
   }
-  
+
   public static Term getTerm(MdAttributeDAOIF mdAttributeIF)
   {
     MdAttribute mdAttribute = MdAttribute.get(mdAttributeIF.getId());
     Term[] terms = Term.getAllTermsByAttribute(mdAttribute);
-    
-    if(terms != null && terms.length > 0)
+
+    if (terms != null && terms.length > 0)
     {
       return terms[terms.length - 1];
     }
 
     return null;
   }
-  
+
   public static InsecticideBrand createInsecticideBrand()
   {
     InsecticideBrand deltamethrin = new InsecticideBrand();
@@ -195,7 +204,7 @@ public class TestFixture
     term.setTermId(TestFixture.getRandomId());
     term.setName("Test Term");
     term.setComment("Test Comment");
-//    term.setObsolete(false);
+    // term.setObsolete(false);
     term.apply();
 
     return term;
@@ -363,7 +372,7 @@ public class TestFixture
 
     return season;
   }
-  
+
   public static MosquitoCollectionViewDTO createCollection(ClientRequestIF request, TermDTO term, GeoEntityDTO entity)
   {
     MosquitoCollectionViewDTO view = new MosquitoCollectionViewDTO(request);
@@ -373,10 +382,10 @@ public class TestFixture
     view.setCollectionMethod(term);
     view.setGeoEntity(entity);
     view.addLifeStage(LifeStageDTO.EGG);
-    
+
     return view;
   }
-  
+
   public static SubCollectionViewDTO createSubCollection(ClientRequestIF request, TermDTO term)
   {
     SubCollectionViewDTO view = new SubCollectionViewDTO(request);
@@ -384,7 +393,7 @@ public class TestFixture
     view.setIdentMethod(term);
     view.setTaxon(term);
     view.setSubCollectionId(TestFixture.getRandomGeoId());
-    
+
     return view;
   }
 
@@ -400,8 +409,93 @@ public class TestFixture
     collection.setPremiseSize(new BigDecimal(8));
     collection.setNumberInhabitants(9);
     collection.setTaxon(taxon);
-    
+
     return collection;
+  }
+
+  public static List<String> getGeoHierarcyLabels(final boolean political, final String... universals) throws Exception
+  {
+    final List<String> labels = new LinkedList<String>();
+
+    new TransactionExecuter()
+    {
+      @Override
+      protected void executeMethod() throws Exception
+      {
+        List<GeoHierarchyView> exceptions = TestFixture.getGeoHierachyViews(universals);
+
+        GeoHierarchyView earth = GeoHierarchy.getEarthGeoHierarchy();
+
+        GeoHierarchyViewQuery query = GeoHierarchy.getAllGeoHierarchyViews();
+
+        Condition condition = query.getPolitical().EQ(political);
+
+        for (GeoHierarchyView exception : exceptions)
+        {
+          condition = OR.get(condition, query.getReferenceId().EQ(exception.getReferenceId()));
+        }
+
+        query.WHERE(AND.get(condition, query.getReferenceId().NE(earth.getReferenceId())));
+
+        OIterator<? extends GeoHierarchyView> iterator = query.getIterator();
+
+        while (iterator.hasNext())
+        {
+          labels.add(iterator.next().getDisplayLabel());
+        }
+      }
+
+    }.execute();
+
+    return labels;
+  }
+
+  public static List<String> getInverseLabels(final boolean political, final String... universals) throws Exception
+  {
+    final List<String> labels = new LinkedList<String>();
+
+    new TransactionExecuter()
+    {
+      @Override
+      protected void executeMethod() throws Exception
+      {
+        List<GeoHierarchyView> exceptions = TestFixture.getGeoHierachyViews(universals);
+
+        GeoHierarchyView earth = GeoHierarchy.getEarthGeoHierarchy();
+
+        GeoHierarchyViewQuery query = GeoHierarchy.getAllGeoHierarchyViews();
+
+        Condition condition = query.getPolitical().NE(political);
+
+        for (GeoHierarchyView exception : exceptions)
+        {
+          condition = AND.get(condition, query.getReferenceId().NE(exception.getReferenceId()));
+        }
+
+        query.WHERE(AND.get(condition, query.getReferenceId().NE(earth.getReferenceId())));
+
+        OIterator<? extends GeoHierarchyView> iterator = query.getIterator();
+
+        while (iterator.hasNext())
+        {
+          labels.add(iterator.next().getDisplayLabel());
+        }
+      }
+
+    }.execute();
+
+    return labels;
+  }
+
+  public static List<GeoHierarchyView> getGeoHierachyViews(final String... universals)
+  {
+    List<GeoHierarchyView> exceptions = new LinkedList<GeoHierarchyView>();
+
+    for (String universal : universals)
+    {
+      exceptions.add(GeoHierarchy.getGeoHierarchyFromType(universal).getViewForGeoHierarchy());
+    }
+    return exceptions;
   }
 
 }

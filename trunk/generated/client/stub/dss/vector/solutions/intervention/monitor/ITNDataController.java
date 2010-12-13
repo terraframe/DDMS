@@ -14,7 +14,6 @@ import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.surveillance.PeriodTypeDTO;
@@ -175,7 +174,7 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
 
     List<PeriodTypeMasterDTO> allItems = PeriodTypeDTO.allItems(clientRequest);
-    List<String> entityUniversals = Arrays.asList(new String[] { HealthFacilityDTO.CLASS, CollectionSiteDTO.CLASS });
+    List<String> entityUniversals = Arrays.asList(new String[] { HealthFacilityDTO.CLASS });
 
     if (dto.getGeoId() != null && !dto.getGeoId().equals(""))
     {
