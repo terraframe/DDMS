@@ -15,6 +15,6 @@
   </mjl:form>
 </dl>
 
-<mjl:commandLink action="dss.vector.solutions.PropertyController.viewAll.mojo" name="dss.vector.solutions.Property.viewAll.link">
+<mjl:commandLink action="dss.vector.solutions.PropertyController.viewAll.mojo" name="dss.vector.solutions.Property.viewAll.link" id="viewAll">
   <fmt:message key="View_All" />
 </mjl:commandLink>

@@ -91,6 +91,75 @@ public class GeneralSeleniumTest
     }
   }
 
+  @Test
+  public void testCaseConfigurationViewAllLink() throws Exception
+  {
+    selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    selenium.type("username", "ddms");
+    selenium.type("password", "ddms");
+    selenium.click("submitLogin");
+
+    try
+    {
+      selenium.waitForPageToLoad("30000");
+      selenium.open("/DDMS/dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo");
+      selenium.click("name=dss.vector.solutions.Property.form.edit.button");
+      selenium.waitForPageToLoad("30000");
+      selenium.click("name=dss.vector.solutions.Property.form.update.button");
+      selenium.waitForPageToLoad("30000");
+      selenium.clickAt("viewAll", "");
+      selenium.waitForPageToLoad("30000");
+      Thread.sleep(1000);
+
+      assertTrue(selenium.isTextPresent("Configure case surveillance"));
+    }
+    finally
+    {
+      selenium.click("link=Log out");
+      selenium.waitForPageToLoad("30000");
+    }
+  }
+
+  @Test
+  public void testSystemConfigurationViewAllLink() throws Exception
+  {
+    selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    selenium.type("username", "ddms");
+    selenium.type("password", "ddms");
+    selenium.click("submitLogin");
+
+    try
+    {
+      selenium.waitForPageToLoad("30000");
+      selenium.open("/DDMS/dss.vector.solutions.PropertyController.viewAll.mojo");
+      selenium.click("name=dss.vector.solutions.Property.form.edit.button");
+      selenium.waitForPageToLoad("30000");
+      selenium.click("name=dss.vector.solutions.Property.form.update.button");
+      selenium.waitForPageToLoad("30000");
+      selenium.clickAt("viewAll", "");
+      selenium.waitForPageToLoad("30000");
+      Thread.sleep(2000);
+
+      assertTrue(selenium.isTextPresent("View all properties"));
+
+      selenium.click("name=dss.vector.solutions.DefaultGeoEntityController.edit.btn");
+      selenium.waitForPageToLoad("30000");
+      selenium.click("name=dss.vector.solutions.DefaultGeoEntity.form.update.button");
+      selenium.waitForPageToLoad("30000");
+      selenium.clickAt("viewAll", "");
+      selenium.waitForPageToLoad("30000");
+      Thread.sleep(2000);
+
+      assertTrue(selenium.isTextPresent("View all properties"));
+    }
+    finally
+    {
+      selenium.click("link=Log out");
+      selenium.waitForPageToLoad("30000");
+    }
+
+  }
+
   @After
   public void tearDown() throws Exception
   {

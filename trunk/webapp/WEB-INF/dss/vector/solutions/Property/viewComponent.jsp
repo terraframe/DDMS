@@ -27,6 +27,15 @@
   </dl>
 </mjl:form>
 
-<mjl:commandLink action="dss.vector.solutions.PropertyController.viewAll.mojo" name="dss.vector.solutions.Property.viewAll.link">
-<fmt:message key="View_All" />
-</mjl:commandLink>
+<c:choose>
+  <c:when test="${!isCaseConfiguration}">
+    <mjl:commandLink action="dss.vector.solutions.PropertyController.viewAll.mojo" name="viewAll.link" id="viewAll">
+      <fmt:message key="View_All" />
+    </mjl:commandLink>  
+  </c:when>
+  <c:otherwise>
+    <mjl:commandLink action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" name="viewAll.link" id="viewAll">
+      <fmt:message key="View_All" />
+    </mjl:commandLink>  
+  </c:otherwise>
+</c:choose>

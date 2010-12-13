@@ -68,7 +68,10 @@ public class PropertyController extends PropertyControllerBase implements com.ru
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    req.setAttribute("configuration", new EpiConfigurationDTO(this.getClientRequest()));
+    String pack = dto.getPropertyPackage();
+    boolean isCaseConfiguration = pack.equals(PropertyInfo.MONITOR_PACKAGE);
+
+    req.setAttribute("isCaseConfiguration", isCaseConfiguration);
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }
