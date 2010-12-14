@@ -10,6 +10,6 @@
   <dl>
     <%@ include file="form.jsp"%>
   
-    <mjl:command value="Create" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.create.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.create.button" />
+    <mjl:command value="Create" id="create_button" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.create.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.create.button" />
   </dl>
 </mjl:form>
