@@ -728,14 +728,13 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
 
     // TODO cache this per request
     String percentPositive = ThresholdCalculationTypeView.getCalculationThreshold().getClinicalPositivePercentage().toString();
-    
+
     String sql = "CASE WHEN COALESCE("+posSum+") = 0 THEN (COALESCE("+posSum+",0.0) + (COALESCE("+casesSum+",0.0) * "+percentPositive+"/100.00)) ELSE ";
-    sql += "( \n";
     sql += "COALESCE("+posSum+",0.0)::float +  \n";
     sql += "( \n";
     sql += " COALESCE("+casesSum+",0.0)::float * \n";
     sql += " ( \n";
-    sql += "  COALESCE("+posSum+",0.0)::float / \n";
+    sql += "   COALESCE("+posSum+",0.0)::float / \n";
     sql += "  ( \n";
     sql += "   NULLIF \n";
     sql += "   ( \n";
@@ -745,9 +744,8 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     sql += "  ) \n";
     sql += " ) \n";
     sql += ") \n";
-    sql += ") END \n";
-    sql += ") \n";
-
+    sql += "END \n";
+    
     return sql;
   }
 
