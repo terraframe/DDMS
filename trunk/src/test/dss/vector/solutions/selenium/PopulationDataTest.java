@@ -168,7 +168,7 @@ public class PopulationDataTest extends SeleneseTestCase
       selenium.click("//div[11]");
       selenium.click("PopulationDataSaverows-button");
 
-      Thread.sleep(1000L);
+      Thread.sleep(2000L);
 
       selenium.click("//tr[@id='yui-rec1']/td[6]/div");
       selenium.type("//div[@id='yui-textboxceditor4-container']/input", "123");
@@ -178,7 +178,7 @@ public class PopulationDataTest extends SeleneseTestCase
       selenium.click("//div[11]");
       selenium.click("PopulationDataSaverows-button");
 
-      Thread.sleep(1000L);
+      Thread.sleep(2000L);
 
       selenium.open("/DDMS/dss.vector.solutions.general.PopulationDataController.search.mojo");
       selenium.type("geoId", parentEntity.getGeoId());
@@ -186,10 +186,10 @@ public class PopulationDataTest extends SeleneseTestCase
       selenium.click("search");
       selenium.waitForPageToLoad("30000");
 
-      assertTrue(selenium.isTextPresent("344"));
-      assertTrue(selenium.isTextPresent("2.21"));
-      assertTrue(selenium.isTextPresent("123"));
-      assertTrue(selenium.isTextPresent("2.14"));
+      assertTrue("Expecting text 344", selenium.isTextPresent("344"));
+      assertTrue("Expecting text 2.21", selenium.isTextPresent("2.21"));
+      assertTrue("Expecting text 123", selenium.isTextPresent("123"));
+      assertTrue("Expecting text 2.14", selenium.isTextPresent("2.14"));
     }
     finally
     {
