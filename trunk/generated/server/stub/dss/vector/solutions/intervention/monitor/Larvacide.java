@@ -9,8 +9,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.RawLeftJoinEq;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 
@@ -94,36 +96,25 @@ public class Larvacide extends LarvacideBase implements com.runwaysdk.generation
     LarvacideInstanceQuery larvacideInstanceQuery = (LarvacideInstanceQuery) queryMap.get(LarvacideInstance.CLASS);
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
 
-    LarvacideAssociationQuery larvacideAssQuery = new LarvacideAssociationQuery(queryFactory);
-
-    valueQuery.WHERE(larvacideAssQuery.parentId().EQ(larvacideQuery.getId()));
-
+    
     if (larvacideInstanceQuery != null)
     {
-      valueQuery.WHERE(larvacideAssQuery.childId().EQ(larvacideInstanceQuery.getId()));
-      if (personQuery != null)
-      {
-        Pattern pattern = Pattern.compile("(" + Person.FIRSTNAME + "|" + Person.LASTNAME + ")[a-zA-z_]+Criteria");
-        Matcher matcher = pattern.matcher(config);
-        
-        // if there is no restriction on person, we left join, otherwise we inner join
-        if (!matcher.find())
-        {
-          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).LEFT_JOIN_EQ((SelectableSingle) personQuery.getTeamMemberDelegate(Person.TEAMMEMBERDELEGATE)));
-        }
-        else
-        {
-          valueQuery.WHERE(larvacideQuery.getTeamLeader(Larvacide.TEAMLEADER).EQ(personQuery.getTeamMemberDelegate(Person.TEAMMEMBERDELEGATE)));
-        }
-      }
 
+      valueQuery.WHERE(larvacideQuery.instances(larvacideInstanceQuery));
+      // FIXME left join if possible?
+//      LarvacideAssociationQuery larvacideAssQuery = new LarvacideAssociationQuery(valueQuery);
+//      valueQuery.WHERE(larvacideQuery.LEFT_JOIN_EQ(larvacideAssQuery.parentId()));
+//      valueQuery.WHERE(larvacideAssQuery.childId().LEFT_JOIN_EQ(larvacideInstanceQuery.getId())); 
+
+      QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, larvacideInstanceQuery);
     }
-
-    // QueryUtil.joinTermAllpaths(valueQuery,dss.vector.solutions.Person.CLASS,personQuery);
-
+    
+    if (personQuery != null)
+    {
+      valueQuery.WHERE(larvacideQuery.getTeamLeader().LEFT_JOIN_EQ(personQuery.getTeamMemberDelegate()));
+    }
+    
     QueryUtil.joinGeoDisplayLabels(valueQuery, Larvacide.CLASS, larvacideQuery);
-
-    QueryUtil.joinTermAllpaths(valueQuery, LarvacideInstance.CLASS, larvacideInstanceQuery);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
