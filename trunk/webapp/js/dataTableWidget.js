@@ -140,10 +140,13 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
           }
           else if (attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDecDTO){
             var number = parseFloat(attributeDTO.getValue());
-            var formattedNumber = value.toFixed(MDSS.DataGridModel.FLOAT_PRECISION);
+            
+            if(number != null && !isNaN(number) && Mojo.Util.isNumber(number)) {
+              var formattedNumber = number.toFixed(MDSS.DataGridModel.FLOAT_PRECISION);
 
-            // Format table input to 2 decimal places
-            value = formattedNumber.toString(); 
+              // Format table input to 2 decimal places
+              value = formattedNumber.toString(); 
+            }
           }
           else {
             value = attributeDTO.getValue();
