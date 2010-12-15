@@ -46,7 +46,7 @@ public class PreserveCollectionTest
 
         entity = (GeoEntity) LoaderDecorator.load(entityType).newInstance();
         entity.setEntityName("Test Parent Entity");
-        entity.setGeoId("Parent1");
+        entity.setGeoId("CollectionEntity");
         entity.applyWithParent(zambia.getId(), false, null);
 
         collection = new MosquitoCollectionView();

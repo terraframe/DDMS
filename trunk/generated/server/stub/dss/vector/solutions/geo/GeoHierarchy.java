@@ -1463,7 +1463,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
           hierarchies.add(childH.getViewForGeoHierarchy());
         }
       }
-
     }
 
     return hierarchies.toArray(new GeoHierarchyView[hierarchies.size()]);

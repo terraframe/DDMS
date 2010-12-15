@@ -3,13 +3,14 @@ package dss.vector.solutions.general;
 import java.util.Map;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.GridBuilder;
 import dss.vector.solutions.util.yui.ColumnSetup;
 import dss.vector.solutions.util.yui.DataGrid;
 import dss.vector.solutions.util.yui.ViewDataGrid;
 
-public class PopulationGridBuilder extends GridBuilder
+public class PopulationGridBuilder extends GridBuilder implements Reloadable
 {
   private ClientRequestIF       request;
 
