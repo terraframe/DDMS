@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
@@ -39,37 +40,38 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
   {
     MosquitoCollectionView view = getCollection();
     String subId = this.getSubCollectionId();
-    if (subId==null || subId.length()==0)
-    {
-      RequiredAttributeProblem rap = new RequiredAttributeProblem();
-      rap.setAttributeName(SUBCOLLECTIONID);
-      rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getSubCollectionIdMd().getDisplayLabel(Session.getCurrentLocale()));
-      rap.throwIt();
-    }
-    
     Term idMethod = Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd());
-    if (idMethod==null)
-    {
-      RequiredAttributeProblem rap = new RequiredAttributeProblem();
-      rap.setAttributeName(IDENTMETHOD);
-      rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getIdentMethodMd().getDisplayLabel(Session.getCurrentLocale()));
-      rap.throwIt();
-    }
-    
     Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd());
-    if (taxonTerm==null)
-    {
-      RequiredAttributeProblem rap = new RequiredAttributeProblem();
-      rap.setAttributeName(TAXON);
-      rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getTaxonMd().getDisplayLabel(Session.getCurrentLocale()));
-      rap.throwIt();
-    }
     
     SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
     query.WHERE(query.getCollection().getId().EQ(view.getConcreteId()));
-    query.WHERE(query.getSubCollectionId().EQ(subId));
-    query.WHERE(query.getIdentMethod().EQ(idMethod));
-    query.WHERE(query.getTaxon().EQ(taxonTerm));
+    if (subId==null || subId.length()==0)
+    {
+      query.WHERE(query.getSubCollectionId().EQ(subId));
+    }
+    else
+    {
+      query.WHERE(query.getSubCollectionId().EQ(subId));
+    }
+    
+    if (idMethod==null)
+    {
+      query.WHERE(query.getIdentMethod().EQ(idMethod));
+    }
+    else
+    {
+      query.WHERE(query.getIdentMethod().EQ(idMethod));
+    }
+    
+    if (taxonTerm==null)
+    {
+      query.WHERE(query.getTaxon().EQ(taxonTerm));
+    }
+    else
+    {
+      query.WHERE(query.getTaxon().EQ(taxonTerm));
+    }
+    
     OIterator<? extends SubCollection> iterator = query.getIterator();
     
     SubCollectionView sub;
