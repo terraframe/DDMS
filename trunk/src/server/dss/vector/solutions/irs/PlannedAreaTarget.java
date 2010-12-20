@@ -3,6 +3,7 @@ package dss.vector.solutions.irs;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -62,18 +63,24 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   public String from()
   {
     String sql = "--Planned Area Target\n";
-//    sql += IRSQuery.GEO_TARGET_VIEW + " " + IRSQuery.GEO_TARGET_VIEW + " INNER JOIN " + geoTable + " "
-//        + geoTable + " ON " + IRSQuery.GEO_TARGET_VIEW + "." + idCol + " = " + geoTable + "." + idCol
-//        + " \n";
 
     String geoTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
     
     sql += IRSQuery.ROLLUP_RESULTS +" rr INNER JOIN "+geoTable+" g ON g."+idCol+" = rr."+IRSQuery.ORIGINAL_ID+" \n";
+    
+    // Attempt to restrict by the universals. We join based on the ontological structure of the universal
+    // tree and not by exact matches on the universal type. For example, if Settlement is located within District
+    // and District is chosen as universal criteria, then we gather all Settlements within Districts and Districts as well
+    // (as opposed to gathering only Districts).
     String universals = this.q.getUniversalsInCriteria();
+    
     if (universals != null)
     {
       String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
-      sql += "AND g." + type + " IN(" + universals + ") \n";
+      String in = "IN(" + universals + ") \n";
+      
+      sql += "INNER JOIN "+GeoHierarchy.ALLPATHS_VIEW+" ap ON g."+type+" = ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" \n";
+      sql += " AND (ap."+GeoHierarchy.ALLPATHS_ROOT_TYPE +" "+in + " OR ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" "+in+") \n";
     }
     
     return sql;

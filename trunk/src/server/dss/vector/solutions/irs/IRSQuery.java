@@ -854,15 +854,8 @@ public class IRSQuery implements Reloadable
   {
     this.needsAreaPlanned = true;
 
-    if (!this.hasEpiWeek)
-    {
       return QueryUtil.sumColumnForId(sprayViewAlias, Alias.TARGET_WEEK.getAlias(), sprayViewAlias,
           AREA_PLANNED_TARGET);
-    }
-    else
-    {
-      return forceGrouping(Alias.AREA_PLANNED_TARGET);
-    }
   }
 
   private void calculateOperatorPlannedTargets()
