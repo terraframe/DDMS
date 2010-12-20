@@ -70,6 +70,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static String       allowedInTree    = null;
 
   private static final String THEMATIC_SUFFIX  = "_thematic";
+  
+  public static final String ALLPATHS_VIEW = "geohierarchy_allpaths";
+  
+  public static final String ALLPATHS_CHILD_TYPE = "child_type";
+
+  public static final String ALLPATHS_ROOT_TYPE = "root_type";
+
+  public static final String ALLPATHS_DEPTH = "depth";
 
   // private static Object lockObj = new Object();
 
@@ -1602,47 +1610,47 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return equals;
   }
 
-  private String getViewSQL(MdBusiness md, MdAttributeGeometry mdAttrGeo)
-  {
-
-    MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
-
-    String attrName = mdAttrGeo.getAttributeName();
-
-    // create the ValueQuery whose SELECT will become a database view
-    QueryFactory f = new QueryFactory();
-    ValueQuery vQuery = new ValueQuery(f);
-
-    GeoEntityQuery geoQuery = new GeoEntityQuery(f);
-    Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
-    entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-
-    // if the MdBusiness that defines the geometry is the MdBusiness this
-    // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
-    if (md.getId().equals(definingMd.getId()))
-    {
-      BusinessQuery q = f.businessQuery(md.definesType());
-      vQuery.SELECT(q.get(attrName), entityNameAttr);
-      vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
-    }
-    else
-    {
-      // perform a join between *this* GeoEntity table and the one
-      // that defines the geometry attribute.
-      BusinessQuery q1 = f.businessQuery(md.definesType());
-      BusinessQuery q2 = f.businessQuery(definingMd.definesType());
-      vQuery.SELECT(q2.get(attrName), entityNameAttr);
-      vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
-      vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
-    }
-
-    // exclude any entity without spatial data
-    Selectable geometrySelectable = vQuery.getSelectableRef(attrName);
-    vQuery.AND(geometrySelectable.NE(null));
-
-    String sql = vQuery.getSQL();
-    return sql;
-  }
+//  private String getViewSQL(MdBusiness md, MdAttributeGeometry mdAttrGeo)
+//  {
+//
+//    MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
+//
+//    String attrName = mdAttrGeo.getAttributeName();
+//
+//    // create the ValueQuery whose SELECT will become a database view
+//    QueryFactory f = new QueryFactory();
+//    ValueQuery vQuery = new ValueQuery(f);
+//
+//    GeoEntityQuery geoQuery = new GeoEntityQuery(f);
+//    Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
+//    entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+//
+//    // if the MdBusiness that defines the geometry is the MdBusiness this
+//    // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
+//    if (md.getId().equals(definingMd.getId()))
+//    {
+//      BusinessQuery q = f.businessQuery(md.definesType());
+//      vQuery.SELECT(q.get(attrName), entityNameAttr);
+//      vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+//    }
+//    else
+//    {
+//      // perform a join between *this* GeoEntity table and the one
+//      // that defines the geometry attribute.
+//      BusinessQuery q1 = f.businessQuery(md.definesType());
+//      BusinessQuery q2 = f.businessQuery(definingMd.definesType());
+//      vQuery.SELECT(q2.get(attrName), entityNameAttr);
+//      vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
+//      vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+//    }
+//
+//    // exclude any entity without spatial data
+//    Selectable geometrySelectable = vQuery.getSelectableRef(attrName);
+//    vQuery.AND(geometrySelectable.NE(null));
+//
+//    String sql = vQuery.getSQL();
+//    return sql;
+//  }
 
   public static boolean addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
   {
@@ -1920,21 +1928,39 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     ValueQuery lowestUniversial = new ValueQuery(queryFactory);
 
-    SelectableSQLCharacter childType = lowestUniversial.aSQLCharacter("child_type", "child_type");
+    SelectableSQLCharacter childType = lowestUniversial.aSQLCharacter(ALLPATHS_CHILD_TYPE, ALLPATHS_CHILD_TYPE);
 
-    SelectableSQLInteger childCount = lowestUniversial.aSQLAggregateInteger("child_count", "COUNT(*)");
+    SelectableSQLInteger depth = lowestUniversial.aSQLAggregateInteger(ALLPATHS_DEPTH, "MAX("+ALLPATHS_DEPTH+")");
 
-    lowestUniversial.SELECT(new Selectable[] { childType, childCount });
-    lowestUniversial.FROM("geohierarchy_allpaths", "geohierarchy_allpaths");
+    lowestUniversial.SELECT(new Selectable[] { childType, depth });
+    lowestUniversial.FROM(ALLPATHS_VIEW, ALLPATHS_VIEW);
     lowestUniversial.WHERE(childType.IN(types));
-    lowestUniversial.ORDER_BY_DESC(childCount);
+    lowestUniversial.ORDER_BY_DESC(depth);
 
     OIterator<ValueObject> iter = lowestUniversial.getIterator();
     try
     {
       if (iter.hasNext())
       {
-        return iter.next().getValue("child_type");
+        ValueObject o = iter.next();
+        int maxDepth = Integer.parseInt(o.getValue(ALLPATHS_DEPTH));
+        String universal = o.getValue(ALLPATHS_CHILD_TYPE);
+        
+        // Make sure we have the "smallest" universal. If the
+        // next result has the same depth then we must throw
+        // an error because they are either siblings or equally "small"
+        if(iter.hasNext())
+        {
+          ValueObject o2 = iter.next();
+          int nextDepth = Integer.parseInt(o2.getValue(ALLPATHS_DEPTH));
+          if(maxDepth == nextDepth)
+          {
+            String msg = "There is no universal with the largest depth among ["+types+"]";
+            throw new NoSmallestLocatedInException(msg);
+          }
+        }
+        
+        return universal;
       }
     }
     finally
