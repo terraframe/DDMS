@@ -18,6 +18,8 @@ import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.GeneratedEntityQuery;
+import com.runwaysdk.query.LeftJoin;
+import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
@@ -40,6 +42,8 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdAlertCalculationType;
+import dss.vector.solutions.general.ThresholdCalculationType;
+import dss.vector.solutions.general.ThresholdCalculationTypeView;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -532,8 +536,8 @@ public class IndividualCase extends IndividualCaseBase implements
 
     if (physicianQuery != null)
     {
-      valueQuery.WHERE(instanceQuery.getPhysician().LEFT_JOIN_EQ(physicianQuery));
-//      valueQuery.WHERE(instanceQuery.getPhysician().EQ(physicianQuery));
+//      valueQuery.WHERE(instanceQuery.getPhysician().LEFT_JOIN_EQ(physicianQuery));
+      valueQuery.WHERE(instanceQuery.getPhysician().EQ(physicianQuery));
     }
 
     valueQuery.WHERE(personQuery.getPatientDelegate().EQ(caseQuery.getPatient()));
@@ -720,7 +724,8 @@ public class IndividualCase extends IndividualCaseBase implements
     String posCases = "positiveCases";
     String negCases = "negativeCases";
     String clinCases = "clinicalCases";
-
+    String cachedPercentPositive = "percentPositive";
+    
     if (diagnosisAliases.size() == 0)
     {
       QueryFactory factory = caseQuery.getQueryFactory();
@@ -759,6 +764,10 @@ public class IndividualCase extends IndividualCaseBase implements
       diagnosisAliases.put(posCases, vQuery.getSelectableRef(posCases).getColumnAlias());
       diagnosisAliases.put(negCases, vQuery.getSelectableRef(negCases).getColumnAlias());
       diagnosisAliases.put(clinCases, vQuery.getSelectableRef(clinCases).getColumnAlias());
+      
+      // Safe operation: the value is required and already validated.
+      String percentPositive = ThresholdCalculationTypeView.getCalculationThreshold().getClinicalPositivePercentage().toString();
+      diagnosisAliases.put(cachedPercentPositive, percentPositive);
     }
     
     String idCol = QueryUtil.getIdColumn();
@@ -766,9 +775,10 @@ public class IndividualCase extends IndividualCaseBase implements
     String posSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(posCases));
     String negSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(negCases));
     String clinSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(clinCases));
-
+    String percentPositive = diagnosisAliases.get(cachedPercentPositive);
+    
     // adjusted case count
-    String sql = "CASE WHEN (" + posSum + ") + (" + negSum + ") = 0 THEN 1 ELSE ";
+    String sql = "CASE WHEN (" + posSum + ") = 0 THEN (" + posSum + " + ("+clinSum+" * "+percentPositive+"/100.00)) ELSE ";
     sql += "( \n";
     sql += "    (" + posSum + ") + \n";
     sql += "    ( \n";
