@@ -103,10 +103,15 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
     {
       SystemAlertDTO dto = SystemAlertDTO.lock(super.getClientRequest(), id);
       List<SystemAlertTypeDTO> list = dto.getAlertType();
-      SystemAlertTypeMasterDTO master = list.get(0).item(super.getClientRequest());
+      SystemAlertTypeDTO alertType = list.get(0);
+      SystemAlertTypeMasterDTO master = alertType.item(super.getClientRequest());
+      String templateVariables = this.getTemplateVariables(alertType);
+
       req.setAttribute("item", dto);
       req.setAttribute("master", master);
-      req.setAttribute("templateVariables", master.getAttributeMd(SystemAlertTypeMasterDTO.EMAILTEMPLATEVARIABLES).getDisplayLabel());
+      req.setAttribute("templateLabel", master.getEmailTemplateVariablesMd().getDisplayLabel());
+      req.setAttribute("templateVariables", templateVariables);
+
       render("editComponent.jsp");
     }
     catch (Throwable t)
@@ -118,6 +123,16 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
         this.failEdit(id);
       }
     }
+  }
+
+  private String getTemplateVariables(SystemAlertTypeDTO alertType)
+  {
+    if (alertType.equals(SystemAlertTypeDTO.ELEVATED_IMMATURE_INDEX_NOTIFICATION))
+    {
+      return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, premiseType, species, startDate, endDate";
+    }
+
+    return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, alertLevel";
   }
 
   public void failEdit(String id) throws IOException, ServletException

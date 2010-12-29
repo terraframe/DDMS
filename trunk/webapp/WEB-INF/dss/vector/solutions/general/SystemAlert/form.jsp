@@ -29,7 +29,7 @@
   </mjl:dt>
   <mjl:dt attribute="emailBody">
     <mjl:textarea param="emailBody" rows="5" />
-    <i><b>${templateVariables}:</b> ${master.emailTemplateVariables}</i>
+    <i><b>${templateLabel}:</b> ${templateVariables}</i>
   </mjl:dt>
 
 </mjl:component>
