@@ -118,11 +118,14 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       {
         view = iterator.next().getView();
       }
+      else
+      {
+        view.setHouseholdId(this.getHouseholdId());
+        view.setStructureId(this.getStructureId());
+        view.setSpray(OperatorSpray.get(osv.getConcreteId()));
+      }
       iterator.close();
       
-//      view.setHouseholdId(this.getHouseholdId());
-//      view.setStructureId(this.getStructureId());
-//      view.setSpray(OperatorSpray.get(osv.getConcreteId()));
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());
