@@ -112,6 +112,34 @@ public class PopulationDataTest extends SeleneseTestCase
     siblingEntity.deleteEntity();
     parentEntity.deleteEntity();
   }
+  
+  @Test
+  public void testParentPresent() throws Exception
+  {
+    selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    selenium.type("username", "ddms");
+    selenium.type("password", "ddms");
+    selenium.click("submitLogin");
+    selenium.waitForPageToLoad("30000");
+    
+    try
+    {
+      selenium.open("/DDMS/dss.vector.solutions.general.PopulationDataController.search.mojo");
+      selenium.type("geoId", parentEntity.getGeoId());
+      selenium.type("year", population.getYearOfData().toString());
+      selenium.click("search");
+      selenium.waitForPageToLoad("30000");
+      
+      String text = parentEntity.getLabel(); 
+
+      assertEquals(text, selenium.getText("link=" + text));
+    }
+    finally
+    {
+      selenium.click("link=Log out");
+      selenium.waitForPageToLoad("30000");
+    }
+  }
 
   @Test
   public void testPopulationPrecision() throws Exception
