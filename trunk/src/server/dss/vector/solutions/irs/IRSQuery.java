@@ -1298,6 +1298,7 @@ public class IRSQuery implements Reloadable
     from += " AND i = de." + periodCol + " \n";
     from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
     from += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
+    from += " AND ms." + disease + " = tar."+diseaseCol+"\n";
     return select + from;
   }
 

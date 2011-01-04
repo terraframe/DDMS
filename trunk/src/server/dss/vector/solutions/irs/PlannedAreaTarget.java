@@ -49,7 +49,7 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   @Override
   public String setAreaPlannedTarget(Alias alias)
   {
-    String sum = QueryConstants.SUM_AREA_TARGETS+"("+parentGeoEntity+", to_char("+IRSQuery.TARGET_WEEK+"-1, 'FM99'))";
+    String sum = QueryConstants.SUM_AREA_TARGETS+"("+parentGeoEntity+", to_char("+IRSQuery.TARGET_WEEK+"-1, 'FM99'), "+Alias.DISEASE.getAlias()+", "+IRSQuery.MALARIA_SEASON+")";
     return set(sum, alias);
   }
 

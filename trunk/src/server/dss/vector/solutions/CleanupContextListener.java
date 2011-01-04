@@ -598,8 +598,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     MdEntityDAOIF geoTargetMd = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS);
     String geoTargetTable = geoTargetMd.getTableName();
     String seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
+    String gtDiseaseCol = QueryUtil.getColumnName(GeoTarget.getDiseaseMd());
     String geoEntityTargetCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
-    String idCol = QueryUtil.getIdColumn();
+//    String idCol = QueryUtil.getIdColumn();
 
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar \n";
     sql += "( \n";
@@ -642,7 +643,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "CREATE OR REPLACE FUNCTION "+QueryConstants.SUM_AREA_TARGETS+" \n";
     sql += "( \n";
     sql += "  _geo_target_id VARCHAR, \n";
-    sql += "  _target_column VARCHAR \n";
+    sql += "  _target_column VARCHAR, \n";
+    sql += "  _disease VARCHAR, \n";
+    sql += "  _season VARCHAR \n";
     sql += ") \n";
     sql += "RETURNS INT AS $$ \n";
     sql += "DECLARE \n ";
@@ -652,13 +655,14 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += " rec record;\n"; 
     sql += "BEGIN \n";
     sql += "  EXECUTE 'SELECT target_'|| _target_Column ||' FROM "+geoTargetTable+" WHERE "+geoEntityTargetCol+" = '|| quote_literal(_geo_target_id) \n";
+    sql += "    || ' AND "+seasonCol+" = ' || quote_literal(_season) || ' AND "+gtDiseaseCol+" = ' || quote_literal(_disease) \n";
     sql += "  INTO _target;\n";
     sql += "  IF _target IS NULL THEN\n";
 //    sql += "    --check if this branch will lead to any data \n";
     sql += "    _target := 0;\n";
     sql += "    _sql := 'SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+"  FROM "+locatedInTable+" WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = ' || quote_literal(_geo_target_id); \n";
     sql += "    FOR  rec IN EXECUTE _sql LOOP \n";
-    sql += "      _target = _target + get_area_spray_target_by_id_and_tar(rec."+RelationshipDAOIF.CHILD_ID_COLUMN+", _target_column); \n";
+    sql += "      _target = _target + "+QueryConstants.SUM_AREA_TARGETS+"(rec."+RelationshipDAOIF.CHILD_ID_COLUMN+", _target_column, _disease, _season); \n";
     sql += "    END LOOP;\n";
     sql += "  END IF;\n";
     sql += "  RETURN _target; \n";
