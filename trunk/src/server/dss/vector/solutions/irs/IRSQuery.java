@@ -29,6 +29,7 @@ import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.EnumerationMaster;
+import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.Property;
@@ -117,6 +118,8 @@ public class IRSQuery implements Reloadable
 
   public static final String    ALL_ACTUALS                = "allActuals";
   
+  public static final String PLANNED_TARGET_DISEASE = "disease";
+  
   public static final String ORIGINAL_ID = "original_id";
 
   // The final view of all actual and planned targets
@@ -148,7 +151,7 @@ public class IRSQuery implements Reloadable
 
   private String                targeter;
 
-  private String                mSeasonCol;
+//  private String                mSeasonCol;
 
   private String                geoEntity;
 
@@ -162,7 +165,7 @@ public class IRSQuery implements Reloadable
 
   public IRSQuery(String config, String xml, Layer layer)
   {
-    mSeasonCol = QueryUtil.getColumnName(MalariaSeason.getIdMd());
+//    mSeasonCol = QueryUtil.getColumnName(MalariaSeason.getIdMd());
 
     hasEpiWeek = false;
 
@@ -374,7 +377,8 @@ public class IRSQuery implements Reloadable
 
       for (int i = 0; i < universals.length(); i++)
       {
-        selectedUniversals[i] = "'" + universals.getString(i) + "'";
+        String id = MdEntity.getMdEntity(universals.getString(i)).getId();
+        selectedUniversals[i] = "'" + id + "'";
       }
 
       return StringUtils.join(selectedUniversals, ",");
@@ -721,8 +725,8 @@ public class IRSQuery implements Reloadable
     String geoTargetViewQuery = this.getGeoTargetView();
     String insecticideBrandQuery = this.getInsecticideView();
     String dateExtrapolationQuery = this.getDateExtrapolationView();
-    String targetRollupQuery = this.getTargetRollupView();
-    String rollupResultsQuery = this.getRollupResultsView();
+//    String targetRollupQuery = this.getTargetRollupView();
+//    String rollupResultsQuery = this.getRollupResultsView();
 
     String sql = "WITH RECURSIVE";
 
@@ -735,11 +739,11 @@ public class IRSQuery implements Reloadable
     sql += ", " + GEO_TARGET_VIEW + " AS \n";
     sql += "(" + geoTargetViewQuery + ")\n";
 
-    sql += ", " + TARGET_ROLLUP + " AS \n";
-    sql += "(" + targetRollupQuery + ")\n";
-
-    sql += ", " + ROLLUP_RESULTS + " AS \n";
-    sql += "(" + rollupResultsQuery + ")\n";
+//    sql += ", " + TARGET_ROLLUP + " AS \n";
+//    sql += "(" + targetRollupQuery + ")\n";
+//
+//    sql += ", " + ROLLUP_RESULTS + " AS \n";
+//    sql += "(" + rollupResultsQuery + ")\n";
 
     sql += ", " + INSECTICIDE_VIEW + " AS \n";
     sql += "(" + insecticideBrandQuery + ")\n";
@@ -1221,6 +1225,21 @@ public class IRSQuery implements Reloadable
 
   private String generateEpiWeekSeriesView(boolean isResource)
   {
+    String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
+    String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
+    String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
+    String disease = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+    
+    String diseaseCol;
+    if(isResource)
+    {
+      diseaseCol = QueryUtil.getColumnName(ResourceTarget.getDiseaseMd());
+    }
+    else
+    {
+      diseaseCol = QueryUtil.getColumnName(GeoTarget.getDiseaseMd());
+    }
+    
     String weeks = "";
     for (Integer i = 0; i < EpiWeek.NUMBER_OF_WEEKS; i++)
     {
@@ -1243,7 +1262,9 @@ public class IRSQuery implements Reloadable
     }
 
     select += "ms." + idCol + " AS " + MALARIA_SEASON + ", \n";
-
+    
+    select += "tar."+diseaseCol+" AS "+PLANNED_TARGET_DISEASE+", \n";
+    
     select += "target_array[i] AS " + WEEKLY_TARGET + " \n";
 
     String from = "FROM ";
@@ -1256,6 +1277,7 @@ public class IRSQuery implements Reloadable
     {
       from += this.geoEntity + ", ";
     }
+    from += diseaseCol + ", ";
 
     String sourceTable;
     if (isResource)
@@ -1267,10 +1289,7 @@ public class IRSQuery implements Reloadable
       sourceTable = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName();
     }
 
-    String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
-    String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
-    String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
-    String disease = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+
 
     from += "ARRAY[" + weeks + "] AS target_array FROM " + sourceTable + ") AS tar ";
     from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 ) + ") AS i, "

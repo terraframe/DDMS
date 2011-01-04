@@ -57,6 +57,8 @@ public class QueryConstants implements Reloadable
   public static final String AGE_LOWEST = "age_lowest";
   
   public static final String AGE_HIGHEST = "age_highest";
+  
+  public static final String SUM_AREA_TARGETS = "get_area_spray_target_by_id_and_tar";
 
   public enum QueryType implements Reloadable {
     

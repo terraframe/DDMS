@@ -3,35 +3,35 @@ package dss.vector.solutions.irs;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.util.QueryUtil;
 
 public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
 {
-  private String geoTable;
-  private String diseaseCol;
-  private String spraySeason;
+  private static final String GTV_ALIAS = "gt";
+  
+  private String childGeoEntity;
+  private String parentGeoEntity;
   
   public PlannedAreaTarget()
   {
     super();
     
-    geoTable = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS).getTableName();
-    diseaseCol = QueryUtil.getColumnName(GeoTarget.getDiseaseMd());
-    spraySeason = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
+    childGeoEntity = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
+    parentGeoEntity = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
   }
   
   @Override
   public String setSpraySeason(Alias alias)
   {
-    return set(spraySeason, alias);
+    return set(IRSQuery.MALARIA_SEASON, alias);
   }
   
   @Override
   public final String setId(Alias alias)
   {
-    return set(IRSQuery.ORIGINAL_ID, alias);
+    return setNULL(alias);
   }
   
   @Override
@@ -41,21 +41,16 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   }
 
   @Override
-  public String setDisease(Alias alias)
-  {
-    return set(diseaseCol, alias);
-  }
-
-  @Override
   public String setGeoEntity(Alias alias)
   {
-    return set(IRSQuery.ORIGINAL_ID, alias);
+    return set(parentGeoEntity, alias);
   }
   
   @Override
   public String setAreaPlannedTarget(Alias alias)
   {
-    return set(IRSQuery.WEEKLY_TARGET, alias);
+    String sum = QueryConstants.SUM_AREA_TARGETS+"("+parentGeoEntity+", to_char("+IRSQuery.TARGET_WEEK+"-1, 'FM99'))";
+    return set(sum, alias);
   }
 
 
@@ -64,9 +59,17 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
   {
     String sql = "--Planned Area Target\n";
 
-    String geoTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
+    String geoTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
     
-    sql += IRSQuery.ROLLUP_RESULTS +" rr INNER JOIN "+geoTable+" g ON g."+idCol+" = rr."+IRSQuery.ORIGINAL_ID+" \n";
+    sql += IRSQuery.GEO_TARGET_VIEW +" "+GTV_ALIAS+" INNER JOIN "+geoTable+" g ON g."+childGeoEntity+" = "+GTV_ALIAS+"."+this.q.getGeoEntity()+" \n";
+    
+    return sql;
+  }
+  
+  @Override
+  public String where()
+  {
+    String sql = "";
     
     // Attempt to restrict by the universals. We join based on the ontological structure of the universal
     // tree and not by exact matches on the universal type. For example, if Settlement is located within District
@@ -76,12 +79,17 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     
     if (universals != null)
     {
-      String type = QueryUtil.getColumnName(GeoEntity.getTypeMd());
       String in = "IN(" + universals + ") \n";
       
-      sql += "INNER JOIN "+GeoHierarchy.ALLPATHS_VIEW+" ap ON g."+type+" = ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" \n";
-      sql += " AND (ap."+GeoHierarchy.ALLPATHS_ROOT_TYPE +" "+in + " OR ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" "+in+") \n";
+      String parentMd = QueryUtil.getColumnName(AllPaths.getParentUniversalMd());
+      
+      sql += parentMd + " " + in;
+//      sql += "INNER JOIN "+GeoHierarchy.ALLPATHS_VIEW+" ap ON g."+type+" = ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" \n";
+//      sql += " AND (ap."+GeoHierarchy.ALLPATHS_ROOT_TYPE +" "+in + " OR ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" "+in+") \n";
     }
+    
+    sql += "GROUP BY "+parentGeoEntity+", "+Alias.PLANNED_DATE.getAlias()+", "
+    +Alias.TARGET_WEEK.getAlias()+", "+IRSQuery.MALARIA_SEASON+", "+IRSQuery.PLANNED_TARGET_DISEASE+"\n";
     
     return sql;
   }

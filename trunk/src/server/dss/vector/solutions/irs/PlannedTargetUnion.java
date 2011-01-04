@@ -51,8 +51,7 @@ public abstract class PlannedTargetUnion extends AbstractTargetUnion implements 
   
   public String setDisease(Alias alias)
   {
-
-    return setNULL(alias);
+    return set(IRSQuery.PLANNED_TARGET_DISEASE, alias);
   }
   
   public String setAreaPlannedTarget(Alias alias)

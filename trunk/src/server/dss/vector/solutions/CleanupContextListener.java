@@ -38,6 +38,7 @@ import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.GeoTarget;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedMap;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -638,20 +639,29 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
 
-    sql += "CREATE OR REPLACE FUNCTION get_area_spray_target_by_id_and_tar \n";
+    sql += "CREATE OR REPLACE FUNCTION "+QueryConstants.SUM_AREA_TARGETS+" \n";
     sql += "( \n";
     sql += "  _geo_target_id VARCHAR, \n";
     sql += "  _target_column VARCHAR \n";
     sql += ") \n";
     sql += "RETURNS INT AS $$ \n";
     sql += "DECLARE \n ";
-    sql += "  _target  INT; \n";
+    sql += " _target  INT;\n";
+    sql += " _child_Count FLOAT;\n";
+    sql += " _sql VARCHAR;\n";
+    sql += " rec record;\n"; 
     sql += "BEGIN \n";
-    sql += "EXECUTE 'SELECT '|| _target_Column ||' FROM "+geoTargetTable+"  WHERE "+idCol+" = $1' \n";
-    sql += "  INTO _target  \n";
-    sql += "  USING _geo_target_id; \n";
-    sql += "  \n";
-    sql += "  RETURN _target;  \n";
+    sql += "  EXECUTE 'SELECT target_'|| _target_Column ||' FROM "+geoTargetTable+" WHERE "+geoEntityTargetCol+" = '|| quote_literal(_geo_target_id) \n";
+    sql += "  INTO _target;\n";
+    sql += "  IF _target IS NULL THEN\n";
+//    sql += "    --check if this branch will lead to any data \n";
+    sql += "    _target := 0;\n";
+    sql += "    _sql := 'SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+"  FROM "+locatedInTable+" WHERE "+RelationshipDAOIF.PARENT_ID_COLUMN+" = ' || quote_literal(_geo_target_id); \n";
+    sql += "    FOR  rec IN EXECUTE _sql LOOP \n";
+    sql += "      _target = _target + get_area_spray_target_by_id_and_tar(rec."+RelationshipDAOIF.CHILD_ID_COLUMN+", _target_column); \n";
+    sql += "    END LOOP;\n";
+    sql += "  END IF;\n";
+    sql += "  RETURN _target; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
     

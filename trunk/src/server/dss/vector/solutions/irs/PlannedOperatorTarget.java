@@ -1,25 +1,21 @@
 package dss.vector.solutions.irs;
 
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-
-import dss.vector.solutions.util.QueryUtil;
 
 public class PlannedOperatorTarget extends PlannedResourceTarget implements Reloadable
 {
-  private String operSprayTable;
-  private String targetCol;
-  private String sprayOperatorCol;
+//  private String operSprayTable;
+//  private String targetCol;
+//  private String sprayOperatorCol;
   
   public PlannedOperatorTarget()
   {
     super();
     
-    MdEntityDAOIF operSprayMd = MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
-    this.operSprayTable = operSprayMd.getTableName();
-    this.targetCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TARGET);
-    this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
+//    MdEntityDAOIF operSprayMd = MdEntityDAO.getMdEntityDAO(OperatorSpray.CLASS);
+//    this.operSprayTable = operSprayMd.getTableName();
+//    this.targetCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.TARGET);
+//    this.sprayOperatorCol = QueryUtil.getColumnName(operSprayMd, OperatorSpray.SPRAYOPERATOR);
   }
   
   @Override

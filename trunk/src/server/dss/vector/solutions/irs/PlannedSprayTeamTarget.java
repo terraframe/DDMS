@@ -1,27 +1,23 @@
 package dss.vector.solutions.irs;
 
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-
-import dss.vector.solutions.util.QueryUtil;
 
 public class PlannedSprayTeamTarget extends PlannedResourceTarget implements Reloadable
 {
-  private String teamSprayTable;
-
-  private String sprayTeamCol;
-
-  private String targetCol;
+//  private String teamSprayTable;
+//
+//  private String sprayTeamCol;
+//
+//  private String targetCol;
 
   public PlannedSprayTeamTarget()
   {
     super();
 
-    MdEntityDAOIF teamSprayMd = MdEntityDAO.getMdEntityDAO(TeamSpray.CLASS);
-    this.teamSprayTable = teamSprayMd.getTableName();
-    sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
-    targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
+//    MdEntityDAOIF teamSprayMd = MdEntityDAO.getMdEntityDAO(TeamSpray.CLASS);
+//    this.teamSprayTable = teamSprayMd.getTableName();
+//    sprayTeamCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.SPRAYTEAM);
+//    targetCol = QueryUtil.getColumnName(teamSprayMd, TeamSpray.TARGET);
   }
 
   @Override
