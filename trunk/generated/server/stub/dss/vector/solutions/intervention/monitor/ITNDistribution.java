@@ -8,6 +8,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryException;
@@ -150,7 +151,8 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ITNDistribution.CLASS, itnQuery);
     QueryUtil.joinTermAllpaths(valueQuery, ITNDistribution.CLASS, itnQuery);
-    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
+    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
+        RelationshipDAOIF.PARENT_ID_COLUMN);
 
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
     valueQuery.WHERE(personQuery.getItnRecipientDelegate().EQ(itnQuery.getRecipient()));

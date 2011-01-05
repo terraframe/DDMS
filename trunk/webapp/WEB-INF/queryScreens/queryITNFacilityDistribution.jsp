@@ -119,6 +119,7 @@ YAHOO.util.Event.onDOMReady(function(){
     Halp.setReadableAttributes(request, "personAttribs", PersonViewDTO.CLASS, requestIF);
     %>
     available = new MDSS.Set(<%= request.getAttribute("personAttribs") %>);
+    
     personAttribs = Mojo.Iter.filter(personAttribs, function(attrib){
         if(attrib === 'workGeoEntity')
         {
@@ -136,6 +137,11 @@ YAHOO.util.Event.onDOMReady(function(){
    
    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
    selectableGroups.push({title:"Recipient", values:personColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.Person.CLASSS});
+
+   <%
+   Halp.setReadableAttributes(request, "itnAttribs", ITNDistributionViewDTO.CLASS, requestIF);
+   %>
+   available = new MDSS.Set(<%= request.getAttribute("itnAttribs") %>);
 
    if(available.contains('<%= ITNDistributionViewDTO.TARGETGROUPS %>'))
    {   
