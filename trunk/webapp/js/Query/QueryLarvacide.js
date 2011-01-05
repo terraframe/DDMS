@@ -24,8 +24,8 @@ Mojo.Meta.newClass('MDSS.QueryLarvacide', {
 
       this._commonQueryClasses = [
                                   this._groupByClass.CLASS,
-                                  "dss.vector.solutions.intervention.monitor.LarvacideInstance",
-                                  Mojo.$.dss.vector.solutions.Person.CLASS,
+//                                  "dss.vector.solutions.intervention.monitor.LarvacideInstance",
+//                                  Mojo.$.dss.vector.solutions.Person.CLASS,
                                   ];
 
       this._exclusionClasses = [];
