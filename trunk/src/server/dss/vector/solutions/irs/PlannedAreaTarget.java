@@ -2,6 +2,7 @@ package dss.vector.solutions.irs;
 
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.query.QueryConstants;
@@ -75,17 +76,13 @@ public class PlannedAreaTarget extends PlannedTargetUnion implements Reloadable
     // tree and not by exact matches on the universal type. For example, if Settlement is located within District
     // and District is chosen as universal criteria, then we gather all Settlements within Districts and Districts as well
     // (as opposed to gathering only Districts).
-    String universals = this.q.getUniversalsInCriteria();
+    String universal = this.q.getSmallestUniversal();
     
-    if (universals != null)
+    if (universal != null)
     {
-      String in = "IN(" + universals + ") \n";
-      
       String parentMd = QueryUtil.getColumnName(AllPaths.getParentUniversalMd());
       
-      sql += parentMd + " " + in;
-//      sql += "INNER JOIN "+GeoHierarchy.ALLPATHS_VIEW+" ap ON g."+type+" = ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" \n";
-//      sql += " AND (ap."+GeoHierarchy.ALLPATHS_ROOT_TYPE +" "+in + " OR ap."+GeoHierarchy.ALLPATHS_CHILD_TYPE+" "+in+") \n";
+      sql += parentMd + " = '" + MdEntity.getMdEntity(universal).getId() + "'";
     }
     
     sql += "GROUP BY "+parentGeoEntity+", "+Alias.PLANNED_DATE.getAlias()+", "

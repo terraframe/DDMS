@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,7 +28,6 @@ import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.EnumerationMaster;
-import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.Property;
@@ -70,6 +68,12 @@ public class IRSQuery implements Reloadable
   public static final String    OPERATOR_PLANNED_TARGET    = "operator_planned_target";
 
   private static final String   OPERATOR_PLANNED_COVERAGE  = "operator_planned_coverage";
+  
+  // The smallest (most depth) universal selected in the query screen
+  private String smallestUnivesal;
+  
+  // The selectable user alias of the smallest universal in the query screen
+  private String smallestUniversalSelectable;
 
   // The union of actual and planned targets must include the minimum set
   // required to make the query work so as to not include superfluous rows.
@@ -165,6 +169,7 @@ public class IRSQuery implements Reloadable
 
   public IRSQuery(String config, String xml, Layer layer)
   {
+    this.smallestUnivesal = null;
 //    mSeasonCol = QueryUtil.getColumnName(MalariaSeason.getIdMd());
 
     hasEpiWeek = false;
@@ -358,36 +363,9 @@ public class IRSQuery implements Reloadable
         || this.irsVQ.hasSelectableRef(AREA_PLANNED_COVERAGE);
   }
 
-  public String getUniversalsInCriteria()
+  String getSmallestUniversal()
   {
-    try
-    {
-      String[] selectedUniversals = null;
-
-      JSONObject selectedUniMap = queryConfig.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-
-      JSONArray universals = selectedUniMap.getJSONArray(AbstractSpray.CLASS + "."
-          + AbstractSpray.GEOENTITY);
-      selectedUniversals = new String[universals.length()];
-
-      if (universals.length() == 0)
-      {
-        return null;
-      }
-
-      for (int i = 0; i < universals.length(); i++)
-      {
-        String id = MdEntity.getMdEntity(universals.getString(i)).getId();
-        selectedUniversals[i] = "'" + id + "'";
-      }
-
-      return StringUtils.join(selectedUniversals, ",");
-    }
-
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
+    return this.smallestUnivesal;
   }
 
   /**
@@ -960,9 +938,9 @@ public class IRSQuery implements Reloadable
   {
     if (irsVQ.hasSelectableRef(AREA_PLANNED_COVERAGE))
     {
-      String geoType = getGeoType(AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY);
-
-      if (irsVQ.hasSelectableRef(geoType))
+      this.getGeoType();
+      
+      if (irsVQ.hasSelectableRef(this.smallestUniversalSelectable))
       {
         SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_COVERAGE);
         String sql = "(SUM(" + this.sprayedUnits + ")/NULLIF(" + this.sumAreaPlannedTargets()
@@ -1000,11 +978,11 @@ public class IRSQuery implements Reloadable
   {
     if (irsVQ.hasSelectableRef(AREA_PLANNED_TARGET))
     {
+      this.getGeoType();
+      
       SelectableSQL calc = (SelectableSQL) irsVQ.getSelectableRef(AREA_PLANNED_TARGET);
 
-      String geoType = getGeoType(AbstractSpray.CLASS + '.' + AbstractSpray.GEOENTITY);
-
-      if (irsVQ.hasSelectableRef(geoType))
+      if (irsVQ.hasSelectableRef(this.smallestUniversalSelectable))
       {
         String sql = this.sumAreaPlannedTargets();
         calc.setSQL(sql);
@@ -1494,10 +1472,16 @@ public class IRSQuery implements Reloadable
   }
 
   // FIXME make sure this works with multiple universals
-  private String getGeoType(String attrib)
+  private void getGeoType()
   {
-
-    String geoType = null;
+    if(this.smallestUnivesal != null)
+    {
+      // calculation already done--do nothing
+      return;
+    }
+    
+    String attrib = AbstractSpray.CLASS+"."+AbstractSpray.GEOENTITY;
+    
     try
     {
       String attributeKey = null;
@@ -1519,10 +1503,10 @@ public class IRSQuery implements Reloadable
             selectedUniversals[i] = universals.getString(i);
           }
           // dss_vector_solutions_intervention_monitor_IndividualCase_probableSource__district_geoId
-          geoType = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
-          geoType = geoType.substring(geoType.lastIndexOf('.')).toLowerCase();
-          geoType = attributeKey + '.' + geoType + '.' + GeoEntity.GEOID;
-          geoType = geoType.replace('.', '_');
+          this.smallestUnivesal = GeoHierarchy.getMostChildishUniversialType(selectedUniversals);
+          this.smallestUniversalSelectable = this.smallestUnivesal.substring(this.smallestUnivesal.lastIndexOf('.')).toLowerCase();
+          this.smallestUniversalSelectable = attributeKey + '.' + this.smallestUniversalSelectable + '.' + GeoEntity.GEOID;
+          this.smallestUniversalSelectable = this.smallestUniversalSelectable.replace('.', '_');
         }
       }
     }
@@ -1531,7 +1515,5 @@ public class IRSQuery implements Reloadable
     {
       throw new ProgrammingErrorException(e);
     }
-
-    return geoType;
   }
 }
