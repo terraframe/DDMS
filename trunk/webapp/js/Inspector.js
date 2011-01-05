@@ -838,11 +838,11 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
           
           if(isStatic)
           {
-            table.addRow(nameA, override, method.getArity(), defining, this._listAspects(method));
+            table.addRow(nameA, override, method.getArity(), defining);
           }
           else
           {
-            table.addRow(nameA, method.isAbstract(), override, method.getArity(), defining, this._listAspects(method));
+            table.addRow(nameA, method.isAbstract(), override, method.getArity(), defining);
           }
         }, that);
       }
@@ -873,29 +873,9 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
       
       document.getElementById(this._method).style.display = 'none';
       defPane.style.display = 'block';
-    },
-  
-    _listAspects : function(method)
-    {
-      var aspects = method.getAspects();
-      
-      var html = '';
-      if(aspects.length !== 0)
-      {
-        for(var i=0; i<aspects.length; i++)
-        {
-          html += '<span style="font-weight: bold">'+i.toString()+'</span>: '+aspects[i].toString() + '<br />';
-        }
-      }
-      else
-      {
-        html += '&nbsp;'
-      }
-      
-      return html; 
     }
   
-  },
+  }
 });
 
 Mojo.Meta.newClass('com.runwaysdk.inspector.LoggerImpl', {
