@@ -3,7 +3,7 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO'
 
   Extends : Mojo.$.com.runwaysdk.transport.attributes.AttributeDTO,
 
-  Abstract : true,
+  IsAbstract : true,
   
   Instance : {
   
@@ -19,7 +19,7 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO'
 
   Extends : Mojo.$.com.runwaysdk.transport.metadata.AttributeMdDTO,
 
-  Abstract : true,
+  IsAbstract : true,
   
   Instance : {
   
