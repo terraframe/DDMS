@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class IndividualPremiseListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -21,7 +22,7 @@ public class IndividualPremiseListener implements ExcelExportListener, ImportLis
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term method : Term.getRootChildren(IndividualPremiseVisitView.getInterventionMethodMd()))
+    for (Term method : TermRootCache.getRoots(IndividualPremiseVisitView.getInterventionMethodMd()))
     {
       extraColumns.add(new ExcelColumn(METHOD + method.getTermId(), method.getTermDisplayLabel().getValue()));
     }
@@ -31,7 +32,7 @@ public class IndividualPremiseListener implements ExcelExportListener, ImportLis
   {
     IndividualPremiseExcelView collection = (IndividualPremiseExcelView) instance;
     
-    for (Term term : Term.getRootChildren(IndividualPremiseVisitView.getInterventionMethodMd()))
+    for (Term term : TermRootCache.getRoots(IndividualPremiseVisitView.getInterventionMethodMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

@@ -51,6 +51,7 @@ import dss.vector.solutions.export.IndividualPremiseExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
 import dss.vector.solutions.export.PersonInterventionExcelView;
 import dss.vector.solutions.geo.UnknownGeoEntity;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public abstract class Facade extends FacadeBase implements Reloadable
 {
@@ -124,7 +125,11 @@ public abstract class Facade extends FacadeBase implements Reloadable
    */
   public static InputStream importExcelFile(InputStream inputStream, String type, String listenerMethod, String[] params)
   {
-
+    // Start caching Broswer Roots for this Thread.
+    TermRootCache.start();
+    // Assume we get an error.  Set to false only after we don't.
+    boolean error = true;
+    
 //    GeoSynonym.checkExcelGeoHierarchy(inputStream);
 
     ExcelImporter importer = new ExcelImporter(inputStream);
@@ -141,6 +146,9 @@ public abstract class Facade extends FacadeBase implements Reloadable
         
         // Invoke the method
         method.invoke(null, context, (Object)params);
+        
+        // Success, no exceptions, set error = false
+        error = false;
       }
       catch (NoSuchMethodException e)
       {
@@ -162,9 +170,19 @@ public abstract class Facade extends FacadeBase implements Reloadable
       {
         throw new ProgrammingErrorException(e);
       }
+      finally
+      {
+        // We don't want to exit this block without stopping caching
+        if (error)
+        {
+          TermRootCache.stop();
+        }
+      }
     }
     
-    return new ByteArrayInputStream(importer.read());
+    ByteArrayInputStream stream = new ByteArrayInputStream(importer.read());
+    TermRootCache.stop();
+    return stream;
   }
   
   public static InputStream exportAggregatedCases()

@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class PupalCollectionListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -21,7 +22,7 @@ public class PupalCollectionListener implements ExcelExportListener, ImportListe
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term specie : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
+    for (Term specie : TermRootCache.getRoots(PupalContainerView.getPupaeAmountMd()))
     {
       extraColumns.add(new ExcelColumn(AMOUNT + specie.getTermId(), specie.getTermDisplayLabel().getValue()));
     }
@@ -31,7 +32,7 @@ public class PupalCollectionListener implements ExcelExportListener, ImportListe
   {
     PupalCollectionExcelView collection = (PupalCollectionExcelView) instance;
     
-    for (Term term : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
+    for (Term term : TermRootCache.getRoots(PupalContainerView.getPupaeAmountMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

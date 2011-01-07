@@ -17,6 +17,7 @@ import dss.vector.solutions.intervention.monitor.ITNCommunityDistributionView;
 import dss.vector.solutions.intervention.monitor.ITNCommunityNet;
 import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class ITNCommunityDistributionListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -25,13 +26,13 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term grid : Term.getRootChildren(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
+    for (Term grid : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
     {
       String amount = MdAttribute.get(ITNCommunityTargetGroup.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(TARGETGROUPS + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (Term grid : Term.getRootChildren(ITNCommunityDistributionView.getDisplayNetsMd()))
+    for (Term grid : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayNetsMd()))
     {
       String amount = MdAttribute.get(ITNCommunityNet.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(ITNTYPE + grid.getTermId(), grid.getName().toString() + " " + amount));
@@ -50,7 +51,7 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
   {
     ITNCommunityExcelView community = (ITNCommunityExcelView) instance;
     
-    for (Term term : Term.getRootChildren(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
+    for (Term term : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -65,7 +66,7 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
       }
     }
     
-    for (Term term : Term.getRootChildren(ITNCommunityDistributionView.getDisplayNetsMd()))
+    for (Term term : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayNetsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

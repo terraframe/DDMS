@@ -10,6 +10,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class CaseReferralView extends CaseReferralViewBase implements Reloadable, ChildOption
 {
@@ -80,7 +81,7 @@ public class CaseReferralView extends CaseReferralViewBase implements Reloadable
   {
     Set<CaseReferralView> set = new TreeSet<CaseReferralView>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedCaseView.getCaseReferralsMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedCaseView.getCaseReferralsMd()))
     {
       CaseReferralView view = new CaseReferralView();
       view.setTerm(d);

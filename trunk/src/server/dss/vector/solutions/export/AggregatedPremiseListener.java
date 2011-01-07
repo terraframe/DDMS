@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class AggregatedPremiseListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -22,12 +23,12 @@ public class AggregatedPremiseListener implements ExcelExportListener, ImportLis
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term method : Term.getRootChildren(AggregatedPremiseVisitView.getInterventionMethodMd()))
+    for (Term method : TermRootCache.getRoots(AggregatedPremiseVisitView.getInterventionMethodMd()))
     {
       extraColumns.add(new ExcelColumn(METHOD + method.getTermId(), method.getTermDisplayLabel().getValue()));
     }
 
-    for (Term method : Term.getRootChildren(AggregatedPremiseVisitView.getNonTreatmentReasonMd()))
+    for (Term method : TermRootCache.getRoots(AggregatedPremiseVisitView.getNonTreatmentReasonMd()))
     {
       extraColumns.add(new ExcelColumn(REASON + method.getTermId(), method.getTermDisplayLabel().getValue()));
     }
@@ -37,7 +38,7 @@ public class AggregatedPremiseListener implements ExcelExportListener, ImportLis
   {
     AggregatedPremiseExcelView collection = (AggregatedPremiseExcelView) instance;
     
-    for (Term term : Term.getRootChildren(AggregatedPremiseVisitView.getInterventionMethodMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedPremiseVisitView.getInterventionMethodMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -48,7 +49,7 @@ public class AggregatedPremiseListener implements ExcelExportListener, ImportLis
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedPremiseVisitView.getNonTreatmentReasonMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedPremiseVisitView.getNonTreatmentReasonMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

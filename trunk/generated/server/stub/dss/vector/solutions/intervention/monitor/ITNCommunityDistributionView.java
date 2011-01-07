@@ -11,6 +11,7 @@ import com.runwaysdk.query.SelectablePrimitive;
 import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 
 public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -171,7 +172,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
   {
     Set<ITNCommunityNet> set = new TreeSet<ITNCommunityNet>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ITNCommunityDistributionView.getDisplayNetsMd()))
+    for (Term d : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayNetsMd()))
     {
       set.add(new ITNCommunityNet(this.getConcreteId(), d.getId()));
     }
@@ -204,7 +205,7 @@ public class ITNCommunityDistributionView extends ITNCommunityDistributionViewBa
   {
     Set<ITNCommunityTargetGroup> set = new TreeSet<ITNCommunityTargetGroup>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
+    for (Term d : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
     {
       set.add(new ITNCommunityTargetGroup(this.getConcreteId(), d.getId()));
     }

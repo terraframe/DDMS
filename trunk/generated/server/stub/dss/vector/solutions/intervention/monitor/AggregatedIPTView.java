@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.surveillance.PeriodType;
 
@@ -132,7 +133,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.runw
   {
     Set<IPTANCVisit> set = new TreeSet<IPTANCVisit>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayVisitsMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedIPTView.getDisplayVisitsMd()))
     {
       set.add(new IPTANCVisit(this.getConcreteId(), d.getId()));
     }
@@ -164,7 +165,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.runw
   {
     Set<IPTDose> set = new TreeSet<IPTDose>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayDoseMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedIPTView.getDisplayDoseMd()))
     {
       set.add(new IPTDose(this.getConcreteId(), d.getId()));
     }
@@ -196,7 +197,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.runw
   {
     Set<IPTPatients> set = new TreeSet<IPTPatients>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayPatientsMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedIPTView.getDisplayPatientsMd()))
     {
       set.add(new IPTPatients(this.getConcreteId(), d.getId()));
     }
@@ -228,7 +229,7 @@ public class AggregatedIPTView extends AggregatedIPTViewBase implements com.runw
   {
     Set<IPTTreatment> set = new TreeSet<IPTTreatment>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedIPTView.getDisplayTreatmentsMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedIPTView.getDisplayTreatmentsMd()))
     {
       set.add(new IPTTreatment(this.getConcreteId(), d.getId()));
     }

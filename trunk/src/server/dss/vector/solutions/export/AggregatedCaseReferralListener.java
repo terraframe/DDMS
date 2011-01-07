@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 
 public class AggregatedCaseReferralListener implements ExcelExportListener, ImportListener, Reloadable
@@ -24,17 +25,17 @@ public class AggregatedCaseReferralListener implements ExcelExportListener, Impo
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term referral : Term.getRootChildren(AggregatedCaseView.getCaseStockReferralMd()))
+    for (Term referral : TermRootCache.getRoots(AggregatedCaseView.getCaseStockReferralMd()))
     {
       extraColumns.add(new ExcelColumn(REFERRAL + referral.getTermId(), referral.getTermDisplayLabel().getValue()));
     }
 
-    for (Term category : Term.getRootChildren(AggregatedCaseView.getCaseReferralsMd()))
+    for (Term category : TermRootCache.getRoots(AggregatedCaseView.getCaseReferralsMd()))
     {
       extraColumns.add(new ExcelColumn(REASON + category.getTermId(), category.getTermDisplayLabel().getValue()));
     }
 
-    for (Term patient : Term.getRootChildren(AggregatedCaseView.getCaseDiagnosticMd()))
+    for (Term patient : TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosticMd()))
     {
       String label = patient.getTermDisplayLabel().getValue();
       extraColumns.add(new ExcelColumn(DIAGNOSTIC + patient.getTermId(), label + " - Total tests"));
@@ -54,7 +55,7 @@ public class AggregatedCaseReferralListener implements ExcelExportListener, Impo
   {
     AggregatedCaseReferralsExcelView aggregatedCase = (AggregatedCaseReferralsExcelView) instance;
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseStockReferralMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseStockReferralMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -65,7 +66,7 @@ public class AggregatedCaseReferralListener implements ExcelExportListener, Impo
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseReferralsMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseReferralsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -76,7 +77,7 @@ public class AggregatedCaseReferralListener implements ExcelExportListener, Impo
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseDiagnosticMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosticMd()))
     {
       Integer amount = null;
       Integer amountPositive = null;

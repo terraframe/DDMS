@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class SymptomListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -21,7 +22,7 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term term : Term.getRootChildren(IndividualInstance.getSymptomMd()))
+    for (Term term : TermRootCache.getRoots(IndividualInstance.getSymptomMd()))
     {
       extraColumns.add(new ExcelColumn(SYMPTOM + term.getTermId(), term.getTermDisplayLabel().getValue()));
     }
@@ -39,7 +40,7 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
   {
     IndividualCaseExcelView individualCase = (IndividualCaseExcelView) instance;
     
-    for (Term term : Term.getRootChildren(IndividualInstance.getSymptomMd()))
+    for (Term term : TermRootCache.getRoots(IndividualInstance.getSymptomMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

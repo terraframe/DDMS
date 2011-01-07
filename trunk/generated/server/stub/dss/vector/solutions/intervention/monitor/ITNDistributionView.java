@@ -16,6 +16,7 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 
 public class ITNDistributionView extends ITNDistributionViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -160,7 +161,7 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
   {
     Set<ITNDistributionTargetGroup> set = new TreeSet<ITNDistributionTargetGroup>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ITNDistributionView.getTargetGroupsMd()))
+    for (Term d : TermRootCache.getRoots(ITNDistributionView.getTargetGroupsMd()))
     {
       set.add(new ITNDistributionTargetGroup(this.getId(), d.getId()));
     }

@@ -19,6 +19,7 @@ import dss.vector.solutions.intervention.monitor.IPTDose;
 import dss.vector.solutions.intervention.monitor.IPTPatients;
 import dss.vector.solutions.intervention.monitor.IPTTreatment;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class AggregatedIPTListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -29,25 +30,25 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term grid : Term.getRootChildren(AggregatedIPTView.getDisplayPatientsMd()))
+    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayPatientsMd()))
     {
       String amount = MdAttribute.get(IPTPatients.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(PATIENTS + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (Term grid : Term.getRootChildren(AggregatedIPTView.getDisplayVisitsMd()))
+    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayVisitsMd()))
     {
       String amount = MdAttribute.get(IPTANCVisit.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(ANCVISITS + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (Term grid : Term.getRootChildren(AggregatedIPTView.getDisplayDoseMd()))
+    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayDoseMd()))
     {
       String amount = MdAttribute.get(IPTDose.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(DOSES + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (Term grid : Term.getRootChildren(AggregatedIPTView.getDisplayTreatmentsMd()))
+    for (Term grid : TermRootCache.getRoots(AggregatedIPTView.getDisplayTreatmentsMd()))
     {
       String amount = MdAttribute.get(IPTTreatment.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(TREATMENT + grid.getTermId(), grid.getName().toString() + " " + amount));
@@ -66,7 +67,7 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
   {
     AggregatedIPTExcelView aggregatedIPT = (AggregatedIPTExcelView) instance;
     
-    for (Term term : Term.getRootChildren(AggregatedIPTView.getDisplayPatientsMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedIPTView.getDisplayPatientsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -81,7 +82,7 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedIPTView.getDisplayVisitsMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedIPTView.getDisplayVisitsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -96,7 +97,7 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedIPTView.getDisplayDoseMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedIPTView.getDisplayDoseMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -111,7 +112,7 @@ public class AggregatedIPTListener implements ExcelExportListener, ImportListene
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedIPTView.getDisplayTreatmentsMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedIPTView.getDisplayTreatmentsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

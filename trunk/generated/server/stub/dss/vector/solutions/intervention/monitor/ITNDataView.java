@@ -10,6 +10,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.surveillance.PeriodType;
 
@@ -145,7 +146,7 @@ public class ITNDataView extends ITNDataViewBase implements com.runwaysdk.genera
   {
     Set<ITNNet> set = new TreeSet<ITNNet>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ITNDataView.getDisplayNetsMd()))
+    for (Term d : TermRootCache.getRoots(ITNDataView.getDisplayNetsMd()))
     {
       set.add(new ITNNet(this.getConcreteId(), d.getId()));
     }
@@ -177,7 +178,7 @@ public class ITNDataView extends ITNDataViewBase implements com.runwaysdk.genera
   {
     Set<ITNTargetGroup> set = new TreeSet<ITNTargetGroup>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ITNDataView.getDisplayTargetGroupsMd()))
+    for (Term d : TermRootCache.getRoots(ITNDataView.getDisplayTargetGroupsMd()))
     {
       set.add(new ITNTargetGroup(this.getConcreteId(), d.getId()));
     }
@@ -209,7 +210,7 @@ public class ITNDataView extends ITNDataViewBase implements com.runwaysdk.genera
   {
     Set<ITNService> set = new TreeSet<ITNService>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ITNDataView.getDisplayServicesMd()))
+    for (Term d : TermRootCache.getRoots(ITNDataView.getDisplayServicesMd()))
     {
       set.add(new ITNService(this.getConcreteId(), d.getId()));
     }

@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class SurveyExcelListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -22,12 +23,12 @@ public class SurveyExcelListener implements ExcelExportListener, ImportListener,
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term location : Term.getRootChildren(SurveyedPersonView.getDisplayLocationsMd()))
+    for (Term location : TermRootCache.getRoots(SurveyedPersonView.getDisplayLocationsMd()))
     {
       extraColumns.add(new ExcelColumn(LOCATIONS + location.getTermId(), location.getTermDisplayLabel().getValue()));
     }
     
-    for (Term treatment : Term.getRootChildren(SurveyedPersonView.getDisplayTreatmentsMd()))
+    for (Term treatment : TermRootCache.getRoots(SurveyedPersonView.getDisplayTreatmentsMd()))
     {
       extraColumns.add(new ExcelColumn(TREATMENTS + treatment.getTermId(), treatment.getTermDisplayLabel().getValue()));
     }
@@ -45,7 +46,7 @@ public class SurveyExcelListener implements ExcelExportListener, ImportListener,
   {
     SurveyExcelView survey = (SurveyExcelView) instance;
     
-    for (Term term : Term.getRootChildren(SurveyedPersonView.getDisplayLocationsMd()))
+    for (Term term : TermRootCache.getRoots(SurveyedPersonView.getDisplayLocationsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -59,7 +60,7 @@ public class SurveyExcelListener implements ExcelExportListener, ImportListener,
       }
     }
     
-    for (Term term : Term.getRootChildren(SurveyedPersonView.getDisplayTreatmentsMd()))
+    for (Term term : TermRootCache.getRoots(SurveyedPersonView.getDisplayTreatmentsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

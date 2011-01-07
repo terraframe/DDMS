@@ -31,6 +31,7 @@ import dss.vector.solutions.general.ThresholdCalculationTypeView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
@@ -767,12 +768,12 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     boolean needsJoin = false;
 
     String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
-    for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCasePatientTypeMd()))
+    for (Term patientType : TermRootCache.getRoots(AggregatedCaseView.getCasePatientTypeMd()))
     {
       // String patientTypeMoID = patientType.getTermId().replace(":", "");
       String patientTypeMoID = QueryUtil.aliasTerms(patientType);
 
-      for (Term patientTypeAmount : Term.getRootChildren(CasePatientTypeView.getPatientCategoryMd()))
+      for (Term patientTypeAmount : TermRootCache.getRoots(CasePatientTypeView.getPatientCategoryMd()))
       {
         // String patientTypeAmountMoID =
         // patientTypeAmount.getTermId().replace(":", "");
@@ -817,12 +818,12 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     boolean needsJoin = false;
 
     String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
-    for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCaseDiagnosisTypeMd()))
+    for (Term patientType : TermRootCache.getRoots(AggregatedCaseView.getCaseDiagnosisTypeMd()))
     {
       // String patientTypeMoID = patientType.getTermId().replace(":", "");
       String patientTypeMoID = QueryUtil.aliasTerms(patientType);
 
-      for (Term patientTypeAmount : Term.getRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
+      for (Term patientTypeAmount : TermRootCache.getRoots(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
       {
         // String patientTypeAmountMoID =
         // patientTypeAmount.getTermId().replace(":", "");
@@ -867,12 +868,12 @@ public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.
     boolean needsJoin = false;
 
     String patientTypeSql = "SELECT ac." + id + " as aggcase\n";
-    for (Term patientType : Term.getRootChildren(AggregatedCaseView.getCaseDiseaseManifestationMd()))
+    for (Term patientType : TermRootCache.getRoots(AggregatedCaseView.getCaseDiseaseManifestationMd()))
     {
       // String patientTypeMoID = patientType.getTermId().replace(":", "");
       String patientTypeMoID = QueryUtil.aliasTerms(patientType);
 
-      for (Term patientTypeAmount : Term.getRootChildren(CaseDiseaseManifestationView.getDiseaseCategoryMd()))
+      for (Term patientTypeAmount : TermRootCache.getRoots(CaseDiseaseManifestationView.getDiseaseCategoryMd()))
       {
         // String patientTypeAmountMoID =
         // patientTypeAmount.getTermId().replace(":", "");

@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 
 public class AggregatedCaseTreatmentListener implements ExcelExportListener, ImportListener, Reloadable
@@ -23,17 +24,17 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term treatment : Term.getRootChildren(AggregatedCaseView.getCaseTreatmentsMd()))
+    for (Term treatment : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentsMd()))
     {
       extraColumns.add(new ExcelColumn(TREATMENT + treatment.getTermId(), treatment.getTermDisplayLabel().getValue()));
     }
 
-    for (Term method : Term.getRootChildren(AggregatedCaseView.getCaseTreatmentMethodMd()))
+    for (Term method : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentMethodMd()))
     {
       extraColumns.add(new ExcelColumn(METHOD + method.getTermId(), method.getTermDisplayLabel().getValue()));
     }
 
-    for (Term stock : Term.getRootChildren(AggregatedCaseView.getCaseStocksMd()))
+    for (Term stock : TermRootCache.getRoots(AggregatedCaseView.getCaseStocksMd()))
     {
       extraColumns.add(new ExcelColumn(STOCK + stock.getTermId(), stock.getTermDisplayLabel().getValue()));
     }
@@ -51,7 +52,7 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
   {
     AggregatedCaseTreatmentsExcelView aggregatedCase = (AggregatedCaseTreatmentsExcelView) instance;
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseTreatmentsMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -62,7 +63,7 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseTreatmentMethodMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentMethodMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -73,7 +74,7 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
       }
     }
     
-    for (Term term : Term.getRootChildren(AggregatedCaseView.getCaseStocksMd()))
+    for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseStocksMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

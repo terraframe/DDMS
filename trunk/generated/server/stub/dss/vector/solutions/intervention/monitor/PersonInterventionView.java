@@ -12,6 +12,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 
 public class PersonInterventionView extends PersonInterventionViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -87,7 +88,7 @@ public class PersonInterventionView extends PersonInterventionViewBase implement
   @Override
   public PersonInterventionMethodView[] getInterventionMethods()
   {
-    Term[] terms = Term.getRootChildren(PersonInterventionViewBase.getInterventionMethodMd());
+    Term[] terms = TermRootCache.getRoots(PersonInterventionViewBase.getInterventionMethodMd());
     
     return this.getInterventionMethods(terms);
   }
@@ -131,7 +132,7 @@ public class PersonInterventionView extends PersonInterventionViewBase implement
 
   public static PersonInterventionMethodView[][] getInterventionMethodsForViews(PersonInterventionView[] views)
   {
-    Term[] terms = Term.getRootChildren(PersonInterventionViewBase.getInterventionMethodMd());
+    Term[] terms = TermRootCache.getRoots(PersonInterventionViewBase.getInterventionMethodMd());
 
     PersonInterventionMethodView[][] methods = new PersonInterventionMethodView[views.length][];
 

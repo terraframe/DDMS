@@ -12,6 +12,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBase implements Reloadable, ChildOption
 {
@@ -79,7 +80,7 @@ public class CaseDiseaseManifestationView extends CaseDiseaseManifestationViewBa
   {
     Set<CaseDiseaseManifestationView> set = new TreeSet<CaseDiseaseManifestationView>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedCaseView.getCaseDiseaseManifestationMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedCaseView.getCaseDiseaseManifestationMd()))
     {
       CaseDiseaseManifestationView view = new CaseDiseaseManifestationView();
       view.setTerm(d);

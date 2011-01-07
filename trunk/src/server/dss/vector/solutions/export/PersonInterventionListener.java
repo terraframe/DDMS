@@ -14,6 +14,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.intervention.monitor.PersonInterventionView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class PersonInterventionListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -21,7 +22,7 @@ public class PersonInterventionListener implements ExcelExportListener, ImportLi
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term method : Term.getRootChildren(PersonInterventionView.getInterventionMethodMd()))
+    for (Term method : TermRootCache.getRoots(PersonInterventionView.getInterventionMethodMd()))
     {
       extraColumns.add(new ExcelColumn(METHOD + method.getTermId(), method.getTermDisplayLabel().getValue()));
     }
@@ -31,7 +32,7 @@ public class PersonInterventionListener implements ExcelExportListener, ImportLi
   {
     PersonInterventionExcelView collection = (PersonInterventionExcelView) instance;
     
-    for (Term term : Term.getRootChildren(PersonInterventionView.getInterventionMethodMd()))
+    for (Term term : TermRootCache.getRoots(PersonInterventionView.getInterventionMethodMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

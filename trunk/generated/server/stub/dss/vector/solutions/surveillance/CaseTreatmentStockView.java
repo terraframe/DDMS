@@ -10,6 +10,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class CaseTreatmentStockView extends CaseTreatmentStockViewBase implements Reloadable, ChildOption
 {
@@ -80,7 +81,7 @@ public class CaseTreatmentStockView extends CaseTreatmentStockViewBase implement
   {
     Set<CaseTreatmentStockView> set = new TreeSet<CaseTreatmentStockView>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedCaseView.getCaseStocksMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedCaseView.getCaseStocksMd()))
     {
       CaseTreatmentStockView view = new CaseTreatmentStockView();
       view.setTerm(d);

@@ -16,6 +16,7 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import dss.vector.solutions.intervention.monitor.ITNDistributionTargetGroup;
 import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class ITNDistributionListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -23,7 +24,7 @@ public class ITNDistributionListener implements ExcelExportListener, ImportListe
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term grid : Term.getRootChildren(ITNDistributionView.getTargetGroupsMd()))
+    for (Term grid : TermRootCache.getRoots(ITNDistributionView.getTargetGroupsMd()))
     {
       String amount = MdAttribute.get(ITNDistributionTargetGroup.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(TARGETGROUPS + grid.getTermId(), grid.getName().toString() + " " + amount));
@@ -42,7 +43,7 @@ public class ITNDistributionListener implements ExcelExportListener, ImportListe
   {
     ITNDistributionExcelView aggregatedITN = (ITNDistributionExcelView) instance;
     
-    for (Term term : Term.getRootChildren(ITNDistributionView.getTargetGroupsMd()))
+    for (Term term : TermRootCache.getRoots(ITNDistributionView.getTargetGroupsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

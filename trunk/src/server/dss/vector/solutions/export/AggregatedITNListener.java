@@ -18,6 +18,7 @@ import dss.vector.solutions.intervention.monitor.ITNNet;
 import dss.vector.solutions.intervention.monitor.ITNService;
 import dss.vector.solutions.intervention.monitor.ITNTargetGroup;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class AggregatedITNListener implements ExcelExportListener, ImportListener, Reloadable
 {
@@ -27,19 +28,19 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term grid : Term.getRootChildren(ITNDataView.getDisplayServicesMd()))
+    for (Term grid : TermRootCache.getRoots(ITNDataView.getDisplayServicesMd()))
     {
       String amount = MdAttribute.get(ITNService.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(SERVICES + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (Term grid : Term.getRootChildren(ITNDataView.getDisplayTargetGroupsMd()))
+    for (Term grid : TermRootCache.getRoots(ITNDataView.getDisplayTargetGroupsMd()))
     {
       String amount = MdAttribute.get(ITNTargetGroup.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(TARGETGROUPS + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
     
-    for (Term grid : Term.getRootChildren(ITNDataView.getDisplayNetsMd()))
+    for (Term grid : TermRootCache.getRoots(ITNDataView.getDisplayNetsMd()))
     {
       String amount = MdAttribute.get(ITNNet.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(ITNTYPE + grid.getTermId(), grid.getName().toString() + " " + amount));
@@ -58,7 +59,7 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
   {
     AggregatedITNExcelView aggregatedITN = (AggregatedITNExcelView) instance;
     
-    for (Term term : Term.getRootChildren(ITNDataView.getDisplayServicesMd()))
+    for (Term term : TermRootCache.getRoots(ITNDataView.getDisplayServicesMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -73,7 +74,7 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
       }
     }
     
-    for (Term term : Term.getRootChildren(ITNDataView.getDisplayTargetGroupsMd()))
+    for (Term term : TermRootCache.getRoots(ITNDataView.getDisplayTargetGroupsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {
@@ -88,7 +89,7 @@ public class AggregatedITNListener implements ExcelExportListener, ImportListene
       }
     }
     
-    for (Term term : Term.getRootChildren(ITNDataView.getDisplayNetsMd()))
+    for (Term term : TermRootCache.getRoots(ITNDataView.getDisplayNetsMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

@@ -28,6 +28,7 @@ import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -267,7 +268,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
     String numberInhabitantsSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberInhabitants);  
     
     String taxonSql = "SELECT pc."+id+" ";
-    for (Term taxon : Term.getRootChildren(PupalContainerView.getPupaeAmountMd()))
+    for (Term taxon : TermRootCache.getRoots(PupalContainerView.getPupaeAmountMd()))
     {
 //      String moID = taxon.getTermId().replace(":", "");
       String moID = QueryUtil.aliasTerms(taxon);

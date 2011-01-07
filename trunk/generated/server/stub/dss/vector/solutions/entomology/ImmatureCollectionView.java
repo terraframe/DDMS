@@ -24,6 +24,7 @@ import dss.vector.solutions.general.ElevatedImmatureIndexAlert;
 import dss.vector.solutions.general.SystemAlert;
 import dss.vector.solutions.general.SystemAlertType;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.util.MDSSProperties;
 
@@ -329,7 +330,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
     List<CollectionContainerView> list = new LinkedList<CollectionContainerView>();
     Set<CollectionContainer> set = new TreeSet<CollectionContainer>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ImmatureCollectionView.getContainerGridMd()))
+    for (Term d : TermRootCache.getRoots(ImmatureCollectionView.getContainerGridMd()))
     {
       set.add(new CollectionContainer(this.getId(), d.getId()));
     }

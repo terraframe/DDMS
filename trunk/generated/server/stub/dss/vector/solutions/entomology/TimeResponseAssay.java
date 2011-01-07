@@ -17,6 +17,7 @@ import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -121,10 +122,10 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
 
     boolean needsJoin = false;
 
-    for (Term assay : Term.getRootChildren(TimeResponseAssayView.getAssayMd()))
+    for (Term assay : TermRootCache.getRoots(TimeResponseAssayView.getAssayMd()))
     {
 
-      for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
+      for (Term lifeStage : TermRootCache.getRoots(TimeResponseAssayView.getLifeStageMd()))
       {
 
 //        String stageAmmountCol = assay.getTermId().replace(":", "")
@@ -136,10 +137,10 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
       }
     }
 
-    for (Term assay : Term.getRootChildren(TimeResponseAssayView.getAssayMd()))
+    for (Term assay : TermRootCache.getRoots(TimeResponseAssayView.getAssayMd()))
     {
 
-      for (Term lifeStage : Term.getRootChildren(TimeResponseAssayView.getLifeStageMd()))
+      for (Term lifeStage : TermRootCache.getRoots(TimeResponseAssayView.getLifeStageMd()))
       {
 
 //        String stageAmmountCol = assay.getTermId().replace(":", "")

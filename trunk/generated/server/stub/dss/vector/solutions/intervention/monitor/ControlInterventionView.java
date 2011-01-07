@@ -24,6 +24,7 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.GridComparator;
 
 public class ControlInterventionView extends ControlInterventionViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -317,7 +318,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
   {
     Set<InsecticideInterventionView> set = new TreeSet<InsecticideInterventionView>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(ControlInterventionView.getInsecticideInterventionMd()))
+    for (Term d : TermRootCache.getRoots(ControlInterventionView.getInsecticideInterventionMd()))
     {
       InsecticideInterventionView view = new InsecticideInterventionView();
       view.setInterventionMethod(d);

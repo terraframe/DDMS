@@ -13,6 +13,7 @@ import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeView;
 
 public class CaseDiagnosisTypeListener implements ExcelExportListener, ImportListener, Reloadable
@@ -21,7 +22,7 @@ public class CaseDiagnosisTypeListener implements ExcelExportListener, ImportLis
   
   public void addColumns(List<ExcelColumn> extraColumns)
   {
-    for (Term diagnosis : Term.getRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
+    for (Term diagnosis : TermRootCache.getRoots(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
     {
       extraColumns.add(new ExcelColumn(DIAGNOSIS + diagnosis.getTermId(), diagnosis.getTermDisplayLabel().getValue()));
     }
@@ -31,7 +32,7 @@ public class CaseDiagnosisTypeListener implements ExcelExportListener, ImportLis
   {
     CaseDiagnosisTypeExcelView collection = (CaseDiagnosisTypeExcelView) instance;
     
-    for (Term term : Term.getRootChildren(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
+    for (Term term : TermRootCache.getRoots(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
     {
       for (ExcelColumn column : extraColumns)
       {

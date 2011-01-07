@@ -12,6 +12,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermRootCache;
 
 public class CasePatientTypeView extends CasePatientTypeViewBase implements Reloadable, ChildOption
 {
@@ -80,7 +81,7 @@ public class CasePatientTypeView extends CasePatientTypeViewBase implements Relo
   {
     Set<CasePatientTypeView> set = new TreeSet<CasePatientTypeView>(new GridComparator());
 
-    for (Term d : Term.getRootChildren(AggregatedCaseView.getCasePatientTypeMd()))
+    for (Term d : TermRootCache.getRoots(AggregatedCaseView.getCasePatientTypeMd()))
     {
       CasePatientTypeView view = new CasePatientTypeView();
       view.setTerm(d);
