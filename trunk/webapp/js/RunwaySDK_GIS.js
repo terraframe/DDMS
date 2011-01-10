@@ -1,7 +1,14 @@
-// geometry
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO', {
+(function(){
 
-  Extends : Mojo.$.com.runwaysdk.transport.attributes.AttributeDTO,
+var geo = {
+  GEO_PACKAGE : 'com.runwaysdk.gis.transport.attributes.',
+  MD_PACKAGE : 'com.runwaysdk.gis.transport.metadata.'
+};
+
+// geometry
+var attrGeo = Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributeGeometryDTO', {
+
+  Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
 
   IsAbstract : true,
   
@@ -15,9 +22,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO'
 });
 
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO', {
+var geoMd = Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributeGeometryMdDTO', {
 
-  Extends : Mojo.$.com.runwaysdk.transport.metadata.AttributeMdDTO,
+  Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
 
   IsAbstract : true,
   
@@ -31,9 +38,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO'
 });
 
 // lineString
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeLineStringDTO', {
+Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributeLineStringDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
+  Extends: attrGeo,
   
   Instance : {
   
@@ -44,9 +51,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeLineStringDT
   }
 });
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeLineStringMdDTO', {
+Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributeLineStringMdDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
+  Extends: geoMd,
 
   Instance : {
   
@@ -58,9 +65,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeLineStringMdDT
 });
 
 // point
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributePointDTO', {
+Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributePointDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
+  Extends: attrGeo,
   
   Instance : {
   
@@ -71,9 +78,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributePointDTO', {
   }
 });
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributePointMdDTO', {
+Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributePointMdDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
+  Extends: geoMd,
 
   Instance : {
   
@@ -85,9 +92,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributePointMdDTO', {
 });
 
 // polygon
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributePolygonDTO', {
+Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributePolygonDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
+  Extends: attrGeo,
   
   Instance : {
   
@@ -98,9 +105,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributePolygonDTO',
   }
 });
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributePolygonMdDTO', {
+Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributePolygonMdDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
+  Extends: geoMd,
 
   Instance : {
   
@@ -113,9 +120,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributePolygonMdDTO',
 
 
 // multiLine
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiLineStringDTO', {
+Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributeMultiLineStringDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
+  Extends: attrGeo,
   
   Instance : {
   
@@ -126,9 +133,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiLineStr
   }
 });
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiLineStringMdDTO', {
+Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributeMultiLineStringMdDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
+  Extends: geoMd,
 
   Instance : {
   
@@ -140,9 +147,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiLineStrin
 });
 
 // multiPoint
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiPointDTO', {
+Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributeMultiPointDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
+  Extends: attrGeo,
   
   Instance : {
   
@@ -153,9 +160,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiPointDT
   }
 });
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiPointMdDTO', {
+Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributeMultiPointMdDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
+  Extends: geoMd,
 
   Instance : {
   
@@ -167,9 +174,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiPointMdDT
 });
 
 // multiPolygon
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiPolygonDTO', {
+Mojo.Meta.newClass(geo.GEO_PACKAGE+'AttributeMultiPolygonDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.attributes.AttributeGeometryDTO,
+  Extends: attrGeo,
   
   Instance : {
   
@@ -180,9 +187,9 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.attributes.AttributeMultiPolygon
   }
 });
 
-Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiPolygonMdDTO', {
+Mojo.Meta.newClass(geo.MD_PACKAGE+'AttributeMultiPolygonMdDTO', {
 
-  Extends: Mojo.$.com.runwaysdk.gis.transport.metadata.AttributeGeometryMdDTO,
+  Extends: geoMd,
 
   Instance : {
   
@@ -192,3 +199,5 @@ Mojo.Meta.newClass('com.runwaysdk.gis.transport.metadata.AttributeMultiPolygonMd
     }
   }
 });
+
+})();

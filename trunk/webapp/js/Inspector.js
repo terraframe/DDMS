@@ -6,8 +6,6 @@
 
 Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
 
-  Alias : Mojo.$,
-
   IsSingleton : true,
 
   Instance : {
@@ -45,7 +43,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
       
       // regex to define allowed and disallowed weaving paths (mostly to avoid infinite recursion
       // FIXME don't completely disallow classes, just the ones that cause infinite recursion
-      this._classRE = /^(?:(?!(Mojo.log\..*)|(Mojo.aspect)|(Mojo.Iter)|(Mojo.Util)|(Mojo.Meta)|(com\.terraframe\.mojo\.((Class)|(Method)|(Constant)|(Base)|(inspector\.)))).)*$/;
+      this._classRE = /^(?:(?!(Mojo.log\..*)|(Mojo.aspect)|(Mojo.Iter)|(Mojo.Util)|(Mojo.Meta)|(com\.terraframe\.mojo\.((MetaClass)|(Method)|(Constant)|(Base)|(inspector\.)))).)*$/;
       this._methodRE = /^(?!toString).*$/;
       
       
@@ -434,8 +432,6 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
 
 Mojo.Meta.newClass('com.runwaysdk.inspector.Content', {
 
-  Alias : Mojo.$,
-  
   IsAbstract : true,
 
   Instance : {
@@ -656,7 +652,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
       
       var html = '';
       html += '<div style="margin: 10px">';
-      html += '<div style="font-weight: bold;">Hierarchy</div><hr />';
+      html += '<div style="font-weight: bold;">Hierarchy ['+Mojo.Meta.classCount()+' classes]</div><hr />';
       html += '<ul style="margin:0px; padding:0px">'+nodeLi+'</ul>';
       html += '</div>';
 
@@ -734,15 +730,32 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
         sublinks.push(a);
       }
       
+      var isIF = meta.isInterface();
+      
       // definition
       table = new com.runwaysdk.inspector.Table();
       table.setHeaders('Property', 'Value');
       table.addRow(['Package', pckName]);
-      table.addRow(['Class Name', meta.getName()]);
+      table.addRow([(isIF ? 'Interface Name' : 'Class Name'), meta.getName()]);
       table.addRow(['Abstract', meta.isAbstract()]);
       table.addRow(['Singleton', meta.isSingleton()]);
+
+      if(!isIF)
+      {
+        var IFs = meta.getInterfaces();
+        var IFlinks = [];
+        for(var i=0; i<IFs.length; i++)
+        {
+          var a = this.constructor.viewClassAction(IFs[i]);
+          IFlinks.push(a);
+        }
+        
+        table.addRow(['Implements', (IFlinks.length > 0 ? IFlinks.join('<br />') : '&nbsp;')]);
+      }
+
       table.addRow(['Extends', extendsName]);
-      table.addRow(['Sub Classes', (sublinks.length > 0 ? sublinks.join('<br />') : '&nbsp;')]);
+      table.addRow([(isIF ? 'Sub-Interfaces' : 'Sub-Classes'), 
+                    (sublinks.length > 0 ? sublinks.join('<br />') : '&nbsp;')]);
       
       html += 'Class Definition:<br />';
       html += table.getHTML();
@@ -849,7 +862,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
       
       // instance methods
       table = new com.runwaysdk.inspector.Table();
-      table.setHeaders('Name', 'Abstract', 'Override', 'Arity', 'Defined On', 'Aspects');
+      table.setHeaders('Name', 'Abstract', 'Override', 'Arity', 'Defined On');
       
       methodsToRows(table, meta.getInstanceMethods(), this, false);
       
@@ -859,7 +872,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
       
       // static methods
       table = new com.runwaysdk.inspector.Table();
-      table.setHeaders('Name', 'Hiding', 'Arity', 'Defined On', 'Aspects');
+      table.setHeaders('Name', 'Hiding', 'Arity', 'Defined On');
       
       methodsToRows(table, meta.getStaticMethods(), this, true);
       
@@ -874,7 +887,6 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
       document.getElementById(this._method).style.display = 'none';
       defPane.style.display = 'block';
     }
-  
   }
 });
 
@@ -1443,8 +1455,6 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.EventManager', {
  */
 Mojo.Meta.newClass('com.runwaysdk.inspector.SyntaxHighlighter', {
 
-  Alias : Mojo.$,
-  
   Constants : {
   
      KEYWORDS : [ "break", "case", "comment", "continue", "default", "delete", "do", "document", "else", "export", "for", "function", "if", "import", "in", "label", "new", "null", "prototype", "return", "switch", "this", "typeof", "var", "void", "while", "window", "with", "goto", "true", "false", "try", "catch", "throw", "throws", "finally", "Array", "Boolean", "Date", "Error", "Math", "Number", "RegExp", "String" ]

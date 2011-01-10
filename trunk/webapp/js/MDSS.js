@@ -514,6 +514,11 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
 
 // GLOBAL FUNCTION TO RUN ON EVERY PAGE
 (function(){
+  
+  // Set native parsing to false because the system has been tested using
+  // non-native parsing and we don't any surprises, even if native is faster.
+  Mojo.ClientSession.setNativeParsingEnabled(false);
+  
   YAHOO.util.Event.onDOMReady(function(){    
     YAHOO.util.Event.on(window, 'beforeunload', function(){
       var elements = YAHOO.util.Selector.query('input');

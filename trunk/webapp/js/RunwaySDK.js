@@ -1,42 +1,117 @@
 /**
  * Terraframe Mojo Javascript library.
+ * Author: Justin Naifeh
  * 
- * (c) 2009
+ * (c) 2010
  */
-// TODO use self-executing function to return Mojo
-// and add private variables for commonly used properties/functions
-// like TO_STRING and util funcs (that can later be copied to a class)
-var Mojo = {
+(function(){
 
-  /**
-   * $ is the namespace for Mojo hardcoded/generated classes.
-   */
-  $ : {},
+  var Mojo = {
   
-  /**
-   * Manages classes.
-   */
-  Meta : {
+    // protected namespace for all classes
+    $ : {},
+    
+    // core constants
+    JSON_ENDPOINT : 'Mojo/JSONControllerServlet',
+    ATTRIBUTE_DTO_PACKAGE : 'com.runwaysdk.transport.attributes.',
+    MD_DTO_PACKAGE : 'com.runwaysdk.transport.metadata.',
+    ROOT_PACKAGE : 'com.runwaysdk.',
+    BUSINESS_PACKAGE : 'com.runwaysdk.business.',
+    ATTRIBUTE_PROBLEM_PACKAGE : 'com.runwaysdk.dataaccess.attributes.',
+    
+    // toString constants used for type checking
+    IS_OBJECT_TO_STRING : Object.prototype.toString.call({}),
+    IS_ARRAY_TO_STRING : Object.prototype.toString.call([]),
+    IS_FUNCTION_TO_STRING : Object.prototype.toString.call(function(){}),
+    IS_DATE_TO_STRING : Object.prototype.toString.call(new Date()),
+    IS_STRING_TO_STRING : Object.prototype.toString.call(''),
+    IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
+    IS_BOOLEAN_TO_STRING : Object.prototype.toString.call(true),
+    
+    META_CLASS_GETTER : 'getMetaClass',
+    
+    // general purpose empty function
+    emptyFunction : function(){},
+    
+    // reference to global object (e.g., window)
+    GLOBAL : (function(){ return this; })()
+  };
+  
+  // Make Mojo visible to the global namespace
+  Mojo.GLOBAL.Mojo = Mojo;
+  
+  var isObject = function(o)
+  {
+    return  o != null && Object.prototype.toString.call(o) === Mojo.IS_OBJECT_TO_STRING;
+  };
 
-    _classes : {},
-    
-    _native : [],
-    
-    _isInitialized : false,
-    
-    _pseudoConstructor : function(){},
-    
+  var isArray = function(o)
+  {
+    return o != null && Object.prototype.toString.call(o) === Mojo.IS_ARRAY_TO_STRING;
+  };
+
+  var isFunction = function(o)
+  {
+    return o != null && Object.prototype.toString.call(o) === Mojo.IS_FUNCTION_TO_STRING;
+  };
+
+  var isDate = function(o)
+  {
+    return o != null && Object.prototype.toString.call(o) === Mojo.IS_DATE_TO_STRING;
+  };
+
+  var isString = function(o)
+  {
+    return o != null && Object.prototype.toString.call(o) === Mojo.IS_STRING_TO_STRING;
+  };
+
+  var isNumber = function(o)
+  {
+    return o != null && Object.prototype.toString.call(o) === Mojo.IS_NUMBER_TO_STRING;
+  };
+  
+  var isBoolean = function(o)
+  {
+    return o != null && Object.prototype.toString.call(o) === Mojo.IS_BOOLEAN_TO_STRING;
+  };
+  
+  var isUndefined = function(o)
+  {
+    return typeof o === 'undefined';
+  };
+  
+  var isElement = function(o)
+  {
+    return o != null && o instanceof Element; // TODO make cross-browser
+  };
+  
+  Mojo.SUPPORTS_NATIVE_PARSING = Mojo.GLOBAL.JSON != null && isFunction(Mojo.GLOBAL.JSON.parse) && isFunction(Mojo.GLOBAL.JSON.stringify);
+  
+  var _isInitialized = false;
+  var _classes = {};
+  var _pseudoConstructor = function(){};
+  var _native = []; // array of native bootstrapping classes
+  
+  // references to commonly used classes to avoid slow lookups
+  var _baseClassRef = null;
+  var _metaClassRef = null;
+  var _exceptionClassRef = null;
+  var _constantClassRef = null;
+  var _methodClassRef = null;
+  
+  var meta = {
+
     newInstance : function(type)
     {
       if (!Mojo.Meta.classExists(type))
       {
-        throw new Mojo.$.com.runwaysdk.Exception("Unable to newInstance " + type + ". The specified class does not exist.");
+        throw new _exceptionClassRef("Unable to newInstance " + type + ". The specified class does not exist.");
       }
       
-      var klass = Mojo.Meta._classes[type];
-      var args = [].splice.call(arguments, 1);
+      var klass = _classes[type];
+      var args = [].splice.call(arguments, 1, arguments.length);
       
-      var obj = new klass(Mojo.Meta._pseudoConstructor);
+      var obj = new klass(_pseudoConstructor);
       klass.prototype.initialize.apply(obj, args);
       
       return obj;
@@ -49,13 +124,13 @@ var Mojo = {
       var r = '^'+pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')+'$';
       var re = new RegExp(r);
       
-      var classNames = Mojo.Util.getKeys(Mojo.Meta._classes);
+      var classNames = Mojo.Util.getKeys(_classes);
       for(var i=0; i<classNames.length; i++)
       {
         var className = classNames[i];
         if(re.test(className))
         {
-          var klass = Mojo.Meta._classes[className];
+          var klass = _classes[className];
           
           if(includePackage)
           {
@@ -72,7 +147,12 @@ var Mojo = {
     
     findClass : function(type)
     {
-      return Mojo.Meta._classes[type];
+      return _classes[type];
+    },
+    
+    classCount : function()
+    {
+      return Mojo.Util.getKeys(_classes).length;
     },
     
     _buildPackage : function(packageName, alias)
@@ -89,7 +169,7 @@ var Mojo = {
       {
         var part = parts[i];
 
-        if(Mojo.IS_OBJECT_TO_STRING !== Object.prototype.toString.call(currentBuild[part]))
+        if(!currentBuild[part])
         {
           currentBuild[part] = {};
         }
@@ -102,24 +182,24 @@ var Mojo = {
     
     dropClass : function(type)
     {
-      // FIXME drop all subclasses from tree.
+      // FIXME drop all subclasses from tree (maybe add destroy() method to MetaClass that drops its own children)
       // FIXME remove all aliases and shorthand
       if (!Mojo.Meta.classExists(type))
       {
-        throw new Mojo.$.com.runwaysdk.Exception("Unable to dropClass " + type + ". The specified class does not exist.");
+        throw new _exceptionClassRef("Unable to dropClass " + type + ". The specified class does not exist.");
       }
       
-      delete Mojo.Meta._classes[type];
+      delete _classes[type];
     },
     
     getClasses : function()
     {
-      return Mojo.Util.getKeys(Mojo.Meta._classes);
+      return Mojo.Util.getKeys(_classes);
     },
     
     classExists : function(type)
     {
-      return type in Mojo.Meta._classes;
+      return type in _classes;
     },
     
     _makeSingleton : function(klass)
@@ -130,7 +210,7 @@ var Mojo = {
      
         var message = "Cannot instantiate the singleton class ["+this.getMetaClass().getQualifiedName()+"]. " +
           "Use the static [getInstance()] method instead.";
-        throw new com.runwaysdk.Exception(message);        
+        throw new _exceptionClassRef(message);        
       };
       
       klass.getInstance = (function(sInit){
@@ -141,10 +221,7 @@ var Mojo = {
           
           if(instance == null)
           {
-            // FIXME avoid this swapping mechanism. (probably need magic in
-      // initialize closure
-            // to check for __metaClass.isSingleton() with getInstance sending
-      // special args
+            // TODO use something other than function swapping?
             var temp = klass.prototype.initialize;
             klass.prototype.initialize = sInit;
             instance = new klass();
@@ -163,103 +240,176 @@ var Mojo = {
     {
       return function(){
       
-        if(Mojo.Meta._isInitialized && this.getMetaClass().isAbstract())
+        if(_isInitialized && this.getMetaClass().isAbstract())
         {
           var msg = "Cannot instantiate the abstract class ["+this.getMetaClass().getQualifiedName()+"].";
-          throw new com.runwaysdk.Exception(msg);
+          throw new _exceptionClassRef(msg);
         }
         
         this.__context = {}; // super context
         
-        if(arguments.length === 1 && arguments[0] === Mojo.Meta._pseudoConstructor)
+        if(arguments.length === 1 && arguments[0] === _pseudoConstructor)
         {
-          Mojo.Meta._pseudoConstructor(); // for "reflective" newInstance()
+          _pseudoConstructor(); // for "reflective" newInstance()
                       // calls.
         }
         else
         {
-          this.initialize.apply(this, [].splice.call(arguments, 0));
+          this.initialize.apply(this, [].splice.call(arguments,0,arguments.length));
         }
       };      
     },
     
     _addMethod : function(klass, superClass, methodName, definition)
     {
-      var isFunction = Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(definition);
-      var method = isFunction ? definition : definition.method;
+      var isFunc = isFunction(definition);
+      var method = isFunc ? definition : definition.method;
     
       // add instance method to the prototype
       klass.prototype[methodName] = method;
       
       // add override accessor if the parent class defines the same method
-      if(superClass !== Object
-         && Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(superClass.prototype[methodName]))
+      if(superClass !== Object && isFunction(superClass.prototype[methodName]))
       {
-        klass.prototype['$'+methodName] = (function(m){
+        var superName = '$'+methodName;
+        klass.prototype[superName] = (function(m){
       
           return function(){
-        
-            // FIXME clean this (use __context?)
-            var execStack = this.__context['$'+m];
-            if(!execStack)
+            
+            // find the next different method on the superclass prototype
+            // and execute it because it is the overridden super method.
+            var current = this.__context[superName] || this.constructor;
+            var next = current.getMetaClass().getSuperClass();
+            
+            while(current.prototype[m] === next.prototype[m])
             {
-              execStack = [];
-              this.__context['$'+m] = execStack;
+              next = next.getMetaClass().getSuperClass();
             }
             
-            var currentKlass = execStack.length === 0 ? this.getMetaClass().getSuperClass()
-              : execStack[execStack.length-1].getMetaClass().getSuperClass();            
+            this.__context[superName] = next;
             
-            execStack.push(currentKlass);
+            var retObj = next.prototype[m].apply(this, arguments);
             
-            var retObj = currentKlass.prototype[m].apply(this, arguments);
-            
-            execStack.pop();
+            this.__context[superName] = current;
             
             return retObj;
           };
         })(methodName);
       }
       
-      return {name : methodName, isStatic : false, isAbstract : (!isFunction && definition.IsAbstract),
+      var ret = {name : methodName, isStatic : false, isAbstract : (!isFunc && definition.IsAbstract),
           isConstructor : (methodName === 'initialize'), method : method, klass: klass};
+      
+      klass = null;
+      superClass = null;
+      methodName = null;
+      definition = null;
+      isFunc = null;
+      method = null;
+      
+      return ret;
     },
     
-    newClass : function(qualifiedName, definition)
+    _newType : function(metaRef, qualifiedName, def, isIF)
     {
-      var metaRef = qualifiedName === 'Mojo.Meta' ? this : Mojo.Meta;
-
-      if(definition == null)
+      if(!isString(qualifiedName) || qualifiedName.length === 0)
       {
-        definition = {};
+        throw new _exceptionClassRef('The first parameter must be a valid qualified type name.');
+      }
+      else if(def != null && !isObject(def))
+      {
+        throw new _exceptionClassRef('The second parameter must be a configuration object literal.');
+      }
+      
+      // Set type defaults
+      def = def || {};
+
+      var extendsClass = null;
+      var constants = {};
+      var instances = {};
+      
+      var statics = {};
+      var isSingleton = false;
+      var isAbstract = false;
+      var interfaces = [];
+      
+      // override defaults and validate properties
+      for(var prop in def)
+      {
+        if(def.hasOwnProperty(prop))
+        {
+          switch(prop){
+            case 'Extends':extendsClass = def[prop]; break;
+            case 'Constants': constants = def[prop]; break;
+            case 'Instance': instances = def[prop]; break;
+            case 'Static':
+              if(isIF)
+              {
+                throw new _exceptionClassRef('The interface ['+qualifiedName+'] cannot define static properties or methods.');
+              }
+              statics = def[prop]; break;
+            case 'IsSingleton':
+              if(isIF)
+              {
+                throw new _exceptionClassRef('The interface ['+qualifiedName+'] cannot be a singleton.');
+              }
+              isSingleton = def[prop]; break;
+            case 'IsAbstract':
+              if(isIF)
+              {
+                throw new _exceptionClassRef('The interface ['+qualifiedName+'] cannot be abstract.');
+              }
+              isAbstract = def[prop]; break;
+            case 'Implements':
+              if(isIF)
+              {
+                throw new _exceptionClassRef('The interface ['+qualifiedName+'] cannot implement other Interfaces.');
+              }
+              
+              var ifs = def[prop];
+              if(!isArray(ifs))
+              {
+                ifs = [ifs];
+              }
+              
+              for(var i=0; i<ifs.length; i++)
+              {
+                var IF = ifs[i];
+                var ifKlass = isString(IF) ? _classes[IF] : IF;
+                if(ifKlass.getMetaClass().isInterface())
+                {
+                  interfaces.push(ifKlass);
+                }
+                else
+                {
+                  throw new _exceptionClassRef('The class ['+qualifiedName+'] cannot implement the class['+ifKlass.getQualifiedName()+'].');
+                }
+              }
+              
+              break;
+            default: throw new _exceptionClassRef('The property ['+prop+'] on type ['+qualifiedName+'] is not recognized.');
+          }
+        }
       }
       
       var superClass;
-      if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(definition.Extends))
+      if(isFunction(extendsClass))
       {
-        superClass = definition.Extends;
+        superClass = extendsClass;
       }
-      else if(Mojo.IS_STRING_TO_STRING === Object.prototype.toString.call(definition.Extends))
+      else if(isString(extendsClass))
       {
-        superClass = metaRef._classes[definition.Extends];
+        superClass = _classes[extendsClass];
       }
       else
       {
-        superClass = metaRef._classes[Mojo.ROOT_PACKAGE+'Base'];
+        superClass = _baseClassRef;
       }
       
       if(!superClass)
       {
-        throw new com.runwaysdk.Exception('The class ['+qualifiedName+'] does not extend a valid class.');
+        throw new _exceptionClassRef('The class ['+qualifiedName+'] does not extend a valid class.');
       }
-      
-      var constants = definition.Constants || {};
-      var instances = definition.Instance || {};
-      var statics = definition.Static || {};
-      var isNative = definition.Native || false;
-      var isSingleton = definition.IsSingleton || false;
-      var isAbstract = definition.IsAbstract || false;
-      
       
       // attach the package/class to the alias
       var packageName;
@@ -276,22 +426,33 @@ var Mojo = {
       }
 
       // make sure a constructor exists
-      if(!instances.initialize)
+      if(!isIF && !instances.initialize)
       {
         instances.initialize = function(){};
+      }
+      else if(isIF && instances.initialize)
+      {
+        throw new _exceptionClassRef('The interface ['+qualifiedName+'] cannot define an initialize() constructor.');
+      }
+      else if(isIF)
+      {
+        instances.initialize = function(obj){
+          this.getMetaClass()._enforceAnonymousInnerClass(obj);
+          Mojo.Util.copy(obj, this);
+        };
       }
       
       // wrap the constructor function
       var klass = metaRef._createConstructor();
       
-      // always add the namespace to the global object and Mojo.$
+      // add the namespace to the global object and Mojo.$
       var namespace = metaRef._buildPackage(packageName, Mojo.GLOBAL);
       namespace[className] = klass;
        
       namespace = metaRef._buildPackage(packageName, Mojo.$);
       namespace[className] = klass;
       
-      metaRef._classes[qualifiedName] = klass;
+      _classes[qualifiedName] = klass;
       
       // temp function is used for inheritance instantiation, to
       // avoid calling actual class constructor
@@ -309,12 +470,13 @@ var Mojo = {
         className : className,
         klass : klass,
         superClass : superClass,
-        isNative : isNative,
         instanceMethods : {},
         staticMethods : {},
         isAbstract : isAbstract,
+        isInterface : isIF,
         qualifiedName : qualifiedName,
         isSingleton : isSingleton,
+        interfaces : interfaces,
         constants : []
       };
 
@@ -339,11 +501,11 @@ var Mojo = {
       // add static methods
       for(var m in statics)
       {
-        if(Mojo.IS_FUNCTION_TO_STRING === Object.prototype.toString.call(statics[m]))
+        if(isFunction(statics[m]))
         {
           if (statics[m].IsAbstract)
           {
-            throw new com.runwaysdk.Exception("The method " + m + " defined on the class " + className + " cannot be both static and abstract.");
+            throw new _exceptionClassRef("The method " + m + " defined on the class " + className + " cannot be both static and abstract.");
           }      
 
           config.staticMethods[m] = {name : m, isStatic : true, isAbstract : false, 
@@ -359,53 +521,38 @@ var Mojo = {
       }
       
       // attach the metadata Class
-      if(definition.Native)
+      if(_native !== null)
       {
         // MetaClass will be constructed later to complete bootstrapping
         klass.__metaClass = config;
         klass.prototype.__metaClass = config;
-        Mojo.Meta._native.push(klass);
+        _native.push(klass);
       }
       else
       {
-        var cKlass = Mojo.$.com.runwaysdk.MetaClass;
-        
-        klass.__metaClass = new cKlass(config);
+        klass.__metaClass = new _metaClassRef(config);
         klass.prototype.__metaClass = klass.__metaClass;
       }
       
-      return klass;
+      return klass;      
+    },
+    
+    newInterface : function(qualifiedName, definition)
+    {
+      var metaRef = Mojo.Meta || this;
+      return metaRef._newType(metaRef, qualifiedName, definition, true);
+    },
+    
+    newClass : function(qualifiedName, definition)
+    {
+      var metaRef = Mojo.Meta || this;
+      return metaRef._newType(metaRef, qualifiedName, definition, false);
     }
-  },
-  
-  // TODO add as static variables
-  JSON_ENDPOINT : 'Mojo/JSONControllerServlet',
-  
-  ATTRIBUTE_DTO_PACKAGE : 'com.runwaysdk.transport.attributes.',
-  
-  MD_DTO_PACKAGE : 'com.runwaysdk.transport.metadata.',
-  
-  ROOT_PACKAGE : 'com.runwaysdk.',
-  
-  BUSINESS_PACKAGE : 'com.runwaysdk.business.',
-  
-  ATTRIBUTE_PROBLEM_PACKAGE : 'com.runwaysdk.dataaccess.attributes.',
-  
-  IS_OBJECT_TO_STRING : Object.prototype.toString.call({}),
-  IS_ARRAY_TO_STRING : Object.prototype.toString.call([]),
-  IS_FUNCTION_TO_STRING : Object.prototype.toString.call(function(){}),
-  IS_DATE_TO_STRING : Object.prototype.toString.call(new Date()),
-  IS_STRING_TO_STRING : Object.prototype.toString.call(''),
-  IS_NUMBER_TO_STRING : Object.prototype.toString.call(0),
-  IS_BOOLEAN_TO_STRING : Object.prototype.toString.call(true),
-  emptyFunction : function(){},
-  GLOBAL : (function(){ return this; })()
-};
+  };
 
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
 
-  Native : true,
-  
+  _baseClassRef = meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
+
   IsAbstract : true,
   
   Extends : Object,
@@ -424,7 +571,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
   
     clone : function()
     {
-      return Mojo.Meta.newInstance(this.getMetaClass().getQualifiedName(), [].splice.call(arguments, 0));
+      return Mojo.Meta.newInstance(this.getMetaClass().getQualifiedName(), [].splice.call(arguments, 0, arguments.length));
     },
     
     valueOf : function()
@@ -435,34 +582,66 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Base', {
     toString : function()
     {
       return '['+this.getMetaClass().getQualifiedName()+'] instance';
+    },
+    
+    toJSON : function(key)
+    {
+      var json = {};
+      for (var key in this)
+      {
+        var prop = this[key];
+        if ( !isFunction(prop) && key !== '__context')
+        {
+          json[key] = prop;
+        }
+      }
+      
+      return Mojo.Util.toJSON(json);
     }
   }
 });
 
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
+  _metaClassRef = meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
 
-  Native : true,
-  
   Instance : {
   
     initialize : function(config)
     {
       this._packageName = config.packageName;
       this._className = config.className;
-      this._isNative = config.isNative;
       this._isAbstract = config.isAbstract;
+      this._isInterface = config.isInterface;
       this._isSingleton = config.isSingleton;
       this._klass = config.klass;
       this._superClass = config.superClass;
       this._qualifiedName = config.qualifiedName;
       this._subclasses = {};
+      this._interfaces = config.interfaces;
       
       var notBase = this._superClass !== Object;  
       
-      // get parents instance/static methods
-      var mKlass = Mojo.$.com.runwaysdk.Method;
+      this._addInstanceMethods(notBase, config.instanceMethods);
+      this._addStaticMethods(notBase, config.staticMethods);      
+      this._addConstants(notBase, config.constants);
+      
+      if(notBase)
+      {
+        this._superClass.getMetaClass()._addSubClass(this._qualifiedName, this._klass);
+      }
+      
+      this._addMetaClassMethod();
+      
+      if(_isInitialized && !this._isInterface && !this._isAbstract)
+      {
+        this._enforceInterfaceMethods();
+      }
+    },
+    
+    _addInstanceMethods : function(notBase, tInstances)
+    {
+      var mKlass = _methodClassRef;
+      
       this._instanceMethods = {};
-      this._staticMethods = {};
       var abstractMethods = {};
       if(notBase)
       {
@@ -480,7 +659,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         }
       }
         
-      var tInstances = config.instanceMethods;
       for(var i in tInstances)
       {
         var definition = tInstances[i];
@@ -501,7 +679,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         }
       }
       
-      // Make sure all abstract methods were implemented
+      // Make sure all abstract methods are implemented
       if(!this._isAbstract)
       {
         var unimplemented = [];
@@ -517,9 +695,16 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         {
           var msg = "The class ["+this._qualifiedName+"] must " + 
             "implement the abstract method(s) ["+unimplemented.join(', ')+"].";
-          throw new com.runwaysdk.Exception(msg);
+          throw new _exceptionClassRef(msg);
         }
       }
+    },
+    
+    _addStaticMethods : function(notBase, tStatics)
+    {
+      var mKlass = _methodClassRef;
+      
+      this._staticMethods = {};
       
       if(notBase)
       {
@@ -534,7 +719,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         }
       }
         
-      var tStatics = config.staticMethods;
       for(var i in tStatics)
       {
         var definition = tStatics[i];
@@ -553,10 +737,12 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         // add the actual method to the class
         this._klass[i] = definition.method;
       }
-
-      // set constants
+    },
+    
+    _addConstants : function(notBase, constants)
+    {
       this._constants = {};
-      var cKlass = Mojo.$.com.runwaysdk.Constant;
+      var cKlass = _constantClassRef;
       if(notBase)
       {
         var pConstants = this._superClass.getMetaClass().getConstants(true);
@@ -569,9 +755,9 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         }
       }
       
-      for(var i=0; i<config.constants.length; i++)
+      for(var i=0; i<constants.length; i++)
       {
-        var constObj = new cKlass(config.constants[i]);
+        var constObj = new cKlass(constants[i]);
         
         if(notBase && this._constants[constObj.getName()])
         {
@@ -588,18 +774,11 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
         this._constants[constObj.getName()] = constObj;
         this._klass[constObj.getName()] = constObj.getValue();
       }
-      
-      if(notBase)
-      {
-        this._superClass.getMetaClass()._addSubClass(this._qualifiedName, this._klass);
-      }
-      
-      this._addMetaClassMethod();
     },
     
     _addMetaClassMethod : function()
     {
-      var mName = 'getMetaClass';
+      var mName = Mojo.META_CLASS_GETTER;
       
       // Each class constructor function and instance gets
       // a method to return this Class instance.
@@ -611,23 +790,24 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
       
       this._klass.prototype[mName] = this._klass[mName];
       
-      this._instanceMethods[mName] = new Mojo.$.com.runwaysdk.Method({
+      var baseClass = _baseClassRef;
+      this._instanceMethods[mName] = new _methodClassRef({
         name : mName,
         isStatic : false,
         isAbstract : false, 
         isConstructor : false,
         method : this._klass[mName],
-        klass: this._klass,
+        klass: baseClass,
         overrideKlass : this._klass
       }, this);
       
-     this._staticMethods[mName] = new Mojo.$.com.runwaysdk.Method({
+     this._staticMethods[mName] = new _methodClassRef({
         name : mName,
         isStatic : true,
         isAbstract : false, 
         isConstructor : false,
         method : this._klass[mName],
-        klass: this._klass,
+        klass: baseClass,
         overrideKlass : this._klass
       }, this);
     },
@@ -640,6 +820,16 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
     isSingleton : function()
     {
       return this._isSingleton;
+    },
+    
+    isInterface : function()
+    {
+      return this._isInterface;
+    },
+    
+    getInterfaces : function()
+    {
+      return this._interfaces;
     },
     
     getSubClasses : function(asMap)
@@ -781,12 +971,11 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
     
     _getClass : function(klass)
     {
-      var classObj = null;
       if(klass instanceof this.constructor)
       {
         return klass;
       }
-      else if(Mojo.Util.isFunction(klass) || klass instanceof Mojo.$.com.runwaysdk.Base)
+      else if(Mojo.Util.isFunction(klass) || klass instanceof _baseClassRef)
       {
         return klass.getMetaClass();
       }
@@ -837,33 +1026,198 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
       return classObj.isSuperClassOf(this);
     },
     
+    getFunction : function()
+    {
+      return this._klass;
+    },
+    
+    _enforceAnonymousInnerClass : function(obj)
+    {
+      var IFs = [this._klass];
+      var parentClass = this._superClass;
+      while(parentClass.getMetaClass().isInterface())
+      {
+        var parentMeta = parentClass.getMetaClass();
+        IFs.push(parentMeta.getFunction());
+        parentClass = parentMeta.getSuperClass();
+      }
+      
+      var toImplement = [];
+      for(var i=0; i<IFs.length; i++)
+      {
+        toImplement = toImplement.concat(IFs[i].getMetaClass().getInstanceMethods());
+      }
+      
+      var unimplemented = [];
+      for(var i=0; i<toImplement.length; i++)
+      {
+        var method = toImplement[i];
+        if(!method.getDefiningClass().getMetaClass().isInterface())
+        {
+          continue;
+        }
+        
+        var name = method.getName();
+        if(!(isFunction(obj[name])) ||
+            !obj.hasOwnProperty(name))
+        {
+          unimplemented.push(name);
+        }
+      }
+      
+      if(unimplemented.length > 0)
+      {
+        var msg = "The anonymous inner class ["+obj+"] must " + 
+        "implement the interface method(s) ["+unimplemented.join(', ')+"].";
+        throw new _exceptionClassRef(msg);
+      }
+    },
+    
+    _enforceInterfaceMethods : function()
+    {
+      var IFs = this.getInterfaces();
+      var parentClass = this._superClass;
+      while(parentClass !== Object)
+      {
+        var parentMeta = parentClass.getMetaClass();
+        IFs = IFs.concat(parentMeta.getInterfaces());
+        parentClass = parentMeta.getSuperClass();
+      }
+      
+      var toImplement = [];
+      for(var i=0; i<IFs.length; i++)
+      {
+        toImplement = toImplement.concat(IFs[i].getMetaClass().getInstanceMethods());
+      }
+      
+      var unimplemented = [];
+      for(var i=0; i<toImplement.length; i++)
+      {
+        var method = toImplement[i];
+        if(!method.getDefiningClass().getMetaClass().isInterface())
+        {
+          continue;
+        }
+        
+        var name = method.getName();
+        if(!(name in this._instanceMethods))
+        {
+          unimplemented.push(name);
+        }
+      }
+      
+      if(unimplemented.length > 0)
+      {
+        var msg = "The class ["+this._qualifiedName+"] must " + 
+        "implement the interface method(s) ["+unimplemented.join(', ')+"].";
+        throw new _exceptionClassRef(msg);
+      }
+    },    
+    
+    doesImplement : function(IFinput)
+    {
+      if(this.isInterface() && this.isSubClassOf(IFinput))
+      {
+        // check for anonymous inner classes
+        return true;
+      }
+      else if(!this.isInterface())
+      {
+        var klass = this._klass;
+        while(klass !== Object)
+        {
+          var meta = klass.getMetaClass();
+          var IFs = meta.getInterfaces();
+          for(var i=0; i<IFs.length; i++)
+          {
+            var IF = IFs[i];
+            if(IF.getMetaClass().isSubClassOf(IFinput))
+            {
+              return true;
+            }
+          }
+          klass = meta.getSuperClass();
+        }
+        
+        return false;
+      }
+      else
+      {
+        return false;
+      }
+    },
+    
+    isInstance : function(obj)
+    {
+      if(!isObject(obj))
+      {
+        return false;
+      }
+      
+      // cover regular classes and anonymous inner classes
+      if(obj instanceof this._klass)
+      {
+        return true;
+      }
+
+      if(this.isInterface())
+      {
+        if(obj instanceof _baseClassRef)
+        {
+          // compare the object's interfaces to *this* IF class.
+          var klass = obj.constructor;
+          while(klass !== Object)
+          {
+            var meta = klass.getMetaClass();
+            var IFs = meta.getInterfaces();
+            for(var i=0; i<IFs.length; i++)
+            {
+              var IF = IFs[i];
+              if(IF.getMetaClass().isSubClassOf(this._klass))
+              {
+                return true;
+              }
+            }
+            klass = meta.getSuperClass();
+          }
+          
+          return false;
+        }
+        else
+        {
+          return false;
+        }
+      }
+      else
+      {
+        return false; // we don't know what this object is
+      }
+    },
+    
     getSuperClass : function()
     {
       return this._superClass;
     },
     
-    isNative : function()
-    {
-      return this._isNative;
-    },
-    
     newInstance : function()
     {
-      var args = [this.getQualifiedName()].concat([].splice.call(arguments, 0));
+      var args = [this.getQualifiedName()].concat([].splice.call(arguments, 0, arguments.length));
       return Mojo.Meta.newInstance.apply(this, args);
     },
     
     toString : function()
     {
       return '[MetaClass] ' + this.getQualifiedName();
+    },
+    
+    toJSON : function ()
+    {
+      return undefined;
     }
-  
   }
 });
 
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
-  
-  Native : true,
+  _constantClassRef = meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
   
   Instance : {
   
@@ -913,10 +1267,8 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+"Constant", {
   
 });
 
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
+  _methodClassRef = meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
 
-  Native : true,
-  
   Instance : {
   
     initialize : function(config, metaClass)
@@ -928,12 +1280,12 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
       this._overrideKlass = config.overrideKlass || null;
       this._isAbstract = config.isAbstract;
       
-      if(Mojo.Meta._isInitialized && !metaClass.isAbstract()
+      if(_isInitialized && !metaClass.isAbstract()
          && this._isAbstract)
       {
         var msg = "The non-abstract class ["+metaClass.getQualifiedName()+"] cannot " + 
           "cannot declare the abstract method ["+this._name+"].";
-        throw new com.runwaysdk.Exception(msg);
+        throw new _exceptionClassRef(msg);
       }
       
       if(this._isAbstract)
@@ -945,8 +1297,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
       {
         this._arity = config.method.length;
       }
-      
-      this._aspects = [];
     },
     
     _createAbstractMethod : function()
@@ -959,7 +1309,7 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
           var definingClass = this.getMetaClass().getMethod(name).getDefiningClass().getMetaClass().getQualifiedName();
 
           var msg = "Cannot invoke the abstract method ["+name+"] on ["+definingClass+"].";
-          throw new com.runwaysdk.Exception(msg);
+          throw new _exceptionClassRef(msg);
         };
       })(this._name);
     },
@@ -967,16 +1317,6 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
     isAbstract : function()
     {
       return this._isAbstract;
-    },
-    
-    addAspect : function(aspect)
-    {
-      this._aspects.push(aspect);
-    },
-    
-    getAspects : function()
-    {
-      return this._aspects;
     },
     
     isConstructor : function()
@@ -1029,46 +1369,41 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Method', {
     {
       return '[Method] ' + this.getName();
     }
-  },
+  }
   
 });
 
 // Finish bootstrapping the class system
-(function(){
+for(var i=0; i<_native.length; i++)
+{
+  var bootstrapped = _native[i];
+  
+  // Convert the JSON config __metaClass into a MetaClass instance
+  // and re-attach the metadata to the class definition.
+  var cClass = new _metaClassRef(bootstrapped.__metaClass);
+  bootstrapped.__metaClass = cClass;
+  bootstrapped.prototype.__metaClass = cClass;
+}
+_native = null;
 
-  var klass = Mojo.Meta.findClass(Mojo.ROOT_PACKAGE+'MetaClass');
-  
-  for(var i=0; i<Mojo.Meta._native.length; i++)
+// convert the Meta object to a class
+var metaProps = {};
+for(var i in meta)
+{
+  if(meta.hasOwnProperty(i))
   {
-    var bootstrapped = Mojo.Meta._native[i];
-    
-    // Convert the JSON config __metaClass into a MetaClass instance
-    // and re-attach the metadata to the class definition.
-    var cClass = new klass(bootstrapped.__metaClass);
-    bootstrapped.__metaClass = cClass
-    bootstrapped.prototype.__metaClass = cClass;
+    metaProps[i] = meta[i];
   }
-  
-  // convert the Meta object to a class
-  var metaProps = {};
-  for(var i in Mojo.Meta)
-  {
-    if(Mojo.Meta.hasOwnProperty(i))
-    {
-      metaProps[i] = Mojo.Meta[i];
-    }
-  }
+}
 
-  delete Mojo.Meta;
-  
-  metaProps.newClass('Mojo.Meta', {
-    
-    Static : metaProps  
-  });
-  
-  Mojo.Meta._isInitialized = true;
-  
-})();
+Mojo.Meta = metaProps.newClass('Mojo.Meta', {
+  Static : metaProps  
+});
+meta = null;
+
+_isInitialized = true;
+
+
 
 Mojo.Meta.newClass('Mojo.Util', {
 
@@ -1082,65 +1417,43 @@ Mojo.Meta.newClass('Mojo.Util', {
   Static : {
   ISO8601_REGEX : "^([0-9]{4})-([0-9]{2})-([0-9]{2})T([0-9]{2}):([0-9]{2}):([0-9]{2})([-+])([0-9]{2})([0-9]{2})$",
     
-    isObject : function(o)
-    {
-      return  o != null && Object.prototype.toString.call(o) === Mojo.IS_OBJECT_TO_STRING;
-    },
+    isObject : isObject,
 
-    isArray : function(o)
-    {
-      return o != null && Object.prototype.toString.call(o) === Mojo.IS_ARRAY_TO_STRING;
-    },
+    isArray : isArray,
 
-    isFunction : function(o)
-    {
-      return o != null && Object.prototype.toString.call(o) === Mojo.IS_FUNCTION_TO_STRING;
-    },
+    isFunction : isFunction,
 
-    isDate : function(o)
-    {
-      return o != null && Object.prototype.toString.call(o) === Mojo.IS_DATE_TO_STRING;
-    },
+    isDate : isDate,
 
-    isString : function(o)
-    {
-      return o != null && Object.prototype.toString.call(o) === Mojo.IS_STRING_TO_STRING;
-    },
+    isString : isString,
 
-    isNumber : function(o)
-    {
-      return o != null && Object.prototype.toString.call(o) === Mojo.IS_NUMBER_TO_STRING;
-    },
+    isNumber : isNumber,
     
-    isBoolean : function(o)
-    {
-      return o != null && Object.prototype.toString.call(o) === Mojo.IS_BOOLEAN_TO_STRING;
-    },
+    isBoolean : isBoolean,
     
-    isUndefined : function(o)
-    {
-      return typeof o === 'undefined';
-    },
+    isUndefined : isUndefined,
+    
+    isElement : isElement,
     
     bind : function(thisRef, func)
     {
       if (!Mojo.Util.isFunction(func))
       {
-        throw new Mojo.$.com.runwaysdk.Exception("Mojo.Util.bind: Unable to bind,  the second parameter is not a function.");
+        throw new _exceptionClassRef("Mojo.Util.bind: Unable to bind,  the second parameter is not a function.");
       }
     
-      var args = [].splice.call(arguments, 2);
+      var args = [].splice.call(arguments, 2, arguments.length);
       return function(){
-        return func.apply(thisRef, args.concat([].splice.call(arguments, 0)))
-      }
+        return func.apply(thisRef, args.concat([].splice.call(arguments, 0, arguments.length)));
+      };
     },
     
     curry : function(func)
     {
-      var args = [].splice.call(arguments, 1);
+      var args = [].splice.call(arguments, 1, arguments.length);
       return function(){
-        return func.apply(this, args.concat([].splice.call(arguments, 0)))
-      }
+        return func.apply(this, args.concat([].splice.call(arguments, 0, arguments.length)));
+      };
     },
     
     /**
@@ -1189,7 +1502,7 @@ Mojo.Meta.newClass('Mojo.Util', {
     
       return function() {
         
-        var args = [].splice.call(arguments, 0);
+        var args = [].splice.call(arguments, 0, arguments.length);
         if(func.memoCache[args])
         {
           return func.memoCache[args];
@@ -1199,7 +1512,7 @@ Mojo.Meta.newClass('Mojo.Util', {
           func.memoCache[args] = func.apply(context || this, args); 
           return func.memoCache[args];
         }
-      }
+      };
     },
     
     generateId : function(customLength)
@@ -1289,7 +1602,7 @@ Mojo.Meta.newClass('Mojo.Util', {
       var value = (num < 0 ? num * -1 : num);
       
         return (value < 10 ? '0' + value : value);
-      }
+      };
 
       var str = "";
 
@@ -1348,6 +1661,27 @@ Mojo.Meta.newClass('Mojo.Util', {
                 '"' + string + '"';
         }
 
+        function f(n) {
+          // Format integers to have at least two digits.
+          return n < 10 ? '0' + n : n;
+        }
+
+        // Normally we wouldn't modify the prototype of a native object
+        // but the spec defines the following behavior for Date serialization.
+        if (typeof Date.prototype.toJSON !== 'function') {
+
+          Date.prototype.toJSON = function (key) {
+
+              return isFinite(this.valueOf()) ?
+                     this.getUTCFullYear()   + '-' +
+                   f(this.getUTCMonth() + 1) + '-' +
+                   f(this.getUTCDate())      + 'T' +
+                   f(this.getUTCHours())     + ':' +
+                   f(this.getUTCMinutes())   + ':' +
+                   f(this.getUTCSeconds())   + 'Z' : null;
+          };
+        }
+
 
         function str(key, holder) {
 
@@ -1359,25 +1693,30 @@ Mojo.Meta.newClass('Mojo.Util', {
                 partial,
                 value = holder[key];
 
+            var isClass = value instanceof _baseClassRef;
+            
+            if (value && typeof value === 'object' &&
+                typeof value.toJSON === 'function') {
+              value = value.toJSON(key);
+            }
 
             if (typeof rep === 'function') {
                 value = rep.call(holder, key, value);
             }
             
-            // Mojo change: A date specific check (server expects timestamps).
-            // TODO Refactor to include a toJSON() method on the DTOs
-            if(Mojo.Util.isDate(value))
+            // Special case: if this is a Runway classes then return
+            // because it has already been serialized.
+            if(isClass)
             {
-              var ignoreTimezone = holder != null && holder instanceof com.runwaysdk.transport.attributes.AttributeDateDTO;
-              return quote(Mojo.Util.toISO8601(value));
+              return value;
             }
-
+            
             switch (typeof value) {
+            
             case 'string':
                 return quote(value);
 
             case 'number':
-
                 return isFinite(value) ? String(value) : 'null';
 
             case 'boolean':
@@ -1389,16 +1728,6 @@ Mojo.Meta.newClass('Mojo.Util', {
 
                 if (!value) {
                     return 'null';
-                }
-                
-                // Optimization to not include metadata
-                // TODO have logic located on the classes via toJSON or visitor
-                if(key === '__metaClass'
-                  || key === '__context'
-                  || key === 'attributeMdDTO'
-                  || key === '_typeMd')
-                {
-                  return null;
                 }
                 
                 gap += indent;
@@ -1472,7 +1801,7 @@ Mojo.Meta.newClass('Mojo.Util', {
                 if (replacer && typeof replacer !== 'function' &&
                         (typeof replacer !== 'object' ||
                          typeof replacer.length !== 'number')) {
-                    throw new com.runwaysdk.Exception('Mojo.Util.getJSON');
+                    throw new _exceptionClassRef('Mojo.Util.getJSON');
                 }
 
                 return str('', {'': value});
@@ -1521,10 +1850,10 @@ Mojo.Meta.newClass('Mojo.Util', {
                         walk({'': j}, '') : j;
                 }
 
-                throw new com.runwaysdk.Exception('Mojo.Util.getObject');
+                throw new _exceptionClassRef('Mojo.Util.getObject');
             }
             
-        }
+        };
 
     })(),
     
@@ -1572,17 +1901,52 @@ Mojo.Meta.newClass('Mojo.Util', {
       return dest;
     },
 
-    getObject : function(json)
+    toObject : function(json, reviver)
     {
-      if(Mojo.Util.isString(json))
-        return this.JSON.parse(json);
+      if (Mojo.Util.isString(json))
+      {
+        var useNativeParsing = Mojo.ClientSession.isNativeParsingEnabled();
+
+        if (useNativeParsing && Mojo.SUPPORTS_NATIVE_PARSING)
+        {
+          return JSON.parse(json, reviver);
+        }
+        else
+        {
+          return Mojo.Util.JSON.parse(json, reviver);
+        }
+      }
       else
+      {
         return json;
+      }
+    },
+    
+    getObject : function(json, reviver)
+    {
+      return Mojo.Util.toObject(json, reviver);
     },
 
-    getJSON : function(obj)
+    toJSON : function(obj, replacer)
     {
-      return this.JSON.stringify(obj);
+      var useNativeParsing = Mojo.ClientSession.isNativeParsingEnabled();
+      
+      // Use the browser's toJSON if it exists
+      if (useNativeParsing && Mojo.SUPPORTS_NATIVE_PARSING)
+      {
+         return JSON.stringify(obj, replacer);
+      }
+      else
+      {
+        // Otherwise use Runway's
+        return Mojo.Util.JSON.stringify(obj, replacer);
+      }      
+    },
+    
+    // alias for toJSON()
+    getJSON : function(obj, replacer)
+    {
+      return Mojo.Util.toJSON(obj, replacer);
     },
 
     convertToType : function(value)
@@ -1705,12 +2069,12 @@ Mojo.Meta.newClass('Mojo.Util', {
           }
           else
           {
-            e = Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', obj);
+            e = new _exceptionClassRef(obj);
           }
         }
         else
         {
-          e = Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', obj)
+          e = new _exceptionClassRef(obj);
         }
 
         // try to match the exception name to an error callback
@@ -1747,7 +2111,7 @@ Mojo.Meta.newClass('Mojo.Util', {
         // use the default handler
         if(Mojo.Util.isFunction(clientRequest.onFailure))
         {
-          var e = Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', responseText);
+          var e = new _exceptionClassRef(responseText);
           clientRequest.onFailure(e);
         }
       }
@@ -1918,7 +2282,7 @@ Mojo.Meta.newClass("Mojo.log.LogManager", {
       Mojo.Iter.forEach(loggers, function(logger){
         logger.writeError(msg, error);
       });
-    },
+    }
     
   }
 
@@ -1951,9 +2315,294 @@ Mojo.Meta.newClass("Mojo.log.Logger", {
     
     writeError : {
       IsAbstract : true
-    },
+    }
   
-  },
+  }
+});
+
+var iterableIF = Mojo.Meta.newInterface("Mojo.IterableIF", {
+  Instance : {
+    iterator : function(){},
+    iterate : function(callback){}
+  }
+});
+
+var iteratorIF = Mojo.Meta.newInterface("Mojo.IteratorIF", {
+  Instance : {
+    next:function(){},
+    hasNext:function(){},
+    remove:function(){}
+  }
+});
+
+var collection = Mojo.Meta.newClass("Mojo.Collection", {
+  Implements : [iterableIF, iteratorIF],
+  IsAbstract: true,
+  Instance : {
+    iterator:function(){},
+    iterate:function(){},
+    next:function(){},
+    hasNext:function(){},
+    remove:function(){}
+  }
+});
+
+Mojo.Meta.newClass("Mojo.Map", {
+  Extends : collection,
+  Instance : {
+    
+    initialize : function()
+    {
+  
+      this._map = {};
+      this._size = 0;
+    },
+    
+    put : function(key, value)
+    {
+      this._map[key] = value;
+      this._size++;
+    },
+    
+    remove : function(key)
+    {
+      delete this._map[key];
+      this._size--;
+    },
+    
+    get : function(key)
+    {
+      return this._map[key];
+    },
+    
+    clear : function()
+    {
+      for (var key in this._map)
+      {
+        this.remove(key);
+      }
+    },
+    
+    containsKey : function(key)
+    {
+      if (this._map[key] != undefined)
+      {
+        return true;
+      }
+      
+      return false;
+    },
+    
+    containsValue : function(value)
+    {
+      for (var k in this._map)
+      {
+        if (this._map[k] === value)
+          return true;
+      }
+      
+      return false;
+    },
+    
+    isEmpty : function()
+    {
+      return (this._size == 0);
+    },
+    
+    keySet : function()
+    {
+      return Mojo.Util.getKeys(this._map, true);
+    },
+    
+    putAll : function(map)
+    {
+      if (typeof map == "Mojo.Map")
+      {
+        map = map.getData();
+      }
+      
+      for (var k in map)
+      {
+        this.put(k, map[k]);
+      }
+    },
+    
+    size : function()
+    {
+      return this._size;
+    },
+    
+    values : function()
+    {
+      return Mojo.Util.getValues(this._map, true);
+    },
+
+    getData : function()
+    {
+      return this._map;
+    }
+    
+  }
+  
+});
+
+Mojo.Meta.newClass("Mojo.Set", {
+  Extends: collection,
+  Instance : {
+    
+    initialize : function(collection)
+    {
+      this._map = Mojo.Meta.newInstance("Mojo.Map");
+      
+
+      if(collection)
+      {
+        this.addAll(collection);
+      }
+    },
+    
+    add : function(obj)
+    {
+      this._map.put(obj, obj);
+    },
+    
+    addAll : function(obj)
+    {
+      if(isArray(obj))
+      {
+        for(var i=0; i<obj.length; i++)
+        {
+          this.add(obj[i]);
+        }
+      }
+      else if(isObject(obj))
+      {
+        for (var k in obj)
+        {
+          if(obj.hasOwnProperty(k))
+          {
+            this.add(obj[k]);
+          }
+        }
+      }
+      else
+      {
+        throw new _exceptionClassRef('Object type ['+typeof obj+'] is not a recognized ' +
+            'parameter for ['+this.getMetaClass().getQualifiedName()+'.addAll].');
+      }
+    },
+    
+    clear : function()
+    {
+      this._map.clear();
+    },
+    
+    contains : function(obj)
+    {
+      return this._map.containsKey(obj);
+    },
+    
+    containsAll : function(obj, isExact)
+    {
+      if (typeof obj == "Mojo.Set" || typeof obj == "Mojo.Map")
+      {
+        obj = obj.getData();
+      }
+      
+      var size = 0;
+      for (var k in obj)
+      {
+        if (!this.contains(obj[k]))
+          return false;
+          
+        size++;
+      }
+      
+      if (isExact && size != this.size())
+        return false;
+      
+      return true;
+    },
+    
+    containsExactly : function(obj)
+    {
+      return this.containsAll(obj, true);
+    },
+    
+    isEmpty : function()
+    {
+      return this._map.isEmpty();
+    },
+    
+    remove : function(obj)
+    {
+      this._map.remove(obj);
+    },
+    
+    removeAll : function()
+    {
+      this._map.clear();
+    },
+    
+    retainAll : function(obj)
+    {
+      if (typeof obj == "Mojo.Set")
+      {
+        for (var k in this.getData())
+        {
+          if (!obj.contains(k))
+            this.remove(k);
+        }
+      }
+      else // Allow them to pass us stuff other than sets (quadratic searching though)
+      {
+        for (var k in this.getData())
+        {
+          var contains = false;
+          for (var kk in obj)
+          {
+            if (obj[kk] == k)
+            {
+              contains = true;
+              break;
+            }
+          }
+          
+          if (!contains)
+            this.remove(k);
+        }
+      }
+    },
+    
+    size : function()
+    {
+      return this._map.size();
+    },
+    
+    toArray : function()
+    {
+      var array = new Array();
+      
+      for (var k in this.getData())
+      {
+        array.push(k);
+      }
+      
+      return array;
+    },
+    
+    toMap : function()
+    {
+      return this._map;
+    },
+    
+    getData : function()
+    {
+      return this._map.getData();
+    }
+    
+  }
+  
 });
 
 // FIXME iterate over different object types
@@ -1966,6 +2615,7 @@ Mojo.Meta.newClass('Mojo.Iter', {
   
     initialize : function()
     {
+      // todo take in arr/obj/iterable and wrap it to allow iteration functions
     }
   },
   
@@ -2041,229 +2691,6 @@ Mojo.Meta.newClass('Mojo.Iter', {
   }
 });
 
-Mojo.Meta.newClass('Mojo.aspect.Advice', {
-
-  IsAbstract : true,
-  
-  Constants : {
-  
-    MATCH_INSTANCE : 1,
-    MATCH_STATIC : 2,
-    MATCH_ALL : 3
-  },
-
-  Instance : {
-  
-    initialize : function(classP, methodP, method, matchOn)
-    {
-      this._method = method;
-      this._matchOn = matchOn || Mojo.aspect.Advice.MATCH_ALL;
-      
-      this._classRE = classP;
-      this._methodRE = methodP;
-    },
-    
-    weave : function()
-    {
-      var matched = [];
-      
-      var classes = Mojo.Meta.getClasses();
-      for(var i=0; i<classes.length; i++)
-      {
-        var className = classes[i];
-        var klass = Mojo.Meta.findClass(className);
-        
-        if(this._classRE.test(className))
-        {
-        
-          var methods;
-          switch(this._matchOn)
-          {
-            case Mojo.aspect.Advice.MATCH_ALL:
-              methods = klass.getMetaClass().getMethods();
-              break;
-            case Mojo.aspect.Advice.MATCH_INSTANCE:
-              methods = klass.getMetaClass().getInstanceMethods();
-              break;
-            case Mojo.aspect.Advice.MATCH_STATIC:
-              methods = klass.getMetaClass().getStaticMethods();
-              break;
-            default:
-              methods = [];
-          }
-          
-          for(var j=0; j<methods.length; j++)
-          {
-            var method = methods[j];
-            if(this._methodRE.test(method.getName()))
-            {
-              this._doWeave(klass, method);
-              matched.push(method);
-              method.addAspect(this);
-            }
-          }
-        }
-      }
-      
-      return matched;
-    },
-    
-    execute : {
-      IsAbstract : true
-    },
-    
-    toString : function()
-    {
-      var str = '';
-      str += '['+this.getMetaClass().getName()+'] ';
-      
-      var matchesOn;
-      if(this._matchOn === this.constructor.MATCH_INSTANCE)
-      {
-        matchesOn = 'Instance';
-      }
-      else if(this._matchOn === this.constructor.MATCH_STATIC)
-      {
-        matchesOn = 'Static';
-      }
-      else
-      {
-        matchesOn = 'Instance/Static';
-      }
-      
-      str += ' Matches on ['+matchesOn+'] with class(es) ['+this._classRE+'] and method(s) ['+this._methodRE+']';
-      
-      return str;
-    }
-  
-  }
-
-});
-
-Mojo.Meta.newClass('Mojo.aspect.BeforeAdvice', {
-
-  Extends : Mojo.aspect.Advice,
-  
-  Instance : {
-  
-    initialize : function(classP, methodP, method, matchOn)
-    {
-      this.$initialize(classP, methodP, method, matchOn);
-    },
-  
-    _doWeave : function(klass, wrappedMethod)
-    {
-      var source = wrappedMethod.isStatic() ? klass : klass.prototype;
-      var original = source[wrappedMethod.getName()];
-      
-      source[wrappedMethod.getName()] = (function(k, m, b, o){
-        
-        return function(){
-        
-          var args = [].splice.call(arguments, 0);
-        
-          var context = (m.isStatic() ? Mojo.GLOBAL : this);
-          b.execute(context, args, k, m);
-        
-          return o.apply(context, args);
-        };        
-      })(klass, wrappedMethod, this, original);
-    },
-    
-    execute : function(context, args, klass, method)
-    {
-      this._method.call(context, args, klass, method);
-    }
-  }
-  
-});
-
-Mojo.Meta.newClass('Mojo.aspect.AfterAdvice', {
-
-  Extends : Mojo.aspect.Advice,
-  
-  Instance : {
-  
-    initialize : function(classP, methodP, method, matchOn)
-    {
-      this.$initialize(classP, methodP, method, matchOn);
-    },
-  
-    _doWeave : function(klass, wrappedMethod)
-    {
-      var source = wrappedMethod.isStatic() ? klass : klass.prototype;
-      var original = source[wrappedMethod.getName()];
-      
-      source[wrappedMethod.getName()] = (function(k, m, a, o){
-        
-        return function(){
-        
-          var args = [].splice.call(arguments, 0);
-          var context = (m.isStatic() ? Mojo.GLOBAL : this);
-        
-          var obj = o.apply(context, args);
-
-          a.execute(context, args, obj, k, m);
-          
-          return obj;
-        };        
-      })(klass, wrappedMethod, this, original);
-    },
-    
-    execute : function(context, args, returnObj, klass, method)
-    {
-      this._method.call(context, args, returnObj, klass, method);
-    }
-  }
-
-});
-
-Mojo.Meta.newClass('Mojo.aspect.AroundAdvice', {
-
-  Extends : Mojo.aspect.Advice,
-  
-  Instance : {
-  
-    initialize : function(classP, methodP, method, matchOn)
-    {
-      this.$initialize(classP, methodP, method, matchOn);
-    },
-  
-    _doWeave : function(klass, wrappedMethod)
-    {
-      var source = wrappedMethod.isStatic() ? klass : klass.prototype;
-      var original = source[wrappedMethod.getName()];
-      
-      source[wrappedMethod.getName()] = (function(k, m, a, o){
-        
-        return function(){
-        
-          var args = [].splice.call(arguments, 0);
-          var context = (m.isStatic() ? Mojo.GLOBAL : this);
-        
-          var proceed = (function(oP, c){
-          
-            return function()
-            {
-              return oP.apply(c, [].splice.call(arguments, 0));
-            }
-          
-          })(o, context);
-
-          return a.execute(context, args, proceed, k, m);
-        };        
-      })(klass, wrappedMethod, this, original);
-    },
-    
-    execute : function(context, args, proceed, klass, method)
-    {
-      return this._method.call(context, args, proceed, klass, method);
-    }
-  }
-
-});
-
-
 Mojo.Meta.newClass('Mojo.ClientRequest', {
 
   Instance : {
@@ -2295,27 +2722,39 @@ Mojo.Meta.newClass('Mojo.ClientRequest', {
 
 Mojo.Meta.newClass('Mojo.ClientSession', {
 
-  IsAbstract : true,
-
+  IsSingleton : true,
+  
+  Instance : {
+    initialize : function()
+    {
+      this._nativeParsingEnabled = true;
+      
+      // FIXME use constants for the keys
+      this._ajaxOptions ={
+          'method':'post',
+          'contentType':'application/x-www-form-urlencoded',
+          'encoding':'UTF-8',
+          'asynchronous':true,
+          'successRange':[200,299]
+      };
+      
+      this._baseEndpoint = (Mojo.GLOBAL.location.protocol + "//" + Mojo.GLOBAL.location.host  +'/'+ Mojo.GLOBAL.location.pathname.split( '/' )[1] +'/');
+    }
+  },
+  
   Static : {
+    
+    isNativeParsingEnabled : function() { return Mojo.ClientSession.getInstance()._nativeParsingEnabled; },
+    
+    setNativeParsingEnabled : function(enabled){ Mojo.ClientSession.getInstance()._nativeParsingEnabled = enabled; },
 
-    getBaseEndpoint : function() { return Mojo.ClientSession._baseEndpoint; },
+    getBaseEndpoint : function() { return Mojo.ClientSession.getInstance()._baseEndpoint; },
     
-    setBaseEndpoint : function(baseEndpoint) { Mojo.ClientSession._baseEndpoint = baseEndpoint; },
+    setBaseEndpoint : function(baseEndpoint) { Mojo.ClientSession.getInstance()._baseEndpoint = baseEndpoint; },
     
-    getDefaultOptions : function() { return Mojo.Util.copy(Mojo.ClientSession._defaultOptions, {}); },
+    getAjaxOptions : function() { return Mojo.Util.copy(Mojo.ClientSession.getInstance()._ajaxOptions, {}); },
     
-    setDefaultOptions : function(defaultOptions) { Mojo.Util.copy(defaultOptions, Mojo.ClientSession._defaultOptions); },
-    
-    _baseEndpoint : (Mojo.GLOBAL.location.protocol + "//" + Mojo.GLOBAL.location.host  +'/'+ Mojo.GLOBAL.location.pathname.split( '/' )[1] +'/'),
-    
-    _defaultOptions : {
-      'method':'post',
-      'contentType':'application/x-www-form-urlencoded',
-      'encoding':'UTF-8',
-      'asynchronous':true,
-      'successRange':[200,299]
-    }    
+    setAjaxOptions : function(defaultOptions) { Mojo.Util.copy(defaultOptions, Mojo.ClientSession.getInstance()._ajaxOptions); }
   }
 });
 
@@ -2327,7 +2766,7 @@ Mojo.Meta.newClass('Mojo.Ajax', {
     {
       if (url == null || url == "")
       {
-        throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', "URL of Ajax call is undefined or incorrect.");
+        throw new _exceptionClassRef("URL of Ajax call is undefined or incorrect.");
       }
       
       // encode the parameters if given a map
@@ -2347,7 +2786,7 @@ Mojo.Meta.newClass('Mojo.Ajax', {
       }
       
       this.options = {};
-          Mojo.Util.copy(Mojo.ClientSession.getDefaultOptions(), this.options);
+           Mojo.Util.copy(Mojo.ClientSession.getAjaxOptions(), this.options);
           Mojo.Util.copy(options, this.options);
       
       this.url = url;
@@ -2390,7 +2829,7 @@ Mojo.Meta.newClass('Mojo.Ajax', {
         catch (e)
         {
           var message = "The browser does not support Ajax";
-          throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', message);
+          throw new _exceptionClassRef(message);
         }
         }
       }
@@ -2464,7 +2903,7 @@ Mojo.Meta.newClass('Mojo.AjaxCallList', {
       // FIXME use Interface/superclass to accept other request types
       if ( !(obj instanceof Mojo.Meta.findClass("Mojo.Ajax")) )
       {
-        throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', "Mojo.AjaxCallList.add: Unable to add object to the call list, the provided object is not an AjaxCall");
+        throw new _exceptionClassRef("Mojo.AjaxCallList.add: Unable to add object to the call list, the provided object is not an AjaxCall");
       }
       
       this.array.push(obj);
@@ -2531,7 +2970,7 @@ Mojo.Meta.newClass('Mojo.AjaxCall', {
         };
       
         this.options = {};
-        Mojo.Util.copy(Mojo.ClientSession.getDefaultOptions(), this.options);
+        Mojo.Util.copy(Mojo.ClientSession.getAjaxOptions(), this.options);
         Mojo.Util.copy(this.clientRequest.options, this.options);
   
         // encode the parameters if given a map
@@ -2572,7 +3011,7 @@ Mojo.Meta.newClass('Mojo.AjaxCall', {
             catch (e)
             {
               var message = "The browser does not support Ajax";
-              throw Mojo.Meta.newInstance(Mojo.ROOT_PACKAGE+'Exception', message);
+              throw new _exceptionClassRef(message);
             }
           }
         }
@@ -2714,7 +3153,9 @@ Mojo.Meta.newClass('Mojo.Facade', {
     _controllerWrapper : function(endpoint, clientRequest, params)
     {
       if(Mojo.Util.isObject(params))
+      {
         params = {"com.runwaysdk.mojaxObject":Mojo.Util.getJSON(params)};
+      }
   
       new Mojo.AjaxCall(endpoint, clientRequest, params, true);
     },
@@ -2945,7 +3386,7 @@ Mojo.Meta.newClass('Mojo.Facade', {
       var params = {
         'method' : 'getQuery',
         'type' : type
-      }
+      };
   
       new Mojo.AjaxCall(Mojo.JSON_ENDPOINT, clientRequest, params);
     },
@@ -3964,7 +4405,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
   
     getId : function() { return this.id; },
   
-    getIdMd : function() { return this.getAttributeDTO('id').getAttributeMdDTO() },
+    getIdMd : function() { return this.getAttributeDTO('id').getAttributeMdDTO(); },
   
     getAttributeDTO : function(attributeName)
     {
@@ -4320,7 +4761,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'SystemAttributeProblemDTO', {
  * This is the actual exception that can be thrown and caught. There is no Mojo
  * Java counterpart, so we throw it in the root namespace.
  */
-Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Exception', {
+_exceptionClassRef = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Exception', {
 
   Extends : Mojo.ROOT_PACKAGE+'Base',
   
@@ -4860,7 +5301,9 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeMdDTO', {
   
     getName : function() { return this.name; },
   
-    getColumnName : function() { return this.columnName; }
+    getColumnName : function() { return this.columnName; },
+    
+    toJSON : function() { return undefined; }
   
   }
 });
@@ -5370,8 +5813,25 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
   
         this.setModified(true);
       }
+    },
+    
+    toJSON : function()
+    {
+      var tzRef = this._ignoreTimezone;
+      var r = function(k, v)
+      {
+        if(k === 'value' && isDate(v))
+        {
+          return Mojo.Util.toISO8601(v, tzRef);
+        }
+        else
+        {
+          return v;
+        }
+      };
+      
+      return this.$toJSON(r);
     }
-  
   }
 });
 
@@ -5735,7 +6195,9 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'TypeMd', {
   
     getDescription : function() {return this.description;},
   
-    getId : function() {return this.id;}
+    getId : function() {return this.id;},
+    
+    toJSON : function() { return undefined; }
   
   }
 });
@@ -5760,3 +6222,4 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'RelationshipMd', {
   
   }
 });
+})();
