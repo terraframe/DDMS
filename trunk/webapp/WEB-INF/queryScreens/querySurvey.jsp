@@ -110,7 +110,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var surveyedPersonMaps = {<%=(String) request.getAttribute("surveyedPersonMap")%>};
     var person = new dss.vector.solutions.intervention.monitor.SurveyedPerson;
-    var personAttribs = ["personId","headOfHousehold","dob","age","sex","pregnant","immuneCompromised",
+    var personAttribs = ["personId","headOfHousehold","dob","age","sex","pregnant","immuneCompromised", "sleptUnderNet", 
                          "haemoglobinMeasured","haemoglobin", "anaemiaTreatment","iron",
                          "performedRDT","rdtResult","rdtDetail","rdtTreatment",
                          "performedBloodslide","bloodslideReason","bloodslideResult","bloodslideDetail",
@@ -129,6 +129,16 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var personColumns =   personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_person',dropDownMaps:surveyedPersonMaps});
 
+    // sleptUnderNets does not dereference with a display label, so set a custom attribute on the referenced class
+    for(var i=0; i<personColumns.length; i++)
+    {
+      var column = personColumns[i];
+      if(column.attributeName === 'sleptUnderNet')
+      {
+        column.customDereference = '.netId';
+      }
+    }
+    
     personColumns = personColumns.concat(
         [                          {
           

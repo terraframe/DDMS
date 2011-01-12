@@ -72,6 +72,13 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         
         this._usingAgg = false;
         this._usingInd = false;
+        
+        this._geoFilters = [];
+        this._universalFilters = [];
+        
+        var picker = this.getGeoPicker();
+        picker.clearAfterFilter(true);
+        picker.setValidator(Mojo.Util.bind(this, this.validateGeoEntity));
       },
       
       _customPostRender : function()
@@ -278,6 +285,99 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         }          
         
         this._toggleGeoOptions();
+      },
+      
+      _displaySearch : function()
+      {
+        var currentAttribute = this._getCurrentGeoAttribute();
+        if(currentAttribute === this._indPremiseGeo || currentAttribute === this._aggPremiseGeo)
+        {
+          // restrict the sub-geo entity universals
+          if(this._universalFilters.length > 0)
+          {
+            this.getGeoPicker().setFilter(this._universalFilters);
+          }
+        }
+        else
+        {
+          // don't show a filter for the main geo entity
+          this.getGeoPicker().setFilter(null);
+        }
+        
+        this.$_displaySearch();
+      },
+      
+      _hideHandler : function(views, selectedUniversals, attributeKey)
+      {
+        var current = attributeKey || this._getCurrentGeoAttribute();
+        if(current !== this._indPremiseGeo && current !== this._aggPremiseGeo)
+        {
+          // define the filters based on the main geo entity
+          this._geoFilters = views;
+          this._universalFilters = selectedUniversals;
+        }
+        
+        this.$_hideHandler(views, selectedUniversals, attributeKey);
+      },
+      
+      _resetToDefault : function()
+      {
+        this._universalFilters = [];
+        this._geoFilters = [];
+        
+        this.$_resetToDefault();
+      },
+      
+      validateGeoEntity : function(cb, geoEntityView, entityIds)
+      {
+        var current = this._getCurrentGeoAttribute();
+        
+        var childIds;
+        var parentIds;
+        var usingMain = false;
+        if(current === this._indPremiseGeo || current === this._aggPremiseGeo)
+        {
+          // Adding a new sub geo entity, so make sure it is located_in one of the main geo entities.
+          var childId = geoEntityView.getGeoEntityId();
+          childIds = [childId].concat(entityIds);
+          
+          parentIds = [];
+        }
+        else
+        {
+          usingMain = true;
+          
+          // Adding a new main geo entity, so make sure we don't invalidate any existing sub geo entities.
+          parentIds = [geoEntityView.getGeoEntityId()];
+          
+          var childCriteria = this._criteriaEntities[this._indPremiseGeo].concat(this._criteriaEntities[this._aggPremiseGeo]);
+          childIds = Mojo.Iter.map(childCriteria, function(geo){ return geo.getGeoEntityId(); });
+        }
+
+        if((usingMain && childIds.length > 0) || (!usingMain && this._geoFilters.length > 0))
+        {
+          var request = new MDSS.Request({
+            onSuccess : function(ids)
+            {
+              var warnings = this.getWarnings();
+              if(warnings.length > 0)
+              {
+                new MDSS.ErrorModal(warnings[0].getMessage());
+              }
+              else
+              {
+                cb();
+              }
+            }
+          });
+          
+          parentIds = parentIds.concat(Mojo.Iter.map(this._geoFilters, function(geo){ return geo.getGeoEntityId(); })); 
+          Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.isChildOfParents(request, childIds, parentIds);
+        }
+        else
+        {
+          cb();
+        }
       }
   }
 });

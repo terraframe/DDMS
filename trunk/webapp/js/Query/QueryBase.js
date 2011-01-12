@@ -1451,6 +1451,7 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._isAggregate = obj.isAggregate || false;
       this._isTerm = false;
       this._isEnum = false;
+      this._customDereference = obj.customDereference || null;
       
       this._searchType = obj.searchType || null;
       this._searchAttribute = obj.searchAttribute || null;
@@ -1586,6 +1587,10 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       {
         var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
         return new MDSS.QueryXML.Selectable(attribute);
+      }
+      else if(this._customDereference && dereference)
+      {
+        attrName = attrName + this._customDereference;
       }
       else if(dereference)
       {

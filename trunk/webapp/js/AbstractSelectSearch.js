@@ -60,6 +60,8 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._extraUniversals = [],
       
       this._rendered = false;  
+      
+      this._clearAfterFilter = false;
     },
     
     enforcesRoot : function()
@@ -498,7 +500,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     _doFilter : function()
     {
       // show all if no filter exists
-      if(this._filterType == null || this._filterType === '')
+      if(this._filterType == null || this._filterType === '' || (Mojo.Util.isArray(this._filterType) && this._filterType.length === 0))
       {
         var selects = YAHOO.util.Selector.query('select', this._SELECT_CONTAINER_ID);
         for(var i=0; i<selects.length; i++)
@@ -514,36 +516,52 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         return;
       }
   
-      function collectParents(tree, allowedArr, typeEntry)
+      function collectParents(tree, allowedSet, typeEntry)
       {
         var parentType = typeEntry.parent;
   
         if(Mojo.Util.isString(parentType))
         {
           var parentEntry = tree.types[parentType];
-          allowedArr.push(parentType);
-          collectParents(tree, allowedArr, parentEntry);
+          allowedSet.set(parentType);
+          collectParents(tree, allowedSet, parentEntry);
         }
       }
   
-      function collectChildren(tree, allowedArr, typeEntry)
+      function collectChildren(tree, allowedSet, typeEntry)
       {
         var children = typeEntry.children;
         for(var i=0; i<children.length; i++)
         {
           var childEntry = tree.types[children[i]];
-          allowedArr.push(children[i]);
-          collectChildren(tree, allowedArr, childEntry);
+          allowedSet.set(children[i]);
+          collectChildren(tree, allowedSet, childEntry);
         }
       }
   
-  
-      var allowed = [];
+      var allowed = new MDSS.Set();
       var tree = MDSS.GeoTreeSelectables;
-      var typeEntry = tree.types[this._filterType];
-      allowed.push(this._filterType);
-      collectParents(tree, allowed, typeEntry);
-      collectChildren(tree, allowed, typeEntry);
+      
+      if(Mojo.Util.isArray(this._filterType))
+      {
+        for(var i=0; i<this._filterType.length; i++)
+        {
+          var type = this._filterType[i];
+          allowed.set(type);
+
+          var typeEntry = tree.types[type];
+          collectParents(tree, allowed, typeEntry);
+          collectChildren(tree, allowed, typeEntry);
+        }
+      }
+      else
+      {
+        allowed.set(this._filterType);
+
+        var typeEntry = tree.types[this._filterType];
+        collectParents(tree, allowed, typeEntry);
+        collectChildren(tree, allowed, typeEntry);
+      }
   
       // hide all sections not in the allowed array
       var selects = YAHOO.util.Selector.query('select', this._SELECT_CONTAINER_ID);
@@ -553,17 +571,27 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         var dt = new YAHOO.util.Element(type+"_dt");
         var dd = new YAHOO.util.Element(type+"_dd");
   
-        if(allowed.indexOf(type) === -1)
-        {
-          dt.setStyle('display', 'none');
-          dd.setStyle('display', 'none');
-        }
-        else
+        if(allowed.contains(type))
         {
           dt.setStyle('display', 'block');
           dd.setStyle('display', 'block');
         }
+        else
+        {
+          dt.setStyle('display', 'none');
+          dd.setStyle('display', 'none');
+        }
       }
+      
+      if(this._clearAfterFilter)
+      {
+        this._filterType = '';
+      }
+    },
+    
+    clearAfterFilter : function(clear)
+    {
+      this._clearAfterFilter = clear;
     },
     
     _modalListFunction : function(valueObject) {

@@ -19,6 +19,14 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       this._CURRENT_SELECTIONS = 'currentSelections';
       
       this._initSelectedUniversals = [];
+      
+      // optional function handler that will be called before adding an entity as criteria
+      this._validator = null;
+    },
+    
+    setValidator : function(validator)
+    {
+      this._validator = validator;
     },
     
     _notifyTreeSelectHandler : function(geoEntityView)
@@ -107,6 +115,10 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
         this._updateSelection(criteria[i], this._rendered);
       }
     },
+    
+    retain : function(ids)
+    {
+    },
   
     /**
      * Adds the given GeoEntity to the list of current selections.
@@ -120,10 +132,22 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       {
         return;
       }
+      
+      if(Mojo.Util.isFunction(this._validator))
+      {
+        var cb = Mojo.Util.bind(this, this._updateSelection2, geoEntityView, updateList);
+        this._validator(cb, geoEntityView, Mojo.Util.getKeys(this._criteriaMap, true));
+      }
       else
       {
-        this._criteriaMap[id] = geoEntityView;
+        this._updateSelection2(geoEntityView, updateList);
       }
+    },
+    
+    _updateSelection2 : function(geoEntityView, updateList)
+    {
+      var id = geoEntityView.getGeoEntityId();
+      this._criteriaMap[id] = geoEntityView;
   
       if(updateList)
       {
@@ -280,8 +304,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     },
   
     /**
-     * Returns 2 as the start index. One option for a blank field,
-     * and another for Select All.
+     * Returns 1 as the start index with one option for the blank field.
      */
     _getStartIndex : function()
     {
