@@ -21,7 +21,6 @@ import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.constants.MetadataInfo;
-import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
@@ -123,52 +122,28 @@ public class PermissionImporter implements Reloadable
 
         for (RoleDAO role : roles)
         {
+          Set<RoleDAOIF> superRoles = role.getSuperRoles();
           String action = ExcelUtil.getString(row.getCell(i++));
 
           if (action.equalsIgnoreCase("W"))
           {
-            try
+            // ensure that the role does not already inherit the writeRoleDAO
+            if (!superRoles.contains(writeRoleDAO))
             {
               role.addAscendant(writeRoleDAO);
             }
-            catch (DuplicateGraphPathException e)
-            {
-              // Do nothing
-            }
-            catch (DataNotFoundException e)
-            {
-              // Do nothing
-            }
 
-            try
+            if (!superRoles.contains(readRoleDAO))
             {
               role.addAscendant(readRoleDAO);
             }
-            catch (DuplicateGraphPathException e)
-            {
-              // Do nothing
-            }
-            catch (DataNotFoundException e)
-            {
-              // Do nothing
-            }
-
           }
           else if (action.equalsIgnoreCase("R"))
           {
-            try
+            if (!superRoles.contains(readRoleDAO))
             {
               role.addAscendant(readRoleDAO);
             }
-            catch (DuplicateGraphPathException e)
-            {
-              // Do nothing
-            }
-            catch (DataNotFoundException e)
-            {
-              // Do nothing
-            }
-
           }
         }
       }
@@ -407,7 +382,7 @@ public class PermissionImporter implements Reloadable
 
   /**
    * Opens the stream and returns an initialized row iterator
-   *
+   * 
    * @param stream
    * @return
    * @throws IOException
