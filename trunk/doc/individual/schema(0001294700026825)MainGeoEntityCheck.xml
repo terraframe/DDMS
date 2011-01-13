@@ -1,0 +1,46 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+  
+    <create>
+      <mdWarning
+        name="dss.vector.solutions.geo.EntityNotChildOfMainWarning"
+        label="Entity Not Child of Main Warning"
+        description="Thrown when an entity is not a located_in child of any main geo entity."
+        message="The following geo entities are not located_in any main geo entities: [{entities}].">
+        <attributes>
+          <text
+            name="entities"
+            label="entities"
+            description="List of entities that violated the located_in restriction."
+            required="true"/>
+        </attributes>
+      </mdWarning>    
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.geo.generated.GeoEntity">
+        <create>
+          <mdMethod
+            name="isChildOfParents"
+            label="Is Child Of Parents"
+            returnType="java.lang.String[]"
+            static="true"
+            description="Checks if the given entities are children of the parent entities.">
+            <mdParameter
+              name="childIds"
+              label="Child Ids"
+              order="0"
+              type="java.lang.String[]" />
+            <mdParameter
+              name="parentIds"
+              label="Parent Ids"
+              order="1"
+              type="java.lang.String[]" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>
