@@ -271,12 +271,35 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       }
     },
     
-    _toggleStylesAfterRender2 : function()
+    _hideSections : function(forCategory)
     {
+      var sections = ['Label', 'Geo'];
+      
+      var styleId;
+      if(forCategory)
+      {
+        styleId = document.getElementById('categoryStyleId').value;
+      }
+      else
+      {
+        sections.push('Legend');
+        styleId = document.getElementById('hiddenStyleId').value;
+      }
+
+      // hide the sections by default
+      for(var i=0; i<sections.length; i++)
+      {
+        var section = sections[i];
+        var toggleId = styleId+'_toggle'+section;
+        YAHOO.util.Event.on(toggleId, 'click', this._toggleStyles, null, this);
+        document.getElementById(toggleId+'Div').style.display = 'none';
+      }
+      
       // Grab the value of the containing layer's RenderAs value to know
       // if we should show or hide the point/polygon styles.
       var radios = document.getElementsByName('layer.renderAs');
-      for(var i=0; i<radios.length; i++)
+      var len = radios.length;
+      for(var i=0; i<len; i++)
       {
         var radio = radios[i];
         if(radio.checked)
@@ -293,14 +316,28 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _toggleStylesAfterRender : function(forCategory)
     {
-      if(forCategory)
+      // Alot of html/dom is being manipulated, so let the JS engine
+      // wait until there is no more work to do before hiding sections.
+      setTimeout(Mojo.Util.bind(this, this._hideSections, forCategory), this.constructor.TOGGLE_TIMEOUT);
+    },
+    
+    /**
+     * Called when a user clicks the show/hide toggle for a set of styles.
+     */
+    _toggleStyles : function(e)
+    {
+      var el = e.target;
+      var divId = el.id+'Div';
+      var div = document.getElementById(divId);
+      if(div.style.display == 'none')
       {
-        setTimeout(Mojo.Util.bind(this, this._toggleStylesAfterRender2),
-          MDSS.MapPanel.TOGGLE_TIMEOUT);
+        el.innerHTML = MDSS.Localized.Toggle_Hide;
+        div.style.display = 'block';
       }
       else
       {
-        this._toggleStylesAfterRender2();
+        el.innerHTML = MDSS.Localized.Toggle_Show;
+        div.style.display = 'none';
       }
     },
     
@@ -309,46 +346,15 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     _toggleLayerStylesAfterRender : function()
     {
-      var that = this;
-      // This timeout is used to ensure that all other DOM manipulating JS calls
-      // can be completed before executing the logic below. Otherwise, the sliders
-      // and color pickers will not work properly.
-      setTimeout(function(){
+      // Attach toggle events to the point/polygon radios
+      var radios = document.getElementsByName('layer.renderAs');
+      var len = radios.length;
+      for(var i=0; i<len; i++)
+      {
+        YAHOO.util.Event.on(radios[i], 'change', MDSS.MapPanel.toggleGeoStylesHandler); 
+      }
       
-        var styleId = document.getElementById('hiddenStyleId').value;
-      
-        YAHOO.util.Event.on(styleId+'_toggle', 'click', function(e){
-          var el = e.target;
-          var div = document.getElementById(styleId+'_toggleDiv');
-          if(div.style.display == 'none')
-          {
-            el.innerHTML = MDSS.Localized.Toggle_Hide;
-            div.style.display = 'block';
-          }
-          else
-          {
-            el.innerHTML = MDSS.Localized.Toggle_Show;
-            div.style.display = 'none';
-          }
-        });
-      
-        var radios = document.getElementsByName('layer.renderAs');
-        for(var i=0; i<radios.length; i++)
-        {
-          var radio = radios[i];
-          if(radio.checked)
-          {
-            MDSS.MapPanel.toggleGeoStyles(radio.value);
-          }
-          
-          YAHOO.util.Event.on(radio, 'change', MDSS.MapPanel.toggleGeoStylesHandler); 
-        }
-        
-        that._toggleStylesAfterRender(false);
-        
-        document.getElementById(styleId+'_toggleDiv').style.display = 'none';
-        
-      }, MDSS.MapPanel.TOGGLE_TIMEOUT);
+      this._toggleStylesAfterRender(false);
     },
     
     _requestGenerateListener : function(params)
@@ -1884,33 +1890,16 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      */
     toggleGeoStyles : function(value)
     {
-      var show;
-      var hide;
       if(value === 'POINT')
       {
-        show = 'POINT_toggle';
-        hide = 'POLYGON_toggle';
+        document.getElementById('pointStyles').style.display = 'block';
+        document.getElementById('polygonStyles').style.display = 'none';
       }
       else
       {
-        show = 'POLYGON_toggle';
-        hide = 'POINT_toggle';
+        document.getElementById('pointStyles').style.display = 'none';
+        document.getElementById('polygonStyles').style.display = 'block';
       }
-      
-      var hideAll = document.getElementsByClassName(hide);
-      for(var i=0; i<hideAll.length; i++)
-      {
-        var dt = hideAll[i];
-        dt.style.display = 'none';
-      }
-
-      var showAll = document.getElementsByClassName(show);
-      for(var i=0; i<showAll.length; i++)
-      {
-        var dt = showAll[i];
-        dt.style.display = 'block';
-      }
-      
     },
     
     /**

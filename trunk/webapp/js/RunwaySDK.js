@@ -5567,6 +5567,36 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeTextMdDTO',        {
   }
 });
 
+// clob
+Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeClobDTO', {
+  
+  Extends : Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO',
+  
+  
+  Instance : {
+  
+  initialize : function(obj)
+  {
+  this.$initialize(obj);
+  }
+
+}
+});
+
+Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeClobMdDTO',        {
+  
+  Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
+  
+  Instance : {
+  
+  initialize : function(obj)
+  {
+  this.$initialize(obj);
+  }
+
+}
+});
+
 // local text
 Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalTextDTO', {
   

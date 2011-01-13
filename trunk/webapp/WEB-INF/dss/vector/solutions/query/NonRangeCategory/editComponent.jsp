@@ -6,10 +6,10 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<dl>
   <mjl:form name="dss.vector.solutions.query.NonRangeCategory.form.name" id="dss.vector.solutions.query.NonRangeCategory.form.id" method="POST">
     <%@include file="form.jsp" %>
+    <div style="margin-top:10px">
     <mjl:command value="Update" action="dss.vector.solutions.query.AbstractCategoryController.saveCategory.mojo" name="dss.vector.solutions.query.AbstractCategoryController.form.saveCategory.button" />
     <mjl:command value="Cancel" action="dss.vector.solutions.query.NonRangeCategoryController.cancel.mojo" name="dss.vector.solutions.query.NonRangeCategoryController.form.cancel.button" />
+    </div>
   </mjl:form>
-</dl>

@@ -2,6 +2,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <mjl:component item="${styles}" param="styles">
+<mjl:input type="hidden" value="${styles.id}" id="categoryStyleId"></mjl:input>
+<strong><fmt:message key="Advanced_Label_Options" /></strong>: <span id="${styles.id}_toggleLabel" class="clickable"><fmt:message key="Toggle_Show" /></span>
+<div id="${styles.id}_toggleLabelDiv"  style="display: block; margin-bottom: 10px;">
+<dl>
   <dt>
     <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_fill" ${styles.enable_fill ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.fillMd.displayLabel }</label>
@@ -144,6 +148,13 @@
       <mjl:input type="hidden" param="displacementY" id="${styles.id}_displacementY" />
     </div>
   </dd>
+</dl>
+</div>
+<hr />
+<strong><fmt:message key="Advanced_Geometry_Options" /></strong>: <span id="${styles.id}_toggleGeo" class="clickable"><fmt:message key="Toggle_Show" /></span>
+<div id="${styles.id}_toggleGeoDiv"  style="display: block; margin-bottom: 10px;">
+<div id="pointStyles">
+<dl>
   <dt class="POINT_toggle">
     <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_pointMarker" ${styles.enable_pointMarker ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.pointMarkerMd.displayLabel }</label>
@@ -215,6 +226,10 @@
       <mjl:input type="hidden" param="pointWidth" id="${styles.id}_pointWidth" />
     </div>
   </dd>
+</dl>
+</div>
+<div id="polygonStyles">
+<dl>
   <dt class="POLYGON_toggle">
     <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_polygonStroke" ${styles.enable_polygonStroke ? 'checked="checked"' : ''} value="true" title='<fmt:message key="Enable_Style_Override" />' /></c:if>
     <label>${styles.polygonStrokeMd.displayLabel }</label>
@@ -270,7 +285,9 @@
       <mjl:input type="hidden" param="polygonWidth" id="${styles.id}_polygonWidth" />
     </div>
   </dd>
-
+</dl>
+</div>
+</div>
 <script type="text/javascript">
 (function(){
   

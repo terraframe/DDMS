@@ -13,6 +13,8 @@
 <%@page import="dss.vector.solutions.query.QueryConstants"%>
 <mjl:component item="${layer}" param="layer">
   <input type="hidden" id="layerId" value="${layer.id}" />
+  <input type="hidden" id="hiddenStyleId" value="${styles.id}" />
+<dl>
   <mjl:dt attribute="layerName">
     <mjl:input type="text" param="layerName" />
   </mjl:dt>
@@ -97,6 +99,13 @@
   <mjl:dt attribute="enableLegend">
     <mjl:boolean param="enableLegend"/>
   </mjl:dt>
+</dl>
+
+<jsp:include page="../Styles/form.jsp"></jsp:include>
+<hr />
+<strong><fmt:message key="Advanced_Legend_Options" /></strong>: <span id="${styles.id}_toggleLegend" class="clickable"><fmt:message key="Toggle_Show" /></span>
+<div id="${styles.id}_toggleLegendDiv"  style="display: block; margin-bottom: 10px;">
+<dl>
   <mjl:dt attribute="legendTitle">
     <mjl:input type="text" param="legendTitle"/>
   </mjl:dt>
@@ -177,7 +186,8 @@
       </c:forEach>
     </select>
   </mjl:dt>
-
+</dl>
+</div>
 
 <script type="text/javascript">
 (function(){
@@ -192,13 +202,8 @@
   
 })();
 </script>
-</mjl:component>
 
-<input type="hidden" id="hiddenStyleId" value="${styles.id}" />
-<strong><fmt:message key="Advanced" /></strong>: <span id="${styles.id}_toggle" class="clickable"><fmt:message key="Toggle_Show" /></span>
-<div id="${styles.id}_toggleDiv" style="display: block; margin-bottom: 10px;">
-  <jsp:include page="../Styles/form.jsp"></jsp:include>
-</div>
+</mjl:component>
 
 <div id="categories" style="margin-top: 10px;">
 <strong><fmt:message key="Add_Category" /></strong>: 
