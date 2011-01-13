@@ -3,6 +3,53 @@
    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
     <create>
+      <mdEnumeration
+         name="dss.vector.solutions.geo.SpatialTypes"
+         label="Spatial Types"
+         description="Defines all spatial types"
+         type="dss.vector.solutions.geo.SpatialMaster">
+        <includeAll />
+      </mdEnumeration>
+      <mdEnumeration
+         name="dss.vector.solutions.entomology.LifeStage"
+         type="dss.vector.solutions.entomology.LifeStageMaster"
+         label="Life Stage">
+        <includeAll />
+      </mdEnumeration>
+      <mdEnumeration
+         name="dss.vector.solutions.SurfacePosition"
+         type="dss.vector.solutions.SurfacePositionMaster"
+         label="Surface Position"
+         description="List of all possible assay surface positions">
+        <includeAll />
+      </mdEnumeration>
+      <enumerationMaster
+         name="dss.vector.solutions.geo.SpatialMaster"
+         label="Spatial Master"
+         description="Enumeration Master to define spatial attributes."
+         generateController="false">
+      </enumerationMaster>
+      <enumerationMaster
+         name="dss.vector.solutions.entomology.LifeStageMaster"
+         label="Life Stage Master"
+         generateController="false">
+      </enumerationMaster>
+      <enumerationMaster
+         name="dss.vector.solutions.SurfacePositionMaster"
+         label="Position on surface"
+         description="Configurable table of surface positions"
+         generateController="false">
+      </enumerationMaster>
+      <mdStruct
+         name="dss.vector.solutions.entomology.assay.AdultAgeRange"
+         label="Age Range"
+         description="Age range of mosquitos in an assay"
+         generateController="false">
+        <attributes>
+          <integer name="startPoint" label="From Age" rejectNegative="true" required="true" description="Starting age of the age range" />
+          <integer name="endPoint" label="To Age" rejectNegative="true" required="true" description="Ending age of the age range" />
+        </attributes>
+      </mdStruct>
       <mdBusiness
          name="dss.vector.solutions.ontology.Ontology"
          isAbstract="false"
@@ -36,19 +83,6 @@
           <reference name="inverseOfOnInstanceLevel" required="false" label="Inverse Of On Instance Level" type="dss.vector.solutions.ontology.OntologyRelationship" />
         </attributes>
       </mdBusiness>
-      <mdIndex type="dss.vector.solutions.ontology.OntologyRelationship" label="Name and Namespace Index" active="true" unique="false" description="Enforces a unique index between the name and namespace" cacheAlgorithm="everything">
-        <attribute name="namespace" indexOrder="1" />
-        <attribute name="name" indexOrder="0" />
-      </mdIndex>
-      <mdTree
-         name="dss.vector.solutions.ontology.OntologyHasRelationship"
-         label="Ontology Has Relationship"
-         description="Relationships that an ontology utilizes"
-         generateController="false"
-         cacheAlgorithm="everything">
-        <parent cardinality="*" name="dss.vector.solutions.ontology.Ontology" method="Ontology" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.OntologyRelationship" method="OntologyRelationship" />
-      </mdTree>
       <mdBusiness
          name="dss.vector.solutions.ontology.Term"
          label="Term"
@@ -63,18 +97,6 @@
           <reference name="ontology" required="true" label="Ontology" type="dss.vector.solutions.ontology.Ontology" />
         </attributes>
       </mdBusiness>
-      <mdGraph
-         name="dss.vector.solutions.ontology.TermRelationship"
-         label="Term Relationship"
-         description="Ontology relationship between two terms."
-         isAbstract="false"
-         generateController="false">
-        <attributes>
-          <reference name="ontologyRelationship" required="true" label="Ontology Relationship" type="dss.vector.solutions.ontology.OntologyRelationship" />
-        </attributes>
-        <parent cardinality="*" name="dss.vector.solutions.ontology.Term" method="ParentTerm" />
-        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="ChildTerm" />
-      </mdGraph>
       <mdBusiness
          name="dss.vector.solutions.ontology.AllPaths"
          label="Ontology All Paths"
@@ -90,34 +112,6 @@
           <reference name="ontologyRelationship" label="Ontology Relationship" required="true" unique="false" type="dss.vector.solutions.ontology.OntologyRelationship" description="The relationship type definition" indexType="non-unique index" />
         </attributes>
       </mdBusiness>
-      <mdIndex type="dss.vector.solutions.ontology.AllPaths" label="Parent Child Ontology Term Index" active="true" unique="true" description="Enforces a unique index between the parent term and the child term">
-        <attribute name="ontologyRelationship" indexOrder="2" />
-        <attribute name="childTerm" indexOrder="1" />
-        <attribute name="parentTerm" indexOrder="0" />
-      </mdIndex>
-      <mdIndex type="dss.vector.solutions.ontology.AllPaths" label="Parent Term Ontology Relationship Type Index" active="true" unique="false" description="Enforces a unique index between the parent term and the relatoinship type">
-        <attribute name="ontologyRelationship" indexOrder="1" />
-        <attribute name="parentTerm" indexOrder="0" />
-      </mdIndex>
-      <mdIndex type="dss.vector.solutions.ontology.AllPaths" label="Child Term Ontology Relationship Type Index" active="true" unique="false" description="Enforces a unique index between the child term and the relatoinship type">
-        <attribute name="ontologyRelationship" indexOrder="1" />
-        <attribute name="childTerm" indexOrder="0" />
-      </mdIndex>
-      <mdException
-         name="dss.vector.solutions.ontology.InvalidRelationshipForOntologyException"
-         label="Unknown Term Exception">
-        <attributes>
-          <char name="relationship" label="Relationship" required="true" size="255" />
-          <char name="ontology" label="Ontology" required="true" size="255" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.ontology.InvalidOBOFormatException"
-         label="Invalid OBO File Exception">
-        <attributes>
-          <char name="fileName" label="File" required="true" size="255" />
-        </attributes>
-      </mdException>
       <mdBusiness
          name="dss.vector.solutions.general.Disease"
          label="Disease"
@@ -262,156 +256,6 @@
           <mdParameter name="cloneOperation" label="Clone Operation" description="Denotes if this GeoHierarchy is being cloned to another parent." order="2" type="java.lang.Boolean" />
         </mdMethod>
       </mdBusiness>
-      <mdView
-         name="dss.vector.solutions.geo.GeoHierarchyView"
-         label="Geo Hierarchy View"
-         description="Geo Hierarchy View">
-        <attributes>
-          <char name="referenceId" size="64" label="Reference Id" description="The Id of the GeoEntity MdBusiness" required="true" />
-          <char name="geoHierarchyId" size="64" label="GeoHierarchy Id" description="GeoHierarchy Id" required="true" />
-          <char name="isADisplayLabel" required="true" label="The parent type of this universal." size="100" />
-          <char name="displayLabel" required="true" size="64" label="Display Label" />
-          <char name="description" required="false" size="255" label="Description" />
-          <virtual name="typeName" required="true" concrete="typeName" type="com.runwaysdk.system.metadata.MdType" />
-          <virtual name="political" required="true" concrete="political" type="dss.vector.solutions.geo.GeoHierarchy" />
-          <virtual name="sprayTargetAllowed" required="true" concrete="sprayTargetAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
-          <virtual name="populationAllowed" required="false" concrete="populationAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
-        </attributes>
-        <mdMethod
-           name="getUrbanHierarchies"
-           label="Get Urban Hierarchies"
-           returnType="dss.vector.solutions.geo.GeoHierarchyView[]"
-           static="true">
-          <mdParameter name="entityId" label="Entity Id" order="0" type="java.lang.String" />
-        </mdMethod>
-      </mdView>
-      <mdTree
-         name="dss.vector.solutions.geo.AllowedIn"
-         label="Allowed In"
-         description="Relates which GeoEntity classes are allowed within one another."
-         generateController="false">
-        <parent cardinality="*" name="dss.vector.solutions.geo.GeoHierarchy" method="AllowedInGeoEntity" />
-        <child cardinality="*" name="dss.vector.solutions.geo.GeoHierarchy" method="AcceptsGeoEntity" />
-      </mdTree>
-      <mdTree
-         name="dss.vector.solutions.geo.LocatedIn"
-         label="Located In"
-         description="Relates how GeoEntities are located within one another."
-         generateController="false">
-        <parent cardinality="*" name="dss.vector.solutions.geo.generated.GeoEntity" method="LocatedInGeoEntity" />
-        <child cardinality="*" name="dss.vector.solutions.geo.generated.GeoEntity" method="ContainsGeoEntity" />
-      </mdTree>
-      <mdView
-         name="dss.vector.solutions.geo.GeoEntityDefinition"
-         label="GeoEntityDefinition"
-         description="View to define a new GeoEntity">
-        <attributes>
-          <char name="parentGeoHierarchyId" label="The universal located in parent." description="The located in parent of this universal." required="true" size="64" />
-          <char name="parentTypeGeoHierarchyId" label="The universal parent type." description="The parent type of this universal." required="false" size="64" />
-          <char name="displayLabel" required="true" label="The Display Label" size="64" />
-          <char name="description" required="false" label="Description" size="255" />
-          <enumeration name="spatialType" label="Spatial Type" description="Spatial Type of GeoEntity attribute." required="false" selectMultiple="false" type="dss.vector.solutions.geo.SpatialTypes" />
-          <virtual name="political" required="true" concrete="political" type="dss.vector.solutions.geo.GeoHierarchy" />
-          <virtual name="sprayTargetAllowed" required="true" concrete="sprayTargetAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
-          <virtual name="populationAllowed" required="false" concrete="populationAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
-          <virtual name="typeName" required="false" concrete="typeName" type="com.runwaysdk.system.metadata.MdType" />
-        </attributes>
-      </mdView>
-      <enumerationMaster
-         name="dss.vector.solutions.geo.SpatialMaster"
-         label="Spatial Master"
-         description="Enumeration Master to define spatial attributes."
-         generateController="false">
-      </enumerationMaster>
-      <mdEnumeration
-         name="dss.vector.solutions.geo.SpatialTypes"
-         label="Spatial Types"
-         description="Defines all spatial types"
-         type="dss.vector.solutions.geo.SpatialMaster">
-        <includeAll />
-      </mdEnumeration>
-      <mdController
-         name="dss.vector.solutions.geo.GeoEntityTreeController"
-         label="GeoEntity Tree Controller"
-         description="GeoEntity Tree Controller">
-        <mdAction
-           name="displaySingleSelectSearch"
-           label="Display Select Search"
-           description="Display Select Search"
-           isPost="true">
-          <mdParameter name="rootGeoEntityId" label="Root GeoEntity Id" description="The id of the GeoEntity that will be the root of the select lists." order="0" type="java.lang.String" />
-          <mdParameter name="flags" label="Flags" description="Flags that restrict which GeoHierarchies should be allowed." order="1" type="java.lang.Boolean[]" />
-          <mdParameter name="extraUniversals" label="Extra Univerals" order="3" description="A list of other universals to be appended to the search." type="java.lang.String[]" />
-        </mdAction>
-        <mdAction
-           name="displayMultipleSelectSearch"
-           label="Display Select Search"
-           description="Display Select Search"
-           isPost="true">
-          <mdParameter name="rootGeoEntityId" label="Root GeoEntity Id" description="The id of the GeoEntity that will be the root of the select lists." order="0" type="java.lang.String" />
-          <mdParameter name="flags" label="Flags" description="Flags that restrict which GeoHierarchies should be allowed." order="1" type="java.lang.Boolean[]" />
-          <mdParameter name="extraUniversals" label="Extra Univerals" order="3" description="A list of other universals to be appended to the search." type="java.lang.String[]" />
-        </mdAction>
-        <mdAction
-           name="displayTree"
-           label="Display Tree"
-           description="Displays the GeoEntity tree."
-           isPost="false">
-          <mdParameter name="rootGeoEntityId" label="Root GeoEntity Id" description="The id of the GeoEntity that will be the root of the tree" order="0" type="java.lang.String" />
-        </mdAction>
-      </mdController>
-      <mdController
-         name="dss.vector.solutions.geo.GeoEntityTypeController"
-         label="GeoEntity Type Controller"
-         description="Controller to define new GeoEntity types.">
-        <mdAction
-           name="viewHierarchyTree"
-           label="View Hierarchy Tree"
-           description="Views the Geo Hierarchy as a tree with an abitrary root."
-           isPost="false">
-          <mdParameter name="rootGeoHierarchyId" label="Root GeoHierarchy Id" description="The id of the GeoHierarchy that will be the root of the tree" order="0" type="java.lang.String" />
-        </mdAction>
-        <mdAction
-           name="newDefinition"
-           label="New GeoEntity Type"
-           isPost="false">
-          <mdParameter name="parentGeoHierarchyId" type="java.lang.String" label="Parent GeoHierarchy Id" description="Parent GeoHierarchy Id" order="0" />
-        </mdAction>
-        <mdAction
-           name="createDefinition"
-           label="Create GeoEntity Type"
-           isPost="true">
-          <mdParameter name="definition" label="GeoEntityDefinition" description="The GeoEntityDefinition" order="0" type="dss.vector.solutions.geo.GeoEntityDefinition" />
-        </mdAction>
-        <mdAction name="cancelCreateDefinition" label="Cancel Create Definition" description="Cancels the request to create a new definition." isPost="true" />
-        <mdAction
-           name="editDefinition"
-           label="Edit Definition"
-           description="Edit Definition"
-           isPost="true">
-          <mdParameter name="geoHierarchyId" label="GeoHierarchy Id" description="The id of the GeoHierarchy to lock and edit." order="0" type="java.lang.String" />
-        </mdAction>
-        <mdAction
-           name="updateDefinition"
-           label="Update Definition"
-           isPost="true">
-          <mdParameter name="view" label="GeoHierarchyView" description="The GeoHierarchyView" order="0" type="dss.vector.solutions.geo.GeoHierarchyView" />
-        </mdAction>
-        <mdAction
-           name="cancelUpdateDefinition"
-           label="Cancel Update Definition"
-           description="Cancel Update Definition"
-           isPost="true">
-          <mdParameter name="geoHierarchyId" label="Geo Hierarchy Id" description="Geo Hierarchy Id" order="0" type="java.lang.String" />
-        </mdAction>
-        <mdAction
-           name="viewDefinition"
-           label="View Definition"
-           description="Views a Geo Hierarchy."
-           isPost="false">
-          <mdParameter name="geoHierarchyId" label="Geo Hierarchy Id" description="Geo Hierarchy Id" order="0" type="java.lang.String" />
-        </mdAction>
-      </mdController>
       <mdBusiness
          name="dss.vector.solutions.geo.generated.Earth"
          label="Earth"
@@ -420,32 +264,6 @@
          extends="dss.vector.solutions.geo.generated.GeoEntity">
         <mdMethod name="getEarthInstance" label="get Earth Instance" description="Gets the one and only instance of Earth." returnType="dss.vector.solutions.geo.generated.Earth" static="true" />
       </mdBusiness>
-      <mdController
-         name="dss.vector.solutions.query.QueryController"
-         label="Query Controller"
-         description="Query Controller">
-        <mdAction
-           name="uploadTemplate"
-           label="Upload Template"
-           description="Uploads a template for user with BIRT."
-           isPost="true">
-          <mdParameter name="savedSearchId" label="Saved Search Id" description="The id of the SavedSearch that will reference the template" order="0" type="java.lang.String" />
-        </mdAction>
-        <mdAction name="queryEntomology" label="Query Entomology" description="Query Entomology" isPost="false" />
-      </mdController>
-      <mdController
-         name="com.runwaysdk.defaults.LoginController"
-         label="Login Controller"
-         description="Provides functionallity for logging in and logging out">
-        <mdAction
-           name="login"
-           label="login"
-           isPost="true">
-          <mdParameter name="username" label="username" order="0" type="java.lang.String" />
-          <mdParameter name="password" label="password" order="1" type="java.lang.String" />
-        </mdAction>
-        <mdAction name="logout" label="logout" isPost="false" />
-      </mdController>
       <mdBusiness
          removable="true"
          isAbstract="true"
@@ -458,30 +276,6 @@
          generateController="false">
         <mdMethod name="getMDSSClasses" label="Get All MDSS Classes" description="Returns a list of all MdClass definitions in the MDSS project" static="true" returnType="com.runwaysdk.system.metadata.MdClassQuery" />
       </mdBusiness>
-      <mdProblem
-         name="dss.vector.solutions.NotificationProblem"
-         label="Notification Problem"
-         isAbstract="true"
-         extendable="true">
-        <attributes>
-          <char name="componentId" label="ComponentId" required="true" size="255" />
-          <char name="definingType" label="Defining Type" required="true" size="255" />
-          <char name="definingTypeDisplayLabel" label="Defining Type Display Label" required="true" size="255" />
-          <char name="attributeName" label="Attribute Name" required="true" size="255" />
-          <char name="attributeDisplayLabel" label="Attribute Display Label" required="true" size="255" />
-        </attributes>
-      </mdProblem>
-      <enumerationMaster
-         name="dss.vector.solutions.entomology.LifeStageMaster"
-         label="Life Stage Master"
-         generateController="false">
-      </enumerationMaster>
-      <mdEnumeration
-         name="dss.vector.solutions.entomology.LifeStage"
-         type="dss.vector.solutions.entomology.LifeStageMaster"
-         label="Life Stage">
-        <includeAll />
-      </mdEnumeration>
       <mdBusiness
          name="dss.vector.solutions.entomology.MosquitoCollection"
          label="Mosquito Collection"
@@ -499,22 +293,6 @@
         <mdMethod name="lockView" label="lock View" returnType="dss.vector.solutions.entomology.MosquitoCollectionView" static="false" />
         <mdMethod name="unlockView" label="unlock View" returnType="dss.vector.solutions.entomology.MosquitoCollectionView" static="false" />
       </mdBusiness>
-      <mdView
-         name="dss.vector.solutions.entomology.MosquitoCollectionView"
-         label="Mosquito Collection">
-        <attributes>
-          <char name="concreteId" label="Concrete Id" size="255" required="true" />
-          <char name="geoEntityLabel" label="Geo Entity" size="255" required="true" />
-          <char name="collectionMethodLabel" label="Collection Method" size="255" required="true" />
-          <virtual concrete="geoEntity" type="dss.vector.solutions.entomology.MosquitoCollection" />
-          <virtual concrete="collectionDate" type="dss.vector.solutions.entomology.MosquitoCollection" />
-          <virtual concrete="abundance" type="dss.vector.solutions.entomology.MosquitoCollection" />
-          <virtual concrete="collectionMethod" type="dss.vector.solutions.entomology.MosquitoCollection" />
-          <virtual concrete="lifeStage" type="dss.vector.solutions.entomology.MosquitoCollection" />
-          <virtual concrete="collectionId" type="dss.vector.solutions.entomology.MosquitoCollection" />
-        </attributes>
-        <mdMethod name="deleteConcrete" label="Delete Concrete" returnType="void" static="false" />
-      </mdView>
       <mdBusiness
          name="dss.vector.solutions.entomology.SubCollection"
          label="Sub Collection"
@@ -536,179 +314,6 @@
         <mdMethod name="lockView" label="lock View" returnType="dss.vector.solutions.entomology.SubCollectionView" static="false" />
         <mdMethod name="unlockView" label="unlock View" returnType="dss.vector.solutions.entomology.SubCollectionView" static="false" />
       </mdBusiness>
-      <mdView
-         name="dss.vector.solutions.entomology.SubCollectionView"
-         label="Sub Collection">
-        <attributes>
-          <char name="concreteId" label="Concrete Id" size="255" required="true" />
-          <virtual concrete="subCollectionId" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="collection" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="taxon" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="identMethod" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="male" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="female" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="larvae" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="pupae" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="unknowns" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="eggs" type="dss.vector.solutions.entomology.SubCollection" />
-          <virtual concrete="total" type="dss.vector.solutions.entomology.SubCollection" />
-        </attributes>
-        <mdMethod name="deleteConcrete" label="Delete Concrete" returnType="void" static="false" />
-      </mdView>
-      <mdException
-         name="dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException"
-         label="Invalid Mosquito Collection"
-         description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
-        <attributes>
-          <char name="geoId" label="Geo Id" size="16" required="true" description="Id of the GeoEntity" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException"
-         label="Invalid Mosquito Collection"
-         description="Exception thrown when a Mosquito Collection already exists for its date, GeoEntinty, and optional collection method">
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.LocatedInException"
-         label="Located In Exception"
-         description="Exception for when a GeoEntity is being added to the wrong parent.">
-        <attributes>
-          <char name="entityName" label="Entity Name" size="100" required="true" description="Geo Entity name" />
-          <char name="parentDisplayLabel" label="Parent Display Label" size="100" required="true" description="Parent Display Label" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.ConfirmParentChangeException"
-         label="Confirmation Parent Change Exception"
-         description="Exception thrown to confirm a GeoEntity parent change">
-        <attributes>
-          <char name="entityName" label="Entity Name" size="100" required="true" description="Geo Entity Parent name" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.DuplicateEarthException"
-         label="Dupliate Earth Exception"
-         description="Thrown when a user tries to create another Earth.">
-        <attributes>
-          <char name="earthName" label="Earth Name" size="100" required="true" description="Name of Earth" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.SpatialTypeRequiredException"
-         label="Spatial Type Required Exception"
-         description="Thrown when a new universal is defined without a geometry that extends GeoEntity">
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.SpatialTypeDefinedException"
-         label="Spatial Type Defined Exception"
-         description="Thrown when a new universal tries to overwrite its parents geometry.">
-        <attributes>
-          <char name="isAParentLabel" label="Is A Parent Display Label" size="100" required="true" />
-          <char name="spatialLabel" label="Spatial Label" size="100" required="true" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.DeleteEarthException"
-         label="Delete Earth Exception"
-         description="Thrown when a user tries to delete Earth.">
-        <attributes>
-          <char name="earthName" label="Earth Name" size="100" required="true" description="Name of Earth" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.geo.ModifyHierarchyWithInstancesException"
-         label="Modify hierarchy with instances exception."
-         description="Thrown when a hierarchy is modified with instance data.">
-        <attributes>
-          <char name="displayLabel" label="displayLabel" size="100" required="true" description="Display Label" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException"
-         label="Invalid Mosquito Collection"
-         description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
-        <attributes>
-          <char name="geoId" label="Geo Id" size="16" required="true" description="Id of the GeoEntity" />
-        </attributes>
-      </mdException>
-      <mdProblem
-         name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem"
-         label="Invalid Female Quantity"
-         description="The number of female is greater than the total number of mosquitos"
-         extends="dss.vector.solutions.NotificationProblem">
-        <attributes>
-          <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" required="true" />
-          <integer name="quantityFemale" label="Quantity Female" rejectNegative="true" rejectZero="true" required="true" />
-        </attributes>
-      </mdProblem>
-      <mdProblem
-         name="dss.vector.solutions.entomology.InvalidMaleQuantityProblem"
-         label="Invalid Male Quantity"
-         description="The number of male is greater than the total number of mosquitos"
-         extends="dss.vector.solutions.NotificationProblem">
-        <attributes>
-          <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" required="true" />
-          <integer name="quantityMale" label="Quantity Male" rejectNegative="true" rejectZero="true" required="true" />
-        </attributes>
-      </mdProblem>
-      <mdProblem
-         name="dss.vector.solutions.entomology.QuantityMismatchProblem"
-         label="Quantity Mismatch Problem"
-         description="The number of total number of mosquitos does not equal the number of male and number of female"
-         extends="dss.vector.solutions.NotificationProblem">
-        <attributes>
-          <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" required="true" />
-          <integer name="quantityMale" label="Quantity Male" rejectNegative="true" rejectZero="true" required="true" />
-          <integer name="quantityFemale" label="Quantity Female" rejectNegative="true" rejectZero="true" required="true" />
-        </attributes>
-      </mdProblem>
-      <mdProblem
-         name="dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem"
-         label="Invalid Quantity"
-         description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)"
-         extends="dss.vector.solutions.NotificationProblem">
-      </mdProblem>
-      <mdProblem
-         name="dss.vector.solutions.entomology.EmptyValueProblem"
-         label="Empty Value Problem"
-         description="A MorphologicalSpecieGroup is missing contextual required values"
-         extends="dss.vector.solutions.NotificationProblem">
-      </mdProblem>
-      <mdProblem
-         name="dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem"
-         label="Invalid Morphological Specie Problem"
-         description="A morphological specie group cannot have an identification method or specie if the quantity is zero"
-         extends="dss.vector.solutions.NotificationProblem">
-      </mdProblem>
-      <mdStruct
-         name="dss.vector.solutions.entomology.assay.AdultAgeRange"
-         label="Age Range"
-         description="Age range of mosquitos in an assay"
-         generateController="false">
-        <attributes>
-          <integer name="startPoint" label="From Age" rejectNegative="true" required="true" description="Starting age of the age range" />
-          <integer name="endPoint" label="To Age" rejectNegative="true" required="true" description="Ending age of the age range" />
-        </attributes>
-      </mdStruct>
-      <mdProblem
-         name="dss.vector.solutions.entomology.assay.InvalidAgeProblem"
-         label="Invalid Age Exception"
-         description="A mosquito age must be between 0 and 20 for adult assays"
-         extends="dss.vector.solutions.NotificationProblem">
-        <attributes>
-          <integer name="age" label="Age" required="true" />
-        </attributes>
-      </mdProblem>
-      <mdProblem
-         name="dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem"
-         label="Invalid Age Range Exception"
-         description="A valid age range must have a starting point equal to or less than the ending point"
-         extends="dss.vector.solutions.NotificationProblem">
-        <attributes>
-          <integer name="startPoint" label="Start Point" required="true" />
-          <integer name="endPoint" label="End Point" required="true" />
-        </attributes>
-      </mdProblem>
       <mdBusiness
          name="dss.vector.solutions.general.Insecticide"
          label="Insecticide"
@@ -810,19 +415,6 @@
           <float name="controlTestMortality" label="Control Test Mortality Rate" length="5" decimal="2" description="Mortality rate of the control test" required="false" />
         </attributes>
       </mdBusiness>
-      <enumerationMaster
-         name="dss.vector.solutions.SurfacePositionMaster"
-         label="Position on surface"
-         description="Configurable table of surface positions"
-         generateController="false">
-      </enumerationMaster>
-      <mdEnumeration
-         name="dss.vector.solutions.SurfacePosition"
-         type="dss.vector.solutions.SurfacePositionMaster"
-         label="Surface Position"
-         description="List of all possible assay surface positions">
-        <includeAll />
-      </mdEnumeration>
       <mdBusiness
          name="dss.vector.solutions.general.KnockDownTimeProperty"
          label="Knock down Cut-off Values">
@@ -859,15 +451,247 @@
           <mdParameter name="insecticide" order="0" label="Insecticide" type="dss.vector.solutions.general.Insecticide" />
         </mdMethod>
       </mdBusiness>
-      <mdProblem
-         name="dss.vector.solutions.general.InvalidPercentageProblem"
-         label="Invalid Percentage"
-         description="A percentage is larger than 100"
-         extends="dss.vector.solutions.NotificationProblem">
+      <mdBusiness
+         name="dss.vector.solutions.entomology.assay.AdultTestInterval"
+         label="Test Interval"
+         description="A single test interval for an individual adult discriminating dose assay"
+         generateController="false">
         <attributes>
-          <integer name="invalidPercent" label="Percent" rejectZero="true" rejectNegative="true" required="true" />
+          <integer name="period" label="Period" rejectNegative="true" required="true" />
+          <integer name="knockedDown" rejectNegative="true" label="# Knocked Down" required="true" defaultValue="0" />
+          <reference name="assay" label="Adult Assay" required="true" type="dss.vector.solutions.entomology.assay.AdultAssay" />
         </attributes>
-      </mdProblem>
+      </mdBusiness>
+      <mdBusiness
+         name="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
+         label="Test Interval"
+         description="A single test interval for an individual larvae discriminating dose assay"
+         generateController="false">
+        <attributes>
+          <integer name="period" label="Period" rejectNegative="true" required="true" />
+          <integer name="quantityDead" rejectNegative="true" label="Number Dead" required="true" defaultValue="0" />
+          <reference name="assay" label="Larvae Assay" required="true" type="dss.vector.solutions.entomology.assay.LarvaeAssay" />
+        </attributes>
+      </mdBusiness>
+      <mdBusiness
+         name="dss.vector.solutions.Property"
+         label="Property">
+        <attributes>
+          <char name="propertyPackage" required="true" label="Package" size="255" />
+          <char name="propertyName" label="Name" required="true" size="255" />
+          <char name="propertyValue" required="true" label="Value" size="255" />
+          <char name="validValues" required="false" label="Valid Values" size="255" />
+          <char name="propertyType" required="true" label="Type" size="255" />
+          <char name="propertyValidator" required="true" label="Validator Regexp" size="255" />
+          <boolean name="editable" label="Editable" required="true" defaultValue="true" negativeLabel="Not Editable" positiveLabel="Editable" />
+          <reference name="disease" label="Disease" type="dss.vector.solutions.general.Disease" required="false" />
+          <localChar name="displayLabel" label="Display Label" required="true" size="255" />
+          <localChar name="description" required="false" label="Description" size="255" />
+        </attributes>
+        <mdMethod
+           name="getStr"
+           label="Get Property As String"
+           description="Returns a global Property"
+           static="true"
+           returnType="java.lang.String">
+          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
+          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+           name="getDate"
+           label="Get Property As Date"
+           description="Returns a global Property"
+           static="true"
+           returnType="java.util.Date">
+          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
+          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+           name="getByPackageAndName"
+           label="Get Property As String"
+           description="Returns a global Property"
+           static="true"
+           returnType="dss.vector.solutions.Property">
+          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
+          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+           name="getAllByPackage"
+           label="Get Property As String"
+           description="Returns a global Property"
+           static="true"
+           returnType="dss.vector.solutions.PropertyQuery">
+          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
+        </mdMethod>
+        <mdMethod
+           name="getInt"
+           label="Get Property As Integer"
+           description="Returns a global Property"
+           static="true"
+           returnType="java.lang.Integer">
+          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
+          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
+        </mdMethod>
+        <mdMethod name="getAllEditable" label="Get all editable properties" description="Gets all editable properties" static="true" returnType="dss.vector.solutions.PropertyQuery" />
+      </mdBusiness>
+      <mdTree
+         name="dss.vector.solutions.ontology.OntologyHasRelationship"
+         label="Ontology Has Relationship"
+         description="Relationships that an ontology utilizes"
+         generateController="false"
+         cacheAlgorithm="everything">
+        <parent cardinality="*" name="dss.vector.solutions.ontology.Ontology" method="Ontology" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.OntologyRelationship" method="OntologyRelationship" />
+      </mdTree>
+      <mdTree
+         name="dss.vector.solutions.geo.AllowedIn"
+         label="Allowed In"
+         description="Relates which GeoEntity classes are allowed within one another."
+         generateController="false">
+        <parent cardinality="*" name="dss.vector.solutions.geo.GeoHierarchy" method="AllowedInGeoEntity" />
+        <child cardinality="*" name="dss.vector.solutions.geo.GeoHierarchy" method="AcceptsGeoEntity" />
+      </mdTree>
+      <mdTree
+         name="dss.vector.solutions.geo.LocatedIn"
+         label="Located In"
+         description="Relates how GeoEntities are located within one another."
+         generateController="false">
+        <parent cardinality="*" name="dss.vector.solutions.geo.generated.GeoEntity" method="LocatedInGeoEntity" />
+        <child cardinality="*" name="dss.vector.solutions.geo.generated.GeoEntity" method="ContainsGeoEntity" />
+      </mdTree>
+      <mdGraph
+         name="dss.vector.solutions.ontology.TermRelationship"
+         label="Term Relationship"
+         description="Ontology relationship between two terms."
+         isAbstract="false"
+         generateController="false">
+        <attributes>
+          <reference name="ontologyRelationship" required="true" label="Ontology Relationship" type="dss.vector.solutions.ontology.OntologyRelationship" />
+        </attributes>
+        <parent cardinality="*" name="dss.vector.solutions.ontology.Term" method="ParentTerm" />
+        <child cardinality="*" name="dss.vector.solutions.ontology.Term" method="ChildTerm" />
+      </mdGraph>
+      <mdIndex type="dss.vector.solutions.ontology.OntologyRelationship" label="Name and Namespace Index" active="true" unique="false" description="Enforces a unique index between the name and namespace" cacheAlgorithm="everything">
+        <attribute name="namespace" indexOrder="1" />
+        <attribute name="name" indexOrder="0" />
+      </mdIndex>
+      <mdIndex type="dss.vector.solutions.ontology.AllPaths" label="Parent Child Ontology Term Index" active="true" unique="true" description="Enforces a unique index between the parent term and the child term">
+        <attribute name="ontologyRelationship" indexOrder="2" />
+        <attribute name="childTerm" indexOrder="1" />
+        <attribute name="parentTerm" indexOrder="0" />
+      </mdIndex>
+      <mdIndex type="dss.vector.solutions.ontology.AllPaths" label="Parent Term Ontology Relationship Type Index" active="true" unique="false" description="Enforces a unique index between the parent term and the relatoinship type">
+        <attribute name="ontologyRelationship" indexOrder="1" />
+        <attribute name="parentTerm" indexOrder="0" />
+      </mdIndex>
+      <mdIndex type="dss.vector.solutions.ontology.AllPaths" label="Child Term Ontology Relationship Type Index" active="true" unique="false" description="Enforces a unique index between the child term and the relatoinship type">
+        <attribute name="ontologyRelationship" indexOrder="1" />
+        <attribute name="childTerm" indexOrder="0" />
+      </mdIndex>
+      <mdIndex type="dss.vector.solutions.entomology.assay.AdultTestInterval" active="true" label="ADDA Test Interval Index" unique="true" description="Uniqueness constraint between an assay and its interval period">
+        <attribute name="period" indexOrder="1" />
+        <attribute name="assay" indexOrder="0" />
+      </mdIndex>
+      <mdIndex type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" active="true" label="Larvase Test Interval Index" unique="true" description="Uniqueness constraint between an assay and its interval period">
+        <attribute name="period" indexOrder="1" />
+        <attribute name="assay" indexOrder="0" />
+      </mdIndex>
+      <mdIndex type="dss.vector.solutions.Property" active="true" label="Property Index" unique="false" description="Uniquness constraint between the Package And Key for this Property">
+        <attribute name="disease" indexOrder="2" />
+        <attribute name="propertyName" indexOrder="1" />
+        <attribute name="propertyPackage" indexOrder="0" />
+      </mdIndex>
+      <mdException
+         name="dss.vector.solutions.ontology.InvalidRelationshipForOntologyException"
+         label="Unknown Term Exception">
+        <attributes>
+          <char name="relationship" label="Relationship" required="true" size="255" />
+          <char name="ontology" label="Ontology" required="true" size="255" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.ontology.InvalidOBOFormatException"
+         label="Invalid OBO File Exception">
+        <attributes>
+          <char name="fileName" label="File" required="true" size="255" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityException"
+         label="Invalid Mosquito Collection"
+         description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
+        <attributes>
+          <char name="geoId" label="Geo Id" size="16" required="true" description="Id of the GeoEntity" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.entomology.MosquitoCollectionAllreadyExistsException"
+         label="Invalid Mosquito Collection"
+         description="Exception thrown when a Mosquito Collection already exists for its date, GeoEntinty, and optional collection method">
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.LocatedInException"
+         label="Located In Exception"
+         description="Exception for when a GeoEntity is being added to the wrong parent.">
+        <attributes>
+          <char name="entityName" label="Entity Name" size="100" required="true" description="Geo Entity name" />
+          <char name="parentDisplayLabel" label="Parent Display Label" size="100" required="true" description="Parent Display Label" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.ConfirmParentChangeException"
+         label="Confirmation Parent Change Exception"
+         description="Exception thrown to confirm a GeoEntity parent change">
+        <attributes>
+          <char name="entityName" label="Entity Name" size="100" required="true" description="Geo Entity Parent name" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.DuplicateEarthException"
+         label="Dupliate Earth Exception"
+         description="Thrown when a user tries to create another Earth.">
+        <attributes>
+          <char name="earthName" label="Earth Name" size="100" required="true" description="Name of Earth" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.SpatialTypeRequiredException"
+         label="Spatial Type Required Exception"
+         description="Thrown when a new universal is defined without a geometry that extends GeoEntity">
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.SpatialTypeDefinedException"
+         label="Spatial Type Defined Exception"
+         description="Thrown when a new universal tries to overwrite its parents geometry.">
+        <attributes>
+          <char name="isAParentLabel" label="Is A Parent Display Label" size="100" required="true" />
+          <char name="spatialLabel" label="Spatial Label" size="100" required="true" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.DeleteEarthException"
+         label="Delete Earth Exception"
+         description="Thrown when a user tries to delete Earth.">
+        <attributes>
+          <char name="earthName" label="Earth Name" size="100" required="true" description="Name of Earth" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.geo.ModifyHierarchyWithInstancesException"
+         label="Modify hierarchy with instances exception."
+         description="Thrown when a hierarchy is modified with instance data.">
+        <attributes>
+          <char name="displayLabel" label="displayLabel" size="100" required="true" description="Display Label" />
+        </attributes>
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.entomology.InvalidMosquitoCollectionPointGeoEntityException"
+         label="Invalid Mosquito Collection"
+         description="Exception thrown when a Mosquito Collection's GeoEntity is not a (non)sentinel site">
+        <attributes>
+          <char name="geoId" label="Geo Id" size="16" required="true" description="Id of the GeoEntity" />
+        </attributes>
+      </mdException>
       <mdException
          name="dss.vector.solutions.general.UndefinedKnockDownPropertyException"
          label="Undefined Knock Down Property"
@@ -884,91 +708,110 @@
           <reference name="insecticide" label="Insecticide" type="dss.vector.solutions.general.Insecticide" required="true" />
         </attributes>
       </mdException>
-      <mdInformation
-         name="dss.vector.solutions.entomology.assay.ResistantCollection"
-         label="Collection Resistant Information"
-         description="A collection is resistant to the test assay">
-      </mdInformation>
-      <mdInformation
-         name="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection"
-         label="Collection Resistant Information"
-         description="A collection is potentially to the test assay">
-      </mdInformation>
-      <mdInformation
-         name="dss.vector.solutions.entomology.assay.SusceptibleCollection"
-         label="Susceptible Collection"
-         description="A collection is susceptible to the test assay">
-      </mdInformation>
-      <mdBusiness
-         name="dss.vector.solutions.entomology.assay.AdultTestInterval"
-         label="Test Interval"
-         description="A single test interval for an individual adult discriminating dose assay"
-         generateController="false">
+      <mdException
+         name="dss.vector.solutions.PropertyAllreadyExistsException"
+         label="Property Allready Exists"
+         description="Exception thrown when createing a property with a package and key that allready exists.">
+        <attributes />
+      </mdException>
+      <mdException
+         name="dss.vector.solutions.PropertyValidationFailedException"
+         label="Property Validation Failed"
+         description="Exception thrown when setting a property to an invalid value.">
         <attributes>
-          <integer name="period" label="Period" rejectNegative="true" required="true" />
-          <integer name="knockedDown" rejectNegative="true" label="# Knocked Down" required="true" defaultValue="0" />
-          <reference name="assay" label="Adult Assay" required="true" type="dss.vector.solutions.entomology.assay.AdultAssay" />
+          <char name="validValues" label="validValues" size="128" required="true" description="List of valid Values to display in error message." />
         </attributes>
-      </mdBusiness>
-      <mdIndex type="dss.vector.solutions.entomology.assay.AdultTestInterval" active="true" label="ADDA Test Interval Index" unique="true" description="Uniqueness constraint between an assay and its interval period">
-        <attribute name="period" indexOrder="1" />
-        <attribute name="assay" indexOrder="0" />
-      </mdIndex>
-      <mdView
-         name="dss.vector.solutions.entomology.assay.AdultTestIntervalView"
-         label="Test Interval View"
-         description="View for Adult Discriminating Dose Assay test intervals">
+      </mdException>
+      <mdProblem
+         name="dss.vector.solutions.NotificationProblem"
+         label="Notification Problem"
+         isAbstract="true"
+         extendable="true">
         <attributes>
-          <char name="intervalId" label="Test Interval Id" required="true" size="255" />
-          <integer name="intervalTime" label="Interval Time" rejectNegative="true" required="true" />
-          <virtual name="assay" required="true" type="dss.vector.solutions.entomology.assay.AdultTestInterval" concrete="assay" />
-          <virtual name="period" required="true" type="dss.vector.solutions.entomology.assay.AdultTestInterval" concrete="period" />
-          <virtual name="knockedDown" required="true" type="dss.vector.solutions.entomology.assay.AdultTestInterval" concrete="knockedDown" />
+          <char name="componentId" label="ComponentId" required="true" size="255" />
+          <char name="definingType" label="Defining Type" required="true" size="255" />
+          <char name="definingTypeDisplayLabel" label="Defining Type Display Label" required="true" size="255" />
+          <char name="attributeName" label="Attribute Name" required="true" size="255" />
+          <char name="attributeDisplayLabel" label="Attribute Display Label" required="true" size="255" />
         </attributes>
-        <mdMethod
-           name="saveAll"
-           label="Save All"
-           returnType="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]"
-           static="true"
-           description="Saves an array of ADDATestIntervalViews in a single transaction">
-          <mdParameter name="array" label="Array" description="Array of objects to save" order="0" type="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]" />
-        </mdMethod>
-      </mdView>
-      <mdBusiness
-         name="dss.vector.solutions.entomology.assay.LarvaeTestInterval"
-         label="Test Interval"
-         description="A single test interval for an individual larvae discriminating dose assay"
-         generateController="false">
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.InvalidFemaleQuantityProblem"
+         label="Invalid Female Quantity"
+         description="The number of female is greater than the total number of mosquitos"
+         extends="dss.vector.solutions.NotificationProblem">
         <attributes>
-          <integer name="period" label="Period" rejectNegative="true" required="true" />
-          <integer name="quantityDead" rejectNegative="true" label="Number Dead" required="true" defaultValue="0" />
-          <reference name="assay" label="Larvae Assay" required="true" type="dss.vector.solutions.entomology.assay.LarvaeAssay" />
+          <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" required="true" />
+          <integer name="quantityFemale" label="Quantity Female" rejectNegative="true" rejectZero="true" required="true" />
         </attributes>
-      </mdBusiness>
-      <mdIndex type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" active="true" label="Larvase Test Interval Index" unique="true" description="Uniqueness constraint between an assay and its interval period">
-        <attribute name="period" indexOrder="1" />
-        <attribute name="assay" indexOrder="0" />
-      </mdIndex>
-      <mdView
-         name="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView"
-         label="Test Interval View"
-         description="View for Larvae Discriminating Dose Assay test intervals">
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.InvalidMaleQuantityProblem"
+         label="Invalid Male Quantity"
+         description="The number of male is greater than the total number of mosquitos"
+         extends="dss.vector.solutions.NotificationProblem">
         <attributes>
-          <char name="intervalId" label="Test Interval Id" required="true" size="255" />
-          <integer name="intervalTime" label="Interval Time" rejectNegative="true" required="true" />
-          <virtual name="assay" required="true" type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" concrete="assay" />
-          <virtual name="period" required="true" type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" concrete="period" />
-          <virtual name="quantityDead" required="true" type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" concrete="quantityDead" />
+          <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" required="true" />
+          <integer name="quantityMale" label="Quantity Male" rejectNegative="true" rejectZero="true" required="true" />
         </attributes>
-        <mdMethod
-           name="saveAll"
-           label="Save All"
-           returnType="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]"
-           static="true"
-           description="Saves an array of KDTestIntervalViews in a single transaction">
-          <mdParameter name="array" label="Array" description="Array of objects to save" order="0" type="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]" />
-        </mdMethod>
-      </mdView>
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.QuantityMismatchProblem"
+         label="Quantity Mismatch Problem"
+         description="The number of total number of mosquitos does not equal the number of male and number of female"
+         extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <integer name="quantity" label="Quantity" rejectNegative="true" rejectZero="true" required="true" />
+          <integer name="quantityMale" label="Quantity Male" rejectNegative="true" rejectZero="true" required="true" />
+          <integer name="quantityFemale" label="Quantity Female" rejectNegative="true" rejectZero="true" required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblem"
+         label="Invalid Quantity"
+         description="A MorphologicalSpecieGroup has a contextually invalid quantity (Equal to or less than 0)"
+         extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.EmptyValueProblem"
+         label="Empty Value Problem"
+         description="A MorphologicalSpecieGroup is missing contextual required values"
+         extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.InvalidMorphologicalSpecieProblem"
+         label="Invalid Morphological Specie Problem"
+         description="A morphological specie group cannot have an identification method or specie if the quantity is zero"
+         extends="dss.vector.solutions.NotificationProblem">
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.assay.InvalidAgeProblem"
+         label="Invalid Age Exception"
+         description="A mosquito age must be between 0 and 20 for adult assays"
+         extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <integer name="age" label="Age" required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.entomology.assay.InvalidAgeRangeProblem"
+         label="Invalid Age Range Exception"
+         description="A valid age range must have a starting point equal to or less than the ending point"
+         extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <integer name="startPoint" label="Start Point" required="true" />
+          <integer name="endPoint" label="End Point" required="true" />
+        </attributes>
+      </mdProblem>
+      <mdProblem
+         name="dss.vector.solutions.general.InvalidPercentageProblem"
+         label="Invalid Percentage"
+         description="A percentage is larger than 100"
+         extends="dss.vector.solutions.NotificationProblem">
+        <attributes>
+          <integer name="invalidPercent" label="Percent" rejectZero="true" rejectNegative="true" required="true" />
+        </attributes>
+      </mdProblem>
       <mdProblem
          name="dss.vector.solutions.entomology.assay.InvalidFedQuantityProblem"
          label="Invalid Fed Value"
@@ -1044,86 +887,243 @@
           <date name="collectionDate" label="Period" description="period" required="true" />
         </attributes>
       </mdProblem>
-      <mdBusiness
-         name="dss.vector.solutions.Property"
-         label="Property">
+      <mdInformation
+         name="dss.vector.solutions.entomology.assay.ResistantCollection"
+         label="Collection Resistant Information"
+         description="A collection is resistant to the test assay">
+      </mdInformation>
+      <mdInformation
+         name="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection"
+         label="Collection Resistant Information"
+         description="A collection is potentially to the test assay">
+      </mdInformation>
+      <mdInformation
+         name="dss.vector.solutions.entomology.assay.SusceptibleCollection"
+         label="Susceptible Collection"
+         description="A collection is susceptible to the test assay">
+      </mdInformation>
+      <mdView
+         name="dss.vector.solutions.geo.GeoHierarchyView"
+         label="Geo Hierarchy View"
+         description="Geo Hierarchy View">
         <attributes>
-          <char name="propertyPackage" required="true" label="Package" size="255" />
-          <char name="propertyName" label="Name" required="true" size="255" />
-          <char name="propertyValue" required="true" label="Value" size="255" />
-          <char name="validValues" required="false" label="Valid Values" size="255" />
-          <char name="propertyType" required="true" label="Type" size="255" />
-          <char name="propertyValidator" required="true" label="Validator Regexp" size="255" />
-          <boolean name="editable" label="Editable" required="true" defaultValue="true" negativeLabel="Not Editable" positiveLabel="Editable" />
-          <reference name="disease" label="Disease" type="dss.vector.solutions.general.Disease" required="false" />
-          <localChar name="displayLabel" label="Display Label" required="true" size="255" />
-          <localChar name="description" required="false" label="Description" size="255" />
+          <char name="referenceId" size="64" label="Reference Id" description="The Id of the GeoEntity MdBusiness" required="true" />
+          <char name="geoHierarchyId" size="64" label="GeoHierarchy Id" description="GeoHierarchy Id" required="true" />
+          <char name="isADisplayLabel" required="true" label="The parent type of this universal." size="100" />
+          <char name="displayLabel" required="true" size="64" label="Display Label" />
+          <char name="description" required="false" size="255" label="Description" />
+          <virtual name="typeName" required="true" concrete="typeName" type="com.runwaysdk.system.metadata.MdType" />
+          <virtual name="political" required="true" concrete="political" type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual name="sprayTargetAllowed" required="true" concrete="sprayTargetAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual name="populationAllowed" required="false" concrete="populationAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
         </attributes>
         <mdMethod
-           name="getStr"
-           label="Get Property As String"
-           description="Returns a global Property"
-           static="true"
-           returnType="java.lang.String">
-          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
-          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
+           name="getUrbanHierarchies"
+           label="Get Urban Hierarchies"
+           returnType="dss.vector.solutions.geo.GeoHierarchyView[]"
+           static="true">
+          <mdParameter name="entityId" label="Entity Id" order="0" type="java.lang.String" />
         </mdMethod>
-        <mdMethod
-           name="getDate"
-           label="Get Property As Date"
-           description="Returns a global Property"
-           static="true"
-           returnType="java.util.Date">
-          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
-          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
-        </mdMethod>
-        <mdMethod
-           name="getByPackageAndName"
-           label="Get Property As String"
-           description="Returns a global Property"
-           static="true"
-           returnType="dss.vector.solutions.Property">
-          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
-          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
-        </mdMethod>
-        <mdMethod
-           name="getAllByPackage"
-           label="Get Property As String"
-           description="Returns a global Property"
-           static="true"
-           returnType="dss.vector.solutions.PropertyQuery">
-          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
-        </mdMethod>
-        <mdMethod
-           name="getInt"
-           label="Get Property As Integer"
-           description="Returns a global Property"
-           static="true"
-           returnType="java.lang.Integer">
-          <mdParameter name="pkg" description="Package to search for" label="key" order="0" type="java.lang.String" />
-          <mdParameter name="name" description="Name to search for" label="key" order="1" type="java.lang.String" />
-        </mdMethod>
-        <mdMethod name="getAllEditable" label="Get all editable properties" description="Gets all editable properties" static="true" returnType="dss.vector.solutions.PropertyQuery" />
-      </mdBusiness>
-      <mdIndex type="dss.vector.solutions.Property" active="true" label="Property Index" unique="false" description="Uniquness constraint between the Package And Key for this Property">
-        <attribute name="disease" indexOrder="2" />
-        <attribute name="propertyName" indexOrder="1" />
-        <attribute name="propertyPackage" indexOrder="0" />
-      </mdIndex>
-      <mdException
-         name="dss.vector.solutions.PropertyAllreadyExistsException"
-         label="Property Allready Exists"
-         description="Exception thrown when createing a property with a package and key that allready exists.">
-        <attributes />
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.PropertyValidationFailedException"
-         label="Property Validation Failed"
-         description="Exception thrown when setting a property to an invalid value.">
+      </mdView>
+      <mdView
+         name="dss.vector.solutions.geo.GeoEntityDefinition"
+         label="GeoEntityDefinition"
+         description="View to define a new GeoEntity">
         <attributes>
-          <char name="validValues" label="validValues" size="128" required="true" description="List of valid Values to display in error message." />
+          <char name="parentGeoHierarchyId" label="The universal located in parent." description="The located in parent of this universal." required="true" size="64" />
+          <char name="parentTypeGeoHierarchyId" label="The universal parent type." description="The parent type of this universal." required="false" size="64" />
+          <char name="displayLabel" required="true" label="The Display Label" size="64" />
+          <char name="description" required="false" label="Description" size="255" />
+          <enumeration name="spatialType" label="Spatial Type" description="Spatial Type of GeoEntity attribute." required="false" selectMultiple="false" type="dss.vector.solutions.geo.SpatialTypes" />
+          <virtual name="political" required="true" concrete="political" type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual name="sprayTargetAllowed" required="true" concrete="sprayTargetAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual name="populationAllowed" required="false" concrete="populationAllowed" type="dss.vector.solutions.geo.GeoHierarchy" />
+          <virtual name="typeName" required="false" concrete="typeName" type="com.runwaysdk.system.metadata.MdType" />
         </attributes>
-      </mdException>
+      </mdView>
+      <mdView
+         name="dss.vector.solutions.entomology.MosquitoCollectionView"
+         label="Mosquito Collection">
+        <attributes>
+          <char name="concreteId" label="Concrete Id" size="255" required="true" />
+          <char name="geoEntityLabel" label="Geo Entity" size="255" required="true" />
+          <char name="collectionMethodLabel" label="Collection Method" size="255" required="true" />
+          <virtual concrete="geoEntity" type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual concrete="collectionDate" type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual concrete="abundance" type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual concrete="collectionMethod" type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual concrete="lifeStage" type="dss.vector.solutions.entomology.MosquitoCollection" />
+          <virtual concrete="collectionId" type="dss.vector.solutions.entomology.MosquitoCollection" />
+        </attributes>
+        <mdMethod name="deleteConcrete" label="Delete Concrete" returnType="void" static="false" />
+      </mdView>
+      <mdView
+         name="dss.vector.solutions.entomology.SubCollectionView"
+         label="Sub Collection">
+        <attributes>
+          <char name="concreteId" label="Concrete Id" size="255" required="true" />
+          <virtual concrete="subCollectionId" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="collection" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="taxon" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="identMethod" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="male" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="female" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="larvae" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="pupae" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="unknowns" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="eggs" type="dss.vector.solutions.entomology.SubCollection" />
+          <virtual concrete="total" type="dss.vector.solutions.entomology.SubCollection" />
+        </attributes>
+        <mdMethod name="deleteConcrete" label="Delete Concrete" returnType="void" static="false" />
+      </mdView>
+      <mdView
+         name="dss.vector.solutions.entomology.assay.AdultTestIntervalView"
+         label="Test Interval View"
+         description="View for Adult Discriminating Dose Assay test intervals">
+        <attributes>
+          <char name="intervalId" label="Test Interval Id" required="true" size="255" />
+          <integer name="intervalTime" label="Interval Time" rejectNegative="true" required="true" />
+          <virtual name="assay" required="true" type="dss.vector.solutions.entomology.assay.AdultTestInterval" concrete="assay" />
+          <virtual name="period" required="true" type="dss.vector.solutions.entomology.assay.AdultTestInterval" concrete="period" />
+          <virtual name="knockedDown" required="true" type="dss.vector.solutions.entomology.assay.AdultTestInterval" concrete="knockedDown" />
+        </attributes>
+        <mdMethod
+           name="saveAll"
+           label="Save All"
+           returnType="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]"
+           static="true"
+           description="Saves an array of ADDATestIntervalViews in a single transaction">
+          <mdParameter name="array" label="Array" description="Array of objects to save" order="0" type="dss.vector.solutions.entomology.assay.AdultTestIntervalView[]" />
+        </mdMethod>
+      </mdView>
+      <mdView
+         name="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView"
+         label="Test Interval View"
+         description="View for Larvae Discriminating Dose Assay test intervals">
+        <attributes>
+          <char name="intervalId" label="Test Interval Id" required="true" size="255" />
+          <integer name="intervalTime" label="Interval Time" rejectNegative="true" required="true" />
+          <virtual name="assay" required="true" type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" concrete="assay" />
+          <virtual name="period" required="true" type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" concrete="period" />
+          <virtual name="quantityDead" required="true" type="dss.vector.solutions.entomology.assay.LarvaeTestInterval" concrete="quantityDead" />
+        </attributes>
+        <mdMethod
+           name="saveAll"
+           label="Save All"
+           returnType="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]"
+           static="true"
+           description="Saves an array of KDTestIntervalViews in a single transaction">
+          <mdParameter name="array" label="Array" description="Array of objects to save" order="0" type="dss.vector.solutions.entomology.assay.LarvaeTestIntervalView[]" />
+        </mdMethod>
+      </mdView>
+      <mdController
+         name="dss.vector.solutions.geo.GeoEntityTreeController"
+         label="GeoEntity Tree Controller"
+         description="GeoEntity Tree Controller">
+        <mdAction
+           name="displaySingleSelectSearch"
+           label="Display Select Search"
+           description="Display Select Search"
+           isPost="true">
+          <mdParameter name="rootGeoEntityId" label="Root GeoEntity Id" description="The id of the GeoEntity that will be the root of the select lists." order="0" type="java.lang.String" />
+          <mdParameter name="flags" label="Flags" description="Flags that restrict which GeoHierarchies should be allowed." order="1" type="java.lang.Boolean[]" />
+          <mdParameter name="extraUniversals" label="Extra Univerals" order="3" description="A list of other universals to be appended to the search." type="java.lang.String[]" />
+        </mdAction>
+        <mdAction
+           name="displayMultipleSelectSearch"
+           label="Display Select Search"
+           description="Display Select Search"
+           isPost="true">
+          <mdParameter name="rootGeoEntityId" label="Root GeoEntity Id" description="The id of the GeoEntity that will be the root of the select lists." order="0" type="java.lang.String" />
+          <mdParameter name="flags" label="Flags" description="Flags that restrict which GeoHierarchies should be allowed." order="1" type="java.lang.Boolean[]" />
+          <mdParameter name="extraUniversals" label="Extra Univerals" order="3" description="A list of other universals to be appended to the search." type="java.lang.String[]" />
+        </mdAction>
+        <mdAction
+           name="displayTree"
+           label="Display Tree"
+           description="Displays the GeoEntity tree."
+           isPost="false">
+          <mdParameter name="rootGeoEntityId" label="Root GeoEntity Id" description="The id of the GeoEntity that will be the root of the tree" order="0" type="java.lang.String" />
+        </mdAction>
+      </mdController>
+      <mdController
+         name="dss.vector.solutions.geo.GeoEntityTypeController"
+         label="GeoEntity Type Controller"
+         description="Controller to define new GeoEntity types.">
+        <mdAction
+           name="viewHierarchyTree"
+           label="View Hierarchy Tree"
+           description="Views the Geo Hierarchy as a tree with an abitrary root."
+           isPost="false">
+          <mdParameter name="rootGeoHierarchyId" label="Root GeoHierarchy Id" description="The id of the GeoHierarchy that will be the root of the tree" order="0" type="java.lang.String" />
+        </mdAction>
+        <mdAction
+           name="newDefinition"
+           label="New GeoEntity Type"
+           isPost="false">
+          <mdParameter name="parentGeoHierarchyId" type="java.lang.String" label="Parent GeoHierarchy Id" description="Parent GeoHierarchy Id" order="0" />
+        </mdAction>
+        <mdAction
+           name="createDefinition"
+           label="Create GeoEntity Type"
+           isPost="true">
+          <mdParameter name="definition" label="GeoEntityDefinition" description="The GeoEntityDefinition" order="0" type="dss.vector.solutions.geo.GeoEntityDefinition" />
+        </mdAction>
+        <mdAction name="cancelCreateDefinition" label="Cancel Create Definition" description="Cancels the request to create a new definition." isPost="true" />
+        <mdAction
+           name="editDefinition"
+           label="Edit Definition"
+           description="Edit Definition"
+           isPost="true">
+          <mdParameter name="geoHierarchyId" label="GeoHierarchy Id" description="The id of the GeoHierarchy to lock and edit." order="0" type="java.lang.String" />
+        </mdAction>
+        <mdAction
+           name="updateDefinition"
+           label="Update Definition"
+           isPost="true">
+          <mdParameter name="view" label="GeoHierarchyView" description="The GeoHierarchyView" order="0" type="dss.vector.solutions.geo.GeoHierarchyView" />
+        </mdAction>
+        <mdAction
+           name="cancelUpdateDefinition"
+           label="Cancel Update Definition"
+           description="Cancel Update Definition"
+           isPost="true">
+          <mdParameter name="geoHierarchyId" label="Geo Hierarchy Id" description="Geo Hierarchy Id" order="0" type="java.lang.String" />
+        </mdAction>
+        <mdAction
+           name="viewDefinition"
+           label="View Definition"
+           description="Views a Geo Hierarchy."
+           isPost="false">
+          <mdParameter name="geoHierarchyId" label="Geo Hierarchy Id" description="Geo Hierarchy Id" order="0" type="java.lang.String" />
+        </mdAction>
+      </mdController>
+      <mdController
+         name="dss.vector.solutions.query.QueryController"
+         label="Query Controller"
+         description="Query Controller">
+        <mdAction
+           name="uploadTemplate"
+           label="Upload Template"
+           description="Uploads a template for user with BIRT."
+           isPost="true">
+          <mdParameter name="savedSearchId" label="Saved Search Id" description="The id of the SavedSearch that will reference the template" order="0" type="java.lang.String" />
+        </mdAction>
+        <mdAction name="queryEntomology" label="Query Entomology" description="Query Entomology" isPost="false" />
+      </mdController>
+      <mdController
+         name="com.runwaysdk.defaults.LoginController"
+         label="Login Controller"
+         description="Provides functionallity for logging in and logging out">
+        <mdAction
+           name="login"
+           label="login"
+           isPost="true">
+          <mdParameter name="username" label="username" order="0" type="java.lang.String" />
+          <mdParameter name="password" label="password" order="1" type="java.lang.String" />
+        </mdAction>
+        <mdAction name="logout" label="logout" isPost="false" />
+      </mdController>
       <mdController
          name="dss.vector.solutions.report.ReportController"
          label="Report Controller"
@@ -1142,7 +1142,7 @@
     </create>
     <update>
       <mdController
-         name="dss.vector.solutions.general.LethalTimePropertyController">
+         name="dss.vector.solutions.general.KnockDownTimePropertyController">
         <create>
           <mdAction
              name="searchByInsecticide"
@@ -1155,7 +1155,7 @@
         </create>
       </mdController>
       <mdController
-         name="dss.vector.solutions.general.KnockDownTimePropertyController">
+         name="dss.vector.solutions.general.LethalTimePropertyController">
         <create>
           <mdAction
              name="searchByInsecticide"
@@ -1460,8 +1460,6 @@
         <attribute name="password" value="mdsstest2" />
       </object>
     </update>
-    <permissions>
-    </permissions>
     <create>
       <timestamp version="0001238646706997" />
       <timestamp version="0001238646706998" />
@@ -1470,8 +1468,6 @@
     </create>
   </doIt>
   <undoIt>
-    <create>
-    </create>
     <delete>
       <object key="test.xmlclasses.Class1" type="com.runwaysdk.system.metadata.MdBusiness" />
       <object key="dss.vector.solutions.general.Disease" type="com.runwaysdk.system.metadata.MdBusiness" />
@@ -1481,8 +1477,6 @@
       <object key="MALARIA" type="com.runwaysdk.system.metadata.MdDimension" />
       <object key="DENGUE" type="com.runwaysdk.system.metadata.MdDimension" />
     </delete>
-    <permissions>
-    </permissions>
     <delete>
       <timestamp version="0001238646706997" />
       <timestamp version="0001238646706998" />

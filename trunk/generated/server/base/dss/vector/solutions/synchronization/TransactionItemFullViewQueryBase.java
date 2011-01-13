@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.runwaysdk.business.ClassSignature(hash = 240114643)
+@com.runwaysdk.business.ClassSignature(hash = 1017887330)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.synchronization;
 public  abstract  class TransactionItemFullViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 240114643;
+private static final long serialVersionUID = 1017887330;
 
   public TransactionItemFullViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

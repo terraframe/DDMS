@@ -67,12 +67,6 @@
         key="dss.vector.solutions.intervention.monitor.HouseholdView.getHouseholdNets"
         type="com.runwaysdk.system.metadata.MdMethod" />
       <object
-        key="dss.vector.solutions.intervention.monitor.HouseholdController.create.nets"
-        type="com.runwaysdk.system.metadata.MdParameter" />
-      <object
-        key="dss.vector.solutions.intervention.monitor.HouseholdController.update.nets"
-        type="com.runwaysdk.system.metadata.MdParameter" />        
-      <object
         key="dss.vector.solutions.intervention.monitor.HouseholdView.applyAll"
         type="com.runwaysdk.system.metadata.MdMethod" />
       <object

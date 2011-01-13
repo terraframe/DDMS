@@ -308,7 +308,7 @@
         name="dss.vector.solutions.geo.generated.GeoEntity">
         <create>
           <attributes>
-            <text
+            <clob
               name="geoData"
               label="Geometry Data"
               required="false" />

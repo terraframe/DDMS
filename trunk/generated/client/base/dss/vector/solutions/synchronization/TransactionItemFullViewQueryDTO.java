@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.runwaysdk.business.ClassSignature(hash = -462381147)
+@com.runwaysdk.business.ClassSignature(hash = 315391540)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.synchronization;
 public class TransactionItemFullViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -462381147;
+private static final long serialVersionUID = 315391540;
 
   protected TransactionItemFullViewQueryDTO(String type)
   {

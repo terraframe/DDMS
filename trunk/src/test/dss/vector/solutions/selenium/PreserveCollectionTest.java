@@ -97,11 +97,11 @@ public class PreserveCollectionTest
     selenium.click("submitLogin");
     try
     {
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
       selenium.open("/DDMS/dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo");
       selenium.type("collectionId", collection.getConcreteId());
       selenium.click("name=dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.create.button");
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
 
       assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
       assertTrue(selenium.isTextPresent("[Generation] requires a value."));
@@ -109,7 +109,7 @@ public class PreserveCollectionTest
     finally
     {
       selenium.click("link=Log out");
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
     }
   }
 
@@ -122,18 +122,18 @@ public class PreserveCollectionTest
     selenium.click("submitLogin");
     try
     {
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
       selenium.open("/DDMS/dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo");
       selenium.type("collectionId", collection.getConcreteId());
       selenium.click("name=dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.create.button");
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
       
       assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
     }
     finally
     {
       selenium.click("link=Log out");
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
     }
   }
 
@@ -146,18 +146,18 @@ public class PreserveCollectionTest
     selenium.click("submitLogin");
     try
     {
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
       selenium.open("/DDMS/dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo");
       selenium.type("collectionId", collection.getConcreteId());
       selenium.click("name=dss.vector.solutions.entomology.assay.KnockDownAssay.form.create.button");
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
       
       assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
     }
     finally
     {
       selenium.click("link=Log out");
-      selenium.waitForPageToLoad("30000");
+      selenium.waitForPageToLoad("120000");
     }
   }
 }

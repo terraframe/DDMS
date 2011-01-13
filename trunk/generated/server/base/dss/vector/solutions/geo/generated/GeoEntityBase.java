@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = 1635389298)
+@com.runwaysdk.business.ClassSignature(hash = -1239367485)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1635389298;
+  private static final long serialVersionUID = -1239367485;
   
   public GeoEntityBase()
   {
@@ -93,6 +93,11 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -114,6 +119,11 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -351,6 +361,11 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -374,6 +389,11 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -395,6 +415,11 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -462,6 +487,11 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     {
       return dss.vector.solutions.ontology.Term.get(getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void validateTerm()

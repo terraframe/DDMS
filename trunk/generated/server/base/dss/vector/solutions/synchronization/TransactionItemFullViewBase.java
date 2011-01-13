@@ -1,6 +1,6 @@
 package dss.vector.solutions.synchronization;
 
-@com.runwaysdk.business.ClassSignature(hash = -1937771300)
+@com.runwaysdk.business.ClassSignature(hash = -1159998613)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class TransactionItemFullViewBase extends com.runwaysdk.business
   public static java.lang.String ID = "id";
   public static java.lang.String RECORDID = "recordId";
   public static java.lang.String XMLRECORD = "xmlRecord";
-  private static final long serialVersionUID = -1937771300;
+  private static final long serialVersionUID = -1159998613;
   
   public TransactionItemFullViewBase()
   {

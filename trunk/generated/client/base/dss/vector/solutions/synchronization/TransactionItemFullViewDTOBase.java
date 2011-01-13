@@ -1,10 +1,10 @@
 package dss.vector.solutions.synchronization;
 
-@com.runwaysdk.business.ClassSignature(hash = 58111580)
+@com.runwaysdk.business.ClassSignature(hash = 835884267)
 public abstract class TransactionItemFullViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.synchronization.TransactionItemFullView";
-  private static final long serialVersionUID = 58111580;
+  private static final long serialVersionUID = 835884267;
   
   protected TransactionItemFullViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -240,9 +240,9 @@ public abstract class TransactionItemFullViewDTOBase extends com.runwaysdk.busin
     return isModified(XMLRECORD);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getXmlRecordMd()
+  public final com.runwaysdk.transport.metadata.AttributeClobMdDTO getXmlRecordMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(XMLRECORD).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeClobMdDTO) getAttributeDTO(XMLRECORD).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.synchronization.TransactionItemFullViewDTO getByItemId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String itemID)
