@@ -603,7 +603,8 @@
   </xs:simpleType>
 
   <!--
-    ******************************** Object definition
+    ******************************** 
+    Object definition
     ************************************
   -->
 
@@ -627,6 +628,8 @@
     <xs:attribute name="type" type="xs:string" use="required" />
     <!--A key for the object-->
     <xs:attribute name="key" type="xs:string" use="required" />
+    <!--New key of the entity, only applicable when updating an entity-->
+    <xs:attribute name="newKey" type="xs:string" />
   </xs:complexType>
 
   <!--A new instance of a mdRelationship DAO-->
@@ -721,6 +724,7 @@
       <xs:element name="hashEncryption" type="hashEncryption" />
       <xs:element name="symmetricEncryption" type="symmetricEncryption" />
       <xs:element name="blob" type="blob" />
+      <xs:element name="clob" type="clob" />
       <xs:element name="file" type="file" />
       <xs:element name="localChar" type="localChar" />
       <xs:element name="localText" type="localText" />
@@ -742,10 +746,8 @@
     <xs:attribute name="required" type="xs:boolean" />
     <!--required: Comma delimeted name of dimensions on which this attribute is required-->
     <xs:attribute name="requiredForDimension" type="xs:string" />
-    <!-- Heads up: clean up
-    accessor: The name of the accessor method used in generation
-    <xs:attribute name="accessor" type="xs:string" />
-    -->
+    <!--rename: Renames the attribute, only applicable when updating an attribute-->
+    <xs:attribute name="rename" type="xs:string" />
     <!--setterVisibility: The visibility of the setter methods -->
     <xs:attribute name="setterVisibility" type="visibilityOptions" />
     <!--getterVisibility: The visibility of the getter methods -->
@@ -861,6 +863,11 @@
   <!--Represents a Text object in the database-->
   <xs:complexType name="text">
     <xs:attributeGroup ref="attributePrimitive" />
+  </xs:complexType>
+
+  <!--Represents a clob object in the database-->
+  <xs:complexType name="clob">
+    <xs:attributeGroup ref="attribute" />
   </xs:complexType>
 
   <!--Represents a Boolean object in the database-->
