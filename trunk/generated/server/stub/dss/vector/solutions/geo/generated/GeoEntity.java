@@ -17,7 +17,9 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.apache.commons.collections.SetUtils;
 import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
@@ -75,6 +77,7 @@ import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
+import dss.vector.solutions.geo.EntityNotChildOfMainWarning;
 import dss.vector.solutions.geo.GeoEntitySelectionProblem;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoEntityViewQuery;
@@ -2074,5 +2077,72 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         }
       }
     }
+  }
+  
+  /**
+   * Checks if the list of children are located_in the parents. This method
+   * returns a list of ids that are valid children and sets an MdWarning on
+   * the call for all entities that were not children.
+   * 
+   * @param childIds
+   * @param parentIds
+   * @return
+   */
+  public static String[] isChildOfParents(String childIds[], String[] parentIds)
+  {
+    QueryFactory f = new QueryFactory();
+    ValueQuery v = new ValueQuery(f);
+    
+    AllPathsQuery ap = new AllPathsQuery(f);
+    
+    v.SELECT(ap.getChildGeoEntity("childId"));
+    
+    
+    v.WHERE(ap.getChildGeoEntity().IN(childIds));
+    v.AND(ap.getParentGeoEntity().IN( parentIds));
+    
+    OIterator<? extends ValueObject> iter = v.getIterator();
+    Set<String> isChild = new HashSet<String>();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        isChild.add(iter.next().getValue("childId"));
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    
+    // Find which entities were not children of the parents
+    Set<String> originalIds = new HashSet<String>(Arrays.asList(childIds));
+    originalIds.removeAll(isChild);
+    
+    if(originalIds.size() > 0)
+    {
+      GeoEntityViewQuery query = GeoEntity.getAsViews(originalIds.toArray(new String[originalIds.size()]));
+      OIterator<? extends GeoEntityView> iter2 = query.getIterator();
+      List<String> displays = new LinkedList<String>();
+      try
+      {
+        while(iter2.hasNext())
+        {
+          displays.add(iter2.next().getEntityName()); // TODO include full display (or build on client)
+        }
+      }
+      finally
+      {
+        iter2.close();
+      }
+      
+      EntityNotChildOfMainWarning warning = new EntityNotChildOfMainWarning();
+      warning.setEntities(StringUtils.join(displays, ","));
+      warning.throwIt();
+    }
+    
+    
+    return isChild.toArray(new String[isChild.size()]);
   }
 }

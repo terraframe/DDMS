@@ -9,6 +9,7 @@ import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdAttributeBooleanDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
@@ -363,7 +364,8 @@ public class ITNCommunityDistribution extends ITNCommunityDistributionBase imple
 
     ITNCommunityDistributionQuery itnQuery = (ITNCommunityDistributionQuery) queryMap.get(ITNCommunityDistribution.CLASS);
 
-    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
+    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
+        RelationshipDAOIF.PARENT_ID_COLUMN);
 
     QueryUtil.joinGeoDisplayLabels(valueQuery, ITNCommunityDistribution.CLASS, itnQuery);
 

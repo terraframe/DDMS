@@ -6,8 +6,13 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.business.generation.json.JSONFacade;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
@@ -152,7 +157,31 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)
       {
-        vQuery.AND(geoEntityQuery.getType().EQ(filter));
+        
+        if( JSONFacade.isArray(this.filter ))
+        {
+          // restrict by many types
+          try
+          {
+            JSONArray typesArr = new JSONArray(this.filter);
+            String[] types = new String[typesArr.length()];
+            for(int i=0; i<typesArr.length(); i++)
+            {
+              types[i] = typesArr.getString(i);
+            }
+
+            vQuery.AND(geoEntityQuery.getType().IN(types));
+          }
+          catch (JSONException e)
+          {
+            throw new ProgrammingErrorException(e);
+          }
+        }
+        else
+        {
+          // restrict by a single type
+          vQuery.AND(geoEntityQuery.getType().EQ(filter));
+        }
       }
 
       // Restricted types to avoid returning large data sets

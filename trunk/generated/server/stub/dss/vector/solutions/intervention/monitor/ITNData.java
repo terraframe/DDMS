@@ -9,6 +9,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
@@ -325,7 +326,8 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
    
     ITNDataQuery itnQuery = (ITNDataQuery) queryMap.get(ITNData.CLASS);
 
-    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias());
+    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
+        RelationshipDAOIF.PARENT_ID_COLUMN); 
     
     QueryUtil.joinGeoDisplayLabels(valueQuery,ITNData.CLASS,itnQuery);
     
