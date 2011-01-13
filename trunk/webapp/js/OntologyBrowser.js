@@ -73,6 +73,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       // handler invoked during a save action.
       this._customHandler = null;
+      this._cancelHandler = null;
       
       this._searchPanel = null;
       
@@ -125,6 +126,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     hide : function()
     {
       this._panel.hide();
+      
+      if(this._cancelHandler != null)
+      {
+      this._cancelHandler();
+      }
     },
     
     /**
@@ -623,6 +629,11 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
     setHandler : function(handler, context)
     {
       this._customHandler = Mojo.Util.bind(context || this, handler);
+    },
+    
+    setCancelHandler : function(handler, context)
+    {
+      this._cancelHandler = Mojo.Util.bind(context || this, handler);
     },
     
     _save: function()
@@ -1170,13 +1181,10 @@ YAHOO.widget.OntologyTermEditor = function(oConfigs) {
     
     var attributeName = this._attribute.substring(0,1).toLowerCase() + this._attribute.substring(1);
     
-    this._browser = new MDSS.OntologyBrowser(false , this._klass, attributeName ); // FIXME
-                                          // pass
-                                          // in
-                                          // klass
-                                          // +
-                                          // attribute
+    this._browser = new MDSS.OntologyBrowser(false , this._klass, attributeName);
+    
     this._browser.setHandler(this._setSelected, this);
+    this._browser.setCancelHandler(this._refocus, this);
     this._lastSelected = null;
     
     oConfigs.disableBtns = false;
@@ -1191,6 +1199,16 @@ _setSelected : function(views)
 {
   this._lastSelected = views.length > 0 ? views[0] : null;
   this.save();
+},
+
+_refocus : function()
+{
+  // Get the current selected cell
+  var cell = this.getDataTable().getLastSelectedCell();
+ 
+  // Refocus on the selected cell
+  this.getDataTable().focus();
+  this.getDataTable().selectCell(cell);
 },
 
 /**
