@@ -14,6 +14,7 @@ import org.junit.Test;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
+import com.thoughtworks.selenium.SeleniumException;
 
 import dss.vector.solutions.TestFixture;
 import dss.vector.solutions.TransactionExecuter;
@@ -34,14 +35,14 @@ public class PreserveCollectionTest
   public static void classSetup() throws Exception
   {
     new TransactionExecuter()
-    {      
+    {
       @Override
       protected void executeMethod() throws Exception
       {
         GeoEntity zambia = GeoEntity.searchByGeoId("1107");
-        
+
         GeoHierarchyView[] universals = GeoHierarchyView.getUrbanHierarchies(zambia.getId());
-        
+
         String entityType = universals[1].getGeneratedType();
 
         entity = (GeoEntity) LoaderDecorator.load(entityType).newInstance();
@@ -55,21 +56,21 @@ public class PreserveCollectionTest
         collection.setGeoEntity(entity);
         collection.setCollectionId(TestFixture.getRandomId());
         collection.addLifeStage(LifeStage.EGG);
-        collection.setAbundance(true);         
+        collection.setAbundance(true);
         collection.apply();
       }
     }.execute();
   }
-  
+
   @AfterClass
   public static void classTearDown() throws Exception
   {
     new TransactionExecuter()
-    {      
+    {
       @Override
       protected void executeMethod() throws Exception
       {
-        collection.deleteConcrete();            
+        collection.deleteConcrete();
         entity.deleteEntity();
       }
     }.execute();
@@ -91,7 +92,15 @@ public class PreserveCollectionTest
   @Test
   public void testADDAPreserveCollection() throws Exception
   {
-    selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    try
+    {
+      selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    }
+    catch (SeleniumException e)
+    {
+      selenium.open("/DDMS/com.runwaysdk.defaults.LoginController.logout.mojo");
+    }
+    
     selenium.type("username", "ddms");
     selenium.type("password", "ddms");
     selenium.click("submitLogin");
@@ -127,7 +136,7 @@ public class PreserveCollectionTest
       selenium.type("collectionId", collection.getConcreteId());
       selenium.click("name=dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.create.button");
       selenium.waitForPageToLoad("120000");
-      
+
       assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
     }
     finally
@@ -151,7 +160,7 @@ public class PreserveCollectionTest
       selenium.type("collectionId", collection.getConcreteId());
       selenium.click("name=dss.vector.solutions.entomology.assay.KnockDownAssay.form.create.button");
       selenium.waitForPageToLoad("120000");
-      
+
       assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
     }
     finally
