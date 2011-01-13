@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1239367485)
+@com.runwaysdk.business.ClassSignature(hash = -1058466160)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1239367485;
+  private static final long serialVersionUID = -1058466160;
   
   public GeoEntityBase()
   {
@@ -847,6 +847,12 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   }
   
   public static dss.vector.solutions.geo.GeoEntityView getViewByGeoId(java.lang.String id)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String[] isChildOfParents(java.lang.String[] childIds, java.lang.String[] parentIds)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

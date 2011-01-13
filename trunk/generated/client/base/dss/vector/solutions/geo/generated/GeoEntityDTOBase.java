@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1497390525)
+@com.runwaysdk.business.ClassSignature(hash = -1386768368)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = -1497390525;
+  private static final long serialVersionUID = -1386768368;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -263,9 +263,9 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     return isModified(GEODATA);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeClobMdDTO getGeoDataMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getGeoDataMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeClobMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
   }
   
   public String getGeoId()
@@ -885,6 +885,14 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getViewByGeoId", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String[] isChildOfParents(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] childIds, java.lang.String[] parentIds)
+  {
+    String[] _declaredTypes = new String[]{"[Ljava.lang.String;", "[Ljava.lang.String;"};
+    Object[] _parameters = new Object[]{childIds, parentIds};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "isChildOfParents", _declaredTypes);
+    return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.geo.GeoEntityViewDTO[] searchAndCollectByGeoId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.lang.String filter)
