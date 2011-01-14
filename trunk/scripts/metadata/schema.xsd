@@ -144,7 +144,7 @@
     <xs:sequence>
       <xs:element name="type" type="xs:string"/>
       <xs:element name="set_id" type="xs:string"/>
-      <xs:element name="item_id" type="xs:string" maxOccurs="unbounded"/>
+      <xs:element name="item_id" type="xs:string" minOccurs="0" maxOccurs="unbounded"/>
     </xs:sequence>
   </xs:complexType>
 </xs:element>
@@ -163,6 +163,7 @@
 	  <xs:element name="mdattributesymmetric" type="mdattributesymmetric" />
 	  <xs:element name="mdattributeblob" type="mdattributeblob"/>
 	  <xs:element name="mdattributetext" type="mdattributetext"/>
+	  <xs:element name="mdattributeclob" type="mdattributeclob"/>
 	  <xs:element name="mdattributetime" type="mdattributetime"/>
 	  <xs:element name="mdattributedate" type="mdattributedate"/>
 	  <xs:element name="mdattributedatetime" type="mdattributedatetime"/>
@@ -212,7 +213,7 @@
   <xs:complexContent>
     <xs:extension base="metadata">
 	  <xs:sequence>
-      <xs:element name="generateAccessor" type="xs:string" minOccurs="0"/>    
+      <xs:element name="generateAccessor" type="xs:string" minOccurs="0"/>
     </xs:sequence>
 	</xs:extension>
   </xs:complexContent>
@@ -445,6 +446,15 @@
 </xs:complexType>
 
 <xs:complexType name="mdattributetext">
+  <xs:complexContent>
+    <xs:extension base="mdattributechar">
+	  <xs:sequence>
+	  </xs:sequence>
+	</xs:extension>
+  </xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="mdattributeclob">
   <xs:complexContent>
     <xs:extension base="mdattributechar">
 	  <xs:sequence>
