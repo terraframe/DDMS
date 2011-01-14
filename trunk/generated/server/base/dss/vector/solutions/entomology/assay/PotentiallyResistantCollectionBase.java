@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1602586488)
+@com.runwaysdk.business.ClassSignature(hash = -2094423942)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,12 +11,70 @@ package dss.vector.solutions.entomology.assay;
 public abstract class PotentiallyResistantCollectionBase extends com.runwaysdk.business.Information implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.PotentiallyResistantCollection";
+  public static java.lang.String ACTIVEINGREDIENT = "activeIngredient";
+  public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1602586488;
+  private static final long serialVersionUID = -2094423942;
   
   public PotentiallyResistantCollectionBase()
   {
     super();
+  }
+  
+  public String getActiveIngredient()
+  {
+    return getValue(ACTIVEINGREDIENT);
+  }
+  
+  public void validateActiveIngredient()
+  {
+    this.validateAttribute(ACTIVEINGREDIENT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActiveIngredientMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.PotentiallyResistantCollection.CLASS);
+    return mdClassIF.definesAttribute(ACTIVEINGREDIENT);
+  }
+  
+  public void setActiveIngredient(String value)
+  {
+    if(value == null)
+    {
+      setValue(ACTIVEINGREDIENT, "");
+    }
+    else
+    {
+      setValue(ACTIVEINGREDIENT, value);
+    }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTIONID);
+  }
+  
+  public void validateCollectionId()
+  {
+    this.validateAttribute(COLLECTIONID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getCollectionIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.PotentiallyResistantCollection.CLASS);
+    return mdClassIF.definesAttribute(COLLECTIONID);
+  }
+  
+  public void setCollectionId(String value)
+  {
+    if(value == null)
+    {
+      setValue(COLLECTIONID, "");
+    }
+    else
+    {
+      setValue(COLLECTIONID, value);
+    }
   }
   
   public String getId()
@@ -43,6 +101,8 @@ public abstract class PotentiallyResistantCollectionBase extends com.runwaysdk.b
   public java.lang.String localize(java.util.Locale locale)
   {
     java.lang.String message = super.localize(locale);
+    message = replace(message, "{activeIngredient}", this.getActiveIngredient());
+    message = replace(message, "{collectionId}", this.getCollectionId());
     message = replace(message, "{id}", this.getId());
     return message;
   }

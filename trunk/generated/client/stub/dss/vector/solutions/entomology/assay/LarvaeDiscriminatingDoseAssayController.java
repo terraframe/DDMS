@@ -217,6 +217,9 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public void view(LarvaeDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
+    // Ensure that any information about the assay is passed to the user.
+    ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);    
+
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");

@@ -1,0 +1,75 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdInformation
+        name="dss.vector.solutions.entomology.assay.ResistantCollection">
+        <create>
+          <attributes>
+            <char
+              name="activeIngredient"
+              label="Active Ingredient"
+              size="999" />
+            <char
+              name="collectionId"
+              label="CollectionId"
+              size="999" />
+          </attributes>
+        </create>
+      </mdInformation>
+      <mdInformation
+        name="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection">
+        <create>
+          <attributes>
+            <char
+              name="activeIngredient"
+              label="Active Ingredient"
+              size="999" />
+            <char
+              name="collectionId"
+              label="CollectionId"
+              size="999" />
+          </attributes>
+        </create>
+      </mdInformation>
+      <mdInformation
+        name="dss.vector.solutions.entomology.assay.SusceptibleCollection">
+        <create>
+          <attributes>
+            <char
+              name="activeIngredient"
+              label="Active Ingredient"
+              size="999" />
+            <char
+              name="collectionId"
+              label="CollectionId"
+              size="999" />
+          </attributes>
+        </create>
+      </mdInformation>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.entomology.assay.ResistantCollection.activeIngredient"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.ResistantCollection.collectionId"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection.activeIngredient"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.PotentiallyResistantCollection.collectionId"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.SusceptibleCollection.activeIngredient"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.entomology.assay.SusceptibleCollection.collectionId"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>
+  </undoIt>
+</version>

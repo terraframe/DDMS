@@ -90,7 +90,9 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
-    // not create a new object
+    // not create a new object   
+    ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);    
+    
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
