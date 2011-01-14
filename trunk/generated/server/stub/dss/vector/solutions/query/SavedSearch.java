@@ -29,6 +29,7 @@ import com.runwaysdk.vault.VaultFileDAOIF;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
@@ -56,6 +57,7 @@ public class SavedSearch extends SavedSearchBase implements
    * Apply method that also checks if this SavedSearch object is mappable or
    * not.
    */
+  @SuppressWarnings("unchecked")
   public void apply()
   {
     try
@@ -215,6 +217,7 @@ public class SavedSearch extends SavedSearchBase implements
     this.setQueryXml(xml);
     this.setQueryType(view.getQueryType());
     this.setConfig(view.getConfig());
+    this.setDisease(Disease.getCurrent());
 
     checkUniqueness(name, mdssUser);
 
@@ -409,6 +412,7 @@ public class SavedSearch extends SavedSearchBase implements
 
       viewQuery.WHERE(this.searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.AND(this.searchQuery.getMappable().EQ(true));
+      viewQuery.AND(this.searchQuery.getDisease().EQ(Disease.getCurrent()));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
 

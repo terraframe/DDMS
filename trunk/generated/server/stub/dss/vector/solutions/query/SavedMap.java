@@ -35,6 +35,7 @@ import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
+import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.util.ShapefileExporter;
 
 public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.loader.Reloadable
@@ -50,6 +51,17 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   public String toString()
   {
     return this.getMapName();
+  }
+  
+  @Override
+  public void apply()
+  {
+    if(this.isNew() && !this.isAppliedToDB())
+    {
+      this.setDisease(Disease.getCurrent());
+    }
+    
+    super.apply();
   }
 
   @Override
@@ -491,6 +503,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     SavedMapQuery q = new SavedMapQuery(f);
 
     q.WHERE(q.getType().NE(DefaultSavedMap.CLASS));
+    q.AND(q.getDisease().EQ(Disease.getCurrent()));
 
     return q;
   }
@@ -517,6 +530,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     }
 
     defaultMap = new DefaultSavedMap();
+    defaultMap.setDisease(Disease.getCurrent());
     defaultMap.apply();
     
     settings.appLock();

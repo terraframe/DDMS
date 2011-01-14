@@ -1,5 +1,7 @@
 package dss.vector.solutions.query;
 
+import dss.vector.solutions.general.Disease;
+
 
 /**
  *
@@ -78,6 +80,7 @@ private static final long serialVersionUID = 1240879208564L;
       
       viewQuery.WHERE(searchQuery.getQueryType().EQ(queryType));
       viewQuery.AND(searchQuery.getType().EQ(SavedSearch.CLASS));
+      viewQuery.AND(searchQuery.getDisease().EQ(Disease.getCurrent()));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
 

@@ -1,11 +1,7 @@
 package dss.vector.solutions;
 
-import java.util.List;
-
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-
-import dss.vector.solutions.general.Disease;
 
 /**
  * Class to represent settings specific to a user that should not be synchronized (local to one machine).
