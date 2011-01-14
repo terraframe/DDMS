@@ -16,8 +16,10 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
@@ -107,6 +109,7 @@ public class SavedSearch extends SavedSearchBase implements
     // We exclude the DefaultSavedSearch subclass. 
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
     searchQuery.AND(searchQuery.getType().EQ(SavedSearch.CLASS));
+    searchQuery.AND(searchQuery.getDisease().EQ(Disease.getCurrent()));
 
     if (searchQuery.getCount() > 0)
     {
@@ -409,10 +412,12 @@ public class SavedSearch extends SavedSearchBase implements
     protected void buildWhereClause()
     {
       GeneratedViewQuery viewQuery = this.getViewQuery();
+      
+      Condition condition = OR.get(this.searchQuery.getDisease().EQ(Disease.getCurrent()), this.searchQuery.getDisease().EQ((Disease)null));
 
       viewQuery.WHERE(this.searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.AND(this.searchQuery.getMappable().EQ(true));
-      viewQuery.AND(this.searchQuery.getDisease().EQ(Disease.getCurrent()));
+      viewQuery.AND(condition);
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
 

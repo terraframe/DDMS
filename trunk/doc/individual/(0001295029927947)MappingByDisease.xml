@@ -5,6 +5,11 @@
     <update>
       <mdBusiness
         name="dss.vector.solutions.query.SavedMap">
+        <attributes>
+          <char
+            name="mapName"
+            indexType="non-unique index" />
+        </attributes>
         <create>
           <attributes>
             <reference
@@ -28,6 +33,17 @@
         </create>
       </mdBusiness>
     </update>
+
+    <create>
+      <mdIndex
+        type="dss.vector.solutions.query.SavedMap"
+        label="Saved Map Index"
+        unique="true"
+        active="true">
+        <attribute name="mapName" indexOrder="0"/>
+        <attribute name="disease" indexOrder="1"/>
+      </mdIndex>
+    </create>
   </doIt>
   <undoIt>
     <delete>
