@@ -1209,13 +1209,16 @@ public class IRSQuery implements Reloadable
     String disease = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
     
     String diseaseCol;
+    String seasonCol;
     if(isResource)
     {
       diseaseCol = QueryUtil.getColumnName(ResourceTarget.getDiseaseMd());
+      seasonCol = QueryUtil.getColumnName(ResourceTarget.getSeasonMd());
     }
     else
     {
       diseaseCol = QueryUtil.getColumnName(GeoTarget.getDiseaseMd());
+      seasonCol = QueryUtil.getColumnName(GeoTarget.getSeasonMd());
     }
     
     String weeks = "";
@@ -1256,6 +1259,7 @@ public class IRSQuery implements Reloadable
       from += this.geoEntity + ", ";
     }
     from += diseaseCol + ", ";
+    from += seasonCol + ", ";
 
     String sourceTable;
     if (isResource)
@@ -1277,6 +1281,7 @@ public class IRSQuery implements Reloadable
     from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
     from += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
     from += " AND ms." + disease + " = tar."+diseaseCol+"\n";
+    from += " AND ms." + idCol + " = tar."+seasonCol+"\n";
     return select + from;
   }
 
