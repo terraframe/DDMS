@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 540497543)
+@com.runwaysdk.business.ClassSignature(hash = -1921893463)
 public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.LocalizationFacade";
-  private static final long serialVersionUID = 540497543;
+  private static final long serialVersionUID = -1921893463;
   
   protected LocalizationFacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -76,6 +76,11 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -106,6 +111,11 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -214,6 +224,11 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -246,6 +261,11 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -276,6 +296,11 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -366,6 +391,14 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     Object[] _parameters = new Object[]{locales};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "exportFile", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String getFromBundles(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String key)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{key};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "getFromBundles", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.SupportedLocaleQueryDTO getInstalledLocales(com.runwaysdk.constants.ClientRequestIF clientRequest)
