@@ -22,7 +22,7 @@
             <reference
               name="disease"
               label="Disease"
-              required="true"
+              required="false"
               type="dss.vector.solutions.general.Disease" />
           </attributes>
         </create>
