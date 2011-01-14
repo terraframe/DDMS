@@ -118,6 +118,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   {
     MdssLocalizationImporter mli = new MdssLocalizationImporter();
     mli.read(file);
+    MultiBundle.reload();
   }
   
   public static String getFromBundles(String key)
