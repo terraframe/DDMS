@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 514020615)
+@com.runwaysdk.business.ClassSignature(hash = -1243230935)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 514020615;
+  private static final long serialVersionUID = -1243230935;
   
   public LocalizationFacadeBase()
   {
@@ -58,6 +58,11 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -79,6 +84,11 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -176,6 +186,11 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -199,6 +214,11 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -220,6 +240,11 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -316,6 +341,12 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
   }
   
   public static java.io.InputStream exportFile(java.lang.String[] locales)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String getFromBundles(java.lang.String key)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

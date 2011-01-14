@@ -1602,4 +1602,32 @@
       </rtexprvalue>
     </attribute>
   </tag>
+  <tag>
+    <description>
+      Localizes the given key, respecting bundle precedence
+    </description>
+    <name>
+      localize
+    </name>
+    <tag-class>
+      dss.vector.solutions.localization.LocalizedTagSupport
+    </tag-class>
+    <body-content>
+      empty
+    </body-content>
+    <attribute>
+      <description>
+        The key for the localized value
+      </description>
+      <name>
+        key
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        true
+      </rtexprvalue>
+    </attribute>
+  </tag>
 </taglib>

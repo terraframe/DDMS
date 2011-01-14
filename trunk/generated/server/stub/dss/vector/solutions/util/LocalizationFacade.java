@@ -4,10 +4,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
 import java.util.Locale;
 
-import com.runwaysdk.SystemException;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.ProfileManager;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
@@ -21,6 +19,7 @@ import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.CleanupContextListener;
+import dss.vector.solutions.localization.MultiBundle;
 
 public abstract class LocalizationFacade extends LocalizationFacadeBase implements Reloadable
 {
@@ -119,5 +118,10 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   {
     MdssLocalizationImporter mli = new MdssLocalizationImporter();
     mli.read(file);
+  }
+  
+  public static String getFromBundles(String key)
+  {
+    return MultiBundle.get(key);
   }
 }

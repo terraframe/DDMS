@@ -17,6 +17,7 @@ import com.runwaysdk.controller.tag.develop.TLDGenerator;
 import com.runwaysdk.controller.tag.develop.TagAnnotation;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.localization.LocalizedTagSupport;
 import dss.vector.solutions.ontology.BrowserRootDTO;
 import dss.vector.solutions.ontology.BrowserRootViewDTO;
 import dss.vector.solutions.ontology.TermComponentIF;
@@ -153,7 +154,7 @@ public class MOTagSupport extends AbstractTermTagSupport implements Reloadable
     try
     {
       // Generate mojo form tags
-      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class, BooleanCheckTagSupport.class, GeoTagSupport.class, FilterTagSupport.class }, "MDSS").generate();
+      new TLDGenerator(new File(args[0]), new Class<?>[] { MOTagSupport.class, MultiMOTagSupport.class, BooleanListTagSupport.class, BooleanCheckTagSupport.class, GeoTagSupport.class, FilterTagSupport.class, LocalizedTagSupport.class }, "MDSS").generate();
     }
     catch (IOException e)
     {

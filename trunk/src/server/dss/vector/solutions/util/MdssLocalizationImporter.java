@@ -117,13 +117,14 @@ public class MdssLocalizationImporter implements Reloadable
     updateProperties("admin", managerSheet);
     copyAdminProperties();
 
-    for (LocaleDimension ld : getColumnHeaders(propertySheet))
-    {
-      if (ld.hasDimension())
-      {
-        mergeProperties(ld);
-      }
-    }
+//    Demerge perhaps?
+//    for (LocaleDimension ld : getColumnHeaders(propertySheet))
+//    {
+//      if (ld.hasDimension())
+//      {
+//        mergeProperties(ld);
+//      }
+//    }
   }
 
   private void copyAdminProperties()
@@ -335,7 +336,7 @@ public class MdssLocalizationImporter implements Reloadable
     for (LocaleDimension l : getColumnHeaders(sheet))
     {
       c++;
-      String data = new String();
+      Map<String, String> props = l.getPropertiesFromFile(bundle);
       Iterator<HSSFRow> rowIterator = sheet.rowIterator();
       rowIterator.next();
       while (rowIterator.hasNext())
@@ -349,20 +350,25 @@ public class MdssLocalizationImporter implements Reloadable
 
         HSSFCell cell = row.getCell(c);
         String value = getStringValue(cell);
-        if (value == null)
+        if (value != null)
         {
-          value = new String();
+          props.put(key, value);
         }
-
-        data += key + '=' + value + '\n';
+        else
+        {
+          // If the cell is blank, ensure that the new file will not contain the key, even if it did before
+          props.remove(key);
+        }
       }
 
-      // Don't bother writing if no keys were specified
-      if (data.length()==0)
+      String data = new String();
+      
+      for (String key : props.keySet())
       {
-        continue;
+        String value = props.get(key);
+        data += key + "=" + value + "\n"; 
       }
-
+      
       String fileName = l.getPropertyFileName(bundle);
       File file = new File(dir, fileName);
       try
