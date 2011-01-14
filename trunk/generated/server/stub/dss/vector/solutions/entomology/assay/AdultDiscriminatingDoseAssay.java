@@ -186,6 +186,10 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       {
         valueQuery.WHERE((InnerJoin) join);
       }
+      
+      // manually put MosquitoCollectionQuery into the query map so QueryUtil.setQueryDates() can
+      // correctly find any date attributes on that class. THIS IS A HACK.
+      queryMap.put(MosquitoCollection.CLASS, mosquitoCollectionQuery);
     }
     
     AbstractAssayQuery abstractAssayQuery = (AbstractAssayQuery) queryMap.get(AbstractAssay.CLASS);
