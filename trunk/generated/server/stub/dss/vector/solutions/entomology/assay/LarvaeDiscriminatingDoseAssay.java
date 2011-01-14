@@ -1,10 +1,12 @@
 package dss.vector.solutions.entomology.assay;
 
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.ResistanceProperty;
+import dss.vector.solutions.ontology.Term;
 
 public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -83,19 +85,38 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
 
     super.apply();
 
+
     if (this.isSusceptible())
     {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+      
       SusceptibleCollection info = new SusceptibleCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
       info.throwIt();
     }
     else if (this.isPotentiallyResistant())
     {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+
       PotentiallyResistantCollection info = new PotentiallyResistantCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
       info.throwIt();
     }
     else if (this.isResistant())
     {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+
       ResistantCollection info = new ResistantCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
       info.throwIt();
     }
   }

@@ -15,6 +15,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.PropertyInfo;
@@ -24,6 +25,7 @@ import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.ResistanceProperty;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.InsecticideQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -108,17 +110,35 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     if (this.isSusceptible())
     {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+      
       SusceptibleCollection info = new SusceptibleCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
       info.throwIt();
     }
     else if (this.isPotentiallyResistant())
     {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+
       PotentiallyResistantCollection info = new PotentiallyResistantCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
       info.throwIt();
     }
     else if (this.isResistant())
     {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+
       ResistantCollection info = new ResistantCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
       info.throwIt();
     }
   }
