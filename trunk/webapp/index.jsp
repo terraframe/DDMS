@@ -14,7 +14,7 @@
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%><c:set var="page_title" value="welcome"  scope="request"/>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 <div class="pageContent">
-<div class="pageTitle"><mdss:localize key="welcome"/>AHA2</div>
+<div class="pageTitle"><mdss:localize key="welcome"/></div>
 
 <jsp:include page="/WEB-INF/inlineError.jsp" />
 
