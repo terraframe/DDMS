@@ -8,7 +8,7 @@
         <attributes>
           <char
             name="mapName"
-            indexType="non-unique index" />
+            indexType="no index" />
         </attributes>
         <create>
           <attributes>
