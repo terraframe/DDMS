@@ -75,11 +75,11 @@
 
 <br />
 <form id="export" name="export" action="dss.vector.solutions.surveillance.AggregatedCaseController.exportExcelTemplate.mojo" method="post" target="messageFrame">
-  <fmt:message key="Excel_Export_Header" var="export_label"/>
+  <mdss:localize key="Excel_Export_Header" var="export_label"/>
   <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
 </form>
 <form id="import" name="import" action="excelimport" method="post">
-  <fmt:message key="Excel_Import_Header" var="import_label"/>
+  <mdss:localize key="Excel_Import_Header" var="import_label"/>
   <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
 </form>
 

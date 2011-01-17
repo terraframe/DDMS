@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -60,10 +61,10 @@
       			<mjl:input type="hidden" param="personId" id="patient" value="${person != null ? person.personId : ''}"/>
       			<span class="clickable" id="recipient.span">
         			<span id="createPatient">
-          			<fmt:message key="Create_new_Patient"/>        
+          			<mdss:localize key="Create_new_Patient"/>        
         			</span>
         			<span id="editPatient" >
-          			<fmt:message key="Edit_Patient"/>        
+          			<mdss:localize key="Edit_Patient"/>        
         			</span>
       			</span>
      			<mjl:messages attribute="personId">

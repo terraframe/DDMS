@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -17,7 +18,7 @@
     ${record.siteMaster}
   </mjl:dt>
   </mjl:component>
-  <dt> <label><fmt:message key="Transaction_items" /> </label></dt>
+  <dt> <label><mdss:localize key="Transaction_items" /> </label></dt>
   <dd>
 <mjl:table classes="displayTable" var="current" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.synchronization.TransactionController.viewItemPage.mojo" >
@@ -34,7 +35,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="view.link" action="dss.vector.solutions.synchronization.TransactionController.viewItem.mojo">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property name="id" value="${current.itemId}" />
         </mjl:commandLink>
       </mjl:row>
@@ -49,6 +50,6 @@
 </mjl:table>
 </dd>
   <mjl:commandLink name="IndividualIPTController.newInstance" action="dss.vector.solutions.synchronization.TransactionController.viewRecordPage.mojo">
-    <fmt:message key="View_All_Transaction_Records" />
+    <mdss:localize key="View_All_Transaction_Records" />
   </mjl:commandLink>  
 </dl>

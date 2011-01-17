@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -56,6 +57,6 @@
     <mjl:property name="itemId" value="${item}"/>
     <mjl:property name="date" value="${startDate}"/>    
     <mjl:property name="endDate" value="${endDate}"/>    
-    <fmt:message key="Back_To_Search"/>
+    <mdss:localize key="Back_To_Search"/>
   </mjl:commandLink>
 </span>

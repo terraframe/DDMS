@@ -36,8 +36,8 @@
           ${item.isMDSSUserMd.displayLabel}?
           <span id="userSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isMDSSUser}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            <c:when test="${item.isMDSSUser}"><mdss:localize key="Click_to_Remove" /></c:when>
+            <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -70,7 +70,7 @@
             </dd>
             <dt>
               <label>
-                <fmt:message key="password_confirmation"/>                
+                <mdss:localize key="password_confirmation"/>                
               </label>
             </dt>
             <dd>
@@ -97,8 +97,8 @@
           ${item.isIPTRecipientMd.displayLabel}
           <span id="iptSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isIPTRecipient}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            <c:when test="${item.isIPTRecipient}"><mdss:localize key="Click_to_Remove" /></c:when>
+            <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -114,8 +114,8 @@
           ${item.isITNRecipientMd.displayLabel}
           <span id="itnSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isITNRecipient}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            <c:when test="${item.isITNRecipient}"><mdss:localize key="Click_to_Remove" /></c:when>
+            <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -131,8 +131,8 @@
           ${item.isPatientMd.displayLabel}
           <span id="patientSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isPatient}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            <c:when test="${item.isPatient}"><mdss:localize key="Click_to_Remove" /></c:when>
+            <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -150,8 +150,8 @@
           ${item.isSprayLeaderMd.displayLabel}
           <span id="sprayLeaderSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isSprayLeader}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            <c:when test="${item.isSprayLeader}"><mdss:localize key="Click_to_Remove" /></c:when>
+            <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -179,8 +179,8 @@
           ${item.isSprayOperatorMd.displayLabel}
           <span id="sprayOperatorSwitch" class="clickable">
           <c:choose>
-            <c:when test="${item.isSprayOperator}"><fmt:message key="Click_to_Remove" /></c:when>
-            <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+            <c:when test="${item.isSprayOperator}"><mdss:localize key="Click_to_Remove" /></c:when>
+            <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
           </c:choose>
           </span>
         </label>
@@ -209,8 +209,8 @@
             ${item.isStockStaffMd.displayLabel}
             <span id="stockStaffSwitch" class="clickable">
             <c:choose>
-              <c:when test="${item.isStockStaff}"><fmt:message key="Click_to_Remove" /></c:when>
-              <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+              <c:when test="${item.isStockStaff}"><mdss:localize key="Click_to_Remove" /></c:when>
+              <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
             </c:choose>
             </span>
           </label>
@@ -228,8 +228,8 @@
             ${item.isSupervisorMd.displayLabel}
             <span id="supervisorSwitch" class="clickable">
             <c:choose>
-              <c:when test="${item.isSupervisor}"><fmt:message key="Click_to_Remove" /></c:when>
-              <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+              <c:when test="${item.isSupervisor}"><mdss:localize key="Click_to_Remove" /></c:when>
+              <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
             </c:choose>
             </span>
           </label>
@@ -247,8 +247,8 @@
             ${item.isPhysicianMd.displayLabel}
             <span id="physicianSwitch" class="clickable">
               <c:choose>
-                <c:when test="${item.isPhysician}"><fmt:message key="Click_to_Remove" /></c:when>
-                <c:otherwise><fmt:message key="Click_to_Add" /></c:otherwise>
+                <c:when test="${item.isPhysician}"><mdss:localize key="Click_to_Remove" /></c:when>
+                <c:otherwise><mdss:localize key="Click_to_Add" /></c:otherwise>
               </c:choose>
             </span>
           </label>

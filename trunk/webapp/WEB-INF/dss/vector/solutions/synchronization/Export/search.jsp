@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -16,7 +17,7 @@
     <mjl:attributeColumn attributeName="description"></mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>
-        <fmt:message key="Export" />
+        <mdss:localize key="Export" />
       </mjl:header>
       <mjl:row>
         <mjl:input type="checkbox" param="types" value="${item.mdTypeId}"/>
@@ -35,8 +36,8 @@
   <dl>
       <table class="displayTable">
         <tr> 
-          <th><fmt:message key="Qualified_Type_Name"/></th>
-          <th><fmt:message key="Export"/></th>
+          <th><mdss:localize key="Qualified_Type_Name"/></th>
+          <th><mdss:localize key="Export"/></th>
         </tr>      
         <mjl:components items="${results}" param="types" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,7 +20,7 @@
   </mjl:form>
 </dl>
 <dl>
-  <dt> <label><fmt:message key="Case_instances" /> </label></dt>
+  <dt> <label><mdss:localize key="Case_instances" /> </label></dt>
   <dd>
 <mjl:table classes="displayTable" var="current" query="${query}" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.intervention.monitor.IndividualIPTController.view.mojo" >
@@ -72,7 +73,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="view.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTController.view.mojo">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property name="id" value="${current.concreteId}" />
         </mjl:commandLink>
       </mjl:row>
@@ -87,12 +88,12 @@
 </mjl:table>
 </dd>
   <mjl:commandLink name="IndividualIPTController.newInstance" action="dss.vector.solutions.intervention.monitor.IndividualIPTController.newInstance.mojo">
-    <fmt:message key="Create_a_new_Individual_IPT_Instance" />
+    <mdss:localize key="Create_a_new_Individual_IPT_Instance" />
     <mjl:property name="caseId" value="${item.concreteId}"/>
     <mjl:property name="serviceDate" value="${serviceDate}"/>    
 </mjl:commandLink>  
 </dl>
 
 <mjl:commandLink name="search.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.search.mojo">
-  <fmt:message key="Search_another_individual_IPT_Case" />
+  <mdss:localize key="Search_another_individual_IPT_Case" />
 </mjl:commandLink>

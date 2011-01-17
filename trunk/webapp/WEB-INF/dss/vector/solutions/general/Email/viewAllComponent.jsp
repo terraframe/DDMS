@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -30,7 +31,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="view.link" action="dss.vector.solutions.general.EmailController.view.mojo">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property name="id" value="${item.id}" />
         </mjl:commandLink>
       </mjl:row>

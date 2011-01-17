@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -28,7 +29,7 @@
       </mjl:dt>
       
       <div id="Basic_Case_Information">
-        <h2><fmt:message key="Basic_Case_Information" /></h2>
+        <h2><mdss:localize key="Basic_Case_Information" /></h2>
       </div>
       <div id="Basic_Case_Information.content">
         <mjl:dt attribute="diagnosisType">
@@ -85,7 +86,7 @@
       
       
       <div id="Administrative_Information">
-        <h2><fmt:message key="Administrative_Information" /></h2>
+        <h2><mdss:localize key="Administrative_Information" /></h2>
       </div>
       <div id="Administrative_Information.content">
         <mjl:dt attribute="properlyRelease">
@@ -103,7 +104,7 @@
       </div>
       
       <div id="Laboratory_Testing">
-        <h2><fmt:message key="Laboratory_Testing" /></h2>
+        <h2><mdss:localize key="Laboratory_Testing" /></h2>
       </div>
       <div id="Laboratory_Testing.content">
         <mjl:dt attribute="classification">
@@ -137,7 +138,7 @@
       </div>
       
       <div id="Treatment">
-        <h2><fmt:message key="Treatment" /></h2>
+        <h2><mdss:localize key="Treatment" /></h2>
       </div>
       <div id="Treatment.content">
         <mjl:dt attribute="treatmentMethod">
@@ -154,7 +155,7 @@
       </div>
       
       <div id = "Clinical_Findings">
-        <h2><fmt:message key="Clinical_Findings" /></h2>
+        <h2><mdss:localize key="Clinical_Findings" /></h2>
       </div>
       <div id="Clinical_Findings.content">      
         <mjl:dt attribute="symptomComments">
@@ -174,14 +175,14 @@
 </dl>
 
 <mjl:commandLink name="viewCase.link" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.view.mojo">
-  <fmt:message key="View_Case_Instances" />
+  <mdss:localize key="View_Case_Instances" />
   <mjl:property name="id" value="${item.individualCase.id}"/>    
 </mjl:commandLink>
 
 <br />
 
 <mjl:commandLink name="search.link" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo">
-  <fmt:message key="Search_another_Individual_Case" />
+  <mdss:localize key="Search_another_Individual_Case" />
 </mjl:commandLink>
 
 <script type="text/javascript">

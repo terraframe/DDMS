@@ -14,21 +14,21 @@
 <mjl:form name="InterventionPlanning.search.mojo" method="POST">
   <dl>
     <dt>
-      <label><fmt:message key="Planning_Type"/></label>
+      <label><mdss:localize key="Planning_Type"/></label>
     </dt>
     <dd>
-      <input type="radio" name="planningType" class="planningOption" id="planningType.time" ${time}/> <fmt:message key="Time"/>
-      <input type="radio" name="planningType" class="planningOption" id="planningType.insecticide" ${insecticide} /> <fmt:message key="Insecticide"/>
-      <input type="radio" name="planningType" class="planningOption" id="planningType.operator" ${operator}/> <fmt:message key="Operator_Planning"/>
+      <input type="radio" name="planningType" class="planningOption" id="planningType.time" ${time}/> <mdss:localize key="Time"/>
+      <input type="radio" name="planningType" class="planningOption" id="planningType.insecticide" ${insecticide} /> <mdss:localize key="Insecticide"/>
+      <input type="radio" name="planningType" class="planningOption" id="planningType.operator" ${operator}/> <mdss:localize key="Operator_Planning"/>
     </dd>
     <dt>
-      <label><fmt:message key="Geo_Entity"/></label>
+      <label><mdss:localize key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false" political="false" populated="false" spray="true" />
     </dd>
     <dt>
-      <label> <fmt:message key="Season"/></label>
+      <label> <mdss:localize key="Season"/></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >

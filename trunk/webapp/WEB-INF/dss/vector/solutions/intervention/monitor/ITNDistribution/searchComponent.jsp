@@ -51,10 +51,10 @@
 
             <span class="clickable" id="person.span">
               <span id="createPerson">
-                <fmt:message key="Create_new_recipient"/>        
+                <mdss:localize key="Create_new_recipient"/>        
               </span>
               <span id="editPerson" >
-                <fmt:message key="Edit_recipient"/>        
+                <mdss:localize key="Edit_recipient"/>        
               </span>
             </span>
           </td>

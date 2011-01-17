@@ -27,8 +27,8 @@
       </mjl:dt>
       <mjl:dt attribute="geoId">
         <mdss:geo param="geoId" concrete="false" value="${entity}" universals="${entityUniversals}">
-          <mdss:filter universal="" id="all" checked="true">&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;</mdss:filter>
-          <mdss:filter universal="${HealthFacility}" id="health_facility">&nbsp;<fmt:message key="Health_Facility"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>              
+          <mdss:filter universal="" id="all" checked="true">&nbsp;<mdss:localize key="All"/>  &nbsp;&nbsp;&nbsp;</mdss:filter>
+          <mdss:filter universal="${HealthFacility}" id="health_facility">&nbsp;<mdss:localize key="Health_Facility"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>              
         </mdss:geo>       
       </mjl:dt>
       <div class="periodType">

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -21,7 +22,7 @@
 <mjl:form name="form.name" id="form.id" method="GET">
   <dl>
     <dt> 
-      <fmt:message key="Search_for_type_to_export" />
+      <mdss:localize key="Search_for_type_to_export" />
     </dt>
     <dd>
       <mjl:input type="text" param="query"/>

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://jakarta.apache.org/taglibs/string-1.1" prefix="str"%>
@@ -60,13 +61,13 @@ YAHOO.util.Event.onDOMReady(function(){
 
 <c:choose>  
 	<c:when test="${!(empty errorMessage)}">
-		<div class="pageTitle"><fmt:message key="Synonym_Finder_Fail" /></div>
+		<div class="pageTitle"><mdss:localize key="Synonym_Finder_Fail" /></div>
     ${errorMessage}
   </c:when>
 	<c:otherwise>
-		<div class="pageTitle"><fmt:message key="Synonym_Finder" /></div>
+		<div class="pageTitle"><mdss:localize key="Synonym_Finder" /></div>
 
-		<fmt:message key="save" var="saveLocalized"></fmt:message>
+		<mdss:localize key="save" var="saveLocalized"></fmt:message>
 
 		<ul>
 			<c:forEach var="unknownGeoEntity" items="${unknownGeoEntitys}">
@@ -118,11 +119,11 @@ YAHOO.util.Event.onDOMReady(function(){
 	</c:otherwise>
 </c:choose>
 
-<c:set var="back_to_import" scope="request"><fmt:message key="back_to_import"/></c:set>
+<c:set var="back_to_import" scope="request"><mdss:localize key="back_to_import"/></c:set>
 
 <form id="${excelType}.import" name="${excelType}.import" action="excelimport" method="post">
   <input type="hidden" value="${excelType}" name="excelType"/>
-  <input type="submit" class="submitButton" name="import.button" value="${back_to_import}"/> <fmt:message key="post_synonym"/>
+  <input type="submit" class="submitButton" name="import.button" value="${back_to_import}"/> <mdss:localize key="post_synonym"/>
 </form>
 
 <jsp:include page="/WEB-INF/templates/footer.jsp" />

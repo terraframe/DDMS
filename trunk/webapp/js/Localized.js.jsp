@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.ResourceBundle"%>
 <%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%>
@@ -87,40 +88,40 @@ MDSS.Localized = {
 
   // tree widget options (per node)
   Tree: {
-    Create: '<fmt:message key="Tree_Create"/>',
-    Edit: '<fmt:message key="Tree_Edit"/>',
-    Delete: '<fmt:message key="Tree_Delete"/>',
-    Select: '<fmt:message key="Tree_Select"/>'
+    Create: '<mdss:localize key="Tree_Create"/>',
+    Edit: '<mdss:localize key="Tree_Edit"/>',
+    Delete: '<mdss:localize key="Tree_Delete"/>',
+    Select: '<mdss:localize key="Tree_Select"/>'
   },
 
   // Basic choices
   Choice: {
-    Yes: '<fmt:message key="Choice_Yes"/>',
-    No: '<fmt:message key="Choice_No"/>'
+    Yes: '<mdss:localize key="Choice_Yes"/>',
+    No: '<mdss:localize key="Choice_No"/>'
   },
 
   Query:
   {
-    Start_Date: '<fmt:message key="Query_Start_Date" />',
-    End_Date: '<fmt:message key="Query_End_Date" />',
-    Map: '<fmt:message key="Query_Map" />',
-    Run: '<fmt:message key="Query_Run" />',
-    Save: '<fmt:message key="Query_Save" />',
-    Load: '<fmt:message key="Query_Load" />',
-    Refresh: '<fmt:message key="Query_Refresh" />'
+    Start_Date: '<mdss:localize key="Query_Start_Date" />',
+    End_Date: '<mdss:localize key="Query_End_Date" />',
+    Map: '<mdss:localize key="Query_Map" />',
+    Run: '<mdss:localize key="Query_Run" />',
+    Save: '<mdss:localize key="Query_Save" />',
+    Load: '<mdss:localize key="Query_Load" />',
+    Refresh: '<mdss:localize key="Query_Refresh" />'
   },
 
   Toggle:
   {
-    Show: '<fmt:message key="Toggle_Show" />',
-    Hide: '<fmt:message key="Toggle_Hide" />'
+    Show: '<mdss:localize key="Toggle_Show" />',
+    Hide: '<mdss:localize key="Toggle_Hide" />'
   },
 
   Thematic:
   {
-    Layer: '<fmt:message key="Thematic_Layer" />',
-    Edit_Default_Style: '<fmt:message key="Thematic_Edit_Default_Style" />',
-    Edit_Variable_Styles: '<fmt:message key="Thematic_Edit_Variable_Styles" />'
+    Layer: '<mdss:localize key="Thematic_Layer" />',
+    Edit_Default_Style: '<mdss:localize key="Thematic_Edit_Default_Style" />',
+    Edit_Variable_Styles: '<mdss:localize key="Thematic_Edit_Variable_Styles" />'
   },
 
 };

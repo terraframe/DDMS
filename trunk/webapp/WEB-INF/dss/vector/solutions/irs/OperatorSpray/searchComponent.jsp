@@ -23,13 +23,13 @@
 <mjl:form name="search" method="POST" id ="searchOperatorSpray">
   <dl>
     <dt>
-      <label><fmt:message key="Geo_Entity"/></label>
+      <label><mdss:localize key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" populated="false" spray="true" />
     </dd>
     <dt>
-      <label><fmt:message key="Insecticide"/></label>
+      <label><mdss:localize key="Insecticide"/></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >
@@ -39,13 +39,13 @@
       </mjl:select>
     </dd>
     <dt>
-      <label><fmt:message key="Spray_Date"/></label>
+      <label><mdss:localize key="Spray_Date"/></label>
     </dt>
     <dd>
       <mjl:input param="date" type="text" classes="DatePick NoFuture" id="sprayDate" value="${date}" />
     </dd>
     <dt>
-      <label><fmt:message key="Spray_Method"/></label>
+      <label><mdss:localize key="Spray_Method"/></label>
     </dt>
     <dd>
       <mjl:group type="radio" var="current" varStatus="status" valueAttribute="enumName" items="${methods}" param="method">
@@ -55,7 +55,7 @@
       </mjl:group>
     </dd>
     <dt>
-      <label><fmt:message key="Team" /></label>
+      <label><mdss:localize key="Team" /></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${teams}" param="teamId" id="teamSelect" includeBlank="true">
@@ -82,7 +82,7 @@
     </mjl:component>
     
     <dt>
-      <label><fmt:message key="Spray_Operator"/></label>
+      <label><mdss:localize key="Spray_Operator"/></label>
     </dt>
     <dd>
       <mjl:input type="text" disabled="true" param="#operatorLabel" id="#operatorLabel" value="${operator != null ? operator.label : ''}"/>

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -26,8 +27,8 @@
         <mjl:header>${userLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.userDelegate != null}"><fmt:message key="Yes" /></c:when>
-            <c:otherwise><fmt:message key="No" /></c:otherwise>
+            <c:when test="${item.userDelegate != null}"><mdss:localize key="Yes" /></c:when>
+            <c:otherwise><mdss:localize key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
       </mjl:freeColumn>
@@ -37,8 +38,8 @@
         <mjl:header>${sprayOperatorLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.teamMemberDelegate != null && item.teamMemberDelegate.isSprayOperator}"><fmt:message key="Yes" /></c:when>
-            <c:otherwise><fmt:message key="No" /></c:otherwise>
+            <c:when test="${item.teamMemberDelegate != null && item.teamMemberDelegate.isSprayOperator}"><mdss:localize key="Yes" /></c:when>
+            <c:otherwise><mdss:localize key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
       </mjl:freeColumn>
@@ -48,8 +49,8 @@
         <mjl:header>${sprayLeaderLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.teamMemberDelegate != null && item.teamMemberDelegate.isSprayLeader}"><fmt:message key="Yes" /></c:when>
-            <c:otherwise><fmt:message key="No" /></c:otherwise>
+            <c:when test="${item.teamMemberDelegate != null && item.teamMemberDelegate.isSprayLeader}"><mdss:localize key="Yes" /></c:when>
+            <c:otherwise><mdss:localize key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
       </mjl:freeColumn>
@@ -59,8 +60,8 @@
         <mjl:header>${stockStaffLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.stockStaffDelegate != null}"><fmt:message key="Yes" /></c:when>
-            <c:otherwise><fmt:message key="No" /></c:otherwise>
+            <c:when test="${item.stockStaffDelegate != null}"><mdss:localize key="Yes" /></c:when>
+            <c:otherwise><mdss:localize key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
       </mjl:freeColumn>    
@@ -70,8 +71,8 @@
         <mjl:header>${supervisorLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.supervisorDelegate != null}"><fmt:message key="Yes" /></c:when>
-            <c:otherwise><fmt:message key="No" /></c:otherwise>
+            <c:when test="${item.supervisorDelegate != null}"><mdss:localize key="Yes" /></c:when>
+            <c:otherwise><mdss:localize key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
       </mjl:freeColumn>
@@ -81,8 +82,8 @@
         <mjl:header>${physicianLabel}</mjl:header>
         <mjl:row>
           <c:choose>
-            <c:when test="${item.physicianDelegate != null}"><fmt:message key="Yes" /></c:when>
-            <c:otherwise><fmt:message key="No" /></c:otherwise>
+            <c:when test="${item.physicianDelegate != null}"><mdss:localize key="Yes" /></c:when>
+            <c:otherwise><mdss:localize key="No" /></c:otherwise>
           </c:choose>
         </mjl:row>
       </mjl:freeColumn>

@@ -17,13 +17,13 @@
 <mjl:form name="dss.vector.solutions.irs.GeoTargetController.view.mojo" method="POST" id ="searchMosquitoCollections">
   <dl>
     <dt>
-      <label><fmt:message key="Geo_Entity"/></label>
+      <label><mdss:localize key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoEntity.componentId" spray="true" political="false" populated="false" />
     </dd>
     <dt>
-      <label> <fmt:message key="Season"/></label>
+      <label> <mdss:localize key="Season"/></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >

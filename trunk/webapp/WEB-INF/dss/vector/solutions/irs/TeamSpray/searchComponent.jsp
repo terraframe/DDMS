@@ -22,11 +22,11 @@
 
 <mjl:form name="search" method="POST" id ="searchTeamSpray">
   <dl>
-    <dt> <fmt:message key="Geo_Entity"/> </dt>
+    <dt> <mdss:localize key="Geo_Entity"/> </dt>
     <dd> 
       <mdss:geo param="geoId" concrete="false" value="${geoId}" political="false" spray="true" />
     </dd>
-    <dt> <fmt:message key="Insecticide"/> </dt>
+    <dt> <mdss:localize key="Insecticide"/> </dt>
     <dd>
       <mjl:select var="current" valueAttribute="insecticdeId" items="${brands}" param="brand.componentId" >
        <mjl:option selected="${brand != null && current.id == brand.id ? 'selected' : 'false'}">
@@ -34,9 +34,9 @@
        </mjl:option>
       </mjl:select>
     </dd>
-    <dt> <fmt:message key="Spray_Date"/> </dt>
+    <dt> <mdss:localize key="Spray_Date"/> </dt>
     <dd> <mjl:input param="date" type="text" classes="DatePick NoFuture" id="sprayDate" value="${date}"/></dd>
-    <dt> <fmt:message key="Spray_Method"/> </dt>
+    <dt> <mdss:localize key="Spray_Method"/> </dt>
     <dd>
       <mjl:group type="radio" var="current" varStatus="status" valueAttribute="enumName" items="${methods}" param="method">
         <mjl:groupOption checked="${current.enumName == method ? 'checked' : 'false'}">
@@ -44,7 +44,7 @@
         </mjl:groupOption>
       </mjl:group>
     </dd>
-    <dt> <fmt:message key="Spray_Team"/> </dt>
+    <dt> <mdss:localize key="Spray_Team"/> </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${teams}" id="teamSelect" param="team.componentId" >
        <mjl:option selected="${team != null && current.id == team.id ? 'selected' : 'false'}">

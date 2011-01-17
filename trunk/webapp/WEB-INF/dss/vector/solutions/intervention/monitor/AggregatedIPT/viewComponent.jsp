@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -59,8 +60,8 @@
       <dd>
         <table class="displayTable">
           <tr> 
-            <th><fmt:message key="Number_per_person_category"/></th>
-            <th><fmt:message key="Amount"/></th>
+            <th><mdss:localize key="Number_per_person_category"/></th>
+            <th><mdss:localize key="Amount"/></th>
           </tr>      
           <mjl:components items="${patients}" param="patients" var="current" varStatus="status">
             <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
@@ -86,8 +87,8 @@
       <dd>
         <table class="displayTable">
           <tr> 
-            <th><fmt:message key="ANC_Visit"/></th>
-            <th><fmt:message key="Amount"/></th>
+            <th><mdss:localize key="ANC_Visit"/></th>
+            <th><mdss:localize key="Amount"/></th>
           </tr>      
           <mjl:components items="${visits}" param="visits" var="current" varStatus="status">
             <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
@@ -113,8 +114,8 @@
       <dd>
         <table class="displayTable">
           <tr> 
-            <th><fmt:message key="IPT_Dose"/></th>
-            <th><fmt:message key="Amount"/></th>
+            <th><mdss:localize key="IPT_Dose"/></th>
+            <th><mdss:localize key="Amount"/></th>
           </tr>      
           <mjl:components items="${doses}" param="doses" var="current" varStatus="status">
             <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
@@ -139,8 +140,8 @@
       <dd>
         <table class="displayTable">
           <tr> 
-            <th><fmt:message key="IPT_Type"/></th>
-            <th><fmt:message key="Amount"/></th>
+            <th><mdss:localize key="IPT_Type"/></th>
+            <th><mdss:localize key="Amount"/></th>
           </tr>      
           <mjl:components items="${treatments}" param="treatments" var="current" varStatus="status">
             <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">

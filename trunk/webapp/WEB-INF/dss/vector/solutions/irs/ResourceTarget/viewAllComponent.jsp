@@ -22,13 +22,13 @@
 <mjl:form name="dss.vector.solutions.irs.GeoTargetController.view.mojo" method="POST" id="searchResourceTargets">
   <dl>
     <dt>
-      <label><fmt:message key="Geo_Entity"/></label>
+      <label><mdss:localize key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false"political="false" populated="false" spray="true" />
     </dd>  
     <dt>
-      <label> <fmt:message key="Season" /></label>
+      <label> <mdss:localize key="Season" /></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >
@@ -38,7 +38,7 @@
       </mjl:select>
     </dd>
     <dt>
-      <label><fmt:message key="Team" /></label>
+      <label><mdss:localize key="Team" /></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${sprayTeams}" param="id" id="teamSelect" allLabel="All" disabled="true" includeBlank="true">

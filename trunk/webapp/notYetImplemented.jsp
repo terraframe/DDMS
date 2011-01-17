@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
@@ -9,7 +10,7 @@
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
-<div class="pageTitle"><fmt:message key="Not_Yet_Implemented"/></div>
+<div class="pageTitle"><mdss:localize key="Not_Yet_Implemented"/></div>
 <dl>
 The menu item you followed has not been implemented yet!
 </dl>

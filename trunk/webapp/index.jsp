@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
 <%@page import="dss.vector.solutions.global.CredentialsSingleton"%>
@@ -13,7 +14,7 @@
 <%@page import="dss.vector.solutions.geo.generated.EarthDTO"%><c:set var="page_title" value="welcome"  scope="request"/>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 <div class="pageContent">
-<div class="pageTitle"><fmt:message key="welcome"/></div>
+<div class="pageTitle"><mdss:localize key="welcome"/>AHA2</div>
 
 <jsp:include page="/WEB-INF/inlineError.jsp" />
 

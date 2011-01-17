@@ -54,7 +54,7 @@
       </mjl:dt>
     </mjl:component>
     
-    <button id="button.confirm"><fmt:message key="Confirm" /></button>
-    <button id="button.cancel"><fmt:message key="Cancel" /></button>
+    <button id="button.confirm"><mdss:localize key="Confirm" /></button>
+    <button id="button.cancel"><mdss:localize key="Cancel" /></button>
   </mjl:form>
 </dl>

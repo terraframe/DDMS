@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -43,5 +44,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.general.InsecticideController.newInstance.mojo" name="InsecticideController.newInstance" >
-  <fmt:message key="Define_Insecticide"/>
+  <mdss:localize key="Define_Insecticide"/>
 </mjl:commandLink>

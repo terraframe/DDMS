@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -10,9 +11,9 @@
   <dl>
     <table class="displayTable">
       <tr> 
-        <th><fmt:message key="Qualified_Type_Name"/></th>
-        <th><fmt:message key="Display_Label"/></th>
-        <th><fmt:message key="Description"/></th>
+        <th><mdss:localize key="Qualified_Type_Name"/></th>
+        <th><mdss:localize key="Display_Label"/></th>
+        <th><mdss:localize key="Description"/></th>
       </tr>      
       <mjl:components items="${views}" param="types" var="current" varStatus="status">
         <mjl:input type="hidden" param="mdTypeId" value="${current.mdTypeId}"/>

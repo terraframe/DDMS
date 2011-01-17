@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -10,7 +11,7 @@
   <mjl:form name="search" method="POST" id ="searchForm">
     <dt>
       <label>
-        <fmt:message key="Insecticide_Active_Ingredient"/>
+        <mdss:localize key="Insecticide_Active_Ingredient"/>
       </label>
     </dt>
     <dd>

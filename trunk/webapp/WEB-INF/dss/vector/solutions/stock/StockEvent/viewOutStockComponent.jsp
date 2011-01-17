@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -53,7 +54,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
     <mjl:property name="geoId" value="${entity.geoId}"/>
     <mjl:property name="itemId" value="${term.id}"/>
     <mjl:property name="date" value="${date}"/>  
-    <fmt:message key="Back_To_Search"/>
+    <mdss:localize key="Back_To_Search"/>
   </mjl:commandLink>
 </span>
 

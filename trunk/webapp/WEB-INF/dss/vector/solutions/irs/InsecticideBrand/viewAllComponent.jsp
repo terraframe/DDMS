@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -53,7 +54,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="view.link" action="dss.vector.solutions.irs.InsecticideBrandController.view.mojo">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property name="id" value="${item.id}" />
         </mjl:commandLink>
       </mjl:row>
@@ -68,5 +69,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink name="InsecticideBrandController.newInstance" action="dss.vector.solutions.irs.InsecticideBrandController.newInstance.mojo">
-  <fmt:message key="Create_a_new_Insecticide_brand" />
+  <mdss:localize key="Create_a_new_Insecticide_brand" />
 </mjl:commandLink>

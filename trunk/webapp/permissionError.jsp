@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"	pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
@@ -11,7 +12,7 @@
 
 <div class="pageContent">
   <div class="pageTitle">
-    <fmt:message key="welcome"/>
+    <mdss:localize key="welcome"/>
   </div>
 
   <jsp:include page="/WEB-INF/inlineError.jsp" />
@@ -27,7 +28,7 @@
     </p>
   </div>  
 
-  <fmt:message key="permission_configuration_error" /> <br>
+  <mdss:localize key="permission_configuration_error" /> <br>
     
   <img alt="Padlock" src="imgs/icons/Padlock.png" width="128" height="128">
 

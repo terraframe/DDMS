@@ -40,7 +40,7 @@
         <mjl:input param="endDate" id="endDate" type="text" classes="DatePick NoFuture component immutable"/>
        </mjl:dt>
 
-      <button id="button.go"><fmt:message key="Go" /></button>
+      <button id="button.go"><mdss:localize key="Go" /></button>
 
       <hr />
       
@@ -50,39 +50,39 @@
        
        <mjl:dt attribute="individulPremiseUniversal">
        <dl>
-        <label><fmt:message key="Aggregation_Universal"/></label>
+        <label><mdss:localize key="Aggregation_Universal"/></label>
          <mjl:select param="individulPremiseUniversal" id="individulPremiseUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
            <mjl:option selected="${(individulPremiseUniversal != null && individulPremiseUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
              ${current.displayLabel}
            </mjl:option>
          </mjl:select>
          
-         <br /><br /><button type="button" id="individulPremiseUniversal.button"> <fmt:message key="Edit_Intervention_Individual_Premises_Data"/> </button>         
+         <br /><br /><button type="button" id="individulPremiseUniversal.button"> <mdss:localize key="Edit_Intervention_Individual_Premises_Data"/> </button>         
        </dl>
        </mjl:dt>
        
        <mjl:dt attribute="aggregatedPremiseUniversal">
        <dl>
-        <label><fmt:message key="Aggregation_Universal"/></label>
+        <label><mdss:localize key="Aggregation_Universal"/></label>
          <mjl:select param="aggregatedPremiseUniversal" id="aggregatedPremiseUniversal" classes="universal component" valueAttribute="geoHierarchyId" var="current" items="${universals}" includeBlank="true">
            <mjl:option selected="${(aggregatedPremiseUniversal != null && aggregatedPremiseUniversal.geoHierarchyId == current.geoHierarchyId) ? 'selected' : 'false'}">
              ${current.displayLabel}
            </mjl:option>
          </mjl:select>
          
-         <br /><br /><button type="button" id="aggregatedPremiseUniversal.button"> <fmt:message key="Edit_Intervention_Aggregated_Premises_Data"/> </button>         
+         <br /><br /><button type="button" id="aggregatedPremiseUniversal.button"> <mdss:localize key="Edit_Intervention_Aggregated_Premises_Data"/> </button>         
        </dl>
        </mjl:dt>
              
        <mjl:dt attribute="personIntervention">
          <dl>
-         <button type="button" id="personIntervention.button" class="editButtons"> <fmt:message key="Edit_Intervention_Person_Days_Data"/> </button>
+         <button type="button" id="personIntervention.button" class="editButtons"> <mdss:localize key="Edit_Intervention_Person_Days_Data"/> </button>
          </dl>         
        </mjl:dt>
              
        <mjl:dt attribute="insecticideIntervention">
        <dl>
-         <button type="button" id="insecticideIntervention.button" class="editButtons"> <fmt:message key="Edit_Intervention_Insecticide_Data"/> </button>
+         <button type="button" id="insecticideIntervention.button" class="editButtons"> <mdss:localize key="Edit_Intervention_Insecticide_Data"/> </button>
        </dl>         
        </mjl:dt>
              
@@ -93,9 +93,9 @@
     <div id="details">
     </div>   
     
-    <button type="button" id="save.button"> <fmt:message key="save"/> </button>
+    <button type="button" id="save.button"> <mdss:localize key="save"/> </button>
     
-    <button type="button" id="delete.button"> <fmt:message key="Delete"/> </button>
+    <button type="button" id="delete.button"> <mdss:localize key="Delete"/> </button>
     
   </mjl:form>
 </dl>
@@ -256,7 +256,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       var hasConcrete = this.hasConcreteId();
 
       if(hasConcrete) {
-        if (confirm('<fmt:message key="Delete_Intervention_Control_Warning"/>')) { 
+        if (confirm('<mdss:localize key="Delete_Intervention_Control_Warning"/>')) { 
 	        this._formEl.action = "dss.vector.solutions.intervention.monitor.ControlInterventionController.delete.mojo";
     	    this._formEl.submit();
         }

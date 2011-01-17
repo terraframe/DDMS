@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -14,7 +15,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="parent.link" action="dss.vector.solutions.general.ThresholdDataController.view.mojo">
-          <fmt:message key="${item.parent.keyName}" />
+          <mdss:localize key="${item.parent.keyName}" />
           <mjl:property name="id" value="${item.parentId}" />
         </mjl:commandLink>
       </mjl:row>
@@ -28,7 +29,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="child.link" action="dss.vector.solutions.general.EpiWeekController.view.mojo">
-          <fmt:message key="${item.child.keyName}" />
+          <mdss:localize key="${item.child.keyName}" />
           <mjl:property name="id" value="${item.childId}" />
         </mjl:commandLink>
       </mjl:row>
@@ -56,7 +57,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="view.link" action="dss.vector.solutions.general.WeeklyThresholdController.view.mojo">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property name="id" value="${item.id}" />
         </mjl:commandLink>
       </mjl:row>
@@ -71,5 +72,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink name="WeeklyThresholdController.newRelationship" action="dss.vector.solutions.general.WeeklyThresholdController.newRelationship.mojo">
-  <fmt:message key="Create_a_new" />
+  <mdss:localize key="Create_a_new" />
 </mjl:commandLink>

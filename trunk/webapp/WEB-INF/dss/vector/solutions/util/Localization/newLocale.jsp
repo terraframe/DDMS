@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -9,7 +10,7 @@
 <mjl:form name="LocalizationController.name" id="LocalizationController.form.id" method="POST">
   <dl>
     <dt>
-      <fmt:message key="language"/>
+      <mdss:localize key="language"/>
     </dt>
     <dd>
       <select name="language">
@@ -21,7 +22,7 @@
       </select>
     </dd>
     <dt>
-      <fmt:message key="country_optional"/>
+      <mdss:localize key="country_optional"/>
     </dt>
     <dd>
       <select name="country">
@@ -34,7 +35,7 @@
       </select>
     </dd>
     <dt>
-      <fmt:message key="variant_optional"/>
+      <mdss:localize key="variant_optional"/>
     </dt>
     <dd>
       <mjl:input type="text" param="variant"/>

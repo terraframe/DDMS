@@ -38,7 +38,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="edit.link" action="dss.vector.solutions.general.MenuItemController.edit.mojo">
-          <fmt:message key="Edit" />
+          <mdss:localize key="Edit" />
           <mjl:property name="id" value="${item.menuItemId}" />
         </mjl:commandLink>
       </mjl:row>
@@ -50,5 +50,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink name="MenuItemController.newInstance" action="dss.vector.solutions.general.MenuItemController.newInstance.mojo">
-  <fmt:message key="Create_a_new_Menu_Item" />
+  <mdss:localize key="Create_a_new_Menu_Item" />
 </mjl:commandLink>

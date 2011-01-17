@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -60,7 +61,7 @@
   </mjl:form>
 </dl>
 <dl>
-  <dt> <label><fmt:message key="Individual_Case_instances" /> </label></dt>
+  <dt> <label><mdss:localize key="Individual_Case_instances" /> </label></dt>
   <dd>
 <mjl:table var="row" query="${query}" odd="oddRow" classes="displayTable" even="evenRow">
   <mjl:context action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.viewPage.mojo" />
@@ -85,7 +86,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.view.mojo" name="view.link">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property value="${row.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -98,11 +99,11 @@
 </dd>
 
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.IndividualInstanceController.newInstance.mojo" name="IndividualInstanceController.newInstance">
-  <fmt:message key="Create_a_new_Individual_Instance" />
+  <mdss:localize key="Create_a_new_Individual_Instance" />
   <mjl:property name="caseId" value="${item.id}"/>
 </mjl:commandLink>
 </dl>
 
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.IndividualCaseController.newInstance.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.viewAll.link">
-  <fmt:message key="Search" />
+  <mdss:localize key="Search" />
 </mjl:commandLink>

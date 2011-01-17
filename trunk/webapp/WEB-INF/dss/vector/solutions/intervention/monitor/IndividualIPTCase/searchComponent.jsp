@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -47,10 +48,10 @@
         
           <span class="clickable" id="recipient.span">
             <span id="createPatient">
-              <fmt:message key="Create_new_recipient"/>        
+              <mdss:localize key="Create_new_recipient"/>        
             </span>
             <span id="editPatient" >
-              <fmt:message key="Edit_recipient"/>        
+              <mdss:localize key="Edit_recipient"/>        
             </span>
           </span>
         </td>

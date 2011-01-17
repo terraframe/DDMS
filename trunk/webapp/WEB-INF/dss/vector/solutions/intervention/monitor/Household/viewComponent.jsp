@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -83,7 +84,7 @@
   <dd>
     <table class="displayTable" width="33%">
       <tr>
-        <th><fmt:message key="People" /></th>
+        <th><mdss:localize key="People" /></th>
         <th></th>
       </tr>
       <c:forEach items="${people}" var="current" varStatus="status">
@@ -93,7 +94,7 @@
          </td>
          <td>
            <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.view.mojo" name="Person.view.link">
-             <fmt:message key="View"/>
+             <mdss:localize key="View"/>
              <mjl:property name="id" value="${current.concreteId}"/>
            </mjl:commandLink>
          </td>
@@ -102,7 +103,7 @@
     </table>
   </dd>
   <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.newInstance.mojo" name="Person.newInstance.link">
-    <fmt:message key="Add_Person"/>
+    <mdss:localize key="Add_Person"/>
     <mjl:property name="householdId" value="${item.concreteId}"/>
   </mjl:commandLink>
 </dl>
@@ -112,7 +113,7 @@
   <dd>
     <table class="displayTable" width="33%">
       <tr>
-        <th><fmt:message key="ITNs" /></th>
+        <th><mdss:localize key="ITNs" /></th>
         <th></th>
       </tr>    
       <c:forEach items="${itns}" var="current" varStatus="status">
@@ -122,7 +123,7 @@
          </td>
          <td>
            <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNInstanceController.view.mojo" name="ITN.view.link">
-             <fmt:message key="View"/>
+             <mdss:localize key="View"/>
              <mjl:property name="id" value="${current.concreteId}"/>
            </mjl:commandLink>
          </td>
@@ -131,12 +132,12 @@
     </table>
   </dd>
   <mjl:commandLink action="dss.vector.solutions.intervention.monitor.ITNInstanceController.newInstance.mojo" name="Person.newInstance.link">
-    <fmt:message key="Add_ITN_Instance"/>
+    <mdss:localize key="Add_ITN_Instance"/>
     <mjl:property name="householdId" value="${item.concreteId}"/>
   </mjl:commandLink>
 </dl>
 
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">
-  <fmt:message key="Back_To_Survey_Point"/>
+  <mdss:localize key="Back_To_Survey_Point"/>
   <mjl:property name="id" value="${item.surveyPoint.id}" />
 </mjl:commandLink>

@@ -75,10 +75,10 @@
           
           <span class="clickable" id="physician.span">
             <span id="createPhysician">
-              <fmt:message key="Create_New_Physician"/>        
+              <mdss:localize key="Create_New_Physician"/>        
             </span>
             <span id="editPhysician" >
-              <fmt:message key="Edit_Physician"/>        
+              <mdss:localize key="Edit_Physician"/>        
             </span>
           </span>
         </mjl:dt>      
@@ -90,7 +90,7 @@
       </div>
 
       <div id="Basic_Case_Information">      
-        <h2><fmt:message key="Basic_Case_Information" /></h2>
+        <h2><mdss:localize key="Basic_Case_Information" /></h2>
       </div>
       <div id="Basic_Case_Information.content">
       
@@ -169,7 +169,7 @@
       </div>
       
       <div id="Administrative_Information">     
-        <h2><fmt:message key="Administrative_Information" /></h2>
+        <h2><mdss:localize key="Administrative_Information" /></h2>
       </div>
       <div id="Administrative_Information.content">      
         <mjl:dt attribute="properlyRelease">
@@ -187,7 +187,7 @@
       </div>
     
       <div id="Laboratory_Testing">
-        <h2><fmt:message key="Laboratory_Testing" /></h2>      
+        <h2><mdss:localize key="Laboratory_Testing" /></h2>      
       </div>
       <div id="Laboratory_Testing.content">      
         <mjl:dt attribute="classification">
@@ -213,7 +213,7 @@
       </div>
 
       <div id="Treatment">          
-        <h2><fmt:message key="Treatment" /></h2>
+        <h2><mdss:localize key="Treatment" /></h2>
       </div>
       <div id="Treatment.content">            
         <mjl:dt attribute="treatmentMethod">
@@ -226,7 +226,7 @@
       </div>
 
       <div id = "Clinical_Findings">      
-        <h2><fmt:message key="Clinical_Findings" /></h2>
+        <h2><mdss:localize key="Clinical_Findings" /></h2>
       </div>
       <div id="Clinical_Findings.content">     
         <mjl:dt attribute="symptomComments">

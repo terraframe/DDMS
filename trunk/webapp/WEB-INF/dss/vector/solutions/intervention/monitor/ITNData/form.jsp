@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -49,7 +50,7 @@
       <table class="displayTable">
         <tr> 
           <th>${item.displayServicesMd.displayLabel}</th>
-          <th><fmt:message key="Amount"/></th>
+          <th><mdss:localize key="Amount"/></th>
         </tr>      
         <mjl:components items="${services}" param="services" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
@@ -76,7 +77,7 @@
       <table class="displayTable">
         <tr> 
           <th>${item.displayTargetGroupsMd.displayLabel}</th>
-          <th><fmt:message key="Amount"/></th>
+          <th><mdss:localize key="Amount"/></th>
         </tr>      
         <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
@@ -103,7 +104,7 @@
       <table class="displayTable">
         <tr> 
           <th>${item.displayNetsMd.displayLabel}</th>
-          <th><fmt:message key="Amount"/></th>
+          <th><mdss:localize key="Amount"/></th>
         </tr>      
         <mjl:components items="${nets}" param="nets" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">

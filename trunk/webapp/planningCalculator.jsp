@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
@@ -9,7 +10,7 @@
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
-<div class="pageTitle"><fmt:message key="Planning_Calculator"/></div>
+<div class="pageTitle"><mdss:localize key="Planning_Calculator"/></div>
 
 <script>
 function round(n, places) {
@@ -55,7 +56,7 @@ function vsic() {
 
 function checkGTE(field) {
 	if (parseFloat(field.value) < 0) {
-		alert('<fmt:message key="Value_Not_GTE_0" />');
+		alert('<mdss:localize key="Value_Not_GTE_0" />');
 		setTimeout("document.getElementById('"+field.id+"').focus();",1);
 		setTimeout("document.getElementById('"+field.id+"').select();",1);
 	} 
@@ -63,18 +64,18 @@ function checkGTE(field) {
 </script>
 
 <dl id="planningCalculator">
-	<h2><fmt:message key="Premises_Calculator_Subheading" /></h2>
+	<h2><mdss:localize key="Premises_Calculator_Subheading" /></h2>
       
 	<dt>
-		<label title="<fmt:message key="Premises_Manpower_Calculator"/>"><fmt:message key="Premises_Manpower_Calculator"/></label>
+		<label title="<mdss:localize key="Premises_Manpower_Calculator"/>"><mdss:localize key="Premises_Manpower_Calculator"/></label>
 	</dt>
 	<dd>
 		<table>
 			<tr valign="top">
-				<th><fmt:message key="Blocks_Targeted"/></th>
-				<th><fmt:message key="Units_Per_Block"/></th>
-				<th><fmt:message key="Days_Per_Unit"/></th>
-				<th><fmt:message key="Days_To_Complete_Activity"/></th>
+				<th><mdss:localize key="Blocks_Targeted"/></th>
+				<th><mdss:localize key="Units_Per_Block"/></th>
+				<th><mdss:localize key="Days_Per_Unit"/></th>
+				<th><mdss:localize key="Days_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
 				<td><input type="text" id="pmc.blocks" onkeyup="pmc();" /></td>
@@ -86,15 +87,15 @@ function checkGTE(field) {
 	</dd>
 
 	<dt>
-		<label title="<fmt:message key="Premises_Granular_Insecticide_Calculator"/>"><fmt:message key="Premises_Granular_Insecticide_Calculator"/></label>
+		<label title="<mdss:localize key="Premises_Granular_Insecticide_Calculator"/>"><mdss:localize key="Premises_Granular_Insecticide_Calculator"/></label>
 	</dt>
 	<dd>
 		<table>
 			<tr valign="top">
-				<th><fmt:message key="Blocks_Targeted"/></th>
-				<th><fmt:message key="Units_Per_Block"/></th>
-				<th><fmt:message key="Grams_Per_Unit"/></th>
-				<th><fmt:message key="Kilograms_To_Complete_Activity"/></th>
+				<th><mdss:localize key="Blocks_Targeted"/></th>
+				<th><mdss:localize key="Units_Per_Block"/></th>
+				<th><mdss:localize key="Grams_Per_Unit"/></th>
+				<th><mdss:localize key="Kilograms_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
 				<td><input type="text" id="pgic.blocks" onkeyup="pgic();" /></td>
@@ -106,15 +107,15 @@ function checkGTE(field) {
 	</dd>
 
 	<dt>
-		<label title="<fmt:message key="Premises_Spray_Insecticide_Calculator"/>"><fmt:message key="Premises_Spray_Insecticide_Calculator"/></label>
+		<label title="<mdss:localize key="Premises_Spray_Insecticide_Calculator"/>"><mdss:localize key="Premises_Spray_Insecticide_Calculator"/></label>
 	</dt>
 	<dd>
 		<table>
 			<tr valign="top">
-				<th><fmt:message key="Blocks_Targeted"/></th>
-				<th><fmt:message key="Units_Per_Block"/></th>
-				<th><fmt:message key="Liters_Per_Unit"/></th>
-				<th><fmt:message key="Liters_To_Complete_Activity"/></th>
+				<th><mdss:localize key="Blocks_Targeted"/></th>
+				<th><mdss:localize key="Units_Per_Block"/></th>
+				<th><mdss:localize key="Liters_Per_Unit"/></th>
+				<th><mdss:localize key="Liters_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
 				<td><input type="text" id="psic.blocks" onkeyup="psic();" /></td>
@@ -126,15 +127,15 @@ function checkGTE(field) {
 	</dd>
 
 	<dt>
-		<label title="<fmt:message key="Premises_Material_Insecticide_Calculator"/>"><fmt:message key="Premises_Material_Insecticide_Calculator"/></label>
+		<label title="<mdss:localize key="Premises_Material_Insecticide_Calculator"/>"><mdss:localize key="Premises_Material_Insecticide_Calculator"/></label>
 	</dt>
 	<dd>
 		<table>
 			<tr valign="top">
-				<th><fmt:message key="Blocks_Targeted"/></th>
-				<th><fmt:message key="Units_Per_Block"/></th>
-				<th><fmt:message key="ITMs_Per_Unit"/></th>
-				<th><fmt:message key="ITMs_To_Complete_Activity"/></th>
+				<th><mdss:localize key="Blocks_Targeted"/></th>
+				<th><mdss:localize key="Units_Per_Block"/></th>
+				<th><mdss:localize key="ITMs_Per_Unit"/></th>
+				<th><mdss:localize key="ITMs_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
 				<td><input type="text" id="pmic.blocks" onkeyup="pmic();" /></td>
@@ -145,18 +146,18 @@ function checkGTE(field) {
 		</table>
 	</dd>
 
-	<h2><fmt:message key="Vehicle_Calculator_Subheading" /></h2>
+	<h2><mdss:localize key="Vehicle_Calculator_Subheading" /></h2>
 
 	<dt>
-		<label title="<fmt:message key="Vehicle_Manpower_Calculator"/>"><fmt:message key="Vehicle_Manpower_Calculator"/></label>
+		<label title="<mdss:localize key="Vehicle_Manpower_Calculator"/>"><mdss:localize key="Vehicle_Manpower_Calculator"/></label>
 	</dt>
 	<dd>
 		<table>
 			<tr valign="top">
-				<th><fmt:message key="Blocks_Targeted"/></th>
-				<th><fmt:message key="Minutes_Per_Block"/></th>
+				<th><mdss:localize key="Blocks_Targeted"/></th>
+				<th><mdss:localize key="Minutes_Per_Block"/></th>
 				<th>&nbsp;</th>
-				<th><fmt:message key="Hours_To_Complete_Activity"/></th>
+				<th><mdss:localize key="Hours_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
 				<td><input type="text" id="vmc.blocks" onkeyup="vmc();" /></td>
@@ -168,15 +169,15 @@ function checkGTE(field) {
 	</dd>
 
 	<dt>
-		<label title="<fmt:message key="Vehicle_Spray_Insecticide_Calculator"/>"><fmt:message key="Vehicle_Spray_Insecticide_Calculator"/></label>
+		<label title="<mdss:localize key="Vehicle_Spray_Insecticide_Calculator"/>"><mdss:localize key="Vehicle_Spray_Insecticide_Calculator"/></label>
 	</dt>
 	<dd>
 		<table>
 			<tr valign="top">
-				<th><fmt:message key="Blocks_Targeted"/></th>
-				<th><fmt:message key="Liters_Per_Block"/></th>
+				<th><mdss:localize key="Blocks_Targeted"/></th>
+				<th><mdss:localize key="Liters_Per_Block"/></th>
 				<th>&nbsp;</th>
-				<th><fmt:message key="Kiloliters_To_Complete_Activity"/></th>
+				<th><mdss:localize key="Kiloliters_To_Complete_Activity"/></th>
 			</tr>
 			<tr>
 				<td><input type="text" id="vsic.blocks" onkeyup="vsic();" /></td>

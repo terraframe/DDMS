@@ -12,7 +12,7 @@
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:input type="hidden" param="household" value="${item.household.id}"/>
   <mjl:dt attribute="personId">
-    <mjl:input param="personId" type="text" id="personId"/><a href="#" id="getUniqueId"><fmt:message key="Get_Unique_Id"/></a>
+    <mjl:input param="personId" type="text" id="personId"/><a href="#" id="getUniqueId"><mdss:localize key="Get_Unique_Id"/></a>
   </mjl:dt>  
   <mjl:dt attribute="headOfHousehold">
     <mdss:mo param="headOfHousehold" value="${headOfHousehold}"/>

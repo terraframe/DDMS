@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -101,8 +102,8 @@
 <h2 class="printOnly"><%=year%></h2>
 <table class="displayTable">
 <tr>
-  <th ><fmt:message key="EW"/></th>
-  <th ><fmt:message key="Month"/></th>
+  <th ><mdss:localize key="EW"/></th>
+  <th ><mdss:localize key="Month"/></th>
   <%
     for (int j = 0; j < 7; j++)
     {
@@ -110,7 +111,7 @@
       week.add(Calendar.DAY_OF_WEEK, 1);
     }
   %>
-    <th width=""><fmt:message key="Month"/></th>
+    <th width=""><mdss:localize key="Month"/></th>
 </tr>
 <%
   for (Integer i = 0; i < epiDate.getNumberOfEpiWeeks(); i++)
@@ -139,6 +140,6 @@
 
 <form method="get" action="dss.vector.solutions.PropertyController.viewPage.mojo" style="display: inline;">
 <input type="hidden" name="year" value="<%=year%>" />
-<button type="submit"><fmt:message key="Excel_Export_Header" />
+<button type="submit"><mdss:localize key="Excel_Export_Header" />
 </button>
 </form>

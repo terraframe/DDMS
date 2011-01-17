@@ -61,7 +61,7 @@
     </select>
   </mjl:dt>
   <dt>
-    <label><fmt:message key="Calculate_Query_Info"></fmt:message></label>
+    <label><mdss:localize key="Calculate_Query_Info"></fmt:message></label>
   </dt>
   <dd>
     <mjl:command name="dss.vector.solutions.query.LayerController.calculateQueryInfoBtn"
@@ -103,7 +103,7 @@
 
 <jsp:include page="../Styles/form.jsp"></jsp:include>
 <hr />
-<strong><fmt:message key="Advanced_Legend_Options" /></strong>: <span id="${styles.id}_toggleLegend" class="clickable"><fmt:message key="Toggle_Show" /></span>
+<strong><mdss:localize key="Advanced_Legend_Options" /></strong>: <span id="${styles.id}_toggleLegend" class="clickable"><mdss:localize key="Toggle_Show" /></span>
 <div id="${styles.id}_toggleLegendDiv"  style="display: block; margin-bottom: 10px;">
 <dl>
   <mjl:dt attribute="legendTitle">
@@ -206,7 +206,7 @@
 </mjl:component>
 
 <div id="categories" style="margin-top: 10px;">
-<strong><fmt:message key="Add_Category" /></strong>: 
+<strong><mdss:localize key="Add_Category" /></strong>: 
 <c:choose>
 <c:when test="${!isNewInstance}">
 
@@ -230,7 +230,7 @@
   </ul>
 </c:when>
 <c:otherwise>
- <i><fmt:message key="Layer_Create_Required" /></i>
+ <i><mdss:localize key="Layer_Create_Required" /></i>
  <ul id="categoryList"></ul>
 </c:otherwise>
 </c:choose>

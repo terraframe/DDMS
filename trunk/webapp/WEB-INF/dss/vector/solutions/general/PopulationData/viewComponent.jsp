@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -51,7 +52,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
 <span class="noprint">
   <mjl:commandLink  action="dss.vector.solutions.general.PopulationDataController.search.mojo" name="search.link" >
-    <fmt:message key="Back_To_Search"/>
+    <mdss:localize key="Back_To_Search"/>
   </mjl:commandLink>
 </span>
 

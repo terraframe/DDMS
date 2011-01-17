@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -60,12 +61,12 @@
 </dl>
 
 <mjl:commandLink name="viewCase.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.view.mojo">
-  <fmt:message key="View_IPT_Case_Instances" />
+  <mdss:localize key="View_IPT_Case_Instances" />
   <mjl:property name="id" value="${item.iptCase.id}"/>    
 </mjl:commandLink>
 
 <br />
 
 <mjl:commandLink name="search.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.search.mojo">
-  <fmt:message key="Search_another_individual_IPT_Case" />
+  <mdss:localize key="Search_another_individual_IPT_Case" />
 </mjl:commandLink>

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -39,7 +40,7 @@
 <div id="GeoTargets"></div>
 <br />
 <mjl:commandLink  action="dss.vector.solutions.irs.GeoTargetController.viewAll.mojo" name="dss.vector.solutions.irs.GeoTarget.viewAll.link" >
-  <fmt:message key="Back_To_Search"/>
+  <mdss:localize key="Back_To_Search"/>
 </mjl:commandLink>  
 <%
 DataGrid grid = (DataGrid) request.getAttribute("grid");

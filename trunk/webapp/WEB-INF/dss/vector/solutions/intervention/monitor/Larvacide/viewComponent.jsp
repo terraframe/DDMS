@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -52,7 +53,7 @@
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.LarvacideController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.Larvacide.viewAll.link">
-  <fmt:message key="View_All" />
+  <mdss:localize key="View_All" />
 </mjl:commandLink>
 
 <div id="LaravacideInstance"></div>

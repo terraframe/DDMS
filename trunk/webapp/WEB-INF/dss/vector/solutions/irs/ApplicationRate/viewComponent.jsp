@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -18,15 +19,15 @@
 
 <c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
-<h2><fmt:message key="Nozzle"/></h2>
+<h2><mdss:localize key="Nozzle"/></h2>
 <div id="Nozzle"></div>
 
-<h2><fmt:message key="InsecticideNozzle"/></h2>
+<h2><mdss:localize key="InsecticideNozzle"/></h2>
 <div id="InsecticideNozzle"></div>
 
 
   <mjl:form name="standards.form.name" id="standards.form" method="POST">
-   <h2><fmt:message key="Area"/></h2>
+   <h2><mdss:localize key="Area"/></h2>
    <dl>
       <mjl:component item="${dto}" param="dto">
       <mjl:input type="hidden" param="areaStandardsId" value="${dto.areaStandardsId}"/>
@@ -47,7 +48,7 @@
       <mjl:command value="Create" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
    </dl>
   </mjl:form>
-  <mjl:commandLink name="history" action="dss.vector.solutions.irs.AreaStandardsController.viewAll.mojo"><fmt:message key="Area_History"/></mjl:commandLink>
+  <mjl:commandLink name="history" action="dss.vector.solutions.irs.AreaStandardsController.viewAll.mojo"><mdss:localize key="Area_History"/></mjl:commandLink>
 
   <%=Halp.loadTypes(Arrays.asList(new String[]{InsecticideBrandViewDTO.CLASS, NozzleViewDTO.CLASS, InsecticideNozzleViewDTO.CLASS}))%>
 

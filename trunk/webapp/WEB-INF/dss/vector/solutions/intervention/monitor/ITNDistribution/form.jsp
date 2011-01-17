@@ -33,7 +33,7 @@
       <table class="displayTable">
         <tr> 
           <th>${item.targetGroupsMd.displayLabel}</th>
-          <th><fmt:message key="Amount"/></th>
+          <th><mdss:localize key="Amount"/></th>
         </tr>      
         <mjl:components items="${targetGroups}" param="targetGroups" var="current" varStatus="status">
           <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">

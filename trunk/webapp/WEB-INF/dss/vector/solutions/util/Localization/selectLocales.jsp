@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -27,7 +28,7 @@ function enableButton(checkbox) {
     <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
       <mjl:freeColumn>
         <mjl:header>
-          <fmt:message key="Locale" />
+          <mdss:localize key="Locale" />
         </mjl:header>
         <mjl:row>
           ${item.localeLabel}
@@ -35,7 +36,7 @@ function enableButton(checkbox) {
       </mjl:freeColumn>
       <mjl:freeColumn>
         <mjl:header>
-          <fmt:message key="Export" />
+          <mdss:localize key="Export" />
         </mjl:header>
         <mjl:row>
           <mjl:input type="checkbox" param="locales" value="${item.enumName}" onchange="enableButton(this);"/>
@@ -46,18 +47,18 @@ function enableButton(checkbox) {
   </dl>
 </mjl:form>
 <mjl:commandLink name="LocalizationController.add" action="dss.vector.solutions.util.LocalizationController.newLocale.mojo">
-  <fmt:message key="Add_New_Locale" />
+  <mdss:localize key="Add_New_Locale" />
 </mjl:commandLink>
 
 <script>
 document.getElementsByName("LocalizationController.form.exportFile.button")[0].disabled=true;
 </script>
 
-<div class="pageTitle"><fmt:message key="Import_Localization" /></div>
+<div class="pageTitle"><mdss:localize key="Import_Localization" /></div>
 <dl>
 <form method="post" enctype="multipart/form-data" action="dss.vector.solutions.util.LocalizationController.importFile.mojo">
-  <fmt:message key="xls_file"/>: <br />
+  <mdss:localize key="xls_file"/>: <br />
   <input type="file" name="upfile"/> <br />
-  <input class="submitButton" type="submit" value="<fmt:message key="Import" />" style="margin-left: 0px; top: 0px;" />
+  <input class="submitButton" type="submit" value="<mdss:localize key="Import" />" style="margin-left: 0px; top: 0px;" />
 </form>
 </dl>

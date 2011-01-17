@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -16,7 +17,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.ontology.BrowserRootController.view.mojo" name="view.link">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -31,5 +32,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.ontology.BrowserRootController.newInstance.mojo" name="BrowserRootController.newInstance">
-  <fmt:message key="Create_a_new_Ontology_Root" />
+  <mdss:localize key="Create_a_new_Ontology_Root" />
 </mjl:commandLink>

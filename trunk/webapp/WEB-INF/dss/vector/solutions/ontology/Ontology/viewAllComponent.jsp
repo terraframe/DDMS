@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
@@ -18,7 +19,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.ontology.OntologyController.view.mojo" name="view.link">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -33,5 +34,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink  action="dss.vector.solutions.ontology.OntologyController.newInstance.mojo" name="OntologyController.newInstance">
-<fmt:message key="Create_a_new_Ontology" />
+<mdss:localize key="Create_a_new_Ontology" />
 </mjl:commandLink>

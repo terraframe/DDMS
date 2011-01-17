@@ -3,6 +3,7 @@
 <%@page import="java.util.regex.Pattern"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="java.io.PrintWriter"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <%
@@ -12,7 +13,7 @@ try
 %>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
-<div class="pageTitle"><fmt:message key="welcome"/></div>
+<div class="pageTitle"><mdss:localize key="welcome"/></div>
 <%
   //if someone has bookmarked something they should not have, we will redirect them to the index
   if (exception.getClass().getName().contains("IllegalURIMethodException"))
@@ -32,10 +33,10 @@ try
     printStacktrace = false;
 %>
 <div class="pageContent">
-<div class="pageTitle"><fmt:message key="Not_Authorized" /></div>
+<div class="pageTitle"><mdss:localize key="Not_Authorized" /></div>
 <br>
 <br>
-<fmt:message key="Not_Authorized_Long" /> <br>
+<mdss:localize key="Not_Authorized_Long" /> <br>
 <img alt="Padlock" src="imgs/icons/Padlock.png" width="128" height="128">
 <%
   }

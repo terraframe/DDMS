@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -30,12 +31,12 @@
 <c:choose>
   <c:when test="${!isCaseConfiguration}">
     <mjl:commandLink action="dss.vector.solutions.PropertyController.viewAll.mojo" name="viewAll.link" id="viewAll">
-      <fmt:message key="View_All" />
+      <mdss:localize key="View_All" />
     </mjl:commandLink>  
   </c:when>
   <c:otherwise>
     <mjl:commandLink action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.viewAll.mojo" name="viewAll.link" id="viewAll">
-      <fmt:message key="View_All" />
+      <mdss:localize key="View_All" />
     </mjl:commandLink>  
   </c:otherwise>
 </c:choose>

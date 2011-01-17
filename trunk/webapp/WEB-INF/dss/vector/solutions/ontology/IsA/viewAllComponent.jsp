@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -14,7 +15,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.ontology.TermController.view.mojo" name="parent.link">
-          <fmt:message key="${item.parent.keyName}" />
+          <mdss:localize key="${item.parent.keyName}" />
           <mjl:property value="${item.parentId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -28,7 +29,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.ontology.TermController.view.mojo" name="child.link">
-          <fmt:message key="${item.child.keyName}" />
+          <mdss:localize key="${item.child.keyName}" />
           <mjl:property value="${item.childId}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -42,7 +43,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.ontology.IsAController.view.mojo" name="view.link">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property value="${item.id}" name="id" />
         </mjl:commandLink>
       </mjl:row>
@@ -57,5 +58,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.ontology.IsAController.newRelationship.mojo" name="IsAController.newRelationship">
-  <fmt:message key="Create_a_new_Is_A" />
+  <mdss:localize key="Create_a_new_Is_A" />
 </mjl:commandLink>

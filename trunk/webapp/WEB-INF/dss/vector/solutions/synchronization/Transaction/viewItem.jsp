@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -25,7 +26,7 @@
   </mjl:dt>
   </mjl:component>
   <mjl:commandLink name="IndividualIPTController.newInstance" action="dss.vector.solutions.synchronization.TransactionController.viewItemPage.mojo">
-    <fmt:message key="View_Transaction_Record" />
+    <mdss:localize key="View_Transaction_Record" />
     <mjl:property name="recordId" value="${item.recordId}"/>
   </mjl:commandLink>  
 </dl>

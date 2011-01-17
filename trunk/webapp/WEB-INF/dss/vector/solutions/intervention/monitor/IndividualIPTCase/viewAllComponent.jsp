@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -26,7 +27,7 @@
       </td>
       <td class = "${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}"> 
         <mjl:commandLink name="view.link" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.view.mojo">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property name="id" value="${current.concreteId}" />
           <mjl:property name="serviceDate" value="${serviceDate}"/>
         </mjl:commandLink>
@@ -38,5 +39,5 @@
 <mjl:commandLink name="IndividualIPTCaseController.newInstance" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.newInstance.mojo">
   <mjl:property name="patientId" value="${patientId}"/>
   <mjl:property name="serviceDate" value="${serviceDate}"/>
-  <fmt:message key="Create_a_new_Individual_IPT_Case" />
+  <mdss:localize key="Create_a_new_Individual_IPT_Case" />
 </mjl:commandLink>

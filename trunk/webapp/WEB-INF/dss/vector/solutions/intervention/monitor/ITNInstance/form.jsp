@@ -13,7 +13,7 @@
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:input type="hidden" param="household" value="${item.household.id}"/>
   <mjl:dt attribute="netId">
-    <mjl:input param="netId" type="text" id="netId" /><a href="#" id="getUniqueId"><fmt:message key="Get_Unique_Id"/></a>
+    <mjl:input param="netId" type="text" id="netId" /><a href="#" id="getUniqueId"><mdss:localize key="Get_Unique_Id"/></a>
   </mjl:dt>  
   <mjl:dt attribute="netBrand">
     <mdss:mo param="netBrand" value="${netBrand}"/>

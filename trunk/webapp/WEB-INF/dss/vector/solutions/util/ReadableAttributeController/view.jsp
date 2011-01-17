@@ -46,7 +46,7 @@
             </td>
             <td>
               <c:if test="${view.fieldId != '' && actor == 'mdss.GUIVisibility'}">
-                <button type="button" id="${view.fieldId}" class="root.button"> <fmt:message key="Roots"/> </button>         
+                <button type="button" id="${view.fieldId}" class="root.button"> <mdss:localize key="Roots"/> </button>         
               </c:if>
             </td>
           </tr>
@@ -167,7 +167,7 @@ function checkHiddenMandatoryFields(that) {
 	}
 
 	if (needToConfirm) {
-		confirmed = confirm('<fmt:message key="Hidden_Mandatory_Fields_Warning"/>');
+		confirmed = confirm('<mdss:localize key="Hidden_Mandatory_Fields_Warning"/>');
 	}
 </c:if>    
 	

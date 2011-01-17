@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,7 +20,7 @@
       <mjl:header></mjl:header>
       <mjl:row>
         <mjl:commandLink action="dss.vector.solutions.synchronization.TransactionController.viewItemPage.mojo" name="view.link">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property value="${item.id}" name="recordId" />
           <mjl:property value="componentSeq" name="sortAttribute" />
           <mjl:property value="true" name="isAscending" />

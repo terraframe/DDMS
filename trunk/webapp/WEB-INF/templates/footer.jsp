@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@page import="com.runwaysdk.system.UsersDTO"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
@@ -22,7 +23,7 @@
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 if(clientRequest.isLoggedIn())
 {
-    %> <fmt:message key="logged_in_as" />: <%
+    %> <mdss:localize key="logged_in_as" />: <%
     //out.print(user.getUsername());
     out.print(clientRequest.getSessionUser());
 }

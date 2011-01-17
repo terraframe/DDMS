@@ -15,7 +15,7 @@
       <mjl:input type="hidden" param="surveyPoint" value="${item.surveyPoint.id}" />
 
       <mjl:dt attribute="householdName">
-        <mjl:input type="text" param="householdName" id="householdId"/><a href="#" id="getUniqueId"><fmt:message key="Get_Unique_Id"/></a>
+        <mjl:input type="text" param="householdName" id="householdId"/><a href="#" id="getUniqueId"><mdss:localize key="Get_Unique_Id"/></a>
       </mjl:dt>
 
       <mjl:dt attribute="urban">

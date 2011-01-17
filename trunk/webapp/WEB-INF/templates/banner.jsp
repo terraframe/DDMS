@@ -1,5 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
@@ -28,10 +29,10 @@
 <script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
 <c:choose>
   <c:when test='${window_title != null}'>
-    <title><fmt:message key="${window_title}"/></title>
+    <title><mdss:localize key="${window_title}"/></title>
   </c:when>
   <c:otherwise>
-    <title><fmt:message key="${page_title}"/></title>
+    <title><mdss:localize key="${page_title}"/></title>
   </c:otherwise>
 </c:choose>
 </head>
@@ -39,11 +40,11 @@
 <div id="header">
 	<div id="headerleft">
 		<div id="freeText">
-			<fmt:message key="Country_Tagline" /><br />
-			<fmt:message key="Country" />
+			<mdss:localize key="Country_Tagline" /><br />
+			<mdss:localize key="Country" />
 		</div>
 	</div>
 	<div id="headerright"></div>
-	<div id="headermiddle"><fmt:message key="System_Name" /></div>
+	<div id="headermiddle"><mdss:localize key="System_Name" /></div>
 </div>
 

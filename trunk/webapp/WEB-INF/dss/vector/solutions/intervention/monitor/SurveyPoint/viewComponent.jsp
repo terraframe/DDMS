@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -29,7 +30,7 @@
   <dd>
     <table class="displayTable" width="33%">
       <tr>
-        <th><fmt:message key="Households" /></th>
+        <th><mdss:localize key="Households" /></th>
         <th></th>
       </tr>    
   
@@ -37,7 +38,7 @@
         <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
           <td>${current.householdName}</td>
           <td><mjl:commandLink action="dss.vector.solutions.intervention.monitor.HouseholdController.view.mojo" name="Household.view.link">
-            <fmt:message key="View" />
+            <mdss:localize key="View" />
             <mjl:property name="id" value="${current.concreteId}" />
           </mjl:commandLink></td>
         </tr>
@@ -45,11 +46,11 @@
     </table>
   </dd>
   <mjl:commandLink action="dss.vector.solutions.intervention.monitor.HouseholdController.newInstance.mojo" name="Household.newInstance.link">
-    <fmt:message key="Add_a_household" />
+    <mdss:localize key="Add_a_household" />
     <mjl:property name="surveyId" value="${item.concreteId}" />
   </mjl:commandLink>
 </dl>
 
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyPointController.viewAll.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.viewAll.link">
-<fmt:message key="View_All" />
+<mdss:localize key="View_All" />
 </mjl:commandLink>

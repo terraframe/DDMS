@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -10,7 +11,7 @@
 
 <%@ include file="form.jsp"%>
 
-<div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
+<div class="pageTitle"> <mdss:localize key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
 
 <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="form.id" method="POST">
   <dl>

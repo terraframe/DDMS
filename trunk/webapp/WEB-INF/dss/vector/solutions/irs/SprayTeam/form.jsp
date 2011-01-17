@@ -26,7 +26,7 @@
       <mdss:geo param="geoId" concrete="false" value="${item.sprayZone}" political="false" spray="true" filter="${SprayZone}" />
     </dd>
     <c:if test="${view.isTeamLeaderReadable}">
-      <dt><label> <fmt:message key="Spray_Team_Leader" /> </label></dt>
+      <dt><label> <mdss:localize key="Spray_Team_Leader" /> </label></dt>
       <dd>
         <mjl:input id="leaderInput" param="leaderInput" type="text" value="${leaderLabel}"/>
         <mjl:input id="leaderId" param="leaderId" type="hidden" value="${leaderId}"/>        
@@ -44,11 +44,11 @@
         <th width="33%"><label>${view.assignedOperatorsMd.displayLabel}</label></th>
       </tr>
       <tr>
-        <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Current_Operators_Instructions" /></td>
+        <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><mdss:localize key="Spray_Team_Current_Operators_Instructions" /></td>
         <td></td>
-        <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Available_Operators_Instructions" /></td>
+        <td colspan="1" style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><mdss:localize key="Spray_Team_Available_Operators_Instructions" /></td>
         <td></td>
-        <td style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><fmt:message key="Spray_Team_Assigned_Operators_Instructions" /></td>
+        <td style="padding-bottom:5px;padding-top:5px;font-size:smaller;"><mdss:localize key="Spray_Team_Assigned_Operators_Instructions" /></td>
       </tr>
       <tr>
         <td><mjl:select var="operator" valueAttribute="actorId" items="${current}" param="operatorIds" multiple="true" size="12" id="onTeam" style="width:15em">
@@ -63,8 +63,8 @@
         <br>
         <input type="button" name="right" value="&gt;&gt;" onClick="Selectbox.moveSelectedOptions(onTeam,notOnTeam,true);Selectbox.moveSelectedOptions(notOnTeam,onOtherTeam,true,teamRegex);"><br>
         <br>
-        <input type="button" name="left" value="&lt;&lt; <fmt:message key="All"/>" onClick="Selectbox.moveAllOptions(notOnTeam,onTeam,true)"><br><br>
-        <input type="button" name="right" value="<fmt:message key="All"/> &gt;&gt;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex);Selectbox.moveAllOptions(onTeam,notOnTeam,true)">
+        <input type="button" name="left" value="&lt;&lt; <mdss:localize key="All"/>" onClick="Selectbox.moveAllOptions(notOnTeam,onTeam,true)"><br><br>
+        <input type="button" name="right" value="<mdss:localize key="All"/> &gt;&gt;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex);Selectbox.moveAllOptions(onTeam,notOnTeam,true)">
         </td>
 
         <td><mjl:select var="operator" valueAttribute="actorId" items="${available}" param="removedIds" multiple="true" size="12" id="notOnTeam" style="width:15em">
@@ -81,10 +81,10 @@
         <input type="button" name="right" value="&gt;&gt;" style="display:none;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)"><br>
         <br>
 
-        <input type="button" name="left" value="&lt;&lt; <fmt:message key="All"/>" onClick="Selectbox.moveAllOptions(onOtherTeam,onTeam,true,teamRegex)"><br>
+        <input type="button" name="left" value="&lt;&lt; <mdss:localize key="All"/>" onClick="Selectbox.moveAllOptions(onOtherTeam,onTeam,true,teamRegex)"><br>
         <br>
 
-        <input type="button" name="right" value="<fmt:message key="All"/> &gt;&gt;" style="display:none;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)">
+        <input type="button" name="right" value="<mdss:localize key="All"/> &gt;&gt;" style="display:none;" onClick="Selectbox.moveAllOptions(onTeam,onOtherTeam,true,teamRegex)">
 
         </td>
         <td>

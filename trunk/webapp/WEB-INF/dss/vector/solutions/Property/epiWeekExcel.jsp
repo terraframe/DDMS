@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="application/force-download; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -38,15 +39,15 @@ week.setTime(epiDate.getStartDate());
 
 <table >
 <tr>
-  <th ><fmt:message key="EW"/></th>
-  <th ><fmt:message key="Month"/></th>
+  <th ><mdss:localize key="EW"/></th>
+  <th ><mdss:localize key="Month"/></th>
   <%
   for (int j = 0; j < 7; j++)
   {
     out.print("<th>" + wd.format(week.getTime()) + "</th>");
     week.add(Calendar.DAY_OF_WEEK, 1);
   }%>
-    <th><fmt:message key="Month"/></th>
+    <th><mdss:localize key="Month"/></th>
     <th><%=year%></th>
 </tr>
 <%

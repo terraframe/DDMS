@@ -1,12 +1,13 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <jsp:include page="/WEB-INF/templates/header.jsp" />
-<div class="pageTitle"><fmt:message key="Excel_Export_Header" /></div>
+<div class="pageTitle"><mdss:localize key="Excel_Export_Header" /></div>
 <table class="displayTable">
   <tr>
-    <th><fmt:message key="Excel_Class_Label" /></th>
-    <th><fmt:message key="Excel_Qualified_Classname" /></th>
+    <th><mdss:localize key="Excel_Class_Label" /></th>
+    <th><mdss:localize key="Excel_Qualified_Classname" /></th>
     <th/>
   <tr>
   

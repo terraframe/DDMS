@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:messages>
@@ -37,5 +38,5 @@
   </dd>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.ontology.OntologyController.viewAll.mojo" name="dss.vector.solutions.ontology.Ontology.viewAll.link">
-<fmt:message key="View_All" />
+<mdss:localize key="View_All" />
 </mjl:commandLink>

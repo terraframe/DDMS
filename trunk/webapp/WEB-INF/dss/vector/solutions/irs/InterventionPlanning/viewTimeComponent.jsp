@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -43,7 +44,7 @@
   <dt></dt>
   <dd>
     <mjl:form name="InterventionPlanning.setUnits.mojo" method="POST">
-      <fmt:message key="Units_Per_Day"/>
+      <mdss:localize key="Units_Per_Day"/>
       <mjl:input type="text" param="unitsPerDay" size="5" maxlength="5" id="unitsPerDay" value="${unitsPerDay}"/> <input type="button" id="units.button" value=""/>    
     </mjl:form>
   </dd>
@@ -59,7 +60,7 @@
 
 <span class="noprint">
   <mjl:commandLink  action="dss.vector.solutions.irs.InterventionPlanningController.search.mojo" name="search.link" >
-    <fmt:message key="Back_To_Search"/>
+    <mdss:localize key="Back_To_Search"/>
   </mjl:commandLink>
 </span>
 

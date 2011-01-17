@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -43,10 +44,10 @@
   
     <mjl:freeColumn>
       <mjl:header>
-        <fmt:message key="Display_Label" />
+        <mdss:localize key="Display_Label" />
       </mjl:header>
       <mjl:row>
-        <fmt:message key="Default_Geo_Root" />
+        <mdss:localize key="Default_Geo_Root" />
       </mjl:row>
       
     </mjl:freeColumn>

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -97,10 +98,10 @@
   </dl>  
 </mjl:form>
 
-<h2><fmt:message key="Operator_Sprays"/></h2>
+<h2><mdss:localize key="Operator_Sprays"/></h2>
 <div id="Status"></div>
 <span class="noprint dataTableButtons">
-<button type="button" id="StatusCreate"> <fmt:message key="Create_New_Team_Spray_Button"/> </button>
+<button type="button" id="StatusCreate"> <mdss:localize key="Create_New_Team_Spray_Button"/> </button>
 </span>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{OperatorSprayStatusViewDTO.CLASS}))%>

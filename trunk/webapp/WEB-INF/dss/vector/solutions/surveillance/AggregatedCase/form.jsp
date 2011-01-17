@@ -4,7 +4,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <dl>
-  <dt> <label> <fmt:message key="Change_age_group"/> </label> </dt>
+  <dt> <label> <mdss:localize key="Change_age_group"/> </label> </dt>
   <dd>
     <mjl:form name="search.form.name" id="search.form" method="POST">
       <mjl:component item="${search}" param="view">

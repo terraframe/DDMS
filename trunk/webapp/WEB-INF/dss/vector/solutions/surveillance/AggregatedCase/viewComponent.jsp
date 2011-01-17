@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -45,7 +46,7 @@ overflow: hidden;
 
 <%@ include file="form.jsp"%>
 
-<div class="pageTitle"> <fmt:message key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
+<div class="pageTitle"> <mdss:localize key="Enter_data_for_ages"/> ${item.ageGroup.displayLabel} </div> 
 
 <dl>
   <mjl:form name="dss.vector.solutions.surveillance.AggregatedCase.form.name" id="dss.vector.solutions.surveillance.AggregatedCase.form.id" method="POST">
@@ -71,49 +72,49 @@ overflow: hidden;
     </mjl:component>
 
     <c:if test="${item.isCaseDiagnosisTypeReadable}">
-      <dt><label><fmt:message key="Grid_data_by_diagnosis_type"/></label></dt>
+      <dt><label><mdss:localize key="Grid_data_by_diagnosis_type"/></label></dt>
       <dd><div id="diagnosisType"></div></dd>
     </c:if>
 
     <c:if test="${item.isCaseDiseaseManifestationReadable}">    
-      <dt><label><fmt:message key="Grid_data_by_disease_manifestation"/></label></dt>
+      <dt><label><mdss:localize key="Grid_data_by_disease_manifestation"/></label></dt>
       <dd><div id="diseaseManifestation"></div></dd>
     </c:if>
 
     <c:if test="${item.isCasePatientTypeReadable}">
-      <dt><label><fmt:message key="Grid_data_by_patient_type"/></label></dt>
+      <dt><label><mdss:localize key="Grid_data_by_patient_type"/></label></dt>
       <dd><div id="patientType"></div></dd>
     </c:if>
 
     <c:if test="${item.isCaseTreatmentsReadable}">
-      <dt><label><fmt:message key="Grid_treatment_by_drug"/></label></dt>
+      <dt><label><mdss:localize key="Grid_treatment_by_drug"/></label></dt>
       <dd><div id="treatment"></div></dd>
     </c:if>
 
     <c:if test="${item.isCaseTreatmentMethodReadable}">
-      <dt><label><fmt:message key="Grid_treatment_by_method"/></label></dt>
+      <dt><label><mdss:localize key="Grid_treatment_by_method"/></label></dt>
       <dd><div id="method"></div></dd>
     </c:if>
 
     <c:if test="${item.isCaseStocksReadable}">
-      <dt><label><fmt:message key="Grid_treatment_by_stock"/></label></dt>
+      <dt><label><mdss:localize key="Grid_treatment_by_stock"/></label></dt>
       <dd><div id="stock"></div></dd>
     </c:if>
 
     <c:if test="${item.isCaseStockReferralReadable}">
-      <dt><label><fmt:message key="Grid_referrals_and_Shortages"/></label></dt>
+      <dt><label><mdss:localize key="Grid_referrals_and_Shortages"/></label></dt>
       <dd><div id="stockReferral"></div></dd>
     </c:if>
     
 
     <c:if test="${item.isCaseReferralsReadable}">
-      <dt><label><fmt:message key="Grid_referral_Reasons"/></label></dt>
+      <dt><label><mdss:localize key="Grid_referral_Reasons"/></label></dt>
       <dd><div id="referral"></div></dd>
     </c:if>
     
 
     <c:if test="${item.isCaseDiagnosticReadable}">
-      <dt><label><fmt:message key="Grid_diagnostic_methods"/></label></dt>
+      <dt><label><mdss:localize key="Grid_diagnostic_methods"/></label></dt>
       <dd><div id="diagnostic"></div></dd>
     </c:if>
     

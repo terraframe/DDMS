@@ -43,7 +43,7 @@
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchInStock.mojo" name="inStock" value="In_Stock" id="inStock"/>
     <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchOutStock.mojo" name="outStock" value="Out_Stock" id="outStock"/>
     <dt>
-      <label> <fmt:message key="endDate_stock" /> </label>
+      <label> <mdss:localize key="endDate_stock" /> </label>
     </dt>
     <dd>
       <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate" value="${endDate}"/>

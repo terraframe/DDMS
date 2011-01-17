@@ -23,24 +23,24 @@
 
 <dl>
   <dt>
-    <button value="${field.browserFieldId}" class="addRootBtn"><fmt:message key="Add_Root" /></button>
+    <button value="${field.browserFieldId}" class="addRootBtn"><mdss:localize key="Add_Root" /></button>
     ${field.mdClassLabel} : ${field.mdAttributeLabel}
   </dt> 
   <dd>
     <div class="defaultFieldTerm">
-      <fmt:message key="Default_Term" />:
+      <mdss:localize key="Default_Term" />:
       <mdss:mo value="${defaultValue}" enabled="true" script="false" param="${field.mdAttributeId}_defaultTerm" />
     </div>
    
     <table id="${field.browserFieldId}_table" cellpadding="3" cellspacing="0" border="1" class="ontologyFields">
-      <tr><th><fmt:message key="Term" /></th><th><fmt:message key="Selectable" /></th><th><fmt:message key="Edit" /></th><th><fmt:message key="Delete" /></th></tr>
+      <tr><th><mdss:localize key="Term" /></th><th><mdss:localize key="Selectable" /></th><th><mdss:localize key="Edit" /></th><th><mdss:localize key="Delete" /></th></tr>
      
       <c:forEach items="${roots}" var="root">
         <tr id="${root.browserRootId}_row">
           <td>${root.displayLabel}</td>
           <td>${root.selectable}</td>
-          <td><button class="editRootBtn" value="${root.browserRootId}"><fmt:message key="Edit" /></button></td>
-          <td><button class="deleteRootBtn" value="${root.browserRootId}"><fmt:message key="Delete" /></button></td>
+          <td><button class="editRootBtn" value="${root.browserRootId}"><mdss:localize key="Edit" /></button></td>
+          <td><button class="deleteRootBtn" value="${root.browserRootId}"><mdss:localize key="Delete" /></button></td>
        </tr>
       </c:forEach>
     </table>

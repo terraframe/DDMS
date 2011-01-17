@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -19,5 +20,5 @@
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.permission.MDSSRole.viewAll.link" action="dss.vector.solutions.permission.MDSSRoleController.viewAll.mojo">
-  <fmt:message key="View_All" />
+  <mdss:localize key="View_All" />
 </mjl:commandLink>

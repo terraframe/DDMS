@@ -13,8 +13,8 @@
   <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
   <mjl:dt attribute="geoId">
     <mdss:geo param="geoId" concrete="false" universals="${entityUniversals}" >
-      <mdss:filter universal="" id="all" checked="true">&nbsp;<fmt:message key="All"/>  &nbsp;&nbsp;&nbsp;</mdss:filter>
-      <mdss:filter universal="${SentinelSite}" id="sentinel_site">&nbsp;<fmt:message key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>
+      <mdss:filter universal="" id="all" checked="true">&nbsp;<mdss:localize key="All"/>  &nbsp;&nbsp;&nbsp;</mdss:filter>
+      <mdss:filter universal="${SentinelSite}" id="sentinel_site">&nbsp;<mdss:localize key="Sentinel_Site"/> &nbsp;&nbsp;&nbsp; <br /></mdss:filter>
     </mdss:geo>
   </mjl:dt>
   <mjl:dt attribute="surveyDate">

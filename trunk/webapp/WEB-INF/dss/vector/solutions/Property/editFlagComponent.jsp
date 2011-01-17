@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -5,12 +6,12 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<c:set scope="request" var="Upload"><fmt:message key="Upload"/></c:set>
+<c:set scope="request" var="Upload"><mdss:localize key="Upload"/></c:set>
 
 <form method="post" enctype="multipart/form-data" action="dss.vector.solutions.PropertyController.setFlag.mojo">
   <dl>
     <dt>
-      <fmt:message key="Update_Country_Image"/>
+      <mdss:localize key="Update_Country_Image"/>
     </dt>
     <dd>
       <input type="file" name="upfile"/> <br />

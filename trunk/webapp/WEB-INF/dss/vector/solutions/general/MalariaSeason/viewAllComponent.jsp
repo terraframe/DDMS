@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -42,5 +43,5 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.general.MalariaSeasonController.newInstance.mojo" name="MalariaSeasonController.newInstance">
-<fmt:message key="Create_a_new_Transmission_Season" /> 
+<mdss:localize key="Create_a_new_Transmission_Season" /> 
 </mjl:commandLink>

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -72,7 +73,7 @@
         <table class="displayTable">
           <tr>
             <th></th>
-            <th><fmt:message key="Weight"/></th>
+            <th><mdss:localize key="Weight"/></th>
           </tr>
           <tr class="oddRow" id="weight0" style="display:none;">
             <td>${thresholdCalculation.weight0Md.displayLabel}</td>
@@ -133,12 +134,12 @@
       <c:if test="${!active}">
         <input type="button" id="calculatePolitical.button" value=""  />
         <input type="button" id="calculateFacility.button" value="" />
-        (<fmt:message key="Calculations_may_take_time"/>)
+        (<mdss:localize key="Calculations_may_take_time"/>)
       </c:if>
       <c:if test="${active}">
         <input type="button" id="calculatePolitical.button" disabled="disabled" value=""  />
         <input type="button" id="calculateFacility.button" disabled="disabled" value="" />
-        (<fmt:message key="Calculations_already_in_progress"/>: ${percentComplete}% complete) 
+        (<mdss:localize key="Calculations_already_in_progress"/>: ${percentComplete}% complete) 
       </c:if>
     </dd>
     

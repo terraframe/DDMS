@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -38,7 +39,7 @@
   <dt></dt>
   <dd>
     <mjl:form name="InterventionPlanning.setUnits.mojo" method="POST">
-      <fmt:message key="Configurations"/>
+      <mdss:localize key="Configurations"/>
       <mjl:select valueAttribute="insecticideNozzleId" param="configuration" var="current" items="${configurations}" id="configuration.id">
         <mjl:option>
           ${current.brandLabel} - ${current.nozzleLabel}
@@ -57,7 +58,7 @@
 <br />
 <span class="noprint">
   <mjl:commandLink  action="dss.vector.solutions.irs.InterventionPlanningController.search.mojo" name="search.link" >
-    <fmt:message key="Back_To_Search"/>
+    <mdss:localize key="Back_To_Search"/>
   </mjl:commandLink>
 </span>
 

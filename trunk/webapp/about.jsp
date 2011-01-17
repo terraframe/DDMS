@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
@@ -9,12 +10,12 @@
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
-<div class="pageTitle"><fmt:message key="About"/></div>
+<div class="pageTitle"><mdss:localize key="About"/></div>
 
 <dl>
-  <dt><fmt:message key="About_System_Name"/>:</dt>
-  <dd><fmt:message key="About_Version"/></dd>
-  <dt><fmt:message key="developed_by"/>:</dt>
+  <dt><mdss:localize key="About_System_Name"/>:</dt>
+  <dd><mdss:localize key="About_Version"/></dd>
+  <dt><mdss:localize key="developed_by"/>:</dt>
   <dd>
     <ul>
       <li> Colorado State University (<a href="http://www.colostate.edu">www.colostate.edu</a>) </li>
@@ -22,7 +23,7 @@
       <li> Medical Research Council of South Africa (<a href="http://www.mrc.ac.za">www.mrc.ac.za</a>) </li>
     </ul>
   </dd>
-  <dt><fmt:message key="funding_by"/>:</dt>
+  <dt><mdss:localize key="funding_by"/>:</dt>
   <dd>
     <ul>
       <li> Innovative Vector Control Consortium (<a href="http://www.ivcc.com">www.ivcc.com</a>) </li>
