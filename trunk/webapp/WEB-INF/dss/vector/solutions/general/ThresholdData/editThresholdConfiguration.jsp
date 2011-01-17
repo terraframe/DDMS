@@ -33,10 +33,10 @@
         </mjl:select>
       </mjl:dt>
       <hr/>
-      <h2><fmt:message key="threshold_calculation_parameters"/></h2>
       <mjl:dt attribute="clinicalPositivePercentage">
         <mjl:input type="text" param="clinicalPositivePercentage"/>
       </mjl:dt>
+      <h2><fmt:message key="threshold_calculation_parameters"/></h2>
       <mjl:dt attribute="caseTypes">
         <mjl:select valueAttribute="enumName" param="caseTypes" items="${thresholdCalculationCaseTypes}" var="current">
           <mjl:option>${current.displayLabel}</mjl:option>
