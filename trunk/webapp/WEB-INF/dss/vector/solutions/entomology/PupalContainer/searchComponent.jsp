@@ -1,4 +1,5 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
+<%@ taglib uri=\"/WEB-INF/tlds/mdssLib.tld\" prefix=\"mdss\"%>
 
 <c:set var="page_title" value="Enter_Pupae_by_Individual_Container"  scope="request"/>
 

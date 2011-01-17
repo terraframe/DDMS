@@ -102,7 +102,7 @@ vertical-align: baseline;
     
     <div id="containers"></div>   
 
-    <button type="button" id="delete.button"> <fmt:message key="Delete"/> </button>
+    <button type="button" id="delete.button"> <mdss:localize key="Delete"/> </button>
   </mjl:form>
 </dl> 
 

@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -65,7 +66,7 @@
         <mjl:commandLink
           action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo"
           name="view.link">
-          <fmt:message key="View" />
+          <mdss:localize key="View" />
           <mjl:property
             value="${item.concreteId}"
             name="id" />
@@ -82,7 +83,7 @@
 </mjl:table>
 <br />
 <mjl:commandLink action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" name="KnockDownAssayController.newInstance">
-  <fmt:message key="Create_a_new_Knock_Down_Assay" />
+  <mdss:localize key="Create_a_new_Knock_Down_Assay" />
 </mjl:commandLink>
 
 <jsp:include page="/WEB-INF/excelButtons.jsp">

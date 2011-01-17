@@ -43,14 +43,14 @@
 </dl>
 
 <dt>
-  <label><fmt:message key="Biochemical_Assay"/></label>
+  <label><mdss:localize key="Biochemical_Assay"/></label>
 </dt>
 <dd>
   <div id="BiochemicalAssay">
   </div>
 </dd>
 <dt>
-  <LABEL><fmt:message key="Molecular_Assay"/></LABEL>
+  <LABEL><mdss:localize key="Molecular_Assay"/></LABEL>
 </dt>
 <dd>
   <div id="MolecularAssay">

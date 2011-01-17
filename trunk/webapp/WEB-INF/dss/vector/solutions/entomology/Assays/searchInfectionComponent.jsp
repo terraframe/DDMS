@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -40,12 +41,12 @@
 
 </script>
 
-<h1><fmt:message key="Import_Export_Infection_Assays"/></h1>
+<h1><mdss:localize key="Import_Export_Infection_Assays"/></h1>
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.InfectionAssayExcelView" name="excelType"/>
 </jsp:include>
 
-<h1><fmt:message key="Import_Export_Pooled_Infection_Assays"/></h1>
+<h1><mdss:localize key="Import_Export_Pooled_Infection_Assays"/></h1>
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.PooledInfectionAssayExcelView" name="excelType"/>
 </jsp:include>

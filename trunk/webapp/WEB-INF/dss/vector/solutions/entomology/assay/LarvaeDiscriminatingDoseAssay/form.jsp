@@ -48,7 +48,7 @@
         ${current.displayLabel}
       </mjl:option>
     </mjl:select>
-    <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
+    <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><mdss:localize key="Manage_Insecticides" /></a>
   </mjl:dt>
   <mjl:dt attribute="exposureTime">
     <mjl:input type="text" param="exposureTime" />

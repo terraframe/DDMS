@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -93,18 +94,18 @@
   <li> 
     <mjl:commandLink name="collection.link" action="dss.vector.solutions.entomology.MosquitoCollectionController.view.mojo" >
       <mjl:property name="id" value="${item.collection.id}"/>
-      <fmt:message key="Return_to_Collection"/>
+      <mdss:localize key="Return_to_Collection"/>
     </mjl:commandLink>
   </li>
   <li>
     <mjl:commandLink action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" name="newWiththisCollection">
       <mjl:property value="${item.collection.id}" name="collection_id" />
-      <fmt:message key="Create_Another_Larvae_Diagnostic_Assay_With_This_Collection"/>
+      <mdss:localize key="Create_Another_Larvae_Diagnostic_Assay_With_This_Collection"/>
     </mjl:commandLink>   
   </li>
   <li> 
     <mjl:commandLink action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.viewAll.mojo" name="viewAll.link" >
-      <fmt:message key="View_All_LDA"/>
+      <mdss:localize key="View_All_LDA"/>
     </mjl:commandLink>
   </li>
 </ul>

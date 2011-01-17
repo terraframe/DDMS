@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -17,7 +18,7 @@
       </mjl:header>
       <mjl:row>
         <mjl:commandLink name="edit.link" action="dss.vector.solutions.entomology.ImmatureThresholdController.edit.mojo">
-          <fmt:message key="Edit" />
+          <mdss:localize key="Edit" />
           <mjl:property name="id" value="${item.concreteId}" />
         </mjl:commandLink>
       </mjl:row>

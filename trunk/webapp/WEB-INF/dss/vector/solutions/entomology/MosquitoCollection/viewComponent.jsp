@@ -85,11 +85,11 @@
 <br />
 
 <c:if test="${ada.count > 0 || lda.count > 0 || kda.count > 0}">
-<h2><fmt:message key="Collection_Assays"/></h2>
+<h2><mdss:localize key="Collection_Assays"/></h2>
 <dl>
   <c:if test="${ada.count > 0}">
   <dt>
-    <fmt:message key="Adult_DDA" />
+    <mdss:localize key="Adult_DDA" />
   </dt>
   <dd>
     <mjl:table var="current" query="${ada}" classes="displayTable" even="evenRow" odd="oddRow">
@@ -113,7 +113,7 @@
           </mjl:header>
           <mjl:row>
             <mjl:commandLink action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.view.mojo" name="view.link">
-              <fmt:message key="View"/>
+              <mdss:localize key="View"/>
               <mjl:property value="${current.id}" name="id" />
             </mjl:commandLink>
           </mjl:row>
@@ -129,7 +129,7 @@
   </c:if>
   <c:if test="${lda.count > 0}">  
   <dt>
-    <fmt:message key="Larvae_DDA" />
+    <mdss:localize key="Larvae_DDA" />
   </dt>
   <dd>
     <mjl:table var="current" query="${lda}" classes="displayTable" even="evenRow" odd="oddRow">
@@ -153,7 +153,7 @@
           </mjl:header>
           <mjl:row>
             <mjl:commandLink action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.view.mojo" name="view.link">
-              <fmt:message key="View"/>
+              <mdss:localize key="View"/>
               <mjl:property value="${current.id}" name="id" />
             </mjl:commandLink>
           </mjl:row>
@@ -169,7 +169,7 @@
   </c:if>
   <c:if test="${kda.count > 0}">  
   <dt>
-    <fmt:message key="Knock_Down_Assay" />
+    <mdss:localize key="Knock_Down_Assay" />
   </dt>
   <dd>
     <mjl:table var="current" query="${kda}" classes="displayTable" even="evenRow" odd="oddRow">
@@ -193,7 +193,7 @@
           </mjl:header>
           <mjl:row>
             <mjl:commandLink action="dss.vector.solutions.entomology.assay.KnockDownAssayController.view.mojo" name="view.link">
-              <fmt:message key="View"/>
+              <mdss:localize key="View"/>
               <mjl:property value="${current.id}" name="id" />
             </mjl:commandLink>
           </mjl:row>

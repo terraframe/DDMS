@@ -61,7 +61,7 @@
         ${current.displayLabel}
       </mjl:option>
     </mjl:select>
-    <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><fmt:message key="Manage_Insecticides" /></a>
+    <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><mdss:localize key="Manage_Insecticides" /></a>
   </mjl:dt>
   <mjl:dt attribute="quantityTested">
     <mjl:input type="text" param="quantityTested" />
@@ -78,8 +78,8 @@
   <div id="intervalsDiv">
     <table class="displayTable">
       <tr>
-        <th><fmt:message key="interval_time"/></th>
-        <th><fmt:message key="knock_down"/></th>
+        <th><mdss:localize key="interval_time"/></th>
+        <th><mdss:localize key="knock_down"/></th>
       </tr>
       <c:if test="${item.interval10Readable}">
         <tr class="oddRow" id="interval10">

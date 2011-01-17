@@ -29,7 +29,7 @@
     <dd>
       <mjl:input id="collectionInput" param="collectionInput" type="text" />
       <mjl:input id="collectionId" param="collectionId" type="hidden" />       
-      <button id="button.go"><fmt:message key="Go" /></button>
+      <button id="button.go"><mdss:localize key="Go" /></button>
     </dd>
   </dl>  
 </mjl:form>
@@ -79,7 +79,7 @@
   </div>
 </dd>
 
-<fmt:message key="Save_Comments" var="Save_Comments" scope="request"/>
+<mdss:localize key="Save_Comments" var="Save_Comments" scope="request"/>
 
 <mjl:form id="collection.update" name="collection.update" method="POST">
   <mjl:component item="${item}" param="dto">

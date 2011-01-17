@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -85,7 +86,7 @@
         ${item.mortality}
       </mjl:dt>
       
-      <dt><label> <fmt:message key="Overall_Mortality_for_surface" /> </label></dt>
+      <dt><label> <mdss:localize key="Overall_Mortality_for_surface" /> </label></dt>
       <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${item.overallMortalityRate}" /></dd>
     </mjl:component>
 
@@ -96,5 +97,5 @@
 
 
 <mjl:commandLink action="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewAll.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.viewAll.link" >
-  <fmt:message key="View_All" />
+  <mdss:localize key="View_All" />
 </mjl:commandLink>

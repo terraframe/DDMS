@@ -1,3 +1,4 @@
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -11,12 +12,12 @@
 
 <jsp:include page="resistanceForm.jsp" />
 
-<h1><fmt:message key="Import_Export_Diagnostic_Assays"/></h1>
+<h1><mdss:localize key="Import_Export_Diagnostic_Assays"/></h1>
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.DiagnosticAssayExcelView" name="excelType"/>
 </jsp:include>
 
-<h1><fmt:message key="Import_Export_Time_Response_Assays"/></h1>
+<h1><mdss:localize key="Import_Export_Time_Response_Assays"/></h1>
 <jsp:include page="/WEB-INF/excelButtons.jsp">
   <jsp:param value="dss.vector.solutions.export.TimeResponseAssayExcelView" name="excelType"/>
 </jsp:include>
