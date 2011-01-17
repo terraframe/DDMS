@@ -15,7 +15,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MDSSGenerationUtility implements Reloadable
 {
-  public static final String MESSAGE_TAG = "fmt:message";
+  public static final String MESSAGE_TAG = "mdss:localize";
 
   public static final String C_SET = "c:set";
 
@@ -26,6 +26,12 @@ public class MDSSGenerationUtility implements Reloadable
     map.put("uri", "http://java.sun.com/jsp/jstl/fmt");
     map.put("prefix", "fmt");
 
+    writer.writeEmptyTag("<%@", "%>", "taglib", map);
+
+    map = new HashMap<String, String>();
+    map.put("uri", "/WEB-INF/tlds/mdssLib.tld");
+    map.put("prefix", "mdss");
+    
     writer.writeEmptyTag("<%@", "%>", "taglib", map);
   }
 

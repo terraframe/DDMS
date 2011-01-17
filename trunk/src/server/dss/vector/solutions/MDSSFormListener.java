@@ -52,9 +52,7 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
   {
     super.writeIncludes();
     
-    getWriter().writeValue("<%@ taglib uri=\"/WEB-INF/tlds/mdssLib.tld\" prefix=\"mdss\"%>");
-
-    getWriter().writeValue("<%@ taglib uri=\"http://java.sun.com/jsp/jstl/fmt\" prefix=\"fmt\"%>");
+    MDSSGenerationUtility.writeFMTIncludes(getWriter());
 
     if (MDSSGenerationUtility.hasGeoEntityReference(this.getMdEntity()))
     {

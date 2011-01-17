@@ -1629,5 +1629,19 @@
         true
       </rtexprvalue>
     </attribute>
+    <attribute>
+      <description>
+        The variable to store the localized key in
+      </description>
+      <name>
+        var
+      </name>
+      <required>
+        false
+      </required>
+      <rtexprvalue>
+        false
+      </rtexprvalue>
+    </attribute>
   </tag>
 </taglib>
