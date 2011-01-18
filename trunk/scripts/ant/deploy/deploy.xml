@@ -811,7 +811,7 @@
 				<path refid="framework.classpath" />
 			</classpath>
 			<arg value="../../../doc/ontology/MOroots.xls" />
-			<arg value="MO" />
+			<arg value="../../../doc/country/${geodata.db}-universals.xls" />
 		</java>
 	</target>
 

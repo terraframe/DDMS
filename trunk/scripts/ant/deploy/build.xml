@@ -1,4 +1,4 @@
-<project name="MDSS" default="build_all">
+<project name="MDSS" default="fast_build">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/ant/ant-contrib-1.0b3.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="../../../lib/ant/svnant.jar;../../../lib/ant/svnClientAdapter.jar;../../../lib/ant/svnkit.jar;../../../lib/ant/svnjavahl.jar;../../../lib/ant/ganymed.jar;" />
 
@@ -13,18 +13,20 @@
 	<property name="root.user" value="postgres" />
 	<property name="root.pass" value="postgres" />
 	<property name="root.db" value="template_postgis" />
-	<property name="max_memory_use" value="1400m" />
+	<property name="max_memory_use" value="1512M" />
+	<property name="perm_size" value="128M" />
+	<property name="max_perm_size" value="128M" />
 
 	<property name="deploy.path" location="${deploy.root}/webapps/MDSS/" />
 
-	<property name="postgres.bin" location="/Library/PostgreSQL/8.4/bin/" />
+	<property name="postgres.bin" location="/usr/bin/" />
 	<property name="testserver.address" value="66.116.103.235" />
 	<property name="testserver.username" value="administrator" />
 
 	<property name="deploy.db" value="mdssdeploy" />
 	<property name="develop.db" value="mdssdevelop" />
 	<property name="geodata.db" value="mrc_zambia" />
-
+	
 	<!--<property name="write_rev" value="false" />-->
 
 	<!-- =================================================================== -->
@@ -36,9 +38,14 @@
 	<!-- so that posgres does not require a password from localhost  -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="build_all" depends="copy_country_schema,develop_rebuild_import,deploy_all_files,import_ontology,import_geodata,develop_build_all_paths_ontology,develop_build_all_paths_geodata,import_ontology_roots,import_menuitems,develop_create_univeral_queries,import_localization_data,load_permissions, copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="Building All" />
+	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="Build part 1 complete, please refresh and clean" />
 	</target>
+
+	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_menuitems,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,load_permissions,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="The build is complete, please start tomcat" />
+	</target>
+
 
 	<!-- Rebuild Deploy -->
 	<target name="deploy_rebuild_all" depends="deploy_cleanup_files_rebuild_db, deploy_all_files, deploy_incremental_schema_update, import_geodata_deploy" description="Deploy - Everything">
@@ -48,6 +55,8 @@
 	<target name="deploy_cleanup_files_rebuild_db" depends="" description="Deploy Step 1 - Cleanup Files and Rebuild MOJO">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Cleanup Files and Rebuild MOJO">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -66,6 +75,8 @@
 	<target name="deploy_all_files" depends="" description="Deploy Step 2 - Copy All Files (including Tomcat config)">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Copies all tomcat files">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -78,6 +89,8 @@
 	<target name="deploy_all_application_files" depends="" description="Deploy Step 2 - Copy Files">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Copies all application files">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -89,7 +102,9 @@
 	<!--
 	<target name="deploy_incremental_schema_update" depends="" description="Deploy Step 3 - Import Most Recent Schema">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Import Most Recent Schema">
-			<jvmarg value="-Xmx${max_memory_use}" />
+						<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -104,6 +119,8 @@
 	<target name="deploy_incremental_schema_update" depends="" description="Deploy Step 3 - Import Most Recent Schema">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy - Import Most Recent Schema">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -119,6 +136,8 @@
 	<target name="deploy_update_db_source_and_classes" depends="" description="Deploy Step 4 - Update DB Source and Classes">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Update DB Source and Classes">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -132,6 +151,8 @@
 	<target name="develop_update_db_source_and_classes" depends="" description="Deploy Step 4 - Update DB Source and Classes">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Update DB Source and Classes">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -145,6 +166,8 @@
 
 	<!-- Deploy Incremental Schema Update -->
 	<target name="deploy_incremental_schema_update_and_files" depends="deploy_all_application_files, deploy_incremental_schema_update, deploy_update_db_source_and_classes" description="Deploy - Incremental Schema Update">
+		<antcall target="call_reload_jsp">
+		</antcall>
 	</target>
 	<!-- depends="deploy_delete_generated_all, deploy_all_files, deploy_import_schema, deploy_update_db_source_and_classes" -->
 
@@ -164,6 +187,8 @@
 	<target name="deploy_presentation_files" depends="" description="Deploy - Presentaiton Files">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy Presentaiton Files">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -178,6 +203,8 @@
 	<target name="develop_incremental_schema_update" depends="" description="Develop - Incremental Schema Update">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Development Incremental Schema Update">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -192,6 +219,8 @@
 	<target name="develop_delete_generated_base" depends="" description="Develop delete generated base source and class files">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop delete generated base source and class files">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -204,6 +233,8 @@
 	<target name="deploy_delete_generated_all" depends="" description="Deploy delete all source and class files">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Deploy delete all source and class files">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -217,6 +248,8 @@
 	<target name="develop_change_schema_version" depends="" description="Updates the schema to the given version">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<jvmarg value="-DversionNumber=${versionNumber}" />
 			<classpath>
@@ -231,6 +264,8 @@
 	<target name="develop_redo_last_schema_change" depends="" description="Undo and Redo the last schmea update">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<jvmarg value="-DversionNumber=${versionNumber}" />
 			<classpath>
@@ -245,6 +280,8 @@
 	<target name="deploy_redo_last_schema_change" depends="" description="Undo and Redo the last schmea update">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<jvmarg value="-DversionNumber=${versionNumber}" />
 			<classpath>
@@ -260,6 +297,8 @@
 	<target name="deploy_change_schema_version" depends="" description="Updates the schema to the given version">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop change schema version">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<jvmarg value="-DversionNumber=${versionNumber}" />
 			<classpath>
@@ -304,6 +343,8 @@
 	<target name="rebuild_model" description="Rebuilds the entire domain model using a freshly merged schema">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -323,6 +364,8 @@
 	<target name="rebuild_db" description="Rebuilds the database">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -340,6 +383,8 @@
 	<target name="develop_rebuild_import" depends="" description="Development Rebuild All">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-XX:PermSize=128M" />
 			<jvmarg value="-XX:MaxPermSize=256M" />
 			<jvmarg value="-Dmojo.keepSource=true" />
@@ -361,6 +406,8 @@
 	<target name="import_working_set" depends="" description="Import Working Set">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -374,6 +421,8 @@
 	<target name="unimport_working_set" depends="" description="Import Working Set">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Develop Rebuild All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<jvmarg value="-Dmojo.keepSource=true" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
@@ -387,6 +436,8 @@
 	<target name="deploy_all" description="Step 2">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(2)Deploy All">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -401,6 +452,8 @@
 	<target name="update_db" depends="" description="Step 4">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Deploy DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -415,6 +468,8 @@
 
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="(4)Update Deploy DB With Source">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -481,7 +536,8 @@
 
 	<target name="call_reload_jsp" description="Make tomcat reload all its classes">
 		<!-- get reload.jsp to force tomcat to dump its cache-->
-		<get src="http://localhost:8080/MDSS/test/reload.jsp" dest="./delme.html" verbose="true" />
+		<get src="http://localhost:8080/DDMS/test/reload.jsp" dest="./delme.html" verbose="true" />
+		<delete file="./delme.html" />
 	</target>
 
 	<!-- =================================================================== -->
@@ -491,6 +547,8 @@
 	<target name="import_geodata" depends="kill_tomcat" description="imports geodata.db of geodata into the develop db">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -506,6 +564,8 @@
 	<target name="import_ontology" description="imports ontology into the develop db">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -518,36 +578,26 @@
 		</java>
 	</target>
 
-  <target name="import_localization_data" description="Imports the localization xls file">
-    <java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="Import Default Localization Data">
-      <jvmarg value="-Xmx${max_memory_use}" />
-      <classpath>
-        <pathelement location="${ant.home}/lib/ant-launcher.jar" />
-      </classpath>
-      <arg value="-buildfile" />
-      <arg file="deploy.xml" />
-      <arg value="-Droot.user=${root.user}" />
-      <arg value="-Droot.pass=${root.pass}" />
-      <arg value="-Dgeodata.db=${geodata.db}" />
-      <arg value="import_localization_disease_defaults" />
-    </java>
-  </target>
-
-		<target name="import_ontology_roots" description="imports ontology roots into the develop db">
-			<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
-				<jvmarg value="-Xmx${max_memory_use}" />
-				<classpath>
-					<pathelement location="${ant.home}/lib/ant-launcher.jar" />
-				</classpath>
-				<arg value="-buildfile" />
-				<arg file="deploy.xml" />
-				<arg value="import_ontology_roots" />
-			</java>
-		</target>
+	<target name="import_ontology_roots" description="imports ontology roots into the develop db">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import ontology roots">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Dgeodata.db=${geodata.db}" />			
+			<arg value="import_ontology_roots" />
+		</java>
+	</target>
 
 	<target name="import_menuitems" description="imports default MenuItems into the develop db">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import_menuitems">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -557,9 +607,28 @@
 		</java>
 	</target>
 
+	<target name="import_localization_data" description="Imports the localization xls file">
+		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="import geodata">
+			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
+			<classpath>
+				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
+			</classpath>
+			<arg value="-buildfile" />
+			<arg file="deploy.xml" />
+			<arg value="-Droot.user=${root.user}" />
+			<arg value="-Droot.pass=${root.pass}" />
+			<arg value="-Dgeodata.db=${geodata.db}" />
+			<arg value="import_localization_disease_defaults" />
+		</java>
+	</target>
+
 	<target name="load_permissions" description="Load default permissions">
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="40000000" taskname="load_permissions">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -626,6 +695,8 @@
 		<!-- run the importer -->
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="import geodata">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -659,6 +730,8 @@
 		<!-- run the importer -->
 		<java classname="org.apache.tools.ant.launch.Launcher" fork="true" failonerror="true" dir="." timeout="4000000" taskname="deploy_build_all_paths_geodata">
 			<jvmarg value="-Xmx${max_memory_use}" />
+			<jvmarg value="-XX:PermSize=${perm_size}" />
+			<jvmarg value="-XX:MaxPermSize=${max_perm_size}" />
 			<classpath>
 				<pathelement location="${ant.home}/lib/ant-launcher.jar" />
 			</classpath>
@@ -819,10 +892,10 @@
 		<copy file="../../../doc/country/${geodata.db}-schema(0001238646707001).xml" tofile="../../../doc/individual/schema(0001238646707001).xml" overwrite="true" />
 		<copy file="../../../webapp/imgs/flags/${geodata.db}.gif" tofile="../../../webapp/imgs/flags/current" overwrite="true" />
 	</target>
-
+	
 	<target name="sleep" depends="">
 		<echo message="Starting the build in 15 seconds..." />
 		<sleep seconds="15" />
-	</target>
+	</target>	
 </project>
 

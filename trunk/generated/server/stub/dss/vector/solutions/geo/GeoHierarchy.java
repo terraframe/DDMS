@@ -18,11 +18,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.BusinessFacade;
-import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.generation.CompilerException;
 import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
-import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -271,6 +269,37 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     MdBusiness md = MdBusiness.getMdBusiness(mdType);
     return getGeoHierarchyFromType(md);
   }
+  
+
+  public static GeoHierarchy getGeoHierarchyFromLabel(String label)
+  {
+    String systemName = GeoHierarchy.getSystemName(label);
+
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.WHERE(query.getGeoEntityClass().getTypeName().EQ(systemName));
+
+    OIterator<? extends GeoHierarchy> i = query.getIterator();
+
+    if (i.hasNext())
+    {
+      try
+      {
+        return i.next();
+      }
+      finally
+      {
+        i.close();
+      }
+    }
+    else
+    {
+      String errMsg = "Unable to find a universal with the name \"" + label + "\" (or \"" + systemName + "\")";
+      System.err.println(errMsg);
+
+      return null;
+    }
+  }
+
 
   /**
    * Recursively collects all parents of the AllowedIn relationship.

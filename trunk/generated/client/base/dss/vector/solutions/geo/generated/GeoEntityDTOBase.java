@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1386768368)
+@com.runwaysdk.business.ClassSignature(hash = -1870355167)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = -1386768368;
+  private static final long serialVersionUID = -1870355167;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -263,9 +263,9 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     return isModified(GEODATA);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getGeoDataMd()
+  public final com.runwaysdk.transport.metadata.AttributeClobMdDTO getGeoDataMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeClobMdDTO) getAttributeDTO(GEODATA).getAttributeMdDTO();
   }
   
   public String getGeoId()
