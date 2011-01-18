@@ -66,6 +66,7 @@ public class MultiBundle
         {
           // If dimension-specific bundles fail, start the loop over with the generic bundles
           ld = new LocaleDimension(locale);
+          dimension=null;
         }
       }
       return "???_" + key + "_???";

@@ -1,5 +1,5 @@
 <%@ include file="/WEB-INF/templates/jsp_includes.jsp"%>
-<%@ taglib uri=\"/WEB-INF/tlds/mdssLib.tld\" prefix=\"mdss\"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
