@@ -832,7 +832,7 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
             // We must determine if the value is a number and if-so limit its decimals to 2 places
             var value = record.getData(field.key);
             
-            if(value != null && isFinite(value)) {
+            if(value != null && value != '' && isFinite(value)) {
               var parsedValue = parseFloat(value);
               
               if(parsedValue !== Math.floor(parsedValue)) {
