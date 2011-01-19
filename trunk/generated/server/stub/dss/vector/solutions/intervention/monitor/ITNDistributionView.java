@@ -11,7 +11,6 @@ import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.QueryFactory;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -147,12 +146,40 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
   @Transaction
   public void applyAll(ITNDistributionTargetGroup[] targetGroups)
   {
+    int distributed = this.getAmountDistributed(targetGroups);
+
+    this.validateNumberSold(distributed);
+
     this.apply();
 
     for (ITNDistributionTargetGroup targetGroup : targetGroups)
     {
       targetGroup.overwriteParentId(this.getConcreteId());
       targetGroup.apply();
+    }
+  }
+
+  private int getAmountDistributed(ITNDistributionTargetGroup[] targetGroups)
+  {
+    int total = 0;
+
+    for (ITNDistributionTargetGroup targetGroup : targetGroups)
+    {
+      total += targetGroup.getAmount();
+    }
+
+    return total;
+  }
+
+  private void validateNumberSold(int distribution)
+  {
+    if (this.getNumberSold() != null && this.getNumberSold() > distribution)
+    {
+      NumberSoldProblem problem = new NumberSoldProblem();
+      problem.setNotification(this, NUMBERSOLD);
+      problem.apply();
+      
+      problem.throwIt();
     }
   }
 
@@ -187,13 +214,13 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
 
     return set.toArray(new ITNDistributionTargetGroup[set.size()]);
   }
-  
+
   public static ITNDistributionViewQuery searchHistory(ITNDistributionView view)
   {
     ITNDistributionViewQuery query = new ITNDistributionViewQuery(new QueryFactory());
 
     Person person = view.getPerson();
-    
+
     Condition condition = query.getPerson().EQ(person);
 
     String facility = view.getFacility();
@@ -215,7 +242,7 @@ public class ITNDistributionView extends ITNDistributionViewBase implements com.
     }
 
     query.WHERE(condition);
-    
+
     return query;
   }
 
