@@ -1,4 +1,4 @@
-<project name="MDSS" default="fast_build">
+<project name="MDSS" default="build_all">
 	<taskdef resource="net/sf/antcontrib/antcontrib.properties" classpath="../../../lib/ant/ant-contrib-1.0b3.jar" />
 	<taskdef resource="org/tigris/subversion/svnant/svnantlib.xml" classpath="../../../lib/ant/svnant.jar;../../../lib/ant/svnClientAdapter.jar;../../../lib/ant/svnkit.jar;../../../lib/ant/svnjavahl.jar;../../../lib/ant/ganymed.jar;" />
 
@@ -38,12 +38,9 @@
 	<!-- so that posgres does not require a password from localhost  -->
 	<!-- Also check that "postgres.bin" is set to the location of psql and pg_dump -->
 	<!-- =================================================================== -->
-	<target name="fast_build" depends="alert_status,kill_tomcat,remove_generated_universals,copy_country_schema,develop_rebuild_import" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="Build part 1 complete, please refresh and clean" />
-	</target>
 
-	<target name="fast_build_2" depends="alert_status,deploy_all,import_ontology,import_menuitems,import_ontology_roots,develop_build_all_paths_ontology,import_geodata,develop_build_all_paths_geodata,load_permissions,develop_create_univeral_queries,copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
-		<echo message="The build is complete, please start tomcat" />
+	<target name="build_all" depends="copy_country_schema,develop_rebuild_import,deploy_all_files,import_ontology,import_geodata,develop_build_all_paths_ontology,develop_build_all_paths_geodata,import_ontology_roots,import_menuitems,develop_create_univeral_queries,import_localization_data,load_permissions, copy_dev_to_deploy" description="Rebuild Develop from scratch and then copy everything to deploy.">
+		<echo message="Building All" />
 	</target>
 
 
