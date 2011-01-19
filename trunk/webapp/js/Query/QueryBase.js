@@ -1369,8 +1369,37 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       else
       {
         this._selectSearch.render();
+        this._setTreeValidator();
       }
+      
     },
+    
+    _setTreeValidator : function()
+    {
+      MDSS.GeoEntityTree.setValidator(Mojo.Util.bind(this, this._validator));          
+    },
+    
+    _validator : function(request, geoId)
+    {
+      var type = this._selectSearch.getFilter();
+        
+      if(Mojo.Util.isString(type) && type != '')
+      {
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByType(request, geoId, type);
+      }
+      else 
+      {
+        var political = this._selectSearch.getPolitical();
+        var populated = this._selectSearch.getPopulated();
+        var sprayTarget = this._selectSearch.getSprayTargetAllowed();        
+        var urban = this._selectSearch.getUrban();
+        
+        var parameters = [political, populated, sprayTarget, urban].concat(this._selectSearch.getExtraUniversals());
+           
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.validateByParameters(request, geoId, parameters);
+      }    
+    },
+
   
     /**
      * Creates a modal with the given HTML as its body and the given title
