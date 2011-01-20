@@ -41,7 +41,7 @@ public class InsecticideInterventionGridBuilder extends GridBuilder implements R
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.ACTIVEINGREDIENT, false);
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.CONCENTRATIONQUANTIFIER, false);
     GridBuilder.setEditable(columns, InsecticideInterventionViewDTO.CONCENTRATIONQUALIFIER, false);
-    GridBuilder.setValidator(columns, InsecticideInterventionViewDTO.QUANTITY, "YAHOO.widget.DataTable.validateNumber");
+    GridBuilder.setValidator(columns, InsecticideInterventionViewDTO.QUANTITY, "MDSS.validateNumber");
        
     return new ViewDataGrid(view, columns, keys, data);
   }

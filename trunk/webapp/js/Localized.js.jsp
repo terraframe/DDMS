@@ -33,7 +33,18 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 Map<String,String> roleMap =  clientRequest.getSessionUserRoles();
 JSONArray roles = new JSONArray(roleMap.keySet());
 
+String[] localeArray  = locale.toString().split("_");
+StringBuffer buffer = new StringBuffer();
+
+for(String localeVariant : localeArray)
+{
+  buffer.append(",'" + localeVariant + "'");
+}
+
+String localeParameters = buffer.toString().replaceFirst(",", "");
+
 %>
+
 MDSS.user = {
 roles:<%=roles%>,
 locale : "<%=request.getLocale().toString()%>"
@@ -126,7 +137,43 @@ MDSS.Localized = {
 
 };
 
+MDSS.FLOAT_PRECISION = 2;
 
+MDSS.getParser = function() {
+  var locale = new java.util.Locale(<%=localeParameters %>);
+ 
+  return java.text.NumberFormat.getNumberInstance(locale);
+}
+
+MDSS.parse = function(parser, number) { 
+  try {
+    return parser.parse(number); 
+  }
+  catch(exception) {
+    return NaN;
+  }
+}
+
+MDSS.format = function(formatter, number) { 
+  // Format the number to two decimal places.
+  var fixedNumber = number.toFixed(MDSS.FLOAT_PRECISION); 
+  var parsedNumber = parseFloat(fixedNumber);
+
+  return formatter.format(parsedNumber); 
+}
+
+MDSS.parseNumber = Mojo.Util.curry(MDSS.parse, MDSS.getParser());
+MDSS.formatNumber = Mojo.Util.curry(MDSS.format, MDSS.getParser());
+
+MDSS.validateNumber = function(oData) {
+  var value = MDSS.parseNumber(oData);
+  
+  if(value == NaN) {
+    return undefined;
+  }
+  
+  return oData;
+}
 
 MDSS.localize = function(key){
   var s = MDSS.Localized[key];

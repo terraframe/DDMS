@@ -30,8 +30,8 @@ public class StockEventGridBuilder extends GridBuilder implements Reloadable
 
     GridBuilder.setEditable(columns, StockEventViewDTO.ITEMLABEL, false);
     GridBuilder.setEditable(columns, StockEventViewDTO.AVAILABLESTOCK, false);
-    GridBuilder.setValidator(columns, StockEventViewDTO.QUANTITY, "YAHOO.widget.DataTable.validateNumber");
-    GridBuilder.setValidator(columns, StockEventViewDTO.COST, "YAHOO.widget.DataTable.validateNumber");
+    GridBuilder.setValidator(columns, StockEventViewDTO.QUANTITY, "MDSS.validateNumber");
+    GridBuilder.setValidator(columns, StockEventViewDTO.COST, "MDSS.validateNumber");
        
     return new ViewDataGrid(dto, columns, keys, data);
   }

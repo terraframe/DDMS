@@ -44,7 +44,7 @@ public class PersonInterventionGridBuilder extends GridBuilder implements Reload
     String[] keys = this.getMethodKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 1, true);
     
-    GridBuilder.setValidator(columns, PersonInterventionMethodViewDTO.AMOUNT, "YAHOO.widget.DataTable.validateNumber");
+    GridBuilder.setValidator(columns, PersonInterventionMethodViewDTO.AMOUNT, "MDSS.validateNumber");
     
     String label = view.getInterventionMethodMd().getDisplayLabel();
     TermSetup setup = new TermSetup(PersonInterventionMethodViewDTO.AMOUNT, PersonInterventionMethodViewDTO.TERM);
@@ -57,7 +57,7 @@ public class PersonInterventionGridBuilder extends GridBuilder implements Reload
     String[] keys = getViewKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 1, false);
 
-    GridBuilder.setValidator(columns, PersonInterventionViewDTO.VEHICLEDAYS, "YAHOO.widget.DataTable.validateNumber");
+    GridBuilder.setValidator(columns, PersonInterventionViewDTO.VEHICLEDAYS, "MDSS.validateNumber");
        
     return new ViewDataGrid(view, columns, keys, data);
   }

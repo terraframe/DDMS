@@ -1314,3 +1314,18 @@ getInputDisplayLabel : function() {
 
 // Copy static members to OntologyTermEditor class
 YAHOO.lang.augmentObject(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellEditor);
+
+
+/**
+ * Custom BaseCellEditor subclass to spawn an NumberCellEditor instance when a
+ * user clicks on a cell that needs to select terms.
+ */
+YAHOO.widget.NumberCellEditor = function(oConfigs) {
+	YAHOO.widget.NumberCellEditor.superclass.constructor.call(this, oConfigs);
+};
+
+// NumberCellEditor extends TextboxCellEditor
+YAHOO.lang.extend(YAHOO.widget.NumberCellEditor, YAHOO.widget.TextboxCellEditor, {});
+
+// Copy static members to NumberCellEditor class
+YAHOO.lang.augmentObject(YAHOO.widget.NumberCellEditor, YAHOO.widget.TextboxCellEditor);

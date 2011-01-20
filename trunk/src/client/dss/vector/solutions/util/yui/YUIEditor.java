@@ -9,6 +9,7 @@ import com.runwaysdk.transport.metadata.AttributeBooleanMdDTO;
 import com.runwaysdk.transport.metadata.AttributeDateMdDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
+import com.runwaysdk.transport.metadata.AttributeNumberMdDTO;
 import com.runwaysdk.transport.metadata.AttributeReferenceMdDTO;
 
 import dss.vector.solutions.LabeledDTO;
@@ -24,10 +25,12 @@ public abstract class YUIEditor implements Reloadable
 
   public static final String TERM_EDITOR     = "new YAHOO.widget.OntologyTermEditor";
 
+  public static final String NUMBER_EDITOR   = "new YAHOO.widget.NumberCellEditor";
+
   public abstract String getType();
 
   public abstract List<String> getOptions();
-  
+
   public abstract String getDefaultValue(Object value);
 
   public String getValue(Object object)
@@ -44,6 +47,10 @@ public abstract class YUIEditor implements Reloadable
     else if (attribute instanceof AttributeDateMdDTO)
     {
       return new YUIDateEditor();
+    }
+    else if (attribute instanceof AttributeNumberMdDTO)
+    {
+      return new YUINumberEditor();
     }
     else if (attribute instanceof AttributeEnumerationMdDTO)
     {
@@ -71,6 +78,5 @@ public abstract class YUIEditor implements Reloadable
     }
 
     return new YUITextEditor();
-
   }
 }

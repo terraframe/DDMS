@@ -40,8 +40,8 @@ public class PopulationGridBuilder extends GridBuilder implements Reloadable
     Map<String, ColumnSetup> columns = getColumns(keys, 4, true);
 
     GridBuilder.setEditable(columns, PopulationDataViewDTO.ENTITYLABEL, false);
-    GridBuilder.setValidator(columns, PopulationDataViewDTO.POPULATION, "YAHOO.widget.DataTable.validateNumber");
-    GridBuilder.setValidator(columns, PopulationDataViewDTO.GROWTHRATE, "YAHOO.widget.DataTable.validateNumber");
+    GridBuilder.setValidator(columns, PopulationDataViewDTO.POPULATION, "MDSS.validateNumber");
+    GridBuilder.setValidator(columns, PopulationDataViewDTO.GROWTHRATE, "MDSS.validateNumber");
 
     return new ViewDataGrid(dto, columns, keys, data);
   }

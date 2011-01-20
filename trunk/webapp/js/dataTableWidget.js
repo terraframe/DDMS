@@ -139,13 +139,12 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
             }
           }
           else if (attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDecDTO){
+        // Numbers coming from the server are not localized, so just use parseFloat
             var number = parseFloat(attributeDTO.getValue());
             
             if(number != null && !isNaN(number) && Mojo.Util.isNumber(number)) {
-              var formattedNumber = number.toFixed(MDSS.DataGridModel.FLOAT_PRECISION);
-
               // Format table input to 2 decimal places
-              value = formattedNumber.toString(); 
+              value =  MDSS.formatNumber(number);
             }
           }
           else {
@@ -275,7 +274,6 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
     
     setData : function(row, col, value) {
       this._rows[row][col] = value;
-      
       this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SET_DATA, {row:row, col:col, value:value}));
     },
     
@@ -353,7 +351,6 @@ Mojo.Meta.newClass('MDSS.DataGridModel' ,{
   },
   
   Static : {
-FLOAT_PRECISION : 2, 
     getDefaultSaveHandler : function(saveFunction, dataType)  {
       saveFunction = (typeof saveFunction === 'undefined' ? "saveAll" : saveFunction);
     
@@ -630,6 +627,12 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           var date = MDSS.Calendar.parseDate(record.getData(field.key));
           this.getDataTable().updateCell(record, field.key, date);
         }
+        else if (editor && editor instanceof YAHOO.widget.NumberCellEditor) {
+          var parsedValue = MDSS.parseNumber(value);
+            
+          this._model.setData(row, col, parsedValue);
+          this.getDataTable().updateCell(record, field.key, value);
+        }
         else {
           this.getDataTable().updateCell(record, col, value);
         }
@@ -833,10 +836,12 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
             var value = record.getData(field.key);
             
             if(value != null && value != '' && isFinite(value)) {
+
+              // Numbers coming from the server are not localized, so just use the regular parseFloat
               var parsedValue = parseFloat(value);
               
               if(parsedValue !== Math.floor(parsedValue)) {
-                var formattedNumber = parsedValue.toFixed(MDSS.DataGridModel.FLOAT_PRECISION);
+                var formattedNumber = MDSS.formatNumber(parsedValue);
               
                 record.setData(field.key, formattedNumber);
               }
@@ -1090,6 +1095,13 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         this._model.setData(index, key, id);
         this.myDataTable.updateCell(record, editor.getColumn(), displayLabel);       
       }
+      else if (editor instanceof YAHOO.widget.NumberCellEditor)
+      {
+        var number = MDSS.parseNumber(oArgs.newData);
+      
+        this._model.setData(index, key, number);
+        this.myDataTable.updateCell(record, editor.getColumn(), oArgs.newData);       
+      }
       else
       {
         this._model.setData(index, key, oArgs.newData);
@@ -1155,41 +1167,23 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
         //they have entered data so make sure to remove the calcuated style
         YAHOO.util.Dom.removeClass(this.myDataTable.getTdLinerEl(editedTd), "calculated");
         
-        var newData = parseFloat(oArgs.newData);
+        var newData = MDSS.parseNumber(oArgs.newData);
         newData = newData || 0;
         
-        var oldData = parseFloat(oArgs.oldData);
+        var oldData = MDSS.parseNumber(oArgs.oldData);
         oldData = oldData || 0;
 
-        var oldTotal = parseFloat(lastRecord.getData(editor.getColumn().key));
+        var oldTotal = MDSS.parseNumber(lastRecord.getData(editor.getColumn().key));
         oldTotal = oldTotal || 0;
 
         var newTotal = oldTotal + newData - oldData;
 
         //no calculation is done if number is entered manualy
-        if (index !== lastIndex  && (! manualLastRowData) && (oArgs.newData != '' || cellValue == '')) {
-          dt.updateCell(lastRecord, editor.getColumn(), newTotal);
+        if (index !== lastIndex  && (!manualLastRowData) && (oArgs.newData != '' || cellValue == '')) {
+          dt.updateCell(lastRecord, editor.getColumn(), MDSS.formatNumber(newTotal));
+          
           YAHOO.util.Dom.addClass(this.myDataTable.getTdLinerEl(lastTd), "calculated");
-          //we do not save autocalculated values
-          //this.tableData.rows[lastIndex][editor.getColumn().key] = newTotal;
         }
-
-        var sum = 0;
-
-        dt.getRecordSet().getRecords().map( function(row) {
-          var x = parseFloat(row.getData(editor.getColumn().key));
-          if (x && dt.getRecordIndex(row) !== lastIndex){
-            sum += x;
-          }
-        });
-                
-        
-        if (parseFloat(lastRecord.getData(editor.getColumn().key)) != sum) {
-          YAHOO.util.Dom.addClass(lastTd, "dataTableSumError");
-        } else {
-          YAHOO.util.Dom.removeClass(lastTd, "dataTableSumError");
-        }
-
       }      
     },
             

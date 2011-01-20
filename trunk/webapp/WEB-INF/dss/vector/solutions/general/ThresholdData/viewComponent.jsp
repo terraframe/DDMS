@@ -66,7 +66,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
         return oData;
       }
 
-      var value = 1 * oData;
+      var value = MDSS.parseNumber(oData);
         
       if(Mojo.Util.isNumber(value)) {
         if(value > 0) {
@@ -75,6 +75,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       }
 
       alert(MDSS.localize("Value_Not_Greater_Than_0"));
+      
       return undefined;
     }
 
