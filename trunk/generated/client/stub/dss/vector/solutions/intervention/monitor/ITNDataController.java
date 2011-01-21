@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -64,6 +65,9 @@ public class ITNDataController extends ITNDataControllerBase implements Reloadab
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
     this.prepareRelationships(dto);
+    
+    this.req.setAttribute("currencyCode", Currency.getInstance(req.getLocale()).getCurrencyCode());
+
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }

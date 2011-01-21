@@ -2,6 +2,7 @@ package dss.vector.solutions.stock;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -260,6 +261,7 @@ public class StockEventController extends StockEventControllerBase implements co
       StockEventViewQueryDTO query = StockEventViewDTO.getPage(clientRequest, StockEventViewDTO.EVENTDATE, false, 20, 0, geoId, item.getId(), date, endDate);
 
       this.setupContext(geoId, item.getId(), date, endDate);
+      this.req.setAttribute("currency", Currency.getInstance(req.getLocale()).getCurrencyCode());
 
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");

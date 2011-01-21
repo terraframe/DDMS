@@ -109,8 +109,8 @@
         ${item.sold ? item.soldMd.positiveDisplayLabel : item.soldMd.negativeDisplayLabel}
       </mjl:dt>
       <mjl:dt attribute="currencyReceived">
-        ${item.currencyReceived}
-      </mjl:dt>      
+        <fmt:formatNumber type="currency" currencyCode="${currency}" value="${item.currencyReceived}" />      
+      </mjl:dt>
       <mjl:dt attribute="retrieved">
         ${item.retrieved ? item.retrievedMd.positiveDisplayLabel : item.retrievedMd.negativeDisplayLabel}
       </mjl:dt>

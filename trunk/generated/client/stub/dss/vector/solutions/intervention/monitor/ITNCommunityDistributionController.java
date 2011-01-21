@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Currency;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -92,6 +93,7 @@ public class ITNCommunityDistributionController extends ITNCommunityDistribution
     this.prepareRelationships(dto);
     this.getGeoEntities(dto);
 
+    req.setAttribute("currency", Currency.getInstance(req.getLocale()).getCurrencyCode());
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
   }

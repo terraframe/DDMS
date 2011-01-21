@@ -66,7 +66,7 @@
         ${item.numberSold}
       </mjl:dt>
       <mjl:dt attribute="currencyReceived">
-        ${item.currencyReceived}
+        <fmt:formatNumber type="currency" currencyCode="${currency}" value="${item.currencyReceived}" />      
       </mjl:dt>
       <mjl:dt attribute="distributorName">
         ${item.distributorName}

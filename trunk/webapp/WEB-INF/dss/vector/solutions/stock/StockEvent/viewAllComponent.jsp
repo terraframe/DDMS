@@ -44,7 +44,11 @@
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="quantity" />
-    <mjl:attributeColumn attributeName="cost" />        
+    <mjl:attributeColumn attributeName="cost">
+      <mjl:row>
+        <fmt:formatNumber type="currency" currencyCode="${currency}" value="${current.cost}" />
+      </mjl:row>
+    </mjl:attributeColumn>        
   </mjl:columns>
   <mjl:pagination>
     <mjl:page />

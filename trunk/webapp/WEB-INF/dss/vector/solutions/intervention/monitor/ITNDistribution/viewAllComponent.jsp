@@ -39,6 +39,9 @@
     <mjl:attributeColumn attributeName="numberSold">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="currencyReceived">
+      <mjl:row>
+        <fmt:formatNumber type="currency" currencyCode="${currency}" value="${item.currencyReceived}" />
+      </mjl:row>    
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="distributorName">
     </mjl:attributeColumn>

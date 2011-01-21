@@ -2,6 +2,7 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.Date;
 
 import javax.servlet.ServletException;
@@ -59,6 +60,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
     this.setupReferences(dto);
 
+    
+    req.setAttribute("currency", Currency.getInstance(req.getLocale()).getCurrencyCode());
     req.setAttribute("facility", AttributeUtil.getGeoEntityFromGeoId(ITNDistributionViewDTO.FACILITY, dto));
     req.setAttribute("targetGroups", Arrays.asList(dto.getDistributionTargetGroups()));
     req.setAttribute("item", dto);
@@ -398,6 +401,7 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
         req.setAttribute("batchNumber", batchNumber);
       }
 
+      req.setAttribute("currency", Currency.getInstance(req.getLocale()).getCurrencyCode());
       req.setAttribute("item", view);
       req.setAttribute("query", query);
       render("viewAllComponent.jsp");
