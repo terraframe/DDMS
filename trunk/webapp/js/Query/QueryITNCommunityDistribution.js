@@ -53,8 +53,8 @@ Mojo.Meta.newClass('MDSS.QueryITNCommunityDistribution', {
       this.$initialize(selectableGroups, queryList);   
       
       var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
+      picker.setPolitical(true);
       picker.setSprayTargetAllowed(false);
-      }
     }
+  }
 });
