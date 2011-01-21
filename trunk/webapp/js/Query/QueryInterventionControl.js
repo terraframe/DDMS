@@ -77,6 +77,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         this._universalFilters = [];
         
         var picker = this.getGeoPicker();
+        picker.setUrban(true);
         picker.clearAfterFilter(true);
         picker.setValidator(Mojo.Util.bind(this, this.validateGeoEntity));
       },
