@@ -12,7 +12,7 @@ public class MultiBundle
 {
   private Map<String, Bundle> bundles;
   
-  public static final String BUNDLE_NAME = "MDSS";
+  public static String BUNDLE_NAME = "MDSS";
   
   private MultiBundle()
   {
@@ -32,8 +32,6 @@ public class MultiBundle
   {
     synchronized (Singleton.INSTANCE)
     {
-      Map<String, Bundle> cache = Singleton.INSTANCE.bundles;
-      
       String locale = Session.getCurrentLocale().toString();
       MdDimensionDAOIF dimension = Session.getCurrentDimension();
       LocaleDimension ld = new LocaleDimension(locale, dimension);
@@ -41,20 +39,7 @@ public class MultiBundle
       while (ld != null)
       {
 //        Amazingly, containsKey doesn't appear to be working
-        String lds = ld.toString();
-        if (!cache.containsKey(lds))
-        {
-          cache.put(lds, new Bundle(BUNDLE_NAME, ld));
-        }
-        
-//        if (bundle==null)
-//        {
-//          bundle = new Bundle(BUNDLE_NAME, ld);
-//          cache.put(ld, bundle);
-//        }
-        
-        Bundle bundle = cache.get(lds);
-        String value = bundle.getValue(key);
+        String value = getExactly(key, ld);
         if (value!=null)
         {
           return value;
@@ -70,6 +55,38 @@ public class MultiBundle
         }
       }
       return "???_" + key + "_???";
+    }
+  }
+
+  /**
+   * Returns the value for this key-LocaleDimension pair exactly, without traversing up the hierarchy of other bundles
+   * 
+   * @param key
+   * @param ld
+   * @return
+   */
+  private static String getExactly(String key, LocaleDimension ld)
+  {
+    synchronized (Singleton.INSTANCE)
+    {
+      Map<String, Bundle> cache = Singleton.INSTANCE.bundles;
+      String lds = ld.toString();
+      if (!cache.containsKey(lds))
+      {
+        cache.put(lds, new Bundle(BUNDLE_NAME, ld));
+      }
+      
+      Bundle bundle = cache.get(lds);
+      String value = bundle.getValue(key);
+      return value;
+    }
+  }
+  
+  public static void setBundle(String bundleName)
+  {
+    synchronized (Singleton.INSTANCE)
+    {
+      MultiBundle.BUNDLE_NAME = bundleName;
     }
   }
   
