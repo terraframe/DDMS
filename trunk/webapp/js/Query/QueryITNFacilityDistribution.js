@@ -58,8 +58,9 @@ Mojo.Meta.newClass('MDSS.QueryITNFacilityDistribution', {
       this.$initialize(selectableGroups, queryList);   
 
       var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
+      picker.setPolitical(true);
       picker.setSprayTargetAllowed(false);
-      }
+      picker.addExtraUniversal(Mojo.$.dss.vector.solutions.geo.generated.HealthFacility.CLASS);            
     }
+  }
 });
