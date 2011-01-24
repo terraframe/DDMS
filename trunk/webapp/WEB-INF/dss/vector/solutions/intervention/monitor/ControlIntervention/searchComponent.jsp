@@ -19,8 +19,10 @@
         <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate"/>
       </mjl:dt>
     </mjl:component>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.searchByView.mojo" name="search.button" value="Search"/>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.forward.mojo" name="create.button" value="Go_Create"/>
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.searchByView.mojo" name="search.button" value="${Localized_Search}" />
+    <mdss:localize key="Go_Create" var="Localized_Go_Create" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.forward.mojo" name="create.button" value="${Localized_Go_Create}" />
   </dl>
 </mjl:form>
 

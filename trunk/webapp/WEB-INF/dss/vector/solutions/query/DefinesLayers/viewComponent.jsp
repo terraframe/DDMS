@@ -28,7 +28,8 @@
       </mjl:commandLink>
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.query.DefinesLayersController.edit.mojo" name="dss.vector.solutions.query.DefinesLayers.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.DefinesLayersController.edit.mojo" name="dss.vector.solutions.query.DefinesLayers.form.edit.button" />
   <br />
 </mjl:form>
 <mjl:commandLink action="dss.vector.solutions.query.DefinesLayersController.viewAll.mojo" name="dss.vector.solutions.query.DefinesLayers.viewAll.link">

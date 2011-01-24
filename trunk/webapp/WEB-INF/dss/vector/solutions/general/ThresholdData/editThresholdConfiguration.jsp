@@ -119,7 +119,9 @@
       </div>
     </mjl:component>
     
-    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.mojo" name="search" value="Submit"/>
+    <mdss:localize key="Submit" var="Localized_Submit" />
+    
+    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.setThresholdConfiguration.mojo" name="search" value="${Localized_Submit}" />
     
     <hr />
     
@@ -146,7 +148,8 @@
     <hr />
     
     <dd>
-      <mjl:command name="exportHistory.button" action="dss.vector.solutions.general.ThresholdDataController.exportHistory.mojo" value="Export_Threshold_History" />
+      <mdss:localize key="Export_Threshold_History" var="Localized_Export_Threshold_History" />
+      <mjl:command name="exportHistory.button" action="dss.vector.solutions.general.ThresholdDataController.exportHistory.mojo" value="${Localized_Export_Threshold_History}" />
     </dd>
   </dl>
 </mjl:form>

@@ -12,7 +12,8 @@
         ${item.geoEntity.displayString}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.DefaultGeoEntity.form.edit.button" value="Edit" action="dss.vector.solutions.DefaultGeoEntityController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.DefaultGeoEntity.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.DefaultGeoEntityController.edit.mojo" />
   </mjl:form>
 </dl>
 

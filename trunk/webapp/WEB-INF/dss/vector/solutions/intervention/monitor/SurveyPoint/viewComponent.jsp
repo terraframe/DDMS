@@ -21,7 +21,8 @@
       <label> ${item.surveyDateMd.displayLabel} </label>
     </dt>
     <dd class="formatDate">${item.surveyDate}</dd>
-    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.SurveyPointController.edit.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.intervention.monitor.SurveyPointController.edit.mojo" name="dss.vector.solutions.intervention.monitor.SurveyPoint.form.edit.button" />
   </dl>
   <br />
 </mjl:form>

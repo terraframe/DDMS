@@ -8,7 +8,8 @@
   <mjl:input value="${item.id}" type="hidden" param="id" />
   <dl>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.query.AbstractCategoryController.edit.mojo" name="dss.vector.solutions.query.AbstractCategory.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.AbstractCategoryController.edit.mojo" name="dss.vector.solutions.query.AbstractCategory.form.edit.button" />
   <br />
 </mjl:form>
 <dl>

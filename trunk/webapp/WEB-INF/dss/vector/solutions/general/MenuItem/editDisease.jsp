@@ -14,7 +14,9 @@
     <mdss:mo param="menuRoot" value="${term}" />
   </mjl:dt>
 </mjl:component>
-    <mjl:command localize="false" name="dss.vector.solutions.general.MenuItem.form.updateDisease.button" value="Update" action="dss.vector.solutions.general.MenuItemController.updateDisease.mojo" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.MenuItem.form.cancelDisease.button" value="Cancel" action="dss.vector.solutions.general.MenuItemController.cancelDisease.mojo" />
+    <mdss:localize key="Update" var="Localized_Update" />
+    <mjl:command localize="false" name="dss.vector.solutions.general.MenuItem.form.updateDisease.button" value="${Localized_Update}" action="dss.vector.solutions.general.MenuItemController.updateDisease.mojo" />
+    <mdss:localize key="Cancel" var="Localized_Cancel" />
+    <mjl:command localize="false" name="dss.vector.solutions.general.MenuItem.form.cancelDisease.button" value="${Localized_Cancel}" action="dss.vector.solutions.general.MenuItemController.cancelDisease.mojo" />
   </mjl:form>
 </dl>

@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <c:set var="page_title" value="Create_Person" scope="request" />
@@ -32,7 +32,9 @@
     <jsp:include page="personFields.jsp" />
 
     <%-- IMPORTANT: Do not change the id of the Create button because it is used javascript defined on personFields.jsp --%>
-    <mjl:command value="Search" action="dss.vector.solutions.PersonController.search.mojo" name="dss.vector.solutions.Person.form.search.button" />
-    <mjl:command value="Create" action="dss.vector.solutions.PersonController.createFromView.mojo" name="dss.vector.solutions.Person.form.create.button" id="submit.button" />
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command value="${Localized_Search}" action="dss.vector.solutions.PersonController.search.mojo" name="dss.vector.solutions.Person.form.search.button" />
+    <mdss:localize key="Create" var="Localized_Create" />
+    <mjl:command value="${Localized_Create}" action="dss.vector.solutions.PersonController.createFromView.mojo" name="dss.vector.solutions.Person.form.create.button" id="submit.button" />
   </dl>
 </mjl:form>

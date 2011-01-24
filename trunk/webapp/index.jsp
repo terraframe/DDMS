@@ -1,3 +1,6 @@
+<%@page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
+<%@page import="dss.vector.solutions.MDSSUserDTO"%>
+<%@page import="com.runwaysdk.web.ServletUtility"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
@@ -48,12 +51,13 @@
 
 <br><br>
   <%
-   Locale locale = request.getLocale();
-   out.println("Your Detected Locale is "+locale.toString() + ".");
-   %>
-   <br>
-   Your current disease is ${diseaseName}.
-   <br>
+    Locale[] locales = ServletUtility.getLocales(request);
+    out.println("Your Detected Locales are " + Arrays.toString(locales) + ".<br/>");
+    out.println("Best fit locale is " + LocalizationFacadeDTO.getSessionLocale(requestIF) + ".<br/>");
+  %>
+  <br>
+  Your current disease is ${diseaseName}.
+  <br>
 <pre>
 
 <br/><br/>

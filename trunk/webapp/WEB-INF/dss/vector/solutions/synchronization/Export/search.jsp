@@ -28,32 +28,7 @@
     </mjl:freeColumn>
   </mjl:columns>
 </mjl:table>
-    <mjl:command value="checkDependencies" action="dss.vector.solutions.synchronization.ExportController.checkDependencies.mojo" name="ExportController.form.checkDependencies.button" />
+    <mdss:localize key="checkDependencies" var="Localized_checkDependencies" />
+    <mjl:command value="${Localized_checkDependencies}" action="dss.vector.solutions.synchronization.ExportController.checkDependencies.mojo" name="ExportController.form.checkDependencies.button" />
   </dl>
 </mjl:form>
-      <%--
-<mjl:form name="ExportController.name" id="ExportController.form.id" method="POST">
-  <dl>
-      <table class="displayTable">
-        <tr> 
-          <th><mdss:localize key="Qualified_Type_Name"/></th>
-          <th><mdss:localize key="Export"/></th>
-        </tr>      
-        <mjl:components items="${results}" param="types" var="current" varStatus="status">
-          <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-            <td>
-              ${current.qualifiedType}
-            </td>
-            <td>
-              <mjl:boolean param="enabled"/>
-              <mjl:messages attribute="enabled">
-                <mjl:message />
-              </mjl:messages>
-            </td>
-          </tr>
-        </mjl:components>
-      </table>
-    <mjl:command value="checkDependencies" action="dss.vector.solutions.synchronization.ExportController.checkDependencies.mojo" name="ExportController.form.checkDependencies.button" />
-  </dl>
-</mjl:form>
-      --%>

@@ -14,7 +14,8 @@
         ${item.defaultLocale}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.entomology.ResistancePropertyDisplayLabel.form.edit.button" value="Edit" action="dss.vector.solutions.entomology.ResistancePropertyDisplayLabelController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.entomology.ResistancePropertyDisplayLabel.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.entomology.ResistancePropertyDisplayLabelController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.entomology.ResistancePropertyDisplayLabel.viewAll.link" action="dss.vector.solutions.entomology.ResistancePropertyDisplayLabelController.viewAll.mojo">

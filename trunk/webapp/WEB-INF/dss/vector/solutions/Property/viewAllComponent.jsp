@@ -29,7 +29,8 @@
 
         <mjl:form name="dss.vector.solutions.Property.form.name" id="${item.id}" method="POST">
           <mjl:input value="${item.id}" type="hidden" param="id" />
-          <mjl:command value="Edit" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton" />
+          <mdss:localize key="Edit" var="Localized_Edit" />
+          <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton" />
         </mjl:form>
       </mjl:row>
     </mjl:freeColumn>
@@ -64,7 +65,7 @@
       <mjl:row>
         <mjl:form name="dss.vector.solutions.Property.form.name" id="${item.id}" method="POST">
           <mjl:input value="${item.id}" type="hidden" param="id" />
-          <mjl:command value="Edit" action="dss.vector.solutions.DefaultGeoEntityController.edit.mojo" name="dss.vector.solutions.DefaultGeoEntityController.edit.btn" classes="submitButton" />
+          <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.DefaultGeoEntityController.edit.mojo" name="dss.vector.solutions.DefaultGeoEntityController.edit.btn" classes="submitButton" />
         </mjl:form>        
       </mjl:row>
       <mjl:footer>

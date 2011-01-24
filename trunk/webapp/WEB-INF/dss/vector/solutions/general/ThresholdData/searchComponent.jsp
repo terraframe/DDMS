@@ -36,7 +36,8 @@
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.searchForThresholdData.mojo" name="search" value="Search" id="search"/>
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.general.ThresholdDataController.searchForThresholdData.mojo" name="search" value="${Localized_Search}" id="search" />
   </dl>
 </mjl:form>
 

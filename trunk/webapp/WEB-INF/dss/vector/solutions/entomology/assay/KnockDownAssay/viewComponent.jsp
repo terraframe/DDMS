@@ -126,7 +126,8 @@
         </table>    
       </div>  
     </mjl:component>
-  <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
   </dl>
 </mjl:form>
 

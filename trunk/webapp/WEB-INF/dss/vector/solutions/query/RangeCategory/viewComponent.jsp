@@ -24,7 +24,8 @@
       ${item.upperBound}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.query.RangeCategoryController.edit.mojo" name="dss.vector.solutions.query.RangeCategory.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.RangeCategoryController.edit.mojo" name="dss.vector.solutions.query.RangeCategory.form.edit.button" />
   <br />
 </mjl:form>
 <dl>

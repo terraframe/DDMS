@@ -16,7 +16,8 @@
         ${residentialLocation.displayString}
       </mjl:dt>      
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.edit.button" value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.intervention.monitor.IndividualIPTCase.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.edit.mojo" />
   </mjl:form>
 </dl>
 <dl>

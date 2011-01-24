@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
@@ -16,7 +16,8 @@
     <dd>
       <mjl:input id="collectionInput" param="collectionInput" type="text" />
       <mjl:input id="collectionId" param="collectionId" type="hidden" />        
-      <mjl:command name="search" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="Go"/>
+      <mdss:localize key="Go" var="Localized_Go" />        
+      <mjl:command name="search" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="${Localized_Go}" />
     </dd>
   </dl>  
 </mjl:form>

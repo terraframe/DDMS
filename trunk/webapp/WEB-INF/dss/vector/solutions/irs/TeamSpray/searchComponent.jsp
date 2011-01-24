@@ -52,7 +52,8 @@
        </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.irs.TeamSprayController.searchByParameters.mojo" name="search.button" value="Search" />
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.irs.TeamSprayController.searchByParameters.mojo" name="search.button" value="${Localized_Search}" />
   </dl>
 </mjl:form>
 

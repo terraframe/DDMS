@@ -75,7 +75,9 @@
         <mjl:boolean param="urban" />
       </dd>
     </mjl:component>
-    <mjl:command value="Create" action="dss.vector.solutions.geo.GeoEntityTypeController.createDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.createDefinition.button" />
-    <mjl:command value="Cancel" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />
+    <mdss:localize key="Create" var="Localized_Create" />
+    <mjl:command value="${Localized_Create}" action="dss.vector.solutions.geo.GeoEntityTypeController.createDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.createDefinition.button" />
+    <mdss:localize key="Cancel" var="Localized_Cancel" />
+    <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.geo.GeoEntityTypeController.cancelCreateDefinition.mojo" name="dss.vector.solutions.geo.GeoEntityTypeController.form.cancelCreateDefinition.button" />
   </dl>
 </mjl:form>

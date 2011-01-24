@@ -74,7 +74,9 @@
         </mjl:messages>
       </dd>
 
-      <mjl:command value="Update" action="dss.vector.solutions.PropertyController.create.mojo" name="dss.vector.solutions.Property.form.update.button" classes="submitButton"/>
+      <mdss:localize key="Update" var="Localized_Update" />
+
+      <mjl:command value="${Localized_Update}" action="dss.vector.solutions.PropertyController.create.mojo" name="dss.vector.solutions.Property.form.update.button" classes="submitButton" />
     </dl>
   </mjl:component>
 </mjl:form>

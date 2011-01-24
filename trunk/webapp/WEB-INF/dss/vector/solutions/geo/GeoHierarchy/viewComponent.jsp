@@ -26,7 +26,8 @@
       ${item.political}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.geo.GeoHierarchyController.edit.mojo" name="dss.vector.solutions.geo.GeoHierarchy.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.geo.GeoHierarchyController.edit.mojo" name="dss.vector.solutions.geo.GeoHierarchy.form.edit.button" />
   <br />
 </mjl:form>
 <dl>

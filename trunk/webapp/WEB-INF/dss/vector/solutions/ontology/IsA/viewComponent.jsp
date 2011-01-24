@@ -31,7 +31,8 @@
         </mjl:commandLink>
       </dd>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.ontology.IsAController.edit.mojo" name="dss.vector.solutions.ontology.IsA.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.ontology.IsAController.edit.mojo" name="dss.vector.solutions.ontology.IsA.form.edit.button" />
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.ontology.IsAController.viewAll.mojo" name="dss.vector.solutions.ontology.IsA.viewAll.link">

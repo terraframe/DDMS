@@ -43,7 +43,8 @@
         </ul>
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.stock.StockEvent.form.edit.button" value="Edit" action="dss.vector.solutions.stock.StockEventController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.stock.StockEvent.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.stock.StockEventController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.stock.StockEvent.viewAll.link" action="dss.vector.solutions.stock.StockEventController.viewAll..mojo">

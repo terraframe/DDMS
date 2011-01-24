@@ -60,5 +60,6 @@
 
 </mjl:component>
 </dl>
-<mjl:command value="Create" name="dss.vector.solutions.query.MappingController.form.setText.btn.mojo" action="dss.vector.solutions.query.MappingController.setText.mojo"/>
+<mdss:localize key="Create" var="Localized_Create" />
+<mjl:command value="${Localized_Create}" name="dss.vector.solutions.query.MappingController.form.setText.btn.mojo" action="dss.vector.solutions.query.MappingController.setText.mojo" />
 </mjl:form>

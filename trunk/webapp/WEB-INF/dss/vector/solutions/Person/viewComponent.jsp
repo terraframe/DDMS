@@ -119,8 +119,10 @@
         </fieldset>
       </dd>
     </c:if>
-    <mjl:command value="Edit" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
-    <mjl:command value="Create_new_person" action="dss.vector.solutions.PersonController.newInstance.mojo" name="newInstance.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.PersonController.edit.mojo" name="dss.vector.solutions.Person.form.edit.button" />
+    <mdss:localize key="Create_new_person" var="Localized_Create_new_person" />
+    <mjl:command value="${Localized_Create_new_person}" action="dss.vector.solutions.PersonController.newInstance.mojo" name="newInstance.button" />
     </mjl:component>    
   </dl>
 </mjl:form>

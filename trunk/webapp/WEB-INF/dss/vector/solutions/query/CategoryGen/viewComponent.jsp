@@ -29,7 +29,8 @@
         ${item.precisionFigures}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.query.CategoryGen.form.edit.button" value="Edit" action="dss.vector.solutions.query.CategoryGenController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.query.CategoryGen.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.query.CategoryGenController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.query.CategoryGen.viewAll.link" action="dss.vector.solutions.query.CategoryGenController.viewAll.mojo">

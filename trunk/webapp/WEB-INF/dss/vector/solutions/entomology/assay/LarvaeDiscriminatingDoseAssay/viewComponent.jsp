@@ -85,7 +85,8 @@
         ${item.lt95}
       </mjl:dt>     
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.edit.mojo"
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.edit.mojo"
       name="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
   </dl>
 </mjl:form>

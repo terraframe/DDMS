@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <mjl:form name="dss.vector.solutions.query.HasLayers.form.name" id="dss.vector.solutions.query.HasLayers.form.id" method="POST">
   <dl>
@@ -26,6 +26,7 @@
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command value="New_Instance" action="dss.vector.solutions.query.HasLayersController.newInstance.mojo" name="dss.vector.solutions.query.HasLayers.form.newInstance.button" />
+    <mdss:localize key="New_Instance" var="Localized_New_Instance" />
+    <mjl:command value="${Localized_New_Instance}" action="dss.vector.solutions.query.HasLayersController.newInstance.mojo" name="dss.vector.solutions.query.HasLayers.form.newInstance.button" />
   </dl>
 </mjl:form>

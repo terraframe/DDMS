@@ -35,7 +35,8 @@
         ${item.viewName}
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.query.LayerController.edit.mojo" name="dss.vector.solutions.query.Layer.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.LayerController.edit.mojo" name="dss.vector.solutions.query.Layer.form.edit.button" />
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.query.LayerController.viewAll.mojo" name="dss.vector.solutions.query.Layer.viewAll.link">

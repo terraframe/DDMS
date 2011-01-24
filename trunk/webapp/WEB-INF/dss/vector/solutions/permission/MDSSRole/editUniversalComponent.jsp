@@ -31,5 +31,7 @@
     </mjl:components>
   </table>
 
-  <mjl:command value="save" action="dss.vector.solutions.permission.MDSSRoleController.setUniversalPermissions.mojo" name="save.button" />
+  <mdss:localize key="save" var="Localized_save" />
+
+  <mjl:command value="${Localized_save}" action="dss.vector.solutions.permission.MDSSRoleController.setUniversalPermissions.mojo" name="save.button" />
 </mjl:form>

@@ -47,7 +47,8 @@
         ${item.polygonWidth}
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.query.StylesController.edit.mojo" name="dss.vector.solutions.query.Styles.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.StylesController.edit.mojo" name="dss.vector.solutions.query.Styles.form.edit.button" />
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.query.StylesController.viewAll.mojo" name="dss.vector.solutions.query.Styles.viewAll.link">

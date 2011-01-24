@@ -137,8 +137,11 @@
     </dd>
   </c:if>
     
-    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.ITNDataController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNData.form.edit.button" />
-    <mjl:command value="Create_New_ITN_Data_Button" action="dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo" name="ITNDataController.search" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.intervention.monitor.ITNDataController.edit.mojo" name="dss.vector.solutions.intervention.monitor.ITNData.form.edit.button" />
+    <mdss:localize key="Create_New_ITN_Data_Button" var="Localized_Create_New_ITN_Data_Button" />
+    <mjl:command value="${Localized_Create_New_ITN_Data_Button}" action="dss.vector.solutions.intervention.monitor.ITNDataController.search.mojo" name="ITNDataController.search" />
     
   </dl>
 </mjl:form>

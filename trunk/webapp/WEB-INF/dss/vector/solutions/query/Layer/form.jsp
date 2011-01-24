@@ -64,8 +64,9 @@
     <label><mdss:localize key="Calculate_Query_Info"></fmt:message></label>
   </dt>
   <dd>
+    <mdss:localize key="Calculate" var="Localized_Calculate" />
     <mjl:command name="dss.vector.solutions.query.LayerController.calculateQueryInfoBtn"
-      action="dss.vector.solutions.query.LayerController.calculateQueryInfo.mojo" value="Calculate"/>
+      action="dss.vector.solutions.query.LayerController.calculateQueryInfo.mojo" value="${Localized_Calculate}" />
     <div id="queryInfo">
     </div>
   </dd>
@@ -210,9 +211,13 @@
 <c:choose>
 <c:when test="${!isNewInstance}">
 
-  <mjl:command id="exactCategory" value="Exact_Category" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
-  <mjl:command id="rangeCategory" value="Range_Category" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
-  <mjl:command value="Generate" id="${layer.id}_generate" action="dss.vector.solutions.query.LayerController.requestGenerate.mojo" name="dss.vector.solutions.query.LayerController.requestGenerate.mojo.button" />
+  <mdss:localize key="Exact_Category" var="Localized_Exact_Category" />
+
+  <mjl:command id="exactCategory" value="${Localized_Exact_Category}" action="dss.vector.solutions.query.NonRangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
+  <mdss:localize key="Range_Category" var="Localized_Range_Category" />
+  <mjl:command id="rangeCategory" value="${Localized_Range_Category}" action="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo" name="dss.vector.solutions.query.RangeCategoryController.newInstance.mojo.button" />
+  <mdss:localize key="Generate" var="Localized_Generate" />
+  <mjl:command value="${Localized_Generate}" id="${layer.id}_generate" action="dss.vector.solutions.query.LayerController.requestGenerate.mojo" name="dss.vector.solutions.query.LayerController.requestGenerate.mojo.button" />
   <ul id="categoryList">
     <c:forEach items="${categories}" var="category">
       <li>

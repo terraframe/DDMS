@@ -31,6 +31,7 @@
         </tr>
       </mjl:components>
     </table>
-    <mjl:command value="confirm" action="dss.vector.solutions.synchronization.ExportController.confirm.mojo" name="ExportController.form.confirm.button" />
+    <mdss:localize key="confirm" var="Localized_confirm" />
+    <mjl:command value="${Localized_confirm}" action="dss.vector.solutions.synchronization.ExportController.confirm.mojo" name="ExportController.form.confirm.button" />
   </dl>
 </mjl:form>

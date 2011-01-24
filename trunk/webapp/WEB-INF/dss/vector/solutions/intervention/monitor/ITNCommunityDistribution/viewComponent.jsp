@@ -121,7 +121,8 @@
         ${item.pretreated ? item.pretreatedMd.positiveDisplayLabel : item.pretreatedMd.negativeDisplayLabel}
       </mjl:dt>      
     </mjl:component>    
-    <mjl:command name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.form.edit.button" value="Edit" action="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />    
+    <mjl:command name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.intervention.monitor.ITNCommunityDistribution.viewAll.link" action="dss.vector.solutions.intervention.monitor.ITNCommunityDistributionController.viewAll.mojo">

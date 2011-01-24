@@ -43,7 +43,8 @@ function enableButton(checkbox) {
         </mjl:row>
       </mjl:freeColumn>
     </mjl:table>
-    <mjl:command value="exportFile" action="dss.vector.solutions.util.LocalizationController.exportFile.mojo" name="LocalizationController.form.exportFile.button" />
+    <mdss:localize key="exportFile" var="Localized_exportFile" />
+    <mjl:command value="${Localized_exportFile}" action="dss.vector.solutions.util.LocalizationController.exportFile.mojo" name="LocalizationController.form.exportFile.button" />
   </dl>
 </mjl:form>
 <mjl:commandLink name="LocalizationController.add" action="dss.vector.solutions.util.LocalizationController.newLocale.mojo">

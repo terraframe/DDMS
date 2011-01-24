@@ -18,7 +18,8 @@
       <mjl:dt attribute="upperPercent"> ${item.upperPercent} </mjl:dt>
       <mjl:dt attribute="upperTime"> ${item.upperTime} </mjl:dt>  
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.general.KnockDownTimePropertyController.edit.mojo" name="dss.vector.solutions.general.KnockDownTimeProperty.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.general.KnockDownTimePropertyController.edit.mojo" name="dss.vector.solutions.general.KnockDownTimeProperty.form.edit.button" />
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.general.KnockDownTimePropertyController.search.mojo" name="search.link">

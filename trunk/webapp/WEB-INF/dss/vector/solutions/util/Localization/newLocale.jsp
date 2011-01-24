@@ -40,6 +40,7 @@
     <dd>
       <mjl:input type="text" param="variant"/>
     </dd>
-    <mjl:command value="installLocale" action="dss.vector.solutions.util.LocalizationController.installLocale.mojo" name="LocalizationController.form.installLocale.button" />
+    <mdss:localize key="installLocale" var="Localized_installLocale" />
+    <mjl:command value="${Localized_installLocale}" action="dss.vector.solutions.util.LocalizationController.installLocale.mojo" name="LocalizationController.form.installLocale.button" />
   </dl>
 </mjl:form>

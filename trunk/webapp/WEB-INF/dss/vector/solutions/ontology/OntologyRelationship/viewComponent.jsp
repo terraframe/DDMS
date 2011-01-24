@@ -51,7 +51,8 @@
         ${item.relationshipId}
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.ontology.OntologyRelationshipController.edit.mojo" name="dss.vector.solutions.ontology.OntologyRelationship.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.ontology.OntologyRelationshipController.edit.mojo" name="dss.vector.solutions.ontology.OntologyRelationship.form.edit.button" />
   </mjl:form>
 </dl>
 <dl>

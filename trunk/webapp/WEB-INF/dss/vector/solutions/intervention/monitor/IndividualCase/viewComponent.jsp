@@ -57,7 +57,8 @@
         </span>
       </mjl:dt>      
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.intervention.monitor.IndividualCaseController.edit.mojo" name="dss.vector.solutions.intervention.monitor.IndividualCase.form.edit.button" />
   </mjl:form>
 </dl>
 <dl>

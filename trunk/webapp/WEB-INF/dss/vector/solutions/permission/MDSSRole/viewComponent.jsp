@@ -14,9 +14,12 @@
         ${item.displayLabel}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.permission.MDSSRole.form.edit.button" value="Edit" action="dss.vector.solutions.permission.MDSSRoleController.edit.mojo" />
-    <mjl:command name="url.button" value="Edit_URL_Permissions" action="dss.vector.solutions.permission.MDSSRoleController.getPermissions.mojo" />
-    <mjl:command name="universal.button" value="Edit_Universal_Permissions" action="dss.vector.solutions.permission.MDSSRoleController.getUniversalPermissions.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.permission.MDSSRole.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.permission.MDSSRoleController.edit.mojo" />
+    <mdss:localize key="Edit_URL_Permissions" var="Localized_Edit_URL_Permissions" />
+    <mjl:command name="url.button" value="${Localized_Edit_URL_Permissions}" action="dss.vector.solutions.permission.MDSSRoleController.getPermissions.mojo" />
+    <mdss:localize key="Edit_Universal_Permissions" var="Localized_Edit_Universal_Permissions" />
+    <mjl:command name="universal.button" value="${Localized_Edit_Universal_Permissions}" action="dss.vector.solutions.permission.MDSSRoleController.getUniversalPermissions.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.permission.MDSSRole.viewAll.link" action="dss.vector.solutions.permission.MDSSRoleController.viewAll.mojo">

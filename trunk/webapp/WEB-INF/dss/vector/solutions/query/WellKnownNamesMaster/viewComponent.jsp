@@ -35,7 +35,8 @@
       ${item.enumName}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.query.WellKnownNamesMasterController.edit.mojo" name="dss.vector.solutions.query.WellKnownNamesMaster.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.WellKnownNamesMasterController.edit.mojo" name="dss.vector.solutions.query.WellKnownNamesMaster.form.edit.button" />
   <br />
 </mjl:form>
 <dl>

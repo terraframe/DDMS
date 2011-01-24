@@ -88,7 +88,8 @@
       <mjl:input type="text" disabled="true" param="#operatorLabel" id="#operatorLabel" value="${operator != null ? operator.label : ''}"/>
       <mjl:input type="hidden" param="operator.componentId" id="operator.componentId" value="${operator != null ? operator.actorId : ''}"/>    
     </dd>    
-    <mjl:command classes="submitButton" action="dss.vector.solutions.irs.OperatorSprayController.searchByParameters.mojo" name="search.button" value="Search" />
+    <mdss:localize key="Search" var="Localized_Search" />    
+    <mjl:command classes="submitButton" action="dss.vector.solutions.irs.OperatorSprayController.searchByParameters.mojo" name="search.button" value="${Localized_Search}" />
   </dl>
 </mjl:form>
 <jsp:include page="/WEB-INF/excelButtons.jsp">

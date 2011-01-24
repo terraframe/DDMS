@@ -59,7 +59,9 @@
      </table>
   </dd>
 
-<mjl:command name="searchPatient.button" value="Search"action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.viewCasePage.mojo" id="button.id" />
+<mdss:localize key="Search" var="Localized_Search" />
+
+<mjl:command name="searchPatient.button" value="${Localized_Search}"action="dss.vector.solutions.intervention.monitor.IndividualIPTCaseController.viewCasePage.mojo" id="button.id" />
 </mjl:form>
 </dl>
 

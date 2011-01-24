@@ -21,6 +21,7 @@
         </mjl:option>
       </mjl:select>
     </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.general.KnockDownTimePropertyController.searchByInsecticide.mojo" name="search.button" value="Search" />
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.general.KnockDownTimePropertyController.searchByInsecticide.mojo" name="search.button" value="${Localized_Search}" />
   </mjl:form>
 </dl>

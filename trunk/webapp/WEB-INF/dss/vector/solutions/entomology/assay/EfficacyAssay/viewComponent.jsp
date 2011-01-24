@@ -90,8 +90,11 @@
       <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${item.overallMortalityRate}" /></dd>
     </mjl:component>
 
-    <mjl:command value="Edit" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
-    <mjl:command value="Copy_Assay" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cloneAssay.mojo" name="form.cloneAssay.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.EfficacyAssay.form.edit.button" />
+    <mdss:localize key="Copy_Assay" var="Localized_Copy_Assay" />
+    <mjl:command value="${Localized_Copy_Assay}" action="dss.vector.solutions.entomology.assay.EfficacyAssayController.cloneAssay.mojo" name="form.cloneAssay.button" />
   </dl>
 </mjl:form>
 

@@ -50,7 +50,8 @@
            </mjl:option>
          </mjl:select>
        </mjl:dt> 
-       <mjl:command name="Go" action="dss.vector.solutions.entomology.MosquitoCollectionController.forward.mojo" value="Go"/>
+       <mdss:localize key="Go" var="Localized_Go" /> 
+       <mjl:command name="Go" action="dss.vector.solutions.entomology.MosquitoCollectionController.forward.mojo" value="${Localized_Go}" />
        <hr />
        <mjl:dt attribute="collectionId">
          <mjl:input type="text" param="collectionId" id="collectionId"/>
@@ -60,24 +61,31 @@
        </mjl:dt>
     </mjl:component>
     <c:if test="${adaFlag}">
-      <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="Adult_DDA"/>
+      <mdss:localize key="Adult_DDA" var="Localized_Adult_DDA" />
+      <mjl:command name="ada.button" id="ada.button" classes="button" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.newInstance.mojo" value="${Localized_Adult_DDA}" />
     </c:if>
     <c:if test="${ldaFlag}">
-      <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="Larvae_DDA"/>
+      <mdss:localize key="Larvae_DDA" var="Localized_Larvae_DDA" />
+      <mjl:command name="lda.button" id="lda.button" classes="button" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.newInstance.mojo" value="${Localized_Larvae_DDA}" />
     </c:if>
     <c:if test="${kdaFlag}">
-      <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="Knock_Down_Assay"/>      
+      <mdss:localize key="Knock_Down_Assay" var="Localized_Knock_Down_Assay" />
+      <mjl:command name="kda.button" id="kda.button" classes="button" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.newInstance.mojo" value="${Localized_Knock_Down_Assay}" />      
     </c:if>
     <c:if test="${raFlag}">
-      <mjl:command name="ra.button" id="ra.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="Bioassays"/>
+      <mdss:localize key="Bioassays" var="Localized_Bioassays" />
+      <mjl:command name="ra.button" id="ra.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getResistanceAssays.mojo" value="${Localized_Bioassays}" />
     </c:if>
     <c:if test="${iaFlag}">
-      <mjl:command name="ia.button" id="ia.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="Infection_Assays"/>
+      <mdss:localize key="Infection_Assays" var="Localized_Infection_Assays" />
+      <mjl:command name="ia.button" id="ia.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getInfectionAssays.mojo" value="${Localized_Infection_Assays}" />
     </c:if>
     <c:if test="${maFlag}">
-      <mjl:command name="ma.button" id="ma.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="Mechanism_Assays"/>
+      <mdss:localize key="Mechanism_Assays" var="Localized_Mechanism_Assays" />
+      <mjl:command name="ma.button" id="ma.button" classes="button" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="${Localized_Mechanism_Assays}" />
     </c:if>
-    <mjl:command name="delete" id="delete.button" classes="button" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" value="Delete"/>
+    <mdss:localize key="Delete" var="Localized_Delete" />
+    <mjl:command name="delete" id="delete.button" classes="button" action="dss.vector.solutions.entomology.MosquitoCollectionController.delete.mojo" value="${Localized_Delete}" />
   </mjl:form>
 </dl>
 

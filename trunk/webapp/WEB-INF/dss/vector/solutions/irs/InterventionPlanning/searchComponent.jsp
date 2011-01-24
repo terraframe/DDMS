@@ -39,13 +39,14 @@
     </dd>
     <dd>
       <div class="time">
-        <mjl:command classes="submitButton" action="dss.vector.solutions.irs.InterventionPlanningController.searchForTimePlanning.mojo" name="search.time" value="Search" id="time"/>
+        <mdss:localize key="Search" var="Localized_Search" />
+        <mjl:command classes="submitButton" action="dss.vector.solutions.irs.InterventionPlanningController.searchForTimePlanning.mojo" name="search.time" value="${Localized_Search}" id="time" />
       </div>
       <div class="insecticide">
-        <mjl:command classes="submitButton Insecticide" action="dss.vector.solutions.irs.InterventionPlanningController.searchForInsceticidePlanning.mojo" name="search.insecticide" value="Search" id="insecticide"/>
+        <mjl:command classes="submitButton Insecticide" action="dss.vector.solutions.irs.InterventionPlanningController.searchForInsceticidePlanning.mojo" name="search.insecticide" value="${Localized_Search}" id="insecticide" />
       </div>
       <div class="operator">
-        <mjl:command classes="submitButton Operator" action="dss.vector.solutions.irs.InterventionPlanningController.searchForOperatorPlanning.mojo" name="search.operator" value="Search" id="operator"/>
+        <mjl:command classes="submitButton Operator" action="dss.vector.solutions.irs.InterventionPlanningController.searchForOperatorPlanning.mojo" name="search.operator" value="${Localized_Search}" id="operator" />
       </div>
     </dd>
   </dl>

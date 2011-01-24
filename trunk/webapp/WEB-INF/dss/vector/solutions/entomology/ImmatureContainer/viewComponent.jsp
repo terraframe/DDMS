@@ -137,9 +137,12 @@
       </dd>
     </c:if>
     
-    <mjl:command name="Save" action="dss.vector.solutions.entomology.ImmatureContainerController.update.mojo" value="save"/>    
+    <mdss:localize key="save" var="Localized_save" />
+    
+    <mjl:command name="Save" action="dss.vector.solutions.entomology.ImmatureContainerController.update.mojo" value="${Localized_save}" />    
     <c:if test="${item.taxonId != ''}">
-      <mjl:command name="Delete" action="dss.vector.solutions.entomology.ImmatureContainerController.delete.mojo" value="Delete"/>
+      <mdss:localize key="Delete" var="Localized_Delete" />
+      <mjl:command name="Delete" action="dss.vector.solutions.entomology.ImmatureContainerController.delete.mojo" value="${Localized_Delete}" />
     </c:if>
   </mjl:form>
 </dl>

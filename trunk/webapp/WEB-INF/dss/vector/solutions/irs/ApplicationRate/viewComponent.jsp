@@ -44,8 +44,10 @@
       <mjl:dt attribute="structureArea" type="text" />
       <mjl:dt attribute="household" type="text" />
       </mjl:component>
-      <mjl:command value="Update" id="update.id" action="dss.vector.solutions.irs.ApplicationRateController.update.mojo" name="update.button" />
-      <mjl:command value="Create" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
+      <mdss:localize key="Update" var="Localized_Update" />
+      <mjl:command value="${Localized_Update}" id="update.id" action="dss.vector.solutions.irs.ApplicationRateController.update.mojo" name="update.button" />
+      <mdss:localize key="Create" var="Localized_Create" />
+      <mjl:command value="${Localized_Create}" id="create.id" action="dss.vector.solutions.irs.ApplicationRateController.create.mojo" name="create.button" />
    </dl>
   </mjl:form>
   <mjl:commandLink name="history" action="dss.vector.solutions.irs.AreaStandardsController.viewAll.mojo"><mdss:localize key="Area_History"/></mjl:commandLink>

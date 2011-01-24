@@ -7,7 +7,9 @@
 <mjl:form name="dss.vector.solutions.query.StyleRule.form.name" id="dss.vector.solutions.query.StyleRule.form.id" method="POST">
   <mjl:input value="${item.id}" type="hidden" param="id" />
   
-  <mjl:command value="Edit" action="dss.vector.solutions.query.StyleRuleController.edit.mojo" name="dss.vector.solutions.query.StyleRule.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.StyleRuleController.edit.mojo" name="dss.vector.solutions.query.StyleRule.form.edit.button" />
   <br />
 </mjl:form>
 

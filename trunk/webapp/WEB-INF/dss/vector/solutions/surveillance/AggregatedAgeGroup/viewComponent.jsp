@@ -42,7 +42,8 @@
     <dd>
       ${item.endAge}
     </dd>
-    <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.surveillance.AggregatedAgeGroupController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedAgeGroup.form.edit.button" />
   </dl>
 </mjl:form>
 

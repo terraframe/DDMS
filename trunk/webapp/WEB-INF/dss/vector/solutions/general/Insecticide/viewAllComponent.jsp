@@ -30,7 +30,8 @@
       <mjl:row>
         <mjl:form name="dss.vector.solutions.general.Insecticide.form.name" id="${item.id}" method="POST">
           <mjl:input value="${item.id}" type="hidden" param="dto.componentId" />
-          <mjl:command value="Delete" action="dss.vector.solutions.general.InsecticideController.delete.mojo" name="delete.button"  />
+          <mdss:localize key="Delete" var="Localized_Delete" />
+          <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.general.InsecticideController.delete.mojo" name="delete.button"  />
         </mjl:form>
       </mjl:row>
       <mjl:footer>

@@ -40,14 +40,17 @@
     <dd>
       <mjl:input param="date" type="text" classes="DatePick NoFuture" id="date" value="${date}"/>
     </dd>    
-    <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchInStock.mojo" name="inStock" value="In_Stock" id="inStock"/>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchOutStock.mojo" name="outStock" value="Out_Stock" id="outStock"/>
+    <mdss:localize key="In_Stock" var="Localized_In_Stock" />    
+    <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchInStock.mojo" name="inStock" value="${Localized_In_Stock}" id="inStock" />
+    <mdss:localize key="Out_Stock" var="Localized_Out_Stock" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchOutStock.mojo" name="outStock" value="${Localized_Out_Stock}" id="outStock" />
     <dt>
       <label> <mdss:localize key="endDate_stock" /> </label>
     </dt>
     <dd>
       <mjl:input param="endDate" type="text" classes="DatePick NoFuture" id="endDate" value="${endDate}"/>
     </dd>    
-    <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchPage.mojo" name="searchPage" value="Search" id="searchPage"/>    
+    <mdss:localize key="Search" var="Localized_Search" />    
+    <mjl:command classes="submitButton" action="dss.vector.solutions.stock.StockEventController.searchPage.mojo" name="searchPage" value="${Localized_Search}" id="searchPage" />    
   </dl>
 </mjl:form>

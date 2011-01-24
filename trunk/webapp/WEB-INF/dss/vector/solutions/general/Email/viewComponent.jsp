@@ -38,7 +38,8 @@
         ${item.error}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.general.Email.form.delete.button" value="Delete" action="dss.vector.solutions.general.EmailController.delete.mojo" />
+    <mdss:localize key="Delete" var="Localized_Delete" />
+    <mjl:command name="dss.vector.solutions.general.Email.form.delete.button" value="${Localized_Delete}" action="dss.vector.solutions.general.EmailController.delete.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.general.Email.viewAll.link" action="dss.vector.solutions.general.EmailController.viewAll.mojo">

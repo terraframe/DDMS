@@ -38,7 +38,8 @@
         ${item.household}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.irs.AreaStandards.form.edit.button" value="Edit" action="dss.vector.solutions.irs.AreaStandardsController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.irs.AreaStandards.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.irs.AreaStandardsController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.irs.AreaStandards.viewAll.link" action="dss.vector.solutions.irs.AreaStandardsController.viewAll.mojo">

@@ -50,7 +50,8 @@
       ${item.viewCreated}
     </dd>
   </dl>
-  <mjl:command value="Edit" action="dss.vector.solutions.query.AggregatedCasesSearchController.edit.mojo" name="dss.vector.solutions.query.AggregatedCasesSearch.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.query.AggregatedCasesSearchController.edit.mojo" name="dss.vector.solutions.query.AggregatedCasesSearch.form.edit.button" />
   <br />
 </mjl:form>
 <dl>

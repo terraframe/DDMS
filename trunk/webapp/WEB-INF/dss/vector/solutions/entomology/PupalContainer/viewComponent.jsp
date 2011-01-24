@@ -73,7 +73,9 @@ vertical-align: baseline;
         <mdss:mo param="premiseType" value="${premiseType}" classes="collection immutable"/>
       </mjl:dt>
       
-      <mjl:command name="Go" action="dss.vector.solutions.entomology.PupalContainerController.forward.mojo" value="Go"/>
+      <mdss:localize key="Go" var="Localized_Go" />
+      
+      <mjl:command name="Go" action="dss.vector.solutions.entomology.PupalContainerController.forward.mojo" value="${Localized_Go}" />
          
       <hr />
       

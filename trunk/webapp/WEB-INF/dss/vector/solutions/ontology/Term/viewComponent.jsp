@@ -29,7 +29,8 @@
         ${item.termName}
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.ontology.TermController.edit.mojo" name="dss.vector.solutions.ontology.Term.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.ontology.TermController.edit.mojo" name="dss.vector.solutions.ontology.Term.form.edit.button" />
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.ontology.TermController.viewAll.mojo" name="dss.vector.solutions.ontology.Term.viewAll.link">

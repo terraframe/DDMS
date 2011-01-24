@@ -69,7 +69,9 @@
       </mjl:dt>      
     </mjl:component>
     
-    <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByView.mojo" name="search.button" id="button.id" value="Search" />
+    <mdss:localize key="Search" var="Localized_Search" />
+    
+    <mjl:command classes="submitButton" action="dss.vector.solutions.surveillance.AggregatedCaseController.searchByView.mojo" name="search.button" id="button.id" value="${Localized_Search}" />
   </dl>
 </mjl:form>
 

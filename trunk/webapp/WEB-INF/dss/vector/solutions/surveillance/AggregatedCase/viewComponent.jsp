@@ -120,8 +120,11 @@ overflow: hidden;
     
     <hr />
 
-    <mjl:command value="Edit" action="dss.vector.solutions.surveillance.AggregatedCaseController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.form.edit.button" />
-    <mjl:command value="Create_New_Aggregated_Case_Button" action="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" name="AggregatedCaseController.search" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.surveillance.AggregatedCaseController.edit.mojo" name="dss.vector.solutions.surveillance.AggregatedCase.form.edit.button" />
+    <mdss:localize key="Create_New_Aggregated_Case_Button" var="Localized_Create_New_Aggregated_Case_Button" />
+    <mjl:command value="${Localized_Create_New_Aggregated_Case_Button}" action="dss.vector.solutions.surveillance.AggregatedCaseController.search.mojo" name="AggregatedCaseController.search" />
   </mjl:form>
 </dl>
 

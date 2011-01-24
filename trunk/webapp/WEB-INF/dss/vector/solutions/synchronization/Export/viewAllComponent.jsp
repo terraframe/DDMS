@@ -27,7 +27,8 @@
     <dd>
       <mjl:input type="text" param="query"/>
     </dd>
-    <mjl:command name="ExportController.search" action="dss.vector.solutions.synchronization.ExportController.search.mojo" value="Search"/>
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command name="ExportController.search" action="dss.vector.solutions.synchronization.ExportController.search.mojo" value="${Localized_Search}" />
   </dl>
   
 </mjl:form>

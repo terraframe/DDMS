@@ -29,7 +29,8 @@
       <mjl:row>
         <mjl:form name="dss.vector.solutions.MalariaSeason.form.name" id="${item.id}" method="POST">
           <mjl:input value="${item.id}" type="hidden" param="id" />
-          <mjl:command value="Edit" action="dss.vector.solutions.general.MalariaSeasonController.edit.mojo" name="dss.vector.solutions.MalariaSeason.form.edit.button" />
+          <mdss:localize key="Edit" var="Localized_Edit" />
+          <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.general.MalariaSeasonController.edit.mojo" name="dss.vector.solutions.MalariaSeason.form.edit.button" />
         </mjl:form>
       </mjl:row>
       <mjl:footer>

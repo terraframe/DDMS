@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <c:set scope="request" var="page_title" value="View_All_SystemAlert" />
@@ -37,7 +37,8 @@
 				<mjl:form name="dss.vector.solutions.SystemAlert.form.name"
 					id="${item.id}" method="POST">
 					<mjl:input value="${item.id}" type="hidden" param="id" />
-					<mjl:command value="Edit"
+					<mdss:localize key="Edit" var="Localized_Edit" />
+					<mjl:command value="${Localized_Edit}"
 						action="dss.vector.solutions.general.SystemAlertController.edit.mojo"
 						name="dss.vector.solutions.SystemAlert.form.edit.button" />
 				</mjl:form>

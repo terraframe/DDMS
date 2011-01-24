@@ -63,7 +63,9 @@
     </mjl:dt>
   </mjl:component>
 
-  <mjl:command value="Search" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewHistory.mojo" name="search.person" id="button.id" />
+  <mdss:localize key="Search" var="Localized_Search" />
+
+  <mjl:command value="${Localized_Search}" action="dss.vector.solutions.intervention.monitor.ITNDistributionController.viewHistory.mojo" name="search.person" id="button.id" />
   </mjl:form>
 </dl>
 

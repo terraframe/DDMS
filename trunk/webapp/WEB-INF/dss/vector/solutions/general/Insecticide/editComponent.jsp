@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%--
@@ -55,8 +55,11 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Update" action="dss.vector.solutions.general.InsecticideController.update.mojo" name="dss.vector.solutions.general.Insecticide.form.update.button" />
-  <mjl:command value="Delete" action="dss.vector.solutions.general.InsecticideController.delete.mojo" name="dss.vector.solutions.general.Insecticide.form.delete.button" />
-  <mjl:command value="Cancel" action="dss.vector.solutions.general.InsecticideController.cancel.mojo" name="dss.vector.solutions.general.Insecticide.form.cancel.button" />
+  <mdss:localize key="Update" var="Localized_Update" />
+  <mjl:command value="${Localized_Update}" action="dss.vector.solutions.general.InsecticideController.update.mojo" name="dss.vector.solutions.general.Insecticide.form.update.button" />
+  <mdss:localize key="Delete" var="Localized_Delete" />
+  <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.general.InsecticideController.delete.mojo" name="dss.vector.solutions.general.Insecticide.form.delete.button" />
+  <mdss:localize key="Cancel" var="Localized_Cancel" />
+  <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.general.InsecticideController.cancel.mojo" name="dss.vector.solutions.general.Insecticide.form.cancel.button" />
 </mjl:form>
 --%>

@@ -53,5 +53,6 @@
     <mjl:input type="hidden" param="memberId" value="${newPerson.memberId}"/>
     <mjl:input type="hidden" param="isSprayOperator" value="${newPerson.isSprayOperator}"/>
   </mjl:component>
-  <mjl:command value="No_Matches__continue_with_new_Person" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="continueNewInstance.button" />
+  <mdss:localize key="No_Matches__continue_with_new_Person" var="Localized_No_Matches__continue_with_new_Person" />
+  <mjl:command value="${Localized_No_Matches__continue_with_new_Person}" action="dss.vector.solutions.PersonController.continueNewInstance.mojo" name="continueNewInstance.button" />
 </mjl:form>

@@ -7,8 +7,11 @@
   <dl>
     <%@ include file="searchForm.jsp"%>
 
-    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.ImmatureContainerController.searchByDTO.mojo" name="search.button" value="Search"/>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.ImmatureContainerController.forward.mojo" name="create.button" value="Create"/>
+    <mdss:localize key="Search" var="Localized_Search" />
+
+    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.ImmatureContainerController.searchByDTO.mojo" name="search.button" value="${Localized_Search}" />
+    <mdss:localize key="Create" var="Localized_Create" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.entomology.ImmatureContainerController.forward.mojo" name="create.button" value="${Localized_Create}" />
   </dl>
 </mjl:form>
 

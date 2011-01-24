@@ -20,7 +20,8 @@
         ${item.unit.displayLabel}
       </mjl:dt>
     </mjl:component>
-    <mjl:command name="dss.vector.solutions.stock.StockItem.form.edit.button" value="Edit" action="dss.vector.solutions.stock.StockItemController.edit.mojo" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command name="dss.vector.solutions.stock.StockItem.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.stock.StockItemController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.stock.StockItem.viewAll.link" action="dss.vector.solutions.stock.StockItemController.viewAll.mojo">

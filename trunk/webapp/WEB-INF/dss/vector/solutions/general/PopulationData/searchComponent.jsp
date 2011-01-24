@@ -32,7 +32,8 @@
     <dd>
       <mjl:input type="text" maxlength="4" size="4" param="yearOfData" id="year"/>
     </dd>
-    <mjl:command classes="submitButton" action="dss.vector.solutions.general.PopulationDataController.searchForPopulationData.mojo" name="search" value="Search" id="search"/>
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command classes="submitButton" action="dss.vector.solutions.general.PopulationDataController.searchForPopulationData.mojo" name="search" value="${Localized_Search}" id="search" />
   </dl>
 </mjl:form>
 

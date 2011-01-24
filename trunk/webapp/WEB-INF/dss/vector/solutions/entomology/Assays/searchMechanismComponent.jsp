@@ -23,7 +23,8 @@
       <mjl:input id="collectionInput" param="collectionInput" type="text" />
       <mjl:input id="collectionId" param="collectionId" type="hidden" />        
     </dd>
-    <mjl:command name="search" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="Search"/>
+    <mdss:localize key="Search" var="Localized_Search" />
+    <mjl:command name="search" action="dss.vector.solutions.entomology.AssayController.getMechanismAssays.mojo" value="${Localized_Search}" />
   </dl>
   
 </mjl:form>

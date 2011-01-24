@@ -17,7 +17,8 @@
         ${item.ontologyName}
       </mjl:dt>
     </mjl:component>
-    <mjl:command value="Edit" action="dss.vector.solutions.ontology.OntologyDefinitionController.edit.mojo" name="dss.vector.solutions.ontology.OntologyDefinition.form.edit.button" />
+    <mdss:localize key="Edit" var="Localized_Edit" />
+    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.ontology.OntologyDefinitionController.edit.mojo" name="dss.vector.solutions.ontology.OntologyDefinition.form.edit.button" />
   </mjl:form>
 </dl>
 <mjl:commandLink action="dss.vector.solutions.ontology.OntologyDefinitionController.viewAll.mojo" name="dss.vector.solutions.ontology.OntologyDefinition.viewAll.link">

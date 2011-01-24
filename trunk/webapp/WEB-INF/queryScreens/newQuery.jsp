@@ -1,4 +1,4 @@
-<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <mjl:form name="dss.vector.solutions.query.SavedSearch.name" id="dss.vector.solutions.query.SavedSearch.id" method="POST">
@@ -17,6 +17,8 @@
       </dd>
     </dl>
   </mjl:component>
-  <mjl:command value="Cancel" action="dss.vector.solutions.query.QueryController.cancelQuery.mojo" name="dss.vector.solutions.query.QueryController.cancelQuery.button" />
-  <mjl:command value="Create" action="dss.vector.solutions.query.QueryController.saveQuery.mojo" name="dss.vector.solutions.query.QueryController.saveQuery.button" />
+  <mdss:localize key="Cancel" var="Localized_Cancel" />
+  <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.query.QueryController.cancelQuery.mojo" name="dss.vector.solutions.query.QueryController.cancelQuery.button" />
+  <mdss:localize key="Create" var="Localized_Create" />
+  <mjl:command value="${Localized_Create}" action="dss.vector.solutions.query.QueryController.saveQuery.mojo" name="dss.vector.solutions.query.QueryController.saveQuery.button" />
 </mjl:form>

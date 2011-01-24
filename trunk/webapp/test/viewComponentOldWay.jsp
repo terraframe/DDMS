@@ -61,7 +61,8 @@
       </mjl:commandLink>
     </dd>
   </dl>
-  <mjl:command value="Edit" action="mdss.entomology.MosquitoCollectionController.edit.mojo" name="mdss.entomology.MosquitoCollection.form.edit.button" />
+  <mdss:localize key="Edit" var="Localized_Edit" />
+  <mjl:command value="${Localized_Edit}" action="mdss.entomology.MosquitoCollectionController.edit.mojo" name="mdss.entomology.MosquitoCollection.form.edit.button" />
   <br />
 </mjl:form>
 <dl>
