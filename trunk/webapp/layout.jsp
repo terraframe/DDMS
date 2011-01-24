@@ -20,7 +20,7 @@
 <jsp:include page="${header_jsp}"  flush="false"  /> 
 <div class="pageContent"> 
 
-<div class="pageTitle"><mdss:localize key="${page_title}"/></div>
+<div class="pageTitle"><mdss:localize key="${page_title}"/>${page_title_suffix}</div>
 
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 

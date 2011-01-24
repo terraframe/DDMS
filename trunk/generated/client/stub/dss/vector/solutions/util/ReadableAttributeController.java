@@ -6,23 +6,27 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
-import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.RolesDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.permission.MDSSRoleDTO;
 
-public class ReadableAttributeController extends ReadableAttributeControllerBase implements com.runwaysdk.generation.loader.Reloadable
+public class ReadableAttributeController extends ReadableAttributeControllerBase implements Reloadable
 {
+  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/util/ReadableAttributeController/";
+
+  public static final String LAYOUT           = "/layout.jsp";
+
   private static final long serialVersionUID = 1239296298324L;
 
-  public ReadableAttributeController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public ReadableAttributeController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
-    super(req, resp, isAsynchronous);
-    this.dir = "WEB-INF/dss/vector/solutions/util/ReadableAttributeController/";
-    this.layout = this.dir + "layout.jsp";
+    super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
 
   @Override
@@ -97,6 +101,8 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       req.setAttribute("universal", universal);
       req.setAttribute("actor", actor);
       req.setAttribute("actorLabel", this.getAllRoles(clientRequest).get(actor).getDisplayLabel());
+      req.setAttribute("component", req.getParameter("component"));
+      
       render("view.jsp");
     }
     catch (Throwable t)

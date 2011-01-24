@@ -3,16 +3,19 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
-
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.ontology.BrowserFieldController"%>
 <%@page import="dss.vector.solutions.ontology.FieldDefaultViewDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserFieldDTO"%>
-<%@page import="dss.vector.solutions.ontology.BrowserRootController"%><c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
+<%@page import="dss.vector.solutions.ontology.BrowserRootController"%>
+
+<c:set var="page_title" value="Assign_Attribute_Permissions" scope="request" />
+<c:set var="page_title_suffix" value=" - ${component}" scope="request" />
 
 <mjl:form name="dss.vector.solutions.util.ReadableAttributeController.form.name" id="dss.vector.solutions.util.ReadableAttributeController.form.id" method="POST" onsubmit="return checkHiddenMandatoryFields(this);" >
   <mjl:input type="hidden" param="universal" value="${universal}" />
   <mjl:input type="hidden" param="actor" value="${actor}" />
+  <mjl:input type="hidden" param="component" value="${component}" />
   
 	  <h2>${actorLabel}</h2>
       <table class="displayTable">
