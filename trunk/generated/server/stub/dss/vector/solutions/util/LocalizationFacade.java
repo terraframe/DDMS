@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 import com.runwaysdk.util.FileIO;
@@ -124,5 +125,10 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   public static String getFromBundles(String key)
   {
     return MultiBundle.get(key);
+  }
+  
+  public static String getSessionLocale()
+  {
+    return Session.getCurrentLocale().toString();
   }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = -1243230935)
+@com.runwaysdk.business.ClassSignature(hash = -1022659255)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1243230935;
+  private static final long serialVersionUID = -1022659255;
   
   public LocalizationFacadeBase()
   {
@@ -353,6 +353,12 @@ public abstract class LocalizationFacadeBase extends com.runwaysdk.business.Busi
   }
   
   public static com.runwaysdk.system.metadata.SupportedLocaleQuery getInstalledLocales()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String getSessionLocale()
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.LocalizationFacade.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
