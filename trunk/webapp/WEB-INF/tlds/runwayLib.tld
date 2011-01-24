@@ -553,20 +553,6 @@
     </attribute>
     <attribute>
       <description>
-        Flag denoting if the value is a key to be localized.  By default this value is true
-      </description>
-      <name>
-        localize
-      </name>
-      <required>
-        false
-      </required>
-      <rtexprvalue>
-        true
-      </rtexprvalue>
-    </attribute>
-    <attribute>
-      <description>
         Class of the table
       </description>
       <name>
@@ -3682,20 +3668,6 @@
       </name>
       <required>
         true
-      </required>
-      <rtexprvalue>
-        true
-      </rtexprvalue>
-    </attribute>
-    <attribute>
-      <description>
-        Flag denoting if the value is a key to be localized.  By default this value is true
-      </description>
-      <name>
-        localize
-      </name>
-      <required>
-        false
       </required>
       <rtexprvalue>
         true
