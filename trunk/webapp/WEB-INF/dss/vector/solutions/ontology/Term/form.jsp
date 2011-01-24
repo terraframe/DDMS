@@ -3,8 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
-<mdss:localize key="Choice_Yes" var="TrueLabel" scope="request" />
-<mdss:localize key="Choice_No" var="FalseLabel" scope="request" />
+<mdss:localize key="Choice_Yes" var="TrueLabel" />
+<mdss:localize key="Choice_No" var="FalseLabel" />
 
 <mjl:component item="${item}" param="dto">
   <mjl:dt attribute="name">
