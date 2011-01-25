@@ -131,8 +131,12 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
     {
       return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, premiseType, species, startDate, endDate";
     }
+    else if (alertType.equals(SystemAlertTypeDTO.SOURCE_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertTypeDTO.SOURCE_OUTBREAK_NOTIFICATION))
+    {
+      return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, premiseType, species, startDate, endDate, epiWeek, symptomOnsetDate";
+    }
 
-    return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, alertLevel";
+    return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, alertLevel, epiWeek, visitDate";
   }
 
   public void failEdit(String id) throws IOException, ServletException

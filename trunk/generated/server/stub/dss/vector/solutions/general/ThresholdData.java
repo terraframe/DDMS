@@ -1,5 +1,7 @@
 package dss.vector.solutions.general;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -384,39 +386,45 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       {
 
         // Perform the alert
-        performAlert(accessor, entity, count, cases);
+        performAlert(accessor, entity, count, cases, date, week);
 
         threshold.reachedThreshold(accessor, count);
       }
     }
   }
 
-  private static void performAlert(String accessor, GeoEntity entity, double threshold, double count)
+  private static SystemAlertType getSystemAlertType(String accessor)
   {
-    SystemAlertType alertType = null;
-    if (accessor == WeeklyThreshold.IDENTIFICATION)
+    if (accessor.equals(WeeklyThreshold.IDENTIFICATION))
     {
-      alertType = SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION;
+      return SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION;
     }
-    else if (accessor == WeeklyThreshold.NOTIFICATION)
+    else if (accessor.equals(WeeklyThreshold.NOTIFICATION))
     {
-      alertType = SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION;
+      return SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION;
     }
-    else if (accessor == WeeklyThreshold.FACILITYIDENTIFICATION)
+    else if (accessor.equals(WeeklyThreshold.FACILITYIDENTIFICATION))
     {
-      alertType = SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION;
+      return SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION;
     }
-    else if (accessor == WeeklyThreshold.FACILITYNOTIFICATION)
+    else if (accessor.equals(WeeklyThreshold.FACILITYNOTIFICATION))
     {
-      alertType = SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION;
-    }
-    else
-    {
-      // this should not be reachable
+      return SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION;
     }
 
+    return null;
+  }
+
+  private static void performAlert(String accessor, GeoEntity entity, double threshold, double count, Date date, EpiWeek week)
+  {
+    SystemAlertType alertType = ThresholdData.getSystemAlertType(accessor);
+    
+    DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
+    String formattedDate = format.format(date);
+    
     String alertLevel = MDSSProperties.getString("Outbreak");
     ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
+
     if (config.getEpidemicUniversal().equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType())))
     {
       alertLevel = MDSSProperties.getString("Epidemic");
@@ -442,6 +450,22 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       HashMap<String, Object> data = new HashMap<String, Object>();
       data.put("alertType", alertType.getDisplayLabel());
       data.put("alertLevel", alertLevel);
+      data.put("thresholdType", accessor);
+      data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
+      data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
+      data.put("epiWeek", week.getPeriod());
+      data.put("geoEntity", label);
+
+      if (alertType.equals(SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION))
+      {
+        data.put("symptomOnsetDate", formattedDate);
+      }
+      
+      if (alertType.equals(SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION))
+      {
+        data.put("visitDate", formattedDate);
+      }
+      
       if (systemAlert.getDisease() != null)
       {
         data.put("disease", systemAlert.getDisease().getDisplayLabel());
@@ -450,10 +474,6 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       {
         data.put("disease", MDSSProperties.getString("All_Diseases"));
       }
-      data.put("thresholdType", accessor);
-      data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
-      data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
-      data.put("geoEntity", label);
 
       emailSent = systemAlert.sendEmail(data);
     }
@@ -467,10 +487,12 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       alert.setThresholdValue(threshold);
       alert.setActualValue(count);
       alert.setGeoEntity(label);
+
       if (systemAlert.getIsEmailActive() & !emailSent)
       {
         alert.setEmailFailure(true);
       }
+
       alert.apply();
 
       alert.throwIt();
