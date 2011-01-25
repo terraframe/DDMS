@@ -61,7 +61,7 @@
     </select>
   </mjl:dt>
   <dt>
-    <label><mdss:localize key="Calculate_Query_Info"></fmt:message></label>
+    <label><mdss:localize key="Calculate_Query_Info"/></label>
   </dt>
   <dd>
     <mdss:localize key="Calculate" var="Localized_Calculate" />
