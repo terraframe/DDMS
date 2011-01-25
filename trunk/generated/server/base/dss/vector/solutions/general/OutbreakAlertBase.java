@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1071892820)
+@com.runwaysdk.business.ClassSignature(hash = 1371958307)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,103 +11,14 @@ package dss.vector.solutions.general;
 public abstract class OutbreakAlertBase extends com.runwaysdk.business.Information implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  public static java.lang.String ACTUALVALUE = "actualValue";
-  public static java.lang.String ALERTLEVEL = "alertLevel";
-  public static java.lang.String ALERTTYPE = "alertType";
   public static java.lang.String EMAILFAILURE = "emailFailure";
-  public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
-  public static java.lang.String THRESHOLDTYPE = "thresholdType";
-  public static java.lang.String THRESHOLDVALUE = "thresholdValue";
-  private static final long serialVersionUID = 1071892820;
+  public static java.lang.String MESSAGE = "message";
+  private static final long serialVersionUID = 1371958307;
   
   public OutbreakAlertBase()
   {
     super();
-  }
-  
-  public Double getActualValue()
-  {
-    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(ACTUALVALUE));
-  }
-  
-  public void validateActualValue()
-  {
-    this.validateAttribute(ACTUALVALUE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getActualValueMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(ACTUALVALUE);
-  }
-  
-  public void setActualValue(Double value)
-  {
-    if(value == null)
-    {
-      setValue(ACTUALVALUE, "");
-    }
-    else
-    {
-      setValue(ACTUALVALUE, java.lang.Double.toString(value));
-    }
-  }
-  
-  public String getAlertLevel()
-  {
-    return getValue(ALERTLEVEL);
-  }
-  
-  public void validateAlertLevel()
-  {
-    this.validateAttribute(ALERTLEVEL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAlertLevelMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(ALERTLEVEL);
-  }
-  
-  public void setAlertLevel(String value)
-  {
-    if(value == null)
-    {
-      setValue(ALERTLEVEL, "");
-    }
-    else
-    {
-      setValue(ALERTLEVEL, value);
-    }
-  }
-  
-  public String getAlertType()
-  {
-    return getValue(ALERTTYPE);
-  }
-  
-  public void validateAlertType()
-  {
-    this.validateAttribute(ALERTTYPE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAlertTypeMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(ALERTTYPE);
-  }
-  
-  public void setAlertType(String value)
-  {
-    if(value == null)
-    {
-      setValue(ALERTTYPE, "");
-    }
-    else
-    {
-      setValue(ALERTTYPE, value);
-    }
   }
   
   public Boolean getEmailFailure()
@@ -138,34 +49,6 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     }
   }
   
-  public String getGeoEntity()
-  {
-    return getValue(GEOENTITY);
-  }
-  
-  public void validateGeoEntity()
-  {
-    this.validateAttribute(GEOENTITY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getGeoEntityMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(GEOENTITY);
-  }
-  
-  public void setGeoEntity(String value)
-  {
-    if(value == null)
-    {
-      setValue(GEOENTITY, "");
-    }
-    else
-    {
-      setValue(GEOENTITY, value);
-    }
-  }
-  
   public String getId()
   {
     return getValue(ID);
@@ -182,59 +65,31 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     return mdClassIF.definesAttribute(ID);
   }
   
-  public String getThresholdType()
+  public String getMessage()
   {
-    return getValue(THRESHOLDTYPE);
+    return getValue(MESSAGE);
   }
   
-  public void validateThresholdType()
+  public void validateMessage()
   {
-    this.validateAttribute(THRESHOLDTYPE);
+    this.validateAttribute(MESSAGE);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdTypeMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMessageMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDTYPE);
+    return mdClassIF.definesAttribute(MESSAGE);
   }
   
-  public void setThresholdType(String value)
+  public void setMessage(String value)
   {
     if(value == null)
     {
-      setValue(THRESHOLDTYPE, "");
+      setValue(MESSAGE, "");
     }
     else
     {
-      setValue(THRESHOLDTYPE, value);
-    }
-  }
-  
-  public Double getThresholdValue()
-  {
-    return com.runwaysdk.constants.MdAttributeDoubleUtil.getTypeSafeValue(getValue(THRESHOLDVALUE));
-  }
-  
-  public void validateThresholdValue()
-  {
-    this.validateAttribute(THRESHOLDVALUE);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getThresholdValueMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(THRESHOLDVALUE);
-  }
-  
-  public void setThresholdValue(Double value)
-  {
-    if(value == null)
-    {
-      setValue(THRESHOLDVALUE, "");
-    }
-    else
-    {
-      setValue(THRESHOLDVALUE, java.lang.Double.toString(value));
+      setValue(MESSAGE, value);
     }
   }
   
@@ -246,14 +101,9 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
   public java.lang.String localize(java.util.Locale locale)
   {
     java.lang.String message = super.localize(locale);
-    message = replace(message, "{actualValue}", this.getActualValue());
-    message = replace(message, "{alertLevel}", this.getAlertLevel());
-    message = replace(message, "{alertType}", this.getAlertType());
     message = replace(message, "{emailFailure}", this.getEmailFailure());
-    message = replace(message, "{geoEntity}", this.getGeoEntity());
     message = replace(message, "{id}", this.getId());
-    message = replace(message, "{thresholdType}", this.getThresholdType());
-    message = replace(message, "{thresholdValue}", this.getThresholdValue());
+    message = replace(message, "{message}", this.getMessage());
     return message;
   }
   

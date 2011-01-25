@@ -418,10 +418,10 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
   private static void performAlert(String accessor, GeoEntity entity, double threshold, double count, Date date, EpiWeek week)
   {
     SystemAlertType alertType = ThresholdData.getSystemAlertType(accessor);
-    
+
     DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
     String formattedDate = format.format(date);
-    
+
     String alertLevel = MDSSProperties.getString("Outbreak");
     ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
 
@@ -445,48 +445,45 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
     String label = entity.getLabel();
     boolean emailSent = false;
 
+    HashMap<String, Object> data = new HashMap<String, Object>();
+    data.put("alertType", alertType.getDisplayLabel());
+    data.put("alertLevel", alertLevel);
+    data.put("thresholdType", accessor);
+    data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
+    data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
+    data.put("epiWeek", week.getPeriod());
+    data.put("geoEntity", label);
+
+    if (alertType.equals(SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION))
+    {
+      data.put("symptomOnsetDate", formattedDate);
+    }
+
+    if (alertType.equals(SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION))
+    {
+      data.put("visitDate", formattedDate);
+    }
+
+    if (systemAlert.getDisease() != null)
+    {
+      data.put("disease", systemAlert.getDisease().getDisplayLabel());
+    }
+    else
+    {
+      data.put("disease", MDSSProperties.getString("All_Diseases"));
+    }
+
     if (systemAlert.getIsEmailActive())
     {
-      HashMap<String, Object> data = new HashMap<String, Object>();
-      data.put("alertType", alertType.getDisplayLabel());
-      data.put("alertLevel", alertLevel);
-      data.put("thresholdType", accessor);
-      data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
-      data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
-      data.put("epiWeek", week.getPeriod());
-      data.put("geoEntity", label);
-
-      if (alertType.equals(SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION))
-      {
-        data.put("symptomOnsetDate", formattedDate);
-      }
-      
-      if (alertType.equals(SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION))
-      {
-        data.put("visitDate", formattedDate);
-      }
-      
-      if (systemAlert.getDisease() != null)
-      {
-        data.put("disease", systemAlert.getDisease().getDisplayLabel());
-      }
-      else
-      {
-        data.put("disease", MDSSProperties.getString("All_Diseases"));
-      }
-
       emailSent = systemAlert.sendEmail(data);
     }
 
     if (systemAlert.getIsOnscreenActive())
     {
+      String message = systemAlert.getTemplate(data);
+
       OutbreakAlert alert = new OutbreakAlert();
-      alert.setAlertType(alertType.getDisplayLabel());
-      alert.setAlertLevel(alertLevel);
-      alert.setThresholdType(accessor);
-      alert.setThresholdValue(threshold);
-      alert.setActualValue(count);
-      alert.setGeoEntity(label);
+      alert.setMessage(message);
 
       if (systemAlert.getIsEmailActive() & !emailSent)
       {

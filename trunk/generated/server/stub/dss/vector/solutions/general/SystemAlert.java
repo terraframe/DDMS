@@ -14,99 +14,121 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 
-public class SystemAlert extends SystemAlertBase implements com.runwaysdk.generation.loader.Reloadable {
-	private static final long serialVersionUID = 1254672710;
+public class SystemAlert extends SystemAlertBase implements com.runwaysdk.generation.loader.Reloadable
+{
+  private static final long serialVersionUID = 1254672710;
 
-	public SystemAlert() {
-		super();
-	}
+  public SystemAlert()
+  {
+    super();
+  }
 
-	@Transaction
-	public static SystemAlertQuery getAllInstancesForDisease(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber) {
-	    SystemAlertQuery query = new SystemAlertQuery(new com.runwaysdk.query.QueryFactory());
-	    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
-	    getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
-	    return query;
-	}
+  @Transaction
+  public static SystemAlertQuery getAllInstancesForDisease(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  {
+    SystemAlertQuery query = new SystemAlertQuery(new com.runwaysdk.query.QueryFactory());
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+    getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
+    return query;
+  }
 
-	@Transaction
-	public static SystemAlert get(SystemAlertType type) {
-		return get(Disease.getCurrent(), type);
-	}
+  @Transaction
+  public static SystemAlert get(SystemAlertType type)
+  {
+    return get(Disease.getCurrent(), type);
+  }
 
-	@Transaction
-	public static SystemAlert get(Disease disease, SystemAlertType type) {
-		SystemAlert alert = null;
-		SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
-		q.WHERE(q.getAlertType().containsExactly(type));
-		q.AND(OR.get(q.getDisease().EQ(disease), q.getDisease().EQ("NULL")));
-		//q.ORDER_BY_DESC(q.getDisease().getKeyName());
-		OIterator<? extends SystemAlert> it = q.getIterator();
+  @Transaction
+  public static SystemAlert get(Disease disease, SystemAlertType type)
+  {
+    SystemAlert alert = null;
+    SystemAlertQuery q = new SystemAlertQuery(new QueryFactory());
+    q.WHERE(q.getAlertType().containsExactly(type));
+    q.AND(OR.get(q.getDisease().EQ(disease), q.getDisease().EQ("NULL")));
+    // q.ORDER_BY_DESC(q.getDisease().getKeyName());
+    OIterator<? extends SystemAlert> it = q.getIterator();
 
-		try {
-		      if (it.hasNext())
-		      {
-		        alert = it.next();
-		      }
-		} finally {
-			it.close();
-		}
+    try
+    {
+      if (it.hasNext())
+      {
+        alert = it.next();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
 
-		return alert;
-	}
+    return alert;
+  }
 
-	@Transaction
-	public boolean sendEmail(Map<String, Object> data) {
-		boolean sent = false;
+  @Transaction
+  public boolean sendEmail(Map<String, Object> data)
+  {
+    boolean sent = false;
 
-		if (this.getIsEmailActive()) {
-			Email email = this.generateEmail(data);
+    if (this.getIsEmailActive())
+    {
+      Email email = this.generateEmail(data);
 
-			if (!email.isAppliedToDB()) {
-				email.apply();
-			}
-			sent = email.send();
-		}
+      if (!email.isAppliedToDB())
+      {
+        email.apply();
+      }
+      sent = email.send();
+    }
 
-		return sent;
-	}
+    return sent;
+  }
 
-	@Transaction
-	public Email generateEmail() {
-		return this.generateEmail(new HashMap<String, Object>());
-	}
+  @Transaction
+  public Email generateEmail()
+  {
+    return this.generateEmail(new HashMap<String, Object>());
+  }
 
-	@Transaction
-	public Email generateEmail(Map<String, Object> data) {
-		Email email = new Email();
+  @Transaction
+  public Email generateEmail(Map<String, Object> data)
+  {
+    Email email = new Email();
 
-		email.setDisease(this.getDisease());
-		email.setToAddresses(this.getEmailToAddresses());
-		email.setCcAddresses(this.getEmailCcAddresses());
-		email.setBccAddresses(this.getEmailBccAddresses());
-		email.setFromAddress(this.getEmailFromAddress());
-		email.setSubject(this.processTemplate(this.getEmailSubject(), data));
-		email.setBody(this.processTemplate(this.getEmailBody(), data));
-		email.apply();
+    email.setDisease(this.getDisease());
+    email.setToAddresses(this.getEmailToAddresses());
+    email.setCcAddresses(this.getEmailCcAddresses());
+    email.setBccAddresses(this.getEmailBccAddresses());
+    email.setFromAddress(this.getEmailFromAddress());
+    email.setSubject(this.processTemplate(this.getEmailSubject(), data));
+    email.setBody(this.processTemplate(this.getEmailBody(), data));
+    email.apply();
 
-		return email;
-	}
+    return email;
+  }
 
-	private String processTemplate(String template, Map<String, Object> data) {
-		Writer out = new StringWriter();
+  public String getTemplate(Map<String, Object> data)
+  {
+    return this.processTemplate(this.getEmailBody(), data);
+  }
 
-		Velocity.setProperty("directive.foreach.counter.initial.value", "0");
-		Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute");
-		Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
+  private String processTemplate(String template, Map<String, Object> data)
+  {
+    Writer out = new StringWriter();
 
-		try {
-			Velocity.init();
-			VelocityContext context = new VelocityContext(data);
-			Velocity.evaluate(context, out, "Alert", template);
-		} catch (Exception e) {
-			return "Error processing template (" + e.getLocalizedMessage() + ")";
-		}
+    Velocity.setProperty("directive.foreach.counter.initial.value", "0");
+    Velocity.setProperty(RuntimeConstants.RUNTIME_LOG_LOGSYSTEM_CLASS, "org.apache.velocity.runtime.log.Log4JLogChute");
+    Velocity.setProperty("runtime.log.logsystem.log4j.logger", "velocity");
 
-		return out.toString();
-	}
+    try
+    {
+      Velocity.init();
+      VelocityContext context = new VelocityContext(data);
+      Velocity.evaluate(context, out, "Alert", template);
+    }
+    catch (Exception e)
+    {
+      return "Error processing template (" + e.getLocalizedMessage() + ")";
+    }
+
+    return out.toString();
+  }
 }
