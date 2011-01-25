@@ -41,13 +41,14 @@ public class AggregatedCaseSearchView extends AggregatedCaseSearchViewBase imple
     // need to offset the 'period' for WEEK
     Integer _period = ( periodType.equals(PeriodType.WEEK) ? period - 1 : period );
 
-    EpiDate.validate(periodType, _period, year);
+    // IMPORTANT: Validation is 1 based even if the period type is WEEK
+    EpiDate.validate(periodType, period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(periodType, _period, year);
 
     Date startDate = date.getStartDate();
     Date endDate = date.getEndDate();
-    
+
     return AggregatedCaseSearchView.searchByDates(geoEntity, startDate, endDate, ageGroup);
   }
 
