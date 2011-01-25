@@ -2,6 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+
+<c:forEach items="${item.alertTypeEnumNames}" var="enumName">
+  <c:set scope="request" var="page_title_suffix" value=" - ${item.alertTypeMd.enumItems[enumName]}" />
+</c:forEach>
+
+<c:set scope="request" var="page_title" value="Edit_SystemAlert" />
+
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="displayName">
     ${item.displayName}
