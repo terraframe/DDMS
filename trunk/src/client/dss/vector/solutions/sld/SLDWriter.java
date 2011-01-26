@@ -3,11 +3,14 @@ package dss.vector.solutions.sld;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.util.HashMap;
 import java.util.List;
 
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.LocalProperties;
+import com.runwaysdk.dataaccess.io.MarkupWriter;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 import com.runwaysdk.util.FileIO;
@@ -20,11 +23,9 @@ import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.RangeCategoryDTO;
 import dss.vector.solutions.query.StylesDTO;
 
-public class SLDWriter implements Reloadable
+public class SLDWriter extends MarkupWriter implements Reloadable
 {
-  private LayerDTO      layer;
-
-  private StringBuilder builder;
+  private LayerDTO layer;
 
   /**
    * Constructs a new SLDWriter for the given Layer.
@@ -33,15 +34,22 @@ public class SLDWriter implements Reloadable
    */
   public SLDWriter(LayerDTO layer)
   {
+    super(new StringWriter());
+
     this.layer = layer;
-    builder = new StringBuilder();
   }
 
   protected LayerDTO getLayer()
   {
     return layer;
   }
-  
+
+  @Override
+  protected StringWriter getWriter()
+  {
+    return (StringWriter) super.getWriter();
+  }
+
   /**
    * Merges the properties of the default and overriden styles.
    * 
@@ -51,14 +59,14 @@ public class SLDWriter implements Reloadable
    */
   private void mergeStyles(StylesDTO mergedStyle, StylesDTO categoryStyle, StylesDTO defaultStyle)
   {
-    for(String name : mergedStyle.getAttributeNames())
+    for (String name : mergedStyle.getAttributeNames())
     {
-      if(name.startsWith(QueryConstants.CATEGORY_OVERRIDE_PREPEND))
+      if (name.startsWith(QueryConstants.CATEGORY_OVERRIDE_PREPEND))
       {
         String styleName = name.substring(QueryConstants.CATEGORY_OVERRIDE_PREPEND.length());
         Boolean doOverride = Boolean.parseBoolean(categoryStyle.getValue(name));
-        
-        if(mergedStyle.getAttributeMd(styleName) instanceof AttributeEnumerationMdDTO)
+
+        if (mergedStyle.getAttributeMd(styleName) instanceof AttributeEnumerationMdDTO)
         {
           String enumName = doOverride ? categoryStyle.getEnumNames(styleName).get(0) : defaultStyle.getEnumNames(styleName).get(0);
           mergedStyle.addEnumItem(styleName, enumName);
@@ -71,28 +79,28 @@ public class SLDWriter implements Reloadable
       }
     }
   }
-  
+
   private void writeSequence()
   {
     writeHeader(this.layer.getViewName());
-    
+
     boolean asPoint = this.layer.getRenderAs().get(0).equals(AllRenderTypesDTO.POINT);
 
     if (layer.hasThematicVariable())
     {
       // The layer is thematic, so write all the category styles/ranges.
       StylesDTO defaultStyle = layer.getDefaultStyles();
-      
+
       // This mergedStyle object will be reused to represent the styles
       // defined by the layer (the default) and the overridden styles on
       // the category.
       StylesDTO mergedStyle = new StylesDTO(defaultStyle.getRequest());
       List<? extends AbstractCategoryDTO> categories = this.layer.getAllHasCategory();
-      for(AbstractCategoryDTO category : categories)
+      for (AbstractCategoryDTO category : categories)
       {
         StylesDTO categoryStyle = category.getStyles();
         mergeStyles(mergedStyle, categoryStyle, defaultStyle);
-        
+
         Filter tFilter = new ThematicLabelFilter(layer);
         Filter filter;
         if (category instanceof RangeCategoryDTO)
@@ -105,11 +113,10 @@ public class SLDWriter implements Reloadable
         }
         Filter cFilter = new CompositeFilter(layer, tFilter, filter);
 
-        
         Symbolizer sym = getSymbolizer(asPoint, mergedStyle);
-        
+
         Symbolizer tSym;
-        if(layer.getShowThematicValue())
+        if (layer.getShowThematicValue())
         {
           tSym = new ThematicTextSymbolizer(layer, mergedStyle);
         }
@@ -117,13 +124,13 @@ public class SLDWriter implements Reloadable
         {
           tSym = new TextSymbolizer(mergedStyle);
         }
-        
+
         // Write one rule for having the thematic value. If the
         // thematic value is null then it will get default styles
         Rule categoryRule = new Rule(cFilter, sym, tSym);
         categoryRule.write(this);
       }
-      
+
       Symbolizer sym = getSymbolizer(asPoint, defaultStyle);
 
       // Write the default styles for when the thematic value
@@ -136,7 +143,7 @@ public class SLDWriter implements Reloadable
 
       // Write the rule that will include the thematic label.
       Symbolizer tSymbolizer;
-      if(layer.getShowThematicValue())
+      if (layer.getShowThematicValue())
       {
         tSymbolizer = new ThematicTextSymbolizer(layer, defaultStyle);
       }
@@ -153,17 +160,17 @@ public class SLDWriter implements Reloadable
       // Default layer styles
       StylesDTO defaultStyle = layer.getDefaultStyles();
       Symbolizer sym = getSymbolizer(asPoint, defaultStyle);
-      
+
       Rule rule = new Rule(null, sym, new TextSymbolizer(defaultStyle));
       rule.write(this);
     }
-    
+
     writeFooter();
   }
-  
+
   private Symbolizer getSymbolizer(boolean asPoint, StylesDTO style)
   {
-    if(asPoint)
+    if (asPoint)
     {
       return new PointSymbolizer(style);
     }
@@ -178,22 +185,23 @@ public class SLDWriter implements Reloadable
     ClientRequestIF requestIF = this.layer.getRequest();
 
     writeSequence();
-    
+
     String fileName = QueryConstants.createSLDName(layer.getId());
     String oldFileId = this.layer.getSldFile();
-    
+
     // delete the previous file if it exists
     deleteExistingSLD(requestIF, QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, oldFileId);
 
-    ByteArrayInputStream stream = new ByteArrayInputStream(builder.toString().getBytes());
+    byte[] bytes = getWriter().toString().getBytes();
+
+    ByteArrayInputStream stream = new ByteArrayInputStream(bytes);
     BusinessDTO webFile = requestIF.newFile(QueryConstants.SLD_WEB_DIR, fileName, QueryConstants.SLD_EXTENSION, stream);
 
     // Lock this layer. This lock all objects used by this layer
     this.layer.updateSLDFile(webFile.getId());
   }
 
-  private void deleteExistingSLD(ClientRequestIF requestIF, String path, String fileName,
-      String extension, String oldFileId)
+  private void deleteExistingSLD(ClientRequestIF requestIF, String path, String fileName, String extension, String oldFileId)
   {
     if (oldFileId != null && oldFileId.trim().length() > 0)
     {
@@ -202,10 +210,10 @@ public class SLDWriter implements Reloadable
       // Ensure that the existing file artifact is deleted
       String rootPath = LocalProperties.getWebDirectory();
       String filepath = rootPath + path + fileName + "." + extension;
-      
+
       File file = new File(filepath);
-      
-      if(file.exists())
+
+      if (file.exists())
       {
         try
         {
@@ -219,36 +227,63 @@ public class SLDWriter implements Reloadable
       }
     }
   }
+  
+  public void writeEmptyTagWithValue(String tag, String value)
+  {
+    writeTagSingleValue(tag, value);
+  }
 
+  public void writeTagWithValue(String tag, HashMap<String, String> attributes, String value)
+  {
+    openTag(tag, attributes);
+    writeValue(value);
+    closeTag();    
+  }
+  
+  public void writeTagWithValue(String tag, String attributeName, String attributeValue, String value)
+  {
+    HashMap<String, String> attributes = new HashMap<String, String>();
+    attributes.put(attributeName, attributeValue);
+
+    writeTagWithValue(tag, attributes, value);
+  }
+  
   private void writeHeader(String viewName)
   {
-    writeln("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
-    writeln("<StyledLayerDescriptor version=\"1.0.0\" xmlns=\"http://www.opengis.net/sld\" xmlns:ogc=\"http://www.opengis.net/ogc\"");
-    writeln("xmlns:xlink=\"http://www.w3.org/1999/xlink\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"");
-    writeln("xsi:schemaLocation=\"http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd\">");
-    writeln("<NamedLayer>");
-    writeln("<Name>" + QueryConstants.MDSS_NAMESPACE + ":" + viewName + "</Name>");
-    writeln("<UserStyle>");
-    writeln("<Title>Layer Style for " + viewName + "</Title>");
-    writeln("<Abstract>Layer Style for " + viewName + "</Abstract>");
-    writeln("<FeatureTypeStyle>");
-  }
+    this.writeValue("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>");
 
+    HashMap<String, String> attributes = new HashMap<String, String>();
+    attributes.put("version", "1.0.0");
+    attributes.put("xmlns", "http://www.opengis.net/sld");
+    attributes.put("xmlns:ogc", "http://www.opengis.net/ogc");
+    attributes.put("xmlns:xlink", "http://www.w3.org/1999/xlink");
+    attributes.put("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+    attributes.put("xsi:schemaLocation", "http://www.opengis.net/sld http://schemas.opengis.net/sld/1.0.0/StyledLayerDescriptor.xsd");
+
+    openTag("StyledLayerDescriptor", attributes);
+    openTag("NamedLayer");
+    writeEmptyTagWithValue("Name", QueryConstants.MDSS_NAMESPACE + ":" + viewName);
+    openTag("UserStyle");
+    writeEmptyTagWithValue("Title", "Layer Style for " + viewName);
+    writeEmptyTagWithValue("Abstract", "Layer Style for " + viewName);
+    openTag("FeatureTypeStyle");
+  }
+  
   private void writeFooter()
   {
-    writeln("</FeatureTypeStyle>");
-    writeln("</UserStyle>");
-    writeln("</NamedLayer>");
-    writeln("</StyledLayerDescriptor>");
+    // Close FeatureTypeStyle
+    closeTag();
+    // Close UserStyle
+    closeTag();
+    // Close NamedLayer
+    closeTag();
+    // Close StyledLayerDescriptor
+    closeTag();
   }
 
-  protected void write(String line)
+  @Override
+  protected void throwIOException(IOException e)
   {
-    builder.append(line);
-  }
-
-  protected void writeln(String line)
-  {
-    builder.append(line + "\n");
+    throw new RuntimeException(e);
   }
 }

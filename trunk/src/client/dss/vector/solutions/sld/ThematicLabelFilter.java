@@ -1,5 +1,7 @@
 package dss.vector.solutions.sld;
 
+import java.util.HashMap;
+
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.query.LayerDTO;
@@ -13,13 +15,19 @@ public class ThematicLabelFilter extends Filter implements Reloadable
   
   @Override
   protected void write(SLDWriter writer)
-  {
-    writer.writeln("<PropertyIsEqualTo>");
-    writer.writeln("<Function name=\"isNull\">");
-    writer.writeln("<PropertyName>"+this.layer.getThematicColumnAlias()+"</PropertyName>");
-    writer.writeln("</Function>");
-    writer.writeln("<Literal>false</Literal>");
-    writer.writeln("</PropertyIsEqualTo>");
+  {    
+    writer.openTag("ogc:PropertyIsEqualTo");
+
+    HashMap<String,String> map = new HashMap<String, String>();
+    map.put("name", "isNull");
+    
+    writer.openTag("ogc:Function", map);
+    writer.writeEmptyTagWithValue("ogc:PropertyName", this.layer.getThematicColumnAlias());
+    writer.closeTag();
+
+    writer.writeEmptyTagWithValue("ogc:Literal", "false");
+    
+    writer.closeTag();
   }
 
 }

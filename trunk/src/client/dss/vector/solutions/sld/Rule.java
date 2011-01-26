@@ -15,7 +15,7 @@ public class Rule implements Reloadable
   
   public void write(SLDWriter writer)
   {
-    writer.writeln("<Rule>");
+    writer.openTag("Rule");
     
     if(filter != null)
     {
@@ -27,6 +27,6 @@ public class Rule implements Reloadable
       symbolizer.write(writer);
     }
     
-    writer.writeln("</Rule>");
+    writer.closeTag();
   }
 }

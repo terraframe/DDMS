@@ -20,15 +20,15 @@ public class ThematicTextSymbolizer extends Symbolizer implements Reloadable
   @Override
   protected void write(SLDWriter writer)
   {
+    String label = "<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName> (<ogc:PropertyName>"+layer.getThematicColumnAlias()+"</ogc:PropertyName>)";
+    
     StylesDTO style = this.getStyles();
     
-    writer.writeln("<TextSymbolizer>");
-    writer.writeln("<Label>");
-    writer.write("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
-    writer.writeln(" (<ogc:PropertyName>"+layer.getThematicColumnAlias()+"</ogc:PropertyName>)");
-    writer.writeln("</Label>");
+    writer.openTag("TextSymbolizer");
+    writer.writeEmptyTagWithValue("Label", label);
+    
     TextSymbolizer.writeCommonStyle(writer, style);
-    writer.writeln("</TextSymbolizer>");
+    writer.closeTag();
   }
 
 }

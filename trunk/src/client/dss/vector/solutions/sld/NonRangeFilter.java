@@ -18,9 +18,9 @@ public class NonRangeFilter extends Filter implements Reloadable
 
   protected void write(SLDWriter writer)
   {
-    writer.writeln("<ogc:PropertyIsEqualTo>");
-    writer.writeln("<ogc:PropertyName>"+this.layer.getThematicColumnAlias()+"</ogc:PropertyName>");
-    writer.writeln("<ogc:Literal>"+category.getExactValueStr()+"</ogc:Literal>");
-    writer.writeln("</ogc:PropertyIsEqualTo>");
+    writer.openTag("ogc:PropertyIsEqualTo");
+    writer.writeEmptyTagWithValue("ogc:PropertyName", this.layer.getThematicColumnAlias());    
+    writer.writeEmptyTagWithValue("ogc:Literal", category.getExactValueStr());    
+    writer.closeTag();
   }
 }

@@ -26,16 +26,24 @@ public class PointSymbolizer extends Symbolizer implements Reloadable
     String pointSize = style.getPointSize().toString();
     String rotation = style.getPointRotation().toString();
 
-    writer.writeln("<PointSymbolizer>");
-    writer.writeln("<Graphic>");
-    writer.writeln("<Mark>");
-    writer.writeln("<WellKnownName>" + wkn + "</WellKnownName><Stroke>");
-    writer.writeln("<CssParameter name=\"stroke\">" + stroke + "</CssParameter>");
-    writer.writeln("<CssParameter name=\"stroke-width\">" + strokeWidth + "</CssParameter>");
-    writer.writeln("<CssParameter name=\"opacity\">"+strokeOpacity+"</CssParameter>");
-    writer.writeln("</Stroke>");
-    writer.writeln("</Mark><Size>"+pointSize+"</Size><Rotation>"+rotation+"</Rotation>");
-    writer.writeln("</Graphic>");
-    writer.writeln("</PointSymbolizer>");
+    writer.openTag("PointSymbolizer");
+    writer.openTag("Graphic");
+    writer.openTag("Mark");
+
+    writer.writeEmptyTagWithValue("WellKnownName", wkn);
+
+    writer.openTag("Stroke");
+    writer.writeTagWithValue("CssParameter", "name", "stroke", stroke);
+    writer.writeTagWithValue("CssParameter", "name", "stroke-width", strokeWidth);
+    writer.writeTagWithValue("CssParameter", "name", "opacity", strokeOpacity);
+    writer.closeTag();
+    
+    writer.closeTag();
+    
+    writer.writeEmptyTagWithValue("Size", pointSize);
+    writer.writeEmptyTagWithValue("Rotation", rotation);
+    
+    writer.closeTag();
+    writer.closeTag();
   }
 }

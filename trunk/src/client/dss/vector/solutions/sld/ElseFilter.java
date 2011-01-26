@@ -13,7 +13,7 @@ public class ElseFilter extends Filter implements Reloadable
 
   protected void write(SLDWriter writer)
   {
-    writer.writeln("<ElseFilter />");
+    writer.writeEmptyTag("ElseFilter");
   }
 
 }

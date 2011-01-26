@@ -18,12 +18,15 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
   {
     StylesDTO style = this.getStyles();
     
-    writer.writeln("<TextSymbolizer>");
-    writer.writeln("<Label>");
-    writer.writeln("<ogc:PropertyName>"+QueryConstants.ENTITY_NAME_COLUMN+"</ogc:PropertyName>");
-    writer.writeln("</Label>");
+    writer.openTag("TextSymbolizer");
+    writer.openTag("Label");
+
+    writer.writeEmptyTagWithValue("ogc:PropertyName", QueryConstants.ENTITY_NAME_COLUMN);
+    
+    writer.closeTag();
+    
     writeCommonStyle(writer, style);
-    writer.writeln("</TextSymbolizer>");
+    writer.closeTag();
   }
   
   protected static void writeCommonStyle(SLDWriter writer, StylesDTO style)
@@ -41,43 +44,53 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     String haloFill = style.getLabelHaloFill();
     String haloOpacity = style.getLabelHaloOpacity().toString();
     
-    writer.writeln("<Font>");
-    writer.writeln("<CssParameter name=\"font-family\">"+fontFamily+"</CssParameter>");
-    writer.writeln("<CssParameter name=\"font-style\">"+fontStyle+"</CssParameter>");
-    writer.writeln("<CssParameter name=\"font-size\">"+fontSize+"</CssParameter>");
-    writer.writeln("</Font>");
-    writer.writeln("<Halo>");
-    writer.writeln("<Radius>");
-    writer.writeln("<ogc:Literal>"+haloRadius+"</ogc:Literal>");
-    writer.writeln("</Radius>");
-    writer.writeln("<Fill>");
-    writer.writeln("<CssParameter name=\"fill\">"+haloFill+"</CssParameter>");
-    writer.writeln("<CssParameter name=\"fill-opacity\">"+haloOpacity+"</CssParameter>");    
-    writer.writeln("</Fill>");
-    writer.writeln("</Halo>");
-    writer.writeln("<Fill>");
-    writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
-    writer.writeln("</Fill>");
-    writer.writeln("<LabelPlacement>");
-    writer.writeln("<PointPlacement>");
-    writer.writeln("<AnchorPoint>");
-    writer.writeln("<AnchorPointX>"+anchorX+"</AnchorPointX>");
-    writer.writeln("<AnchorPointY>"+anchorY+"</AnchorPointY>");
-    writer.writeln("</AnchorPoint>");
-    writer.writeln("<Displacement>");
-    writer.writeln("<DisplacementX>"+disX+"</DisplacementX>");
-    writer.writeln("<DisplacementY>"+disY+"</DisplacementY>");
-    writer.writeln("</Displacement>");
-    writer.writeln("<Rotation>"+rotation+"</Rotation>");
-    writer.writeln("</PointPlacement>");
-    writer.writeln("</LabelPlacement>");
+    writer.openTag("Font");
+    writer.writeTagWithValue("CssParameter", "name", "font-family", fontFamily);
+    writer.writeTagWithValue("CssParameter", "name", "font-style", fontStyle);
+    writer.writeTagWithValue("CssParameter", "name", "font-size", fontSize);
+    writer.closeTag();
+    
+    writer.openTag("LabelPlacement");
+    writer.openTag("PointPlacement");
+    
+    writer.openTag("AnchorPoint");
+    writer.writeEmptyTagWithValue("AnchorPointX", anchorX);
+    writer.writeEmptyTagWithValue("AnchorPointY", anchorY);
+    writer.closeTag();
+    
+    writer.openTag("Displacement");
+    writer.writeEmptyTagWithValue("DisplacementX", disX);
+    writer.writeEmptyTagWithValue("DisplacementY", disY);
+    writer.closeTag();
+    
+    writer.writeEmptyTagWithValue("Rotation", rotation);
+    
+    writer.closeTag();
+    writer.closeTag();
+    
+    writer.openTag("Halo");    
+
+    writer.openTag("Radius");
+    writer.writeEmptyTagWithValue("ogc:Literal", haloRadius);
+    writer.closeTag();    
+    
+    writer.openTag("Fill");
+    writer.writeTagWithValue("CssParameter", "name", "fill", haloFill);
+    writer.writeTagWithValue("CssParameter", "name", "fill-opacity", haloOpacity);
+    writer.closeTag();
+    
+    writer.closeTag();
+    
+    writer.openTag("Fill");
+    writer.writeTagWithValue("CssParameter", "name", "fill", fill);
+    writer.closeTag();
+    
     // These vender options force all labels to be rendered, regardless of overlapping.
     // And polygons will be rendered with only one label (working in conjunction with OpenLayers singleTile=true.
-    writer.writeln("<VendorOption name=\"spaceAround\">-100</VendorOption>");
-    writer.writeln("<VendorOption name=\"group\">true</VendorOption>");
+//    writer.writeTagWithValue("VendorOption", "name", "spaceAround", "-100");
+//    writer.writeTagWithValue("VendorOption", "name", "group", "true");
 //    writer.writeln("<VendorOption name=\"conflictResolution\">true</VendorOption>");
 //    writer.writeln("<VendorOption name=\"goodnessOfFit\">0</VendorOption>");
-
   }
 
 }

@@ -23,20 +23,18 @@ public class RangeFilter extends Filter implements Reloadable
     
     if(lower != null && lower.length() > 0)
     {
-      writer.writeln("<ogc:PropertyIsGreaterThanOrEqualTo>");
-      writer.writeln("<ogc:PropertyName>"+this.layer.getThematicColumnAlias()+"</ogc:PropertyName>");
-      writer.writeln("<ogc:Literal>"+lower+"</ogc:Literal>");
-      writer.writeln("</ogc:PropertyIsGreaterThanOrEqualTo>");
+      writer.openTag("ogc:PropertyIsGreaterThanOrEqualTo");
+      writer.writeEmptyTagWithValue("ogc:PropertyName", this.layer.getThematicColumnAlias());
+      writer.writeEmptyTagWithValue("ogc:Literal", lower);
+      writer.closeTag();
     }
     
     if(upper != null && upper.length() > 0)
     {    
-      writer.writeln("<ogc:PropertyIsLessThan>");
-      writer.writeln("<ogc:PropertyName>"+this.layer.getThematicColumnAlias()+"</ogc:PropertyName>");
-      writer.writeln("<ogc:Literal>"+upper+"</ogc:Literal>");
-      writer.writeln("</ogc:PropertyIsLessThan>");
-    }
-    
-    
+      writer.openTag("ogc:PropertyIsLessThan");
+      writer.writeEmptyTagWithValue("ogc:PropertyName", this.layer.getThematicColumnAlias());
+      writer.writeEmptyTagWithValue("ogc:Literal", upper);
+      writer.closeTag();
+    }   
   }
 }

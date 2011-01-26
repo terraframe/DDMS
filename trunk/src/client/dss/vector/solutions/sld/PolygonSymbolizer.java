@@ -22,16 +22,19 @@ public class PolygonSymbolizer extends Symbolizer implements Reloadable
     String strokeOpacity = style.getPolygonStrokeOpacity().toString();
     String fillOpacity = style.getPolygonFillOpacity().toString();
     
-    writer.writeln("<PolygonSymbolizer>");
-    writer.writeln("<Fill>");
-    writer.writeln("<CssParameter name=\"fill\">"+fill+"</CssParameter>");
-    writer.writeln("<CssParameter name=\"opacity\">"+fillOpacity+"</CssParameter>");
-    writer.writeln("</Fill>");
-    writer.writeln("<Stroke>");
-    writer.writeln("<CssParameter name=\"stroke\">"+stroke+"</CssParameter>");
-    writer.writeln("<CssParameter name=\"stroke-width\">"+strokeWidth+"</CssParameter>");
-    writer.writeln("<CssParameter name=\"opacity\">"+strokeOpacity+"</CssParameter>");
-    writer.writeln("</Stroke>");
-    writer.writeln("</PolygonSymbolizer>");
+    writer.openTag("PolygonSymbolizer");
+    
+    writer.openTag("Fill");
+    writer.writeTagWithValue("CssParameter", "name", "fill", fill);
+    writer.writeTagWithValue("CssParameter", "name", "opacity", fillOpacity);
+    writer.closeTag();
+    
+    writer.openTag("Stroke");
+    writer.writeTagWithValue("CssParameter", "name", "stroke", stroke);
+    writer.writeTagWithValue("CssParameter", "name", "stroke-width", strokeWidth);
+    writer.writeTagWithValue("CssParameter", "name", "opacity", strokeOpacity);
+    writer.closeTag();
+
+    writer.closeTag();
   }
 }

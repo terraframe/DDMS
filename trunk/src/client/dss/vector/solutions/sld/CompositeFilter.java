@@ -18,11 +18,11 @@ public class CompositeFilter extends Filter implements Reloadable
   @Override
   protected void write(SLDWriter writer)
   {
-    writer.writeln("<Filter>");
+    writer.openTag("ogc:Filter");
     
     if(filters.length > 1)
     {
-      writer.writeln("<ogc:And>");
+      writer.openTag("ogc:And");
     }
     
     for(Filter filter : filters)
@@ -32,9 +32,10 @@ public class CompositeFilter extends Filter implements Reloadable
     
     if(filters.length > 1)
     {
-      writer.writeln("</ogc:And>");
+      writer.closeTag();
     }
-    writer.writeln("</Filter>");
+    
+    writer.closeTag();
   }
 
 }
