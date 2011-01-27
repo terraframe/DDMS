@@ -49,6 +49,7 @@ import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.general.ThresholdAlertCalculationType;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -61,21 +62,21 @@ import dss.vector.solutions.util.UniversalSearchHelper;
 
 public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long   serialVersionUID = 1236133816255L;
+  private static final long   serialVersionUID    = 1236133816255L;
 
-  public static final Integer SRID             = 4326;
+  public static final Integer SRID                = 4326;
 
-  private static String       allowedInTree    = null;
+  private static String       allowedInTree       = null;
 
-  private static final String THEMATIC_SUFFIX  = "_thematic";
-  
-  public static final String ALLPATHS_VIEW = "geohierarchy_allpaths";
-  
-  public static final String ALLPATHS_CHILD_TYPE = "child_type";
+  private static final String THEMATIC_SUFFIX     = "_thematic";
 
-  public static final String ALLPATHS_ROOT_TYPE = "root_type";
+  public static final String  ALLPATHS_VIEW       = "geohierarchy_allpaths";
 
-  public static final String ALLPATHS_DEPTH = "depth";
+  public static final String  ALLPATHS_CHILD_TYPE = "child_type";
+
+  public static final String  ALLPATHS_ROOT_TYPE  = "root_type";
+
+  public static final String  ALLPATHS_DEPTH      = "depth";
 
   // private static Object lockObj = new Object();
 
@@ -191,6 +192,22 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   @Override
   public void apply()
   {
+    if (!this.isNew() || this.isAppliedToDB())
+    {
+      // Ensure that if this Universal is the Epidemic Universal than it must be
+      // both political and allow populations
+      List<GeoHierarchy> universals = ThresholdAlertCalculationType.getEpidemicUniversals();
+
+      if (universals.contains(this) && ! ( this.getPolitical() && this.getPopulationAllowed() ))
+      {
+        EpidemicUniversalException e = new EpidemicUniversalException();
+        e.setUniversal(this.getDisplayLabel());
+        e.apply();
+
+        throw e;
+      }
+    }
+
     boolean isNew = this.isNew();
     super.apply();
     if (isNew)
@@ -202,7 +219,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Returns the {@link GeoHierarchyView} that represents Earth.
-   *
+   * 
    * @return
    */
   public static GeoHierarchyView getEarthGeoHierarchy()
@@ -213,7 +230,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Returns a JSON object representing the allowed GeoEntity types within the
    * GeoEntity of the given id.
-   *
+   * 
    * @param geoEntityId
    * @return
    */
@@ -260,7 +277,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Returns the GeoHiearachy representative of the given type (a GeoEntity
    * subtype).
-   *
+   * 
    * @param mdType
    * @return
    */
@@ -269,7 +286,6 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     MdBusiness md = MdBusiness.getMdBusiness(mdType);
     return getGeoHierarchyFromType(md);
   }
-  
 
   public static GeoHierarchy getGeoHierarchyFromLabel(String label)
   {
@@ -300,10 +316,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     }
   }
 
-
   /**
    * Recursively collects all parents of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getAllParents()
@@ -317,7 +332,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Recursive method that collects all parents for the given parent.
-   *
+   * 
    * @param allChildren
    * @param parent
    * @return
@@ -334,7 +349,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Returns all parents of the first level of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getImmediateParents()
@@ -359,7 +374,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Recursively collects all children of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getAllChildren()
@@ -373,7 +388,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Recursive method that collects all children for the given parent.
-   *
+   * 
    * @param allChildren
    * @param parent
    * @return
@@ -390,7 +405,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Returns all children of the first level of the AllowedIn relationship.
-   *
+   * 
    * @return
    */
   public List<GeoHierarchy> getImmediateChildren()
@@ -416,7 +431,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Returns the GeoHierarchy representative of the given MdBusiness (a
    * GeoEntity subtype).
-   *
+   * 
    * @param md
    * @return
    */
@@ -445,7 +460,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Recursive function to build a tree structure denoting what GeoHierarchy
    * types are allowed in one another.
-   *
+   * 
    * @param types
    * @param imports
    * @param parent
@@ -496,7 +511,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * type is a member. Abstract types will be recursed through but the type
    * itself will not be added to the list. Although a Set is returned, the order
    * of insertion is preserved to as closely mimic a flattened tree as possible.
-   *
+   * 
    * @param type
    * @return
    */
@@ -554,7 +569,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Returns the concatenated package and type name of the underlying MdBusiness
    * this GeoHierarchy represents.
-   *
+   * 
    * @return
    */
   public String getQualifiedType()
@@ -566,7 +581,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Returns the concatenated package and type name of the underlying MdBusiness
    * this GeoHierarchy represents.
-   *
+   * 
    * @return
    */
   public String getQualifiedType(MdBusiness md)
@@ -576,7 +591,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Static accessor to delete the given GeoHierarchy.
-   *
+   * 
    * @param geoHierarchyId
    * @return An array of ids for all GeoHierarchies that were deleted.
    */
@@ -754,7 +769,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
    * returns it. If no MdAttributeGeometry is defined this method returns null.
-   *
+   * 
    * @param mdBusiness
    * @return
    */
@@ -787,7 +802,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Checks the given MdBusiness and its parents for an MdAttributeGeometry and
    * returns it. If no MdAttributeGeometry is defined this method returns null.
-   *
+   * 
    * @param mdBusiness
    * @return
    */
@@ -800,7 +815,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Defines a new GeoEntity type. This method will error out if there are any
    * problems.
-   *
+   * 
    * @param definition
    * @param allowedInIds
    * @return
@@ -817,9 +832,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     mdGeoEntity.setPackageName(MDSSInfo.GENERATED_GEO_PACKAGE);
     mdGeoEntity.setTypeName(typeName);
     mdGeoEntity.getDisplayLabel().setValue(label);
-//    mdGeoEntity.getDisplayLabel().setDefaultValue(label);
+    // mdGeoEntity.getDisplayLabel().setDefaultValue(label);
     mdGeoEntity.getDescription().setValue(description);
-//    mdGeoEntity.getDescription().setDefaultValue(description);
+    // mdGeoEntity.getDescription().setDefaultValue(description);
 
     mdGeoEntity.setIsAbstract(false); // User defined types must be concrete
     mdGeoEntity.setExtendable(true);
@@ -860,15 +875,15 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     {
       Throwable cause = e.getCause();
 
-      if (cause != null && (cause instanceof RuntimeException))
+      if (cause != null && ( cause instanceof RuntimeException ))
       {
-  	    throw (RuntimeException)cause;
+        throw (RuntimeException) cause;
       }
 
-//      if (targetException instanceof SmartException)
-//      {
-//        throw (SmartException) targetException;
-//      }
+      // if (targetException instanceof SmartException)
+      // {
+      // throw (SmartException) targetException;
+      // }
       throw new ProgrammingErrorException(e);
     }
     catch (Exception e)
@@ -1000,7 +1015,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Updates a GeoHierarchy and its enclosed MdBusiness
-   *
+   * 
    * @param view
    */
   public static void updateFromView(GeoHierarchyView view)
@@ -1016,7 +1031,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Ensures that the political and spray hierarchy don't have gaps and that
    * those hierarchies do not branch.
-   *
+   * 
    * @throws HierarchyGapException
    *           if there is a gap in the political or spray hierarchy.
    * @throws HierarchyBranchException
@@ -1188,8 +1203,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     geoEntityClass.getDescription().setValue(view.getDescription());
 
     // Do these ever need to be called?
-//    geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
-//    geoEntityClass.getDescription().setDefaultValue(view.getDescription());
+    // geoEntityClass.getDisplayLabel().setDefaultValue(view.getDisplayLabel());
+    // geoEntityClass.getDescription().setDefaultValue(view.getDescription());
 
     geoEntityClass.apply();
 
@@ -1198,7 +1213,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Adds the given childGeoHierarchyId as a child of the given
    * parentGeoHierarchyId in the {@link AllowedIn} relationship.
-   *
+   * 
    * @param childId
    * @param parentId
    * @param cloneOperation
@@ -1289,7 +1304,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * Checks that the GeoHierarchy can be modified, which is only possible if no
    * GeoEntity instances have been created for any types except the single Earth
    * instance.
-   *
+   * 
    * @throws ModifyHierarchyWithInstancesException
    */
   private static void validateModifyGeoHierarchy(GeoHierarchy toValidate)
@@ -1326,7 +1341,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * Returns all GeoHierarchy views that fit the following critiera. Note that a
    * GeoHierarchy that maps to an abstract GeoEntity subtype will not be
    * included, for those are used internally only.
-   *
+   * 
    * @param sortAttribute
    * @param ascending
    * @param pageSize
@@ -1451,8 +1466,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * Collects and returns al GeoHierarchy objects (parents and children) that
    * are of the type of GeoEntity of the given id. The collection is restricted
    * by the political and sprayZoneAllowed flag on each GeoHierarchy.
-   *
-   *
+   * 
+   * 
    * @param rootGeoEntityId
    * @param political
    * @param sprayZoneAllowed
@@ -1464,7 +1479,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     boolean[] _flags = new boolean[flags.length];
 
-    for(int i = 0; i < flags.length; i++)
+    for (int i = 0; i < flags.length; i++)
     {
       _flags[i] = flags[i].booleanValue();
     }
@@ -1545,11 +1560,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Returns all GeoHierarchy views starting with the GeoHierarchy that
    * represents the given GeoEntity.
-   *
+   * 
    * @param parameter
    *          TODO
    * @param geoEntityId
-   *
+   * 
    * @return
    */
   public static GeoHierarchyView[] getHierarchies(GeoEntity geoEntity, SearchParameter parameter)
@@ -1564,7 +1579,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   /**
    * Returns all GeoHierarchies under and including the given type.
-   *
+   * 
    * @param type
    * @param parameter
    *          TODO
@@ -1639,47 +1654,47 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return equals;
   }
 
-//  private String getViewSQL(MdBusiness md, MdAttributeGeometry mdAttrGeo)
-//  {
-//
-//    MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
-//
-//    String attrName = mdAttrGeo.getAttributeName();
-//
-//    // create the ValueQuery whose SELECT will become a database view
-//    QueryFactory f = new QueryFactory();
-//    ValueQuery vQuery = new ValueQuery(f);
-//
-//    GeoEntityQuery geoQuery = new GeoEntityQuery(f);
-//    Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
-//    entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-//
-//    // if the MdBusiness that defines the geometry is the MdBusiness this
-//    // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
-//    if (md.getId().equals(definingMd.getId()))
-//    {
-//      BusinessQuery q = f.businessQuery(md.definesType());
-//      vQuery.SELECT(q.get(attrName), entityNameAttr);
-//      vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
-//    }
-//    else
-//    {
-//      // perform a join between *this* GeoEntity table and the one
-//      // that defines the geometry attribute.
-//      BusinessQuery q1 = f.businessQuery(md.definesType());
-//      BusinessQuery q2 = f.businessQuery(definingMd.definesType());
-//      vQuery.SELECT(q2.get(attrName), entityNameAttr);
-//      vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
-//      vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
-//    }
-//
-//    // exclude any entity without spatial data
-//    Selectable geometrySelectable = vQuery.getSelectableRef(attrName);
-//    vQuery.AND(geometrySelectable.NE(null));
-//
-//    String sql = vQuery.getSQL();
-//    return sql;
-//  }
+  // private String getViewSQL(MdBusiness md, MdAttributeGeometry mdAttrGeo)
+  // {
+  //
+  // MdBusiness definingMd = (MdBusiness) mdAttrGeo.getDefiningMdClass();
+  //
+  // String attrName = mdAttrGeo.getAttributeName();
+  //
+  // // create the ValueQuery whose SELECT will become a database view
+  // QueryFactory f = new QueryFactory();
+  // ValueQuery vQuery = new ValueQuery(f);
+  //
+  // GeoEntityQuery geoQuery = new GeoEntityQuery(f);
+  // Attribute entityNameAttr = (Attribute) geoQuery.getEntityName();
+  // entityNameAttr.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+  //
+  // // if the MdBusiness that defines the geometry is the MdBusiness this
+  // // GeoHierarchy wraps, then just join with GeoEntity to get the entityName
+  // if (md.getId().equals(definingMd.getId()))
+  // {
+  // BusinessQuery q = f.businessQuery(md.definesType());
+  // vQuery.SELECT(q.get(attrName), entityNameAttr);
+  // vQuery.WHERE(q.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+  // }
+  // else
+  // {
+  // // perform a join between *this* GeoEntity table and the one
+  // // that defines the geometry attribute.
+  // BusinessQuery q1 = f.businessQuery(md.definesType());
+  // BusinessQuery q2 = f.businessQuery(definingMd.definesType());
+  // vQuery.SELECT(q2.get(attrName), entityNameAttr);
+  // vQuery.WHERE(q1.aCharacter(ComponentInfo.ID).EQ(q2.aCharacter(ComponentInfo.ID)));
+  // vQuery.WHERE(q2.aCharacter(ComponentInfo.ID).EQ(geoQuery.getId()));
+  // }
+  //
+  // // exclude any entity without spatial data
+  // Selectable geometrySelectable = vQuery.getSelectableRef(attrName);
+  // vQuery.AND(geometrySelectable.NE(null));
+  //
+  // String sql = vQuery.getSQL();
+  // return sql;
+  // }
 
   public static boolean addGeoHierarchyJoinConditions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryParserMap)
   {
@@ -1809,7 +1824,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * NOTE: this should only be called after this GeoHierarchy has been
    * successfully applied because then the required MdBusiness reference will be
    * available.
-   *
+   * 
    * @return
    */
   public String getDisplayLabel()
@@ -1959,7 +1974,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     SelectableSQLCharacter childType = lowestUniversial.aSQLCharacter(ALLPATHS_CHILD_TYPE, ALLPATHS_CHILD_TYPE);
 
-    SelectableSQLInteger depth = lowestUniversial.aSQLAggregateInteger(ALLPATHS_DEPTH, "MAX("+ALLPATHS_DEPTH+")");
+    SelectableSQLInteger depth = lowestUniversial.aSQLAggregateInteger(ALLPATHS_DEPTH, "MAX(" + ALLPATHS_DEPTH + ")");
 
     lowestUniversial.SELECT(new Selectable[] { childType, depth });
     lowestUniversial.FROM(ALLPATHS_VIEW, ALLPATHS_VIEW);
@@ -1974,21 +1989,21 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         ValueObject o = iter.next();
         int maxDepth = Integer.parseInt(o.getValue(ALLPATHS_DEPTH));
         String universal = o.getValue(ALLPATHS_CHILD_TYPE);
-        
+
         // Make sure we have the "smallest" universal. If the
         // next result has the same depth then we must throw
         // an error because they are either siblings or equally "small"
-        if(iter.hasNext())
+        if (iter.hasNext())
         {
           ValueObject o2 = iter.next();
           int nextDepth = Integer.parseInt(o2.getValue(ALLPATHS_DEPTH));
-          if(maxDepth == nextDepth)
+          if (maxDepth == nextDepth)
           {
-            String msg = "There is no universal with the largest depth among ["+types+"]";
+            String msg = "There is no universal with the largest depth among [" + types + "]";
             throw new NoSmallestLocatedInException(msg);
           }
         }
-        
+
         return universal;
       }
     }
@@ -2055,8 +2070,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       }
       systemName = sb.toString();
 
-      if (ReservedWords.javaContains(systemName) || ReservedWords.sqlContains(systemName)) {
-    	  systemName += "Universal";
+      if (ReservedWords.javaContains(systemName) || ReservedWords.sqlContains(systemName))
+      {
+        systemName += "Universal";
       }
     }
     return systemName;
