@@ -1692,58 +1692,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
   },
   
   Static : {
-  
-    attachDisplacementSlider : function(attribute)
-    {
-      var Event = YAHOO.util.Event,
-          Dom   = YAHOO.util.Dom,
-          lang  = YAHOO.lang,
-          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
-          textfield=attribute+"Converted"
-  
-      var value = parseInt(document.getElementById(attribute).value);
-      var asPixel = value+50;
 
-      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
-                           thumb, 0, 100, 1);
-      
-      slider.animate = false;
-      slider.setValue(asPixel);
-                           
-      slider.subscribe("change", function(offsetFromStart) {
-        var px = parseInt(offsetFromStart);
-        var dis = px-50;
-      
-        document.getElementById(attribute+'Display').innerHTML = dis;
-        document.getElementById(attribute).value = dis;
-      });
-    },
-  
-    attachAnchorSlider : function(attribute)
-    {
-      var Event = YAHOO.util.Event,
-          Dom   = YAHOO.util.Dom,
-          lang  = YAHOO.lang,
-          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
-          textfield=attribute+"Converted"
-  
-      var value = document.getElementById(attribute).value;
-      var asPixel = value*100;
-
-      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
-                           thumb, 0, 100, 1);
-      
-      slider.animate = false;
-      slider.setValue(asPixel);
-                           
-      slider.subscribe("change", function(offsetFromStart) {
-        var anchor = offsetFromStart/100;
-      
-        document.getElementById(attribute+'Display').innerHTML = anchor;
-        document.getElementById(attribute).value = anchor;
-      });
-    },
-    
     attachRotationCanvas : function(attribute)
     {
       var canvas = document.getElementById(attribute+'Canvas');
@@ -1794,74 +1743,134 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       YAHOO.util.Event.on(attribute+'CCW', 'click', handler, -5);
     },
     
-    attach50Slider : function(attribute)
+    _attachSlider : function(attribute, config)
     {
       var Event = YAHOO.util.Event,
-          Dom   = YAHOO.util.Dom,
-          lang  = YAHOO.lang,
-          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
-          textfield=attribute+"Converted"
-  
-      var value = parseInt(document.getElementById(attribute).value);
-      var asPixel = value * 2;
+      Dom   = YAHOO.util.Dom,
+      lang  = YAHOO.lang,
+      bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
+      textfield=attribute+"Converted"
 
-      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
-                           thumb, 0, 100, 2);
-      
-      slider.animate = false;
-      slider.setValue(asPixel);
-                           
-      slider.subscribe("change", function(offsetFromStart) {
-        var size = parseInt(offsetFromStart) / 2;
-      
-        document.getElementById(attribute+'Display').innerHTML = size;
-        document.getElementById(attribute).value = size;
-      });
-    },
+      var value = config.getValue(document.getElementById(attribute).value);
     
-    attach100Slider : function(attribute)
-    {
-      var Event = YAHOO.util.Event,
-          Dom   = YAHOO.util.Dom,
-          lang  = YAHOO.lang,
-          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
-          textfield=attribute+"Converted"
-  
-      var value = parseInt(document.getElementById(attribute).value);
-
       var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
-                           thumb, 0, 100, 1);
+                           thumb, config.start, config.end, config.increment);
       
       slider.animate = false;
       slider.setValue(value);
                            
       slider.subscribe("change", function(offsetFromStart) {
-        document.getElementById(attribute+'Display').innerHTML = offsetFromStart;
-        document.getElementById(attribute).value = offsetFromStart;
+        var obj = config.onChange(offsetFromStart);
+        
+        document.getElementById(attribute+'Display').innerHTML = obj.display;
+        document.getElementById(attribute).value = obj.value;
+      });
+    },
+    
+    attachDisplacementSlider : function(attribute)
+    {
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:1,
+        getValue : function(value)
+        {
+          return parseInt(value) + 50;
+        },
+        onChange : function(offsetFromStart)
+        {
+          var px = parseInt(offsetFromStart) - 50;
+          
+          return {
+            value : px,
+            display : px
+          };
+        }
+      });
+    },
+  
+    attachAnchorSlider : function(attribute)
+    {
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:1,
+        getValue : function(value)
+        {
+          return parseFloat(value) * 100;
+        },
+        onChange : function(offsetFromStart)
+        {
+          var anchor = offsetFromStart/100;
+          
+          return {
+            value : anchor,
+            display : anchor
+          };
+        }
+      });
+    },
+    
+    attach50Slider : function(attribute)
+    {
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:2,
+        getValue : function(value)
+        {
+          return parseInt(value) * 2;
+        },
+        onChange : function(offsetFromStart)
+        {
+          var size = offsetFromStart / 2;
+          
+          return {
+            value : size,
+            display : size
+          };
+        }
+      });
+    },
+    
+    attach100Slider : function(attribute)
+    {
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:1,
+        getValue : function(value)
+        {
+          return parseInt(value);
+        },
+        onChange : function(offsetFromStart)
+        {
+          return {
+            value : offsetFromStart,
+            display : offsetFromStart
+          };
+        }
       });
     },
   
     attachOpacitySlider : function(attribute)
     {
-      var Event = YAHOO.util.Event,
-          Dom   = YAHOO.util.Dom,
-          lang  = YAHOO.lang,
-          bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
-          textfield=attribute+"Converted"
-  
-      var value = document.getElementById(attribute).value;
-      var asPixel = value * 100;
-
-      var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
-                           thumb, 0, 100, 1);
-      
-      slider.animate = false;
-      slider.setValue(asPixel);
-                           
-      slider.subscribe("change", function(offsetFromStart) {
-        document.getElementById(attribute+'Display').innerHTML = offsetFromStart+'%';
-        document.getElementById(attribute).value = offsetFromStart / 100;
-      });
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:1,
+        getValue : function(value)
+        {
+          return parseFloat(value) * 100;
+        },
+        onChange : function(offsetFromStart)
+        {
+          return {
+            value : offsetFromStart / 100,
+            display : offsetFromStart
+          };
+        }
+      });      
     },
   
     _currentMap : null,
