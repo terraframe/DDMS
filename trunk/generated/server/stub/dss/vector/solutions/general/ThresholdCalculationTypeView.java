@@ -1,9 +1,13 @@
 package dss.vector.solutions.general;
 
+import java.util.List;
+
+import com.runwaysdk.ProblemIF;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.RequestManagement;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.threshold.FacilityThresholdCalculator;
@@ -223,7 +227,13 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
     thresholdCalculation.saveAlertCalculationType();
     ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-    ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
+    
+    List<ProblemIF> problems = RequestManagement.aspectOf().getProblemList();
+    
+    if(problems.size() == 0)
+    {
+      ThresholdCalculator.calculateThresholds(PoliticalThresholdCalculator.class, calcType, currentPeriod);
+    }
   }
 
   @Transaction
@@ -233,7 +243,13 @@ public class ThresholdCalculationTypeView extends ThresholdCalculationTypeViewBa
 
     thresholdCalculation.saveAlertCalculationType();
     ThresholdCalculationType calcType = thresholdCalculation.saveCalculationType();
-    ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
+    
+    List<ProblemIF> problems = RequestManagement.aspectOf().getProblemList();
+    
+    if(problems.size() == 0)
+    {
+      ThresholdCalculator.calculateThresholds(FacilityThresholdCalculator.class, calcType, currentPeriod);
+    }
   }
 
   public static ThresholdCalculationTypeView getCalculationThreshold()
