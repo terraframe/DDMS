@@ -344,10 +344,13 @@ public class MDSSModule implements IModule, IControllerListener
       {
         case 1:
           locale = new Locale(localeInfo[0]);
+          break;
         case 2:
           locale = new Locale(localeInfo[0], localeInfo[1]);
+          break;
         case 3:
           locale = new Locale(localeInfo[0], localeInfo[1], localeInfo[2]);
+          break;
       }
     }
 
