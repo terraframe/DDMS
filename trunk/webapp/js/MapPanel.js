@@ -1852,7 +1852,51 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         }
       });
     },
-  
+    
+    attach10Slider : function(attribute)
+    {
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:5,
+        getValue : function(value)
+        {
+          return  (parseInt(value) + 10) * 5;
+        },
+        onChange : function(offsetFromStart)
+        {
+          var size = (parseInt(offsetFromStart) / 5) - 10;
+          
+          return {
+            value : size,
+            display : size
+          };
+        }
+      });
+    },
+
+    attach1Slider : function(attribute)
+    {
+      MDSS.MapPanel._attachSlider(attribute, {
+        start:0,
+        end:100,
+        increment:1,
+        getValue : function(value)
+        {
+          return parseFloat(value) * 100;
+        },
+        onChange : function(offsetFromStart)
+        {
+          var size = parseInt(offsetFromStart) / 100;
+          
+          return {
+            value : size,
+            display : size
+          };
+        }
+      });
+    },    
+    
     attachOpacitySlider : function(attribute)
     {
       MDSS.MapPanel._attachSlider(attribute, {

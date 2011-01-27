@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1117092936)
+@com.runwaysdk.business.ClassSignature(hash = -245755869)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.query;
 public  class StylesQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1117092936;
+private static final long serialVersionUID = -245755869;
 
   public StylesQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -71,6 +71,23 @@ private static final long serialVersionUID = 1117092936;
   public com.runwaysdk.query.SelectableDecimal getAnchorPointY(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getConflictResolution()
+  {
+    return getConflictResolution(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getConflictResolution(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CONFLICTRESOLUTION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getConflictResolution(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.CONFLICTRESOLUTION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -181,6 +198,23 @@ private static final long serialVersionUID = 1117092936;
     return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution()
+  {
+    return getEnable_conflictResolution(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_CONFLICTRESOLUTION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_CONFLICTRESOLUTION, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableBoolean getEnable_displacementX()
   {
     return getEnable_displacementX(null);
@@ -281,6 +315,23 @@ private static final long serialVersionUID = 1117092936;
   public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_FONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit()
+  {
+    return getEnable_goodnessOfFit(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_GOODNESSOFFIT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_GOODNESSOFFIT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill()
@@ -538,6 +589,23 @@ private static final long serialVersionUID = 1117092936;
     return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_POLYGONWIDTH, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround()
+  {
+    return getEnable_spaceAround(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_SPACEAROUND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.getComponentQuery().get(dss.vector.solutions.query.Styles.ENABLE_SPACEAROUND, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -633,6 +701,23 @@ private static final long serialVersionUID = 1117092936;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.query.Styles.FONTSTYLES);
 
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.query.Styles.FONTSTYLES, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit()
+  {
+    return getGoodnessOfFit(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.GOODNESSOFFIT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.getComponentQuery().get(dss.vector.solutions.query.Styles.GOODNESSOFFIT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -1050,6 +1135,23 @@ private static final long serialVersionUID = 1117092936;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getSpaceAround()
+  {
+    return getSpaceAround(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getSpaceAround(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SPACEAROUND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getSpaceAround(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.query.Styles.SPACEAROUND, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getType()
   {
     return getType(null);
@@ -1155,6 +1257,9 @@ private static final long serialVersionUID = 1117092936;
     public com.runwaysdk.query.SelectableDecimal getAnchorPointY();
     public com.runwaysdk.query.SelectableDecimal getAnchorPointY(String alias);
     public com.runwaysdk.query.SelectableDecimal getAnchorPointY(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getConflictResolution();
+    public com.runwaysdk.query.SelectableBoolean getConflictResolution(String alias);
+    public com.runwaysdk.query.SelectableBoolean getConflictResolution(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableMoment getCreateDate();
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias);
     public com.runwaysdk.query.SelectableMoment getCreateDate(String alias, String displayLabel);
@@ -1173,6 +1278,9 @@ private static final long serialVersionUID = 1117092936;
     public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY();
     public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias);
     public com.runwaysdk.query.SelectableBoolean getEnable_anchorPointY(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution();
+    public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getEnable_displacementX();
     public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias);
     public com.runwaysdk.query.SelectableBoolean getEnable_displacementX(String alias, String displayLabel);
@@ -1191,6 +1299,9 @@ private static final long serialVersionUID = 1117092936;
     public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles();
     public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias);
     public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit();
+    public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill();
     public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias);
     public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill(String alias, String displayLabel);
@@ -1236,6 +1347,9 @@ private static final long serialVersionUID = 1117092936;
     public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth();
     public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias);
     public com.runwaysdk.query.SelectableBoolean getEnable_polygonWidth(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround();
+    public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround(String alias);
+    public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround(String alias, String displayLabel);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
@@ -1251,6 +1365,9 @@ private static final long serialVersionUID = 1117092936;
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles();
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias);
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit();
+    public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit(String alias);
+    public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -1320,6 +1437,9 @@ private static final long serialVersionUID = 1117092936;
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getSpaceAround();
+    public com.runwaysdk.query.SelectableInteger getSpaceAround(String alias);
+    public com.runwaysdk.query.SelectableInteger getSpaceAround(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -1338,7 +1458,7 @@ private static final long serialVersionUID = 1117092936;
  implements StylesQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1551930906;
+private static final long serialVersionUID = -955230523;
 
   public StylesQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1391,6 +1511,23 @@ private static final long serialVersionUID = -1551930906;
   public com.runwaysdk.query.SelectableDecimal getAnchorPointY(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.ANCHORPOINTY, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getConflictResolution()
+  {
+    return getConflictResolution(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getConflictResolution(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.CONFLICTRESOLUTION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getConflictResolution(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.CONFLICTRESOLUTION, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableMoment getCreateDate()
@@ -1495,6 +1632,23 @@ private static final long serialVersionUID = -1551930906;
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_ANCHORPOINTY, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution()
+  {
+    return getEnable_conflictResolution(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_CONFLICTRESOLUTION, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_conflictResolution(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_CONFLICTRESOLUTION, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableBoolean getEnable_displacementX()
   {
     return getEnable_displacementX(null);
@@ -1595,6 +1749,23 @@ private static final long serialVersionUID = -1551930906;
   public com.runwaysdk.query.SelectableBoolean getEnable_fontStyles(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_FONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit()
+  {
+    return getEnable_goodnessOfFit(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_GOODNESSOFFIT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_goodnessOfFit(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_GOODNESSOFFIT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getEnable_labelHaloFill()
@@ -1852,6 +2023,23 @@ private static final long serialVersionUID = -1551930906;
     return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_POLYGONWIDTH, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround()
+  {
+    return getEnable_spaceAround(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround(String alias)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_SPACEAROUND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableBoolean getEnable_spaceAround(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableBoolean)this.get(dss.vector.solutions.query.Styles.ENABLE_SPACEAROUND, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain()
   {
     return getEntityDomain(null);
@@ -1935,6 +2123,23 @@ private static final long serialVersionUID = -1551930906;
   public dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF getFontStyles(String alias, String displayLabel)
   {
     return (dss.vector.solutions.query.FontStyleQuery.FontStylesQueryIF)this.get(dss.vector.solutions.query.Styles.FONTSTYLES, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit()
+  {
+    return getGoodnessOfFit(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit(String alias)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.GOODNESSOFFIT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableDecimal getGoodnessOfFit(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableDecimal)this.get(dss.vector.solutions.query.Styles.GOODNESSOFFIT, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -2326,6 +2531,23 @@ private static final long serialVersionUID = -1551930906;
   public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.query.Styles.SITEMASTER, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getSpaceAround()
+  {
+    return getSpaceAround(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getSpaceAround(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.SPACEAROUND, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getSpaceAround(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.query.Styles.SPACEAROUND, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()

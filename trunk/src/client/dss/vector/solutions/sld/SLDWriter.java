@@ -235,9 +235,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
 
   public void writeTagWithValue(String tag, HashMap<String, String> attributes, String value)
   {
-    openTag(tag, attributes);
-    writeValue(value);
-    closeTag();    
+    writeTagSingleValue(tag, value, attributes);
   }
   
   public void writeTagWithValue(String tag, String attributeName, String attributeValue, String value)

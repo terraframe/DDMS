@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 1255169745)
+@com.runwaysdk.business.ClassSignature(hash = 961939578)
 public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.Styles";
-  private static final long serialVersionUID = 1255169745;
+  private static final long serialVersionUID = 961939578;
   
   protected StylesDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -29,18 +29,21 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   
   public static java.lang.String ANCHORPOINTX = "anchorPointX";
   public static java.lang.String ANCHORPOINTY = "anchorPointY";
+  public static java.lang.String CONFLICTRESOLUTION = "conflictResolution";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISPLACEMENTX = "displacementX";
   public static java.lang.String DISPLACEMENTY = "displacementY";
   public static java.lang.String ENABLE_ANCHORPOINTX = "enable_anchorPointX";
   public static java.lang.String ENABLE_ANCHORPOINTY = "enable_anchorPointY";
+  public static java.lang.String ENABLE_CONFLICTRESOLUTION = "enable_conflictResolution";
   public static java.lang.String ENABLE_DISPLACEMENTX = "enable_displacementX";
   public static java.lang.String ENABLE_DISPLACEMENTY = "enable_displacementY";
   public static java.lang.String ENABLE_FILL = "enable_fill";
   public static java.lang.String ENABLE_FONTFAMILY = "enable_fontFamily";
   public static java.lang.String ENABLE_FONTSIZE = "enable_fontSize";
   public static java.lang.String ENABLE_FONTSTYLES = "enable_fontStyles";
+  public static java.lang.String ENABLE_GOODNESSOFFIT = "enable_goodnessOfFit";
   public static java.lang.String ENABLE_LABELHALOFILL = "enable_labelHaloFill";
   public static java.lang.String ENABLE_LABELHALOOPACITY = "enable_labelHaloOpacity";
   public static java.lang.String ENABLE_LABELHALORADIUS = "enable_labelHaloRadius";
@@ -56,11 +59,13 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public static java.lang.String ENABLE_POLYGONSTROKE = "enable_polygonStroke";
   public static java.lang.String ENABLE_POLYGONSTROKEOPACITY = "enable_polygonStrokeOpacity";
   public static java.lang.String ENABLE_POLYGONWIDTH = "enable_polygonWidth";
+  public static java.lang.String ENABLE_SPACEAROUND = "enable_spaceAround";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FILL = "fill";
   public static java.lang.String FONTFAMILY = "fontFamily";
   public static java.lang.String FONTSIZE = "fontSize";
   public static java.lang.String FONTSTYLES = "fontStyles";
+  public static java.lang.String GOODNESSOFFIT = "goodnessOfFit";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LABELHALOFILL = "labelHaloFill";
@@ -84,6 +89,7 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public static java.lang.String POLYGONWIDTH = "polygonWidth";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SPACEAROUND = "spaceAround";
   public static java.lang.String TYPE = "type";
   public java.math.BigDecimal getAnchorPointX()
   {
@@ -159,6 +165,43 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(ANCHORPOINTY).getAttributeMdDTO();
   }
   
+  public Boolean getConflictResolution()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(CONFLICTRESOLUTION));
+  }
+  
+  public void setConflictResolution(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(CONFLICTRESOLUTION, "");
+    }
+    else
+    {
+      setValue(CONFLICTRESOLUTION, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isConflictResolutionWritable()
+  {
+    return isWritable(CONFLICTRESOLUTION);
+  }
+  
+  public boolean isConflictResolutionReadable()
+  {
+    return isReadable(CONFLICTRESOLUTION);
+  }
+  
+  public boolean isConflictResolutionModified()
+  {
+    return isModified(CONFLICTRESOLUTION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getConflictResolutionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(CONFLICTRESOLUTION).getAttributeMdDTO();
+  }
+  
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -194,6 +237,11 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     {
       return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
+  }
+  
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
   }
   
   public boolean isCreatedByWritable()
@@ -362,6 +410,43 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_anchorPointYMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_ANCHORPOINTY).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_conflictResolution()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_CONFLICTRESOLUTION));
+  }
+  
+  public void setEnable_conflictResolution(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_CONFLICTRESOLUTION, "");
+    }
+    else
+    {
+      setValue(ENABLE_CONFLICTRESOLUTION, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_conflictResolutionWritable()
+  {
+    return isWritable(ENABLE_CONFLICTRESOLUTION);
+  }
+  
+  public boolean isEnable_conflictResolutionReadable()
+  {
+    return isReadable(ENABLE_CONFLICTRESOLUTION);
+  }
+  
+  public boolean isEnable_conflictResolutionModified()
+  {
+    return isModified(ENABLE_CONFLICTRESOLUTION);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_conflictResolutionMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_CONFLICTRESOLUTION).getAttributeMdDTO();
   }
   
   public Boolean getEnable_displacementX()
@@ -584,6 +669,43 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_fontStylesMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_FONTSTYLES).getAttributeMdDTO();
+  }
+  
+  public Boolean getEnable_goodnessOfFit()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_GOODNESSOFFIT));
+  }
+  
+  public void setEnable_goodnessOfFit(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_GOODNESSOFFIT, "");
+    }
+    else
+    {
+      setValue(ENABLE_GOODNESSOFFIT, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_goodnessOfFitWritable()
+  {
+    return isWritable(ENABLE_GOODNESSOFFIT);
+  }
+  
+  public boolean isEnable_goodnessOfFitReadable()
+  {
+    return isReadable(ENABLE_GOODNESSOFFIT);
+  }
+  
+  public boolean isEnable_goodnessOfFitModified()
+  {
+    return isModified(ENABLE_GOODNESSOFFIT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_goodnessOfFitMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_GOODNESSOFFIT).getAttributeMdDTO();
   }
   
   public Boolean getEnable_labelHaloFill()
@@ -1141,6 +1263,43 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_POLYGONWIDTH).getAttributeMdDTO();
   }
   
+  public Boolean getEnable_spaceAround()
+  {
+    return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(ENABLE_SPACEAROUND));
+  }
+  
+  public void setEnable_spaceAround(Boolean value)
+  {
+    if(value == null)
+    {
+      setValue(ENABLE_SPACEAROUND, "");
+    }
+    else
+    {
+      setValue(ENABLE_SPACEAROUND, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public boolean isEnable_spaceAroundWritable()
+  {
+    return isWritable(ENABLE_SPACEAROUND);
+  }
+  
+  public boolean isEnable_spaceAroundReadable()
+  {
+    return isReadable(ENABLE_SPACEAROUND);
+  }
+  
+  public boolean isEnable_spaceAroundModified()
+  {
+    return isModified(ENABLE_SPACEAROUND);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getEnable_spaceAroundMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ENABLE_SPACEAROUND).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
   {
     if(getValue(ENTITYDOMAIN) == null || getValue(ENTITYDOMAIN).trim().equals(""))
@@ -1151,6 +1310,11 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -1340,6 +1504,43 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO getFontStylesMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO) getAttributeDTO(FONTSTYLES).getAttributeMdDTO();
+  }
+  
+  public java.math.BigDecimal getGoodnessOfFit()
+  {
+    return com.runwaysdk.constants.MdAttributeDecimalUtil.getTypeSafeValue(getValue(GOODNESSOFFIT));
+  }
+  
+  public void setGoodnessOfFit(java.math.BigDecimal value)
+  {
+    if(value == null)
+    {
+      setValue(GOODNESSOFFIT, "");
+    }
+    else
+    {
+      setValue(GOODNESSOFFIT, value.toString());
+    }
+  }
+  
+  public boolean isGoodnessOfFitWritable()
+  {
+    return isWritable(GOODNESSOFFIT);
+  }
+  
+  public boolean isGoodnessOfFitReadable()
+  {
+    return isReadable(GOODNESSOFFIT);
+  }
+  
+  public boolean isGoodnessOfFitModified()
+  {
+    return isModified(GOODNESSOFFIT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getGoodnessOfFitMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(GOODNESSOFFIT).getAttributeMdDTO();
   }
   
   public String getKeyName()
@@ -1564,6 +1765,11 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -1596,6 +1802,11 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -1626,6 +1837,11 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -2124,6 +2340,43 @@ public abstract class StylesDTOBase extends com.runwaysdk.business.BusinessDTO i
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public Integer getSpaceAround()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(SPACEAROUND));
+  }
+  
+  public void setSpaceAround(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(SPACEAROUND, "");
+    }
+    else
+    {
+      setValue(SPACEAROUND, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isSpaceAroundWritable()
+  {
+    return isWritable(SPACEAROUND);
+  }
+  
+  public boolean isSpaceAroundReadable()
+  {
+    return isReadable(SPACEAROUND);
+  }
+  
+  public boolean isSpaceAroundModified()
+  {
+    return isModified(SPACEAROUND);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getSpaceAroundMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(SPACEAROUND).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.query.StylesDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

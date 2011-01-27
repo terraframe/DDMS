@@ -43,6 +43,9 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     String haloRadius = style.getLabelHaloRadius().toString();
     String haloFill = style.getLabelHaloFill();
     String haloOpacity = style.getLabelHaloOpacity().toString();
+    String goodnessOfFit = style.getGoodnessOfFit().toString();
+    String conflictResolution = style.getConflictResolution().toString();
+    String spaceAround = style.getSpaceAround().toString();
     
     writer.openTag("Font");
     writer.writeTagWithValue("CssParameter", "name", "font-family", fontFamily);
@@ -87,7 +90,11 @@ public class TextSymbolizer extends Symbolizer implements Reloadable
     
     // These vender options force all labels to be rendered, regardless of overlapping.
     // And polygons will be rendered with only one label (working in conjunction with OpenLayers singleTile=true.
-//    writer.writeTagWithValue("VendorOption", "name", "spaceAround", "-100");
+    writer.writeTagWithValue("VendorOption", "name", "spaceAround", spaceAround);
+    writer.writeTagWithValue("VendorOption", "name", "conflictResolution", conflictResolution);
+    writer.writeTagWithValue("VendorOption", "name", "goodnessOfFit", goodnessOfFit);
+
+    //    writer.writeTagWithValue("VendorOption", "name", "spaceAround", "-100");
 //    writer.writeTagWithValue("VendorOption", "name", "group", "true");
 //    writer.writeln("<VendorOption name=\"conflictResolution\">true</VendorOption>");
 //    writer.writeln("<VendorOption name=\"goodnessOfFit\">0</VendorOption>");

@@ -149,6 +149,43 @@
       <mjl:input type="hidden" param="displacementY" id="${styles.id}_displacementY" />
     </div>
   </dd>
+  
+  
+  <dt>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_conflictResolution" ${styles.enable_conflictResolution ? 'checked="checked"' : ''} value="true" title='<mdss:localize key="Enable_Style_Override" />' /></c:if>
+    <label>${styles.conflictResolutionMd.displayLabel }</label>
+  </dt>
+  <dd>
+    <mjl:boolean param="conflictResolution" id="${styles.id}_conflictResolution" />
+  </dd>
+  <dt>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_spaceAround" ${styles.enable_spaceAround ? 'checked="checked"' : ''} value="true" title='<mdss:localize key="Enable_Style_Override" />' /></c:if>
+    <label>${styles.spaceAroundMd.displayLabel }</label>
+  </dt>
+  <dd>
+    <div id="${styles.id}_spaceAroundSliderBG" class="yui-h-slider" style="width: 100px">
+      <div id="${styles.id}_spaceAroundThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
+    </div>
+    <div>
+      <span id="${styles.id}_spaceAroundDisplay"></span>
+      <mjl:input type="hidden" param="spaceAround" id="${styles.id}_spaceAround" />
+    </div>  
+  </dd>
+  <dt>
+    <c:if test="${enableCheckboxes}"><input type="checkbox" name="styles.enable_goodnessOfFit" ${styles.enable_goodnessOfFit ? 'checked="checked"' : ''} value="true" title='<mdss:localize key="Enable_Style_Override" />' /></c:if>
+    <label>${styles.goodnessOfFitMd.displayLabel }</label>
+  </dt>
+  <dd>
+    <div id="${styles.id}_goodnessOfFitSliderBG" class="yui-h-slider" style="width: 100px">
+      <div id="${styles.id}_goodnessOfFitThumb" class="yui-slider-thumb"><img src="imgs/thumb-n.gif"></div>
+    </div>
+    <div>
+      <span id="${styles.id}_goodnessOfFitDisplay"></span>
+      <mjl:input type="hidden" param="goodnessOfFit" id="${styles.id}_goodnessOfFit" />
+    </div>    
+  </dd>
+  
+  
 </dl>
 </div>
 <hr />
@@ -322,6 +359,9 @@ MDSS.MapPanel.attach50Slider('${styles.id}_labelHaloRadius');
 MDSS.MapPanel.attach100Slider('${styles.id}_pointWidth');
 MDSS.MapPanel.attach100Slider('${styles.id}_pointSize');
 MDSS.MapPanel.attach100Slider('${styles.id}_polygonWidth');
+
+MDSS.MapPanel.attach10Slider('${styles.id}_spaceAround');
+MDSS.MapPanel.attach1Slider('${styles.id}_goodnessOfFit');
 </script>
 
 </mjl:component>
