@@ -562,6 +562,7 @@ public class IRSQuery implements Reloadable
    */
   private void joinMainQueryTables()
   {
+    // FIXME remove this hack! Use SQL pass-through if necessary.
     String abstractSprayTable = MdEntityDAO.getMdEntityDAO(AbstractSpray.CLASS).getTableName();
     IRSSpoofJoin join = new IRSSpoofJoin(idCol, abstractSprayTable, this.sprayViewAlias, idCol,
         abstractSprayTable, this.sprayViewAlias);

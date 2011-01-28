@@ -8,6 +8,7 @@ public interface IRSUnionIF extends Reloadable
   
   public static final String FLOAT = "float";
   public static final String TEXT = "text";
+  public static final String VARCHAR = "varchar";
   public static final String DATE = "date";
   
   // get/set owning IRSQuery
