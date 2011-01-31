@@ -330,15 +330,15 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 
   @Transaction
   @Authenticate
-  public static void checkThresholdViolation(Date date, GeoEntity entity, double count)
+  public static void checkThresholdViolation(Date date, GeoEntity entity, double count, Date symptomOnsetDate)
   {
     if (entity.getType().equals(Earth.CLASS))
     {
       return;
     }
 
-    ThresholdData.checkThreshold(WeeklyThreshold.IDENTIFICATION, date, entity, count, false);
-    ThresholdData.checkThreshold(WeeklyThreshold.NOTIFICATION, date, entity, count, false);
+    ThresholdData.checkThreshold(WeeklyThreshold.IDENTIFICATION, date, entity, count, false, symptomOnsetDate);
+    ThresholdData.checkThreshold(WeeklyThreshold.NOTIFICATION, date, entity, count, false, symptomOnsetDate);
   }
 
   @Transaction
@@ -350,11 +350,11 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       return;
     }
 
-    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYIDENTIFICATION, date, entity, count, true);
-    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYNOTIFICATION, date, entity, count, true);
+    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYIDENTIFICATION, date, entity, count, true, date);
+    ThresholdData.checkThreshold(WeeklyThreshold.FACILITYNOTIFICATION, date, entity, count, true, date);
   }
 
-  private static void checkThreshold(String accessor, Date date, GeoEntity entity, double cases, boolean facility)
+  private static void checkThreshold(String accessor, Date date, GeoEntity entity, double cases, boolean facility, Date messageDate)
   {
     WeeklyThreshold threshold = ThresholdData.getThresholds(entity, date);
     EpiWeek week = EpiWeek.getEpiWeek(date);
@@ -386,7 +386,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       {
 
         // Perform the alert
-        performAlert(accessor, entity, count, cases, date, week);
+        performAlert(accessor, entity, count, cases, date, week, null);
 
         threshold.reachedThreshold(accessor, count);
       }
@@ -415,12 +415,12 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
     return null;
   }
 
-  private static void performAlert(String accessor, GeoEntity entity, double threshold, double count, Date date, EpiWeek week)
+  private static void performAlert(String accessor, GeoEntity entity, double threshold, double count, Date date, EpiWeek week, Date messageDate)
   {
     SystemAlertType alertType = ThresholdData.getSystemAlertType(accessor);
 
     DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
-    String formattedDate = format.format(date);
+    String formattedDate = format.format(messageDate);
 
     String alertLevel = MDSSProperties.getString("Outbreak");
     ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
@@ -451,8 +451,10 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
     data.put("thresholdType", accessor);
     data.put("thresholdValue", String.format(OutbreakAlert.VALUE_FORMAT, threshold));
     data.put("actualValue", String.format(OutbreakAlert.VALUE_FORMAT, count));
-    data.put("epiWeek", week.getPeriod());
     data.put("geoEntity", label);
+
+    // Note: EpiWeek is 0 based, thus 1 needs to be added for the message
+    data.put("epiWeek", week.getPeriod() + 1);
 
     if (alertType.equals(SystemAlertType.SOURCE_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.SOURCE_OUTBREAK_NOTIFICATION))
     {

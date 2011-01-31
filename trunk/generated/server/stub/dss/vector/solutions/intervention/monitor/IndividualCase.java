@@ -18,8 +18,6 @@ import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.LeftJoin;
-import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
@@ -42,7 +40,6 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdAlertCalculationType;
-import dss.vector.solutions.general.ThresholdCalculationType;
 import dss.vector.solutions.general.ThresholdCalculationTypeView;
 import dss.vector.solutions.general.ThresholdData;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -351,7 +348,7 @@ public class IndividualCase extends IndividualCaseBase implements
       {
         double count = IndividualCase.getCount(entity, window[0], window[1]);
 
-        ThresholdData.checkThresholdViolation(date, entity, count);
+        ThresholdData.checkThresholdViolation(date, entity, count, this.getSymptomOnset());
       }
     }
   }
