@@ -1463,7 +1463,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   }
 
   /**
-   * Collects and returns al GeoHierarchy objects (parents and children) that
+   * Collects and returns all GeoHierarchy objects (parents and children) that
    * are of the type of GeoEntity of the given id. The collection is restricted
    * by the political and sprayZoneAllowed flag on each GeoHierarchy.
    * 
@@ -1522,9 +1522,26 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
   public static void collect(LinkedHashSet<GeoHierarchyView> hierarchies, GeoHierarchy parent, boolean[] flags)
   {
-    boolean isPolitical = parent.getPolitical().booleanValue();
-    boolean isSprayZoneAllowed = parent.getSprayTargetAllowed().booleanValue();
-    boolean isUrban = parent.getUrban() != null ? parent.getUrban().booleanValue() : false;
+    if (GeoHierarchy.isValid(parent, flags))
+    {
+      hierarchies.add(parent.getViewForGeoHierarchy());
+
+      // IMPORTANT: We only need to search the child of valid entities because
+      // there cannot be any gaps in the hierarchy
+      List<GeoHierarchy> children = parent.getImmediateChildren();
+
+      for (GeoHierarchy childH : children)
+      {
+        collect(hierarchies, childH, flags);
+      }
+    }
+  }
+
+  private static boolean isValid(GeoHierarchy entity, boolean[] flags)
+  {
+    boolean isPolitical = entity.getPolitical().booleanValue();
+    boolean isSprayZoneAllowed = entity.getSprayTargetAllowed().booleanValue();
+    boolean isUrban = entity.getUrban() != null ? entity.getUrban().booleanValue() : false;
 
     boolean political = flags[0];
     boolean sprayZoneAllowed = flags[1];
@@ -1532,29 +1549,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     if (!political && !sprayZoneAllowed && !urban)
     {
-      // special way to mean *any* universal as political=false and
-      // sprayZoneAllowed=false would
-      // normally not make sense.
-      hierarchies.add(parent.getViewForGeoHierarchy());
+      // Special criteria: Accept all entities
+      
+      return true;
     }
     else if (political && isPolitical)
     {
-      hierarchies.add(parent.getViewForGeoHierarchy());
+      return true;
     }
     else if (sprayZoneAllowed && isSprayZoneAllowed)
     {
-      hierarchies.add(parent.getViewForGeoHierarchy());
+      return true;
     }
     else if (urban && isUrban)
     {
-      hierarchies.add(parent.getViewForGeoHierarchy());
+      return true;
     }
 
-    List<GeoHierarchy> children = parent.getImmediateChildren();
-    for (GeoHierarchy childH : children)
-    {
-      collect(hierarchies, childH, flags);
-    }
+    return false;
   }
 
   /**
