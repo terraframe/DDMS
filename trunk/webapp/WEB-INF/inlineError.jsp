@@ -6,7 +6,8 @@
 <%@page import="java.util.Arrays"%>
 
 
-<%@page import="java.util.List"%><c:if test="${(errorMessage != null && errorMessage != '') || errorMessageArray != null}">
+<%@page import="java.util.List"%>
+<%@page import="dss.vector.solutions.util.ErrorUtility"%><c:if test="${(errorMessage != null && errorMessage != '') || errorMessageArray != null}">
 <div class="alert alertbox">
 <p>
 </c:if>
@@ -24,23 +25,11 @@
 </div>
 </c:if>
 
-<%
-  Object array = request.getAttribute("messageArray");
-  String messages = "null";
-
-  if(array != null && array instanceof String[])
-  {
-    List<String> list = Arrays.asList((String[]) array); 
-
-    messages = "['" + Halp.join(list, "','" ) + "']";
-  }
-%>
-
 <script type="text/javascript">
 
 (function(){
   YAHOO.util.Event.onDOMReady(function(){
-    var messages = <%=messages%>;
+    var messages = <%=ErrorUtility.getMessagesForJavascript(request)%>;
 
     if(Mojo.Util.isArray(messages)) {
       for(var i = 0; i < messages.length; i++) {

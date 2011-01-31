@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1346970973)
+@com.runwaysdk.business.ClassSignature(hash = 1580112990)
 public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.InformationDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
-  private static final long serialVersionUID = -1346970973;
+  private static final long serialVersionUID = 1580112990;
   
   public OutbreakAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -18,7 +18,7 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
   
   public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String ID = "id";
-  public static java.lang.String MESSAGE = "message";
+  public static java.lang.String MESSAGETEXT = "messageText";
   public Boolean getEmailFailure()
   {
     return com.runwaysdk.constants.MdAttributeBooleanUtil.getTypeSafeValue(getValue(EMAILFAILURE));
@@ -56,41 +56,41 @@ public abstract class OutbreakAlertDTOBase extends com.runwaysdk.business.Inform
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(EMAILFAILURE).getAttributeMdDTO();
   }
   
-  public String getMessage()
+  public String getMessageText()
   {
-    return getValue(MESSAGE);
+    return getValue(MESSAGETEXT);
   }
   
-  public void setMessage(String value)
+  public void setMessageText(String value)
   {
     if(value == null)
     {
-      setValue(MESSAGE, "");
+      setValue(MESSAGETEXT, "");
     }
     else
     {
-      setValue(MESSAGE, value);
+      setValue(MESSAGETEXT, value);
     }
   }
   
-  public boolean isMessageWritable()
+  public boolean isMessageTextWritable()
   {
-    return isWritable(MESSAGE);
+    return isWritable(MESSAGETEXT);
   }
   
-  public boolean isMessageReadable()
+  public boolean isMessageTextReadable()
   {
-    return isReadable(MESSAGE);
+    return isReadable(MESSAGETEXT);
   }
   
-  public boolean isMessageModified()
+  public boolean isMessageTextModified()
   {
-    return isModified(MESSAGE);
+    return isModified(MESSAGETEXT);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMessageMd()
+  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getMessageTextMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MESSAGE).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(MESSAGETEXT).getAttributeMdDTO();
   }
   
 }

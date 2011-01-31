@@ -25,7 +25,7 @@ public class OutbreakAlert extends OutbreakAlertBase implements com.runwaysdk.ge
 
     String message = this.getLocalizedTemplate(locale);
     message = replace(message, "{emailWarning}", emailWarning);
-    message = replace(message, "{message}", this.getMessage());    
+    message = replace(message, "{messageText}", this.getMessageText());    
     message = replace(message, "{emailFailure}", this.getEmailFailure());
 
     return message;

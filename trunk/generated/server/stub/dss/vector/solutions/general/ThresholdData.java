@@ -483,7 +483,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       String message = systemAlert.getTemplate(data);
 
       OutbreakAlert alert = new OutbreakAlert();
-      alert.setMessage(message);
+      alert.setMessageText(message);
 
       if (systemAlert.getIsEmailActive() & !emailSent)
       {

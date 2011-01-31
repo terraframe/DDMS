@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1371958307)
+@com.runwaysdk.business.ClassSignature(hash = 1529273054)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,8 +13,8 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
   public final static String CLASS = "dss.vector.solutions.general.OutbreakAlert";
   public static java.lang.String EMAILFAILURE = "emailFailure";
   public static java.lang.String ID = "id";
-  public static java.lang.String MESSAGE = "message";
-  private static final long serialVersionUID = 1371958307;
+  public static java.lang.String MESSAGETEXT = "messageText";
+  private static final long serialVersionUID = 1529273054;
   
   public OutbreakAlertBase()
   {
@@ -65,31 +65,31 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     return mdClassIF.definesAttribute(ID);
   }
   
-  public String getMessage()
+  public String getMessageText()
   {
-    return getValue(MESSAGE);
+    return getValue(MESSAGETEXT);
   }
   
-  public void validateMessage()
+  public void validateMessageText()
   {
-    this.validateAttribute(MESSAGE);
+    this.validateAttribute(MESSAGETEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMessageMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMessageTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.OutbreakAlert.CLASS);
-    return mdClassIF.definesAttribute(MESSAGE);
+    return mdClassIF.definesAttribute(MESSAGETEXT);
   }
   
-  public void setMessage(String value)
+  public void setMessageText(String value)
   {
     if(value == null)
     {
-      setValue(MESSAGE, "");
+      setValue(MESSAGETEXT, "");
     }
     else
     {
-      setValue(MESSAGE, value);
+      setValue(MESSAGETEXT, value);
     }
   }
   
@@ -103,7 +103,7 @@ public abstract class OutbreakAlertBase extends com.runwaysdk.business.Informati
     java.lang.String message = super.localize(locale);
     message = replace(message, "{emailFailure}", this.getEmailFailure());
     message = replace(message, "{id}", this.getId());
-    message = replace(message, "{message}", this.getMessage());
+    message = replace(message, "{messageText}", this.getMessageText());
     return message;
   }
   

@@ -1,10 +1,16 @@
 package dss.vector.solutions.util;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
+import java.util.zip.GZIPOutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,6 +24,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorExceptionDTO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 import com.runwaysdk.session.ReadTypePermissionExceptionDTO;
+import com.runwaysdk.util.Base64;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
@@ -37,7 +44,7 @@ public class ErrorUtility implements Reloadable
 
     for (ProblemDTOIF problem : e.getProblems())
     {
-      if (!ignoreNotifications || !(problem instanceof AttributeNotificationDTO ))
+      if (!ignoreNotifications || ! ( problem instanceof AttributeNotificationDTO ))
       {
         String message = problem.getMessage();
 
@@ -94,7 +101,7 @@ public class ErrorUtility implements Reloadable
     }
     else
     {
-     if (t instanceof AttributeReadPermissionExceptionDTO)
+      if (t instanceof AttributeReadPermissionExceptionDTO)
       {
         throw (AttributeReadPermissionExceptionDTO) t;
       }
@@ -118,7 +125,7 @@ public class ErrorUtility implements Reloadable
   private static Throwable filterServletException(Throwable t)
   {
     int i = 0;
-    while(t instanceof ServletException && i < 50)
+    while (t instanceof ServletException && i < 50)
     {
       t = t.getCause();
       i++;
@@ -190,10 +197,36 @@ public class ErrorUtility implements Reloadable
         buffer.append(msg + "\n");
       }
 
-      return ErrorUtility.encodeMessage(buffer.toString());
+      String compress = ErrorUtility.compress(buffer.toString());
+
+      return ErrorUtility.encodeMessage(compress);
     }
 
     return null;
+  }
+
+  public static String getMessagesForJavascript(HttpServletRequest req)
+  {
+    Object object = req.getAttribute(ErrorUtility.MESSAGE_ARRAY);
+
+    if (object != null && object instanceof String[])
+    {
+      String[] messages = (String[]) object;
+      List<String> list = new LinkedList<String>();
+      
+      for(String message : messages)
+      {
+        message = message.replaceAll("\\s", " ");
+        message = message.replaceAll("'", "\'");
+        message = message.replaceAll("\"", "\\\"");
+        
+        list.add(message);
+      }
+
+      return "['" + Halp.join(list, "','") + "']";
+    }
+
+    return "null";
   }
 
   @SuppressWarnings("deprecation")
@@ -213,7 +246,7 @@ public class ErrorUtility implements Reloadable
   {
     String errorMessage = ErrorUtility.getErrorMessage(req);
     String errorMessageArray = ErrorUtility.getErrorMessageArray(req);
-    String messageArray = ErrorUtility.getMessageArray(req);
+    String compressedMessage = ErrorUtility.getMessageArray(req);
 
     if (errorMessage != null)
     {
@@ -225,9 +258,9 @@ public class ErrorUtility implements Reloadable
       utility.addParameter(ERROR_MESSAGE_ARRAY, errorMessageArray);
     }
 
-    if (messageArray != null)
+    if (compressedMessage != null)
     {
-      utility.addParameter(MESSAGE_ARRAY, messageArray);
+      utility.addParameter(MESSAGE_ARRAY, compressedMessage);
     }
   }
 
@@ -235,7 +268,7 @@ public class ErrorUtility implements Reloadable
   {
     String errorMessage = req.getParameter(ErrorUtility.ERROR_MESSAGE);
     String errorMessageArray = req.getParameter(ErrorUtility.ERROR_MESSAGE_ARRAY);
-    String messageArray = req.getParameter(ErrorUtility.MESSAGE_ARRAY);
+    String compressedMessage = req.getParameter(ErrorUtility.MESSAGE_ARRAY);
 
     if (errorMessage != null)
     {
@@ -249,11 +282,59 @@ public class ErrorUtility implements Reloadable
       req.setAttribute(ERROR_MESSAGE_ARRAY, array);
     }
 
-    if (messageArray != null)
+    if (compressedMessage != null)
     {
-      String[] array = messageArray.split("\\n");
+      String message = ErrorUtility.decompress(compressedMessage);
+      String[] array = message.split("\\n");
 
       req.setAttribute(MESSAGE_ARRAY, array);
+    }
+  }
+
+  private static String decompress(String message)
+  {
+    try
+    {
+      byte[] bytes = Base64.decode(message);
+
+      ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+      BufferedInputStream bufis = new BufferedInputStream(new GZIPInputStream(bis));
+      ByteArrayOutputStream bos = new ByteArrayOutputStream();
+      byte[] buf = new byte[1024];
+      int len;
+      while ( ( len = bufis.read(buf) ) > 0)
+      {
+        bos.write(buf, 0, len);
+      }
+      String retval = bos.toString();
+      bis.close();
+      bufis.close();
+      bos.close();
+      return retval;
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private static String compress(String message)
+  {
+    try
+    {
+      ByteArrayOutputStream bos = new ByteArrayOutputStream();
+      BufferedOutputStream bufos = new BufferedOutputStream(new GZIPOutputStream(bos));
+      bufos.write(message.getBytes("UTF-8"));
+      bufos.close();
+      bos.close();
+
+      byte[] bytes = bos.toByteArray();
+
+      return Base64.encodeToString(bytes, false);
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
     }
   }
 }

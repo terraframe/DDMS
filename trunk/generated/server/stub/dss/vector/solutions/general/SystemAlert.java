@@ -107,7 +107,11 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 
   public String getTemplate(Map<String, Object> data)
   {
-    return this.processTemplate(this.getEmailBody(), data);
+    String template = this.processTemplate(this.getEmailBody(), data);
+
+    // IMPORTANT: We must remove any new lines from the message. When displaying
+    // the message it is assumed that the newlines represent new messages.
+    return template.replace('\n', ' ');
   }
 
   private String processTemplate(String template, Map<String, Object> data)
