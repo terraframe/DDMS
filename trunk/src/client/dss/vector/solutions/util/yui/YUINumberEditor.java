@@ -1,6 +1,8 @@
 package dss.vector.solutions.util.yui;
 
-public class YUINumberEditor extends YUITextEditor
+import com.runwaysdk.generation.loader.Reloadable;
+
+public class YUINumberEditor extends YUITextEditor implements Reloadable
 {
 
   @Override
