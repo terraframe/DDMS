@@ -232,24 +232,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public void failUpdate(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
-    this.setupRequest();
-    req.setAttribute("item", dto);
-
-    render("editComponent.jsp");
+    edit(dto);
   }
 
   public void edit(String id) throws IOException, ServletException
   {
     try
     {
-      AdultDiscriminatingDoseAssayDTO dto = AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id);
-
-      this.setupRequest();
-      this.setupReferences(dto);
-
-      req.setAttribute("item", dto);
-
-      render("editComponent.jsp");
+      edit(AdultDiscriminatingDoseAssayDTO.lock(super.getClientRequest(), id));
     }
     catch (Throwable t)
     {
@@ -260,7 +250,16 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
         this.failEdit(id);
       }
     }
+  }
 
+  private void edit(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
+  {
+    this.setupRequest();
+    this.setupReferences(dto);
+
+    req.setAttribute("item", dto);
+
+    render("editComponent.jsp");
   }
 
   public void failEdit(String id) throws IOException, ServletException
