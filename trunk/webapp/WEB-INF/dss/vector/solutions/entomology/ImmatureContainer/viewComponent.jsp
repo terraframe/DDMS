@@ -6,11 +6,6 @@
 
 <c:set var="page_title" value="Enter_Immatures_by_Container_Type"  scope="request"/>
 
-<!-- Removed because MdInformation messages were being duplicated in the header and in the popups
-<mjl:messages>
-<mjl:message />
-</mjl:messages>
-  -->
 <jsp:include page="/WEB-INF/selectSearch.jsp"/>
 
 <c:set var="entity" scope="request" value="${item.geoEntity}" />
@@ -22,7 +17,7 @@
       <mjl:input type="hidden" param="premiseId" value="${item.premiseId}" />
       <mjl:input type="hidden" param="taxonId" value="${item.taxonId}" />
        <mjl:dt attribute="geoEntity">
-         <mdss:geo param="geoEntity" universals="${entityUniversals}" value="${entity}" />
+         <mdss:geo param="geoEntity" political="false" populated="false" spray="false" urban="true" value="${entity}" />
        </mjl:dt>
       <mjl:dt attribute="startDate">
         <mjl:input param="startDate" type="text" classes="DatePick NoFuture" id="startDate"/>

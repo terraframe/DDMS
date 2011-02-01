@@ -44,6 +44,8 @@ Mojo.Meta.newClass('MDSS.QueryImmatureContainerCollection', {
       var picker = this.getGeoPicker();      
       picker.setPolitical(false);
       picker.setSprayTargetAllowed(false);
+      picker.setPopulated(false);
+      picker.setUrban(true);
       },
      
       _getBrowserRootClass : function(attribute)

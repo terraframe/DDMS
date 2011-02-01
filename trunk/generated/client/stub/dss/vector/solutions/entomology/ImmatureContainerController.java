@@ -3,7 +3,6 @@ package dss.vector.solutions.entomology;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.geo.generated.CollectionSiteDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
@@ -60,7 +58,6 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
   {
     ImmatureCollectionViewQueryDTO query = ImmatureCollectionViewDTO.getMostRecent(this.getClientRequest());
 
-    this.setupExtraUniversals();
     this.setupDates(view);
     this.setupReferences(view);
 
@@ -184,7 +181,6 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
   {
     try
     {
-      this.setupExtraUniversals();
       this.setupDates(dto);
       this.setupReferences(dto);
 
@@ -288,9 +284,4 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
     }
   }
 
-  private void setupExtraUniversals()
-  {
-    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS });
-    req.setAttribute("entityUniversals", entityUniversals);
-  }
 }

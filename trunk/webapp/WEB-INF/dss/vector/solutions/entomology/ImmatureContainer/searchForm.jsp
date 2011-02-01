@@ -16,7 +16,7 @@
   <mjl:input type="hidden" param="taxonId" value="${item.taxonId}"/>
   
   <mjl:dt attribute="geoEntity">
-    <mdss:geo param="geoEntity" universals="${entityUniversals}" value="${entity}" />
+    <mdss:geo param="geoEntity" political="false" populated="false" spray="false" urban="true" value="${entity}" />
   </mjl:dt>
   <mjl:dt attribute="startDate">
     <mjl:input param="startDate" type="text" classes="DatePick NoFuture" id="startDate"/>
