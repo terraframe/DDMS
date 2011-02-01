@@ -86,29 +86,7 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
     super.apply();
 
 
-    if (this.isSusceptible())
-    {
-      Term activeIngredient = this.getInsecticide().getActiveIngredient();
-      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
-      String collectionId = this.getCollection().getCollectionId();
-      
-      SusceptibleCollection info = new SusceptibleCollection();
-      info.setActiveIngredient(label);
-      info.setCollectionId(collectionId);
-      info.throwIt();
-    }
-    else if (this.isPotentiallyResistant())
-    {
-      Term activeIngredient = this.getInsecticide().getActiveIngredient();
-      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
-      String collectionId = this.getCollection().getCollectionId();
-
-      PotentiallyResistantCollection info = new PotentiallyResistantCollection();
-      info.setActiveIngredient(label);
-      info.setCollectionId(collectionId);
-      info.throwIt();
-    }
-    else if (this.isResistant())
+    if (this.isResistant())
     {
       Term activeIngredient = this.getInsecticide().getActiveIngredient();
       String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
