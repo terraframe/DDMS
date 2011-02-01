@@ -52,7 +52,7 @@
         ${item.numberSold}
       </mjl:dt>      
       <mjl:dt attribute="currencyReceived">      
-        <fmt:formatNumber type="currency" currencyCode="${currencyCode}" value="${item.currencyReceived}" />              
+        <fmt:formatNumber  maxFractionDigits="2" value="${item.currencyReceived}" />              
       </mjl:dt>
       
     </mjl:component>    

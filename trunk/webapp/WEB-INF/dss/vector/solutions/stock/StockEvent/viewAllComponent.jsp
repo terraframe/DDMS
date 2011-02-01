@@ -46,7 +46,7 @@
     <mjl:attributeColumn attributeName="quantity" />
     <mjl:attributeColumn attributeName="cost">
       <mjl:row>
-        <fmt:formatNumber type="currency" currencyCode="${currency}" value="${current.cost}" />
+        <fmt:formatNumber value="${current.cost}" maxFractionDigits="2" />
       </mjl:row>
     </mjl:attributeColumn>        
   </mjl:columns>
