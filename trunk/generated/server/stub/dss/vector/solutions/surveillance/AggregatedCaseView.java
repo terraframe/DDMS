@@ -97,7 +97,7 @@ public class AggregatedCaseView extends AggregatedCaseViewBase implements com.ru
     // need to offset the 'period' for WEEK
     Integer _period = ( type.equals(PeriodType.WEEK) ? period - 1 : period );
 
-    EpiDate.validate(type, _period, year);
+    EpiDate.validate(type, period, year);
 
     EpiDate date = EpiDate.getInstanceByPeriod(type, _period, year);
 
