@@ -224,12 +224,26 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
     this.validateCurrencyReceived();    
     this.validateStartDate();
     this.validateEndDate();
+    this.validateNumberSold();
     
     if (this.isNew() && this.getDisease() == null) {
     	this.setDisease(Disease.getCurrent());
     }
     
     super.apply();
+  }
+  
+  @Override
+  public void validateNumberSold()
+  {
+    if(this.getNumberSold() != null && this.getNumberDistributed() != null && this.getNumberSold() > this.getNumberDistributed())
+    {
+      NumberSoldProblem problem = new NumberSoldProblem();
+      problem.setNotification(this, NUMBERSOLD);
+      problem.apply();
+      
+      problem.throwIt();
+    }
   }
   
   @Override
