@@ -177,7 +177,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
      */
     _constructQuery : function(formapping)
     {
-      var queryXML = MDSS.QueryBase.prototype._constructQuery.call(this,formapping); // super
+      var queryXML = this.$_constructQuery(formapping); // super
 
       var mainQuery = new MDSS.QueryXML.Entity(this._mainQueryClass, this._mainQueryClass);
 
@@ -416,11 +416,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     _addVisibleAttribute : function(attribute)
     {
       var attributeName = attribute.getAttributeName();
-
-      if(attribute.mainQueryClass)
-      {
-        //this._mainQueryClass = attribute.mainQueryClass;
-      }
 
       if(attribute.getType() == 'sqlcharacter'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));

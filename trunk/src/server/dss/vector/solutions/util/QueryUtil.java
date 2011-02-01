@@ -476,7 +476,7 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass,
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass,
       GeneratedEntityQuery query)
   {
 
@@ -486,7 +486,7 @@ public class QueryUtil implements Reloadable
 
   }
 
-  public static ValueQuery joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
+  public static boolean joinTermAllpaths(ValueQuery valueQuery, String klass, String tableAlias)
   {
 
     String[] termAttributes = filterSelectedAttributes(valueQuery, Term.getTermAttributes(klass));
@@ -501,8 +501,10 @@ public class QueryUtil implements Reloadable
       String subSelect = tableAlias + "_TermSubSel";
       String table = MdEntity.getMdEntity(klass).getTableName();
       valueQuery.AND(new InnerJoinEq(id, table, tableAlias, id, sql, subSelect));
+      
+      return true;
     }
-    return valueQuery;
+    return false;
 
   }
 

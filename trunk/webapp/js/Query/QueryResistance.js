@@ -14,7 +14,7 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
 
       this._commonQueryClasses = [
                                  // Mojo.$.dss.vector.solutions.general.Insecticide.CLASS,
-                                 dss.vector.solutions.entomology.assay.AbstractAssay.CLASS,
+                                 dss.vector.solutions.entomology.assay.AbstractAssay.CLASS
                                  ];
       this._geoEntityAttribs = [
                              {
@@ -27,11 +27,11 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
       this._dateAttribs = [
                            {
                           	 klass :  this._groupByClass,
-                             accessor : this._groupByClass.COLLECTIONDATE,
+                             accessor : this._groupByClass.COLLECTIONDATE
                            },
                            {
                           	 klass :  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay,
-                             accessor : dss.vector.solutions.entomology.assay.AbstractAssay.TESTDATE,
+                             accessor : dss.vector.solutions.entomology.assay.AbstractAssay.TESTDATE
                            }
                           ];
       
@@ -63,55 +63,112 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
           return attribute.getType();
         }
       },
-				
-       /**
-       * Helper method to add Entomology attributes to selectables and as a column.
+      
+      /**
+       * Due to limitations in the Query API, we need to not set WHERE criteria
+       * as normal on the assay_type CharacterSQL. By temporarily setting the
+       * selectable.attribute value to null, we bypass criteria addition in
+       * the parent class. Instead we add it manually to the JSON config object.
+       * This is a horrible hack and it should be replaced!
+       */
+      _constructQuery : function(formapping)
+      {
+        var attr;
+        var assayType = this._visibleSelectables['assay_type'];
+        var selected = [];
+        if(assayType)
+        {
+          attr = assayType.attribute;
+          assayType.attribute = null;
+          
+          var items = this._menus['assay_type_li'];
+          for(var i=0; i<items.length; i++)
+          {
+            var item = items[i];
+            if(item.checked)
+            {
+              selected.push(item.uuid);
+            }
+          }
+          
+        }
+        this._config.setProperty('assay_type', selected);
+        
+        var query = this.$_constructQuery(formapping);
+        
+        if(assayType)
+        {
+          assayType.attribute = attr;
+        }
+        
+        return query;
+      },
+      
+      /**
+       * Helper method to switch the main query class based on the selected
+       * subclasses of AbstractAssay.
        */
       _addVisibleAttribute : function(attribute)
       {
-        var attributeName = attribute.getAttributeName();
-
         if(attribute.mainQueryClass)
         {
-          this._mainQueryClass = attribute.mainQueryClass;
+//          this._mainQueryClass = attribute.mainQueryClass;
         }
-
-        if(attribute.getType() == 'sqlcharacter'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlcharacter('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-        }else
-        if(attribute.getType() == 'sqlinteger'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlinteger('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-      	}else
-        if(attribute.getType() == 'sqlfloat'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-        }else
-        if(attribute.getType() == 'sqldouble'){
-          var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldouble('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
-           column.attribute = attribute;
-        }
-        else
-        {
-          var selectable = attribute.getSelectable(true);
-          selectable.attribute = attribute;
-          var column = new YAHOO.widget.Column(attribute.getColumnObject());
-           column.attribute = attribute;
-        }
-
-        column = this._queryPanel.insertColumn(column);
-
-        this._visibleSelectables[attribute.getKey()] = selectable;
+        
+        this.$_addVisibleAttribute(attribute);
       },
-
+      
+      _loadQueryState : function(view)
+      {
+        this.$_loadQueryState(view);
+        
+        var types = this._config.getProperty('assay_type');
+        for(var i=0; i<types.length; i++)
+        {
+          var item = this._menuItems['assay_type-'+types[i]];
+          item.checked = true;
+          display = item.onclick.obj.display;
+          this._queryPanel.addWhereCriteria('assay_type', item.uuid, display);
+        }
+      },
+      
+      ensureExclusion : function(adult, larvae, knockdown, triggerId)
+      {
+        var toCheck = null;
+        if(adult.contains(triggerId))
+        {
+          toCheck = 'dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay';
+        }
+        else if(larvae.contains(triggerId))
+        {
+          toCheck = 'dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay';
+        }
+        else if(knockdown.contains(triggerId))
+        {
+          toCheck = 'dss.vector.solutions.entomology.assay.KnockDownAssay';
+        }
+        
+        if(toCheck != null)
+        {
+          var display = null;
+          var items = this._menus['assay_type_li'];
+          for(var i=0; i<items.length; i++)
+          {
+            var item = items[i];
+            if(item.uuid === toCheck)
+            {
+              item.checked = true;
+              display = item.onclick.obj.display;
+              this._queryPanel.addWhereCriteria('assay_type', toCheck, display);
+            }
+            else
+            {
+              item.checked = false;
+              this._queryPanel.removeWhereCriteria('assay_type', item.uuid);
+            }
+          }
+          
+        }
+      }
     }
 });

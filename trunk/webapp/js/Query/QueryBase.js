@@ -48,7 +48,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       this._config = new MDSS.Query.Config();
   
-      this.PAGE_SIZE = 15;
+      this.PAGE_SIZE = 100;
   
       this.ALL_PATHS = "dss.vector.solutions.geo.AllPaths";
   
