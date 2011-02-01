@@ -68,16 +68,16 @@
         key="dss.vector.solutions.geo.generated.Country">
         <attribute
           name="political"
-          value="true" />
+          value="false" />
         <attribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <attribute
           name="urban"
-          value="true" />
+          value="false" />
         <attribute
           name="populationAllowed"
-          value="true" />
+          value="false" />
         <attributeReference
           name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.Country" />
@@ -91,7 +91,7 @@
           value="false" />
         <attribute
           name="sprayTargetAllowed"
-          value="true" />
+          value="false" />
         <attribute
           name="urban"
           value="false" />
@@ -117,7 +117,7 @@
           value="false" />
         <attribute
           name="populationAllowed"
-          value="true" />
+          value="false" />
         <attributeReference
           name="geoEntityClass"
           key="dss.vector.solutions.geo.generated.HealthFacility" />
