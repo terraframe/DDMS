@@ -54,40 +54,40 @@ body {
 
 /* CMR START */
 #header {
-		min-width: 1152px;
+	min-width: 1152px;
 }
 
 .navContainer ul {
-white-space: nowrap;
+	white-space: nowrap;
 }
 
 .yuimenubaritem {
-float: none !important;
-display: inline-block;
+	float: none !important;
+	display: inline-block;
 }
 
-.first-of-type > .yuimenubaritem .yuimenubaritemlabel {
-border-bottom: 1px solid #FFFFFF;
+.first-of-type>.yuimenubaritem .yuimenubaritemlabel {
+	border-bottom: 1px solid #FFFFFF;
 }
 
 .yuimenubaritem {
-background: url("/DDMS/imgs/design/sprite.png") repeat-x scroll 0 0 transparent;
+	background: url("/DDMS/imgs/design/sprite.png") repeat-x scroll 0 0
+		transparent;
 }
 
 .yuimenubaritemlabel {
-margin: -10px 0 0 0;
+	margin: -10px 0 0 0;
 }
 
-.first-of-type > .yuimenubaritem {
+.first-of-type>.yuimenubaritem {
 	margin: -1px 0 0 0;
 }
 
-.first-of-type > .yuimenubaritem-hassubmenu {
+.first-of-type>.yuimenubaritem-hassubmenu {
 	margin: 0px 0 0 0;
 }
 
 /* CMR END */
-
 .pageTitle {
 	font-size: 32px;
 	color: #BBB;
@@ -187,8 +187,8 @@ h2 {
 	border: 1px solid #CCCCCC;
 	padding: 5px;
 	font-weight: bold;
-	background-image: url(/DDMS/imgs/design/table_header_back.gif); 
-	background-repeat: repeat-x; 
+	background-image: url(/DDMS/imgs/design/table_header_back.gif);
+	background-repeat: repeat-x;
 	background-position: bottom;
 	background-color: #CA1413;
 	font-family: Arial, Helvetica, sans-serif;
@@ -217,13 +217,13 @@ h2 {
 	text-decoration: none;
 }
 
-
-.yui-skin-sam .grayed .yuimenubaritemlabel, .yui-skin-sam .grayed .yuimenuitemlabel {
+.yui-skin-sam .grayed .yuimenubaritemlabel,.yui-skin-sam .grayed .yuimenuitemlabel
+	{
 	color: #A6A6A6;
 }
 
 .yui-skin-sam .yuimenubaritemlabel:visited {
-	color:#FFF;
+	color: #FFF;
 }
 
 .yui-skin-sam .yuimenubaritemlabel-disabled {
@@ -231,12 +231,14 @@ h2 {
 	color: white;
 	background-color: darkgrey;
 }
+
 .yui-skin-sam .yuimenubaritem-selected {
 	background: url(/DDMS/imgs/design/sprite.png) repeat-x 0 -100px;
 }
+
 /*this controls the width of the menus*/
 .yui-skin-sam .yuimenuitemlabel .helptext {
-    margin-left: 20em;
+	margin-left: 20em;
 }
 
 #menuBar li {
@@ -244,7 +246,7 @@ h2 {
 }
 
 #menuBar #Print a {
-background: url("/DDMS/imgs/icons/printer.png") no-repeat center;
+	background: url("/DDMS/imgs/icons/printer.png") no-repeat center;
 }
 
 label {
@@ -279,7 +281,7 @@ dd {
 	padding: 5px;
 }
 
-.integerColumn, .integerColumn input {
+.integerColumn,.integerColumn input {
 	text-align: right;
 }
 
@@ -294,7 +296,6 @@ dd {
 a:hover {
 	outline-width: 0px;
 }
-
 
 #cal1Container {
 	position: absolute;
@@ -324,14 +325,16 @@ textarea {
 
 .delete-button {
 	cursor: pointer;
-	background: transparent url(/DDMS/imgs/icons/delete.png) no-repeat center center;
+	background: transparent url(/DDMS/imgs/icons/delete.png) no-repeat
+		center center;
 	width: 16px;
 	height: 16px;
 }
 
 .insert-button {
 	cursor: pointer;
-	background: transparent url(/DDMS/imgs/icons/add.png) no-repeat center center;
+	background: transparent url(/DDMS/imgs/icons/add.png) no-repeat center
+		center;
 	width: 16px;
 	height: 16px;
 }
@@ -349,29 +352,28 @@ dt {
 	margin-top: 5px;
 }
 
-h2
-{
-	margin-top:1em;
+h2 {
+	margin-top: 1em;
 }
 
 span.linkify:hover {
-  color: #0000FF;
-  cursor: pointer;
+	color: #0000FF;
+	cursor: pointer;
 }
 
 #selectSearchComponent {
-	height:450px;
-	width:400px;
-	overflow-y:scroll;
+	height: 450px;
+	width: 400px;
+	overflow-y: scroll;
 	/*margin-top: 15px;*/
 	padding-right: 5px;
-	float:left;
+	float: left;
 }
 
 #searchSelection {
 	width: 290px;
 	height: 450px;
-	overflow-y:scroll;
+	overflow-y: scroll;
 	/*margin-top: 15px;*/
 	padding-left: 5px;
 }
@@ -390,34 +392,32 @@ span.linkify:hover {
 	margin-left: 5px;
 }
 
-ul#queryItemsList > li {
-  background-color: white;
-  border: 1px solid black;
-  padding: 5px 0px 0px 5px;
+ul#queryItemsList>li {
+	background-color: white;
+	border: 1px solid black;
+	padding: 5px 0px 0px 5px;
 }
 
 ul#queryItemsList li ul li {
-  padding: 5px;
+	padding: 5px;
 }
 
 div#dateRange {
-  margin-top: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
+	margin-top: 5px;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
-#geoAttributesSpan
-{
-	float:right;
+#geoAttributesSpan {
+	float: right;
 }
 
-#startDateRange, #endDateRange {
-  margin-left: 5px;
-  margin-right: 5px;
+#startDateRange,#endDateRange {
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
-dl
-{
+dl {
 	border: 2px solid #CCC;
 	-moz-border-radius: 10px;
 	padding: 1em;
@@ -429,8 +429,7 @@ dl
 	margin-bottom: 5px;
 }
 
-fieldset
-{
+fieldset {
 	border: 1px solid #CCC;
 	-moz-border-radius: 10px;
 	padding-top: .5em;
@@ -439,23 +438,21 @@ fieldset
 	padding-right: 1em;
 }
 
-input.queryButton, select.queryList, select#mapList {
-	/*float: right;*/
+input.queryButton,select.queryList,select#mapList { /*float: right;*/
 	margin-top: 5px;
 	margin-right: 10px;
 }
 
-select.queryList, select#mapList {
+select.queryList,select#mapList {
 	width: 100px;
 	margin-left: 10px;
 }
 
 select#mapList {
-  float: left;
+	float: left;
 }
 
-.fldContainer
-{
+.fldContainer {
 	border: 2px solid #CCC;
 	-moz-border-radius: 10px;
 	padding: 1em;
@@ -466,12 +463,11 @@ select#mapList {
 	margin-left: 12px;
 }
 
-.alert
-{
-	color:#BB0000;
+.alert {
+	color: #BB0000;
 }
-.alertbox
-{
+
+.alertbox {
 	border: 2px solid #ff0000;
 	-moz-border-radius: 10px;
 	padding: 1em;
@@ -483,48 +479,41 @@ select#mapList {
 	margin-bottom: 12px;
 }
 
-.alertbox > p
-{
+.alertbox>p {
 	background: url(/DDMS/imgs/icons/error_large.gif) no-repeat top left;
 	min-height: 32px;
 	padding-left: 40px;
 }
 
-.modalAlertBox
-{
+.modalAlertBox {
 	margin-top: 20px;
 }
 
-ul.geoEntityPanelList
-{
+ul.geoEntityPanelList {
 	margin: 5px;
 }
 
-div.thematicVariable
-{
+div.thematicVariable {
 	background-color: red !important;
 }
 
 .drag-hint {
-  background-color: #ff0000;
-  color: white;
+	background-color: #ff0000;
+	color: white;
 }
 
-.dragging
-{
-  opacity: 0.76;
-  border: 1px solid gray;
-  filter: "alpha(opacity=76)";
+.dragging {
+	opacity: 0.76;
+	border: 1px solid gray;
+	filter: "alpha(opacity=76)";
 }
 
-.activeEntity
-{
+.activeEntity {
 	padding-left: 10px;
 	color: #000000;
 }
 
-.inactiveEntity
-{
+.inactiveEntity {
 	padding-left: 10px;
 	color: #808080;
 }
@@ -610,25 +599,26 @@ div.definedLayers div ul {
 div.definedLayers div ul li input {
 	margin-right: 5px;
 }
+
 input.bounds {
 	width: 50px;
 }
 
 div.colorPickerValue {
 	display: block;
-	width:15px;
-	height:15px;
+	width: 15px;
+	height: 15px;
 	border: 1px solid black;
 	margin-left: 20px;
 	margin-top: 2px;
 	cursor: pointer;
 }
-.dataTableSumError
-{
+
+.dataTableSumError {
 	background-color: #EEFF39;
 }
 
-#ageGroupItem li, #visibleAttributesItem li, .gridList li {
+#ageGroupItem li,#visibleAttributesItem li,.gridList li {
 	height: 13px;
 	white-space: nowrap;
 	border: none !important;
@@ -638,11 +628,12 @@ div.colorPickerValue {
 	margin: 0px 5px 0px 5px
 }
 
-#ageGroupItem li input, #visibleAttributesItem li input, .gridList li input {
+#ageGroupItem li input,#visibleAttributesItem li input,.gridList li input
+	{
 	margin-right: 5px;
 }
 
-#visibleAttributesItem li select, .gridList li select {
+#visibleAttributesItem li select,.gridList li select {
 	margin-right: 5px;
 }
 
@@ -651,28 +642,27 @@ div.colorPickerValue {
 }
 
 div.workarea {
-	padding:10px;
-	float:left
+	padding: 10px;
+	float: left
 }
 
 ul.draglist {
-    position: relative;
-    width: 200px;
-    height:180px;
-    background: #f7f7f7;
-    border: 1px solid gray;
-    list-style: none;
-    margin:0;
-    padding:5px;
+	position: relative;
+	width: 200px;
+	height: 180px;
+	background: #f7f7f7;
+	border: 1px solid gray;
+	list-style: none;
+	margin: 0;
+	padding: 5px;
 }
 
 ul.draglist li {
-    margin: 1px;
-    padding: 2px;
-    cursor: move;
-    border:1px solid;
+	margin: 1px;
+	padding: 2px;
+	cursor: move;
+	border: 1px solid;
 }
-
 
 #user_actions {
 	clear: both;
@@ -685,6 +675,7 @@ span.roleLink {
 }
 
 div.queryItemLabel {
+	
 }
 
 div.queryItemToggle {
@@ -696,35 +687,33 @@ div.scrollable {
 	max-height: 300px;
 }
 
-.geoOpener{
-	padding-left:5px;
-	vertical-align:-10%;
-	cursor:pointer;
+.geoOpener {
+	padding-left: 5px;
+	vertical-align: -10%;
+	cursor: pointer;
 }
 
-.ontologyOpener{
-	padding-left:5px;
-	vertical-align:-35%;
-	cursor:pointer;
+.ontologyOpener {
+	padding-left: 5px;
+	vertical-align: -35%;
+	cursor: pointer;
 }
 
-#dateGroupBy{
-	float:right;
+#dateGroupBy {
+	float: right;
 }
 
-.DatePick{
-	width:6em;
+.DatePick {
+	width: 6em;
 }
 
-#queryDataTable
-{
+#queryDataTable {
 	height: 95%;
 	width: 100%;
 	overflow: auto;
 }
 
-#paginationSection
-{
+#paginationSection {
 	border-top: 1px solid black;
 	height: 5%;
 	width: 100%;
@@ -733,252 +722,243 @@ div.scrollable {
 	padding-top: 3px;
 }
 
-#paginationSection .page
-{
-  margin-left: 5px;
-  cursor: pointer;
+#paginationSection .page {
+	margin-left: 5px;
+	cursor: pointer;
 }
 
-#paginationSection .resultCount
-{
-  float: right;
-  margin-right: 5px;
+#paginationSection .resultCount {
+	float: right;
+	margin-right: 5px;
 }
 
-#paginationSection .currentPage
-{
-  text-decoration: underline;
+#paginationSection .currentPage {
+	text-decoration: underline;
 }
 
-#columnsList LI LI, #geoEntityPanelList li
-{
-  list-style-type: disc;
-  list-style-position:inside;
-  padding-left:3px;
+#columnsList LI LI,#geoEntityPanelList li {
+	list-style-type: disc;
+	list-style-position: inside;
+	padding-left: 3px;
 }
 
 input.queryNumberCriteria {
-  width: 30px;
+	width: 30px;
 }
 
 #legendDiv {
-  background-color: white;
-  color: black;
-  font-weight: bold;
-  font-size: 14px;
-  cursor: move;
-  border: 1px solid black;
-  padding: 5px;
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	font-size: 14px;
+	cursor: move;
+	border: 1px solid black;
+	padding: 5px;
 }
 
 #titleDiv {
-  font-size: 20px;
-  font-weight: bold;
-  cursor: move;
+	font-size: 20px;
+	font-weight: bold;
+	cursor: move;
 }
 
 #arrowDiv {
-  cursor: move;
-  width: 100px;
-  height: 100px;
+	cursor: move;
+	width: 100px;
+	height: 100px;
 }
 
 #scaleDiv {
-  cursor: move;
+	cursor: move;
 }
-
 
 .olControlScaleLine {
-   bottom: 15px;
-   font-size: xx-small;
+	bottom: 15px;
+	font-size: xx-small;
 }
+
 .olControlScaleLineBottom {
-   border: solid 2px black;
-   border-bottom: none;
-   margin-top:-2px;
-   text-align: center;
+	border: solid 2px black;
+	border-bottom: none;
+	margin-top: -2px;
+	text-align: center;
 }
+
 .olControlScaleLineTop {
-   border: solid 2px black;
-   border-top: none;
-   text-align: center;
+	border: solid 2px black;
+	border-top: none;
+	text-align: center;
 }
 
 div.browserWrapper {
-
-  width: 100%;
-  height: 100%;
+	width: 100%;
+	height: 100%;
 }
 
 div.browserBreadcrumbs {
-  height: 15px;
-  overflow-x: auto;
-  /* white-space: nowrap; */
-  cursor: pointer;
-  border-top: 1px solid black;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  padding: 2px 0px 2px 2px;
+	height: 15px;
+	overflow-x: auto;
+	/* white-space: nowrap; */
+	cursor: pointer;
+	border-top: 1px solid black;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	padding: 2px 0px 2px 2px;
 }
 
 div.browserBack {
-  display: none;
-  width: 35px;
-  height: 25px;
-  float: left;
-  padding-top: 5px;
-  cursor: pointer;
+	display: none;
+	width: 35px;
+	height: 25px;
+	float: left;
+	padding-top: 5px;
+	cursor: pointer;
 }
 
 li.termDelimeter {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 div.browserBreadcrumbs ul.breadcrumbsNav {
-  margin: 0px;
+	margin: 0px;
 }
 
 div.browserBreadcrumbs ul.breadcrumbsNav li {
-
-  display: inline;
-  list-style-type: none;
-  margin: 3px;
+	display: inline;
+	list-style-type: none;
+	margin: 3px;
 }
 
 div.browserBreadcrumbs ul.breadcrumbsNav li.currentBreadcrumbsNav {
-  background-color: #E0FFFF;
+	background-color: #E0FFFF;
 }
 
 div.browserBreadcrumbs ul.breadcrumbsNav li.breadcrumbNavItem {
-
-  cursor: pointer;
+	cursor: pointer;
 }
 
 div.browserResizeRestrict {
-  max-height: 60px;
-  overflow-y: auto;
-  width: 376px;
+	max-height: 60px;
+	overflow-y: auto;
+	width: 376px;
 }
 
 div.browserSearch {
-  height: 25px;
-  padding-left: 15px;
-  padding-top: 5px;
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  border-top: 1px solid black;
+	height: 25px;
+	padding-left: 15px;
+	padding-top: 5px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	border-top: 1px solid black;
 }
 
 input.browserSearchInput {
-  margin-left: 5px;
-  width: 250px;
+	margin-left: 5px;
+	width: 250px;
 }
 
 div.browserContent {
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-  overflow: auto;
-  height: 195px;
-  padding-left: 15px;
-  padding-top: 5px;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+	overflow: auto;
+	height: 195px;
+	padding-left: 15px;
+	padding-top: 5px;
 }
 
 div.browserContent ul {
-
+	
 }
 
 div.autosize {
-  display: table;
-  width: 1px;
+	display: table;
+	width: 1px;
 }
-div.autosize > div {
-  display: table-cell;
-  max-height: 30px !important;
-  overflow-x: auto;
+
+div.autosize>div {
+	display: table-cell;
+	max-height: 30px !important;
+	overflow-x: auto;
 }
 
 div.browserContent ul li {
-
-  cursor: pointer;
+	cursor: pointer;
 }
 
 div.browserSelection {
-  height: 60px;
-  padding-left: 15px;
-  overflow: auto;
-  border: 1px solid black;
-  padding-top: 5px;
+	height: 60px;
+	padding-left: 15px;
+	overflow: auto;
+	border: 1px solid black;
+	padding-top: 5px;
 }
 
 div.browserSelection ul li img {
-  cursor: pointer;
+	cursor: pointer;
 }
 
 div.browserButtons {
-  height: 25px;
-  position: absolute;
-  bottom: 0px;
-  right: 5px; 
+	height: 25px;
+	position: absolute;
+	bottom: 0px;
+	right: 5px;
 }
 
-input.browserSaveButton, input.browserCancelButton {
-  float: right;
-  margin-right: 4px;
+input.browserSaveButton,input.browserCancelButton {
+	float: right;
+	margin-right: 4px;
 }
 
 .addRootBtn {
-  margin-right: 10px;
+	margin-right: 10px;
 }
 
 div#ontologyFields {
-  height: 100%;
-  overflow: auto;
-  margin-top: 9px;
+	height: 100%;
+	overflow: auto;
+	margin-top: 9px;
 }
 
 table.ontologyFields {
-  margin-top: 5px;
-  margin-bottom: 15px;
-  white-space: nowrap;
-  border-collapse: collapse
+	margin-top: 5px;
+	margin-bottom: 15px;
+	white-space: nowrap;
+	border-collapse: collapse
 }
 
 table.ontologyFields th {
-  padding: 3px;
-  font-weight: bold;
+	padding: 3px;
+	font-weight: bold;
 }
 
 table.ontologyFields td {
-  padding: 3px;
+	padding: 3px;
 }
 
 input.browserOpenBtn {
-  float: left;
-  margin-right: 5px;
+	float: left;
+	margin-right: 5px;
 }
 
-.calculated
-{
-	text-decoration: overline;	
+.calculated {
+	text-decoration: overline;
 }
 
-.browserLauncher
-{
-	display:none;	
+.browserLauncher {
+	display: none;
 }
 
 #yui-picker-controls {
-  display: none;
+	display: none;
 }
 
-.ontologyDisplay
-{
-	height:12px;
-	padding:1px 3px 1px 3px;
-	width:280px;
+.ontologyDisplay {
+	height: 12px;
+	padding: 1px 3px 1px 3px;
+	width: 280px;
 	background-color: white;
-	border:1px solid black;
-	display:inline;
+	border: 1px solid black;
+	display: inline;
 	cursor: pointer;
 }
 
@@ -987,78 +967,100 @@ input.browserOpenBtn {
 }
 
 .defaultFieldTerm {
-  margin: 5px 0px;
+	margin: 5px 0px;
 }
 
 #availableLayers {
-  cursor: move;
+	cursor: move;
 }
 
 .baseLayer {
-  background-color: white;
+	background-color: white;
 }
 
 #leftColumn {
-  margin: 5px;
+	margin: 5px;
 }
 
 #categoryList {
-  margin: 10px 2px;
+	margin: 10px 2px;
 }
 
 #slider-bg {
-  background:url(imgs/bg-fader.gif) 5px 0 no-repeat;
+	background: url(imgs/bg-fader.gif) 5px 0 no-repeat;
 }
 
 div.legendColor {
-  margin-left: auto;
-  margin-right: auto;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 table.legend {
-  cursor: move;
+	cursor: move;
 }
 
 table.legend td {
-  border: 1px solid black;
-  padding: 3px;
-  text-align: center;
+	border: 1px solid black;
+	padding: 3px;
+	text-align: center;
 }
 
 .irs_header {
-width: 865px;
+	width: 865px;
 }
 
 .irs_header td {
-vertical-align: top;
+	vertical-align: top;
 }
 
-#planningCalculator th, #planningCalculator td {
-padding: 0 10px;
-width: 190px;
+#planningCalculator th,#planningCalculator td {
+	padding: 0 10px;
+	width: 190px;
 }
 
 #planningCalculator dt {
-margin-bottom: 5px;
+	margin-bottom: 5px;
 }
 
 #planningCalculator dd {
-margin-bottom: 30px;
+	margin-bottom: 30px;
 }
 
 #planningCalculator input[disabled="disabled"] {
-color: black;
+	color: black;
 }
-/*---------------------------------------------------------------*/
-/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
-/*---------------------------------------------------------------*/
 
+span.paginationSpan a:link {
+	text-decoration: none;
+}
+
+span.paginationSpan a:visited {
+	text-decoration: none;
+}
+
+span.paginationSpan a:active {
+	text-decoration: none;
+}
+
+span.currentPage a:link {
+	text-decoration: underline;
+}
+
+span.currentPage a:visited {
+	text-decoration: underline;
+}
+
+span.currentPage a:active {
+	text-decoration: underline;
+}
+
+/*---------------------------------------------------------------*/
+	/*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */
+	/*---------------------------------------------------------------*/
 @media screen {
-
-	.printOnly{
+	.printOnly {
 		display: none;
 	}
-
 }
 
 @media print {
@@ -1070,109 +1072,86 @@ color: black;
 		min-width: 800px;
 		text-align: left;
 	}
-
-  div.browserSearch {
-    height: 25px;
-    padding-left: 15px;
-    padding-top: 5px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
-  }
-
-
+	div.browserSearch {
+		height: 25px;
+		padding-left: 15px;
+		padding-top: 5px;
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+		border-top: 1px solid black;
+	}
 	#navContainer {
 		display: none;
 	}
-
-	#uploadLogo img{
+	#uploadLogo img {
 		display: none;
 	}
-
 	.header {
 		display: none;
 	}
-
 	.hTitle {
 		display: none;
 	}
-
 	#freeText {
 		display: none;
 	}
-
 	.pageFooter {
 		display: none;
 	}
-
-	.first-of-type{
+	.first-of-type {
 		display: none;
 	}
-
 	input[type="button"],input[type="submit"] {
-	  display: none;
-	}
-	
-  .yui-dt-hidden{
-    display: none;
-  }
-  
-  th.yui-dt-hidden > div > span {
-    display: none;
-  }
-  
-  div.yui-dt-bd > table > thead > tr > th {
-    display: none;    
-  }
-
-  div.yui-dt-bd > table > tbody > tr > td {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    text-align: center;
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-
-  div.yui-dt-hd > table > thead > tr > th {
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-    text-align: center;
-    padding-left: 1em;
-    padding-right: 1em;
-  }
-
-  div.yui-dt-bd {
-    width: 55em;
-  }
-
-  div.yui-dt-hd {
-    width: 55em;
-  }
-
-  div.yui-dt-bd > table {
-    width: 100%;  
-  }
-
-  div.yui-dt-hd > table {
-    width: 100%;  
-  }
-
-	.noprint{
 		display: none;
 	}
-
-	.fldContainer
-	{
+	.yui-dt-hidden {
+		display: none;
+	}
+	th.yui-dt-hidden>div>span {
+		display: none;
+	}
+	div.yui-dt-bd>table>thead>tr>th {
+		display: none;
+	}
+	div.yui-dt-bd>table>tbody>tr>td {
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		text-align: center;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	div.yui-dt-hd>table>thead>tr>th {
+		border-left: 1px solid black;
+		border-right: 1px solid black;
+		border-top: 1px solid black;
+		border-bottom: 1px solid black;
+		text-align: center;
+		padding-left: 1em;
+		padding-right: 1em;
+	}
+	div.yui-dt-bd {
+		width: 55em;
+	}
+	div.yui-dt-hd {
+		width: 55em;
+	}
+	div.yui-dt-bd>table {
+		width: 100%;
+	}
+	div.yui-dt-hd>table {
+		width: 100%;
+	}
+	.noprint {
+		display: none;
+	}
+	.fldContainer {
 		border: 0px solid black;
 		margin: 0 0 0 0;
 		padding: 0 0 0 0;
 	}
-	.fcTop
-	{
+	.fcTop {
 		border: 2px solid black;
 		border-width: 2px 0 0 0;
 		margin-left: 0px;
@@ -1180,5 +1159,5 @@ color: black;
 	}
 }
 /*---------------------------------------------------------------*/
-/*   DO NOT PUT ANYTHING BELOW THIS LINE, PUT CHANGES ABOVE THE PRINT STYLES  */
-/*---------------------------------------------------------------*/
+	/*   DO NOT PUT ANYTHING BELOW THIS LINE, PUT CHANGES ABOVE THE PRINT STYLES  */
+	/*---------------------------------------------------------------*/
