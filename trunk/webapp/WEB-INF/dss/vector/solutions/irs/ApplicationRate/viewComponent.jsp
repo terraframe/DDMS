@@ -76,6 +76,22 @@ DataGrid configurationGrid = (DataGrid) request.getAttribute("configurationGrid"
       }
     }
 
+    var validateImmutable = function(oData) {
+      var editor = this.getCellEditor();
+      var key = editor.getColumn().getKey();        
+      var record = editor.getRecord();
+      var index = this.getRecordIndex(record);
+
+      var id = this.dataGrid.getData(index, 'InsecticideNozzleId');
+      var current = this.dataGrid.getData(index, key);
+
+      if(id == '' || current == null || current == '' || oData == current) {
+        return oData;
+      }
+      
+      return undefined;
+    }
+
     var onSaveAndDelete = function(event) {
       if(event.getType() == MDSS.Event.AFTER_SAVE || event.getType() == MDSS.Event.AFTER_DELETE) {
          window.location.reload( false );
