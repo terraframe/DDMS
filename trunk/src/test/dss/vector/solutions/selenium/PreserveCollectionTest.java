@@ -113,7 +113,6 @@ public class PreserveCollectionTest
       selenium.waitForPageToLoad("120000");
 
       assertEquals(collection.getCollectionId(), selenium.getValue("collectionInput"));
-      assertTrue(selenium.isTextPresent("[Generation] requires a value."));
     }
     finally
     {
