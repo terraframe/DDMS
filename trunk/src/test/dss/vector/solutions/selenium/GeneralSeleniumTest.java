@@ -44,8 +44,8 @@ public class GeneralSeleniumTest
       selenium.click("create_button");
       selenium.waitForPageToLoad("30000");
 
-      assertTrue(selenium.isTextPresent("The value [1.5] on attribute [From] does not represent a valid integer."));
-      assertTrue(selenium.isTextPresent("The value [5.5] on attribute [To] does not represent a valid integer."));
+      assertTrue(selenium.isTextPresent("The value [1.5] on attribute [From age] does not represent a valid integer."));
+      assertTrue(selenium.isTextPresent("The value [5.5] on attribute [To age] does not represent a valid integer."));
     }
     finally
     {
