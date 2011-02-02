@@ -32,7 +32,7 @@
         ${item.obtained.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="price">
-        ${item.price}
+        <fmt:formatNumber maxFractionDigits="2" value="${item.price}" />
       </mjl:dt>
       <mjl:dt attribute="retreated">
         ${item.retreated ? item.retreatedMd.positiveDisplayLabel : item.retreatedMd.negativeDisplayLabel}
