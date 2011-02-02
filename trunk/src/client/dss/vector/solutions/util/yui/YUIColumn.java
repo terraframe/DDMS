@@ -69,12 +69,17 @@ public class YUIColumn implements Reloadable
       this.sum = setup.isSum();
       this.validator = setup.getValidator();
       this.title = setup.getTitle();
-      this.label = setup.getLabel() != null ? setup.getLabel() : attributeMd.getDisplayLabel();
       this.getter = setup.getGetter();
       this.defaultValue = null;
       this.options = null;
       this.editor = YUIEditor.getEditor(attributeMd, setup, view, key + postfix);
       this.width = setup.getWidth();
+      this.label = setup.getLabel() != null ? setup.getLabel() : attributeMd.getDisplayLabel();
+      
+      if(attributeMd.isRequired())
+      {
+        this.label = "* " + this.label;
+      }
 
       this.initDefaultValue(facade);
       this.initOptions(view);
