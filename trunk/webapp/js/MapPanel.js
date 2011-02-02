@@ -1445,7 +1445,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
          
          var style = 'color: '+params['freeText.textFontFill']+';';
          style += 'font-size: '+params['freeText.textFontSize']+'px;';
-         style += 'font-style: '+params['freeText.textFontStyles'][0]+';';
+         style += this._getFontSytle(params['freeText.textFontStyles'][0]);
          style += 'font-family: '+params['freeText.textFontFamily']+';';
          var html = '<span style="'+style+'">'+text+'</span>';
          div.innerHTML = html;
@@ -1459,6 +1459,18 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._destroyModal();
     },
     
+    _getFontStyle : function(fontStyle)
+    {
+      if(fontStyle == 'bold')
+      {
+        return 'font-style: normal; font-weight: '+fontStyle+';';
+      }
+      else
+      {
+        return 'font-style: '+fontStyle+'; font-weight: normal;';
+      }              	
+    },        
+    
     _addLegends : function(layers)
     {
       for(var i=0; i<layers.length; i++)
@@ -1469,8 +1481,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           var div = document.createElement('div');
           div.id = Mojo.Util.generateId();
           var css = 'display: none; background-color: #ffffff;';
-          css += 'font-size: '+legend.fontSize+'px; font-family: '+legend.fontFamily+';';
-          css += 'font-style: '+legend.fontStyle+'; color: '+legend.fontFill+';';
+          css += 'font-size: '+legend.fontSize+'px; font-family: '+legend.fontFamily+'; ';
+          css += this._getFontStyle(legend.fontStyle) + ' color: '+legend.fontFill+';';
           
           div.style.cssText = css;
           
@@ -1478,7 +1490,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           var table = '<table class="legend" style="'+bg+'">';
           
           var titleSpan = '<span style="font-size: '+legend.fontTitleSize+'px; font-family: '
-            +legend.fontTitleFamily+'; font-style: '+legend.fontTitleStyle+'; color: '
+            +legend.fontTitleFamily+'; ' + this._getFontStyle(legend.fontTitleStyle) + ' color: '
             +legend.fontTitleFill+';">'+legend.title+'</span>';
           
           if(legend.createRawLegend)
