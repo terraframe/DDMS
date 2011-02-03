@@ -46,7 +46,6 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.IncidenceProbableSourceException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
