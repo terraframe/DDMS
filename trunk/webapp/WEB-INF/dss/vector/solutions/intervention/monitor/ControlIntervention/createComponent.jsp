@@ -9,6 +9,6 @@
   <mjl:form id="dss.vector.solutions.intervention.monitor.ControlIntervention.form.id" name="dss.vector.solutions.intervention.monitor.ControlIntervention.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize key="Create" var="Localized_Create" />
-    <mjl:command localize="false" name="dss.vector.solutions.intervention.monitor.ControlIntervention.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.create.mojo" />
+    <mjl:command name="dss.vector.solutions.intervention.monitor.ControlIntervention.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.intervention.monitor.ControlInterventionController.create.mojo" />
   </mjl:form>
 </dl>

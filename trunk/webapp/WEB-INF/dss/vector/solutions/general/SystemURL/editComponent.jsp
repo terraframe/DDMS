@@ -9,10 +9,10 @@
   <mjl:form id="dss.vector.solutions.general.SystemURL.form.id" name="dss.vector.solutions.general.SystemURL.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize key="Update" var="Localized_Update" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.SystemURL.form.update.button" value="${Localized_Update}" action="dss.vector.solutions.general.SystemURLController.update.mojo" />
+    <mjl:command name="dss.vector.solutions.general.SystemURL.form.update.button" value="${Localized_Update}" action="dss.vector.solutions.general.SystemURLController.update.mojo" />
     <mdss:localize key="Delete" var="Localized_Delete" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.SystemURL.form.delete.button" value="${Localized_Delete}" action="dss.vector.solutions.general.SystemURLController.delete.mojo" />
+    <mjl:command name="dss.vector.solutions.general.SystemURL.form.delete.button" value="${Localized_Delete}" action="dss.vector.solutions.general.SystemURLController.delete.mojo" />
     <mdss:localize key="Cancel" var="Localized_Cancel" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.SystemURL.form.cancel.button" value="${Localized_Cancel}" action="dss.vector.solutions.general.SystemURLController.cancel.mojo" />
+    <mjl:command name="dss.vector.solutions.general.SystemURL.form.cancel.button" value="${Localized_Cancel}" action="dss.vector.solutions.general.SystemURLController.cancel.mojo" />
   </mjl:form>
 </dl>

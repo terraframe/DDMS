@@ -79,7 +79,7 @@
   </div>
 </dd>
 
-<mdss:localize key="Save_Comments" var="Save_Comments" scope="request"/>
+<mdss:localize key="Save_Comments" var="Save_Comments" />
 
 <mjl:form id="collection.update" name="collection.update" method="POST">
   <mjl:component item="${item}" param="dto">

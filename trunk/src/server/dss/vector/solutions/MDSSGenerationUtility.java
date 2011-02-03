@@ -76,6 +76,15 @@ public class MDSSGenerationUtility implements Reloadable
 
     writer.writeEmptyTag(C_SET, map);
   }
+  
+  public static void writeLocalizeTag(MarkupWriter writer, String key, String var)
+  {
+    HashMap<String, String> updateMap = new HashMap<String, String>();
+    updateMap.put("key", key);
+    updateMap.put("var", var);
+    
+    writer.writeEmptyEscapedTag(MESSAGE_TAG, updateMap);
+  }
 
   public static boolean isAGeoEntity(MdBusinessDAOIF mdBusiness)
   {

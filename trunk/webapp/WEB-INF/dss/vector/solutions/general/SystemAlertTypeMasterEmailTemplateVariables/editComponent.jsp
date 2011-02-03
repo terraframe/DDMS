@@ -9,10 +9,10 @@
   <mjl:form id="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.id" name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize key="Update" var="Localized_Update" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.update.button" value="${Localized_Update}" action="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesController.update.mojo" />
+    <mjl:command name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.update.button" value="${Localized_Update}" action="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesController.update.mojo" />
     <mdss:localize key="Delete" var="Localized_Delete" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.delete.button" value="${Localized_Delete}" action="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesController.delete.mojo" />
+    <mjl:command name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.delete.button" value="${Localized_Delete}" action="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesController.delete.mojo" />
     <mdss:localize key="Cancel" var="Localized_Cancel" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.cancel.button" value="${Localized_Cancel}" action="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesController.cancel.mojo" />
+    <mjl:command name="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables.form.cancel.button" value="${Localized_Cancel}" action="dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesController.cancel.mojo" />
   </mjl:form>
 </dl>

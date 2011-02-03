@@ -44,15 +44,18 @@ public class MDSSUpdateComponentListener extends UpdateComponentListener impleme
   {
     MDSSGenerationUtility.writeCommandLinkWithNoProperties(getWriter(), COMMAND_LINK_TAG, action, name, display);
   }
-  
 
   @Override
   protected void writeCommand(String action, String name, String value)
   {
+    String localizedValue = value + "_Localize";
+
+    MDSSGenerationUtility.writeLocalizeTag(getWriter(), value, localizedValue);
+
     HashMap<String, String> updateMap = new HashMap<String, String>();
     updateMap.put("action", action);
     updateMap.put("name", name);
-    updateMap.put("value", value);
+    updateMap.put("value", "${" + localizedValue + "}");
 
     getWriter().writeEmptyEscapedTag(COMMAND_TAG, updateMap);
   }

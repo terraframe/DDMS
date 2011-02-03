@@ -32,7 +32,7 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
     // Display all Warnings at the top of the page
     writeMessages();
   }
-  
+
   @Override
   public void attribute(AttributeEventIF event)
   {
@@ -44,7 +44,6 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
       super.attribute(event);
     }
   }
-
 
   @Override
   protected void writeIncludes()
@@ -96,7 +95,7 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
       super.generateReference(mdAttribute);
     }
   }
-  
+
   @Override
   protected void generateMoment(MdAttributeDAOIF mdAttribute)
   {
@@ -114,7 +113,7 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
     getWriter().closeTag();
     getWriter().closeTag();
   }
-  
+
   @Override
   public void afterCloseForm()
   {
@@ -132,15 +131,18 @@ public class MDSSViewComponentListener extends ViewComponentListener implements 
 
     writeCommandLinkWithNoProperties(link, linkName, linkDisplay);
   }
-  
 
   @Override
   protected void writeCommand(String action, String name, String value)
   {
+    String localizedValue = value + "_Localize";
+
+    MDSSGenerationUtility.writeLocalizeTag(getWriter(), value, localizedValue);
+
     HashMap<String, String> updateMap = new HashMap<String, String>();
     updateMap.put("action", action);
     updateMap.put("name", name);
-    updateMap.put("value", value);
+    updateMap.put("value", "${" + localizedValue + "}");
 
     getWriter().writeEmptyEscapedTag(COMMAND_TAG, updateMap);
   }

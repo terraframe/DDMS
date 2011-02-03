@@ -16,8 +16,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.ontology.BrowserFieldController.view.mojo" name="dss.vector.solutions.ontology.BrowserField.form.view.link">
+        <mjl:commandLink action="dss.vector.solutions.ontology.BrowserFieldController.view.mojo" name="dss.vector.solutions.ontology.BrowserField.form.view.link">
           <mjl:property value="${item.parentId}" name="id" />
+          ${item.parent.keyName}          
         </mjl:commandLink>
       </dd>
       <dt>
@@ -26,8 +27,9 @@
         </label>
       </dt>
       <dd>
-        <mjl:commandLink display="${item.parent.keyName}" action="dss.vector.solutions.ontology.BrowserRootController.view.mojo" name="dss.vector.solutions.ontology.BrowserRoot.form.view.link">
+        <mjl:commandLink action="dss.vector.solutions.ontology.BrowserRootController.view.mojo" name="dss.vector.solutions.ontology.BrowserRoot.form.view.link">
           <mjl:property value="${item.parentId}" name="id" />
+          ${item.parent.keyName}          
         </mjl:commandLink>
       </dd>
     </mjl:component>

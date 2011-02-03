@@ -1,14 +1,15 @@
-<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<c:set var="page_title" value="Create_HasCategories" scope="request" />
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
+<c:set scope="request" var="page_title" value="Create_HasCategories" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
 <dl>
-  <mjl:form name="dss.vector.solutions.query.HasCategories.form.name" id="dss.vector.solutions.query.HasCategories.form.id" method="POST">
+  <mjl:form id="dss.vector.solutions.query.HasCategories.form.id" name="dss.vector.solutions.query.HasCategories.form.name" method="POST">
     <%@include file="form.jsp" %>
-    <mdss:localize key="Create" var="Localized_Create" />
-    <mjl:command value="${Localized_Create}" action="dss.vector.solutions.query.HasCategoriesController.create.mojo" name="dss.vector.solutions.query.HasCategories.form.create.button" />
+    <mdss:localize var="Create_Localize" key="Create" />
+    <mjl:command name="dss.vector.solutions.query.HasCategories.form.create.button" value="${Create_Localize}" action="dss.vector.solutions.query.HasCategoriesController.create.mojo" />
   </mjl:form>
 </dl>

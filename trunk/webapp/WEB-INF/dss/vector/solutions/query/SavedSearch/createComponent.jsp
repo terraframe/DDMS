@@ -1,61 +1,15 @@
-<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%><%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
+<c:set scope="request" var="page_title" value="Create_SavedSearch" />
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<mjl:form name="dss.vector.solutions.query.SavedSearch.form.name" id="dss.vector.solutions.query.SavedSearch.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
-      <dt>
-        <label>
-          ${item.queryNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="queryName" />
-        <mjl:messages attribute="queryName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.queryViewNameMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="queryViewName" />
-        <mjl:messages attribute="queryViewName">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.queryXmlMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:input type="text" param="queryXml" />
-        <mjl:messages attribute="queryXml">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-      <dt>
-        <label>
-          ${item.thematicLayerMd.displayLabel}
-        </label>
-      </dt>
-      <dd>
-        <mjl:select var="current" valueAttribute="id" items="${dss_vector_solutions_query_SavedSearch_thematicLayer}" param="thematicLayer">
-          <mjl:option>
-            ${current.keyName}
-          </mjl:option>
-        </mjl:select>
-        <mjl:messages attribute="thematicLayer">
-          <mjl:message />
-        </mjl:messages>
-      </dd>
-    </dl>
-  </mjl:component>
-  <mdss:localize key="Create" var="Localized_Create" />
-  <mjl:command value="${Localized_Create}" action="dss.vector.solutions.query.SavedSearchController.create.mojo" name="dss.vector.solutions.query.SavedSearch.form.create.button" />
-</mjl:form>
+<dl>
+  <mjl:form id="dss.vector.solutions.query.SavedSearch.form.id" name="dss.vector.solutions.query.SavedSearch.form.name" method="POST">
+    <%@include file="form.jsp" %>
+    <mdss:localize var="Create_Localize" key="Create" />
+    <mjl:command name="dss.vector.solutions.query.SavedSearch.form.create.button" value="${Create_Localize}" action="dss.vector.solutions.query.SavedSearchController.create.mojo" />
+  </mjl:form>
+</dl>

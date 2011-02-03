@@ -9,6 +9,6 @@
   <mjl:form id="dss.vector.solutions.ontology.TermTermDisplayLabel.form.id" name="dss.vector.solutions.ontology.TermTermDisplayLabel.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize key="Create" var="Localized_Create" />
-    <mjl:command localize="false" name="dss.vector.solutions.ontology.TermTermDisplayLabel.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.ontology.TermTermDisplayLabelController.create.mojo" />
+    <mjl:command name="dss.vector.solutions.ontology.TermTermDisplayLabel.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.ontology.TermTermDisplayLabelController.create.mojo" />
   </mjl:form>
 </dl>

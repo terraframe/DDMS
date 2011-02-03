@@ -24,7 +24,7 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
   {
     super(mdEntity);
   }
-  
+
   @Override
   public void attribute(AttributeEventIF event)
   {
@@ -36,22 +36,22 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
       super.attribute(event);
     }
   }
-  
+
   @Override
   protected void generateAttribute(MdAttributeDAOIF attribute)
   {
     // don't generate anything for spatial attributes
-    if(!(attribute instanceof MdAttributeGeometryDAOIF))
+    if (! ( attribute instanceof MdAttributeGeometryDAOIF ))
     {
       super.generateAttribute(attribute);
     }
   }
-  
+
   @Override
   protected void writeIncludes()
   {
     super.writeIncludes();
-    
+
     MDSSGenerationUtility.writeFMTIncludes(getWriter());
 
     if (MDSSGenerationUtility.hasGeoEntityReference(this.getMdEntity()))
@@ -97,27 +97,27 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
   {
     String attributeName = mdAttribute.definesAttribute();
 
-    //    <mjl:dt attribute="generation">
+    // <mjl:dt attribute="generation">
     writeDT(attributeName);
 
-    //    <mdss:mo param="term" value="${term}" script="false"/>    
+    // <mdss:mo param="term" value="${term}" script="false"/>
     HashMap<String, String> moMap = new HashMap<String, String>();
     moMap.put("param", attributeName);
     moMap.put("value", "${" + attributeName + "}");
-    
+
     MdClassDAOIF mdClass = mdAttribute.definedByClass();
     MdClassDAOIF mdGeoEntity = MdClassDAO.getMdClassDAO(GeoEntity.CLASS);
-    
-    if(mdClass.getSuperClasses().contains(mdGeoEntity))
+
+    if (mdClass.getSuperClasses().contains(mdGeoEntity))
     {
       moMap.put("script", "false");
     }
-    
+
     getWriter().writeEmptyTag("mdss:mo", moMap);
 
-    //    </mjl:dt>      
+    // </mjl:dt>
     getWriter().closeTag();
-    
+
   }
 
   private void generateDisplayLabelReference(MdAttributeDAOIF mdAttribute, MdBusinessDAOIF mdBusiness, String displayLabel)
@@ -145,7 +145,7 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
 
     writeDT(attributeName);
 
-    //    <mdss:geo param="term" value="${term}"/>    
+    // <mdss:geo param="term" value="${term}"/>
     HashMap<String, String> map = new HashMap<String, String>();
     map.put("param", attributeName);
     map.put("value", value);
@@ -170,10 +170,14 @@ public class MDSSFormListener extends FormListener implements ContentListener, R
   @Override
   protected void writeCommand(String action, String name, String value)
   {
+    String localizedValue = value + "_Localize";
+
+    MDSSGenerationUtility.writeLocalizeTag(getWriter(), value, localizedValue);
+
     HashMap<String, String> updateMap = new HashMap<String, String>();
     updateMap.put("action", action);
     updateMap.put("name", name);
-    updateMap.put("value", value);
+    updateMap.put("value", "${" + localizedValue + "}");
 
     getWriter().writeEmptyEscapedTag(COMMAND_TAG, updateMap);
   }

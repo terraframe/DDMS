@@ -64,7 +64,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.ontology.OntologyHasRelationshipController.childQuery.mojo" name="dss.vector.solutions.ontology.OntologyHasRelationship.childQuery.link">
+        <mjl:commandLink action="dss.vector.solutions.ontology.OntologyHasRelationshipController.childQuery.mojo" name="dss.vector.solutions.ontology.OntologyHasRelationship.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>

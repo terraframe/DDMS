@@ -9,6 +9,6 @@
   <mjl:form id="dss.vector.solutions.permission.MDSSRole.form.id" name="dss.vector.solutions.permission.MDSSRole.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize key="Create" var="Localized_Create" />
-    <mjl:command localize="false" name="dss.vector.solutions.permission.MDSSRole.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.permission.MDSSRoleController.create.mojo" />
+    <mjl:command name="dss.vector.solutions.permission.MDSSRole.form.create.button" value="${Localized_Create}" action="dss.vector.solutions.permission.MDSSRoleController.create.mojo" />
   </mjl:form>
 </dl>

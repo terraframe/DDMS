@@ -18,7 +18,7 @@
       </mjl:dt>
     </mjl:component>
     <mdss:localize key="Edit" var="Localized_Edit" />
-    <mjl:command localize="false" name="dss.vector.solutions.general.Disease.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.general.DiseaseController.edit.mojo" />
+    <mjl:command name="dss.vector.solutions.general.Disease.form.edit.button" value="${Localized_Edit}" action="dss.vector.solutions.general.DiseaseController.edit.mojo" />
   </mjl:form>
 </dl>
 <mjl:commandLink name="dss.vector.solutions.general.Disease.viewAll.link" action="dss.vector.solutions.general.DiseaseController.viewAll.mojo">

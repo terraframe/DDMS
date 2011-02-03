@@ -30,7 +30,7 @@ public class MDSSViewAllComponentListener extends ViewAllComponentListener imple
     // Display all Warnings at the top of the page
     writeMessages();
   }
-  
+
   @Override
   public void attribute(AttributeEventIF event)
   {
@@ -127,15 +127,18 @@ public class MDSSViewAllComponentListener extends ViewAllComponentListener imple
 
     getWriter().closeTag();
   }
-  
 
   @Override
   protected void writeCommand(String action, String name, String value)
   {
+    String localizedValue = value + "_Localize";
+
+    MDSSGenerationUtility.writeLocalizeTag(getWriter(), value, localizedValue);
+
     HashMap<String, String> updateMap = new HashMap<String, String>();
     updateMap.put("action", action);
     updateMap.put("name", name);
-    updateMap.put("value", value);
+    updateMap.put("value", "${" + localizedValue + "}");
 
     getWriter().writeEmptyEscapedTag(COMMAND_TAG, updateMap);
   }

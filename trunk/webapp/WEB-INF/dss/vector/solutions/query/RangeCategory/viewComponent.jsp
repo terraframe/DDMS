@@ -37,7 +37,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.query.DefinesCategoriesController.childQuery.mojo" name="dss.vector.solutions.query.DefinesCategories.childQuery.link">
+        <mjl:commandLink action="dss.vector.solutions.query.DefinesCategoriesController.childQuery.mojo" name="dss.vector.solutions.query.DefinesCategories.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>
