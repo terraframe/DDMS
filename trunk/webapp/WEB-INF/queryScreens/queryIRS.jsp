@@ -253,6 +253,10 @@ YAHOO.util.Event.onDOMReady(function(){
                                                        },
                                                        
                                                     ]);
+    MDSS.QueryBase.filterFunctions(Insecticide_Details, ['concentrationQuantifier_spray'], MDSS.QueryXML.F_SET1);
+    MDSS.QueryBase.filterFunctions(Insecticide_Details, ['unitsPerApplication_spray'], MDSS.QueryXML.F_SET2);
+    MDSS.QueryBase.filterFunctions(Insecticide_Details, ['unitQuantifier_spray'], []);
+    
     var abstractSpray = new Mojo.$.dss.vector.solutions.irs.OperatorSpray();
 
     // OperatorSpray, OperatorSprayStatus, TeamSprayStatus

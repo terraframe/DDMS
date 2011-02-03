@@ -128,7 +128,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var personColumns =   personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_person',dropDownMaps:surveyedPersonMaps});
-
+    MDSS.QueryBase.filterFunctions(personColumns, ['age', 'haemoglobin_person'], MDSS.QueryXML.F_SET1);
+    
     // sleptUnderNets does not dereference with a display label, so set a custom attribute on the referenced class
     for(var i=0; i<personColumns.length; i++)
     {
@@ -197,7 +198,9 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);   
     
     var netColumns =   netAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:net, suffix:'_net',dropDownMaps:netMaps});
-
+    MDSS.QueryBase.filterFunctions(netColumns, ['washFrequency_net'], MDSS.QueryXML.F_SET1);
+    MDSS.QueryBase.filterFunctions(netColumns, ['yearRetreated_net','yearReceived_net'], MDSS.QueryXML.F_SET2);
+    
     var orderedGrids = <%=(String) request.getAttribute("orderedGrids")%>;
 
     var selectableGroups = [

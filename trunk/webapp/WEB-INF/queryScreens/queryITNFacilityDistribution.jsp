@@ -136,6 +136,8 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
    
    var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
+   MDSS.QueryBase.filterFunctions(personColumns, ['age'], MDSS.QueryXML.F_SET1);
+   
    selectableGroups.push({title:"Recipient", values:personColumns, group:"itn", klass:Mojo.$.dss.vector.solutions.Person.CLASSS});
 
    <%

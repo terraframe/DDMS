@@ -98,7 +98,8 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
     
     var stockEventColumns =   stockEventAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockEvent, suffix:'_stockEvent', dropDownMaps:stockMaps});
-
+    MDSS.QueryBase.filterFunctions(stockEventColumns, ['cost_stockEvent'], MDSS.QueryXML.F_SET1);
+    
     var stockItem = new Mojo.$.dss.vector.solutions.stock.StockItem();
 
     var stockItemAttribs = ['itemId','itemName','quantity','unit'];
@@ -111,8 +112,9 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
     
     var stockItemColumns =   stockItemAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:stockItem, suffix:'_stockItem', dropDownMaps:stockMaps});
+
     // remove the functions from the quantity selectable
-    stockItemColumns[2].includes = [];
+    MDSS.QueryBase.filterFunctions(stockItemColumns, 'quantity_stockItem', []);
     
     var quantityInStock = "quanity_instock";
     stockItemColumns = stockItemColumns.concat([
@@ -157,16 +159,7 @@ YAHOO.util.Event.onDOMReady(function(){
       type: MDSS.Dependent.CHECKED,
       bidirectional: true
     });
-    
-    /*
-    YAHOO.util.Dom.addClass('itemId_stockItem','e');
-    YAHOO.util.Dom.addClass('quantity_stockItem','e');
-    YAHOO.util.Dom.addClass('unit_stockItem','e');
-    YAHOO.util.Dom.addClass('itemName_stockItem','e');
 
-    var StockItemsLi = document.getElementById('StockItemsLi');
-    YAHOO.util.Dom.addClass(StockItemsLi.childNodes[0].childNodes[0],'e');
-    */
 
 });
 

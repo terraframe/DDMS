@@ -19,7 +19,7 @@ MDSS.QueryXML = {
   	MAX: 'MAX',
   	AVG: 'AVG'
   },
-
+  
   DateGroupOpts: {
   	DATEGROUP_EPIWEEK:MDSS.Localized.DATEGROUP_EPIWEEK,
   	DATEGROUP_EPIYEAR:MDSS.Localized.DATEGROUP_EPIYEAR,
@@ -78,6 +78,25 @@ MDSS.QueryXML.objectToXML = function(obj)
 
   return xml;
 }
+
+/**
+ * Set of functions useful for certain calculations where
+ * SUM isn't meaningful.
+ */
+MDSS.QueryXML.F_SET1 = [
+                       MDSS.QueryXML.Functions.MIN,
+                       MDSS.QueryXML.Functions.MAX,
+                       MDSS.QueryXML.Functions.AVG
+                     ];
+
+/**
+ * Set of functions useful for certain calculations where
+ * only MIN and MAX are meaningful.
+ */
+MDSS.QueryXML.F_SET2 = [
+                        MDSS.QueryXML.Functions.MIN,
+                        MDSS.QueryXML.Functions.MAX
+                        ];
 
 /**
  * Root class for a query.

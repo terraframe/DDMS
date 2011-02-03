@@ -108,7 +108,10 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
     var insectcideColumns =   insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_eff', dropDownMaps:insecticideBrandMap});
-
+    MDSS.QueryBase.filterFunctions(insectcideColumns, ['concentrationQuantifier_eff'], MDSS.QueryXML.F_SET1);
+    MDSS.QueryBase.filterFunctions(insectcideColumns, ['unitsPerApplication_eff'], MDSS.QueryXML.F_SET2);
+    MDSS.QueryBase.filterFunctions(insectcideColumns, ['unitQuantifier_eff'], []);
+    
     
     var efficacyAssay = new Mojo.$.dss.vector.solutions.entomology.assay.EfficacyAssay();
 
@@ -150,7 +153,9 @@ YAHOO.util.Event.onDOMReady(function(){
     //var efficacyCalculations = ["quanityAlive","percentMortality","controlTestMortality"];
 
     var efficacyColumns =  efficacyAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:efficacyAssay, suffix:'_efficacy', dropDownMaps:efficacyMaps});
-
+    MDSS.QueryBase.filterFunctions(efficacyColumns, ['timeOnSurface_efficacy', 'holdingTime_efficacy'], MDSS.QueryXML.F_SET1);
+    MDSS.QueryBase.filterFunctions(efficacyColumns, ['mortality_efficacy'], MDSS.QueryXML.F_SET2);
+    
     if(available.contains('<%= EfficacyAssayDTO.AGERANGE %>'))
     {
       efficacyColumns.splice(6, 0,
@@ -159,14 +164,16 @@ YAHOO.util.Event.onDOMReady(function(){
             attributeName:'<%= QueryConstants.AGE_LOWEST %>',
             displayLabel:MDSS.localize('age_range_lowest'),
             type:'sqlinteger',
-            dtoType:'AttributeIntegerDTO'
+            dtoType:'AttributeIntegerDTO',
+            includes: MDSS.QueryXML.F_SET1
           },
           {
             key:'<%= QueryConstants.AGE_HIGHEST %>',
             attributeName:'<%= QueryConstants.AGE_HIGHEST %>',
             displayLabel:MDSS.localize('age_range_highest'),
             type:'sqlinteger',
-            dtoType:'AttributeIntegerDTO'
+            dtoType:'AttributeIntegerDTO',
+            includes: MDSS.QueryXML.F_SET1
           }
       );
     }

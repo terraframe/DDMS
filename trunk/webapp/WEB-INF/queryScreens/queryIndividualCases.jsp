@@ -126,7 +126,7 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
 
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:{}});
-
+    MDSS.QueryBase.filterFunctions(personColumns, 'age', MDSS.QueryXML.F_SET1);
     
     // physician delegates to a person so we use the person metadata
     var physicianAttribs = ["firstName","lastName"];

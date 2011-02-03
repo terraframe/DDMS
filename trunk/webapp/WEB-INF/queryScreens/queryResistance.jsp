@@ -138,7 +138,9 @@ YAHOO.util.Event.onDOMReady(function(){
        
     var adultCalulations = [];
     var adultColumns =   adultAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:adultAssay, suffix:'_adult', dropDownMaps:adultMaps});
-
+    MDSS.QueryBase.filterFunctions(adultColumns, ['kd50_adult','kd95_adult'], MDSS.QueryXML.F_SET1);
+    MDSS.QueryBase.filterFunctions(adultColumns, ['controlTestMortality_adult','mortality_adult'], MDSS.QueryXML.F_SET2);
+    
     var larvaeAssay = new  dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay();
     var larvaeAttribs = ["startPoint","endPoint",
              "quantityLive","quantityDead","controlTestMortality","mortality","lt50","lt95"];
@@ -152,7 +154,9 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var larvaeCalculations = ["quanityAlive","percentMortality"];
     var larvaeColumns =   larvaeAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:larvaeAssay, suffix:'_larvae', dropDownMaps:larvaeMaps});
-
+    MDSS.QueryBase.filterFunctions(larvaeColumns, ['lt50_larvae','lt95_larvae'], MDSS.QueryXML.F_SET1);
+    MDSS.QueryBase.filterFunctions(larvaeColumns, ['controlTestMortality_larvae','mortality_larvae'], MDSS.QueryXML.F_SET2);
+    
     var knockDownAssay = new  dss.vector.solutions.entomology.assay.KnockDownAssay();
     var knockDownAttribs = ["sex","fed","gravid","kd50","kd95"];
     <%
@@ -165,7 +169,9 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var knockDownCalulations = [];
     var knockDownColumns =   knockDownAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:knockDownAssay, suffix:'_knockDown', dropDownMaps:knockDownMaps});
+    MDSS.QueryBase.filterFunctions(knockDownColumns, ['kd50_knockDown','kd95_knockDown'], MDSS.QueryXML.F_SET1);
 
+    
     var pooledAssay = new  dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay();
     var pooledAttribs = ["specie","identificationMethod","generation","isofemale","testDate","exposureTime","quantityTested"];
     <%
@@ -175,12 +181,14 @@ YAHOO.util.Event.onDOMReady(function(){
     pooledAttribs = Mojo.Iter.filter(pooledAttribs, function(attrib){
       return this.contains(attrib);
     }, available);   
-    
+
     var pooledCalulations = [];
     collectionColumns =   collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_collection', dropDownMaps:adultMaps});
     collectionColumns =  collectionColumns.concat(insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_collection', dropDownMaps:insecticideMaps}));
     var pooledColumns =  collectionColumns.concat(pooledAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:pooledAssay, suffix:'_collection', dropDownMaps:adultMaps, type:'dss.vector.solutions.entomology.assay.CollectionAssay'}));
 
+    MDSS.QueryBase.filterFunctions(pooledColumns, ['amount_collection','exposureTime_collection'], MDSS.QueryXML.F_SET1);
+    
     // Create the field that will discriminate between AbstractAssay sub-types.
     var typeOptions ={};
     typeOptions[adultAssay.getType()] = MDSS.localize('adult_diagnostic');

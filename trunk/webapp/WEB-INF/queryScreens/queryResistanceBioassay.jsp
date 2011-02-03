@@ -140,11 +140,7 @@ YAHOO.util.Event.onDOMReady(function(){
       type:'sqlfloat',
       attributeName:'Resistance_Ratio',
       dtoType:'com.runwaysdk.transport.attributes.AttributeFloatDTO',
-      includes: [
-        MDSS.QueryXML.Functions.MIN,
-        MDSS.QueryXML.Functions.MAX,
-        MDSS.QueryXML.Functions.AVG
-      ]
+      includes: MDSS.QueryXML.F_SET1
     });
 
 

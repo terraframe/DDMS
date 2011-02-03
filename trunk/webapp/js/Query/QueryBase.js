@@ -1451,6 +1451,20 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     aliasTerm : function(termId)
     {
       return termId.substring(0,16);
+    },
+    
+    filterFunctions : function(columns, toFilter, funcs)
+    {
+      var set = new MDSS.Set(Mojo.Util.isArray(toFilter) ? toFilter : [toFilter]);
+      var len = columns.length;
+      for(var i=0; i<len; i++)
+      {
+        var col = columns[i];
+        if(set.contains(col.key))
+        {
+          col.includes = funcs;
+        }
+      }
     }
   }
 });

@@ -126,7 +126,7 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);    
     
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
-
+    MDSS.QueryBase.filterFunctions(personColumns, ['age'], MDSS.QueryXML.F_SET1);
     
     var selectableGroups = [
               {title:"IPT", values:iIPTColumns, group:"ipt", klass:individualIPT.CLASS},

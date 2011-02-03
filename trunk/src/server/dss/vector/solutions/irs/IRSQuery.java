@@ -1005,7 +1005,8 @@ public class IRSQuery implements Reloadable
     {
       if (needsAreaPlanned)
       {
-        joins.add(new AreaJoin(true, needsAreaPlanned));
+        joins.add(new AreaJoin(true, needsAreaPlanned, true));
+        joins.add(new AreaJoin(true, needsAreaPlanned, false));
       }
 
       if (needsTeamsPlanned)

@@ -9,10 +9,16 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class AreaJoin extends TargetJoin implements Reloadable
 {
-
-  public AreaJoin(boolean hasActual, boolean hasPlanned)
+  /**
+   * Marks this area join as either the left or right join to simulate a full outer join.
+   * This is done due to limitations in postgres when doing full outer joins
+   */
+  private boolean isLeftJoin;
+  
+  public AreaJoin(boolean hasActual, boolean hasPlanned, boolean isLeftJoin)
   {
     super(hasActual, hasPlanned);
+    this.isLeftJoin = isLeftJoin;
   }
 
   public final String from()
@@ -28,7 +34,7 @@ public class AreaJoin extends TargetJoin implements Reloadable
     {
       String sql = "";
 
-      sql += a + " FULL OUTER JOIN " + p + " \n";
+      sql += a + " "+(this.isLeftJoin ? "LEFT" : "RIGHT")+" OUTER JOIN " + p + " \n";
       sql += "ON extract(YEAR FROM "+TargetJoin.ACTUAL_ALIAS+"."+Alias.SPRAY_DATE.getAlias()+") " +
       		"= extract(YEAR FROM "+TargetJoin.PLANNED_ALIAS+"."+Alias.PLANNED_DATE.getAlias()+") \n";
 
@@ -43,15 +49,18 @@ public class AreaJoin extends TargetJoin implements Reloadable
       String pathsTable = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS).getTableName();
       String childGeo = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
       String parentGeo = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
-      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = (SELECT " + parentGeo
+      
+      String eqOper = this.isLeftJoin ? "=" : "!=";
+      
+      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " "+eqOper+" (SELECT " + parentGeo
           + " FROM " + pathsTable + " WHERE" + " " + parentGeo + " = " + TargetJoin.PLANNED_ALIAS + "."
           + Alias.GEO_ENTITY + " AND " + childGeo + " = " + TargetJoin.ACTUAL_ALIAS + "."
           + Alias.GEO_ENTITY + ")";
 
-      String geoTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
+//      String geoTable = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS).getTableName();
 
-      sql += "INNER JOIN " + geoTable + " geo \n";
-      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = geo." + this.idCol + " \n";
+//      sql += "INNER JOIN " + geoTable + " geo \n";
+//      sql += "ON " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = geo." + this.idCol + " \n";
 
 //      String universals = this.q.getUniversalsInCriteria();
 //      if (universals != null)
