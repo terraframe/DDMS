@@ -210,42 +210,27 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     
     if(collectionAssayQuery != null)
     {
-      valueQuery.WHERE(abstractAssayQuery.getId().EQ(collectionAssayQuery.getId()));
       QueryUtil.joinTermAllpaths(valueQuery, CollectionAssay.CLASS,  collectionAssayQuery.getIdentificationMethod().getDefiningTableAlias());
     }
+
+    // We must force join on CollectionAssay to avoid mixing results with EfficacyAssay which also
+    // extends AbstractAssay.
+    if(collectionAssayQuery == null)
+    {
+      collectionAssayQuery = new CollectionAssayQuery(valueQuery);
+    }
+    valueQuery.WHERE(abstractAssayQuery.getId().EQ(collectionAssayQuery.getId()));
     
-    String s1 = valueQuery.getSQL();
+    
     InsecticideQuery insecticideQuery = (InsecticideQuery) queryMap.get(Insecticide.CLASS);
     if (insecticideQuery != null)
     {
+      valueQuery.WHERE(collectionAssayQuery.getInsecticide().EQ(insecticideQuery));
       QueryUtil.joinTermAllpaths(valueQuery, Insecticide.CLASS, insecticideQuery);
-      
-      if(adultQuery != null)
-      {
-        valueQuery.WHERE(adultQuery.getInsecticide().EQ(insecticideQuery));
-      }
-      else if(larvaeQuery != null)
-      {
-        valueQuery.WHERE(larvaeQuery.getInsecticide().EQ(insecticideQuery));
-      }
-      else if(kdQuery != null)
-      {
-        valueQuery.WHERE(kdQuery.getInsecticide().EQ(insecticideQuery));
-      }
-      else
-      {
-        if(collectionAssayQuery == null)
-        {
-          collectionAssayQuery = new CollectionAssayQuery(valueQuery);
-        }
-
-        valueQuery.WHERE(abstractAssayQuery.getId().EQ(collectionAssayQuery.getId()));
-      }
     }
     
 
     // join Mosquito with mosquito collection
-    String s2 = valueQuery.getSQL();
     CollectionAssayQuery joinResults = null;
     if (adultQuery != null || kdQuery != null)
     {
@@ -274,19 +259,20 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
       joinResults = larvaeQuery;
       QueryUtil.joinTermAllpaths(valueQuery, LarvaeAssay.CLASS, larvaeQuery.getStartPoint().getDefiningTableAlias());
     }
+    else
+    {
+      joinResults = collectionAssayQuery;
+    }
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
     QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
 
-    String s27 = valueQuery.getSQL();
     if(joinResults!= null)
     {
       valueQuery.WHERE(joinResults.getCollection().EQ(mosquitoCollectionQuery));
-      String s275 = valueQuery.getSQL();
       valueQuery.WHERE(abstractAssayQuery.getId().EQ(joinResults.getId()));
     }
-    String s28 = valueQuery.getSQL();
 
     String susceptibleLabel = "Susceptible";
     String resistantLabel = "Resistant";
@@ -309,10 +295,10 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
         valueQuery.WHERE(new RawLeftJoinEq(id, joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), id, tableName, tableName));
       }
     }
-    String s3 = valueQuery.getSQL();
     // Type discriminator
     if(valueQuery.hasSelectableRef(QueryConstants.ASSAY_TYPE))
     {
+      valueQuery.FROM(abstractAssayQuery.getMdClassIF().getTableName(), abstractAssayQuery.getTableAlias()); // ensure AbstractAssay is included
       SelectableSQLCharacter sel = (SelectableSQLCharacter) valueQuery.getSelectableRef(QueryConstants.ASSAY_TYPE);
           
       String typeCol = abstractAssayQuery.getTableAlias()+"."+QueryUtil.getColumnName(AbstractAssay.getTypeMd());
