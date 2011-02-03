@@ -47,14 +47,14 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.IncidencePopulationException;
+import dss.vector.solutions.query.IncidenceProbableSourceException;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.threshold.PoliticalThresholdCalculator;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.QueryUtil;
 
-public class IndividualCase extends IndividualCaseBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1254360073722L;
 
@@ -104,8 +104,7 @@ public class IndividualCase extends IndividualCaseBase implements
     // If no age is specified, calculate it
     if (this.getAge() == null && this.getDiagnosisDate() != null && this.getPatient() != null)
     {
-      long difference = this.getDiagnosisDate().getTime()
-          - this.getPatient().getPerson().getDateOfBirth().getTime();
+      long difference = this.getDiagnosisDate().getTime() - this.getPatient().getPerson().getDateOfBirth().getTime();
       // Divide by the number of milliseconds in a year
       long age = difference / 31556926000l;
       this.setAge((int) age);
@@ -139,16 +138,13 @@ public class IndividualCase extends IndividualCaseBase implements
         p.throwIt();
       }
 
-      if (this.getPatient() != null && this.getPatient().getPerson() != null
-          && this.getPatient().getPerson().getDateOfBirth() != null
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getSymptomOnset()))
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getSymptomOnset()))
       {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, SYMPTOMONSET);
         p.setAttributeDisplayLabel(getSymptomOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setRelation(MDSSProperties.getString("Compare_AE"));
-        p.setRelativeAttributeLabel(Person.getDateOfBirthMd()
-            .getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
         p.apply();
 
         p.throwIt();
@@ -183,16 +179,13 @@ public class IndividualCase extends IndividualCaseBase implements
         p.throwIt();
       }
 
-      if (this.getPatient() != null && this.getPatient().getPerson() != null
-          && this.getPatient().getPerson().getDateOfBirth() != null
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getCaseReportDate()))
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getCaseReportDate()))
       {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, CASEREPORTDATE);
         p.setAttributeDisplayLabel(getCaseReportDateMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setRelation(MDSSProperties.getString("Compare_AE"));
-        p.setRelativeAttributeLabel(Person.getDateOfBirthMd()
-            .getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
         p.apply();
 
         p.throwIt();
@@ -215,16 +208,13 @@ public class IndividualCase extends IndividualCaseBase implements
         p.throwIt();
       }
 
-      if (this.getPatient() != null && this.getPatient().getPerson() != null
-          && this.getPatient().getPerson().getDateOfBirth() != null
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getCaseEntryDate()))
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getCaseEntryDate()))
       {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, CASEENTRYDATE);
         p.setAttributeDisplayLabel(getCaseEntryDateMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setRelation(MDSSProperties.getString("Compare_AE"));
-        p.setRelativeAttributeLabel(Person.getDateOfBirthMd()
-            .getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
         p.apply();
 
         p.throwIt();
@@ -247,16 +237,13 @@ public class IndividualCase extends IndividualCaseBase implements
         p.throwIt();
       }
 
-      if (this.getPatient() != null && this.getPatient().getPerson() != null
-          && this.getPatient().getPerson().getDateOfBirth() != null
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getDiagnosisDate()))
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getDiagnosisDate()))
       {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, DIAGNOSISDATE);
         p.setAttributeDisplayLabel(getDiagnosisDateMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setRelation(MDSSProperties.getString("Compare_AE"));
-        p.setRelativeAttributeLabel(Person.getDateOfBirthMd()
-            .getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
         p.apply();
 
         p.throwIt();
@@ -279,16 +266,13 @@ public class IndividualCase extends IndividualCaseBase implements
         p.throwIt();
       }
 
-      if (this.getPatient() != null && this.getPatient().getPerson() != null
-          && this.getPatient().getPerson().getDateOfBirth() != null
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getHemorrhagicOnset()))
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getHemorrhagicOnset()))
       {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, HEMORRHAGICONSET);
         p.setAttributeDisplayLabel(getHemorrhagicOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setRelation(MDSSProperties.getString("Compare_AE"));
-        p.setRelativeAttributeLabel(Person.getDateOfBirthMd()
-            .getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
         p.apply();
 
         p.throwIt();
@@ -311,18 +295,13 @@ public class IndividualCase extends IndividualCaseBase implements
         p.throwIt();
       }
 
-      if (this.getPatient() != null && this.getPatient().getPerson() != null
-          && this.getPatient().getPerson().getDateOfBirth() != null
-          && this.getPatient().getPerson().getDateOfBirth().after(this.getPlasmaLeakageOnset()))
+      if (this.getPatient() != null && this.getPatient().getPerson() != null && this.getPatient().getPerson().getDateOfBirth() != null && this.getPatient().getPerson().getDateOfBirth().after(this.getPlasmaLeakageOnset()))
       {
         RelativeValueProblem p = new RelativeValueProblem();
         p.setNotification(this, PLASMALEAKAGEONSET);
-        p
-            .setAttributeDisplayLabel(getPlasmaLeakageOnsetMd().getDisplayLabel(
-                Session.getCurrentLocale()));
+        p.setAttributeDisplayLabel(getPlasmaLeakageOnsetMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setRelation(MDSSProperties.getString("Compare_AE"));
-        p.setRelativeAttributeLabel(Person.getDateOfBirthMd()
-            .getDisplayLabel(Session.getCurrentLocale()));
+        p.setRelativeAttributeLabel(Person.getDateOfBirthMd().getDisplayLabel(Session.getCurrentLocale()));
         p.apply();
 
         p.throwIt();
@@ -385,8 +364,7 @@ public class IndividualCase extends IndividualCaseBase implements
     ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
 
     double ratio = (double) config.getClinicalPositivePercentage() / 100.0d;
-    return counts[PoliticalThresholdCalculator.POSITIVE_COUNT_INDEX]
-        + ( counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio );
+    return counts[PoliticalThresholdCalculator.POSITIVE_COUNT_INDEX] + ( counts[PoliticalThresholdCalculator.CLINICAL_COUNT_INDEX] * ratio );
   }
 
   public static IndividualCase searchForExistingCase(Date diagnosisDate, String personId)
@@ -491,8 +469,7 @@ public class IndividualCase extends IndividualCaseBase implements
       DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
       Person person = patient.getPerson();
 
-      return person.getFirstName() + "." + person.getLastName() + "." + source.getGeoId() + "."
-          + format.format(date);
+      return person.getFirstName() + "." + person.getLastName() + "." + source.getGeoId() + "." + format.format(date);
     }
     return this.getId();
   }
@@ -521,19 +498,16 @@ public class IndividualCase extends IndividualCaseBase implements
     ValueQuery valueQuery = new ValueQuery(queryFactory);
 
     // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory,
-        valueQuery, xml, queryConfig, layer);
+    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
 
     IndividualCaseQuery caseQuery = (IndividualCaseQuery) queryMap.get(IndividualCase.CLASS);
-    IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap
-        .get(IndividualInstance.CLASS);
-    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap
-        .get(dss.vector.solutions.Person.CLASS);
+    IndividualInstanceQuery instanceQuery = (IndividualInstanceQuery) queryMap.get(IndividualInstance.CLASS);
+    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
     PhysicianQuery physicianQuery = (PhysicianQuery) queryMap.get(Physician.CLASS);
 
     if (physicianQuery != null)
     {
-//      valueQuery.WHERE(instanceQuery.getPhysician().LEFT_JOIN_EQ(physicianQuery));
+      // valueQuery.WHERE(instanceQuery.getPhysician().LEFT_JOIN_EQ(physicianQuery));
       valueQuery.WHERE(instanceQuery.getPhysician().EQ(physicianQuery));
     }
 
@@ -545,8 +519,7 @@ public class IndividualCase extends IndividualCaseBase implements
     QueryUtil.joinGeoDisplayLabels(valueQuery, Person.CLASS, personQuery);
 
     String idCol = QueryUtil.getIdColumn();
-    QueryUtil.leftJoinTermDisplayLabels(valueQuery, instanceQuery, instanceQuery.getTableAlias() + "."
-        + idCol);
+    QueryUtil.leftJoinTermDisplayLabels(valueQuery, instanceQuery, instanceQuery.getTableAlias() + "." + idCol);
     QueryUtil.leftJoinTermDisplayLabels(valueQuery, caseQuery, caseQuery.getTableAlias() + "." + idCol);
 
     QueryUtil.joinEnumerationDisplayLabels(valueQuery, IndividualInstance.CLASS, instanceQuery);
@@ -554,8 +527,7 @@ public class IndividualCase extends IndividualCaseBase implements
     if (valueQuery.hasSelectableRef("healthFacility"))
     {
       SelectableSQLCharacter hf = (SelectableSQLCharacter) valueQuery.getSelectableRef("healthFacility");
-      QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS,
-          IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias() + "." + idCol);
+      QueryUtil.subselectGeoDisplayLabels(hf, IndividualInstance.CLASS, IndividualInstance.HEALTHFACILITY, instanceQuery.getTableAlias() + "." + idCol);
     }
 
     QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
@@ -570,8 +542,10 @@ public class IndividualCase extends IndividualCaseBase implements
     // Map that stores the aliases of an inner valuequery used to detect if a
     // case
     // is clinical, positive, or negative. This map also acts like a flag that
-    // if size is zero then the inner valuequery has not been added to the primary value query.
-    Map<String, String> diagnosisAliases = new HashMap<String, String>();;
+    // if size is zero then the inner valuequery has not been added to the
+    // primary value query.
+    Map<String, String> diagnosisAliases = new HashMap<String, String>();
+    ;
 
     if (valueQuery.hasSelectableRef("cases"))
     {
@@ -585,8 +559,7 @@ public class IndividualCase extends IndividualCaseBase implements
     if (valueQuery.hasSelectableRef("deaths"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("deaths");
-      String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(),
-          IndividualInstance.DIEDINFACILITY);
+      String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.DIEDINFACILITY);
       String sql = "SUM(" + diedInFacCol + ")";
       calc.setSQL(sql);
     }
@@ -597,8 +570,7 @@ public class IndividualCase extends IndividualCaseBase implements
       // String indCaseCol =
       // QueryUtil.getColumnName(instanceQuery.getMdClassIF(),
       // IndividualInstance.INDIVIDUALCASE);
-      String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(),
-          IndividualInstance.DIEDINFACILITY);
+      String diedInFacCol = QueryUtil.getColumnName(instanceQuery.getMdClassIF(), IndividualInstance.DIEDINFACILITY);
       SelectableSQLFloat calc = (SelectableSQLFloat) valueQuery.getSelectableRef("cfr");
       // String tableName =
       // MdBusiness.getMdBusiness(IndividualInstance.CLASS).getTableName();
@@ -606,7 +578,7 @@ public class IndividualCase extends IndividualCaseBase implements
       // + tableName + " AS ii WHERE ii." + indCaseCol + " = " + tableAlias +
       // "." + idCol + ")))*100.0";
       String deathSum = QueryUtil.sumColumnForId(instanceQuery.getTableAlias(), idCol, null, diedInFacCol);
-      String sql = "("+deathSum+"::float/NULLIF((" + adjustedCases + "),0))*100.0";
+      String sql = "(" + deathSum + "::float/NULLIF((" + adjustedCases + "),0))*100.0";
       calc.setSQL(sql);
     }
 
@@ -616,8 +588,7 @@ public class IndividualCase extends IndividualCaseBase implements
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100000, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000000, diagnosisAliases);
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN);
+    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
 
     QueryUtil.setTermRestrictions(valueQuery, queryMap);
 
@@ -632,8 +603,7 @@ public class IndividualCase extends IndividualCaseBase implements
 
   }
 
-  private static void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery,
-      IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
+  private static void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
   {
     SelectableSQLFloat calc;
     if (valueQuery.hasSelectableRef("incidence_" + multiplier))
@@ -659,8 +629,7 @@ public class IndividualCase extends IndividualCaseBase implements
         attributeKey = (String) keys.next();
 
         JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        if (universals.length() > 0
-            && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
+        if (universals.length() > 0 && attributeKey.equals(IndividualCase.CLASS + '.' + IndividualCase.PROBABLESOURCE))
         {
           selectedUniversals = new String[universals.length()];
           for (int i = 0; i < universals.length(); i++)
@@ -694,7 +663,7 @@ public class IndividualCase extends IndividualCaseBase implements
     }
     catch (QueryException e)
     {
-      throw new IncidencePopulationException(e);
+      throw new IncidenceProbableSourceException();
     }
 
     String columnAlias = s.getDbQualifiedName();
@@ -709,35 +678,27 @@ public class IndividualCase extends IndividualCaseBase implements
     String onset = QueryUtil.getColumnName(caseQuery.getMdClassIF(), IndividualCase.SYMPTOMONSET);
 
     String sql = "(" + getTotalCasesSQL(caseQuery, valueQuery, diagnosisAliases) + ")";
-    sql += "/NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", "
-        + onset + ")),0.0)*" + multiplier;
+    sql += "/NULLIF(AVG(get_" + timePeriod + "_population_by_geoid_and_date(" + columnAlias + ", " + onset + ")),0.0)*" + multiplier;
 
     calc.setSQL(sql);
   }
 
-  private static String getTotalCasesSQL(IndividualCaseQuery caseQuery, ValueQuery valueQuery,
-      Map<String, String> diagnosisAliases)
+  private static String getTotalCasesSQL(IndividualCaseQuery caseQuery, ValueQuery valueQuery, Map<String, String> diagnosisAliases)
   {
     String posCases = "positiveCases";
     String negCases = "negativeCases";
     String clinCases = "clinicalCases";
     String cachedPercentPositive = "percentPositive";
-    
+
     if (diagnosisAliases.size() == 0)
     {
       QueryFactory factory = caseQuery.getQueryFactory();
       IndividualInstanceQuery iQuery = new IndividualInstanceQuery(factory);
 
       ValueQuery innerQuery = new ValueQuery(factory);
-      SUM positiveColumn = F.SUM(innerQuery.aSQLLong("positive", "(case when "
-          + iQuery.getDiagnosisType().getDbColumnName() + "_c = '"
-          + DiagnosisType.POSITIVE_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "positive");
-      SUM negativeColumn = F.SUM(innerQuery.aSQLLong("negative", "(case when "
-          + iQuery.getDiagnosisType().getDbColumnName() + "_c = '"
-          + DiagnosisType.NEGATIVE_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "negative");
-      SUM clinicalColumn = F.SUM(innerQuery.aSQLLong("clinical", "(case when "
-          + iQuery.getDiagnosisType().getDbColumnName() + "_c = '"
-          + DiagnosisType.CLINICAL_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "clinical");
+      SUM positiveColumn = F.SUM(innerQuery.aSQLLong("positive", "(case when " + iQuery.getDiagnosisType().getDbColumnName() + "_c = '" + DiagnosisType.POSITIVE_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "positive");
+      SUM negativeColumn = F.SUM(innerQuery.aSQLLong("negative", "(case when " + iQuery.getDiagnosisType().getDbColumnName() + "_c = '" + DiagnosisType.NEGATIVE_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "negative");
+      SUM clinicalColumn = F.SUM(innerQuery.aSQLLong("clinical", "(case when " + iQuery.getDiagnosisType().getDbColumnName() + "_c = '" + DiagnosisType.CLINICAL_DIAGNOSIS.getId() + "' then 1 else 0 end)"), "clinical");
       innerQuery.SELECT(iQuery.getIndividualCase("ic_id"));
       innerQuery.SELECT(positiveColumn);
       innerQuery.SELECT(negativeColumn);
@@ -745,13 +706,9 @@ public class IndividualCase extends IndividualCaseBase implements
       innerQuery.WHERE(iQuery.getIndividualCase().getDisease().EQ(Disease.getCurrent()));
 
       ValueQuery vQuery = new ValueQuery(factory);
-      vQuery.SELECT(F.SUM(vQuery.aSQLLong("positive", "(case when " + positiveColumn.getColumnAlias()
-          + " > 0 then 1 else 0 end)"), posCases));
-      vQuery.SELECT(F.SUM(vQuery.aSQLLong("negative", "(case when " + positiveColumn.getColumnAlias()
-          + " = 0 and " + negativeColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), negCases));
-      vQuery.SELECT(F.SUM(vQuery.aSQLLong("clinical", "(case when " + positiveColumn.getColumnAlias()
-          + " = 0 and " + negativeColumn.getColumnAlias() + " = 0 and "
-          + clinicalColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), clinCases));
+      vQuery.SELECT(F.SUM(vQuery.aSQLLong("positive", "(case when " + positiveColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), posCases));
+      vQuery.SELECT(F.SUM(vQuery.aSQLLong("negative", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), negCases));
+      vQuery.SELECT(F.SUM(vQuery.aSQLLong("clinical", "(case when " + positiveColumn.getColumnAlias() + " = 0 and " + negativeColumn.getColumnAlias() + " = 0 and " + clinicalColumn.getColumnAlias() + " > 0 then 1 else 0 end)"), clinCases));
       vQuery.SELECT(vQuery.aSQLCharacter("ic", innerQuery.getSelectableRef("ic_id").getColumnAlias()));
       vQuery.FROM("(" + innerQuery.getSQL() + ")", "innerQuery");
 
@@ -761,21 +718,21 @@ public class IndividualCase extends IndividualCaseBase implements
       diagnosisAliases.put(posCases, vQuery.getSelectableRef(posCases).getColumnAlias());
       diagnosisAliases.put(negCases, vQuery.getSelectableRef(negCases).getColumnAlias());
       diagnosisAliases.put(clinCases, vQuery.getSelectableRef(clinCases).getColumnAlias());
-      
+
       // Safe operation: the value is required and already validated.
       String percentPositive = ThresholdCalculationTypeView.getCalculationThreshold().getClinicalPositivePercentage().toString();
       diagnosisAliases.put(cachedPercentPositive, percentPositive);
     }
-    
+
     String idCol = QueryUtil.getIdColumn();
     String caseAlias = caseQuery.getTableAlias();
     String posSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(posCases));
     String negSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(negCases));
     String clinSum = QueryUtil.sumColumnForId(caseAlias, idCol, null, diagnosisAliases.get(clinCases));
     String percentPositive = diagnosisAliases.get(cachedPercentPositive);
-    
+
     // adjusted case count
-    String sql = "CASE WHEN (" + posSum + ") = 0 THEN (" + posSum + " + ("+clinSum+" * "+percentPositive+"/100.00)) ELSE ";
+    String sql = "CASE WHEN (" + posSum + ") = 0 THEN (" + posSum + " + (" + clinSum + " * " + percentPositive + "/100.00)) ELSE ";
     sql += "( \n";
     sql += "    (" + posSum + ") + \n";
     sql += "    ( \n";
