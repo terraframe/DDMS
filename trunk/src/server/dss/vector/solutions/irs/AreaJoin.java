@@ -50,9 +50,7 @@ public class AreaJoin extends TargetJoin implements Reloadable
       String childGeo = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
       String parentGeo = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
       
-      String eqOper = this.isLeftJoin ? "=" : "!=";
-      
-      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " "+eqOper+" (SELECT " + parentGeo
+      sql += "AND " + TargetJoin.PLANNED_ALIAS + "." + Alias.GEO_ENTITY + " = (SELECT " + parentGeo
           + " FROM " + pathsTable + " WHERE" + " " + parentGeo + " = " + TargetJoin.PLANNED_ALIAS + "."
           + Alias.GEO_ENTITY + " AND " + childGeo + " = " + TargetJoin.ACTUAL_ALIAS + "."
           + Alias.GEO_ENTITY + ")";
