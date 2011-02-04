@@ -94,13 +94,11 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
   }
 
   @Transaction
-  public static InsecticideInterventionPlanningView[] calculate(InsecticideInterventionPlanningView[] views, String configurationId)
+  public static InsecticideInterventionPlanningView[] calculate(InsecticideInterventionPlanningView[] views, String brandId)
   {
-    validateConfiguration(configurationId);
+    validateBrand(brandId);
 
-    InsecticideNozzleView configuration = InsecticideNozzle.getView(configurationId);
-
-    InsecticideBrand brand = configuration.getBrand();
+    InsecticideBrand brand = InsecticideBrand.get(brandId);
     AreaStandardsView area = AreaStandardsView.getMostRecent();
 
     Float coverage = area.getUnitNozzleAreaCoverage();
@@ -118,9 +116,9 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
     return views;
   }
 
-  private static void validateConfiguration(String configurationId)
+  private static void validateBrand(String brandId)
   {
-    if (configurationId == null || configurationId.equals(""))
+    if (brandId == null || brandId.equals(""))
     {
       String msg = "Configuration requires a value";
 

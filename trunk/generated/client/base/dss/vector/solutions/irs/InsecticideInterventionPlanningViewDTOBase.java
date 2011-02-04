@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 800122754)
+@com.runwaysdk.business.ClassSignature(hash = 657857043)
 public abstract class InsecticideInterventionPlanningViewDTOBase extends dss.vector.solutions.irs.InterventionPlanningViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideInterventionPlanningView";
-  private static final long serialVersionUID = 800122754;
+  private static final long serialVersionUID = 657857043;
   
   protected InsecticideInterventionPlanningViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -54,10 +54,10 @@ public abstract class InsecticideInterventionPlanningViewDTOBase extends dss.vec
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(REQUIREDINSECTICIDE).getAttributeMdDTO();
   }
   
-  public static final dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] calculate(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] views, java.lang.String configurationId)
+  public static final dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] calculate(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[] views, java.lang.String brandId)
   {
     String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.irs.InsecticideInterventionPlanningView;", "java.lang.String"};
-    Object[] _parameters = new Object[]{views, configurationId};
+    Object[] _parameters = new Object[]{views, brandId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO.CLASS, "calculate", _declaredTypes);
     return (dss.vector.solutions.irs.InsecticideInterventionPlanningViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

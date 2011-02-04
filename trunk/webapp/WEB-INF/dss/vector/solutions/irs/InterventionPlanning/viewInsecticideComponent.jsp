@@ -19,7 +19,7 @@
 <dl>
   <dt>
     <label>
-      ${item.geoEntityMd.displayLabel}
+      * ${item.geoEntityMd.displayLabel}
     </label>
   </dt>
   <dd>
@@ -27,7 +27,7 @@
   </dd>
   <dt>
     <label>
-      ${item.seasonMd.displayLabel}
+      * ${item.seasonMd.displayLabel}
       <span class="formatDate"> ${item.season.startDate} </span>
       -
       <span class="formatDate"> ${item.season.endDate} </span>
@@ -36,13 +36,14 @@
   <dd>
     ${item.season.seasonName}
   </dd>
-  <dt></dt>
+  <dt>
+    <label> * <mdss:localize key="Insecticide"/> </label>
+  </dt>
   <dd>
     <mjl:form name="InterventionPlanning.setUnits.mojo" method="POST">
-      <mdss:localize key="Configurations"/>
-      <mjl:select valueAttribute="insecticideNozzleId" param="configuration" var="current" items="${configurations}" id="configuration.id">
+      <mjl:select valueAttribute="insecticdeId" param="brand" var="current" items="${brands}" id="brand.id">
         <mjl:option>
-          ${current.brandLabel} - ${current.nozzleLabel}
+          ${current.label}
         </mjl:option>
       </mjl:select>
     </mjl:form>
@@ -74,14 +75,14 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
   YAHOO.util.Event.onDOMReady(function(){ 
     <%=grid.getDropDownMap()%>
     
-    var configuration = document.getElementById('configuration.id');    
+    var brand = document.getElementById('brand.id');    
 
     var saveHandler = function(request, parameters) {
       // Invoke the save method
-      var configurationId = configuration.value;
+      var brandId = brand.value;
         
-      if(Mojo.Util.isString(configurationId)) {
-        Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>.calculate(request, parameters[0], configurationId);          
+      if(Mojo.Util.isString(brandId)) {
+        Mojo.$.<%=InsecticideInterventionPlanningViewDTO.CLASS%>.calculate(request, parameters[0], brandId);          
       }
     };
     

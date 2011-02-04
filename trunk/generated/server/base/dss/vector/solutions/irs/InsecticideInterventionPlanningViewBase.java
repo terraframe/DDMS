@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 749500674)
+@com.runwaysdk.business.ClassSignature(hash = -1415894125)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class InsecticideInterventionPlanningViewBase extends dss.vector
 {
   public final static String CLASS = "dss.vector.solutions.irs.InsecticideInterventionPlanningView";
   public static java.lang.String REQUIREDINSECTICIDE = "requiredInsecticide";
-  private static final long serialVersionUID = 749500674;
+  private static final long serialVersionUID = -1415894125;
   
   public InsecticideInterventionPlanningViewBase()
   {
@@ -57,7 +57,7 @@ public abstract class InsecticideInterventionPlanningViewBase extends dss.vector
     return (InsecticideInterventionPlanningView) com.runwaysdk.business.View.get(id);
   }
   
-  public static dss.vector.solutions.irs.InsecticideInterventionPlanningView[] calculate(dss.vector.solutions.irs.InsecticideInterventionPlanningView[] views, java.lang.String configurationId)
+  public static dss.vector.solutions.irs.InsecticideInterventionPlanningView[] calculate(dss.vector.solutions.irs.InsecticideInterventionPlanningView[] views, java.lang.String brandId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.irs.InsecticideInterventionPlanningView.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

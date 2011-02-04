@@ -24,7 +24,7 @@
 <dl>
   <dt>
     <label>
-      ${item.geoEntityMd.displayLabel}
+     * ${item.geoEntityMd.displayLabel}
     </label>
   </dt>
   <dd>
@@ -32,7 +32,7 @@
   </dd>
   <dt>
     <label>
-      ${item.seasonMd.displayLabel}
+      * ${item.seasonMd.displayLabel}
       <span class="formatDate"> ${item.season.startDate} </span>
       -
       <span class="formatDate"> ${item.season.endDate} </span>
@@ -41,10 +41,11 @@
   <dd>
     ${item.season.seasonName}
   </dd>
-  <dt></dt>
+  <dt>
+    * <mdss:localize key="Units_Per_Day"/>
+  </dt>
   <dd>
-    <mjl:form name="InterventionPlanning.setUnits.mojo" method="POST">
-      <mdss:localize key="Units_Per_Day"/>
+    <mjl:form name="InterventionPlanning.setUnits.mojo" method="POST">      
       <mjl:input type="text" param="unitsPerDay" size="5" maxlength="5" id="unitsPerDay" value="${unitsPerDay}"/> <input type="button" id="units.button" value=""/>    
     </mjl:form>
   </dd>

@@ -176,9 +176,9 @@ public class InterventionPlanningController extends InterventionPlanningControll
 
       String[] keys = { "Id", "GeoEntity", "EntityLabel", "Season", "Targets", "RequiredInsecticide" };
 
-      InsecticideNozzleViewDTO[] configurations = InsecticideNozzleViewDTO.getAllActive(request);
-
-      req.setAttribute("configurations", Arrays.asList(configurations));
+      InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(request);
+      
+      req.setAttribute("brands", Arrays.asList(brands));
       req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
       req.setAttribute(ITEM, view);
 

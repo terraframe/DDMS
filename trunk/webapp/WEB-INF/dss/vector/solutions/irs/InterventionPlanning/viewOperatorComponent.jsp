@@ -16,7 +16,7 @@
 <dl>
   <dt>
     <label>
-      ${item.geoEntityMd.displayLabel}
+     * ${item.geoEntityMd.displayLabel}
     </label>
   </dt>
   <dd>
@@ -24,7 +24,7 @@
   </dd>
   <dt>
     <label>
-      ${item.seasonMd.displayLabel}
+      * ${item.seasonMd.displayLabel}
       <span class="formatDate"> ${item.season.startDate} </span>
       -
       <span class="formatDate"> ${item.season.endDate} </span>
