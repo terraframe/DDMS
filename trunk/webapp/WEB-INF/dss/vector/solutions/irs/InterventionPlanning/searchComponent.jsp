@@ -22,13 +22,13 @@
       <input type="radio" name="planningType" class="planningOption" id="planningType.operator" ${operator}/> <mdss:localize key="Operator_Planning"/>
     </dd>
     <dt>
-      <label><mdss:localize key="Geo_Entity"/></label>
+      <label> * <mdss:localize key="Geo_Entity"/></label>
     </dt>
     <dd>
       <mdss:geo param="geoId" concrete="false" political="false" populated="false" spray="true" />
     </dd>
     <dt>
-      <label> <mdss:localize key="Season"/></label>
+      <label> * <mdss:localize key="Season"/></label>
     </dt>
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >
