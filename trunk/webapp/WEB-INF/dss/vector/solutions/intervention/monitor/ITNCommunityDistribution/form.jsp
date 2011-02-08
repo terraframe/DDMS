@@ -113,7 +113,8 @@
   </mjl:dt>
   <div class="currencyReceived">
     <mjl:dt attribute="currencyReceived">
-      <mjl:input param="currencyReceived" type="text" id="currencyReceived"/>
+      <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" var="formattedCurrencyReceived" value="${item.currencyReceived}" />
+      <mjl:input param="currencyReceived" type="text" id="currencyReceived" value="${formattedCurrencyReceived}"/>
     </mjl:dt>
   </div>
   <mjl:dt attribute="retrieved">

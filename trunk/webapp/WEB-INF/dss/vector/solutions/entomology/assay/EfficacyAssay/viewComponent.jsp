@@ -87,7 +87,7 @@
       </mjl:dt>
       
       <dt><label> <mdss:localize key="Overall_Mortality_for_surface" /> </label></dt>
-      <dd><fmt:formatNumber type="number" maxFractionDigits="2" value="${item.overallMortalityRate}" /></dd>
+      <dd><fmt:formatNumber type="number" minFractionDigits="2" maxFractionDigits="2" value="${item.overallMortalityRate}" /></dd>
     </mjl:component>
 
     <mdss:localize key="Edit" var="Localized_Edit" />

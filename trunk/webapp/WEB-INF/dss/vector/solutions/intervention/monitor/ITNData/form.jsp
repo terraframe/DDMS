@@ -39,7 +39,10 @@
     <mjl:dt attribute="receivedForCommunityResponse" type="text" />      
     <mjl:dt attribute="numberDistributed" type="text" />      
     <mjl:dt attribute="numberSold" type="text" />      
-    <mjl:dt attribute="currencyReceived" type="text" />      
+    <mjl:dt attribute="currencyReceived" >
+      <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" var="formattedCurrencyReceived" value="${item.currencyReceived}" />
+      <mjl:input param="currencyReceived" type="text" id="currencyReceived" value="${formattedCurrencyReceived}"/>      
+    </mjl:dt>      
   </mjl:component>
 
   <c:if test="${item.isDisplayServicesReadable}">

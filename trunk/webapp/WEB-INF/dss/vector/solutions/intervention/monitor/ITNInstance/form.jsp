@@ -32,7 +32,8 @@
     <mdss:mo param="obtained" value="${obtained}"/>
   </mjl:dt>
   <mjl:dt attribute="price">
-    <mjl:input param="price" type="text" />
+    <fmt:formatNumber maxFractionDigits="2" minFractionDigits="2" var="formattedPrice" value="${item.price}" />
+    <mjl:input param="price" type="text" value="${formattedPrice}" />
   </mjl:dt>
   <mjl:dt attribute="retreated">
     <mjl:boolean param="retreated" id="retreated" />
