@@ -474,7 +474,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 
     if (alertType.equals(SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION))
     {
-      data.put("visitDate", "");
+      data.put("visitDate", formattedDate);
     }
 
     if (systemAlert.getDisease() != null)
