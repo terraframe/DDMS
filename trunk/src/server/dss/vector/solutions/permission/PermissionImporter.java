@@ -111,38 +111,41 @@ public class PermissionImporter implements Reloadable
   {
     SystemURL url = this.getURL(ExcelUtil.getString(row.getCell(0)));
 
-    for (Disease disease : diseases)
+    if (url != null)
     {
-      RoleDAO writeRoleDAO = url.getRole(disease, PermissionOption.WRITE);
-      RoleDAO readRoleDAO = url.getRole(disease, PermissionOption.READ);
-
-      if (writeRoleDAO != null && readRoleDAO != null)
+      for (Disease disease : diseases)
       {
-        int i = 1;
+        RoleDAO writeRoleDAO = url.getRole(disease, PermissionOption.WRITE);
+        RoleDAO readRoleDAO = url.getRole(disease, PermissionOption.READ);
 
-        for (RoleDAO role : roles)
+        if (writeRoleDAO != null && readRoleDAO != null)
         {
-          Set<RoleDAOIF> superRoles = role.getSuperRoles();
-          String action = ExcelUtil.getString(row.getCell(i++));
+          int i = 1;
 
-          if (action.equalsIgnoreCase("W"))
+          for (RoleDAO role : roles)
           {
-            // ensure that the role does not already inherit the writeRoleDAO
-            if (!superRoles.contains(writeRoleDAO))
-            {
-              role.addAscendant(writeRoleDAO);
-            }
+            Set<RoleDAOIF> superRoles = role.getSuperRoles();
+            String action = ExcelUtil.getString(row.getCell(i++));
 
-            if (!superRoles.contains(readRoleDAO))
+            if (action.equalsIgnoreCase("W"))
             {
-              role.addAscendant(readRoleDAO);
+              // ensure that the role does not already inherit the writeRoleDAO
+              if (!superRoles.contains(writeRoleDAO))
+              {
+                role.addAscendant(writeRoleDAO);
+              }
+
+              if (!superRoles.contains(readRoleDAO))
+              {
+                role.addAscendant(readRoleDAO);
+              }
             }
-          }
-          else if (action.equalsIgnoreCase("R"))
-          {
-            if (!superRoles.contains(readRoleDAO))
+            else if (action.equalsIgnoreCase("R"))
             {
-              role.addAscendant(readRoleDAO);
+              if (!superRoles.contains(readRoleDAO))
+              {
+                role.addAscendant(readRoleDAO);
+              }
             }
           }
         }
@@ -293,11 +296,15 @@ public class PermissionImporter implements Reloadable
     {
       SystemURL url = this.getURL(urlKey);
 
-      for (Disease disease : diseases)
+      if (url != null)
       {
-        PermissionAction action = factory.getAction(url, disease);
 
-        this.importPermissions(row, action);
+        for (Disease disease : diseases)
+        {
+          PermissionAction action = factory.getAction(url, disease);
+
+          this.importPermissions(row, action);
+        }
       }
     }
   }
