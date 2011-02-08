@@ -415,15 +415,26 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
     return null;
   }
 
+  private static String formatDateForMessage(Date messageDate)
+  {
+    if (messageDate != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
+      String formattedDate = format.format(messageDate);
+
+      return formattedDate;
+    }
+
+    return "";
+  }
+
   private static void performAlert(String accessor, GeoEntity entity, double threshold, double count, Date date, EpiWeek week, Date messageDate)
   {
     SystemAlertType alertType = ThresholdData.getSystemAlertType(accessor);
 
-    DateFormat format = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
-    String formattedDate = format.format(messageDate);
-
     String alertLevel = MDSSProperties.getString("Outbreak");
     ThresholdAlertCalculationType config = ThresholdAlertCalculationType.getCurrent();
+    String formattedDate = ThresholdData.formatDateForMessage(messageDate);
 
     if (config.getEpidemicUniversal().equals(GeoHierarchy.getGeoHierarchyFromType(entity.getType())))
     {
@@ -463,7 +474,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
 
     if (alertType.equals(SystemAlertType.FACILITY_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertType.FACILITY_OUTBREAK_NOTIFICATION))
     {
-      data.put("visitDate", formattedDate);
+      data.put("visitDate", "");
     }
 
     if (systemAlert.getDisease() != null)
