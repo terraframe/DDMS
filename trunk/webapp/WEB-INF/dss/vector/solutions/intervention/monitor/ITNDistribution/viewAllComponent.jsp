@@ -40,7 +40,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="currencyReceived">
       <mjl:row>
-        <fmt:formatNumber  maxFractionDigits="2" value="${item.currencyReceived}" />
+        <fmt:formatNumber minFractionDigits="2" maxFractionDigits="2" value="${item.currencyReceived}" />
       </mjl:row>    
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="distributorName">
