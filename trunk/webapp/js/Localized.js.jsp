@@ -156,10 +156,12 @@ MDSS.parse = function(parser, number) {
 
 MDSS.format = function(formatter, number) { 
   // Format the number to two decimal places.
-  var fixedNumber = number.toFixed(MDSS.FLOAT_PRECISION); 
-  var parsedNumber = parseFloat(fixedNumber);
+  formatter.setMaximumFractionDigits(MDSS.FLOAT_PRECISION);
+  formatter.setMinimumFractionDigits(MDSS.FLOAT_PRECISION);
 
-  return formatter.format(parsedNumber); 
+  var _number = formatter.format(number);
+
+  return _number;
 }
 
 MDSS.parseNumber = Mojo.Util.curry(MDSS.parse, MDSS.getParser());
