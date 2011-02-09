@@ -831,18 +831,18 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
               }
             }
           }
-          else {
+          else if (editor instanceof YAHOO.widget.NumberCellEditor) {
             // We must determine if the value is a number and if-so limit its decimals to 2 places
             var value = record.getData(field.key);
-            
+              
             if(value != null && value != '' && isFinite(value)) {
 
               // Numbers coming from the server are not localized, so just use the regular parseFloat
               var parsedValue = parseFloat(value);
-              
+                
               if(parsedValue !== Math.floor(parsedValue)) {
                 var formattedNumber = MDSS.formatNumber(parsedValue);
-              
+                
                 record.setData(field.key, formattedNumber);
               }
             }
