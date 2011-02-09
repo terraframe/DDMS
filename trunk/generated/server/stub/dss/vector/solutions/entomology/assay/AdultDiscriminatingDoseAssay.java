@@ -113,7 +113,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
 
     super.apply();
 
-    if (this.isResistant())
+    if (this.isResistant() && this.getInsecticide() != null && this.getCollection() != null)
     {
       Term activeIngredient = this.getInsecticide().getActiveIngredient();
       String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());

@@ -1,5 +1,9 @@
 package dss.vector.solutions.selenium;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.List;
 
 import org.junit.After;
@@ -11,15 +15,17 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.thoughtworks.selenium.DefaultSelenium;
-import com.thoughtworks.selenium.SeleneseTestCase;
+import com.thoughtworks.selenium.Selenium;
 
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.general.PopulationDataQuery;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
-public class PopulationDataTest extends SeleneseTestCase
+public class PopulationDataTest
 {
+  private Selenium selenium;
+
   private GeoEntity      parentEntity;
 
   private GeoEntity      childEntity;
@@ -133,6 +139,7 @@ public class PopulationDataTest extends SeleneseTestCase
       String text = parentEntity.getLabel(); 
 
       assertEquals(text, selenium.getText("link=" + text));
+      assertFalse(selenium.isTextPresent("An unspecified error has occurred"));      
     }
     finally
     {
@@ -161,6 +168,7 @@ public class PopulationDataTest extends SeleneseTestCase
       assertTrue("Expected 7 in the DOM", selenium.isTextPresent("7"));
       assertTrue("Expected 14.00 (Precision of two decimal places)", selenium.isTextPresent("14.00"));
       assertFalse("Precision exceeded 2 decimals", selenium.isTextPresent("14.000"));
+      assertFalse(selenium.isTextPresent("An unspecified error has occurred"));
     }
     finally
     {
@@ -218,6 +226,7 @@ public class PopulationDataTest extends SeleneseTestCase
       assertTrue("Expecting text 2.21", selenium.isTextPresent("2.21"));
       assertTrue("Expecting text 123", selenium.isTextPresent("123"));
       assertTrue("Expecting text 2.14", selenium.isTextPresent("2.14"));
+      assertFalse(selenium.isTextPresent("An unspecified error has occurred"));      
     }
     finally
     {
