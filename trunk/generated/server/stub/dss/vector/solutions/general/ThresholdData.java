@@ -386,7 +386,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       {
 
         // Perform the alert
-        performAlert(accessor, entity, count, cases, date, week, null);
+        performAlert(accessor, entity, count, cases, date, week, messageDate);
 
         threshold.reachedThreshold(accessor, count);
       }

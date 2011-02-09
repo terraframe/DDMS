@@ -133,7 +133,7 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
     }
     else if (alertType.equals(SystemAlertTypeDTO.SOURCE_OUTBREAK_IDENTIFICATION) || alertType.equals(SystemAlertTypeDTO.SOURCE_OUTBREAK_NOTIFICATION))
     {
-      return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, premiseType, epiWeek, symptomOnsetDate";
+      return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, epiWeek, symptomOnsetDate";
     }
 
     return "alertType, disease, thresholdType, thresholdValue, actualValue, geoEntity, alertLevel, epiWeek, visitDate";
