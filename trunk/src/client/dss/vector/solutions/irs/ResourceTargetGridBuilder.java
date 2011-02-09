@@ -79,6 +79,7 @@ public class ResourceTargetGridBuilder extends GridBuilder implements Reloadable
       setup.setTitle(startDate + " -> " + endDate);
       setup.setLabel(label);
       setup.setWidth(20);
+      setup.setIndicateRequired(false);
 
       map.put(key, setup);
     }

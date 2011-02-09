@@ -47,8 +47,10 @@ public class ColumnSetup implements Reloadable
   private String  setter;
 
   private Integer width;
-  
+
   private Boolean includeBlank;
+
+  private boolean indicateRequired;
 
   public ColumnSetup()
   {
@@ -71,6 +73,7 @@ public class ColumnSetup implements Reloadable
     this.includeBlank = false;
     this.title = null;
     this.label = null;
+    this.indicateRequired = true;
   }
 
   public boolean isHidden()
@@ -187,14 +190,24 @@ public class ColumnSetup implements Reloadable
   {
     this.width = width;
   }
-  
+
   public Boolean getIncludeBlank()
   {
     return includeBlank;
   }
-  
+
   public void setIncludeBlank(Boolean includeBlank)
   {
     this.includeBlank = includeBlank;
+  }
+  
+  public boolean isIndicateRequired()
+  {
+    return indicateRequired;
+  }
+
+  public void setIndicateRequired(boolean indicateRequired)
+  {
+    this.indicateRequired = indicateRequired;
   }
 }

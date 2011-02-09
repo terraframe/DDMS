@@ -171,6 +171,7 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
       setup.setTitle(startDate + " -> " + endDate);
       setup.setLabel(label);
       setup.setWidth(20);
+      setup.setIndicateRequired(false);
 
       map.put(key, setup);
     }

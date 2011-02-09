@@ -76,7 +76,7 @@ public class YUIColumn implements Reloadable
       this.width = setup.getWidth();
       this.label = setup.getLabel() != null ? setup.getLabel() : attributeMd.getDisplayLabel();
       
-      if(attributeMd.isRequired())
+      if(attributeMd.isRequired() && setup.isIndicateRequired())
       {
         this.label = "* " + this.label;
       }
