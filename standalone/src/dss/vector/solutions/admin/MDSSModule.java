@@ -1,8 +1,12 @@
 package dss.vector.solutions.admin;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.Locale;
+import java.util.Map;
 
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.core.runtime.IProgressMonitor;
@@ -15,6 +19,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 
+import com.runwaysdk.dataaccess.transaction.IPropertyListener;
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.controller.IConfiguration;
@@ -35,8 +40,12 @@ import dss.vector.solutions.admin.controller.PropertyReader;
 import dss.vector.solutions.admin.controller.SlaveConfiguration;
 import dss.vector.solutions.admin.view.ControlView;
 
-public class MDSSModule implements IModule, IControllerListener
+public class MDSSModule implements IModule, IControllerListener, IPropertyListener
 {
+  public static final String VERSION_PROPERTY = "ddms_manager_version";
+
+  public static final String VERSION          = "1.0";
+
   class ControlAction extends Action
   {
     public ControlAction()
@@ -75,19 +84,19 @@ public class MDSSModule implements IModule, IControllerListener
     }
   }
 
-  private IModuleController controller;
+  private IModuleController                  controller;
 
-  private StatusLineManager statusManager;
+  private StatusLineManager                  statusManager;
 
-  private IWindow           window;
+  private IWindow                            window;
 
-  private LinkedHashMap<LogLevel, LogAction>   actions;
+  private LinkedHashMap<LogLevel, LogAction> actions;
 
   public MDSSModule(IModuleController controller)
   {
     this.controller = controller;
     this.controller.addListener(this);
-    
+
     this.statusManager = new StatusLineManager();
     this.window = null;
     this.actions = new LinkedHashMap<LogLevel, LogAction>();
@@ -98,7 +107,7 @@ public class MDSSModule implements IModule, IControllerListener
     this.actions.put(LogLevel.WARN, new LogAction(Localizer.getMessage("WARN"), LogLevel.WARN, controller));
     this.actions.put(LogLevel.ERROR, new LogAction(Localizer.getMessage("ERROR"), LogLevel.ERROR, controller));
     this.actions.put(LogLevel.FATAL, new LogAction(Localizer.getMessage("FATAL"), LogLevel.FATAL, controller));
-    
+
     this.changeLogLevel(controller.getLogLevel());
   }
 
@@ -242,11 +251,11 @@ public class MDSSModule implements IModule, IControllerListener
   public void changeLogLevel(LogLevel level)
   {
     for (LogLevel key : actions.keySet())
-    {      
+    {
       actions.get(key).setImageDescriptor(null);
     }
 
-    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, "icons/checkbox.png"));    
+    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, "icons/checkbox.png"));
   }
 
   @Override
@@ -259,35 +268,35 @@ public class MDSSModule implements IModule, IControllerListener
   public ITaskListener getImportListener()
   {
     ITaskListener listener = new ITaskListener()
-    {      
+    {
       @Override
       public void taskStart(String name, int amount)
       {
         // TODO Auto-generated method stub
-        
+
       }
-      
+
       @Override
       public void taskProgress(int percent)
       {
         // TODO Auto-generated method stub
-        
+
       }
-      
+
       @Override
       public void start()
       {
         // TODO Auto-generated method stub
-        
+
       }
-      
+
       @Override
       public void done(boolean success)
       {
-        if(success)
-        {          
+        if (success)
+        {
           window.getDisplay().syncExec(new Runnable()
-          {            
+          {
             @Override
             public void run()
             {
@@ -296,18 +305,18 @@ public class MDSSModule implements IModule, IControllerListener
               try
               {
                 dialog.run(true, false, new IRunnableWithProgress()
-                {            
+                {
                   @Override
                   public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
                   {
                     monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
-                    
+
                     controller.rebuildGeoPaths();
 
                     monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_TERM"), IProgressMonitor.UNKNOWN);
 
                     controller.rebuildTermPaths();
-                    
+
                     monitor.done();
                   }
                 });
@@ -315,13 +324,13 @@ public class MDSSModule implements IModule, IControllerListener
               catch (InvocationTargetException e)
               {
                 e.printStackTrace();
-                
+
                 error(e.getCause().getLocalizedMessage());
               }
               catch (InterruptedException e)
               {
-                e.printStackTrace(); 
-                
+                e.printStackTrace();
+
                 error(e.getLocalizedMessage());
               }
             }
@@ -329,10 +338,10 @@ public class MDSSModule implements IModule, IControllerListener
         }
       }
     };
-    
+
     return listener;
   }
-  
+
   public static void main(String[] args)
   {
     Locale locale = Locale.getDefault();
@@ -375,5 +384,35 @@ public class MDSSModule implements IModule, IControllerListener
         window.run();
       }
     });
+  }
+
+  @Override
+  public Map<String, String> getExportProperties()
+  {
+    Map<String, String> map = new HashMap<String, String>();
+
+    map.put(MDSSModule.VERSION_PROPERTY, MDSSModule.VERSION.toString());
+
+    return map;
+  }
+
+  @Override
+  public Collection<IPropertyListener> getImportPropertyListeners()
+  {
+    Collection<IPropertyListener> collection = new LinkedList<IPropertyListener>();
+    collection.add(this);
+
+    return collection;
+  }
+
+  @Override
+  public void handleProperty(String name, String value)
+  {
+    if (name.equals(MDSSModule.VERSION_PROPERTY) && !value.equals(MDSSModule.VERSION_PROPERTY))
+    {
+      String msg = Localizer.getMessage("MANAGER_VERSION_ERROR");
+
+      throw new RuntimeException(msg);
+    }
   }
 }
