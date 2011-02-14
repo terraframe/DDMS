@@ -1,0 +1,45 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.export.InsufficientPatientDataException"
+        label="Insufficient Patient Data Exception"
+        description="Thrown when an import does not specify enough information to query for or create a new patient"
+        message="Insufficient {typeLabel} data. You must specify an existing [{identifierLabel}] or all four of: [{firstNameLabel}], [{lastNameLabel}], [{dobLabel}], [{sexLabel}].">
+        <attributes>
+          <char
+            name="typeLabel"
+            label="Type Label"
+            size="255"/>
+          <char
+            name="identifierLabel"
+            label="Identifier Label"
+            size="255"/>
+          <char
+            name="firstNameLabel"
+            label="First Name Label"
+            size="255"/>
+          <char
+            name="lastNameLabel"
+            label="Last Name Label"
+            size="255"/>
+          <char
+            name="dobLabel"
+            label="Date of Birth Label"
+            size="255"/>
+          <char
+            name="sexLabel"
+            label="Sex Label"
+            size="255"/>
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.export.InsufficientPatientDataException"
+        type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>
