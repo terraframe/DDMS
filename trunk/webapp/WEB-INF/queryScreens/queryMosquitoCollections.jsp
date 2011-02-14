@@ -103,7 +103,7 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);
     
     
-    subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_mc',dropDownMaps:{}});
+    subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_subMc',dropDownMaps:{}});
 
 
   var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});
@@ -201,21 +201,56 @@ YAHOO.util.Event.onDOMReady(function(){
                              ]);
 
     
-
+    var abundanceOnly = abundanceColumns.slice(-8);
    
 
     var selectableGroups = [
                 {title:"Collection", values:collectionColumns, group:"mc", klass:mosquitoCollection.CLASS},
                 {title:"SubCollection", values:subCollectionColumns, group:"mc", klass:subCollection.CLASS},
-                {title:"Abundance", values:abundanceColumns, group:"ab", klass:subCollection.CLASS}
+                {title:"Abundance", values:abundanceColumns, group:"mc", klass:subCollection.CLASS}
         ];
 
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
     query.render();
 
-    
     var picker = query.getGeoPicker();
     picker.addExtraUniversal('<%= CollectionSiteDTO.CLASS %>');
+
+    var dm = query.getDependencyManager();
+
+    var allCollections = subCollectionColumns.concat(collectionColumns);
+    dm.excludes({
+      independent: allCollections,
+      dependent:abundanceColumns,
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: true
+    });
+    dm.includes({
+      independent: ['collectionMethod_ab'],
+      dependent:abundanceColumns,
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: ['taxon'],
+      dependent: abundanceOnly,
+      type: MDSS.Dependent.UNCHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: abundanceOnly,
+      dependent: ['taxon','collectionMethod_ab'],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+    dm.includes({
+      independent: ['collectionCount', 'subCollectionCount'],
+      dependent:['collectionMethod_ab'],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
+
+    Mojo.GLOBAL.query = query;
 });
 
 </script>

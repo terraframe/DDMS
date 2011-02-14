@@ -104,20 +104,6 @@ Mojo.Meta.newClass('MDSS.QueryResistance', {
         return query;
       },
       
-      /**
-       * Helper method to switch the main query class based on the selected
-       * subclasses of AbstractAssay.
-       */
-      _addVisibleAttribute : function(attribute)
-      {
-        if(attribute.mainQueryClass)
-        {
-//          this._mainQueryClass = attribute.mainQueryClass;
-        }
-        
-        this.$_addVisibleAttribute(attribute);
-      },
-      
       _loadQueryState : function(view)
       {
         this.$_loadQueryState(view);

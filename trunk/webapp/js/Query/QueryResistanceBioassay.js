@@ -59,19 +59,6 @@ Mojo.Meta.newClass('MDSS.QueryResistanceBioassay', {
         {
           return this.$_getBrowserRootClass(attribute);
         }
-      },
-				
-       /**
-       * Helper method to add Entomology attributes to selectables and as a column.
-       */
-      _addVisibleAttribute : function(attribute)
-      {
-        if(attribute.mainQueryClass)
-        {
-          this._mainQueryClass = attribute.mainQueryClass;
-        }
-        
-        this.$_addVisibleAttribute(attribute);
       }
     }
 });
