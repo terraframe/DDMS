@@ -33,15 +33,7 @@ ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientCon
 Map<String,String> roleMap =  clientRequest.getSessionUserRoles();
 JSONArray roles = new JSONArray(roleMap.keySet());
 
-String[] localeArray  = locale.toString().split("_");
-StringBuffer buffer = new StringBuffer();
-
-for(String localeVariant : localeArray)
-{
-  buffer.append(",'" + localeVariant + "'");
-}
-
-String localeParameters = buffer.toString().replaceFirst(",", "");
+DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(locale);
 
 %>
 
@@ -78,6 +70,7 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
     out.println("MDY_YEAR_POSITION:"+pos+",");
   }
 }
+
 %>
 }
 
@@ -99,7 +92,7 @@ MDSS.Localized = {
 
   // tree widget options (per node)
   Tree: {
-    Create: '<mdss:localize key="Tree_Create"/>',
+    Create: '<%@page import="java.text.DecimalFormat"%><mdss:localize key="Tree_Create"/>',
     Edit: '<mdss:localize key="Tree_Edit"/>',
     Delete: '<mdss:localize key="Tree_Delete"/>',
     Select: '<mdss:localize key="Tree_Select"/>'
@@ -140,12 +133,19 @@ MDSS.Localized = {
 MDSS.FLOAT_PRECISION = 2;
 
 MDSS.getParser = function() {
-  var locale = new java.util.Locale(<%=localeParameters %>);
- 
-  return java.text.NumberFormat.getNumberInstance(locale);
+  try {
+    return new MDSS.DecimalParser('<%=format.getDecimalFormatSymbols().getDecimalSeparator()%>', '<%=format.getPositivePrefix()%>', '<%=format.getPositiveSuffix()%>', '<%=format.getNegativePrefix()%>', '<%=format.getNegativeSuffix()%>');
+  }
+  catch(exception) {
+    return null;
+  }
 }
 
 MDSS.parse = function(parser, number) { 
+  if(parser == null) {
+    return parseFloat(number);
+  }
+  
   try {
     return parser.parse(number); 
   }
@@ -155,6 +155,10 @@ MDSS.parse = function(parser, number) {
 }
 
 MDSS.format = function(formatter, number) { 
+  if(formatter == null) {
+    return number.toFixed(MDSS.FLOAT_PRECISION);
+  }
+  
   // Format the number to two decimal places.
   formatter.setMaximumFractionDigits(MDSS.FLOAT_PRECISION);
   formatter.setMinimumFractionDigits(MDSS.FLOAT_PRECISION);

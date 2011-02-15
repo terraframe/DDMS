@@ -28,9 +28,9 @@ var MDSS = {
   util : {
   
     /**
-     * Extracts all script tag contents and returns
-     * a string of executable code that can be evaluated.
-     */
+   * Extracts all script tag contents and returns a string of executable code
+   * that can be evaluated.
+   */
     extractScripts : function(html)
     {
       var scripts = html.match(/<script\b[^>]*>[\s\S]*?<\/script>/img);
@@ -48,17 +48,17 @@ var MDSS = {
     },
 
     /**
-     * Removes all scripts from the HTML and returns
-     * a string of the cleansed HTML.
-     */
+   * Removes all scripts from the HTML and returns a string of the cleansed
+   * HTML.
+   */
     removeScripts : function(html)
     {
       return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
     },
 
     /**
-     * Strips the leading and trailing whitespace from the string.
-     */
+   * Strips the leading and trailing whitespace from the string.
+   */
     stripWhitespace : function(str)
     {
       return str.replace(/^\s+/, '').replace(/\s+$/, '');
@@ -112,9 +112,9 @@ var MDSS = {
   Effect : {
 
     /**
-     * Toggles the visibility of an element by clicking
-     * on the given toggle element.
-     */
+   * Toggles the visibility of an element by clicking on the given toggle
+   * element.
+   */
     toggleVisibility : function(elementId, toggleId, hiddenId)
     {
       YAHOO.util.Event.on(toggleId, 'click', function(e, obj){
@@ -201,7 +201,8 @@ var MDSS = {
 
     this.onSend = function()
     {
-        //Show a modal wait screen to prevent user from clicking an ajax link twice
+        // Show a modal wait screen to prevent user from clicking an ajax link
+    // twice
         if(MDSS.util.wait_for_ajax != null)
         {
           MDSS.util.wait_for_ajax.show();
@@ -236,7 +237,8 @@ var MDSS = {
     // provide default error handler
     this.onFailure = function(e)
     {
-      // Firefox cancels requests when esc is pressed which causes a status code
+      // Firefox cancels requests when esc is pressed which causes a status
+    // code
       // of 0. In this case, to avoid an empty error modal, do nothing.
       if(this.getTransport().status === 0)
       {
@@ -383,7 +385,8 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
     
     _initializeModal : function ()
     {
-      //Show a modal wait screen to prevent user from clicking an ajax link twice
+      // Show a modal wait screen to prevent user from clicking an ajax link
+    // twice
       this._modal = new YAHOO.widget.Panel("progress_modal",{
         width:"240px",
         fixedcenter:true,
@@ -511,6 +514,107 @@ Mojo.Meta.newClass('MDSS.ProgressRequest', {
     }
   }  
 });
+
+//#'##0.###
+//#,##0.###
+//#,##0.###;#,##0.###-
+//#.##0,###
+//#.##0,###;(#.##0,###)
+//# ##0,##
+//# ##0,###
+
+Mojo.Meta.newClass('MDSS.DecimalParser', {
+  Instance : {
+    initialize : function(decimal, posPrefix, posSuffix, negPrefix, negSuffix)
+    {        
+      this._posPrefix = posPrefix;
+      this._posSuffix = posSuffix;
+
+      this._negPrefix = negPrefix;
+      this._negSuffix = negSuffix;
+      
+      this._decimal = decimal;
+    
+      // Set default digit lengths
+      this._minIntegerDigits = 1;
+      this._maxIntegerDigits = 40;
+      this._minFractionDigits = 2;
+      this._maxFractionDigits = 2;
+    },
+    
+    parse : function(string) {
+      var isNegative = ((this._negPrefix != '' && string.indexOf(this._negPrefix) != -1) || (this._negSuffix != '' && string.indexOf(this._negSuffix) != -1));
+    	
+      // Remove all suffix and prefix values
+      var temp = new String(string);
+      temp = temp.replace(this._posPrefix, "");
+      temp = temp.replace(this._posSuffix, "");
+      temp = temp.replace(this._negPrefix, "");
+      temp = temp.replace(this._negSuffix, "");
+      
+      // Convert the decimal point
+      temp = temp.replace(this._decimal, ".");
+      
+      var number = parseFloat(temp);
+      
+      if(isNegative) {
+        number = number * -1;
+      }
+      
+      return number;
+    },
+    
+    format : function(number) {
+      var isNegative = (number < 0);
+      
+      var postiveNumber = (isNegative ? -1 * number : number);
+    	
+      var value = postiveNumber.toFixed(this._maxFractionDigits);
+      
+      if(isNegative)
+      {
+        return this._negPrefix + value.replace(".", this._decimal) + this._negSuffix;
+      }
+      
+      return this._posPrefix + value.replace(".", this._decimal) + this._posSuffix;
+    },
+    
+    getMaxIntegerDigits : function() {
+      return this._maxIntegerDigits;
+    },
+    
+    getMinIntegerDigits : function() {
+      return this._minIntegerDigits;
+    },
+    
+    getMaxFractionDigits : function() {
+      return this._maxFractionDigits;
+    },
+    
+    getMinFractionDigits : function() {
+      return this._minFractionDigits;
+    },
+    
+    setMaxIntegerDigits : function(maxIntegerDigits) {
+      this._maxIntegerDigits = maxIntegerDigits;
+    },
+    
+    setMinIntegerDigits : function(minIntegerDigits) {
+      this._minIntegerDigits = minIntegerDigits;
+    },
+    
+    setMaxFractionDigits : function(maxFractionDigits) {
+      this._maxFractionDigits = maxFractionDigits;
+    },
+    
+    setMinFractionDigits : function(minFractionDigits) {
+      this._minFractionDigits = minFractionDigits;
+    }
+  }  
+});
+
+
+
 
 // GLOBAL FUNCTION TO RUN ON EVERY PAGE
 (function(){
