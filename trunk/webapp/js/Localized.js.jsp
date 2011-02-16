@@ -160,8 +160,8 @@ MDSS.format = function(formatter, number) {
   }
   
   // Format the number to two decimal places.
-  formatter.setMaximumFractionDigits(MDSS.FLOAT_PRECISION);
-  formatter.setMinimumFractionDigits(MDSS.FLOAT_PRECISION);
+  formatter.setMaxFractionDigits(MDSS.FLOAT_PRECISION);
+  formatter.setMinFractionDigits(MDSS.FLOAT_PRECISION);
 
   var _number = formatter.format(number);
 
