@@ -8,14 +8,11 @@ import java.util.Locale;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
-import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
-import com.runwaysdk.system.metadata.MdType;
 
-import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.PersonView;
@@ -172,11 +169,13 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     {
       Calendar c = Calendar.getInstance();
       c.add(Calendar.YEAR, -1 * age2);
+      // Ticket #2326 says dob should be January 1st
+      c.set(Calendar.DAY_OF_YEAR, 1);
       this.setDateOfBirth(c.getTime());
     }
     else if (dob!=null && diagnosis!=null && age2==null)
     {
-      // We subtract from diagnosis date because we want to knwo the age at the time of diagnosis, not the age now
+      // We subtract from diagnosis date because we want to know the age at the time of diagnosis, not the age now
       long difference = diagnosis.getTime() - dob.getTime();
       // Divide by the number of milliseconds in a year
       long age = difference / 31556926000l;
