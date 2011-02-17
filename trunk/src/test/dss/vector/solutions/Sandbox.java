@@ -1,7 +1,12 @@
 package dss.vector.solutions;
 
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.ComponentInfo;
@@ -27,7 +32,6 @@ import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.Term;
 
 public class Sandbox
 {
@@ -35,19 +39,31 @@ public class Sandbox
 
   private static int           feedbackMod = 50;
 
-  @Request
   public static void main(String[] args) throws Exception
   {
-     Term term = new Term();
-     term.apply();
+    // var locale = new java.util.Locale();
+    // var formatter =java.text.NumberFormat.getNumberInstance(locale);
+    // formatter.parse('123,45');
+    Locale[] locales = Locale.getAvailableLocales();
+    Set<String> set = new TreeSet<String>();
 
+    for (Locale locale : locales)
+    {
+      DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(locale);
+      
+      DecimalFormatSymbols symbols = format.getDecimalFormatSymbols();
+      
+      
+      
+      System.out.println("[" + symbols.getDecimalSeparator() + "; " + format.getPositivePrefix() + "; " + format.getPositiveSuffix() + "; " + format.getNegativePrefix() + "; " + format.getNegativeSuffix() + "]");
 
-//    Term[] terms = Term.getSortedRootChildren(CaseDiseaseManifestationView.CLASS, CaseDiseaseManifestationView.DISEASECATEGORY, true);
-//
-//    for(Term term : terms)
-//    {
-//      System.out.println(term.getTermDisplayLabel().getValue());
-//    }
+//      set.add(format.toLocalizedPattern());
+    }
+        
+    for (String pattern : set)
+    {
+      System.out.println(pattern);
+    }    
   }
 
   private static String concatenate(Selectable[] selectableArray)
@@ -235,15 +251,15 @@ public class Sandbox
     // }
     /*
      * Mocambique Mozambique
-     *
+     * 
      * select metaphone('Mocambique', 255); select metaphone('Mozambique', 255);
-     *
+     * 
      * select dmetaphone('Mocambique'); select dmetaphone_alt('Mocambique');
-     *
+     * 
      * select dmetaphone('Mozambique'); select dmetaphone_alt('Mozambique');
-     *
+     * 
      * SELECT levenshtein('Mocambique', 'Mozambique');
-     *
+     * 
      * Bilene Bellene
      */
     // QueryFactory qf = new QueryFactory();

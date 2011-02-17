@@ -1,8 +1,14 @@
 package dss.vector.solutions.entomology.assay;
 
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.general.KnockDownTimeProperty;
+import dss.vector.solutions.general.KnockDownTimePropertyQuery;
+import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.QueryUtil;
 
 public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.generation.loader.Reloadable
@@ -17,7 +23,7 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
   
   @Override
   public String toString()
-  {
+  {    
     if (this.isNew())
     {
       return "New: "+ this.getClassDisplayLabel();
@@ -28,6 +34,57 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
     }
     
     return super.toString();
+  }
+  
+  @Override
+  public void apply()
+  {    
+    super.apply();
+    
+    if (this.isResistant() && this.getInsecticide() != null && this.getCollection() != null)
+    {
+      Term activeIngredient = this.getInsecticide().getActiveIngredient();
+      String label = activeIngredient.getTermDisplayLabel().getValue(Session.getCurrentLocale());
+      String collectionId = this.getCollection().getCollectionId();
+
+      ResistantCollection info = new ResistantCollection();
+      info.setActiveIngredient(label);
+      info.setCollectionId(collectionId);
+      info.throwIt();
+    }
+  }
+
+  protected boolean isResistant()
+  {
+    Insecticide _insecticide = this.getInsecticide();
+    Double _kd50 = this.getKd50();
+    Double _kd95 = this.getKd95();
+    
+    if(_insecticide != null && _kd50 != null && _kd95 != null)
+    {
+      KnockDownTimePropertyQuery query = new KnockDownTimePropertyQuery(new QueryFactory());
+
+      query.WHERE(query.getInsecticide().EQ(_insecticide));
+      OIterator<? extends KnockDownTimeProperty> iterator = query.getIterator();
+      
+      try
+      {
+        if(iterator.hasNext())
+        {
+          KnockDownTimeProperty property = iterator.next();
+          Integer lowerCutoff = property.getLowerTime();
+          Integer upperCutoff = property.getUpperTime();
+          
+          return ((lowerCutoff < _kd50) && (upperCutoff < _kd95));
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }      
+    }
+
+    return false;
   }
 
   public static String getResistanceSQL(String[] labels)

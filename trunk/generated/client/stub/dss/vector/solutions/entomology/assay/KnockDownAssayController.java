@@ -220,6 +220,8 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   private void view(KnockDownAssayDTO dto) throws IOException, ServletException
   {
+    ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);
+    
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
