@@ -1040,82 +1040,110 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public void validateConsistentHierarchy()
   {
     List<GeoHierarchy> parents = this.getImmediateParents();
-    if (parents.size() == 0)
-    {
-      // Don't validate if there are no parents (i.e., Earth)
-      return;
-    }
 
     boolean isPolitical = this.getPolitical();
     boolean isSpray = this.getSprayTargetAllowed();
     boolean isUrban = this.getUrban();
 
-    boolean politicalParent = false;
-    boolean sprayParent = false;
-    boolean politicalChild = false;
-    boolean sprayChild = false;
-    boolean urbanParent = false;
-    boolean urbanChild = false;
-
-    for (GeoHierarchy parent : parents)
+    if (parents.size() > 0)
     {
-      // To avoid gaps, we compare this GeoHierarchies political/spray
-      // value to that of its parent. One match must exist.
-      if (parent.getPolitical())
+      boolean politicalParent = false;
+      boolean sprayParent = false;
+      boolean urbanParent = false;
+
+      boolean politicalChild = false;
+      boolean sprayChild = false;
+      boolean urbanChild = false;
+
+      for (GeoHierarchy parent : parents)
       {
-        politicalParent = true;
+        // To avoid gaps, we compare this GeoHierarchies political/spray
+        // value to that of its parent. One match must exist.
+        if (parent.getPolitical())
+        {
+          politicalParent = true;
+        }
+
+        if (parent.getSprayTargetAllowed())
+        {
+          sprayParent = true;
+        }
+
+        if (parent.getUrban() != null && parent.getUrban())
+        {
+          urbanParent = true;
+        }
+
+        // To avoid branching, we must check the immediate children of each
+        // parent and see if the political/spray hierarchy continues.
+        for (GeoHierarchy child : parent.getImmediateChildren())
+        {
+          if (child.equals(this))
+          {
+            continue;
+          }
+
+          if (child.getPolitical())
+          {
+            politicalChild = true;
+          }
+
+          if (child.getSprayTargetAllowed())
+          {
+            sprayChild = true;
+          }
+
+          if (child.getUrban() != null && child.getUrban())
+          {
+            urbanChild = true;
+          }
+        }
       }
 
-      if (parent.getSprayTargetAllowed())
+      // check political hierarchy
+      if (isPolitical && !politicalParent)
       {
-        sprayParent = true;
+        String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the political hierarchy.";
+        HierarchyGapException ex = new HierarchyGapException(msg);
+        throw ex;
+      }
+      else if (isPolitical && politicalChild)
+      {
+        String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the political hierarchy.";
+        HierarchyBranchException ex = new HierarchyBranchException(msg);
+        throw ex;
       }
 
-      if (parent.getUrban() != null && parent.getUrban())
+      // check spray hierarchy
+      if (isSpray && !sprayParent)
       {
-        urbanParent = true;
+        String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the spray hierarchy.";
+        HierarchyGapException ex = new HierarchyGapException(msg);
+        throw ex;
+      }
+      else if (isSpray && sprayChild)
+      {
+        String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the spray hierarchy.";
+        HierarchyBranchException ex = new HierarchyBranchException(msg);
+        throw ex;
       }
 
-      // To avoid branching, we must check the immediate children of each
-      // parent and see if the political/spray hierarchy continues.
-      for (GeoHierarchy child : parent.getImmediateChildren())
+      // check urban hierarchy
+      if (isUrban && !urbanParent)
       {
-        if (child.equals(this))
-        {
-          continue;
-        }
-
-        if (child.getPolitical())
-        {
-          politicalChild = true;
-        }
-
-        if (child.getSprayTargetAllowed())
-        {
-          sprayChild = true;
-        }
-
-        if (child.getUrban() != null && child.getUrban())
-        {
-          urbanChild = true;
-        }
+        String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the urban hierarchy.";
+        HierarchyGapException ex = new HierarchyGapException(msg);
+        throw ex;
+      }
+      else if (isUrban && urbanChild)
+      {
+        String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the urban hierarchy.";
+        HierarchyBranchException ex = new HierarchyBranchException(msg);
+        throw ex;
       }
     }
-
-    // check political hierarchy
-    if (isPolitical && !politicalParent)
-    {
-      String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the political hierarchy.";
-      HierarchyGapException ex = new HierarchyGapException(msg);
-      throw ex;
-    }
-    else if (isPolitical && politicalChild)
-    {
-      String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the political hierarchy.";
-      HierarchyBranchException ex = new HierarchyBranchException(msg);
-      throw ex;
-    }
-    else if (!isPolitical)
+    
+    if (!isPolitical)
     {
       // Political has been set to false, so set all of its children political
       // flags to false. Since no branching is allowed we can safely modify all
@@ -1128,20 +1156,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       }
     }
 
-    // check spray hierarchy
-    if (isSpray && !sprayParent)
-    {
-      String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the spray hierarchy.";
-      HierarchyGapException ex = new HierarchyGapException(msg);
-      throw ex;
-    }
-    else if (isSpray && sprayChild)
-    {
-      String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the spray hierarchy.";
-      HierarchyBranchException ex = new HierarchyBranchException(msg);
-      throw ex;
-    }
-    else if (!isSpray)
+    if (!isSpray)
     {
       // Spray has been set to false, so set all of its children spray
       // flags to false. Since no branching is allowed we can safely modify all
@@ -1154,20 +1169,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       }
     }
 
-    // check urban hierarchy
-    if (isUrban && !urbanParent)
-    {
-      String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the urban hierarchy.";
-      HierarchyGapException ex = new HierarchyGapException(msg);
-      throw ex;
-    }
-    else if (isUrban && urbanChild)
-    {
-      String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the urban hierarchy.";
-      HierarchyBranchException ex = new HierarchyBranchException(msg);
-      throw ex;
-    }
-    else if (!isUrban)
+    if (!isUrban)
     {
       // Urban has been set to false, so set all of its children spray
       // flags to false. Since no branching is allowed we can safely modify all
@@ -1550,7 +1552,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     if (!political && !sprayZoneAllowed && !urban)
     {
       // Special criteria: Accept all entities
-      
+
       return true;
     }
     else if (political && isPolitical)
