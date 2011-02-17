@@ -15,6 +15,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.ComponentIF;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.constants.DeployProperties;
@@ -52,15 +53,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   {
     return this.getMapName();
   }
-  
+
   @Override
   public void apply()
   {
-    if(this.isNew() && !this.isAppliedToDB())
+    if (this.isNew() && !this.isAppliedToDB())
     {
       this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
   }
 
@@ -141,7 +142,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
           legend.put("fontFill", layer.getLegendFontFill());
           legend.put("fontSize", layer.getLegendFontSize());
           legend.put("fontStyle", layer.getLegendFontStyles().get(0).name().toLowerCase());
-          
+
           MdAttributeDAO md = (MdAttributeDAO) MdAttributeDAO.get(layer.getValue(Layer.LEGENDCOLOR));
           String colorAttribute = md.definesAttribute();
 
@@ -157,7 +158,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
             List<? extends AbstractCategory> cats = layer.getAllHasCategory().getAll();
             CategorySorter.sort(cats);
-            
+
             for (AbstractCategory cat : cats)
             {
               JSONObject category = new JSONObject();
@@ -268,12 +269,12 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     return input;
   }
-  
+
   private void copyStyles(Styles source, Styles dest)
   {
     for (MdAttributeDAOIF mdAttr : source.getMdClass().definesAttributes())
     {
-      if (!mdAttr.isSystem())
+      if (!mdAttr.isSystem() && !mdAttr.definesAttribute().equals(Styles.KEYNAME))
       {
         String name = mdAttr.definesAttribute();
 
@@ -300,13 +301,13 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Authenticate
   public LayerViewQuery createFromExisting(String existingMapId)
   {
-    if(this.isNew())
+    if (this.isNew())
     {
       this.apply();
     }
     else
     {
-      for(Layer layer : this.getAllLayer().getAll())
+      for (Layer layer : this.getAllLayer().getAll())
       {
         layer.delete();
       }
@@ -314,15 +315,15 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     // copy the layers from the existing map
     SavedMap existingMap = SavedMap.get(existingMapId);
-    
-    for(LayerView existingLayerView : existingMap.getAllLayers().getIterator().getAll())
+
+    for (LayerView existingLayerView : existingMap.getAllLayers().getIterator().getAll())
     {
       Layer existingLayer = Layer.get(existingLayerView.getLayerId());
       Layer layer = new Layer();
 
       for (MdAttributeDAOIF mdAttr : layer.getMdClass().definesAttributes())
       {
-        if (!mdAttr.isSystem())
+        if (!mdAttr.isSystem() && !mdAttr.definesAttribute().equals(Styles.KEYNAME))
         {
           String name = mdAttr.definesAttribute();
 
@@ -349,34 +350,34 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       layer.apply();
 
       // copy all the categories on the layer
-      for(AbstractCategory category : existingLayer.getAllHasCategory().getAll())
+      for (AbstractCategory category : existingLayer.getAllHasCategory().getAll())
       {
         AbstractCategory copy;
         try
         {
           copy = (AbstractCategory) LoaderDecorator.load(category.getType()).newInstance();
         }
-        catch(Throwable t)
+        catch (Throwable t)
         {
           throw new ProgrammingErrorException(t);
         }
-        
-        for(MdAttributeDAOIF mdAttr : copy.getMdClass().definesAttributes())
+
+        for (MdAttributeDAOIF mdAttr : copy.getMdClass().definesAttributes())
         {
           String name = mdAttr.definesAttribute();
-          if(!mdAttr.isSystem() && !name.equals(AbstractCategory.STYLES))
+          if (!mdAttr.isSystem() && !name.equals(AbstractCategory.STYLES)  && !mdAttr.definesAttribute().equals(Styles.KEYNAME))
           {
             copy.setValue(name, category.getValue(name));
           }
         }
-        
+
         Styles cStyles = new Styles();
         copyStyles(category.getStyles(), cStyles);
         cStyles.apply();
-        
+
         copy.setStyles(cStyles);
         copy.apply();
-        
+
         layer.addHasCategory(copy).apply();
       }
 
@@ -384,7 +385,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       HasLayers rel = this.addLayer(layer);
       rel.setLayerPosition(existingLayerView.getLayerPosition());
       rel.apply();
-      
+
     }
 
     return this.getAllLayers();
@@ -532,14 +533,14 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     defaultMap = new DefaultSavedMap();
     defaultMap.setDisease(Disease.getCurrent());
     defaultMap.apply();
-    
+
     settings.appLock();
     settings.setDefaultMap(defaultMap);
     settings.apply();
 
     return defaultMap;
   }
-  
+
   public static void cleanOldViews(long olderThan)
   {
     for (String viewName : Database.getViewsByPrefix(Layer.GEO_VIEW_PREFIX))
@@ -566,17 +567,18 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
         // have the timestamp. Just ignore it.
       }
     }
-    
-    // Also clean up any old map images (the directory will be recreated when an image is uploaded)
-    
+
+    // Also clean up any old map images (the directory will be recreated when an
+    // image is uploaded)
+
     String deploy = DeployProperties.getDeployPath();
-    if(!deploy.endsWith("/"))
+    if (!deploy.endsWith("/"))
     {
       deploy += "/";
     }
-    String imageDir = deploy+QueryConstants.MAP_IMAGES_DIR;
+    String imageDir = deploy + QueryConstants.MAP_IMAGES_DIR;
     File dir = new File(imageDir);
-    if(dir.exists())
+    if (dir.exists())
     {
       try
       {
@@ -586,7 +588,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       {
         throw new ProgrammingErrorException(e);
       }
-    }    
+    }
   }
 
   /**
