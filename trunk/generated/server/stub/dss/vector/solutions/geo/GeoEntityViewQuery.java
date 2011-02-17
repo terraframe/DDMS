@@ -10,7 +10,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.runwaysdk.business.BusinessFacade;
-import com.runwaysdk.business.generation.json.JSONFacade;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
@@ -22,6 +21,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
+import com.runwaysdk.transport.conversion.json.JSONUtil;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -158,7 +158,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       if (filter != null && filter.trim().length() > 0)
       {
         
-        if( JSONFacade.isArray(this.filter ))
+        if( JSONUtil.isArray(this.filter ))
         {
           // restrict by many types
           try

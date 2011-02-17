@@ -263,7 +263,7 @@
     _addMethod : function(klass, superClass, methodName, definition)
     {
       var isFunc = isFunction(definition);
-      var method = isFunc ? definition : definition.method;
+      var method = isFunc ? definition : definition.Method;
     
       // add instance method to the prototype
       klass.prototype[methodName] = method;
@@ -298,7 +298,8 @@
       }
       
       var ret = {name : methodName, isStatic : false, isAbstract : (!isFunc && definition.IsAbstract),
-          isConstructor : (methodName === 'initialize'), method : method, klass: klass};
+          isConstructor : (methodName === 'initialize'), method : method, klass: klass,
+          enforceArity: (definition.EnforceArity || false)};
       
       klass = null;
       superClass = null;
@@ -509,7 +510,7 @@
           }      
 
           config.staticMethods[m] = {name : m, isStatic : true, isAbstract : false, 
-            isConstructor : false, method : statics[m], klass: klass};
+            isConstructor : false, method : statics[m], klass: klass, enforceArity: false};
         }
         else
         {
@@ -582,21 +583,6 @@
     toString : function()
     {
       return '['+this.getMetaClass().getQualifiedName()+'] instance';
-    },
-    
-    toJSON : function(key)
-    {
-      var json = {};
-      for (var key in this)
-      {
-        var prop = this[key];
-        if ( !isFunction(prop) && key !== '__context')
-        {
-          json[key] = prop;
-        }
-      }
-      
-      return Mojo.Util.toJSON(json);
     }
   }
 });
@@ -631,7 +617,7 @@
       
       this._addMetaClassMethod();
       
-      if(_isInitialized && !this._isInterface && !this._isAbstract)
+      if(_isInitialized && !this._isInterface)
       {
         this._enforceInterfaceMethods();
       }
@@ -798,7 +784,8 @@
         isConstructor : false,
         method : this._klass[mName],
         klass: baseClass,
-        overrideKlass : this._klass
+        overrideKlass : this._klass,
+        enforceArity : false
       }, this);
       
      this._staticMethods[mName] = new _methodClassRef({
@@ -808,7 +795,8 @@
         isConstructor : false,
         method : this._klass[mName],
         klass: baseClass,
-        overrideKlass : this._klass
+        overrideKlass : this._klass,
+        enforceArity : false
       }, this);
     },
     
@@ -1100,9 +1088,21 @@
         }
         
         var name = method.getName();
-        if(!(name in this._instanceMethods))
+        var isDefined = (name in this._instanceMethods);
+        if(!this._isAbstract && !isDefined)
         {
           unimplemented.push(name);
+        }
+        else if(isDefined && method.enforcesArity())
+        {
+          var implemented = this._instanceMethods[name];
+          if(method.getArity() !== implemented.getArity())
+          {
+            var ifMethod = method.getDefiningClass().getMetaClass().getQualifiedName()+'.'+name;
+            var msg = "The method ["+this._qualifiedName+"."+name+"] must " + 
+            "define ["+method.getArity()+"] arguments as required by the interface method ["+ifMethod+"].";
+            throw new _exceptionClassRef(msg);
+          }
         }
       }
       
@@ -1279,6 +1279,7 @@
       this._klass = config.klass || null;
       this._overrideKlass = config.overrideKlass || null;
       this._isAbstract = config.isAbstract;
+      this._enforceArity = config.enforceArity || false;
       
       if(_isInitialized && !metaClass.isAbstract()
          && this._isAbstract)
@@ -1317,6 +1318,11 @@
     isAbstract : function()
     {
       return this._isAbstract;
+    },
+    
+    enforcesArity : function()
+    {
+      return this._enforceArity;
     },
     
     isConstructor : function()
@@ -1693,6 +1699,11 @@ Mojo.Meta.newClass('Mojo.Util', {
                 partial,
                 value = holder[key];
 
+            if(typeof value === 'function')
+            {
+              return undefined;
+            }
+            
             var isClass = value instanceof _baseClassRef;
             
             if (value && typeof value === 'object' &&
@@ -3879,11 +3890,72 @@ Mojo.Meta.newClass('Mojo.Facade', {
   }
 });
 
+var serializableIF = Mojo.Meta.newInterface(Mojo.ROOT_PACKAGE+'Serializable', {
+  
+  Instance : {
+    toJSON : {
+      Method : function(key) {},
+      EnforceArity : true
+    }
+  }
+});
+
+/**
+ * Class that serializes basic objects with optional key/value overriding.
+ * Functions and the __context variables are ignored.
+ */
+var standardSerializer = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'StandardSerializer',{
+  
+  Instance : {
+    initialize : function(source, override)
+    {
+      source = source || {};
+      this._destination = {};
+      
+      // Copy the non-function properties to the destination object.
+      // This will also remove any infinite recursion via toJSON()
+      // declarations on the original source object.
+      for(var i in source)
+      {
+        if(!isFunction(source[i]))
+        {
+          this._destination[i] = source[i];
+        }
+      }
+      this._override = override || null;
+    },
+    
+    toJSON : function()
+    {
+      var ssRef = this;
+      var replacer = function(key, value)
+      {
+        if(ssRef._override !== null && key in ssRef._override)
+        {
+          return ssRef._override[key];
+        }
+        else if(key === '__context' || isFunction(this[key]))
+        {
+          return undefined;
+        }
+        else
+        {
+          return value;
+        }
+      };
+      
+      return Mojo.Util.toJSON(this._destination, replacer);
+    }
+  }
+});
+
 /**
  * ComponentQueryDTO
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO', {
 
+  Implements : serializableIF,
+  
   IsAbstract : true,
   
   Instance : {
@@ -3970,7 +4042,12 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO', {
   
     setCountEnabled : function(countEnabled) {this.countEnabled = countEnabled; },
   
-    isCountEnabled : function() { return this.countEnabled; }
+    isCountEnabled : function() { return this.countEnabled; },
+    
+    toJSON : function(key)
+    {
+      return new standardSerializer(this).toJSON();
+    }
   
   }
 });
@@ -4366,6 +4443,8 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ViewQueryDTO', {
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
 
+  Implements : serializableIF,
+  
   IsAbstract : true,
 
   Instance : {
@@ -4425,6 +4504,11 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
     getAttributeNames : function()
     {
       return Mojo.Util.getKeys(this.attributeMap, true);
+    },
+    
+    toJSON : function(key)
+    {
+      return new standardSerializer(this).toJSON();
     }
   }
 });
@@ -5264,7 +5348,12 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
   
     setModified : function(modified) { this.modified = modified; },
   
-    getAttributeMdDTO : function() { return this.attributeMdDTO; }
+    getAttributeMdDTO : function() { return this.attributeMdDTO; },
+    
+    toJSON : function(key)
+    {
+      return new standardSerializer(this).toJSON();
+    }
     
   }
 });
@@ -5845,22 +5934,16 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
       }
     },
     
-    toJSON : function()
+    toJSON : function(key)
     {
-      var tzRef = this._ignoreTimezone;
-      var r = function(k, v)
+      var date = this.getValue();
+      if(isDate(date))
       {
-        if(k === 'value' && isDate(v))
-        {
-          return Mojo.Util.toISO8601(v, tzRef);
-        }
-        else
-        {
-          return v;
-        }
-      };
+        date = Mojo.Util.toISO8601(date, this.getIgnoreTimezone());
+      }
       
-      return this.$toJSON(r);
+      var override = {value:date};
+      return new standardSerializer(this, override).toJSON();
     }
   }
 });
