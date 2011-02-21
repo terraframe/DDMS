@@ -16,6 +16,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.system.Roles;
 
+import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -131,8 +132,11 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
   @Override
   @Authenticate
+  @Transaction
   public void setPermissions(PermissionView[] permissions)
   {
+    InstallProperties.validateMasterOperation();
+
     RoleDAO role = this.getRole().getBusinessDAO();
 
     for (PermissionView view : permissions)
@@ -168,8 +172,11 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
 
   @Override
   @Authenticate
+  @Transaction
   public void setUniversalPermissions(UniversalPermissionView[] permissions)
   {
+    InstallProperties.validateMasterOperation();
+
     RoleDAO role = this.getRole().getBusinessDAO();
     boolean hasUniversalPermissions = false;
 

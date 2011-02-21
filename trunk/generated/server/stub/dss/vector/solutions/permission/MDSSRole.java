@@ -17,6 +17,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.system.Roles;
 
+import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSRoleInfo;
 
 public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.loader.Reloadable
@@ -32,6 +33,8 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
   @Transaction
   public void apply()
   {
+    InstallProperties.validateMasterOperation();
+
     boolean isNew = !this.isAppliedToDB() && this.isNew();
 
     super.apply();
@@ -62,6 +65,8 @@ public class MDSSRole extends MDSSRoleBase implements com.runwaysdk.generation.l
   @Transaction
   public void delete()
   {
+    InstallProperties.validateMasterOperation();
+
     super.delete();
     
     this.getRole().delete();
