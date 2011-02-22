@@ -454,7 +454,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         this._dateGroupSelectables[range] = selectable;
         this._queryPanel.insertColumn({
           key: range.toLowerCase(),
-          label: MDSS.localize(range),
+          label: MDSS.localize(range)
         });
       }
       else
@@ -543,7 +543,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           key: MDSS.QueryXML.RATIO_FUNCTION,
           displayLabel: MDSS.localize('RATIO'),
           attributeName: MDSS.QueryXML.RATIO_FUNCTION,
-          isAggregate:true,
+          isAggregate:true
         }, this);
   
         var ratioCheck = document.createElement('input');
@@ -891,14 +891,26 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           
           try
           {
-            this.thisRef._resetToDefault();
-            this.thisRef._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
+            var that = this.thisRef;
+            that._resetToDefault();
+            that._config = new MDSS.Query.Config(savedSearchView.getConfig()); 
           
-            this.thisRef._queryPanel.setCurrentSavedSearch(savedSearchView);
-            this.thisRef._reconstructSearch(savedSearchView);
+            that._queryPanel.setCurrentSavedSearch(savedSearchView);
+
+            that._queryPanel.waitForRefresh = true;
+            that._reconstructSearch(savedSearchView);
   
             // set the XML and config
-            this.thisRef._loadQueryState(savedSearchView);
+            that._loadQueryState(savedSearchView);
+            
+            // The query state is loaded, so resort the columns before finally
+            var ordered = that._config.getProperty('sortOrder');
+            if(Mojo.Util.isArray(ordered) && ordered.length > 0)
+            {
+              that._queryPanel.orderColumns(ordered);
+              var bound = Mojo.Util.bind(that._queryPanel, that._queryPanel.refreshBatch);
+              setTimeout(bound, 15);
+            }
           }
           catch(e)
           {
@@ -908,6 +920,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
           }
           finally
           {
+            this.thisRef._queryPanel.waitForRefresh = false;
             this.thisRef._dm.enable();
           }
         }
@@ -1090,10 +1103,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var geoSelectables = Mojo.Util.getKeys(this._geoEntitySelectables);
       for(var i=0; i<geoSelectables.length; i++)
       {
-        var name = geoSelectables[i];
-        var selectable = this._geoEntitySelectables[name];
+        var namespacedType = geoSelectables[i];
+        var geoSels = this._geoEntitySelectables[namespacedType];
  
-        queryXML.addSelectable(name, selectable);
+        queryXML.addSelectable(namespacedType+'-entityName', geoSels.entityName);
+        queryXML.addSelectable(namespacedType+'-geoId', geoSels.geoId);
       }
   
       // calculate the date criteria
@@ -1140,6 +1154,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      * Adds a universal type as a selectable to the query results. The universal
      * is represented as a GeoEntityView, which is a view instance of that geo entity
      * type. This is done to grab any necessary metadata/display labels.
+     * 
+     * Returns the key
      */
     _addUniversalEntity: function(attributeKey, geoEntityView)
     {
@@ -1154,77 +1170,100 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
   
       // add the GeoEntity as a query entity
-      var namespace = attributeKey+'_';
+      var namespacedType = attributeKey+'_'+type;
       
-      var geoEntityQuery = this._geoEntityTypes[namespace+type];
+      var geoEntityQuery = this._geoEntityTypes[namespacedType];
       if(!Mojo.Util.isObject(geoEntityQuery))
       {
-        this._geoEntityTypes[namespace+type] = new MDSS.QueryXML.Entity(type, entityAlias);
+        this._geoEntityTypes[namespacedType] = new MDSS.QueryXML.Entity(type, entityAlias);
       }
   
-      // use the type name and lowercase it so it adheres to attribute naming conventions
-      var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase();
-      
-      var addColumn = Mojo.Util.bind(this, function(geoAttr, selectableMap) {
-      
-        // namespace the column using the attributeKey because different attributes
-        // can add the same universal columns (e.g., Country [work], Country [home]).
-        var columnKey = attributeKey.replace(/\./g, '_')+'__'+typeName+'_'+geoAttr;
+      // Add the entity name and geo id selectables
+      var geoSelectables = this._geoEntitySelectables[namespacedType];
+      if(!Mojo.Util.isObject(geoSelectables))
+      {
+        // use the type name and lowercase it so it adheres to attribute naming conventions
+        var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase();
+
+        var entityName = this._addUniversalColumn(attributeKey, geoEntityView, typeName, entityAlias, geoEntityView.getEntityNameMd().getName());
+        var geoId = this._addUniversalColumn(attributeKey, geoEntityView, typeName, entityAlias, geoEntityView.getGeoIdMd().getName());
         
-        if(this._geoEntitySelectables[columnKey] == null)
-        {
-          var obj = {
-            key: columnKey,
-            label: (geoEntityView.getTypeDisplayLabel() + " " 
-              + geoEntityView.getAttributeDTO(geoAttr).getAttributeMdDTO().getDisplayLabel()
-              + " (" + this._geoAttributes[attributeKey]+")")
-          };
-   
-          var column = new YAHOO.widget.Column(obj);
-          this._queryPanel.insertColumn(column);
-   
-          var attr = new MDSS.QueryXML.Attribute(entityAlias, geoAttr, columnKey, obj.label);
-          var sel = new MDSS.QueryXML.Selectable(attr);
-          this._geoEntitySelectables[columnKey] = sel;
-        }
-      });
-      
-      addColumn(geoEntityView.getEntityNameMd().getName());
-      addColumn(geoEntityView.getGeoIdMd().getName());
-      
+        this._geoEntitySelectables[namespacedType] = {
+            entityName : entityName,
+          geoId : geoId
+        };
+      }
+    
+      return namespacedType;
     },
     
-    _removeUniversalColumns : function(attributeKey)
+    /**
+     * Adds the actual YUI column that represents the given universal attribute. Returns
+     * the selectable representing the column.
+     */
+    _addUniversalColumn : function(attributeKey, geoEntityView, typeName, entityAlias, geoAttr)
+    {
+      // namespace the column using the attributeKey because different attributes
+      // can add the same universal columns (e.g., Country [work], Country [home]).
+      var columnKey = attributeKey.replace(/\./g, '_')+'__'+typeName+'_'+geoAttr;
+      
+      var obj = {
+        key: columnKey,
+        label: (geoEntityView.getTypeDisplayLabel() + " " 
+          + geoEntityView.getAttributeDTO(geoAttr).getAttributeMdDTO().getDisplayLabel()
+          + " (" + this._geoAttributes[attributeKey]+")")
+      };
+ 
+      var column = new YAHOO.widget.Column(obj);
+      this._queryPanel.insertColumn(column);
+ 
+      var attr = new MDSS.QueryXML.Attribute(entityAlias, geoAttr, columnKey, obj.label);
+      var sel = new MDSS.QueryXML.Selectable(attr);
+      
+      return sel;
+    },
+    
+    _removeUniversalColumns : function(attributeKey, ignoreSet)
     {
       // remove all universal entities from the query
       var keys = Mojo.Util.getKeys(this._geoEntityTypes);
-      Mojo.Iter.forEach(keys, function(key){
-        
+      for(var i=0; i<keys.length; i++)
+      {
+        var key = keys[i];
         // only delete GeoEntity queries for this attribute
-        if(key.indexOf(attributeKey) !== -1)
+        if(!ignoreSet.contains(key) && key.indexOf(attributeKey) !== -1)
         {
           delete this._geoEntityTypes[key];
         }
-      }, this);
+      }
       
-      // reme all geo entity name and geo id columns
+      // remove all geo entity name and geo id columns
       keys = Mojo.Util.getKeys(this._geoEntitySelectables);
-      Mojo.Iter.forEach(keys, function(key){
-      
+      for(var i=0; i<keys.length; i++)
+      {
+        var key = keys[i];
         // The column may not exist because the selectable
         // was used for criteria and not selection
         // only delete GeoEntity queries for this attribute
-        if(key.indexOf(attributeKey.replace(/\./g, '_')) !== -1)
+        if(!ignoreSet.contains(key) && key.indexOf(attributeKey) !== -1)
         {
-          var column = this._queryPanel.getColumn(key);
-          if(column)
+          var geoSelectables = this._geoEntitySelectables[key];
+          
+          var entityAliasCol = this._queryPanel.getColumn(geoSelectables.entityName.getComponent().getUserAlias());
+          if(entityAliasCol)
           {
-            this._queryPanel.removeColumn(column);
+            this._queryPanel.removeColumn(entityAliasCol);
+          }
+
+          var geoIdCol = this._queryPanel.getColumn(geoSelectables.geoId.getComponent().getUserAlias());
+          if(geoIdCol)
+          {
+            this._queryPanel.removeColumn(geoIdCol);
           }
           
           delete this._geoEntitySelectables[key];
         }
-      }, this);
+      }
     },
   
     /**
@@ -1244,10 +1283,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       // clear any prior selected universals
       this._config.clearSelectedUniversals(currentAttribute);
   
-      // remove existing columns
-      this._removeUniversalColumns(currentAttribute);
-  
-      // add new columns
+      // add universal columns. The criteria for pre-existing columns will be recreated but
+      // the columns will not be deleted.
+      var ignoreSet = new MDSS.Set(); // namespaced key in geo type/attr maps to not remove
       for(var i=0; i<selectedUniversals.length; i++)
       {
         var universal = selectedUniversals[i];
@@ -1256,14 +1294,14 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var geoEntity = new construct();
         var geoEntityView = this._selectSearch._copyEntityToView(geoEntity);
   
-        this._addUniversalEntity(currentAttribute, geoEntityView);
-  
+        var namespacedType = this._addUniversalEntity(currentAttribute, geoEntityView);
+        ignoreSet.set(namespacedType);
+        
         this._config.addSelectedUniversal(currentAttribute, geoEntityView.getEntityType());
       }
-  
-  /* FIXME MAP
-      this._queryPanel.setAvailableThematicLayers(selectedUniversals);
-      */
+
+      // remove existing columns
+      this._removeUniversalColumns(currentAttribute, ignoreSet);
   
       this._criteriaEntities[currentAttribute] = criteriaEntities;
       

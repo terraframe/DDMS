@@ -1124,6 +1124,25 @@ MDSS.QueryPanel.prototype = {
     return column;
   },
   
+  /**
+   * Sorts the column batch in the order given.
+   */
+  orderColumns : function(order)
+  {
+    var columns = {};
+    for(var i=0; i<this._columnBatch.length; i++)
+    {
+      var col = this._columnBatch[i];
+      columns[col.key] = col;
+    }
+    
+    this._columnBatch = [];
+    for(var i=0; i<order.length; i++)
+    {
+      this._columnBatch.push(columns[order[i]]);
+    }
+  },
+  
   refreshBatch : function()
   {
     if(this._columnBatch.length > 0 || this._deleteBatch.length > 0)
