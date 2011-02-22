@@ -83,6 +83,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       window.show(strategy);
     }
   }
+  
 
   private IModuleController                  controller;
 
@@ -129,6 +130,15 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 
     logMenu.add(setLogMenu);
     manager.addMenu(logMenu);
+
+    /***
+     * Uncomment this code when support for GIS importing is finished
+     */
+//    MenuManager shapefileMenu = manager.getMenu(Localizer.getMessage("SHAPE_FILE_MENU"));
+//    shapefileMenu.add(new ImportShapefileAction());
+//    shapefileMenu.add(new BuildLocatedInAction());
+//    
+//    manager.addMenu(shapefileMenu);
   }
 
   @Override
@@ -408,7 +418,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
   @Override
   public void handleProperty(String name, String value)
   {
-    if (name.equals(MDSSModule.VERSION_PROPERTY) && !value.equals(MDSSModule.VERSION_PROPERTY))
+    if (name.equals(MDSSModule.VERSION_PROPERTY) && !value.equals(MDSSModule.VERSION))
     {
       String msg = Localizer.getMessage("MANAGER_VERSION_ERROR");
 
