@@ -1445,7 +1445,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
          
          var style = 'color: '+params['freeText.textFontFill']+';';
          style += 'font-size: '+params['freeText.textFontSize']+'px;';
-         style += this._getFontSytle(params['freeText.textFontStyles'][0]);
+         style += this._getFontStyle(params['freeText.textFontStyles'][0]);
          style += 'font-family: '+params['freeText.textFontFamily']+';';
          var html = '<span style="'+style+'">'+text+'</span>';
          div.innerHTML = html;
