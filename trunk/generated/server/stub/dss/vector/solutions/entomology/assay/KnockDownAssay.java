@@ -111,9 +111,10 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
     String select = "SELECT assay.id AS id,";
 
 
-    select += "(CASE WHEN (assay." + kd50 + " > " + upperTime + " OR assay." + kd95 + " > " + upperTime + ") THEN '" + resistantLabel + "' ";
-    select += "WHEN (assay." + kd50 + " > " + lowerTime + " OR assay." + kd95 + " > " + lowerTime + ")   THEN '" + potentialyResistantLabel + "' ";
-    select += "ELSE '" + susceptibleLabel + "' END) AS " + resistance_result + "";
+    select += "(CASE WHEN (assay." + kd50 + " >= " + lowerTime + " AND assay." + kd95 + " >= " + upperTime + ") THEN '" + resistantLabel + "' ";
+    select += "WHEN (assay." + kd50 + " >= " + lowerTime + " OR assay." + kd95 + " >= " + upperTime + ")   THEN '" + potentialyResistantLabel + "' ";
+    select += "WHEN (assay." + kd50 + " < " + lowerTime + " OR assay." + kd95 + " < " + upperTime + ")   THEN '" + susceptibleLabel + "' ";
+    select += "ELSE '' END) AS " + resistance_result + "";
 
     String from = "FROM " + collectionAssayTable + " AS collectionAssay, " + assayTable + " AS assay, " + knockDownTimeTable + " AS cutoff ";
 
