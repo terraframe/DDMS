@@ -7,22 +7,6 @@
   <mjl:message />
 </mjl:messages>
 
-<script>
-var checked = 0;
-function enableButton(checkbox) {
-	if (checkbox.checked) {
-		checked++;
-	} else {
-		checked--;
-	}
-	//alert(checked);
-	if (checked > 0) {
-		document.getElementsByName("LocalizationController.form.exportFile.button")[0].disabled=false;
-	} else  {
-		document.getElementsByName("LocalizationController.form.exportFile.button")[0].disabled=true;
-	}
-}
-</script>
 <mjl:form name="LocalizationController.name" id="LocalizationController.form.id" method="POST">
   <dl>
     <mjl:table classes="displayTable" var="item" query="${query}" even="evenRow" odd="oddRow">
@@ -39,7 +23,7 @@ function enableButton(checkbox) {
           <mdss:localize key="Export" />
         </mjl:header>
         <mjl:row>
-          <mjl:input type="checkbox" param="locales" value="${item.enumName}" onchange="enableButton(this);"/>
+          <mjl:input type="checkbox" param="locales" value="${item.enumName}" />
         </mjl:row>
       </mjl:freeColumn>
     </mjl:table>
@@ -50,10 +34,6 @@ function enableButton(checkbox) {
 <mjl:commandLink name="LocalizationController.add" action="dss.vector.solutions.util.LocalizationController.newLocale.mojo">
   <mdss:localize key="Add_New_Locale" />
 </mjl:commandLink>
-
-<script>
-document.getElementsByName("LocalizationController.form.exportFile.button")[0].disabled=true;
-</script>
 
 <div class="pageTitle"><mdss:localize key="Import_Localization" /></div>
 <dl>
