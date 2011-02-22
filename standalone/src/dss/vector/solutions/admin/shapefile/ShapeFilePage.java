@@ -124,7 +124,7 @@ public class ShapeFilePage extends WizardPage
     {
       try
       {
-        ShapeFileFacade facade = new ShapeFileFacade();
+        ShapefileImporterFacade facade = new ShapefileImporterFacade();
         String[] attributes = facade.getAttributes(data.getShapeFile());
         data.setAttributes(attributes);
 

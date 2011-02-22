@@ -10,7 +10,7 @@ import java.util.LinkedList;
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 
-public class ShapeFileFacade
+public class ShapefileImporterFacade
 {
   public void importShapeFile(ShapeFileBean data, ITaskListener... listeners)
   {

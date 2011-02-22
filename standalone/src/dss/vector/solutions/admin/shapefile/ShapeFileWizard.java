@@ -53,7 +53,7 @@ public class ShapeFileWizard extends Wizard
         {
           setImporting(true);
 
-          ShapeFileFacade facade = new ShapeFileFacade();
+          ShapefileImporterFacade facade = new ShapefileImporterFacade();
 
           facade.importShapeFile(data, new TransactionTaskListener(monitor));
         }

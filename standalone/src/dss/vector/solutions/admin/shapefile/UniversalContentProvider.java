@@ -16,7 +16,7 @@ public class UniversalContentProvider implements IStructuredContentProvider
   {
     this.universals = new LinkedList<LabeledValueBean>();
     this.universals.add(new LabeledValueBean(null, Localizer.getMessage("CHOOSE_OPTION")));
-    this.universals.addAll(new ShapeFileFacade().getUniversals());
+    this.universals.addAll(new ShapefileImporterFacade().getUniversals());
   }
 
   @Override
