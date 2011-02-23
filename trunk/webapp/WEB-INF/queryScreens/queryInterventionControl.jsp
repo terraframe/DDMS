@@ -192,17 +192,17 @@ YAHOO.util.Event.onDOMReady(function(){
       },
       {
         key: individualPremiseVisit.constructor.VISITED+'_ind',
-        type:"sqlfloat",
+        type:"sqlinteger",
         displayLabel:individualPremiseVisit.getVisitedMd().getDisplayLabel(),
         attributeName:'visited',
-        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+        dtoType:"com.runwaysdk.transport.attributes.AttributeIntegerDTO",
       },
       {
         key:individualPremiseVisit.constructor.TREATED+'_ind',
-        type:"sqlfloat",
+        type:"sqlinteger",
         displayLabel:individualPremiseVisit.getTreatedMd().getDisplayLabel(),
         attributeName:'treated',
-        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
+        dtoType:"com.runwaysdk.transport.attributes.AttributeIntegerDTO",
       }
 
       /*
@@ -229,8 +229,8 @@ YAHOO.util.Event.onDOMReady(function(){
         key: reason.key,
         displayLabel: '<%=request.getAttribute("individualReasonLabel")%> - ' + reason.label,
         attributeName: reason.key,
-        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
-        type:'sqlfloat'
+        dtoType:"com.runwaysdk.transport.attributes.AttributeIntegerDTO",
+        type:'sqlinteger'
       });
     }
     individualPremiseVisitColumns = individualPremiseVisitColumns.concat(reasonCols);
