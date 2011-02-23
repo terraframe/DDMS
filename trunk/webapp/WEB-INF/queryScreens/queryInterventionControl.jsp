@@ -194,6 +194,7 @@ YAHOO.util.Event.onDOMReady(function(){
         key: individualPremiseVisit.constructor.VISITED+'_ind',
         type:"sqlinteger",
         displayLabel:individualPremiseVisit.getVisitedMd().getDisplayLabel(),
+        description:individualPremiseVisit.getVisitedMd().getDescription(),
         attributeName:'visited',
         dtoType:"com.runwaysdk.transport.attributes.AttributeIntegerDTO",
       },
@@ -201,6 +202,7 @@ YAHOO.util.Event.onDOMReady(function(){
         key:individualPremiseVisit.constructor.TREATED+'_ind',
         type:"sqlinteger",
         displayLabel:individualPremiseVisit.getTreatedMd().getDisplayLabel(),
+        description:individualPremiseVisit.getTreatedMd().getDescription(),
         attributeName:'treated',
         dtoType:"com.runwaysdk.transport.attributes.AttributeIntegerDTO",
       }
@@ -292,6 +294,7 @@ YAHOO.util.Event.onDOMReady(function(){
         key:'premises_available_for_vehicle_spraying',
         type:'sqlfloat',
         displayLabel: aggregatedPremiseVisit.getPremisesAvailableMd().getDisplayLabel(),
+        description:aggregatedPremiseVisit.getPremisesAvailableMd().getDescription(),
         attributeName:'premises_available_for_vehicle_spraying',
         isAggregate:true
       },
@@ -299,6 +302,7 @@ YAHOO.util.Event.onDOMReady(function(){
         key:'premises_included_for_vehicle_spraying',
         type:'sqlfloat',
         displayLabel: aggregatedPremiseVisit.getPremisesIncludedMd().getDisplayLabel(),
+        description:aggregatedPremiseVisit.getPremisesIncludedMd().getDescription(),
         attributeName:'premises_included_for_vehicle_spraying',
         isAggregate:true
       },

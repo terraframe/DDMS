@@ -310,7 +310,8 @@ YAHOO.util.Event.onDOMReady(function(){
         key:'<%= AbstractSprayDTO.SPRAYDATE %>',
         type:'sqldate',
         attributeName:'<%= AbstractSprayDTO.SPRAYDATE %>',
-        displayLabel:abstractSpray.getSprayDateMd().getDisplayLabel()
+        displayLabel:abstractSpray.getSprayDateMd().getDisplayLabel(),
+        description:abstractSpray.getSprayDateMd().getDescription()
       });
     }
 
@@ -320,7 +321,8 @@ YAHOO.util.Event.onDOMReady(function(){
         key:'<%= AbstractSprayDTO.GEOENTITY %>',
         type:'sqlcharacter',
         attributeName:'<%= AbstractSprayDTO.GEOENTITY %>',
-        displayLabel:abstractSpray.getGeoEntityMd().getDisplayLabel()
+        displayLabel:abstractSpray.getGeoEntityMd().getDisplayLabel(),
+        description:abstractSpray.getSprayDateMd().getDescription()
       });
     }
 

@@ -1518,14 +1518,12 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     {
       this._type = obj.type;
       this._dtoType = obj.dtoType;
-      if(obj.displayLabel)
-      {
-      this._displayLabel = obj.displayLabel;
-      }
-      else
-      {
-      	this._displayLabel = MDSS.localize(obj.key);
-      }
+      
+      this._displayLabel = obj.displayLabel || MDSS.localize(obj.key);
+      
+      // The description defaults to the display label if it is null or a length of 0
+      this._description = Mojo.Util.isString(obj.description) && obj.description.length > 0 ? obj.description : this._displayLabel;      
+      
       this._attributeName = obj.attributeName;
       this._entityAlias = obj.entityAlias || this._type;
       this._whereValues = [];
@@ -1633,6 +1631,11 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     getDisplayLabel : function()
     {
       return this._displayLabel;
+    },
+    
+    getDescription : function()
+    {
+      return this._description;
     },
   
     getEntityAlias : function()

@@ -112,7 +112,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                                           {
                                                             key:'number_examined',
                                                             type:"sqlfloat",
-                                                            displayLabel:premise.getNumberExaminedMd().getDisplayLabel(),
+                                                            displayLabel:premise.getNumberWithLarvaeMd().getDisplayLabel(),
+                                                            description:premise.getNumberWithLarvaeMd().getDescription(),
                                                             attributeName:'number_examined',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -121,6 +122,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             key:'number_with_larvae',
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getNumberWithLarvaeMd().getDisplayLabel(),
+                                                            description:premise.getNumberWithLarvaeMd().getDescription(),
+                                                            description:premise.getNumberWithLarvaeMd().getDescription(),
                                                             attributeName:'number_with_larvae',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -129,6 +132,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             key:'number_with_pupae',
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getNumberWithPupaeMd().getDisplayLabel(),
+                                                            description:premise.getNumberWithPupaeMd().getDescription(),
                                                             attributeName:'number_with_pupae',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -137,6 +141,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             key:'number_with_immatures',
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getNumberWithImmaturesMd().getDisplayLabel(),
+                                                            description:premise.getPremiseSizeMd().getDescription(),
+                                                            description:premise.getPremiseSizeMd().getDescription(),
                                                             attributeName:'number_with_immatures',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -145,6 +151,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             key:'premise_size',
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getPremiseSizeMd().getDisplayLabel(),
+                                                            description:premise.getPremiseSizeMd().getDescription(),
+                                                            description:premise.getPremiseSizeMd().getDescription(),
                                                             attributeName:'premise_size',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -153,6 +161,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             key:'number_inhabitants',
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getNumberInhabitantsMd().getDisplayLabel(),
+                                                            description:premise.getNumberInhabitantsMd().getDescription(),
                                                             attributeName:'number_inhabitants',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true

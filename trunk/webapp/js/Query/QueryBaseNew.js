@@ -985,7 +985,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
         var li = document.createElement('li');
 
-        var hoverTitle = visibleObj.hoverTitle ? visibleObj.hoverTitle : attribute.getDisplayLabel();
+        var hoverTitle = visibleObj.hoverTitle ? visibleObj.hoverTitle : attribute.getDescription();
         
         var check = document.createElement('input');
         YAHOO.util.Dom.setAttribute(check, 'type', 'checkbox');
@@ -1359,7 +1359,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
    	          keyName :  d.klass.CLASS+'.'+d.accessor,
    	          klass:d.klass.CLASS,
    	          attribute:d.accessor,
-   	          display : attrib.attributeMdDTO.displayLabel
+   	          display : attrib.getAttributeMdDTO().getDisplayLabel()
    	      	};
          });
     	
@@ -1638,7 +1638,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
            {
              row.attributeName = attribName + '_displayLabel';
              row.type = 'sqlcharacter';
-             row.displayLabel = attrib.attributeMdDTO.displayLabel;
+             row.displayLabel = attrib.getAttributeMdDTO().getDisplayLabel();
+             row.description = attrib.getAttributeMdDTO().getDescription();
              row.key = attribName;
              row.dtoType = "AttributeCharacterDTO";
              row.isGeoEntity = true;
@@ -1648,14 +1649,6 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
          }
          if(attrib.dtoType.indexOf('AttributeEnumerationDTO') != -1)
          {
-        	 /* row.attributeName = attribName + '_displayLabel';
-            row.type = 'sqlcharacter';
-            row.displayLabel = attrib.attributeMdDTO.displayLabel;
-            row.key = attribName;
-            row.dtoType = "AttributeCharacterDTO";
-            return row;
-        	 */
-           //row.attributeName += '.displayLabel.currentValue';
         	 row.isEnum = true;
          }
         
@@ -1669,7 +1662,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         	 row.type = this.obj.getType();
          }
          row.dtoType = attrib.dtoType;
-         row.displayLabel = attrib.attributeMdDTO.displayLabel;
+         row.displayLabel = attrib.getAttributeMdDTO().getDisplayLabel();
+         row.description = attrib.getAttributeMdDTO().getDescription();
          var uppFirst = attrib.attributeName.slice(0,1).toUpperCase() + attrib.attributeName.slice(1);
          if(this.dropDownMaps[uppFirst]){
            row.dropDownMap = this.dropDownMaps[uppFirst];
@@ -1695,7 +1689,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
        var row = {};
          row.attributeName = attrib.attributeName;
          row.type = 'sqlinteger';
-         row.displayLabel = attrib.attributeMdDTO.displayLabel;
+         row.displayLabel = attrib.getAttributeMdDTO().getDisplayLabel();
+         row.description = attrib.getAttributeMdDTO().getDescription();
          row.key = attribName;
          row.dtoType = "AttributeIntegerDTO";
        return row;

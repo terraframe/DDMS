@@ -107,6 +107,7 @@ YAHOO.util.Event.onDOMReady(function(){
        key:'number_examined',
        type:"sqlfloat",
        displayLabel:premise.getNumberExaminedMd().getDisplayLabel(),
+       description:premise.getNumberExaminedMd().getDescription(),
        attributeName:'number_examined',
        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
        isAggregate:true
@@ -115,6 +116,7 @@ YAHOO.util.Event.onDOMReady(function(){
        key:'premise_size',
        type:"sqlfloat",
        displayLabel:premise.getPremiseSizeMd().getDisplayLabel(),
+       description:premise.getPremiseSizeMd().getDescription(),
        attributeName:'premise_size',
        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
        isAggregate:true
@@ -123,6 +125,7 @@ YAHOO.util.Event.onDOMReady(function(){
        key:'number_inhabitants',
        type:"sqlfloat",
        displayLabel:premise.getNumberInhabitantsMd().getDisplayLabel(),
+       description:premise.getNumberInhabitantsMd().getDescription(),
        attributeName:'number_inhabitants',
        dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
        isAggregate:true
