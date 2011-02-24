@@ -29,24 +29,62 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.util.GeometryHelper;
 
+/**
+ * Class responsible for importing GeoEntity definitions from a shapefile.
+ * 
+ * @author Justin Smethie
+ */
 public class ShapefileImporter implements Runnable
 {
+  /**
+   * URL of the file being imported
+   */
   private URL                 url;
 
+  /**
+   * Class which extends GeoEntity which is being imported
+   */
   private Class<GeoEntity>    clazz;
 
+  /**
+   * Name of shapefile attribute which is used to derive the entity name
+   */
   private String              name;
 
+  /**
+   * Optional name of the shapefile attribute which is used to derive the geo
+   * id. If this value is null then the geo id is auto-generated.
+   */
   private String              id;
 
-  private String              locatedIn;
+  /**
+   * Optional name of the shapefile attribute which is used to specify the
+   * entity name or geo id of the parent entity for the entity being imported.
+   * If this value is null than the parent is assumed to be Earth.
+   */
+  private String              parent;
 
-  private String              locatedInType;
+  /**
+   * Optional name of the shapefile attribute which is used to restrict the
+   * parent to a specific universal type when searching for the parent entity.
+   * If this value is null than the search does not restrict by type.
+   */
+  private String              parentType;
 
+  /**
+   * Helper used to convert Geometry data to Point and MultiPolygon data.
+   */
   private GeometryHelper      helper;
 
+  /**
+   * Cached instance of Earth.
+   */
   private Earth               earth;
 
+  /**
+   * Collection of ITaskListeners which are interested in the progress of the
+   * import.
+   */
   private List<ITaskListener> listeners;
 
   /**
@@ -54,6 +92,10 @@ public class ShapefileImporter implements Runnable
    */
   private Map<String, String> entityIdMap;
 
+  /**
+   * @param url
+   *          URL of the shapefile
+   */
   public ShapefileImporter(URL url)
   {
     this.url = url;
@@ -83,35 +125,42 @@ public class ShapefileImporter implements Runnable
     this.id = id;
   }
 
-  public String getLocatedIn()
+  public String getParent()
   {
-    return locatedIn;
+    return parent;
   }
 
-  public void setLocatedIn(String locatedIn)
+  public void setParent(String parent)
   {
-    this.locatedIn = locatedIn;
+    this.parent = parent;
   }
 
-  public String getLocatedInType()
+  public String getParentType()
   {
-    return locatedInType;
+    return parentType;
   }
 
-  public void setLocatedInType(String locatedInType)
+  public void setParentType(String parentType)
   {
-    this.locatedInType = locatedInType;
+    this.parentType = parentType;
   }
 
+  /**
+   * @return Map between Shapefile Feature ID and the imported Entity id.
+   */
   protected Map<String, String> getEntityIdMap()
   {
     return entityIdMap;
   }
 
+  /**
+   * @param type
+   *          Fully qualified type of the entities being imported.
+   */
   @SuppressWarnings("unchecked")
-  public void setUniversal(String universal)
+  public void setType(String type)
   {
-    this.clazz = (Class<GeoEntity>) LoaderDecorator.load(universal);
+    this.clazz = (Class<GeoEntity>) LoaderDecorator.load(type);
   }
 
   public void addListener(ITaskListener listener)
@@ -161,6 +210,9 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * Builds the located in relationships for the imported entities
+   */
   private void buildLocatedIn()
   {
     try
@@ -219,6 +271,9 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * Imports the entities from the shapefile
+   */
   private void createEntities()
   {
     try
@@ -284,6 +339,9 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * @return A list of attributes defined in the shapefile
+   */
   public List<String> getAttributes()
   {
     List<String> attributes = new LinkedList<String>();
@@ -325,12 +383,23 @@ public class ShapefileImporter implements Runnable
     return attributes;
   }
 
+  /**
+   * Returns the entity as defined by the 'parent' and 'parentType' attributes
+   * of the given feature. If an entity is not found then Earth is returned by
+   * default. The 'parent' value of the feature must define an entity name or a
+   * geo id. The 'parentType' value of the feature must define the localized
+   * display label of the universal.
+   * 
+   * @param feature
+   *          Shapefile feature used to determine the parent
+   * @return Parent entity
+   */
   private GeoEntity getParent(SimpleFeature feature)
   {
-    if (this.locatedIn != null && this.locatedInType != null)
+    if (this.parent != null && this.parentType != null)
     {
-      Object _entityName = feature.getAttribute(this.locatedIn);
-      Object _type = feature.getAttribute(this.locatedInType);
+      Object _entityName = feature.getAttribute(this.parent);
+      Object _type = feature.getAttribute(this.parentType);
 
       if (_entityName != null && _type != null)
       {
@@ -347,9 +416,9 @@ public class ShapefileImporter implements Runnable
       }
     }
 
-    if (this.locatedIn != null)
+    if (this.parent != null)
     {
-      Object _entityName = feature.getAttribute(this.locatedIn);
+      Object _entityName = feature.getAttribute(this.parent);
 
       if (_entityName != null)
       {
@@ -367,6 +436,13 @@ public class ShapefileImporter implements Runnable
     return earth;
   }
 
+  /**
+   * @param feature
+   *          Shapefile feature
+   * 
+   * @return The geoId as defined by the 'id' attribute on the feature. If the
+   *         geoId is null than a generated geoId is returned.
+   */
   private String getGeoId(SimpleFeature feature)
   {
     if (this.id != null)
@@ -382,16 +458,29 @@ public class ShapefileImporter implements Runnable
     return LocalProperty.getNextId();
   }
 
+  /**
+   * @param feature
+   * @return The entityName as defined by the 'name' attribute of the feature
+   */
   private String getName(SimpleFeature feature)
   {
     return feature.getAttribute(this.name).toString();
   }
 
+  /**
+   * @return A new instance of the desired class which extends GeoEntity.
+   * 
+   * @throws InstantiationException
+   * @throws IllegalAccessException
+   */
   private GeoEntity newInstance() throws InstantiationException, IllegalAccessException
   {
     return clazz.newInstance();
   }
 
+  /**
+   * Fires a start event
+   */
   private void fireStart()
   {
     for (ITaskListener listener : listeners)
@@ -400,6 +489,14 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * Fires a start task event
+   * 
+   * @param taskName
+   *          Name of the task
+   * @param amount
+   *          Total amount of work which needs to be done by the task.
+   */
   private void fireStartTask(String taskName, int amount)
   {
     for (ITaskListener listener : listeners)
@@ -408,6 +505,12 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * Fires a task progress event
+   * 
+   * @param amount
+   *          Amount of progress
+   */
   private void fireTaskProgress(int amount)
   {
     for (ITaskListener listener : listeners)
@@ -416,6 +519,12 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * Fires a task done event
+   * 
+   * @param status
+   *          Flag indicating if the task finished succesfully or not.
+   */
   private void fireTaskDone(boolean status)
   {
     for (ITaskListener listener : listeners)
@@ -424,6 +533,14 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * @param entityName
+   *          Entity name of geo Id.
+   * @param type
+   *          Localized display label of the entity type
+   * @return GeoEntity which satisfies the search criteria, or null of no
+   *         entities meet the criteria.
+   */
   public static GeoEntity getByEntityNameAndType(String entityName, String type)
   {
     GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
@@ -460,6 +577,12 @@ public class ShapefileImporter implements Runnable
     }
   }
 
+  /**
+   * @param entityName
+   *          Entity name of geo Id.
+   * @return GeoEntity which satisfies the search criteria, or null of no
+   *         entities meet the criteria.
+   */
   public static GeoEntity getByEntityName(String entityName)
   {
     GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
