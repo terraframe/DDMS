@@ -165,7 +165,7 @@ public class ShapefileImporterTest
   public static void classSetup() throws Exception
   {
     File file = new File("test/shapefile.shp");
-
+    
     if (!file.exists())
     {
       file.getParentFile().mkdirs();
@@ -181,17 +181,17 @@ public class ShapefileImporterTest
       protected void executeMethod() throws Exception
       {
         parent = new Country();
-        parent.setGeoId("TestParent33");
+        parent.setGeoId("TestParent01");
         parent.setEntityName("Test Parent Entity 2");
         parent.apply();
 
         entity1 = new Country();
-        entity1.setGeoId("TestParent65");
+        entity1.setGeoId("TestParent02");
         entity1.setEntityName("Test Parent Entity Duplicate");
         entity1.apply();
 
         entity2 = new Country();
-        entity2.setGeoId("TestParent76");
+        entity2.setGeoId("TestParent03");
         entity2.setEntityName("Test Parent Entity Duplicate");
         entity2.apply();
       }
@@ -207,6 +207,8 @@ public class ShapefileImporterTest
       protected void executeMethod() throws Exception
       {
         parent.deleteEntity();
+        entity1.deleteEntity();
+        entity2.deleteEntity();
       }
     }.execute();
   }
@@ -635,7 +637,7 @@ public class ShapefileImporterTest
     createPointShapefile();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(Country.CLASS);
+    importer.setType(Country.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.run();
 
@@ -678,7 +680,7 @@ public class ShapefileImporterTest
     Earth earth = Earth.getEarthInstance();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
     importer.run();
@@ -728,7 +730,7 @@ public class ShapefileImporterTest
     createPointShapefileWithNullIdColumn();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(Country.CLASS);
+    importer.setType(Country.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
     importer.run();
@@ -772,7 +774,7 @@ public class ShapefileImporterTest
     createMultipolygonShapefile();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(Country.CLASS);
+    importer.setType(Country.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
     importer.run();
@@ -816,10 +818,10 @@ public class ShapefileImporterTest
     createPointShapefile();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
-    importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
+    importer.setParent(LOCATED_IN_ATTRIBUTE);
     importer.run();
 
     final Map<String, String> map = importer.getEntityIdMap();
@@ -867,10 +869,10 @@ public class ShapefileImporterTest
     createPointShapefile();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
-    importer.setLocatedIn("bogusValue");
+    importer.setParent("bogusValue");
     importer.run();
 
     final Map<String, String> map = importer.getEntityIdMap();
@@ -920,11 +922,11 @@ public class ShapefileImporterTest
     createPointShapefile();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
-    importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
-    importer.setLocatedInType(LOCATED_IN_TYPE_ATTRIBUTE);
+    importer.setParent(LOCATED_IN_ATTRIBUTE);
+    importer.setParentType(LOCATED_IN_TYPE_ATTRIBUTE);
     importer.run();
 
     final Map<String, String> map = importer.getEntityIdMap();
@@ -972,10 +974,10 @@ public class ShapefileImporterTest
     createPointShapefileWithNullLocatedInColumn();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
-    importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
+    importer.setParent(LOCATED_IN_ATTRIBUTE);
     importer.run();
 
     final Map<String, String> map = importer.getEntityIdMap();
@@ -1025,11 +1027,11 @@ public class ShapefileImporterTest
     createPointShapefileWithNullLocatedInTypeColumn();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
-    importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
-    importer.setLocatedInType(LOCATED_IN_ATTRIBUTE);
+    importer.setParent(LOCATED_IN_ATTRIBUTE);
+    importer.setParentType(LOCATED_IN_ATTRIBUTE);
     importer.run();
 
     final Map<String, String> map = importer.getEntityIdMap();
@@ -1080,11 +1082,11 @@ public class ShapefileImporterTest
     createPointShapefileWithUnknownLocatedInTypeColumn();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
-    importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
-    importer.setLocatedInType(LOCATED_IN_TYPE_ATTRIBUTE);
+    importer.setParent(LOCATED_IN_ATTRIBUTE);
+    importer.setParentType(LOCATED_IN_TYPE_ATTRIBUTE);
     importer.run();
 
     final Map<String, String> map = importer.getEntityIdMap();
@@ -1136,7 +1138,7 @@ public class ShapefileImporterTest
     MockTaskListener listener = new MockTaskListener();
 
     ShapefileImporter importer = new ShapefileImporter(url);
-    importer.setUniversal(HealthFacility.CLASS);
+    importer.setType(HealthFacility.CLASS);
     importer.setName(NAME_ATTRIBUTE);
     importer.setId(ID_ATTRIBUTE);
     importer.addListener(listener);
@@ -1204,10 +1206,10 @@ public class ShapefileImporterTest
     try
     {
       ShapefileImporter importer = new ShapefileImporter(url);
-      importer.setUniversal(HealthFacility.CLASS);
+      importer.setType(HealthFacility.CLASS);
       importer.setName(NAME_ATTRIBUTE);
       importer.setId(ID_ATTRIBUTE);
-      importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
+      importer.setParent(LOCATED_IN_ATTRIBUTE);
       importer.run();
       
       final Map<String, String> map = importer.getEntityIdMap();
@@ -1243,11 +1245,11 @@ public class ShapefileImporterTest
     try
     {
       ShapefileImporter importer = new ShapefileImporter(url);
-      importer.setUniversal(HealthFacility.CLASS);
+      importer.setType(HealthFacility.CLASS);
       importer.setName(NAME_ATTRIBUTE);
       importer.setId(ID_ATTRIBUTE);
-      importer.setLocatedIn(LOCATED_IN_ATTRIBUTE);
-      importer.setLocatedInType(LOCATED_IN_TYPE_ATTRIBUTE);
+      importer.setParent(LOCATED_IN_ATTRIBUTE);
+      importer.setParentType(LOCATED_IN_TYPE_ATTRIBUTE);
       importer.run();
       
       final Map<String, String> map = importer.getEntityIdMap();
