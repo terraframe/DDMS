@@ -137,8 +137,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private JSONObject                        queryConfig;
 
-  private String                            xml;
-
   public static final String                RESOURCE_TARGET_VIEW       = "resourceTargetView";
 
   public static final String                DATE_EXTRAPOLATION         = "dateExtrapolation";
@@ -184,8 +182,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private String                            sprayedUnits;
 
-  private Layer                             layer;
-
   private ValueQuery                        insecticideVQ;
 
   private String                            targeter;
@@ -202,6 +198,10 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private boolean                           hasEpiWeek;
 
+  private QueryFactory queryFactory;
+
+  private ValueQueryParser parser;
+
   public IRSQB(String config, String xml, Layer layer)
   {
     super(xml, config, layer);
@@ -213,8 +213,6 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     diseaseId = Disease.getCurrent().getId();
 
-    this.layer = layer;
-
     startDay = Property.getInt(PropertyInfo.EPI_WEEK_PACKAGE, PropertyInfo.EPI_START_DAY);
 
     try
@@ -225,8 +223,9 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       throw new ProgrammingErrorException(e1);
     }
-    QueryFactory queryFactory = new QueryFactory();
-
+    queryFactory = new QueryFactory();
+    parser = new ValueQueryParser(xml, this.irsVQ);
+    
     this.sprayVQ = new ValueQuery(queryFactory);
     this.irsVQ = new ValueQuery(queryFactory);
     this.insecticideVQ = new ValueQuery(queryFactory);
@@ -238,8 +237,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     this.needsTeamsPlanned = false;
 
     this.hasPlannedTargets = false;
-
-    this.xml = xml;
 
     this.abstractSprayQuery = null;
     this.insecticideQuery = null;
@@ -272,6 +269,24 @@ public class IRSQB extends AbstractQB implements Reloadable
     nonActuals.add(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE.getAlias());
+  }
+  
+  @Override
+  protected QueryFactory createFactory()
+  {
+    return this.queryFactory;
+  }
+  
+  @Override
+  protected ValueQuery createValueQuery()
+  {
+    return this.irsVQ;
+  }
+  
+  @Override
+  protected ValueQueryParser createParser()
+  {
+    return this.parser;
   }
 
   public String getDiseaseId()
@@ -423,13 +438,15 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   @Override
   protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,
-      ValueQuery valueQuery, String xml2, JSONObject queryConfig, ValueQueryParser parser)
+      ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
-    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, valueQuery, xml2, queryConfig, parser);
+    factory = this.irsVQ.getQueryFactory();
 
-    super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig, null);
+    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer, parser);
 
-    super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null);
+    this.insecticideQueryMap = super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig, null, parser);
+
+    this.abtractSprayQueryMap = super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null, parser);
 
     return this.mainQueryMap;
   }
@@ -445,6 +462,8 @@ public class IRSQB extends AbstractQB implements Reloadable
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
       Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    queryFactory = this.irsVQ.getQueryFactory();
+    
     this.sprayViewAlias = this.mainQueryMap.get(AbstractSpray.CLASS).getTableAlias();
     this.outerInsecticideQuery = (InsecticideBrandQuery) this.mainQueryMap.get(InsecticideBrand.CLASS);
     this.insecticideQuery = (InsecticideBrandQuery) this.insecticideQueryMap.get(InsecticideBrand.CLASS);
@@ -1342,78 +1361,6 @@ public class IRSQB extends AbstractQB implements Reloadable
     from += " AND ms." + disease + " = tar." + diseaseCol + "\n";
     from += " AND ms." + idCol + " = tar." + seasonCol + "\n";
     return select + from;
-  }
-
-  private String getTargetRollupView()
-  {
-    String sql = "";
-    sql += "SELECT gt.geo_entity as parent_id \n";
-    sql += ", gt.geo_entity as original_id \n";
-    sql += ",gt.season \n";
-    sql += ",gt.disease \n";
-
-    for (int i = 0; i < 53; i++)
-    {
-      sql += ", gt.target_" + i + " \n";
-    }
-
-    sql += "  FROM geo_target gt \n";
-    sql += " UNION \n";
-
-    sql += " SELECT b.child_id, \n";
-    sql += "a.original_id \n";
-    sql += ",a.season \n";
-    sql += ",a.disease \n";
-
-    for (int i = 0; i < 53; i++)
-    {
-      sql += ", COALESCE(a.target_" + i + " * 0, gt.target_" + i + ") \n";
-    }
-
-    sql += "FROM " + TARGET_ROLLUP
-        + " a, located_in b LEFT JOIN geo_target gt ON gt.geo_entity = b.child_id  \n";
-    sql += "WHERE b.parent_id = a.parent_id \n";
-
-    return sql;
-  }
-
-  private String getRollupResultsView()
-  {
-    String sql = "";
-
-    sql += "select \n";
-    sql += "original_id, \n";
-    sql += "de." + Alias.PLANNED_DATE + " AS " + Alias.PLANNED_DATE + ", \n";
-    sql += "season as season, \n";
-    sql += "tar.disease as disease, \n";
-    sql += "i as target_week, \n";
-    sql += "target_array[i] AS weekly_target \n";
-
-    sql += "FROM (SELECT original_id, season, disease, ARRAY[ \n";
-
-    for (int i = 0; i < 53; i++)
-    {
-      if (i != 0)
-      {
-        sql += ",";
-      }
-      sql += "SUM(target_" + i + ") \n";
-    }
-
-    String malariaSeasonTable = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS).getTableName();
-    String startDate = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
-    String endDate = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
-    String disease = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
-
-    sql += "] \n";
-    sql += "AS target_array FROM " + TARGET_ROLLUP
-        + " group by original_id, season, disease) AS tar CROSS JOIN generate_series(1, 54) AS i, \n"
-        + DATE_EXTRAPOLATION + " de, " + malariaSeasonTable + " ms \n";
-    sql += " WHERE target_array[i] IS NOT NULL \n";
-    sql += " AND i = de." + periodCol + " \n";
-    sql += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
-    sql += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
-    return sql;
   }
 
   private String getGeoTargetView()

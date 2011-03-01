@@ -11,7 +11,6 @@ import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
-import com.runwaysdk.query.EXISTS;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
@@ -37,6 +36,10 @@ public abstract class AbstractQB implements Reloadable
   private TermInterceptor termInterceptor;
   
   private List<GeneratedEntityQuery> geoDisplayLabelQueries;
+  
+  private QueryFactory factory;
+  private ValueQuery valueQuery;
+  private ValueQueryParser parser;
 
   public AbstractQB(String xml, String config, Layer layer)
   {
@@ -45,6 +48,10 @@ public abstract class AbstractQB implements Reloadable
     this.layer = layer;
     this.termInterceptor = null;
     geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
+    
+    this.factory = null;
+    this.valueQuery = null;
+    this.parser = null;
   }
   
   protected String getConfig()
@@ -64,11 +71,12 @@ public abstract class AbstractQB implements Reloadable
    */
   public final ValueQuery construct()
   {
-    QueryFactory factory = new QueryFactory();
-    ValueQuery valueQuery = new ValueQuery(factory);
+    factory = this.createFactory();
+    valueQuery = this.createValueQuery();
+    parser = this.createParser();
+
     this.termInterceptor = new TermInterceptor(valueQuery);
     
-    ValueQueryParser parser = this.getParser(this.xml, valueQuery);
     
     // Query Config
     JSONObject queryConfig = this.constructQueryConfig(this.config);
@@ -81,7 +89,7 @@ public abstract class AbstractQB implements Reloadable
     }
     
     // Universals, mapping, and geo entity criteria
-    Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, parser);
+    Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
     
     // Reset the ValueQuery to be returned because the subclass has the option
     // to substitute it with a custom one.
@@ -151,12 +159,12 @@ public abstract class AbstractQB implements Reloadable
            }
 
            ValueQuery termVQ = this.termInterceptor.getTermValueQuery(entityAlias);
+           termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
            termVQ.AND(allPathsQuery.getChildTerm().EQ(termVQ.aSQLCharacter(alias+"_"+attrCol+"_"+entityAlias, alias+"."+attrCol)));
-
-           valueQuery.AND(new EXISTS(termVQ));
+           
+           valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS ("+termVQ.getSQL()+") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
          }
        }
-
      }
   }
 
@@ -197,18 +205,6 @@ public abstract class AbstractQB implements Reloadable
     
     return interceptors;
   }
-  
-  /**
-   * Creates a new ValueQueryParser to parse the given XML into the ValueQuery.
-   * 
-   * @param xml
-   * @param valueQuery
-   * @return
-   */
-  protected ValueQueryParser getParser(String xml, ValueQuery valueQuery)
-  {
-    return new ValueQueryParser(xml, valueQuery);
-  }
 
   /**
    * Constructs the JSONObject for the extra query data.
@@ -227,6 +223,21 @@ public abstract class AbstractQB implements Reloadable
       throw new ProgrammingErrorException(e);
     }
   }
+  
+  protected ValueQuery createValueQuery()
+  {
+    return new ValueQuery(factory);
+  }
+  
+  protected QueryFactory createFactory()
+  {
+    return new QueryFactory();
+  }
+  
+  protected ValueQueryParser createParser()
+  {
+    return new ValueQueryParser(xml, valueQuery);
+  }
 
   /**
    * Joins the ValueQuery with any universal columns and geo entity criteria.
@@ -238,7 +249,7 @@ public abstract class AbstractQB implements Reloadable
    * @param layer2
    */
   protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml2,
-      JSONObject queryConfig, ValueQueryParser parser)
+      JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
     return QueryUtil.joinQueryWithGeoEntities(factory, valueQuery, xml, queryConfig, layer, valueQuery, parser);
   }
