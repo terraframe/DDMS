@@ -70,6 +70,34 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         this._queryPanel.addAvailableQuery(queries[i]);
       }
+      
+      // A counter used by refreshColumnsWhenIdle() to know when
+      // the QB is ready to display all the columns after loading 
+      // a saved query.
+      this._refreshIdleCounter = 0;
+      
+      // bound refreshColumnsWhenIdle() function to enforce *this* context.
+      this._refreshIdleBound = Mojo.Util.bind(this, this._refreshColumnsWhenIdle);
+    },
+    
+    _refreshColumnsWhenIdle : function()
+    {
+      if(this._refreshIdleCounter === 0)
+      {
+        // The query state is loaded, so sort the columns before finally
+        // displaying them
+        var ordered = this._config.getProperty('sortOrder');
+        if(Mojo.Util.isArray(ordered) && ordered.length > 0)
+        {
+          this._queryPanel.orderColumns(ordered);
+          this._queryPanel.refreshBatch();
+        }
+      }
+      else
+      {
+        // not ready to refresh so wait a little longer
+        setTimeout(this._refreshIdleBound, 50);
+      }
     },
     
     getDateGroupIds : function()
@@ -641,6 +669,8 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var toLoad = Mojo.Util.getKeys(loaded);
       if(toLoad.length > 0)
       {
+        this._refreshIdleCounter++;
+        
         var request = new MDSS.Request({
           thisRef : this,
           onSuccess : function(query)
@@ -669,9 +699,19 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
               
               this.thisRef._hideHandler(views, selectedUniversals, attributeKey);
             }
+            
+            this.thisRef._refreshIdleCounter--;
           }
         });
   
+        // TODO replace this hack with a better error handler/extension system
+        var oldOnFailure = request.onFailure;
+        request.onFailure = function(e)
+        {
+          this.thisRef._refreshIdleCounter--;
+          oldOnFailure.call(this, e);
+        };
+        
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, toLoad);
       }
       else
@@ -903,24 +943,17 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
             // set the XML and config
             that._loadQueryState(savedSearchView);
             
-            // The query state is loaded, so resort the columns before finally
-            var ordered = that._config.getProperty('sortOrder');
-            if(Mojo.Util.isArray(ordered) && ordered.length > 0)
-            {
-              that._queryPanel.orderColumns(ordered);
-              var bound = Mojo.Util.bind(that._queryPanel, that._queryPanel.refreshBatch);
-              setTimeout(bound, 15);
-            }
+            that._refreshColumnsWhenIdle();
           }
           catch(e)
           {
             // not all of the query could be loaded. There are too many
             // possibilities that could cause this, but at least load the
             // best we can.
+            this.thisRef._queryPanel.waitForRefresh = false;
           }
           finally
           {
-            this.thisRef._queryPanel.waitForRefresh = false;
             this.thisRef._dm.enable();
           }
         }
@@ -1036,9 +1069,6 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       view.setQueryXml(xml);
       view.setConfig(this._config.getJSON());
-      /* FIXME MAP
-      view.setThematicLayer(this._queryPanel.getCurrentThematicLayer());
-      */ 
       view.setQueryType(queryType);
     },
     
@@ -1164,10 +1194,9 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       {
         return;
       }
-  
+      
       var type = geoEntityView.getEntityType();
       var entityAlias = attributeKey+"__"+type;
-  
   
       // add the GeoEntity as a query entity
       var namespacedType = attributeKey+'_'+type;
@@ -2162,7 +2191,7 @@ Mojo.Meta.newClass('MDSS.Independent',{
           this._dependent.doUncheck(this);
         }
       }
-    },
+    }
   },
   
   Static : {
@@ -2216,6 +2245,5 @@ Mojo.Meta.newClass('MDSS.GroupIndependent', {
     }
   }
 }
-
 
 });

@@ -1139,7 +1139,11 @@ MDSS.QueryPanel.prototype = {
     this._columnBatch = [];
     for(var i=0; i<order.length; i++)
     {
-      this._columnBatch.push(columns[order[i]]);
+      var c = columns[order[i]];
+      if(c)
+      {
+        this._columnBatch.push(c);
+      }
     }
   },
   

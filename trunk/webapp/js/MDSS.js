@@ -190,7 +190,7 @@ var MDSS = {
   },
 
   /**
-   * Provides a default request implementation.
+   * Provides a default request implementation that wraps a standard client request.
    */
   Request : function(handler)
   {
@@ -227,12 +227,12 @@ var MDSS = {
         MDSS.util.wait_for_ajax.render(document.body);
         MDSS.util.wait_for_ajax.bringToTop();
       }
-    }
+    };
 
     this.onComplete = function()
     {
       MDSS.util.wait_for_ajax.hide();
-    }
+    };
 
     // provide default error handler
     this.onFailure = function(e)
@@ -367,7 +367,7 @@ MDSS.Set.prototype = {
       }
     }
     
-    delete registered;
+    registered = null;
   });
 })();
 
