@@ -22,6 +22,7 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.querybuilder.AggregatedIPTQB;
 import dss.vector.solutions.surveillance.PeriodType;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -295,43 +296,8 @@ public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.ge
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    JSONObject queryConfig;
-    try
-    {
-      queryConfig = new JSONObject(config);
-    }
-    catch (JSONException e1)
-    {
-      throw new ProgrammingErrorException(e1);
-    }
-    
-    QueryFactory queryFactory = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
-
-    // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);   
-   
-    AggregatedIPTQuery aggregatedIPTQuery = (AggregatedIPTQuery) queryMap.get(AggregatedIPT.CLASS);
-    
-    
-    //this is a hack to force valueQuery to include the aggreated cases table
-    valueQuery.WHERE(aggregatedIPTQuery.id().NE("0"));
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery, AggregatedIPT.CLASS, aggregatedIPTQuery);
-    
-    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN);
-    
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
-    QueryUtil.setTermRestrictions(valueQuery, queryMap);
-
-    Disease disease = Disease.getCurrent();
-    valueQuery.AND(aggregatedIPTQuery.getDisease().EQ(disease));
-    
-    return QueryUtil.setQueryDates(xml, valueQuery, aggregatedIPTQuery, aggregatedIPTQuery.getStartDate(), aggregatedIPTQuery.getEndDate(), aggregatedIPTQuery.getDisease());
-
+    AggregatedIPTQB query = new AggregatedIPTQB(xml, config, layer);
+    return query.construct();
   }
   
 }

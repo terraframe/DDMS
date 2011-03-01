@@ -50,7 +50,7 @@ Mojo.Meta.newClass('MDSS.QueryStock', {
       picker.addExtraUniversal('dss.vector.solutions.geo.generated.StockDepot*');
       
       this._exclusionClasses.shift();
-      },
+      }
       
     }
 });

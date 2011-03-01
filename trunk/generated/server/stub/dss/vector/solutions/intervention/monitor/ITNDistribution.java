@@ -2,26 +2,15 @@ package dss.vector.solutions.intervention.monitor;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.QueryException;
-import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.util.QueryUtil;
+import dss.vector.solutions.querybuilder.ITNFacilityDistributionQB;
 
 public class ITNDistribution extends ITNDistributionBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -130,61 +119,7 @@ public class ITNDistribution extends ITNDistributionBase implements com.runwaysd
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    JSONObject queryConfig;
-    try
-    {
-      queryConfig = new JSONObject(config);
-    }
-    catch (JSONException e1)
-    {
-      throw new ProgrammingErrorException(e1);
-    }
-
-    QueryFactory queryFactory = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
-
-    // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
-
-    ITNDistributionQuery itnQuery = (ITNDistributionQuery) queryMap.get(ITNDistribution.CLASS);
-
-    QueryUtil.joinGeoDisplayLabels(valueQuery, ITNDistribution.CLASS, itnQuery);
-    QueryUtil.joinTermAllpaths(valueQuery, ITNDistribution.CLASS, itnQuery);
-    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN);
-
-    dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
-    valueQuery.WHERE(personQuery.getItnRecipientDelegate().EQ(itnQuery.getRecipient()));
-    QueryUtil.joinTermAllpaths(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
-    QueryUtil.joinGeoDisplayLabels(valueQuery, dss.vector.solutions.Person.CLASS, personQuery);
-
-    try
-    {
-      Selectable sel = valueQuery.getSelectableRef("age");
-      SelectableSQLInteger dobSel = (SelectableSQLInteger)
-        (sel.isAggregateFunction() ? sel.getAggregateFunction().getSelectable() : sel);
-
-      String personTableAlias = personQuery.getTableAlias();
-      String distDateCol = QueryUtil.getColumnName(itnQuery.getMdClassIF(), ITNDistribution.DISTRIBUTIONDATE);
-      String dateOfBirthCol = QueryUtil.getColumnName(personQuery.getMdClassIF(), Person.DATEOFBIRTH);
-      
-      String sql = "EXTRACT(year from AGE("+distDateCol+", " + personTableAlias + "."+dateOfBirthCol+"))";
-      dobSel.setSQL(sql);
-    }
-    catch (QueryException e)
-    {
-      // Person.DOB not included in query.
-    }
-
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-
-    QueryUtil.setTermRestrictions(valueQuery, queryMap);
-
-    QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, itnQuery.getDisease());
-
-    return valueQuery;
-
+    return new ITNFacilityDistributionQB(xml, config, layer).construct();
   }
 
   @Override

@@ -3,6 +3,7 @@ package dss.vector.solutions.irs;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.querybuilder.IRSQB;
 
 public abstract class AbstractSpray extends AbstractSprayBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -43,7 +44,6 @@ public abstract class AbstractSpray extends AbstractSprayBase implements com.run
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    IRSQuery irsQ = new IRSQuery(config, xml, layer);
-    return irsQ.populate();
+    return new IRSQB(config, xml, layer).construct();
   }
 }

@@ -3,15 +3,8 @@ package dss.vector.solutions.intervention.monitor;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
@@ -22,8 +15,8 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
+import dss.vector.solutions.querybuilder.AggregatedITNQB;
 import dss.vector.solutions.surveillance.PeriodType;
-import dss.vector.solutions.util.QueryUtil;
 
 public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -321,41 +314,8 @@ public class ITNData extends ITNDataBase implements com.runwaysdk.generation.loa
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    JSONObject queryConfig;
-    try
-    {
-      queryConfig = new JSONObject(config);
-    }
-    catch (JSONException e1)
-    {
-      throw new ProgrammingErrorException(e1);
-    }
-    
-    QueryFactory queryFactory = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
-
-    // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
-   
-    ITNDataQuery itnQuery = (ITNDataQuery) queryMap.get(ITNData.CLASS);
-
-    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN); 
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery,ITNData.CLASS,itnQuery);
-    
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-    
-    QueryUtil.setTermRestrictions(valueQuery, queryMap);
-    
-    if(hasNets)
-    {
-      valueQuery.FROM(itnQuery.getMdClassIF().getTableName(), itnQuery.getTableAlias());
-    }
-   
-    return QueryUtil.setQueryDates(xml, valueQuery, itnQuery, itnQuery.getStartDate(), itnQuery.getEndDate(), itnQuery.getDisease());
-
+    AggregatedITNQB query = new AggregatedITNQB(xml, config, layer);
+    return query.construct();
   }
   
 

@@ -62,6 +62,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     ValueQuery valueQuery = null;
     try
     {
+      // TODO instantiate querybuilder classes directly and remove static calls from domain classes
       clazz = Class.forName(queryClass);
       xmlToValueQuery = clazz.getMethod("xmlToValueQuery", String.class, String.class, Layer.class);
       valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer);

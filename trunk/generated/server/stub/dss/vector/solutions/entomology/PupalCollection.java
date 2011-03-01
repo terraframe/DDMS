@@ -3,34 +3,21 @@ package dss.vector.solutions.entomology;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.Function;
-import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.util.QueryUtil;
+import dss.vector.solutions.querybuilder.PupalContainerCollectionQB;
 
 public class PupalCollection extends PupalCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -186,117 +173,7 @@ public class PupalCollection extends PupalCollectionBase implements com.runwaysd
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    JSONObject queryConfig;
-    try
-    {
-      queryConfig = new JSONObject(config);
-    }
-    catch (JSONException e1)
-    {
-      throw new ProgrammingErrorException(e1);
-    }
-
-    QueryFactory queryFactory = new QueryFactory();
-
-    ValueQuery valueQuery = new ValueQuery(queryFactory);
-
-    // IMPORTANT: Required call for all query screens.
-    Map<String, GeneratedEntityQuery> queryMap = QueryUtil.joinQueryWithGeoEntities(queryFactory, valueQuery, xml, queryConfig, layer);
-
-    PupalCollectionQuery collectionQuery = ( PupalCollectionQuery  ) queryMap.get(PupalCollection.CLASS);
-    PupalPremiseQuery premiseQuery = ( PupalPremiseQuery  ) queryMap.get(PupalPremise.CLASS);
-    PupalContainerQuery pupalContainerQuery = ( PupalContainerQuery  ) queryMap.get(PupalContainer.CLASS);
- 
-    MdEntityDAOIF premiseMd = MdEntityDAO.getMdEntityDAO(PupalPremise.CLASS);
-    MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(PupalContainerAmount.CLASS);
-    
-    if(premiseQuery != null)
-    {
-      QueryUtil.joinTermAllpaths(valueQuery, PupalPremise.CLASS, premiseQuery );
-      valueQuery.WHERE(premiseQuery.getCollection().EQ(collectionQuery));
-    }
-    
-    QueryUtil.joinGeoDisplayLabels(valueQuery, PupalCollection.CLASS, collectionQuery );
-
-    QueryUtil.setTermRestrictions(valueQuery, queryMap);
-
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
-      
-    if(pupalContainerQuery == null)
-    {
-      pupalContainerQuery = new PupalContainerQuery(valueQuery);
-    }
-    
-    if(pupalContainerQuery != null)
-    {
-      QueryUtil.joinTermAllpaths(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
-      QueryUtil.joinEnumerationDisplayLabels(valueQuery, PupalContainer.CLASS, pupalContainerQuery );
-      
-      if(premiseQuery == null)
-      {
-        premiseQuery = new PupalPremiseQuery(valueQuery);
-        valueQuery.WHERE(premiseQuery.getCollection().EQ(collectionQuery));
-      }
-      
-      valueQuery.WHERE(pupalContainerQuery.getPremise().EQ(premiseQuery));
-    }
-    
-    String id = QueryUtil.getIdColumn();
-    
-    String numberExamined = QueryUtil.getColumnName(premiseMd, PupalPremise.NUMBEREXAMINED);
-    String numberInhabitants = QueryUtil.getColumnName(premiseMd, PupalPremise.NUMBERINHABITANTS);
-    String premiseSize = QueryUtil.getColumnName(premiseMd, PupalPremise.PREMISESIZE);    
-    
-    // The aliases are the same as the column name
-    String[] aliases = {numberExamined, numberInhabitants, premiseSize};
-    QueryUtil.setAttributesAsAggregated(aliases, id, valueQuery, premiseQuery.getTableAlias(), false);
-    
-    boolean needsJoin = false; 
-    boolean needsView = 
-      QueryUtil.getSingleAttribteGridSql(valueQuery, pupalContainerQuery.getTableAlias(), 
-          RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
-
-    String amount = QueryUtil.getColumnName(ammountMd, PupalContainerAmount.AMOUNT);
-    String child_id = RelationshipDAOIF.CHILD_ID_COLUMN; //QueryUtil.getColumnName(ammountMd, PupalContainerAmount.);
-    String parent_id = RelationshipDAOIF.PARENT_ID_COLUMN;//QueryUtil.getColumnName(ammountMd, PupalContainerAmount.ID);
-    String taxonAmountsView = "taxonAmmmountsView";      
-    String pupalContainerTable = MdBusiness.getMdBusiness(PupalContainer.CLASS).getTableName();
-    String pupalContainerAmmountTable = MdBusiness.getMdEntity(PupalContainerAmount.CLASS).getTableName();
-    
-    String numberExaminedSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberExamined);
-    String numberSizeSum =     QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, premiseSize);
-    String numberInhabitantsSum = QueryUtil.sumColumnForId(premiseQuery.getTableAlias(), id, null, numberInhabitants);  
-    
-    String taxonSql = "SELECT pc."+id+" ";
-    for (Term taxon : TermRootCache.getRoots(PupalContainerView.getPupaeAmountMd()))
-    {
-//      String moID = taxon.getTermId().replace(":", "");
-      String moID = QueryUtil.aliasTerms(taxon);
-      
-      String taxonAmmountCol = "_"+moID+"_amt";
-      
-      taxonSql += ",(SELECT "+amount+" FROM "+pupalContainerAmmountTable+" pca WHERE "+child_id+" = '"+taxon.getId()+"'  AND "+parent_id+"  = pc."+id+"  ) AS "+taxonAmmountCol+" ";
-           
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF(SUM(SUM("+taxonAmmountCol+")) OVER (), 0.0)*100.0") || needsView;
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution_by_type_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF(SUM(SUM("+taxonAmmountCol+")) OVER (), 0.0)*100.0") || needsView;
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution_by_lid_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF(SUM(SUM("+taxonAmmountCol+")) OVER (), 0.0)*100.0") || needsView;
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution_by_fill_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF(SUM(SUM("+taxonAmmountCol+")) OVER (), 0.0)*100.0") || needsView;
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_pupae_contribution_by_frequency_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF(SUM(SUM("+taxonAmmountCol+")) OVER (), 0.0)*100.0") || needsView;
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_premise_by_taxon_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF("+numberExaminedSum+", 0.0)") || needsJoin;
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_hectare_by_taxon_term"+moID, "SUM("+taxonAmmountCol+")/NULLIF("+numberSizeSum+", 0.0)") || needsJoin;
-      needsJoin = QueryUtil.setSelectabeSQL(valueQuery, "pupae_per_person_per_taxon_term"+moID, "SUM("+taxonAmmountCol+")/(NULLIF("+numberInhabitantsSum+", 0.0))") || needsJoin;
-    }
-    taxonSql +=" FROM "+pupalContainerTable+" AS pc";
-    
-    if(needsJoin || needsView)
-    {
-      valueQuery.setSqlPrefix("WITH "+taxonAmountsView+" AS (" + taxonSql + ")");
-      valueQuery.AND(new InnerJoinEq("id", pupalContainerTable, pupalContainerQuery.getTableAlias(), "id", taxonAmountsView, taxonAmountsView));
-    }
-    
-//    valueQuery.HAVING( F.COUNT(collectionQuery.getId()).GT(0));
-    
-    return QueryUtil.setQueryDates(xml, valueQuery, collectionQuery, collectionQuery.getStartDate(), collectionQuery.getEndDate(), collectionQuery.getDisease());
+    return new PupalContainerCollectionQB(xml, config, layer).construct();
   }
   
   static boolean getSelectabeTermRelationSQL(ValueQuery valueQuery, String ref, String sql)

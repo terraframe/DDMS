@@ -192,10 +192,10 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var attribute = new MDSS.QueryXML.Sqlcharacter('', group , group.toLowerCase(),MDSS.QueryXML.DateGroupOpts[group]);
         var selectable = new MDSS.QueryXML.Selectable(attribute);
         this._dateGroupSelectables[group] = selectable;
-        this._queryPanel.insertColumn({
+        this._queryPanel.insertColumn(new YAHOO.widget.Column({
           key: group.toLowerCase(),
           label: MDSS.QueryXML.DateGroupOpts[group]
-        });
+        }));
       }
       else
       {
@@ -452,10 +452,10 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         var attribute = new MDSS.QueryXML.Sqldate('', range, range.toLowerCase(), MDSS.localize(range));
         var selectable = new MDSS.QueryXML.Selectable(attribute);
         this._dateGroupSelectables[range] = selectable;
-        this._queryPanel.insertColumn({
+        this._queryPanel.insertColumn(new YAHOO.widget.Column({
           key: range.toLowerCase(),
           label: MDSS.localize(range)
-        });
+        }));
       }
       else
       {

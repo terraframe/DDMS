@@ -17,14 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
@@ -33,14 +31,12 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.Join;
 import com.runwaysdk.query.MAX;
@@ -540,25 +536,6 @@ public class QueryUtil implements Reloadable
     geoLabel.setSQL(sql);
   }
 
-  public static ValueQuery joinGeoDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
-  {
-    if (query != null)
-    {
-      String[] geoAttributes = filterSelectedAttributes(valueQuery, GeoEntity.getGeoAttributes(klass));
-      if (geoAttributes.length > 0)
-      {
-        String id = getIdColumn();
-
-        String sql = "(" + QueryUtil.getGeoDisplayLabelSubSelect(klass, geoAttributes) + ")";
-        String subSelect = klass.replace('.', '_') + "GeoSubSel";
-        String table = MdBusiness.getMdBusiness(klass).getTableName();
-        valueQuery.AND(new InnerJoinEq(id, table, query.getTableAlias(), id, sql, subSelect));
-      }
-    }
-    return valueQuery;
-
-  }
-
   public static Join forceJoinGeoDisplayLabels(ValueQuery valueQuery, String klass, GeneratedEntityQuery query)
   {
     if (query != null)
@@ -705,58 +682,6 @@ public class QueryUtil implements Reloadable
       }
     }
     return foundGrid;
-  }
-
-  public static void setTermRestrictions(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
-  {
-    for (String entityAlias : queryMap.keySet())
-    {
-      int index1 = entityAlias.indexOf("__");
-      int index2 = entityAlias.lastIndexOf("__");
-      if (index1 > 0 && index2 > 0)
-      {
-        String attrib_name = entityAlias.substring(0, index1);
-        String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
-        if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
-        {
-          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          String allPathsTable = MdEntity.getMdEntity(dss.vector.solutions.ontology.AllPaths.CLASS).getTableName();
-          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
-
-          String attrCol = getColumnName(attributeQuery.getMdClassIF(), attrib_name);
-          String childTermCol = getColumnName(dss.vector.solutions.ontology.AllPaths.getChildTermMd());
-
-          // IMPORTANT: We cannot always rely on the class table directly
-          // because the attribute
-          // may have been defined by a parent class, hence it will be on the
-          // parent table.
-          // Instead, rely on the query and metadata to resolve the
-          // class/attribute mapping.
-          String table;
-          String alias;
-          if (attributeQuery instanceof GeneratedRelationshipQuery && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID) ))
-          {
-            // We don't have metadata for childId or parentId so we have to
-            // manually get the table and alias
-            // IMPORTANT: this does not take inheritance into account (i.e., if
-            // child_id or parent_id are
-            // defined by an MdRelationship superclass).
-            MdRelationshipDAOIF md = (MdRelationshipDAOIF) attributeQuery.getMdClassIF();
-            table = md.getTableName();
-            alias = attributeQuery.getTableAlias();
-          }
-          else
-          {
-            Attribute attr = attributeQuery.get(attrib_name);
-            table = attr.getDefiningTableName();
-            alias = attr.getDefiningTableAlias();
-          }
-
-          valueQuery.AND(new InnerJoinEq(attrCol, table, alias, childTermCol, allPathsTable, allPathsQuery.getTableAlias()));
-        }
-      }
-
-    }
   }
 
   public static ValueQuery setNumericRestrictions(ValueQuery valueQuery, JSONObject queryConfig)
