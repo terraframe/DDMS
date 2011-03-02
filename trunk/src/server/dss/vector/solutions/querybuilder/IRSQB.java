@@ -28,6 +28,7 @@ import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
+import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
@@ -70,6 +71,7 @@ import dss.vector.solutions.querybuilder.irs.PlannedSprayTeamTarget;
 import dss.vector.solutions.querybuilder.irs.PlannedTargetUnion;
 import dss.vector.solutions.querybuilder.irs.TargetJoin;
 import dss.vector.solutions.querybuilder.irs.TeamJoin;
+import dss.vector.solutions.querybuilder.util.TermInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IRSQB extends AbstractQB implements Reloadable
@@ -198,16 +200,19 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   private boolean                           hasEpiWeek;
 
-  private QueryFactory queryFactory;
+  private QueryFactory                      queryFactory;
 
-  private ValueQueryParser parser;
+  private ValueQueryParser                  irsParser;
+
+  private ValueQueryParser                  insecticideParser;
+
+  private ValueQueryParser                  sprayParser;
 
   public IRSQB(String config, String xml, Layer layer)
   {
     super(xml, config, layer);
 
     this.smallestUnivesal = null;
-    // mSeasonCol = QueryUtil.getColumnName(MalariaSeason.getIdMd());
 
     hasEpiWeek = false;
 
@@ -224,8 +229,6 @@ public class IRSQB extends AbstractQB implements Reloadable
       throw new ProgrammingErrorException(e1);
     }
     queryFactory = new QueryFactory();
-    parser = new ValueQueryParser(xml, this.irsVQ);
-    
     this.sprayVQ = new ValueQuery(queryFactory);
     this.irsVQ = new ValueQuery(queryFactory);
     this.insecticideVQ = new ValueQuery(queryFactory);
@@ -270,23 +273,17 @@ public class IRSQB extends AbstractQB implements Reloadable
     nonActuals.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE.getAlias());
   }
-  
+
   @Override
   protected QueryFactory createFactory()
   {
     return this.queryFactory;
   }
-  
+
   @Override
   protected ValueQuery createValueQuery()
   {
     return this.irsVQ;
-  }
-  
-  @Override
-  protected ValueQueryParser createParser()
-  {
-    return this.parser;
   }
 
   public String getDiseaseId()
@@ -421,18 +418,33 @@ public class IRSQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  protected ValueQueryParser createParser(ValueQuery valueQuery, List<ParseInterceptor> interceptors)
   {
-    super.setTermCriteria(irsVQ, this.mainQueryMap);
+    this.irsParser = super.createParser(this.irsVQ, this.createParseInterceptors(this.irsVQ));
+    this.insecticideParser = super.createParser(this.insecticideVQ, this
+        .createParseInterceptors(this.insecticideVQ));
+    this.sprayParser = super.createParser(this.sprayVQ, this.createParseInterceptors(this.sprayVQ));
+
+    return this.irsParser;
+  }
+
+  @Override
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
+      TermInterceptor interceptor)
+  {
+    TermInterceptor termInterceptor = this.getTermInterceptor(this.irsParser);
+    super.setTermCriteria(irsVQ, this.mainQueryMap, termInterceptor);
 
     if (insecticideQuery != null)
     {
-      super.setTermCriteria(insecticideVQ, insecticideQueryMap);
+      termInterceptor = this.getTermInterceptor(this.insecticideParser);
+      super.setTermCriteria(insecticideVQ, insecticideQueryMap, termInterceptor);
     }
 
     if (this.hasSprayEnumOrTerm)
     {
-      super.setTermCriteria(sprayVQ, abtractSprayQueryMap);
+      termInterceptor = this.getTermInterceptor(this.sprayParser);
+      super.setTermCriteria(sprayVQ, abtractSprayQueryMap, termInterceptor);
     }
   }
 
@@ -440,13 +452,14 @@ public class IRSQB extends AbstractQB implements Reloadable
   protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,
       ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
-    factory = this.irsVQ.getQueryFactory();
+    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer,
+        this.irsParser);
 
-    this.mainQueryMap = super.joinQueryWithGeoEntities(factory, irsVQ, xml, queryConfig, layer, parser);
+    this.insecticideQueryMap = super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig,
+        null, this.insecticideParser);
 
-    this.insecticideQueryMap = super.joinQueryWithGeoEntities(factory, insecticideVQ, xml, queryConfig, null, parser);
-
-    this.abtractSprayQueryMap = super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null, parser);
+    this.abtractSprayQueryMap = super.joinQueryWithGeoEntities(factory, sprayVQ, xml, queryConfig, null,
+        this.sprayParser);
 
     return this.mainQueryMap;
   }
@@ -463,7 +476,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     queryFactory = this.irsVQ.getQueryFactory();
-    
+
     this.sprayViewAlias = this.mainQueryMap.get(AbstractSpray.CLASS).getTableAlias();
     this.outerInsecticideQuery = (InsecticideBrandQuery) this.mainQueryMap.get(InsecticideBrand.CLASS);
     this.insecticideQuery = (InsecticideBrandQuery) this.insecticideQueryMap.get(InsecticideBrand.CLASS);

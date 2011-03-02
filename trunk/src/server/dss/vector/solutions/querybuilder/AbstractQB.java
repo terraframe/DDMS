@@ -33,8 +33,6 @@ public abstract class AbstractQB implements Reloadable
 
   private Layer                             layer;
   
-  private TermInterceptor termInterceptor;
-  
   private List<GeneratedEntityQuery> geoDisplayLabelQueries;
   
   private QueryFactory factory;
@@ -46,12 +44,16 @@ public abstract class AbstractQB implements Reloadable
     this.xml = xml;
     this.config = config;
     this.layer = layer;
-    this.termInterceptor = null;
     geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
     
     this.factory = null;
     this.valueQuery = null;
     this.parser = null;
+  }
+  
+  protected String getXml()
+  {
+    return xml;
   }
   
   protected String getConfig()
@@ -71,23 +73,14 @@ public abstract class AbstractQB implements Reloadable
    */
   public final ValueQuery construct()
   {
-    factory = this.createFactory();
-    valueQuery = this.createValueQuery();
-    parser = this.createParser();
-
-    this.termInterceptor = new TermInterceptor(valueQuery);
-    
-    
     // Query Config
     JSONObject queryConfig = this.constructQueryConfig(this.config);
 
-    // ParseInterceptors
-    List<ParseInterceptor> interceptors = this.addParseInterceptors();
-    for(ParseInterceptor interceptor : interceptors)
-    {
-      parser.addParseIntercepter(interceptor);
-    }
-    
+    factory = this.createFactory();
+    valueQuery = this.createValueQuery();
+    List<ParseInterceptor> interceptors = this.createParseInterceptors(valueQuery);
+    parser = this.createParser(valueQuery, interceptors);
+
     // Universals, mapping, and geo entity criteria
     Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
     
@@ -97,11 +90,29 @@ public abstract class AbstractQB implements Reloadable
     
     this.joinGeoDisplayLabels(valueQuery);
     
-    this.setTermCriteria(valueQuery, queryMap);
+    TermInterceptor termInterceptor = this.getTermInterceptor(parser);
+    this.setTermCriteria(valueQuery, queryMap, termInterceptor);
 
     return valueQuery;
   }
   
+  /**
+   * 
+   * @param interceptors
+   * @return
+   */
+  protected TermInterceptor getTermInterceptor(ValueQueryParser parser)
+  {
+    for(ParseInterceptor interceptor : parser.getInterceptors())
+    {
+      if(interceptor instanceof TermInterceptor)
+      {
+        return (TermInterceptor) interceptor;
+      }
+    }
+    return null;
+  }
+
   /**
    * Subclasses can use this to add any GeneratedEntityQuery objects whose
    * geo entity attributes need to join on their display labels.
@@ -114,60 +125,66 @@ public abstract class AbstractQB implements Reloadable
   }
   
   /**
-   * Restricts Term attributes according to parent Terms in the AllPaths mapping.
+   * Sets the term criteria on the given ValueQuery.
    * 
    * @param valueQuery
    * @param queryMap
+   * @param interceptor
    */
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, TermInterceptor interceptor)
   {
-     for (String entityAlias : queryMap.keySet())
-     {
-       int index1 = entityAlias.indexOf("__");
-       int index2 = entityAlias.lastIndexOf("__");
-       if (index1 > 0 && index2 > 0)
-       {
-         String attrib_name = entityAlias.substring(0, index1);
-         String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
-         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
-         {
-           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
+    if(interceptor == null)
+    {
+      return;
+    }
+    
+    for (String entityAlias : queryMap.keySet())
+    {
+      int index1 = entityAlias.indexOf("__");
+      int index2 = entityAlias.lastIndexOf("__");
+      if (index1 > 0 && index2 > 0)
+      {
+        String attrib_name = entityAlias.substring(0, index1);
+        String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
+        if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
+        {
+          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+          GeneratedEntityQuery attributeQuery = queryMap.get(klass);
 
-           String attrCol = QueryUtil.getColumnName(attributeQuery.getMdClassIF(), attrib_name);
+          String attrCol = QueryUtil.getColumnName(attributeQuery.getMdClassIF(), attrib_name);
 
-           // IMPORTANT: We cannot always rely on the class table directly
-           // because the attribute
-           // may have been defined by a parent class, hence it will be on the
-           // parent table.
-           // Instead, rely on the query and metadata to resolve the
-           // class/attribute mapping.
-           String alias;
-           if (attributeQuery instanceof GeneratedRelationshipQuery && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID) ))
-           {
-             // We don't have metadata for childId or parentId so we have to
-             // manually get the table and alias
-             // IMPORTANT: this does not take inheritance into account (i.e., if
-             // child_id or parent_id are
-             // defined by an MdRelationship superclass).
-             alias = attributeQuery.getTableAlias();
-           }
-           else
-           {
-             Attribute attr = attributeQuery.get(attrib_name);
-             alias = attr.getDefiningTableAlias();
-           }
+          // IMPORTANT: We cannot always rely on the class table directly
+          // because the attribute
+          // may have been defined by a parent class, hence it will be on the
+          // parent table.
+          // Instead, rely on the query and metadata to resolve the
+          // class/attribute mapping.
+          String alias;
+          if (attributeQuery instanceof GeneratedRelationshipQuery && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID) ))
+          {
+            // We don't have metadata for childId or parentId so we have to
+            // manually get the table and alias
+            // IMPORTANT: this does not take inheritance into account (i.e., if
+            // child_id or parent_id are
+            // defined by an MdRelationship superclass).
+            alias = attributeQuery.getTableAlias();
+          }
+          else
+          {
+            Attribute attr = attributeQuery.get(attrib_name);
+            alias = attr.getDefiningTableAlias();
+          }
 
-           ValueQuery termVQ = this.termInterceptor.getTermValueQuery(entityAlias);
-           termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
-           termVQ.AND(allPathsQuery.getChildTerm().EQ(termVQ.aSQLCharacter(alias+"_"+attrCol+"_"+entityAlias, alias+"."+attrCol)));
-           
-           valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS ("+termVQ.getSQL()+") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
-         }
-       }
-     }
+          ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
+          termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
+          termVQ.AND(allPathsQuery.getChildTerm().EQ(termVQ.aSQLCharacter(alias+"_"+attrCol+"_"+entityAlias, alias+"."+attrCol)));
+          
+          // There is no condition passthrough so we have to hack in the EXISTS operator
+          valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS ("+termVQ.getSQL()+") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+        }
+      }
+    }
   }
-
   
   /**
    * Joins all selected geo entity attributes with their localized display labels.
@@ -198,10 +215,10 @@ public abstract class AbstractQB implements Reloadable
    * 
    * @return
    */
-  private List<ParseInterceptor> addParseInterceptors()
+  protected List<ParseInterceptor> createParseInterceptors(ValueQuery valueQuery)
   {
     List<ParseInterceptor> interceptors = new LinkedList<ParseInterceptor>();
-    interceptors.add(this.termInterceptor);
+    interceptors.add(new TermInterceptor(valueQuery));
     
     return interceptors;
   }
@@ -234,11 +251,17 @@ public abstract class AbstractQB implements Reloadable
     return new QueryFactory();
   }
   
-  protected ValueQueryParser createParser()
+  protected ValueQueryParser createParser(ValueQuery valueQuery, List<ParseInterceptor> interceptors)
   {
-    return new ValueQueryParser(xml, valueQuery);
+    ValueQueryParser parser = new ValueQueryParser(xml, valueQuery);
+    
+    for(ParseInterceptor interceptor : interceptors)
+    {
+      parser.addParseIntercepter(interceptor);
+    }
+    return parser;
   }
-
+  
   /**
    * Joins the ValueQuery with any universal columns and geo entity criteria.
    * 
