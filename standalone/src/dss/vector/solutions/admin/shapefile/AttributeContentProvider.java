@@ -2,6 +2,7 @@ package dss.vector.solutions.admin.shapefile;
 
 import java.util.Collection;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
@@ -35,7 +36,7 @@ public class AttributeContentProvider implements IStructuredContentProvider
         collection.add(new LabeledValueBean(null, ""));
       }
 
-      String[] attributes = data.getAttributes();
+      List<String> attributes = data.getAttributes();
 
       if (attributes != null)
       {

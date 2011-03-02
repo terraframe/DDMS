@@ -52,7 +52,7 @@ public class LocatedInWizard extends Wizard
         {
           setImporting(true);
 
-          ShapefileImporterFacade facade = new ShapefileImporterFacade();
+          BuildLocatedInFacade facade = new BuildLocatedInFacade();
 
           facade.buildLocatedIn(bean, new TransactionTaskListener(monitor));
         }

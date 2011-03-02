@@ -1,6 +1,7 @@
 package dss.vector.solutions.admin.shapefile;
 
 import java.io.File;
+import java.util.List;
 
 import org.eclipse.jface.wizard.IWizardPage;
 import org.eclipse.jface.wizard.WizardPage;
@@ -124,8 +125,8 @@ public class ShapeFilePage extends WizardPage
     {
       try
       {
-        ShapefileImporterFacade facade = new ShapefileImporterFacade();
-        String[] attributes = facade.getAttributes(data.getShapeFile());
+        ShapefileImporterFacade facade = new ShapefileImporterFacade(data.getShapeFile());
+        List<String> attributes = facade.getAttributes();
         data.setAttributes(attributes);
 
         IWizardPage page = this.getNextPage();

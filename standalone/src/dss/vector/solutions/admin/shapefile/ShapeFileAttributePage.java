@@ -101,8 +101,8 @@ public class ShapeFileAttributePage extends WizardPage implements IInitPage, Pro
     this.bind(universal, "universal");
     this.bind(name, "name");
     this.bind(id, "id");
-    this.bind(locatedIn, "locatedIn");
-    this.bind(locatedInType, "locatedInType");
+    this.bind(locatedIn, "parent");
+    this.bind(locatedInType, "parentType");
   }
 
   @Override

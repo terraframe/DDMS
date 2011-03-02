@@ -38,6 +38,8 @@ import dss.vector.solutions.admin.controller.MasterConfiguration;
 import dss.vector.solutions.admin.controller.ModuleController;
 import dss.vector.solutions.admin.controller.PropertyReader;
 import dss.vector.solutions.admin.controller.SlaveConfiguration;
+import dss.vector.solutions.admin.shapefile.BuildLocatedInAction;
+import dss.vector.solutions.admin.shapefile.ImportShapefileAction;
 import dss.vector.solutions.admin.view.ControlView;
 
 public class MDSSModule implements IModule, IControllerListener, IPropertyListener
@@ -115,7 +117,6 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
   @Override
   public void generateMenu(IMenuManager manager)
   {
-
     MenuManager fileMenu = manager.getMenu(Localizer.getMessage("FILE_MENU"));
     fileMenu.add(new ControlAction());
 
@@ -134,11 +135,11 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
     /***
      * Uncomment this code when support for GIS importing is finished
      */
-//    MenuManager shapefileMenu = manager.getMenu(Localizer.getMessage("SHAPE_FILE_MENU"));
-//    shapefileMenu.add(new ImportShapefileAction());
-//    shapefileMenu.add(new BuildLocatedInAction());
-//    
-//    manager.addMenu(shapefileMenu);
+    MenuManager shapefileMenu = manager.getMenu(Localizer.getMessage("SHAPE_FILE_MENU"));
+    shapefileMenu.add(new ImportShapefileAction());
+    shapefileMenu.add(new BuildLocatedInAction());
+    
+    manager.addMenu(shapefileMenu);
   }
 
   @Override

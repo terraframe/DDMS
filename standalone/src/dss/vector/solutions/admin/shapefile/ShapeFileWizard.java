@@ -1,6 +1,7 @@
 package dss.vector.solutions.admin.shapefile;
 
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -10,6 +11,8 @@ import org.eclipse.jface.wizard.WizardPage;
 
 import com.runwaysdk.manager.controller.TransactionTaskListener;
 import com.runwaysdk.manager.general.Localizer;
+
+import dss.vector.solutions.TransactionExecuter;
 
 public class ShapeFileWizard extends Wizard
 {
@@ -52,10 +55,29 @@ public class ShapeFileWizard extends Wizard
         public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
         {
           setImporting(true);
+          try
+          {
+            new TransactionExecuter()
+            {
 
-          ShapefileImporterFacade facade = new ShapefileImporterFacade();
-
-          facade.importShapeFile(data, new TransactionTaskListener(monitor));
+              @Override
+              protected void executeMethod() throws Exception
+              {
+                ShapefileImporterFacade facade = new ShapefileImporterFacade(data.getShapeFile());
+                facade.addListener(new TransactionTaskListener(monitor));
+                facade.setValues(data);
+                facade.run();
+              }
+            }.execute();
+          }
+          catch (RuntimeException e)
+          {
+            throw e;
+          }
+          catch (Exception e)
+          {
+            throw new RuntimeException(e);
+          }
         }
       });
     }

@@ -3,6 +3,7 @@ package dss.vector.solutions.admin.shapefile;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.io.File;
+import java.util.List;
 
 public class ShapeFileBean
 {
@@ -29,17 +30,17 @@ public class ShapeFileBean
   /**
    * Optional column for the located in.
    */
-  private String                locatedIn;
+  private String                parent;
 
   /**
    * Optional column for the located in sub-type.
    */
-  private String                locatedInType;
+  private String                parentType;
 
   /**
    * List of attributes
    */
-  private String[]              attributes;
+  private List<String>          attributes;
 
   /**
    * PropertyChangeSupport
@@ -101,32 +102,32 @@ public class ShapeFileBean
     propertyChangeSupport.firePropertyChange("id", this.id, this.id = id);
   }
 
-  public String getLocatedIn()
+  public String getParent()
   {
-    return locatedIn;
+    return parent;
   }
 
-  public void setLocatedIn(String locatedIn)
+  public void setParent(String parentIn)
   {
-    propertyChangeSupport.firePropertyChange("locatedIn", this.locatedIn, this.locatedIn = locatedIn);
+    propertyChangeSupport.firePropertyChange("parent", this.parent, this.parent = parentIn);
   }
 
-  public String getLocatedInType()
+  public String getParentType()
   {
-    return locatedInType;
+    return parentType;
   }
 
-  public void setLocatedInType(String locatedInType)
+  public void setParentType(String parentType)
   {
-    propertyChangeSupport.firePropertyChange("locatedInType", this.locatedInType, this.locatedInType = locatedInType);
+    propertyChangeSupport.firePropertyChange("parentType", this.parentType, this.parentType = parentType);
   }
 
-  public String[] getAttributes()
+  public List<String> getAttributes()
   {
     return attributes;
   }
 
-  public void setAttributes(String[] attributes)
+  public void setAttributes(List<String> attributes)
   {
     this.attributes = attributes;
   }
@@ -135,10 +136,10 @@ public class ShapeFileBean
   {
     return ( this.getUniversal() != null && this.getName() != null );
   }
-  
+
   @Override
   public String toString()
   {
-    return "Universal: " + universal + ", Name: " + name + ", Id: " + id + ", Located In: " + locatedIn + ", Located In Type:" + locatedInType;
+    return "Universal: " + universal + ", Name: " + name + ", Id: " + id + ", Located In: " + parent + ", Located In Type:" + parentType;
   }
 }
