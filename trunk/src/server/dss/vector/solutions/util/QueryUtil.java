@@ -33,8 +33,11 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.AttributeReference;
+import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.COUNT;
+import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
@@ -65,6 +68,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdType;
+import com.runwaysdk.system.metadata.MdTypeQuery;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
@@ -77,10 +81,12 @@ import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermTermDisplayLabel;
 import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.CountOrRatioAloneException;
@@ -876,6 +882,29 @@ public class QueryUtil implements Reloadable
     buffer.append("AND " + GEO_ALIAS + "." + typeColumn + " =  (" + MD_TYPE_ALIAS + "." + packageColumn + " || '.' || " + MD_TYPE_ALIAS + "." + typeNameColumn + ");");   
     
     return buffer.toString();
+  }
+
+  public static ValueQuery getGeoDisplayLabel()
+  {    
+    QueryFactory factory = new QueryFactory();
+
+    ValueQuery vQuery = new ValueQuery(factory);
+    
+    MdTypeQuery mdTypeQuery = new MdTypeQuery(vQuery);
+    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(vQuery);    
+    GeoHierarchyQuery geoHierarchyQuery = new GeoHierarchyQuery(vQuery);
+    TermQuery termQuery = new TermQuery(vQuery);
+    
+    Coalesce subType = F.COALESCE(F.CONCAT(" : ", termQuery.getTermDisplayLabel().localize()), vQuery.aSQLCharacter("EMPTY", "''"));
+    CONCAT universal = F.CONCAT(mdTypeQuery.getDisplayLabel().localize(), subType);    
+    CONCAT sublabel = F.CONCAT(F.CONCAT(" (", universal), " )") ;
+    
+    vQuery.SELECT(geoEntityQuery.getId(), F.CONCAT(geoEntityQuery.getEntityName(), sublabel));
+    vQuery.WHERE(geoEntityQuery.getTerm().LEFT_JOIN_EQ(termQuery));
+    vQuery.AND(mdTypeQuery.getId().EQ(geoHierarchyQuery.getGeoEntityClass().getId()));
+    vQuery.AND(geoEntityQuery.getType().EQ(F.CONCAT(F.CONCAT(mdTypeQuery.getPackageName(), "."), mdTypeQuery.getTypeName())));
+    
+    return vQuery;
   }
   
   public static List<String> getSupportedSubLocales(Locale locale)
