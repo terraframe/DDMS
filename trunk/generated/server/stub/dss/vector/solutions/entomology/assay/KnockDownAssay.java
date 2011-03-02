@@ -75,7 +75,7 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
           Integer lowerCutoff = property.getLowerTime();
           Integer upperCutoff = property.getUpperTime();
           
-          return ((lowerCutoff < _kd50) && (upperCutoff < _kd95));
+          return ((lowerCutoff <= _kd50) && (upperCutoff <= _kd95));
         }
       }
       finally
