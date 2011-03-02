@@ -1,5 +1,6 @@
 package dss.vector.solutions.geo;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -9,8 +10,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.GenericHierarchySearcher;
 import dss.vector.solutions.util.SearchableHierarchy;
 
-public class GeoHierarchyView extends GeoHierarchyViewBase implements SearchableHierarchy,
-    com.runwaysdk.generation.loader.Reloadable
+public class GeoHierarchyView extends GeoHierarchyViewBase implements SearchableHierarchy, com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1236279045041L;
 
@@ -18,12 +18,13 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
   {
     super();
   }
-  
+
   @Override
-  public int hashCode() {
-    
+  public int hashCode()
+  {
+
     return this.getGeoHierarchyId().hashCode();
-    
+
   };
 
   @Override
@@ -35,7 +36,6 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
     {
       equals = this.getGeoHierarchyId().equals( ( (GeoHierarchyView) obj ).getGeoHierarchyId());
     }
-
 
     return equals;
   }
@@ -52,18 +52,31 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
   {
     return this.getTypeName();
   }
-  
+
   public String getGeneratedType()
   {
     return MDSSInfo.GENERATED_GEO_PACKAGE + "." + this.getTypeName();
   }
-  
+
   public static GeoHierarchyView[] getUrbanHierarchies(java.lang.String geoId)
   {
     GeoEntity entity = GeoEntity.get(geoId);
     SearchParameter parameter = new SearchParameter(false, false, false, true, false, false);
-    
+
     return GeoHierarchy.getGeoHierarchiesByType(entity.getType(), parameter);
+  }
+
+  public static LinkedHashMap<String, String> getUniversalIdAndLabel()
+  {
+    LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+    GeoHierarchyView[] views = GeoHierarchy.getAllViews();
+
+    for (GeoHierarchyView view : views)
+    {
+      map.put(view.getDisplayLabel(), view.getGeneratedType());
+    }
+
+    return map;
   }
 
 }

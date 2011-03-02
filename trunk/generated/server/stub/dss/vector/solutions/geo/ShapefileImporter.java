@@ -16,14 +16,15 @@ import org.opengis.feature.type.AttributeType;
 
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.vividsolutions.jts.geom.Geometry;
 
 import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.LocalProperty;
-import dss.vector.solutions.TransactionExecuter;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
@@ -148,7 +149,7 @@ public class ShapefileImporter implements Runnable
   /**
    * @return Map between Shapefile Feature ID and the imported Entity id.
    */
-  protected Map<String, String> getEntityIdMap()
+  public Map<String, String> getEntityIdMap()
   {
     return entityIdMap;
   }
@@ -177,24 +178,17 @@ public class ShapefileImporter implements Runnable
   {
     try
     {
-      new TransactionExecuter()
-      {
-        @Override
-        protected void executeMethod() throws Exception
-        {
-          ShapefileImporter.this.fireStart();
+      ShapefileImporter.this.fireStart();
 
-          ShapefileImporter.this.createEntities();
-          ShapefileImporter.this.buildLocatedIn();
+      ShapefileImporter.this.createEntities();
+      ShapefileImporter.this.buildLocatedIn();
 
-          ShapefileImporter.this.fireStartTask("REBUILD_ALL_PATHS", -1);
+      ShapefileImporter.this.fireStartTask("REBUILD_ALL_PATHS", -1);
 
-          // Rebuild the all paths table
-          GeoEntity.buildAllPathsFast();
+      // Rebuild the all paths table
+      GeoEntity.buildAllPathsFast();
 
-          ShapefileImporter.this.fireTaskDone(true);
-        }
-      }.execute();
+      ShapefileImporter.this.fireTaskDone(true);
     }
     catch (RuntimeException e)
     {
@@ -543,11 +537,15 @@ public class ShapefileImporter implements Runnable
    */
   public static GeoEntity getByEntityNameAndType(String entityName, String type)
   {
-    GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
-    query.WHERE(OR.get(query.getEntityName().EQ(entityName), query.getGeoId().EQ(entityName)));
-    query.AND(query.getType().EQ("dss.vector.solutions.geo.generated." + type));
+    QueryFactory factory = new QueryFactory();
+    GeoEntityQuery entityQuery = new GeoEntityQuery(factory);
+    MdBusinessQuery mdBusinessQuery = new MdBusinessQuery(factory);
 
-    long count = query.getCount();
+    entityQuery.WHERE(OR.get(entityQuery.getEntityName().EQ(entityName), entityQuery.getGeoId().EQ(entityName)));
+    mdBusinessQuery.AND(F.CONCAT(F.CONCAT(mdBusinessQuery.getPackageName(), "."), mdBusinessQuery.getTypeName()).EQ(entityQuery.getType()));
+    mdBusinessQuery.AND(mdBusinessQuery.getDisplayLabel().localize().EQ(type));
+
+    long count = entityQuery.getCount();
 
     if (count > 1)
     {
@@ -560,7 +558,7 @@ public class ShapefileImporter implements Runnable
       throw e;
     }
 
-    OIterator<? extends GeoEntity> it = query.getIterator();
+    OIterator<? extends GeoEntity> it = entityQuery.getIterator();
 
     try
     {
