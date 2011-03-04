@@ -1,7 +1,7 @@
 package dss.vector.solutions.admin.shapefile;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.net.MalformedURLException;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -9,10 +9,10 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.wizard.Wizard;
 import org.eclipse.jface.wizard.WizardPage;
 
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.manager.controller.TransactionTaskListener;
 import com.runwaysdk.manager.general.Localizer;
-
-import dss.vector.solutions.TransactionExecuter;
+import com.runwaysdk.session.Request;
 
 public class ShapeFileWizard extends Wizard
 {
@@ -54,29 +54,30 @@ public class ShapeFileWizard extends Wizard
       {
         public void run(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
         {
+          runRequest(monitor);
+        }
+
+        @Request
+        private void runRequest(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+        {
+          runTransaction(monitor);
+        }
+
+        @Transaction
+        private void runTransaction(final IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+        {
           setImporting(true);
+
           try
           {
-            new TransactionExecuter()
-            {
-
-              @Override
-              protected void executeMethod() throws Exception
-              {
-                ShapefileImporterFacade facade = new ShapefileImporterFacade(data.getShapeFile());
-                facade.addListener(new TransactionTaskListener(monitor));
-                facade.setValues(data);
-                facade.run();
-              }
-            }.execute();
+            ShapefileImporterFacade facade = new ShapefileImporterFacade(data.getShapeFile());
+            facade.addListener(new TransactionTaskListener(monitor));
+            facade.setValues(data);
+            facade.run();
           }
-          catch (RuntimeException e)
+          catch (IOException e)
           {
-            throw e;
-          }
-          catch (Exception e)
-          {
-            throw new RuntimeException(e);
+            throw new InvocationTargetException(e);
           }
         }
       });

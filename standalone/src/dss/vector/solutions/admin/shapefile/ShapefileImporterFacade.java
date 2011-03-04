@@ -14,8 +14,6 @@ import java.util.Map;
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 
-import dss.vector.solutions.geo.generated.GeoEntity;
-
 public class ShapefileImporterFacade
 {
   public static String CONCRETE_CLASS = "dss.vector.solutions.geo.ShapefileImporter";
@@ -186,19 +184,4 @@ public class ShapefileImporterFacade
       throw new RuntimeException(e.getLocalizedMessage());
     }
   }
-
-  public static GeoEntity getByEntityName(String name)
-  {
-
-    try
-    {
-      Class<?> clazz = LoaderDecorator.load(CONCRETE_CLASS);
-      return (GeoEntity) clazz.getMethod("getByEntityName", String.class).invoke(null, name);
-    }
-    catch (Exception e)
-    {
-      throw new RuntimeException(e);
-    }
-  }
-
 }
