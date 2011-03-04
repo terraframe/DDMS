@@ -124,7 +124,8 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     
     if(needsJoin || needsView)
     {
-      valueQuery.setSqlPrefix("WITH "+taxonAmountsView+" AS (" + taxonSql + ")");
+//      valueQuery.setSqlPrefix("WITH "+taxonAmountsView+" AS (" + taxonSql + ")");
+      this.addWITHEntry(new WITHEntry(taxonAmountsView, taxonSql));
       valueQuery.AND(new InnerJoinEq("id", pupalContainerTable, pupalContainerQuery.getTableAlias(), "id", taxonAmountsView, taxonAmountsView));
     }
     

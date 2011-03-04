@@ -313,7 +313,9 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggPresmiseReaonTable + " "+aggPresmiseReaonTable+"  LEFT JOIN term as term0 on "+aggPresmiseReaonTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggPresmiseReaonTable+".parent_id = aggregated_premise_visit.id\n";
         
-        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + "),\n "+view2+" AS ("+pvu2+")");
+        this.addWITHEntry(new WITHEntry(view, viewSql));
+        this.addWITHEntry(new WITHEntry(view2, pvu2));
+//        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + "),\n "+view2+" AS ("+pvu2+")");
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view2, view2));
       }
@@ -339,7 +341,8 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+"  LEFT JOIN term as term0 on "+aggVisitMethodTable+".child_id = term0.id\n";
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
 
-        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
+        this.addWITHEntry(new WITHEntry(view, viewSql));
+//        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
       }
       else
@@ -362,7 +365,8 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+" \n";
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
       
-        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
+        this.addWITHEntry(new WITHEntry(view, viewSql));
+//        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
       }
 

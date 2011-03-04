@@ -171,7 +171,8 @@ public class ResistanceQB extends AbstractQB implements Reloadable
         String id = QueryUtil.getIdColumn();
         
         String[] labels = { susceptibleLabel, potentialyResistantLabel, resistantLabel };
-        valueQuery.setSqlPrefix(this.getResistanceWithQuerySQL(tableName, labels));
+        this.addWITHEntry(new WITHEntry(tableName, this.getResistanceQuerySQL(labels)));
+//        valueQuery.setSqlPrefix(this.getResistanceWithQuerySQL(tableName, labels));
         valueQuery.FROM(tableName, tableName);
         valueQuery.WHERE(new RawLeftJoinEq(id, joinResults.getMdClassIF().getTableName(), joinResults.getTableAlias(), id, tableName, tableName));
       }
@@ -218,15 +219,13 @@ public class ResistanceQB extends AbstractQB implements Reloadable
 
   }
 
-  private String getResistanceWithQuerySQL(String tableName, String[] labels)
+  private String getResistanceQuerySQL(String[] labels)
   {
-    String sql = "WITH " + tableName + " AS (";
-    sql += this.getResistanceSQL(labels);
+    String sql = this.getResistanceSQL(labels);
     sql += " UNION \n";
     sql += LarvaeDiscriminatingDoseAssay.getResistanceSQL(labels);
     sql += " UNION \n";
     sql += KnockDownAssay.getResistanceSQL(labels);
-    sql += ")\n";
     return sql;
   }
 

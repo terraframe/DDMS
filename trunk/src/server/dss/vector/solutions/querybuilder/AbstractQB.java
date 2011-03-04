@@ -19,28 +19,53 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdEntity;
+import com.runwaysdk.system.metadata.MdType;
+import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.Term;
+import dss.vector.solutions.ontology.TermTermDisplayLabel;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.util.TermInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 
 public abstract class AbstractQB implements Reloadable
 {
+  /**
+   * Represents a single entry in a WITH clause
+   */
+  protected class WITHEntry implements Reloadable
+  {
+    private String name;
+    private String sql;
+    
+    protected WITHEntry(String name, String sql)
+    {
+      this.name = name;
+      this.sql = sql;
+    }
+  }
+  
   private String                            xml;
 
   private String                            config;
 
   private Layer                             layer;
   
+  private boolean recursiveWithClause;
+  
   private List<GeneratedEntityQuery> geoDisplayLabelQueries;
   
   private QueryFactory factory;
   private ValueQuery valueQuery;
   private ValueQueryParser parser;
-
+  
+  private List<WITHEntry> withEntries;
+  
   public AbstractQB(String xml, String config, Layer layer)
   {
+    this.recursiveWithClause = false;
     this.xml = xml;
     this.config = config;
     this.layer = layer;
@@ -49,6 +74,17 @@ public abstract class AbstractQB implements Reloadable
     this.factory = null;
     this.valueQuery = null;
     this.parser = null;
+    this.withEntries = new LinkedList<WITHEntry>();
+  }
+  
+  protected void setWITHRecursive(boolean recursive)
+  {
+    this.recursiveWithClause = recursive;
+  }
+  
+  protected void addWITHEntry(WITHEntry entry)
+  {
+    withEntries.add(entry);
   }
   
   protected String getXml()
@@ -80,6 +116,8 @@ public abstract class AbstractQB implements Reloadable
     valueQuery = this.createValueQuery();
     List<ParseInterceptor> interceptors = this.createParseInterceptors(valueQuery);
     parser = this.createParser(valueQuery, interceptors);
+    
+    this.setGeoDisplayLabelSQL();
 
     // Universals, mapping, and geo entity criteria
     Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
@@ -93,9 +131,87 @@ public abstract class AbstractQB implements Reloadable
     TermInterceptor termInterceptor = this.getTermInterceptor(parser);
     this.setTermCriteria(valueQuery, queryMap, termInterceptor);
 
+    this.setWITHClause();
+    
     return valueQuery;
   }
   
+  /**
+   * Sets the WITH clause on the value query.
+   */
+  private void setWITHClause()
+  {
+    if(this.withEntries.size() == 0)
+    {
+      return;
+    }
+    
+    String with = "WITH ";
+    if(this.recursiveWithClause)
+    {
+      with += "RECURSIVE ";
+    }
+    
+    int count = 0;
+    for(WITHEntry entry : this.withEntries)
+    {
+      with += entry.name + " AS (\n"+entry.sql+"\n)";
+      
+      if(count < this.withEntries.size()-1)
+      {
+        with += ",";
+      }
+      count++;
+      
+      with += "\n";
+    }
+    
+    valueQuery.setSqlPrefix(with);
+  }
+  
+  private void setGeoDisplayLabelSQL()
+  {    
+    // Define the aliases
+    String GEO_ALIAS = "geo";
+    String TERM_DISPLAY_ALIAS = "termLabel";
+    String TERM_ALIAS = "term";
+    String MD_TYPE_ALIAS = "md";
+    String TYPE_DISPLAY_ALIAS = "typeLabel";
+    
+    // Define the tables
+    String mdTypeTable = MdEntity.getMdEntity(MdType.CLASS).getTableName();
+    String metadataLabelTable = MdEntity.getMdEntity(MetadataDisplayLabel.CLASS).getTableName();
+    String geoEntityTable = MdEntity.getMdEntity(GeoEntity.CLASS).getTableName();
+    String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
+    String termLabelTable = MdEntity.getMdEntity(TermTermDisplayLabel.CLASS).getTableName();
+    
+    // Define the columns
+    String entityNameColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ENTITYNAME);
+//    String geoIdColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.GEOID);
+    String idColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ID);
+    String termColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TERM);
+    String typeColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TYPE);
+    String termLabelColumn = QueryUtil.getColumnName(Term.CLASS, Term.TERMDISPLAYLABEL);
+    String labelColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.DISPLAYLABEL);
+    String packageColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.PACKAGENAME);
+    String typeNameColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.TYPENAME);
+    
+    StringBuffer buffer = new StringBuffer();
+    
+    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + GEO_ALIAS + "." + entityNameColumn + " || ' (' || \n");
+    buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
+    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "' '") + " || ')' AS "+QueryUtil.LABEL_COLUMN+"\n");
+    buffer.append("FROM  \n");
+    buffer.append(geoEntityTable + " " + GEO_ALIAS + " \n");
+    buffer.append("INNER JOIN "+mdTypeTable+" "+MD_TYPE_ALIAS+" ON "+ GEO_ALIAS + "." + typeColumn 
+        + " =  (" + MD_TYPE_ALIAS + "." + packageColumn + " || '.' || " + MD_TYPE_ALIAS + "." + typeNameColumn + ")\n");
+    buffer.append("INNER JOIN "+metadataLabelTable+" "+TYPE_DISPLAY_ALIAS + " ON "+ MD_TYPE_ALIAS + "." + labelColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
+    buffer.append("LEFT JOIN " + termTable + " AS " + TERM_ALIAS + " ON " + TERM_ALIAS + "." + idColumn + " = " + GEO_ALIAS + "." + termColumn + " \n");
+    buffer.append("LEFT JOIN " + termLabelTable + " AS " + TERM_DISPLAY_ALIAS + " ON " + TERM_DISPLAY_ALIAS + "." + idColumn + " = " + TERM_ALIAS + "." + termLabelColumn + " \n");
+    
+    this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, buffer.toString()));
+  }
+
   /**
    * 
    * @param interceptors

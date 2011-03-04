@@ -798,16 +798,19 @@ public class IRSQB extends AbstractQB implements Reloadable
     // String targetRollupQuery = this.getTargetRollupView();
     // String rollupResultsQuery = this.getRollupResultsView();
 
-    String sql = "WITH RECURSIVE";
+    this.setWITHRecursive(true);
 
-    sql += " " + DATE_EXTRAPOLATION + " AS \n";
-    sql += "(" + dateExtrapolationQuery + ")\n";
+//    sql += " " + DATE_EXTRAPOLATION + " AS \n";
+//    sql += "(" + dateExtrapolationQuery + ")\n";
+    this.addWITHEntry(new WITHEntry(DATE_EXTRAPOLATION, dateExtrapolationQuery));
+    
+//    sql += ", " + RESOURCE_TARGET_VIEW + " AS \n";
+//    sql += "(" + resourceTargetViewQuery + ")\n";
+    this.addWITHEntry(new WITHEntry(RESOURCE_TARGET_VIEW, resourceTargetViewQuery));
 
-    sql += ", " + RESOURCE_TARGET_VIEW + " AS \n";
-    sql += "(" + resourceTargetViewQuery + ")\n";
-
-    sql += ", " + GEO_TARGET_VIEW + " AS \n";
-    sql += "(" + geoTargetViewQuery + ")\n";
+//    sql += ", " + GEO_TARGET_VIEW + " AS \n";
+//    sql += "(" + geoTargetViewQuery + ")\n";
+    this.addWITHEntry(new WITHEntry(GEO_TARGET_VIEW, geoTargetViewQuery));
 
     // sql += ", " + TARGET_ROLLUP + " AS \n";
     // sql += "(" + targetRollupQuery + ")\n";
@@ -815,37 +818,43 @@ public class IRSQB extends AbstractQB implements Reloadable
     // sql += ", " + ROLLUP_RESULTS + " AS \n";
     // sql += "(" + rollupResultsQuery + ")\n";
 
-    sql += ", " + INSECTICIDE_VIEW + " AS \n";
-    sql += "(" + insecticideBrandQuery + ")\n";
+//    sql += ", " + INSECTICIDE_VIEW + " AS \n";
+//    sql += "(" + insecticideBrandQuery + ")\n";
+    this.addWITHEntry(new WITHEntry(INSECTICIDE_VIEW, insecticideBrandQuery));
 
-    sql += "," + ALL_ACTUALS + " AS \n";
-    sql += "("
-        + createUnion(new ActualOperatorSprayTarget(), new ActualTeamSprayTarget(),
-            new ActualZoneSprayTarget()) + ")\n";
+//    sql += "," + ALL_ACTUALS + " AS \n";
+//    sql += "("
+//        + createUnion(new ActualOperatorSprayTarget(), new ActualTeamSprayTarget(),
+//            new ActualZoneSprayTarget()) + ")\n";
+    this.addWITHEntry(new WITHEntry(ALL_ACTUALS, createUnion(new ActualOperatorSprayTarget(), new ActualTeamSprayTarget(),
+        new ActualZoneSprayTarget())));
 
     if (this.needsAreaPlanned)
     {
-      sql += "," + PLANNED_AREA + " AS \n";
-      sql += "(" + createUnion(new PlannedAreaTarget()) + ")\n";
+//      sql += "," + PLANNED_AREA + " AS \n";
+//      sql += "(" + createUnion(new PlannedAreaTarget()) + ")\n";
+      this.addWITHEntry(new WITHEntry(PLANNED_AREA, createUnion(new PlannedAreaTarget())));
     }
 
     if (this.needsTeamsPlanned)
     {
-      sql += "," + PLANNED_TEAM + " AS \n";
-      sql += "(" + createUnion(new PlannedSprayTeamTarget()) + ")\n";
+//      sql += "," + PLANNED_TEAM + " AS \n";
+//      sql += "(" + createUnion(new PlannedSprayTeamTarget()) + ")\n";
+      this.addWITHEntry(new WITHEntry(PLANNED_TEAM, createUnion(new PlannedSprayTeamTarget())));
     }
 
     if (this.needsOperatorPlanned)
     {
-      sql += "," + PLANNED_OPERATOR + " AS \n";
-      sql += "(" + createUnion(new PlannedOperatorTarget()) + ")\n";
+//      sql += "," + PLANNED_OPERATOR + " AS \n";
+//      sql += "(" + createUnion(new PlannedOperatorTarget()) + ")\n";
+      this.addWITHEntry(new WITHEntry(PLANNED_OPERATOR, createUnion(new PlannedOperatorTarget())));
     }
 
-    sql += "," + SPRAY_VIEW + " AS \n";
+//    sql += "," + SPRAY_VIEW + " AS \n";
+//    sql += "(" + createSprayView() + ")\n";
+    this.addWITHEntry(new WITHEntry(SPRAY_VIEW, createSprayView()));
 
-    sql += "(" + createSprayView() + ")\n";
-
-    irsVQ.setSqlPrefix(sql);
+//    irsVQ.setSqlPrefix(sql);
   }
 
   private String getDateExtrapolationView()
