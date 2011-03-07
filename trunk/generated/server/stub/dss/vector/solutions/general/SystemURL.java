@@ -100,8 +100,8 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
 
       // Get the read role of the current diesease
       MenuItem menuItem = iterator.next();
-      
-      if(menuItem.getTerm() != null)
+
+      if (menuItem.getTerm() != null)
       {
         SystemURL systemUrl = menuItem.getUrl();
 
@@ -118,11 +118,20 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
             return true;
           }
         }
-        
+
         return roles.containsKey(readRole.getRoleName());
       }
     }
 
     return false;
+  }
+
+  public boolean hasRole(RoleProperty property)
+  {
+    URLRoleQuery query = new URLRoleQuery(new QueryFactory());
+    query.WHERE(query.parentId().EQ(this.getId()));
+    query.AND(query.childId().EQ(property.getId()));
+
+    return ( query.getCount() > 0 );
   }
 }
