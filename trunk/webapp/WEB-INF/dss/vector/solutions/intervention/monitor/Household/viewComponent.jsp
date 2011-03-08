@@ -80,34 +80,6 @@
     <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.intervention.monitor.HouseholdController.edit.mojo" name="dss.vector.solutions.intervention.monitor.Household.form.edit.button" />
   </dl>
 </mjl:form>
-<dl>
-  <dt></dt>
-  <dd>
-    <table class="displayTable" width="33%">
-      <tr>
-        <th><mdss:localize key="People" /></th>
-        <th></th>
-      </tr>
-      <c:forEach items="${people}" var="current" varStatus="status">
-       <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
-         <td>
-           ${current.personId}
-         </td>
-         <td>
-           <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.view.mojo" name="Person.view.link">
-             <mdss:localize key="View"/>
-             <mjl:property name="id" value="${current.concreteId}"/>
-           </mjl:commandLink>
-         </td>
-        </tr>
-      </c:forEach>
-    </table>
-  </dd>
-  <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.newInstance.mojo" name="Person.newInstance.link">
-    <mdss:localize key="Add_Person"/>
-    <mjl:property name="householdId" value="${item.concreteId}"/>
-  </mjl:commandLink>
-</dl>
 
 <dl>
   <dt> </dt>
@@ -137,6 +109,36 @@
     <mjl:property name="householdId" value="${item.concreteId}"/>
   </mjl:commandLink>
 </dl>
+
+<dl>
+  <dt></dt>
+  <dd>
+    <table class="displayTable" width="33%">
+      <tr>
+        <th><mdss:localize key="People" /></th>
+        <th></th>
+      </tr>
+      <c:forEach items="${people}" var="current" varStatus="status">
+       <tr class="${status.index % 2 == 0 ? 'evenRow' : 'oddRow'}">
+         <td>
+           ${current.personId}
+         </td>
+         <td>
+           <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.view.mojo" name="Person.view.link">
+             <mdss:localize key="View"/>
+             <mjl:property name="id" value="${current.concreteId}"/>
+           </mjl:commandLink>
+         </td>
+        </tr>
+      </c:forEach>
+    </table>
+  </dd>
+  <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyedPersonController.newInstance.mojo" name="Person.newInstance.link">
+    <mdss:localize key="Add_Person"/>
+    <mjl:property name="householdId" value="${item.concreteId}"/>
+  </mjl:commandLink>
+</dl>
+
 
 <mjl:commandLink action="dss.vector.solutions.intervention.monitor.SurveyPointController.view.mojo" name="Household.view.link">
   <mdss:localize key="Back_To_Survey_Point"/>
