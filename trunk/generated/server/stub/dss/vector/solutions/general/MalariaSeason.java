@@ -90,7 +90,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
       EpiDate epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK, i, seasonStartYear);
       
       long weekStart = epiWeek.getStartDate().getTime();
-
+      
       if (weekStart >= seasonStart && weekStart <= seasonEnd)
       {
         weeks.add(epiWeek);

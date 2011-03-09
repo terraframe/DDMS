@@ -486,7 +486,7 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     swapOutAttributesForAggregates();
 
-    this.hasEpiWeek = irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
+//    this.hasEpiWeek = irsVQ.hasSelectableRef(QueryUtil.DATEGROUP_EPIWEEK);
 
     if (insecticideQuery != null)
     {
@@ -574,10 +574,26 @@ public class IRSQB extends AbstractQB implements Reloadable
           SelectableSQL sel = (SelectableSQL) irsVQ.getSelectableRef(group);
           String original = sel.getSQL();
 
-          String caseStmt = "(CASE WHEN " + sprayViewAlias + "." + Alias.SPRAY_DATE
-              + " IS NOT NULL THEN " + sprayViewAlias + "." + Alias.SPRAY_DATE + " ELSE "
-              + sprayViewAlias + "." + Alias.PLANNED_DATE + " END)";
-          String sql = original.replace(sprayViewAlias + "." + Alias.SPRAY_DATE, caseStmt);
+          String sprayDateCol = sprayViewAlias+"."+Alias.SPRAY_DATE.getAlias();
+          String plannedDateCol = sprayViewAlias+"."+Alias.PLANNED_DATE.getAlias();
+          
+          String sql;
+          if(group.equals(QueryUtil.DATEGROUP_SEASON))
+          {
+            // If there isn't a planned date then don't show the season because that
+            // means activity didn't match a target, and it's rather meaningless to
+            // show a season value just because a spray date coincidentally fell within
+            // the season range.
+            String replaced = original.replaceAll(sprayViewAlias+"\\."+Alias.SPRAY_DATE.getAlias(), plannedDateCol);
+            sql = "CASE WHEN "+plannedDateCol+" IS NOT NULL THEN "+replaced+" ELSE NULL END";
+          }
+          else
+          {
+            String caseStmt = "CASE WHEN " + sprayDateCol
+              + " IS NOT NULL THEN " + sprayDateCol + " ELSE "
+              + plannedDateCol + " END";
+            sql = original.replaceAll(sprayViewAlias+"\\."+Alias.SPRAY_DATE.getAlias(), caseStmt);
+          }
           sel.setSQL(sql);
         }
       }
@@ -865,7 +881,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     sql += "SELECT \n";
     sql += " " + periodCol + " AS " + periodCol + ", \n";
     sql += " (get_epistart(" + yearCol + ", " + startDay + ") + (to_char((" + periodCol
-        + "-1)*7, '999')||' days')::interval)::date AS " + Alias.PLANNED_DATE + " \n";
+        + ")*7, '999')||' days')::interval)::date AS " + Alias.PLANNED_DATE + " \n";
     sql += "FROM epi_week ";
 
     return sql;
@@ -1374,10 +1390,10 @@ public class IRSQB extends AbstractQB implements Reloadable
     }
 
     from += "ARRAY[" + weeks + "] AS target_array FROM " + sourceTable + ") AS tar ";
-    from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS + 1 ) + ") AS i, "
+    from += "CROSS JOIN generate_series(1, " + ( EpiWeek.NUMBER_OF_WEEKS ) + ") AS i, "
         + DATE_EXTRAPOLATION + " de, " + malariaSeasonTable + " ms \n";
     from += " WHERE target_array[i] IS NOT NULL \n";
-    from += " AND i = de." + periodCol + " \n";
+    from += " AND (i-1) = de." + periodCol + " \n"; // substract 1 because arrays in postgres are 1-based
     from += " AND de." + Alias.PLANNED_DATE + " BETWEEN ms." + startDate + " AND ms." + endDate + " \n";
     from += " AND ms." + disease + " = '" + this.diseaseId + "' \n";
     from += " AND ms." + disease + " = tar." + diseaseCol + "\n";

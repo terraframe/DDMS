@@ -13,7 +13,7 @@ import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MalariaSeasonDateProblem;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.querybuilder.IndividualCaseQB;
+import dss.vector.solutions.querybuilder.InterventionControlQB;
 
 public class ControlIntervention extends ControlInterventionBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -262,7 +262,7 @@ public class ControlIntervention extends ControlInterventionBase implements com.
    */
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
   {
-    return new IndividualCaseQB(xml, config, layer).construct();
+    return new InterventionControlQB(xml, config, layer).construct();
   }
 
 
