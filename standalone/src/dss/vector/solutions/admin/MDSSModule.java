@@ -135,11 +135,11 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
     /***
      * Uncomment this code when support for GIS importing is finished
      */
-    MenuManager shapefileMenu = manager.getMenu(Localizer.getMessage("SHAPE_FILE_MENU"));
-    shapefileMenu.add(new ImportShapefileAction());
-    shapefileMenu.add(new BuildLocatedInAction());
-    
-    manager.addMenu(shapefileMenu);
+//    MenuManager shapefileMenu = manager.getMenu(Localizer.getMessage("SHAPE_FILE_MENU"));
+//    shapefileMenu.add(new ImportShapefileAction());
+//    shapefileMenu.add(new BuildLocatedInAction());
+//    
+//    manager.addMenu(shapefileMenu);
   }
 
   @Override
