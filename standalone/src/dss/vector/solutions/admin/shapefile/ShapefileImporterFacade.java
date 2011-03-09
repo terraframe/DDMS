@@ -147,6 +147,7 @@ public class ShapefileImporterFacade
 
   public void setValues(ShapeFileBean data)
   {
+    this.setType(data.getUniversal());
     this.setName(data.getName());
     this.setId(data.getId());
     this.setParent(data.getParent());
