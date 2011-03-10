@@ -147,7 +147,7 @@ public class ResistanceQB extends AbstractQB implements Reloadable
       joinResults = collectionAssayQuery;
     }
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     if(joinResults!= null)
     {

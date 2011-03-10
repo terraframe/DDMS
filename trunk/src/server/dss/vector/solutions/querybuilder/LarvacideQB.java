@@ -52,7 +52,7 @@ public class LarvacideQB extends AbstractQB implements Reloadable
     
     this.addGeoDisplayLabelQuery(larvacideQuery);
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     return QueryUtil.setQueryDates(xml, valueQuery, larvacideQuery, larvacideQuery.getStartDate(), larvacideQuery.getDisease());
   }

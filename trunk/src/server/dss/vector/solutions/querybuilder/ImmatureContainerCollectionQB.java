@@ -111,7 +111,7 @@ public class ImmatureContainerCollectionQB extends AbstractQB implements Reloada
 
     this.addGeoDisplayLabelQuery(collectionQuery);
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
 
     MdEntityDAOIF containerMd = MdEntityDAO.getMdEntityDAO(CollectionContainer.CLASS);

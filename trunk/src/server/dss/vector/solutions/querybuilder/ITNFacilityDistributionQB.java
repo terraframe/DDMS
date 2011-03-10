@@ -61,7 +61,7 @@ public class ITNFacilityDistributionQB extends AbstractQB implements Reloadable
       // Person.DOB not included in query.
     }
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, itnQuery.getDisease());
 

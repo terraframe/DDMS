@@ -141,7 +141,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
 
     QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, caseQuery.getDisease());
 

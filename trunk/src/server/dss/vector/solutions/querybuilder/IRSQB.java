@@ -377,7 +377,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     sprayVQ = new ValueQuery(irsVQ.getQueryFactory());
 
     irsVQ.SELECT(irsSels.toArray(new Selectable[irsSels.size()]));
-    QueryUtil.setNumericRestrictions(irsVQ, queryConfig);
+    this.setNumericRestrictions(irsVQ, queryConfig);
 
     if (insecticideQuery != null)
     {
@@ -492,7 +492,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       QueryUtil.joinEnumerationDisplayLabels(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
       QueryUtil.joinTermAllpaths(insecticideVQ, InsecticideBrand.CLASS, insecticideQuery);
-      QueryUtil.setNumericRestrictions(insecticideVQ, queryConfig);
+      this.setNumericRestrictions(insecticideVQ, queryConfig);
     }
 
     String sprayDate = QueryUtil.getColumnName(AbstractSpray.getSprayDateMd());

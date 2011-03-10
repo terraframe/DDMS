@@ -39,7 +39,7 @@ public class AggregatedIPTQB extends AbstractQB implements Reloadable
     QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
         RelationshipDAOIF.PARENT_ID_COLUMN);
     
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
     
     Disease disease = Disease.getCurrent();
     valueQuery.AND(aggregatedIPTQuery.getDisease().EQ(disease));

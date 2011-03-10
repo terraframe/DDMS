@@ -74,7 +74,7 @@ public class StockQB extends AbstractQB implements Reloadable
     
     QueryUtil.joinTermAllpaths(valueQuery,StockItem.CLASS,stockItemQuery);  
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, stockEventQuery.getDisease());
 

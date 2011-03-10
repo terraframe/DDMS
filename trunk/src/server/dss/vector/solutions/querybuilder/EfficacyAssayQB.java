@@ -111,7 +111,7 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       valueQuery.WHERE(new InnerJoinEq(efficacyAssayQuery.getAgeRange(), arQuery.getId()));
     }
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, efficacyAssayQuery.getDisease());
 

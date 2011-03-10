@@ -222,7 +222,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
     
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyPointQuery.getDisease());
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     return valueQuery;
   }

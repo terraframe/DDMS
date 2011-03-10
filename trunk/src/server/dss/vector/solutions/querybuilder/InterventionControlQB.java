@@ -420,7 +420,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     
     this.addGeoDisplayLabelQuery(controlInterventionQuery);
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     return QueryUtil.setQueryDates(xml, valueQuery, controlInterventionQuery, controlInterventionQuery.getStartDate(), controlInterventionQuery.getEndDate(), controlInterventionQuery.getDisease());
   }

@@ -54,7 +54,7 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     
     this.addGeoDisplayLabelQuery(collectionQuery);
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
       
     if(pupalContainerQuery == null)
     {

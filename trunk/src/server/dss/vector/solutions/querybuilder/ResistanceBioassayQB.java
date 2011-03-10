@@ -58,7 +58,7 @@ public class ResistanceBioassayQB extends AbstractQB implements Reloadable
       mosquitoCollectionQuery = new MosquitoCollectionQuery(valueQuery);
     }
 
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
 
     QueryUtil
         .setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());

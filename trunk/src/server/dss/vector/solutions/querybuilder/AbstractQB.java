@@ -1,8 +1,11 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -10,11 +13,17 @@ import org.json.JSONObject;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.Attribute;
+import com.runwaysdk.query.AttributeCondition;
+import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
@@ -298,6 +307,101 @@ public abstract class AbstractQB implements Reloadable
           // There is no condition passthrough so we have to hack in the EXISTS operator
           valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS ("+termVQ.getSQL()+") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
         }
+      }
+    }
+  }
+  
+  
+  protected void setNumericRestrictions(ValueQuery valueQuery, JSONObject queryConfig)
+  {
+    for (Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
+    {
+      String key = (String) iter.next();
+      Pattern pattern = Pattern.compile("^(\\w+)Criteria$");
+      Matcher matcher = pattern.matcher(key);
+      String attributeName = null;
+      if (matcher.find())
+      {
+        attributeName = matcher.group(1);
+        if (!valueQuery.hasSelectableRef(attributeName))
+        {
+          continue;
+        }
+
+        String value;
+        try
+        {
+          value = queryConfig.getString(key);
+        }
+        catch (JSONException e)
+        {
+          String error = "Could not extract the key [" + key + "] when setting numeric restrictions.";
+          throw new ProgrammingErrorException(error, e);
+        }
+
+        Selectable original = valueQuery.getSelectableRef(attributeName);
+        boolean isAgg = original.isAggregateFunction();
+        Selectable sel = original;
+        
+        // due to inconsistent and overlapping interfaces, check what operation
+        // to perform based on the underlying Selectable type.
+        while(sel instanceof Function)
+        {
+          sel = ((Function)sel).getSelectable();
+        }
+        
+
+        AttributeCondition cond = null;
+        value = value.trim();
+        if(sel instanceof SelectableChar && !value.equals("NULL"))
+        {
+          cond = (AttributeCondition) ((SelectableChar) original ).LIKE(value);
+        }
+        else if (sel instanceof SelectableNumber)
+        {
+          if(value.contains("-"))
+          {
+            // range
+            String[] range = value.split("-");
+            if (range.length == 2)
+            {
+              String range1 = range[0].trim();
+              String range2 = range[1].trim();
+              if (range1.length() > 0)
+              {
+                cond = isAgg ? ((AggregateFunction)original).GE(range1) : ((SelectableNumber) original ).GE(range1);
+              }
+              
+              if (range2.length() > 0)
+              {
+                cond = isAgg ? ((AggregateFunction)original).LE(range2) : ((SelectableNumber) original ).LE(range2);
+              }
+            }
+            else
+            {
+              // Just the GE criteria was specified (e.g., "7-")
+              cond = isAgg ? ((AggregateFunction)original).GE(range[0].trim()) : ((SelectableNumber) original ).GE(range[0].trim());
+            }
+          }
+          else
+          {
+            // exact value
+            cond = (AttributeCondition) original.EQ(value);
+          }
+        }
+        
+        if(cond != null)
+        {
+          if(isAgg)
+          {
+            valueQuery.HAVING(cond);
+          }
+          else
+          {
+            valueQuery.WHERE(cond);
+          }
+        }
+
       }
     }
   }

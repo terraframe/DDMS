@@ -34,7 +34,7 @@ public class AggregatedITNQB extends AbstractQB implements Reloadable
     
     this.addGeoDisplayLabelQuery(itnQuery);
     
-    QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+    this.setNumericRestrictions(valueQuery, queryConfig);
     
     if(hasNets)
     {

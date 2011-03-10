@@ -106,6 +106,8 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
 
     valueQuery.WHERE(aggregatedCaseQuery.getDisease().EQ(Disease.getCurrent()));
 
+    this.setNumericRestrictions(valueQuery, config);
+    
     return valueQuery;
   }
 

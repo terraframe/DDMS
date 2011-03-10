@@ -74,7 +74,7 @@ public class EntomologyQB extends AbstractQB implements Reloadable
       this.addGeoDisplayLabelQuery(mosquitoCollectionQuery);
       QueryUtil.joinTermAllpaths(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, MosquitoCollection.CLASS, mosquitoCollectionQuery);
-      QueryUtil.setNumericRestrictions(valueQuery, queryConfig);
+      this.setNumericRestrictions(valueQuery, queryConfig);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, mosquitoCollectionQuery.getDisease());
     }
 
