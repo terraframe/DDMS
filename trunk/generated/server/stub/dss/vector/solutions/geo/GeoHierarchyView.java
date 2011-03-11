@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import java.util.LinkedHashMap;
 import java.util.List;
 
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -65,18 +64,4 @@ public class GeoHierarchyView extends GeoHierarchyViewBase implements Searchable
 
     return GeoHierarchy.getGeoHierarchiesByType(entity.getType(), parameter);
   }
-
-  public static LinkedHashMap<String, String> getUniversalIdAndLabel()
-  {
-    LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
-    GeoHierarchyView[] views = GeoHierarchy.getAllViews();
-
-    for (GeoHierarchyView view : views)
-    {
-      map.put(view.getDisplayLabel(), view.getGeneratedType());
-    }
-
-    return map;
-  }
-
 }
