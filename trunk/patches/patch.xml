@@ -11,14 +11,10 @@
 	</typedef>
 	
     <target name="build">
-    	<!-- Echo the properties that deploy.xml will be using -->
-        <ant inheritAll="false" antfile="../scripts/ant/deploy/deploy.xml" target="proptest">
-          <property name="profile.name" value="patch"/>
-        </ant>
-    	
     	<!-- Get a copy of all web files -->
         <ant inheritAll="false" antfile="../scripts/ant/deploy/deploy.xml" target="deploy_all_files">
           <property name="profile.name" value="patch"/>
+          <property name="geodata.db" value="${geodata.db}"/>
         </ant>
     	
     	<!-- Copy in the appropriate geo universals xls -->
