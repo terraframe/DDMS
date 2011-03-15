@@ -208,7 +208,8 @@ YAHOO.util.Event.onDOMReady(function(){
         key:"resistance_result_collection",
         attributeName:"resistance_result",
         type:"sqlcharacter",
-        displayLabel: MDSS.Localized.resistance_result
+        displayLabel: MDSS.localize('resistance_result'),
+        description: MDSS.localize('resistance_result_desc')
        });
 
     pooledColumns = pooledColumns.map(function(attrib){attrib.type = attrib.type.replace('AdultDiscriminatingDose','Collection');return attrib;});

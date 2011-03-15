@@ -114,7 +114,8 @@ YAHOO.util.Event.onDOMReady(function(){
 
    abundanceColumns = abundanceColumns.concat( [     
                                 {
-                                  displayLabel:subCollection.attributeMap['taxon'].attributeMdDTO.displayLabel,
+                                  displayLabel:subCollection.getTaxonMd().getDisplayLabel(),
+                                  description:subCollection.getTaxonMd().getDescription(),
                                   key:"taxon",
                                   type:"sqlcharacter",
                                   attributeName:"taxon_displayLabel",

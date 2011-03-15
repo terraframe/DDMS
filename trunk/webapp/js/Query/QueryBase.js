@@ -1541,6 +1541,10 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
 
   IsAbstract : true,
   
+  Constants : {
+    DESCRIPTION_SUFFIX : '_desc'
+  },
+  
   Instance : {
   
     initialize :function(obj)
@@ -1550,8 +1554,17 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       
       this._displayLabel = obj.displayLabel || MDSS.localize(obj.key);
       
+      this._description = this._displayLabel; // default
+      // first look for the description using the convention key+'_desc', used mainly for calculations
+      if(Mojo.Util.isString(obj.key) && obj.key+MDSS.AbstractAttribute.DESCRIPTION_SUFFIX in MDSS.Localized)
+      {
+        this._description = MDSS.localize(obj.key+MDSS.AbstractAttribute.DESCRIPTION_SUFFIX);
+      }
       // The description defaults to the display label if it is null or a length of 0
-      this._description = Mojo.Util.isString(obj.description) && obj.description.length > 0 ? obj.description : this._displayLabel;      
+      else if(Mojo.Util.isString(obj.description) && obj.description.length > 0)
+      {
+        this._description = obj.description;
+      }
       
       this._attributeName = obj.attributeName;
       this._entityAlias = obj.entityAlias || this._type;

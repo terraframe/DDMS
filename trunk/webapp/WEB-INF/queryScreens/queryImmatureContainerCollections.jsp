@@ -123,7 +123,6 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getNumberWithLarvaeMd().getDisplayLabel(),
                                                             description:premise.getNumberWithLarvaeMd().getDescription(),
-                                                            description:premise.getNumberWithLarvaeMd().getDescription(),
                                                             attributeName:'number_with_larvae',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -142,7 +141,6 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getNumberWithImmaturesMd().getDisplayLabel(),
                                                             description:premise.getPremiseSizeMd().getDescription(),
-                                                            description:premise.getPremiseSizeMd().getDescription(),
                                                             attributeName:'number_with_immatures',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
                                                             isAggregate:true
@@ -151,7 +149,6 @@ YAHOO.util.Event.onDOMReady(function(){
                                                             key:'premise_size',
                                                             type:"sqlfloat",
                                                             displayLabel:premise.getPremiseSizeMd().getDisplayLabel(),
-                                                            description:premise.getPremiseSizeMd().getDescription(),
                                                             description:premise.getPremiseSizeMd().getDescription(),
                                                             attributeName:'premise_size',
                                                             dtoType:"com.runwaysdk.transport.attributes.AttributeFloatDTO",
@@ -181,6 +178,7 @@ YAHOO.util.Event.onDOMReady(function(){
     containerColumns = [{
       key:"childId",
       displayLabel: MDSS.localize('container_term'),
+      description: MDSS.localize('container_term_desc'),
       type:"dss.vector.solutions.entomology.CollectionContainer",
       attributeName:"childId",
       dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",

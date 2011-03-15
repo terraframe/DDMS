@@ -147,6 +147,7 @@ YAHOO.util.Event.onDOMReady(function(){
           type:"sqlfloat",
           attributeName:"rdt_prevalence",
           displayLabel:MDSS.localize('RDT_Prevalence'),
+          description:MDSS.localize('RDT_Prevalence_desc'),
           isAggregate:true
         },
                             {
@@ -155,6 +156,7 @@ YAHOO.util.Event.onDOMReady(function(){
           type:"sqlfloat",
           attributeName:"bloodslide_prevalence",
           displayLabel:MDSS.localize('Bloodslide_Prevalence'),
+          description:MDSS.localize('Bloodslide_Prevalence_desc'),
           isAggregate:true
         },
                                 {
@@ -163,6 +165,7 @@ YAHOO.util.Event.onDOMReady(function(){
           type:"sqlfloat",
           attributeName:"rdt_bloodslide_prevalence",
           displayLabel:MDSS.localize('RDT_Bloodslide_Prevalence'),
+          description:MDSS.localize('RDT_Bloodslide_Prevalence_desc'),
           isAggregate:true
         }
         ]);

@@ -160,6 +160,7 @@ YAHOO.util.Event.onDOMReady(function(){
                            type:"sqlfloat",
                            attributeName:"cases",
                            displayLabel:MDSS.localize("Adjusted_Case_Count"),
+                           description:MDSS.localize("Adjusted_Case_Count_desc"),
                            isAggregate:true
                           },
                           {

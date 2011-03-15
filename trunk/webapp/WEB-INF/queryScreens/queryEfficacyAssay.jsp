@@ -163,6 +163,7 @@ YAHOO.util.Event.onDOMReady(function(){
             key:'<%= QueryConstants.AGE_LOWEST %>',
             attributeName:'<%= QueryConstants.AGE_LOWEST %>',
             displayLabel:MDSS.localize('age_range_lowest'),
+            description:MDSS.localize('age_range_lowest_desc'),
             type:'sqlinteger',
             dtoType:'AttributeIntegerDTO',
             includes: MDSS.QueryXML.F_SET1
@@ -171,6 +172,7 @@ YAHOO.util.Event.onDOMReady(function(){
             key:'<%= QueryConstants.AGE_HIGHEST %>',
             attributeName:'<%= QueryConstants.AGE_HIGHEST %>',
             displayLabel:MDSS.localize('age_range_highest'),
+            description:MDSS.localize('age_range_highest_desc'),
             type:'sqlinteger',
             dtoType:'AttributeIntegerDTO',
             includes: MDSS.QueryXML.F_SET1

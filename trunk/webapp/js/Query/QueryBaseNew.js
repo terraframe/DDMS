@@ -1452,7 +1452,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       // The single criteria is optional, so return if null
       if(item == null)
       {
-        return;
+        return false;
       }
       
       item.checked = Mojo.Util.isBoolean(toggleOverride) ? toggleOverride : !item.checked; 
@@ -1544,12 +1544,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       // Always clear the criteria as there's no reason to
       // preserve it when toggling single/range inputs.
       this._queryPanel.clearWhereCriteria(attribute.getKey());
-      
-      if(!checked)
-      {
-        this._config.removeNumberCriteria(attribute.getKey())
-      }
-    
+      this._config.removeNumberCriteria(attribute.getKey())
     },
     
     /**

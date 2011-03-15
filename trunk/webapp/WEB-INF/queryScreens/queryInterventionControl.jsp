@@ -146,6 +146,7 @@ YAHOO.util.Event.onDOMReady(function(){
                          {
                            key:"childId_tm",
                            displayLabel: MDSS.localize('Treatment_Method'),
+                           description: MDSS.localize('Treatment_Method_desc'),
                            type:"dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethod",
                            attributeName:"childId",
                            dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
@@ -156,6 +157,7 @@ YAHOO.util.Event.onDOMReady(function(){
                           {
                             key:'childId_r',
                             displayLabel: MDSS.localize('reason_not_treated'),
+                            description: MDSS.localize('reason_not_treated_desc'),
                             attributeName:'childId',
                             type:"dss.vector.solutions.intervention.monitor.AggregatedPremiseReason",
                             dtoType:"com.runwaysdk.transport.attributes.AttributeReferenceDTO",
@@ -185,6 +187,7 @@ YAHOO.util.Event.onDOMReady(function(){
       {
         key:"subGeoEntity_ic",
         displayLabel: MDSS.localize('Sub_Geo_Entity'),
+        description: MDSS.localize('Sub_Geo_Entity_desc'),
         type:"sqlcharacter",
         attributeName:"subGeoEntity",
         dtoType:"AttributeCharacterDTO",
@@ -254,6 +257,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var aggregatedPremiseVisitColumns = [{
       key:"subGeoEntity_ip",
       displayLabel: MDSS.localize('Sub_Geo_Entity'),
+      description: MDSS.localize('Sub_Geo_Entity_desc'),
       type:"sqlcharacter",
       attributeName:"subGeoEntity",
       dtoType:"AttributeCharacterDTO",
@@ -285,6 +289,7 @@ YAHOO.util.Event.onDOMReady(function(){
       {
         key:"subGeoEntity_v",
         displayLabel: MDSS.localize('Sub_Geo_Entity'),
+        description: MDSS.localize('Sub_Geo_Entity_desc'),
         type:"sqlcharacter",
         attributeName:"subGeoEntity",
         dtoType:"AttributeCharacterDTO",
