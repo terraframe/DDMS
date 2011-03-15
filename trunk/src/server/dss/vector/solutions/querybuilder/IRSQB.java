@@ -37,6 +37,7 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.AbstractSpray;
@@ -71,7 +72,7 @@ import dss.vector.solutions.querybuilder.irs.PlannedSprayTeamTarget;
 import dss.vector.solutions.querybuilder.irs.PlannedTargetUnion;
 import dss.vector.solutions.querybuilder.irs.TargetJoin;
 import dss.vector.solutions.querybuilder.irs.TeamJoin;
-import dss.vector.solutions.querybuilder.util.TermInterceptor;
+import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 
 public class IRSQB extends AbstractQB implements Reloadable
@@ -430,23 +431,31 @@ public class IRSQB extends AbstractQB implements Reloadable
 
   @Override
   protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
-      TermInterceptor interceptor)
+      QBInterceptor interceptor)
   {
-    TermInterceptor termInterceptor = this.getTermInterceptor(this.irsParser);
-    super.setTermCriteria(irsVQ, this.mainQueryMap, termInterceptor);
+    QBInterceptor qbInterceptor = this.getQBInterceptor(this.irsParser);
+    super.setTermCriteria(irsVQ, this.mainQueryMap, qbInterceptor);
 
     if (insecticideQuery != null)
     {
-      termInterceptor = this.getTermInterceptor(this.insecticideParser);
-      super.setTermCriteria(insecticideVQ, insecticideQueryMap, termInterceptor);
+      qbInterceptor = this.getQBInterceptor(this.insecticideParser);
+      super.setTermCriteria(insecticideVQ, insecticideQueryMap, qbInterceptor);
     }
 
     if (this.hasSprayEnumOrTerm)
     {
-      termInterceptor = this.getTermInterceptor(this.sprayParser);
-      super.setTermCriteria(sprayVQ, abtractSprayQueryMap, termInterceptor);
+      qbInterceptor = this.getQBInterceptor(this.sprayParser);
+      super.setTermCriteria(sprayVQ, abtractSprayQueryMap, qbInterceptor);
     }
   }
+  
+//  @Override
+//  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey,
+//      AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery,
+//      Map<String, GeneratedEntityQuery> queryMap)
+//  {
+//
+//  }
 
   @Override
   protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,

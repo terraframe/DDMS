@@ -102,8 +102,6 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     this.addGeoDisplayLabelQuery(aggregatedCaseQuery);
     QueryUtil.setQueryDates(xml, valueQuery, aggregatedCaseQuery, aggregatedCaseQuery.getStartDate(), aggregatedCaseQuery.getEndDate(), aggregatedCaseQuery.getDisease());
 
-    QueryUtil.validateQuery(valueQuery);
-
     valueQuery.WHERE(aggregatedCaseQuery.getDisease().EQ(Disease.getCurrent()));
 
     this.setNumericRestrictions(valueQuery, config);

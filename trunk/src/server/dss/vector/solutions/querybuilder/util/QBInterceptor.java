@@ -17,25 +17,34 @@ import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import dss.vector.solutions.ontology.AllPaths;
 
 /**
- * Visitor and Interceptor class to detect if a query is restricting by Term criteria.
+ * Visitor and Interceptor class to detect if a query is restricting by Term/Geo criteria.
  */
-public class TermInterceptor extends Visitor implements ParseInterceptor, Reloadable
+public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadable
 {
   private Map<String, ValueQuery> termValueQueries;
+  private Map<String, Condition> geoConditions;
   
   private boolean hasTermCriteria;
+  private boolean hasGeoCriteria;
   
-  public TermInterceptor(ValueQuery valueQuery)
+  public QBInterceptor(ValueQuery valueQuery)
   {
     super(valueQuery);
     
     this.hasTermCriteria = false;
+    this.hasGeoCriteria = false;
     this.termValueQueries = new HashMap<String, ValueQuery>();
+    this.geoConditions = new HashMap<String, Condition>();
   }
   
   public ValueQuery getTermValueQuery(String entityAlias)
   {
     return this.termValueQueries.get(entityAlias);
+  }
+
+  public Condition getGeoCondition(String entityAlias)
+  {
+    return this.geoConditions.get(entityAlias);
   }
 
   @Override
@@ -50,6 +59,13 @@ public class TermInterceptor extends Visitor implements ParseInterceptor, Reload
       termVQ.WHERE(condition);
       
       this.termValueQueries.put(entityAlias, termVQ);
+      this.hasTermCriteria = false;
+    }
+    else if(this.hasGeoCriteria)
+    {
+      // Create a new ValueQuery that represents criteria on the Geo's AllPaths table
+      this.geoConditions.put(entityAlias, condition);
+      this.hasGeoCriteria = false;
     }
     else
     {
@@ -78,6 +94,11 @@ public class TermInterceptor extends Visitor implements ParseInterceptor, Reload
           && query.getType().equals(AllPaths.CLASS))
       {
         this.hasTermCriteria = true;
+      }
+      else if (attribute._getAttributeName().equals(dss.vector.solutions.geo.AllPaths.PARENTGEOENTITY)
+          && query.getType().equals(dss.vector.solutions.geo.AllPaths.CLASS))
+      {
+        this.hasGeoCriteria = true;
       }
     }
     

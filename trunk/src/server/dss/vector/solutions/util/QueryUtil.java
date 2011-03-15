@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -13,52 +12,40 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeVirtualDAOIF;
-import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdAttributeVirtualDAO;
-import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
 import com.runwaysdk.query.AttributeMoment;
-import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.CONCAT;
-import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Coalesce;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.InnerJoinEq;
-import com.runwaysdk.query.Join;
 import com.runwaysdk.query.MAX;
 import com.runwaysdk.query.MIN;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableMoment;
-import com.runwaysdk.query.SelectableNumber;
-import com.runwaysdk.query.SelectableReference;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDate;
-import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.EnumerationMaster;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -76,22 +63,11 @@ import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF;
-import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.geo.AllPathsQuery;
-import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
-import dss.vector.solutions.geo.generated.Country;
-import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.ontology.TermTermDisplayLabel;
-import dss.vector.solutions.query.AllRenderTypes;
-import dss.vector.solutions.query.CountOrRatioAloneException;
 import dss.vector.solutions.query.DatesOnlyException;
-import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.NoColumnsAddedException;
-import dss.vector.solutions.query.QueryConstants;
 
 public class QueryUtil implements Reloadable
 {
@@ -242,39 +218,6 @@ public class QueryUtil implements Reloadable
     }
   }
 
-  /**
-   * Performs basic validation on the ValueQuery to ensure the query is valid.
-   * 
-   * @param valueQuery
-   */
-  public static void validateQuery(ValueQuery valueQuery)
-  {
-    validateDateSelectables(valueQuery);
-
-    int size = valueQuery.getSelectableRefs().size();
-    if (size == 0)
-    {
-      NoColumnsAddedException ex = new NoColumnsAddedException();
-      throw ex;
-    }
-
-    if (size == 1 && ( valueQuery.hasSelectableRef(RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
-    {
-      throw new CountOrRatioAloneException();
-    }
-    else if (size == 2 && valueQuery.hasSelectableRef(RATIO))
-    {
-      // count and ratio are invalid
-      for (Selectable sel : valueQuery.getSelectableRefs())
-      {
-        if (sel instanceof COUNT)
-        {
-          throw new CountOrRatioAloneException();
-        }
-      }
-    }
-  }
-
   public static String getColumnName(String klass, String attribute)
   {
     return getColumnName(MdEntityDAO.getMdEntityDAO(klass), attribute);
@@ -323,54 +266,6 @@ public class QueryUtil implements Reloadable
     else
     {
       return getColumnName(md.getAllDefinedMdAttributeMap().get(attribute.toLowerCase()));
-    }
-  }
-
-  /**
-   * Ensures that the ValueQuery contains more than the start and end date
-   * criteria.
-   * 
-   * @param valueQuery
-   */
-  private static void validateDateSelectables(ValueQuery valueQuery)
-  {
-    // Start and End date can only be selected if other Selectables added
-    // to create a meaninful query.
-    List<Selectable> selectables = valueQuery.getSelectableRefs();
-    boolean hasOnlyDates = false;
-    if (selectables.size() == 1)
-    {
-      String alias = selectables.get(0).getUserDefinedAlias();
-      if (QueryUtil.START_DATE_RANGE.equals(alias) || QueryUtil.END_DATE_RANGE.equals(alias))
-      {
-        hasOnlyDates = true;
-      }
-    }
-    else if (selectables.size() == 2)
-    {
-      boolean isStart = false;
-      boolean isEnd = false;
-
-      for (Selectable sel : selectables)
-      {
-        String alias = sel.getUserDefinedAlias();
-        if (QueryUtil.START_DATE_RANGE.equals(alias))
-        {
-          isStart = true;
-        }
-        else if (QueryUtil.END_DATE_RANGE.equals(alias))
-        {
-          isEnd = true;
-        }
-      }
-
-      hasOnlyDates = isStart && isEnd;
-    }
-
-    if (hasOnlyDates)
-    {
-      String error = "The start and end date must be added with other selectables.";
-      throw new DatesOnlyException(error);
     }
   }
 
@@ -875,271 +770,7 @@ public class QueryUtil implements Reloadable
     return sql;
   }
 
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, Layer layer, ValueQuery geoProxyVQ, ValueQueryParser valueQueryParser)
-  {
-    Map<String, GeneratedEntityQuery> queryMap;
 
-    // If we're mapping, dereference the MdAttribute that will be joined with
-    // the GeoEntity
-    // table.
-    String key = null;
-    String attr = null;
-    String layerGeoEntityType = null;
-    String thematicUserAlias = null;
-    if (layer != null)
-    {
-      thematicUserAlias = layer.getThematicUserAlias();
-      layerGeoEntityType = layer.getGeoHierarchy().getQualifiedType();
-      MdAttribute mdAttribute = layer.getMdAttribute();
-      key = mdAttribute.getKey();
-      attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT : GeoEntity.GEOMULTIPOLYGON;
-    }
-
-    // Normal query (non-mapping)
-    GeoEntityJoinData joinData = new GeoEntityJoinData();
-    try
-    {
-      JSONObject selectedUniMap = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-      Iterator<?> keys = selectedUniMap.keys();
-      while (keys.hasNext())
-      {
-        String attributeKey = (String) keys.next();
-
-        JSONArray universals = selectedUniMap.getJSONArray(attributeKey);
-        String[] selectedUniversals = new String[universals.length()];
-        // we run addUniversalsForAttribute even if length is zero for the case
-        // of restricting without selecting
-        for (int i = 0; i < universals.length(); i++)
-        {
-          selectedUniversals[i] = universals.getString(i);
-        }
-
-        addUniversalsForAttribute(joinData, queryFactory, attributeKey, selectedUniversals, valueQueryParser, key, attr, layerGeoEntityType, thematicUserAlias);
-      }
-    }
-    catch (JSONException e)
-    {
-      throw new ProgrammingErrorException(e);
-    }
-
-    // Include the geometry column/attribute in the ValueQuery if we are mapping
-    if (layer != null)
-    {
-      String entityAlias = key + "__" + layerGeoEntityType;
-
-      valueQueryParser.addAttributeSelectable(entityAlias, attr, attr, QueryConstants.GEOMETRY_NAME_COLUMN);
-
-      if (joinData.geoThematicAlias != null)
-      {
-        valueQueryParser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, "data");
-      }
-    }
-
-    queryMap = valueQueryParser.parse();
-
-    // Query validation is done here since all query screens must call this
-    // method.
-    validateQuery(valueQuery);
-
-    // Set the entity name and geo id columns to something predictable
-    if (layer != null)
-    {
-      valueQuery.getSelectableRef(joinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-      valueQuery.getSelectableRef(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
-
-      // Name the thematic column if a thematic variable has been selected
-
-      if (layer.hasThematicVariable())
-      {
-        String alias = joinData.geoThematicAlias != null ? joinData.geoThematicAlias : thematicUserAlias;
-        Selectable thematic = valueQuery.getSelectableRef(alias);
-
-        // Only lock and apply the layer if it's not new to avoid erroring out
-        // on a new
-        // instance used for calculations.
-        if (!layer.isNew())
-        {
-          layer.appLock();
-        }
-
-        layer.setThematicColumnAlias(thematic.getColumnAlias());
-
-        if (!layer.isNew())
-        {
-          layer.apply();
-        }
-      }
-
-      // exclude any rows without geometry data
-      valueQuery.AND(valueQuery.getSelectableRef(attr).NE(null));
-    }
-
-    for (String attributeKey : joinData.attributeKeysAndJoins.keySet())
-    {
-      AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(AllPaths.CLASS + "_" + attributeKey);
-      List<ValueQuery> leftJoinValueQueries = joinData.attributeKeysAndJoins.get(attributeKey);
-
-      restrictEntitiesForAttribute(attributeKey, allPathsQuery, leftJoinValueQueries, geoProxyVQ, queryMap);
-    }
-
-    QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
-
-    return queryMap;
-  }
-
-  /**
-   * Joins the ValueQuery with any selected/restricting geo entity information.
-   * This method does not perform the final join between the AllPathsQuery and
-   * the GeneratedEntityQuery that exists in the calling code.
-   * 
-   * @param queryFactory
-   * @param valueQuery
-   * @param xml
-   * @param thematicLayer
-   * @param includeGeometry
-   * @param selectedUniversals
-   * @return
-   */
-  public static Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory queryFactory, ValueQuery valueQuery, String xml, JSONObject config, Layer layer)
-  {
-    ValueQueryParser valueQueryParser = new ValueQueryParser(xml, valueQuery);
-
-    return joinQueryWithGeoEntities(queryFactory, valueQuery, xml, config, layer, valueQuery, valueQueryParser);
-  }
-
-  private static void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
-  {
-    List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
-    String idCol = getIdColumn();
-    for (String selectedGeoEntityType : selectedUniversals)
-    {
-      List<Selectable> selectables = new LinkedList<Selectable>();
-
-      GeoEntityQuery geoEntityQuery = new GeoEntityQuery(queryFactory);
-
-      AllPathsQuery subAllPathsQuery = new AllPathsQuery(queryFactory);
-      ValueQuery geoEntityVQ = new ValueQuery(queryFactory);
-      MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
-
-      String prepend = attributeKey.replaceAll("\\.", "_") + "__";
-      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYNAME;
-      String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
-
-      Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
-      Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
-      Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, GEO_DISPLAY_LABEL+"."+LABEL_COLUMN, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
-
-      selectables.add(selectable2);
-      selectables.add(selectable4);
-
-      SelectableReference selectable3 = subAllPathsQuery.getChildGeoEntity("child_id");
-      selectables.add(selectable3);
-
-      String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
-      GeoEntityQuery geoEntityQuery2 = null;
-      if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
-      {
-        // save the aliases used for mapping the entity name and geo id columns
-        joinData.entityNameAlias = entityNameAlias;
-        joinData.geoIdAlias = geoIdAlias;
-
-        // If the thematic variable is either the entity name or geo id
-        // then create a new selectable because those columns already have
-        // a custom name and cannot be renamed to
-        // QueryConstants.THEMATIC_DATA_COLUMN.
-        Selectable thematicSel = null;
-        if (thematicUserAlias != null && thematicUserAlias.length() > 0)
-        {
-          if (thematicUserAlias.equals(entityNameAlias))
-          {
-            geoEntityQuery2 = new GeoEntityQuery(queryFactory);
-
-            joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = entityNameAlias + "_entityname_thematic";
-            joinData.geoThematicAttr = GeoEntity.ENTITYNAME;
-            thematicSel = geoEntityQuery2.getEntityName(joinData.geoThematicAlias);
-            selectables.add(thematicSel);
-          }
-          else if (thematicUserAlias.equals(geoIdAlias))
-          {
-            geoEntityQuery2 = new GeoEntityQuery(queryFactory);
-
-            joinData.geoThematicEntity = geoVQEntityAlias;
-            joinData.geoThematicAlias = geoIdAlias + "_geoid_thematic";
-            joinData.geoThematicAttr = GeoEntity.GEOID;
-            thematicSel = geoEntityQuery2.getGeoId(joinData.geoThematicAlias);
-            selectables.add(thematicSel);
-          }
-        }
-
-        Selectable geometrySel = geoEntityQuery.get(geoAttr);
-        selectables.add(geometrySel);
-      }
-
-      geoEntityVQ.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-
-      List<MdBusinessDAOIF> allClasses = geoEntityMd.getAllSubClasses();
-      Condition[] geoConditions = new Condition[allClasses.size()];
-      for (int i = 0; i < allClasses.size(); i++)
-      {
-        geoConditions[i] = subAllPathsQuery.getParentUniversal().EQ(allClasses.get(i));
-      }
-
-      geoEntityVQ.FROM(GEO_DISPLAY_LABEL, GEO_DISPLAY_LABEL);
-      
-      
-      geoEntityVQ.WHERE(OR.get(geoConditions));
-      geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-      geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityVQ.aSQLCharacter(prepend+"geoDisplayLabel", GEO_DISPLAY_LABEL+"."+idCol)));
-
-      if (geoEntityQuery2 != null)
-      {
-        geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityQuery2.getId()));
-      }
-
-      leftJoinValueQueries.add(geoEntityVQ);
-
-      valueQueryParser.setValueQuery(geoVQEntityAlias, geoEntityVQ);
-    }
-
-    joinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
-  }
-
-  private static void restrictEntitiesForAttribute(String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
-  {
-    if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
-    {
-      // This case is for when they have not restricted by any specific
-      // geoEntity
-      allPathsQuery = new AllPathsQuery(valueQuery.getQueryFactory());
-      valueQuery.FROM(allPathsQuery);
-      // we use the country universial to restrict the cross product
-      valueQuery.AND(allPathsQuery.getParentUniversal().EQ(MdBusiness.getMdBusiness(Country.CLASS).getId()));
-    }
-
-    if (allPathsQuery != null)
-    {
-      // this case is for when they have restricted to a specific geoEntity
-      List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
-      for (ValueQuery leftJoinVQ : leftJoinValueQueries)
-      {
-        leftJoinSelectables.add(leftJoinVQ.aReference("child_id"));
-      }
-
-      int size = leftJoinSelectables.size();
-      if (size > 0)
-      {
-        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
-      }
-
-      int ind = attributeKey.lastIndexOf(".");
-      String className = attributeKey.substring(0, ind);
-      String attributeName = attributeKey.substring(ind + 1);
-
-      GeneratedEntityQuery generatedEntityQuery = queryMap.get(className);
-      valueQuery.AND( ( (AttributeReference) generatedEntityQuery.get(attributeName) ).EQ(allPathsQuery.getChildGeoEntity()));
-    }
-  }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel)
   {
@@ -1463,33 +1094,4 @@ public class QueryUtil implements Reloadable
 
   }
 
-  /**
-   * Class to help with the structure of the join criteria for GeoEntity data
-   * and mapping.
-   */
-  private static class GeoEntityJoinData implements Reloadable
-  {
-
-    private String                        entityNameAlias;
-
-    private String                        geoIdAlias;
-
-    private String                        geoThematicAlias;
-
-    private String                        geoThematicAttr;
-
-    private String                        geoThematicEntity;
-
-    private Map<String, List<ValueQuery>> attributeKeysAndJoins;
-
-    private GeoEntityJoinData()
-    {
-      entityNameAlias = null;
-      geoIdAlias = null;
-      geoThematicAlias = null;
-      geoThematicAttr = null;
-      geoThematicEntity = null;
-      attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
-    }
-  }
 }
