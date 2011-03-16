@@ -120,7 +120,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     {
       PersonQuery query = new PersonQuery(new QueryFactory());
       query.WHERE(AND.get(query.getIdentifier().EQ(this.getIdentifier()), query.getId().NE(this.getId())));
-      
+
       long count = query.getCount();
 
       if (count > 0)
@@ -356,6 +356,8 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     ValueQuery valueQuery = new ValueQuery(factory);
     PersonQuery personQuery = new PersonQuery(valueQuery);
 
+    valueQuery.setSqlPrefix("WITH " + QueryUtil.GEO_DISPLAY_LABEL + " AS (" + QueryUtil.getGeoDisplayLabelSQL() + ")");
+
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
 
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { personQuery.getId(PersonView.ID), personQuery.getIdentifier(PersonView.IDENTIFIER), personQuery.getFirstName(PersonView.FIRSTNAME), personQuery.getLastName(PersonView.LASTNAME), personQuery.getDateOfBirth(PersonView.DATEOFBIRTH), personQuery.getSex().getName(PersonView.SEX) };
@@ -369,18 +371,12 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
 
       QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, new Condition[] {});
 
-      // IMPORTANT: This only works because there is an inner query
-      // FIXME: Get the actual reference to the correct query alias and column
-      // alias
       QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY, personQuery.getId(PersonView.ID).getColumnAlias());
     }
     else
     {
       QueryBuilder.orderedLookup(valueQuery, factory, personQuery.getFirstName(PersonView.FIRSTNAME), selectables, new Condition[] {});
 
-      // IMPORTANT: This only works because there is no inner query
-      // FIXME: Get the actual reference to the correct query alias and column
-      // alias
       QueryUtil.subselectGeoDisplayLabels(residentialSelectable, Person.CLASS, Person.RESIDENTIALGEOENTITY, personQuery.getId(PersonView.ID).getDefiningTableAlias() + "." + Person.ID);
     }
 

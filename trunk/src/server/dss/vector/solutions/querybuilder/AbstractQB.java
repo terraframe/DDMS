@@ -235,52 +235,8 @@ public abstract class AbstractQB implements Reloadable
 
   private void setGeoDisplayLabelSQL()
   {
-    // Define the aliases
-    String GEO_ALIAS = "geo";
-    String TERM_DISPLAY_ALIAS = "termLabel";
-    String TERM_ALIAS = "term";
-    String MD_TYPE_ALIAS = "md";
-    String TYPE_DISPLAY_ALIAS = "typeLabel";
-
-    // Define the tables
-    String mdTypeTable = MdEntity.getMdEntity(MdType.CLASS).getTableName();
-    String metadataLabelTable = MdEntity.getMdEntity(MetadataDisplayLabel.CLASS).getTableName();
-    String geoEntityTable = MdEntity.getMdEntity(GeoEntity.CLASS).getTableName();
-    String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
-    String termLabelTable = MdEntity.getMdEntity(TermTermDisplayLabel.CLASS).getTableName();
-
-    // Define the columns
-    String entityNameColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ENTITYNAME);
-    // String geoIdColumn = QueryUtil.getColumnName(GeoEntity.CLASS,
-    // GeoEntity.GEOID);
-    String idColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ID);
-    String termColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TERM);
-    String typeColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TYPE);
-    String termLabelColumn = QueryUtil.getColumnName(Term.CLASS, Term.TERMDISPLAYLABEL);
-    String labelColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.DISPLAYLABEL);
-    String packageColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.PACKAGENAME);
-    String typeNameColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.TYPENAME);
-
-    StringBuffer buffer = new StringBuffer();
-
-    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + GEO_ALIAS + "." + entityNameColumn
-        + " || ' (' || \n");
-    buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
-    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "' '")
-        + " || ')' AS " + QueryUtil.LABEL_COLUMN + "\n");
-    buffer.append("FROM  \n");
-    buffer.append(geoEntityTable + " " + GEO_ALIAS + " \n");
-    buffer.append("INNER JOIN " + mdTypeTable + " " + MD_TYPE_ALIAS + " ON " + GEO_ALIAS + "."
-        + typeColumn + " =  (" + MD_TYPE_ALIAS + "." + packageColumn + " || '.' || " + MD_TYPE_ALIAS
-        + "." + typeNameColumn + ")\n");
-    buffer.append("INNER JOIN " + metadataLabelTable + " " + TYPE_DISPLAY_ALIAS + " ON " + MD_TYPE_ALIAS
-        + "." + labelColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
-    buffer.append("LEFT JOIN " + termTable + " AS " + TERM_ALIAS + " ON " + TERM_ALIAS + "." + idColumn
-        + " = " + GEO_ALIAS + "." + termColumn + " \n");
-    buffer.append("LEFT JOIN " + termLabelTable + " AS " + TERM_DISPLAY_ALIAS + " ON "
-        + TERM_DISPLAY_ALIAS + "." + idColumn + " = " + TERM_ALIAS + "." + termLabelColumn + " \n");
-
-    this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, buffer.toString()));
+    String sql = QueryUtil.getGeoDisplayLabelSQL();
+    this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
   }
 
   /**

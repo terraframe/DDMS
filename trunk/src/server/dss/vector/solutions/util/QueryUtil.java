@@ -54,6 +54,7 @@ import com.runwaysdk.system.metadata.MdAttributeEnumeration;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
+import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MdTypeQuery;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
@@ -64,17 +65,18 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
-import dss.vector.solutions.query.DatesOnlyException;
+import dss.vector.solutions.ontology.TermTermDisplayLabel;
 
 public class QueryUtil implements Reloadable
 {
 
-  public static final String GEO_DISPLAY_LABEL            = "geo_displayLabel";
-  
-  public static final String LABEL_COLUMN = "label";
+  public static final String  GEO_DISPLAY_LABEL            = "geo_displayLabel";
+
+  public static final String  LABEL_COLUMN                 = "label";
 
   public static final String  DATEGROUP_EPIWEEK            = "dategroup_epiweek";
 
@@ -605,8 +607,8 @@ public class QueryUtil implements Reloadable
     int count = 0;
     for (String attr : attributes)
     {
-      String geoDisplayLabelAlias = "geo"+count;
-      select += geoDisplayLabelAlias+"."+LABEL_COLUMN + " AS " + attr + "_displayLabel";
+      String geoDisplayLabelAlias = "geo" + count;
+      select += geoDisplayLabelAlias + "." + LABEL_COLUMN + " AS " + attr + "_displayLabel";
 
       if (count != attributes.length - 1)
       {
@@ -614,7 +616,7 @@ public class QueryUtil implements Reloadable
       }
 
       String geoCol = getColumnName(md, attr);
-      from += " LEFT JOIN " + GEO_DISPLAY_LABEL + " AS "+geoDisplayLabelAlias+" ON " + tableName + "." + geoCol + " = geo" + count + ".id";
+      from += " LEFT JOIN " + GEO_DISPLAY_LABEL + " AS " + geoDisplayLabelAlias + " ON " + tableName + "." + geoCol + " = geo" + count + ".id";
 
       count++;
     }
@@ -624,30 +626,70 @@ public class QueryUtil implements Reloadable
     return sql;
   }
 
-
   public static ValueQuery getGeoDisplayLabel()
-  {    
+  {
     QueryFactory factory = new QueryFactory();
 
     ValueQuery vQuery = new ValueQuery(factory);
-    
+
     MdTypeQuery mdTypeQuery = new MdTypeQuery(vQuery);
-    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(vQuery);    
+    GeoEntityQuery geoEntityQuery = new GeoEntityQuery(vQuery);
     GeoHierarchyQuery geoHierarchyQuery = new GeoHierarchyQuery(vQuery);
     TermQuery termQuery = new TermQuery(vQuery);
-    
+
     Coalesce subType = F.COALESCE(F.CONCAT(" : ", termQuery.getTermDisplayLabel().localize()), vQuery.aSQLCharacter("EMPTY", "''"));
-    CONCAT universal = F.CONCAT(mdTypeQuery.getDisplayLabel().localize(), subType);    
-    CONCAT sublabel = F.CONCAT(F.CONCAT(" (", universal), " )") ;
-    
+    CONCAT universal = F.CONCAT(mdTypeQuery.getDisplayLabel().localize(), subType);
+    CONCAT sublabel = F.CONCAT(F.CONCAT(" (", universal), " )");
+
     vQuery.SELECT(geoEntityQuery.getId(), F.CONCAT(geoEntityQuery.getEntityName(), sublabel));
     vQuery.WHERE(geoEntityQuery.getTerm().LEFT_JOIN_EQ(termQuery));
     vQuery.AND(mdTypeQuery.getId().EQ(geoHierarchyQuery.getGeoEntityClass().getId()));
     vQuery.AND(geoEntityQuery.getType().EQ(F.CONCAT(F.CONCAT(mdTypeQuery.getPackageName(), "."), mdTypeQuery.getTypeName())));
-    
+
     return vQuery;
   }
-  
+
+  public static String getGeoDisplayLabelSQL()
+  {
+    // Define the aliases
+    String GEO_ALIAS = "geo";
+    String TERM_DISPLAY_ALIAS = "termLabel";
+    String TERM_ALIAS = "term";
+    String MD_TYPE_ALIAS = "md";
+    String TYPE_DISPLAY_ALIAS = "typeLabel";
+
+    // Define the tables
+    String mdTypeTable = MdEntity.getMdEntity(MdType.CLASS).getTableName();
+    String metadataLabelTable = MdEntity.getMdEntity(MetadataDisplayLabel.CLASS).getTableName();
+    String geoEntityTable = MdEntity.getMdEntity(GeoEntity.CLASS).getTableName();
+    String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
+    String termLabelTable = MdEntity.getMdEntity(TermTermDisplayLabel.CLASS).getTableName();
+
+    // Define the columns
+    String entityNameColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ENTITYNAME);
+    String idColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ID);
+    String termColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TERM);
+    String typeColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TYPE);
+    String termLabelColumn = QueryUtil.getColumnName(Term.CLASS, Term.TERMDISPLAYLABEL);
+    String labelColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.DISPLAYLABEL);
+    String packageColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.PACKAGENAME);
+    String typeNameColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.TYPENAME);
+
+    StringBuffer buffer = new StringBuffer();
+
+    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + GEO_ALIAS + "." + entityNameColumn + " || ' (' || \n");
+    buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
+    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')' AS " + QueryUtil.LABEL_COLUMN + "\n");
+    buffer.append("FROM  \n");
+    buffer.append(geoEntityTable + " " + GEO_ALIAS + " \n");
+    buffer.append("INNER JOIN " + mdTypeTable + " " + MD_TYPE_ALIAS + " ON " + GEO_ALIAS + "." + typeColumn + " =  (" + MD_TYPE_ALIAS + "." + packageColumn + " || '.' || " + MD_TYPE_ALIAS + "." + typeNameColumn + ")\n");
+    buffer.append("INNER JOIN " + metadataLabelTable + " " + TYPE_DISPLAY_ALIAS + " ON " + MD_TYPE_ALIAS + "." + labelColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
+    buffer.append("LEFT JOIN " + termTable + " AS " + TERM_ALIAS + " ON " + TERM_ALIAS + "." + idColumn + " = " + GEO_ALIAS + "." + termColumn + " \n");
+    buffer.append("LEFT JOIN " + termLabelTable + " AS " + TERM_DISPLAY_ALIAS + " ON " + TERM_DISPLAY_ALIAS + "." + idColumn + " = " + TERM_ALIAS + "." + termLabelColumn + " \n");
+
+    return buffer.toString();
+  }
+
   public static List<String> getSupportedSubLocales(Locale locale)
   {
     List<String> subLocales = new LinkedList<String>();
@@ -684,7 +726,7 @@ public class QueryUtil implements Reloadable
 
     Locale locale = Session.getCurrentLocale();
     List<String> subLocales = QueryUtil.getSupportedSubLocales(locale);
-    
+
     MdDimensionDAOIF dimension = Session.getCurrentDimension();
     String dimensionDefault = dimension.getDefaultLocaleAttributeName();
 
@@ -716,25 +758,25 @@ public class QueryUtil implements Reloadable
   {
     StringBuffer buffer = new StringBuffer();
     List<String> columns = QueryUtil.getLocaleColumns();
-    
+
     for (String column : columns)
     {
       buffer.append(", ");
       buffer.append(prefix);
       buffer.append(column);
     }
-    
-    for(String extra : extras)
+
+    for (String extra : extras)
     {
       buffer.append(", ");
-      buffer.append(extra);      
+      buffer.append(extra);
     }
-    
+
     String coalesce = "COALESCE(" + buffer.toString().replaceFirst(",", "") + ")";
-    
+
     return coalesce;
   }
-  
+
   public static String getEnumerationDisplayLabelSubSelect(String className, String... attributes)
   {
     MdEntityDAOIF enumMaster = MdEntityDAO.getMdEntityDAO(EnumerationMaster.CLASS);
@@ -769,8 +811,6 @@ public class QueryUtil implements Reloadable
 
     return sql;
   }
-
-
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria, Selectable diseaseSel)
   {
