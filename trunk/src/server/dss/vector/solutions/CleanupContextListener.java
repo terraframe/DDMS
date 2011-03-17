@@ -72,9 +72,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "DROP FUNCTION IF EXISTS get_epiYear_from_date(date,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiWeek_from_date(date,int); \n";
 
-    sql += "DROP FUNCTION IF EXISTS get_yearly_population_by_geoid_and_date(varchar,date); \n";
-    sql += "DROP FUNCTION IF EXISTS get_seasonal_population_by_geoid_and_date(varchar,date); \n";
-    sql += "DROP FUNCTION IF EXISTS get_adjusted_population(varchar,int,int); \n";
+//    sql += "DROP FUNCTION IF EXISTS get_yearly_population_by_geoid_and_date(varchar,date); \n";
+//    sql += "DROP FUNCTION IF EXISTS get_seasonal_population_by_geoid_and_date(varchar,date); \n";
+//    sql += "DROP FUNCTION IF EXISTS get_adjusted_population(varchar,int,int); \n";
 
     return sql;
   }
@@ -206,7 +206,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   }
 
-  private String getGeohierarchyAllpathsSQL()
+  public static String getGeohierarchyAllpathsSQL()
   {
     MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
     String geoHierarchyTable = geoHierarchyMd.getTableName();
