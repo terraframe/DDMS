@@ -815,6 +815,10 @@ Mojo.Meta.newClass("MDSS.OntologyValidator", {
     _blurHandler : function(e) {
       if(e) {
         var blurEl = e.explicitOriginalTarget || document.activeElement;
+        
+        if(blurEl.parentNode != null && blurEl.parentNode == this._button) {
+          return;
+        }
           
         var ul = YAHOO.util.Dom.getAncestorByClassName(blurEl, "selectableList")
           
@@ -827,52 +831,17 @@ Mojo.Meta.newClass("MDSS.OntologyValidator", {
     },
 
     _validateSelection : function() {
-      return;
       var termId = this._displayEl.value;        
       var concreteId = this._attributeEl.value;
       
       if((termId != null && termId != '') && (concreteId == null || concreteId == '')) {
-        var parameters = this._getParameters();
-        var request = this._getValidationRequest();
-      
-        Mojo.$.dss.vector.solutions.ontology.Term.getTermById(request, termId, parameters);    
+        MDSS.Calendar.removeError(this._button);          
+        MDSS.Calendar.addError(this._button, MDSS.localize("UNKNOWN_TERM"));
       }      
       else {
        MDSS.Calendar.removeError(this._button);      
      }
-   },
-  
-   _getValidationRequest : function() {
-      var request = new MDSS.Request({
-        that : this,
-        onSend : function(){}, 
-        onComplete : function(){},        
-        onFailure : function(e){          
-          MDSS.Calendar.removeError(this.that._button);
-                
-          MDSS.Calendar.addError(this.that._button, e.getMessage());
-        },
-        onProblemExceptionDTO : function(e){
-          MDSS.Calendar.removeError(this.that._button);
-                
-          var problems = e.getProblems();
-          for(var i = 0; i < problems.length; i++) {
-            var problem = problems[i];
-            MDSS.Calendar.addError(this.that._button, problem.getMessage());
-          }
-        },
-        onSuccess : function(view) {
-          MDSS.Calendar.removeError(this.that._button);
-        
-          if(view != null){
-            this.that.setField([view]);
-            this.that._search.hide();
-          }
-        }            
-      });
-    
-      return request;
-    },
+   }
   }
 });
 
@@ -908,7 +877,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       
       this._search = new MDSS.GenericSearch(this._displayEl, this._attributeEl, lF, dF, iF, sF, selF);     
       
-      // Setup validator
+      // Setup validator      
       var gP = Mojo.Util.bind(this, this._getParameters);
       var sF = Mojo.Util.bind(this, this.setField);
       
@@ -1321,7 +1290,7 @@ YAHOO.lang.augmentObject(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellE
  * user clicks on a cell that needs to select terms.
  */
 YAHOO.widget.NumberCellEditor = function(oConfigs) {
-	YAHOO.widget.NumberCellEditor.superclass.constructor.call(this, oConfigs);
+  YAHOO.widget.NumberCellEditor.superclass.constructor.call(this, oConfigs);
 };
 
 // NumberCellEditor extends TextboxCellEditor
