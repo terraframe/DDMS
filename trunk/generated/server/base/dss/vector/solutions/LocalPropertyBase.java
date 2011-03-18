@@ -67,6 +67,11 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -174,6 +179,11 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
@@ -269,6 +279,11 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -292,6 +307,11 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -313,6 +333,11 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()

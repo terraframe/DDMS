@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -1365032061)
+@com.runwaysdk.business.ClassSignature(hash = -952104537)
 public class PropertyControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.PropertyController";
@@ -10,7 +10,7 @@ public class PropertyControllerBase implements com.runwaysdk.generation.loader.R
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1365032061;
+  private static final long serialVersionUID = -952104537;
   
   public PropertyControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -135,6 +135,48 @@ public class PropertyControllerBase implements com.runwaysdk.generation.loader.R
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failEditFlag");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.LocalPropertyDTO:dto", post=true)
+  public void localCancel(dss.vector.solutions.LocalPropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.localCancel");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.LocalPropertyDTO:dto", post=true)
+  public void failLocalCancel(dss.vector.solutions.LocalPropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failLocalCancel");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void localEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.localEdit");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:id", post=true)
+  public void failLocalEdit(java.lang.String id) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failLocalEdit");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.LocalPropertyDTO:dto", post=true)
+  public void localUpdate(dss.vector.solutions.LocalPropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.localUpdate");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="dss.vector.solutions.LocalPropertyDTO:dto", post=true)
+  public void failLocalUpdate(dss.vector.solutions.LocalPropertyDTO dto) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.PropertyController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.PropertyController.failLocalUpdate");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=false)
