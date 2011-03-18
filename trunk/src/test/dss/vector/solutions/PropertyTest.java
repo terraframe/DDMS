@@ -60,14 +60,13 @@ public class PropertyTest extends TestCase
     segmentsProperty.setPropertyValue("1024");
     segmentsProperty.apply();
 
-    Property offsetProperty = Property.getByPackageAndName(PropertyInfo.SYSTEM_PACKAGE,
-        PropertyInfo.SHORT_ID_OFFSET);
+    Property offsetProperty = Property.getByPackageAndName(PropertyInfo.INSTALL_PACKAGE, LocalPropertyInfo.SHORT_ID_OFFSET);
     offsetProperty.lock();
     offsetProperty.setPropertyValue("512");
     offsetProperty.apply();
 
     int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
-    int offset = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
+    int offset = Property.getInt(PropertyInfo.INSTALL_PACKAGE, LocalPropertyInfo.SHORT_ID_OFFSET);
 
     // assume ids are 8 long and in base 30
     long MAX_ID = (long) Math.pow(30, 8);
