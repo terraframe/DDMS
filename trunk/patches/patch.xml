@@ -18,6 +18,12 @@
 			</fileset>
 		</delete>
 		
+		<!-- Compile -->
+		<ant inheritAll="false" antfile="../scripts/ant/deploy/deploy.xml" target="compile_generated">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+		
 		<!-- Get a copy of all web files -->
 		<ant inheritAll="false" antfile="../scripts/ant/deploy/deploy.xml" target="deploy_all_files">
 			<property name="profile.name" value="patch" />
