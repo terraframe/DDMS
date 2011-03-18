@@ -65,7 +65,7 @@ public class WeeklyThreshold extends WeeklyThresholdBase implements com.runwaysd
 
   private boolean performedAlert(Object weekOfLastAlert)
   {
-    EpiDate currentEpiWeek = EpiDate.getEpiWeek(new Date());
+    EpiDate currentEpiWeek = EpiCache.getDate(new Date());
 
     if (weekOfLastAlert != null && weekOfLastAlert instanceof EpiWeek)
     {

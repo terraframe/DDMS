@@ -59,15 +59,15 @@ public class Property extends PropertyBase implements com.runwaysdk.generation.l
   {
     PropertyQuery query = new PropertyQuery(new QueryFactory());
 
-    Condition condition = AND.get(query.getPropertyPackage().NE(PropertyInfo.RESISTANCE_PACKAGE), query.getEditable().EQ(true));
-    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.GENERAL_PACKAGE));
-    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
-    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.MONITOR_PACKAGE));
-
-    // hide the entry for countryGeoId because that is set via a different process.
-    condition = AND.get(condition, query.getPropertyName().NE(PropertyInfo.COUNTRY_GEO_ID));
-
-    query.WHERE(condition);
+//    Condition condition = AND.get(query.getPropertyPackage().NE(PropertyInfo.RESISTANCE_PACKAGE), query.getEditable().EQ(true));
+//    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.GENERAL_PACKAGE));
+//    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.STANDARDS_PACKAGE));
+//    condition = AND.get(condition, query.getPropertyPackage().NE(PropertyInfo.MONITOR_PACKAGE));
+//
+//    // hide the entry for countryGeoId because that is set via a different process.
+//    condition = AND.get(condition, query.getPropertyName().NE(PropertyInfo.COUNTRY_GEO_ID));
+//
+//    query.WHERE(condition);
 
     return query;
   }

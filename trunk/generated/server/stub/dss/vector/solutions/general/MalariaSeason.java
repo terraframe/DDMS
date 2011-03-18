@@ -60,7 +60,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     {
       // EpiWeek.getEpiWeek will create an epi week if one does not
       // alread exist
-      EpiWeek.getEpiWeek(date);      
+      EpiCache.getWeek(date);      
     }
   }
 

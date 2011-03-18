@@ -55,19 +55,21 @@ public class LocalProperty extends LocalPropertyBase implements com.runwaysdk.ge
   {
     synchronized (Object.class)
     {
-      LocalProperty currentValue = LocalProperty.getByPackAndName(PropertyInfo.INSTALL_PACKAGE, LocalPropertyInfo.SHORT_ID_COUNTER);
-      currentValue.appLock();
+      LocalProperty counterProperty = LocalProperty.getByPackAndName(PropertyInfo.INSTALL_PACKAGE, LocalPropertyInfo.SHORT_ID_COUNTER);
+      counterProperty.appLock();
 
-      Long counter = Long.parseLong(currentValue.getPropertyValue());
+      Long counter = Long.parseLong(counterProperty.getPropertyValue());
 
+      LocalProperty offsetProperty = LocalProperty.getByPackAndName(PropertyInfo.INSTALL_PACKAGE, LocalPropertyInfo.SHORT_ID_OFFSET);
+      int parsedOffset = Integer.parseInt(offsetProperty.getPropertyValue());
+      int offset = RESERVED_SHORT_ID_SPACES + parsedOffset;
       int segments = Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_SEGMENTS);
-      int offset = RESERVED_SHORT_ID_SPACES + Property.getInt(PropertyInfo.SYSTEM_PACKAGE, PropertyInfo.SHORT_ID_OFFSET);
 
       long totalOffset = ( MAX_ID / segments ) * offset;
 
       counter++;
-      currentValue.setPropertyValue(counter.toString());
-      currentValue.apply();
+      counterProperty.setPropertyValue(counter.toString());
+      counterProperty.apply();
 
       //TODO Perhaps a check that the address space has not been overflowed should be added?
       return Base30.toBase30String(totalOffset + counter, 8);

@@ -400,7 +400,7 @@ public class ThresholdDataView extends ThresholdDataViewBase implements com.runw
       
       for (EpiDate week : weeks)
       {
-        EpiWeek epiWeek = EpiWeek.getEpiWeek(week);
+        EpiWeek epiWeek = EpiCache.getWeek(week);
         
         Double notification = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.NOTIFICATION);
         Double identificaiton = ThresholdData.getCalculatedValue(entity, epiWeek, WeeklyThreshold.IDENTIFICATION);

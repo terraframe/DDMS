@@ -64,9 +64,9 @@ public class EpiWeek extends EpiWeekBase implements com.runwaysdk.generation.loa
 
   public static EpiWeek getEpiWeek(Date date)
   {
-    return EpiWeek.getEpiWeek(EpiDate.getEpiWeek(date));
+    return EpiCache.getWeek(date);
   }
-
+  
   public static EpiWeek getEpiWeek(EpiDate date)
   {
     EpiWeek week = EpiWeek.getEpiWeek(date.getPeriod(), date.getYear());

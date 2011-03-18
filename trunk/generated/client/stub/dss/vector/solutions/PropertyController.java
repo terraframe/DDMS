@@ -144,10 +144,34 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       }
     }
   }
+  
+  public void localCancel(LocalPropertyDTO dto) throws IOException, ServletException
+  {
+    try
+    {
+      dto.unlock();
 
+      this.viewAll();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failLocalCancel(dto);
+      }
+    }
+  }
+  
   public void failCancel(PropertyDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
+  }
+  
+  public void failLocalCancel(LocalPropertyDTO dto) throws IOException, ServletException
+  {
+    this.localEdit(dto.getId());
   }
 
   public void viewAll() throws IOException, ServletException
@@ -160,9 +184,11 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
       PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
       DefaultGeoEntityQueryDTO query2 = DefaultGeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
+      LocalPropertyQueryDTO local = LocalPropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
 
       req.setAttribute("query", query);
       req.setAttribute("query2", query2);
+      req.setAttribute("local", local);
 
       render("viewAllComponent.jsp");
     }
@@ -200,10 +226,34 @@ public class PropertyController extends PropertyControllerBase implements com.ru
       }
     }
   }
+  
+  public void localUpdate(LocalPropertyDTO dto) throws IOException, ServletException
+  {
+    try
+    {
+      // dto.lock();
+      dto.apply();
+      this.viewAll();
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      
+      if (!redirected)
+      {
+        this.failLocalUpdate(dto);
+      }
+    }
+  }
 
   public void failUpdate(PropertyDTO dto) throws IOException, ServletException
   {
     this.edit(dto.getId());
+  }
+  
+  public void failLocalUpdate(LocalPropertyDTO dto) throws IOException, ServletException
+  {
+    this.localEdit(dto.getId());
   }
 
   public void edit(String id) throws IOException, ServletException
@@ -217,7 +267,7 @@ public class PropertyController extends PropertyControllerBase implements com.ru
     catch (Throwable t)
     {
       boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
+      
       if (!redirected)
       {
         this.failEdit(id);
@@ -228,6 +278,30 @@ public class PropertyController extends PropertyControllerBase implements com.ru
   public void failEdit(String id) throws IOException, ServletException
   {
     this.viewAll();
+  }
+  
+  public void localEdit(String id) throws IOException, ServletException
+  {
+    try
+    {
+      LocalPropertyDTO dto = LocalPropertyDTO.lock(super.getClientRequest(), id);
+      req.setAttribute("item", dto);
+      render("localEditComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      
+      if (!redirected)
+      {
+        this.failLocalEdit(id);
+      }
+    }
+  }
+  
+  public void failLocalEdit(String id) throws IOException, ServletException
+  {
+    failEdit(id);
   }
 
   public void newInstance() throws IOException, ServletException

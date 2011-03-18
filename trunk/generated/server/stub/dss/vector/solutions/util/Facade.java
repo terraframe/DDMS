@@ -50,6 +50,7 @@ import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.export.IndividualPremiseExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
 import dss.vector.solutions.export.PersonInterventionExcelView;
+import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.ontology.TermRootCache;
 
@@ -127,6 +128,8 @@ public abstract class Facade extends FacadeBase implements Reloadable
   {
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
+    EpiCache.start();
+    
     // Assume we get an error.  Set to false only after we don't.
     boolean error = true;
     
@@ -176,12 +179,14 @@ public abstract class Facade extends FacadeBase implements Reloadable
         if (error)
         {
           TermRootCache.stop();
+          EpiCache.stop();
         }
       }
     }
     
     ByteArrayInputStream stream = new ByteArrayInputStream(importer.read());
     TermRootCache.stop();
+    EpiCache.stop();
     return stream;
   }
   

@@ -18,6 +18,7 @@ import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.RelativeValueProblem;
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.OutbreakCalculation;
 import dss.vector.solutions.general.ThresholdAlertCalculationType;
@@ -80,10 +81,14 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     // If no age is specified, calculate it
     if (this.getAge() == null && this.getDiagnosisDate() != null && this.getPatient() != null)
     {
-      long difference = this.getDiagnosisDate().getTime() - this.getPatient().getPerson().getDateOfBirth().getTime();
-      // Divide by the number of milliseconds in a year
-      long age = difference / 31556926000l;
-      this.setAge((int) age);
+      Date dob = this.getPatient().getPerson().getDateOfBirth();
+      if (dob!=null)
+      {
+        long difference = this.getDiagnosisDate().getTime() - dob.getTime();
+        // Divide by the number of milliseconds in a year
+        long age = difference / 31556926000l;
+        this.setAge((int) age);
+      }
     }
 
     super.apply();
@@ -323,7 +328,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     }
 
     // Use the Epi week approach
-    EpiDate week = EpiDate.getEpiWeek(date);
+    EpiDate week = EpiCache.getDate(date);
 
     return new Date[] { week.getStartDate(), week.getEndDate() };
   }
