@@ -14,6 +14,7 @@ import com.runwaysdk.query.QueryFactory;
 import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.Statistics;
 import dss.vector.solutions.general.CalculationInProgressException;
+import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.general.EpiDate;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
@@ -311,7 +312,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 		if (period.season != null) {
 			Date now = new Date();
 
-			EpiDate thisEpiWeek = EpiDate.getEpiWeek(new Date(now.getYear(), now.getMonth(), now.getDate()));
+			EpiDate thisEpiWeek = EpiCache.getDate(new Date(now.getYear(), now.getMonth(), now.getDate()));
 
 			if (currentPeriod) {
 				// If we're currently in a season, then we can't calculate any/
@@ -321,17 +322,17 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 				// the
 				// season
 				period.startingEpiWeek = thisEpiWeek.getNext();
-				period.endingEpiWeek = EpiDate.getEpiWeek(period.season.getEndDate());
+				period.endingEpiWeek = EpiCache.getDate(period.season.getEndDate());
 			} else {
 				// If we're not in a season, we'll calculate NEXT season
 				// We can only calculate up to a year out
-				period.startingEpiWeek = EpiDate.getEpiWeek(period.season.getStartDate());
+				period.startingEpiWeek = EpiCache.getDate(period.season.getStartDate());
 				Calendar nextYear = Calendar.getInstance();
 				nextYear.add(Calendar.YEAR, 1);
 				if (period.season.getEndDate().after(nextYear.getTime())) {
-					period.endingEpiWeek = EpiDate.getEpiWeek(nextYear.getTime());
+					period.endingEpiWeek = EpiCache.getDate(nextYear.getTime());
 				} else {
-					period.endingEpiWeek = EpiDate.getEpiWeek(period.season.getEndDate());
+					period.endingEpiWeek = EpiCache.getDate(period.season.getEndDate());
 				}
 			}
 		}
@@ -341,7 +342,7 @@ public abstract class ThresholdCalculator implements com.runwaysdk.generation.lo
 
 	@Transaction
 	protected void createWeeklyThreshold(GeoEntity geoEntity, MalariaSeason season, EpiDate epiDate, double t1, double t2) {
-		EpiWeek epiWeek = EpiWeek.getEpiWeek(epiDate);
+		EpiWeek epiWeek = EpiCache.getWeek(epiDate);
 		ThresholdData thresholdData = this.getThresholdData(geoEntity, season);
 
 		WeeklyThreshold weeklyThreshold = thresholdData.getEpiWeeksRel(epiWeek);

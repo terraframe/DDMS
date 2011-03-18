@@ -457,17 +457,19 @@ public class MdssLocalizationImporter implements Reloadable
     for (LocaleDimension ld : localeDimensions)
     {
       String value = getStringValue(row.getCell(c++));
-      if (value != null)
+      if (value == null)
       {
-        String localeAttributeName = ld.getAttributeName();
-        String oldValue = struct.getValue(localeAttributeName);
-
-        // To speed things up, only set values that have changed
-        if (!oldValue.equals(value))
-        {
-          struct.setValue(localeAttributeName, value);
-          apply = true;
-        }
+        value = new String();
+      }
+      
+      String localeAttributeName = ld.getAttributeName();
+      String oldValue = struct.getValue(localeAttributeName);
+      
+      // To speed things up, only set values that have changed
+      if (!oldValue.equals(value))
+      {
+        struct.setValue(localeAttributeName, value);
+        apply = true;
       }
     }
 

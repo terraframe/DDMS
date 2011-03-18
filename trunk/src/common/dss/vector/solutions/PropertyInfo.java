@@ -40,8 +40,6 @@ public interface PropertyInfo
 
   public static final String SYSTEM_DATE_FORMAT      = "systemDateFormat";
 
-  public static final String SHORT_ID_OFFSET         = "SHORT_ID_OFFSET";
-
   public static final String SHORT_ID_SEGMENTS       = "SHORT_ID_SEGMENTS";
 
   public static final String DEFAULT_UNITS           = "sprayedUnitsPerDay";

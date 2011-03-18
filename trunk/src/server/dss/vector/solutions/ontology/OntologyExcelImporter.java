@@ -22,6 +22,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
@@ -85,11 +86,23 @@ public class OntologyExcelImporter
     iterator.next();
 
     RootTerm rootTerm = new RootTerm();
-    rootTerm.setTermId("ROOT");
-    rootTerm.setName("ROOT");
-    rootTerm.getTermDisplayLabel().setValue("Root");
-    rootTerm.setOntology(getOntology());
-    rootTerm.apply();
+    
+    QueryFactory f = new QueryFactory();
+    RootTermQuery q = new RootTermQuery(f);
+    OIterator<? extends RootTerm> rootIterator = q.getIterator();
+    if(rootIterator.hasNext())
+    {
+      rootTerm = rootIterator.next();
+    }
+    else
+    {
+      rootTerm.setTermId("ROOT");
+      rootTerm.setName("ROOT");
+      rootTerm.getTermDisplayLabel().setValue("Root");
+      rootTerm.setOntology(getOntology());
+      rootTerm.apply();
+    }
+    rootIterator.close();
 
     TermNode root = new TermNode(rootTerm);
     // indent=0 means this will always be on the stack

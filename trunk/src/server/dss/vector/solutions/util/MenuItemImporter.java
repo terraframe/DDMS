@@ -10,12 +10,16 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
+import dss.vector.solutions.general.MenuItemQuery;
 import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.general.SystemURLQuery;
 import dss.vector.solutions.ontology.Term;
 
 public class MenuItemImporter {
@@ -54,17 +58,49 @@ public class MenuItemImporter {
 
 	@Transaction
 	public void importAll() throws Exception {
-		this.deleteAllTableRecords(MenuItem.CLASS);
-		this.deleteAllTableRecords(SystemURL.CLASS);
+		this.deleteMenuItems();
+		this.deleteSystemURLs();
 		this.importDiseaseRoots();
 		this.importSystemUrls();
 		this.importMenuItems();
 	}
-
+	
 	@Transaction
-	private void deleteAllTableRecords(String className) {
-		MdEntity biz = MdEntity.getMdEntity(className);
-		biz.deleteAllTableRecords();
+	private void deleteMenuItems()
+    {
+	  QueryFactory qf = new QueryFactory();
+	  MenuItemQuery query = new MenuItemQuery(qf);
+	  OIterator<? extends MenuItem> iterator = query.getIterator();
+	  try
+	  {
+	    while (iterator.hasNext())
+	    {
+	      iterator.next().delete();
+	    }
+	  }
+	  finally
+	  {
+	    iterator.close();
+	  }
+    }
+	
+	@Transaction
+	private void deleteSystemURLs()
+	{
+	  QueryFactory qf = new QueryFactory();
+	  SystemURLQuery query = new SystemURLQuery(qf);
+	  OIterator<? extends SystemURL> iterator = query.getIterator();
+	  try
+	  {
+	    while (iterator.hasNext())
+	    {
+	      iterator.next().delete();
+	    }
+	  }
+	  finally
+	  {
+	    iterator.close();
+	  }
 	}
 
 	@Transaction
