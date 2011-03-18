@@ -63,6 +63,7 @@ Section -Main SEC0000
     
     # Fix pathing in target profile
     # Switch between deploy and develop environments as needed OR wrap the main classes
+    # Fix overwrite of site master / domain in terraframe.properties
     
     # These version numbers are automatically replaced by patch.xml
     StrCpy $PatchVersion 5877
@@ -92,13 +93,14 @@ Section -Main SEC0000
     Delete $AgentDir\*.out
     Delete $AgentDir\*.err
 
-    # Import Most Recent
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
     SetOutPath $PatchDir
     File OutputAgent.jar
     
-    # copy_country_schema,import_geodata,develop_build_all_paths_geodata,import_ontology_roots
-    # develop_create_univeral_queries,copy_dev_to_deploy
+    # Special check to make sure ajde goes away.
+    Delete $INSTDIR\tomcat6\webapps\DDMS\WEB-INF\lib\ajde.jar
+    
+    # Copy web files
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating web files"
     SetOutPath $INSTDIR\tomcat6\webapps\DDMS
     File /r webapp\*
