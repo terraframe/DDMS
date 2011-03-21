@@ -289,6 +289,8 @@ public class ThresholdDataController extends ThresholdDataControllerBase impleme
 
     List<GeoHierarchyViewDTO> list = Arrays.asList(GeoHierarchyDTO.getAllViews(request));
     List<GeoHierarchyViewDTO> views = new LinkedList<GeoHierarchyViewDTO>();
+    
+    views.add(GeoHierarchyDTO.getEarthGeoHierarchy(request));
 
     for (Iterator<GeoHierarchyViewDTO> it = list.iterator(); it.hasNext();)
     {
