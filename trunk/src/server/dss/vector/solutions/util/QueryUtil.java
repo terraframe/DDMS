@@ -649,7 +649,7 @@ public class QueryUtil implements Reloadable
     return vQuery;
   }
 
-  public static String getGeoDisplayLabelSQL()
+  public static String getGeoDisplayLabelSQL(boolean withGeoId)
   {
     // Define the aliases
     String GEO_ALIAS = "geo";
@@ -668,6 +668,7 @@ public class QueryUtil implements Reloadable
     // Define the columns
     String entityNameColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ENTITYNAME);
     String idColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ID);
+    String geoId = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.GEOID);
     String termColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TERM);
     String typeColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TYPE);
     String termLabelColumn = QueryUtil.getColumnName(Term.CLASS, Term.TERMDISPLAYLABEL);
@@ -679,7 +680,14 @@ public class QueryUtil implements Reloadable
 
     buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + GEO_ALIAS + "." + entityNameColumn + " || ' (' || \n");
     buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
-    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')' AS " + QueryUtil.LABEL_COLUMN + "\n");
+    buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')'");
+    
+    if(withGeoId)
+    {
+      buffer.append(" || ' - ' ||  "+GEO_ALIAS+"."+geoId);
+    }
+    
+    buffer.append(" AS " + QueryUtil.LABEL_COLUMN + "\n");
     buffer.append("FROM  \n");
     buffer.append(geoEntityTable + " " + GEO_ALIAS + " \n");
     buffer.append("INNER JOIN " + mdTypeTable + " " + MD_TYPE_ALIAS + " ON " + GEO_ALIAS + "." + typeColumn + " =  (" + MD_TYPE_ALIAS + "." + packageColumn + " || '.' || " + MD_TYPE_ALIAS + "." + typeNameColumn + ")\n");

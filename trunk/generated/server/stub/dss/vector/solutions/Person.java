@@ -356,7 +356,7 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
     ValueQuery valueQuery = new ValueQuery(factory);
     PersonQuery personQuery = new PersonQuery(valueQuery);
 
-    valueQuery.setSqlPrefix("WITH " + QueryUtil.GEO_DISPLAY_LABEL + " AS (" + QueryUtil.getGeoDisplayLabelSQL() + ")");
+    valueQuery.setSqlPrefix("WITH " + QueryUtil.GEO_DISPLAY_LABEL + " AS (" + QueryUtil.getGeoDisplayLabelSQL(true) + ")");
 
     String residentialLabel = Person.RESIDENTIALGEOENTITY + QueryUtil.DISPLAY_LABEL_SUFFIX;
 

@@ -17,6 +17,7 @@ import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeCondition;
@@ -39,9 +40,6 @@ import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdEntity;
-import com.runwaysdk.system.metadata.MdType;
-import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -49,8 +47,6 @@ import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.Country;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.ontology.TermTermDisplayLabel;
 import dss.vector.solutions.query.AllRenderTypes;
 import dss.vector.solutions.query.CountOrRatioAloneException;
 import dss.vector.solutions.query.DatesOnlyException;
@@ -235,7 +231,7 @@ public abstract class AbstractQB implements Reloadable
 
   private void setGeoDisplayLabelSQL()
   {
-    String sql = QueryUtil.getGeoDisplayLabelSQL();
+    String sql = QueryUtil.getGeoDisplayLabelSQL(false);
     this.addWITHEntry(new WITHEntry(QueryUtil.GEO_DISPLAY_LABEL, sql));
   }
 
@@ -365,7 +361,6 @@ public abstract class AbstractQB implements Reloadable
         }
 
         Selectable original = valueQuery.getSelectableRef(attributeName);
-        boolean isAgg = original.isAggregateFunction();
         Selectable sel = original;
 
         // due to inconsistent and overlapping interfaces, check what operation
@@ -375,11 +370,11 @@ public abstract class AbstractQB implements Reloadable
           sel = ( (Function) sel ).getSelectable();
         }
 
-        AttributeCondition cond = null;
         value = value.trim();
+        List<AttributeCondition> conditions = new LinkedList<AttributeCondition>();
         if (sel instanceof SelectableChar && !value.equals("NULL"))
         {
-          cond = (AttributeCondition) ( (SelectableChar) original ).LIKE(value);
+          conditions.add((AttributeCondition) ( (SelectableChar) original ).LIKE(value));
         }
         else if (sel instanceof SelectableNumber)
         {
@@ -393,33 +388,35 @@ public abstract class AbstractQB implements Reloadable
               String range2 = range[1].trim();
               if (range1.length() > 0)
               {
-                cond = isAgg ? ( (AggregateFunction) original ).GE(range1)
-                    : ( (SelectableNumber) original ).GE(range1);
+                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(range1)
+                    : ( (SelectableNumber) original ).GE(range1));
               }
 
               if (range2.length() > 0)
               {
-                cond = isAgg ? ( (AggregateFunction) original ).LE(range2)
-                    : ( (SelectableNumber) original ).LE(range2);
+                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).LE(range2)
+                    : ( (SelectableNumber) original ).LE(range2));
               }
             }
             else
             {
+              String lowerBound = range[0].trim();
               // Just the GE criteria was specified (e.g., "7-")
-              cond = isAgg ? ( (AggregateFunction) original ).GE(range[0].trim())
-                  : ( (SelectableNumber) original ).GE(range[0].trim());
+              conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(lowerBound)
+                  : ( (SelectableNumber) original ).GE(lowerBound));
             }
           }
           else
           {
             // exact value
-            cond = (AttributeCondition) original.EQ(value);
+            conditions.add( (AttributeCondition) original.EQ(value));
           }
         }
 
-        if (cond != null)
+        if (conditions.size() > 0)
         {
-          if (isAgg)
+          Condition cond = AND.get(conditions.toArray(new Condition[conditions.size()]));
+          if (original.isAggregateFunction())
           {
             valueQuery.HAVING(cond);
           }

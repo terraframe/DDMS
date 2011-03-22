@@ -206,7 +206,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   }
 
-  public static String getGeohierarchyAllpathsSQL()
+  private String getGeohierarchyAllpathsSQL()
   {
     MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
     String geoHierarchyTable = geoHierarchyMd.getTableName();
