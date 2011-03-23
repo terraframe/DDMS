@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="patch" default="build">
+	<property name="nsis.dir" value="C:\Program Files (x86)\NSIS" />
+	<property name="geodata.db" value="mrc_blank" />
+	<property name="common.lib" location="../lib/common/" />
+	<property name="server.lib" location="../lib/server/" />
+	<property name="client.lib" location="../lib/client/" />
+	
+	<!-- SVN task definition -->
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="../lib/ant">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</typedef>
+	
+	<!-- AspectJ task definition -->
+	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+	  <classpath>
+		<fileset dir="${common.lib}" includes="*.jar" />
+		<fileset dir="${client.lib}" includes="*.jar" />
+		<fileset dir="${server.lib}" includes="*.jar" />
+	  </classpath>
+	</taskdef>
+
+	<target name="build">
+		
+		<!-- Clean out the bin directory and recompile -->
+		<delete dir="bin" includeemptydirs="true" />
+		<iajc
+			destdir="bin"
+			debug="true"
+			source="1.6"
+			target="1.6"
+			aspectpath="${common.lib}/runwaysdk-common.jar;${server.lib}/runwaysdk-server.jar;${client.lib}/runwaysdk-client.jar"
+			maxmem="1024m"
+			verbose="true">
+			<classpath>
+				<fileset dir="${common.lib}" includes="*.jar" />
+				<fileset dir="${client.lib}" includes="*.jar" />
+				<fileset dir="${server.lib}" includes="*.jar" />
+			</classpath>
+			<sourceroots>
+				<pathelement location="../src" />
+			</sourceroots>
+		</iajc>
+		
+		<!-- Get revision info from svn -->
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+			<info target="../" verbose="true" propPrefix="svn.info." />
+		</svn>
+
+		<!-- Write revision info into manager.nsi -->
+		<replaceregexp match="StrCpy \$Version \d*" replace="StrCpy $Version ${svn.info.lastRev}" file="manager.nsi" byline="true" />
+
+		<!-- Compile patch.nsi -->
+		<exec executable="${nsis.dir}/makensis" dir="." failonerror="true" searchpath="true" logError="true">
+			<arg line="manager.nsi" />
+		</exec>
+	</target>
+</project>
