@@ -18,13 +18,7 @@ public class MasterConfiguration extends ConfigurationAdapter
   {
     List<String> files = new LinkedList<String>();
 
-    files.add("/WEB-INF/dss");
-    files.add("/js");
-    files.add("/css");
-    files.add("/imgs");
-    files.add("/WEB-INF/classes/com");
-    files.add("/WEB-INF/classes/dss");
-    files.add("/WEB-INF/lib");
+    files.add("/");
 
     return files;
   }
