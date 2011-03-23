@@ -34,7 +34,7 @@
 	<property name="model.dir" value="${local.root}/doc/model/" />
 
 	<property name="version.xsd" value="/version_gis.xsd" />
-	<property name="geodata.db" value="mrc_blank" />
+	<property name="geodata.db" value="mrc_zambia" />
 
 	<!-- =================================================================== -->
 	<!-- Define the tomcat tasks                                                 -->
@@ -165,6 +165,12 @@
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
+		<copy todir="${deploy.common.src}/stub" overwrite="true">
+			<fileset dir="${local.src}/common">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
+
 
 		<copy todir="${deploy.server.src}/base" overwrite="true">
 			<fileset dir="${server.src}/base">
@@ -176,6 +182,11 @@
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
+		<copy todir="${deploy.server.src}/stub" overwrite="true">
+			<fileset dir="${local.src}/server">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
 
 		<copy todir="${deploy.client.src}/base" overwrite="true">
 			<fileset dir="${client.src}/base">
@@ -184,6 +195,11 @@
 		</copy>
 		<copy todir="${deploy.client.src}/stub" overwrite="true">
 			<fileset dir="${client.src}/stub">
+				<include name="**/*.java" />
+			</fileset>
+		</copy>
+		<copy todir="${deploy.client.src}/stub" overwrite="true">
+			<fileset dir="${local.src}/client">
 				<include name="**/*.java" />
 			</fileset>
 		</copy>
@@ -290,7 +306,6 @@
 		<echo message="Install Database Stored Procedures:" />
 		<java classname="dss.vector.solutions.util.InstallStoredProcedures" failonerror="true" fork="true">
 			<arg file="${local.root}/scripts/plsql/geoEntity_Views.sql" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -361,7 +376,7 @@
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
 				<pathelement location="${client.lib}/runwaysdk-client.jar" />
 			</aspectpath>
-			
+
 			<classpath refid="framework.classpath" />
 		</iajc>
 		<iajc destdir="${common.bin}" sourceroots="${common.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
@@ -370,7 +385,7 @@
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
 				<pathelement location="${client.lib}/runwaysdk-client.jar" />
 			</aspectpath>
-			
+
 			<classpath refid="framework.classpath" />
 		</iajc>
 		<iajc destdir="${client.bin}" sourceroots="${client.src}" debug="true" source="1.6" target="1.6" maxmem="1024m">
@@ -379,7 +394,7 @@
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
 				<pathelement location="${client.lib}/runwaysdk-client.jar" />
 			</aspectpath>
-			
+
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
@@ -391,7 +406,7 @@
 				<pathelement location="${common.lib}/runwaysdk-common.jar" />
 				<pathelement location="${client.lib}/runwaysdk-client.jar" />
 			</aspectpath>
-			
+
 			<classpath>
 				<path refid="framework.classpath" />
 				<pathelement location="${common.bin}" />
@@ -413,8 +428,6 @@
 	<target name="update_db_source_and_classes">
 		<!-- Update the database with the new sources and classes -->
 		<java classname="com.runwaysdk.util.UpdateDatabaseSourceAndClasses" failonerror="true">
-			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
 			<classpath>
 				<path refid="framework.classpath" />
 			</classpath>
@@ -739,7 +752,7 @@
 		<diagnostics />
 		<java classname="dss.vector.solutions.util.GeoEntityImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportGeodata">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -763,7 +776,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.OntologyImportManager" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -778,7 +791,6 @@
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
 		<java classname="dss.vector.solutions.util.MdssLocalizationImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportLocalization">
 			<jvmarg value="-Xmx1024M" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
 			
 			<classpath>
 				<path refid="framework.classpath" />
@@ -789,8 +801,8 @@
 
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
 		<java classname="dss.vector.solutions.ontology.OntologyExcelImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntology">
-			<jvmarg value="-Xmx1024M" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			<jvmarg value="-Xmx1512M" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -809,7 +821,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.PostOntologySetup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportOntologyRoots">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -827,7 +839,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.MenuItemImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportMenuItems">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -847,7 +859,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.GeoEntityAllPathBuilder" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -869,7 +881,7 @@
 		-->
 		<java classname="dss.vector.solutions.ontology.AllPaths" fork="true" failonerror="true" dir="." timeout="14000000" taskname="Build AllPaths">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -888,7 +900,7 @@
 		-->
 		<java classname="dss.vector.solutions.util.UniversalSearchHelper" fork="true" failonerror="true" dir="." timeout="4000000" taskname="CreateUniversalSystemQueries">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -908,8 +920,8 @@
 		</echoproperties>
 		-->
 		<java classname="dss.vector.solutions.permission.PermissionImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="LoadPermissions">
-			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			<jvmarg value="-Xmx1512M" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -930,7 +942,7 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Backup" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Backup Application">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -951,7 +963,7 @@
 		-->
 		<java classname="com.runwaysdk.dataaccess.io.Restore" fork="true" failonerror="true" dir="." timeout="4000000" taskname="Restore Application">
 			<jvmarg value="-Xmx1024m" />
-			<jvmarg value="-javaagent:C:/helios/workspace/MDSS/lib/server/aspectjweaver.jar" />
+			
 
 			<classpath>
 				<path refid="framework.classpath" />
@@ -985,19 +997,19 @@
 	<!-- Run test suite                                                      -->
 	<!-- =================================================================== -->
 	<target name="test" description="Run DDMS test suite">
-		<delete dir="${local.root}/test-results"/>
-		<mkdir dir="${local.root}/test-results"/>
+		<delete dir="${local.root}/test-results" />
+		<mkdir dir="${local.root}/test-results" />
 		<junit errorproperty="test.failed" failureproperty="test.failed" haltonfailure="no" printsummary="on" fork="yes" forkmode="once" showoutput="no" dir="${local.root}">
 			<jvmarg value="-Xmx1512M" />
 			
 			<classpath>
 				<path refid="framework.classpath" />
-  			</classpath>
+			</classpath>
 			<formatter type="brief" usefile="false" />
 			<formatter type="xml" />
 			<test todir="${local.root}/test-results" name="dss.vector.solutions.UeberTestSuite" />
-	    </junit>
-		<fail message="Test failed: Check test log." if="test.failed"/>
+		</junit>
+		<fail message="Test failed: Check test log." if="test.failed" />
 	</target>
 
 </project>
