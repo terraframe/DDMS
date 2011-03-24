@@ -64,7 +64,9 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\bin
     File /r /x .svn ..\bin\*
     SetOutPath $INSTDIR\lib
-    File /r /x .svn ..\lib\*
+    File /r /x .svn ..\lib\server\*
+    File /r /x .svn ..\lib\common\*
+    File /r /x .svn ..\lib\client\*
     SetOutPath $INSTDIR\profiles
     File /r /x .svn /x terraframe.properties ..\profiles\*
     SetOutPath $INSTDIR\icons
