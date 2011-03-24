@@ -1,8 +1,10 @@
 package dss.vector.solutions.admin.controller;
 
+import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.manager.controller.ConfigurationAdapter;
 
 public class MasterConfiguration extends ConfigurationAdapter
@@ -16,13 +18,23 @@ public class MasterConfiguration extends ConfigurationAdapter
   @Override
   public List<String> getExportApplicationFiles()
   {
-    List<String> files = new LinkedList<String>();
+    List<String> paths = new LinkedList<String>();
 
-    files.add("/");
+    String root = DeployProperties.getDeployPath();
+    File dir = new File(root);
 
-    return files;
+    File[] files = dir.listFiles();
+
+    for (File file : files)
+    {
+      String path = file.getAbsolutePath().replace(root, "");
+
+      paths.add(path);
+    }
+
+    return paths;
   }
-  
+
   @Override
   public boolean getImportApplicationFiles()
   {
