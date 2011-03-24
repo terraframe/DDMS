@@ -21,7 +21,7 @@ public class MasterConfiguration extends ConfigurationAdapter
   {
     List<String> paths = new LinkedList<String>();
 
-    String root = DeployProperties.getDeployPath();
+    String root = new File(DeployProperties.getDeployPath()).getAbsolutePath();
     File dir = new File(root);
 
     File[] files = dir.listFiles(new FileFilter()
