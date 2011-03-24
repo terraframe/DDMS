@@ -1,6 +1,7 @@
 package dss.vector.solutions.admin.controller;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +24,14 @@ public class MasterConfiguration extends ConfigurationAdapter
     String root = DeployProperties.getDeployPath();
     File dir = new File(root);
 
-    File[] files = dir.listFiles();
+    File[] files = dir.listFiles(new FileFilter()
+    {      
+      @Override
+      public boolean accept(File file)
+      {
+        return !(file.getAbsolutePath().contains(".svn"));
+      }
+    });
 
     for (File file : files)
     {
