@@ -46,6 +46,12 @@ Var Params
 Var Master_Value
 Var FPath
 Var FVersion
+Var PatchVersion
+Var TermsVersion
+Var RootsVersion
+Var MenuVersion
+Var LocalizationVersion
+Var PermissionsVersion
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -130,6 +136,14 @@ FunctionEnd
 # Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
+    
+    # These version numbers are automatically regexed by ant
+    StrCpy $PatchVersion 5899
+    StrCpy $TermsVersion 5814
+    StrCpy $RootsVersion 5432
+    StrCpy $MenuVersion 5814
+    StrCpy $LocalizationVersion 5852
+    StrCpy $PermissionsVersion 5650
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
@@ -225,7 +239,7 @@ Section -Main SEC0000
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U postgres -d mdssdeploy -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
 
     # Update the installation number
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d mdssdeploy -p 5444 -h 127.0.0.1 -c "update property set propertyvalue='$InstallationNumber' where propertyname='SHORT_ID_OFFSET'"`
+    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d mdssdeploy -p 5444 -h 127.0.0.1 -c "update property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f C:\MDSS\PostgreSql /r /d y
@@ -235,6 +249,14 @@ Section -Main SEC0000
     ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $InstallationNumber $Master_Value`
     
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
+    WriteRegStr HKLM "${REGKEY}\Components\blank" App $PatchVersion
+    WriteRegStr HKLM "${REGKEY}\Components\blank" Terms $TermsVersion
+    WriteRegStr HKLM "${REGKEY}\Components\blank" Roots $RootsVersion
+    WriteRegStr HKLM "${REGKEY}\Components\blank" Menu $MenuVersion
+    WriteRegStr HKLM "${REGKEY}\Components\blank" Localization $LocalizationVersion
+    WriteRegStr HKLM "${REGKEY}\Components\blank" Permissions $PermissionsVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Manager 1
+    WriteRegStr HKLM "${REGKEY}\Components" Runway 1
 SectionEnd
 
 Section -post SEC0001
@@ -248,7 +270,7 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512m -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles dss/vector/solutions/admin/MDSSModule"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx1024M -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/admin/MDSSModule"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
     !insertmacro MUI_STARTMENU_WRITE_END
@@ -280,6 +302,14 @@ Section /o -un.Main UNSEC0000
     RmDir /r /REBOOTOK $INSTDIR
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
+    DeleteRegValue HKLM "${REGKEY}\Components\blank" App
+    DeleteRegValue HKLM "${REGKEY}\Components\blank" Terms
+    DeleteRegValue HKLM "${REGKEY}\Components\blank" Roots
+    DeleteRegValue HKLM "${REGKEY}\Components\blank" Menu
+    DeleteRegValue HKLM "${REGKEY}\Components\blank" Localization
+    DeleteRegValue HKLM "${REGKEY}\Components\blank" Permissions
+    DeleteRegValue HKLM "${REGKEY}\Components" Manager
+    DeleteRegValue HKLM "${REGKEY}\Components" Runway
 SectionEnd
 
 Section -un.post UNSEC0001
