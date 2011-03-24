@@ -59,7 +59,7 @@ Section -Main SEC0000
     ${EndIf}
     
     # Special check to make sure ajde goes away.
-    Delete $INSTDIR\manager\lib\ajde.jar
+    Delete $INSTDIR\lib\ajde.jar
     
     SetOutPath $INSTDIR\bin
     File /r /x .svn ..\bin\*
