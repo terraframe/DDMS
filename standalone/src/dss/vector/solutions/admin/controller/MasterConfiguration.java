@@ -25,11 +25,14 @@ public class MasterConfiguration extends ConfigurationAdapter
     File dir = new File(root);
 
     File[] files = dir.listFiles(new FileFilter()
-    {      
+    {
       @Override
       public boolean accept(File file)
       {
-        return !(file.getAbsolutePath().contains(".svn"));
+        String path = file.getAbsolutePath();
+        boolean isSVN = path.contains(".svn");
+
+        return !isSVN;
       }
     });
 
