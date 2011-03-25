@@ -21,8 +21,7 @@ public class MasterConfiguration extends ConfigurationAdapter
   {
     List<String> paths = new LinkedList<String>();
 
-    String root = new File(DeployProperties.getDeployPath()).getAbsolutePath();
-    File dir = new File(root);
+    File dir = new File(DeployProperties.getDeployPath());
 
     File[] files = dir.listFiles(new FileFilter()
     {
@@ -38,9 +37,7 @@ public class MasterConfiguration extends ConfigurationAdapter
 
     for (File file : files)
     {
-      String path = file.getAbsolutePath().replace(root, "");
-
-      paths.add(path);
+      paths.add(File.separator + file.getName());
     }
 
     return paths;
