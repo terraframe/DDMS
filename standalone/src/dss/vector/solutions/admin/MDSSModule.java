@@ -44,7 +44,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 {
   public static final String VERSION_PROPERTY = "ddms_manager_version";
 
-  public static final String VERSION          = "1.0";
+  public static final String VERSION          = "1.01";
 
   class ControlAction extends Action
   {
