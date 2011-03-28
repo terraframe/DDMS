@@ -79,7 +79,6 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
    * views.
    */
   @Override
-  @Transaction
   @Authenticate
   public String refreshMap()
   {
@@ -87,7 +86,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     JSONArray layersJSON;
 
     Map<Layer, ValueQuery> layersVQ = MapUtil.createDBViews(getOrderedLayers(), false);
-
+    String sessionId = Session.getCurrentSession().getId();
+    MapUtil.reload(sessionId, layersVQ);
     try
     {
       String geoserverPath = MapUtil.getGeoServerRemoteURL();

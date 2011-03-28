@@ -30,6 +30,7 @@ import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableDecimal;
@@ -77,6 +78,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
    * @param layers
    * @return
    */
+  @Transaction
   public static Map<Layer, ValueQuery> createDBViews(Layer[] layers, boolean infoOnly)
   {
     if (!infoOnly && layers.length == 0)
@@ -202,7 +204,6 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       }
     }
 
-    String sessionId = Session.getCurrentSession().getId();
     Map<Layer, ValueQuery> reloads = new LinkedHashMap<Layer, ValueQuery>();
     String baseView = null;
     for (int i = 0; i < layers.length; i++)
@@ -354,11 +355,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
 
       reloads.put(layer, valueQuery);
 
-
-
     }
-
-    reload(sessionId, reloads);
 
     return reloads;
   }
@@ -555,12 +552,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
           createPost.addParameter("keywords", viewName);
           createPost.addParameter("maxFeatures", "0");
 
-          createPost.addParameter("metadataLink[0].content", "");
-          createPost.addParameter("metadataLink[0].metadataType", "FGDC");
-          createPost.addParameter("metadataLink[0].type", "text/plain");
-          createPost.addParameter("metadataLink[1].content", "");
-          createPost.addParameter("metadataLink[1].metadataType", "FGDC");
-          createPost.addParameter("metadataLink[1].type", "text/plain");
+//          createPost.addParameter("metadataLink[0].content", "");
+//          createPost.addParameter("metadataLink[0].metadataType", "FGDC");
+//          createPost.addParameter("metadataLink[0].type", "text/plain");
+//          createPost.addParameter("metadataLink[1].content", "");
+//          createPost.addParameter("metadataLink[1].metadataType", "FGDC");
+//          createPost.addParameter("metadataLink[1].type", "text/plain");
 
           createPost.addParameter("nameTemplate", "null");
           createPost.addParameter("regionateAttribute", "null");
@@ -574,8 +571,8 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
           createPost.addParameter("action", "Submit");
 
           int createCode = client.executeMethod(createPost);
-          createPost.getResponseBody(); // REQUIRED
-
+          String ret = createPost.getResponseBodyAsString();
+          System.out.println(ret);
         }
         catch (Throwable t)
         {

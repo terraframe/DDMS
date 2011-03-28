@@ -33,6 +33,7 @@ import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.database.Database;
@@ -1698,6 +1699,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     allPathsMdBusiness.deleteAllTableRecords();
 
+    String original_child = "original_child";
+    
     String geoEntityTable = MdBusiness.getMdBusiness(GeoEntity.CLASS).getTableName();
     String locatedInTable = MdRelationship.getMdElement(LocatedIn.CLASS).getTableName();
     String allPathsTable = allPathsMdBusiness.getTableName();
@@ -1717,18 +1720,24 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     String sql = "INSERT INTO " + allPathsTable + " (\n" + "  " + AllPaths.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  "
         + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + ",\n"
-        + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n" +
+        + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n"
 
-        "WITH RECURSIVE quick_paths(root_id, " + RelationshipInfo.CHILD_ID + ", " + RelationshipInfo.PARENT_ID + ", " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ") AS ( \n" + "    SELECT " + RelationshipInfo.CHILD_ID + " , " + RelationshipInfo.CHILD_ID + ", " + RelationshipInfo.PARENT_ID + ", NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')  FROM " + locatedInTable + "  locatedin \n" + "    UNION\n" + "    SELECT a.root_id, b." + RelationshipInfo.CHILD_ID + ", b."
-        + RelationshipInfo.PARENT_ID + ", NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "')  FROM quick_paths a, " + locatedInTable + " b WHERE b." + RelationshipInfo.CHILD_ID + " = a." + RelationshipInfo.PARENT_ID + "\n" + "    )\n" +
+        + "WITH RECURSIVE quick_paths ("+original_child+") AS (\n"
+        + "    SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+" as "+original_child+", "+RelationshipDAOIF.PARENT_ID_COLUMN+" FROM "+locatedInTable+"\n"
+        + "    UNION\n"
+        + "    SELECT "+original_child+", l."+RelationshipDAOIF.PARENT_ID_COLUMN+"\n"
+        + "    FROM "+locatedInTable+" l\n"
+        + "      INNER JOIN quick_paths\n"
+        + "      ON (l."+RelationshipDAOIF.CHILD_ID_COLUMN+" = quick_paths."+RelationshipDAOIF.PARENT_ID_COLUMN+")\n"
+        + "    )\n"
 
-        "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2."
+        + "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2."
         + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n"
-        + "    paths." + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + "  AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'  AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "' AS \""
+        + "  NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "') AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'  AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "' AS \""
         + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '" + createdById + "' AS " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    paths." + RelationshipInfo.PARENT_ID + " AS " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + RelationshipInfo.PARENT_ID + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ") || '"
-        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths.root_id as " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths.root_id," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, " + geoEntityTable + " as geo2,\n"
-        + "(SELECT * FROM quick_paths UNION SELECT " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + "," + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + "," + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "') FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2."
-        + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths.root_id\n";
+        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths."+original_child+" as " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths."+original_child+"," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, " + geoEntityTable + " as geo2,\n"
+        + "(SELECT "+original_child+", parent_id FROM quick_paths UNION SELECT " + QueryUtil.getIdColumn() + "," + QueryUtil.getIdColumn() + " FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2."
+        + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths."+original_child+"\n";
 
     Connection conn = Database.getConnection();
 
