@@ -29,9 +29,8 @@ public class MasterConfiguration extends ConfigurationAdapter
       public boolean accept(File file)
       {
         String path = file.getAbsolutePath();
-        boolean isSVN = path.contains(".svn");
 
-        return !isSVN;
+        return ! ( ( path.contains(".svn") || path.contains("terraframe.properties") || path.contains("install.properties") ) );
       }
     });
 
