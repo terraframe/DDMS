@@ -12,11 +12,7 @@
 
 	<target name="build">
 
-		<delete>
-			<fileset dir="webapp">
-				
-			</fileset>
-		</delete>
+		<delete dir="webapp" includeemptydirs="true" />
 		
 		<!-- Compile -->
 		<ant inheritAll="false" antfile="../scripts/ant/deploy/deploy.xml" target="compile_generated">
