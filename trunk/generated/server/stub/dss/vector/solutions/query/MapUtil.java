@@ -39,7 +39,6 @@ import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.session.Session;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
@@ -114,42 +113,25 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         {
           Selectable thematicSel = valueQuery.getSelectableRef(layer.getThematicUserAlias());
           
-          List<Selectable> oldSels = valueQuery.getSelectableRefs();
-          List<Selectable> newSels = new LinkedList<Selectable>();
-          
-          valueQuery.clearSelectClause();
-          
-          for(Selectable oldSel : oldSels)
-          {
-            if(oldSel != thematicSel)
-            {
-              newSels.add(oldSel);
-            }
-          }
-          
           if(thematicSel instanceof SelectableDouble
               || thematicSel instanceof SelectableFloat
               || thematicSel instanceof SelectableDecimal)
           {
-            SelectableSQLDouble sel;
+            SelectableSQLDouble newSel;
             if(thematicSel.isAggregateFunction())
             {
-              sel = valueQuery.aSQLAggregateDouble(thematicSel.getDbColumnName(), "");
+              newSel = valueQuery.aSQLAggregateDouble(thematicSel.getDbColumnName(), "");
             }
             else
             {
-              sel = valueQuery.aSQLDouble(thematicSel.getDbColumnName(), "");
+              newSel = valueQuery.aSQLDouble(thematicSel.getDbColumnName(), "");
             }
-            sel.setSQL(thematicSel.getSQL()+"::decimal(20,2)");
-            sel.setColumnAlias(thematicSel.getColumnAlias());
-            sel.setUserDefinedAlias(thematicSel.getUserDefinedAlias());
+            newSel.setSQL(thematicSel.getSQL()+"::decimal(20,2)");
+            newSel.setColumnAlias(thematicSel.getColumnAlias());
+            newSel.setUserDefinedAlias(thematicSel.getUserDefinedAlias());
             
-            thematicSel = sel;
+            valueQuery.replaceSelectable(newSel);
           }
-          
-          newSels.add(thematicSel);
-          
-          valueQuery.SELECT(newSels.toArray(new Selectable[newSels.size()]));
         }
       }
       catch (ProgrammingErrorException e)

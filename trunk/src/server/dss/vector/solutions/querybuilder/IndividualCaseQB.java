@@ -262,6 +262,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
       vQuery.FROM("(" + innerQuery.getSQL() + ")", "innerQuery");
 
       valueQuery.FROM("(" + vQuery.getSQL() + ")", "diagnosisCheck");
+      
       valueQuery.WHERE(vQuery.aSQLCharacter("ic", "diagnosisCheck.ic").EQ(caseQuery.getId()));
 
       diagnosisAliases.put(posCases, vQuery.getSelectableRef(posCases).getColumnAlias());
