@@ -4,12 +4,39 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.manager.controller.ConfigurationAdapter;
 
 public class MasterConfiguration extends ConfigurationAdapter
 {
+  class ExportFilter implements FileFilter
+  {
+    private Set<String> filterNames;
+
+    public ExportFilter()
+    {
+      this.filterNames = new TreeSet<String>();
+      this.filterNames.add("terraframe.properties");
+      this.filterNames.add("install.properties");
+      this.filterNames.add("WEB-INF");
+      this.filterNames.add("classes");
+      this.filterNames.add("webDir");
+      this.filterNames.add("sessionCache");
+    }
+
+    @Override
+    public boolean accept(File file)
+    {
+      String fileName = file.getName();
+      String path = file.getAbsolutePath();
+
+      return ! ( path.contains(".svn") || filterNames.contains(fileName) );
+    }
+  }
+
   @Override
   public boolean getExportStoredApplicationFiles()
   {
@@ -21,25 +48,24 @@ public class MasterConfiguration extends ConfigurationAdapter
   {
     List<String> paths = new LinkedList<String>();
 
-    File dir = new File(DeployProperties.getDeployPath());
+    File root = new File(DeployProperties.getDeployPath());
+    String rootPath = root.getAbsolutePath();
 
-    File[] files = dir.listFiles(new FileFilter()
-    {
-      @Override
-      public boolean accept(File file)
-      {
-        String path = file.getAbsolutePath();
+    addFiles(paths, root, rootPath);
+    addFiles(paths, new File(DeployProperties.getJspDir()), rootPath);
+    addFiles(paths, new File(DeployProperties.getJspDir() + File.separator + "classes"), rootPath);
 
-        return ! ( ( path.contains(".svn") || path.contains("terraframe.properties") || path.contains("install.properties") ) );
-      }
-    });
+    return paths;
+  }
+
+  private void addFiles(List<String> paths, File directory, String rootPath)
+  {
+    File[] files = directory.listFiles(new ExportFilter());
 
     for (File file : files)
     {
-      paths.add(File.separator + file.getName());
+      paths.add(file.getAbsolutePath().replace(rootPath, ""));
     }
-
-    return paths;
   }
 
   @Override
