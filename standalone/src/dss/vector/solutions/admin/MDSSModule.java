@@ -1,10 +1,13 @@
 package dss.vector.solutions.admin;
 
+import java.io.File;
+import java.io.FileFilter;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -19,6 +22,7 @@ import org.eclipse.jface.operation.IRunnableWithProgress;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.widgets.Display;
 
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.transaction.IPropertyListener;
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
 import com.runwaysdk.logging.LogLevel;
@@ -83,7 +87,6 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       window.show(strategy);
     }
   }
-  
 
   private IModuleController                  controller;
 
@@ -413,6 +416,46 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       String msg = Localizer.getMessage("MANAGER_VERSION_ERROR");
 
       throw new RuntimeException(msg);
+    }
+  }
+
+  @Override
+  public Collection<String> getFilesToDeleteOnImport()
+  {
+    Collection<String> paths = new LinkedList<String>();
+
+    FileFilter filter = new FileFilter()
+    {
+      @Override
+      public boolean accept(File file)
+      {
+        String path = file.getAbsolutePath();
+
+        return ! ( path.contains(".svn") || path.contains(".properties") || path.contains(".xml") );
+      }
+    };
+
+    File classesDirectory = new File(DeployProperties.getJspDir() + File.separator + "classes");
+    File sourceDirectory = new File(DeployProperties.getJspDir() + File.separator + "source");
+    File libDirectory = new File(DeployProperties.getJspDir() + File.separator + "lib");
+
+    addFiles(paths, filter, classesDirectory);
+    addFiles(paths, filter, sourceDirectory);
+    addFiles(paths, filter, libDirectory);
+
+    return paths;
+  }
+
+  private void addFiles(Collection<String> paths, FileFilter filter, File directory)
+  {
+    File root = new File(DeployProperties.getDeployPath());
+    String rootPath = root.getAbsolutePath();
+
+    File[] files = directory.listFiles(filter);
+
+    for (File file : files)
+    {
+      paths.add(file.getAbsolutePath().replace(rootPath, ""));
     }
   }
 }
