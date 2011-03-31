@@ -1,0 +1,45 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+  
+    <create>
+      <mdWarning
+        name="dss.vector.solutions.ontology.NestedTermsWarning"
+        label="Nested Terms Warning"
+        description="Thrown when Terms for criteria are nested."
+        message="The following terms have been removed because they are children of other criteria terms:">
+        <attributes>
+          <text
+            name="nestedTerms"
+            label="Nested Terms"
+            description="A formatted printout of the terms that are nested."
+            required="true"/>
+        </attributes>
+      </mdWarning>
+    
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.ontology.Term">
+        <create>
+          <mdMethod
+            name="checkForNestedTerms"
+            label="Check for nested terms"
+            returnType="java.lang.String[]"
+            static="true">
+            <mdParameter name="termIds"
+              type="java.lang.String[]"
+              label="Term Ids"
+              description="A list of Term ids to check against one another for nested relationships."
+              order="0"/>
+          </mdMethod>
+        </create>
+      </mdBusiness>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.ontology.Term.checkForNestedTerms" type="com.runwaysdk.system.metadata.MdMethod"/>
+      <object key="dss.vector.solutions.ontology.NestedTermsWarning" type="com.runwaysdk.system.metadata.MdWarning"/>
+    </delete>
+  </undoIt>
+</version>

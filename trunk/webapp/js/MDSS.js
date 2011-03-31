@@ -319,12 +319,12 @@ MDSS.Set.prototype = {
 
   size : function()
   {
-    return Mojo.Util.getKeys(this._set).length;
+    return Mojo.Util.getKeys(this._set, true).length;
   },
 
   values : function()
   {
-    return Mojo.Util.getKeys(this._set);
+    return Mojo.Util.getKeys(this._set, true);
   }
 };
 

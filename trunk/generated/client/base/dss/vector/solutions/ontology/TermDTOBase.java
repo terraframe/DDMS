@@ -1,10 +1,10 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = 263710722)
+@com.runwaysdk.business.ClassSignature(hash = 56160277)
 public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ontology.Term";
-  private static final long serialVersionUID = 263710722;
+  private static final long serialVersionUID = 56160277;
   
   protected TermDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -121,6 +121,11 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -188,6 +193,11 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -296,6 +306,11 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -326,6 +341,11 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -471,6 +491,11 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     }
   }
   
+  public String getOntologyId()
+  {
+    return getValue(ONTOLOGY);
+  }
+  
   public void setOntology(dss.vector.solutions.ontology.OntologyDTO value)
   {
     if(value == null)
@@ -513,6 +538,11 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -673,6 +703,14 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     Object[] _parameters = new Object[]{id, parentTermId, cloneOperation, oldParentId, inactive};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "applyWithParent", _declaredTypes);
     return (dss.vector.solutions.ontology.TermViewDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String[] checkForNestedTerms(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] termIds)
+  {
+    String[] _declaredTypes = new String[]{"[Ljava.lang.String;"};
+    Object[] _parameters = new Object[]{termIds};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.ontology.TermDTO.CLASS, "checkForNestedTerms", _declaredTypes);
+    return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final void confirmChangeParent(java.lang.String parentId)

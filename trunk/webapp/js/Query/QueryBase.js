@@ -1754,14 +1754,14 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       this._browser = new MDSS.OntologyBrowser(this._multiSelect, this._fieldClass, this._fieldAttribute);
       this._browser.setHandler(this.setTermsHandler, this);
       
-      // Array of ids used for setting criteria before
+      // Set of ids used for setting criteria before
       // the browser is opened (when loading a query).
-      this._terms = [];
+      this._terms = new MDSS.Set();
     },
     
     addTerm : function(termId)
     {
-      this._terms.push(termId);
+      this._terms.set(termId);
     },
     
     getAttribute : function()
@@ -1781,7 +1781,7 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
         this._browser.render();
       }
      
-      this._browser.setSelection(this._terms);
+      this._browser.setSelection(this._terms.values());
     },
     
     clearTerms : function()
@@ -1790,12 +1790,12 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       // will no longer need to be dereferenced.
       this._query._config.removeTerms(this._attribute.getKey());
       
-      this._terms = [];
+      this._terms.clear();
     },
     
     getTerms : function()
     {
-      return this._terms;
+      return this._terms.values();
     },
     
     getDisplay : function(termId)
@@ -1816,16 +1816,18 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
      */
     setTermsHandler: function(terms)
     {
-      this._terms = []; // reset the saved terms
+      this._terms.clear(); // reset the saved terms
 
       // The terms could be a mix of TermViews and ValueObjects
       // so be careful to call the correct id and display methods.
       var idAttr = Mojo.$.dss.vector.solutions.ontology.Term.ID;
       var TermView = Mojo.$.dss.vector.solutions.ontology.TermView;
-      var entries = Mojo.Iter.map(terms, function(term){
-        
+      var entryMap = new Mojo.Map();
+      for(var i=0, len=terms.length; i<len; i++)
+      {
         var id;
         var display;
+        var term = terms[i];
         if(term instanceof TermView)
         {
           id = term.getTermId();
@@ -1837,19 +1839,46 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
           display = MDSS.OntologyBrowser.formatLabelFromValueObject(term);
         }
         
-        this.push(id);
-        
-        return {id:id, display:display};
-        
-      }, this._terms);
-      
-      this._query._config.addTerms(this._attribute.getKey(), this._terms);
-    
-      if(this._handler)
-      {
-        this._handler(this, entries);
+        this._terms.set(id);
+        entryMap.put(id, {id:id, display:display});
       }
+      
+      
+      var request = new MDSS.Request({
+        that: this,
+        onSuccess : function(idsToRemove)
+        {
+          var that = this.that;
+
+          var warnings = this.getWarnings();
+          if(warnings.length === 1 && warnings[0] instanceof Mojo.$.dss.vector.solutions.ontology.NestedTermsWarning)
+          {
+
+            // remove all nested terms from criteria
+            for(var i=0, len=idsToRemove.length; i<len; i++)
+            {
+              var id = idsToRemove[i];
+              that._terms.remove(id);
+              entryMap.remove(id);
+            }
+         
+            var nestedTermWarning = warnings[0];
+            var removed = Mojo.Util.toObject(nestedTermWarning.getNestedTerms()).join('<br />');
+            new MDSS.ErrorModal(nestedTermWarning.getMessage()+'<br />'+removed);
+          }
+          
+          that._query._config.addTerms(that._attribute.getKey(), that._terms.values());
+        
+          if(that._handler)
+          {
+            that._handler(that, entryMap.values());
+          }
+        }
+        
+      });
+      Mojo.$.dss.vector.solutions.ontology.Term.checkForNestedTerms(request, this._terms.values());
     }
+    
     
   }
 

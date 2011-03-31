@@ -1,6 +1,6 @@
 package dss.vector.solutions.ontology;
 
-@com.runwaysdk.business.ClassSignature(hash = -631998078)
+@com.runwaysdk.business.ClassSignature(hash = 1351131541)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -33,7 +33,7 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   
   public static java.lang.String TERMID = "termId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -631998078;
+  private static final long serialVersionUID = 1351131541;
   
   public TermBase()
   {
@@ -97,6 +97,11 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -146,6 +151,11 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -243,6 +253,11 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -264,6 +279,11 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     {
       return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public void validateLockedBy()
@@ -373,6 +393,11 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     }
   }
   
+  public String getOntologyId()
+  {
+    return getValue(ONTOLOGY);
+  }
+  
   public void validateOntology()
   {
     this.validateAttribute(ONTOLOGY);
@@ -406,6 +431,11 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -1615,6 +1645,12 @@ public abstract class TermBase extends com.runwaysdk.business.Business implement
   {
     Term _instance = Term.get(id);
     return _instance.applyWithParent(parentTermId, cloneOperation, oldParentId, inactive);
+  }
+  
+  public static java.lang.String[] checkForNestedTerms(java.lang.String[] termIds)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.ontology.Term.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public void confirmChangeParent(java.lang.String parentId)
