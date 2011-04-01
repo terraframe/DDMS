@@ -52,7 +52,7 @@
               </label>
             </dt>
             <dd>
-              <mjl:input type="text" param="username" />
+              <mjl:input id="username" type="text" param="username" />
               <mjl:messages attribute="username">
                 <mjl:message />
               </mjl:messages>

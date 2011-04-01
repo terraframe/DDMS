@@ -18,7 +18,9 @@
     MDSS.Effect.toggleVisibility('stockStaffDiv', 'stockStaffSwitch', 'stockStaffInput');
     MDSS.Effect.toggleVisibility('supervisorDiv', 'supervisorSwitch', 'supervisorInput');
     MDSS.Effect.toggleVisibility('physicianDiv', 'physicianSwitch', 'physicianInput');
-
+    document.getElementById('username').value = '';
+    document.getElementById('password').value = '';
+    document.getElementById('repassword').value = '';
   });
 
 })();
