@@ -106,6 +106,9 @@ input[type="button"]:active {
 <script type="text/javascript">
 
 </script></div>
+<mdss:localize key="unsupported_browser_header" var="unsupported_browser_header" />
+<mdss:localize key="unsupported_browser_contents" var="unsupported_browser_contents" />
+
 <script type="text/javascript" charset="utf-8">
 var checkForFF = function () {
 // Define private vars here.
@@ -129,11 +132,11 @@ var lightboxCSS =
 var lightboxContents =
  "<div style='width: 100%; height: 95%'>" +
    "<div style='text-align: center;'>" +
-   "<div class='pageTitle'>Your Browser is Unsupported</div>" +
+   "<div class='pageTitle'>${unsupported_browser_header}</div>" +
    "<br><br><br>" +
-   "Firefox 3.5 or greater is required for proper function of MDSS " +
+   "${unsupported_browser_contents}" +
    "<br><br><br>" +
-   "Please <a style='color: #0000EE' href='" + downloadLink + "'>install Firefox 3.5</a>" +
+   "<a style='color: #0000EE' href='" + downloadLink + "'>" + downloadLink + "</a>" +
    "</div>" +
  "</div>";
 function isCookieSet() {
