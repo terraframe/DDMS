@@ -7,41 +7,7 @@
   <mjl:message />
 </mjl:messages>
 
-<mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
-  <mjl:context action="dss.vector.solutions.PropertyController.viewPage.mojo" />
-  <mjl:columns>
-    <mjl:attributeColumn attributeName="displayLabel">
-      <mjl:header />
-    </mjl:attributeColumn>
-
-    <mjl:attributeColumn attributeName="description">
-      <mjl:header />
-    </mjl:attributeColumn>
-
-    <mjl:attributeColumn attributeName="propertyValue">
-      <mjl:header />
-    </mjl:attributeColumn>
-    <mjl:freeColumn>
-      <mjl:header>
-
-      </mjl:header>
-      <mjl:row>
-      <c:if test="${item.editable}">
-        <mjl:form name="dss.vector.solutions.Property.form.name" id="${item.id}" method="POST">
-          <mjl:input value="${item.id}" type="hidden" param="id" />
-          <mdss:localize key="Edit" var="Localized_Edit" />
-          <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.PropertyController.edit.mojo" name="dss.vector.solutions.Property.form.edit.button" classes="submitButton" />
-        </mjl:form>
-      </c:if>
-      <c:if test="${!item.editable}">
-        <button type="button" disabled="disabled">${Localized_Edit}</button>
-      </c:if>
-      </mjl:row>
-    </mjl:freeColumn>
-  </mjl:columns>
-</mjl:table>
-
-<br />
+<mdss:localize key="Edit" var="Localized_Edit" />
 
 <mjl:table var="item" query="${local}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.PropertyController.viewPage.mojo" />

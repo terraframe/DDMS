@@ -182,11 +182,9 @@ public class PropertyController extends PropertyControllerBase implements com.ru
 
       ClientRequestIF clientRequest = super.getClientRequest();
 
-      PropertyQueryDTO query = PropertyDTO.getAllEditable(clientRequest);
       DefaultGeoEntityQueryDTO query2 = DefaultGeoEntityDTO.getAllInstances(clientRequest, null, true, 20, 1);
       LocalPropertyQueryDTO local = LocalPropertyDTO.getAllInstances(clientRequest, null, true, 20, 1);
 
-      req.setAttribute("query", query);
       req.setAttribute("query2", query2);
       req.setAttribute("local", local);
 
