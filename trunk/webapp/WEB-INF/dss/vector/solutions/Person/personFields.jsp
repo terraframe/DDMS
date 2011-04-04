@@ -267,6 +267,8 @@
     var password = document.getElementById('password');
     var repassword = document.getElementById('repassword');
     var button = document.getElementById('submit.button');
+    var userInput = document.getElementById('userInput');
+    var userSwitch = document.getElementById('userSwitch');
 
     var validatePassword = function () {
         MDSS.Calendar.removeError(password);
@@ -281,11 +283,14 @@
     }
 
     var validatePasswordButton = function() {
-        button.disabled = true;
+      button.disabled = false;
 
-        if(password.value === repassword.value) {
-          button.disabled = false;
-        }        
+      var visible = userInput.value;
+      var validPassword = (password.value === repassword.value && password.value.length > 0);
+      
+      if(visible == 'true' && !validPassword) {
+        button.disabled = true;
+      }
     }
 
    var memberId = document.getElementById('memberId');
@@ -307,6 +312,7 @@
 
    YAHOO.util.Event.on(password, 'keyup', validatePasswordButton);
    YAHOO.util.Event.on(repassword, 'keyup', validatePasswordButton);
+   YAHOO.util.Event.on(userSwitch, 'click', validatePasswordButton);
 
    if(document.getElementById('personId').value == '')
    {	   
