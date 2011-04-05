@@ -75,7 +75,7 @@ public class ModuleController extends EventProvider implements IModuleController
               PrintStream print = new PrintStream(out, true);
 
               Backup backup = new Backup(print, file.getName(), file.getParent(), true, true);
-              backup.addAgents(new RegistryAgent());
+//              backup.addAgents(new RegistryAgent());
               backup.backup();
 
               print.close();
@@ -113,7 +113,7 @@ public class ModuleController extends EventProvider implements IModuleController
               PrintStream print = new PrintStream(out, true);
 
               Restore restore = new Restore(print, file.getAbsolutePath());
-              restore.addAgent(new RegistryAgent());
+//              restore.addAgent(new RegistryAgent());
               restore.restore();
 
               print.close();
