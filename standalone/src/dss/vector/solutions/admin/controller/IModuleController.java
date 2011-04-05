@@ -33,4 +33,8 @@ public interface IModuleController
   public void rebuildGeoPaths();
 
   public void rebuildTermPaths();
+
+  public void deleteGeoPaths();
+
+  public void deleteTermPaths();
 }

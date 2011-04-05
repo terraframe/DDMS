@@ -1,5 +1,6 @@
 package dss.vector.solutions.admin;
 
+import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -44,7 +45,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 {
   public static final String VERSION_PROPERTY = "ddms_manager_version";
 
-  public static final String VERSION          = "1.01";
+  public static final String VERSION          = "1.02";
 
   class ControlAction extends Action
   {
@@ -84,6 +85,20 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
     }
   }
 
+  class AllPathAction extends Action
+  {
+    public AllPathAction()
+    {
+      this.setText(Localizer.getMessage("REBUILD_ALL_PATH_TABLES"));
+    }
+
+    @Override
+    public void run()
+    {
+      rebuildAllPathTables();
+    }
+  }
+
   private IModuleController                  controller;
 
   private StatusLineManager                  statusManager;
@@ -117,7 +132,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
     MenuManager fileMenu = manager.getMenu(Localizer.getMessage("FILE_MENU"));
     fileMenu.add(new ControlAction());
 
-    MenuManager logMenu = manager.getMenu(Localizer.getMessage("LOG_MENU"));
+    MenuManager toolsMenu = manager.getMenu(Localizer.getMessage("TOOLS_MENU"));
 
     MenuManager setLogMenu = manager.getMenu(Localizer.getMessage("SET_LOG"));
 
@@ -126,8 +141,9 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       setLogMenu.add(actions.get(key));
     }
 
-    logMenu.add(setLogMenu);
-    manager.addMenu(logMenu);
+    toolsMenu.add(setLogMenu);
+    toolsMenu.add(new AllPathAction());
+    manager.addMenu(toolsMenu);
   }
 
   @Override
@@ -254,7 +270,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       actions.get(key).setImageDescriptor(null);
     }
 
-    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, "icons/checkbox.png"));
+    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, CommandProperties.getIconDirectory() + File.separator +  "checkbox.png"));
   }
 
   @Override
@@ -285,8 +301,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       @Override
       public void start()
       {
-        // TODO Auto-generated method stub
-
+        deleteAllPathTables();
       }
 
       @Override
@@ -294,51 +309,131 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       {
         if (success)
         {
-          window.getDisplay().syncExec(new Runnable()
-          {
-            @Override
-            public void run()
-            {
-              ProgressMonitorDialog dialog = new ProgressMonitorDialog(window.getShell());
-
-              try
-              {
-                dialog.run(true, false, new IRunnableWithProgress()
-                {
-                  @Override
-                  public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
-                  {
-                    monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
-
-                    controller.rebuildGeoPaths();
-
-                    monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_TERM"), IProgressMonitor.UNKNOWN);
-
-                    controller.rebuildTermPaths();
-
-                    monitor.done();
-                  }
-                });
-              }
-              catch (InvocationTargetException e)
-              {
-                e.printStackTrace();
-
-                error(e.getCause().getLocalizedMessage());
-              }
-              catch (InterruptedException e)
-              {
-                e.printStackTrace();
-
-                error(e.getLocalizedMessage());
-              }
-            }
-          });
+          rebuildAllPathTables();
         }
       }
     };
 
     return listener;
+  }
+
+  @Override
+  public Map<String, String> getExportProperties()
+  {
+    Map<String, String> map = new HashMap<String, String>();
+
+    map.put(MDSSModule.VERSION_PROPERTY, MDSSModule.VERSION.toString());
+
+    return map;
+  }
+
+  @Override
+  public Collection<IPropertyListener> getImportPropertyListeners()
+  {
+    Collection<IPropertyListener> collection = new LinkedList<IPropertyListener>();
+    collection.add(this);
+
+    return collection;
+  }
+
+  @Override
+  public void handleProperty(String name, String value)
+  {
+    if (name.equals(MDSSModule.VERSION_PROPERTY) && !value.equals(MDSSModule.VERSION))
+    {
+      String msg = Localizer.getMessage("MANAGER_VERSION_ERROR");
+
+      throw new RuntimeException(msg);
+    }
+  }
+
+  private void deleteAllPathTables()
+  {
+    // Before performing an import we need to delete the all paths tables
+    window.getDisplay().syncExec(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        ProgressMonitorDialog dialog = new ProgressMonitorDialog(window.getShell());
+
+        try
+        {
+          dialog.run(true, false, new IRunnableWithProgress()
+          {
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+            {
+              monitor.beginTask(Localizer.getMessage("DELETE_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
+
+              controller.deleteGeoPaths();
+
+              monitor.beginTask(Localizer.getMessage("DELETE_ALL_PATHS_TERM"), IProgressMonitor.UNKNOWN);
+
+              controller.deleteTermPaths();
+
+              monitor.done();
+            }
+          });
+        }
+        catch (InvocationTargetException e)
+        {
+          e.printStackTrace();
+
+          error(e.getCause().getLocalizedMessage());
+        }
+        catch (InterruptedException e)
+        {
+          e.printStackTrace();
+
+          error(e.getLocalizedMessage());
+        }
+      }
+    });
+  }
+
+  private void rebuildAllPathTables()
+  {
+    window.getDisplay().syncExec(new Runnable()
+    {
+      @Override
+      public void run()
+      {
+        ProgressMonitorDialog dialog = new ProgressMonitorDialog(window.getShell());
+
+        try
+        {
+          dialog.run(true, false, new IRunnableWithProgress()
+          {
+            @Override
+            public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
+            {
+              monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
+
+              controller.rebuildGeoPaths();
+
+              monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_TERM"), IProgressMonitor.UNKNOWN);
+
+              controller.rebuildTermPaths();
+
+              monitor.done();
+            }
+          });
+        }
+        catch (InvocationTargetException e)
+        {
+          e.printStackTrace();
+
+          error(e.getCause().getLocalizedMessage());
+        }
+        catch (InterruptedException e)
+        {
+          e.printStackTrace();
+
+          error(e.getLocalizedMessage());
+        }
+      }
+    });
   }
 
   public static void main(String[] args)
@@ -383,35 +478,5 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
         window.run();
       }
     });
-  }
-
-  @Override
-  public Map<String, String> getExportProperties()
-  {
-    Map<String, String> map = new HashMap<String, String>();
-
-    map.put(MDSSModule.VERSION_PROPERTY, MDSSModule.VERSION.toString());
-
-    return map;
-  }
-
-  @Override
-  public Collection<IPropertyListener> getImportPropertyListeners()
-  {
-    Collection<IPropertyListener> collection = new LinkedList<IPropertyListener>();
-    collection.add(this);
-
-    return collection;
-  }
-
-  @Override
-  public void handleProperty(String name, String value)
-  {
-    if (name.equals(MDSSModule.VERSION_PROPERTY) && !value.equals(MDSSModule.VERSION))
-    {
-      String msg = Localizer.getMessage("MANAGER_VERSION_ERROR");
-
-      throw new RuntimeException(msg);
-    }
   }
 }

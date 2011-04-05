@@ -275,13 +275,13 @@ public class ModuleController extends EventProvider implements IModuleController
   {
     rebuildGeoPathsInTransaction();
   }
-  
+
   @Transaction
   public void rebuildGeoPathsInTransaction()
   {
     String className = "dss.vector.solutions.geo.generated.GeoEntity";
     String methodName = "buildAllPathsFastInner";
-    
+
     try
     {
       Class<?> clazz = LoaderDecorator.load(className);
@@ -291,15 +291,15 @@ public class ModuleController extends EventProvider implements IModuleController
     catch (InvocationTargetException e)
     {
       e.printStackTrace();
-      
+
       fireErrorEvent(e.getCause().getLocalizedMessage());
     }
     catch (Exception e)
     {
       e.printStackTrace();
-      
+
       fireErrorEvent(e.getLocalizedMessage());
-    }    
+    }
   }
 
   @Override
@@ -308,13 +308,13 @@ public class ModuleController extends EventProvider implements IModuleController
   {
     rebuildTermPathsInTransaction();
   }
-  
+
   @Transaction
   public void rebuildTermPathsInTransaction()
   {
     String className = "dss.vector.solutions.ontology.AllPaths";
     String methodName = "rebuildAllPathsInner";
-    
+
     try
     {
       Class<?> clazz = LoaderDecorator.load(className);
@@ -328,7 +328,73 @@ public class ModuleController extends EventProvider implements IModuleController
     catch (Exception e)
     {
       fireErrorEvent(e.getLocalizedMessage());
-    }    
+    }
+  }
+
+  @Override
+  @Request
+  public void deleteGeoPaths()
+  {
+    this.deleteGeoPathsInTransaction();
+  }
+
+  @Transaction
+  public void deleteGeoPathsInTransaction()
+  {
+    String className = "dss.vector.solutions.geo.AllPaths";
+    String methodName = "deleteAllTableRecords";
+
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load(className);
+      Method method = clazz.getMethod(methodName);
+      method.invoke(null);
+    }
+    catch (InvocationTargetException e)
+    {
+      e.printStackTrace();
+
+      fireErrorEvent(e.getCause().getLocalizedMessage());
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+
+      fireErrorEvent(e.getLocalizedMessage());
+    }
+  }
+
+  @Override
+  @Request
+  public void deleteTermPaths()
+  {
+    this.deleteTermPathsInTransaction();
+  }
+
+  @Transaction
+  public void deleteTermPathsInTransaction()
+  {
+    String className = "dss.vector.solutions.ontology.AllPaths";
+    String methodName = "deleteAllTableRecords";
+
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load(className);
+      Method method = clazz.getMethod(methodName);
+      method.invoke(null);
+    }
+    catch (InvocationTargetException e)
+    {
+      e.printStackTrace();
+
+      fireErrorEvent(e.getCause().getLocalizedMessage());
+    }
+    catch (Exception e)
+    {
+      e.printStackTrace();
+
+      fireErrorEvent(e.getLocalizedMessage());
+    }
   }
 
 }

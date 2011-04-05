@@ -65,5 +65,10 @@ public class CommandProperties
   public static String getLogLocation()
   {
     return instance().getString("log.location");
+  }
+
+  public static String getIconDirectory()
+  {
+    return instance().getString("manager.icons");
   }  
 }
