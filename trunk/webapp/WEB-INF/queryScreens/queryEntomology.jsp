@@ -39,7 +39,8 @@
 <%@page import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
+<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Entomology"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -49,7 +50,7 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ MosquitoCollectionDTO.CLASS,InfectionAssayDTO.CLASS,PooledInfectionAssayDTO.CLASS,BiochemicalAssayDTO.CLASS,MolecularAssayDTO.CLASS,MosquitoCollectionViewDTO.CLASS,InfectionAssayViewDTO.CLASS,PooledInfectionAssayViewDTO.CLASS,BiochemicalAssayViewDTO.CLASS,MolecularAssayViewDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();

@@ -41,7 +41,8 @@
 
 
 <%@page import="dss.vector.solutions.geo.generated.SurfaceDTO"%>
-<%@page import="dss.vector.solutions.query.QueryConstants"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
+<%@page import="dss.vector.solutions.query.QueryConstants"%>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Efficacy"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -51,7 +52,7 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{  EfficacyAssayDTO.CLASS, InsecticideBrandDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 //    MosquitoViewDTO mosquitoViewDTO = new MosquitoViewDTO(requestIF);
 

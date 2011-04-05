@@ -39,7 +39,8 @@
 
 
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
-<c:set var="page_title" value="Query_Immatures_by_Container_Type"  scope="request"/>
+
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Immatures_by_Container_Type"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -49,7 +50,7 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ ImmatureCollectionDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS, PremiseTaxonDTO.CLASS, CollectionPremiseDTO.CLASS, CollectionContainerDTO.CLASS};
+    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS, PremiseTaxonDTO.CLASS, CollectionPremiseDTO.CLASS, CollectionContainerDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();

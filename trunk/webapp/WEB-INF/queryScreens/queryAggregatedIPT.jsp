@@ -37,7 +37,8 @@
 
 
 <%@page import="dss.vector.solutions.geo.generated.HealthFacilityDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO"%><c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
+<%@page import="dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Aggregated_IPT"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -47,7 +48,7 @@
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
     String[] mosquitoTypes = new String[]{ AggregatedIPTDTO.CLASS, IPTANCVisitDTO.CLASS, IPTDoseDTO.CLASS, IPTTreatmentDTO.CLASS, IPTPatientsDTO.CLASS};
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
     List<String> loadables = new ArrayList<String>();
     loadables.addAll(Arrays.asList(mosquitoTypes));

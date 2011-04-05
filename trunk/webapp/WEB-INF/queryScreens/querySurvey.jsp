@@ -33,7 +33,8 @@
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyPointViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO"%>
-<%@page import="dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO"%><c:set var="page_title" value="Query_Indicator_Surveys"  scope="request" />
+<%@page import="dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Indicator_Surveys"  scope="request" />
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
@@ -44,7 +45,7 @@
 <%
   ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
   String[] mosquitoTypes = new String[]{ SurveyPointDTO.CLASS, HouseholdDTO.CLASS, SurveyedPersonDTO.CLASS, SurveyedPersonTreatmentLocationDTO.CLASS,SurveyedPersonTreatmentDTO.CLASS, ITNInstanceDTO.CLASS};
-  String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+  String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
   List<String> loadables = new ArrayList<String>();

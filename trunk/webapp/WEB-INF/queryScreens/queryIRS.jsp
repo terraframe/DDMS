@@ -51,7 +51,8 @@
 <%@page import="dss.vector.solutions.irs.OperatorSprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayStatusDTO"%>
 <%@page import="dss.vector.solutions.irs.TeamSprayViewDTO"%>
-<%@page import="dss.vector.solutions.irs.AbstractSprayDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
+<%@page import="dss.vector.solutions.irs.AbstractSprayDTO"%>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_IRS"  scope="request"/>
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
@@ -75,7 +76,7 @@
     TeamSprayViewDTO.CLASS,
     OperatorSprayViewDTO.CLASS
     };
-    String[] queryTypes = new String[]{EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
+    String[] queryTypes = new String[]{NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS};
 
 
     List<String> loadables = new ArrayList<String>();
