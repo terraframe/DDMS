@@ -16,7 +16,11 @@ import javax.servlet.http.HttpSession;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.web.WebClientSession;
+
+import dss.vector.solutions.ontology.AllPathsQuery;
 
 public class LoginFilter implements Filter, Reloadable
 {
@@ -79,8 +83,26 @@ public class LoginFilter implements Filter, Reloadable
       }
     }
 
-    // redirect to the login page because the user is not logged in
-    filterConfig.getServletContext().getRequestDispatcher("/login.jsp").forward(httpReq, httpRes);
+    // check if the term or geo allpaths are dirty and need to rebuilt. The system is unusable if this is true.
+    QueryFactory f = new QueryFactory();
+    ValueQuery geoVQ = new ValueQuery(f);
+    dss.vector.solutions.geo.AllPathsQuery geoAP = new dss.vector.solutions.geo.AllPathsQuery(geoVQ);
+    geoVQ.SELECT(geoAP.getId());
+    
+    QueryFactory f2 = new QueryFactory();
+    ValueQuery termVQ = new ValueQuery(f2);
+    AllPathsQuery termAP = new AllPathsQuery(termVQ);
+    termVQ.SELECT(termAP.getId());
+    
+    if(geoVQ.getCount() == 0 || termVQ.getCount() == 0)
+    {
+      filterConfig.getServletContext().getRequestDispatcher("/allpathsRebuild.jsp").forward(httpReq, httpRes);
+    }
+    else
+    {
+      // redirect to the login page because the user is not logged in
+      filterConfig.getServletContext().getRequestDispatcher("/login.jsp").forward(httpReq, httpRes);
+    }
   }
 
   private boolean pathAllowed(String uri)
@@ -97,6 +119,11 @@ public class LoginFilter implements Filter, Reloadable
     }
     
     if(uri.endsWith("status.jsp"))
+    {
+      return true;
+    }
+    
+    if(uri.endsWith("allpathsRebuild.jsp"))
     {
       return true;
     }
