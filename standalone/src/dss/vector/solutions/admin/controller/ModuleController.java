@@ -18,6 +18,7 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.general.Localizer;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.admin.LogConstants;
 import dss.vector.solutions.admin.model.Server;
@@ -342,26 +343,9 @@ public class ModuleController extends EventProvider implements IModuleController
   public void deleteGeoPathsInTransaction()
   {
     String className = "dss.vector.solutions.geo.AllPaths";
-    String methodName = "deleteAllTableRecords";
 
-    try
-    {
-      Class<?> clazz = LoaderDecorator.load(className);
-      Method method = clazz.getMethod(methodName);
-      method.invoke(null);
-    }
-    catch (InvocationTargetException e)
-    {
-      e.printStackTrace();
-
-      fireErrorEvent(e.getCause().getLocalizedMessage());
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-
-      fireErrorEvent(e.getLocalizedMessage());
-    }
+    MdBusiness mdBusiness = MdBusiness.getMdBusiness(className);
+    mdBusiness.deleteAllTableRecords();
   }
 
   @Override
@@ -375,26 +359,9 @@ public class ModuleController extends EventProvider implements IModuleController
   public void deleteTermPathsInTransaction()
   {
     String className = "dss.vector.solutions.ontology.AllPaths";
-    String methodName = "deleteAllTableRecords";
 
-    try
-    {
-      Class<?> clazz = LoaderDecorator.load(className);
-      Method method = clazz.getMethod(methodName);
-      method.invoke(null);
-    }
-    catch (InvocationTargetException e)
-    {
-      e.printStackTrace();
-
-      fireErrorEvent(e.getCause().getLocalizedMessage());
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
-
-      fireErrorEvent(e.getLocalizedMessage());
-    }
+    MdBusiness mdBusiness = MdBusiness.getMdBusiness(className);
+    mdBusiness.deleteAllTableRecords();
   }
 
 }
