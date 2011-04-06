@@ -1087,31 +1087,83 @@ MDSS.GeoEntityTree = (function(){
    */
   function _dynamicLoad(parentNode, fnLoadComplete)
   {
+    var parentId;
+    var pageNumber;
+    var isPageNode;
+    if(parentNode instanceof YAHOO.widget.TextNode && Mojo.Util.isNumber(parentNode.data.pageNumber))
+    {
+      parentId = parentNode.data.parentId;
+      pageNumber = parentNode.data.pageNumber;
+      isPageNode = true;
+    }
+    else
+    {
+      pageNumber = 1;
+      parentId = _getGeoEntityView(parentNode).getGeoEntityId();
+      isPageNode = false;
+    }
+  
     // request to fetch children
     var request = new MDSS.Request({
       onSuccess : function(query){
 
-        var childNodes = query.getResultSet();
-
-        for(var i=0; i<childNodes.length; i++)
+        var children = query.getResultSet();
+        
+        for(var i=0; i<children.length; i++)
         {
-          var child = childNodes[i];
+          var child = children[i];
 
           var div = _createNodeDiv(child);
 
           var node = new YAHOO.widget.HTMLNode(div);
-          parentNode.appendChild(node);
-
           _setMapping(node, child);
+          
+          // either begin the replacing process if we're loading a new child page
+          // or append to the end of the parent node.
+          if(isPageNode)
+          {
+            node.insertAfter(parentNode);
+          }
+          else
+          {
+            parentNode.appendChild(node);
+          }
+        }
+        
+        if(!isPageNode)
+        {
+          // append any page nodes if we're loading a normal parent entity with overflow children
+          var information = this.getInformation();
+          var overflowClass = Mojo.$.dss.vector.solutions.geo.ChildEntityOverflowInformation;
+          for(var i=0, len=information.length; i<len; i++)
+          {
+            // create the overflow page node. It will not be draggable
+            var info = information[i];
+            if(info instanceof overflowClass)
+            {
+              var overflowNode = new YAHOO.widget.TextNode(info.getMessage());
+              overflowNode.data = {pageNumber:info.getOverflowPage(), parentId:parentId};
+              parentNode.appendChild(overflowNode);
+            }
+          }
         }
 
         fnLoadComplete();
-        parentNode.refresh();
+        
+        if(isPageNode)
+        {
+          // remove the placeholder page node (must go after fnLoadComplete() to avoid an error)
+          _geoTree.removeNode(parentNode, true);
+        }
+        else
+        {
+          parentNode.refresh();
+        }      
       }
     });
 
-    var geoEntityView = _getGeoEntityView(parentNode);
-    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildren(request, geoEntityView.getGeoEntityId(), '');
+
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getOrderedChildrenPage(request, parentId, '', pageNumber);
   }
 
   /**

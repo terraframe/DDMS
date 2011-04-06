@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1870355167)
+@com.runwaysdk.business.ClassSignature(hash = -1631218326)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = -1870355167;
+  private static final long serialVersionUID = -1631218326;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -852,6 +852,22 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{id, typeFilter};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildren", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.geo.GeoEntityViewQueryDTO getOrderedChildrenPage(java.lang.String typeFilter, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{typeFilter, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildrenPage", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoEntityViewQueryDTO) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityViewQueryDTO getOrderedChildrenPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, java.lang.String typeFilter, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{id, typeFilter, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.generated.GeoEntityDTO.CLASS, "getOrderedChildrenPage", _declaredTypes);
     return (dss.vector.solutions.geo.GeoEntityViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

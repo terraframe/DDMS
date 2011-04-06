@@ -505,13 +505,15 @@ div.thematicVariable {
 }
 
 .activeEntity {
-  padding-left: 10px;
   color: #000000;
 }
 
 .inactiveEntity {
-  padding-left: 10px;
   color: #808080;
+}
+
+td.ygtvcell {
+  padding-left: 3px; !important
 }
 
 div#querySummary {

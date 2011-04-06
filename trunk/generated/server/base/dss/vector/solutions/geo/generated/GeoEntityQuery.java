@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1325401064)
+@com.runwaysdk.business.ClassSignature(hash = -386440543)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo.generated;
 public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1325401064;
+private static final long serialVersionUID = -386440543;
 
   public GeoEntityQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -965,7 +965,7 @@ private static final long serialVersionUID = -1325401064;
  implements GeoEntityQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1096149834;
+private static final long serialVersionUID = -1191838785;
 
   public GeoEntityQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

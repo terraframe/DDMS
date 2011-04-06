@@ -74,6 +74,7 @@ import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.WKTParsingProblem;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.ChildEntityOverflowInformation;
 import dss.vector.solutions.geo.ConfirmDeleteEntityException;
 import dss.vector.solutions.geo.ConfirmParentChangeException;
 import dss.vector.solutions.geo.DuplicateParentException;
@@ -99,6 +100,11 @@ import dss.vector.solutions.util.QueryUtil;
 public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1234288139462L;
+  
+  /**
+   * The maximum number of children allowed for UI display under one parent node.
+   */
+  public static final int OVERFLOW_THRESHOLD = 5;
 
   public GeoEntity()
   {
@@ -1440,6 +1446,42 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       throw new ProgrammingErrorException(e);
     }
   }
+  
+  @Override
+  public GeoEntityViewQuery getOrderedChildrenPage(String filter, Integer pageNumber)
+  {
+    
+    QueryFactory f = new QueryFactory();
+    OrderedGeoEntityQueryBuilder builder = new OrderedGeoEntityQueryBuilder(f, this, filter);
+    GeoEntityViewQuery query = new GeoEntityViewQuery(f, builder);
+
+    long count = query.getCount();
+    query.restrictRows(OVERFLOW_THRESHOLD, pageNumber);
+    
+    if(pageNumber == 1 && count > OVERFLOW_THRESHOLD)
+    {
+      int pages = (int) Math.ceil(count / (double) OVERFLOW_THRESHOLD);
+      int currentPage = 2;
+      while(currentPage <= pages)
+      {
+        int start = ((currentPage-1)*OVERFLOW_THRESHOLD) + 1;
+        int number = (int) (currentPage < pages ? OVERFLOW_THRESHOLD-1 : count - start);
+        int end = (start + number);
+        
+        ChildEntityOverflowInformation info = new ChildEntityOverflowInformation();
+        info.setOverflowPage(currentPage);
+        info.setOverflowStart(start);
+        info.setOverflowEnd(end);
+        info.setOverflowNumber(number);
+        info.setOverflowThreshold(OVERFLOW_THRESHOLD);
+        info.throwIt();
+        
+        currentPage++;
+      }
+    }
+    
+    return query;
+  }
 
   /**
    * Returns a list of all LocatedIn children for which this GeoEntity is a
@@ -1448,11 +1490,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   @Override
   public GeoEntityViewQuery getOrderedChildren(String filter)
   {
-    QueryFactory f = new QueryFactory();
-    OrderedGeoEntityQueryBuilder builder = new OrderedGeoEntityQueryBuilder(f, this, filter);
-    GeoEntityViewQuery query = new GeoEntityViewQuery(f, builder);
-
-    return query;
+    return this.getOrderedChildrenPage(filter, 1);
   }
 
   private class OrderedGeoEntityQueryBuilder extends ViewQueryBuilder implements Reloadable
@@ -1493,7 +1531,6 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
-      // vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getName());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
     }
 

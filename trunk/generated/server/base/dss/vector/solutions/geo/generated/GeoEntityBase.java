@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1542052959)
+@com.runwaysdk.business.ClassSignature(hash = 693466090)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1542052959;
+  private static final long serialVersionUID = 693466090;
   
   public GeoEntityBase()
   {
@@ -826,6 +826,18 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   {
     GeoEntity _instance = GeoEntity.get(id);
     return _instance.getOrderedChildren(typeFilter);
+  }
+  
+  public dss.vector.solutions.geo.GeoEntityViewQuery getOrderedChildrenPage(java.lang.String typeFilter, java.lang.Integer pageNumber)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.generated.GeoEntity.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoEntityViewQuery getOrderedChildrenPage(java.lang.String id, java.lang.String typeFilter, java.lang.Integer pageNumber)
+  {
+    GeoEntity _instance = GeoEntity.get(id);
+    return _instance.getOrderedChildrenPage(typeFilter, pageNumber);
   }
   
   public java.lang.String getTypeDisplayLabel()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -455394070)
+@com.runwaysdk.business.ClassSignature(hash = -526186765)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo.generated;
 public class GeoEntityQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -455394070;
+private static final long serialVersionUID = -526186765;
 
   protected GeoEntityQueryDTO(String type)
   {
