@@ -104,7 +104,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   /**
    * The maximum number of children allowed for UI display under one parent node.
    */
-  public static final int OVERFLOW_THRESHOLD = 5;
+  public static final int OVERFLOW_THRESHOLD = 40;
 
   public GeoEntity()
   {
