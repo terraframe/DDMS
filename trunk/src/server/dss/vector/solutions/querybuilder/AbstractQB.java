@@ -770,6 +770,8 @@ public abstract class AbstractQB implements Reloadable
 
     if (allPathsQuery != null)
     {
+      GeoEntityQuery geQ = new GeoEntityQuery(valueQuery);
+      
       // this case is for when they have restricted to a specific geoEntity
       List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
       for (ValueQuery leftJoinVQ : leftJoinValueQueries)
@@ -780,7 +782,7 @@ public abstract class AbstractQB implements Reloadable
       int size = leftJoinSelectables.size();
       if (size > 0)
       {
-        valueQuery.AND(allPathsQuery.getChildGeoEntity().LEFT_JOIN_EQ(
+        valueQuery.AND(geQ.getId().getAttribute().LEFT_JOIN_EQ(
             leftJoinSelectables.toArray(new SelectableSingle[size])));
       }
 
@@ -793,14 +795,20 @@ public abstract class AbstractQB implements Reloadable
 
       // join the domain class that defines the geo entity attribute with the
       // AllPaths table
-      valueQuery.AND(sel.EQ(allPathsQuery.getChildGeoEntity()));
+      valueQuery.AND(sel.EQ(geQ.getId()));
 
       // Restrict by geo entity if applicable for the current attribute
       Condition cond = interceptor.getGeoCondition(getGeoAllPathsAlias(attributeKey));
       if (cond != null)
       {
+        ValueQuery existsVQ = new ValueQuery(valueQuery.getQueryFactory());
+        existsVQ.SELECT(existsVQ.aSQLInteger("geoExistsConstant", "1"));
+        existsVQ.FROM(allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias());
+        existsVQ.WHERE(cond);
+        existsVQ.AND(allPathsQuery.getChildGeoEntity().EQ(geQ.getId()));
+        
         Condition newCond = valueQuery.aSQLCharacter("geoExistsSQL",
-            "EXISTS (SELECT 1 WHERE " + cond.getSQL() + ") AND true").EQ(
+            "EXISTS (" + existsVQ.getSQL() + ") AND true").EQ(
             valueQuery.aSQLCharacter("geoExistsSpoof", "true"));
         valueQuery.AND(newCond);
       }
