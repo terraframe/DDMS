@@ -13,7 +13,6 @@
   </c:otherwise>
 </c:choose>
 <jsp:include page="/WEB-INF/templates/header.jsp" />
-<jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
 
 <c:choose>
   <c:when test="${!(empty problems)}">
@@ -37,7 +36,7 @@
   </c:when>
   <c:when test="${!(empty errorMessage)}">
     <div class="pageTitle"><mdss:localize key="Excel_Import_Fail" /></div>
-    ${errorMessage}
+    <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
   </c:when>
   <c:otherwise>
     <div class="pageTitle"><mdss:localize key="Excel_Import_Success" /></div>

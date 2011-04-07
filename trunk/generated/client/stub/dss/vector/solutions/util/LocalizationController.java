@@ -49,7 +49,6 @@ public class LocalizationController extends LocalizationControllerBase implement
   @SuppressWarnings("unchecked")
   public void importFile() throws IOException, ServletException
   {
-    String message = "";
     try
     {
       // Create a factory for disk-based file items
@@ -71,24 +70,19 @@ public class LocalizationController extends LocalizationControllerBase implement
       ClientRequestIF request = this.getClientRequest();
       if (file == null)
       {
-        message = MDSSProperties.getString("File_Required");
-        return;
+        req.setAttribute(ErrorUtility.ERROR_MESSAGE, MDSSProperties.getString("File_Required"));
       }
-
-      LocalizationFacadeDTO.importFile(request, file.getInputStream());
-
-      message = MDSSProperties.getString("File_Upload_Success");
+      else
+      {
+        LocalizationFacadeDTO.importFile(request, file.getInputStream());
+      }
     }
-    catch (Throwable e)
+    catch (Throwable t)
     {
-      this.getResponse().getWriter().write(e.getLocalizedMessage());
+      ErrorUtility.prepareThrowable(t, req, resp, false);
     }
-    finally
-    {
-      this.resp.setContentType("text/html;charset=UTF-8");
-      this.resp.setCharacterEncoding("UTF-8");
-      this.resp.getWriter().write(message);
-    }
+
+    req.getRequestDispatcher("/WEB-INF/excelImportDone.jsp").forward(req, resp);
   }
 
   public void exportFile(String[] locales) throws IOException, ServletException
