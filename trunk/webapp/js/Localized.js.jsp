@@ -30,7 +30,7 @@ day_list.removeAll(Arrays.asList(""));
 JSONArray short_days = new JSONArray(day_list);
 
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-Map<String,String> roleMap =  clientRequest.getSessionUserRoles();
+Map<String,String> roleMap =  clientRequest != null ? clientRequest.getSessionUserRoles() : new HashMap<String, String>();
 JSONArray roles = new JSONArray(roleMap.keySet());
 
 DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(locale);

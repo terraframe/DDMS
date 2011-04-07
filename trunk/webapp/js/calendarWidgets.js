@@ -6,6 +6,14 @@
 MDSS.Calendar = {};
 
 (function() {
+
+  // Make sure the date settings have been initialized to avoid errors.
+  // The initialization will be completed once the user is logged in.
+  if(!Mojo.Util.isObject(MDSS.DateSettings))
+  {
+    return;
+  }
+
     var Dom = YAHOO.util.Dom,
         Event = YAHOO.util.Event,
         cal1,
