@@ -1,19 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
-<%@ taglib uri="http://jawr.net/tags" prefix="jwr"%>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="icon" type="image/png" href="./imgs/favicon.png"/>
 
-<title><mdss:localize key="login" /></title>
+<c:set var="page_title" value="login"  scope="request"/>
 
-
-<jwr:style src="/bundles/yuiStyle.css" />
-<jwr:style src="/bundles/mdssScreen.css" />
+<jsp:include page="/WEB-INF/templates/banner.jsp" />
 
 <style type="text/css">
 input[type="button"],input[type="submit"] {
@@ -78,10 +72,7 @@ input[type="button"]:active {
 	margin-top: 13px;
 }
 </style>
-</head>
 
-<body onload="checkForFF.test()" class="yui-skin-sam">
-<%@ include file="/WEB-INF/templates/banner.jsp"%>
 <div class="pageContent">
 <div class="pageTitle"><mdss:localize key="login" /></div>
 
@@ -167,6 +158,8 @@ return {  // Return object literal and public methods here.
  }
 };
 }();
+
+YAHOO.util.Event.onDOMReady(checkForFF);
 </script>
-</body>
-</html>
+
+<jsp:include page="/WEB-INF/templates/footer.jsp" />
