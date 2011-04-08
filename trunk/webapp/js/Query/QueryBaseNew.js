@@ -570,7 +570,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var aggSelectable = new MDSS.QueryXML.Selectable(count);
         this._countSelectable = aggSelectable;
 
-        this._queryPanel.insertColumn(attribute.getColumnObject());
+        var column = new YAHOO.widget.Column(attribute.getColumnObject());
+        column.attribute = attribute;
+        this._queryPanel.insertColumn(column);
       }
       else
       {
