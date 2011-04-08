@@ -837,14 +837,16 @@
 	</target>
 
 	<target name="import_localization_disease_defaults" depends="" description="Import localization by disease defaults">
-		<java classname="dss.vector.solutions.util.MdssLocalizationImporter" fork="true" failonerror="true" dir="." timeout="4000000" taskname="ImportLocalization">
-			<jvmarg value="-Xmx1024M" />
-			
-			<classpath>
-				<path refid="framework.classpath" />
-			</classpath>
-			<arg value="../../../doc/DiseaseLocalizationDefaults.xls" />
-		</java>
+        <java classname="dss.vector.solutions.localization.LocalizationMerger" fork="true" failonerror="true" dir="../../../doc" timeout="4000000" taskname="MergeLocalization">
+            <jvmarg value="-Xmx1024M" />
+            
+            <classpath>
+                <path refid="framework.classpath" />
+            </classpath>
+            <arg value="localization" />
+            <arg value="MergedLocalization.xls" />
+        </java>
+        <copy file="../../../doc/MergedLocalization.xls" tofile="../../../doc/DiseaseLocalizationDefaults.xls" overwrite="true" />
 	</target>
 
 	<target name="import_ontology" depends="" description="imports the MO ontology data into the db">
