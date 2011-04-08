@@ -1,5 +1,5 @@
 // Alias all AttributeDTOs to the window
-Mojo.Meta.shorthand('com.runwaysdk.transport.attributes.*', window);
+Mojo.Meta.alias('com.runwaysdk.transport.attributes.*', window);
 
 /**
  * Root MDSS namespace.

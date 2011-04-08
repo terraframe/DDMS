@@ -117,7 +117,7 @@
       return obj;
     },
     
-    shorthand : function(pattern, attachTo, includePackage)
+    alias : function(pattern, attachTo, includePackage)
     {
       var anchorObj = attachTo || Mojo.GLOBAL;
       
@@ -152,7 +152,7 @@
     
     classCount : function()
     {
-      return Mojo.Util.getKeys(_classes).length;
+      return Mojo.Util.getKeys(_classes, true).length;
     },
     
     _buildPackage : function(packageName, alias)
