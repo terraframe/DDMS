@@ -1569,7 +1569,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
     ValueQuery v = new ValueQuery(f);
     
     AllPathsQuery q = new AllPathsQuery(v);
-    v.SELECT(q.getChildTerm().getId("childId"), q.getChildTerm().getTermDisplayLabel().localize("childDisplay"));
+    v.SELECT_DISTINCT(q.getChildTerm().getId("childId"), q.getChildTerm().getTermDisplayLabel().localize("childDisplay"));
     v.WHERE(q.getChildTerm("childId").IN(termIds));
     v.AND(q.getParentTerm("parentId").IN(termIds));
     v.AND(q.getChildTerm("childId").NE(q.getParentTerm("parentId")));
