@@ -21,18 +21,18 @@
 <%
 //UsersDTO user =(UsersDTO) session.getAttribute("MOJO_CurrentUser");
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-if(clientRequest.isLoggedIn())
+if(clientRequest != null && clientRequest.isLoggedIn())
 {
     %> <mdss:localize key="logged_in_as" />: <%
     //out.print(user.getUsername());
-    out.print(clientRequest.getSessionUser());
+    out.print(clientRequest.getSessionUser()); %> (${diseaseName}) <%
 }
 else
 {
- out.print("Not Logged In");
+ //out.print("Not Logged In");
 }
 %>
-(${diseaseName})
+
 </div>
 
  ${add_to_footer}

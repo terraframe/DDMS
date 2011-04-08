@@ -6,6 +6,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ page import="dss.vector.solutions.util.Halp"%>
+<%
+ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !clientRequest.isPublicUser()));
+%>
 <% Halp.getDateFormatString(request);  //we set the date format here, incase we are using non-inside out rendering%>
 <c:choose>
   <c:when test='${diseaseName != null}'>
@@ -15,7 +19,9 @@
 	<fmt:setBundle basename="MDSS" scope="session"/>
   </c:otherwise>
 </c:choose>
-<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+
+<%@page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@page import="com.runwaysdk.constants.ClientConstants"%><html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
@@ -24,9 +30,13 @@
 <jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
 <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
-<script type="text/javascript" src="js/Localized.js.jsp"></script>
+<c:if test="${generateJavaScriptClasses}">
+  <script type="text/javascript" src="js/Localized.js.jsp"></script>
+</c:if>
 <jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>
-<script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
+<c:if test="${generateJavaScriptClasses}">
+  <script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
+</c:if>
 <c:choose>
   <c:when test='${window_title != null}'>
     <title><mdss:localize key="${window_title}"/></title>
