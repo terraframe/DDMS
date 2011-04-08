@@ -1,6 +1,7 @@
 package dss.vector.solutions.localization;
 
 import java.io.File;
+import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.util.Arrays;
 import java.util.Collections;
@@ -36,7 +37,15 @@ public class LocalizationMerger
         System.out.println("  -outfile: The output file");
     }
     
-    File[] files = dir.listFiles();
+    File[] files = dir.listFiles(new FileFilter()
+    {     
+      @Override
+      public boolean accept(File pathname)
+      {
+        return pathname.getAbsolutePath().endsWith(".xls");
+      }
+    });
+    
     Comparator<File> c = new Comparator<File>()
     {
       @Override
