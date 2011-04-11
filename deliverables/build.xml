@@ -11,7 +11,21 @@
     <target name="build">
         <tstamp>
             <format property="date" pattern="yyMMdd" />
+            <format property="long_date" pattern="MMMM dd" />
         </tstamp>
+
+    	<mail
+		  mailhost="mail.terraframe.com"
+		  mailport="25"
+		  subject="${long_date} build complete"
+		  user="egrunzke"
+		  password="this isn't it">
+    	  <from address="cruisecontrol@terraframe.com" />
+    	  <to address="eric.grunzke@gmail.com" />
+    	  <message>The ${long_date} build has completed.  New patches and installers are available for download at https://my-svn.assembla.com/svn/mdss/deliverables/
+
+This e-mail has been generated automatically.</message>
+    	</mail>
 
         <!-- svn updates -->
         <svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
@@ -20,15 +34,15 @@
         </svn>
 
         <!-- Installer -->
-        <ant inheritAll="false" antfile="../trunk/cc-build.xml" target="build" />
+		<ant inheritAll="false" antfile="../trunk/cc-build.xml" target="build" />
         <copy file="../installer-windows/InstallDDMSblank.exe" tofile="InstallDDMSblank-${date}.exe" />
-
+		
         <!-- App Patch -->
-        <ant inheritAll="false" antfile="../trunk/patches/patch.xml" target="build" />
+        <ant inheritAll="false" antfile="patch.xml" target="build" dir="../trunk/patches" />
         <copy file="../trunk/patches/patch.exe" tofile="patch-${date}.exe" />
 
         <!-- Manager Patch -->
-        <ant inheritAll="false" antfile="../standalone/patch/manager.xml" target="build" />
+        <ant inheritAll="false" antfile="manager.xml" target="build" dir="../standalone/patch" />
         <copy file="../standalone/patch/manager.exe" tofile="manager-${date}.exe" />
 
         <!-- svn commit -->
