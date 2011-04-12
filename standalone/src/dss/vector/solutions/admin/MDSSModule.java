@@ -474,7 +474,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 
         MDSSModule module = new MDSSModule(new ModuleController());
 
-        MainWindow window = new MainWindow(configuration, module);
+        MainWindow window = new MainWindow(configuration, module);        
         window.run();
       }
     });
