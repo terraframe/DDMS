@@ -7,6 +7,7 @@
 <%@page import="java.util.*"%>
 <%@page import="dss.vector.solutions.global.CredentialsSingleton"%>
 <c:set var="page_title" value="About"  scope="request"/>
+<c:set var="version" value="1.00.0000" scope="request" />
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
@@ -14,7 +15,7 @@
 
 <dl>
   <dt><mdss:localize key="About_System_Name"/>:</dt>
-  <dd><mdss:localize key="About_Version"/></dd>
+  <dd><mdss:localize key="About_Version"/> ${version}</dd>
   <dt><mdss:localize key="developed_by"/>:</dt>
   <dd>
     <ul>
