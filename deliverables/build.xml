@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
+	<property name="mdss.root" value="../trunk" />
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
 		<classpath>
-			<fileset dir="../trunk/lib/ant">
+			<fileset dir="${mdss.root}/lib/ant">
 				<include name="*.jar" />
 			</fileset>
 		</classpath>
@@ -10,66 +11,86 @@
 
 	<target name="build" depends="increment">
 		<tstamp>
-			<format property="date" pattern="yyMMdd" />
-			<format property="long_date" pattern="MMMM dd" />
+			<format property="date" pattern="MMMM dd" />
+			<format property="long_date" pattern="MMMM dd, YYYY" />
 		</tstamp>
-
-		<mail
-			mailhost="mail.terraframe.com"
-			mailport="25"
-			subject="${long_date} build complete"
-			user="builder"
-			password="Mr.Bob!">
-			<from address="cruisecontrol@terraframe.com" />
-			<to address="eric.grunzke@gmail.com" />
-			<to address="miguel.orlans@gmail.com" />
-			<to address="marlize.coleman@gmail.com" />
-			<message>Version ${version.display} has been built on ${long_date}.  New patches and installers are available for download at https://my-svn.assembla.com/svn/mdss/deliverables/
-
-You may reply to this e-mail directly with any questions.</message>
-		</mail>
-
+		
+		<!-- Build the expected file names -->
+		<property name="file.installer" value="InstallDDMSblank-${version.display}.exe" />
+		<property name="file.patch" value="patch-${version.display}.exe" />
+		<property name="file.manager" value="manager-${version.display}.exe" />
+		
 		<!-- svn updates -->
-		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
-			<update dir="../trunk" recurse="true" />
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle" failonerror="true">
+			<update dir="${mdss.root}" recurse="true" />
 			<update dir="../standalone" recurse="true" />
 		</svn>
 
 		<!-- Installer -->
-		<ant inheritAll="false" antfile="../trunk/cc-build.xml" target="build">
+		<ant inheritAll="false" antfile="${mdss.root}/cc-build.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
-		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="InstallDDMSblank-${version.display}.exe" />
+		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="${file.installer}" />
 
 		<!-- App Patch -->
-		<ant inheritAll="false" antfile="../trunk/patches/patch.xml" target="build">
+		<ant inheritAll="false" antfile="${mdss.root}/patches/patch.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
-		<copy file="../trunk/patches/patch.exe" tofile="patch-${version.display}.exe" />
+		<copy file="${mdss.root}/patches/patch.exe" tofile="${file.patch}" />
 
 		<!-- Manager Patch -->
 		<ant inheritAll="false" antfile="../standalone/patch/manager.xml" target="build">
 			<property name="version.display" value="${version.display}" />
 		</ant>
-		<copy file="../standalone/patch/manager.exe" tofile="manager-${version.display}.exe" />
+		<copy file="../standalone/patch/manager.exe" tofile="${file.manager}" />
 
 		<!-- svn commit -->
 		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
-			<add file="InstallDDMSblank-${version.display}.exe" />
-			<add file="patch-${version.display}.exe" />
-			<add file="manager-${version.display}.exe" />
-			<commit file="InstallDDMSblank-${version.display}.exe" message="Automatic installer commit" />
-			<commit file="patch-${version.display}.exe" message="Automatic patch commit" />
-			<commit file="manager-${version.display}.exe" message="Automatic manager patch commit" />
+			<add file="${file.installer}" />
+			<add file="${file.patch}" />
+			<add file="${file.manager}" />
+			<commit file="${file.installer}" message="Automatic installer commit" />
+			<commit file="${file.patch}" message="Automatic patch commit" />
+			<commit file="${file.manager}" message="Automatic manager patch commit" />
 		</svn>
+
+        <mail
+            mailhost="mail.terraframe.com"
+            mailport="25"
+            subject="${date} build complete"
+            user="builder"
+            password="Mr.Bob!">
+            <from address="cruisecontrol@terraframe.com" />
+            <to address="eric.grunzke@gmail.com" />
+            <to address="miguel.orlans@gmail.com" />
+            <to address="marlize.coleman@gmail.com" />
+            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download at https://my-svn.assembla.com/svn/mdss/deliverables/
+
+You may reply to this e-mail directly with any questions.</message>
+        </mail>
 	</target>
 
 	<target name="increment">
+		<!-- Increment the build number -->
 		<propertyfile file="./version.properties">
 			<entry key="version.build" type="int" operation="+" default="0" pattern="0000" />
 		</propertyfile>
+		
+		<!-- Read in the incremented proeprty file -->
 		<property file="version.properties" />
 		<property name="version.display" value="${version.major}.${version.minor}.${version.build}" />
 		<echo message="Incremented version is ${version.display}" />
+		
+		<!-- Regex the version into about.jsp. It's ugly, but XML requires escape codes for nested "-->
+		<replaceregexp
+		  match="c:set var=&quot;version&quot; value=&quot;.*&quot; scope=&quot;request&quot;"
+		  replace="c:set var=&quot;version&quot; value=&quot;${version.display}&quot; scope=&quot;request&quot;"
+		  file="${mdss.root}/webapp/about.jsp"
+		  byline="true" />
+		
+		<!-- Overwrite revision.html -->
+		<echo file="${mdss.root}/webapp/revision.html" append="false">
+			Last updated on ${long_date}
+		</echo>
 	</target>
 </project>
