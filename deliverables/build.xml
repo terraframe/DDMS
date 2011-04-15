@@ -1,58 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
-    <typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
-        <classpath>
-            <fileset dir="../trunk/lib/ant">
-                <include name="*.jar" />
-            </fileset>
-        </classpath>
-    </typedef>
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="../trunk/lib/ant">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</typedef>
 
-    <target name="build">
-        <tstamp>
-            <format property="date" pattern="yyMMdd" />
-            <format property="long_date" pattern="MMMM dd" />
-        </tstamp>
+	<target name="build" depends="increment">
+		<tstamp>
+			<format property="date" pattern="yyMMdd" />
+			<format property="long_date" pattern="MMMM dd" />
+		</tstamp>
 
-    	<mail
-		  mailhost="mail.terraframe.com"
-		  mailport="25"
-		  subject="${long_date} build complete"
-		  user="egrunzke"
-		  password="this isn't it">
-    	  <from address="cruisecontrol@terraframe.com" />
-    	  <to address="eric.grunzke@gmail.com" />
-    	  <message>The ${long_date} build has completed.  New patches and installers are available for download at https://my-svn.assembla.com/svn/mdss/deliverables/
+		<mail
+			mailhost="mail.terraframe.com"
+			mailport="25"
+			subject="${long_date} build complete"
+			user="builder"
+			password="Mr.Bob!">
+			<from address="cruisecontrol@terraframe.com" />
+			<to address="eric.grunzke@gmail.com" />
+			<to address="miguel.orlans@gmail.com" />
+			<to address="marlize.coleman@gmail.com" />
+			<message>Version ${version.display} has been built on ${long_date}.  New patches and installers are available for download at https://my-svn.assembla.com/svn/mdss/deliverables/
 
-This e-mail has been generated automatically.</message>
-    	</mail>
+You may reply to this e-mail directly with any questions.</message>
+		</mail>
 
-        <!-- svn updates -->
-        <svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
-            <update dir="../trunk" recurse="true" />
-            <update dir="../standalone" recurse="true" />
-        </svn>
+		<!-- svn updates -->
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+			<update dir="../trunk" recurse="true" />
+			<update dir="../standalone" recurse="true" />
+		</svn>
 
-        <!-- Installer -->
-		<ant inheritAll="false" antfile="../trunk/cc-build.xml" target="build" />
-        <copy file="../installer-windows/InstallDDMSblank.exe" tofile="InstallDDMSblank-${date}.exe" />
-		
-        <!-- App Patch -->
-        <ant inheritAll="false" antfile="patch.xml" target="build" dir="../trunk/patches" />
-        <copy file="../trunk/patches/patch.exe" tofile="patch-${date}.exe" />
+		<!-- Installer -->
+		<ant inheritAll="false" antfile="../trunk/cc-build.xml" target="build">
+			<property name="version.display" value="${version.display}" />
+		</ant>
+		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="InstallDDMSblank-${version.display}.exe" />
 
-        <!-- Manager Patch -->
-        <ant inheritAll="false" antfile="manager.xml" target="build" dir="../standalone/patch" />
-        <copy file="../standalone/patch/manager.exe" tofile="manager-${date}.exe" />
+		<!-- App Patch -->
+		<ant inheritAll="false" antfile="../trunk/patches/patch.xml" target="build">
+			<property name="version.display" value="${version.display}" />
+		</ant>
+		<copy file="../trunk/patches/patch.exe" tofile="patch-${version.display}.exe" />
 
-        <!-- svn commit -->
-        <svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
-            <add file="InstallDDMSblank-${date}.exe" />
-            <add file="patch-${date}.exe" />
-            <add file="manager-${date}.exe" />
-            <commit file="InstallDDMSblank-${date}.exe" message="Automatic installer commit" />
-            <commit file="patch-${date}.exe" message="Automatic patch commit" />
-            <commit file="manager-${date}.exe" message="Automatic manager patch commit" />
-        </svn>
-    </target>
+		<!-- Manager Patch -->
+		<ant inheritAll="false" antfile="../standalone/patch/manager.xml" target="build">
+			<property name="version.display" value="${version.display}" />
+		</ant>
+		<copy file="../standalone/patch/manager.exe" tofile="manager-${version.display}.exe" />
+
+		<!-- svn commit -->
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+			<add file="InstallDDMSblank-${version.display}.exe" />
+			<add file="patch-${version.display}.exe" />
+			<add file="manager-${version.display}.exe" />
+			<commit file="InstallDDMSblank-${version.display}.exe" message="Automatic installer commit" />
+			<commit file="patch-${version.display}.exe" message="Automatic patch commit" />
+			<commit file="manager-${version.display}.exe" message="Automatic manager patch commit" />
+		</svn>
+	</target>
+
+	<target name="increment">
+		<propertyfile file="./version.properties">
+			<entry key="version.build" type="int" operation="+" default="0" pattern="0000" />
+		</propertyfile>
+		<property file="version.properties" />
+		<property name="version.display" value="${version.major}.${version.minor}.${version.build}" />
+		<echo message="Incremented version is ${version.display}" />
+	</target>
 </project>
