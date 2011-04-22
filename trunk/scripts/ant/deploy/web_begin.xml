@@ -26,19 +26,6 @@
   </description>
 
   <servlet>
-    <servlet-name>ActionServlet</servlet-name>
-    <display-name>Action Servlet</display-name>
-    <servlet-class>
-        com.runwaysdk.web.ActionServlet
-    </servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>ActionServlet</servlet-name>
-    <url-pattern>/Mojo/ActionServlet</url-pattern>
-  </servlet-mapping>
-
-  <servlet>
     <servlet-name>SecureFileDownloadServlet</servlet-name>
     <display-name>Secure File Download Servlet</display-name>
     <servlet-class>
@@ -148,11 +135,6 @@
     <url-pattern>/SOAPMonitor</url-pattern>
   </servlet-mapping>
 
-  <servlet-mapping>
-    <servlet-name>AdminServlet</servlet-name>
-    <url-pattern>/servlet/AdminServlet</url-pattern>
-  </servlet-mapping>
-
     <!-- currently the W3C havent settled on a media type for WSDL;
     http://www.w3.org/TR/2003/WD-wsdl12-20030303/#ietf-draft
     for now we go with the basic 'it's XML' response -->
@@ -184,24 +166,6 @@
     </url-pattern>
   </servlet-mapping>
 
-  <filter>
-    <filter-name>
-      AdminLoginFilter
-    </filter-name>
-    <filter-class>
-      com.runwaysdk.web.AdminLoginFilter
-    </filter-class>
-  </filter>
-
-  <filter-mapping>
-    <filter-name>
-      AdminLoginFilter
-    </filter-name>
-    <url-pattern>
-      /admin.jsp
-    </url-pattern>
-  </filter-mapping>
-
   <!--
     <filter>
     <filter-name>
@@ -225,39 +189,3 @@
     </url-pattern>
   </filter-mapping>
    -->
-
-  <servlet>
-    <servlet-name>
-      AdminLoginServlet
-    </servlet-name>
-    <servlet-class>
-      com.runwaysdk.web.AdminLoginServlet
-    </servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>
-      AdminLoginServlet
-    </servlet-name>
-    <url-pattern>
-      /AdminLoginServlet
-    </url-pattern>
-  </servlet-mapping>
-
-  <servlet>
-    <servlet-name>
-      AdminLogoutServlet
-    </servlet-name>
-    <servlet-class>
-      com.runwaysdk.web.AdminLogoutServlet
-    </servlet-class>
-  </servlet>
-
-  <servlet-mapping>
-    <servlet-name>
-      AdminLogoutServlet
-    </servlet-name>
-    <url-pattern>
-      /AdminLogoutServlet
-    </url-pattern>
-  </servlet-mapping>
