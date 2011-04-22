@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
@@ -81,7 +82,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
     String termRelationshipTable = MdRelationship.getMdElement(TermRelationship.CLASS).getTableName();
     String allPathsTable = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
     String allPathsRootTypeId = IdParser.parseRootFromId(MdBusiness.getMdBusiness(AllPaths.CLASS).getId());
-    String sitemaster = ServerProperties.getDomain();
+    String sitemaster = CommonProperties.getDomain();
     Date transactionDate = new Date();
     String createdById;
     SessionIF sessionIF = Session.getCurrentSession();
@@ -204,7 +205,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   {
     String allPathsTable = MdBusiness.getMdBusiness(AllPaths.CLASS).getTableName();
     String allPathsRootTypeId = IdParser.parseRootFromId(MdBusiness.getMdBusiness(AllPaths.CLASS).getId());
-    String sitemaster = ServerProperties.getDomain();
+    String sitemaster = CommonProperties.getDomain();
     Date transactionDate = new Date();
     String createdById;
     SessionIF sessionIF = Session.getCurrentSession();

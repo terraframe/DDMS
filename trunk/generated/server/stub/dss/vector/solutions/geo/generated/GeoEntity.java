@@ -22,6 +22,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DatabaseInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.RelationshipInfo;
@@ -1742,7 +1743,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     String locatedInTable = MdRelationship.getMdElement(LocatedIn.CLASS).getTableName();
     String allPathsTable = allPathsMdBusiness.getTableName();
     String allPathsRootTypeId = IdParser.parseRootFromId(MdBusiness.getMdBusiness(AllPaths.CLASS).getId());
-    String sitemaster = ServerProperties.getDomain();
+    String sitemaster = CommonProperties.getDomain();
     Date transactionDate = new Date();
     String createdById;
     SessionIF sessionIF = Session.getCurrentSession();
@@ -1814,7 +1815,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
     String allPathsTable = allPathsMdBusiness.getTableName();
     String allPathsRootTypeId = IdParser.parseRootFromId(MdBusiness.getMdBusiness(AllPaths.CLASS).getId());
-    String sitemaster = ServerProperties.getDomain();
+    String sitemaster = CommonProperties.getDomain();
     Date transactionDate = new Date();
     String createdById;
     SessionIF sessionIF = Session.getCurrentSession();

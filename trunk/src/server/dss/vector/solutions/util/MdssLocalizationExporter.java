@@ -21,11 +21,11 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.SystemException;
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdAttributeBooleanUtil;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdLocalStructInfo;
 import com.runwaysdk.constants.MdLocalizableInfo;
-import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.constants.StructInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.EntityDAOIF;
@@ -267,7 +267,7 @@ public class MdssLocalizationExporter implements Reloadable
         StructDAOIF struct = StructDAO.get(entity.getValue(attributeName));
 
         // Don't export instances mastered at another site
-        if (enforceSiteMaster && !struct.getValue(StructInfo.SITE_MASTER).equals(ServerProperties.getDomain()))
+        if (enforceSiteMaster && !struct.getValue(StructInfo.SITE_MASTER).equals(CommonProperties.getDomain()))
         {
           continue;
         }
