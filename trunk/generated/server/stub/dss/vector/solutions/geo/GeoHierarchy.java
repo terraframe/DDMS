@@ -309,8 +309,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     }
     else
     {
-      String errMsg = "Unable to find a universal with the name \"" + label + "\" (or \"" + systemName + "\")";
-      System.err.println(errMsg);
+//      String errMsg = "Unable to find a universal with the name \"" + label + "\" (or \"" + systemName + "\")";
+//      System.err.println(errMsg);
 
       return null;
     }
