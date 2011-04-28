@@ -611,6 +611,7 @@ MDSS.GeoHierarchyTree = (function(){
         var destNode = YAHOO.util.DDM.getDDById(parentId).node;
 
         var childNode = null;
+        var alreadyLoaded = destNode.dynamicLoadComplete;
         if(obj.clone)
         {
           // clone the node (do not clone its children)
@@ -639,21 +640,21 @@ MDSS.GeoHierarchyTree = (function(){
         // Only add the node if the children have loaded via Ajax.
         // Otherwise, the node will appear twice (i.e., once from
         // the drag and drop and once from the Ajax load).
-        if(destNode.dynamicLoadComplete)
+        if(alreadyLoaded)
         {
           childNode.appendTo(destNode);
           destNode.refresh();
+          
+          if(obj.clone)
+          {
+            // copy the mapping from the old node to the new one
+            var geoHierarchyView = _getGeoHierarchyView(ddThis.node);
+            _setMapping(childNode, geoHierarchyView);
+          }
         }
 
         destNode.expanded = false; // force re-expansion
         destNode.expand();
-
-        if(obj.clone)
-        {
-          // copy the mapping from the old node to the new one
-          var geoHierarchyView = _getGeoHierarchyView(ddThis.node);
-          _setMapping(childNode, geoHierarchyView);
-        }
       }
     });
 

@@ -1218,17 +1218,17 @@ MDSS.GeoEntityTree = (function(){
         {
           childNode.appendTo(destNode);
           destNode.refresh();
+          
+          if(obj.clone)
+          {
+            // copy the mapping from the old node to the new one
+            var geoEntityView = _getGeoEntityView(ddThis.node);
+            _setMapping(childNode, geoEntityView);
+          }
         }
 
         destNode.expanded = false; // force re-expansion
         destNode.expand();
-
-        if(obj.clone)
-        {
-          // copy the mapping from the old node to the new one
-          var geoEntityView = _getGeoEntityView(ddThis.node);
-          _setMapping(childNode, geoEntityView);
-        }
       }
     });
 
