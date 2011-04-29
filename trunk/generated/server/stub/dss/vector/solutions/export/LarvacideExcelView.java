@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -13,7 +12,6 @@ import com.runwaysdk.query.QueryFactory;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.intervention.monitor.Larvacide;
 import dss.vector.solutions.intervention.monitor.LarvacideInstance;
-import dss.vector.solutions.intervention.monitor.LarvacideInstanceQuery;
 import dss.vector.solutions.intervention.monitor.LarvacideInstanceView;
 import dss.vector.solutions.intervention.monitor.LarvacideQuery;
 import dss.vector.solutions.irs.TeamMember;

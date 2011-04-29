@@ -10,7 +10,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.intervention.monitor.AggregatedPremiseVisitView;
 import dss.vector.solutions.intervention.monitor.ControlInterventionView;
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitMethodView;
 import dss.vector.solutions.intervention.monitor.IndividualPremiseVisitView;

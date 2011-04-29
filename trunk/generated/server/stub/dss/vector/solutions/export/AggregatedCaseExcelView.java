@@ -3,10 +3,8 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
-import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -19,7 +17,6 @@ import dss.vector.solutions.surveillance.AggregatedAgeGroup;
 import dss.vector.solutions.surveillance.AggregatedAgeGroupQuery;
 import dss.vector.solutions.surveillance.AggregatedCaseSearchView;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
-import dss.vector.solutions.surveillance.PeriodType;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class AggregatedCaseExcelView extends AggregatedCaseExcelViewBase implements com.runwaysdk.generation.loader.Reloadable

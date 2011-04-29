@@ -69,9 +69,14 @@
             isPost="false"
             label="Export Geo Entities">
             <mdParameter
+              name="hierarchyId"
+              label="Hierarchy ID"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
               name="includeGeoData"
               label="Include Geo Data"
-              order="0"
+              order="1"
               type="java.lang.Boolean" />
           </mdAction>
         </create>
@@ -84,9 +89,14 @@
             isPost="false"
             label="Export Geo Entities">
             <mdParameter
+              name="parentId"
+              label="Geo Parent ID"
+              order="0"
+              type="java.lang.String" />
+            <mdParameter
               name="includeGeoData"
               label="Include Geo Data"
-              order="0"
+              order="1"
               type="java.lang.Boolean" />
           </mdAction>
         </create>

@@ -22,7 +22,6 @@ import dss.vector.solutions.irs.RequiredGeoIdProblem;
 import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSpray;
-import dss.vector.solutions.irs.TeamSprayStatusQuery;
 import dss.vector.solutions.irs.TeamSprayView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;

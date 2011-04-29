@@ -109,7 +109,7 @@ public class GeoExporter implements Reloadable
     {
       geoData = GeoEntityExcelView.LARGE_GEO_DATA;
     }
-    if (!exportGIS && geoData.length()>0)
+    else if (!exportGIS && geoData.length()>0)
     {
       geoData = GeoEntityExcelView.NOT_EXPORTED;
     }

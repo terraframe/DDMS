@@ -1,8 +1,5 @@
 package dss.vector.solutions.export;
 
-import java.util.Locale;
-
-import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdEnumeration;
 
 public class InvalidEnumProblem extends InvalidEnumProblemBase implements com.runwaysdk.generation.loader.Reloadable

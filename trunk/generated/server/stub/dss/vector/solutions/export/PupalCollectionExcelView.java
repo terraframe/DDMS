@@ -13,7 +13,6 @@ import dss.vector.solutions.entomology.PupalContainerView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.HealthFacility;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.CaseStockReferralView;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class PupalCollectionExcelView extends PupalCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable

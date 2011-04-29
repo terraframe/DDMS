@@ -4,11 +4,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -18,15 +15,12 @@ import dss.vector.solutions.RequiredAttributeProblem;
 import dss.vector.solutions.entomology.CollectionContainer;
 import dss.vector.solutions.entomology.CollectionContainerQuery;
 import dss.vector.solutions.entomology.CollectionContainerView;
-import dss.vector.solutions.entomology.ImmatureCollection;
-import dss.vector.solutions.entomology.ImmatureCollectionQuery;
 import dss.vector.solutions.entomology.ImmatureCollectionView;
 import dss.vector.solutions.entomology.ImmatureCollectionViewQuery;
 import dss.vector.solutions.entomology.PremiseTaxon;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.surveillance.GridComparator;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class ImmatureCollectionExcelView extends ImmatureCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable

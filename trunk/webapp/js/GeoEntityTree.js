@@ -38,6 +38,9 @@ MDSS.GeoEntityTree = (function(){
   // Selection validator for the tree
   var _validator = null;
   
+  // ID of the download interval timer
+  var _intervalId = null;
+  
   /**
    * Action to upload a template file.
    */
@@ -1382,14 +1385,51 @@ MDSS.GeoEntityTree = (function(){
   {
     var geoEntityView = _getGeoEntityView(_selectedNode);
     var id = geoEntityView.getGeoEntityId();
-    document.getElementById('exportIframe').src='/dss.vector.solutions.geo.GeoEntityTreeController.export?parentId='+id+'&includeGeoData=true';
+    _waitForDownload();
+    document.getElementById('exportIframe').src='dss.vector.solutions.geo.GeoEntityTreeController.export.mojo?parentId='+id+'&includeGeoData=true';
   }
 
   function _exportEntitiesNoGISHandler()
   {
-    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
-    var id = geoHierarchyView.getGeoHierarchyId();
-    document.getElementById('exportIframe').src='/dss.vector.solutions.geo.GeoEntityTreeController.export?parentId='+id+'&includeGeoData=false';
+	var geoEntityView = _getGeoEntityView(_selectedNode);
+	var id = geoEntityView.getGeoEntityId();
+    _waitForDownload();
+    document.getElementById('exportIframe').src='dss.vector.solutions.geo.GeoEntityTreeController.export.mojo?parentId='+id+'&includeGeoData=false';
+  }
+  
+  function _waitForDownload()
+  {
+	_clearDownload(true);
+    MDSS.util.wait_for_ajax.show();
+    _intervalId = setInterval(function(){
+      var value = YAHOO.util.Cookie.get("downloadToken");
+      if(value != null)
+      {
+        _clearDownload(false);
+      }
+    }, 1000);
+  }
+  
+  function _handleExport(e)
+  {
+	_clearDownload(false);
+    var body = e.target.contentDocument.getElementsByTagName('body')[0];
+    var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+    text = MDSS.util.stripWhitespace(text);
+    if(text.length > 0)
+    {
+      new MDSS.ErrorModal(text);
+    }
+  }
+  
+  function _clearDownload(cookieOnly)
+  {
+	YAHOO.util.Cookie.remove("downloadToken");
+	if (!cookieOnly)
+	{
+	  MDSS.util.wait_for_ajax.hide();
+	  clearInterval(_intervalId);    
+	}
   }
 
   /**
