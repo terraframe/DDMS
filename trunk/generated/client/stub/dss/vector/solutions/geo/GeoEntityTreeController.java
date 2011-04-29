@@ -47,9 +47,7 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
-      this.resp.setStatus(500);
-      this.resp.getWriter().write(ex.getJSON());
+      handleException(t);
     }
   }
   
@@ -65,9 +63,7 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
-      this.resp.setStatus(500);
-      this.resp.getWriter().write(ex.getJSON());
+      handleException(t);
     }
   }
 
@@ -93,10 +89,15 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     }
     catch (Throwable t)
     {
-      JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
-      this.resp.setStatus(500);
-      this.resp.getWriter().write(ex.getJSON());
+      handleException(t);
     }
+  }
+
+  private void handleException(Throwable t) throws IOException
+  {
+    JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
+    this.resp.setStatus(500);
+    this.resp.getWriter().write(ex.getJSON());
   }
   
   @Override
@@ -112,12 +113,7 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
     }
     catch (Throwable t)
     {
-      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirect)
-      {
-        this.failExport(parentId, includeGeoData.toString());
-      }
+      resp.getWriter().write(t.getLocalizedMessage());
     }
   }
 }

@@ -8,14 +8,12 @@ import javax.servlet.ServletException;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.MdBusinessInfo;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.Facade;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
-import dss.vector.solutions.util.LocalizationFacadeDTO;
 
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
     com.runwaysdk.generation.loader.Reloadable
@@ -241,6 +239,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       this.resp.getWriter().write(ex.getJSON());
     }
   }
+  
   @Override
   public void export(String hierarchyId, Boolean includeGeoData) throws IOException, ServletException
   {
@@ -254,12 +253,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     }
     catch (Throwable t)
     {
-      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirect)
-      {
-        this.failExport(hierarchyId, includeGeoData.toString());
-      }
+      resp.getWriter().write(t.getLocalizedMessage());
     }
   }
 
