@@ -1377,6 +1377,20 @@ MDSS.GeoEntityTree = (function(){
       }
     }
   }
+  
+  function _exportEntitiesHandler()
+  {
+    var geoEntityView = _getGeoEntityView(_selectedNode);
+    var id = geoEntityView.getGeoEntityId();
+    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+  }
+
+  function _exportEntitiesNoGISHandler()
+  {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+    var id = geoHierarchyView.getGeoHierarchyId();
+    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+  }
 
   /**
    * Renders the actual tree with the given root GeoEntity
@@ -1406,6 +1420,14 @@ MDSS.GeoEntityTree = (function(){
     var importMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Import_Button);
     importMenuItem.subscribe("click", _uploadImport);
     itemData.push(importMenuItem);
+    
+    var exportEntities = new YAHOO.widget.ContextMenuItem(MDSS.localize('export_entities'));
+    exportEntities.subscribe("click", _exportEntitiesHandler);
+    itemData.push(exportEntities);
+
+    var exportEntitiesMin = new YAHOO.widget.ContextMenuItem(MDSS.localize('export_entities_without_gis'));
+    exportEntitiesMin.subscribe("click", _exportEntitiesNoGISHandler);
+    itemData.push(exportEntitiesMin);
 
     var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);
@@ -1436,6 +1458,8 @@ MDSS.GeoEntityTree = (function(){
 
     // map node to GeoEntity
     _setMapping(_geoTree.getRoot().children[0], view);
+    
+    YAHOO.util.Event.on('exportIframe', 'load', _handleExport, null, this);
   }
 
   /**

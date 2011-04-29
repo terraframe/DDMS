@@ -669,6 +669,17 @@ MDSS.GeoHierarchyTree = (function(){
 
     obj.references.modal.destroy();
   }
+  
+  function _handleExport(e)
+  {
+    var body = e.target.contentDocument.getElementsByTagName('body')[0];
+    var text = typeof body.textContent !== 'undefined' ? body.textContent : body.innerText;
+    text = MDSS.util.stripWhitespace(text);
+    if(text.length > 0)
+    {
+      new MDSS.ErrorModal(text);
+    }
+  }
 
   /**
    * Handler for the drag/drop operation. The this
@@ -737,6 +748,20 @@ MDSS.GeoHierarchyTree = (function(){
 
     Mojo.$.dss.vector.solutions.geo.GeoHierarchy.confirmChangeParent(request, childId, parentId);
   }
+  
+  function _exportEntitiesHandler()
+  {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+    var id = geoHierarchyView.getGeoHierarchyId();
+    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+  }
+
+  function _exportEntitiesNoGISHandler()
+  {
+    var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
+    var id = geoHierarchyView.getGeoHierarchyId();
+    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+  }
 
   /**
    * Renders the actual tree with the given root GeoEntity
@@ -750,6 +775,14 @@ MDSS.GeoHierarchyTree = (function(){
     _hierarchyTree.render();
 
     var itemData = [];
+
+    var exportEntities = new YAHOO.widget.ContextMenuItem(MDSS.localize('export_entities'));
+    exportEntities.subscribe("click", _exportEntitiesHandler);
+    itemData.push(exportEntities);
+
+    var exportEntitiesMin = new YAHOO.widget.ContextMenuItem(MDSS.localize('export_entities_without_gis'));
+    exportEntitiesMin.subscribe("click", _exportEntitiesNoGISHandler);
+    itemData.push(exportEntitiesMin);
 
     var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
     createMenuItem.subscribe("click", _addNodeHandler);
@@ -773,6 +806,8 @@ MDSS.GeoHierarchyTree = (function(){
 
     // map node to GeoEntity
     _setMapping(_hierarchyTree.getRoot().children[0], geoHierarchyView);
+    
+    YAHOO.util.Event.on('exportIframe', 'load', _handleExport, null, this);
   }
   
   
