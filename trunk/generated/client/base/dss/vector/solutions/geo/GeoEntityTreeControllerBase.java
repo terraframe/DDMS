@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -937147287)
+@com.runwaysdk.business.ClassSignature(hash = 1686671794)
 public class GeoEntityTreeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.GeoEntityTreeController";
@@ -10,7 +10,7 @@ public class GeoEntityTreeControllerBase implements com.runwaysdk.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -937147287;
+  private static final long serialVersionUID = 1686671794;
   
   public GeoEntityTreeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -107,6 +107,20 @@ public class GeoEntityTreeControllerBase implements com.runwaysdk.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failDisplayTree");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:parentId, java.lang.Boolean:includeGeoData", post=false)
+  public void export(java.lang.String parentId, java.lang.Boolean includeGeoData) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.export");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:parentId, java.lang.String:includeGeoData", post=false)
+  public void failExport(java.lang.String parentId, java.lang.String includeGeoData) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTreeController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTreeController.failExport");
   }
   
 }

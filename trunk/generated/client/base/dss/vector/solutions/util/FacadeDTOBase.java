@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 371572708)
+@com.runwaysdk.business.ClassSignature(hash = 1799971992)
 public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.Facade";
-  private static final long serialVersionUID = 371572708;
+  private static final long serialVersionUID = 1799971992;
   
   protected FacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -76,6 +76,11 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -106,6 +111,11 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -214,6 +224,11 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -246,6 +261,11 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -276,6 +296,11 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -381,6 +406,22 @@ public abstract class FacadeDTOBase extends com.runwaysdk.business.BusinessDTO i
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "exportControlIntervention", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.io.InputStream exportGeoChildren(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String parentId, java.lang.Boolean includeGeoData)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{parentId, includeGeoData};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "exportGeoChildren", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.io.InputStream exportGeosByType(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String hierarchyId, java.lang.Boolean includeGeoData)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean"};
+    Object[] _parameters = new Object[]{hierarchyId, includeGeoData};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.FacadeDTO.CLASS, "exportGeosByType", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

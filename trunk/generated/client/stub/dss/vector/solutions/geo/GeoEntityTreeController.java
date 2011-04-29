@@ -1,15 +1,20 @@
 package dss.vector.solutions.geo;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.geo.generated.EarthDTO;
+import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.FileDownloadUtil;
 
 public class GeoEntityTreeController extends GeoEntityTreeControllerBase implements Reloadable
 {
@@ -93,5 +98,26 @@ public class GeoEntityTreeController extends GeoEntityTreeControllerBase impleme
       this.resp.getWriter().write(ex.getJSON());
     }
   }
+  
+  @Override
+  public void export(String parentId, Boolean includeGeoData) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = this.getClientRequest();
+      
+      InputStream stream = FacadeDTO.exportGeoChildren(clientRequest, parentId, includeGeoData);
+      
+      FileDownloadUtil.writeXLS(resp, "GeoExport", stream);
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
+      if (!redirect)
+      {
+        this.failExport(parentId, includeGeoData.toString());
+      }
+    }
+  }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -768308294)
+@com.runwaysdk.business.ClassSignature(hash = -1973915890)
 public class GeoEntityTypeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.geo.GeoEntityTypeController";
@@ -10,7 +10,7 @@ public class GeoEntityTypeControllerBase implements com.runwaysdk.generation.loa
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -768308294;
+  private static final long serialVersionUID = -1973915890;
   
   public GeoEntityTypeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -121,6 +121,20 @@ public class GeoEntityTypeControllerBase implements com.runwaysdk.generation.loa
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failEditDefinition");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:hierarchyId, java.lang.Boolean:includeGeoData", post=false)
+  public void export(java.lang.String hierarchyId, java.lang.Boolean includeGeoData) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.export");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:hierarchyId, java.lang.String:includeGeoData", post=false)
+  public void failExport(java.lang.String hierarchyId, java.lang.String includeGeoData) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoEntityTypeController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.geo.GeoEntityTypeController.failExport");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:parentGeoHierarchyId", post=false)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 2111827699)
+@com.runwaysdk.business.ClassSignature(hash = -158388348)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public  abstract  class GeoEntityExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2111827699;
+private static final long serialVersionUID = -158388348;
 
   public GeoEntityExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -131,6 +131,42 @@ private static final long serialVersionUID = 2111827699;
   public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.ID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getParentName()
+  {
+    return getParentName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getParentName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.PARENTNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getParentName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.PARENTNAME, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getParentType()
+  {
+    return getParentType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getParentType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.PARENTTYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getParentType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.GeoEntityExcelView.PARENTTYPE, alias, displayLabel);
 
   }
  

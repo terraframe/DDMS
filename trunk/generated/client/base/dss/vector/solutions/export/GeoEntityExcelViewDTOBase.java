@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1609098058)
+@com.runwaysdk.business.ClassSignature(hash = -763938021)
 public abstract class GeoEntityExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.GeoEntityExcelView";
-  private static final long serialVersionUID = 1609098058;
+  private static final long serialVersionUID = -763938021;
   
   protected GeoEntityExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -22,6 +22,8 @@ public abstract class GeoEntityExcelViewDTOBase extends com.runwaysdk.business.V
   public static java.lang.String GEOTYPE = "geoType";
   public static java.lang.String GEOMETRYWKT = "geometryWKT";
   public static java.lang.String ID = "id";
+  public static java.lang.String PARENTNAME = "parentName";
+  public static java.lang.String PARENTTYPE = "parentType";
   public static java.lang.String SUBTYPE = "subType";
   public Boolean getActivated()
   {
@@ -206,6 +208,80 @@ public abstract class GeoEntityExcelViewDTOBase extends com.runwaysdk.business.V
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getGeometryWKTMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(GEOMETRYWKT).getAttributeMdDTO();
+  }
+  
+  public String getParentName()
+  {
+    return getValue(PARENTNAME);
+  }
+  
+  public void setParentName(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTNAME, "");
+    }
+    else
+    {
+      setValue(PARENTNAME, value);
+    }
+  }
+  
+  public boolean isParentNameWritable()
+  {
+    return isWritable(PARENTNAME);
+  }
+  
+  public boolean isParentNameReadable()
+  {
+    return isReadable(PARENTNAME);
+  }
+  
+  public boolean isParentNameModified()
+  {
+    return isModified(PARENTNAME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getParentNameMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTNAME).getAttributeMdDTO();
+  }
+  
+  public String getParentType()
+  {
+    return getValue(PARENTTYPE);
+  }
+  
+  public void setParentType(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTTYPE, "");
+    }
+    else
+    {
+      setValue(PARENTTYPE, value);
+    }
+  }
+  
+  public boolean isParentTypeWritable()
+  {
+    return isWritable(PARENTTYPE);
+  }
+  
+  public boolean isParentTypeReadable()
+  {
+    return isReadable(PARENTTYPE);
+  }
+  
+  public boolean isParentTypeModified()
+  {
+    return isModified(PARENTTYPE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getParentTypeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PARENTTYPE).getAttributeMdDTO();
   }
   
   public String getSubType()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 563401060)
+@com.runwaysdk.business.ClassSignature(hash = -1430268392)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,7 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 563401060;
+  private static final long serialVersionUID = -1430268392;
   
   public FacadeBase()
   {
@@ -58,6 +58,11 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -79,6 +84,11 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -176,6 +186,11 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -199,6 +214,11 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -220,6 +240,11 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -328,6 +353,18 @@ public abstract class FacadeBase extends com.runwaysdk.business.Business impleme
   }
   
   public static java.io.InputStream exportControlIntervention()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.io.InputStream exportGeoChildren(java.lang.String parentId, java.lang.Boolean includeGeoData)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.io.InputStream exportGeosByType(java.lang.String hierarchyId, java.lang.Boolean includeGeoData)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.Facade.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

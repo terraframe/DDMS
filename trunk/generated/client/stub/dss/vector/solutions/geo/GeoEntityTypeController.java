@@ -1,6 +1,7 @@
 package dss.vector.solutions.geo;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.servlet.ServletException;
 
@@ -9,6 +10,12 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+
+import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.Facade;
+import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.FileDownloadUtil;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 
 public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
     com.runwaysdk.generation.loader.Reloadable
@@ -232,6 +239,27 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
       this.resp.setStatus(500);
       this.resp.getWriter().write(ex.getJSON());
+    }
+  }
+  @Override
+  public void export(String hierarchyId, Boolean includeGeoData) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = this.getClientRequest();
+      
+      InputStream stream = FacadeDTO.exportGeosByType(clientRequest, hierarchyId, includeGeoData);
+      
+      FileDownloadUtil.writeXLS(resp, "GeoExport", stream);
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failExport(hierarchyId, includeGeoData.toString());
+      }
     }
   }
 

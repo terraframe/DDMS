@@ -47,11 +47,14 @@ import dss.vector.solutions.export.CaseDiagnosisTypeExcelView;
 import dss.vector.solutions.export.CaseDiseaseManifestationExcelView;
 import dss.vector.solutions.export.CasePatientTypeExcelView;
 import dss.vector.solutions.export.ExcelVersionException;
+import dss.vector.solutions.export.GeoExporter;
 import dss.vector.solutions.export.IndividualPremiseExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
 import dss.vector.solutions.export.PersonInterventionExcelView;
 import dss.vector.solutions.general.EpiCache;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.UnknownGeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermRootCache;
 
 public abstract class Facade extends FacadeBase implements Reloadable
@@ -368,7 +371,16 @@ public abstract class Facade extends FacadeBase implements Reloadable
     MdAttributeDAOIF mdAttributeDAO = mdClassDAO.definesAttribute(attributeName);
     MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
     
-    return mdAttribute.getDisplayLabel().getValue();    
+    return mdAttribute.getDisplayLabel().getValue();
   }
-
+  
+  public static InputStream exportGeoChildren(String parentId, Boolean includeGeoData)
+  {
+    return GeoExporter.exportGeo(GeoEntity.get(parentId), includeGeoData);
+  }
+  
+  public static InputStream exportGeosByType(String hierarchyId, Boolean includeGeoData)
+  {
+    return GeoExporter.exportUniversal(GeoHierarchy.get(hierarchyId), includeGeoData);
+  }
 }

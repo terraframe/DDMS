@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1098394422)
+@com.runwaysdk.business.ClassSignature(hash = 1045580955)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,8 +17,10 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
   public static java.lang.String GEOTYPE = "geoType";
   public static java.lang.String GEOMETRYWKT = "geometryWKT";
   public static java.lang.String ID = "id";
+  public static java.lang.String PARENTNAME = "parentName";
+  public static java.lang.String PARENTTYPE = "parentType";
   public static java.lang.String SUBTYPE = "subType";
-  private static final long serialVersionUID = -1098394422;
+  private static final long serialVersionUID = 1045580955;
   
   public GeoEntityExcelViewBase()
   {
@@ -179,6 +181,62 @@ public abstract class GeoEntityExcelViewBase extends com.runwaysdk.business.View
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getParentName()
+  {
+    return getValue(PARENTNAME);
+  }
+  
+  public void validateParentName()
+  {
+    this.validateAttribute(PARENTNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
+    return mdClassIF.definesAttribute(PARENTNAME);
+  }
+  
+  public void setParentName(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTNAME, "");
+    }
+    else
+    {
+      setValue(PARENTNAME, value);
+    }
+  }
+  
+  public String getParentType()
+  {
+    return getValue(PARENTTYPE);
+  }
+  
+  public void validateParentType()
+  {
+    this.validateAttribute(PARENTTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParentTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.GeoEntityExcelView.CLASS);
+    return mdClassIF.definesAttribute(PARENTTYPE);
+  }
+  
+  public void setParentType(String value)
+  {
+    if(value == null)
+    {
+      setValue(PARENTTYPE, "");
+    }
+    else
+    {
+      setValue(PARENTTYPE, value);
+    }
   }
   
   public String getSubType()
