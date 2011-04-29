@@ -753,14 +753,14 @@ MDSS.GeoHierarchyTree = (function(){
   {
     var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
     var id = geoHierarchyView.getGeoHierarchyId();
-    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+    document.getElementById('exportIframe').src='/dss.vector.solutions.geo.GeoEntityTypeController.export?hierarchyId='+id+'&includeGeoData=true';
   }
 
   function _exportEntitiesNoGISHandler()
   {
     var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
     var id = geoHierarchyView.getGeoHierarchyId();
-    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+    document.getElementById('exportIframe').src='/dss.vector.solutions.geo.GeoEntityTypeController.export?hierarchyId='+id+'&includeGeoData=false';
   }
 
   /**

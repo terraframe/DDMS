@@ -1382,14 +1382,14 @@ MDSS.GeoEntityTree = (function(){
   {
     var geoEntityView = _getGeoEntityView(_selectedNode);
     var id = geoEntityView.getGeoEntityId();
-    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+    document.getElementById('exportIframe').src='/dss.vector.solutions.geo.GeoEntityTreeController.export?parentId='+id+'&includeGeoData=true';
   }
 
   function _exportEntitiesNoGISHandler()
   {
     var geoHierarchyView = _getGeoHierarchyView(_selectedNode);
     var id = geoHierarchyView.getGeoHierarchyId();
-    document.getElementById('exportIframe').src='/dss.vector.solutions.Some.action?id='+id+'&includeGeoData=true';
+    document.getElementById('exportIframe').src='/dss.vector.solutions.geo.GeoEntityTreeController.export?parentId='+id+'&includeGeoData=false';
   }
 
   /**
