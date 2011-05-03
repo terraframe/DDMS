@@ -847,7 +847,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     // create the GeoHeirachy and relationship
     GeoHierarchy geoHierarchy = new GeoHierarchy();
     geoHierarchy.setPolitical(definition.getPolitical());
-    geoHierarchy.setSprayTargetAllowed(definition.getPolitical());
+    geoHierarchy.setSprayTargetAllowed(definition.getSprayTargetAllowed());
     geoHierarchy.setGeoEntityClass(mdGeoEntity);
     geoHierarchy.setTerm(definition.getTerm());
     geoHierarchy.setPopulationAllowed(definition.getPopulationAllowed());
