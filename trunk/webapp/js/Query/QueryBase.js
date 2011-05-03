@@ -1822,7 +1822,8 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
       // so be careful to call the correct id and display methods.
       var idAttr = Mojo.$.dss.vector.solutions.ontology.Term.ID;
       var TermView = Mojo.$.dss.vector.solutions.ontology.TermView;
-      var entryMap = new Mojo.Map();
+//      var entryMap = new Mojo.Map();
+      var entryMap = {};
       for(var i=0, len=terms.length; i<len; i++)
       {
         var id;
@@ -1840,7 +1841,8 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
         }
         
         this._terms.set(id);
-        entryMap.put(id, {id:id, display:display});
+        entryMap[id] = {id:id, display:display};
+//        entryMap.put(id, {id:id, display:display});
       }
       
       
@@ -1859,7 +1861,8 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
             {
               var id = idsToRemove[i];
               that._terms.remove(id);
-              entryMap.remove(id);
+              //entryMap.remove(id);
+              delete entryMap[id];
             }
          
             var nestedTermWarning = warnings[0];
@@ -1871,7 +1874,8 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
         
           if(that._handler)
           {
-            that._handler(that, entryMap.values());
+            var values = Mojo.Util.getValues(entryMap, true);
+            that._handler(that, values);
           }
         }
         
