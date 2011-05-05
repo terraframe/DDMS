@@ -270,7 +270,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       actions.get(key).setImageDescriptor(null);
     }
 
-    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, CommandProperties.getIconDirectory() + File.separator +  "checkbox.png"));
+    actions.get(level).setImageDescriptor(ImageDescriptor.createFromFile(null, CommandProperties.getIconDirectory() + File.separator + "checkbox.png"));
   }
 
   @Override
@@ -307,10 +307,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
       @Override
       public void done(boolean success)
       {
-        if (success)
-        {
-          rebuildAllPathTables();
-        }
+        rebuildAllPathTables();
       }
     };
 
@@ -474,7 +471,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 
         MDSSModule module = new MDSSModule(new ModuleController());
 
-        MainWindow window = new MainWindow(configuration, module);        
+        MainWindow window = new MainWindow(configuration, module);
         window.run();
       }
     });
