@@ -53,7 +53,7 @@ MDSS.GeoEntityTree = (function(){
       
 
       var html = MDSS.Localized.File_Upload_Status+":<br />";
-      html += "<iframe name='importIframe' id='importIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
+      html += "<iframe name='importIframe' id='importIframe' style='height:200px; width:350px; margin-bottom: 15px'></iframe>";
       html += "<form action='"+action+"' enctype='multipart/form-data' target='importIframe' id='"+formId+"' method='post'>";
       html += "<input type='hidden' name='parentGeoEntityId' id='parentGeoEntityId' value='' />";
       html += "<input type='hidden' name='excelType' id='excelType' value='dss.vector.solutions.export.GeoEntityExcelView' />";
