@@ -762,10 +762,6 @@ public abstract class AbstractQB implements Reloadable
       // This case is for when they have not restricted by any specific
       // geoEntity
       allPathsQuery = new AllPathsQuery(valueQuery.getQueryFactory());
-      valueQuery.FROM(allPathsQuery);
-      // we use the country universial to restrict the cross product
-      valueQuery.AND(allPathsQuery.getParentUniversal().EQ(
-          MdBusiness.getMdBusiness(Country.CLASS).getId()));
     }
 
     if (allPathsQuery != null)
@@ -799,19 +795,19 @@ public abstract class AbstractQB implements Reloadable
 
       // Restrict by geo entity if applicable for the current attribute
       Condition cond = interceptor.getGeoCondition(getGeoAllPathsAlias(attributeKey));
+      ValueQuery existsVQ = new ValueQuery(valueQuery.getQueryFactory());
+      existsVQ.SELECT(existsVQ.aSQLInteger("geoExistsConstant", "1"));
+      existsVQ.FROM(allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias());
       if (cond != null)
       {
-        ValueQuery existsVQ = new ValueQuery(valueQuery.getQueryFactory());
-        existsVQ.SELECT(existsVQ.aSQLInteger("geoExistsConstant", "1"));
-        existsVQ.FROM(allPathsQuery.getMdClassIF().getTableName(), allPathsQuery.getTableAlias());
         existsVQ.WHERE(cond);
-        existsVQ.AND(allPathsQuery.getChildGeoEntity().EQ(geQ.getId()));
-        
-        Condition newCond = valueQuery.aSQLCharacter("geoExistsSQL",
-            "EXISTS (" + existsVQ.getSQL() + ") AND true").EQ(
-            valueQuery.aSQLCharacter("geoExistsSpoof", "true"));
-        valueQuery.AND(newCond);
       }
+      existsVQ.AND(allPathsQuery.getChildGeoEntity().EQ(existsVQ.aSQLCharacter("childId", geQ.getId().getDbQualifiedName())));
+      
+      Condition newCond = valueQuery.aSQLCharacter("geoExistsSQL",
+          "EXISTS (" + existsVQ.getSQL() + ") AND true").EQ(
+          valueQuery.aSQLCharacter("geoExistsSpoof", "true"));
+      valueQuery.AND(newCond);
     }
   }
 
