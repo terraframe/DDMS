@@ -1,5 +1,9 @@
 package dss.vector.solutions.gis;
 
+import java.util.List;
+
+import net.sf.ehcache.CacheManager;
+
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -37,16 +41,16 @@ public class MainWindow extends ApplicationWindow implements Reloadable
   {
     Display display = parent.getDisplay();
     Monitor monitor = display.getPrimaryMonitor();
-    
+
     parent.getShell().setSize(300, 100);
     parent.getShell().setText(GISAdminLocalizer.getMessage("GISI"));
-    
+
     Rectangle windowRect = parent.getShell().getBounds();
     Rectangle monitorRect = monitor.getBounds();
 
     int x = ( monitorRect.width - windowRect.width ) / 2;
     int y = ( monitorRect.height - windowRect.height ) / 2;
-    
+
     parent.getShell().setLocation(x, y);
 
     Shell splash = this.createSplash(monitor);
@@ -61,7 +65,7 @@ public class MainWindow extends ApplicationWindow implements Reloadable
     new ActionContributionItem(new BuildLocatedInAction()).fill(container);
 
     splash.close();
-    
+
     // Bring this shell to the front
     parent.getShell().forceFocus();
 
@@ -102,17 +106,31 @@ public class MainWindow extends ApplicationWindow implements Reloadable
     Display.getCurrent().dispose();
   }
 
+  @Override
+  protected boolean canHandleShellCloseEvent()
+  {
+
+    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
+
+    while (!knownCacheManagers.isEmpty())
+    {
+      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
+    }
+
+    return super.canHandleShellCloseEvent();
+  }
+
   public static void main(String[] args)
   {
     final Display display = Display.getDefault();
-    
+
     class WindowRunner implements Runnable, Reloadable
     {
       public void run()
       {
         MainWindow window = new MainWindow();
         window.run();
-      }      
+      }
     }
 
     Realm.runWithDefault(SWTObservables.getRealm(display), new WindowRunner());
