@@ -20,6 +20,7 @@ import dss.vector.solutions.AmbigiousGeoEntityException;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
@@ -62,6 +63,16 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     {
       entity = i.next();
       entity.lock();
+      
+      // Per Miguel's instructions, importing removes all prior located_in relationships, semantically "moving" the entity 
+      for (LocatedIn l : entity.getAllLocatedInGeoEntityRel())
+      {
+        // Don't bother to delete the node we want to end up under
+        if (!l.getParentId().equals(pid))
+        {
+          l.delete();
+        }
+      }
     }
     else
     {
@@ -181,6 +192,12 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     OIterator<? extends GeoEntity> iterator = query.getIterator();
     if (!iterator.hasNext())
     {
+      UnknownGeoParentWarning w = new UnknownGeoParentWarning();
+      w.setChildName(this.getEntityName());
+      w.setParentName(pName);
+      w.setParentType(pType.length()>0 ? pType : " ");
+      w.setDefaultParent(GeoEntity.get(parentGeoEntityId).getEntityName());
+      w.throwIt();
       return parentGeoEntityId;
     }
     
