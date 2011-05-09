@@ -2,6 +2,9 @@ package dss.vector.solutions.util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.List;
+
+import net.sf.ehcache.CacheManager;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -45,6 +48,15 @@ public class MenuItemImporter {
 		default:
 			System.out.println("Incorrect args!  Takes one argument: the filename");
 		}
+		
+
+	    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
+
+	    while (!knownCacheManagers.isEmpty())
+	    {
+	      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
+	    }
+
 	}
 
 	private MenuItemImporter() {

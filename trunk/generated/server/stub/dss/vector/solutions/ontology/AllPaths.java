@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import net.sf.ehcache.CacheManager;
+
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.RelationshipInfo;
@@ -51,6 +53,14 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   public static void main(String[] args)
   {
     rebuildAllPaths();
+    
+
+    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
+
+    while (!knownCacheManagers.isEmpty())
+    {
+      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
+    }
   }
 
   /**

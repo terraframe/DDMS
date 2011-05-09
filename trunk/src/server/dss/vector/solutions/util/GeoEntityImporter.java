@@ -13,6 +13,8 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
+import net.sf.ehcache.CacheManager;
+
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -134,6 +136,14 @@ public class GeoEntityImporter
     else
     {
       importGeoEntities(args);
+    }
+    
+
+    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
+
+    while (!knownCacheManagers.isEmpty())
+    {
+      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
     }
   }
 

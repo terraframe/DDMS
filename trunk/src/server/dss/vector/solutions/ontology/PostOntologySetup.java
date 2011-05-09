@@ -4,6 +4,9 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.List;
+
+import net.sf.ehcache.CacheManager;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -60,6 +63,14 @@ public class PostOntologySetup
     setupApplicationRate();
 
     setGeoUniversals(args[1]);
+    
+
+    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
+
+    while (!knownCacheManagers.isEmpty())
+    {
+      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
+    }
   }
 
   @Transaction

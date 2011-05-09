@@ -11,6 +11,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.ehcache.CacheManager;
+
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -439,5 +441,13 @@ public class PermissionImporter implements Reloadable
 
     PermissionImporter importer = new PermissionImporter();
     importer.read(new BufferedInputStream(new FileInputStream(file)));
+    
+
+    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
+
+    while (!knownCacheManagers.isEmpty())
+    {
+      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
+    }
   }
 }
