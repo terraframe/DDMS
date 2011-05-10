@@ -2,21 +2,18 @@ package dss.vector.solutions.util;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.List;
-
-import net.sf.ehcache.CacheManager;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
@@ -49,14 +46,7 @@ public class MenuItemImporter {
 			System.out.println("Incorrect args!  Takes one argument: the filename");
 		}
 		
-
-	    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-	    while (!knownCacheManagers.isEmpty())
-	    {
-	      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-	    }
-
+		CacheShutdown.shutdown();
 	}
 
 	private MenuItemImporter() {

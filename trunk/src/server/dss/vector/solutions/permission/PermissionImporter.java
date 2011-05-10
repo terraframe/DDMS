@@ -11,8 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
-import net.sf.ehcache.CacheManager;
-
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
@@ -28,6 +26,7 @@ import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -442,12 +441,6 @@ public class PermissionImporter implements Reloadable
     PermissionImporter importer = new PermissionImporter();
     importer.read(new BufferedInputStream(new FileInputStream(file)));
     
-
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
   }
 }

@@ -1,9 +1,6 @@
 package dss.vector.solutions.util;
 
-import java.util.List;
-
-import net.sf.ehcache.CacheManager;
-
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -27,13 +24,7 @@ public class UniversalSearchHelper implements Reloadable {
 		UniversalSearchHelper helper = new UniversalSearchHelper();
 		helper.createAllSearches();
 		
-
-	    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-	    while (!knownCacheManagers.isEmpty())
-	    {
-	      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-	    }
+		CacheShutdown.shutdown();
 	}
 
 	@Transaction

@@ -10,15 +10,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import net.sf.ehcache.CacheManager;
-
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
-import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.database.DuplicateDataDatabaseException;
 import com.runwaysdk.dataaccess.database.general.PostgreSQL;
@@ -54,13 +52,7 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   {
     rebuildAllPaths();
     
-
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
   }
 
   /**

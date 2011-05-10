@@ -13,8 +13,6 @@ import java.util.Map;
 
 import javax.sql.DataSource;
 
-import net.sf.ehcache.CacheManager;
-
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -28,6 +26,7 @@ import com.runwaysdk.business.Business;
 import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.dataaccess.InvalidIdException;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -138,13 +137,7 @@ public class GeoEntityImporter
       importGeoEntities(args);
     }
     
-
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
   }
 
   @Transaction

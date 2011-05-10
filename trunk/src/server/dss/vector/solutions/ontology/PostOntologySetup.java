@@ -4,9 +4,6 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.List;
-
-import net.sf.ehcache.CacheManager;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -17,6 +14,7 @@ import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.business.rbac.UserDAO;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
@@ -64,13 +62,7 @@ public class PostOntologySetup
 
     setGeoUniversals(args[1]);
     
-
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
   }
 
   @Transaction

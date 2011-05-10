@@ -8,8 +8,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import net.sf.ehcache.CacheManager;
-
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.util.FileIO;
 
@@ -77,11 +76,6 @@ public class LocalizationMerger
     System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
     
 
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
   }
 }

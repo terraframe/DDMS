@@ -3,10 +3,9 @@ package dss.vector.solutions.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.ehcache.CacheManager;
-
 import com.runwaysdk.constants.ComponentInfo;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -30,12 +29,7 @@ public class GeoEntityAllPathBuilder
   {
     rebuildAllPaths();
 
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
   }
 
   private static void rebuildAllPaths()
