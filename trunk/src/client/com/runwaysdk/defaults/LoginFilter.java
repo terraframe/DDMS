@@ -16,11 +16,9 @@ import javax.servlet.http.HttpSession;
 import com.runwaysdk.constants.ClientConstants;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.web.WebClientSession;
 
-import dss.vector.solutions.ontology.AllPathsQuery;
+import dss.vector.solutions.geo.AllPaths;
 
 public class LoginFilter implements Filter, Reloadable
 {
@@ -39,38 +37,36 @@ public class LoginFilter implements Filter, Reloadable
   {
     HttpServletRequest httpReq = (HttpServletRequest) req;
     HttpServletResponse httpRes = (HttpServletResponse) res;
-    //response time logging
-    req.setAttribute("startTime", (Long)(new Date().getTime()));
-//    Cookie cookie1[]= httpReq.getCookies();
-//    if (cookie1 != null) {
-//       for (int i=0; i<cookie1.length; i++) {
-//          Cookie cookie = cookie1[i];
-//          if (cookie != null && cookie.getName().equals("PrevLoadTime"))
-//          {
-//            filterConfig.getServletContext().log(cookie.getValue());
-//            MdssLog.debug(cookie.getValue());
-//            cookie.setValue("");
-//            cookie.setMaxAge(-1);
-//            httpRes.addCookie(cookie);
-//          }
-//       }
-//    }
-
-
+    // response time logging
+    req.setAttribute("startTime", (Long) ( new Date().getTime() ));
+    // Cookie cookie1[]= httpReq.getCookies();
+    // if (cookie1 != null) {
+    // for (int i=0; i<cookie1.length; i++) {
+    // Cookie cookie = cookie1[i];
+    // if (cookie != null && cookie.getName().equals("PrevLoadTime"))
+    // {
+    // filterConfig.getServletContext().log(cookie.getValue());
+    // MdssLog.debug(cookie.getValue());
+    // cookie.setValue("");
+    // cookie.setMaxAge(-1);
+    // httpRes.addCookie(cookie);
+    // }
+    // }
+    // }
 
     HttpSession session = httpReq.getSession();
 
-    WebClientSession clientSession = (WebClientSession)session.getAttribute(ClientConstants.CLIENTSESSION);
+    WebClientSession clientSession = (WebClientSession) session.getAttribute(ClientConstants.CLIENTSESSION);
 
     String uri = httpReq.getRequestURI();
 
     // let some requests pass through
-    if(pathAllowed(uri))
+    if (pathAllowed(uri))
     {
       chain.doFilter(req, res);
       return;
     }
-    else if(clientSession != null)
+    else if (clientSession != null)
     {
       // Create a request object for this request
       ClientRequestIF clientRequest = clientSession.getRequest();
@@ -83,18 +79,10 @@ public class LoginFilter implements Filter, Reloadable
       }
     }
 
-    // check if the term or geo allpaths are dirty and need to rebuilt. The system is unusable if this is true.
-    QueryFactory f = new QueryFactory();
-    ValueQuery geoVQ = new ValueQuery(f);
-    dss.vector.solutions.geo.AllPathsQuery geoAP = new dss.vector.solutions.geo.AllPathsQuery(geoVQ);
-    geoVQ.SELECT(geoAP.getId());
-    
-    QueryFactory f2 = new QueryFactory();
-    ValueQuery termVQ = new ValueQuery(f2);
-    AllPathsQuery termAP = new AllPathsQuery(termVQ);
-    termVQ.SELECT(termAP.getId());
-    
-    if(geoVQ.getCount() == 0 || termVQ.getCount() == 0)
+    // check if the term or geo allpaths are dirty and need to rebuilt. The
+    // system is unusable if this is true.
+
+    if (! ( AllPaths.containsValues() && dss.vector.solutions.ontology.AllPaths.containsValues() ))
     {
       filterConfig.getServletContext().getRequestDispatcher("/allpathsRebuild.jsp").forward(httpReq, httpRes);
     }
@@ -108,28 +96,28 @@ public class LoginFilter implements Filter, Reloadable
   private boolean pathAllowed(String uri)
   {
     // Allow style files for GIS maps
-    if(uri.endsWith(".sld"))
+    if (uri.endsWith(".sld"))
     {
       return true;
     }
 
-    if(uri.endsWith("reload.jsp"))
+    if (uri.endsWith("reload.jsp"))
     {
       return true;
     }
-    
-    if(uri.endsWith("status.jsp"))
+
+    if (uri.endsWith("status.jsp"))
     {
       return true;
     }
-    
-    if(uri.endsWith("allpathsRebuild.jsp"))
+
+    if (uri.endsWith("allpathsRebuild.jsp"))
     {
       return true;
     }
 
     // Login/Logout requests
-    if(uri.endsWith(LoginController.LOGIN_ACTION) || uri.endsWith(LoginController.LOGOUT_ACTION))
+    if (uri.endsWith(LoginController.LOGIN_ACTION) || uri.endsWith(LoginController.LOGOUT_ACTION))
     {
       return true;
     }
