@@ -71,7 +71,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 
         public IViewPart getContent()
         {
-          return new ControlView(controller);
+          return new ControlView(controller, MDSSModule.this);
         }
 
         @Override
@@ -227,7 +227,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
 
       public IViewPart getContent()
       {
-        return new ControlView(controller);
+        return new ControlView(controller, MDSSModule.this);
       }
 
       @Override
@@ -389,7 +389,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
     });
   }
 
-  private void rebuildAllPathTables()
+  public void rebuildAllPathTables()
   {
     window.getDisplay().syncExec(new Runnable()
     {

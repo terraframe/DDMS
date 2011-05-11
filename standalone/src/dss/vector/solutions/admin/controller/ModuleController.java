@@ -366,4 +366,58 @@ public class ModuleController extends EventProvider implements IModuleController
     mdBusiness.deleteAllTableRecords();
   }
 
+  @Request
+  public boolean hasAllPathTables()
+  {
+    return ( geoPathsContainsValues() && termPathsContainsValues() );
+  }
+
+  private boolean termPathsContainsValues()
+  {
+    String className = "dss.vector.solutions.ontology.AllPaths";
+    String methodName = "containsValues";
+
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load(className);
+      Method method = clazz.getMethod(methodName);
+
+      return (Boolean) method.invoke(null);
+    }
+    catch (InvocationTargetException e)
+    {
+      fireErrorEvent(e.getCause().getLocalizedMessage());
+    }
+    catch (Exception e)
+    {
+      fireErrorEvent(e.getLocalizedMessage());
+    }
+
+    return false;
+  }
+
+  private boolean geoPathsContainsValues()
+  {
+    String className = "dss.vector.solutions.geo.AllPaths";
+    String methodName = "containsValues";
+
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load(className);
+      Method method = clazz.getMethod(methodName);
+
+      return (Boolean) method.invoke(null);
+    }
+    catch (InvocationTargetException e)
+    {
+      fireErrorEvent(e.getCause().getLocalizedMessage());
+    }
+    catch (Exception e)
+    {
+      fireErrorEvent(e.getLocalizedMessage());
+    }
+
+    return false;
+  }
+
 }

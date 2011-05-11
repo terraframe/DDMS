@@ -28,6 +28,7 @@ import com.runwaysdk.logging.LogLevel;
 import com.runwaysdk.manager.general.Localizer;
 import com.runwaysdk.manager.view.IViewPart;
 
+import dss.vector.solutions.admin.MDSSModule;
 import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
 
@@ -66,8 +67,11 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
 
   private IModuleController   controller;
 
-  public ControlView(IModuleController controller)
+  private MDSSModule          module;
+
+  public ControlView(IModuleController controller, MDSSModule module)
   {
+    this.module = module;
     this.controller = controller;
     this.controller.addListener(this);
   }
@@ -103,6 +107,11 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       @Override
       public void handleEvent(Event arg0)
       {
+        if (!controller.hasAllPathTables())
+        {
+          module.rebuildAllPathTables();
+        }
+
         String timeout = timeoutField.getText();
 
         try
