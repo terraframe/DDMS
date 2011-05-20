@@ -18,6 +18,7 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Monitor;
 import org.eclipse.swt.widgets.Shell;
 
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -109,13 +110,7 @@ public class MainWindow extends ApplicationWindow implements Reloadable
   @Override
   protected boolean canHandleShellCloseEvent()
   {
-
-    List<CacheManager> knownCacheManagers = CacheManager.ALL_CACHE_MANAGERS;
-
-    while (!knownCacheManagers.isEmpty())
-    {
-      ( (CacheManager) CacheManager.ALL_CACHE_MANAGERS.get(0) ).shutdown();
-    }
+    CacheShutdown.shutdown();
 
     return super.canHandleShellCloseEvent();
   }
