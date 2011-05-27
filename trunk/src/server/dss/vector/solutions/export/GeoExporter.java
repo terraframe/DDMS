@@ -19,6 +19,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
@@ -83,6 +84,12 @@ public class GeoExporter implements Reloadable
 
   private void writeRow(GeoEntity parent, GeoEntity geo)
   {
+    // Don't export Earth
+    if (geo.getType().equals(Earth.CLASS))
+    {
+      return;
+    }
+    
     HSSFRow row = sheet.createRow(rownum++);
     
     // Follows GeoEntityExcelView.customAttributeOrder()
