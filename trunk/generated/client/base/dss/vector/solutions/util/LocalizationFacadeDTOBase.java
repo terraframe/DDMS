@@ -1,10 +1,10 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 1366832841)
+@com.runwaysdk.business.ClassSignature(hash = 162371392)
 public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.util.LocalizationFacade";
-  private static final long serialVersionUID = 1366832841;
+  private static final long serialVersionUID = 162371392;
   
   protected LocalizationFacadeDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -391,6 +391,14 @@ public abstract class LocalizationFacadeDTOBase extends com.runwaysdk.business.B
     Object[] _parameters = new Object[]{locales};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "exportFile", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String getAllLocalizedText(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.util.LocalizationFacadeDTO.CLASS, "getAllLocalizedText", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String getFromBundles(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String key)

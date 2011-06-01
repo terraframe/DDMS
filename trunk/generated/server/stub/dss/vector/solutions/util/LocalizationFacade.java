@@ -5,6 +5,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
+import java.util.Map;
+
+import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.ProfileManager;
@@ -19,7 +22,6 @@ import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 import com.runwaysdk.util.FileIO;
 
-import dss.vector.solutions.CleanupContextListener;
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.localization.MultiBundle;
 
@@ -132,5 +134,14 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   public static String getSessionLocale()
   {
     return Session.getCurrentLocale().toString();
+  }
+  
+  public static String getAllLocalizedText()
+  {
+    Map<String, String> all = MultiBundle.getAll();
+    
+    JSONObject json = new JSONObject(all);
+    
+    return json.toString();
   }
 }

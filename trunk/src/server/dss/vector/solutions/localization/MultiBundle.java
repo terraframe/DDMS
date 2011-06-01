@@ -2,6 +2,9 @@ package dss.vector.solutions.localization;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.session.Session;
@@ -12,11 +15,14 @@ public class MultiBundle
 {
   private Map<String, Bundle> bundles;
   
+  private Set<String> masterKeySet;
+  
   public static String BUNDLE_NAME = "MDSS";
   
   private MultiBundle()
   {
     bundles = new HashMap<String, Bundle>();
+    masterKeySet = new TreeSet<String>();
   }
 
   /**
@@ -36,25 +42,58 @@ public class MultiBundle
       MdDimensionDAOIF dimension = Session.getCurrentDimension();
       LocaleDimension ld = new LocaleDimension(locale, dimension);
       
-      while (ld != null)
-      {
+      return smartGet(key, locale, dimension, ld);
+    }
+  }
+
+  /**
+   * The heart of the MultiBundle, smartGet will traverse up the bundle hierarchy until it finds a value 
+   * 
+   * @param key
+   * @param locale
+   * @param dimension
+   * @param ld
+   * @return
+   */
+  private static String smartGet(String key, String locale, MdDimensionDAOIF dimension, LocaleDimension ld)
+  {
+    while (ld != null)
+    {
 //        Amazingly, containsKey doesn't appear to be working
-        String value = getExactly(key, ld);
-        if (value!=null)
-        {
-          return value;
-        }
-        
-        // This moves us up the bundle chain
-        ld = ld.getParent();
-        if (ld==null && dimension!=null)
-        {
-          // If dimension-specific bundles fail, start the loop over with the generic bundles
-          ld = new LocaleDimension(locale);
-          dimension=null;
-        }
+      String value = getExactly(key, ld);
+      if (value!=null)
+      {
+        return value;
       }
-      return "???_" + key + "_???";
+      
+      // This moves us up the bundle chain
+      ld = ld.getParent();
+      if (ld==null && dimension!=null)
+      {
+        // If dimension-specific bundles fail, start the loop over with the generic bundles
+        ld = new LocaleDimension(locale);
+        dimension=null;
+      }
+    }
+    return "???_" + key + "_???";
+  }
+  
+  public static Map<String, String> getAll()
+  {
+    synchronized (Singleton.INSTANCE)
+    {
+      String locale = Session.getCurrentLocale().toString();
+      MdDimensionDAOIF dimension = Session.getCurrentDimension();
+      LocaleDimension ld = new LocaleDimension(locale, dimension);
+      
+      Map<String, String> map = new TreeMap<String, String>();
+      for (String key : Singleton.INSTANCE.masterKeySet)
+      {
+        String value = smartGet(key, locale, dimension, ld);
+        map.put(key, value);
+      }
+      
+      return map;
     }
   }
 
@@ -73,7 +112,9 @@ public class MultiBundle
       String lds = ld.toString();
       if (!cache.containsKey(lds))
       {
-        cache.put(lds, new Bundle(BUNDLE_NAME, ld));
+        Bundle newBundle = new Bundle(BUNDLE_NAME, ld);
+        cache.put(lds, newBundle);
+        Singleton.INSTANCE.masterKeySet.addAll(newBundle.getKeySet());
       }
       
       Bundle bundle = cache.get(lds);
@@ -95,6 +136,7 @@ public class MultiBundle
     synchronized (Singleton.INSTANCE)
     {
       Singleton.INSTANCE.bundles.clear();
+      Singleton.INSTANCE.masterKeySet.clear();
     }
   }
 }

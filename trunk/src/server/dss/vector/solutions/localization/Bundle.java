@@ -2,6 +2,7 @@ package dss.vector.solutions.localization;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import dss.vector.solutions.util.LocaleDimension;
 
@@ -17,5 +18,10 @@ public class Bundle
   public String getValue(String key)
   {
     return properties.get(key);
+  }
+  
+  public Set<String> getKeySet()
+  {
+    return properties.keySet();
   }
 }

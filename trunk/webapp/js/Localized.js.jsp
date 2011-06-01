@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.ResourceBundle"%>
@@ -77,8 +78,10 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
 /**
  * Constants used for localization in javascript.
  */
+MDSS.Localized = <% LocalizationFacadeDTO.getAllLocalizedText(clientRequest); %>;
+
+<%--
 MDSS.Localized = {
-<%
    //Nifty automatic localizer!
    ResourceBundle rb = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
    for( Enumeration en = rb.getKeys(); en.hasMoreElements(); )
@@ -88,7 +91,6 @@ MDSS.Localized = {
        String escaped = value.replace("'", "\\'"); // Converts ' to \'
           out.println( "'" + key + "' : '" + escaped + "',");
    }
-%>
 
   // tree widget options (per node)
   Tree: {
@@ -129,6 +131,7 @@ MDSS.Localized = {
   },
 
 };
+--%>
 
 MDSS.FLOAT_PRECISION = 2;
 
