@@ -350,6 +350,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
        // add query results to table
        var resultSet = query.getResultSet();
        var jsonData = [];
+       var ATTR = Mojo.Meta.alias('com.runwaysdk.transport.attributes.*', {});
        for(var i=0; i<resultSet.length; i++)
        {
          var result = resultSet[i];
@@ -361,15 +362,15 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
            var attr = column.getKey();
            var dto = result.getAttributeDTO(attr);
            var value = dto.getValue();
-           if(dto instanceof AttributeDateDTO){
+           if(dto instanceof ATTR.AttributeDateDTO){
              value = MDSS.Calendar.getLocalizedString(value);
            }
-           else if(dto instanceof AttributeDecDTO){
+           else if(dto instanceof ATTR.AttributeDecDTO){
              if(value != null){
                value = value.toFixed(2);
              }
            }
-           else if(dto instanceof AttributeBooleanDTO){
+           else if(dto instanceof ATTR.AttributeBooleanDTO){
   
              var displayValue = null;
              if(value === true)
