@@ -1,4 +1,5 @@
-<%@page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
+
+<%@page import="java.text.DecimalFormat"%><%@page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@page import="java.util.ResourceBundle"%>
@@ -78,7 +79,7 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
 /**
  * Constants used for localization in javascript.
  */
-MDSS.Localized = <% LocalizationFacadeDTO.getAllLocalizedText(clientRequest); %>;
+MDSS.Localized = <%= LocalizationFacadeDTO.getAllLocalizedText(clientRequest) %>;
 
 MDSS.FLOAT_PRECISION = 2;
 
