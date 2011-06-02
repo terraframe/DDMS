@@ -960,7 +960,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var toggleDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
       YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+      toggleDiv.innerHTML = MDSS.localize('Toggle_Show');
 
       visibleDiv.appendChild(labelDiv);
       visibleDiv.appendChild(toggleDiv);
@@ -1177,7 +1177,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._defaults.push({element:check, checked:false, bypass:true});      
 
       var span = document.createElement('span');
-      span.innerHTML = MDSS.Localized.Select_All;
+      span.innerHTML = MDSS.localize('Select_All');
 
       var li = document.createElement('li');
       li.appendChild(check);
@@ -1230,12 +1230,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
         {
           YAHOO.util.Dom.setStyle(el, 'display', 'none');
-          toggle.innerHTML = MDSS.Localized.Toggle_Show;
+          toggle.innerHTML = MDSS.localize('Toggle_Show');
         }
         else
         {
           YAHOO.util.Dom.setStyle(el, 'display', 'block');
-          toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+          toggle.innerHTML = MDSS.localize('Toggle_Hide');
         }
 
       }, {toggle: toggle, element: element}, this);
@@ -1304,7 +1304,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }, attribute, this);
   
       return item = {
-        text: MDSS.Localized.Single_Value,
+        text: MDSS.localize('Single_Value'),
         checked: false,
         onclick : {
           fn: this._toggleNumberInputs,
@@ -1437,7 +1437,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       }, attribute, this);
   
       return item = {
-        text: MDSS.Localized.Set_Range,
+        text: MDSS.localize('Set_Range'),
         checked: false,
         onclick : {
           fn: this._toggleNumberInputs,

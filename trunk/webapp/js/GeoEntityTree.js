@@ -52,13 +52,13 @@ MDSS.GeoEntityTree = (function(){
       var action = 'excelimport';
       
 
-      var html = MDSS.Localized.File_Upload_Status+":<br />";
+      var html = MDSS.localize('File_Upload_Status')+":<br />";
       html += "<iframe name='importIframe' id='importIframe' style='height:200px; width:350px; margin-bottom: 15px'></iframe>";
       html += "<form action='"+action+"' enctype='multipart/form-data' target='importIframe' id='"+formId+"' method='post'>";
       html += "<input type='hidden' name='parentGeoEntityId' id='parentGeoEntityId' value='' />";
       html += "<input type='hidden' name='excelType' id='excelType' value='dss.vector.solutions.export.GeoEntityExcelView' />";
       html += "<input type='file' name='importFile' id='importFile' /><br />";
-      html += "<input type='submit' name='import' value='"+MDSS.Localized.Submit+"' />"
+      html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
       html += "</form>";
 
       _uploadModal = new YAHOO.widget.Panel("uploadTemplateModal", {
@@ -76,7 +76,7 @@ MDSS.GeoEntityTree = (function(){
       var outer = document.createElement('div');
 
       var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.Localized.Upload_Template+'</h3><hr />';
+      header.innerHTML = '<h3>'+MDSS.localize('Upload_Template')+'</h3><hr />';
       outer.appendChild(header);
 
       var contentDiv = document.createElement('div');
@@ -609,7 +609,7 @@ MDSS.GeoEntityTree = (function(){
         var outer = document.createElement('div');
 
         var header = document.createElement('div');
-        header.innerHTML = '<h3>'+MDSS.Localized.Change_Type+'</h3><hr />';
+        header.innerHTML = '<h3>'+MDSS.localize('Change_Type')+'</h3><hr />';
         outer.appendChild(header);
 
         var listDiv = document.createElement('div');
@@ -700,7 +700,7 @@ MDSS.GeoEntityTree = (function(){
     var outer = document.createElement('div');
 
     var header = document.createElement('div');
-    header.innerHTML = '<h3>'+MDSS.Localized.Select_Universal_Type+'</h3><hr />';
+    header.innerHTML = '<h3>'+MDSS.localize('Select_Universal_Type')+'</h3><hr />';
     outer.appendChild(header);
 
     var listDiv = document.createElement('div');
@@ -858,7 +858,7 @@ MDSS.GeoEntityTree = (function(){
         }
         var delEntity = document.createElement('input');
         YAHOO.util.Dom.setAttribute(delEntity, 'type', 'button');
-        YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete_Entity);
+        YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.localize('Delete_Entity'));
         YAHOO.util.Event.on(delEntity, 'click', _deleteAfterConfirmation, delEntityObj);
         lowerDiv.appendChild(delEntity);
 
@@ -870,7 +870,7 @@ MDSS.GeoEntityTree = (function(){
         }
         var delRel = document.createElement('input');
         YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
-        YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
+        YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.localize('Delete_Relationship'));
         YAHOO.util.Event.on(delRel, 'click', _deleteAfterConfirmation, delRelObj);
         lowerDiv.appendChild(delRel);
 
@@ -1284,13 +1284,13 @@ MDSS.GeoEntityTree = (function(){
 
         var yes = document.createElement('input');
         YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
-        YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice.Yes);
+        YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.localize('Choice_Yes'));
         YAHOO.util.Event.on(yes, 'click', _addChildToParent, {clone:false, references:this.references}); // this == tree
         lowerDiv.appendChild(yes);
 
         var no = document.createElement('input');
         YAHOO.util.Dom.setAttribute(no, 'type', 'button');
-        YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice.No);
+        YAHOO.util.Dom.setAttribute(no, 'value', MDSS.localize('Choice_No'));
         YAHOO.util.Event.on(no, 'click', _addChildToParent, {clone:true, references:this.references}); // this == tree
         lowerDiv.appendChild(no);
 
@@ -1452,12 +1452,12 @@ MDSS.GeoEntityTree = (function(){
     if(Mojo.Util.isFunction(selectCallback))
     {
       _selectCallback = selectCallback;
-      var selectMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Select);
+      var selectMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Select'));
       selectMenuItem.subscribe("click", _customSelectHandler);
       itemData.push(selectMenuItem);
     }
     
-    var importMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Import_Button);
+    var importMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Import_Button'));
     importMenuItem.subscribe("click", _uploadImport);
     itemData.push(importMenuItem);
     
@@ -1469,21 +1469,21 @@ MDSS.GeoEntityTree = (function(){
     exportEntitiesMin.subscribe("click", _exportEntitiesNoGISHandler);
     itemData.push(exportEntitiesMin);
 
-    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
+    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Create'));
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
 
 /* OBSOLETE: no longer needed after the MO refactor
-    var changeTypeMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Change_Type);
+    var changeTypeMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Change_Type'));
     changeTypeMenuItem.subscribe("click", _changeTypeHandler);
     itemData.push(changeTypeMenuItem);
 */ 
 
-    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
+    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Edit'));
     editMenuItem.subscribe("click", _editNodeHandler);
     itemData.push(editMenuItem);
 
-    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Delete);
+    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Delete'));
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
     itemData.push(deleteMenuItem);
 

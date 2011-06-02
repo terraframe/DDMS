@@ -418,7 +418,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
           
           var delRel = document.createElement('input');
           YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
-          YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
+          YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.localize('Delete_Relationship'));
           YAHOO.util.Event.on(delRel, 'click', that._deleteAfterConfirmation, delObj, that);
           lowerDiv.appendChild(delRel);
   
@@ -544,15 +544,15 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
     {
       var itemData = [];
     
-      var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
+      var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Create'));
       createMenuItem.subscribe("click", Mojo.Util.bind(this, this._addNodeHandler));
       itemData.push(createMenuItem);
   
-      var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
+      var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Edit'));
       editMenuItem.subscribe("click", Mojo.Util.bind(this, this._editNodeHandler));
       itemData.push(editMenuItem);
   
-      var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Delete);
+      var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Delete'));
       deleteMenuItem.subscribe("click", Mojo.Util.bind(this, this._deleteNodeHandler));
       itemData.push(deleteMenuItem);
   

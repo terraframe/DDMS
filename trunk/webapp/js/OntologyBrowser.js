@@ -396,7 +396,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       // add an artificial TermView as the root
       var rootView = new Mojo.$.dss.vector.solutions.ontology.TermView();
       rootView.setTermId(this._ROOT);
-      rootView.setTermName(MDSS.Localized.ROOT);
+      rootView.setTermName(MDSS.localize('ROOT'));
       rootView.setTermOntologyId(this._ROOT);
       
       this._breadcrumbs.push(rootView);    
@@ -428,7 +428,7 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       html += '    </div>';
       html += '  </div>';
       html += '  <div class="browserSearch">';
-      html += '    <span>'+MDSS.Localized.Search+':</span>';
+      html += '    <span>'+MDSS.localize('Search')+':</span>';
       html += '    <input type="text" id="'+this._searchInput+'" class="browserSearchInput" />';
       html += '  </div>';
       html += '  <div class="browserContent">';
@@ -440,8 +440,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       html += '    </ul>';
       html += '  </div>';
       html += '  <div class="browserButtons">';
-      html += '    <input type="button" id="'+this._cancelButton+'" class="browserCancelButton" value="'+MDSS.Localized.Cancel+'" />';
-      html += '    <input type="button" id="'+this._saveButton+'" class="browserSaveButton" value="'+MDSS.Localized.save+'" />';
+      html += '    <input type="button" id="'+this._cancelButton+'" class="browserCancelButton" value="'+MDSS.localize('Cancel')+'" />';
+      html += '    <input type="button" id="'+this._saveButton+'" class="browserSaveButton" value="'+MDSS.localize('save')+'" />';
       html += '  </div>';
       html += '</div>';
       

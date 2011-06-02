@@ -80,59 +80,6 @@ for (AttributedCharacterIterator.Attribute key : aci.getAllAttributeKeys())
  */
 MDSS.Localized = <% LocalizationFacadeDTO.getAllLocalizedText(clientRequest); %>;
 
-<%--
-MDSS.Localized = {
-   //Nifty automatic localizer!
-   ResourceBundle rb = BundleSupport.getLocalizationContext(pageContext).getResourceBundle();
-   for( Enumeration en = rb.getKeys(); en.hasMoreElements(); )
-   {
-       String key = (String)en.nextElement();
-       String value = rb.getString(key);
-       String escaped = value.replace("'", "\\'"); // Converts ' to \'
-          out.println( "'" + key + "' : '" + escaped + "',");
-   }
-
-  // tree widget options (per node)
-  Tree: {
-    Create: '<%@page import="java.text.DecimalFormat"%><mdss:localize key="Tree_Create"/>',
-    Edit: '<mdss:localize key="Tree_Edit"/>',
-    Delete: '<mdss:localize key="Tree_Delete"/>',
-    Select: '<mdss:localize key="Tree_Select"/>'
-  },
-
-  // Basic choices
-  Choice: {
-    Yes: '<mdss:localize key="Choice_Yes"/>',
-    No: '<mdss:localize key="Choice_No"/>'
-  },
-
-  Query:
-  {
-    Start_Date: '<mdss:localize key="Query_Start_Date" />',
-    End_Date: '<mdss:localize key="Query_End_Date" />',
-    Map: '<mdss:localize key="Query_Map" />',
-    Run: '<mdss:localize key="Query_Run" />',
-    Save: '<mdss:localize key="Query_Save" />',
-    Load: '<mdss:localize key="Query_Load" />',
-    Refresh: '<mdss:localize key="Query_Refresh" />'
-  },
-
-  Toggle:
-  {
-    Show: '<mdss:localize key="Toggle_Show" />',
-    Hide: '<mdss:localize key="Toggle_Hide" />'
-  },
-
-  Thematic:
-  {
-    Layer: '<mdss:localize key="Thematic_Layer" />',
-    Edit_Default_Style: '<mdss:localize key="Thematic_Edit_Default_Style" />',
-    Edit_Variable_Styles: '<mdss:localize key="Thematic_Edit_Variable_Styles" />'
-  },
-
-};
---%>
-
 MDSS.FLOAT_PRECISION = 2;
 
 MDSS.getParser = function() {

@@ -621,7 +621,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
         var node = '<li style="list-style-type: none">';
         node += '|--'+that.constructor.viewClassAction(parent);
         node += '<ul style="margin:0px; padding-left:1em">';
-	
+  
         var subs = parent.getMetaClass().getSubClasses();
         subs.sort(function(c1, c2){
           var n1 = c1.getMetaClass().getQualifiedName(), n2 = c2.getMetaClass().getQualifiedName();
@@ -892,8 +892,6 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Explorer', {
 
 Mojo.Meta.newClass('com.runwaysdk.inspector.LoggerImpl', {
 
-  Extends : Mojo.log.Logger,
-  
   Instance : {
   
     initialize : function(loggerContent)
@@ -935,8 +933,8 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Logger', {
     {
       this.$initialize(mainWin, tabId, contentId);
       
-      var logger = new com.runwaysdk.inspector.LoggerImpl(this);
-      Mojo.log.LogManager.addLogger(logger);
+      //var logger = new com.runwaysdk.inspector.LoggerImpl(this);
+      //Mojo.log.LogManager.addLogger(logger);
       
       this._logTable = this.getMetaClass().getQualifiedName()+'_logTable';
       this._table = null;

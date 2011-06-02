@@ -90,13 +90,13 @@ var MDSS = {
 
     var yes = document.createElement('input');
     YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice_Yes);
+    YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.localize('Choice_Yes'));
     YAHOO.util.Event.on(yes, 'click', function(){ modal.destroy(); onYes()});
     lowerDiv.appendChild(yes);
 
     var no = document.createElement('input');
     YAHOO.util.Dom.setAttribute(no, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice_No);
+    YAHOO.util.Dom.setAttribute(no, 'value', MDSS.localize('Choice_No'));
     YAHOO.util.Event.on(no, 'click', function(){ modal.destroy(); onNo()});
     lowerDiv.appendChild(no);
 
@@ -125,13 +125,13 @@ var MDSS = {
         if(el.getStyle('display') === 'block')
         {
           el.setStyle('display', 'none');
-          toggle.innerHTML = MDSS.Localized.Click_to_Add;
+          toggle.innerHTML = MDSS.localize('Click_to_Add');
           hidden.value = 'false';
         }
         else
         {
           el.setStyle('display', 'block');
-          toggle.innerHTML = MDSS.Localized.Click_to_Remove;
+          toggle.innerHTML = MDSS.localize('Click_to_Remove');
           hidden.value = 'true';
         }
 
@@ -222,7 +222,7 @@ var MDSS = {
             }
           );
 
-        MDSS.util.wait_for_ajax.setHeader(MDSS.Localized.Ajax_Loading);
+        MDSS.util.wait_for_ajax.setHeader(MDSS.localize('Ajax_Loading'));
         MDSS.util.wait_for_ajax.setBody('<img src="imgs/rel_interstitial_loading.gif" />');
         MDSS.util.wait_for_ajax.render(document.body);
         MDSS.util.wait_for_ajax.bringToTop();

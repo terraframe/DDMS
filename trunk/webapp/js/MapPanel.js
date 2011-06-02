@@ -331,12 +331,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var div = document.getElementById(divId);
       if(div.style.display == 'none')
       {
-        el.innerHTML = MDSS.Localized.Toggle_Hide;
+        el.innerHTML = MDSS.localize('Toggle_Hide');
         div.style.display = 'block';
       }
       else
       {
-        el.innerHTML = MDSS.Localized.Toggle_Show;
+        el.innerHTML = MDSS.localize('Toggle_Show');
         div.style.display = 'none';
       }
     },
@@ -363,7 +363,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         that: this,
         onSuccess : function(html)
         {
-          this.that._createModalSec(html, MDSS.Localized.Generate, false, true);
+          this.that._createModalSec(html, MDSS.localize('Generate'), false, true);
         }
       });
       
@@ -513,7 +513,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           }
         });
         
-        Mojo.Facade.deleteEntity(request, categoryId);
+        com.runwaysdk.Facade.deleteEntity(request, categoryId);
       }
       else if(id.indexOf(MDSS.MapPanel.EDIT_SUFFIX) != -1)
       {
@@ -768,7 +768,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // scale
       var scale = document.createElement('input');
       YAHOO.util.Dom.setAttribute(scale, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(scale, 'value', MDSS.Localized.Scale);
+      YAHOO.util.Dom.setAttribute(scale, 'value', MDSS.localize('Scale'));
       YAHOO.util.Dom.addClass(scale, 'queryButton');
       YAHOO.util.Event.on(scale, 'click', this._toggleScale, null, this);
       scale.disabled = true;
@@ -777,7 +777,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // north arrow
       var northArrow = document.createElement('input');
       YAHOO.util.Dom.setAttribute(northArrow, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(northArrow, 'value', MDSS.Localized.NorthArrow);
+      YAHOO.util.Dom.setAttribute(northArrow, 'value', MDSS.localize('NorthArrow'));
       YAHOO.util.Dom.addClass(northArrow, 'queryButton');
       YAHOO.util.Event.on(northArrow, 'click', this._toggleArrow, null, this);
       northArrow.disabled = true;
@@ -786,7 +786,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // Add Text
       var addTextBtn = document.createElement('input');
       YAHOO.util.Dom.setAttribute(addTextBtn, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(addTextBtn, 'value', MDSS.Localized.Add_Text);
+      YAHOO.util.Dom.setAttribute(addTextBtn, 'value', MDSS.localize('Add_Text'));
       YAHOO.util.Dom.addClass(addTextBtn, 'queryButton');
       YAHOO.util.Event.on(addTextBtn, 'click', this._addText, null, this);
       addTextBtn.disabled = true;
@@ -795,7 +795,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // add image
       var imageBtn = document.createElement('input');
       YAHOO.util.Dom.setAttribute(imageBtn, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(imageBtn, 'value', MDSS.Localized.Add_Image);
+      YAHOO.util.Dom.setAttribute(imageBtn, 'value', MDSS.localize('Add_Image'));
       YAHOO.util.Dom.addClass(imageBtn, 'queryButton');
       YAHOO.util.Event.on(imageBtn, 'click', this._addImage, null, this);
       imageBtn.disabled = true;
@@ -804,7 +804,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       // Add the draw line button
       var drawLineBtn = document.createElement('input');
       YAHOO.util.Dom.setAttribute(drawLineBtn, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(drawLineBtn, 'value', MDSS.Localized.Draw_Line);
+      YAHOO.util.Dom.setAttribute(drawLineBtn, 'value', MDSS.localize('Draw_Line'));
       YAHOO.util.Dom.addClass(drawLineBtn, 'queryButton');
       YAHOO.util.Event.on(drawLineBtn, 'click', this._drawLine, null, this);
       drawLineBtn.disabled = true;
@@ -812,7 +812,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
       var measureBtn = document.createElement('input');
       YAHOO.util.Dom.setAttribute(measureBtn, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(measureBtn, 'value', MDSS.Localized.Measure);
+      YAHOO.util.Dom.setAttribute(measureBtn, 'value', MDSS.localize('Measure'));
       YAHOO.util.Dom.addClass(measureBtn, 'queryButton');
       YAHOO.util.Event.on(measureBtn, 'click', this._measure, null, this);
       measureBtn.disabled = true;
@@ -823,14 +823,14 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
       var exportShape = document.createElement('input');
       YAHOO.util.Dom.setAttribute(exportShape, 'type', 'button');
-      YAHOO.util.Dom.setAttribute(exportShape, 'value', MDSS.Localized.Export_Shapefile);
+      YAHOO.util.Dom.setAttribute(exportShape, 'value', MDSS.localize('Export_Shapefile'));
       YAHOO.util.Dom.addClass(exportShape, 'queryButton');
       YAHOO.util.Event.on(exportShape, 'click', this._exportShapefile, null, this);
       mapButtonDiv.appendChild(exportShape);
   
       var refreshMapButton = new YAHOO.util.Element(document.createElement('input'));
       refreshMapButton.set('type', 'button');
-      refreshMapButton.set('value', MDSS.Localized.Query.Refresh);
+      refreshMapButton.set('value', MDSS.localize('Query_Refresh'));
       refreshMapButton.set('id', MDSS.MapPanel.REFRESH_MAP_BUTTON);
       refreshMapButton.addClass('queryButton');
       refreshMapButton.on('click', this._refreshMap, null, this);
@@ -851,7 +851,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       html += '<input type="submit" value="'+MDSS.localize('Submit')+'" />';
       html += '</form>';
       
-      this._createModal(html, MDSS.Localized.Add_Image, false, true);
+      this._createModal(html, MDSS.localize('Add_Image'), false, true);
     },
     
     _showScale : function()
@@ -1082,7 +1082,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         }
       });
         
-      Mojo.Facade.deleteEntity(request, mapId);
+      com.runwaysdk.Facade.deleteEntity(request, mapId);
     },
     
     _deleteMap : function()
@@ -1094,7 +1094,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         var mapId = option.value;
         
         var doDel = Mojo.Util.bind(this, this._doDeleteMap, mapId);
-        MDSS.confirmModal(MDSS.Localized.Confirm_Delete_Map, doDel, function(){});
+        MDSS.confirmModal(MDSS.localize('Confirm_Delete_Map'), doDel, function(){});
       }
     },
     
@@ -1188,7 +1188,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         onSuccess : function(retJSON)
         {
           var retObj = Mojo.Util.getObject(retJSON);
-          var info = Mojo.Util.convertToType(retObj.information);
+          var info = Mojo.$.com.runwaysdk.DTOUtil.convertToType(retObj.information);
           
           if(info.length > 0)
           {
@@ -1366,7 +1366,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       }
       out += '</h2></div>';
       
-      this._createModal(out, MDSS.Localized.Measure, false, true);
+      this._createModal(out, MDSS.localize('Measure'), false, true);
     },
     
     _enableAnnotations : function()
@@ -1426,7 +1426,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var request = new MDSS.Request({
         that : this,
         onSuccess : function(html){
-          this.that._createModal(html, MDSS.Localized.Add_Text, false, true);
+          this.that._createModal(html, MDSS.localize('Add_Text'), false, true);
         }
       });
       
@@ -2256,8 +2256,8 @@ Mojo.Meta.newClass("MDSS.ColorPicker", {
           draggable: false,
           close: false,
           zindex: 200,
-          buttons : [ { text: MDSS.Localized.Submit, handler:sBound, isDefault:true },
-              { text: MDSS.Localized.Cancel, handler:cBound } ]
+          buttons : [ { text: MDSS.localize('Submit'), handler:sBound, isDefault:true },
+              { text: MDSS.localize('Cancel'), handler:cBound } ]
         });
   
         this._dialog.setBody('<div class="yui-picker" id="singleton_picker"></div>');

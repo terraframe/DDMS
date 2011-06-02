@@ -336,7 +336,7 @@ MDSS.QueryPanel.prototype = {
     dateRange.set('id', this.DATE_RANGE_DIV);
 
     var startLabel = document.createElement('span');
-    startLabel.innerHTML = MDSS.Localized.Query.Start_Date;
+    startLabel.innerHTML = MDSS.localize('Query_Start_Date');
 
     this._startDate = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
@@ -350,7 +350,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
 
     var endLabel = document.createElement('span');
-    endLabel.innerHTML = MDSS.Localized.Query.End_Date;
+    endLabel.innerHTML = MDSS.localize('Query_End_Date');
 
     this._endDate = document.createElement('input');
     YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
@@ -364,7 +364,7 @@ MDSS.QueryPanel.prototype = {
     YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
 
     var toggleDatesSpan = document.createElement('span');
-    toggleDatesSpan.innerHTML = MDSS.Localized.Toggle_Show;
+    toggleDatesSpan.innerHTML = MDSS.localize('Toggle_Show');
 
 
   
@@ -560,8 +560,8 @@ MDSS.QueryPanel.prototype = {
    */
   _buildQuerySummary : function()
   {
-    var html = '<h3>'+MDSS.Localized.Columns+'</h3><ul id="'+this.COLUMNS_LIST+'"></ul>';
-    html += '<h3>'+MDSS.Localized.Selected_Entities + '</h3><div id="'+this.GEO_ENTITY_PANEL_LIST+'"></div>';
+    var html = '<h3>'+MDSS.localize('Columns')+'</h3><ul id="'+this.COLUMNS_LIST+'"></ul>';
+    html += '<h3>'+MDSS.localize('Selected_Entities') + '</h3><div id="'+this.GEO_ENTITY_PANEL_LIST+'"></div>';
 
     var querySummary = document.getElementById(this.QUERY_SUMMARY);
     querySummary.innerHTML = html;
@@ -632,7 +632,7 @@ MDSS.QueryPanel.prototype = {
 
     var exportCSVButton = document.createElement('input');
     YAHOO.util.Dom.setAttribute(exportCSVButton, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(exportCSVButton, 'value', MDSS.Localized.Export_CSV);
+    YAHOO.util.Dom.setAttribute(exportCSVButton, 'value', MDSS.localize('Export_CSV'));
     YAHOO.util.Dom.addClass(exportCSVButton, 'queryButton');
     YAHOO.util.Event.on(exportCSVButton, 'click', this._exportCSV, obj, this);
 
@@ -686,7 +686,7 @@ MDSS.QueryPanel.prototype = {
 
    var exportReportButton = document.createElement('input');
    YAHOO.util.Dom.setAttribute(exportReportButton, 'type', 'button');
-   YAHOO.util.Dom.setAttribute(exportReportButton, 'value', MDSS.Localized.Export_Report);
+   YAHOO.util.Dom.setAttribute(exportReportButton, 'value', MDSS.localize('Export_Report'));
    YAHOO.util.Dom.addClass(exportReportButton, 'queryButton');
    YAHOO.util.Event.on(exportReportButton, 'click', this._exportReport, obj, this);
 
@@ -736,7 +736,7 @@ MDSS.QueryPanel.prototype = {
 
     var exportXLSButton = document.createElement('input');
     YAHOO.util.Dom.setAttribute(exportXLSButton, 'type', 'button');
-    YAHOO.util.Dom.setAttribute(exportXLSButton, 'value', MDSS.Localized.Excel_Export_Nav);
+    YAHOO.util.Dom.setAttribute(exportXLSButton, 'value', MDSS.localize('Excel_Export_Nav'));
     YAHOO.util.Dom.addClass(exportXLSButton, 'queryButton');
     YAHOO.util.Event.on(exportXLSButton, 'click', this._exportXLS, obj, this);
 
@@ -768,12 +768,12 @@ MDSS.QueryPanel.prototype = {
       var formId = 'templateUploadForm';
       var action = 'dss.vector.solutions.query.QueryController.uploadTemplate.mojo';
 
-      var html = MDSS.Localized.File_Upload_Status+":<br />";
+      var html = MDSS.localize('File_Upload_Status')+":<br />";
       html += "<iframe name='templateIframe' id='templateIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
       html += "<form action='"+action+"' enctype='multipart/form-data' target='templateIframe' id='"+formId+"' method='post'>";
       html += "<input type='hidden' name='savedSearchId' id='savedSearchIdInput' value='' />";
       html += "<input type='file' name='templateFile' /><br />";
-      html += "<input type='submit' name='import' value='"+MDSS.Localized.Submit+"' />"
+      html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
       html += "</form>";
 
       this._uploadModal = new YAHOO.widget.Panel("uploadTemplateModal", {
@@ -791,7 +791,7 @@ MDSS.QueryPanel.prototype = {
       var outer = document.createElement('div');
 
       var header = document.createElement('div');
-      header.innerHTML = '<h3>'+MDSS.Localized.Upload_Template+'</h3><hr />';
+      header.innerHTML = '<h3>'+MDSS.localize('Upload_Template')+'</h3><hr />';
       outer.appendChild(header);
 
       var contentDiv = document.createElement('div');
@@ -817,21 +817,21 @@ MDSS.QueryPanel.prototype = {
   {
     var uploadTemplate = new YAHOO.util.Element(document.createElement('input'));
     uploadTemplate.set('type', 'button');
-    uploadTemplate.set('value', MDSS.Localized.Upload_Template);
+    uploadTemplate.set('value', MDSS.localize('Upload_Template'));
     uploadTemplate.set('id', "uploadTemplateButton");
     uploadTemplate.addClass('queryButton');
     uploadTemplate.on('click', this._uploadTemplate, {}, this);
 
     var saveButton = new YAHOO.util.Element(document.createElement('input'));
     saveButton.set('type', 'button');
-    saveButton.set('value', MDSS.Localized.Query.Save);
+    saveButton.set('value', MDSS.localize('Query_Save'));
     saveButton.set('id', "saveQueryButton");
     saveButton.addClass('queryButton');
     saveButton.on('click', this._saveQuery, {}, this);
 
     var saveAsButton = new YAHOO.util.Element(document.createElement('input'));
     saveAsButton.set('type', 'button');
-    saveAsButton.set('value', MDSS.Localized.Query_Save_As);
+    saveAsButton.set('value', MDSS.localize('Query_Save_As'));
     saveAsButton.set('id', "saveAsQueryButton");
     saveAsButton.addClass('queryButton');
     saveAsButton.on('click', this._saveQueryAs, {}, this);
@@ -868,7 +868,7 @@ MDSS.QueryPanel.prototype = {
 
     var runButton = new YAHOO.util.Element(document.createElement('input'));
     runButton.set('type', 'button');
-    runButton.set('value', MDSS.Localized.Query.Run);
+    runButton.set('value', MDSS.localize('Query_Run'));
     runButton.set('id', this.RUN_QUERY_BUTTON);
     runButton.addClass('queryButton');
     runButton.on('click', this._executeQuery, {}, this);
@@ -1266,7 +1266,7 @@ MDSS.QueryPanel.prototype = {
         this.thisRef._queryClass._loadDefaultSearch();
       }
     });
-    Mojo.Facade.deleteEntity(request, savedSearchId);
+    com.runwaysdk.Facade.deleteEntity(request, savedSearchId);
   },
 
   /**
@@ -1280,7 +1280,7 @@ MDSS.QueryPanel.prototype = {
     if(savedSearchId)
     {
       var doDel = Mojo.Util.bind(this, this._doDeleteQuery, savedSearchId, queries);
-      MDSS.confirmModal(MDSS.Localized.Confirm_Delete_Query, doDel, function(){});
+      MDSS.confirmModal(MDSS.localize('Confirm_Delete_Query'), doDel, function(){});
     }
   },
   

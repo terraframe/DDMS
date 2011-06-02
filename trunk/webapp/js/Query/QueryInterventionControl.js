@@ -170,7 +170,7 @@ Mojo.Meta.newClass('MDSS.QueryInterventionControl', {
         this._defaults.push({element:check, checked:false, bypass:true});      
 
         var span = document.createElement('span');
-        span.innerHTML = MDSS.Localized.Select_All;
+        span.innerHTML = MDSS.localize('Select_All');
 
         var li = document.createElement('li');
         li.appendChild(check);

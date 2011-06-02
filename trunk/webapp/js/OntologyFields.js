@@ -381,7 +381,7 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
         }
       });
 
-      Mojo.Facade.deleteEntity(request, rootId);      
+      com.runwaysdk.Facade.deleteEntity(request, rootId);      
     },
     
     _populateRoot : function(params)
@@ -404,8 +404,8 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       var html = '';
       html += '<td>'+rootView.getTermName()+'</td>';
       html += '<td>'+rootView.getSelectable()+'</td>';
-      html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Edit+'</button></td>';
-      html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.Localized.Delete+'</button></td>';
+      html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.localize('Edit')+'</button></td>';
+      html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.localize('Delete')+'</button></td>';
       
       tr.innerHTML = html;
     },

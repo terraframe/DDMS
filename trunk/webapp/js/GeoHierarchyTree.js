@@ -298,7 +298,7 @@ MDSS.GeoHierarchyTree = (function(){
         var executable = MDSS.util.extractScripts(html);
         var html = MDSS.util.removeScripts(html);
 
-        var header = MDSS.Localized.New_Universal_Located_In;
+        var header = MDSS.localize('New_Universal_Located_In');
         header = header.replace(/\[parent\]/, this.parentLabel);
 
         var labelEl = "<h3>"+header+"</h3><hr />";
@@ -467,7 +467,7 @@ MDSS.GeoHierarchyTree = (function(){
         }
   	  	var delEntity = document.createElement('input');
   	  	YAHOO.util.Dom.setAttribute(delEntity, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.Localized.Delete_Universal);
+  	  	YAHOO.util.Dom.setAttribute(delEntity, 'value', MDSS.localize('Delete_Universal'));
   	  	YAHOO.util.Event.on(delEntity, 'click', _deleteAfterConfirmation, delEntityObj);
         lowerDiv.appendChild(delEntity);
 
@@ -479,7 +479,7 @@ MDSS.GeoHierarchyTree = (function(){
         }
   	  	var delRel = document.createElement('input');
   	  	YAHOO.util.Dom.setAttribute(delRel, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.Localized.Delete_Relationship);
+  	  	YAHOO.util.Dom.setAttribute(delRel, 'value', MDSS.localize('Delete_Relationship'));
   	  	YAHOO.util.Event.on(delRel, 'click', _deleteAfterConfirmation, delRelObj);
   	  	lowerDiv.appendChild(delRel);
 
@@ -719,13 +719,13 @@ MDSS.GeoHierarchyTree = (function(){
 
   	  	var yes = document.createElement('input');
   	  	YAHOO.util.Dom.setAttribute(yes, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.Localized.Choice.Yes);
+  	  	YAHOO.util.Dom.setAttribute(yes, 'value', MDSS.localize('Choice_Yes'));
   	  	YAHOO.util.Event.on(yes, 'click', _addChildToParent, {clone:false, references:this.references}); // this == tree
         lowerDiv.appendChild(yes);
 
   	  	var no = document.createElement('input');
   	  	YAHOO.util.Dom.setAttribute(no, 'type', 'button');
-  	  	YAHOO.util.Dom.setAttribute(no, 'value', MDSS.Localized.Choice.No);
+  	  	YAHOO.util.Dom.setAttribute(no, 'value', MDSS.localize('Choice_No'));
   	  	YAHOO.util.Event.on(no, 'click', _addChildToParent, {clone:true, references:this.references}); // this == tree
   	  	lowerDiv.appendChild(no);
 
@@ -824,15 +824,15 @@ MDSS.GeoHierarchyTree = (function(){
     exportEntitiesMin.subscribe("click", _exportEntitiesNoGISHandler);
     itemData.push(exportEntitiesMin);
 
-    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Create);
+    var createMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Create'));
     createMenuItem.subscribe("click", _addNodeHandler);
     itemData.push(createMenuItem);
 
-    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Edit);
+    var editMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Edit'));
     editMenuItem.subscribe("click", _editNodeHandler);
     itemData.push(editMenuItem);
 
-    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.Localized.Tree.Delete);
+    var deleteMenuItem = new YAHOO.widget.ContextMenuItem(MDSS.localize('Tree_Delete'));
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
     itemData.push(deleteMenuItem);
 

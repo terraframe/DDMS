@@ -127,12 +127,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         if(YAHOO.util.Dom.getStyle(el, 'display') === 'block')
         {
           YAHOO.util.Dom.setStyle(el, 'display', 'none');
-          toggle.innerHTML = MDSS.Localized.Toggle_Show;
+          toggle.innerHTML = MDSS.localize('Toggle_Show');
         }
         else
         {
           YAHOO.util.Dom.setStyle(el, 'display', 'block');
-          toggle.innerHTML = MDSS.Localized.Toggle_Hide;
+          toggle.innerHTML = MDSS.localize('Toggle_Hide');
         }
   
       }, {toggle: toggle, element: element}, this);
@@ -519,7 +519,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       var toggleDiv = document.createElement('div');
       YAHOO.util.Dom.addClass(toggleDiv, 'clickable');
       YAHOO.util.Dom.addClass(toggleDiv, 'queryItemLabel');
-      toggleDiv.innerHTML = MDSS.Localized.Toggle_Show;
+      toggleDiv.innerHTML = MDSS.localize('Toggle_Show');
   
       visibleDiv.appendChild(labelDiv);
       visibleDiv.appendChild(toggleDiv);
@@ -1015,7 +1015,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         controller: controller,
         onSuccess: function(html)
         {
-          var modal = this.thisRef._createModal(html, MDSS.Localized.Query.Save);
+          var modal = this.thisRef._createModal(html, MDSS.localize('Query_Save'));
   
           var saved = Mojo.Util.bind(this.thisRef, this.thisRef._saveQueryListener, modal);
           var canceled = Mojo.Util.bind(this.thisRef, this.thisRef._cancelQueryListener, modal);
