@@ -1,5 +1,5 @@
 <listener>
-  <listener-class>net.sf.ehcache.constructs.web.ShutdownListener</listener-class>
+  <listener-class>com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdownListener</listener-class>
 </listener>
 
 <listener>
