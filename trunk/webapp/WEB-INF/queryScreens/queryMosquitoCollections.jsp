@@ -251,6 +251,12 @@ YAHOO.util.Event.onDOMReady(function(){
       type: MDSS.Dependent.CHECKED,
       bidirectional: false
     });
+    dm.includes({
+      independent: ['mosquitoCount'],
+      dependent:['collectionMethod_ab'],
+      type: MDSS.Dependent.CHECKED,
+      bidirectional: false
+    });
 
     Mojo.GLOBAL.query = query;
 });
