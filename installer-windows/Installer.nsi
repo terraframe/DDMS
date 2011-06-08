@@ -138,12 +138,12 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 5899
+    StrCpy $PatchVersion 6133
     StrCpy $TermsVersion 5814
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 5814
-    StrCpy $LocalizationVersion 5852
-    StrCpy $PermissionsVersion 5650
+    StrCpy $LocalizationVersion 5978
+    StrCpy $PermissionsVersion 5974
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
@@ -239,7 +239,7 @@ Section -Main SEC0000
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U postgres -d mdssdeploy -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
 
     # Update the installation number
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d mdssdeploy -p 5444 -h 127.0.0.1 -c "update property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d mdssdeploy -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f C:\MDSS\PostgreSql /r /d y
@@ -270,8 +270,11 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx1024M -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/admin/MDSSModule"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
+    SetOutPath $INSTDIR	
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx1024M -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/admin/MDSSModule"	
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\GIS.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx1024M -cp $INSTDIR\tomcat6\webapps\DDMS\WEB-INF\lib\*;$INSTDIR\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/gis/WindowLauncher"	
+    SetOutPath $SMPROGRAMS\$StartMenuGroup	
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
     !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
