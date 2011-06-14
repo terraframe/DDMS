@@ -1,9 +1,5 @@
 package dss.vector.solutions.gis;
 
-import java.util.List;
-
-import net.sf.ehcache.CacheManager;
-
 import org.eclipse.core.databinding.observable.Realm;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.databinding.swt.SWTObservables;
@@ -20,6 +16,7 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Request;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyView;
@@ -38,6 +35,7 @@ public class MainWindow extends ApplicationWindow implements Reloadable
   }
 
   @Override
+  @Request
   protected Control createContents(Composite parent)
   {
     Display display = parent.getDisplay();
