@@ -138,7 +138,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6133
+    StrCpy $PatchVersion 6137
     StrCpy $TermsVersion 5814
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 5814
@@ -272,8 +272,8 @@ Section -post SEC0001
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     SetOutPath $INSTDIR	
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx1024M -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/admin/MDSSModule"	
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\GIS.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx1024M -cp $INSTDIR\tomcat6\webapps\DDMS\WEB-INF\lib\*;$INSTDIR\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/gis/WindowLauncher"	
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512M -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/admin/MDSSModule"	
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\GIS.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512M -cp $INSTDIR\tomcat6\webapps\DDMS\WEB-INF\lib\*;$INSTDIR\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/gis/WindowLauncher"	
     SetOutPath $SMPROGRAMS\$StartMenuGroup	
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
     !insertmacro MUI_STARTMENU_WRITE_END
