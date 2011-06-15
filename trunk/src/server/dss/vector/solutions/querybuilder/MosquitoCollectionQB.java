@@ -1,9 +1,14 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
@@ -12,21 +17,122 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.system.metadata.MdEntity;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
+import dss.vector.solutions.geo.AllPathsQuery;
+import dss.vector.solutions.geo.GeoEntityView;
+import dss.vector.solutions.geo.generated.Country;
+import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.querybuilder.AbstractQB.WITHEntry;
+import dss.vector.solutions.query.QueryConstants;
+import dss.vector.solutions.querybuilder.util.QBInterceptor;
 import dss.vector.solutions.util.QueryUtil;
 
 public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 {
+  private boolean hasAbundance;
+  private boolean forceUniversal;
+  private String universalClass;
+  
   public MosquitoCollectionQB(String xml, String config, Layer layer)
   {
     super(xml, config, layer);
+    
+    this.universalClass = Country.CLASS;
+    this.forceUniversal = false;
+    this.hasAbundance = this.hasAbundanceCalc(xml);
+  }
+  
+  /**
+   * Custom JSON config method to add the the highest universal
+   * in the system if this query is for abundance calculation and if
+   * no universal columns have been added.
+   */
+  @Override
+  protected JSONObject constructQueryConfig(String config)
+  {
+    JSONObject json = super.constructQueryConfig(config);
+    
+    if(this.hasAbundance)
+    {
+      JSONObject selectedUniMap;
+      try
+      {
+        selectedUniMap = json.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
+        Iterator<String> keys = selectedUniMap.keys();
+        if (keys.hasNext())
+        {
+          // Will be "dss.vector.solutions.entomology.MosquitoCollection.geoEntity" as mosquito collection
+          // only has one GeoEntity attribute
+          String key = keys.next();
+          
+          JSONArray universals = selectedUniMap.getJSONArray(key);
+          if(universals.length() == 0)
+          {
+            // no universals even though we're doing an abundance calculation
+            // so add the highest level universal automatically
+            universals.put(this.universalClass);
+            this.forceUniversal = true;
+          }
+        }
+      }
+      catch (JSONException e)
+      {
+        // we should never reach this
+        throw new ProgrammingErrorException(e);
+      }
+    }
+    
+    return json;
+  }
+  
+  @Override
+  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey,
+      AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery,
+      Map<String, GeneratedEntityQuery> queryMap)
+  {
+    super.setGeoCriteria(interceptor, attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery,
+        queryMap);
+    
+    if(this.forceUniversal)
+    {
+      // We know there is only one left join universal (Earth)
+      ValueQuery earthVQ = leftJoinValueQueries.get(0);
+
+      String prepend = attributeKey.replaceAll("\\.", "_") + "__";
+      String universalName = MdEntity.getMdEntity(this.universalClass).getTypeName();
+      String entityNameAlias = prepend + universalName.toLowerCase() + "_"
+          + GeoEntityView.ENTITYNAME;
+      String geoIdAlias = prepend + universalName.toLowerCase() + "_" + GeoEntityView.GEOID;
+      
+      
+      Selectable name = earthVQ.aCharacter(entityNameAlias);
+      Selectable geoId = earthVQ.aCharacter(geoIdAlias);
+      
+      // Due to an unfortunate hack, taxon is forced as the first column but the query only
+      // works correctly if the geo columns are after taxon but before everything else. This
+      // needs to be more fully tested. (See setWithQuerySQL() for the source of this evil).
+      List<Selectable> selectables = valueQuery.getSelectableRefs();
+      selectables.add(0, name);
+      selectables.add(1, geoId);
+      
+      valueQuery.clearSelectClause();
+      valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
+    }
+  }
+  
+  /**
+   * Hack check for abundance calculation within the query.
+   * @return
+   */
+  private boolean hasAbundanceCalc(String xml)
+  {
+    return xml.contains("abundance_subcol_1") || xml.contains("abundance_1") || xml.contains("mosquitoCount") || xml.contains("ollectionCount");
   }
   
   @Override
@@ -72,7 +178,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     
     
     
-    if (xml.contains("abundance_subcol_1") || xml.contains("abundance_1") || xml.contains("mosquitoCount") || xml.contains("ollectionCount"))
+    if (this.hasAbundance)
     {
 
       String viewName = "abundance_view";
