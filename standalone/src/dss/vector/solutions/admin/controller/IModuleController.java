@@ -39,4 +39,6 @@ public interface IModuleController
   public void deleteTermPaths();
 
   public boolean hasAllPathTables();
+
+  public void close();
 }

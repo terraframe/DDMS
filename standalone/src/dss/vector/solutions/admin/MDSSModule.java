@@ -480,5 +480,6 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
   @Override
   public void shellCloseEvent()
   {
+    this.controller.close();
   }
 }

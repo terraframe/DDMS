@@ -230,7 +230,7 @@ public class ModuleController extends EventProvider implements IModuleController
   @Override
   public void refresh()
   {
-    server.pollURL();
+    server.fireServerChange(server.isServerUp());
   }
 
   @Override
@@ -420,4 +420,9 @@ public class ModuleController extends EventProvider implements IModuleController
     return false;
   }
 
+  @Override
+  public void close()
+  {
+    this.server.close();
+  }
 }

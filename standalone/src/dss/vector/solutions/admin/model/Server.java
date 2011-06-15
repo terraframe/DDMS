@@ -1,85 +1,68 @@
 package dss.vector.solutions.admin.model;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.lang.Thread.UncaughtExceptionHandler;
+import java.rmi.AccessException;
+import java.rmi.NoSuchObjectException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
+import java.rmi.server.UnicastRemoteObject;
 
-import com.runwaysdk.constants.DeployProperties;
+import javax.rmi.ssl.SslRMIClientSocketFactory;
+
+import org.apache.catalina.Lifecycle;
+
 import com.runwaysdk.manager.general.Localizer;
+import com.runwaysdk.tomcat.RemoteLifecycleListenerServer;
+import com.runwaysdk.tomcat.RemoteLifecycleListenerServerIF;
 
 import dss.vector.solutions.admin.controller.CommandProperties;
 import dss.vector.solutions.admin.controller.EventProvider;
 
-public class Server extends EventProvider
+public class Server extends EventProvider implements UncaughtExceptionHandler
 {
   /**
    * Amount of time to wait before calling the status call back function
    */
-  private static final long WAIT_TIME = 5000L;
-  
-  private Boolean lastCommand;
+  private static final long               WAIT_TIME = 5000L;
+
+  private RemoteLifecycleListenerServerIF server;
+
+  private RemoteLifecycleListener         listener;
 
   public Server()
   {
     super();
 
-    this.lastCommand = null;
-  }
-
-  private synchronized void setLastCommand(boolean state)
-  {
-    this.lastCommand = state;
-  }
-
-  private synchronized Boolean getLastCommand()
-  {
-    return this.lastCommand;
-  }
-
-  public void pollURL()
-  {
-    Thread thread = new Thread(new Runnable()
+    try
     {
-      @Override
-      public void run()
-      {
-        boolean status = false;
+      this.listener = new RemoteLifecycleListener(Server.this);
 
-        try
-        {
-          String url = DeployProperties.getApplicationURL() + "/status.jsp";
-          URL server = new URL(url);
-          HttpURLConnection connection = (HttpURLConnection) server.openConnection();
-          connection.connect();
-
-          BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
-          in.readLine();
-          in.close();
-
-          connection.disconnect();
-
-          status = true;
-        }
-        catch (Exception e)
-        {
-        }
-        finally
-        {
-          fireServerChange(status);
-        }
-      }
-    });
-
-    thread.setDaemon(true);
-    thread.start();
+      this.registerServer();
+    }
+    catch (Exception e)
+    {
+      // The server is not up yet so it is impossbile to connect to the RMI
+      // service.
+    }
   }
 
-  public void pollProcess()
+  private final void registerServer() throws RemoteException, NotBoundException, AccessException
+  {
+    int port = CommandProperties.getListenerPort();
+
+    Registry registry = LocateRegistry.getRegistry(null, port, new SslRMIClientSocketFactory());
+
+    this.server = (RemoteLifecycleListenerServerIF) registry.lookup(RemoteLifecycleListenerServer.NAME);
+    this.server.addListener(listener);
+  }
+
+  public void refresh()
   {
     fireServerChange(this.isServerUp());
   }
-  
+
   public void validateProcessState(final boolean condition, final Runnable runnable)
   {
     boolean status = this.isServerUp();
@@ -91,8 +74,6 @@ public class Server extends EventProvider
     else
     {
       fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
-
-      pollURL();
     }
   }
 
@@ -118,16 +99,24 @@ public class Server extends EventProvider
           finally
           {
             long wait = System.currentTimeMillis() + WAIT_TIME;
-            
-            while(System.currentTimeMillis() < wait)
+
+            while (System.currentTimeMillis() < wait)
             {
-              Thread.yield();
+              try
+              {
+                Thread.sleep(1000L);
+              }
+              catch (InterruptedException e)
+              {
+                // Do nothing
+              }
             }
-            
+
             callback.run();
           }
         }
       };
+      outputThread.setUncaughtExceptionHandler(this);
       outputThread.setDaemon(true);
       outputThread.start();
     }
@@ -145,17 +134,27 @@ public class Server extends EventProvider
       public void run()
       {
         runCommand(CommandProperties.getStartCommand(), new Runnable()
-        {          
+        {
           @Override
           public void run()
           {
-            pollURL();
+            try
+            {
+              Server.this.registerServer();
+            }
+            catch (Exception e)
+            {
+              // There was a problem connecting to the RMI server even though it
+              // should have already just been started. The server must not be
+              // started or is being blocked.
+              Server.this.fireServerChange(false);
+
+              throw new RuntimeException(Localizer.getMessage("RMI_FAILED_TO_START"));
+            }
           }
         });
       }
     };
-
-    setLastCommand(true);
 
     // Ensure that the tomcat proccess does not already exist
     this.validateProcessState(false, runnable);
@@ -169,50 +168,45 @@ public class Server extends EventProvider
       public void run()
       {
         runCommand(CommandProperties.getStopCommand(), new Runnable()
-        {          
+        {
           @Override
           public void run()
           {
-            pollURL();
           }
         });
       }
     };
 
-    if (getLastCommand() == null || getLastCommand() != false)
-    {
-      setLastCommand(false);
-
-      this.validateProcessState(true, runnable);
-    }
-    else
-    {
-      this.pollURL();
-    }
+    this.validateProcessState(true, runnable);
   }
 
   public boolean isServerUp()
   {
-    try
+    if (this.server != null)
     {
-      String command = CommandProperties.getProccess();
+      try
+      {
+        return this.server.getCurrentState().equals(Lifecycle.AFTER_START_EVENT);
+      }
+      catch (RemoteException e)
+      {
+        // The server is no longer up or is not reachable
 
-      SynchronusProcess process = new SynchronusProcess();
-      String output = process.run(command);
-
-      return output.contains("Bootstrap");
-    }
-    catch (Exception e)
-    {
-      e.printStackTrace();
+        this.server = null;
+      }
     }
 
     return false;
   }
 
+  public void closeRemoteServer()
+  {
+    this.server = null;
+  }
+
   public void enableServer(boolean state)
   {
-    if(state)
+    if (state)
     {
       this.startServer();
     }
@@ -220,5 +214,39 @@ public class Server extends EventProvider
     {
       this.stopServer();
     }
+  }
+
+  public void close()
+  {
+    if (this.server != null && this.listener != null)
+    {
+      try
+      {
+        this.server.removeListener(listener);
+      }
+      catch (RemoteException e)
+      {
+        // The remote server may no longer be active or is not reachable.
+        this.server = null;
+      }
+    }
+
+    if (this.listener != null)
+    {
+      try
+      {
+        UnicastRemoteObject.unexportObject(listener, true);
+      }
+      catch (NoSuchObjectException e)
+      {
+        // The exported listener has already been removed from the registry
+      }
+    }
+  }
+
+  @Override
+  public void uncaughtException(Thread thread, Throwable throwable)
+  {
+    this.fireErrorEvent(throwable.getLocalizedMessage());
   }
 }

@@ -70,5 +70,10 @@ public class CommandProperties
   public static String getIconDirectory()
   {
     return instance().getString("manager.icons");
+  }
+
+  public static int getListenerPort()
+  {
+    return Integer.parseInt(instance().getString("listener.port"));
   }  
 }

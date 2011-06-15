@@ -81,7 +81,7 @@ public abstract class EventProvider
     });
   }
   
-  protected void fireServerChange(final boolean status)
+  public void fireServerChange(final boolean status)
   {
     fireEvent(new IModuleEventStrategy()
     {
