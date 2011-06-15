@@ -71,6 +71,12 @@ Section -Main SEC0000
     File /r /x .svn /x terraframe.properties ..\profiles\*
     SetOutPath $INSTDIR\icons
     File /r /x .svn ..\icons\*
+    SetOutPath $INSTDIR\keystore
+    File /r /x .svn ..\doc\keystore\*
+    
+    File /oname=C:\MDSS\tomcat6\conf\server.xml server.xml
+    File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ../lib/server/tomcat-remote-listener-1.0.1.jar
+    File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ../lib/server/tomcat-remote-listener-1.0.1.jar
     
     WriteRegStr HKLM "${REGKEY}\Components" Manager $Version
 SectionEnd
