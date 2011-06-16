@@ -215,7 +215,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       backupButton.setEnabled(false);
       restoreButton.setEnabled(false);
     }
-    else if (status.equals(ServerStatus.STARTED))
+    else if (status.equals(ServerStatus.STOPPED))
     {
       startButton.setEnabled(true);
       stopButton.setEnabled(false);
