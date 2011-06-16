@@ -80,6 +80,9 @@ Section -Main SEC0000
     File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
     File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\lib\server\tomcat-remote-listener-1.0.1.jar
     
+    SetOutPath $SMPROGRAMS\$StartMenuGroup
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager.bat"
+    
     WriteRegStr HKLM "${REGKEY}\Components" Manager $Version
 SectionEnd
 
