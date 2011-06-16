@@ -61,6 +61,8 @@ Section -Main SEC0000
     # Special check to make sure ajde goes away.
     Delete $INSTDIR\lib\ajde.jar
     
+    SetOutPath $INSTDIR
+    File manager.bat
     SetOutPath $INSTDIR\bin
     File /r /x .svn ..\bin\*
     SetOutPath $INSTDIR\lib
@@ -75,6 +77,7 @@ Section -Main SEC0000
     File /r /x .svn ..\doc\keystore\*
     
     File /oname=C:\MDSS\tomcat6\conf\server.xml server.xml
+    File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
     File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\lib\server\tomcat-remote-listener-1.0.1.jar
     
     WriteRegStr HKLM "${REGKEY}\Components" Manager $Version
