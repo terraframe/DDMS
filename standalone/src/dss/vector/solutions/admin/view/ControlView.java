@@ -31,6 +31,7 @@ import com.runwaysdk.manager.view.IViewPart;
 import dss.vector.solutions.admin.MDSSModule;
 import dss.vector.solutions.admin.controller.IControllerListener;
 import dss.vector.solutions.admin.controller.IModuleController;
+import dss.vector.solutions.admin.model.ServerStatus;
 
 public class ControlView extends ViewPart implements IViewPart, IControllerListener
 {
@@ -143,7 +144,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       @Override
       public void handleEvent(Event arg0)
       {
-        if (!controller.isServerUp())
+        if (controller.getServerStatus().equals(ServerStatus.STOPPED))
         {
           FileDialog dialog = new FileDialog(composite.getShell(), SWT.SAVE);
           String file = dialog.open();
@@ -167,7 +168,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
       @Override
       public void handleEvent(Event arg0)
       {
-        if (!controller.isServerUp())
+        if (controller.getServerStatus().equals(ServerStatus.STOPPED))
         {
           FileDialog dialog = new FileDialog(composite.getShell());
           String file = dialog.open();
@@ -205,12 +206,26 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
     timeoutField.setFocus();
   }
 
-  private void setButtons(boolean started)
+  private void setButtons(ServerStatus status)
   {
-    startButton.setEnabled(!started);
-    stopButton.setEnabled(started);
-    backupButton.setEnabled(!started);
-    restoreButton.setEnabled(!started);
+    if (status.equals(ServerStatus.STARTED))
+    {
+      startButton.setEnabled(false);
+      stopButton.setEnabled(true);
+      backupButton.setEnabled(false);
+      restoreButton.setEnabled(false);
+    }
+    else if (status.equals(ServerStatus.STARTED))
+    {
+      startButton.setEnabled(true);
+      stopButton.setEnabled(false);
+      backupButton.setEnabled(true);
+      restoreButton.setEnabled(true);
+    }
+    else
+    {
+      this.disableButtons();
+    }
   }
 
   private void disableButtons()
@@ -278,7 +293,7 @@ public class ControlView extends ViewPart implements IViewPart, IControllerListe
   }
 
   @Override
-  public synchronized void serverStateChange(final boolean state)
+  public synchronized void serverStateChange(final ServerStatus state)
   {
     Runnable runnable = new Runnable()
     {

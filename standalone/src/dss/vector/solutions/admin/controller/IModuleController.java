@@ -4,6 +4,8 @@ import java.io.File;
 
 import com.runwaysdk.logging.LogLevel;
 
+import dss.vector.solutions.admin.model.ServerStatus;
+
 public interface IModuleController
 {
   public void addListener(IControllerListener listener);
@@ -28,7 +30,7 @@ public interface IModuleController
 
   public LogLevel getLogLevel();
 
-  public boolean isServerUp();
+  public ServerStatus getServerStatus();
 
   public void rebuildGeoPaths();
 

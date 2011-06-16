@@ -60,14 +60,14 @@ public class Server extends EventProvider implements UncaughtExceptionHandler
 
   public void refresh()
   {
-    fireServerChange(this.isServerUp());
+    fireServerChange(this.getServerStatus());
   }
 
-  public void validateProcessState(final boolean condition, final Runnable runnable)
+  public void validateProcessState(final ServerStatus condition, final Runnable runnable)
   {
-    boolean status = this.isServerUp();
+    ServerStatus status = this.getServerStatus();
 
-    if (status == condition)
+    if (status.equals(condition))
     {
       runnable.run();
     }
@@ -147,7 +147,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler
               // There was a problem connecting to the RMI server even though it
               // should have already just been started. The server must not be
               // started or is being blocked.
-              Server.this.fireServerChange(false);
+              Server.this.fireServerChange(ServerStatus.STOPPED);
 
               throw new RuntimeException(Localizer.getMessage("RMI_FAILED_TO_START"));
             }
@@ -157,7 +157,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler
     };
 
     // Ensure that the tomcat proccess does not already exist
-    this.validateProcessState(false, runnable);
+    this.validateProcessState(ServerStatus.STOPPED, runnable);
   }
 
   public void stopServer()
@@ -177,16 +177,40 @@ public class Server extends EventProvider implements UncaughtExceptionHandler
       }
     };
 
-    this.validateProcessState(true, runnable);
+    this.validateProcessState(ServerStatus.STARTED, runnable);
   }
 
-  public boolean isServerUp()
+  public ServerStatus getServerStatus()
   {
+    if (this.server == null)
+    {
+      try
+      {
+        this.registerServer();
+      }
+      catch (Exception e)
+      {
+        // The server is not up yet so it is impossbile to connect to the RMI
+        // service.
+      }
+    }
+
     if (this.server != null)
     {
       try
       {
-        return this.server.getCurrentState().equals(Lifecycle.AFTER_START_EVENT);
+        String state = this.server.getCurrentState();
+
+        if (state.equals(Lifecycle.AFTER_START_EVENT))
+        {
+          return ServerStatus.STARTED;
+        }
+        else if (state.equals(Lifecycle.AFTER_STOP_EVENT))
+        {
+          return ServerStatus.STOPPED;
+        }
+
+        return ServerStatus.UNAVALIABLE;
       }
       catch (RemoteException e)
       {
@@ -196,7 +220,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler
       }
     }
 
-    return false;
+    return ServerStatus.STOPPED;
   }
 
   public void closeRemoteServer()

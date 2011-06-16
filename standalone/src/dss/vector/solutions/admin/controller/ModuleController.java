@@ -22,6 +22,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.admin.LogConstants;
 import dss.vector.solutions.admin.model.Server;
+import dss.vector.solutions.admin.model.ServerStatus;
 
 public class ModuleController extends EventProvider implements IModuleController
 {
@@ -89,7 +90,7 @@ public class ModuleController extends EventProvider implements IModuleController
       }
     };
 
-    server.validateProcessState(false, runnable);
+    server.validateProcessState(ServerStatus.STOPPED, runnable);
   }
 
   @Override
@@ -127,7 +128,7 @@ public class ModuleController extends EventProvider implements IModuleController
       }
     };
 
-    server.validateProcessState(false, runnable);
+    server.validateProcessState(ServerStatus.STOPPED, runnable);
   }
 
   @Override
@@ -230,7 +231,7 @@ public class ModuleController extends EventProvider implements IModuleController
   @Override
   public void refresh()
   {
-    server.fireServerChange(server.isServerUp());
+    server.fireServerChange(server.getServerStatus());
   }
 
   @Override
@@ -267,9 +268,9 @@ public class ModuleController extends EventProvider implements IModuleController
   }
 
   @Override
-  public boolean isServerUp()
+  public ServerStatus getServerStatus()
   {
-    return server.isServerUp();
+    return server.getServerStatus();
   }
 
   @Override

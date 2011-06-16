@@ -15,25 +15,30 @@ public class RemoteLifecycleListener extends UnicastRemoteObject implements Remo
    */
   private static final long serialVersionUID = 71683538706136154L;
 
-  private Server    server;
+  private Server            server;
 
   protected RemoteLifecycleListener(Server server) throws RemoteException
   {
     super();
-    
+
     this.server = server;
   }
 
   public void lifecycleEvent(String type) throws RemoteException
   {
-    if(type.equals(Lifecycle.AFTER_START_EVENT))
+    if (type.equals(Lifecycle.AFTER_START_EVENT))
     {
-      this.server.fireServerChange(true);
+      this.server.fireServerChange(ServerStatus.STARTED);
     }
-    else if(type.equals(Lifecycle.AFTER_STOP_EVENT))
+    else if (type.equals(Lifecycle.AFTER_STOP_EVENT))
     {
-      this.server.fireServerChange(false);
+      this.server.fireServerChange(ServerStatus.STOPPED);
       this.server.closeRemoteServer();
     }
+    else
+    {
+      this.server.fireServerChange(ServerStatus.UNAVALIABLE);
+    }
+
   }
 }

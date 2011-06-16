@@ -7,6 +7,8 @@ import java.util.List;
 
 import org.eclipse.jface.operation.IRunnableWithProgress;
 
+import dss.vector.solutions.admin.model.ServerStatus;
+
 public abstract class EventProvider
 {
   private List<IControllerListener> listeners;
@@ -81,7 +83,7 @@ public abstract class EventProvider
     });
   }
   
-  public void fireServerChange(final boolean status)
+  public void fireServerChange(final ServerStatus status)
   {
     fireEvent(new IModuleEventStrategy()
     {

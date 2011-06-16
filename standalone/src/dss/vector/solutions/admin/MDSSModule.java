@@ -39,6 +39,7 @@ import dss.vector.solutions.admin.controller.MasterConfiguration;
 import dss.vector.solutions.admin.controller.ModuleController;
 import dss.vector.solutions.admin.controller.PropertyReader;
 import dss.vector.solutions.admin.controller.SlaveConfiguration;
+import dss.vector.solutions.admin.model.ServerStatus;
 import dss.vector.solutions.admin.view.ControlView;
 
 public class MDSSModule implements IModule, IControllerListener, IPropertyListener
@@ -196,7 +197,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
   }
 
   @Override
-  public void serverStateChange(boolean state)
+  public void serverStateChange(ServerStatus state)
   {
     clearStatus();
   }
@@ -253,7 +254,7 @@ public class MDSSModule implements IModule, IControllerListener, IPropertyListen
   {
     if (actionName.contains("IMPORT") || actionName.contains("EXPORT"))
     {
-      if (controller.isServerUp())
+      if (!controller.getServerStatus().equals(ServerStatus.STOPPED))
       {
         String msg = Localizer.getMessage("INVALID_ACTION");
 
