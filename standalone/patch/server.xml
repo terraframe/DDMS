@@ -21,6 +21,7 @@
  -->
 <Server port="8005" shutdown="SHUTDOWN">
 
+  <Listener className="com.runwaysdk.tomcat.RemoteLifecycleListenerServer" rmiRegistryPortPlatform="18234" />
   <!--APR library loader. Documentation at /docs/apr.html -->
   <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
   <!--Initialize Jasper prior to webapps are loaded. Documentation at /docs/jasper-howto.html -->
@@ -28,7 +29,6 @@
   <!-- JMX Support for the Tomcat server. Documentation at /docs/non-existent.html -->
   <Listener className="org.apache.catalina.mbeans.ServerLifecycleListener" />
   <Listener className="org.apache.catalina.mbeans.GlobalResourcesLifecycleListener" />
-  <Listener className="com.runwaysdk.tomcat.RemoteLifecycleListenerServer" rmiRegistryPortPlatform="18234" />
   
   <!-- Global JNDI resources
        Documentation at /docs/jndi-resources-howto.html
