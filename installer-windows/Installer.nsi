@@ -138,7 +138,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6137
+    StrCpy $PatchVersion 6149
     StrCpy $TermsVersion 5814
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 5814
@@ -264,15 +264,20 @@ Section -post SEC0001
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-    SetOutPath $SMPROGRAMS\$StartMenuGroup
+    SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/DDMS/"
+	SetOutPath $INSTDIR\tomcat6\bin
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
+    SetOutPath $INSTDIR\birt
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
+    SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
+    SetOutPath $INSTDIR
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
-    SetOutPath $INSTDIR	
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512M -cp C:\MDSS\manager\bin;C:\MDSS\manager\lib\*;C:\MDSS\manager\profiles;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/admin/MDSSModule"	
+    SetOutPath $INSTDIR\manager
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager\manager.bat"
+    SetOutPath $INSTDIR\tomcat6\webapps\DDMS\WEB-INF
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\GIS.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512M -cp $INSTDIR\tomcat6\webapps\DDMS\WEB-INF\lib\*;$INSTDIR\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/gis/WindowLauncher"	
     SetOutPath $SMPROGRAMS\$StartMenuGroup	
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
