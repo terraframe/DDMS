@@ -1,0 +1,56 @@
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308605408876" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308605545181" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308605701956" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308605932036" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308606049964" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308606180554" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308608480896" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
+<log4j:event logger="org.apache.axis.configuration.EngineConfigurationFactoryServlet" timestamp="1308610487945" level="ERROR" thread="main">
+<log4j:message><![CDATA[Unable to find config file.  Creating new servlet engine config file: /WEB-INF/server-config.wsdd]]></log4j:message>
+<log4j:properties>
+<log4j:data name="Session" value=""/>
+</log4j:properties>
+</log4j:event>
+
