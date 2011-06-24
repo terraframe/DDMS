@@ -47,11 +47,16 @@ public class ManagerProperties
     return instance().getString("webapp.path");
   }
 
-  public static String getSynchPath()
+  public static String getSynchLib()
   {
-    return instance().getString("synch.path");
+    return instance().getString("synch.lib");
   }
-  
+
+  public static String getSynchClasses()
+  {
+    return instance().getString("synch.classes");
+  }
+
   public static int getListenerPort()
   {
     return Integer.parseInt(instance().getString("listener.port"));
@@ -61,7 +66,7 @@ public class ManagerProperties
   {
     return instance().getString("backup.lib");
   }
-  
+
   public static String getBackupProfiles()
   {
     return instance().getString("backup.profiles");
@@ -70,5 +75,15 @@ public class ManagerProperties
   public static String getBackupClasses()
   {
     return instance().getString("backup.classes");
+  }
+
+  public static String getGeoLib()
+  {
+    return instance().getString("geo.lib");
+  }
+
+  public static String getGeoClasses()
+  {
+    return instance().getString("geo.classes");
   }
 }

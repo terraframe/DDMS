@@ -41,7 +41,8 @@ public class SyncAction extends Action implements UncaughtExceptionHandler
           try
           {
             StringBuffer classpath = new StringBuffer();
-            classpath.append(ManagerProperties.getSynchPath() + "*");
+            classpath.append(ManagerProperties.getSynchLib() + "*");
+            classpath.append(File.pathSeparator + ManagerProperties.getSynchClasses());
             classpath.append(File.pathSeparator + context.getApplicationClassesPath());
             classpath.append(File.pathSeparator + context.getApplicationLibPath() + "*");
 
@@ -54,7 +55,7 @@ public class SyncAction extends Action implements UncaughtExceptionHandler
             javaTask.setProject(project);
             javaTask.setFork(true);
             javaTask.setFailonerror(true);
-            javaTask.setClassname("com.runwaysdk.manager.general.MainWindow");
+            javaTask.setClassname("dss.vector.solutions.admin.MDSSModule");
             javaTask.setClasspath(new Path(project, classpath.toString()));
             javaTask.init();
 

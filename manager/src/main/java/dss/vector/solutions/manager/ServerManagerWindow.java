@@ -2,6 +2,7 @@ package dss.vector.solutions.manager;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -48,7 +49,7 @@ import dss.vector.solutions.manager.server.IServerListener;
 import dss.vector.solutions.manager.server.Server;
 import dss.vector.solutions.manager.server.ServerStatus;
 
-public class ServerManagerWindow extends ApplicationWindow implements IServerListener, PropertyChangeListener
+public class ServerManagerWindow extends ApplicationWindow implements IServerListener, PropertyChangeListener, UncaughtExceptionHandler
 {
   private static final Point                 DIMENSION        = new Point(300, 275);
 
@@ -274,7 +275,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
 
     this.items = new LinkedList<ActionContributionItem>();
     this.items.add(new ActionContributionItem(new BackupRestoreAction(this.context)));
-    this.items.add(new ActionContributionItem(new GeoAction(this.context)));
+    this.items.add(new ActionContributionItem(new GeoAction(this.context, this)));
     this.items.add(new ActionContributionItem(new SyncAction(this.context)));
     this.items.add(new ActionContributionItem(new ChangeSettingAction(this.context)));
 
@@ -462,6 +463,12 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     }
 
     return super.close();
+  }
+
+  @Override
+  public void uncaughtException(Thread t, Throwable e)
+  {
+    this.error(e);
   }
 
   public static void main(String[] args)
