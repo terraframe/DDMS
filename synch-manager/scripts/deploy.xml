@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="geo-manager" default="deploy">
+
+	<!-- =================================================================== -->
+	<!-- Set up our properties                                               -->
+	<!-- =================================================================== -->
+
+	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
+	<property name="system.password" value="mdsstest2" />
+	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};/home/jsmethie/workspace/MDSS/scripts/ant/deploy/runwayProperties.jar" />
+	<runwayproperties root="${profile.root}" />
+	<echo message="${java.ext.dirs}" />
+
+	<!-- Add in AspectJ task definitions -->
+	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+		<classpath>
+			<fileset dir="${local.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+
+	<!-- execution path -->
+	<path id="framework.classpath">
+		<fileset dir="${local.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${profile.root}" />
+		<pathelement path="${java.home}/lib/ext/sunjce_provider.jar" />
+		<pathelement path="/home/jsmethie/workspace/org.eclipse.swt/swt.jar" />
+		<pathelement location="${local.bin}" />
+		<pathelement location="${client.bin}" />
+		<pathelement location="${server.bin}" />
+		<pathelement location="${common.bin}" />
+	</path>
+
+	<property name="synch.version" value="1.0.0" />
+	<property name="synch.root" value="/home/jsmethie/workspace/synch-manager" />
+
+	<property name="synch.lib" value="${synch.root}/lib/" />
+	<property name="synch.java" value="${synch.root}/src/main/java" />
+	<property name="synch.resources" value="${synch.root}/src/main/resources" />
+
+	<property name="target.dir" value="${synch.root}/target" />
+	<property name="deploy.dir" value="/home/jsmethie/workspace/applications/synch-manager-${synch.version}" />
+
+	<path id="synch.classpath">
+		<fileset dir="${synch.lib}">
+			<include name="**/*" />
+		</fileset>
+	</path>
+
+	<target name="compile">
+		<mkdir dir="${target.dir}" />
+		<mkdir dir="${target.dir}/classes" />
+
+		<iajc destdir="${target.dir}/classes" sourceroots="${synch.java}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+			<aspectpath>
+				<pathelement location="${server.lib}/runwaysdk-server.jar" />
+				<pathelement location="${common.lib}/runwaysdk-common.jar" />
+				<pathelement location="${client.lib}/runwaysdk-client.jar" />
+			</aspectpath>
+
+			<classpath>
+				<path refid="framework.classpath" />
+				<path refid="synch.classpath" />
+				<pathelement location="${common.bin}" />
+			</classpath>
+		</iajc>
+
+		<!-- Copy the resources dir -->
+		<copy todir="${target.dir}/classes" overwrite="true">
+			<fileset dir="${synch.resources}">
+				<exclude name="**/*.properties" />
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+
+	<target name="test" depends="compile">
+	</target>
+
+	<target name="package" depends="test">
+		<jar destfile="${target.dir}/synch-manager-${synch.version}.jar" compress="true">
+			<fileset dir="${target.dir}/classes">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="deploy" depends="package">
+		<mkdir dir="${deploy.dir}" />
+
+		<copy todir="${deploy.dir}/lib" overwrite="true">
+			<fileset dir="${synch.lib}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${target.dir}">
+				<include name="**/synch-manager-${synch.version}.jar" />
+			</fileset>
+		</copy>
+		
+		<copy todir="${deploy.dir}/classes" overwrite="true">
+			<fileset dir="${synch.resources}">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+	</target>
+</project>
