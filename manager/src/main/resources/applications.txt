@@ -1,2 +1,1 @@
-Blank,DDMS
-Zambia,Zambia
+DDMS

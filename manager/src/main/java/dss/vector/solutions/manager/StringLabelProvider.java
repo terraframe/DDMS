@@ -4,7 +4,7 @@ import org.eclipse.jface.viewers.ILabelProvider;
 import org.eclipse.jface.viewers.ILabelProviderListener;
 import org.eclipse.swt.graphics.Image;
 
-public class LabeledBeanLabelProvider implements ILabelProvider
+public class StringLabelProvider implements ILabelProvider
 {
 
   @Override
@@ -15,14 +15,14 @@ public class LabeledBeanLabelProvider implements ILabelProvider
   }
 
   @Override
-  public String getText(Object arg0)
+  public String getText(Object element)
   {
-    if (arg0 instanceof LabeledBean)
+    if(element instanceof String)
     {
-      return ( (LabeledBean) arg0 ).getLabel();
+      return (String)element;
     }
-
-    return "";
+    
+    return null;
   }
 
   @Override
@@ -49,4 +49,5 @@ public class LabeledBeanLabelProvider implements ILabelProvider
   {
 
   }
+
 }

@@ -2,7 +2,11 @@ package dss.vector.solutions.manager;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.lang.Thread.UncaughtExceptionHandler;
+import java.net.URL;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Locale;
@@ -17,6 +21,7 @@ import org.eclipse.jface.databinding.swt.SWTObservables;
 import org.eclipse.jface.databinding.viewers.ViewersObservables;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.resource.ImageDescriptor;
+import org.eclipse.jface.viewers.ArrayContentProvider;
 import org.eclipse.jface.viewers.ComboViewer;
 import org.eclipse.jface.viewers.StructuredSelection;
 import org.eclipse.jface.window.ApplicationWindow;
@@ -76,15 +81,52 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
 
   private ManagerContextBean                 context;
 
+  private String[]                           applications;
+
+  private boolean                            hide;
+
   public ServerManagerWindow()
   {
     super(null);
 
+    this.hide = true;
     this.context = new ManagerContextBean();
     this.context.addPropertyChangeListener("processRunning", this);
 
     this.server = new Server();
     this.server.addListener(this);
+
+    Collection<String> collection = new LinkedList<String>();
+
+    try
+    {
+      URL resource = Object.class.getResource("/applications.txt");
+      File file = new File(resource.toURI());
+
+      BufferedReader reader = new BufferedReader(new FileReader(file));
+
+      try
+      {
+        while (reader.ready())
+        {
+          collection.add(reader.readLine().trim());
+        }
+      }
+      finally
+      {
+        reader.close();
+      }
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }
+    catch (Exception e)
+    {
+      throw new RuntimeException(e);
+    }
+
+    this.applications = collection.toArray(new String[collection.size()]);
   }
 
   @Override
@@ -194,19 +236,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
       @Override
       public void handleEvent(Event arg0)
       {
-        try
-        {
-          ServerManagerWindow.this.disableWidgets();
-          ServerManagerWindow.this.setServerStatus(Localizer.getMessage("STARTING"));
-
-          server.startServer();
-        }
-        catch (Exception e)
-        {
-          MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
-
-          server.refresh();
-        }
+        start();
       }
     });
 
@@ -258,9 +288,9 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
 
     this.application = new ComboViewer(composite, SWT.BORDER | SWT.READ_ONLY);
     this.application.getControl().setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-    this.application.setContentProvider(new ApplicationFileContentProvider());
-    this.application.setLabelProvider(new LabeledBeanLabelProvider());
-    this.application.setInput("/applications.txt");
+    this.application.setContentProvider(new ArrayContentProvider());
+    this.application.setLabelProvider(new StringLabelProvider());
+    this.application.setInput(this.applications);
 
     FormData actionsData = new FormData();
     actionsData.top = new FormAttachment(composite);
@@ -363,6 +393,37 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     }
   }
 
+  private void start()
+  {
+    try
+    {
+      ServerManagerWindow.this.disableWidgets();
+      ServerManagerWindow.this.setServerStatus(Localizer.getMessage("STARTING"));
+
+      this.hide = false;
+
+      try
+      {
+        for (String application : applications)
+        {
+          new Initializer(application, context, this).run();
+        }
+      }
+      finally
+      {
+        this.hide = true;
+      }
+
+      server.startServer();
+    }
+    catch (Exception e)
+    {
+      MessageDialog.openError(composite.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
+
+      server.refresh();
+    }
+  }
+
   @Override
   public void error(final String msg)
   {
@@ -409,9 +470,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   @Override
   public void propertyChange(PropertyChangeEvent evt)
   {
-    boolean processRunning = (Boolean) evt.getNewValue();
-
-    if (processRunning)
+    if (this.hide && context.isProcessRunning())
     {
       this.getShell().setVisible(false);
     }

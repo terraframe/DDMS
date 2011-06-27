@@ -12,7 +12,7 @@ public class ServerContextBeanTest
   public void testLoad()
   {
     ManagerContextBean context = new ManagerContextBean();
-    context.setApplication(new LabeledBean("", "DDMS"));
+    context.setApplication("DDMS");
     context.setProcessRunning(false);
     context.setServerStatus(ServerStatus.STOPPED);
 
@@ -26,7 +26,7 @@ public class ServerContextBeanTest
   public void testSave()
   {
     ManagerContextBean context = new ManagerContextBean();
-    context.setApplication(new LabeledBean("", "DDMS"));
+    context.setApplication("DDMS");
     context.setProcessRunning(false);
     context.setServerStatus(ServerStatus.STOPPED);
 

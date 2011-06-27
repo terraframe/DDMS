@@ -14,7 +14,7 @@ public class ManagerContextBean
    */
   private PropertyChangeSupport propertyChangeSupport;
 
-  private LabeledBean           application;
+  private String                application;
 
   private boolean               processRunning;
 
@@ -38,12 +38,12 @@ public class ManagerContextBean
     propertyChangeSupport.removePropertyChangeListener(listener);
   }
 
-  public LabeledBean getApplication()
+  public String getApplication()
   {
     return application;
   }
 
-  public void setApplication(LabeledBean application)
+  public void setApplication(String application)
   {
     this.propertyChangeSupport.firePropertyChange("application", this.application, this.application = application);
   }
@@ -73,24 +73,14 @@ public class ManagerContextBean
     return ( this.application != null );
   }
 
-  public String getApplicationPath()
-  {
-    return ManagerProperties.getWebappPath() + application.getValue() + File.separator;
-  }
-
-  private String getApplicationWebInfPath()
-  {
-    return this.getApplicationPath() + "WEB-INF" + File.separator;
-  }
-
   public String getApplicationClassesPath()
   {
-    return this.getApplicationWebInfPath() + "classes" + File.separator;
+    return ManagerContextBean.getApplicationClassesPath(this.application);
   }
 
   public String getApplicationLibPath()
   {
-    return this.getApplicationWebInfPath() + "lib" + File.separator;
+    return ManagerContextBean.getApplicationLibPath(this.application);
   }
 
   public String getLog4jProperties()
@@ -105,6 +95,26 @@ public class ManagerContextBean
 
   public String getBackupProfiles()
   {
-    return ManagerProperties.getBackupProfiles() + application.getValue() + File.separator;
+    return ManagerProperties.getBackupProfiles() + application + File.separator;
+  }
+
+  private static String getApplicationPath(String application)
+  {
+    return ManagerProperties.getWebappPath() + application + File.separator;
+  }
+
+  private static String getApplicationWebInfPath(String application)
+  {
+    return ManagerContextBean.getApplicationPath(application) + "WEB-INF" + File.separator;
+  }
+
+  public static String getApplicationClassesPath(String application)
+  {
+    return ManagerContextBean.getApplicationWebInfPath(application) + "classes" + File.separator;
+  }
+
+  public static String getApplicationLibPath(String application)
+  {
+    return ManagerContextBean.getApplicationWebInfPath(application) + "lib" + File.separator;
   }
 }

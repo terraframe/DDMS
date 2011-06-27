@@ -86,4 +86,14 @@ public class ManagerProperties
   {
     return instance().getString("geo.classes");
   }
+
+  public static String getInitializerLib()
+  {
+    return instance().getString("initializer.lib");
+  }
+
+  public static String getInitializerClasses()
+  {
+    return instance().getString("initializer.classes");
+  }
 }
