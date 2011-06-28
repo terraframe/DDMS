@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.mozilla.rhino"
+      label="Mozilla Rhino Feature"
+      version="1.6.7.v20071217-1567w31191325"
+      provider-name="Mozilla.org"
+      plugin="org.mozilla.rhino"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.mozilla.org/">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="Business Intelligence and Reporting Tools (BIRT) Updates" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%updateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+   </url>
+
+   <plugin
+         id="org.mozilla.rhino"
+         download-size="0"
+         install-size="0"
+         version="1.6.7.v20080214"/>
+
+</feature>

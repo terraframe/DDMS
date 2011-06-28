@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.birt"
+      label="%featureName"
+      version="2.3.1.v20080630-7N7Y7AAYdlIXLgz-SLsyMQ21x2fI"
+      provider-name="%providerName"
+      plugin="org.eclipse.birt"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/birt">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="Business Intelligence and Reporting Tools (BIRT) Updates" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%updateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+   </url>
+
+   <includes
+         id="org.eclipse.birt.chart"
+         version="2.3.1.v20080630-7_7D4_toGwkNz0b4pt0sBQJZunS2"/>
+
+   <includes
+         id="org.eclipse.birt.report.designer"
+         version="2.3.1.v20080630-7X7n7FECLqlyX1jw48bOyH4E0ha5"/>
+
+   <includes
+         id="org.eclipse.birt.report.designer.editor.xml.wtp"
+         version="2.3.1.v20080630-2207w31191_16"
+         optional="true"/>
+
+   <includes
+         id="org.eclipse.birt.report.designer.debug"
+         version="2.3.1.v20080630-4518s733I3K49"
+         optional="true"/>
+
+   <includes
+         id="org.eclipse.birt.example"
+         version="2.3.1.v20080630-7D7J5CYQCD4D2If"/>
+
+   <includes
+         id="org.eclipse.birt.chart.cshelp"
+         version="2.3.1.v20080630-2207w31191812"/>
+
+   <includes
+         id="org.eclipse.birt.cshelp"
+         version="2.3.1.v20080630-2207w31191_1_"/>
+
+   <includes
+         id="org.eclipse.birt.crosstab"
+         version="2.3.1.v20080630-4518s733I3K3C"/>
+
+   <requires>
+      <import plugin="org.eclipse.draw2d" version="3.2.0" match="compatible"/>
+      <import plugin="org.eclipse.ui.workbench" version="3.2.0" match="compatible"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.birt"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080701"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.chart.reportitem"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080908"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.chart.reportitem.ui"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080911"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.report.engine.emitter.prototype.excel"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080917"
+         unpack="false"/>
+
+</feature>

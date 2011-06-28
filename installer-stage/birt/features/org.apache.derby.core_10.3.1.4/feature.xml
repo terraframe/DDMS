@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.apache.derby.core"
+      label="Apache Derby Core Feature"
+      version="10.3.1.4"
+      provider-name="The Apache Software Foundation"
+      plugin="org.apache.derby.core"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.apache.org/">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="Business Intelligence and Reporting Tools (BIRT) Updates" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%updateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+   </url>
+
+   <plugin
+         id="org.apache.derby.core"
+         download-size="0"
+         install-size="0"
+         version="10.3.1.4"/>
+
+</feature>

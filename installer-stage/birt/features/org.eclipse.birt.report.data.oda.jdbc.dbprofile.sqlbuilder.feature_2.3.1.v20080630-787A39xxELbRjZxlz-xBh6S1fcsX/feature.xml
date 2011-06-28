@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.birt.report.data.oda.jdbc.dbprofile.sqlbuilder.feature"
+      label="%featureName"
+      version="2.3.1.v20080630-787A39xxELbRjZxlz-xBh6S1fcsX"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/birt">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%birtUpdateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%birtUpdateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%dtpUpdateSiteName" url="http://download.eclipse.org/datatools/updates"/>
+   </url>
+
+   <includes
+         id="org.eclipse.birt.report.runtime"
+         version="2.3.1.v200807162-7k8E7KEMVkywAg5R0ebrWS"/>
+
+   <requires>
+      <import feature="org.eclipse.datatools.sqldevtools.sqlbuilder.feature" version="1.6.0" match="greaterOrEqual"/>
+      <import feature="org.eclipse.datatools.enablement.feature" version="1.6.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.birt.report.data.oda.jdbc.dbprofile"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080827"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.report.data.oda.jdbc.dbprofile.ui"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080827"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.report.data.oda.jdbc.dbprofile.sampledb"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080827"
+         unpack="false"/>
+
+</feature>

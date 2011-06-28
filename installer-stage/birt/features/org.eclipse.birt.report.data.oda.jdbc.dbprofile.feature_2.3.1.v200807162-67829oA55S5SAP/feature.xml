@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.birt.report.data.oda.jdbc.dbprofile.feature"
+      label="%featureName"
+      version="2.3.1.v200807162-67829oA55S5SAP"
+      provider-name="%providerName"
+      image="eclipse_update_120.jpg">
+
+   <description url="http://www.eclipse.org/birt">
+      %description
+   </description>
+
+   <copyright url="%copyrightURL">
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <url>
+      <update label="%birtUpdateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%birtUpdateSiteName" url="http://download.eclipse.org/birt/update-site/2.3"/>
+      <discovery label="%dtpUpdateSiteName" url="http://download.eclipse.org/datatools/updates"/>
+   </url>
+
+   <requires>
+      <import plugin="org.eclipse.datatools.connectivity" version="1.1.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.connectivity.sqm.core" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.modelbase.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.modelbase.sql" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.connectivity.apache.derby" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.connectivity.apache.derby.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.modelbase.derby" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.connectivity.db.generic" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.connectivity.dbdefinition.genericJDBC" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.db2.luw" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.db2.luw.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.informix" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.informix.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.msft.sqlserver" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.msft.sqlserver.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.mysql" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.mysql.dbdefinition" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.oracle" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.oracle.dbdefinition" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.hsqldb" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.hsqldb.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.postgresql" version="1.0.1" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.postgresql.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.sap.maxdb" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.sap.maxdb.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.db2.iseries" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.db2.iseries.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.db2.zseries" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.datatools.enablement.ibm.db2.zseries.dbdefinition" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.change" version="2.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.2.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.2.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.birt.report.data.oda.jdbc.dbprofile"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080827"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.report.data.oda.jdbc.dbprofile.sampledb"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080827"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.birt.report.data.oda.jdbc"
+         download-size="0"
+         install-size="0"
+         version="2.3.1.v20080827"/>
+
+</feature>

@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bundle-RequiredExecutionEnvironment: J2SE-1.4
+Bundle-SymbolicName: javax.xml.soap
+Bundle-ManifestVersion: 2
+Bundle-Name: %Bundle-Name.0
+Bundle-Localization: plugin
+Bundle-Version: 1.2.0.v200806030421
+Bundle-ClassPath: lib/saaj.jar
+Bundle-Vendor: %Bundle-Vendor.0
+Export-Package: javax.xml.soap
+Require-Bundle: system.bundle
+
+Name: about_files/LICENSE
+SHA1-Digest: Wn199lW6QEeProCmq6/Gr8Nvm2o=
+
+Name: plugin.properties
+SHA1-Digest: rzzS4knxBJfS8MZqsAcriTDwryM=
+
+Name: about.html
+SHA1-Digest: zvmC5ZawekPw2rLqpvI9lBYq558=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: KyT9FF7C7t86NoBoa2kZT3ZJBfw=
+
+Name: lib/saaj.jar
+SHA1-Digest: i3N4nK2zYpMWsNuEF4vbWXxIoJw=
+
+Name: about_files/NOTICE
+SHA1-Digest: Gw/OdDnEUGQQJ9V7EzZk2tTyTWA=
+

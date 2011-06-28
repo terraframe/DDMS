@@ -1,0 +1,35 @@
+Signature-Version: 1.0
+SHA1-Digest-Manifest: p8GcLMRB/MqIEDyGrj4pWbg53Ik=
+Created-By: 1.5.0 (IBM Corporation)
+SHA1-Digest-Manifest-Main-Attributes: a00eP8X6Uv5CJ60Gk3EA+IgebEQ=
+
+Name: about_files/LICENSE
+SHA1-Digest: ON1b1TTvuJt4uBN0fd1/HIk/Dws=
+
+Name: lib/log4j.properties
+SHA1-Digest: Uz4biPManstx9wnE6xHEcbS4gLU=
+
+Name: about_files/README
+SHA1-Digest: /1SeNsqwOEL3CEteQkmaBzrPjqU=
+
+Name: plugin.properties
+SHA1-Digest: W+azSxc06d5hEC88dIoxqbs7WP8=
+
+Name: about.html
+SHA1-Digest: z0vdGN22IyA0BvyxgLwOeWZSz6s=
+
+Name: lib/axis-ant.jar
+SHA1-Digest: kGXHoVs/AAfbsPs3MXoiDG/c3mw=
+
+Name: lib/axis.jar
+SHA1-Digest: P9UlUA5b155DY6vd5Lq1ih+jPI4=
+
+Name: META-INF/eclipse.inf
+SHA1-Digest: SAqY+5ITAL0mkdYeijlSRhyIaZk=
+
+Name: about_files/release-notes.html
+SHA1-Digest: KVlFD4/gEIqkF0QPdcD2q5aL9c0=
+
+Name: about_files/NOTICE
+SHA1-Digest: bQKU15uYFhCgZyVDfjZqHmw4LLU=
+
