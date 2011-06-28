@@ -61,24 +61,30 @@ Section -Main SEC0000
     # Special check to make sure ajde goes away.
     Delete $INSTDIR\lib\ajde.jar
     
+    # Delete old artifacts from single-install days
+    RMDir /r /REBOOTOK $INSTDIR\bin
+    RMDir /r /REBOOTOK $INSTDIR\lib
+    RMDir /r /REBOOTOK $INSTDIR\profiles
+    RMDir /r /REBOOTOK $INSTDIR\icons
+    
     SetOutPath $INSTDIR
     File manager.bat
-    SetOutPath $INSTDIR\bin
-    File /r /x .svn ..\bin\*
-    SetOutPath $INSTDIR\lib
-    File /r /x .svn ..\lib\server\*
-    File /r /x .svn ..\lib\common\*
-    File /r /x .svn ..\lib\client\*
-    SetOutPath $INSTDIR\profiles
-    File /r /x .svn /x terraframe.properties ..\profiles\*
-    SetOutPath $INSTDIR\icons
-    File /r /x .svn ..\icons\*
+    SetOutPath $INSTDIR\backup-manger-1.0.0
+    File /r /x .svn ..\backup-manger-1.0.0\*
+    SetOutPath $INSTDIR\ddms-initializer-1.0.0
+    File /r /x .svn ..\ddms-initializer-1.0.0\*
+    SetOutPath $INSTDIR\geo-manager-1.0.0
+    File /r /x .svn ..\geo-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager-1.0.0
+    File /r /x .svn ..\manager-1.0.0\*
+    SetOutPath $INSTDIR\synch-manager-1.0.0
+    File /r /x .svn ..\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\keystore
     File /r /x .svn ..\doc\keystore\*
     
     File /oname=C:\MDSS\tomcat6\conf\server.xml server.xml
     File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
-    File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\lib\server\tomcat-remote-listener-1.0.1.jar
+    File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\manager-1.0.0\lib\tomcat-remote-listener-1.0.1.jar
     
     SetOutPath $INSTDIR
     Delete "$SMPROGRAMS\$StartMenuGroup\Manager.lnk"
