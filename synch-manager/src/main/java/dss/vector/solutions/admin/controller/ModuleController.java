@@ -1,11 +1,11 @@
 package dss.vector.solutions.admin.controller;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.admin.MDSSModule;
-import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.AllPaths;
 
 public class ModuleController implements IModuleController
@@ -29,7 +29,10 @@ public class ModuleController implements IModuleController
   {
     try
     {
-      GeoEntity.buildAllPathsFastInner();
+      Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.geo.generated.GeoEntity");
+      clazz.getMethod("buildAllPathsFastInner").invoke(null);
+
+//      GeoEntity.buildAllPathsFastInner();
     }
     catch (Exception e)
     {
@@ -49,7 +52,9 @@ public class ModuleController implements IModuleController
   {
     try
     {
-      AllPaths.rebuildAllPathsInner();
+      Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.ontology.AllPaths");
+      clazz.getMethod("rebuildAllPathsInner").invoke(null);
+//      AllPaths.rebuildAllPathsInner();
     }
     catch (Exception e)
     {
@@ -110,7 +115,9 @@ public class ModuleController implements IModuleController
   {
     try
     {
-      return AllPaths.containsValues();
+      Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.ontology.AllPaths");
+      return (Boolean) clazz.getMethod("containsValues").invoke(null);
+//      return AllPaths.containsValues();
     }
     catch (Exception e)
     {
@@ -124,7 +131,10 @@ public class ModuleController implements IModuleController
   {
     try
     {
-      return dss.vector.solutions.geo.AllPaths.containsValues();
+      Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.geo.AllPaths");
+      return (Boolean) clazz.getMethod("containsValues").invoke(null);
+
+//      return dss.vector.solutions.geo.AllPaths.containsValues();
     }
     catch (Exception e)
     {

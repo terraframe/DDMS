@@ -1,6 +1,7 @@
 package dss.vector.solutions.admin.controller;
 
 
+
 public interface IModuleController
 {
   public void rebuildGeoPaths();
