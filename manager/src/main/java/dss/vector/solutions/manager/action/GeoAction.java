@@ -58,13 +58,17 @@ public class GeoAction extends Action
             java.setProject(project);
             java.setFork(true);
             java.setFailonerror(true);
-            java.setClassname("dss.vector.solutions.gis.GISManagerWindow");
+            java.setClassname("dss.vector.solutions.gis.GISManagerLauncher");
             java.setClasspath(new Path(project, classpath.toString()));
             java.init();
 
+            java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
+            java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
+            java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
+
             int result = java.executeJava();
-            
-            if(result != 0)
+
+            if (result != 0)
             {
               throw new RuntimeException(Localizer.getMessage("GIS_EXITED_WITH_ERROR"));
             }

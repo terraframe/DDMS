@@ -96,4 +96,19 @@ public class ManagerProperties
   {
     return instance().getString("initializer.classes");
   }
+
+  public static String getProcessMemoryMin()
+  {
+    return instance().getString("process.memory.min");
+  }
+  
+  public static String getProcessMemoryMax()
+  {
+    return instance().getString("process.memory.max");
+  }
+  
+  public static String getProcessPermSize()
+  {
+    return instance().getString("process.perm.size");
+  }
 }

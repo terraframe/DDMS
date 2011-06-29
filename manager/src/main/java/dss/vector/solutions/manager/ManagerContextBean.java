@@ -98,6 +98,11 @@ public class ManagerContextBean
     return ManagerProperties.getBackupProfiles() + application + File.separator;
   }
 
+  public String getInstallProperties()
+  {
+    return this.getApplicationClassesPath() + "install.properties";
+  }
+
   private static String getApplicationPath(String application)
   {
     return ManagerProperties.getWebappPath() + application + File.separator;

@@ -175,7 +175,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
       installData.left = new FormAttachment(0, 0);
       installData.right = new FormAttachment(100, 0);
 
-      Group installGroup = new Group(composite, SWT.SHADOW_IN);
+      Group installGroup = new Group(composite, SWT.NONE);
       installGroup.setText(Localizer.getMessage("INSTALL"));
       installGroup.setLayout(new FormLayout());
       installGroup.setLayoutData(installData);
@@ -280,7 +280,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     compositeData.left = new FormAttachment(0, 0);
     compositeData.right = new FormAttachment(100, 0);
 
-    Composite composite = new Composite(parent, SWT.NULL);
+    Composite composite = new Composite(parent, SWT.NONE);
     composite.setLayout(new GridLayout(2, false));
     composite.setLayoutData(compositeData);
 
@@ -298,7 +298,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     actionsData.left = new FormAttachment(0, 5);
     actionsData.right = new FormAttachment(100, 0);
 
-    Group actions = new Group(parent, SWT.BORDER);
+    Group actions = new Group(parent, SWT.NONE);
     actions.setText(Localizer.getMessage("ACTIONS"));
     actions.setLayoutData(actionsData);
     actions.setLayout(new FillLayout(SWT.HORIZONTAL));
@@ -404,17 +404,13 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
 
       try
       {
-        for (String application : applications)
-        {
-          new Initializer(application, context, this).run();
-        }
+        new ServerInitializer(applications, context, server, this).run();
       }
       finally
       {
         this.hide = true;
       }
 
-      server.startServer();
     }
     catch (Exception e)
     {

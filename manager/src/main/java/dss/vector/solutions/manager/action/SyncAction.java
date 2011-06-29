@@ -50,16 +50,22 @@ public class SyncAction extends Action implements UncaughtExceptionHandler
             project.setBaseDir(new File(System.getProperty("user.dir")));
             project.init();
 
-            Java javaTask = new Java();
-            javaTask.setTaskName("runjava");
-            javaTask.setProject(project);
-            javaTask.setFork(true);
-            javaTask.setFailonerror(true);
-            javaTask.setClassname("dss.vector.solutions.admin.MDSSModule");
-            javaTask.setClasspath(new Path(project, classpath.toString()));
-            javaTask.init();
+            Java java = new Java();
+            java.setTaskName("runjava");
+            java.setProject(project);
+            java.setFork(true);
+            java.setFailonerror(true);
+            java.setClassname("dss.vector.solutions.admin.SynchronziationManagerLauncher");
+            java.setClasspath(new Path(project, classpath.toString()));
+            java.init();
+            
+            java.createArg().setValue("-i" + context.getInstallProperties());
 
-            javaTask.executeJava();
+            java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
+            java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
+            java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
+
+            java.executeJava();
           }
           catch (Exception e)
           {
