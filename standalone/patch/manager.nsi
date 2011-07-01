@@ -12,6 +12,7 @@ Name "DDMS"
 # MUI Symbol Definitions
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install-blue.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
+!define MUI_STARTMENUPAGE_REGISTRY_VALUENAME StartMenuGroup
 
 # Included files
 !include Sections.nsh
@@ -19,9 +20,11 @@ Name "DDMS"
 
 # Variables
 Var Version
+Var StartMenuGroup
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
+!insertmacro MUI_PAGE_STARTMENU Application $StartMenuGroup
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
@@ -89,6 +92,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     Delete "$SMPROGRAMS\$StartMenuGroup\Manager.lnk"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager.bat"
+    Delete "$SMPROGRAMS\$StartMenuGroup\GIS.lnk"
     
     WriteRegStr HKLM "${REGKEY}\Components" Manager $Version
 SectionEnd
