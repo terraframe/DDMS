@@ -49,7 +49,7 @@ Section -Main SEC0000
     SetOverwrite on
     
     # This version number is automatically replaced by manager.xml
-    StrCpy $Version 5928
+    StrCpy $Version 6206
     
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
@@ -69,8 +69,8 @@ Section -Main SEC0000
     
     SetOutPath $INSTDIR
     File manager.bat
-    SetOutPath $INSTDIR\backup-manger-1.0.0
-    File /r /x .svn ..\backup-manger-1.0.0\*
+    SetOutPath $INSTDIR\backup-manager-1.0.0
+    File /r /x .svn ..\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\ddms-initializer-1.0.0
     File /r /x .svn ..\ddms-initializer-1.0.0\*
     SetOutPath $INSTDIR\geo-manager-1.0.0
