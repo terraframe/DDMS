@@ -3,6 +3,8 @@ package dss.vector.solutions;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectablePrimitive;
 
+import dss.vector.solutions.MDSSUserViewQuery.NonAdminUserViewBuilder;
+
 public class MDSSUserView extends MDSSUserViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242427875661L;
@@ -14,7 +16,8 @@ public class MDSSUserView extends MDSSUserViewBase implements com.runwaysdk.gene
   
   public static MDSSUserViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
-    MDSSUserViewQuery query = new MDSSUserViewQuery(new QueryFactory());
+    QueryFactory factory = new QueryFactory();
+    MDSSUserViewQuery query = new MDSSUserViewQuery(factory, new NonAdminUserViewBuilder(factory));
 
     if (sortAttribute==null)
     {

@@ -1,8 +1,10 @@
 package dss.vector.solutions;
 
+import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
+import com.runwaysdk.system.AssignmentsQuery;
 
 /**
  * 
@@ -23,17 +25,18 @@ public class MDSSUserViewQuery extends MDSSUserViewQueryBase implements Reloadab
     super(queryFactory, viewQueryBuilder);
   }
 
-  class DefaultMDSSUserViewBuilder extends ViewQueryBuilder implements Reloadable
+  static class DefaultMDSSUserViewBuilder extends ViewQueryBuilder implements Reloadable
   {
-    private PersonQuery   personQuery;
+    protected PersonQuery   personQuery;
 
-    private MDSSUserQuery userQuery;
+    protected MDSSUserQuery userQuery;
 
     public DefaultMDSSUserViewBuilder(QueryFactory queryFactory)
     {
       super(queryFactory);
-      personQuery = new PersonQuery(queryFactory);
-      userQuery = new MDSSUserQuery(queryFactory);
+
+      this.personQuery = new PersonQuery(queryFactory);
+      this.userQuery = new MDSSUserQuery(queryFactory);
     }
 
     protected MDSSUserViewQuery getViewQuery()
@@ -69,6 +72,29 @@ public class MDSSUserViewQuery extends MDSSUserViewQueryBase implements Reloadab
       MDSSUserViewQuery vQuery = this.getViewQuery();
 
       vQuery.WHERE(userQuery.getPerson().EQ(personQuery));
+    }
+  }
+
+  static class NonAdminUserViewBuilder extends DefaultMDSSUserViewBuilder implements Reloadable
+  {
+    protected AssignmentsQuery assignmentQuery;
+
+    public NonAdminUserViewBuilder(QueryFactory queryFactory)
+    {
+      super(queryFactory);
+
+      this.assignmentQuery = new AssignmentsQuery(queryFactory);
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      MDSSUserViewQuery vQuery = this.getViewQuery();
+            
+      assignmentQuery.WHERE(assignmentQuery.childId().EQ(RoleDAOIF.ADMIN_ROLE_ID));
+      
+      vQuery.WHERE(userQuery.getPerson().EQ(personQuery));
+      vQuery.AND(userQuery.SUBSELECT_NOT_IN_assignedRole(assignmentQuery));
     }
 
   }
