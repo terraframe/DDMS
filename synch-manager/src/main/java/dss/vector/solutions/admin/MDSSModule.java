@@ -7,7 +7,6 @@ import java.util.LinkedList;
 import java.util.Map;
 
 import org.eclipse.core.runtime.IProgressMonitor;
-import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.action.StatusLineManager;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -20,8 +19,8 @@ import com.runwaysdk.manager.controller.IModule;
 import com.runwaysdk.manager.general.IMenuManager;
 import com.runwaysdk.manager.general.IWindow;
 import com.runwaysdk.manager.general.Localizer;
+import com.runwaysdk.session.Request;
 
-import dss.vector.solutions.admin.action.AllPathAction;
 import dss.vector.solutions.admin.controller.IModuleController;
 import dss.vector.solutions.admin.controller.ModuleController;
 
@@ -102,7 +101,7 @@ public class MDSSModule implements IModule, IPropertyListener
 
   private final class DeleteRunnable implements IRunnableWithProgress
   {
-    @Override
+    @Request
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
     {
       monitor.beginTask(Localizer.getMessage("DELETE_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
@@ -119,7 +118,7 @@ public class MDSSModule implements IModule, IPropertyListener
 
   private final class RebuildRunnable implements IRunnableWithProgress
   {
-    @Override
+    @Request
     public void run(IProgressMonitor monitor) throws InvocationTargetException, InterruptedException
     {
       monitor.beginTask(Localizer.getMessage("REBUILD_ALL_PATHS_GEO"), IProgressMonitor.UNKNOWN);
@@ -159,10 +158,10 @@ public class MDSSModule implements IModule, IPropertyListener
   @Override
   public void generateMenu(IMenuManager manager)
   {
-    MenuManager toolsMenu = manager.getMenu(Localizer.getMessage("TOOLS_MENU"));
-    toolsMenu.add(new AllPathAction(this));
-
-    manager.addMenu(toolsMenu);
+//    MenuManager toolsMenu = manager.getMenu(Localizer.getMessage("TOOLS_MENU"));
+//    toolsMenu.add(new AllPathAction(this));
+//
+//    manager.addMenu(toolsMenu);
   }
 
   public void error(String msg)
