@@ -43,6 +43,7 @@ import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ViewQueryBuilder;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.gis.metadata.MdAttributeGeometry;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
@@ -1368,6 +1369,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     return viewQuery;
   }
 
+  @Request
   public static GeoHierarchyView[] getAllViews()
   {
     List<GeoHierarchyView> list = new LinkedList<GeoHierarchyView>();

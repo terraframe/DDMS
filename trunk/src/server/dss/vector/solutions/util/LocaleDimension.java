@@ -15,30 +15,32 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.util.FileIO;
 
 /**
- * Container class holding a Dimension-Locale pair that represents a column in the Localization spreadsheet.
- *
+ * Container class holding a Dimension-Locale pair that represents a column in
+ * the Localization spreadsheet.
+ * 
  * @author Eric
  */
 public class LocaleDimension implements Reloadable
 {
-  private String locale;
+  private String           locale;
+
   private MdDimensionDAOIF dimension;
-  
+
   public LocaleDimension(String locale)
   {
     this(locale, null);
   }
-  
+
   public LocaleDimension(String locale, MdDimensionDAOIF dimension)
   {
     this.locale = locale;
     this.dimension = dimension;
   }
-  
+
   public static LocaleDimension parseColumnHeader(String column)
   {
     String[] split = column.split(" ");
-    if (split.length==1)
+    if (split.length == 1)
     {
       return new LocaleDimension(column);
     }
@@ -48,29 +50,29 @@ public class LocaleDimension implements Reloadable
       return new LocaleDimension(split[1], dim);
     }
   }
-  
+
   public String getAttributeName()
   {
-    if (dimension!=null)
+    if (dimension != null)
     {
       return dimension.getLocaleAttributeName(locale);
     }
     return locale;
   }
-  
+
   public String getColumnName()
   {
-    if (dimension!=null)
+    if (dimension != null)
     {
       return dimension.getName() + " " + locale;
     }
     return locale;
   }
-  
+
   public String getPropertyFileName(String bundle)
   {
     String filename = bundle;
-    if (dimension!=null)
+    if (dimension != null)
     {
       filename += "-" + dimension.getName();
     }
@@ -81,20 +83,25 @@ public class LocaleDimension implements Reloadable
     filename += ".properties";
     return filename;
   }
-  
+
   public Map<String, String> getPropertiesFromFile(String bundle)
   {
-    Map<String, String> props = new TreeMap<String, String>();
-    
     File profileRootDir = ProfileManager.getProfileRootDir();
-    
-    File file = new File(profileRootDir, getPropertyFileName(bundle));
-    
+
+    File file = new File(profileRootDir, this.getPropertyFileName(bundle));
+
+    return this.getPropertiesFromFile(file);
+  }
+
+  public Map<String, String> getPropertiesFromFile(File file)
+  {
+    Map<String, String> props = new TreeMap<String, String>();
+
     if (!file.exists())
     {
       return props;
     }
-    
+
     List<String> lines;
     try
     {
@@ -104,39 +111,39 @@ public class LocaleDimension implements Reloadable
     {
       throw new FileReadException(file, e);
     }
-    
+
     for (String line : lines)
     {
       // Comments aren't properties
       if (line.startsWith("#"))
         continue;
-      
+
       // Blank lines are also boring
-      if (line.trim().length()==0)
+      if (line.trim().length() == 0)
         continue;
-      
+
       String[] split = line.split("=", 2);
-      //    if (split.length!=2)
-      //      throw an error;
-      
+      // if (split.length!=2)
+      // throw an error;
+
       String key = split[0].trim();
       String value = split[1].trim();
-      
+
       props.put(key, value);
     }
     return props;
   }
-  
+
   public String getLocaleString()
   {
     return locale;
   }
-  
+
   public boolean hasDimension()
   {
-    return dimension!=null;
+    return dimension != null;
   }
-  
+
   /**
    * Returns the parent dimension of this LocaleDimension. Dimension is
    * unchanged; only the locale becomes more generic. If this instance already
@@ -146,13 +153,13 @@ public class LocaleDimension implements Reloadable
    */
   public LocaleDimension getParent()
   {
-    if (locale.equals(MdAttributeLocalInfo.DEFAULT_LOCALE) || locale.length()==0)
+    if (locale.equals(MdAttributeLocalInfo.DEFAULT_LOCALE) || locale.length() == 0)
     {
       return null;
     }
-    
+
     int index = locale.lastIndexOf("_");
-    if (index==-1)
+    if (index == -1)
     {
       return new LocaleDimension(MdAttributeLocalInfo.DEFAULT_LOCALE, this.dimension);
     }
@@ -161,22 +168,21 @@ public class LocaleDimension implements Reloadable
       return new LocaleDimension(locale.substring(0, index), this.dimension);
     }
   }
-  
+
   @Override
   public boolean equals(Object obj)
   {
-    if (!(obj instanceof LocaleDimension))
+    if (! ( obj instanceof LocaleDimension ))
     {
       return false;
     }
-    
+
     LocaleDimension other = (LocaleDimension) obj;
-    if (this.hasDimension() && !other.hasDimension() ||
-        !this.hasDimension() && other.hasDimension())
+    if (this.hasDimension() && !other.hasDimension() || !this.hasDimension() && other.hasDimension())
     {
       return false;
     }
-    
+
     if (this.hasDimension())
     {
       if (!this.dimension.getName().equals(other.dimension.getName()))
@@ -184,17 +190,18 @@ public class LocaleDimension implements Reloadable
         return false;
       }
     }
-    
+
     if (!this.locale.equals(other.locale))
     {
       return false;
     }
-    
+
     return true;
   }
-  
+
   /**
-   * True IFF this object has a dimension, the parent has no dimension, and the locales are equal.
+   * True IFF this object has a dimension, the parent has no dimension, and the
+   * locales are equal.
    * 
    * @param parent
    * @return
@@ -205,15 +212,15 @@ public class LocaleDimension implements Reloadable
     {
       return false;
     }
-    
+
     return this.locale.equals(parent.locale);
   }
-  
+
   @Override
   public String toString()
   {
     String string = new String();
-    if (dimension!=null)
+    if (dimension != null)
     {
       string += dimension.getName() + " ";
     }

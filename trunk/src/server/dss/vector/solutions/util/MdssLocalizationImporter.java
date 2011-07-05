@@ -3,15 +3,14 @@ package dss.vector.solutions.util;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.Map.Entry;
@@ -28,6 +27,7 @@ import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.StructDAO;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
@@ -39,25 +39,35 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.InstallProperties;
+
 public class MdssLocalizationImporter implements Reloadable
 {
-  private HSSFSheet    exceptionSheet;
+  private HSSFSheet  exceptionSheet;
 
-  private HSSFSheet    termSheet;
+  private HSSFSheet  termSheet;
 
-  private HSSFSheet    labelSheet;
+  private HSSFSheet  labelSheet;
 
-  private HSSFSheet    descriptionSheet;
+  private HSSFSheet  descriptionSheet;
 
-  private HSSFSheet    clientSheet;
+  private HSSFSheet  clientSheet;
 
-  private HSSFSheet    serverSheet;
+  private HSSFSheet  serverSheet;
 
-  private HSSFSheet    commonSheet;
+  private HSSFSheet  commonSheet;
 
-  private HSSFSheet    propertySheet;
+  private HSSFSheet  propertySheet;
 
-  private HSSFSheet    managerSheet;
+  private HSSFSheet  managerSheet;
+
+  private HSSFSheet  synchSheet;
+
+  private HSSFSheet  geoSheet;
+
+  private HSSFSheet  initializerSheet;
+
+  private HSSFSheet  backupSheet;
 
   private static int modifiedCount = 0;
 
@@ -93,6 +103,8 @@ public class MdssLocalizationImporter implements Reloadable
 
     long stop = System.currentTimeMillis();
     System.out.println("\nImported in " + ( stop - start ) / 1000.0 + " seconds");
+    
+    CacheShutdown.shutdown();
   }
 
   public MdssLocalizationImporter()
@@ -114,62 +126,25 @@ public class MdssLocalizationImporter implements Reloadable
     updateProperties("serverExceptions", serverSheet);
     updateProperties("commonExceptions", commonSheet);
     updateProperties("clientExceptions", clientSheet);
-    updateProperties("admin", managerSheet);
-    copyAdminProperties();
 
-//    Demerge perhaps?
-//    for (LocaleDimension ld : getColumnHeaders(propertySheet))
-//    {
-//      if (ld.hasDimension())
-//      {
-//        mergeProperties(ld);
-//      }
-//    }
+    // Copy over the manager properties
+    updateProperties(InstallProperties.getManagerClasses(), "localization", managerSheet);
+    updateProperties(InstallProperties.getSynchClasses(), "admin", synchSheet);
+    updateProperties(InstallProperties.getGeoClasses(), "localization", geoSheet);
+    updateProperties(InstallProperties.getInitializerClasses(), "localization", initializerSheet);
+    updateProperties(InstallProperties.getBackupClasses(), "localization", backupSheet);
+
+    // Demerge perhaps?
+    // for (LocaleDimension ld : getColumnHeaders(propertySheet))
+    // {
+    // if (ld.hasDimension())
+    // {
+    // mergeProperties(ld);
+    // }
+    // }
   }
 
-  private void copyAdminProperties()
-  {
-    if (managerSheet==null)
-    {
-      return;
-    }
-    
-    ResourceBundle command = ResourceBundle.getBundle("command");
-    File destination = new File(command.getString("manager.profiles"));
-    if (!destination.exists())
-    {
-      return;
-    }
-    
-    File source = null;
-    try
-    {
-      source = FileIO.getDirectory("admin.properties");
-    }
-    catch (URISyntaxException e)
-    {
-      e.printStackTrace();
-      return;
-    }
-    
-    class AdminFilter implements FilenameFilter, Reloadable
-    {
-      public boolean accept(File dir, String name)
-      {
-        if (name.startsWith("admin") && name.endsWith(".properties"))
-        {
-          return true;
-        }
-        else
-        {
-          return false;
-        }
-      }
-    }
-    
-    FileIO.copyFolder(source, destination, new AdminFilter());
-  }
-
+  @SuppressWarnings("unused")
   private void mergeProperties(LocaleDimension child)
   {
     LocaleDimension parent = null;
@@ -258,7 +233,7 @@ public class MdssLocalizationImporter implements Reloadable
   private void checkLocales()
   {
     Set<String> allLocales = new TreeSet<String>();
-    HSSFSheet[] sheets = new HSSFSheet[]{exceptionSheet, termSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet};
+    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, termSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
     for (HSSFSheet sheet : sheets)
     {
       for (LocaleDimension ld : getColumnHeaders(sheet))
@@ -289,8 +264,8 @@ public class MdssLocalizationImporter implements Reloadable
   @SuppressWarnings("unchecked")
   private List<LocaleDimension> getColumnHeaders(HSSFSheet sheet)
   {
-    List<LocaleDimension> list = new LinkedList<LocaleDimension>();
-    if (sheet==null)
+    List<LocaleDimension> list = new ArrayList<LocaleDimension>();
+    if (sheet == null)
     {
       return list;
     }
@@ -313,67 +288,80 @@ public class MdssLocalizationImporter implements Reloadable
     return list;
   }
 
-  @SuppressWarnings("unchecked")
   private void updateProperties(String bundle, HSSFSheet sheet)
   {
-    // Bail if there's no tab for this bundle
-    if (sheet==null)
-    {
-      return;
-    }
-
-    File dir = null;
     try
     {
-      dir = FileIO.getDirectory(bundle + ".properties");
+      File dir = FileIO.getDirectory(bundle + ".properties");
+
+      this.updateProperties(dir, bundle, sheet);
     }
     catch (URISyntaxException e)
     {
       e.printStackTrace();
     }
+  }
 
-    int c = 0;
-    for (LocaleDimension l : getColumnHeaders(sheet))
+  @SuppressWarnings("unchecked")
+  private void updateProperties(File dir, String bundleName, HSSFSheet sheet)
+  {
+    // Bail if there's no tab for this bundle
+    if (sheet == null)
     {
-      c++;
-      Map<String, String> props = l.getPropertiesFromFile(bundle);
+      return;
+    }
+
+    List<LocaleDimension> localeDimensions = this.getColumnHeaders(sheet);
+
+    for (int i = 0; i < localeDimensions.size(); i++)
+    {
+      int cellIndex = i + 1;
+      LocaleDimension localeDimension = localeDimensions.get(i);
+
+      File file = new File(dir, localeDimension.getPropertyFileName(bundleName));
+
       Iterator<HSSFRow> rowIterator = sheet.rowIterator();
       rowIterator.next();
+
+      Map<String, String> props = localeDimension.getPropertiesFromFile(file);
+
       while (rowIterator.hasNext())
       {
         HSSFRow row = rowIterator.next();
-        String key = getStringValue(row.getCell(0));
+        String key = this.getStringValue(row.getCell(0));
+
         if (key == null)
         {
           continue;
         }
 
-        HSSFCell cell = row.getCell(c);
+        HSSFCell cell = row.getCell(cellIndex);
         String value = getStringValue(cell);
+
         if (value != null)
         {
           props.put(key, value);
         }
         else
         {
-          // If the cell is blank, ensure that the new file will not contain the key, even if it did before
+          // If the cell is blank, ensure that the new file will not contain the
+          // key, even if it did before
           props.remove(key);
         }
       }
 
-      String data = new String();
-      
+      StringBuffer data = new StringBuffer();
+
       for (String key : props.keySet())
       {
         String value = props.get(key);
-        data += key + "=" + value + "\n"; 
+
+        data.append(key + "=" + value + "\n");
       }
-      
-      String fileName = l.getPropertyFileName(bundle);
-      File file = new File(dir, fileName);
+
       try
       {
-        FileIO.write(file, data);
+        FileIO.write(file, data.toString());
       }
       catch (IOException e)
       {
@@ -385,12 +373,12 @@ public class MdssLocalizationImporter implements Reloadable
   private String getStringValue(HSSFCell cell)
   {
     String value = ExcelUtil.getString(cell);
-    if (value==null)
+    if (value == null)
     {
       return null;
     }
 
-    if (value.length()==0)
+    if (value.length() == 0)
     {
       return null;
     }
@@ -405,7 +393,7 @@ public class MdssLocalizationImporter implements Reloadable
   private void updateLocalAttribute(HSSFSheet sheet)
   {
     // Bail if there's no tab for labels
-    if (sheet==null)
+    if (sheet == null)
     {
       return;
     }
@@ -421,8 +409,8 @@ public class MdssLocalizationImporter implements Reloadable
       HSSFRow row = rowIterator.next();
       readLocalAttributeRow(columnHeaders, row, sheetName);
 
-//      if (row.getRowNum()%50==0)
-//        System.out.print(".");
+      // if (row.getRowNum()%50==0)
+      // System.out.print(".");
     }
   }
 
@@ -447,7 +435,7 @@ public class MdssLocalizationImporter implements Reloadable
     {
       LocalizedRowIgnoredWarning warning = new LocalizedRowIgnoredWarning();
       warning.setSheet(sheetName);
-      warning.setRow(row.getRowNum()+1);
+      warning.setRow(row.getRowNum() + 1);
       warning.throwIt();
 
       return;
@@ -461,10 +449,10 @@ public class MdssLocalizationImporter implements Reloadable
       {
         value = new String();
       }
-      
+
       String localeAttributeName = ld.getAttributeName();
       String oldValue = struct.getValue(localeAttributeName);
-      
+
       // To speed things up, only set values that have changed
       if (!oldValue.equals(value))
       {
@@ -483,7 +471,7 @@ public class MdssLocalizationImporter implements Reloadable
 
   /**
    * Opens the stream and parses the sheet based on name
-   *
+   * 
    * @param stream
    */
   private void openStream(InputStream stream)
@@ -501,6 +489,10 @@ public class MdssLocalizationImporter implements Reloadable
       labelSheet = workbook.getSheet(MdssLocalizationExporter.DISPLAY_LABELS);
       propertySheet = workbook.getSheet(MdssLocalizationExporter.MDSS_PROPERTIES);
       managerSheet = workbook.getSheet(MdssLocalizationExporter.MANAGER_PROPERTIES);
+      synchSheet = workbook.getSheet(MdssLocalizationExporter.SYNCH_PROPERTIES);
+      geoSheet = workbook.getSheet(MdssLocalizationExporter.GEO_PROPERTIES);
+      initializerSheet = workbook.getSheet(MdssLocalizationExporter.INITIALIZER_PROPERTIES);
+      backupSheet = workbook.getSheet(MdssLocalizationExporter.BACKUP_PROPERTIES);
     }
     catch (IOException e)
     {
@@ -509,8 +501,9 @@ public class MdssLocalizationImporter implements Reloadable
   }
 
   /**
-   * HSSF is pretty awful and doesn't have an way to get the name of a sheet, so we have to do stuff like this instead.
-   *
+   * HSSF is pretty awful and doesn't have an way to get the name of a sheet, so
+   * we have to do stuff like this instead.
+   * 
    * @param sheet
    * @return Name of the sheet
    */
