@@ -311,6 +311,13 @@
 				<path refid="framework.classpath" />
 			</classpath>
 		</java>
+        <echo message="Deleting now-irrelevant cache files" />
+        <delete>
+            <fileset dir="${globalCache.cacheFileLocation}">
+                <include name="${globalCache.cacheName}.data"/>
+                <include name="${globalCache.cacheName}.index"/>
+            </fileset>
+        </delete>
 	</target>
 
 	<target name="install_db_procedures" description="Installs Dabase Procedures" depends="">
