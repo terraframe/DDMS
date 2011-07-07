@@ -36,6 +36,15 @@ Pop "${Var}"
 !macroend
 !define RIndexOf "!insertmacro RIndexOf"
 
+# Define access to the CharStrip function
+!macro CharStrip Char InStr OutVar
+ Push '${InStr}'
+ Push '${Char}'
+  Call CharStrip
+ Pop '${OutVar}'
+!macroend
+!define CharStrip '!insertmacro CharStrip'
+
 # Variables
 Var StartMenuGroup
 Var TfDialog
@@ -52,9 +61,11 @@ Var RootsVersion
 Var MenuVersion
 Var LocalizationVersion
 Var PermissionsVersion
+Var AppName
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
+Page custom appNameInputPage
 Page custom userInputPage exitUserInputPage
 !insertmacro MUI_PAGE_STARTMENU Application $StartMenuGroup
 !insertmacro MUI_PAGE_INSTFILES
@@ -133,6 +144,73 @@ Function exitUserInputPage
   ${NSD_GetText} $Text $InstallationNumber
 FunctionEnd
 
+Function appNameInputPage
+  !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
+  nsDialogs::Create 1018
+  Pop $TfDialog
+  
+  ${If} $TfDialog == error
+    Abort
+  ${EndIf}
+  
+  # Create the label, which gets put on the stack
+  ${NSD_CreateLabel} 0 2u 25% 12u "Installation Name"
+  # Pop the label off the stack and store it in $Label
+  Pop $Label
+  
+  ${NSD_CreateText} 25% 0 74% 12u $InstallationNumber
+  Pop $Text
+  # Set up the number validator
+  ${NSD_OnChange} $Text sanitizeName
+  
+  ${NSD_CreateHLine} 0 18u 100% 2 "HLine"
+  Pop $Label
+  
+  # Create the label, which gets put on the stack
+  ${NSD_CreateLabel} 0 23u 100% 32u "The installation name must be unique, and can only contain URL characters: alpha, numbers, - and _"
+  # Pop the label off the stack and store it in $Label
+  Pop $Label
+  
+  nsDialogs::Show
+FunctionEnd
+
+Function sanitizeName
+  Pop $1 # $1 == $ Text
+  
+  ${NSD_GetText} $Text $0
+  StrCpy $AppName $0
+  ${CharStrip} "/" $0 $0
+  ${CharStrip} "\" $0 $0
+  ${CharStrip} "*" $0 $0
+  ${CharStrip} "&" $0 $0
+  ${CharStrip} '"' $0 $0
+  ${CharStrip} ":" $0 $0
+  ${CharStrip} "<" $0 $0
+  ${CharStrip} ">" $0 $0
+  ${CharStrip} "?" $0 $0
+  ${CharStrip} "$$" $0 $0
+  ${CharStrip} "+" $0 $0
+  ${CharStrip} "," $0 $0
+  ${CharStrip} ";" $0 $0
+  ${CharStrip} "=" $0 $0
+  ${CharStrip} "@" $0 $0
+  ${CharStrip} " " $0 $0
+  ${CharStrip} "#" $0 $0
+  ${CharStrip} "%" $0 $0
+  ${CharStrip} "[" $0 $0
+  ${CharStrip} "]" $0 $0
+  ${CharStrip} "{" $0 $0
+  ${CharStrip} "}" $0 $0
+  ${CharStrip} "^" $0 $0
+  ${CharStrip} "~" $0 $0
+  ${CharStrip} "`" $0 $0
+  
+  StrCmp $AppName $0 +2
+  
+  ${NSD_SetText} $Text $0
+  
+FunctionEnd
+
 # Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
@@ -144,6 +222,10 @@ Section -Main SEC0000
     StrCpy $MenuVersion 5814
     StrCpy $LocalizationVersion 5978
     StrCpy $PermissionsVersion 5974
+    
+    #Determine if this is a full install or just another app
+    ReadRegStr $0 HKLM "${REGKEY}\Components" Main
+    StrCmp $0 "" appInstall
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
@@ -185,6 +267,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\doc
     File /r doc\*
     
+    # To accomodate multi-installs, this does not include the user-named webapp, which is instead copied later
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat6
     File /r tomcat6\*
@@ -229,32 +312,41 @@ Section -Main SEC0000
     File "postgis-pg84-setup-1.4.2-1.exe"
     ExecWait `"$INSTDIR\postgis-pg84-setup-1.4.2-1.exe" /S`
     
+    # We jump to this point if only installing a new app
+    appInstall:
+    
+    # Copy the webapp in the correct folder
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
+    SetOutPath $INSTDIR\tomcat6\webapps\$AppName
+    File /r webapp\*
+    SetOutPath $INSTDIR
+    
     # Create the database
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE mdssdeploy WITH ENCODING='UTF8' TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C' OWNER=mdssdeploy"`
+    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $AppName WITH ENCODING='UTF8' TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C' OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     File "mdss.backup"
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U postgres -d mdssdeploy -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
+    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U postgres -d $AppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
 
     # Update the installation number
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d mdssdeploy -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d $AppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f C:\MDSS\PostgreSql /r /d y
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
     # Update terraframe.properties
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\classes;C:\MDSS\tomcat6\webapps\DDMS\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $InstallationNumber $Master_Value`
+    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $AppName $InstallationNumber $Master_Value`
     
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
-    WriteRegStr HKLM "${REGKEY}\Components\blank" App $PatchVersion
-    WriteRegStr HKLM "${REGKEY}\Components\blank" Terms $TermsVersion
-    WriteRegStr HKLM "${REGKEY}\Components\blank" Roots $RootsVersion
-    WriteRegStr HKLM "${REGKEY}\Components\blank" Menu $MenuVersion
-    WriteRegStr HKLM "${REGKEY}\Components\blank" Localization $LocalizationVersion
-    WriteRegStr HKLM "${REGKEY}\Components\blank" Permissions $PermissionsVersion
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     WriteRegStr HKLM "${REGKEY}\Components" Manager 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
 SectionEnd
@@ -265,7 +357,7 @@ Section -post SEC0001
     WriteUninstaller $INSTDIR\uninstall.exe
     !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
     SetOutPath $FPath
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/DDMS/"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
 	SetOutPath $INSTDIR\tomcat6\bin
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
@@ -278,7 +370,7 @@ Section -post SEC0001
     SetOutPath $INSTDIR\manager
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager\manager.bat"
     SetOutPath $INSTDIR\tomcat6\webapps\DDMS\WEB-INF
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\GIS.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512M -cp $INSTDIR\tomcat6\webapps\DDMS\WEB-INF\lib\*;$INSTDIR\tomcat6\webapps\DDMS\WEB-INF\classes dss/vector/solutions/gis/WindowLauncher"	
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\GIS.lnk" "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe" "-Xmx512M -cp $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes dss/vector/solutions/gis/WindowLauncher"	
     SetOutPath $SMPROGRAMS\$StartMenuGroup	
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
     !insertmacro MUI_STARTMENU_WRITE_END
@@ -308,21 +400,20 @@ Section /o -un.Main UNSEC0000
     ExecWait $INSTDIR\PostgreSQL\8.4\uninstall-postgis-pg84-1.4.0-2.exe
     ExecWait $INSTDIR\PostgreSQL\8.4\uninstall-postgresql.exe
     RmDir /r /REBOOTOK $INSTDIR
-    RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
-    DeleteRegValue HKLM "${REGKEY}\Components\blank" App
-    DeleteRegValue HKLM "${REGKEY}\Components\blank" Terms
-    DeleteRegValue HKLM "${REGKEY}\Components\blank" Roots
-    DeleteRegValue HKLM "${REGKEY}\Components\blank" Menu
-    DeleteRegValue HKLM "${REGKEY}\Components\blank" Localization
-    DeleteRegValue HKLM "${REGKEY}\Components\blank" Permissions
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Roots
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Menu
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
     DeleteRegValue HKLM "${REGKEY}\Components" Manager
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
 SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Open $(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Open $AppName.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk"
     Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk"
@@ -420,6 +511,35 @@ Push $R3
  
  StrCpy $R0 -1
  
+Pop $R3
+Pop $R2
+Pop $R1
+Exch $R0
+FunctionEnd
+
+# Removes the given char from the string
+# Example: ${CharStrip} "." "99.21" $R0
+# Results: $R0 == "9921"
+Function CharStrip
+Exch $R0 #char
+Exch
+Exch $R1 #in string
+Push $R2
+Push $R3
+Push $R4
+ StrCpy $R2 -1
+ IntOp $R2 $R2 + 1
+ StrCpy $R3 $R1 1 $R2
+ StrCmp $R3 "" +8
+ StrCmp $R3 $R0 0 -3
+  StrCpy $R3 $R1 $R2
+  IntOp $R2 $R2 + 1
+  StrCpy $R4 $R1 "" $R2
+  StrCpy $R1 $R3$R4
+  IntOp $R2 $R2 - 2
+  Goto -9
+  StrCpy $R0 $R1
+Pop $R4
 Pop $R3
 Pop $R2
 Pop $R1
