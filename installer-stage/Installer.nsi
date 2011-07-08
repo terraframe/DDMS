@@ -249,11 +249,11 @@ Section -Main SEC0000
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
-    File /r IRMA\*
+    File /r /x .svn IRMA\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing BIRT"
     SetOutPath $INSTDIR\birt
-    File /r birt\*
+    File /r /x .svn birt\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
     SetOutPath $INSTDIR\manager
@@ -273,16 +273,16 @@ Section -Main SEC0000
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Java"
     SetOutPath $INSTDIR\Java
-    File /r Java\*
+    File /r /x .svn Java\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying docs"
     SetOutPath $INSTDIR\doc
-    File /r doc\*
+    File /r /x .svn doc\*
     
     # To accomodate multi-installs, this does not include the user-named webapp, which is instead copied later
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat6
-    File /r tomcat6\*
+    File /r /x .svn tomcat6\*
     SetOutPath $INSTDIR
     
     # Install the ScreenGrab addon
@@ -330,7 +330,7 @@ Section -Main SEC0000
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat6\webapps\$AppName
-    File /r webapp\*
+    File /r /x .svn webapp\*
     SetOutPath $INSTDIR
     
     # Copy the profile to the backup manager
