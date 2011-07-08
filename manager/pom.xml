@@ -5,7 +5,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>dds.vector.solutions</groupId>
   <artifactId>manager</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>Manager</name>
   <description>Manager</description>
   <packaging>jar</packaging>
@@ -57,18 +57,28 @@
       <scope>compile</scope>
     </dependency>
     <dependency>
-    	<groupId>org.eclipse.core.databinding</groupId>
-    	<artifactId>beans</artifactId>
-    	<version>1.2.0</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
+      <groupId>org.eclipse.core.databinding</groupId>
+      <artifactId>beans</artifactId>
+      <version>1.2.0</version>
+      <type>jar</type>
+      <scope>compile</scope>
     </dependency>
     <dependency>
-    	<groupId>org.mod4j.com.ibm</groupId>
-    	<artifactId>icu</artifactId>
-    	<version>4.0.1</version>
-    	<type>jar</type>
-    	<scope>compile</scope>
+      <groupId>org.mod4j.com.ibm</groupId>
+      <artifactId>icu</artifactId>
+      <version>4.0.1</version>
+      <type>jar</type>
+      <scope>compile</scope>
     </dependency>
   </dependencies>
+  <build>
+    <resources>
+      <resource>
+        <directory>src/main/resources</directory>
+        <includes>
+          <include>**/*.png</include>
+        </includes>
+      </resource>
+    </resources>
+  </build>
 </project>

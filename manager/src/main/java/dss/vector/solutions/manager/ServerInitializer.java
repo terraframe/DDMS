@@ -77,6 +77,7 @@ public class ServerInitializer implements Runnable
             java.init();
 
             java.createArg().setValue("-a" + context.getApplication());
+            java.createArg().setValue("-l" + Localizer.getLocale().toString());
 
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());

@@ -61,6 +61,8 @@ public class GeoAction extends Action
             java.setClassname("dss.vector.solutions.gis.GISManagerLauncher");
             java.setClasspath(new Path(project, classpath.toString()));
             java.init();
+            
+            java.createArg().setValue("-l" + Localizer.getLocale().toString());
 
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());

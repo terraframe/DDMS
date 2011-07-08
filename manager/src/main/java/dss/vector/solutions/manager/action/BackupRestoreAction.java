@@ -58,11 +58,19 @@ public class BackupRestoreAction extends Action implements UncaughtExceptionHand
             java.setClasspath(new Path(project, classpath.toString()));
             java.init();
 
+            java.createArg().setValue("-a" + context.getApplication());
+            java.createArg().setValue("-l" + Localizer.getLocale().toString());
+
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
             java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
 
-            java.executeJava();
+            int result = java.executeJava();
+
+            if (result != 0)
+            {
+              throw new RuntimeException(Localizer.getMessage("BACKUP_EXITED_WITH_ERROR"));
+            }
           }
           catch (Exception e)
           {
