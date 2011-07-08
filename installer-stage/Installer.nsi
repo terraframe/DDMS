@@ -225,7 +225,7 @@ Section -Main SEC0000
     
     #Determine if this is a full install or just another app
     ReadRegStr $0 HKLM "${REGKEY}\Components" Main
-    StrCmp $0 "" appInstall
+    StrCmp $0 "" 0 appInstall
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
