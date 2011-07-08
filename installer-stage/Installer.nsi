@@ -257,7 +257,7 @@ Section -Main SEC0000
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
     SetOutPath $INSTDIR\manager
-    File ..\standalone\manager.bat
+    File ..\standalone\patch\manager.bat
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
