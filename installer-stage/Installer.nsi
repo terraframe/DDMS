@@ -255,9 +255,21 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\birt
     File /r birt\*
     
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Manager"
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
     SetOutPath $INSTDIR\manager
-    File /r manager\*
+    File ..\standalone\manager.bat
+    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
+    File /r /x .svn ..\standalone\backup-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
+    File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
+    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
+    File /r /x .svn ..\standalone\geo-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\manager-1.0.0
+    File /r /x .svn ..\standalone\manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
+    File /r /x .svn ..\standalone\synch-manager-1.0.0\*
+    SetOutPath $INSTDIR\manager\keystore
+    File /r /x .svn ..\standalone\doc\keystore\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Java"
     SetOutPath $INSTDIR\Java
@@ -320,6 +332,10 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\tomcat6\webapps\$AppName
     File /r webapp\*
     SetOutPath $INSTDIR
+    
+    # Copy the profile to the backup manager
+    CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    CopyFiles $INSTDIR\tomcat6\webapps\$AppName\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     # Create the database
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
