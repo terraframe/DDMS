@@ -335,7 +335,7 @@ Section -Main SEC0000
     
     # Copy the profile to the backup manager
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-    CopyFiles $INSTDIR\tomcat6\webapps\$AppName\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     # Create the database
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
