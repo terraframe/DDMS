@@ -43,7 +43,6 @@ public class PostInstallSetup
   public void go() throws IOException
   {
     String domain = installationNumber + ".mdss.ivcc.com";
-    File manager = new File("C:/MDSS/manager/profiles/manager/common/terraframe.properties");
     String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
     
     // Update property files
@@ -53,13 +52,11 @@ public class PostInstallSetup
     {
       editWebappProperty("master", "true", "install.properties");
       editWebappProperty("domain", "0.mdss.ivcc.com", "terraframe.properties");
-      editProperty("domain", "0.mdss.ivcc.com", manager);
     }
     else
     {
       editWebappProperty("master", "false", "install.properties");
       editWebappProperty("domain", domain, "terraframe.properties");
-      editProperty("domain", domain, manager);
     }
     
     // Update css and jsps
