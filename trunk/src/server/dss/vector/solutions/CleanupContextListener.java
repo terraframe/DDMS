@@ -29,9 +29,13 @@ import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
+import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.general.PopulationData;
+import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllowedIn;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.GeoTarget;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedMap;
@@ -72,9 +76,9 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "DROP FUNCTION IF EXISTS get_epiYear_from_date(date,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiWeek_from_date(date,int); \n";
 
-//    sql += "DROP FUNCTION IF EXISTS get_yearly_population_by_geoid_and_date(varchar,date); \n";
-//    sql += "DROP FUNCTION IF EXISTS get_seasonal_population_by_geoid_and_date(varchar,date); \n";
-//    sql += "DROP FUNCTION IF EXISTS get_adjusted_population(varchar,int,int); \n";
+    sql += "DROP FUNCTION IF EXISTS get_yearly_population_by_geoid_and_date(varchar,date); \n";
+    sql += "DROP FUNCTION IF EXISTS get_seasonal_population_by_geoid_and_date(varchar,date); \n";
+    sql += "DROP FUNCTION IF EXISTS get_adjusted_population(varchar,int,int); \n";
 
     return sql;
   }
@@ -299,24 +303,24 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   private String getFunctionSql()
   {
-//    MdEntityDAOIF allPathsMd = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS);
-//    String allPathsTable = allPathsMd.getTableName();
-//    String childGeoEntityCol = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
-//    String parentGeoEntityCol = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
-//
-//    MdEntityDAOIF populationDataMd = MdEntityDAO.getMdEntityDAO(PopulationData.CLASS);
+    MdEntityDAOIF allPathsMd = MdEntityDAO.getMdEntityDAO(AllPaths.CLASS);
+    String allPathsTable = allPathsMd.getTableName();
+    String childGeoEntityCol = QueryUtil.getColumnName(AllPaths.getChildGeoEntityMd());
+    String parentGeoEntityCol = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
+
+    MdEntityDAOIF populationDataMd = MdEntityDAO.getMdEntityDAO(PopulationData.CLASS);
 
     MdEntityDAOIF locatedInMd = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS);
     String locatedInTable = locatedInMd.getTableName();
 
-//    MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
-//    String malariaSeasonTable = malariaSeasonMd.getTableName();
-//    String startDateCol = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
-//    String endDateCol = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
-//    String diseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
-//
-//    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
-//    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
+    MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
+    String malariaSeasonTable = malariaSeasonMd.getTableName();
+    String startDateCol = QueryUtil.getColumnName(MalariaSeason.getStartDateMd());
+    String endDateCol = QueryUtil.getColumnName(MalariaSeason.getEndDateMd());
+    String diseaseCol = QueryUtil.getColumnName(MalariaSeason.getDiseaseMd());
+
+    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
+    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
 
     String sql = "";
 
@@ -348,7 +352,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "array_upper($1,1)) g(i);  \n";
     sql += "$$ LANGUAGE sql IMMUTABLE; \n";
 
-    /*
     sql += "CREATE OR REPLACE FUNCTION get_adjusted_population \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
@@ -475,9 +478,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "    RETURN _population; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
- */
 
-    /*
     MdEntityDAOIF propertyMd = MdEntityDAO.getMdEntityDAO(Property.CLASS);
     String propertyTable = propertyMd.getTableName();
     String propertyValueCol = QueryUtil.getColumnName(Property.getPropertyValueMd());
@@ -511,7 +512,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "   RETURN get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar(_geo_Entity_Id,_season_Id,_target_Column); \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    */
 
     MdEntityDAOIF geoTargetMd = MdEntityDAO.getMdEntityDAO(GeoTarget.CLASS);
     String geoTargetTable = geoTargetMd.getTableName();
@@ -520,7 +520,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String geoEntityTargetCol = QueryUtil.getColumnName(GeoTarget.getGeoEntityMd());
 //    String idCol = QueryUtil.getIdColumn();
 
-    /*
     sql += "CREATE OR REPLACE FUNCTION get_seasonal_spray_target_by_geoEntityId_and_seasonId_and_tar \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
@@ -558,7 +557,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "    RETURN _target; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
-    */
 
     sql += "CREATE OR REPLACE FUNCTION "+QueryConstants.SUM_AREA_TARGETS+" \n";
     sql += "( \n";
