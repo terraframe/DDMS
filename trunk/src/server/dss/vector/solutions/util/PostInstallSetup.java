@@ -70,6 +70,7 @@ public class PostInstallSetup
     File applications = new File("C:/MDSS/manager/manager-1.0.0/classes/applications.txt");
     String appTxt = FileIO.readString(applications);
     appTxt += lineSeparator + appName;
+    appTxt = appTxt.trim();
     FileIO.write(applications, appTxt);
     
     // And give common.properties a unique rmi.port
