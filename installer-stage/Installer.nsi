@@ -233,10 +233,6 @@ Section -Main SEC0000
     StrCpy $LocalizationVersion 5978
     StrCpy $PermissionsVersion 5974
     
-    #Determine if this is a full install or just another app
-    ReadRegStr $0 HKLM "${REGKEY}\Components" Main
-    StrCmp $0 "" 0 appInstall
-    
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
     StrCmp $FPath "" installFireFox doneInstallFireFox
@@ -254,6 +250,10 @@ Section -Main SEC0000
       Abort
     
     fireFoxFound:
+    #Determine if this is a full install or just another app
+    ReadRegStr $0 HKLM "${REGKEY}\Components" Main
+    StrCmp $0 "" 0 appInstall
+    
     # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
 	ExecWait `"$FPath\firefox.exe"`
     
@@ -343,10 +343,6 @@ Section -Main SEC0000
     File /r /x .svn webapp\*
     SetOutPath $INSTDIR
     
-    # Copy the profile to the backup manager
-    CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-    CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-    
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
@@ -364,8 +360,12 @@ Section -Main SEC0000
     # takeown /f C:\MDSS\PostgreSql /r /d y
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
-    # Update terraframe.properties
+    # Update lots of things
     ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $AppName $InstallationNumber $Master_Value`
+    
+    # Copy the profile to the backup manager
+    CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
