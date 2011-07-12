@@ -22,7 +22,7 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
   /**
    * Amount of time to wait before calling the status call back function
    */
-  private static final long               WAIT_TIME = 5000L;
+  private static final long               WAIT_TIME = 10000L;
 
   private RemoteLifecycleListenerServerIF server;
 
