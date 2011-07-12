@@ -216,7 +216,6 @@ Function sanitizeName
   ${CharStrip} "`" $0 $0
   
   StrCmp $AppName $0 +2
-  StrCmpS
   
   ${NSD_SetText} $Text $0
   
