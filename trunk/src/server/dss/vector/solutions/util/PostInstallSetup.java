@@ -46,8 +46,8 @@ public class PostInstallSetup
     String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
     
     // Update property files
-    editWebappProperty("domain", domain, "terraframe.properties");
-    editWebappProperty("databaseName", appName, "database.properties");
+    editWebappProperty("deploy.appname", appName, "terraframe.properties");
+    editWebappProperty("databaseName", appName.toLowerCase(), "database.properties");
     if (isMaster)
     {
       editWebappProperty("master", "true", "install.properties");
