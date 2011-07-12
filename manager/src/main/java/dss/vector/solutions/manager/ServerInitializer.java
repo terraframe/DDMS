@@ -76,7 +76,7 @@ public class ServerInitializer implements Runnable
             java.setClasspath(new Path(project, classpath.toString()));
             java.init();
 
-            java.createArg().setValue("-a" + context.getApplication());
+            java.createArg().setValue("-a" + application);
             java.createArg().setValue("-l" + Localizer.getLocale().toString());
 
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
