@@ -28,12 +28,14 @@ public class PostInstallSetup
   private File appRoot;
   private File classes;
   private String appName;
+  private String dbName;
   private String installationNumber;
   private Boolean isMaster;
   
   public PostInstallSetup(String appName, String installationNumber, Boolean isMaster)
   {
     this.appName = appName;
+    this.dbName = appName.toLowerCase();
     this.installationNumber = installationNumber;
     this.isMaster = isMaster;
     appRoot = new File("C:/MDSS/tomcat6/webapps/" + appName);
@@ -47,7 +49,7 @@ public class PostInstallSetup
     
     // Update property files
     editWebappProperty("deploy.appname", appName, "terraframe.properties");
-    editWebappProperty("databaseName", appName.toLowerCase(), "database.properties");
+    editWebappProperty("databaseName", dbName, "database.properties");
     if (isMaster)
     {
       editWebappProperty("master", "true", "install.properties");
@@ -77,10 +79,25 @@ public class PostInstallSetup
     int appCount = appTxt.split("\\s+").length;
     editWebappProperty("rmi.port", Integer.toString(1099 - appCount), "common.properties");
     
-    // Need to update tomcat RAM
+    // Update tomcat RAM
     File startup = new File("C:/MDSS/tomcat6/bin/startup.bat");
     int totalMemory = 512 * appCount;
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
+    
+    // Update Geoserver's catalog.xml
+    File catalogFile = new File("C:/MDSS/tomcat6/webapps/geoserver/data/catalog.xml");
+    String catalogData = FileIO.readString(catalogFile);
+    int index = catalogData.indexOf("<datastore");
+    String pre = catalogData.substring(0, index);
+    String post = catalogData.substring(index);
+    catalogData = pre + createDatastoreXML() + post;
+    
+    index = catalogData.indexOf("<namespace");
+    pre = catalogData.substring(0, index);
+    post = catalogData.substring(index);
+    catalogData = pre + createNamespaceXML() + post;
+    
+    FileIO.write(catalogFile, catalogData);
   }
   
   public void editWebappProperty(String key, String newValue, String bundle) throws IOException
@@ -111,5 +128,34 @@ public class PostInstallSetup
     String data = FileIO.readString(file);
     String replaced = data.replaceAll(regex, replacement);
     FileIO.write(file, replaced);
+  }
+  
+  private String createDatastoreXML()
+  {
+    String datastore =
+    "<datastore id = \"MDSS_maps_" + appName + "\" enabled = \"true\" namespace = \"" + appName + "\" >\n" +
+    "      <connectionParams >\n" +
+    "        <parameter name = \"port\" value = \"5444\" />\n" +
+    "        <parameter name = \"passwd\" value = \"mdssdeploy\" />\n" +
+    "        <parameter name = \"dbtype\" value = \"postgis\" />\n" +
+    "        <parameter name = \"host\" value = \"localhost\" />\n" +
+    "        <parameter name = \"validate connections\" value = \"false\" />\n" +
+    "        <parameter name = \"max connections\" value = \"10\" />\n" +
+    "        <parameter name = \"database\" value = \"" + dbName + "\" />\n" +
+    "        <parameter name = \"wkb enabled\" value = \"true\" />\n" +
+    "        <parameter name = \"namespace\" value = \"http://" + appName + ".terraframe.com\" />\n" +
+    "        <parameter name = \"schema\" value = \"public\" />\n" +
+    "        <parameter name = \"estimated extent\" value = \"false\" />\n" +
+    "        <parameter name = \"loose bbox\" value = \"true\" />\n" +
+    "        <parameter name = \"user\" value = \"mdssdeploy\" />\n" +
+    "        <parameter name = \"min connections\" value = \"4\" />\n" +
+    "      </connectionParams>\n" +
+    "    </datastore>\n    ";
+    return datastore;
+  }
+  
+  private String createNamespaceXML()
+  {
+    return "<namespace prefix = \"" + appName + "\" uri = \"http://" + appName + ".terraframe.com\" />\n    ";
   }
 }
