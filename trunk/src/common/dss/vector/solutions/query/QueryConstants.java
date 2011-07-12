@@ -1,5 +1,6 @@
 package dss.vector.solutions.query;
 
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 
 public class QueryConstants implements Reloadable
@@ -9,13 +10,13 @@ public class QueryConstants implements Reloadable
   /**
    * The namespace as created in GeoServer for all MDSS generated views.
    */
-  public static final String MDSS_NAMESPACE = "mdss";
+//  public static final String MDSS_NAMESPACE = "mdss";
   
   public static final String CATEGORY_FACTORY_TYPE = "cfType";
   
   public static final String CATEGORY_FACTORY_DISPLAY = "cfDisplay";
 
-  public static final String FEATURE_NAMESPACE = "MDSS_maps";
+  private static final String FEATURE_NAMESPACE = "MDSS_maps";
 
 //  public static final String THEMATIC_DATA_COLUMN = "data";
 
@@ -104,6 +105,11 @@ public class QueryConstants implements Reloadable
     
     QUERY_UNIVERSAL
     
+  }
+  
+  public static String getNamespacedDataStore()
+  {
+    return FEATURE_NAMESPACE+"_"+CommonProperties.getDeployAppName();
   }
   
   /**

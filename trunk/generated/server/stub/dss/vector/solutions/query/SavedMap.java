@@ -15,9 +15,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.runwaysdk.ComponentIF;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.business.rbac.UserDAOIF;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeEnumerationDAOIF;
@@ -112,7 +112,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       Layer layer = iter.next();
 
-      String namespacedView = QueryConstants.MDSS_NAMESPACE + ":" + layer.getViewName();
+      String namespacedView = CommonProperties.getDeployAppName() + ":" + layer.getViewName();
       String sldFile = MapUtil.formatSLD(layer);
 
       JSONObject layerJSON = new JSONObject();

@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.io.MarkupWriter;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -260,7 +261,7 @@ public class SLDWriter extends MarkupWriter implements Reloadable
 
     openTag("StyledLayerDescriptor", attributes);
     openTag("NamedLayer");
-    writeEmptyTagWithValue("Name", QueryConstants.MDSS_NAMESPACE + ":" + viewName);
+    writeEmptyTagWithValue("Name", CommonProperties.getDeployAppName() + ":" + viewName);
     openTag("UserStyle");
     writeEmptyTagWithValue("Title", "Layer Style for " + viewName);
     writeEmptyTagWithValue("Abstract", "Layer Style for " + viewName);

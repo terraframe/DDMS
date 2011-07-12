@@ -26,6 +26,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.runwaysdk.business.Business;
+import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
@@ -493,7 +494,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
               new DefaultHttpMethodRetryHandler(3, false));
           newPost.addRequestHeader("Cookie", "JSESSIONID=" + jSessionId);
           newPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
-          newPost.addParameter("selectedNewFeatureType", QueryConstants.FEATURE_NAMESPACE + ":::"
+          newPost.addParameter("selectedNewFeatureType", QueryConstants.getNamespacedDataStore() + ":::"
               + viewName.toLowerCase());
 
           int newCode = client.executeMethod(newPost);
