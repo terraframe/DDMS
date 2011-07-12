@@ -445,8 +445,8 @@ Section -un.post UNSEC0001
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
     DeleteRegValue HKLM "${REGKEY}" Path
-    DeleteRegKey /IfEmpty HKLM "${REGKEY}\Components"
-    DeleteRegKey /IfEmpty HKLM "${REGKEY}"
+    DeleteRegKey HKLM "${REGKEY}\Components"
+    DeleteRegKey HKLM "${REGKEY}"
     RmDir /r /REBOOTOK $SMPROGRAMS\DDMS
     RmDir /REBOOTOK $INSTDIR
 SectionEnd
