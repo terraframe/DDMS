@@ -55,7 +55,6 @@ Pop "${Var}"
 !define StrCase "!insertmacro StrCase"
 
 # Variables
-Var StartMenuGroup
 Var TfDialog
 Var Label
 Var Text
@@ -77,7 +76,6 @@ Var LowerAppName
 !insertmacro MUI_PAGE_WELCOME
 Page custom appNameInputPage
 Page custom userInputPage exitUserInputPage
-!insertmacro MUI_PAGE_STARTMENU Application $StartMenuGroup
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
@@ -168,7 +166,7 @@ Function appNameInputPage
   # Pop the label off the stack and store it in $Label
   Pop $Label
   
-  ${NSD_CreateText} 25% 0 74% 12u $InstallationNumber
+  ${NSD_CreateText} 25% 0 74% 12u $AppName
   Pop $Text
   # Set up the number validator
   ${NSD_OnChange} $Text sanitizeName
@@ -376,29 +374,28 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     WriteRegStr HKLM "${REGKEY}\Components" Manager 1
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
+    
+    # Write some shortcuts
+    SetOutPath $FPath
+    CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
+    SetOutPath $INSTDIR\tomcat6\bin
+    CreateShortcut "$SMPROGRAMS\DDMS\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
+    CreateShortcut "$SMPROGRAMS\DDMS\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
+    SetOutPath $INSTDIR\birt
+    CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
+    SetOutPath $INSTDIR\IRMA
+    CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
+    SetOutPath $INSTDIR
+    CreateShortcut "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
+    SetOutPath $INSTDIR\manager
+    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat"
 SectionEnd
 
 Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
-    !insertmacro MUI_STARTMENU_WRITE_BEGIN Application
-    SetOutPath $FPath
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
-	SetOutPath $INSTDIR\tomcat6\bin
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
-    SetOutPath $INSTDIR\birt
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
-    SetOutPath $INSTDIR\IRMA
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
-    SetOutPath $INSTDIR
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
-    SetOutPath $INSTDIR\manager
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager\manager.bat"	
-    SetOutPath $SMPROGRAMS\$StartMenuGroup	
     RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
-    !insertmacro MUI_STARTMENU_WRITE_END
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayIcon $INSTDIR\uninstall.exe
@@ -438,19 +435,19 @@ SectionEnd
 
 Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Open $AppName.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Start $(^Name).lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Stop $(^Name).lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\BIRT.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Qcal.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Manager.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\$StartMenuGroup\Uninstall $(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Start $(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Stop $(^Name).lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"
     Delete /REBOOTOK $INSTDIR\uninstall.exe
     DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
     DeleteRegValue HKLM "${REGKEY}" Path
     DeleteRegKey /IfEmpty HKLM "${REGKEY}\Components"
     DeleteRegKey /IfEmpty HKLM "${REGKEY}"
-    RmDir /REBOOTOK $SMPROGRAMS\$StartMenuGroup
+    RmDir /r /REBOOTOK $SMPROGRAMS\DDMS
     RmDir /REBOOTOK $INSTDIR
 SectionEnd
 
@@ -462,6 +459,7 @@ Function .onInit
     SetRebootFlag true
     # Initialize the value of the text string
     StrCpy $InstallationNumber "1"
+    StrCpy $AppName "Name"
     StrCpy $Master_Value "init"
     
     # Read the command-line parameters
@@ -755,7 +753,6 @@ FunctionEnd
 # Uninstaller functions
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
-    !insertmacro MUI_STARTMENU_GETFOLDER Application $StartMenuGroup
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
 FunctionEnd
 
