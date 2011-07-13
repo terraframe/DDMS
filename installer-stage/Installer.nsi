@@ -376,6 +376,7 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
     
     # Write some shortcuts
+    SetShellVarContext all
     SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\tomcat6\bin
