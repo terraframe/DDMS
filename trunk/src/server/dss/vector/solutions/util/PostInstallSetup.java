@@ -92,7 +92,7 @@ public class PostInstallSetup
     String post = catalogData.substring(index);
     catalogData = pre + createDatastoreXML() + post;
     
-    index = catalogData.indexOf("<namespace");
+    index = catalogData.indexOf("<namespace ");
     pre = catalogData.substring(0, index);
     post = catalogData.substring(index);
     catalogData = pre + createNamespaceXML() + post;
