@@ -377,6 +377,7 @@ Section -Main SEC0000
     
     # Write some shortcuts
     SetShellVarContext all
+    CreateDirectory $SMPROGRAMS\DDMS
     SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\tomcat6\bin
