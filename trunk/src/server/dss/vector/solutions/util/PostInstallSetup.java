@@ -87,7 +87,7 @@ public class PostInstallSetup
     // Update Geoserver's catalog.xml
     File catalogFile = new File("C:/MDSS/tomcat6/webapps/geoserver/data/catalog.xml");
     String catalogData = FileIO.readString(catalogFile);
-    int index = catalogData.indexOf("<datastore");
+    int index = catalogData.indexOf("<datastore ");
     String pre = catalogData.substring(0, index);
     String post = catalogData.substring(index);
     catalogData = pre + createDatastoreXML() + post;
