@@ -79,12 +79,13 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\geo-manager-1.0.0
     File /r /x .svn ..\geo-manager-1.0.0\*
     SetOutPath $INSTDIR\manager-1.0.0
-    File /r /x .svn ..\manager-1.0.0\*
+    File /r /x .svn /x classes\applications.txt ..\manager-1.0.0\*
     SetOutPath $INSTDIR\synch-manager-1.0.0
     File /r /x .svn ..\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\keystore
     File /r /x .svn ..\doc\keystore\*
     
+    # These shoudl technically be unnecessary after 1.02, but we're leaving them out of paranoia
     File /oname=C:\MDSS\tomcat6\conf\server.xml server.xml
     File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
     File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\manager-1.0.0\lib\tomcat-remote-listener-1.0.1.jar
