@@ -327,6 +327,9 @@ Section -Main SEC0000
     
     ExecWait `net start postgresql-8.4`
     
+    # Put in a delay to ensure that Postgres has started up before trying to install PostGIS
+    Sleep 10000
+    
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
     File "postgis-pg84-setup-1.4.2-1.exe"
