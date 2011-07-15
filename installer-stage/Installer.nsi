@@ -279,6 +279,11 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
     
+    # Add the special elevation command for backup/restore
+    SetOutPath $INSTDIR
+    File elevate.cmd
+    File elevate.vbs
+    
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Java"
     SetOutPath $INSTDIR\Java
     File /r /x .svn Java\*
