@@ -457,6 +457,7 @@ Section -un.post UNSEC0001
     DeleteRegValue HKLM "${REGKEY}" Path
     DeleteRegKey HKLM "${REGKEY}\Components"
     DeleteRegKey HKLM "${REGKEY}"
+    SetShellVarContext all
     RmDir /r /REBOOTOK $SMPROGRAMS\DDMS
     RmDir /REBOOTOK $INSTDIR
 SectionEnd
