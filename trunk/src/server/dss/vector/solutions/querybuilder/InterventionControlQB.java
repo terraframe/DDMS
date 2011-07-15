@@ -49,7 +49,6 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class InterventionControlQB extends AbstractQB implements Reloadable
 {
-
   public InterventionControlQB(String xml, String config, Layer layer)
   {
     super(xml, config, layer);
@@ -243,35 +242,44 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     String premisesSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, premises);
     String visitedSum = QueryUtil.sumColumnForId((byReasonNotTreated ? view2 : view), visit, null, visited);
     
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_available_for_vehicle_spraying", "" + availableSum + "") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "premises_included_for_vehicle_spraying", "" + includedSum + "") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_treated_with_vehicle_spraying", "(" + includedSum + "/NULLIF(" + availableSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PREMISES_AVAILABLE_FOR_VEHICLE_SPRAYING, "" + availableSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PREMISES_INCLUDED_FOR_VEHICLE_SPRAYING, "" + includedSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_TREATED_WITH_VEHICLE_SPRAYING, "(" + includedSum + "/NULLIF(" + availableSum + ",0.0))*100") || needsView;
 
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_available",  premisesSum + "") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_visited", visitedSum + "") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_treated", treatedSum) || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.TOTAL_PREMISES_AVAILABLE,  premisesSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.TOTAL_PREMISES_VISITED, visitedSum + "") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.TOTAL_PREMISES_TREATED, treatedSum) || needsView;
     
     if(byReasonNotTreated)
     {
       String amountSum = QueryUtil.sumColumnForId(view, visit, view, amount);
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + amountSum +"") || needsView;
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + amountSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.TOTAL_PREMISES_NOT_TREATED, "" + amountSum +"") || needsView;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_VISITED_NOT_TREATED, "((" + amountSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     }
     else
     {
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "total_premises_not_treated", "" + visitedSum + " - " + treatedSum +"") || needsView;
-      needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_not_treated", "((" + visitedSum + " - " + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.TOTAL_PREMISES_NOT_TREATED, "" + visitedSum + " - " + treatedSum +"") || needsView;
+      needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_VISITED_NOT_TREATED, "((" + visitedSum + " - " + treatedSum + ")/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     }
 
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_visited", "(" + visitedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_premises_treated", "(" + treatedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
-    needsView = QueryUtil.setSelectabeSQL(valueQuery, "percent_visited_treated", "(" + treatedSum + "/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_PREMISES_VISITED, "(" + visitedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_PREMISES_TREATED, "(" + treatedSum + "/NULLIF(" + premisesSum + ",0.0))*100") || needsView;
+    needsView = QueryUtil.setSelectabeSQL(valueQuery, QueryConstants.PERCENT_VISITED_TREATED, "(" + treatedSum + "/NULLIF(" + visitedSum + ",0.0))*100") || needsView;
     
     String controlInterventionTable = MdBusiness.getMdBusiness(ControlIntervention.CLASS).getTableName();
 
     String reasonCol = QueryUtil.getColumnName(IndividualPremiseVisit.getReasonsForNotTreatedMd());
+    /* For reference (from #2065)
+    (1) # premises available to visit(AG); BASED ON COMBINED CRUD DATA FOR IND PREM ((# YES + # NO) for Visited, ticket 2060) AND AGGR PREM (# premises available to visit)
+    (2) # available premises that were visited(AG); BASED ON COMBINED CRUD DATA FOR IND PREM (# YES for Visited) AND AGGR PREM (# Visited)
+    (3) # visited premises that were treated(AG); BASED ON COMBINED CRUD DATA FOR IND PREM (# YES for Treated) AND AGGR PREM (# Total treated)
+    (4) # visited premises that were not treated(AG); BASED ON COMBINED CRUD DATA FOR IND PREM (# YES for Visited - # YES for Treated) AND AGGR PREM (# Visited - # Total treated)
+    */
     if (needsView)
     {
+      // FIX for #2415 (individual visit - premise available for visit is only 0 if it's null for the calc)
+      String numPremAvailVisit = "(CASE WHEN "+visited+" IS NOT NULL THEN 1 ELSE 0 END)";
+      
       String idCol = QueryUtil.getIdColumn();
 
       MdEntityDAOIF ammountMd = MdEntityDAO.getMdEntityDAO(AggregatedPremiseMethod.CLASS);
@@ -290,7 +298,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         String aggPresmiseReaonTable = MdEntity.getMdEntity(AggregatedPremiseReason.CLASS).getTableName();
         
         String pvu2 = "";
-        pvu2 += "   SELECT  point, visited AS premises, visited, treated, individual_premise_visit.id as visit \n";
+        pvu2 += "   SELECT  point, "+numPremAvailVisit+" AS premises, visited, treated, individual_premise_visit.id as visit \n";
         pvu2 += "   FROM individual_premise_visit individual_premise_visit \n";
         pvu2 += "   WHERE  visited IS NOT null \n"; 
         pvu2 += "   UNION ALL \n";
@@ -315,7 +323,6 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         
         this.addWITHEntry(new WITHEntry(view, viewSql));
         this.addWITHEntry(new WITHEntry(view2, pvu2));
-//        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + "),\n "+view2+" AS ("+pvu2+")");
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view2, view2));
       }
@@ -326,7 +333,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         String apAmount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
 
         String viewSql = "";
-        viewSql = "SELECT  point, "+visited+" AS "+ premises +", "+visited+
+        viewSql = "SELECT  point, "+numPremAvailVisit+" AS "+ premises +", "+visited+
           ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
         viewSql += "individual_premise_visit_metho.child_id as id, term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+iGE+" AS geo_entity \n";
@@ -342,7 +349,6 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
 
         this.addWITHEntry(new WITHEntry(view, viewSql));
-//        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
       }
       else
@@ -352,7 +358,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         String apAmount = QueryUtil.getColumnName(ammountMd, AggregatedPremiseMethod.AMOUNT);
 
         String viewSql = "";
-        viewSql = "SELECT  point, "+visited+" AS "+ premises +", "+visited+
+        viewSql = "SELECT  point, "+numPremAvailVisit+" AS "+ premises +", "+visited+
           ", " + treated + ", " + used + ", 0 as "+available+", 0 as "+included+", "+individualVisitMethodTable+".parent_id as visit, \n";
         viewSql += individualVisitTable+"."+idCol+" AS id, "+iGE+" AS geo_entity \n";
         viewSql += " FROM " + individualVisitTable + " individual_premise_visit , " + individualVisitMethodTable + " "+individualVisitMethodTable+" \n";
@@ -366,7 +372,6 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
       
         this.addWITHEntry(new WITHEntry(view, viewSql));
-//        valueQuery.setSqlPrefix("WITH " + view + " AS (" + viewSql + ")");
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
       }
 
@@ -518,5 +523,4 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     
     return false;
   }
-
 }

@@ -63,6 +63,25 @@ public class QueryConstants implements Reloadable
   
   public static final String ASSAY_TYPE = "assay_type";
 
+  /*
+   * BEGIN InterventionControl query builder constants.
+   */
+  public static final String PREMISES_AVAILABLE_FOR_VEHICLE_SPRAYING = "premises_available_for_vehicle_spraying";
+  public static final String PREMISES_INCLUDED_FOR_VEHICLE_SPRAYING = "premises_included_for_vehicle_spraying";
+  public static final String PERCENT_TREATED_WITH_VEHICLE_SPRAYING = "percent_treated_with_vehicle_spraying";
+
+  public static final String TOTAL_PREMISES_AVAILABLE = "total_premises_available";
+  public static final String TOTAL_PREMISES_VISITED = "total_premises_visited";
+  public static final String TOTAL_PREMISES_TREATED = "total_premises_treated";
+  public static final String TOTAL_PREMISES_NOT_TREATED = "total_premises_not_treated";
+
+  public static final String PERCENT_VISITED_NOT_TREATED = "percent_visited_not_treated";
+  public static final String PERCENT_PREMISES_VISITED = "percent_premises_visited";
+  public static final String PERCENT_PREMISES_TREATED = "percent_premises_treated";
+  public static final String PERCENT_VISITED_TREATED = "percent_visited_treated";
+  
+  // END
+  
   public enum QueryType implements Reloadable {
     
     QUERY_IMMATURE_CONTAINER_COLLECTION,

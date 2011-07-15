@@ -63,19 +63,6 @@
 <%=Halp.loadTypes(loadables)%>
 <script type="text/javascript"><!--
 
-/*
-  out.println(InterventionControlQB.bar123);
-  out.println("----");
-  ClassLoader c = this.getClass().getClassLoader();
-  Class<?> klass = c.loadClass(InterventionControlQB.class.getName());
-  out.println(klass.getField("bar123").get(null));
-  
-  out.println("------");
-  out.println(InterventionControlQB.class.getField("bar123").get(null));
-  out.println("----");
-  out.println(InterventionControlQB.foo());
-*/
-
 // Setting both values to false will select *all* univerals
 
 YAHOO.util.Event.onDOMReady(function(){
