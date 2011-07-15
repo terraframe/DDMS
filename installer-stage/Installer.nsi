@@ -253,7 +253,10 @@ Section -Main SEC0000
     StrCmp $0 "" 0 appInstall
     
     # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
-	ExecWait `"$FPath\firefox.exe"`
+    SetOutPath $INSTDIR
+    File closeme.html
+    File logo.gif
+	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html"`
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
@@ -302,7 +305,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing the ScrenGrab Plugin"
     #File "/oname=$FPath\extensions\screengrab-0.96.3-fx.xpi" "screengrab-0.96.3-fx.xpi"
 	File "screengrab-0.96.3-fx.xpi"
-	ExecWait `"$FPath\firefox.exe" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
+	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
     
     # Install Postgres
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSql"
