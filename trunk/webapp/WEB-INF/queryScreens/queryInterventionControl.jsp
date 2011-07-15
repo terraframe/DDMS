@@ -37,7 +37,12 @@
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
 
 
-<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Intervention_Control"  scope="request"/>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%>
+<%@page import="dss.vector.solutions.query.QueryConstants"%>
+
+<%@page import="dss.vector.solutions.querybuilder.InterventionControlQB"%>
+<%@page import="com.runwaysdk.generation.loader.RunwayClassLoader"%>
+<%@page import="java.lang.reflect.Field"%><c:set var="page_title" value="Query_Intervention_Control"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -56,8 +61,21 @@
 %>
 
 <%=Halp.loadTypes(loadables)%>
-
 <script type="text/javascript"><!--
+
+/*
+  out.println(InterventionControlQB.bar123);
+  out.println("----");
+  ClassLoader c = this.getClass().getClassLoader();
+  Class<?> klass = c.loadClass(InterventionControlQB.class.getName());
+  out.println(klass.getField("bar123").get(null));
+  
+  out.println("------");
+  out.println(InterventionControlQB.class.getField("bar123").get(null));
+  out.println("----");
+  out.println(InterventionControlQB.foo());
+*/
+
 // Setting both values to false will select *all* univerals
 
 YAHOO.util.Event.onDOMReady(function(){
@@ -90,58 +108,58 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var calculations = ([
                          {
-                           key:'total_premises_available',
+                           key:'<%= QueryConstants.TOTAL_PREMISES_AVAILABLE %>',
                            type:'sqlfloat',
-                           attributeName:'total_premises_available',
+                           attributeName:'<%= QueryConstants.TOTAL_PREMISES_AVAILABLE %>',
                            isAggregate:true
                          },
                          {
                            
-                           key:"total_premises_visited",
+                           key:"<%= QueryConstants.TOTAL_PREMISES_VISITED %>",
                            type:"sqlfloat",
-                           attributeName:"total_premises_visited",
+                           attributeName:"<%= QueryConstants.TOTAL_PREMISES_VISITED %>",
                            isAggregate:true
                          },
                          {
                            
-                           key:"total_premises_treated",
+                           key:"<%= QueryConstants.TOTAL_PREMISES_TREATED %>",
                            type:"sqlfloat",
-                           attributeName:"total_premises_treated",
+                           attributeName:"<%= QueryConstants.TOTAL_PREMISES_TREATED %>",
                            isAggregate:true
                          },
                          {
                            
-                           key:"total_premises_not_treated",
+                           key:"<%= QueryConstants.TOTAL_PREMISES_NOT_TREATED %>",
                            type:"sqlfloat",
-                           attributeName:"total_premises_not_treated",
+                           attributeName:"<%= QueryConstants.TOTAL_PREMISES_NOT_TREATED %>",
                            isAggregate:true
                          },
                          {
                            
-                           key:"percent_premises_visited",//Percentage of premises that were visited
+                           key:"<%= QueryConstants.PERCENT_PREMISES_VISITED %>",//Percentage of premises that were visited
                            type:"sqlfloat",
-                           attributeName:"percent_premises_visited",
+                           attributeName:"<%= QueryConstants.PERCENT_PREMISES_VISITED %>",
                            isAggregate:true
                          },
                          {
-                           key:"percent_premises_treated",//Percentage of premises that were treated
+                           key:"<%= QueryConstants.PERCENT_PREMISES_TREATED %>",//Percentage of premises that were treated
                            type:"sqlfloat",
-                           attributeName:"percent_premises_treated",
+                           attributeName:"<%= QueryConstants.PERCENT_PREMISES_TREATED %>",
                            isAggregate:true
                          },
                          {
                            
-                           key:"percent_visited_treated",//Percentage of visits that resulted in treatment
+                           key:"<%= QueryConstants.PERCENT_VISITED_TREATED %>",//Percentage of visits that resulted in treatment
                            type:"sqlfloat",
-                           attributeName:"percent_visited_treated",
+                           attributeName:"<%= QueryConstants.PERCENT_VISITED_TREATED %>",
                            isAggregate:true
                          },
                          
                          {
                            
-                           key:"percent_visited_not_treated",//Percentage of visits that failed to result in treatment
+                           key:"<%= QueryConstants.PERCENT_VISITED_NOT_TREATED %>",//Percentage of visits that failed to result in treatment
                            type:"sqlfloat",
-                           attributeName:"percent_visited_not_treated",
+                           attributeName:"<%= QueryConstants.PERCENT_VISITED_NOT_TREATED %>",
                            isAggregate:true
                          },
                          {
@@ -297,25 +315,25 @@ YAHOO.util.Event.onDOMReady(function(){
         isGeoEntity : true
       },
       {
-        key:'premises_available_for_vehicle_spraying',
+        key:'<%= QueryConstants.PREMISES_AVAILABLE_FOR_VEHICLE_SPRAYING %>',
         type:'sqlfloat',
         displayLabel: aggregatedPremiseVisit.getPremisesAvailableMd().getDisplayLabel(),
         description:aggregatedPremiseVisit.getPremisesAvailableMd().getDescription(),
-        attributeName:'premises_available_for_vehicle_spraying',
+        attributeName:'<%= QueryConstants.PREMISES_AVAILABLE_FOR_VEHICLE_SPRAYING %>',
         isAggregate:true
       },
       {
-        key:'premises_included_for_vehicle_spraying',
+        key:'<%= QueryConstants.PREMISES_INCLUDED_FOR_VEHICLE_SPRAYING %>',
         type:'sqlfloat',
         displayLabel: aggregatedPremiseVisit.getPremisesIncludedMd().getDisplayLabel(),
         description:aggregatedPremiseVisit.getPremisesIncludedMd().getDescription(),
-        attributeName:'premises_included_for_vehicle_spraying',
+        attributeName:'<%= QueryConstants.PREMISES_INCLUDED_FOR_VEHICLE_SPRAYING %>',
         isAggregate:true
       },
       {
-        key:'percent_treated_with_vehicle_spraying',
+        key:'<%= QueryConstants.PERCENT_TREATED_WITH_VEHICLE_SPRAYING %>',
         type:'sqlfloat',
-        attributeName:'percent_treated_with_vehicle_spraying',
+        attributeName:'<%= QueryConstants.PERCENT_TREATED_WITH_VEHICLE_SPRAYING %>',
         isAggregate:true
       }
     ];
