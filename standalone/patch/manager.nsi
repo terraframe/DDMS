@@ -85,10 +85,15 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\keystore
     File /r /x .svn ..\doc\keystore\*
     
-    # These shoudl technically be unnecessary after 1.02, but we're leaving them out of paranoia
+    # These should technically be unnecessary after 1.02, but we're leaving them out of paranoia
     File /oname=C:\MDSS\tomcat6\conf\server.xml server.xml
     File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
     File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\manager-1.0.0\lib\tomcat-remote-listener-1.0.1.jar
+    
+    # Add the special elevation command for backup/restore
+    SetOutPath C:\MDSS
+    File ..\..\installer-stage\elevate.cmd
+    File ..\..\installer-stage\elevate.vbs
     
     SetOutPath $INSTDIR
     Delete "$SMPROGRAMS\$StartMenuGroup\Manager.lnk"
