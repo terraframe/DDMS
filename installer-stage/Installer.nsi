@@ -376,6 +376,11 @@ Section -Main SEC0000
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
+    # Copy in the pregenerated cache files
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
+    File /oname=$INSTDIR\tomcat6\$AppName.data ../trunk/DDMS.data
+    File /oname=$INSTDIR\tomcat6\$AppName.index ../trunk/DDMS.index
+    
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
