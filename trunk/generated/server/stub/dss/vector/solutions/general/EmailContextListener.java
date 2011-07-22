@@ -6,6 +6,8 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.runwaysdk.business.ClassLoaderException;
+import com.runwaysdk.constants.ClientProperties;
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -81,7 +83,7 @@ public class EmailContextListener implements ServletContextListener
     {
       if (!running)
       {
-        Thread t = new Thread(this, "MDSS Email Daemon");
+        Thread t = new Thread(this, CommonProperties.getDeployAppName() + " Email Daemon");
         this.running = true;
         t.start();
       }
