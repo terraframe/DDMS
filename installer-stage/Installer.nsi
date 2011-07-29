@@ -45,6 +45,14 @@ Pop "${Var}"
 !macroend
 !define CharStrip '!insertmacro CharStrip'
 
+# Define access to the StrTrimNewLines function
+!macro StrTrimNewLines ResultVar String
+  Push "${String}"
+  Call StrTrimNewLines
+  Pop "${ResultVar}"
+!macroend
+!define StrTrimNewLines "!insertmacro StrTrimNewLines"
+
 # Define access to the StrCase function
 !macro StrCase ResultVar String Case
   Push "${String}"
@@ -74,7 +82,7 @@ Var LowerAppName
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
-Page custom appNameInputPage
+Page custom appNameInputPage appNameUniquenessCheck
 Page custom userInputPage exitUserInputPage
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
@@ -180,6 +188,29 @@ Function appNameInputPage
   Pop $Label
   
   nsDialogs::Show
+FunctionEnd
+
+Function appNameUniquenessCheck
+    ClearErrors
+    FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+    
+    appNameFileReadLoop:
+    # Read a line from the file into $1
+    FileRead $0 $1
+    # Errors means end of File
+    IfErrors appNameDone
+    
+    # Removes the newline from the end of $1
+    ${StrTrimNewLines} $1 $1
+    
+    StrCmp $AppName $1 appNameCollision appNameFileReadLoop
+    
+    appNameCollision:
+    MessageBox MB_OK "$1 already exists.  Please choose another name."
+    Abort
+    
+    appNameDone:
+    ClearErrors
 FunctionEnd
 
 Function sanitizeName
@@ -302,7 +333,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # Install the ScreenGrab addon
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing the ScrenGrab Plugin"
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing the ScreenGrab Plugin"
     #File "/oname=$FPath\extensions\screengrab-0.96.3-fx.xpi" "screengrab-0.96.3-fx.xpi"
 	File "screengrab-0.96.3-fx.xpi"
 	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
@@ -767,6 +798,48 @@ Function StripPath
     ${RIndexOf} $1 $FPath "\"
     IntOp $0 $0 - $1
     StrCpy $FPath $FPath $0
+FunctionEnd
+
+Function StrTrimNewLines
+/*After this point:
+  ------------------------------------------
+  $R0 = String (input)
+  $R1 = TrimCounter (temp)
+  $R2 = Temp (temp)*/
+ 
+  ;Get input from user
+  Exch $R0
+  Push $R1
+  Push $R2
+ 
+  ;Initialize trim counter
+  StrCpy $R1 0
+ 
+  loop:
+  ;Subtract to get "String"'s last characters
+  IntOp $R1 $R1 - 1
+ 
+  ;Verify if they are either $\r or $\n
+  StrCpy $R2 $R0 1 $R1
+  ${If} $R2 == `$\r`
+  ${OrIf} $R2 == `$\n`
+    Goto loop
+  ${EndIf}
+ 
+  ;Trim characters (if needed)
+  IntOp $R1 $R1 + 1
+  ${If} $R1 < 0
+    StrCpy $R0 $R0 $R1
+  ${EndIf}
+ 
+/*After this point:
+  ------------------------------------------
+  $R0 = ResultVar (output)*/
+ 
+  ;Return output to user
+  Pop $R2
+  Pop $R1
+  Exch $R0
 FunctionEnd
 
 # Uninstaller functions
