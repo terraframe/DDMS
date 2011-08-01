@@ -427,9 +427,6 @@ Section -Main SEC0000
     CreateDirectory $SMPROGRAMS\DDMS
     SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
-    SetOutPath $INSTDIR\tomcat6\bin
-    CreateShortcut "$SMPROGRAMS\DDMS\Start $(^Name).lnk" "$INSTDIR\tomcat6\bin\startup.bat"
-    CreateShortcut "$SMPROGRAMS\DDMS\Stop $(^Name).lnk" "$INSTDIR\tomcat6\bin\shutdown.bat"
     SetOutPath $INSTDIR\birt
     CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
     SetOutPath $INSTDIR\IRMA
@@ -485,8 +482,6 @@ SectionEnd
 Section -un.post UNSEC0001
     DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Start $(^Name).lnk"
-    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Stop $(^Name).lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
     Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
