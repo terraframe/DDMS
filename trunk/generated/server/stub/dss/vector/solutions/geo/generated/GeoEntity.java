@@ -27,7 +27,6 @@ import com.runwaysdk.constants.DatabaseInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.constants.ServerConstants;
-import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.dataaccess.InvalidIdException;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
@@ -164,6 +163,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         Geometry geo = geometryHelper.parseGeometry(geoData);
         this.setGeoPoint(geometryHelper.getGeoPoint(geo));
         this.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(geo));
+        
+        // reset the geoData to the filtered WKT as parsed by JTS
+        geoData = geo.toText();
+        this.setGeoData(geoData);
       }
       catch (Exception e)
       {
