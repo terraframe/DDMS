@@ -70,7 +70,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   private String getDropSql()
   {
     String sql = "";
-    sql += "DROP VIEW IF EXISTS geohierarchy_allpaths; \n";
+    sql += "DROP VIEW IF EXISTS "+GeoHierarchy.ALLPATHS_VIEW+"; \n";
 
     sql += "DROP FUNCTION IF EXISTS get_epiStart(int,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiYear_from_date(date,int); \n";
@@ -228,7 +228,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
     String sql = "";
 
-    sql += "CREATE OR REPLACE VIEW geohierarchy_allpaths AS \n";
+    sql += "CREATE OR REPLACE VIEW "+GeoHierarchy.ALLPATHS_VIEW+" AS \n";
     sql += "WITH RECURSIVE geohierarchy_flags AS( \n";
     sql += "SELECT  (t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type, \n";
     sql += "  g1." + geoEntityClassCol + " as parent_class, \n";
