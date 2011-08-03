@@ -13,9 +13,12 @@ import dss.vector.solutions.gis.Localizer;
 public class ImportShapefileAction extends Action implements Reloadable
 {
   private GeoHierarchyView[] views;
+  
+  private String appName;
 
-  public ImportShapefileAction(GeoHierarchyView[] views)
+  public ImportShapefileAction(String appName, GeoHierarchyView[] views)
   {
+    this.appName = appName;
     this.views = views;
     
     this.setText(Localizer.getMessage("IMPORT_SHAPE_FILE"));
@@ -25,7 +28,7 @@ public class ImportShapefileAction extends Action implements Reloadable
   public void run()
   {
     Shell shell = Display.getCurrent().getActiveShell();
-    ShapeFileWizard wizard = new ShapeFileWizard(views);
+    ShapeFileWizard wizard = new ShapeFileWizard(appName, views);
 
     WizardDialog dialog = new WizardDialog(shell, wizard);
     dialog.setBlockOnOpen(true);

@@ -54,13 +54,13 @@ public class ShapeFileWizard extends Wizard implements Reloadable
 
   private boolean            importing;
 
-  public ShapeFileWizard(GeoHierarchyView[] views)
+  public ShapeFileWizard(String appName, GeoHierarchyView[] views)
   {
     this.views = views;
     this.data = new ShapeFileBean();
     this.importing = false;
 
-    setWindowTitle(Localizer.getMessage("SHAPE_FILE_WIZARD"));
+    setWindowTitle(appName + " " + Localizer.getMessage("SHAPE_FILE_WIZARD"));
     setNeedsProgressMonitor(true);
   }
 

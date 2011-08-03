@@ -45,9 +45,18 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
 
   public static String LOG_EXT = ".log";
 
+  private String       appName;
+
   public GISManagerWindow()
   {
+    this("WERP-A-DERP");
+  }
+
+  public GISManagerWindow(String appName)
+  {
     super(null);
+
+    this.appName = appName;
   }
 
   @Override
@@ -57,7 +66,7 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
     Monitor monitor = display.getPrimaryMonitor();
 
     parent.getShell().setSize(300, 100);
-    parent.getShell().setText(Localizer.getMessage("GISI"));
+    parent.getShell().setText(appName + " " + Localizer.getMessage("GISI"));
     parent.getShell().setImage(ImageDescriptor.createFromURL(Object.class.getResource("/icons/globe.png")).createImage());
 
     Rectangle windowRect = parent.getShell().getBounds();
@@ -78,18 +87,18 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
       Composite container = new Composite(parent, SWT.NONE);
       container.setLayout(new FillLayout());
 
-      new ActionContributionItem(new ImportShapefileAction(views)).fill(container);
-      new ActionContributionItem(new BuildLocatedInAction()).fill(container);
+      new ActionContributionItem(new ImportShapefileAction(appName, views)).fill(container);
+      new ActionContributionItem(new BuildLocatedInAction(appName)).fill(container);
     }
-    catch(Exception e)
+    catch (Exception e)
     {
       MessageDialog.openError(this.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
-      
+
       e.printStackTrace();
-            
+
       CacheShutdown.shutdown();
 
-      System.exit(-1);      
+      System.exit(-1);
     }
     finally
     {

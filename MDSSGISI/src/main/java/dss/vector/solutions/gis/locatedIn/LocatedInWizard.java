@@ -44,9 +44,9 @@ public class LocatedInWizard extends Wizard implements Reloadable
 
   private boolean       importing;
 
-  public LocatedInWizard()
+  public LocatedInWizard(String appName)
   {
-    setWindowTitle(Localizer.getMessage("LOCATED_IN_WIZARD"));
+    setWindowTitle(appName + " " + Localizer.getMessage("LOCATED_IN_WIZARD"));
     setNeedsProgressMonitor(true);
 
     this.bean = new LocatedInBean();

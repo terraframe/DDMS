@@ -11,8 +11,12 @@ import dss.vector.solutions.gis.Localizer;
 
 public class BuildLocatedInAction extends Action implements Reloadable
 {
-  public BuildLocatedInAction()
+  private String appName;
+  
+  public BuildLocatedInAction(String appName)
   {
+    this.appName = appName;
+    
     this.setText(Localizer.getMessage("BUILD_LOCATED_IN"));
   }
 
@@ -20,7 +24,7 @@ public class BuildLocatedInAction extends Action implements Reloadable
   public void run()
   {
     Shell shell = Display.getCurrent().getActiveShell();
-    LocatedInWizard wizard = new LocatedInWizard();
+    LocatedInWizard wizard = new LocatedInWizard(appName);
 
     WizardDialog dialog = new WizardDialog(shell, wizard);
     dialog.setBlockOnOpen(true);
