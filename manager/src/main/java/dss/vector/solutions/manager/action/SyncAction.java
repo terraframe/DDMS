@@ -44,7 +44,7 @@ public class SyncAction extends Action implements UncaughtExceptionHandler
             classpath.append(ManagerProperties.getSynchLib() + "*");
             classpath.append(File.pathSeparator + ManagerProperties.getSynchClasses());
             classpath.append(File.pathSeparator + context.getApplicationClassesPath());
-            classpath.append(File.pathSeparator + context.getApplicationLibPath() + "*");
+            classpath.append(File.pathSeparator + ManagerProperties.getBackupLib() + "*");
 
             Project project = new Project();
             project.setBaseDir(new File(System.getProperty("user.dir")));
@@ -61,6 +61,7 @@ public class SyncAction extends Action implements UncaughtExceptionHandler
 
             java.createArg().setValue("-i" + context.getInstallProperties());
             java.createArg().setValue("-l" + Localizer.getLocale().toString());
+            java.createArg().setValue("-a" + context.getApplication());
 
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());

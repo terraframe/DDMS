@@ -22,7 +22,13 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
   /**
    * Amount of time to wait before calling the status call back function
    */
-  private static final long               WAIT_TIME = 10000L;
+  private static final long               WAIT_TIME    = 5000L;
+
+  /**
+   * The maximum number of attempts to try to connect to tomcat before
+   * determining that it is not up.
+   */
+  private static final int                MAX_ATTEMPTS = 5;
 
   private RemoteLifecycleListenerServerIF server;
 
@@ -60,20 +66,6 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
     fireServerChange(this.getServerStatus());
   }
 
-  public void validateProcessState(final ServerStatus condition, final Runnable runnable)
-  {
-    ServerStatus status = this.getServerStatus();
-
-    if (status.equals(condition))
-    {
-      runnable.run();
-    }
-    else
-    {
-      fireErrorEvent(Localizer.getMessage("TOMCAT_ERROR"));
-    }
-  }
-
   private void runCommand(final String command, final Runnable callback)
   {
     try
@@ -95,20 +87,6 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
           }
           finally
           {
-            long wait = System.currentTimeMillis() + WAIT_TIME;
-
-            while (System.currentTimeMillis() < wait)
-            {
-              try
-              {
-                Thread.sleep(1000L);
-              }
-              catch (InterruptedException e)
-              {
-                // Do nothing
-              }
-            }
-
             if (callback != null)
             {
               callback.run();
@@ -128,16 +106,38 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
 
   public void startServer()
   {
-    Runnable runnable = new Runnable()
+    ServerStatus status = this.getServerStatus();
+
+    if (status.equals(ServerStatus.STOPPED))
     {
-      @Override
-      public void run()
+      runCommand(ManagerProperties.getStartCommand(), new Runnable()
       {
-        runCommand(ManagerProperties.getStartCommand(), new Runnable()
+        @Override
+        public void run()
         {
-          @Override
-          public void run()
+          // Tomcat needs time to start the remote RMI server, before we can
+          // connect to it.
+
+          int count = 0;
+
+          while (count < MAX_ATTEMPTS && server == null)
           {
+            count++;
+            
+            long wait = System.currentTimeMillis() + WAIT_TIME;
+
+            while (System.currentTimeMillis() < wait)
+            {
+              try
+              {
+                Thread.sleep(1000L);
+              }
+              catch (InterruptedException e)
+              {
+                // Do nothing
+              }
+            }
+
             try
             {
               Server.this.registerServer();
@@ -145,34 +145,40 @@ public class Server extends EventProvider implements UncaughtExceptionHandler, I
             }
             catch (Exception e)
             {
-              // There was a problem connecting to the RMI server even though it
-              // should have already just been started. The server must not be
-              // started or is being blocked.
-              Server.this.fireServerChange(ServerStatus.STOPPED);
-
-              throw new RuntimeException(Localizer.getMessage("RMI_FAILED_TO_START"));
+              server = null;
             }
           }
-        });
-      }
-    };
 
-    // Ensure that the tomcat proccess does not already exist
-    this.validateProcessState(ServerStatus.STOPPED, runnable);
+          if (server == null)
+          {
+            // There was a problem connecting to the RMI server even though it
+            // should have already just been started. The server must not be
+            // started or is being blocked.
+            Server.this.fireServerChange(ServerStatus.STOPPED);
+
+            throw new RuntimeException(Localizer.getMessage("RMI_FAILED_TO_START"));
+          }
+        }
+      });
+    }
+    else
+    {
+      this.refresh();
+    }
   }
 
   public void stopServer()
   {
-    Runnable runnable = new Runnable()
-    {
-      @Override
-      public void run()
-      {
-        runCommand(ManagerProperties.getStopCommand(), null);
-      }
-    };
+    ServerStatus status = this.getServerStatus();
 
-    this.validateProcessState(ServerStatus.STARTED, runnable);
+    if (status.equals(ServerStatus.STARTED))
+    {
+      runCommand(ManagerProperties.getStopCommand(), null);
+    }
+    else
+    {
+      throw new RuntimeException(Localizer.getMessage("SERVER_NOT_STARTED"));
+    }
   }
 
   public ServerStatus getServerStatus()

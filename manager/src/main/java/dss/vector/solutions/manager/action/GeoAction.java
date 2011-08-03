@@ -63,6 +63,7 @@ public class GeoAction extends Action
             java.init();
             
             java.createArg().setValue("-l" + Localizer.getLocale().toString());
+            java.createArg().setValue("-a" + context.getApplication());
 
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
