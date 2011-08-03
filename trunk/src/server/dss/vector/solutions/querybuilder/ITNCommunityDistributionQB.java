@@ -29,8 +29,7 @@ public class ITNCommunityDistributionQB extends AbstractQB implements Reloadable
   {
     ITNCommunityDistributionQuery itnQuery = (ITNCommunityDistributionQuery) queryMap.get(ITNCommunityDistribution.CLASS);
 
-    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN);
+    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
 
     this.addGeoDisplayLabelQuery(itnQuery);
 

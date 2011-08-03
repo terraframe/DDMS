@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.F;
 import com.runwaysdk.query.GeneratedEntityQuery;
@@ -139,7 +138,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 100000, diagnosisAliases);
     calculateIncidence(valueQuery, caseQuery, instanceQuery, queryConfig, xml, 1000000, diagnosisAliases);
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+    QueryUtil.getSingleAttribteGridSql(valueQuery, instanceQuery.getTableAlias());
 
     this.setNumericRestrictions(valueQuery, queryConfig);
 

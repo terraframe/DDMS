@@ -554,7 +554,8 @@ public class QueryUtil implements Reloadable
             attrCol = getColumnName(mdRel, attrib);
           }
 
-          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + parentColumn + " = '" + term_id + "' " + "AND " + childColumn + " = " + tableAlias + ".id";
+          // The default convention is that the child in the relationship is the Term class
+          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + childColumn + " = '" + term_id + "' " + "AND " + parentColumn + " = " + tableAlias + ".id";
 
           ( (SelectableSQL) s ).setSQL(sql);
         }

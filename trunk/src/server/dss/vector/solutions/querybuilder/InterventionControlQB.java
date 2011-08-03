@@ -132,7 +132,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     {
 
       QueryUtil.joinTermAllpaths(valueQuery, IndividualPremiseVisit.CLASS, individualPremiseVisitQuery);
-      Boolean needsJoin = QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+      Boolean needsJoin = QueryUtil.getSingleAttribteGridSql(valueQuery, individualPremiseVisitQuery.getTableAlias());
       if (needsJoin)
       {
         valueQuery.WHERE(individualPremiseVisitQuery.getId().NE("0"));
@@ -172,7 +172,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     if (aggregatedPremiseVisitQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, AggregatedPremiseVisit.CLASS, aggregatedPremiseVisitQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedPremiseVisitQuery.getTableAlias());
 
       valueQuery.WHERE(aggregatedPremiseVisitQuery.getPoint().EQ(controlInterventionQuery));
     }
@@ -180,7 +180,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
     if (personInterventionQuery != null)
     {
       QueryUtil.joinTermAllpaths(valueQuery, PersonIntervention.CLASS, personInterventionQuery);
-      QueryUtil.getSingleAttribteGridSql(valueQuery, personInterventionQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, personInterventionQuery.getTableAlias());
       
       valueQuery.WHERE(personInterventionQuery.getPoint().EQ(controlInterventionQuery));
     }

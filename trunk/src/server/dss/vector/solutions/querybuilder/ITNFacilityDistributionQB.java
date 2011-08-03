@@ -35,8 +35,7 @@ public class ITNFacilityDistributionQB extends AbstractQB implements Reloadable
 
     this.addGeoDisplayLabelQuery(itnQuery);
     QueryUtil.joinTermAllpaths(valueQuery, ITNDistribution.CLASS, itnQuery);
-    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN);
+    QueryUtil.getSingleAttribteGridSql(valueQuery, itnQuery.getTableAlias());
 
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
     valueQuery.WHERE(personQuery.getItnRecipientDelegate().EQ(itnQuery.getRecipient()));

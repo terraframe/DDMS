@@ -87,8 +87,7 @@ public class PupalContainerCollectionQB extends AbstractQB implements Reloadable
     
     boolean needsJoin = false; 
     boolean needsView = 
-      QueryUtil.getSingleAttribteGridSql(valueQuery, pupalContainerQuery.getTableAlias(), 
-          RelationshipDAOIF.CHILD_ID_COLUMN, RelationshipDAOIF.PARENT_ID_COLUMN);
+      QueryUtil.getSingleAttribteGridSql(valueQuery, pupalContainerQuery.getTableAlias());
 
     String amount = QueryUtil.getColumnName(ammountMd, PupalContainerAmount.AMOUNT);
     String child_id = RelationshipDAOIF.CHILD_ID_COLUMN; //QueryUtil.getColumnName(ammountMd, PupalContainerAmount.);

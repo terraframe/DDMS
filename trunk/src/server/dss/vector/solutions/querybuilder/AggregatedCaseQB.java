@@ -62,15 +62,15 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
     AggregatedCaseQuery aggregatedCaseQuery = (AggregatedCaseQuery) queryMap.get(AggregatedCase.CLASS);
     valueQuery.FROM(aggregatedCaseQuery.getMdClassIF().getTableName(), aggregatedCaseQuery.getTableAlias());
 
-    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseTreatment.getTermMd()), QueryUtil.getColumnName(CaseTreatment.getAggregatedCaseMd()));
-
-    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseTreatmentStock.getTermMd()), QueryUtil.getColumnName(CaseTreatmentStock.getAggregatedCaseMd()));
-
-    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseReferral.getTermMd()), QueryUtil.getColumnName(CaseReferral.getAggregatedCaseMd()));
-
-    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseStockReferral.getTermMd()), QueryUtil.getColumnName(CaseStockReferral.getAggregatedCaseMd()));
-
-    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseDiagnostic.getTermMd()), QueryUtil.getColumnName(CaseDiagnostic.getAggregatedCaseMd()));
+    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseTreatment.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseTreatment.getTermMd()));
+    
+    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseTreatmentStock.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseTreatmentStock.getTermMd()));
+    
+    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseReferral.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseReferral.getTermMd()));
+    
+    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseStockReferral.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseStockReferral.getTermMd()));
+    
+    QueryUtil.getSingleAttribteGridSql(valueQuery, aggregatedCaseQuery.getTableAlias(), QueryUtil.getColumnName(CaseDiagnostic.getAggregatedCaseMd()), QueryUtil.getColumnName(CaseDiagnostic.getTermMd()));
 
     if (valueQuery.hasSelectableRef("totalCases"))
     {

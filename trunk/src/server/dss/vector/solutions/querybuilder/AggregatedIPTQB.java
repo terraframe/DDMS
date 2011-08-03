@@ -36,8 +36,7 @@ public class AggregatedIPTQB extends AbstractQB implements Reloadable
     
     this.addGeoDisplayLabelQuery(aggregatedIPTQuery);
     
-    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN);
+    QueryUtil.getSingleAttribteGridSql(valueQuery,aggregatedIPTQuery.getTableAlias());
     
     this.setNumericRestrictions(valueQuery, queryConfig);
     

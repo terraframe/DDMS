@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
@@ -29,8 +28,7 @@ public class AggregatedITNQB extends AbstractQB implements Reloadable
   {
     ITNDataQuery itnQuery = (ITNDataQuery) queryMap.get(ITNData.CLASS);
 
-    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias(), RelationshipDAOIF.CHILD_ID_COLUMN,
-        RelationshipDAOIF.PARENT_ID_COLUMN); 
+    boolean hasNets = QueryUtil.getSingleAttribteGridSql(valueQuery,itnQuery.getTableAlias()); 
     
     this.addGeoDisplayLabelQuery(itnQuery);
     
