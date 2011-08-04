@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="ddms-initializer" default="deploy">
+
+	<!-- =================================================================== -->
+	<!-- Set up our properties                                               -->
+	<!-- =================================================================== -->
+
+	<property name="profile.root" value="/home/jsmethie/workspace/MDSS/profiles" />
+	<property name="system.password" value="mdsstest2" />
+	<taskdef name="runwayproperties" classname="com.runwaysdk.ant.RunwayProperties" classpath="${profile.root};/home/jsmethie/workspace/MDSS/scripts/ant/deploy/runwayProperties.jar" />
+	<runwayproperties root="${profile.root}" />
+	<echo message="${java.ext.dirs}" />
+
+	<!-- Add in AspectJ task definitions -->
+	<taskdef resource="org/aspectj/tools/ant/taskdefs/aspectjTaskdefs.properties">
+		<classpath>
+			<fileset dir="${local.lib}">
+				<include name="**/*.jar" />
+			</fileset>
+		</classpath>
+	</taskdef>
+
+
+	<!-- execution path -->
+	<path id="framework.classpath">
+		<fileset dir="${local.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+		<pathelement location="${profile.root}" />
+		<pathelement path="${java.home}/lib/ext/sunjce_provider.jar" />
+		<pathelement path="/home/jsmethie/workspace/org.eclipse.swt/swt.jar" />
+		<pathelement location="${local.bin}" />
+		<pathelement location="${client.bin}" />
+		<pathelement location="${server.bin}" />
+		<pathelement location="${common.bin}" />
+	</path>
+
+	<property name="ddms-initializer.version" value="1.0.0" />
+	<property name="ddms-initializer.root" value="/home/jsmethie/workspace/ddms-initializer" />
+
+	<property name="ddms-initializer.lib" value="${ddms-initializer.root}/lib/" />
+	<property name="ddms-initializer.java" value="${ddms-initializer.root}/src/main/java" />
+	<property name="ddms-initializer.resources" value="${ddms-initializer.root}/src/main/resources" />
+
+	<property name="target.dir" value="${ddms-initializer.root}/target" />
+	<property name="deploy.dir" value="/home/jsmethie/workspace/applications/ddms-initializer-${ddms-initializer.version}" />
+
+	<path id="ddms-initializer.classpath">
+		<fileset dir="${ddms-initializer.lib}">
+			<include name="**/*" />
+		</fileset>
+	</path>
+
+	<target name="compile">
+		<mkdir dir="${target.dir}" />
+		<mkdir dir="${target.dir}/classes" />
+
+		<iajc destdir="${target.dir}/classes" sourceroots="${ddms-initializer.java}" debug="true" source="1.6" target="1.6" maxmem="1024m">
+			<aspectpath>
+				<pathelement location="${server.lib}/runwaysdk-server.jar" />
+				<pathelement location="${common.lib}/runwaysdk-common.jar" />
+				<pathelement location="${client.lib}/runwaysdk-client.jar" />
+			</aspectpath>
+
+			<classpath>
+				<path refid="framework.classpath" />
+				<path refid="ddms-initializer.classpath" />
+				<pathelement location="${common.bin}" />
+			</classpath>
+		</iajc>
+
+		<!-- Copy the resources dir -->
+		<copy todir="${target.dir}/classes" overwrite="true">
+			<fileset dir="${ddms-initializer.resources}">
+				<exclude name="**/*.properties" />
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+
+	<target name="test" depends="compile">
+	</target>
+
+	<target name="package" depends="test">
+		<jar destfile="${target.dir}/ddms-initializer-${ddms-initializer.version}.jar" compress="true">
+			<fileset dir="${target.dir}/classes">
+				<include name="**/*" />
+			</fileset>
+		</jar>
+	</target>
+
+	<target name="deploy" depends="package">
+		<mkdir dir="${deploy.dir}" />
+
+		<copy todir="${deploy.dir}/lib" overwrite="true">
+			<fileset dir="${ddms-initializer.lib}">
+				<include name="**/*" />
+			</fileset>
+			<fileset dir="${target.dir}">
+				<include name="**/ddms-initializer-${ddms-initializer.version}.jar" />
+			</fileset>
+		</copy>
+
+		<copy todir="${deploy.dir}/classes" overwrite="true">
+			<fileset dir="${ddms-initializer.resources}">
+				<include name="**/*.properties" />
+			</fileset>
+		</copy>
+	</target>
+</project>
