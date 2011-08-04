@@ -6,12 +6,11 @@ import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
 import com.runwaysdk.business.ClassLoaderException;
-import com.runwaysdk.constants.ClientProperties;
+import com.runwaysdk.business.email.EmailException;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
-import com.runwaysdk.generation.loader.LockHolder;
 import com.runwaysdk.session.Request;
 
 public class EmailContextListener implements ServletContextListener
@@ -39,6 +38,7 @@ public class EmailContextListener implements ServletContextListener
 
     public void run()
     {
+      int fails = 0;
       while (running)
       {
         try
@@ -49,13 +49,26 @@ public class EmailContextListener implements ServletContextListener
         {
           // Catch all errors and try again
           t.printStackTrace(System.err);
+          fails++;
+          if (fails<50)
+          {
+            continue;
+          }
+          else
+          {
+            // 50 consecutive fails means that something is wrong.
+            throw new EmailException("50 consecutive failures to run the e-mail daemon method.  Most recent cause attached.", t);
+          }
         }
-        finally
-        {
-          LockHolder.unlock();
-        }
+//        finally
+//        {
+//          LockHolder.unlock();
+//        }
+        
         try
         {
+          // If we get here, then we have executed successfully.
+          fails = 0;
           Thread.sleep(MINUTE_IN_MILLISECONDS);
         }
         catch (InterruptedException e)
@@ -68,7 +81,8 @@ public class EmailContextListener implements ServletContextListener
     @Request
     private void runOnce()
     {
-        LockHolder.lock(this);
+//      Intentionally removing LockHolder access infavor of the "just-try-again" approach
+//        LockHolder.lock(this);
         long current = System.currentTimeMillis();
         Object config = configInvoke(null, "getDefault");
         Integer retry = (Integer) configInvoke(config, "getRetry");
