@@ -301,11 +301,11 @@ public class LocatedInManager extends TaskObservable implements UncaughtExceptio
         {
           GeoEntity entity = GeoEntity.get(id);
 
-          logger.log(entity.getGeoId(), Localizer.getMessage("UNABLE_TO_COMPUTE_GEOMETRY") + "\n");
+          logger.log(entity.getGeoId(), Localizer.getMessage("UNABLE_TO_COMPUTE_GEOMETRY"));
         }
         catch (Exception e)
         {
-          logger.log(id, Localizer.getMessage("UNABLE_TO_COMPUTE_GEOMETRY") + "\n");
+          logger.log(id, Localizer.getMessage("UNABLE_TO_COMPUTE_GEOMETRY"));
         }
       }
     }
