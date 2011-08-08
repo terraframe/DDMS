@@ -112,7 +112,7 @@ public class PostInstallSetup
     {
       // Update tomcat RAM
       File startup = new File("C:/MDSS/tomcat6/bin/startup.bat");
-      int totalMemory = 512 * appCount;
+      int totalMemory = Math.min(2048, 512 * appCount);
       readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
     }
     catch (Exception e)
@@ -123,19 +123,9 @@ public class PostInstallSetup
     try
     {
       // Update Geoserver's catalog.xml
-      File catalogFile = new File("C:/MDSS/tomcat6/webapps/geoserver/data/catalog.xml");
-      String catalogData = FileIO.readString(catalogFile);
-      int index = catalogData.indexOf("<datastore ");
-      String pre = catalogData.substring(0, index);
-      String post = catalogData.substring(index);
-      catalogData = pre + createDatastoreXML() + post;
-
-      index = catalogData.indexOf("<namespace ");
-      pre = catalogData.substring(0, index);
-      post = catalogData.substring(index);
-      catalogData = pre + createNamespaceXML() + post;
-
-      FileIO.write(catalogFile, catalogData);
+      CatalogBuilder builder = new CatalogBuilder("C:/MDSS/tomcat6/webapps/geoserver/data/catalog.xml");
+      builder.addApplication(appName, dbName);
+      builder.write();
     }
     catch (Exception e)
     {
@@ -172,19 +162,19 @@ public class PostInstallSetup
     String replaced = data.replaceAll(regex, replacement);
     FileIO.write(file, replaced);
   }
-
-  private String createDatastoreXML()
-  {
-    String datastore = "<datastore id = \"MDSS_maps_" + appName + "\" enabled = \"true\" namespace = \"" + appName + "\" >\n" + "      <connectionParams >\n" + "        <parameter name = \"port\" value = \"5444\" />\n" + "        <parameter name = \"passwd\" value = \"mdssdeploy\" />\n" + "        <parameter name = \"dbtype\" value = \"postgis\" />\n" + "        <parameter name = \"host\" value = \"localhost\" />\n" + "        <parameter name = \"validate connections\" value = \"false\" />\n"
-        + "        <parameter name = \"max connections\" value = \"10\" />\n" + "        <parameter name = \"database\" value = \"" + dbName + "\" />\n" + "        <parameter name = \"wkb enabled\" value = \"true\" />\n" + "        <parameter name = \"namespace\" value = \"http://" + appName + ".terraframe.com\" />\n" + "        <parameter name = \"schema\" value = \"public\" />\n" + "        <parameter name = \"estimated extent\" value = \"false\" />\n"
-        + "        <parameter name = \"loose bbox\" value = \"true\" />\n" + "        <parameter name = \"user\" value = \"mdssdeploy\" />\n" + "        <parameter name = \"min connections\" value = \"4\" />\n" + "      </connectionParams>\n" + "    </datastore>\n    ";
-    return datastore;
-  }
-
-  private String createNamespaceXML()
-  {
-    return "<namespace prefix = \"" + appName + "\" uri = \"http://" + appName + ".terraframe.com\" />\n    ";
-  }
+//
+//  private String createDatastoreXML()
+//  {
+//    String datastore = "<datastore id = \"MDSS_maps_" + appName + "\" enabled = \"true\" namespace = \"" + appName + "\" >\n" + "      <connectionParams >\n" + "        <parameter name = \"port\" value = \"5444\" />\n" + "        <parameter name = \"passwd\" value = \"mdssdeploy\" />\n" + "        <parameter name = \"dbtype\" value = \"postgis\" />\n" + "        <parameter name = \"host\" value = \"localhost\" />\n" + "        <parameter name = \"validate connections\" value = \"false\" />\n"
+//        + "        <parameter name = \"max connections\" value = \"10\" />\n" + "        <parameter name = \"database\" value = \"" + dbName + "\" />\n" + "        <parameter name = \"wkb enabled\" value = \"true\" />\n" + "        <parameter name = \"namespace\" value = \"http://" + appName + ".terraframe.com\" />\n" + "        <parameter name = \"schema\" value = \"public\" />\n" + "        <parameter name = \"estimated extent\" value = \"false\" />\n"
+//        + "        <parameter name = \"loose bbox\" value = \"true\" />\n" + "        <parameter name = \"user\" value = \"mdssdeploy\" />\n" + "        <parameter name = \"min connections\" value = \"4\" />\n" + "      </connectionParams>\n" + "    </datastore>\n    ";
+//    return datastore;
+//  }
+//
+//  private String createNamespaceXML()
+//  {
+//    return "<namespace prefix = \"" + appName + "\" uri = \"http://" + appName + ".terraframe.com\" />\n    ";
+//  }
 
   public int getExitStatus()
   {
