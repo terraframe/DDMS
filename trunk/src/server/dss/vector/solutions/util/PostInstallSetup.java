@@ -17,8 +17,8 @@ import com.runwaysdk.util.FileIO;
 public class PostInstallSetup
 {
   /**
-   * Exit status for the success case. NSIS considers any non-zero exist status
-   * as an error, as such the SUCCESS exist status must be 0.
+   * Exit status for the success case. NSIS considers any non-zero exit status
+   * as an error, as such the SUCCESS exit status must be 0.
    */
   public static int SUCCESS = 0;
 
