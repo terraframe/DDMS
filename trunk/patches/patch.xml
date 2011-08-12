@@ -37,6 +37,7 @@
 		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
 		<delete file="webapp/WEB-INF/classes/terraframe.properties" />
 		<delete file="webapp/WEB-INF/classes/database.properties" />
+		<delete file="webapp/WEB-INF/classes/common.properties" />
 		<delete file="webapp/css/style.css" />
 		<delete file="webapp/login.jsp" />
 		
