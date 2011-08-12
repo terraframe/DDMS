@@ -36,6 +36,7 @@
 		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
 		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
 		<delete file="webapp/WEB-INF/classes/terraframe.properties" />
+		<delete file="webapp/WEB-INF/classes/database.properties" />
 		
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
 		<delete file="webapp/imgs/flags/default" />
