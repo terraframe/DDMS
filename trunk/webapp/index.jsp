@@ -52,11 +52,17 @@
 <br><br>
   <%
     Locale[] locales = ServletUtility.getLocales(request);
-    out.println("Your Detected Locales are " + Arrays.toString(locales) + ".<br/>");
-    out.println("Best fit locale is " + LocalizationFacadeDTO.getSessionLocale(requestIF) + ".<br/>");
   %>
+  <mdss:localize key="Detected_locales"/> 
+  <%
+    out.println(Arrays.toString(locales));
+  %><br/>
+  <mdss:localize key="Best_fit_locale"/> 
+  <%
+    out.println(LocalizationFacadeDTO.getSessionLocale(requestIF));
+  %><br/>
   <br>
-  Your current disease is ${diseaseName}.
+  <mdss:localize key="Current_disease"/> ${diseaseName}.
   <br>
 <pre>
 
