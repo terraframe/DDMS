@@ -7,6 +7,8 @@
 <%@page import="dss.vector.solutions.util.RedirectingServletResponse" %>
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="com.runwaysdk.controller.JSPFetcher"%>
+<%@page pageEncoding="UTF-8" contentType="text/html; charset=UTF-8"%>
+
 
 <% //set the defualt header and footer, this can be overidden in the component jsp %>
 
