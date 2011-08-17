@@ -498,7 +498,7 @@ public class MenuGenerator implements Reloadable
   {
     if (guiMenuItem.getChildren().size() == 0)
     {
-      String label = "text: '" + guiMenuItem.getLabel() + "', id: '" + guiMenuItem.getName() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'";
+      String label = "text: '" + guiMenuItem.getLabel() + "', id: '_" + guiMenuItem.getId() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'";
       if (guiMenuItem.isDisabled())
       {
         label += ", disabled: true";
@@ -512,13 +512,13 @@ public class MenuGenerator implements Reloadable
     else
     {
       this.printIndented(out, level, "{ text: '" + guiMenuItem.getLabel() + "',");
-      this.printIndented(out, level, "  id: '" + guiMenuItem.getId() + "',");
+      this.printIndented(out, level, "  id: '_" + guiMenuItem.getId() + "',");
       if (guiMenuItem.isDisabled())
       {
         this.printIndented(out, level, "  classname: 'grayed',");
       }
       this.printIndented(out, level, "  submenu: {");
-      this.printIndented(out, level, "    id: '" + guiMenuItem.getName() + "_Submenu',");
+      this.printIndented(out, level, "    id: '_" + guiMenuItem.getId() + "_Submenu',");
       this.printIndented(out, level, "    itemdata: [");
       boolean first = true;
       for (GuiMenuItem child : guiMenuItem.getChildren().values())

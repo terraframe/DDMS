@@ -20,6 +20,7 @@ import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.BrowserRootDTO;
 import dss.vector.solutions.ontology.TermDTO;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.MDSSProperties;
 
 public abstract class AbstractTermTagSupport extends SimpleTagSupport implements Reloadable
@@ -229,11 +230,10 @@ public abstract class AbstractTermTagSupport extends SimpleTagSupport implements
   
   protected void writeClickableSpan(JspWriter out, String _id, Boolean _enabled) throws IOException
   {
-    // <span id="collectionMethodBtn" class="clickable">
-    // <img alt="Browser" src="./imgs/icons/tree.png" class="ontologyOpener">
-    // </span>
+    ClientSession session = (ClientSession) this.getJspContext().getAttribute(ClientConstants.CLIENTSESSION, PageContext.SESSION_SCOPE);
+    ClientRequestIF request = session.getRequest();
 
-    String title = MDSSProperties.getString("Browser");
+    String title = LocalizationFacadeDTO.getFromBundles(request, "Browser");
     String iconClass = ( _enabled ? " class=\"ontologyOpener\"" : "" );
     String iconSpanClass = ( _enabled ? " class=\"clickable\"" : "" );
 

@@ -1,8 +1,12 @@
 package dss.vector.solutions.util;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -12,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.RolesDTO;
+import com.runwaysdk.system.metadata.MdClassDTO;
+import com.runwaysdk.system.metadata.MdWebFormDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.permission.MDSSRoleDTO;
 
 public class ReadableAttributeController extends ReadableAttributeControllerBase implements Reloadable
@@ -22,7 +29,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long serialVersionUID = 1239296298324L;
+  private static final long  serialVersionUID = 1239296298324L;
 
   public ReadableAttributeController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -36,7 +43,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     {
       // Ensure the user has permissions to read this page
       new ReadableAttributeViewDTO(getClientRequest());
-      
+
       if (actor == null)
       {
         actor = MDSSRoleInfo.GUI_VISIBILITY;
@@ -46,8 +53,27 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
 
       Map<String, RolesDTO> roles = this.getAllRoles(clientRequest);
 
+      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
+      List<String> formURLs = new LinkedList<String>();
+
+      for (MdWebFormDTO form : forms)
+      {
+        MdClassDTO formMdClass = form.getFormMdClass();
+        String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
+        String label = this.getEncodedText(form.getFormName());
+
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("<a href=\"dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?component=" + label + "&universal=" + classType + "&actor=" + actor + "\">");
+        buffer.append(label);
+        buffer.append("</a>");
+
+        formURLs.add(buffer.toString());
+      }
+
       req.setAttribute("actor", actor);
       req.setAttribute("actorOptions", roles.values());
+      req.setAttribute("forms", formURLs);
 
       render("selectUniversal.jsp");
     }
@@ -61,24 +87,40 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       }
     }
   }
-  
-  private Map<String, RolesDTO> getAllRoles(ClientRequestIF clientRequest) {
-      Map<String, RolesDTO> roles = new LinkedHashMap<String, RolesDTO>();
 
-      RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
-      for (int i = 0; i < systemRoles.length; i++) {
-          roles.put(systemRoles[i].getRoleName(), systemRoles[i]);
-      }
-      
-      RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
-      for (int i = 0; i < mdssRoles.length; i++) {
-          roles.put(mdssRoles[i].getRoleName(), mdssRoles[i]);
-      }
+  @SuppressWarnings("deprecation")
+  private String getEncodedText(String text)
+  {
+    try
+    {
+      return URLEncoder.encode(text, "UTF-8");
+    }
+    catch (UnsupportedEncodingException e)
+    {
+      return URLEncoder.encode(text);
+    }
+  }
 
-      return roles;
-}
+  private Map<String, RolesDTO> getAllRoles(ClientRequestIF clientRequest)
+  {
+    Map<String, RolesDTO> roles = new LinkedHashMap<String, RolesDTO>();
 
-@Override
+    RolesDTO[] systemRoles = FacadeDTO.getMDSSRoles(clientRequest);
+    for (int i = 0; i < systemRoles.length; i++)
+    {
+      roles.put(systemRoles[i].getRoleName(), systemRoles[i]);
+    }
+
+    RolesDTO[] mdssRoles = MDSSRoleDTO.getRoles(clientRequest);
+    for (int i = 0; i < mdssRoles.length; i++)
+    {
+      roles.put(mdssRoles[i].getRoleName(), mdssRoles[i]);
+    }
+
+    return roles;
+  }
+
+  @Override
   public void failGetUniversal(String actor) throws IOException, ServletException
   {
     this.req.getRequestDispatcher("/index").forward(this.req, this.resp);
@@ -90,7 +132,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();
-        
+
       RedirectUtility utility = new RedirectUtility(req, resp);
       utility.put("universal", universal);
       utility.put("actor", actor);
@@ -102,7 +144,7 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       req.setAttribute("actor", actor);
       req.setAttribute("actorLabel", this.getAllRoles(clientRequest).get(actor).getDisplayLabel());
       req.setAttribute("component", req.getParameter("component"));
-      
+
       render("view.jsp");
     }
     catch (Throwable t)

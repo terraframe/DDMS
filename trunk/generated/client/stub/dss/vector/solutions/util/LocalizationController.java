@@ -70,7 +70,7 @@ public class LocalizationController extends LocalizationControllerBase implement
       ClientRequestIF request = this.getClientRequest();
       if (file == null)
       {
-        req.setAttribute(ErrorUtility.ERROR_MESSAGE, MDSSProperties.getString("File_Required"));
+        req.setAttribute(ErrorUtility.ERROR_MESSAGE, LocalizationFacadeDTO.getFromBundles(request, "File_Required"));
       }
       else
       {

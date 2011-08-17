@@ -22,23 +22,22 @@ public class ContentTypeFilter implements Filter, Reloadable
   {
   }
 
-  public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException,
-      ServletException
+  public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException
   {
     // check the request for the Runway javascript file
     HttpServletRequest httpRequest = (HttpServletRequest) req;
-    
+
     String path = httpRequest.getRequestURI();
 
     if (path.endsWith(JSONControllerServlet.class.getSimpleName()))
     {
       res.setContentType(JavascriptConstants.CONTENT_TYPE);
-      chain.doFilter(req, res);      
+      chain.doFilter(req, res);
     }
-    else if(path.endsWith(MdActionInfo.ACTION_SUFFIX) || path.endsWith(MdActionInfo.AJAX_ACTION_SUFFIX))
+    else if (path.endsWith(MdActionInfo.ACTION_SUFFIX) || path.endsWith(MdActionInfo.AJAX_ACTION_SUFFIX))
     {
       res.setContentType("text/html;charset=UTF-8");
-      chain.doFilter(req, res);      
+      chain.doFilter(req, res);
     }
     else
     {

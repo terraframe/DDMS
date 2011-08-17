@@ -24,6 +24,7 @@ import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.util.FileDownloadUtil;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.MDSSProperties;
 
 public class MappingController extends MappingControllerBase implements
@@ -68,13 +69,14 @@ public class MappingController extends MappingControllerBase implements
   {
     try
     {
-      SavedMapDTO savedMap = SavedMapDTO.get(this.getClientRequest(), namedMapId);
-      InputStream stream = SavedMapDTO.exportShapefile(this.getClientRequest(), mapId);
+      ClientRequestIF clientRequest = this.getClientRequest();
+      SavedMapDTO savedMap = SavedMapDTO.get(clientRequest, namedMapId);
+      InputStream stream = SavedMapDTO.exportShapefile(clientRequest, mapId);
 
       String mapName;
       if(savedMap instanceof DefaultSavedMapDTO)
       {
-        mapName = MDSSProperties.getString("Shapefile");
+        mapName = LocalizationFacadeDTO.getFromBundles(clientRequest, "Shapefile");
       }
       else
       {

@@ -135,14 +135,18 @@ public class ErrorUtility implements Reloadable
 
   private static void prepareThrowable(Throwable t, HttpServletRequest req)
   {
-    req.setAttribute(ErrorUtility.ERROR_MESSAGE, t.getLocalizedMessage());
+    String localizedMessage = t.getLocalizedMessage();
+
+    req.setAttribute(ErrorUtility.ERROR_MESSAGE, localizedMessage);
 
     if (t instanceof ProgrammingErrorExceptionDTO)
     {
       try
       {
         ProgrammingErrorExceptionDTO pee = (ProgrammingErrorExceptionDTO) t;
-        req.setAttribute(ErrorUtility.DEVELOPER_MESSAGE, pee.getDeveloperMessage());
+        String developerMessage = pee.getDeveloperMessage();
+
+        req.setAttribute(ErrorUtility.DEVELOPER_MESSAGE, developerMessage);
       }
       catch (Exception e)
       {
@@ -213,13 +217,13 @@ public class ErrorUtility implements Reloadable
     {
       String[] messages = (String[]) object;
       List<String> list = new LinkedList<String>();
-      
-      for(String message : messages)
+
+      for (String message : messages)
       {
         message = message.replaceAll("\\s", " ");
         message = message.replaceAll("'", "\'");
         message = message.replaceAll("\"", "\\\"");
-        
+
         list.add(message);
       }
 

@@ -86,7 +86,7 @@ public class ExcelImportServlet extends HttpServlet
       // No file was uploaded
       if (size==0)
       {
-        req.setAttribute(ErrorUtility.ERROR_MESSAGE, MDSSProperties.getString("File_Upload_Blank"));
+        req.setAttribute(ErrorUtility.ERROR_MESSAGE, LocalizationFacadeDTO.getFromBundles(clientRequest, "File_Upload_Blank"));
         req.setAttribute(TYPE, fields.get(TYPE));
         req.getRequestDispatcher("/WEB-INF/excelImport.jsp").forward(req, res);
         return;
@@ -109,7 +109,7 @@ public class ExcelImportServlet extends HttpServlet
         {
           res.setContentType("text/html;charset=UTF-8");
           res.setCharacterEncoding("UTF-8");
-          res.getWriter().write(MDSSProperties.getString("File_Required"));
+          res.getWriter().write(LocalizationFacadeDTO.getFromBundles(clientRequest, "File_Required"));
 
           return; // error case
         }
@@ -165,7 +165,7 @@ public class ExcelImportServlet extends HttpServlet
     {
       res.setContentType("text/html;charset=UTF-8");
       res.setCharacterEncoding("UTF-8");
-      res.getWriter().write(MDSSProperties.getString("File_Upload_Success"));
+      res.getWriter().write(LocalizationFacadeDTO.getFromBundles(clientRequest, "File_Upload_Success"));
     }
     else
     {

@@ -15,37 +15,41 @@ import com.runwaysdk.session.Session;
  */
 public class MDSSProperties
 {
-  private static final String NAME = "MDSS";
-  private static ClassLoader LOADER = Business.class.getClassLoader();
+  private static final String NAME   = "MDSS";
+
+  private static ClassLoader  LOADER = Business.class.getClassLoader();
 
   public static String getString(String key)
   {
-    return ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER).getString(key);
+    ResourceBundle bundle = ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER, new UTF8Control());
+
+    return bundle.getString(key);
   }
 
   public static Object getObject(String key)
   {
     return ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER).getObject(key);
   }
-  
+
   public static String getString(String key, Locale locale)
   {
-    ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER);
+    ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER, new UTF8Control());
+
     return other.getString(key);
   }
-  
+
   public static Object getObject(String key, Locale locale)
   {
     ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER);
     return other.getObject(key);
   }
-  
+
   private static String getBundleName()
   {
     MdDimensionDAOIF currentDimension = Session.getCurrentDimension();
-    if (currentDimension!=null)
+    if (currentDimension != null)
     {
-      return NAME +  "-" + currentDimension.getName();
+      return NAME + "-" + currentDimension.getName();
     }
     else
     {

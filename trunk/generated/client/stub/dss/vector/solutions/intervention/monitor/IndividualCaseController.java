@@ -26,6 +26,7 @@ import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -112,7 +113,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
         problem.setAttributeName(IndividualCaseDTO.CASEREPORTDATE);
         problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
         problem.setAttributeDisplayLabel(caseReportLabel);
-        problem.setRelation(MDSSProperties.getString("Compare_AE"));
+        problem.setRelation(LocalizationFacadeDTO.getFromBundles(clientRequest, "Compare_AE"));
         problem.setRelativeAttributeLabel(diagnosisDateLabel);
         problems.add(problem);
       }
@@ -129,7 +130,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
           problem.setAttributeName(IndividualCaseDTO.DIAGNOSISDATE);
           problem.setComponentId(AttributeNotificationDTO.NO_COMPONENT);
           problem.setAttributeDisplayLabel(diagnosisDateLabel);
-          problem.setRelation(MDSSProperties.getString("Compare_AE"));
+          problem.setRelation(LocalizationFacadeDTO.getFromBundles(clientRequest, "Compare_AE"));
           problem.setRelativeAttributeLabel(person.getDateOfBirthMd().getDisplayLabel());
           problems.add(problem);
         }
