@@ -11,6 +11,7 @@ import org.eclipse.jface.wizard.WizardPage;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.gis.Localizer;
 import dss.vector.solutions.gis.GISImportLogger;
@@ -115,6 +116,8 @@ public class ShapeFileWizard extends Wizard implements Reloadable
 
   private void handleException(Throwable throwable)
   {
+    MdssLog.error("Uncaught exception in the shapefile importer", throwable);
+
     if (throwable == null || throwable instanceof NullPointerException)
     {
       String message = Localizer.getMessage("UNKNOWN_SHAPE_FILE_EXCEPTION");
