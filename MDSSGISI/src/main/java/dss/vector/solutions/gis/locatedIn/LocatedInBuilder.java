@@ -14,6 +14,7 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdType;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllowedIn;
 import dss.vector.solutions.geo.GeoHierarchy;
@@ -126,6 +127,8 @@ public class LocatedInBuilder implements Reloadable
     }
     catch (SQLException e)
     {
+      MdssLog.error("LocatedInBuilder", e);
+      
       Database.throwDatabaseException(e);
     }
     finally
@@ -197,6 +200,8 @@ public class LocatedInBuilder implements Reloadable
     }
     catch (SQLException e)
     {
+      MdssLog.error("LocatedInBuilder", e);
+
       Database.throwDatabaseException(e);
     }
     finally
@@ -329,6 +334,8 @@ public class LocatedInBuilder implements Reloadable
     }
     catch (SQLException e)
     {
+      MdssLog.error("LocatedInBuilder", e);
+
       Database.throwDatabaseException(e);
     }
     finally
