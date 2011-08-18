@@ -11,6 +11,7 @@ import org.eclipse.jface.wizard.WizardPage;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.gis.Localizer;
 import dss.vector.solutions.gis.GISImportLogger;
 import dss.vector.solutions.gis.GISImportLoggerIF;
@@ -107,6 +108,8 @@ public class LocatedInWizard extends Wizard implements Reloadable
 
   private void handleException(Throwable throwable)
   {
+    MdssLog.error("Uncaught exception in the located in builder", throwable);
+    
     if (throwable == null || throwable instanceof NullPointerException)
     {
       String message = Localizer.getMessage("UNKNOWN_LOCATED_IN_EXCEPTION");
