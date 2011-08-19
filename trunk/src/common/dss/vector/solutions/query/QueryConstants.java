@@ -140,6 +140,14 @@ public class QueryConstants implements Reloadable
   }
   
   /**
+   * Namespaces the query with the qualified class and query type.
+   */
+  public static String namespaceQuery(String type, String typeName)
+  {
+    return type + NAMESPACE_DELIM + typeName;
+  }
+  
+  /**
    * Extracts the query class from the string generated with namespaceQuery().
    * 
    * @param namespacedType

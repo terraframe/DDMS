@@ -647,9 +647,9 @@ public abstract class TermDTOBase extends com.runwaysdk.business.BusinessDTO imp
     return isModified(TERMDISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getTermDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO getTermDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(TERMDISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO) getAttributeDTO(TERMDISPLAYLABEL).getAttributeMdDTO();
   }
   
   public String getTermId()

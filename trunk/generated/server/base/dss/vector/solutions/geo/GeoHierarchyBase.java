@@ -65,6 +65,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -86,6 +91,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -121,6 +131,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     {
       return com.runwaysdk.system.metadata.MdBusiness.get(getValue(GEOENTITYCLASS));
     }
+  }
+  
+  public String getGeoEntityClassId()
+  {
+    return getValue(GEOENTITYCLASS);
   }
   
   public void validateGeoEntityClass()
@@ -218,6 +233,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -241,6 +261,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -262,6 +287,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -413,6 +443,11 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
     {
       return dss.vector.solutions.ontology.Term.get(getValue(TERM));
     }
+  }
+  
+  public String getTermId()
+  {
+    return getValue(TERM);
   }
   
   public void validateTerm()

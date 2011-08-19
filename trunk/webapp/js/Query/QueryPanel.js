@@ -68,6 +68,9 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   this.waitForRefresh = false;
   this._columnBatch = [];
   this._deleteBatch = [];
+  
+  // Flag denoting if the date range widget should be rendered
+  this._renderDateRange = true;
 };
 
 MDSS.QueryPanel.prototype = {
@@ -122,6 +125,16 @@ MDSS.QueryPanel.prototype = {
   {
     return this._currentSavedSearch;
   },
+  
+  setRenderDateRange : function (renderDateRange)
+  {
+    this._renderDateRange = renderDateRange;
+  },
+  
+  getRenderDateRange : function()
+  {
+    return this._renderDateRange;
+  },
 
   /**
    * Updates the column label on both the YUI column object
@@ -156,13 +169,13 @@ MDSS.QueryPanel.prototype = {
     li.id = column.getKey()+"_summary";
 
     if(column.attribute){
-    	var whereFilters = column.attribute._whereValues.filter(function(a){return a.checked;}).map(
-    			function(a){return('<li id= "'+a.uuid+'_summary" >'+a.text+'</li>');
-    			});
-    	li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
-  	}else{
-  		li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues"></ul>';
-  	}
+      var whereFilters = column.attribute._whereValues.filter(function(a){return a.checked;}).map(
+          function(a){return('<li id= "'+a.uuid+'_summary" >'+a.text+'</li>');
+          });
+      li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues">'+whereFilters.join('')+'</ul>';
+    }else{
+      li.innerHTML = "<span></span>"+ column.label + '<ul id="'+column.getKey()+'_whereValues"></ul>';
+    }
 
     ul.appendChild(li);
   },
@@ -370,7 +383,7 @@ MDSS.QueryPanel.prototype = {
   
     // add the date fields
     if(this._queryClass._dateAttribs){
-    	this._queryClass._buildDateAttributesSelect(dateRange);
+      this._queryClass._buildDateAttributesSelect(dateRange);
     }
     
     dateRange.appendChild(startLabel);
@@ -405,7 +418,7 @@ MDSS.QueryPanel.prototype = {
     //add geo entity chooser    
     if(this._queryClass._geoEntityAttribs)
     {
-    	this._queryClass._addGeoAttributes(dateRange);
+      this._queryClass._addGeoAttributes(dateRange);
     }
     
 
@@ -436,31 +449,31 @@ MDSS.QueryPanel.prototype = {
    */
   disableDateCheck : function()
   {
-  	if(this._startDate.value.length == 0)
-  	{
+    if(this._startDate.value.length == 0)
+    {
       if(this._startDateRangeCheck.checked)
       {
-      	this._startDateRangeCheck.click();
+        this._startDateRangeCheck.click();
       }
       this._startDateRangeCheck.disabled = true;
-  	}
-  	else
-  	{
+    }
+    else
+    {
       this._startDateRangeCheck.disabled = false;
-  	}
+    }
 
-  	if(this._endDate.value.length == 0)
-  	{
+    if(this._endDate.value.length == 0)
+    {
       if(this._endDateRangeCheck.checked)
       {
-      	this._endDateRangeCheck.click();
+        this._endDateRangeCheck.click();
       }
       this._endDateRangeCheck.disabled = true;
-  	}
-  	else
-  	{
+    }
+    else
+    {
       this._endDateRangeCheck.disabled = false;
-  	}
+    }
   },
 
 
@@ -487,7 +500,7 @@ MDSS.QueryPanel.prototype = {
       }
       else
       {
-      	li.appendChild(queryItem.html);
+        li.appendChild(queryItem.html);
       }
 
       // add click event handler
@@ -536,7 +549,9 @@ MDSS.QueryPanel.prototype = {
 
     this._buildButtons();
 
-    this._buildDateRange();
+    if(this.getRenderDateRange()) {
+      this._buildDateRange();
+    }
 
     this._buildQueryItems();
 
@@ -1100,18 +1115,18 @@ MDSS.QueryPanel.prototype = {
   insertColumn : function(column, menuBuilder)
   {
     var attrib = column.attribute;
-  	column.resizeable = true;
-  	
-  	if(this.waitForRefresh)
-  	{
-  	  this._columnBatch.push(column.getDefinition());
-  	}
-  	else
-  	{
-  	  column = this._dataTable.insertColumn(column);
-  	}
-  	
-  	column.attribute = attrib;
+    column.resizeable = true;
+    
+    if(this.waitForRefresh)
+    {
+      this._columnBatch.push(column.getDefinition());
+    }
+    else
+    {
+      column = this._dataTable.insertColumn(column);
+    }
+    
+    column.attribute = attrib;
 
     if(Mojo.Util.isFunction(menuBuilder))
     {
@@ -1239,13 +1254,13 @@ MDSS.QueryPanel.prototype = {
       var savedSearchId = queries.options[queries.selectedIndex].value;
       if(savedSearchId)
       {
-      	this._config.loadQuery.call(this._queryClass, savedSearchId);
+        this._config.loadQuery.call(this._queryClass, savedSearchId);
       }
       else
       {
         this._queryClass._dm.disable();
-      	this._queryClass._resetToDefault();
-      	this._queryClass._dm.enable();
+        this._queryClass._resetToDefault();
+        this._queryClass._dm.enable();
         this._queryClass._loadDefaultSearch();
       }
     }
@@ -1289,20 +1304,20 @@ MDSS.QueryPanel.prototype = {
    */
   _saveQuery : function()
   {
-  	 var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
+     var queries = document.getElementById(this.AVAILABLE_QUERY_LIST);
      // ignore the default, empty option
      var savedSearchId = queries.options[queries.selectedIndex].value;
      // if this query has not been saved yet then open save as
      if(savedSearchId)
      {
-    	 if(Mojo.Util.isFunction(this._config.saveQuery))
-    	 {
-    		 this._config.saveQuery.call(this._queryClass);
-    	 }
+       if(Mojo.Util.isFunction(this._config.saveQuery))
+       {
+         this._config.saveQuery.call(this._queryClass);
+       }
      }
      else
      {
-    	 this._saveQueryAs();
+       this._saveQueryAs();
      }
   },
 

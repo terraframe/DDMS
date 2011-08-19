@@ -168,18 +168,18 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      */
     _attachBrowser : function(elementId, handler, attribute, fieldClass, fieldAttribute)
     {
-    	
-    	var bound = null;
-    	
-    	if(Mojo.Util.isFunction(handler))
-    	{
-    		bound = Mojo.Util.bind(this, handler);
-    	}
-    	else
-    	{
-    		bound = Mojo.emptyFunction;
-    	}
-    		      
+      
+      var bound = null;
+      
+      if(Mojo.Util.isFunction(handler))
+      {
+        bound = Mojo.Util.bind(this, handler);
+      }
+      else
+      {
+        bound = Mojo.emptyFunction;
+      }
+              
       var browser = new MDSS.QueryBrowser(this, bound, attribute, fieldClass, fieldAttribute);
       this._browsers[elementId] = browser;
     },
@@ -274,29 +274,27 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       switch(dateGroupPeriod)
       {
-      case 'DATEGROUP_EPIWEEK':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date,snapToFirstDay);
+        case 'DATEGROUP_EPIWEEK':
+          Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiWeek(request,date,snapToFirstDay);
           break;
-      case 'DATEGROUP_EPIYEAR':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiYear(request,date,snapToFirstDay);
+        case 'DATEGROUP_EPIYEAR':
+          Mojo.$.dss.vector.solutions.general.EpiDate.snapToEpiYear(request,date,snapToFirstDay);
           break;
-      case 'DATEGROUP_MONTH':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date,snapToFirstDay);
+        case 'DATEGROUP_MONTH':
+          Mojo.$.dss.vector.solutions.general.EpiDate.snapToMonth(request,date,snapToFirstDay);
           break;
-      case 'DATEGROUP_QUARTER':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToQuarter(request,date,snapToFirstDay);
-        break;
-      case 'DATEGROUP_YEAR':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToYear(request,date,snapToFirstDay);
+        case 'DATEGROUP_QUARTER':
+          Mojo.$.dss.vector.solutions.general.EpiDate.snapToQuarter(request,date,snapToFirstDay);
           break;
-      case 'DATEGROUP_SEASON':
-        Mojo.$.dss.vector.solutions.general.EpiDate.snapToSeason(request,date,snapToFirstDay);
+        case 'DATEGROUP_YEAR':
+          Mojo.$.dss.vector.solutions.general.EpiDate.snapToYear(request,date,snapToFirstDay);
           break;
-      default:
-        targetEl.set('value',MDSS.Calendar.getLocalizedString(result));
-      }
-  
-  
+        case 'DATEGROUP_SEASON':
+          Mojo.$.dss.vector.solutions.general.EpiDate.snapToSeason(request,date,snapToFirstDay);
+          break;
+        default:
+          targetEl.set('value',MDSS.Calendar.getLocalizedString(result));
+      }  
     },
   
     exportReport : function(form, xmlInput, config, searchIdInput, queryTypeInput)
@@ -425,27 +423,33 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     {
       YAHOO.util.Event.on(MDSS.QueryBase.TARGET, 'click', this._displaySearch, null, this);
     
-      var options = this._queryPanel._dateGroupBy.options;
-      for(var i=0; i<options.length; i++)
+      /*
+       * Attach the date range handlers
+       */
+      if(this._queryPanel.getRenderDateRange())
       {
-        YAHOO.util.Event.on(options[i], 'click', this._dateSnapHandler, '',this);
+        var options = this._queryPanel._dateGroupBy.options;
+        for(var i=0; i<options.length; i++)
+        {
+          YAHOO.util.Event.on(options[i], 'click', this._dateSnapHandler, '',this);
+        }
+  
+        var startCheck = this._queryPanel.getStartDateCheck();
+        var endCheck = this._queryPanel.getEndDateCheck();
+  
+        YAHOO.util.Event.on(startCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
+        YAHOO.util.Event.on(endCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
+  
+        // set the default for the date searching
+        var startDate = this._queryPanel.getStartDate();
+        var endDate = this._queryPanel.getEndDate();
+  
+        this._defaults.push({element: startCheck, checked:false});
+        this._defaults.push({element: endCheck, checked:false});
+        this._defaults.push({element: startDate, value: ''});
+        this._defaults.push({element: endDate, value: ''});
       }
-  
-      var startCheck = this._queryPanel.getStartDateCheck();
-      var endCheck = this._queryPanel.getEndDateCheck();
-  
-      YAHOO.util.Event.on(startCheck, 'click', this.toggleDates, 'START_DATE_RANGE', this);
-      YAHOO.util.Event.on(endCheck, 'click', this.toggleDates, 'END_DATE_RANGE', this);
-  
-      // set the default for the date searching
-      var startDate = this._queryPanel.getStartDate();
-      var endDate = this._queryPanel.getEndDate();
-  
-      this._defaults.push({element: startCheck, checked:false});
-      this._defaults.push({element: endCheck, checked:false});
-      this._defaults.push({element: startDate, value: ''});
-      this._defaults.push({element: endDate, value: ''});
-  
+      
       this._customPostRender();
   
       this._loadDefaultSearch();
@@ -1141,40 +1145,42 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         queryXML.addSelectable(namespacedType+'-geoId', geoSels.geoId);
       }
   
-      // calculate the date criteria
-      var startDateEl = this._queryPanel.getStartDate();
-      var startDate = MDSS.util.stripWhitespace(startDateEl.value);
-      var endDateEl = this._queryPanel.getEndDate();
-      var endDate = MDSS.util.stripWhitespace(endDateEl.value);
-      this._endDate = null;
-      this._startDate = null;
-      startDate = MDSS.Calendar.getMojoDateString(startDate);
-      endDate = MDSS.Calendar.getMojoDateString(endDate);
-      
-
-      
-      if(this._dateAttributes){
-      	var dateAttrib =  this._dateAttributes[this._dateAttributeSelect.value];
-      	var dateObj = {
-      		'date_attribute':dateAttrib.attribute,
-      		'klass':dateAttrib.klass,
-      		'start':startDate,
-      	  'end':endDate
-      	}; 
-      	this._config.setDateAttribute(dateObj);
-      }
-      else
+      // If dates exist then calculate the date criteria
+      if(this._queryPanel.getRenderDateRange())
       {
-        if(startDate)
-        {
-          var startDateCondition = new MDSS.QueryXML.BasicCondition(this._startDateSelectable, MDSS.QueryXML.Operator.GE, startDate);
-          this._startDate = startDateCondition;
+        var startDateEl = this._queryPanel.getStartDate();
+        var startDate = MDSS.util.stripWhitespace(startDateEl.value);
+        var endDateEl = this._queryPanel.getEndDate();
+        var endDate = MDSS.util.stripWhitespace(endDateEl.value);
+        startDate = MDSS.Calendar.getMojoDateString(startDate);
+        endDate = MDSS.Calendar.getMojoDateString(endDate);
+        
+        this._endDate = null;
+        this._startDate = null;
+            
+        if(this._dateAttributes){
+          var dateAttrib =  this._dateAttributes[this._dateAttributeSelect.value];
+          var dateObj = {
+            'date_attribute':dateAttrib.attribute,
+            'klass':dateAttrib.klass,
+            'start':startDate,
+            'end':endDate
+          }; 
+          this._config.setDateAttribute(dateObj);
         }
-
-        if(endDate)
+        else
         {
-          var endDateCondition = new MDSS.QueryXML.BasicCondition(this._endDateSelectable, MDSS.QueryXML.Operator.LE, endDate);
-          this._endDate = endDateCondition;
+          if(startDate)
+          {
+            var startDateCondition = new MDSS.QueryXML.BasicCondition(this._startDateSelectable, MDSS.QueryXML.Operator.GE, startDate);
+            this._startDate = startDateCondition;
+          }
+
+          if(endDate)
+          {
+            var endDateCondition = new MDSS.QueryXML.BasicCondition(this._endDateSelectable, MDSS.QueryXML.Operator.LE, endDate);
+            this._endDate = endDateCondition;
+          }
         }
       }
     
@@ -1357,63 +1363,69 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
     _getCurrentGeoAttribute : function()
     {
       var target = document.getElementById(MDSS.QueryBase.GEO_ATTRIBUTES);
-      if(target.nodeName === 'INPUT')
+      
+      if(target != null)
       {
-        return target.value;
-      }
-      else
-      {
-        return target.options[target.selectedIndex].value;
+        if(target.nodeName === 'INPUT')
+        {
+          return target.value;
+        }
+        else
+        {
+          return target.options[target.selectedIndex].value;
+        }
       }
     },
     
     _addGeoAttributes : function(div)
     {
-    	var attributes = this._geoEntityAttribs
+      // Filter out all attributes which are null
+      var attributes = this._geoEntityAttribs.filter(function (val) {return val != null});
       var html;
-      var attributeKeys = [];
-      if(attributes.length > 1)
+            
+      if(attributes.length > 0)
       {
-        var html = '<select id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'">';
-        for(var i=0; i<attributes.length; i++)
+        var attributeKeys = [];
+
+        if(attributes.length > 1)
         {
-          var attribute = attributes[i];
+          var html = '<select id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'">';
+          for(var i=0; i<attributes.length; i++)
+          {
+            var attribute = attributes[i];
           
+            attributeKeys.push(attribute.keyName);
+            this._geoAttributes[attribute.keyName] = attribute.display;
+            this._criteriaEntities[attribute.keyName] = [];
+          
+            html += '<option value="'+attribute.keyName+'">'+attribute.display+'</option>';
+          }
+          html += '</select>';
+        }
+        else
+        {
+          var attribute = attributes[0];
+        
           attributeKeys.push(attribute.keyName);
           this._geoAttributes[attribute.keyName] = attribute.display;
           this._criteriaEntities[attribute.keyName] = [];
-          
-          html += '<option value="'+attribute.keyName+'">'+attribute.display+'</option>';
+      
+          html = '<input type="hidden" value="'+attribute.keyName+'" id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'" />';
+          html += attribute.display;
         }
-        html += '</select>';
+      
+        var boundSearch = Mojo.Util.bind(this, this._displaySearch);
+      
+        var geospan = document.createElement('span');
+        geospan.id = MDSS.QueryBase.GEO_ATTRIBUTES + 'Span';
+      
+        geospan.innerHTML = html + ' <img id="'+MDSS.QueryBase.TARGET+'" class="clickable" src="./imgs/icons/world.png"/>';
+      
+        div.appendChild(geospan);
+            
+        this._config.setGeoAttributes(attributeKeys);
       }
-      else
-      {
-        var attribute = attributes[0];
-        
-        attributeKeys.push(attribute.keyName);
-        this._geoAttributes[attribute.keyName] = attribute.display;
-        this._criteriaEntities[attribute.keyName] = [];
       
-        html = '<input type="hidden" value="'+attribute.keyName+'" id="'+MDSS.QueryBase.GEO_ATTRIBUTES+'" />';
-        html += attribute.display;
-      }
-    
-      var boundSearch = Mojo.Util.bind(this, this._displaySearch);
-      
-      var geospan = document.createElement('span');
-      geospan.id = MDSS.QueryBase.GEO_ATTRIBUTES + 'Span';
-      
-      geospan.innerHTML = html + ' <img id="'+MDSS.QueryBase.TARGET+'" class="clickable" src="./imgs/icons/world.png"/>';
-      
-      div.appendChild(geospan);
-//      this._queryPanel.addQueryItem({
-//        html: 
-//        id: "areaItem"
-//      });
-      
-      
-      this._config.setGeoAttributes(attributeKeys);
       return html;
     },
   
@@ -1571,20 +1583,10 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
       this._entityAlias = obj.entityAlias || this._type;
       this._whereValues = [];
       this._isAggregate = obj.isAggregate || false;
-      this._isTerm = false;
-      this._isEnum = false;
       this._customDereference = obj.customDereference || null;
       
       this._searchType = obj.searchType || null;
       this._searchAttribute = obj.searchAttribute || null;
-      
-      if(obj.isTerm){
-      	this._isTerm = obj.isTerm;
-      }
-  
-      if(obj.isEnum){
-      	this._isEnum = obj.isEnum;
-      }
       
       if(obj.key)
       {
@@ -1609,16 +1611,6 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     getSearchAttribute : function()
     {
       return this._searchAttribute;
-    },
-    
-    setTerm : function(isTerm)
-    {
-      this._isTerm = isTerm;
-    },
-    
-    getTerm : function()
-    {
-      return this._isTerm;
     },
     
     _genKey : function()
@@ -1705,17 +1697,8 @@ Mojo.Meta.newClass('MDSS.AbstractAttribute', {
     getSelectable : function(dereference, asClass)
     {
       var attrName = this._attributeName;
-      if(this._isTerm && dereference)
-      {
-        var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
-        return new MDSS.QueryXML.Selectable(attribute);
-      }
-      else if(this._isEnum && dereference)
-      {
-        var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
-        return new MDSS.QueryXML.Selectable(attribute);
-      }
-      else if(this._customDereference && dereference)
+      
+      if(this._customDereference && dereference)
       {
         attrName = attrName + this._customDereference;
       }
@@ -1889,6 +1872,30 @@ Mojo.Meta.newClass('MDSS.QueryBrowser', {
 
 });
 
+Mojo.Meta.newClass('MDSS.AttributeFactory', {
+  Static : {
+  
+    get : function(obj)
+    {
+      if(obj.isDisease)
+      {
+        return new MDSS.DiseaseAttribute(obj);
+      }      
+      else if(obj.isEnum)
+      {
+        return new MDSS.EnumerationAttribute(obj);
+      }
+      else if(obj.isTerm)
+      {
+        return new MDSS.TermAttribute(obj);
+      }
+      
+      return new MDSS.BasicAttribute(obj);
+    }
+  }
+});
+
+
 Mojo.Meta.newClass('MDSS.BasicAttribute', {
   
   Extends: MDSS.AbstractAttribute,
@@ -1899,6 +1906,99 @@ Mojo.Meta.newClass('MDSS.BasicAttribute', {
     {
       this.$initialize(obj);
     }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.DiseaseAttribute', {
+  
+  Extends: MDSS.AbstractAttribute,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    },
+    
+    /**
+     * Returns a basic selectable object that represents this 'disease' attribute.
+     */
+    getSelectable : function(dereference, asClass)
+    {
+      var attrName = this._attributeName + '.dimension.displayLabel.currentValue'
+  
+      var attribute = new MDSS.QueryXML.Attribute(this._entityAlias, attrName, this._key, this._displayLabel);
+      
+      return new MDSS.QueryXML.Selectable(attribute);
+    }    
+  }
+});
+
+Mojo.Meta.newClass('MDSS.DisplayLabelAttribute', {
+  IsAbstract : true,
+  
+  Extends: MDSS.AbstractAttribute,
+  
+  Instance : {
+  
+  initialize : function(obj)
+  {
+    this.$initialize(obj);
+  },
+  
+  /**
+   * Returns a basic selectable object that represents this 'disease' attribute.
+   */
+  getSelectable : function(dereference, asClass)
+  {
+    var attrName = this._attributeName;
+    
+    if(dereference)
+    {
+      var attribute = new MDSS.QueryXML.Sqlcharacter(this._entityAlias, attrName+'_displayLabel', this._key, this._displayLabel);
+      return new MDSS.QueryXML.Selectable(attribute);
+    }
+    
+    var attribute;
+    if(asClass != null)
+    {
+      attribute = new asClass(this._entityAlias, attrName, this._key);
+    }
+    else
+    {
+      attribute = new MDSS.QueryXML.Attribute(this._entityAlias, attrName, this._key, this._displayLabel);
+    }
+    
+    var selectable = new MDSS.QueryXML.Selectable(attribute);
+    return selectable;
+    }  
+  }
+});
+
+Mojo.Meta.newClass('MDSS.EnumerationAttribute', {
+  
+  Extends: MDSS.DisplayLabelAttribute,
+  
+  Instance : {  
+	
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    },  
+  }
+});
+
+
+Mojo.Meta.newClass('MDSS.TermAttribute', {
+  
+  Extends: MDSS.DisplayLabelAttribute,
+  
+  Instance : {
+  
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    },  
   }
 });
 

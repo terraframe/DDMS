@@ -37,8 +37,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     SurveyPointQuery surveyPointQuery = (SurveyPointQuery) queryMap.get(SurveyPoint.CLASS);
     if (surveyPointQuery != null)
@@ -112,13 +111,11 @@ public class SurveyQB extends AbstractQB implements Reloadable
 
     }
 
-    if (valueQuery.hasSelectableRef(QueryConstants.RDT_PREVALENCE) || 
-        valueQuery.hasSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE) ||
-        valueQuery.hasSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE))
+    if (valueQuery.hasSelectableRef(QueryConstants.RDT_PREVALENCE) || valueQuery.hasSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE) || valueQuery.hasSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE))
     {
       if (personQuery == null)
       {
-        
+
         // we pass in a value query instead of a query factory so that we use a
         // normal join instead of IN()
         personQuery = new SurveyedPersonQuery(valueQuery);
@@ -131,7 +128,7 @@ public class SurveyQB extends AbstractQB implements Reloadable
           householdQuery = new HouseholdQuery(valueQuery);
           valueQuery.WHERE(householdQuery.getSurveyPoint().EQ(surveyPointQuery.getId()));
         }
-        
+
         valueQuery.WHERE(householdQuery.surveyedPeople(personQuery));
       }
 
@@ -141,46 +138,48 @@ public class SurveyQB extends AbstractQB implements Reloadable
       String performedBloodSlideCol = QueryUtil.getColumnName(md, SurveyedPerson.PERFORMEDBLOODSLIDE);
       String rdtResultCol = QueryUtil.getColumnName(md, SurveyedPerson.RDTRESULT);
       String bloodSlideResultCol = QueryUtil.getColumnName(md, SurveyedPerson.BLOODSLIDERESULT);
-      
+
       String yesId = RefusedResponse.YES.getId();
       String rtdTested = "CASE " + tableAlias + "." + performedRDTCol + "_c WHEN '" + yesId + "' THEN 1 ELSE NULL END";
-      String rdtPositive = "SUM("+rdtResultCol+")";
-      String rdtTotal = "SUM("+rtdTested+")";
-      String rdtPrevalance = rdtPositive + "/NULLIF("+rdtTotal+",0.0)::float*100.0";
-      
-      String bloodslidePostive = "SUM("+bloodSlideResultCol+")";
-      String bloodslideTotal = "SUM("+performedBloodSlideCol+")";
-      String bloodslidePrevalence = bloodslidePostive+"/NULLIF("+bloodslideTotal+",0.0)::float*100.0";
-      
-//      String totalTested = "SUM(COALESCE(" + rtdTested + "," + performedBloodSlideCol + ",0))::FLOAT";
-//      String totalPositive = "SUM(COALESCE(" + rdtResultCol + "," + bloodSlideResultCol + ",0))::FLOAT";
+      String rdtPositive = "SUM(" + rdtResultCol + ")";
+      String rdtTotal = "SUM(" + rtdTested + ")";
+      String rdtPrevalance = rdtPositive + "/NULLIF(" + rdtTotal + ",0.0)::float*100.0";
+
+      String bloodslidePostive = "SUM(" + bloodSlideResultCol + ")";
+      String bloodslideTotal = "SUM(" + performedBloodSlideCol + ")";
+      String bloodslidePrevalence = bloodslidePostive + "/NULLIF(" + bloodslideTotal + ",0.0)::float*100.0";
+
+      // String totalTested = "SUM(COALESCE(" + rtdTested + "," +
+      // performedBloodSlideCol + ",0))::FLOAT";
+      // String totalPositive = "SUM(COALESCE(" + rdtResultCol + "," +
+      // bloodSlideResultCol + ",0))::FLOAT";
 
       // if bs+ then add r
       // else rdt+ then add r(+)
-      
-      if(valueQuery.hasSelectableRef(QueryConstants.RDT_PREVALENCE))
+
+      if (valueQuery.hasSelectableRef(QueryConstants.RDT_PREVALENCE))
       {
-        ((SelectableSQL)valueQuery.getSelectableRef(QueryConstants.RDT_PREVALENCE)).setSQL(rdtPrevalance);
-      }
-      
-      if(valueQuery.hasSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE))
-      {
-        ((SelectableSQL)valueQuery.getSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE)).setSQL(bloodslidePrevalence);
+        ( (SelectableSQL) valueQuery.getSelectableRef(QueryConstants.RDT_PREVALENCE) ).setSQL(rdtPrevalance);
       }
 
-      if(valueQuery.hasSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE))
+      if (valueQuery.hasSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE))
       {
-        String totalP = "SUM(CASE WHEN "+performedBloodSlideCol+" = 1 THEN "+bloodSlideResultCol+" ";
-        totalP += "WHEN " + tableAlias + "." + performedRDTCol + "_c = '"+yesId+"' THEN "+rdtResultCol+" ELSE NULL END) \n";
-        
-        String totalT = "SUM(CASE WHEN "+performedBloodSlideCol+" = 1 THEN 1 \n";
-        totalT += "WHEN " + tableAlias + "." + performedRDTCol + "_c = '"+yesId+"' THEN 1 ELSE NULL END) ";
-   
-        String rdtBloodslidePrevalence = totalP+"/NULLIF("+totalT+",0.0)::float*100.0";
-        
-        ((SelectableSQL)valueQuery.getSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE)).setSQL(rdtBloodslidePrevalence);
+        ( (SelectableSQL) valueQuery.getSelectableRef(QueryConstants.BLOODSLIDE_PREVALENCE) ).setSQL(bloodslidePrevalence);
       }
-      
+
+      if (valueQuery.hasSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE))
+      {
+        String totalP = "SUM(CASE WHEN " + performedBloodSlideCol + " = 1 THEN " + bloodSlideResultCol + " ";
+        totalP += "WHEN " + tableAlias + "." + performedRDTCol + "_c = '" + yesId + "' THEN " + rdtResultCol + " ELSE NULL END) \n";
+
+        String totalT = "SUM(CASE WHEN " + performedBloodSlideCol + " = 1 THEN 1 \n";
+        totalT += "WHEN " + tableAlias + "." + performedRDTCol + "_c = '" + yesId + "' THEN 1 ELSE NULL END) ";
+
+        String rdtBloodslidePrevalence = totalP + "/NULLIF(" + totalT + ",0.0)::float*100.0";
+
+        ( (SelectableSQL) valueQuery.getSelectableRef(QueryConstants.RDT_BLOODSLIDE_PREVALENCE) ).setSQL(rdtBloodslidePrevalence);
+      }
+
     }
 
     if (valueQuery.hasSelectableRef("age"))
@@ -188,9 +187,9 @@ public class SurveyQB extends AbstractQB implements Reloadable
       // valueQuery.hasSelectableRef
       SelectableSQLInteger dobSel;
       Selectable sel = valueQuery.getSelectableRef("age");
-      if(sel instanceof AggregateFunction)
+      if (sel instanceof AggregateFunction)
       {
-        dobSel = (SelectableSQLInteger) ((AggregateFunction)sel).getSelectable();
+        dobSel = (SelectableSQLInteger) ( (AggregateFunction) sel ).getSelectable();
       }
       else
       {
@@ -212,14 +211,14 @@ public class SurveyQB extends AbstractQB implements Reloadable
 
       String personTableAlias = personQuery.getTableAlias();
       String surveyPointTableAlais = surveyPointQuery.getTableAlias();
-      
+
       String surveyDateCol = QueryUtil.getColumnName(surveyPointQuery.getMdClassIF(), SurveyPoint.SURVEYDATE);
       String dobCol = QueryUtil.getColumnName(personQuery.getMdClassIF(), SurveyedPerson.DOB);
-      
+
       String sql = "EXTRACT(year from AGE(" + surveyPointTableAlais + "." + surveyDateCol + ", " + personTableAlias + "." + dobCol + "))";
       dobSel.setSQL(sql);
     }
-    
+
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyPointQuery.getDisease());
 
     this.setNumericRestrictions(valueQuery, queryConfig);

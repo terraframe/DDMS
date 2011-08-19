@@ -5,7 +5,10 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 
@@ -22,6 +25,16 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdClassDTO;
+import com.runwaysdk.system.metadata.MdRelationshipDTO;
+import com.runwaysdk.system.metadata.MdWebDateDTO;
+import com.runwaysdk.system.metadata.MdWebFieldDTO;
+import com.runwaysdk.system.metadata.MdWebFormDTO;
+import com.runwaysdk.system.metadata.MdWebGeoDTO;
+import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
+import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
@@ -41,7 +54,10 @@ import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
+import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.general.InsecticideDTO;
+import dss.vector.solutions.generator.MdFormUtilDTO;
+import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO;
@@ -86,6 +102,7 @@ import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
 import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.irs.OperatorSprayDTO;
+import dss.vector.solutions.ontology.NestedTermsWarningDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
@@ -111,12 +128,14 @@ import dss.vector.solutions.surveillance.IndividualCaseSymptomDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.Halp;
-import dss.vector.solutions.util.MDSSProperties;
+import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.QueryUtil;
 
 public class QueryController extends QueryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID                    = 1237863171352L;
+
+  private static final String QUERY_TYPE                          = "/WEB-INF/queryScreens/queryType.jsp";
 
   private static final String QUERY_ENTOMOLOGY                    = "/WEB-INF/queryScreens/queryEntomology.jsp";
 
@@ -162,7 +181,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   {
     super(req, resp, isAsynchronous);
   }
-  
+
   private static class TermComparator implements Comparator<TermDTO>, Reloadable
   {
 
@@ -170,30 +189,45 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     {
       return o1.getDisplayLabel().compareTo(o2.getDisplayLabel());
     }
-    
-    
+
     private static TermDTO[] sort(TermDTO[] terms)
     {
       List<TermDTO> termsList = Arrays.asList(terms);
       Collections.sort(termsList, new TermComparator());
       return termsList.toArray(new TermDTO[termsList.size()]);
     }
-    
+
   }
 
   /**
    * Loads information common to query screens, including the Earth node for 061
    * and all available queries for the given query screen.
-   *
+   * 
    * @param queryClass
    * @param queryType
    * @throws JSONException
    */
   private void loadQuerySpecifics(String queryClass, QueryConstants.QueryType queryType) throws JSONException
   {
-    ClientRequestIF request = this.getClientRequest();
-    String namespacedType = QueryConstants.namespaceQuery(queryClass, queryType);
+    this.loadQuerySpecifics(QueryConstants.namespaceQuery(queryClass, queryType));
+  }
 
+  /**
+   * Loads information common to query screens, including the Earth node for 061
+   * and all available queries for the given query screen.
+   * 
+   * @param queryClass
+   * @param queryType
+   * @throws JSONException
+   */
+  private void loadQuerySpecifics(String type, String typeName) throws JSONException
+  {
+    this.loadQuerySpecifics(QueryConstants.namespaceQuery(type, typeName));
+  }
+
+  private void loadQuerySpecifics(String namespacedType) throws JSONException
+  {
+    ClientRequestIF request = this.getClientRequest();
     SavedSearchViewQueryDTO query = SavedSearchDTO.getSearchesForType(request, namespacedType);
     JSONArray queries = new JSONArray();
     for (SavedSearchViewDTO view : query.getResultSet())
@@ -307,7 +341,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       if (file == null)
       {
-        message = MDSSProperties.getString("File_Required");
+        message = LocalizationFacadeDTO.getFromBundles(request, "File_Required");
         return;
       }
 
@@ -332,7 +366,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       search.setTemplateFile(templateDTO.getId());
       search.apply();
 
-      message = MDSSProperties.getString("File_Upload_Success");
+      message = LocalizationFacadeDTO.getFromBundles(request, "File_Upload_Success");
     }
     catch (Throwable e)
     {
@@ -359,22 +393,23 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClientRequestIF request = this.getClientRequest();
 
       JSONObject ordered = new JSONObject();
-      
+
       AggregatedAgeGroupDTO[] ages = AggregatedAgeGroupDTO.getAll(request);
       JSONObject aggCaseMap = new JSONObject();
       JSONObject ageGroups = new JSONObject();
-      for(AggregatedAgeGroupDTO age : ages)
+      for (AggregatedAgeGroupDTO age : ages)
       {
         String display = age.getStartAge() + " - " + age.getEndAge();
         ageGroups.put(age.getId(), display);
       }
       aggCaseMap.put("AgeGroup", ageGroups);
       req.setAttribute("ageGroups", aggCaseMap.toString());
-      
+
+      String label = LocalizationFacadeDTO.getFromBundles(request, "Amount");
 
       JSONObject methods = new JSONObject();
       methods.put("type", TermDTO.CLASS);
-      methods.put("label", MDSSProperties.getObject("Amount"));
+      methods.put("label", label);
       methods.put("relType", CaseTreatmentMethodDTO.CLASS);
       methods.put("relAttribute", CaseTreatmentMethodDTO.AMOUNT);
       methods.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASETREATMENTMETHOD));
@@ -382,7 +417,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject treatments = new JSONObject();
       treatments.put("type", TermDTO.CLASS);
-      treatments.put("label", MDSSProperties.getObject("Amount"));
+      treatments.put("label", label);
       treatments.put("relType", CaseTreatmentDTO.CLASS);
       treatments.put("relAttribute", CaseTreatmentDTO.AMOUNT);
       treatments.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASETREATMENTS));
@@ -390,7 +425,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject stocks = new JSONObject();
       stocks.put("type", TermDTO.CLASS);
-      stocks.put("label", MDSSProperties.getObject("Amount"));
+      stocks.put("label", label);
       stocks.put("relType", CaseTreatmentStockDTO.CLASS);
       stocks.put("relAttribute", CaseTreatmentStockDTO.OUTOFSTOCK);
       stocks.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASESTOCKS));
@@ -398,7 +433,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject diagnostics = new JSONObject();
       diagnostics.put("type", TermDTO.CLASS);
-      diagnostics.put("label", MDSSProperties.getObject("Amount"));
+      diagnostics.put("label", label);
       diagnostics.put("relType", CaseDiagnosticDTO.CLASS);
       diagnostics.put("relAttribute", CaseDiagnosticDTO.AMOUNT);
       diagnostics.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSTIC));
@@ -406,7 +441,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject diagnosticsP = new JSONObject();
       diagnosticsP.put("type", TermDTO.CLASS);
-      diagnosticsP.put("label", MDSSProperties.getObject("Amount_Positive"));
+      diagnosticsP.put("label", label);
       diagnosticsP.put("relType", CaseDiagnosticDTO.CLASS);
       diagnosticsP.put("relAttribute", CaseDiagnosticDTO.AMOUNTPOSITIVE);
       diagnosticsP.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSTIC));
@@ -414,7 +449,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject referrals = new JSONObject();
       referrals.put("type", TermDTO.CLASS);
-      referrals.put("label", MDSSProperties.getObject("Amount"));
+      referrals.put("label", label);
       referrals.put("relType", CaseReferralDTO.CLASS);
       referrals.put("relAttribute", CaseReferralDTO.AMOUNT);
       referrals.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEREFERRALS));
@@ -422,7 +457,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject stockReferrals = new JSONObject();
       stockReferrals.put("type", TermDTO.CLASS);
-      stockReferrals.put("label", MDSSProperties.getObject("Amount"));
+      stockReferrals.put("label", label);
       stockReferrals.put("relType", CaseStockReferralDTO.CLASS);
       stockReferrals.put("relAttribute", CaseStockReferralDTO.AMOUNT);
       stockReferrals.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASESTOCKREFERRAL));
@@ -430,7 +465,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject typeOfDiagnosis = new JSONObject();
       typeOfDiagnosis.put("type", TermDTO.CLASS);
-      typeOfDiagnosis.put("label", MDSSProperties.getObject("Amount"));
+      typeOfDiagnosis.put("label", label);
       typeOfDiagnosis.put("relType", CaseDiagnosisTypeDTO.CLASS);
       typeOfDiagnosis.put("relAttribute", CaseDiagnosisTypeDTO.TERM);
       typeOfDiagnosis.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDIAGNOSISTYPE));
@@ -438,7 +473,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject diagnosisTypeAmounts = new JSONObject();
       diagnosisTypeAmounts.put("type", TermDTO.CLASS);
-      diagnosisTypeAmounts.put("label", MDSSProperties.getObject("Amount"));
+      diagnosisTypeAmounts.put("label", label);
       diagnosisTypeAmounts.put("relType", CaseDiagnosisTypeAmountDTO.CLASS);
       diagnosisTypeAmounts.put("relAttribute", CaseDiagnosisTypeAmountDTO.AMOUNT);
       diagnosisTypeAmounts.put("options", getAllTermsForGrid(request, CaseDiagnosisTypeViewDTO.CLASS, CaseDiagnosisTypeViewDTO.DIAGNOSISCATEGORY));
@@ -446,7 +481,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject manifestations = new JSONObject();
       manifestations.put("type", TermDTO.CLASS);
-      manifestations.put("label", MDSSProperties.getObject("Amount"));
+      manifestations.put("label", label);
       manifestations.put("relType", CaseDiseaseManifestationDTO.CLASS);
       manifestations.put("relAttribute", CaseDiseaseManifestationDTO.TERM);
       manifestations.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEDISEASEMANIFESTATION));
@@ -454,7 +489,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject manifestationAmmounts = new JSONObject();
       manifestationAmmounts.put("type", TermDTO.CLASS);
-      manifestationAmmounts.put("label", MDSSProperties.getObject("Amount"));
+      manifestationAmmounts.put("label", label);
       manifestationAmmounts.put("relType", CaseDiseaseManifestationAmountDTO.CLASS);
       manifestationAmmounts.put("relAttribute", CaseDiseaseManifestationAmountDTO.AMOUNT);
       manifestationAmmounts.put("options", getAllTermsForGrid(request, CaseDiseaseManifestationViewDTO.CLASS, CaseDiseaseManifestationViewDTO.DISEASECATEGORY));
@@ -462,7 +497,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject patientTypes = new JSONObject();
       patientTypes.put("type", TermDTO.CLASS);
-      patientTypes.put("label", MDSSProperties.getObject("Amount"));
+      patientTypes.put("label", label);
       patientTypes.put("relType", CasePatientTypeDTO.CLASS);
       patientTypes.put("relAttribute", CasePatientTypeDTO.TERM);
       patientTypes.put("options", getAllTermsForGrid(request, AggregatedCaseViewDTO.CLASS, AggregatedCaseViewDTO.CASEPATIENTTYPE));
@@ -470,7 +505,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject patientTypeAmounts = new JSONObject();
       patientTypeAmounts.put("type", TermDTO.CLASS);
-      patientTypeAmounts.put("label", MDSSProperties.getObject("Amount"));
+      patientTypeAmounts.put("label", label);
       patientTypeAmounts.put("relType", CasePatientTypeAmountDTO.CLASS);
       patientTypeAmounts.put("relAttribute", CasePatientTypeAmountDTO.AMOUNT);
       patientTypeAmounts.put("options", getAllTermsForGrid(request, CasePatientTypeViewDTO.CLASS, CasePatientTypeViewDTO.PATIENTCATEGORY));
@@ -581,7 +616,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // Patients
       JSONObject patients = new JSONObject();
       patients.put("type", TermDTO.CLASS);
-      patients.put("label", MDSSProperties.getObject("Facility_referred"));
+      patients.put("label", LocalizationFacadeDTO.getFromBundles(request, "Facility_referred"));
       patients.put("relType", IPTPatientsDTO.CLASS);
       patients.put("relAttribute", IPTPatientsDTO.AMOUNT);
       patients.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYPATIENTS));
@@ -590,7 +625,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // Doses
       JSONObject doses = new JSONObject();
       doses.put("type", TermDTO.CLASS);
-      doses.put("label", MDSSProperties.getObject("Diagnostic_methods"));
+      doses.put("label", LocalizationFacadeDTO.getFromBundles(request, "Diagnostic_methods"));
       doses.put("relType", IPTDoseDTO.CLASS);
       doses.put("relAttribute", IPTDoseDTO.AMOUNT);
       doses.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYDOSE));
@@ -599,7 +634,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // Visits
       JSONObject visits = new JSONObject();
       visits.put("type", TermDTO.CLASS);
-      visits.put("label", MDSSProperties.getObject("Treatment_methods"));
+      visits.put("label", LocalizationFacadeDTO.getFromBundles(request, "Treatment_methods"));
       visits.put("relType", IPTANCVisitDTO.CLASS);
       visits.put("relAttribute", IPTANCVisitDTO.AMOUNT);
       visits.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYVISITS));
@@ -608,7 +643,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // Treatment
       JSONObject treatment = new JSONObject();
       treatment.put("type", TermDTO.CLASS);
-      treatment.put("label", MDSSProperties.getObject("Treatments"));
+      treatment.put("label", LocalizationFacadeDTO.getFromBundles(request, "Treatments"));
       treatment.put("relType", IPTTreatmentDTO.CLASS);
       treatment.put("relAttribute", IPTTreatmentDTO.AMOUNT);
       treatment.put("options", getAllTermsForGrid(request, AggregatedIPTViewDTO.CLASS, AggregatedIPTViewDTO.DISPLAYTREATMENTS));
@@ -956,7 +991,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // Target Groups
       JSONObject taxons = new JSONObject();
       taxons.put("type", TermDTO.CLASS);
-      taxons.put("label", MDSSProperties.getObject("Pupae_Amount"));
+      taxons.put("label", LocalizationFacadeDTO.getFromBundles(request, "Pupae_Amount"));
       taxons.put("relType", PupalContainerAmountDTO.CLASS);
       taxons.put("relAttribute", PupalContainerAmountDTO.AMOUNT);
       taxons.put("options", getAllTermsForGrid(request, PupalContainerViewDTO.CLASS, PupalContainerViewDTO.PUPAEAMOUNT));
@@ -991,11 +1026,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
-      
+
       // Product names for Intervention Control
       InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getControlInterventionInsecticideBrands(this.getClientRequest());
-      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);      
-      
+      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);
+
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       // Load label map for Adult Discriminating Dose Assay
@@ -1008,36 +1043,36 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       ClassQueryDTO iim = request.getQuery(IndividualPremiseVisitDTO.CLASS);
       String iimap = Halp.getDropDownMaps(iim, request, ", ");
       req.setAttribute("individualPremiseVisit", iimap);
-      
+
       JSONObject interventionMethods = new JSONObject();
       interventionMethods.put("type", TermDTO.CLASS);
-      interventionMethods.put("label", MDSSProperties.getObject("Amount"));
+      interventionMethods.put("label", LocalizationFacadeDTO.getFromBundles(request, "Amount"));
       interventionMethods.put("relType", IndividualPremiseVisitMethodDTO.CLASS);
       interventionMethods.put("relAttribute", IndividualPremiseVisitMethodDTO.USED);
       interventionMethods.put("options", getAllTermsForGrid(request, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitViewDTO.INTERVENTIONMETHOD));
       ordered.put("individualPremiseVisitMethod", interventionMethods);
-      
-      // Treat IndividualPremiseVisitDTO.REASONSFORNOTTREATED more like a Grid instead of a reference attribute.
+
+      // Treat IndividualPremiseVisitDTO.REASONSFORNOTTREATED more like a Grid
+      // instead of a reference attribute.
       TermDTO[] reasons = TermDTO.getAllTermsForField(request, IndividualPremiseVisitViewDTO.CLASS, IndividualPremiseVisitViewDTO.REASONSFORNOTTREATED);
       JSONArray reasonsArr = new JSONArray();
-      for(TermDTO reason : reasons)
+      for (TermDTO reason : reasons)
       {
         JSONObject r = new JSONObject();
         r.put("id", reason.getId());
-        r.put("key", QueryConstants.REASONS_FOR_NOT_TREATED_PREFIX+reason.getId());
+        r.put("key", QueryConstants.REASONS_FOR_NOT_TREATED_PREFIX + reason.getId());
         r.put("label", reason.getDisplayLabel());
         reasonsArr.put(r);
       }
       req.setAttribute("reasons", reasonsArr.toString());
 
-      
       ClassQueryDTO aim = request.getQuery(AggregatedPremiseVisitDTO.CLASS);
       String aimap = Halp.getDropDownMaps(aim, request, ", ");
-      req.setAttribute("aggregatedPremiseVisit", aimap);      
+      req.setAttribute("aggregatedPremiseVisit", aimap);
 
       JSONObject aggInterventionMethods = new JSONObject();
       aggInterventionMethods.put("type", TermDTO.CLASS);
-      aggInterventionMethods.put("label", MDSSProperties.getObject("Amount"));
+      aggInterventionMethods.put("label", LocalizationFacadeDTO.getFromBundles(request, "Amount"));
       aggInterventionMethods.put("relType", AggregatedPremiseMethodDTO.CLASS);
       aggInterventionMethods.put("relAttribute", AggregatedPremiseMethodDTO.AMOUNT);
       aggInterventionMethods.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseVisitViewDTO.INTERVENTIONMETHOD));
@@ -1045,7 +1080,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject aggInterventionReasons = new JSONObject();
       aggInterventionReasons.put("type", TermDTO.CLASS);
-      aggInterventionReasons.put("label", MDSSProperties.getObject("Amount"));
+      aggInterventionReasons.put("label", LocalizationFacadeDTO.getFromBundles(request, "Amount"));
       aggInterventionReasons.put("relType", AggregatedPremiseReasonDTO.CLASS);
       aggInterventionReasons.put("relAttribute", AggregatedPremiseReasonDTO.AMOUNT);
       aggInterventionReasons.put("options", getAllTermsForGrid(request, AggregatedPremiseVisitViewDTO.CLASS, AggregatedPremiseVisitViewDTO.NONTREATMENTREASON));
@@ -1057,28 +1092,28 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       JSONObject personInterventionMethod = new JSONObject();
       personInterventionMethod.put("type", TermDTO.CLASS);
-      personInterventionMethod.put("label", MDSSProperties.getObject("Amount"));
+      personInterventionMethod.put("label", LocalizationFacadeDTO.getFromBundles(request, "Amount"));
       personInterventionMethod.put("relType", PersonInterventionMethodDTO.CLASS);
       personInterventionMethod.put("relAttribute", PersonInterventionMethodDTO.AMOUNT);
       personInterventionMethod.put("options", getAllTermsForGrid(request, PersonInterventionViewDTO.CLASS, PersonInterventionViewDTO.INTERVENTIONMETHOD));
       ordered.put("personInterventionMethods", personInterventionMethod);
 
       req.setAttribute("orderedGrids", ordered.toString());
-      
+
       IndividualPremiseVisitViewDTO individualPremiseVisitViewDTO = new IndividualPremiseVisitViewDTO(this.getClientRequest());
-      
+
       req.setAttribute("individualMethodLabel", individualPremiseVisitViewDTO.getInterventionMethodMd().getDisplayLabel());
       req.setAttribute("individualReasonLabel", individualPremiseVisitViewDTO.getReasonsForNotTreatedMd().getDisplayLabel());
-            
+
       AggregatedPremiseVisitViewDTO aggPremiseVisitViewDTO = new AggregatedPremiseVisitViewDTO(this.getClientRequest());
-      
+
       req.setAttribute("aggMethodLabel", aggPremiseVisitViewDTO.getInterventionMethodMd().getDisplayLabel());
-      req.setAttribute("aggReasonLabel", aggPremiseVisitViewDTO.getNonTreatmentReasonMd().getDisplayLabel());      
+      req.setAttribute("aggReasonLabel", aggPremiseVisitViewDTO.getNonTreatmentReasonMd().getDisplayLabel());
 
       PersonInterventionViewDTO personInterventionViewDTO = new PersonInterventionViewDTO(this.getClientRequest());
-      
+
       req.setAttribute("personMethodLabel", personInterventionViewDTO.getInterventionMethodMd().getDisplayLabel());
-      
+
       req.getRequestDispatcher(QUERY_INTERVENTION_CONTROL).forward(req, resp);
 
     }
@@ -1115,7 +1150,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       // Treatment
       JSONObject symptoms = new JSONObject();
       symptoms.put("type", TermDTO.CLASS);
-      symptoms.put("label", MDSSProperties.getObject("Malaria_Symptom"));
+      symptoms.put("label", LocalizationFacadeDTO.getFromBundles(request, "Malaria_Symptom"));
       symptoms.put("relType", IndividualCaseSymptomDTO.CLASS);
       symptoms.put("relAttribute", IndividualCaseSymptomDTO.HASSYMPTOM);
       symptoms.put("options", new JSONArray());
@@ -1123,7 +1158,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       TermDTO[] allSymptoms = TermDTO.getRootChildren(request, IndividualInstanceDTO.CLASS, IndividualInstanceDTO.SYMPTOM, false);
 
       allSymptoms = TermComparator.sort(allSymptoms);
-      
+
       for (TermDTO term : allSymptoms)
       {
         JSONObject option = new JSONObject();
@@ -1163,11 +1198,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
-      
+
       // Product names for Efficacy Assay
       InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getEfficacyAssayInsecticideBrands(this.getClientRequest());
-      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);      
-      
+      insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);
+
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       req.getRequestDispatcher(QUERY_EFFICACY_ASSAY).forward(req, resp);
@@ -1350,11 +1385,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       ClassQueryDTO insecticideBrand = request.getQuery(InsecticideBrandDTO.CLASS);
       String insecticideBrandMap = Halp.getDropDownMaps(insecticideBrand, request, ", ");
-      
+
       // Product names for IRS only
       InsecticideBrandViewDTO[] brands = InsecticideBrandViewDTO.getIRSInsecticideBrands(this.getClientRequest());
       insecticideBrandMap = Halp.getDropDownMaps(insecticideBrandMap, brands, InsecticideBrandDTO.PRODUCTNAME);
-      
+
       req.setAttribute("insecticideBrandMap", insecticideBrandMap);
 
       req.getRequestDispatcher(QUERY_IRS).forward(req, resp);
@@ -1537,5 +1572,195 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
   public void failQuerySurvey() throws IOException, ServletException
   {
     this.failQuery();
+  }
+
+  public void queryType(String type) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+
+      MdWebFormDTO form = MdFormUtilDTO.getForm(request, type);
+      MdClassDTO formMdClass = form.getFormMdClass();
+      String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
+
+      BusinessDTO businessDTO = request.newBusiness(classType);
+      ClassQueryDTO query = request.getQuery(classType);
+      CompositeGeoField geoField = new CompositeGeoField();
+
+      loadQuerySpecifics(classType, businessDTO.getMd().getDisplayLabel());
+
+      List<String> typesToLoad = new LinkedList<String>();
+      typesToLoad.addAll(Arrays.asList(new String[] { classType, NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS }));
+
+      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(request, form);
+
+      Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
+      Set<String> readableFieldNames = this.getReadableFieldNames(fields, readableAttributeNames);
+
+      /*
+       * Build JSON definition for the date and geo attributes
+       */
+      StringBuffer dateAttributes = new StringBuffer();
+      StringBuffer geoAttributes = new StringBuffer();
+      List<SelectableGroup> extraGroups = new LinkedList<SelectableGroup>();
+
+      for (MdWebFieldDTO field : fields)
+      {
+        String fieldName = field.getFieldName();
+        String fieldLabel = field.getDisplayLabel().getValue();
+
+        if (readableFieldNames.contains(fieldName))
+        {
+          if (field instanceof MdWebDateDTO)
+          {
+            StringBuffer object = new StringBuffer();
+            object.append("{klass:Mojo.Meta.findClass('" + classType + "')");
+            object.append(", accessor:'" + fieldName + "'}");
+
+            if (dateAttributes.length() > 0)
+            {
+              dateAttributes.append(",");
+            }
+
+            dateAttributes.append(object.toString());
+          }
+          else if (field instanceof MdWebGeoDTO)
+          {
+            geoField.addField(GeoFieldDTO.getGeoField(request, classType, fieldName));
+
+            StringBuffer object = new StringBuffer();
+            object.append("{");
+            object.append("keyName:'" + classType + "." + fieldName + "'");
+            object.append(", display:'" + fieldLabel + "'");
+            object.append("}");
+
+            if (geoAttributes.length() > 0)
+            {
+              geoAttributes.append(",");
+            }
+
+            geoAttributes.append(object.toString());
+          }
+          else if (field instanceof MdWebMultipleTermDTO)
+          {
+            TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, fieldName);
+            MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
+
+            String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
+            typesToLoad.add(relType);
+
+            SelectableOptionFactory factory = new SelectableOptionFactory(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE, relType);
+            factory.setLabel(fieldLabel + " - ");
+
+            SelectableGroup selectableGroup = new SelectableGroup();
+            selectableGroup.setLabel(fieldLabel);
+            selectableGroup.setClassType(relType);
+
+            for (TermDTO term : terms)
+            {
+              selectableGroup.addOption(factory.createOption(term));
+            }
+
+            extraGroups.add(selectableGroup);
+          }
+          else if (field instanceof MdWebSingleTermGridDTO)
+          {
+            TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, fieldName);
+
+            MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
+
+            String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
+            typesToLoad.add(relType);
+
+            MdAttributeConcreteDTO[] mdAttributes = MdFormUtilDTO.definesAttributes(request, mdRelationship);
+
+            for (MdAttributeConcreteDTO mdAttribute : mdAttributes)
+            {
+              String attributeName = mdAttribute.getAttributeName();
+              String attributeLabel = mdAttribute.getDisplayLabel().getValue();
+
+              SelectableOptionFactory factory = new SelectableOptionFactory(mdAttribute, attributeName, relType);
+              factory.setAttributeNamePrepend(attributeName);
+              factory.setLabel(attributeLabel + " - ");
+
+              SelectableGroup selectableGroup = new SelectableGroup();
+              selectableGroup.setLabel(fieldLabel + " - " + attributeLabel);
+              selectableGroup.setClassType(relType);
+
+              for (TermDTO term : terms)
+              {
+                selectableGroup.addOption(factory.createOption(term));
+              }
+
+              extraGroups.add(selectableGroup);
+            }
+          }
+        }
+      }
+
+      req.setAttribute("type", classType);
+      req.setAttribute("label", form.getMd().getDisplayLabel());
+      req.setAttribute("typesToLoad", typesToLoad);
+      req.setAttribute("dropDownMaps", Halp.getDropDownMaps(query, request, ", "));
+      req.setAttribute("attributes", this.getReadablePrimitiveFields(fields, readableAttributeNames).toString());
+      req.setAttribute("dateAttributes", dateAttributes.toString());
+      req.setAttribute("geoAttributes", geoAttributes.toString());
+      req.setAttribute("geoField", geoField);
+      req.setAttribute("extraGroups", extraGroups);
+
+      req.getRequestDispatcher(QUERY_TYPE).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failQuery();
+      }
+    }
+  }
+
+  public void failQueryType(String type) throws IOException, ServletException
+  {
+    this.failQuery();
+  }
+
+  private JSONArray getReadablePrimitiveFields(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
+  {
+    JSONArray fieldNames = new JSONArray();
+
+    for (MdWebFieldDTO field : fields)
+    {
+      if (! ( ( field instanceof MdWebMultipleTermDTO || field instanceof MdWebSingleTermGridDTO || field instanceof MdWebTextDTO ) ))
+      {
+        String fieldName = field.getFieldName();
+
+        if (readableAttributeNames.contains(fieldName))
+        {
+          fieldNames.put(fieldName);
+        }
+      }
+    }
+
+    return fieldNames;
+  }
+
+  private Set<String> getReadableFieldNames(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
+  {
+    Set<String> set = new TreeSet<String>();
+
+    for (MdWebFieldDTO field : fields)
+    {
+      String fieldName = field.getFieldName();
+
+      if (readableAttributeNames.contains(fieldName))
+      {
+        set.add(fieldName);
+      }
+    }
+
+    return set;
   }
 }

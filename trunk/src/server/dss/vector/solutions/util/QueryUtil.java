@@ -682,12 +682,12 @@ public class QueryUtil implements Reloadable
     buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + GEO_ALIAS + "." + entityNameColumn + " || ' (' || \n");
     buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
     buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')'");
-    
-    if(withGeoId)
+
+    if (withGeoId)
     {
-      buffer.append(" || ' - ' ||  "+GEO_ALIAS+"."+geoId);
+      buffer.append(" || ' - ' ||  " + GEO_ALIAS + "." + geoId);
     }
-    
+
     buffer.append(" AS " + QueryUtil.LABEL_COLUMN + "\n");
     buffer.append("FROM  \n");
     buffer.append(geoEntityTable + " " + GEO_ALIAS + " \n");
@@ -906,6 +906,96 @@ public class QueryUtil implements Reloadable
 
   }
 
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, boolean ignoreCriteria)
+  {
+    String attributeName = null;
+    String startValue = null;
+    String endValue = null;
+    String klass = null;
+    JSONObject dateObj = null;
+    try
+    {
+      dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
+      attributeName = dateObj.getString(DATE_ATTRIBUTE);
+      klass = dateObj.getString("klass");
+      
+      MdBusiness md = MdBusiness.getMdBusiness(klass);
+      GeneratedEntityQuery attributeQuery = null;
+      while (attributeQuery == null)
+      {
+        if (md == null)
+        {
+          // the entity that defines the date attribute is not
+          // in the query, so don't do anymore processing.
+          return valueQuery;
+        }
+        
+        attributeQuery = queryMap.get(md.definesType());
+        if (attributeQuery != null)
+        {
+          break;
+        }
+        
+        md = md.getSuperMdBusiness();
+      }
+      
+      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
+      {
+        startValue = dateObj.getString("start");
+        
+        if (!ignoreCriteria)
+        {
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+          valueQuery.AND(dateAttriute.GE(startValue));
+        }
+        
+      }
+      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
+      {
+        endValue = dateObj.getString("end");
+        
+        if (!ignoreCriteria)
+        {
+          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+          valueQuery.AND(dateAttriute.LE(endValue));
+        }
+      }
+      
+      // now we set the columns that show the restictions
+      if (xml.indexOf(START_DATE_RANGE) > 0)
+      {
+        SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(START_DATE_RANGE);
+        dateGroup.setSQL("''");
+        if (startValue != null)
+        {
+          dateGroup.setSQL("'" + startValue + "'");
+        }
+      }
+      
+      if (xml.indexOf(END_DATE_RANGE) > 0)
+      {
+        SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(END_DATE_RANGE);
+        dateGroup.setSQL("''");
+        if (endValue != null)
+        {
+          dateGroup.setSQL("'" + endValue + "'");
+        }
+      }
+      
+      return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName));
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+  }
+  
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);    
+  }
+  
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, Selectable diseaseSel)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel);
@@ -931,6 +1021,19 @@ public class QueryUtil implements Reloadable
       dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms " + " WHERE ms." + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da + " AND ms." + disease + " = " + diseaseSel.getDbQualifiedName());
     }
 
+    return setQueryDates(xml, valueQuery, target, da, found);
+  }
+
+  public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
+  {
+    String da = daSel.getDbQualifiedName();
+    Set<String> found = new HashSet<String>();
+
+    return setQueryDates(xml, valueQuery, target, da, found);
+  }
+
+  private static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, String da, Set<String> found)
+  {
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)
     {
       found.add(DATEGROUP_EPIWEEK);

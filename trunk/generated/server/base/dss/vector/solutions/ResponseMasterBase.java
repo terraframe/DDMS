@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1325773653)
+@com.runwaysdk.business.ClassSignature(hash = 397805041)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public abstract class ResponseMasterBase extends com.runwaysdk.system.EnumerationMaster implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.ResponseMaster";
-  private static final long serialVersionUID = 1325773653;
+  private static final long serialVersionUID = 397805041;
   
   public ResponseMasterBase()
   {

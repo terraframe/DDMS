@@ -15,6 +15,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;
@@ -94,6 +96,13 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
   public static void setReadableAttributes(HttpServletRequest req, String reqAttr, String className, ClientRequestIF requestIF)
   {
+    JSONArray readable = Halp.getReadableAttributes(className, requestIF);
+
+    req.setAttribute(reqAttr, readable.toString());
+  }
+
+  public static JSONArray getReadableAttributes(String className, ClientRequestIF requestIF)
+  {
     ReadableAttributeViewDTO[] views = ReadableAttributeViewDTO.getReadableAttributes(requestIF, className);
 
     JSONArray readable = new JSONArray();
@@ -102,7 +111,21 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
       readable.put(view.getAttributeName());
     }
 
-    req.setAttribute(reqAttr, readable.toString());
+    return readable;
+  }
+
+  public static Set<String> getReadableAttributeNames(String className, ClientRequestIF requestIF)
+  {
+    ReadableAttributeViewDTO[] views = ReadableAttributeViewDTO.getReadableAttributes(requestIF, className);
+
+    Set<String> readable = new TreeSet<String>();
+
+    for (ReadableAttributeViewDTO view : views)
+    {
+      readable.add(view.getAttributeName());
+    }
+
+    return readable;
   }
 
   public static String join(List<String> s)
@@ -417,18 +440,18 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
 
     return ( Halp.join(dropdownbuff, delimeter) );
   }
-  
+
   public static String getDropDownMaps(String appendTo, InsecticideBrandViewDTO[] brands, String attribute) throws JSONException
   {
-    
+
     JSONObject brandsObj = new JSONObject();
-    for(InsecticideBrandViewDTO brand : brands)
+    for (InsecticideBrandViewDTO brand : brands)
     {
       brandsObj.put(brand.getValue(InsecticideBrandViewDTO.PRODUCTNAME), brand.getLabel());
     }
-    
+
     String key = attribute.substring(0, 1).toUpperCase() + attribute.substring(1);
-    return appendTo +", " +key+":"+brandsObj.toString();
+    return appendTo + ", " + key + ":" + brandsObj.toString();
   }
 
   private static String generateDropDownMap(AttributeMdDTO md, ClientRequestIF request)
@@ -507,9 +530,9 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
      * properties.put("mail.smtp.host", "terraframe.com");
      * properties.put("mail.smtp.port", "25"); properties.put("mail.smtp.auth",
      * true); Session session = Session.getDefaultInstance(properties, null);
-     *
+     * 
      * try {
-     *
+     * 
      * Message message = new MimeMessage(session); message.setFrom(new
      * InternetAddress(from)); message.setRecipient(Message.RecipientType.TO,
      * new InternetAddress(to)); message.setSubject(subject);
@@ -578,7 +601,11 @@ public class Halp implements com.runwaysdk.generation.loader.Reloadable
     // because the header has not been rendered yet.
     Halp.getDateFormatString(request);
 
-    return renderJspToByteArray(request, response, jsp_to_render).toString("UTF-8");
+    ByteArrayOutputStream stream = Halp.renderJspToByteArray(request, response, jsp_to_render);
+
+    String jsp = stream.toString("UTF-8");
+
+    return jsp;
   }
 
   public static String getDefaultValues(ViewDTO view, String[] keys)

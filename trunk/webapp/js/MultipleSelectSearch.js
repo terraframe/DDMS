@@ -36,36 +36,39 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     
     setSelectedUniversals : function(selected)
     {
-      if(this._rendered)
-      {
-        var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
-        for(var i=0; i<checkboxes.length; i++)
-        {
-          var check = checkboxes[i];
-          if(check.checked)
-          {
-            check.checked = false;
-          }
-        }
-      }
-      else
-      {
-        this._initSelectedUniversals = [];
-      }
-    
-      for(var i=0; i<selected.length; i++)
+      if(selected != null)
       {
         if(this._rendered)
         {
-          var check = document.getElementById(selected[i]+'_selectUniversalType');
-          if(check)
+          var checkboxes = YAHOO.util.Selector.query('input[type="checkbox"].selectUniversalType');
+          for(var i=0; i<checkboxes.length; i++)
           {
-            check.checked = true;
+            var check = checkboxes[i];
+            if(check.checked)
+            {
+              check.checked = false;
+            }
           }
         }
         else
         {
-          this._initSelectedUniversals.push(selected[i]);
+          this._initSelectedUniversals = [];
+        }
+    
+        for(var i=0; i<selected.length; i++)
+        {
+          if(this._rendered)
+          {
+            var check = document.getElementById(selected[i]+'_selectUniversalType');
+            if(check)
+            {
+              check.checked = true;
+            }
+          }
+          else
+          {
+            this._initSelectedUniversals.push(selected[i]);
+          }
         }
       }
     },
@@ -102,17 +105,20 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
      */
     setCriteria : function(criteria)
     {
-      this._criteriaMap = {};
+      if(criteria != null)
+      {
+        this._criteriaMap = {};
       
-      if(this._rendered)
-      {
-        var selections = document.getElementById(this._CURRENT_SELECTIONS);
-        selections.innerHTML = '';
-      }
+        if(this._rendered)
+        {
+          var selections = document.getElementById(this._CURRENT_SELECTIONS);
+          selections.innerHTML = '';
+        }
     
-      for(var i=0; i<criteria.length; i++)
-      {
-        this._updateSelection(criteria[i], this._rendered);
+        for(var i=0; i<criteria.length; i++)
+        {
+          this._updateSelection(criteria[i], this._rendered);
+        }
       }
     },
     

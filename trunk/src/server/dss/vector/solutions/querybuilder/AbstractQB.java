@@ -128,7 +128,7 @@ public abstract class AbstractQB implements Reloadable
     this.xml = xml;
     this.config = config;
     this.layer = layer;
-    geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
+    this.geoDisplayLabelQueries = new LinkedList<GeneratedEntityQuery>();
 
     this.factory = null;
     this.valueQuery = null;
