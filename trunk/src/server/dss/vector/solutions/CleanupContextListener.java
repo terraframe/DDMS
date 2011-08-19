@@ -24,6 +24,7 @@ import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 import com.runwaysdk.system.metadata.SupportedLocale;
@@ -309,6 +310,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     String parentGeoEntityCol = QueryUtil.getColumnName(AllPaths.getParentGeoEntityMd());
 
     MdEntityDAOIF populationDataMd = MdEntityDAO.getMdEntityDAO(PopulationData.CLASS);
+    String populationDataTable = populationDataMd.getTableName();
 
     MdEntityDAOIF locatedInMd = MdEntityDAO.getMdEntityDAO(LocatedIn.CLASS);
     String locatedInTable = locatedInMd.getTableName();
@@ -352,6 +354,19 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "array_upper($1,1)) g(i);  \n";
     sql += "$$ LANGUAGE sql IMMUTABLE; \n";
 
+    MdEntity geoEntity = MdEntity.getMdEntity(GeoEntity.CLASS);
+    String geoEntityTable = geoEntity.getTableName();
+    String typeCol = QueryUtil.getColumnName(GeoEntity.getTypeMd());
+
+    MdEntity mdType = MdEntity.getMdEntity(MdType.CLASS);
+    String mdTypeTable = mdType.getTableName();
+    String pckCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
+    String typeNameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
+
+    MdEntity geoHierarchy = MdEntity.getMdEntity(GeoHierarchy.CLASS);
+    String geoHierarchyTable = geoHierarchy.getTableName();
+    String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
+    
     sql += "CREATE OR REPLACE FUNCTION get_adjusted_population \n";
     sql += "( \n";
     sql += "  _geo_Entity_Id         VARCHAR, \n";
@@ -370,9 +385,12 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _percentage_Adjustment FLOAT; \n";
     sql += "BEGIN \n";
     sql += "  _percentage_Adjustment = (_middle_Day/183); \n";
-    sql += "  SELECT population , year_of_data, growth_rate FROM population_data pd JOIN geo_displayLabel gd ON gd.id = pd.geo_entity \n";
+    sql += "  SELECT population , year_of_data, growth_rate FROM "+populationDataTable+" pd \n";
+    sql += "    INNER JOIN "+geoEntityTable+" g ON pd.geo_entity = g.id \n";
+    sql += "    INNER JOIN "+mdTypeTable+" m ON g."+typeCol+" LIKE m."+pckCol+" || '.' || m."+typeNameCol+" \n";
+    sql += "    INNER JOIN "+geoHierarchyTable+" h ON m.id = h."+geoEntityClassCol+" \n";
     sql += "    WHERE pd.year_of_data  <= _year AND pd.geo_entity = _geo_Entity_Id  \n";
-    sql += "    AND gd."+populationAllowedCol+" = 1 AND gd."+politicalCol+" = 1 \n";
+    sql += "    AND h."+populationAllowedCol+" = 1 AND h."+politicalCol+" = 1 \n";
     sql += "    AND population IS NOT NULL \n";
     sql += "    ORDER BY pd.year_of_data DESC \n";
     sql += "    LIMIT 1 \n";
@@ -383,9 +401,12 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     // If the growth rate is null then grab the last known rate before the year
     // of the population to extrapolate the population based on that prior rate.
     sql += "        IF _growth IS NULL THEN \n";
-    sql += "          SELECT growth_rate FROM population_data pd JOIN geo_displayLabel gd ON gd.id = pd.geo_entity \n";
+    sql += "          SELECT growth_rate FROM "+populationDataTable+" pd \n";
+    sql += "          INNER JOIN "+geoEntityTable+" g ON pd.geo_entity = g.id \n";
+    sql += "          INNER JOIN "+mdTypeTable+" m ON g."+typeCol+" LIKE m."+pckCol+" || '.' || m."+typeNameCol+" \n";
+    sql += "          INNER JOIN "+geoHierarchyTable+" h ON m.id = h."+geoEntityClassCol+" \n";
     sql += "          WHERE pd.year_of_data <= _prev_Year AND pd.geo_entity = _geo_Entity_Id \n";
-    sql += "          AND gd."+populationAllowedCol+" = 1 AND gd."+politicalCol+" = 1 \n";
+    sql += "          AND h."+populationAllowedCol+" = 1 AND h."+politicalCol+" = 1 \n";
     sql += "          AND growth_rate IS NOT NULL \n";
     sql += "          ORDER BY pd.year_of_data DESC \n";
     sql += "          LIMIT 1 \n";
@@ -424,8 +445,6 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
 
-    MdEntityDAOIF geoEntityMd = MdEntityDAO.getMdEntityDAO(GeoEntity.CLASS);
-    String geoEntityTable = geoEntityMd.getTableName();
     String geoIdCol = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
 
     sql += "CREATE OR REPLACE FUNCTION get_yearly_population_by_geoid_and_date \n";
