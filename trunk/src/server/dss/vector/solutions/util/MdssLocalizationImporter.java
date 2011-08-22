@@ -11,9 +11,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.Map.Entry;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -25,8 +25,12 @@ import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
+import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.StructDAO;
+import com.runwaysdk.dataaccess.attributes.entity.Attribute;
+import com.runwaysdk.dataaccess.attributes.entity.AttributeStruct;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
@@ -414,6 +418,18 @@ public class MdssLocalizationImporter implements Reloadable
     }
   }
 
+  /**
+   * Method to actually make the changes in the localized attribtues for a row.
+   * Modified StructDAOs directly for performance reasons. If we modified the
+   * MdTypeDAOs, that would trigger recompiles and cache reloads that are slow.
+   * Instead we modify the Struct and tell the cache which entities need to be
+   * refreshed.
+   * 
+   * 
+   * @param localeDimensions
+   * @param row
+   * @param sheetName
+   */
   private void readLocalAttributeRow(List<LocaleDimension> localeDimensions, HSSFRow row, String sheetName)
   {
     int c = 0;
@@ -427,9 +443,15 @@ public class MdssLocalizationImporter implements Reloadable
     }
 
     StructDAO struct;
+    EntityDAO entity;
     try
     {
-      struct = StructDAO.get(EntityDAO.get(type, key).getValue(attributeName)).getStructDAO();
+      // Casting to DAO so we can update the cache for this object only, not a complete rebuild
+      entity = (EntityDAO) EntityDAO.get(type, key);
+      
+      // Casting to AttributeStruct so we can get the StructDAO reference
+      AttributeStruct attributeStruct = (AttributeStruct)entity.getAttribute(attributeName);
+      struct = attributeStruct.getStructDAO();
     }
     catch (DataNotFoundException e)
     {
@@ -465,6 +487,7 @@ public class MdssLocalizationImporter implements Reloadable
     if (apply)
     {
       struct.apply();
+      ObjectCache.updateCache(entity);
       modifiedCount++;
     }
   }
