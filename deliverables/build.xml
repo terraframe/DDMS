@@ -8,80 +8,68 @@
 			</fileset>
 		</classpath>
 	</typedef>
+	
+	<tstamp>
+		<format property="date" pattern="MMMM dd" />
+		<format property="long_date" pattern="MMMM dd, yyyy" />
+	</tstamp>
 
-	<target name="build" depends="increment">
-		<tstamp>
-			<format property="date" pattern="MMMM dd" />
-			<format property="long_date" pattern="MMMM dd, YYYY" />
-		</tstamp>
-		
-		<!-- Build the expected file names -->
-		<property name="file.installer" value="InstallDDMSblank-${version.display}.exe" />
-		<property name="file.patch" value="patch-${version.display}.exe" />
-		<property name="file.manager" value="manager-${version.display}.exe" />
-		
-		<!-- svn updates -->
+	<target name="test">
+		<ftp server="terraframe.com"
+			 port="21"
+		     remotedir="/var/www/html/ivcc"
+		     userid="terraframe"
+		     password="terrasite2010"
+		     passive="yes"
+		     binary="yes">
+			<fileset dir=".">
+		      <include name="InstallDDMSblank-1.02.0000.exe"/>
+		    </fileset>
+		</ftp>
+	</target>
+	
+	<target name="build" depends="update,set-properties,build-all" />
+	
+	<target name="build-patch-only" depends="update,set-properties,build-patch" />
+
+	<target name="build-manager-patch-only" depends="update,set-properties,build-manager-patch" />
+			
+	<target name="upload-and-email" depends="set-properties,upload,email,increment" />	
+
+	<target name="build-and-upload" depends="build,upload-and-email" />	
+	
+	<target name="update">
 		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle" failonerror="true">
 			<update dir="${mdss.root}" recurse="true" />
 			<update dir="../standalone" recurse="true" />
+			<update dir="../installer-stage" recurse="true" />
+			<update dir="../MDSSGISI" recurse="true" />
 		</svn>
-
-		<!-- Installer -->
-		<ant inheritAll="false" antfile="${mdss.root}/cc-build.xml" target="build">
-			<property name="version.display" value="${version.display}" />
-		</ant>
-		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="${file.installer}" />
-
-		<!-- App Patch -->
-		<ant inheritAll="false" antfile="${mdss.root}/patches/patch.xml" target="build">
-			<property name="version.display" value="${version.display}" />
-		</ant>
-		<copy file="${mdss.root}/patches/patch.exe" tofile="${file.patch}" />
-
-		<!-- Manager Patch -->
-		<ant inheritAll="false" antfile="../standalone/patch/manager.xml" target="build">
-			<property name="version.display" value="${version.display}" />
-		</ant>
-		<copy file="../standalone/patch/manager.exe" tofile="${file.manager}" />
-
-		<!-- svn commit -->
-		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
-			<add file="${file.installer}" />
-			<add file="${file.patch}" />
-			<add file="${file.manager}" />
-			<commit file="${file.installer}" message="Automatic installer commit" />
-			<commit file="${file.patch}" message="Automatic patch commit" />
-			<commit file="${file.manager}" message="Automatic manager patch commit" />
-		</svn>
-
-        <mail
-            mailhost="mail.terraframe.com"
-            mailport="25"
-            subject="${date} build complete"
-            user="builder"
-            password="Mr.Bob!">
-            <from address="cruisecontrol@terraframe.com" />
-            <to address="eric.grunzke@gmail.com" />
-            <to address="miguel.orlans@gmail.com" />
-            <to address="marlize.coleman@gmail.com" />
-            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download at https://my-svn.assembla.com/svn/mdss/deliverables/
-
-You may reply to this e-mail directly with any questions.</message>
-        </mail>
 	</target>
 
 	<target name="increment">
 		<!-- Increment the build number -->
 		<propertyfile file="./version.properties">
 			<entry key="version.build" type="int" operation="+" default="0" pattern="0000" />
-		</propertyfile>
-		
+		</propertyfile>				
+	</target>
+	
+	<target name="set-properties">
 		<!-- Read in the incremented proeprty file -->
 		<property file="version.properties" />
 		<property name="version.display" value="${version.major}.${version.minor}.${version.build}" />
 		<echo message="Incremented version is ${version.display}" />
-		
-		<!-- Regex the version into about.jsp. It's ugly, but XML requires escape codes for nested "-->
+	
+		<!-- Build the expected file names -->
+	
+		<property name="file.installer" value="InstallDDMSblank-${version.display}.exe" />
+		<property name="file.patch" value="patch-${version.display}.exe" />
+		<property name="file.manager" value="manager-${version.display}.exe" />
+		<echo message="${file.installer}" />	
+	</target>
+	
+	<target name="update-about">
+		<!-- Regex the version into about.jsp. It's ugly, but XML requires escape codes for nested "s -->
 		<replaceregexp
 		  match="c:set var=&quot;version&quot; value=&quot;.*&quot; scope=&quot;request&quot;"
 		  replace="c:set var=&quot;version&quot; value=&quot;${version.display}&quot; scope=&quot;request&quot;"
@@ -91,6 +79,85 @@ You may reply to this e-mail directly with any questions.</message>
 		<!-- Overwrite revision.html -->
 		<echo file="${mdss.root}/webapp/revision.html" append="false">
 			Last updated on ${long_date}
-		</echo>
+		</echo>	
 	</target>
+	
+	<target name="build-all" depends="build-patch,build-manager-patch,build-installer" />
+	
+	<target name="build-installer" depends="update-about">
+
+		<!-- Installer -->
+		<ant inheritAll="false" antfile="../installer-stage/installer.xml" target="build">
+			<property name="version.display" value="${version.display}" />
+		</ant>
+		<copy file="../installer-windows/InstallDDMSblank.exe" tofile="${file.installer}" />
+	</target>	
+		
+	<target name="build-patch" depends="update-about">
+		
+		<!-- App Patch -->
+		<ant inheritAll="false" antfile="${mdss.root}/patches/patch.xml" target="build">
+			<property name="version.display" value="${version.display}" />
+		</ant>
+		<copy file="${mdss.root}/patches/patch.exe" tofile="${file.patch}" />
+		
+	</target>
+
+	<target name="build-manager-patch">		
+		<!-- Manager Patch -->
+		<ant inheritAll="false" antfile="../standalone/patch/manager.xml" target="build">
+			<property name="version.display" value="${version.display}" />
+		</ant>
+		<copy file="../standalone/patch/manager.exe" tofile="${file.manager}" />						
+	</target>
+	
+	<target name="upload">	
+		<!-- ftp upload -->
+		<ftp server="terraframe.com"
+			 port="21"
+		     remotedir="/var/www/html/ivcc"
+		     userid="terraframe"
+		     password="terrasite2010"
+		     passive="yes"
+		     binary="yes">
+			<fileset dir=".">
+		      <include name="${file.installer}"/>
+		      <include name="${file.patch}"/>			  
+		      <include name="${file.manager}"/>
+		    </fileset>
+		</ftp>		
+		<!-- svn commit
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+			<add file="${file.installer}" />
+			<add file="${file.patch}" />
+			<add file="${file.manager}" />
+			<commit file="${file.installer}" message="Automatic installer commit" />
+			<commit file="${file.patch}" message="Automatic patch commit" />
+			<commit file="${file.manager}" message="Automatic manager patch commit" />
+		</svn>
+		-->	
+	</target>
+	
+	<target name="email">
+		 <!-- Email peeps -->
+	
+        <mail
+            mailhost="mail.terraframe.com"
+            mailport="25"
+            subject="${date} build complete"
+            user="builder"
+            password="Mr.Bob!">
+            <from address="cruisecontrol@terraframe.com" />
+            <to address="nmceachen@terraframe.com" />
+			<to address="jsmethie@terraframe.com" />
+			<to address="jnaifeh@terraframe.com" />
+			<to address="wrose@terraframe.com" />
+            <to address="miguel.orlans@gmail.com" />
+            <to address="marlize.coleman@gmail.com" />
+            <message>Version ${version.display} has been built on ${date}.  New patches and installers are available for download at http://www.terraframe.com/ivcc/
+
+You may reply to this e-mail directly with any questions.</message>
+        </mail>	
+	</target>
+	
 </project>
