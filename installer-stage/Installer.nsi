@@ -207,10 +207,12 @@ Function appNameUniquenessCheck
     
     appNameCollision:
     MessageBox MB_OK "$1 already exists.  Please choose another name."
+	FileClose $0
     Abort
     
     appNameDone:
     ClearErrors
+	FileClose $0
 FunctionEnd
 
 Function sanitizeName
@@ -255,7 +257,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6170
+    StrCpy $PatchVersion 6330
     StrCpy $TermsVersion 5814
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 5814
@@ -342,7 +344,8 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSql"
     File "postgresql-8.4.1-1-windows.exe"
     ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
-    ExecWait `net stop postgresql-8.4`   
+    ExecWait `net stop postgresql-8.4` 
+    Sleep 2000	
     
     # Get the Windows Version (XP, Vista, etc.)
     nsisos::osversion
@@ -364,10 +367,11 @@ Section -Main SEC0000
     # Copy the tweaked postgres config
     File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
     
+	Sleep 2000
     ExecWait `net start postgresql-8.4`
     
     # Put in a delay to ensure that Postgres has started up before trying to install PostGIS
-    Sleep 10000
+    Sleep 2000
     
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
@@ -400,17 +404,25 @@ Section -Main SEC0000
     # takeown /f C:\MDSS\PostgreSql /r /d y
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
-    # Update lots of things
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\* dss/vector/solutions/util/PostInstallSetup $AppName $InstallationNumber $Master_Value`
-    
+    # Update lots of things	
+	ClearErrors
+    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup $AppName $InstallationNumber $Master_Value`
+    IfErrors postInstallError skipErrorMsg
+	
+	postInstallError:
+	MessageBox MB_OK "Post install process failed." 
+	ClearErrors
+	
+	skipErrorMsg:
+	
     # Copy the profile to the backup manager
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     # Copy in the pregenerated cache files
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
-    File /oname=$INSTDIR\tomcat6\$AppName.data ../trunk/DDMS.data
-    File /oname=$INSTDIR\tomcat6\$AppName.index ../trunk/DDMS.index
+    File /oname=$INSTDIR\tomcat6\$AppName.data DDMS.data
+    File /oname=$INSTDIR\tomcat6\$AppName.index DDMS.index
     
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
