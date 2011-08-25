@@ -72,6 +72,31 @@ VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 
+Function checkIfMaster
+    ClearErrors
+    FileOpen $0 $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\install.properties r
+    
+    propFileReadLoop:
+    # Read a line from the file into $1
+    FileRead $0 $1
+    # Errors means end of File
+    IfErrors isNotMaster
+    
+    # Removes the newline from the end of $1
+    ${StrTrimNewLines} $1 $1
+    
+    StrCmp $1 "master=true" isMaster propFileReadLoop
+    
+    isNotMaster:
+    MessageBox MB_OK|MB_ICONEXCLAMATION "Only master installations can be patched. Patch will halt."
+    FileClose $0
+    Abort
+    
+    isMaster:
+    ClearErrors
+    FileClose $0
+FunctionEnd
+
 Function appNameInputLeavePage
     ${NSD_GetText} $DropList $AppName
 FunctionEnd
@@ -131,12 +156,15 @@ Section -Main SEC0000
     # Fix overwrite of site master / domain in terraframe.properties
     
     # These version numbers are automatically replaced by patch.xml
-    StrCpy $PatchVersion 6170
+    StrCpy $PatchVersion 6333
     StrCpy $TermsVersion 5814
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 5814
     StrCpy $LocalizationVersion 5978
     StrCpy $PermissionsVersion 5974
+    
+    # Only master installations can be patched.
+    Call checkIfMaster
     
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
@@ -265,6 +293,10 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
+    
+    # We need to clear the old cache
+    Delete $INSTDIR\tomcat6\$AppName.index
+    Delete $INSTDIR\tomcat6\$AppName.data
     
     #Overwriting manage and runway is a mistake, since they may be up to date already.
 ;    WriteRegStr HKLM "${REGKEY}\Components" Manager 1
