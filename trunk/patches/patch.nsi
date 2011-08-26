@@ -315,9 +315,9 @@ SectionEnd
 
 Function JavaAbort
     ${If} $JavaError == 1
-      ExecWait `"$PatchDir\7za.exe" a -tzip $DESKTOP\PatchFailure.zip $AgentDir` $0
+      ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $AgentDir $INSTDIR\logs`
       DetailPrint "$Phase failed."
-      DetailPrint "A file called PatchFailure.zip has been created on your desktop. Please send this file"
+      DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send this file"
       DetailPrint "to technical support staff for review."
       DetailPrint "It is strongly recommended to restore from a backup to ensure that the app continues"
       Abort "to function properly."
