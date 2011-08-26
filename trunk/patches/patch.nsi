@@ -47,6 +47,7 @@ Var Label
 Var DropList
 Var AppName
 Var TfDialog
+Var Phase
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -189,6 +190,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
     SetOutPath $PatchDir
     File OutputAgent.jar
+    File 7za.exe
     
     # Special check to make sure ajde goes away.
     Delete $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\ajde.jar
@@ -203,11 +205,13 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing updated schema definitions"
     SetOutPath $PatchDir\schema
     File /x .svn ..\doc\individual\*
+    StrCpy $Phase "Importing updated schema definitions"
     ExecWait `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd` $JavaError
     Call JavaAbort
     
     # Update Database Source and Class
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Database"
+    StrCpy $Phase "Updating database"
     ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses` $JavaError
     Call JavaAbort
     # Delete $PatchDir\schema
@@ -222,8 +226,10 @@ Section -Main SEC0000
     File ..\doc\ontology\MOterms.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
     ${If} $TermsVersion > $0
+        StrCpy $Phase "Importing ontology from spreadsheet"
         ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls` $JavaError
         Call JavaAbort
+        StrCpy $Phase "Rebuilding all paths"
         ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
         Call JavaAbort
     ${Else}
@@ -236,6 +242,7 @@ Section -Main SEC0000
     File geo-universals.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
     ${If} $RootsVersion > $0
+        StrCpy $Phase "Post ontology setup"
         ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls` $JavaError
         Call JavaAbort
     ${Else}
@@ -248,6 +255,7 @@ Section -Main SEC0000
     File ..\doc\menu\MenuItems.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
     ${If} $MenuVersion > $0
+        StrCpy $Phase "Importing menu items"
         ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls` $JavaError
         Call JavaAbort
     ${Else}
@@ -263,6 +271,7 @@ Section -Main SEC0000
     File ..\doc\DiseaseLocalizationDefaults.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Localization
     ${If} $LocalizationVersion > $0
+        StrCpy $Phase "Updating localization"
         ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls` $JavaError
         Call JavaAbort
     ${Else}
@@ -275,6 +284,7 @@ Section -Main SEC0000
     File ..\doc\permissions\Permissions.xls
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
     ${If} $PermissionsVersion > $0
+        StrCpy $Phase "Updating permissions"
         ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
         Call JavaAbort
     ${Else}
@@ -305,7 +315,12 @@ SectionEnd
 
 Function JavaAbort
     ${If} $JavaError == 1
-      Abort "Patch failed.  It is strongly recommended to restore from a backup to ensure that the app continues to function properly."
+      ExecWait `"$PatchDir\7za.exe" a -tzip $DESKTOP\PatchFailure.zip $AgentDir` $0
+      DetailPrint "$Phase failed."
+      DetailPrint "A file called PatchFailure.zip has been created on your desktop. Please send this file"
+      DetailPrint "to technical support staff for review."
+      DetailPrint "It is strongly recommended to restore from a backup to ensure that the app continues"
+      Abort "to function properly."
     ${EndIf}
 FunctionEnd
 
