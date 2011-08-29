@@ -1,7 +1,7 @@
 /**
- * RunwaySDK Javascript library.
+ * RunwaySDK Javascript Core library.
  * 
- * (c) 2011 Justin Naifeh
+ * @author Terraframe
  */
 (function(){
   var rootPackage = 'com.runwaysdk.';
@@ -76,9 +76,13 @@
     return typeof o === 'undefined';
   };
   
-  var isElement = function(o)
+  var isElement = function(o) {
+    return Mojo.Util.isValid(o) && o instanceof Mojo.GLOBAL.Element;
+  };
+  
+  var isValid = function(o)
   {
-    return o != null && o instanceof Element;
+    return o != null;
   };
   
   Mojo.SUPPORTS_NATIVE_PARSING = Mojo.GLOBAL.JSON != null && isFunction(Mojo.GLOBAL.JSON.parse) && isFunction(Mojo.GLOBAL.JSON.stringify);
@@ -92,7 +96,7 @@
 
     newInstance : function(type)
     {
-      if (!Mojo.Meta.classExists(type))
+      if (!Mojo.Meta.classExists(type)) 
       {
         throw new Exception("Unable to newInstance " + type + ". The specified class does not exist.");
       }
@@ -106,11 +110,22 @@
       return obj;
     },
     
-    alias : function(pattern, attachTo, includePackage)
+    // FIXME if pattern matches explicitely on one class then return that class instead of an object
+    alias : function(pattern, attachTo)
     {
-      var anchorObj = attachTo || Mojo.GLOBAL;
+      if (attachTo === Mojo.GLOBAL)
+      {
+    	 throw new Exception("Cannot alias classes to the global scope to avoid naming collisions.");  
+      }
       
-      var r = '^'+pattern.replace(/\./g, '\\.').replace(/\*/g, '.*')+'$';
+      if (pattern.match(/\*.+/))
+      {
+    	 throw new Exception("Invalid alias class specified: "+pattern);  
+      }
+      
+      attachTo = attachTo || {};
+      
+      var r = '^'+pattern.replace(/\./g, '\\.').replace(/\*/g, '_?[A-Za-z0-9]+')+'$';
       var re = new RegExp(r);
       
       var classNames = Mojo.Meta.getClasses();
@@ -120,25 +135,33 @@
         if(re.test(className))
         {
           var klass = _classes[className];
-          
-          if(includePackage)
-          {
-            var namespace = Mojo.Meta._buildPackage(klass.getMetaClass().getPackage(), anchorObj);
-            namespace[klass.getMetaClass().getName()] = klass;
-          }
-          else
-          {
-            anchorObj[klass.getMetaClass().getName()] = klass;
-          }
+          attachTo[klass.getMetaClass().getName()] = klass;
         }
       }
       
-      return anchorObj;
+      return attachTo;
     },
     
-    findClass : function(type)
+    findClass : function(type, startingPackage)
     {
-      return _classes[type];
+      if (startingPackage == null) {
+        return _classes[type];
+      }
+      else {
+        var parts = type.split(".");
+        var ref = startingPackage;
+      
+        for (var i = 0; i < parts.length; i++) {
+          if (ref != null) {
+            ref = ref[parts[i]];
+          }
+          else {
+            return null;
+          }
+        }
+      
+        return ref;
+      }
     },
     
     classCount : function()
@@ -181,6 +204,22 @@
       }
       
       delete _classes[type];
+      
+      var parts = type.split(".");
+      
+      // Delete global reference
+      var pack = Mojo.GLOBAL;
+      for (var i = 0; i < parts.length-1; i++) {
+        pack = pack[parts[i]];
+      }
+      delete pack[ parts[parts.length-1] ];
+      
+      // Delete Mojo.$ reference
+      var pack = Mojo.$;
+      for (var i = 0; i < parts.length-1; i++) {
+        pack = pack[parts[i]];
+      }
+      delete pack[ parts[parts.length-1] ];
     },
     
     getClasses : function()
@@ -296,226 +335,240 @@
     
     _newType : function(metaRef, qualifiedName, def, isIF)
     {
-      if(!isString(qualifiedName) || qualifiedName.length === 0)
-      {
-        throw new Exception('The first parameter must be a valid qualified type name.');
-      }
-      else if(def != null && !isObject(def))
-      {
-        throw new Exception('The second parameter must be a configuration object literal.');
-      }
+      try {
       
-      // Set type defaults
-      def = def || {};
-
-      var extendsClass = null;
-      var constants = {};
-      var instances = {};
-      
-      var statics = {};
-      var isSingleton = false;
-      var isAbstract = false;
-      var interfaces = [];
-      
-      // override defaults and validate properties
-      for(var prop in def)
-      {
-        if(def.hasOwnProperty(prop))
-        {
-          switch(prop){
-            case 'Extends': extendsClass = def[prop]; break;
-            case 'Constants': constants = def[prop]; break;
-            case 'Instance': instances = def[prop]; break;
-            case 'Static':
-              if(isIF)
-              {
-                throw new Exception('The interface ['+qualifiedName+'] cannot define static properties or methods.');
-              }
-              statics = def[prop]; break;
-            case 'IsSingleton':
-              if(isIF)
-              {
-                throw new Exception('The interface ['+qualifiedName+'] cannot be a singleton.');
-              }
-              isSingleton = def[prop]; break;
-            case 'IsAbstract':
-              if(isIF)
-              {
-                throw new Exception('The interface ['+qualifiedName+'] cannot be abstract.');
-              }
-              isAbstract = def[prop]; break;
-            case 'Implements':
-              if(isIF)
-              {
-                throw new Exception('The interface ['+qualifiedName+'] cannot implement other Interfaces.');
-              }
-              
-              var ifs = def[prop];
-              if(!isArray(ifs))
-              {
-                ifs = [ifs];
-              }
-              
-              for(var i=0; i<ifs.length; i++)
-              {
-                var IF = ifs[i];
-                var ifKlass = isString(IF) ? _classes[IF] : IF;
-                if(ifKlass != null && ifKlass.getMetaClass().isInterface())
-                {
-                  interfaces.push(ifKlass);
+        if (!isString(qualifiedName) || qualifiedName.length === 0) {
+          throw new Exception('The first parameter must be a valid qualified type name.');
+        }
+        else 
+          if (def != null && !isObject(def)) {
+            throw new Exception('The second parameter must be a configuration object literal.');
+          }
+        
+        // Set type defaults
+        def = def ||
+        {};
+        
+        var extendsClass = null;
+        var constants = {};
+        var instances = {};
+        
+        var statics = {};
+        var isSingleton = false;
+        var isAbstract = false;
+        var interfaces = [];
+        
+        // override defaults and validate properties
+        for (var prop in def) {
+          if (def.hasOwnProperty(prop)) {
+            switch (prop) {
+              case 'Extends':
+                if (def[prop] == null) {
+                  var classOrIF = "class";
+                  if (isIF) {
+                    classOrIF = "interface";
+                  }
+                  throw new Exception('The ' + classOrIF + ' [' + qualifiedName + '] cannot extend a null or undefined ' + classOrIF + '.');
                 }
-                else
-                {
-                  throw new Exception('The class ['+qualifiedName+'] cannot implement the class ['+(ifKlass != null ? ifKlass.getQualifiedName() : null)+'].');
+                extendsClass = def[prop];
+                break;
+              case 'Constants':
+                constants = def[prop];
+                break;
+              case 'Instance':
+                instances = def[prop];
+                break;
+              case 'Static':
+                if (isIF) {
+                  throw new Exception('The interface [' + qualifiedName + '] cannot define static properties or methods.');
                 }
-              }
-              
-              break;
-            default: throw new Exception('The property ['+prop+'] on type ['+qualifiedName+'] is not recognized.');
+                statics = def[prop];
+                break;
+              case 'IsSingleton':
+                if (isIF) {
+                  throw new Exception('The interface [' + qualifiedName + '] cannot be a singleton.');
+                }
+                isSingleton = def[prop];
+                break;
+              case 'IsAbstract':
+                if (isIF) {
+                  throw new Exception('The interface [' + qualifiedName + '] cannot be abstract.');
+                }
+                isAbstract = def[prop];
+                break;
+              case 'Implements':
+                if (isIF) {
+                  throw new Exception('The interface [' + qualifiedName + '] cannot implement other Interfaces.');
+                }
+                
+                var ifs = def[prop];
+                if (!isArray(ifs)) {
+                  ifs = [ifs];
+                }
+                
+                for (var i = 0; i < ifs.length; i++) {
+                  var IF = ifs[i];
+                  var ifKlass = isString(IF) ? _classes[IF] : IF;
+                  if (ifKlass != null && ifKlass.getMetaClass().isInterface()) {
+                    interfaces.push(ifKlass);
+                  }
+                  else {
+                    throw new Exception('The class [' + qualifiedName + '] cannot implement the class [' + (ifKlass != null ? ifKlass.getQualifiedName() : null) + '].');
+                  }
+                }
+                
+                break;
+              default:
+                throw new Exception('The property [' + prop + '] on type [' + qualifiedName + '] is not recognized.');
+            }
           }
         }
-      }
-      
-      var superClass;
-      if(isFunction(extendsClass))
-      {
-        superClass = extendsClass;
-      }
-      else if(isString(extendsClass))
-      {
-        superClass = _classes[extendsClass];
-      }
-      else
-      {
-        superClass = Base;
-      }
-      
-      if(!superClass)
-      {
-        throw new Exception('The class ['+qualifiedName+'] does not extend a valid class.');
-      }
-      
-      // attach the package/class to the alias
-      var packageName;
-      var className;
-      if(/\./.test(qualifiedName))
-      {
-        packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf("."));
-        className = qualifiedName.substring(packageName.length+1);
-      }
-      else
-      {
-        packageName = '';
-        className = qualifiedName;
-      }
-
-      // make sure a constructor exists
-      if(!isIF && !instances.initialize)
-      {
-        instances.initialize = function(){};
-      }
-      else if(isIF && instances.initialize)
-      {
-        throw new Exception('The interface ['+qualifiedName+'] cannot define an initialize() constructor.');
-      }
-      else if(isIF)
-      {
-        instances.initialize = function(obj){
-          this.getMetaClass()._enforceAnonymousInnerClass(obj);
-          Mojo.Util.copy(obj, this);
+        
+        var superClass;
+        if (isFunction(extendsClass)) {
+          superClass = extendsClass;
+        }
+        else 
+          if (isString(extendsClass)) {
+            superClass = _classes[extendsClass];
+          }
+          else {
+            superClass = Base;
+          }
+        
+        if (!superClass) {
+          throw new Exception('The class [' + qualifiedName + '] does not extend a valid class.');
+        }
+        
+        // attach the package/class to the alias
+        var packageName;
+        var className;
+        if (/\./.test(qualifiedName)) {
+          packageName = qualifiedName.substring(0, qualifiedName.lastIndexOf("."));
+          className = qualifiedName.substring(packageName.length + 1);
+        }
+        else {
+          packageName = '';
+          className = qualifiedName;
+        }
+        
+        // make sure a constructor exists
+        if (!isIF && !instances.initialize) {
+          instances.initialize = function(){
+          };
+        }
+        else 
+          if (isIF && instances.initialize) {
+            throw new Exception('The interface [' + qualifiedName + '] cannot define an initialize() constructor.');
+          }
+          else 
+            if (isIF) {
+              instances.initialize = function(obj){
+                this.getMetaClass()._enforceAnonymousInnerClass(obj);
+                Mojo.Util.copy(obj, this);
+              };
+            }
+        
+        // wrap the constructor function
+        var klass = metaRef._createConstructor();
+        
+        // add the namespace to the global object and Mojo.$
+        var namespace = metaRef._buildPackage(packageName, Mojo.GLOBAL);
+        namespace[className] = klass;
+        
+        namespace = metaRef._buildPackage(packageName, Mojo.$);
+        namespace[className] = klass;
+        
+        _classes[qualifiedName] = klass;
+        
+        // temp function is used for inheritance instantiation, to
+        // avoid calling actual class constructor
+        var temp = function(){
         };
-      }
-      
-      // wrap the constructor function
-      var klass = metaRef._createConstructor();
-      
-      // add the namespace to the global object and Mojo.$
-      var namespace = metaRef._buildPackage(packageName, Mojo.GLOBAL);
-      namespace[className] = klass;
-       
-      namespace = metaRef._buildPackage(packageName, Mojo.$);
-      namespace[className] = klass;
-      
-      _classes[qualifiedName] = klass;
-      
-      // temp function is used for inheritance instantiation, to
-      // avoid calling actual class constructor
-      var temp = function(){};
-      temp.prototype = superClass.prototype;
-      klass.prototype = new temp();
-
-      // reset constructor to point to the class, such that
-      // new A().constructor === A
-      klass.prototype.constructor = klass;
-
-      // config obj for MetaClass constructor
-      var config = {
-        packageName : packageName,
-        className : className,
-        klass : klass,
-        superClass : superClass,
-        instanceMethods : {},
-        staticMethods : {},
-        isAbstract : isAbstract,
-        isInterface : isIF,
-        qualifiedName : qualifiedName,
-        isSingleton : isSingleton,
-        interfaces : interfaces,
-        constants : []
-      };
-
-      for(var m in instances)
-      {
-        var methodConfig = metaRef._addMethod(klass, superClass, m, instances[m]);
-        config.instanceMethods[m] = methodConfig;
-      }
-      
-      if(isSingleton)
-      {
-        var methodDef = this._makeSingleton(klass);
-        config.staticMethods.getInstance = methodDef;
-      }
-      
-      // add constants
-      for(var c in constants)
-      {
-        config.constants.push({name : c, value: constants[c]});
-      }
-      
-      // add static methods
-      for(var m in statics)
-      {
-        if(isFunction(statics[m]))
-        {
-          if (statics[m].IsAbstract)
-          {
-            throw new Exception("The method " + m + " defined on the class " + className + " cannot be both static and abstract.");
-          }      
-
-          config.staticMethods[m] = {name : m, isStatic : true, isAbstract : false, 
-            isConstructor : false, method : statics[m], klass: klass, enforceArity: false};
+        temp.prototype = superClass.prototype;
+        klass.prototype = new temp();
+        
+        // reset constructor to point to the class, such that
+        // new A().constructor === A
+        klass.prototype.constructor = klass;
+        
+        // config obj for MetaClass constructor
+        var config = {
+          packageName: packageName,
+          className: className,
+          klass: klass,
+          superClass: superClass,
+          instanceMethods: {},
+          staticMethods: {},
+          isAbstract: isAbstract,
+          isInterface: isIF,
+          qualifiedName: qualifiedName,
+          isSingleton: isSingleton,
+          interfaces: interfaces,
+          constants: []
+        };
+        
+        for (var m in instances) {
+          var methodConfig = metaRef._addMethod(klass, superClass, m, instances[m]);
+          config.instanceMethods[m] = methodConfig;
         }
-        else
-        {
-          // FIXME wrap static props in a Property class and have them
-      // optionally
-          // inherited (or use visibility modifiers?)
-          klass[m] = statics[m];
+        
+        if (isSingleton) {
+          var methodDef = this._makeSingleton(klass);
+          config.staticMethods.getInstance = methodDef;
         }
-      }
-      
-      // attach the metadata Class
-      if(_native !== null)
-      {
-        // MetaClass will be constructed later to complete bootstrapping
-        klass.__metaClass = config;
-        klass.prototype.__metaClass = config;
-        _native.push(klass);
-      }
-      else
-      {
-        klass.__metaClass = new MetaClass(config);
-        klass.prototype.__metaClass = klass.__metaClass;
+        
+        // add constants
+        for (var c in constants) {
+          config.constants.push({
+            name: c,
+            value: constants[c]
+          });
+        }
+        
+        // add static methods
+        for (var m in statics) {
+          if (isFunction(statics[m])) {
+            if (statics[m].IsAbstract) {
+              throw new Exception("The method " + m + " defined on the class " + className + " cannot be both static and abstract.");
+            }
+            
+            config.staticMethods[m] = {
+              name: m,
+              isStatic: true,
+              isAbstract: false,
+              isConstructor: false,
+              method: statics[m],
+              klass: klass,
+              enforceArity: false
+            };
+          }
+          else {
+            // FIXME wrap static props in a Property class and have them
+            // optionally
+            // inherited (or use visibility modifiers?)
+            klass[m] = statics[m];
+          }
+        }
+        
+        // attach the metadata Class
+        if (_native !== null) {
+          // MetaClass will be constructed later to complete bootstrapping
+          klass.__metaClass = config;
+          klass.prototype.__metaClass = config;
+          _native.push(klass);
+        }
+        else {
+          klass.__metaClass = new MetaClass(config);
+          klass.prototype.__metaClass = klass.__metaClass;
+        }
+        
+      } 
+      catch (e) {
+        if (this.classExists(qualifiedName)) {
+          this.dropClass(qualifiedName);
+        }
+        throw e;
       }
       
       return klass;      
@@ -556,7 +609,7 @@
     
     getHashCode : function()
     {
-      if(this.__hashCode === null)
+      if(this.__hashCode == null)
       {
         this.__hashCode = Mojo.Util.generateId(16);
       }
@@ -577,7 +630,7 @@
     
     toString : function()
     {
-      return '['+this.getMetaClass().getQualifiedName()+'] instance';
+      return '['+this.getMetaClass().getQualifiedName()+'] : ['+this.getHashCode()+']';
     },
     
     addEventListener : function(type, listener, obj, context, capture)
@@ -632,6 +685,13 @@
       {
         evt.defaultAction();
       }
+      
+      return !evt.getPreventDefault();
+    },
+    
+    destroy : function() {
+      this.dispatchEvent(new DestroyEvent(this));
+      this.removeAllEventListeners();
     }
   }
 });
@@ -1262,6 +1322,18 @@ var MetaClass = meta.newClass(Mojo.ROOT_PACKAGE+'MetaClass', {
     toJSON : function ()
     {
       return undefined;
+    },
+    
+    equals : function(obj) {
+      if (this.$equals(obj)) {
+        return true;
+      }
+      
+      if (obj instanceof MetaClass && this.getQualifiedName() === obj.getQualifiedName()) {
+        return true;
+      }
+      
+      return false;
     }
   }
 });
@@ -1625,6 +1697,8 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
     
     isElement : isElement,
     
+    isValid : isValid,
+    
     bind : function(thisRef, func)
     {
       if (!Mojo.Util.isFunction(func))
@@ -1915,7 +1989,7 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
               return undefined;
             }
             
-            var isClass = value instanceof Base;
+            //var isClass = value instanceof Base;
             
             if (value && typeof value === 'object' &&
                 typeof value.toJSON === 'function') {
@@ -1928,10 +2002,12 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
             
             // Special case: if this is a Runway classes then return
             // because it has already been serialized.
+            /*
             if(isClass)
             {
               return value;
             }
+            */
             
             switch (typeof value) {
             
@@ -2173,7 +2249,7 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
       // Use the browser's toJSON if it exists
       if (useNativeParsing && Mojo.SUPPORTS_NATIVE_PARSING)
       {
-         return JSON.stringify(obj, replacer);
+        return JSON.stringify(obj, replacer); 
       }
       else
       {
@@ -2281,7 +2357,6 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
       var queryString = params.join("&");
       return queryString;
     }
-  
   }
   
 });
@@ -2599,7 +2674,7 @@ var StandardSerializer = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'StandardSerialize
       // declarations on the original source object.
       for(var i in source)
       {
-        if(!isFunction(source[i]))
+        if(!isFunction(source[i]) && i !== "__context")
         {
           this._destination[i] = source[i];
         }
@@ -2607,7 +2682,7 @@ var StandardSerializer = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'StandardSerialize
       this._override = override || null;
     },
     
-    toJSON : function()
+    toJSON : function(key)
     {
       var ssRef = this;
       var replacer = function(key, value)
@@ -2616,17 +2691,25 @@ var StandardSerializer = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'StandardSerialize
         {
           return ssRef._override[key];
         }
+        // Moved from here to init since replacer doesn't get called if key is null
+        /*
         else if(key === '__context' || isFunction(this[key]))
         {
           return undefined;
         }
+        */
         else
         {
           return value;
         }
       };
       
-      return Mojo.Util.toJSON(this._destination, replacer);
+      if (key == null) {
+        return Mojo.Util.toJSON(this._destination, replacer);
+      }
+      else {
+        return this._destination;
+      }
     }
   }
 });
@@ -2652,299 +2735,6 @@ var AbstractCollection = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'AbstractColl
   }
 });
 
-var TaskIF = Mojo.Meta.newInterface(Mojo.STRUCTURE_PACKAGE+'TaskIF', {
-  Instance : {
-    /**
-     * Starts this task.
-     * 
-     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
-     */
-    start : function(taskQueue){}
-  }
-});
-
-var TaskListenerIF = Mojo.Meta.newInterface(Mojo.STRUCTURE_PACKAGE+'TaskListenerIF', {
-  Instance : {
-    /**
-     * Called when a TaskIF is started.
-     * 
-     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
-     */
-    onStart : function(taskQueue){},
-    /**
-     * Called when a TaskIF is finished (success case)
-     * 
-     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
-     */
-    onFinish : function(taskQueue){},
-    /**
-     * Called when a TaskIF is stopped (error case)
-     * 
-     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
-     * @param e An optional object, usually an Error instance, that can be used for error handling, logging, or debugging.
-     */
-    onStop : function(taskQueue, e){}  
-  }
-});
-
-var TaskQueue = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TaskQueue', {
-  Extends : AbstractCollection,
-  Implements : TaskIF, 
-  Instance : {
-  
-    initialize : function()
-    {
-      this._remaining = [];
-      this._listeners = [];
-      this._currentTask = null;
-      this._currentListeners = null;
-      this._completed = [];
-      this._processing = false;
-      this._stopped = false;
-      this._locked = false;
-      this._queueListeners = [];
-      this._taskQueue = null;
-    },
-  
-    /**
-     * Locks this instance such that no modifications can take place
-     * while it processes.
-     */
-    lock : function(){
-      this._locked = true;
-    },
-    
-    /**
-     * Unlocks this instance such that modifications can take place
-     * while it processes.
-     */
-    unlock : function(){
-      this._locked = false;
-    },
-    
-    /**
-     * Checks if this instance is locked.
-     * 
-     * @return Returns true if locked or false otherwise.
-     */
-    isLocked : function(){
-      return this._locked;
-    },
-    
-    /**
-     * Adds a TaskListenerIF object, which will have its handler methods
-     * invoked when this TaskQueue starts, finishes, or aborts.
-     * 
-     * @taskListenerIFs An object that implements the methods of TaskListenerIF.
-     * This parameter can be any number of TaskListenerIF objects
-     * (i.e., TaskQueue.addTaskQueueListener(taskListenerIFs*))
-     */
-    addTaskQueueListener : function(taskListenerIFs){
-      // Cannot add new listeners if the queue is locked
-      if(this.isLocked()){
-        throw new Exception('Cannot invoke TaskQueue.addTaskQueueListener() while the TaskQueue is locked');
-      }
-    
-      this._queueListeners = this._queueListeners.concat(Array.prototype.splice.call(arguments, 0, arguments.length));
-    },
-    
-    /**
-     * Adds a TaskListenerIF object, which will have its handler methods
-     * invoked for each TaskIF object that starts, finishes, or aborts.
-     * 
-     * @taskListenerIFs An object that implements the methods of TaskListenerIF.
-     * This parameter can be any number of TaskListenerIF objects
-     * (i.e., TaskQueue.addTaskListener(taskListenerIFs*)).
-     */
-    addTaskListener : function(taskListenerIFs){
-    
-      // Cannot add new listeners if the queue is locked
-      if(this.isLocked()){
-        throw new Exception('Cannot invoke TaskQueue.addTaskListener() while the TaskQueue is locked');
-      }
-    
-      this._listeners = this._listeners.concat(Array.prototype.splice.call(arguments, 0, arguments.length));
-    },
-    
-    /**
-     * Adds a TaskIF object to the end of this TaskQueue.
-     * 
-     * @param taskIFs An object that implements the methods of TaskIF.
-     * This parameter can be any number of TaskIF objects 
-     * (i.e., TaskQueue.addTask(task1*))
-     */
-    addTask : function(taskIFs){
-    
-      // Cannot add new tasks if the queue is locked
-      if(this.isLocked()){
-        throw new Exception('Cannot invoke TaskQueue.addTask() while the TaskQueue is locked');
-      }
-    
-      this._remaining = this._remaining.concat(Array.prototype.splice.call(arguments, 0, arguments.length));
-    },
-    
-    /**
-     * Returns an array of all tasks that remain in the queue.
-     * 
-     * @return An array, in queue order, of the remaining TaskIF objects.
-     */
-    getRemainingTasks : function(){
-      return this._remaining;
-    },
-    
-    /**
-     * Returns the current TaskIF object that is being processed. This method
-     * returns null if TaskQueue.start() has not been called or if the queue
-     * has been successfully processed.
-     * 
-     * @return The current TaskIF that is being processed.
-     */
-    getCurrentTask : function(){
-      return this._currentTask;
-    },
-    
-    /**
-     * Returns an array of all tasks that have completed.
-     * 
-     * @return An array, in queue order, of the completed TaskIF objects.
-     */
-    getCompletedTasks : function(){
-      return this._completed;
-    },
-    
-    /**
-     * Checks if this TaskQueue is currently processing tasks.
-     * 
-     * @return Returns true if this instance is processing or false otherwise.
-     */
-    isProcessing : function(){
-      return this._processing;
-    },
-    
-    /**
-     * Checks if this TaskQueue has had its processing stopped.
-     * 
-     * @return Returns true if this instance has been stopped or false otherwise.
-     */
-    isStopped : function(){
-      return this._stopped;
-    },
-    
-    /**
-     * Aborts the processing of the queue. This method has no effect if called more
-     * than once.
-     * 
-     * @param e An optional object, usually an Error instance, that will be passed to TaskListenerIF.onAbort(e).
-     */
-    stop : function(e){
-      
-      if(this._stopped){
-        return;
-      }
-      
-      // error checking
-      if(!this._processing){
-        throw new Exception('Cannot invoke TaskQueue.abort() if processing has not started.');
-      }
-      
-      this._stopped = true;
-      this._processing = false;
-  
-      // notify the listeners
-      this._fireListeners(this._listeners, 'onStop', this, e);
-      this._fireListeners(this._queueListeners, 'onStop', this, e);
-    },
-    
-    /**
-     * Starts the processing of the tasks in queue order.
-     * 
-     * @param taskQueue An optional "owner" TaskQueue that is running this instance as a TaskIF.
-     */
-    start : function(taskQueue){
-      this._processing = true;
-      this._taskQueue = taskQueue;
-      this._fireListeners(this._queueListeners, 'onStart', this);
-      this.next();
-    },
-    
-    /**
-     * Returns the next TaskIF object in the queue.
-     * 
-     * @return Returns the next TaskIF object in the queue or null if it is empty.
-     */
-    peek : function(){
-      return this.hasNext() ? this._remaining[0] : null;
-    },
-    
-    /**
-     * Checks if this TaskQueue has another TaskIF object to process.
-     * 
-     * @return Returns true if there is another task to process or false otherwise.
-     */
-    hasNext : function(){
-      return this._remaining.length > 0;
-    },
-    
-    /**
-     * The method that MUST be invoked by TaskIF instances to signal this TaskQueue that
-     * processing can continue.
-     */
-    next : function(){
-    
-      // error checking
-      if(this._stopped){
-        throw new Exception('Cannot invoke TaskQueue.next() because the processing was stopped.');
-      }
-      else if(!this._processing){
-        throw new Exception('Cannot invoke TaskQueue.next() because the queue is no longer processing.');
-      }
-    
-      if(this._currentTask !== null){
-        this._completed.push(this._currentTask);
-        this._fireListeners(this._listeners, 'onFinish', this);
-      }
-    
-      if(this.hasNext()){
-        this._currentTask = this._remaining.shift();
-        this._fireListeners(this._listeners, 'onStart', this);
-        var args = [this].concat(Array.prototype.splice.call(arguments, 0, arguments.length));
-        this._currentTask.start.apply(this, args);
-      }
-      else {
-        // finished!
-        this._processing = false;
-        this._currentTask = null;
-        this._fireListeners(this._queueListeners, 'onFinish', this);
-        
-        // notify the owning TaskQueue (if this is a composite) that this instance is done processing
-        if(this._taskQueue && Mojo.Util.isFunction(this._taskQueue.next)){
-          this._taskQueue.next();
-        }
-      }
-    },
-    
-    /**
-     * Internal methods that fires methods on TaskListenerIF objects.
-     */
-    _fireListeners : function(listeners, method){
-      var args = Array.prototype.splice.call(arguments, 2, arguments.length);
-      for(var i=0, len=listeners.length; i<len; i++){
-        var listener = listeners[i];
-        if(Mojo.Util.isFunction(listener[method])){
-          listener[method].apply(listener, args);
-        }
-      }  
-    },
-    
-    /**
-     * String representation of this TaskQueue object and its current state.
-     */
-    toString : function(){
-      return '[TaskQueue] processing: '+this.isProcessing()+', remaining: '+this.getRemainingTasks().length+', completed: '+this.getCompletedTasks().length;
-    }  
-  }
-});
-
 var AbstractMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'AbstractMap', {
   Extends : AbstractCollection,
   IsAbstract : true,
@@ -2959,9 +2749,6 @@ var AbstractMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'AbstractMap', {
 // FIXME use hasOwnProperty() versus key in obj? Cross-browser/speed concerns?
 var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
   Extends: AbstractMap,
-  Constants : {
-    PREFIX : '' // FIXME is this needed.
-  },
   Instance : {
     initialize : function(map)
     {
@@ -2975,15 +2762,15 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
       }
     },
     
-    _prefixKey : function(key)
+    _getKey : function(key)
     {
-      return this.constructor.PREFIX +(Mojo.Util.extendsBase(key) ? 
-        key.getHashCode() : key.toString());
+      return Mojo.Util.extendsBase(key) ? 
+        key.getHashCode() : key.toString();
     },
     
     put : function(key, value)
     {
-      var mapKey = this._prefixKey(key);
+      var mapKey = this._getKey(key);
       
       var oldValue = null;
       var contains = this._containsKey(mapKey);
@@ -3010,7 +2797,7 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
     // FIXME return boolean to match Java API?
     remove : function(key)
     {
-      var mapKey = this._prefixKey(key);
+      var mapKey = this._getKey(key);
       
       var oldValue = null;
       var contains = this._containsKey(mapKey);
@@ -3041,7 +2828,7 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
     
     get : function(key)
     {
-      var mapKey = this._prefixKey(key);
+      var mapKey = this._getKey(key);
       return this._get(mapKey);
     },
     
@@ -3061,7 +2848,7 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
     
     containsKey : function(key)
     {
-      var mapKey = this._prefixKey(key);
+      var mapKey = this._getKey(key);
       return this._containsKey(mapKey);
     },
     
@@ -3088,25 +2875,34 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
       return Mojo.Util.getKeys(this._map, true);
     },
     
-    putAll : function(map)
+    putAll : function(obj)
     {
-      if(map instanceof AbstractMap)
+      if(obj instanceof AbstractMap)
       {
-        var keys = map.keySet();
+        var keys = obj.keySet();
         for(var i=0; len=keys.length; i++)
         {
           var key = keys[i];
-          var value = map.get(key);
+          var value = obj.get(key);
           this.put(key, value);
         }
       }
-      
-      // normal objects and hashes
-      for (var k in map)
+      else if(isArray(obj))
       {
-        if(map.hasOwnProperty(k))
+        for(var i=0; i<obj.length; i++)
         {
-          this.put(k, map[k]);
+          var o = obj[i];
+          this.put(o, o);
+        }
+      }
+      else if(isObject(obj))
+      {
+        for (var k in obj)
+        {
+          if(obj.hasOwnProperty(k))
+          {
+            this.put(k, obj[k]);
+          }
         }
       }
     },
@@ -3123,6 +2919,157 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
   }
 });
 
+// FIXME use common looping method with function callback
+var LinkedHashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'LinkedHashMap', {
+  Extends : HashMap,
+  Instance : {
+    initialize : function(map){
+      this._head = null;
+      this._tail = null;
+      this.$initialize(map);
+    },
+    keySet : function(){
+      var keys = [];
+      var current = this._head;
+      while(current !== null){
+        keys.push(this.get(current.key));
+        current = current._next;
+      }
+      return keys;
+    },
+    values : function(){
+      var values = [];
+      var current = this._head;
+      while(current !== null){
+        values.push(this.get(current.key));
+        current = current._next;
+      }
+      return values;
+    },
+    replace : function(key, value, oldKey){
+      var keyStr = this._getKey(key);
+      var oldKeyStr = this._getKey(oldKey);
+    
+      if(!this.containsKey(oldKeyStr)){
+        throw new com.runwaysdk.Exception('Cannot replace the non-existent key ['+bKey+'].');
+      }
+      else if(this.containsKey(keyStr)){
+        throw new com.runwaysdk.Exception('Cannot replace with the key ['+key+'] because it already exists in the map.');
+      }
+      
+      var current = this._head;
+      while(current !== null){
+        if(current.key === oldKeyStr){
+          // found the old key so simply reset the key but retain all pointers
+          this.$remove(current.key);
+          this.$put(keyStr, value);
+          current.key = keyStr;
+          
+          return;
+        }
+        
+        current = current._next;
+      }      
+    },
+    insert : function(key, value, bKey){
+      var keyStr = this._getKey(key);
+      var bKeyStr = this._getKey(bKey);
+    
+      if(!this.containsKey(bKey)){
+        throw new com.runwaysdk.Exception('Cannot insert before the non-existent key ['+bKey+'].');
+      }
+      else if(this.containsKey(keyStr)){
+        throw new com.runwaysdk.Exception('Cannot insert the key ['+key+'] because it already exists in the map.');
+      }
+      
+      var current = this._head;
+      while(current !== null){
+        if(current.key === bKeyStr){
+          // found the old key so insert the new one before it
+          var node = {key: keyStr, prev: current.prev, _next: current};
+          
+          if(this._head === current){
+            // reset the head reference as the new node
+            this._head = node;
+          }
+          else {
+            current.prev._next = node;
+          }
+          current.prev = node;
+
+          this.$put(keyStr, value);
+          
+          return;
+        }
+        
+        current = current._next;
+      }
+    },
+    put : function(key, value){
+
+      key = this._getKey(key);
+      
+      if(!this.containsKey(key)){
+        if(this._head === null){
+          this._head = {key:key, prev: null, _next: null};
+          this._tail = this._head;
+        }
+        else {
+          var node = {key:key, prev: this._tail, _next: null};
+          this._tail._next = node;
+          this._tail = node;
+        }
+      }
+      
+      return this.$put(key, value);
+    },
+    clear : function(){
+      this.$clear();
+      this._head = null;
+      this._tail = null;
+    },
+    remove : function(key){
+      key = this._getKey(key);
+      
+      if(this.containsKey(key)){
+        var current = this._head;
+        while(current !== null){
+          if(key === current.key){
+            
+            if(current === this._head){
+              // removing the first item
+              this._head = current._next;
+              if(this._head){
+                this._head.prev = null;
+              }
+              else {
+                this._tail = null; // no items left (head is already null)
+              }
+            }
+            else if(current === this._tail){
+              // removing the last item            
+              this._tail = current.prev;
+              this._tail._next = null;
+            }
+            else {
+              // all other items
+              current.prev._next = current._next;
+              current._next.prev = current.prev;
+            }
+            
+            break;
+          }
+          else {
+            current = current._next;
+          }
+        }        
+      }
+      
+      return this.$remove(key);
+    }
+  }
+});
+
 var AbstractSet = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'AbstractSet', {
   Extends: AbstractCollection,
   Implements : Iterable,
@@ -3135,7 +3082,7 @@ var AbstractSet = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'AbstractSet', {
   }
 });
 
-var SimpleIterator = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'SimpleIterator', {
+var ArrayIterator = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'ArrayIterator', {
   Implements : Iterator,
   Instance : {
     initialize : function(arr)
@@ -3165,10 +3112,9 @@ var HashSet = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashSet', {
         this.addAll(collection);
       }
     },
-    
     iterator : function()
     {
-      return new SimpleIterator(this.toArray());
+      return new ArrayIterator(this.toArray());
     },
     
     add : function(obj)
@@ -3359,7 +3305,7 @@ var UIEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'UIEventIF', {
 });
 
 var FocusEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'FocusEventIF', {
-  Extends : UIEvent,
+  Extends : UIEventIF,
   Instance : {
     getRelatedTarget : function(){},
     initFocusEvent : function(eventType, canBubble, cancelable, view, detail, relatedTarget){}
@@ -3494,7 +3440,7 @@ var DocumentEvent = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'DocumentEvent', {
       var eventDef = EventUtil.DOM_EVENTS[eventType];
       if(eventDef)
       {
-        event = new eventDef.eventInterface();
+        event = new eventDef.eventInterface(eventType);
       }
       // look for a custom event
       else if(Mojo.Meta.classExists(eventType))
@@ -4340,12 +4286,23 @@ var Registry = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Registry', {
           // FIXME normalize
           var eventInterface = EventUtil.DOM_EVENTS[evt.type].eventInterface;
           var event = new eventInterface(evt);
-          listener.call(this, event, obj);
+          if (Mojo.Util.isObject(listener)) 
+          {
+            listener.handleEvent.call(context, event, obj);
+          }
+          else 
+          {
+            listener.call(this, event, obj);
+          }
         });
     },
     
     addEventListener : function(target, type, listener, obj, context, capture)
     {
+      if (type == null) {
+        throw new com.runwaysdk.Exception("Unable to listen to a null event.");
+      }
+      
       if(Mojo.Util.isObject(listener) && Mojo.Util.isFunction(listener.handleEvent))
       {
         if(context && context !== listener)
@@ -4387,7 +4344,21 @@ var Registry = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Registry', {
       else
       {
         wrapper = this._wrapDOMListener(type, listener, obj, context, capture);
-        EventUtil.addEventListener(target.getEl(), type, wrapper, capture);
+        
+        // FIXME Justin
+        if (com.runwaysdk.ui.ElementProviderIF.getMetaClass().isInstance(target))
+        {
+          EventUtil.addEventListener(target.getEl().getRawEl(), type, wrapper, capture);
+        }
+        else if (com.runwaysdk.ui.ElementIF.getMetaClass().isInstance(target))
+        {
+          EventUtil.addEventListener(target.getRawEl(), type, wrapper, capture);
+        }
+        else
+        {
+          var msg = "Cannot add event listener on type ["+target+"].";
+          throw new Mojo.$.com.runwaysdk.Exception(msg);
+        }
       }
       
       capture = capture || false;
@@ -4507,4 +4478,651 @@ var Registry = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Registry', {
     }
   }
 });
+
+var DestroyEvent = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'DestroyEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(object)
+    {
+      this.$initialize();
+      this._object = object;
+    },
+    getObject : function() { return this._object; },
+  }
+});
+
+var TaskIF = Mojo.Meta.newInterface(Mojo.STRUCTURE_PACKAGE+'TaskIF', {
+  Instance : {
+    /**
+     * Starts this task.
+     * 
+     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
+     */
+    start : function(taskQueue){}
+  }
+});
+
+var TaskListenerIF = Mojo.Meta.newInterface(Mojo.STRUCTURE_PACKAGE+'TaskListenerIF', {
+  Instance : {
+    /**
+     * Called when a TaskIF is started.
+     * 
+     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
+     */
+    onStart : function(taskQueue){},
+    /**
+     * Called when a TaskIF is finished (success case)
+     * 
+     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
+     */
+    onFinish : function(taskQueue){},
+    /**
+     * Called when a TaskIF is stopped (error case)
+     * 
+     * @param taskQueue The TaskQueue instance that is managing this TaskIF.
+     * @param e An optional object, usually an Error instance, that can be used for error handling, logging, or debugging.
+     */
+    onStop : function(taskQueue, e){}  
+  }
+});
+
+var TaskListener = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+"TaskListener", {
+  Implements: TaskListenerIF,
+  
+  Instance : {
+    onStart : function(){},
+    onFinish : function(){},
+    onStop : function(){}
+  }
+});
+
+var TaskQueue = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TaskQueue', {
+  Extends : AbstractCollection,
+  Implements : TaskIF, 
+  Instance : {
+    
+    initialize : function()
+    {
+      this._remaining = [];
+      this._listeners = [];
+      this._currentTask = null;
+      this._currentListeners = null;
+      this._completed = [];
+      this._processing = false;
+      this._stopped = false;
+      this._locked = false;
+      this._queueListeners = [];
+      this._taskQueue = null;
+    },
+    
+    /**
+     * Locks this instance such that no modifications can take place
+     * while it processes.
+     */
+    lock : function(){
+      this._locked = true;
+    },
+    
+    /**
+     * Unlocks this instance such that modifications can take place
+     * while it processes.
+     */
+    unlock : function(){
+      this._locked = false;
+    },
+    
+    /**
+     * Checks if this instance is locked.
+     * 
+     * @return Returns true if locked or false otherwise.
+     */
+    isLocked : function(){
+      return this._locked;
+    },
+    
+    /**
+     * Adds a TaskListenerIF object, which will have its handler methods
+     * invoked when this TaskQueue starts, finishes, or aborts.
+     * 
+     * @taskListenerIFs An object that implements the methods of TaskListenerIF.
+     * This parameter can be any number of TaskListenerIF objects
+     * (i.e., TaskQueue.addTaskQueueListener(taskListenerIFs*))
+     */
+    addTaskQueueListener : function(taskListenerIF){
+      // Cannot add new listeners if the queue is locked
+      if(this.isLocked()){
+        throw new Exception('Cannot invoke TaskQueue.addTaskQueueListener() while the TaskQueue is locked');
+      }
+      
+      this.addEventListener(TQStartEvent, {handleEvent: taskListenerIF.onStart});
+      this.addEventListener(TQStopEvent, {handleEvent: taskListenerIF.onStop});
+      this.addEventListener(TQFinishEvent, {handleEvent: taskListenerIF.onFinish});
+    },
+    
+    /**
+     * Adds a TaskListenerIF object, which will have its handler methods
+     * invoked for each TaskIF object that starts, finishes, or aborts.
+     * 
+     * @taskListenerIFs An object that implements the methods of TaskListenerIF.
+     * This parameter can be any number of TaskListenerIF objects
+     * (i.e., TaskQueue.addTaskListener(taskListenerIFs*)).
+     */
+    addTaskListener : function(taskListenerIF){
+    
+      // Cannot add new listeners if the queue is locked
+      if(this.isLocked()){
+        throw new Exception('Cannot invoke TaskQueue.addTaskListener() while the TaskQueue is locked');
+      }
+      
+      this.addEventListener(TStartEvent, {handleEvent: taskListenerIF.onStart});
+      this.addEventListener(TStopEvent, {handleEvent: taskListenerIF.onStop});
+      this.addEventListener(TFinishEvent, {handleEvent: taskListenerIF.onFinish});
+    },
+    
+    /**
+     * Adds a TaskIF object to the end of this TaskQueue.
+     * 
+     * @param taskIFs An object that implements the methods of TaskIF.
+     * This parameter can be any number of TaskIF objects 
+     * (i.e., TaskQueue.addTask(task1*))
+     */
+    addTask : function(taskIFs){
+    
+      // Cannot add new tasks if the queue is locked
+      if(this.isLocked()){
+        throw new Exception('Cannot invoke TaskQueue.addTask() while the TaskQueue is locked');
+      }
+    
+      this._remaining = this._remaining.concat(Array.prototype.splice.call(arguments, 0, arguments.length));
+    },
+    
+    /**
+     * Returns an array of all tasks that remain in the queue.
+     * 
+     * @return An array, in queue order, of the remaining TaskIF objects.
+     */
+    getRemainingTasks : function(){
+      return this._remaining;
+    },
+    
+    /**
+     * Returns the current TaskIF object that is being processed. This method
+     * returns null if TaskQueue.start() has not been called or if the queue
+     * has been successfully processed.
+     * 
+     * @return The current TaskIF that is being processed.
+     */
+    getCurrentTask : function(){
+      return this._currentTask;
+    },
+    
+    /**
+     * Returns an array of all tasks that have completed.
+     * 
+     * @return An array, in queue order, of the completed TaskIF objects.
+     */
+    getCompletedTasks : function(){
+      return this._completed;
+    },
+    
+    /**
+     * Checks if this TaskQueue is currently processing tasks.
+     * 
+     * @return Returns true if this instance is processing or false otherwise.
+     */
+    isProcessing : function(){
+      return this._processing;
+    },
+    
+    /**
+     * Checks if this TaskQueue has had its processing stopped.
+     * 
+     * @return Returns true if this instance has been stopped or false otherwise.
+     */
+    isStopped : function(){
+      return this._stopped;
+    },
+    
+    /**
+     * Aborts the processing of the queue. This method has no effect if called more
+     * than once.
+     * 
+     * @param e An optional object, usually an Error instance, that will be passed to TaskListenerIF.onAbort(e).
+     */
+    stop : function(e){
+      
+      if(this._stopped){
+        return;
+      }
+      
+      // error checking
+      if(!this._processing){
+        throw new Exception('Cannot invoke TaskQueue.stop() if processing has not started.');
+      }
+      
+      this._stopped = true;
+      this._processing = false;
+  
+      // notify the listeners
+      this.dispatchEvent(new TQStopEvent(this));
+      this.dispatchEvent(new TStopEvent(this));
+      
+      this.removeAllEventListeners();
+    },
+    
+    /**
+     * Starts the processing of the tasks in queue order.
+     * 
+     * @param taskQueue An optional "owner" TaskQueue that is running this instance as a TaskIF.
+     */
+    start : function(taskQueue){
+      this._processing = true;
+      this._taskQueue = taskQueue;
+      this.dispatchEvent(new TQStartEvent(this));
+      this.next();
+    },
+    
+    /**
+     * Returns the next TaskIF object in the queue.
+     * 
+     * @return Returns the next TaskIF object in the queue or null if it is empty.
+     */
+    peek : function(){
+      return this.hasNext() ? this._remaining[0] : null;
+    },
+    
+    /**
+     * Checks if this TaskQueue has another TaskIF object to process.
+     * 
+     * @return Returns true if there is another task to process or false otherwise.
+     */
+    hasNext : function(){
+      return this._remaining.length > 0;
+    },
+    
+    /**
+     * The method that MUST be invoked by TaskIF instances to signal this TaskQueue that
+     * processing can continue.
+     */
+    next : function(){
+    
+      // error checking
+      if(this._stopped){
+        throw new Exception('Cannot invoke TaskQueue.next() because the processing was stopped.');
+      }
+      else if(!this._processing){
+        throw new Exception('Cannot invoke TaskQueue.next() because the queue is no longer processing.');
+      }
+    
+      if(this._currentTask !== null){
+        this._completed.push(this._currentTask);
+        this.dispatchEvent(new TFinishEvent(this));
+      }
+    
+      if(this.hasNext()){
+        this._currentTask = this._remaining.shift();
+        this.dispatchEvent(new TStartEvent(this));
+        var args = [this].concat(Array.prototype.splice.call(arguments, 0, arguments.length));
+        this._currentTask.start.apply(this, args);
+      }
+      else {
+        // finished!
+        this._processing = false;
+        this._currentTask = null;
+        this.dispatchEvent(new TQFinishEvent(this));
+        
+        this.removeAllEventListeners();
+        
+        // notify the owning TaskQueue (if this is a composite) that this instance is done processing
+        if(this._taskQueue && Mojo.Util.isFunction(this._taskQueue.next)){
+          this._taskQueue.next();
+        }
+      }
+    },
+    
+    /**
+     * String representation of this TaskQueue object and its current state.
+     */
+    toString : function(){
+      return '[TaskQueue] processing: '+this.isProcessing()+', remaining: '+this.getRemainingTasks().length+', completed: '+this.getCompletedTasks().length;
+    }  
+  }
+});
+
+// TaskQueue Custom Events:
+var TQBaseEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TQBaseEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(tq) {
+      this.$initialize();
+      this._tq = tq;
+    },
+    getTaskQueue : function() {
+      return this._tq;
+    }
+  }
+});
+var TQStartEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TQStartEvent', {
+  Extends : TQBaseEvent,
+  Instance : {
+    initialize : function(tq)
+    {
+      this.$initialize(tq);
+    }
+  }
+});
+var TQStopEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TQStopEvent', {
+  Extends : TQBaseEvent,
+  Instance : {
+    initialize : function(tq)
+    {
+      this.$initialize(tq);
+    }
+  }
+});
+var TQFinishEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TQFinishEvent', {
+  Extends : TQBaseEvent,
+  Instance : {
+    initialize : function(tq)
+    {
+      this.$initialize(tq);
+    }
+  }
+});
+var TStartEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TStartEvent', {
+  Extends : TQBaseEvent,
+  Instance : {
+    initialize : function(tq)
+    {
+      this.$initialize(tq);
+    }
+  }
+});
+var TStopEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TStopEvent', {
+  Extends : TQBaseEvent,
+  Instance : {
+    initialize : function(tq)
+    {
+      this.$initialize(tq);
+    }
+  }
+});
+var TFinishEvent = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'TFinishEvent', {
+  Extends : TQBaseEvent,
+  Instance : {
+    initialize : function(tq)
+    {
+      this.$initialize(tq);
+    }
+  }
+});
+
+/**
+ * Logging
+ */
+Mojo.LOG_PACKAGE = Mojo.ROOT_PACKAGE+'log.';
+
+var Factory = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'Factory', {
+  IsSingleton: true,
+  Instance : {
+    initialize : function()
+    {
+      this.$initialize();
+      this._logs = {};
+      this._defaultType = DefaultLog;
+      this.getRootLog(); // force creation of root log
+    },
+    setDefaultType : function(type) {
+      this._defaultType = type;
+    },
+    getDefaultType : function() {
+      return this._defaultType;
+    },
+    getLog : function(name, type) {
+      if (name == null) {
+        throw new com.runwaysdk.Exception("The first parameter of " + this.getMetaClass().getQualifiedName() + ".getLog cannot be null.");
+      }
+      
+      var log = this._logs[name];
+      if (log != null) {
+        if (type != null && !log.getMetaClass().equals(type.getMetaClass())) {
+          throw new com.runwaysdk.Exception("A log already exists with name " + name + " but it does not match type " + type.getMetaClass().getQualifiedName());
+        }
+        return log;
+      }
+      
+      if (type == null) {
+        type = this.getDefaultType();
+      }
+      log = new type(name);
+      this._logs[name] = log;
+      return log;
+    },
+    getRootLog : function() {
+      return this.getLog("Root");
+    }
+  },
+  Static : {
+    setDefaultType : function(type) {
+      this.getInstance().setDefaultType(type);
+    },
+    getDefaultType : function() {
+      return this.getInstance().getDefaultType();
+    },
+    getLog : function(name, type) {
+      return this.getInstance().getLog(name, type);
+    },
+    getRootLog : function() {
+      return this.getInstance().getRootLog();
+    }
+  }
+});
+
+var LogIF = Mojo.Meta.newInterface(Mojo.LOG_PACKAGE+'LogIF', {
+  Instance : {
+    addAppender : function(baseAppender){},
+    getAppenders : function(){},
+    setLevel : function(level){},
+    getLevel : function(){},
+    canLog : function(level){},
+    trace : function(msg){},
+    debug : function(msg){},
+    info : function(msg){},
+    warn : function(msg){},
+    error : function(msg){},
+    fatal : function(msg){}
+  }
+});
+
+var DefaultLog = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'DefaultLog', {
+  Implements: LogIF,
+  Instance : {
+    initialize : function(name)
+    {
+      this._delegate = Log4js.getLogger(name);
+      this.setLevel(com.runwaysdk.log.level.TRACE);
+      this._appenders = [];
+      this._name = name;
+    },
+    addAppender : function(baseAppender) {
+      this._delegate.addAppender(baseAppender.getLog4jsAppender());
+      this._appenders.push(baseAppender);
+      baseAppender.initDelegate();
+    },
+    getAppenders : function() {
+      return this._appenders;
+    },
+    setLevel : function(level) {
+      this._delegate.setLevel(level.getLog4jsLevel());
+      this._level = level;
+    },
+    getLevel : function() {
+      // if the root log's level is higher then return it
+      var rootLog = Factory.getRootLog();
+      if (this !== rootLog) {
+        var rootLevel = Factory.getRootLog().getLevel();
+        if (this._level.isHigherPriority(rootLevel)) {
+          return rootLevel;
+        }
+      }
+      return this._level;
+    },
+    canLog : function(level) {
+      return this.getLevel().isHigherPriority(level);
+    },
+    trace : function(msg) {
+      if (this.canLog(com.runwaysdk.log.level.TRACE)) {
+        this._delegate.trace(msg);
+      }
+    },
+    debug : function(msg) {
+      if (this.canLog(com.runwaysdk.log.level.DEBUG)) {
+        this._delegate.debug(msg);
+      }
+    },
+    info : function(msg) {
+      if (this.canLog(com.runwaysdk.log.level.INFO)) {
+        this._delegate.info(msg);
+      }
+    },
+    warn : function(msg) {
+      if (this.canLog(com.runwaysdk.log.level.WARN)) {
+        this._delegate.warn(msg);
+      }
+    },
+    error : function(msg) {
+      if (this.canLog(com.runwaysdk.log.level.ERROR)) {
+        this._delegate.error(msg);
+      }
+    },
+    fatal : function(msg) {
+      if (this.canLog(com.runwaysdk.log.level.FATAL)) {
+        this._delegate.fatal(msg);
+      }
+    },
+    toString : function() {
+      return "[" + this.getMetaClass().getName() + "] : [" + this._name + "]";
+    }
+  }
+});
+
+var BaseAppender = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'BaseAppender', {
+  IsAbstract : true,
+  Instance : {
+    initialize : function(delegate)
+    {
+      this._delegate = delegate;
+    },
+    getLog4jsAppender : function() {
+      return this._delegate;
+    },
+    initDelegate : function() {
+      // initializes the delegate. Currently only required for consoleAppender
+    }
+  }
+});
+
+var ConsoleAppender = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'ConsoleAppender', {
+  Extends: BaseAppender,
+  Instance : {
+    initialize : function()
+    {
+      var delegate = new Log4js.ConsoleAppender(true); // true for isInline
+      this.$initialize(delegate);
+    },
+    initDelegate : function() {
+      // this MUST be called AFTER our delegate appender has been appended to a logger or else our delegate throws an exception
+      this._delegate.initialize();
+      this._didInit = true;
+    },
+    toggle : function() {
+      if (this._didInit !== true) {
+        // our delegate will crash in a very ugly way in the next line if we don't stop it
+        throw new com.runwaysdk.Exception("This appender must be appended to a log first before you can call the toggle method.");
+      }
+      this._delegate.toggle();
+    }
+  }
+});
+
+var BrowserConsoleAppender = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'BrowserConsoleAppender', {
+  Extends: BaseAppender,
+  Instance : {
+    initialize : function()
+    {
+      var delegate = new Log4js.BrowserConsoleAppender();
+      this.$initialize(delegate);
+    }
+  }
+});
+
+var AjaxAppender = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'AjaxAppender', {
+  Extends: BaseAppender,
+  Instance : {
+    initialize : function()
+    {
+      var delegate = new Log4js.AjaxAppender();
+      this.$initialize(delegate);
+    }
+  }
+});
+
+var JSAlertAppender = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'JSAlertAppender', {
+  Extends: BaseAppender,
+  Instance : {
+    initialize : function()
+    {
+      var delegate = new Log4js.JSAlertAppender();
+      this.$initialize(delegate);
+    }
+  }
+});
+
+// Log Levels
+var LogLevel = Mojo.Meta.newClass(Mojo.LOG_PACKAGE+'LogLevel', {
+  Instance : {
+    initialize : function(priority)
+    {
+      this._priority = priority;
+    },
+    getPriority : function() {
+      return this._priority;
+    },
+    getLog4jsLevel : function() {
+      return Log4js.Level[this.getLevelString()];
+    },
+    isHigherPriority : function(level) {
+      return level.getPriority() >= this.getPriority();
+    },
+    getLevelString : function() {
+      // Find out whether we're TRACE, DEBUG, etc
+      
+      if (this._ls != null) {
+        return this._ls;
+      }
+      
+      var levels = com.runwaysdk.log.level;
+      for (var key in levels) {
+        if (levels[key] === this) {
+          this._ls = key;
+          return this._ls;
+        }
+      }
+    },
+    toString : function() {
+      return "[" + this.getMetaClass().getName() + "] : [" + this.getLevelString() + "]";
+    }
+  }
+});
+
+var curLevel = 0;
+com.runwaysdk.log.level = {};
+com.runwaysdk.log.level.TRACE = new LogLevel(curLevel++);
+com.runwaysdk.log.level.DEBUG = new LogLevel(curLevel++);
+com.runwaysdk.log.level.INFO = new LogLevel(curLevel++);
+com.runwaysdk.log.level.WARN = new LogLevel(curLevel++);
+com.runwaysdk.log.level.ERROR = new LogLevel(curLevel++);
+com.runwaysdk.log.level.FATAL = new LogLevel(curLevel++);
+com.runwaysdk.log.level.NONE = new LogLevel(curLevel++);
+
 })();

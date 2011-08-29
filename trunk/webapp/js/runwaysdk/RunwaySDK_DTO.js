@@ -1,7 +1,7 @@
 /**
- * RunwaySDK Javascript library.
+ * RunwaySDK Javascript DTO library.
  * 
- * (c) 2011 Justin Naifeh
+ * @author Terraframe
  */
 (function(){
 
@@ -1141,7 +1141,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO', {
     
     toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }
@@ -1305,7 +1305,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'EntityQueryDTO', {
   
     clearOrderByList : function()
     {
-      this.orderByList.clear = {};
+      this.orderByList = [];
     }
   
   }
@@ -1326,9 +1326,9 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'OrderBy', {
   
     getOrder : function() { return this.order; },
     
-    toJSON : function()
+    toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }
@@ -1352,9 +1352,9 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'Condition', {
   
     getValue : function() { return this.value; },
     
-    toJSON : function()
+    toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }
@@ -1484,9 +1484,9 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TypeInMdRelationshipAsChild', {
   
     getRelationshipType : function() { return this.relationshipType; },
     
-    toJSON : function()
+    toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }
@@ -1507,9 +1507,9 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'TypeInMdRelationshipAsParent', {
   
     getRelationshipType : function() { return this.relationshipType; },
     
-    toJSON : function()
+    toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }
@@ -1625,7 +1625,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentDTO', {
     
     toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   }
 });
@@ -2268,9 +2268,9 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'EnumerationDTO', {
   
     getDisplayLabel : function() { return this.displayLabel; },
     
-    toJSON : function()
+    toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }
@@ -2408,7 +2408,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
     
     toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
     
   }
@@ -2999,7 +2999,7 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeMomentDTO', {
       }
       
       var override = {value:date};
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this, override).toJSON();
+      return new Mojo.$.com.runwaysdk.StandardSerializer(this, override).toJSON(key);
     }
   }
 });

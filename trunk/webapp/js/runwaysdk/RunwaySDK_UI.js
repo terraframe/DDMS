@@ -6,10 +6,17 @@
 (function(){
 
 Mojo.UI_PACKAGE = Mojo.ROOT_PACKAGE+'ui.';
+Mojo.FORM_PACKAGE = {
+  FORM: Mojo.ROOT_PACKAGE+'form.',
+  WEB: Mojo.ROOT_PACKAGE+'form.web.',
+  FIELD: Mojo.ROOT_PACKAGE+'form.web.field.',
+  METADATA: Mojo.ROOT_PACKAGE+'form.web.metadata.'
+};
 
 // FIXME use module shortcut from RunwaySDK.js to access these (e.g., Mojo.EVENT)
 var EVENT = Mojo.Meta.alias(Mojo.ROOT_PACKAGE+'event.*', {});
 var STRUCT = Mojo.Meta.alias(Mojo.ROOT_PACKAGE+'structure.*', {});
+
 
 var Manager = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'Manager', {
   IsSingleton : true,
@@ -2227,6 +2234,365 @@ var ListItem = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'ListItem', {
     getEl : function()
     {
       return this._li;
+    }
+  }
+});
+
+var FormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormMd', {
+  Extends: Mojo.MD_DTO_PACKAGE+'TypeMd',
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebFormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.WEB+'WebFormMd', {
+  Extends: FormMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+      this._formName = obj.formName;
+      this._formMdClass = obj.formMdClass;
+    },
+    getFormName : function(){ return this._formName; },
+    getFormMdClass : function(){ return this._formMdClass; }
+  }
+});
+
+var FormObjectRenderer = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObjectRenderer', {
+  Extends : Component,
+  Instance : {
+    initialize : function(formObject){
+      this.$initialize();
+      this._formObject = formObject;
+      this._domForm = null;
+      
+      FormObjectCache.getInstance().add(formObject);
+    },
+    render : function(parent){
+      // FIXME have Will implement this with a factory
+      this._domForm = document.createElement('form');
+      this._domForm.setAttribute('method', 'POST');
+      this._domForm.setAttribute('id', this._formObject.getId());
+      this._domForm.setAttribute('name', this._formObject.getFormName());
+      
+      var header = document.createElement('h2');
+      header.innerHTML = this._formObject.getMd().getDisplayLabel();
+      this._domForm.appendChild(header);
+      
+      // add each field (use text for now)
+      var dl = document.createElement('dl');
+      this._domForm.appendChild(dl);
+      var fields = this._formObject.getFields();
+      var dt = null;
+      var dd = null;
+      var input = null;
+      for(var i=0, len=fields.length; i<len; i++)
+      {
+        var field = fields[i];
+        dt = document.createElement('dt');
+        dt.innerHTML = field.getFieldMd().getDisplayLabel();
+        dd = document.createElement('dd');
+        
+        input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', field.getFieldName());
+        input.setAttribute('value', field.getValue());
+        
+        dt.appendChild(input);
+        
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+      }
+      
+      document.getElementById(parent).appendChild(this._domForm);
+    },
+    destroy : function(){
+      FormObjectCache.getInstance().remove(this._formObject);
+      // FIXME this._domForm.getParent().removeChild(this._domForm)
+      this.$destroy();
+    }
+  }
+});
+
+var FormObjectCache = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObjectCache', {
+  IsSingleton: true,
+  Instance : {
+    initialize : function(){
+      this._forms = new com.runwaysdk.structure.HashMap();
+    },
+    add : function(form){
+      this._forms.put(form.getId(), form);
+    },
+    get : function(id){
+      return this._forms.get(id);
+    },
+    remove : function(form){
+      this._forms.remove(form);
+    }
+  }
+});
+
+var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
+  IsAbstract: true,
+  Instance: {
+    initialize : function(obj) {
+
+      // default values
+      this._formMd = new WebFormMd(obj.formMd);
+      this._fields = new com.runwaysdk.structure.LinkedHashMap();
+      this._id = obj.id;
+      this._newInstance = obj.newInstance;
+      this._readable = obj.readable;
+      this._writable = obj.writable;
+      this._type = obj.type;
+      
+      var fields = obj.fields;
+      for(var i=0, len=fields.length; i<len; i++)
+      {
+        var fieldObj = fields[i];
+        var field = Mojo.Meta.newInstance(fieldObj.js_class, fieldObj);
+        this._fields.put(field.getFieldName(), field);
+      }
+    },
+    getFormName : function() { return this.getMd().getFormName(); },
+    getHashCode : function(){ return this._id; },
+    getId: function(){ return this._id; },
+    isNewInstance: function(){ return this._newInstance; },
+    getMd: function(){ return this._formMd; },
+    getType : function(){ return this._type; },
+    isReadable : function(){ return this._readable; },
+    isWritable : function(){ return this._writable; },
+    getValue : function(field){ return this._fields[field].getValue(); },
+    getFieldMap : function(){ return this._fields; },
+    getFields : function(){ return this._fields.values(); },
+    getFieldNames : function(){ return this._fields.keySet(); }
+  }
+});
+
+var WebFormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.WEB+'WebFormObject', {
+  Extends: FormObject,
+  Instance: {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  },
+  Static : {
+    parseFromJSON : function(json){
+      var obj = Mojo.Util.toObject(json);
+      return new WebFormObject(obj);
+    }
+  }
+});
+
+var FieldIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldIF', {
+  Instance : {
+    getType : function(){},
+    getFieldMd : function(){},
+    getValue : function(){},
+    getFieldName : function(){},
+    isWritable : function(){},
+    isReadable : function(){},
+    isModified : function(){},
+  }
+});
+
+var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
+  Implements: FieldIF,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize();
+      
+      var fieldMd = obj.fieldMd;
+      this._fieldMd = Mojo.Meta.newInstance(fieldMd.js_class, fieldMd);
+      this._writable = obj.writable;
+      this._readable = obj.readable;
+      this._value = obj.value;
+      this._modified = obj.modified;
+      this._type = obj.type;
+    },
+    getType : function(){ return this._type; },
+    getFieldMd : function(){ return this._fieldMd; },
+    getValue : function(){ return this._value; },
+    getFieldName : function(){ return this.getFieldMd().getFieldName(); },
+    isWritable : function(){},
+    isReadable : function(){},
+    isModified : function(){}
+  }
+});
+
+var WebPrimitive = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebPrimitive', {
+  Extends : WebField,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebBoolean = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebBoolean', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+var WebCharacter = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebCharacter', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebText = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebText', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebInteger = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebInteger', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebDouble = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDouble', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebFloat = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebFloat', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebDate = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDate', {
+  Extends : WebPrimitive,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var FieldMdIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldMdIF', {
+  Instance : {
+    getDefiningMdForm : function(){},
+    getFieldName : function(){},
+    getFieldOrder : function(){},
+    getDisplayLabel : function(){},
+    getId : function(){},
+  }
+});
+
+var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd', {
+  Implements : FieldMdIF,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+      this._definingMdForm = obj.definingMdForm;
+      this._displayLabel = obj.displayLabel;
+      this._fieldName = obj.fieldName;
+      this._fieldOrder = obj.fieldOrder;
+      this._id = obj.id;
+    },
+    getDefiningMdForm : function(){ return this._definingMdForm; },
+    getFieldName : function(){ return this._fieldName; },
+    getFieldOrder : function(){ return this._fieldOrder; },
+    getDisplayLabel : function(){ return this._displayLabel; },
+    getId : function(){ return this.id; }
+  }
+});
+
+var WebPrimitiveMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd', {
+  Extends : WebFieldMd,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBooleanMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+var WebCharacterMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCharacterMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebTextMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebTextMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebIntegerMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebIntegerMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebDoubleMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDoubleMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebFloatMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFloatMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebDateMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateMd', {
+  Extends : WebPrimitiveMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
     }
   }
 });
