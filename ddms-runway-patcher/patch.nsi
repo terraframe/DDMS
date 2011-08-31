@@ -129,16 +129,11 @@ Section -Main SEC0000
     
     # Set some constants
     StrCpy $PatchDir "$INSTDIR\runway_patch"
-    StrCpy $AgentDir "$PatchDir\output"
     StrCpy $TargetLoc "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF"
     StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\java.exe"
     StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
     StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
     
-    # Remove any old log files that may be laying around
-    Delete $AgentDir\*.out
-    Delete $AgentDir\*.err
-
     !insertmacro MUI_HEADER_TEXT "Patching Runway" "Copying patch file"
     SetOutPath $PatchDir
     File OutputAgent.jar
@@ -147,7 +142,7 @@ Section -Main SEC0000
     
     # Execute patch
     !insertmacro MUI_HEADER_TEXT "Patching Runway" "Patching..."
-    ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
+    ExecWait `$Java $JavaOpts=$PatchDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
     Call JavaAbort
     
     # Remove libs
@@ -161,7 +156,7 @@ SectionEnd
 
 Function JavaAbort
     ${If} $JavaError == 1
-      ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\RunwayPatchFailure.7z $AgentDir $INSTDIR\logs`
+      ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\RunwayPatchFailure.7z $PatchDir\*.err $PatchDir\*.out $INSTDIR\logs`
       DetailPrint "Runway Patch failed."
       DetailPrint "A file called RunwayPatchFailure.7z has been created on your desktop. Please send"
       DetailPrint "this file to technical support staff for review."
