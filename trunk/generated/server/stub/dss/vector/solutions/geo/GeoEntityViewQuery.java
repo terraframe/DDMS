@@ -157,20 +157,24 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)
       {
-        
-        if( JSONUtil.isArray(this.filter ))
+
+        if (JSONUtil.isArray(this.filter))
         {
           // restrict by many types
           try
           {
             JSONArray typesArr = new JSONArray(this.filter);
             String[] types = new String[typesArr.length()];
-            for(int i=0; i<typesArr.length(); i++)
-            {
-              types[i] = typesArr.getString(i);
-            }
 
-            vQuery.AND(geoEntityQuery.getType().IN(types));
+            if (types.length > 0)
+            {
+              for (int i = 0; i < typesArr.length(); i++)
+              {
+                types[i] = typesArr.getString(i);
+              }
+
+              vQuery.AND(geoEntityQuery.getType().IN(types));
+            }
           }
           catch (JSONException e)
           {
@@ -214,39 +218,39 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
-  
+
   public static class AllParentsQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
-    
+
     private GeoEntity       geoEntity;
-    
+
     private GeoEntityQuery  geoEntityQuery;
-    
-    private AllPathsQuery  pathsQuery;
-    
+
+    private AllPathsQuery   pathsQuery;
+
     private MdBusinessQuery mdBusinessQuery;
-    
+
     private TermQuery       termQuery;
-    
+
     private String          filter;
-    
+
     public AllParentsQueryBuilder(QueryFactory queryFactory, GeoEntity geoEntity, String filter)
     {
       super(queryFactory);
-      
+
       this.filter = filter;
       this.geoEntity = geoEntity;
       this.geoEntityQuery = new GeoEntityQuery(queryFactory);
-      this.pathsQuery= new AllPathsQuery(queryFactory);
+      this.pathsQuery = new AllPathsQuery(queryFactory);
       this.mdBusinessQuery = new MdBusinessQuery(queryFactory);
       this.termQuery = new TermQuery(queryFactory);
     }
-    
+
     @Override
     protected void buildSelectClause()
     {
       GeneratedViewQuery vQuery = this.getViewQuery();
-      
+
       vQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
       vQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
@@ -255,27 +259,54 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
     }
-    
+
     @Override
     protected void buildWhereClause()
     {
       GeneratedViewQuery vQuery = this.getViewQuery();
-      
+
       vQuery.WHERE(this.pathsQuery.getChildGeoEntity().EQ(geoEntity));
       vQuery.AND(this.geoEntityQuery.getId().EQ(this.pathsQuery.getParentGeoEntity().getId()));
       vQuery.AND(this.geoEntityQuery.getActivated().EQ(true));
 
       vQuery.AND(F.CONCAT(mdBusinessQuery.getPackageName(), F.CONCAT(".", mdBusinessQuery.getTypeName())).EQ(geoEntityQuery.getType()));
-      
+
       // filter by type if possible (and all of type's child subclasses)
       if (filter != null && filter.trim().length() > 0)
       {
-        vQuery.AND(geoEntityQuery.getType().EQ(filter));
+        if (JSONUtil.isArray(this.filter))
+        {
+          // restrict by many types
+          try
+          {
+            JSONArray typesArr = new JSONArray(this.filter);
+            String[] types = new String[typesArr.length()];
+
+            if (types.length > 0)
+            {
+              for (int i = 0; i < typesArr.length(); i++)
+              {
+                types[i] = typesArr.getString(i);
+              }
+
+              vQuery.AND(geoEntityQuery.getType().IN(types));
+            }
+          }
+          catch (JSONException e)
+          {
+            throw new ProgrammingErrorException(e);
+          }
+        }
+        else
+        {
+          // restrict by a single type
+          vQuery.AND(geoEntityQuery.getType().EQ(filter));
+        }
       }
-      
+
       // Restricted types to avoid returning large data sets
       String[] baseTypes = { MDSSInfo.GENERATED_GEO_PACKAGE + ".WaterBody", MDSSInfo.GENERATED_GEO_PACKAGE + ".Reserve", MDSSInfo.GENERATED_GEO_PACKAGE + ".River", MDSSInfo.GENERATED_GEO_PACKAGE + ".Road", MDSSInfo.GENERATED_GEO_PACKAGE + ".Railway" };
-      
+
       // Grab all is_a children of the restricted types to add to
       // the restricted list.
       Set<String> notInSet = new HashSet<String>(Arrays.asList(baseTypes));
@@ -295,27 +326,27 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
           // The type doesn't exist for this country. Just ignore it
         }
       }
-      
+
       vQuery.AND(geoEntityQuery.getType().NI(notInSet.toArray(new String[notInSet.size()])));
-      
+
       vQuery.AND(geoEntityQuery.getTerm("geoTermId").LEFT_JOIN_EQ(termQuery.getId("termId")));
-      
+
       vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
     }
   }
-  
+
   public static List<GeoEntityView> getImmediateChildren(GeoEntity entity, String filter)
   {
     List<GeoEntityView> list = new LinkedList<GeoEntityView>();
     QueryFactory factory = new QueryFactory();
 
     GeoEntityViewQuery query = new GeoEntityViewQuery(factory, new GeoEntityViewQuery.ImmediateChildrenQueryBuilder(factory, entity, filter));
-    
+
     OIterator<? extends GeoEntityView> it = query.getIterator();
-    
+
     try
     {
-      while(it.hasNext())
+      while (it.hasNext())
       {
         GeoEntityView view = it.next();
 
@@ -326,7 +357,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
     {
       it.close();
     }
-    
+
     return list;
   }
 
@@ -334,17 +365,17 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
   {
     List<GeoEntityView> list = new LinkedList<GeoEntityView>();
     QueryFactory factory = new QueryFactory();
-    
+
     GeoEntityViewQuery query = new GeoEntityViewQuery(factory, new GeoEntityViewQuery.AllParentsQueryBuilder(factory, entity, filter));
-    
+
     OIterator<? extends GeoEntityView> it = query.getIterator();
-    
+
     try
     {
-      while(it.hasNext())
+      while (it.hasNext())
       {
         GeoEntityView view = it.next();
-        
+
         list.add(view);
       }
     }
@@ -352,8 +383,8 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
     {
       it.close();
     }
-    
+
     return list;
   }
-  
+
 }
