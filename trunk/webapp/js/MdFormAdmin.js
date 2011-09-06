@@ -10,7 +10,6 @@ var UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
  */
 Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin', 
 {
-  Extends : UI.Component,
   Instance : {
     initialize : function()
     {
@@ -19,6 +18,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     render : function()
     {
     
+    },
+    availableFields : function()
+    {
     }
   }
 });
