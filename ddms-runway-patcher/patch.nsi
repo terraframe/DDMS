@@ -7,7 +7,7 @@ RequestExecutionLevel highest
 
 # General Symbol Definitions
 !define REGKEY "SOFTWARE\$(^Name)"
-!define VERSION 3.1
+!define VERSION 1.0.0
 !define COMPANY "Innovative Vector Control Consortium"
 !define URL "http://www.ivcc.com/"
 
@@ -37,21 +37,12 @@ Var JavaError
 Var Classpath
 Var PatchDir
 Var AgentDir
-Var PatchVersion
-Var TermsVersion
-Var RootsVersion
-Var MenuVersion
-Var LocalizationVersion
-Var PermissionsVersion
-Var Label
-Var DropList
 Var AppName
-Var TfDialog
 Var TargetLoc
+Var ManagerLibDir
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
-Page custom appNameInputPage appNameInputLeavePage
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
 
@@ -73,52 +64,20 @@ VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
 
-Function appNameInputLeavePage
-    ${NSD_GetText} $DropList $AppName
-FunctionEnd
-
-Function appNameInputPage
-  !insertmacro MUI_HEADER_TEXT "Installation Name" "Specify the installation name"
-  nsDialogs::Create 1018
-  Pop $TfDialog
+Function patchApplication
+  Pop $AppName
+  StrCpy $TargetLoc "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF"    
+  StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+    
+  # Execute patch
+  !insertmacro MUI_HEADER_TEXT "Patching Runway" "Patching $AppName..."
+  ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
+  Call JavaAbort
   
-  ${If} $TfDialog == error
-    Abort
-  ${EndIf}
+  # We need to clear the old cache
+  Delete $INSTDIR\tomcat6\$AppName.index
+  Delete $INSTDIR\tomcat6\$AppName.data
   
-  # Create the label, which gets put on the stack
-  ${NSD_CreateLabel} 0 2u 25% 12u "Installation Name"
-  # Pop the label off the stack and store it in $Label
-  Pop $Label
-
-  # Create the droplist, which gets put on the stack
-  ${NSD_CreateDropList} 25% 0 74% 12u $AppName
-  # Pop the droplist off the stack and store it in $DropList  
-  Pop $DropList
-
-  ClearErrors
-  FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
-    
-  appNameFileReadLoop:
-  # Read a line from the file into $1
-  FileRead $0 $1
-    
-  # Errors means end of File
-  IfErrors appNameDone
-    
-  # Removes the newline from the end of $1
-  ${StrTrimNewLines} $1 $1
-    
-  # Add the value to the droplist
-  ${NSD_CB_AddString} $DropList $1
-  
-  Goto appNameFileReadLoop
-        
-  appNameDone:
-  ClearErrors
-  FileClose $0
-      
-  nsDialogs::Show
 FunctionEnd
 
 
@@ -129,28 +88,45 @@ Section -Main SEC0000
     
     # Set some constants
     StrCpy $PatchDir "$INSTDIR\runway_patch"
-    StrCpy $TargetLoc "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF"
-    StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\java.exe"
+    StrCpy $AgentDir "$PatchDir\output"
     StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
-    StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+    StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\java.exe"
+    StrCpy $ManagerLibDir "$INSTDIR\manager\backup-manager-1.0.0\lib"
     
-    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Copying patch file"
+    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Copying patch files"
     SetOutPath $PatchDir
     File OutputAgent.jar
     File 7za.exe
     File lib\runway-patcher-1.0.0.jar
+            
+    ClearErrors
+    FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+      
+    appNameFileReadLoop:
+    # Read a line from the file into $1
+    FileRead $0 $1
+      
+    # Errors means end of File
+    IfErrors appNameDone
+      
+    # Removes the newline from the end of $1
+    ${StrTrimNewLines} $1 $1
     
-    # Execute patch
-    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Patching..."
-    ExecWait `$Java $JavaOpts=$PatchDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
-    Call JavaAbort
+    Push $1
+      
+    Call patchApplication
     
+    Goto appNameFileReadLoop
+          
+    appNameDone:
+    ClearErrors
+    FileClose $0
+    
+    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Patching Manager..."
+    CopyFiles $TargetLoc\lib\runway*.jar $ManagerLibDir
+  
     # Remove libs
     Delete $PatchDir\*
-    
-    # We need to clear the old cache
-    Delete $INSTDIR\tomcat6\$AppName.index
-    Delete $INSTDIR\tomcat6\$AppName.data
     
 SectionEnd
 
