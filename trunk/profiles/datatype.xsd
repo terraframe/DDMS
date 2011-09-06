@@ -71,6 +71,7 @@
         <xs:element name="mdView" type="mdView" />
         <xs:element name="mdUtil" type="mdSession" />
         <xs:element name="mdController" type="mdController" />
+        <xs:element name="mdWebForm" type="mdWebForm" />
         <xs:element name="timestamp" type="timestamp" />
       </xs:choice>
     </xs:complexType>
@@ -271,6 +272,88 @@
           <xs:element name="create" type="mdControllerOptions" minOccurs="0" maxOccurs="1" />
           <xs:element name="stubSource" minOccurs="0" maxOccurs="1" />
         </xs:sequence>
+      </xs:extension>
+    </xs:complexContent>
+  </xs:complexType>
+
+  <xs:attributeGroup name="mdWebField">
+    <xs:attribute name="name" type="xs:string" use="required" />
+    <xs:attribute name="order" type="xs:string" />
+    <xs:attribute name="label" type="xs:string" />
+    <xs:attribute name="description" type="xs:string" />
+  </xs:attributeGroup>
+
+  <xs:attributeGroup name="mdWebPrimitive">
+    <xs:attributeGroup ref="mdWebField" />  
+    <xs:attribute name="mdAttribute" type="xs:string" />
+  </xs:attributeGroup>
+
+  <xs:complexType name="mdWebGeo">
+    <xs:attributeGroup ref="mdWebField" />
+  </xs:complexType>
+  
+  <xs:complexType name="mdWebTerm">
+    <xs:attributeGroup ref="mdWebField" />
+  </xs:complexType>
+  
+  <xs:complexType name="mdWebMultiTerm">
+    <xs:attributeGroup ref="mdWebField" />
+  </xs:complexType>
+  
+  <xs:complexType name="mdWebGrid">
+    <xs:attributeGroup ref="mdWebField" />
+  </xs:complexType>
+  
+  <xs:complexType name="mdWebChar">
+    <xs:attributeGroup ref="mdWebPrimitive" />
+    <xs:attribute name="maxLength" type="xs:string" />
+    <xs:attribute name="displayLength" type="xs:string" />
+  </xs:complexType>
+  
+  <xs:complexType name="mdWebDate">
+    <xs:attributeGroup ref="mdWebPrimitive" />
+  </xs:complexType>
+
+  <xs:complexType name="mdWebDouble">
+    <xs:attributeGroup ref="mdWebPrimitive" />
+  </xs:complexType>
+
+  <xs:complexType name="mdWebFloat">
+    <xs:attributeGroup ref="mdWebPrimitive" />
+  </xs:complexType>
+
+  <xs:complexType name="mdWebInteger">
+    <xs:attributeGroup ref="mdWebPrimitive" />
+  </xs:complexType>
+
+  <xs:complexType name="mdWebText">
+    <xs:attributeGroup ref="mdWebPrimitive" />
+  </xs:complexType>
+  
+  <xs:complexType name="fields">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="geo" type="mdWebGeo" />
+      <xs:element name="multiTerm" type="mdWebMultiTerm" />
+      <xs:element name="grid" type="mdWebGrid" />
+      <xs:element name="term" type="mdWebTerm" />
+      <xs:element name="char" type="mdWebChar" />
+      <xs:element name="date" type="mdWebDate" />
+      <xs:element name="double" type="mdWebDouble" />
+      <xs:element name="float" type="mdWebFloat" />
+      <xs:element name="integer" type="mdWebInteger" />
+      <xs:element name="text" type="mdWebText" />
+    </xs:choice>
+  </xs:complexType>  
+  
+  <xs:complexType name="mdWebForm">
+    <xs:complexContent>
+      <xs:extension base="mdType">
+        <xs:sequence>
+          <!--The methods defined for the MdWebForms-->
+          <xs:element name="fields" type="fields" minOccurs="0" maxOccurs="1" />
+        </xs:sequence>
+        <xs:attribute name="formName" type="xs:string" />        
+        <xs:attribute name="mdClass" type="xs:string" />
       </xs:extension>
     </xs:complexContent>
   </xs:complexType>
@@ -603,7 +686,7 @@
   </xs:simpleType>
 
   <!--
-    ******************************** 
+    ********************************
     Object definition
     ************************************
   -->
@@ -709,6 +792,7 @@
     <xs:choice minOccurs="0" maxOccurs="unbounded">
       <xs:element name="char" type="char" />
       <xs:element name="text" type="text" />
+      <xs:element name="clob" type="clob" />
       <xs:element name="boolean" type="boolean" />
       <xs:element name="integer" type="integer" />
       <xs:element name="long" type="long" />
@@ -724,7 +808,6 @@
       <xs:element name="hashEncryption" type="hashEncryption" />
       <xs:element name="symmetricEncryption" type="symmetricEncryption" />
       <xs:element name="blob" type="blob" />
-      <xs:element name="clob" type="clob" />
       <xs:element name="file" type="file" />
       <xs:element name="localChar" type="localChar" />
       <xs:element name="localText" type="localText" />
@@ -865,9 +948,9 @@
     <xs:attributeGroup ref="attributePrimitive" />
   </xs:complexType>
 
-  <!--Represents a clob object in the database-->
+  <!--Represents a Clob object in the database-->
   <xs:complexType name="clob">
-    <xs:attributeGroup ref="attribute" />
+    <xs:attributeGroup ref="attributePrimitive" />
   </xs:complexType>
 
   <!--Represents a Boolean object in the database-->
@@ -1127,7 +1210,7 @@
     </xs:choice>
     <xs:attribute name="type" type="xs:string" use="required" />
   </xs:complexType>
-  
+
   <xs:complexType name="statePermission">
     <!-- type: The metadata type to assign permissions to -->
     <xs:sequence>
