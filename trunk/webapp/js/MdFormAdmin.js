@@ -4,7 +4,6 @@
 (function(){
 
 var UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
-var FACTORY = UI.Manager.setFactory("YUI3");
 
 /**
  * Primary class to handle control flow in the UI.
@@ -21,6 +20,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     
     },
     availableFields : function()
+    {
+    },
+    /**
+     * Make a request for a new instance of an MdField.
+     */
+    newField : function(mdFieldType)
     {
     }
   }
