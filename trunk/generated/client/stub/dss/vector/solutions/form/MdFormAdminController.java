@@ -4,6 +4,8 @@ import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import dss.vector.solutions.util.ErrorUtility;
+
 public class MdFormAdminController extends MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/form/";
@@ -17,6 +19,18 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   @Override
   public void mdFormAdmin() throws IOException, ServletException
   {
-    render("mdFormAdmin.jsp");
+    try
+    {
+      this.req.getRequestDispatcher(JSP_DIR+"mdFormAdmin.jsp").forward(req, resp);
+    }
+    catch(Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failMdFormAdmin();
+      }
+    }
   }
 }

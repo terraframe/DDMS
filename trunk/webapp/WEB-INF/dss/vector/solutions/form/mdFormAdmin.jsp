@@ -8,10 +8,9 @@
 
 <c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
-<jsp:include page="../templates/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
-<jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
-<jwr:script src="/bundles/mdssBundle.js" useRandomParam="false"/>
+
 
 <script type="text/javascript">
 
@@ -26,4 +25,4 @@ YAHOO.util.Event.onDOMReady(function(){
   <div id="adminPanel"></div>
 </div>
 
-<jsp:include page="../templates/footer.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/templates/footer.jsp"></jsp:include>
