@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.GeoEntityDefinitionBase;
 
 
 public class GeoEntityDefinition extends GeoEntityDefinitionBase implements com.runwaysdk.generation.loader.Reloadable

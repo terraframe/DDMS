@@ -30,8 +30,6 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
-import dss.vector.solutions.AmbigiousGeoEntityException;
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.ExcelReadException;
 import dss.vector.solutions.export.ExcelVersionException;

@@ -12,7 +12,6 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.geo.generated.EarthDTO;
-import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 

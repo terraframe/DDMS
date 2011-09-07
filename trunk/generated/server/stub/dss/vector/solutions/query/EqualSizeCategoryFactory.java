@@ -3,8 +3,6 @@ package dss.vector.solutions.query;
 import java.util.ArrayList;
 import java.util.List;
 
-import dss.vector.solutions.MdssLog;
-
 public class EqualSizeCategoryFactory extends EqualSizeCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 137489069;
 

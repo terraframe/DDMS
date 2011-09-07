@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidIntervalTimeProblemBase;
 
 public class InvalidIntervalTimeProblem extends InvalidIntervalTimeProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {

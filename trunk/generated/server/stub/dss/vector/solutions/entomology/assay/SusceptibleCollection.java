@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.SusceptibleCollectionBase;
 
 public class SusceptibleCollection extends SusceptibleCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {

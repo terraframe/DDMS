@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import dss.vector.solutions.PropertyDTOBase;
 
 public class PropertyDTO extends PropertyDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

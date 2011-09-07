@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-import dss.vector.solutions.entomology.InvalidMosquitoCollectionGeoEntityExceptionBase;
 
 public class InvalidMosquitoCollectionGeoEntityException extends InvalidMosquitoCollectionGeoEntityExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {

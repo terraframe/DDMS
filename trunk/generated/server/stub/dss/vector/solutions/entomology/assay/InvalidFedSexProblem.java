@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidFedSexProblemBase;
 
 public class InvalidFedSexProblem extends InvalidFedSexProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {

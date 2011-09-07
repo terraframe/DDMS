@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidPeriodProblemDTOBase;
 
 public class InvalidPeriodProblemDTO extends InvalidPeriodProblemDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

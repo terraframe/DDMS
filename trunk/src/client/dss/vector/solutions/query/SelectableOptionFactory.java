@@ -1,31 +1,31 @@
 package dss.vector.solutions.query;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttributeBooleanDTO;
-import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdFieldDTO;
+import com.runwaysdk.system.metadata.MdWebBooleanDTO;
 
 import dss.vector.solutions.ontology.TermDTO;
 
 public class SelectableOptionFactory implements Reloadable
 {
-  private MdAttributeConcreteDTO mdAttribute;
+  private MdFieldDTO mdField;
 
-  private String                 attributeName;
+  private String     attributeName;
 
-  private String                 type;
+  private String     type;
 
-  private String                 label;
+  private String     label;
 
-  private String                 attributeNamePrepend;
+  private String     attributeNamePrepend;
 
   public SelectableOptionFactory(String attributeName, String type)
   {
     this(null, attributeName, type);
   }
 
-  public SelectableOptionFactory(MdAttributeConcreteDTO mdAttribute, String attributeName, String type)
+  public SelectableOptionFactory(MdFieldDTO mdField, String attributeName, String type)
   {
-    this.mdAttribute = mdAttribute;
+    this.mdField = mdField;
     this.attributeName = attributeName;
     this.type = type;
     this.label = "";
@@ -48,11 +48,11 @@ public class SelectableOptionFactory implements Reloadable
     String key = ( this.attributeName + "__" + this.type + "__" + termId ).replace(".", "_");
     String attributeName = attributeNamePrepend + termId.substring(0, 16);
 
-    if (mdAttribute != null && mdAttribute instanceof MdAttributeBooleanDTO)
+    if (mdField != null && mdField instanceof MdWebBooleanDTO)
     {
-      MdAttributeBooleanDTO mdAttributeBoolean = (MdAttributeBooleanDTO) mdAttribute;
-      String positiveLabel = mdAttributeBoolean.getPositiveDisplayLabel().getValue();
-      String negativeLabel = mdAttributeBoolean.getNegativeDisplayLabel().getValue();
+      // MdWebBooleanDTO mdFieldBoolean = (MdWebBooleanDTO) mdField;
+      String positiveLabel = "true"; // mdFieldBoolean.getPositiveDisplayLabel().getValue();
+      String negativeLabel = "false"; // mdFieldBoolean.getNegativeDisplayLabel().getValue();
 
       return new SelectableBooleanOption(attributeName, label + term.getDisplayLabel(), key, positiveLabel, negativeLabel);
     }

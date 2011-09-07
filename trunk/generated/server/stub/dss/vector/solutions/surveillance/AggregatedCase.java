@@ -3,38 +3,18 @@ package dss.vector.solutions.surveillance;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.MdEntityDAOIF;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryException;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.CurrentDateProblem;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.general.ThresholdCalculationTypeView;
-import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.geo.generated.GeoEntity;
-import dss.vector.solutions.ontology.Term;
-import dss.vector.solutions.ontology.TermRootCache;
-import dss.vector.solutions.query.IncidencePopulationException;
 import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.querybuilder.AggregatedCaseQB;
-import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedCase extends AggregatedCaseBase implements com.runwaysdk.generation.loader.Reloadable
 {

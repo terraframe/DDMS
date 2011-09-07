@@ -1,8 +1,8 @@
 package dss.vector.solutions.query;
 
 import com.runwaysdk.ProblemExceptionDTO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 public class NonRangeCategoryController extends NonRangeCategoryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {

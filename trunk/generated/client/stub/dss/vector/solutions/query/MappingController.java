@@ -19,13 +19,12 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.transport.conversion.json.JSONReturnObject;
 import com.runwaysdk.util.FileIO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
+import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.sld.SLDWriter;
 import dss.vector.solutions.util.FileDownloadUtil;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
-import dss.vector.solutions.util.MDSSProperties;
 
 public class MappingController extends MappingControllerBase implements
     com.runwaysdk.generation.loader.Reloadable

@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Locale;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.io.excel.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;

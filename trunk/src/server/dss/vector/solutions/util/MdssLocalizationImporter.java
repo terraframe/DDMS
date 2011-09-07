@@ -11,9 +11,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.Map.Entry;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -25,12 +25,10 @@ import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.EntityDAO;
-import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.StructDAO;
-import com.runwaysdk.dataaccess.attributes.entity.Attribute;
 import com.runwaysdk.dataaccess.attributes.entity.AttributeStruct;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
-import com.runwaysdk.dataaccess.cache.ObjectCache;
+import com.runwaysdk.dataaccess.cache.ObjectCacheFacade;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
@@ -107,7 +105,7 @@ public class MdssLocalizationImporter implements Reloadable
 
     long stop = System.currentTimeMillis();
     System.out.println("\nImported in " + ( stop - start ) / 1000.0 + " seconds");
-    
+
     CacheShutdown.shutdown();
   }
 
@@ -446,11 +444,12 @@ public class MdssLocalizationImporter implements Reloadable
     EntityDAO entity;
     try
     {
-      // Casting to DAO so we can update the cache for this object only, not a complete rebuild
+      // Casting to DAO so we can update the cache for this object only, not a
+      // complete rebuild
       entity = (EntityDAO) EntityDAO.get(type, key);
-      
+
       // Casting to AttributeStruct so we can get the StructDAO reference
-      AttributeStruct attributeStruct = (AttributeStruct)entity.getAttribute(attributeName);
+      AttributeStruct attributeStruct = (AttributeStruct) entity.getAttribute(attributeName);
       struct = attributeStruct.getStructDAO();
     }
     catch (DataNotFoundException e)
@@ -487,7 +486,7 @@ public class MdssLocalizationImporter implements Reloadable
     if (apply)
     {
       struct.apply();
-      ObjectCache.updateCache(entity);
+      ObjectCacheFacade.updateCache(entity);
       modifiedCount++;
     }
   }

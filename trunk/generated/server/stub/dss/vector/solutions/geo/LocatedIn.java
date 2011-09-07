@@ -2,7 +2,6 @@ package dss.vector.solutions.geo;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
-import dss.vector.solutions.geo.LocatedInBase;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class LocatedIn extends LocatedInBase implements com.runwaysdk.generation.loader.Reloadable

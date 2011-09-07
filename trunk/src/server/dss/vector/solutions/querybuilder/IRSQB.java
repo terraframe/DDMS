@@ -37,7 +37,6 @@ import dss.vector.solutions.PropertyInfo;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiWeek;
 import dss.vector.solutions.general.MalariaSeason;
-import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.AbstractSpray;

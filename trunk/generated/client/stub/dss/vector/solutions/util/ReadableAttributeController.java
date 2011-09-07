@@ -5,6 +5,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -14,8 +16,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.RolesDTO;
+import com.runwaysdk.system.metadata.MdClassDTO;
+import com.runwaysdk.system.metadata.MdWebFormDTO;
 
 import dss.vector.solutions.MDSSRoleInfo;
+import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.permission.MDSSRoleDTO;
 
 public class ReadableAttributeController extends ReadableAttributeControllerBase implements Reloadable
@@ -48,27 +53,27 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
 
       Map<String, RolesDTO> roles = this.getAllRoles(clientRequest);
 
-//      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
-//      List<String> formURLs = new LinkedList<String>();
-//
-//      for (MdWebFormDTO form : forms)
-//      {
-//        MdClassDTO formMdClass = form.getFormMdClass();
-//        String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
-//        String label = this.getEncodedText(form.getFormName());
-//
-//        StringBuffer buffer = new StringBuffer();
-//
-//        buffer.append("<a href=\"dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?component=" + label + "&universal=" + classType + "&actor=" + actor + "\">");
-//        buffer.append(label);
-//        buffer.append("</a>");
-//
-//        formURLs.add(buffer.toString());
-//      }
+      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
+      List<String> formURLs = new LinkedList<String>();
+
+      for (MdWebFormDTO form : forms)
+      {
+        MdClassDTO formMdClass = form.getFormMdClass();
+        String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
+        String label = this.getEncodedText(form.getDisplayLabel().getValue());
+
+        StringBuffer buffer = new StringBuffer();
+
+        buffer.append("<a href=\"dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?component=" + label + "&universal=" + classType + "&actor=" + actor + "\">");
+        buffer.append(label);
+        buffer.append("</a>");
+
+        formURLs.add(buffer.toString());
+      }
 
       req.setAttribute("actor", actor);
       req.setAttribute("actorOptions", roles.values());
-//      req.setAttribute("forms", formURLs);
+      req.setAttribute("forms", formURLs);
 
       render("selectUniversal.jsp");
     }

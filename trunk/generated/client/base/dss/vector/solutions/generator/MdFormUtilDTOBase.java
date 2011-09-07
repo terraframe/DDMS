@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -446130801)
+@com.runwaysdk.business.ClassSignature(hash = 1401188951)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -446130801;
+  private static final long serialVersionUID = 1401188951;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -23,6 +23,22 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{mdRelationship};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "definesAttributes", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdAttributeConcreteDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.io.InputStream excelExport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String type)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{type};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "excelExport", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.io.InputStream excelImport(com.runwaysdk.constants.ClientRequestIF clientRequest, java.io.InputStream stream, java.lang.String type)
+  {
+    String[] _declaredTypes = new String[]{"java.io.InputStream", "java.lang.String"};
+    Object[] _parameters = new Object[]{stream, type};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "excelImport", _declaredTypes);
+    return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdWebFormDTO[] getAllForms(com.runwaysdk.constants.ClientRequestIF clientRequest)

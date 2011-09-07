@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.ResistantCollectionBase;
 
 public class ResistantCollection extends ResistantCollectionBase implements com.runwaysdk.generation.loader.Reloadable
 {

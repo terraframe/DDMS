@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.LocatedInExceptionDTOBase;
 
 public class LocatedInExceptionDTO extends LocatedInExceptionDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

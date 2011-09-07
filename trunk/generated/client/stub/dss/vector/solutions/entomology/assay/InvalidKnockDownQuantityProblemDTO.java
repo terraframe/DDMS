@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidKnockDownQuantityProblemDTOBase;
 
 public class InvalidKnockDownQuantityProblemDTO extends InvalidKnockDownQuantityProblemDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.io.excel.ImportContext;
 
 import dss.vector.solutions.entomology.PupalCollectionView;
 import dss.vector.solutions.entomology.PupalContainerAmountView;

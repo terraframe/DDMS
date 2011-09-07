@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo.generated;
 
-import dss.vector.solutions.geo.generated.EarthDTOBase;
 
 public class EarthDTO extends EarthDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

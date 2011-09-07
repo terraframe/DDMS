@@ -18,8 +18,6 @@ import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.web.WebClientSession;
 
-import dss.vector.solutions.ontology.Term;
-
 public class EmptyValueReadPermissionTest extends TestCase implements DoNotWeave
 {
   protected static ClientSession     systemSession                  = null;

@@ -6,8 +6,6 @@ import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.system.transaction.TransactionRecord;
 import com.runwaysdk.system.transaction.TransactionRecordQuery;
 
-import dss.vector.solutions.MdssLog;
-
 public class TransactionItemView extends TransactionItemViewBase implements Reloadable
 {
   private static final long serialVersionUID = -424846230;

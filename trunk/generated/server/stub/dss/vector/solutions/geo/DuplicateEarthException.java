@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.DuplicateEarthExceptionBase;
 
 public class DuplicateEarthException extends DuplicateEarthExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {

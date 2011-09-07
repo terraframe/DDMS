@@ -10,6 +10,7 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -26,23 +27,26 @@ public class TypeQB extends AbstractQB implements Reloadable
   {
     Iterator<GeneratedEntityQuery> it = queryMap.values().iterator();
 
-    if (it.hasNext())
+    while (it.hasNext())
     {
       GeneratedEntityQuery query = it.next();
 
-      this.addGeoDisplayLabelQuery(query);
+      if (! ( query instanceof AllPathsQuery ))
+      {
+        this.addGeoDisplayLabelQuery(query);
 
-      this.setNumericRestrictions(valueQuery, queryConfig);
-      
-      QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get("disease"));
-      
-      QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query);
-      
-      QueryUtil.getSingleAttribteGridSql(valueQuery, query.getTableAlias());
-      
-      valueQuery.FROM(query.getMdClassIF().getTableName(), query.getTableAlias());
-      
-      return valueQuery;
+        this.setNumericRestrictions(valueQuery, queryConfig);
+
+        QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get("disease"));
+
+        QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query);
+
+        QueryUtil.getSingleAttribteGridSql(valueQuery, query.getTableAlias());
+
+        valueQuery.FROM(query.getMdClassIF().getTableName(), query.getTableAlias());
+
+        return valueQuery;
+      }
     }
 
     throw new RuntimeException("NULL Query");

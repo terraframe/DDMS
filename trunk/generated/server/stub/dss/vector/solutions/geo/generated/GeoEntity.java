@@ -19,6 +19,8 @@ import java.util.TreeSet;
 
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
@@ -64,6 +66,7 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdRelationship;
+import com.runwaysdk.transport.conversion.json.JSONUtil;
 import com.runwaysdk.util.IdParser;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.io.ParseException;
@@ -99,12 +102,13 @@ import dss.vector.solutions.util.QueryUtil;
 
 public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1234288139462L;
-  
+  private static final long serialVersionUID   = 1234288139462L;
+
   /**
-   * The maximum number of children allowed for UI display under one parent node.
+   * The maximum number of children allowed for UI display under one parent
+   * node.
    */
-  public static final int OVERFLOW_THRESHOLD = 40;
+  public static final int   OVERFLOW_THRESHOLD = 40;
 
   public GeoEntity()
   {
@@ -163,7 +167,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         Geometry geo = geometryHelper.parseGeometry(geoData);
         this.setGeoPoint(geometryHelper.getGeoPoint(geo));
         this.setGeoMultiPolygon(geometryHelper.getGeoMultiPolygon(geo));
-        
+
         // reset the geoData to the filtered WKT as parsed by JTS
         geoData = geo.toText();
         this.setGeoData(geoData);
@@ -1450,28 +1454,28 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       throw new ProgrammingErrorException(e);
     }
   }
-  
+
   @Override
   public GeoEntityViewQuery getOrderedChildrenPage(String filter, Integer pageNumber)
   {
-    
+
     QueryFactory f = new QueryFactory();
     OrderedGeoEntityQueryBuilder builder = new OrderedGeoEntityQueryBuilder(f, this, filter);
     GeoEntityViewQuery query = new GeoEntityViewQuery(f, builder);
 
     long count = query.getCount();
     query.restrictRows(OVERFLOW_THRESHOLD, pageNumber);
-    
-    if(pageNumber == 1 && count > OVERFLOW_THRESHOLD)
+
+    if (pageNumber == 1 && count > OVERFLOW_THRESHOLD)
     {
       int pages = (int) Math.ceil(count / (double) OVERFLOW_THRESHOLD);
       int currentPage = 2;
-      while(currentPage <= pages)
+      while (currentPage <= pages)
       {
-        int start = ((currentPage-1)*OVERFLOW_THRESHOLD) + 1;
-        int number = (int) (currentPage < pages ? OVERFLOW_THRESHOLD-1 : count - start);
-        int end = (start + number);
-        
+        int start = ( ( currentPage - 1 ) * OVERFLOW_THRESHOLD ) + 1;
+        int number = (int) ( currentPage < pages ? OVERFLOW_THRESHOLD - 1 : count - start );
+        int end = ( start + number );
+
         ChildEntityOverflowInformation info = new ChildEntityOverflowInformation();
         info.setOverflowPage(currentPage);
         info.setOverflowStart(start);
@@ -1479,11 +1483,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         info.setOverflowNumber(number);
         info.setOverflowThreshold(OVERFLOW_THRESHOLD);
         info.throwIt();
-        
+
         currentPage++;
       }
     }
-    
+
     return query;
   }
 
@@ -1552,7 +1556,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       if (filter != null && filter.trim().length() > 0)
       {
         String types[] = filteredTypes(filter);
-        vQuery.AND(geoEntityQuery.getType().IN(types));
+
+        if (types.length > 0)
+        {
+          vQuery.AND(geoEntityQuery.getType().IN(types));
+        }
       }
 
       // Restricted types to avoid returning large data sets
@@ -1605,11 +1613,35 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     // get allowed types by filter, which includes all parents and children
     // of the filter type and the filter type itself.
     List<GeoHierarchy> allowedTypes = new LinkedList<GeoHierarchy>();
-    GeoHierarchy filterType = GeoHierarchy.getGeoHierarchyFromType(filter);
 
-    allowedTypes.addAll(filterType.getAllChildren());
-    allowedTypes.add(filterType);
-    allowedTypes.addAll(filterType.getAllParents());
+    if (JSONUtil.isArray(filter))
+    {
+      try
+      {
+        JSONArray typesArr = new JSONArray(filter);
+
+        for (int i = 0; i < typesArr.length(); i++)
+        {
+          GeoHierarchy filterType = GeoHierarchy.getGeoHierarchyFromType(typesArr.getString(i));
+
+          allowedTypes.addAll(filterType.getAllChildren());
+          allowedTypes.add(filterType);
+          allowedTypes.addAll(filterType.getAllParents());
+        }
+      }
+      catch (JSONException e)
+      {
+        throw new ProgrammingErrorException(e);
+      }
+    }
+    else
+    {
+      GeoHierarchy filterType = GeoHierarchy.getGeoHierarchyFromType(filter);
+
+      allowedTypes.addAll(filterType.getAllChildren());
+      allowedTypes.add(filterType);
+      allowedTypes.addAll(filterType.getAllParents());
+    }
 
     String[] types = new String[allowedTypes.size()];
     for (int i = 0; i < allowedTypes.size(); i++)
@@ -1741,7 +1773,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     allPathsMdBusiness.deleteAllTableRecords();
 
     String original_child = "original_child";
-    
+
     String geoEntityTable = MdBusiness.getMdBusiness(GeoEntity.CLASS).getTableName();
     String locatedInTable = MdRelationship.getMdElement(LocatedIn.CLASS).getTableName();
     String allPathsTable = allPathsMdBusiness.getTableName();
@@ -1763,22 +1795,15 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
         + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + ",\n"
         + "  " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getParentUniversalMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ",\n" + "  " + AllPaths.getChildUniversalMd().getMdAttributeConcrete().getColumnName() + "\n" + ") \n"
 
-        + "WITH RECURSIVE quick_paths ("+original_child+") AS (\n"
-        + "    SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+" as "+original_child+", "+RelationshipDAOIF.PARENT_ID_COLUMN+" FROM "+locatedInTable+"\n"
-        + "    UNION\n"
-        + "    SELECT "+original_child+", l."+RelationshipDAOIF.PARENT_ID_COLUMN+"\n"
-        + "    FROM "+locatedInTable+" l\n"
-        + "      INNER JOIN quick_paths\n"
-        + "      ON (l."+RelationshipDAOIF.CHILD_ID_COLUMN+" = quick_paths."+RelationshipDAOIF.PARENT_ID_COLUMN+")\n"
-        + "    )\n"
+        + "WITH RECURSIVE quick_paths (" + original_child + ") AS (\n" + "    SELECT " + RelationshipDAOIF.CHILD_ID_COLUMN + " as " + original_child + ", " + RelationshipDAOIF.PARENT_ID_COLUMN + " FROM " + locatedInTable + "\n" + "    UNION\n" + "    SELECT " + original_child + ", l." + RelationshipDAOIF.PARENT_ID_COLUMN + "\n" + "    FROM " + locatedInTable + " l\n" + "      INNER JOIN quick_paths\n" + "      ON (l." + RelationshipDAOIF.CHILD_ID_COLUMN + " = quick_paths."
+        + RelationshipDAOIF.PARENT_ID_COLUMN + ")\n" + "    )\n"
 
-        + "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2."
-        + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName() + ",\n"
-        + "  NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "') AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'  AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "' AS \""
+        + "SELECT  \n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + sitemaster + "'  AS " + AllPaths.getSiteMasterMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    MD5(geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName()
+        + " || geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " ) || '" + allPathsRootTypeId + "' AS " + GeoEntity.getKeyNameMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + AllPaths.CLASS + "' AS \"" + AllPaths.getTypeMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '' AS " + AllPaths.getEntityDomainMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getLastUpdateDateMd().getMdAttributeConcrete().getColumnName()
+        + ",\n" + "  NEXTVAL('" + PostgreSQL.UNIQUE_OBJECT_ID_SEQUENCE + "') AS " + AllPaths.getSeqMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "'  AS " + AllPaths.getCreatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    NULL AS " + AllPaths.getLockedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    ? AS " + AllPaths.getCreateDateMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    '" + createdById + "' AS \""
         + AllPaths.getOwnerMd().getMdAttributeConcrete().getColumnName() + "\",\n" + "    '" + createdById + "' AS " + AllPaths.getLastUpdatedByMd().getMdAttributeConcrete().getColumnName() + ",\n" + "    paths." + RelationshipInfo.PARENT_ID + " AS " + AllPaths.getParentGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + RelationshipInfo.PARENT_ID + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ") || '"
-        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths."+original_child+" as " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths."+original_child+"," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, " + geoEntityTable + " as geo2,\n"
-        + "(SELECT "+original_child+", parent_id FROM quick_paths UNION SELECT " + QueryUtil.getIdColumn() + "," + QueryUtil.getIdColumn() + " FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2."
-        + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths."+original_child+"\n";
+        + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "',\n" + "    paths." + original_child + " as " + AllPaths.getChildGeoEntityMd().getMdAttributeConcrete().getColumnName() + ", \n" + "    SUBSTRING(paths." + original_child + "," + DatabaseInfo.ROOT_ID_SIZE + "+1," + DatabaseInfo.ROOT_ID_SIZE + ")   || '" + MdBusinessInfo.ID_VALUE.substring(0, Integer.parseInt(DatabaseInfo.ROOT_ID_SIZE)) + "'\n" + "FROM " + geoEntityTable + " as geo1, "
+        + geoEntityTable + " as geo2,\n" + "(SELECT " + original_child + ", parent_id FROM quick_paths UNION SELECT " + QueryUtil.getIdColumn() + "," + QueryUtil.getIdColumn() + " FROM " + geoEntityTable + " ) as paths\n" + "WHERE geo1." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + RelationshipInfo.PARENT_ID + " AND geo2." + GeoEntity.getIdMd().getMdAttributeConcrete().getColumnName() + " = paths." + original_child + "\n";
 
     Connection conn = Database.getConnection();
 

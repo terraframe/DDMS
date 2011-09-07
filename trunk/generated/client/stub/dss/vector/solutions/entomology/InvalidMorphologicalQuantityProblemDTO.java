@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-import dss.vector.solutions.entomology.InvalidMorphologicalQuantityProblemDTOBase;
 
 public class InvalidMorphologicalQuantityProblemDTO extends InvalidMorphologicalQuantityProblemDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

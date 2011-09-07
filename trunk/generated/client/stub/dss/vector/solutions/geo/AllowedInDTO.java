@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.AllowedInDTOBase;
 
 public class AllowedInDTO extends AllowedInDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

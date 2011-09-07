@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import dss.vector.solutions.PropertyAllreadyExistsExceptionDTOBase;
 
 public class PropertyAllreadyExistsExceptionDTO extends PropertyAllreadyExistsExceptionDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

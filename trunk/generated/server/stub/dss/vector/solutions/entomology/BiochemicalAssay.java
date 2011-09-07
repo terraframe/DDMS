@@ -1,22 +1,10 @@
 package dss.vector.solutions.entomology;
 
-import java.util.Map;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.GeneratedEntityQuery;
-import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableSQL;
-import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.RangeValueProblem;
 import dss.vector.solutions.general.Disease;
-import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.util.QueryUtil;
 
 public class BiochemicalAssay extends BiochemicalAssayBase implements com.runwaysdk.generation.loader.Reloadable
 {

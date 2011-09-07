@@ -18,8 +18,6 @@ import com.runwaysdk.system.metadata.MdUtil;
 import com.runwaysdk.system.metadata.MdUtilQuery;
 import com.runwaysdk.system.metadata.UtilInheritanceQuery;
 
-import dss.vector.solutions.MdssLog;
-
 public abstract class AbstractCategoryFactory extends AbstractCategoryFactoryBase implements com.runwaysdk.generation.loader.Reloadable {
 	private static final long serialVersionUID = 1851169193;
 

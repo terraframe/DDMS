@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.ModifyHierarchyWithInstancesExceptionDTOBase;
 
 public class ModifyHierarchyWithInstancesExceptionDTO extends ModifyHierarchyWithInstancesExceptionDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

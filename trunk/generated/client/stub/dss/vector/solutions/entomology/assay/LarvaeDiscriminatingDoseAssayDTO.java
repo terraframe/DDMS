@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTOBase;
 
 public class LarvaeDiscriminatingDoseAssayDTO extends LarvaeDiscriminatingDoseAssayDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

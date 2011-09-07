@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.DeleteEarthExceptionBase;
 
 public class DeleteEarthException extends DeleteEarthExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {

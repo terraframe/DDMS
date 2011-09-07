@@ -4,7 +4,6 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 

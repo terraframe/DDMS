@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1575473510)
+@com.runwaysdk.business.ClassSignature(hash = 710690158)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
   public static java.lang.String TYPE = "type";
   public static java.lang.String URBAN = "urban";
   public static java.lang.String VIEWCREATED = "viewCreated";
-  private static final long serialVersionUID = 1575473510;
+  private static final long serialVersionUID = 710690158;
   
   public GeoHierarchyBase()
   {
@@ -626,6 +626,49 @@ public abstract class GeoHierarchyBase extends com.runwaysdk.business.Business i
   public dss.vector.solutions.geo.AllowedIn getAllowedInGeoEntityRel(dss.vector.solutions.geo.GeoHierarchy geoHierarchy)
   {
     com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.AllowedIn> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.AllowedIn>) getRelationshipsWithParent(geoHierarchy, dss.vector.solutions.geo.AllowedIn.CLASS);
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+      else
+      {
+        return null;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  public dss.vector.solutions.geo.ExtraFieldUniversal addGeoFields(dss.vector.solutions.geo.GeoField geoField)
+  {
+    return (dss.vector.solutions.geo.ExtraFieldUniversal) addParent(geoField, dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+  }
+  
+  public void removeGeoFields(dss.vector.solutions.geo.GeoField geoField)
+  {
+    removeAllParents(geoField, dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.GeoField> getAllGeoFields()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.GeoField>) getParents(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.ExtraFieldUniversal> getAllGeoFieldsRel()
+  {
+    return (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.ExtraFieldUniversal>) getParentRelationships(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public dss.vector.solutions.geo.ExtraFieldUniversal getGeoFieldsRel(dss.vector.solutions.geo.GeoField geoField)
+  {
+    com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.ExtraFieldUniversal> iterator = (com.runwaysdk.query.OIterator<? extends dss.vector.solutions.geo.ExtraFieldUniversal>) getRelationshipsWithParent(geoField, dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
     try
     {
       if (iterator.hasNext())

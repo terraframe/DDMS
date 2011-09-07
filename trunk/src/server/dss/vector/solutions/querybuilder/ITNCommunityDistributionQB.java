@@ -4,7 +4,6 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;

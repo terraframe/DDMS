@@ -26,7 +26,6 @@ import dss.vector.solutions.entomology.SubCollectionQuery;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.Country;
-import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.ontology.AllPaths;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;

@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.LocatedInExceptionBase;
 
 public class LocatedInException extends LocatedInExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {

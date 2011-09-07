@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.ConfirmParentChangeExceptionBase;
 
 public class ConfirmParentChangeException extends ConfirmParentChangeExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {

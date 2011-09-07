@@ -4,8 +4,6 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdBusiness;
 
-import dss.vector.solutions.geo.generated.EarthBase;
-import dss.vector.solutions.geo.generated.EarthQuery;
 import dss.vector.solutions.geo.DeleteEarthException;
 import dss.vector.solutions.geo.DuplicateEarthException;
 

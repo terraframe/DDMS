@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import dss.vector.solutions.PropertyValidationFailedExceptionBase;
 
 public class PropertyValidationFailedException extends PropertyValidationFailedExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {

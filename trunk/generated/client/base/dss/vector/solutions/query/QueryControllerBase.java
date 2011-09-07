@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1038172883)
+@com.runwaysdk.business.ClassSignature(hash = -686755111)
 public class QueryControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.query.QueryController";
@@ -10,7 +10,7 @@ public class QueryControllerBase implements com.runwaysdk.generation.loader.Relo
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1038172883;
+  private static final long serialVersionUID = -686755111;
   
   public QueryControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -583,6 +583,20 @@ public class QueryControllerBase implements com.runwaysdk.generation.loader.Relo
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQuerySurvey");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type", post=false)
+  public void queryType(java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.queryType");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type", post=false)
+  public void failQueryType(java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.QueryController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.query.QueryController.failQueryType");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="", post=true)

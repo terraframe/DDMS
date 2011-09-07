@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.AdultAgeRangeDTOBase;
 
 public class AdultAgeRangeDTO extends AdultAgeRangeDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

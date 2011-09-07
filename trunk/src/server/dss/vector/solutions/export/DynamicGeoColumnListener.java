@@ -58,8 +58,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
     }
   }
 
-  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
-      throws Exception
+  public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
   {
     List<String> geoEntityNames = new ArrayList<String>(hierarchyList.size());
 
@@ -76,7 +75,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
       // Go find the expected column
       for (ExcelColumn column : extraColumns)
       {
-    	String entityName;
+        String entityName;
         HSSFCell cell = row.getCell(column.getIndex());
         if (cell != null)
         {
@@ -84,7 +83,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
           {
             entityName = ExcelUtil.getString(cell).trim();
 
-            if (entityName.length()>0)
+            if (entityName.length() > 0)
             {
               geoEntityNames.add(entityName);
               parentGeoEntityMap.put(geoEntityClass.definesType(), entityName);
@@ -129,7 +128,7 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
 
     Class<?> excelClass = LoaderDecorator.load(excelType);
 
-    MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF)instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
+    MdAttributeReferenceDAOIF mdAttributeDAO = (MdAttributeReferenceDAOIF) instance.getMdAttributeDAO(attributeName).getMdAttributeConcrete();
     Class<?> parameterClass = LoaderDecorator.load(mdAttributeDAO.getReferenceMdBusinessDAO().definesType());
     String accessorName = CommonGenerationUtil.upperFirstCharacter(mdAttributeDAO.definesAttribute());
     excelClass.getMethod("set" + accessorName, parameterClass).invoke(instance, geoEntity);

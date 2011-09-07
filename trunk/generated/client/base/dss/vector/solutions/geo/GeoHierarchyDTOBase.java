@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -353779738)
+@com.runwaysdk.business.ClassSignature(hash = 851879662)
 public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoHierarchy";
-  private static final long serialVersionUID = -353779738;
+  private static final long serialVersionUID = 851879662;
   
   protected GeoHierarchyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -973,6 +973,60 @@ public abstract class GeoHierarchyDTOBase extends com.runwaysdk.business.Busines
   public static void removeAllAllowedInGeoEntity(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
   {
     clientRequestIF.deleteParents(id, dss.vector.solutions.geo.AllowedInDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.geo.GeoFieldDTO> getAllGeoFields()
+  {
+    return (java.util.List<? extends dss.vector.solutions.geo.GeoFieldDTO>) getRequest().getParents(this.getId(), dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.geo.GeoFieldDTO> getAllGeoFields(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.geo.GeoFieldDTO>) clientRequestIF.getParents(id, dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public java.util.List<? extends dss.vector.solutions.geo.ExtraFieldUniversalDTO> getAllGeoFieldsRelationships()
+  {
+    return (java.util.List<? extends dss.vector.solutions.geo.ExtraFieldUniversalDTO>) getRequest().getParentRelationships(this.getId(), dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  @SuppressWarnings("unchecked")
+  public static java.util.List<? extends dss.vector.solutions.geo.ExtraFieldUniversalDTO> getAllGeoFieldsRelationships(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    return (java.util.List<? extends dss.vector.solutions.geo.ExtraFieldUniversalDTO>) clientRequestIF.getParentRelationships(id, dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  public dss.vector.solutions.geo.ExtraFieldUniversalDTO addGeoFields(dss.vector.solutions.geo.GeoFieldDTO parent)
+  {
+    return (dss.vector.solutions.geo.ExtraFieldUniversalDTO) getRequest().addParent(parent.getId(), this.getId(), dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  public static dss.vector.solutions.geo.ExtraFieldUniversalDTO addGeoFields(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id, dss.vector.solutions.geo.GeoFieldDTO parent)
+  {
+    return (dss.vector.solutions.geo.ExtraFieldUniversalDTO) clientRequestIF.addParent(parent.getId(), id, dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  public void removeGeoFields(dss.vector.solutions.geo.ExtraFieldUniversalDTO relationship)
+  {
+    getRequest().deleteParent(relationship.getId());
+  }
+  
+  public static void removeGeoFields(com.runwaysdk.constants.ClientRequestIF clientRequestIF, dss.vector.solutions.geo.ExtraFieldUniversalDTO relationship)
+  {
+    clientRequestIF.deleteParent(relationship.getId());
+  }
+  
+  public void removeAllGeoFields()
+  {
+    getRequest().deleteParents(this.getId(), dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
+  }
+  
+  public static void removeAllGeoFields(com.runwaysdk.constants.ClientRequestIF clientRequestIF, String id)
+  {
+    clientRequestIF.deleteParents(id, dss.vector.solutions.geo.ExtraFieldUniversalDTO.CLASS);
   }
   
   public static dss.vector.solutions.geo.GeoHierarchyDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

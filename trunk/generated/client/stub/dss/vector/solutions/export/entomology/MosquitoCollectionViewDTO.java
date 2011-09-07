@@ -1,6 +1,5 @@
 package dss.vector.solutions.export.entomology;
 
-import dss.vector.solutions.export.entomology.MosquitoCollectionViewDTOBase;
 
 public class MosquitoCollectionViewDTO extends MosquitoCollectionViewDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

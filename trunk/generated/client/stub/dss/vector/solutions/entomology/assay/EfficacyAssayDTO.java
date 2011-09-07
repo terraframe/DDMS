@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.EfficacyAssayDTOBase;
 
 public class EfficacyAssayDTO extends EfficacyAssayDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

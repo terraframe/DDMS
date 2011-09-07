@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.GeoHierarchyDTOBase;
 
 public class GeoHierarchyDTO extends GeoHierarchyDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTOBase;
 
 
 public class AdultDiscriminatingDoseAssayDTO extends AdultDiscriminatingDoseAssayDTOBase implements

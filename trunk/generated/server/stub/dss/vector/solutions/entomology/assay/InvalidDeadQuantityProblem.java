@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidDeadQuantityProblemBase;
 
 public class InvalidDeadQuantityProblem extends InvalidDeadQuantityProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {

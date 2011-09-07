@@ -27,7 +27,6 @@ import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
-import dss.vector.solutions.util.MDSSProperties;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class IndividualCaseController extends IndividualCaseControllerBase implements Reloadable

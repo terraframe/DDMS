@@ -1,16 +1,8 @@
 package dss.vector.solutions;
 
-import java.util.List;
-
 import junit.framework.TestCase;
 
 import com.runwaysdk.generation.loader.Reloadable;
-
-import dss.vector.solutions.query.AbstractCategory;
-import dss.vector.solutions.query.CategoryGen;
-import dss.vector.solutions.query.EqualSizeCategoryFactory;
-import dss.vector.solutions.query.Layer;
-import dss.vector.solutions.query.QueryInfo;
 
 public class CategoryFactoryTest extends TestCase implements Reloadable {
 	protected void setUp() throws Exception {

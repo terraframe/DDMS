@@ -26,7 +26,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import com.runwaysdk.business.Business;
-import com.runwaysdk.constants.DeployProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;

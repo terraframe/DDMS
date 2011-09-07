@@ -21,7 +21,6 @@ import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.BrowserRootDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
-import dss.vector.solutions.util.MDSSProperties;
 
 public abstract class AbstractTermTagSupport extends SimpleTagSupport implements Reloadable
 {

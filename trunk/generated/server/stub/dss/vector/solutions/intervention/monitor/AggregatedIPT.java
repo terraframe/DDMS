@@ -3,15 +3,8 @@ package dss.vector.solutions.intervention.monitor;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.RelationshipDAOIF;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
@@ -24,7 +17,6 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.AggregatedIPTQB;
 import dss.vector.solutions.surveillance.PeriodType;
-import dss.vector.solutions.util.QueryUtil;
 
 public class AggregatedIPT extends AggregatedIPTBase implements com.runwaysdk.generation.loader.Reloadable
 {

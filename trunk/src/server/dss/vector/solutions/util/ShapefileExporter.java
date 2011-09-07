@@ -16,7 +16,6 @@ import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 

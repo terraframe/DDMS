@@ -1,6 +1,5 @@
 package dss.vector.solutions.geo;
 
-import dss.vector.solutions.geo.LocatedInDTOBase;
 
 public class LocatedInDTO extends LocatedInDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

@@ -1,12 +1,7 @@
 package dss.vector.solutions;
 
-import java.text.DecimalFormat;
-import java.text.DecimalFormatSymbols;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
-import java.util.TreeSet;
 
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.ComponentInfo;
@@ -14,7 +9,6 @@ import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
-import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
@@ -35,35 +29,23 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class Sandbox
 {
-  public static java.util.Date startTime   = new java.util.Date();
+  private static final String  NAME_ATTRIBUTE        = "EntityName";
 
-  private static int           feedbackMod = 50;
+  private static final String  ID_ATTRIBUTE          = "ID_ATT";
 
+  private static final String  GEOMETRY_ATTRIBUTE    = "Location";
+
+  private static final String  PARENT_ATTRIBUTE      = "Parent";
+
+  private static final String  PARENT_TYPE_ATTRIBUTE = "ParentType";
+
+  public static java.util.Date startTime             = new java.util.Date();
+
+  private static int           feedbackMod           = 50;
+
+  @Request
   public static void main(String[] args) throws Exception
   {
-    // var locale = new java.util.Locale();
-    // var formatter =java.text.NumberFormat.getNumberInstance(locale);
-    // formatter.parse('123,45');
-    Locale[] locales = Locale.getAvailableLocales();
-    Set<String> set = new TreeSet<String>();
-
-    for (Locale locale : locales)
-    {
-      DecimalFormat format = (DecimalFormat) DecimalFormat.getInstance(locale);
-      
-      DecimalFormatSymbols symbols = format.getDecimalFormatSymbols();
-      
-      
-      
-      System.out.println("[" + symbols.getDecimalSeparator() + "; " + format.getPositivePrefix() + "; " + format.getPositiveSuffix() + "; " + format.getNegativePrefix() + "; " + format.getNegativeSuffix() + "]");
-
-//      set.add(format.toLocalizedPattern());
-    }
-        
-    for (String pattern : set)
-    {
-      System.out.println(pattern);
-    }    
   }
 
   private static String concatenate(Selectable[] selectableArray)
@@ -338,7 +320,6 @@ public class Sandbox
     // System.out.println("\nTotal Time: " + totalTime);
   }
 
-  @Transaction
   private static void defineDatatypesForAllPaths()
   {
     MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE + "." + "AllPaths");
@@ -414,7 +395,7 @@ public class Sandbox
     // mdIndex.apply();
   }
 
-  @Transaction
+
   private static void updateAllPaths(GeoHierarchy parentGeoHierarchy)
   {
     updateAllPathsForUniversal(parentGeoHierarchy);

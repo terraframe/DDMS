@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidGenerationProblemBase;
 
 public class InvalidGenerationProblem extends InvalidGenerationProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {

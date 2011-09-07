@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 181438031)
+@com.runwaysdk.business.ClassSignature(hash = -842295643)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo;
 public  class GeoHierarchyQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 181438031;
+private static final long serialVersionUID = -842295643;
 
   public GeoHierarchyQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -584,6 +584,122 @@ private static final long serialVersionUID = 181438031;
   }
 
 
+  public com.runwaysdk.query.Condition geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.getBusinessQuery().isChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.getBusinessQuery().isChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.getBusinessQuery().isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.getBusinessQuery().isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.getBusinessQuery().isChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.getBusinessQuery().isChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.getBusinessQuery().isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.getBusinessQuery().isNotChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.getBusinessQuery().isNotChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+
   public com.runwaysdk.query.Condition acceptsGeoEntity()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -810,6 +926,18 @@ private static final long serialVersionUID = 181438031;
   public com.runwaysdk.query.Condition SUBSELECT_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
 
 
+  public com.runwaysdk.query.Condition geoFields();
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery);
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields();
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery);
+
+
   public com.runwaysdk.query.Condition NOT_IN_allowedInGeoEntity();
   public com.runwaysdk.query.Condition NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery);
 
@@ -821,6 +949,18 @@ private static final long serialVersionUID = 181438031;
 
   public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_allowedInGeoEntity(dss.vector.solutions.geo.GeoHierarchyQuery geoHierarchyQuery, dss.vector.solutions.geo.AllowedInQuery allowedInQuery);
 
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields();
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery);
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery);
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields();
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery);
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery);
+
   }
 
 /**
@@ -831,7 +971,7 @@ private static final long serialVersionUID = 181438031;
  implements GeoHierarchyQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1132083599;
+private static final long serialVersionUID = 868187331;
 
   public GeoHierarchyQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1350,6 +1490,64 @@ private static final long serialVersionUID = -1132083599;
   }
 
 
+  public com.runwaysdk.query.Condition geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.isChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.isChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.isChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.isChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.isChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.isChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+
   public com.runwaysdk.query.Condition NOT_IN_allowedInGeoEntity()
   {
     com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
@@ -1405,6 +1603,64 @@ private static final long serialVersionUID = -1132083599;
   {
     allowedInQuery.AND(allowedInQuery.hasParent(geoHierarchyQuery));
     return this.isNotChildIn_SUBSELECT(allowedInQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields()
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.isNotChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    return this.isNotChildIn_SUBSELECT(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.isNotChildIn(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery)
+  {
+    com.runwaysdk.query.QueryFactory queryFactory = this.getQueryFactory();
+    com.runwaysdk.business.RelationshipQuery relationshipQuery = queryFactory.relationshipQuery(dss.vector.solutions.geo.ExtraFieldUniversal.CLASS);
+    relationshipQuery.AND(relationshipQuery.hasParent(geoFieldQuery));
+
+    return this.isNotChildIn_SUBSELECT(relationshipQuery);
+  }
+
+  public com.runwaysdk.query.Condition NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.isNotChildIn(extraFieldUniversalQuery);
+  }
+
+  public com.runwaysdk.query.Condition SUBSELECT_NOT_IN_geoFields(dss.vector.solutions.geo.GeoFieldQuery geoFieldQuery, dss.vector.solutions.geo.ExtraFieldUniversalQuery extraFieldUniversalQuery)
+  {
+    extraFieldUniversalQuery.AND(extraFieldUniversalQuery.hasParent(geoFieldQuery));
+    return this.isNotChildIn_SUBSELECT(extraFieldUniversalQuery);
   }
 
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.query.AND;
-import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;

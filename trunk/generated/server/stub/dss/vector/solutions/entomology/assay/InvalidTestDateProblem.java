@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidTestDateProblemBase;
 
 public class InvalidTestDateProblem extends InvalidTestDateProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {

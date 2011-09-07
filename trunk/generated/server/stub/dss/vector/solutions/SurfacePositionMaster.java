@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import dss.vector.solutions.SurfacePositionMasterBase;
 
 public class SurfacePositionMaster extends SurfacePositionMasterBase implements com.runwaysdk.generation.loader.Reloadable
 {

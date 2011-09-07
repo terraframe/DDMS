@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology;
 
-import dss.vector.solutions.entomology.EmptyValueProblemDTOBase;
 
 public class EmptyValueProblemDTO extends EmptyValueProblemDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{

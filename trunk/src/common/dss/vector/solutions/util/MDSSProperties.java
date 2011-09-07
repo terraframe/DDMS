@@ -21,7 +21,6 @@ public class MDSSProperties
 
   public static String getString(String key)
   {
-//    ResourceBundle bundle = ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER, new UTF8Control());
     ResourceBundle bundle = ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER);
 
     return bundle.getString(key);
@@ -34,7 +33,6 @@ public class MDSSProperties
 
   public static String getString(String key, Locale locale)
   {
-//    ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER, new UTF8Control());
     ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER);
 
     return other.getString(key);

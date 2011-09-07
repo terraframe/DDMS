@@ -7,8 +7,6 @@ import java.util.Set;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.ontology.Term;
-
 public class TermRootCache implements Reloadable
 {
   private HashMap<MdAttributeDAOIF, Term[]> cache;

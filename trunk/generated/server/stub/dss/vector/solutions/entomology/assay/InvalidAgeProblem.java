@@ -1,6 +1,5 @@
 package dss.vector.solutions.entomology.assay;
 
-import dss.vector.solutions.entomology.assay.InvalidAgeProblemBase;
 
 public class InvalidAgeProblem extends InvalidAgeProblemBase implements com.runwaysdk.generation.loader.Reloadable
 {

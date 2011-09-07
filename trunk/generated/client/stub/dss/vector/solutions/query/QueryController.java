@@ -25,7 +25,6 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdRelationshipDTO;
 import com.runwaysdk.system.metadata.MdWebDateDTO;
@@ -33,6 +32,7 @@ import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebGeoDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
@@ -1651,6 +1651,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
             typesToLoad.add(relType);
 
             SelectableOptionFactory factory = new SelectableOptionFactory(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE, relType);
+            factory.setAttributeNamePrepend(fieldName);
             factory.setLabel(fieldLabel + " - ");
 
             SelectableGroup selectableGroup = new SelectableGroup();
@@ -1673,15 +1674,16 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
             String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
             typesToLoad.add(relType);
 
-            MdAttributeConcreteDTO[] mdAttributes = MdFormUtilDTO.definesAttributes(request, mdRelationship);
+            List<? extends MdWebPrimitiveDTO> compositeFields = ( (MdWebSingleTermGridDTO) field ).getAllMdFields();
+            Collections.sort(compositeFields, new FieldComparator());
 
-            for (MdAttributeConcreteDTO mdAttribute : mdAttributes)
+            for (MdWebPrimitiveDTO compositeField : compositeFields)
             {
-              String attributeName = mdAttribute.getAttributeName();
-              String attributeLabel = mdAttribute.getDisplayLabel().getValue();
+              String attributeName = compositeField.getFieldName();
+              String attributeLabel = compositeField.getDisplayLabel().getValue();
 
-              SelectableOptionFactory factory = new SelectableOptionFactory(mdAttribute, attributeName, relType);
-              factory.setAttributeNamePrepend(attributeName);
+              SelectableOptionFactory factory = new SelectableOptionFactory(compositeField, attributeName, relType);
+              factory.setAttributeNamePrepend(fieldName + "_" + attributeName);
               factory.setLabel(attributeLabel + " - ");
 
               SelectableGroup selectableGroup = new SelectableGroup();
@@ -1700,7 +1702,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       }
 
       req.setAttribute("type", classType);
-      req.setAttribute("label", form.getMd().getDisplayLabel());
+      req.setAttribute("label", form.getDisplayLabel().getValue());
       req.setAttribute("typesToLoad", typesToLoad);
       req.setAttribute("dropDownMaps", Halp.getDropDownMaps(query, request, ", "));
       req.setAttribute("attributes", this.getReadablePrimitiveFields(fields, readableAttributeNames).toString());
