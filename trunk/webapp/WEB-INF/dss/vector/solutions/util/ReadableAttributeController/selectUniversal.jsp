@@ -3,7 +3,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.MDSSRoleInfo"%>
-
+<%@page import="java.util.List"%>
 <c:set var="page_title" value="Select_Class" scope="request" />
 
 <mjl:form name="search.form.name" id="search.form">
@@ -841,3 +841,17 @@
       </mjl:commandLink>
     </dd>    
   </dl>  
+  
+  <dl>
+    <dt><label><mdss:localize key="Manage_Forms"/></label></dt>
+    <dd>
+      <%
+        List<String> forms = (List<String>) request.getAttribute("forms");
+      
+        for(String form : forms)
+        {
+          out.write(form + "\n");
+        }
+      %>
+    </dd>
+  </dl>
