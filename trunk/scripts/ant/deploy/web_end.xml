@@ -1,6 +1,24 @@
 
   <filter>
     <filter-name>
+      RunwayFilter
+    </filter-name>
+    <filter-class>
+      com.runwaysdk.web.RunwayFilter
+    </filter-class>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>
+      RunwayFilter
+    </filter-name>
+    <url-pattern>
+      *.mojo
+    </url-pattern>
+  </filter-mapping>
+
+  <filter>
+    <filter-name>
       MojaxFilter
     </filter-name>
     <filter-class>
@@ -19,20 +37,21 @@
 
   <filter>
     <filter-name>
-      MojoFilter
+      MofoFilter
     </filter-name>
     <filter-class>
-      com.runwaysdk.web.RunwayFilter
+      com.runwaysdk.web.MofoFilter
     </filter-class>
   </filter>
 
   <filter-mapping>
     <filter-name>
-      MojoFilter
+      MofoFilter
     </filter-name>
     <url-pattern>
-      *.mojo
+      *.mofo
     </url-pattern>
   </filter-mapping>
+
 
 </web-app>
