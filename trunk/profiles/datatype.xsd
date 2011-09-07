@@ -283,65 +283,33 @@
     <xs:attribute name="description" type="xs:string" />
   </xs:attributeGroup>
 
-  <xs:attributeGroup name="mdWebPrimitive">
+  <xs:attributeGroup name="mdWebAttribute">
     <xs:attributeGroup ref="mdWebField" />  
     <xs:attribute name="mdAttribute" type="xs:string" />
   </xs:attributeGroup>
 
-  <xs:complexType name="mdWebGeo">
-    <xs:attributeGroup ref="mdWebField" />
-  </xs:complexType>
-  
-  <xs:complexType name="mdWebTerm">
-    <xs:attributeGroup ref="mdWebField" />
-  </xs:complexType>
-  
-  <xs:complexType name="mdWebMultiTerm">
-    <xs:attributeGroup ref="mdWebField" />
-  </xs:complexType>
-  
-  <xs:complexType name="mdWebGrid">
-    <xs:attributeGroup ref="mdWebField" />
+  <xs:complexType name="mdWebAttribute">
+    <xs:attributeGroup ref="mdWebAttribute" />
   </xs:complexType>
   
   <xs:complexType name="mdWebChar">
-    <xs:attributeGroup ref="mdWebPrimitive" />
+    <xs:attributeGroup ref="mdWebAttribute" />
     <xs:attribute name="maxLength" type="xs:string" />
     <xs:attribute name="displayLength" type="xs:string" />
   </xs:complexType>
-  
-  <xs:complexType name="mdWebDate">
-    <xs:attributeGroup ref="mdWebPrimitive" />
-  </xs:complexType>
-
-  <xs:complexType name="mdWebDouble">
-    <xs:attributeGroup ref="mdWebPrimitive" />
-  </xs:complexType>
-
-  <xs:complexType name="mdWebFloat">
-    <xs:attributeGroup ref="mdWebPrimitive" />
-  </xs:complexType>
-
-  <xs:complexType name="mdWebInteger">
-    <xs:attributeGroup ref="mdWebPrimitive" />
-  </xs:complexType>
-
-  <xs:complexType name="mdWebText">
-    <xs:attributeGroup ref="mdWebPrimitive" />
-  </xs:complexType>
-  
+    
   <xs:complexType name="fields">
     <xs:choice minOccurs="0" maxOccurs="unbounded">
-      <xs:element name="geo" type="mdWebGeo" />
-      <xs:element name="multiTerm" type="mdWebMultiTerm" />
-      <xs:element name="grid" type="mdWebGrid" />
-      <xs:element name="term" type="mdWebTerm" />
+      <xs:element name="geo" type="mdWebAttribute" />
+      <xs:element name="multiTerm" type="mdWebAttribute" />
+      <xs:element name="grid" type="mdWebAttribute" />
+      <xs:element name="term" type="mdWebAttribute" />
       <xs:element name="char" type="mdWebChar" />
-      <xs:element name="date" type="mdWebDate" />
-      <xs:element name="double" type="mdWebDouble" />
-      <xs:element name="float" type="mdWebFloat" />
-      <xs:element name="integer" type="mdWebInteger" />
-      <xs:element name="text" type="mdWebText" />
+      <xs:element name="date" type="mdWebAttribute" />
+      <xs:element name="double" type="mdWebAttribute" />
+      <xs:element name="float" type="mdWebAttribute" />
+      <xs:element name="integer" type="mdWebAttribute" />
+      <xs:element name="text" type="mdWebAttribute" />
     </xs:choice>
   </xs:complexType>  
   
