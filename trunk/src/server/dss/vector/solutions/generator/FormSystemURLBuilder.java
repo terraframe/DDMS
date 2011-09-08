@@ -1,5 +1,7 @@
 package dss.vector.solutions.generator;
 
+import java.util.List;
+
 import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -26,14 +28,17 @@ import com.runwaysdk.system.metadata.MdWebFloat;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
+import com.runwaysdk.system.metadata.MdWebLong;
 import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
-import com.runwaysdk.system.metadata.MdWebText;
 
 import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.geo.ExtraFieldUniversal;
+import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.permission.ReadAction;
 import dss.vector.solutions.permission.WriteAction;
 import dss.vector.solutions.permissions.RoleProperty;
@@ -61,9 +66,21 @@ public class FormSystemURLBuilder implements Reloadable
 
     this.deleteRoles(crudURL);
     this.deleteRoles(queryURL);
+    this.deleteMenu(crudURL);
+    this.deleteMenu(queryURL);
 
     crudURL.delete();
     queryURL.delete();
+  }
+
+  private void deleteMenu(SystemURL crudURL)
+  {
+    List<? extends MenuItem> items = MenuItem.findMenuItems(crudURL);
+
+    for (MenuItem item : items)
+    {
+      item.delete();
+    }
   }
 
   private void deleteRoles(SystemURL url)
@@ -145,11 +162,14 @@ public class FormSystemURLBuilder implements Reloadable
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebMultipleTerm.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebPrimitive.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebBoolean.CLASS));
-      // queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebLong.CLASS));
+      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebLong.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebSingleTerm.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebSingleTermGrid.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebText.CLASS));
+      queryReadAction.assign(MdClassDAO.getMdClassDAO("com.runwaysdk.system.metadata.WebGridField"));
+      queryReadAction.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(FormField.CLASS));
+      queryReadAction.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));
+      queryReadAction.assign(MdClassDAO.getMdClassDAO(ExtraFieldUniversal.CLASS));
       queryReadAction.assign(MdMethodDAO.getMdMethod(QueryBuilder.CLASS + ".getQueryResults"));
       queryReadAction.assign(MdMethodDAO.getMdMethod(QueryBuilder.CLASS + ".getTextAttributeSugestions"));
     }
@@ -161,6 +181,13 @@ public class FormSystemURLBuilder implements Reloadable
   {
     MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO("com.test.TestTypeForm");
 
-    new FormSystemURLBuilder(mdForm).generate();
+    if (args[0].equals("delete"))
+    {
+      new FormSystemURLBuilder(mdForm).delete();
+    }
+    else
+    {
+      new FormSystemURLBuilder(mdForm).generate();
+    }
   }
 }

@@ -1,7 +1,10 @@
 package dss.vector.solutions.general;
 
+import java.util.List;
+
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.ontology.Term;
@@ -35,11 +38,11 @@ public class MenuItem extends MenuItemBase implements com.runwaysdk.generation.l
   @Override
   public void apply()
   {
-    if(this.isNew() && !this.isAppliedToDB() && this.getDisease() == null)
+    if (this.isNew() && !this.isAppliedToDB() && this.getDisease() == null)
     {
       this.setDisease(Disease.getCurrent());
     }
-    
+
     InstallProperties.validateMasterOperation();
 
     validateTermAsLeaf();
@@ -55,10 +58,10 @@ public class MenuItem extends MenuItemBase implements com.runwaysdk.generation.l
   {
     Term term = this.getTerm();
     OIterator<? extends Term> iter = term.getAllChildTerm();
-    
+
     try
     {
-      if(iter.hasNext())
+      if (iter.hasNext())
       {
         throw new MenuItemLeafException();
       }
@@ -76,18 +79,35 @@ public class MenuItem extends MenuItemBase implements com.runwaysdk.generation.l
 
     super.delete();
   }
-  
+
   @Override
   public String toString()
   {
     Term term = this.getTerm();
-    if(term != null)
+    if (term != null)
     {
       return term.getTermDisplayLabel().getValue();
     }
     else
     {
       return super.toString();
+    }
+  }
+
+  public static List<? extends MenuItem> findMenuItems(SystemURL url)
+  {
+    MenuItemQuery query = new MenuItemQuery(new QueryFactory());
+    query.WHERE(query.getUrl().EQ(url));
+
+    OIterator<? extends MenuItem> it = query.getIterator();
+
+    try
+    {
+      return it.getAll();
+    }
+    finally
+    {
+      it.close();
     }
   }
 }
