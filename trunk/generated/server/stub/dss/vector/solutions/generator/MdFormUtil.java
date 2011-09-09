@@ -1,45 +1,46 @@
 package dss.vector.solutions.generator;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
-import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.MdFieldDAOIF;
-import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
-import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
-import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
-import com.runwaysdk.dataaccess.io.ExcelExporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.FormExcelExporter;
-import com.runwaysdk.dataaccess.io.excel.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 
-import dss.vector.solutions.export.DynamicGeoColumnListener;
-import dss.vector.solutions.general.EpiCache;
-import dss.vector.solutions.geo.GeoField;
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.ontology.TermRootCache;
-import dss.vector.solutions.util.HierarchyBuilder;
 
 public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
+  static class FieldComparator implements Reloadable, Comparator<MdWebField>
+  {
+    @Override
+    public int compare(MdWebField field1, MdWebField field2)
+    {
+      Integer order1 = field1.getFieldOrder();
+      Integer order2 = field2.getFieldOrder();
+
+      return order1.compareTo(order2);
+    }
+  }
+
   private static final long serialVersionUID = 1220565977;
 
   public MdFormUtil()
@@ -128,118 +129,32 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return definedAttributes.toArray(new MdAttributeConcrete[definedAttributes.size()]);
   }
 
-  public static InputStream excelExport(String type)
+  @Transaction
+  public static MdWebForm apply(MdWebForm mdForm)
   {
-    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO(type);
-
-    ExcelExporter exporter = new FormExcelExporter(new FormImportFilter());
-
-    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
-
-    for (DynamicGeoColumnListener listener : geoListeners)
+    if (mdForm.isNew() && !mdForm.isAppliedToDB())
     {
-      exporter.addListener(listener);
+      String typeName = GeoHierarchy.getSystemName(mdForm.getFormName());
+      String label = mdForm.getDisplayLabel().getValue();
+      String description = mdForm.getDescription().getValue();
+
+      MdBusiness mdBusiness = new MdBusiness();
+      mdBusiness.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
+      mdBusiness.setTypeName(typeName);
+      mdBusiness.getDisplayLabel().setValue(label);
+      mdBusiness.getDescription().setValue(description);
+      mdBusiness.setIsAbstract(false);
+      mdBusiness.setExtendable(true);
+      mdBusiness.setPublish(true);
+      mdBusiness.apply();
+
+      mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
+      mdForm.setTypeName(typeName);
+      mdForm.setFormMdClass(mdBusiness);
     }
+    
+    mdForm.apply();
 
-    List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
-
-    for (MultiTermListener listener : multiTermListeners)
-    {
-      exporter.addListener(listener);
-    }
-
-    /*
-     * IMPORTANT: Before adding a template all of the listeners must be added
-     */
-    exporter.addTemplate(type);
-
-    return new ByteArrayInputStream(exporter.write());
-  }
-
-  public static InputStream excelImport(InputStream stream, String type)
-  {
-    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO(type);
-
-    // Start caching Broswer Roots for this Thread.
-    TermRootCache.start();
-    EpiCache.start();
-
-    try
-    {
-      ExcelImporter importer = new ExcelImporter(stream, new FormContextBuilder(mdForm, new FormImportFilter()));
-      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
-      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
-
-      for (ImportContext context : importer.getContexts())
-      {
-        for (DynamicGeoColumnListener listener : geoListeners)
-        {
-          context.addListener(listener);
-        }
-
-        for (MultiTermListener listener : multiTermListeners)
-        {
-          context.addListener(listener);
-        }
-      }
-
-      return new ByteArrayInputStream(importer.read());
-    }
-    finally
-    {
-      TermRootCache.stop();
-      EpiCache.stop();
-    }
-  }
-
-  private static List<MultiTermListener> getMultitermListeners(MdFormDAOIF mdForm)
-  {
-    List<MultiTermListener> listeners = new LinkedList<MultiTermListener>();
-
-    MdClassDAOIF mdClass = mdForm.getFormMdClass();
-    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
-
-    for (MdFieldDAOIF mdField : mdFields)
-    {
-      if (mdField instanceof MdWebMultipleTermDAOIF)
-      {
-        listeners.add(new MultiTermListener(mdClass, mdField));
-      }
-    }
-
-    return listeners;
-  }
-
-  private static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)
-  {
-    List<DynamicGeoColumnListener> listeners = new LinkedList<DynamicGeoColumnListener>();
-
-    MdClassDAOIF mdClass = mdForm.getFormMdClass();
-    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
-
-    for (MdFieldDAOIF mdField : mdFields)
-    {
-      // Setup all of the Geo Fields
-      if (mdField instanceof MdWebGeoDAOIF)
-      {
-        GeoField geoField = GeoField.getGeoField(mdClass.definesType(), mdField.getFieldName());
-
-        if (geoField != null)
-        {
-          HierarchyBuilder builder = new HierarchyBuilder();
-
-          List<GeoHierarchy> universals = geoField.getUniversals();
-
-          for (GeoHierarchy universal : universals)
-          {
-            builder.add(universal);
-          }
-
-          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder));
-        }
-      }
-    }
-
-    return listeners;
+    return mdForm;
   }
 }
