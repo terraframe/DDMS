@@ -3,10 +3,10 @@ package dss.vector.solutions.export;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -16,12 +16,14 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.AggregatedCaseView;
 
-public class AggregatedCaseTreatmentListener implements ExcelExportListener, ImportListener, Reloadable
+public class AggregatedCaseTreatmentListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String TREATMENT = "Treatments - ";
-  private static final String METHOD = "Treatment Methods - ";
-  private static final String STOCK = "Out of Stock - ";
-  
+
+  private static final String METHOD    = "Treatment Methods - ";
+
+  private static final String STOCK     = "Out of Stock - ";
+
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term treatment : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentsMd()))
@@ -40,18 +42,10 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
     }
   }
 
-  public void preHeader(ExcelColumn columnInfo)
-  {
-  }
-
-  public void preWrite(HSSFWorkbook workbook)
-  {
-  }
-
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
   {
     AggregatedCaseTreatmentsExcelView aggregatedCase = (AggregatedCaseTreatmentsExcelView) instance;
-    
+
     for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentsMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -62,7 +56,7 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
         }
       }
     }
-    
+
     for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseTreatmentMethodMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -73,7 +67,7 @@ public class AggregatedCaseTreatmentListener implements ExcelExportListener, Imp
         }
       }
     }
-    
+
     for (Term term : TermRootCache.getRoots(AggregatedCaseView.getCaseStocksMd()))
     {
       for (ExcelColumn column : extraColumns)

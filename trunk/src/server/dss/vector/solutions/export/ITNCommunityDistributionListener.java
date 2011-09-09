@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -19,11 +19,12 @@ import dss.vector.solutions.intervention.monitor.ITNCommunityTargetGroup;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class ITNCommunityDistributionListener implements ExcelExportListener, ImportListener, Reloadable
+public class ITNCommunityDistributionListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String TARGETGROUPS = "Target group ";
-  private static final String ITNTYPE = "ITN type ";
-  
+
+  private static final String ITNTYPE      = "ITN type ";
+
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term grid : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
@@ -31,7 +32,7 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
       String amount = MdAttribute.get(ITNCommunityTargetGroup.getAmountMd().getId()).getDisplayLabel().toString();
       extraColumns.add(new ExcelColumn(TARGETGROUPS + grid.getTermId(), grid.getName().toString() + " " + amount));
     }
-    
+
     for (Term grid : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayNetsMd()))
     {
       String amount = MdAttribute.get(ITNCommunityNet.getAmountMd().getId()).getDisplayLabel().toString();
@@ -39,18 +40,10 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
     }
   }
 
-  public void preHeader(ExcelColumn columnInfo)
-  {
-  }
-
-  public void preWrite(HSSFWorkbook workbook)
-  {
-  }
-
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
   {
     ITNCommunityExcelView community = (ITNCommunityExcelView) instance;
-    
+
     for (Term term : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayTargetGroupsMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -58,14 +51,15 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
         if (column.getAttributeName().equals(TARGETGROUPS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
-        	  community.addTargetGroup(term, amount);
+          if (cell != null)
+          {
+            Integer amount = new Double(cell.getNumericCellValue()).intValue();
+            community.addTargetGroup(term, amount);
           }
         }
       }
     }
-    
+
     for (Term term : TermRootCache.getRoots(ITNCommunityDistributionView.getDisplayNetsMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -73,9 +67,10 @@ public class ITNCommunityDistributionListener implements ExcelExportListener, Im
         if (column.getAttributeName().equals(ITNTYPE + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
-        	  community.addITNType(term, amount);
+          if (cell != null)
+          {
+            Integer amount = new Double(cell.getNumericCellValue()).intValue();
+            community.addITNType(term, amount);
           }
         }
       }

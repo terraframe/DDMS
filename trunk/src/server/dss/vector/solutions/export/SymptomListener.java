@@ -7,6 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -16,10 +17,10 @@ import dss.vector.solutions.intervention.monitor.IndividualInstance;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class SymptomListener implements ExcelExportListener, ImportListener, Reloadable
+public class SymptomListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String SYMPTOM = "symptom ";
-  
+
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term term : TermRootCache.getRoots(IndividualInstance.getSymptomMd()))
@@ -39,7 +40,7 @@ public class SymptomListener implements ExcelExportListener, ImportListener, Rel
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
   {
     IndividualCaseExcelView individualCase = (IndividualCaseExcelView) instance;
-    
+
     for (Term term : TermRootCache.getRoots(IndividualInstance.getSymptomMd()))
     {
       for (ExcelColumn column : extraColumns)

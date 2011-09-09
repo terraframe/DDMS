@@ -27,28 +27,28 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class SurveyExcelView extends SurveyExcelViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class SurveyExcelView extends SurveyExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245785160306L;
-  
-  private List<Term> locations;
-  private List<Term> treatments;
-  
+
+  private List<Term>        locations;
+
+  private List<Term>        treatments;
+
   public SurveyExcelView()
   {
     super();
     locations = new LinkedList<Term>();
     treatments = new LinkedList<Term>();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     Locale currentLocale = Session.getCurrentLocale();
     boolean fail = false;
-    if (this.getGeoEntity()==null)
+    if (this.getGeoEntity() == null)
     {
       RequiredAttributeProblem geoRequired = new RequiredAttributeProblem();
       geoRequired.setAttributeName(GEOENTITY);
@@ -57,7 +57,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       fail = true;
     }
 
-    if (this.getSurveyDate()==null)
+    if (this.getSurveyDate() == null)
     {
       RequiredAttributeProblem dateRequired = new RequiredAttributeProblem();
       dateRequired.setAttributeName(SURVEYDATE);
@@ -65,35 +65,35 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       dateRequired.throwIt();
       fail = true;
     }
-    
+
     // If we're missing critical information, there's no point in proceeding
     if (fail)
     {
       return;
     }
-    
+
     HouseholdView house = getHousehold();
-    
+
     applyItnInstance(house);
-    
+
     // SurveyedPerson stuff
     applyPerson(house);
   }
-  
+
   private void applyItnInstance(HouseholdView house)
   {
     // Check to ensure that a net ID is specified before proceeding
     String nid = this.getNetId();
-    if (nid.length()==0)
+    if (nid.length() == 0)
     {
       return;
     }
-    
+
     ITNInstanceView itn;
-    
+
     // Search first
     ITNInstance netById = getNetById(nid);
-    if (netById!=null)
+    if (netById != null)
     {
       // Update if found
       itn = netById.lockView();
@@ -105,7 +105,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       itn.setNetId(nid);
       itn.setHousehold(Household.get(house.getConcreteId()));
     }
-    
+
     itn.setNetBrand(Term.validateByDisplayLabel(this.getNetBrand(), ITNInstanceView.getNetBrandMd()));
     itn.addMonthReceived(ExcelEnums.getMonthOfYear(this.getMonthReceived()));
     itn.setYearReceived(this.getYearReceived());
@@ -131,7 +131,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     ITNInstanceQuery query = new ITNInstanceQuery(new QueryFactory());
     query.WHERE(query.getNetId().EQ(netId));
     OIterator<? extends ITNInstance> iterator = query.getIterator();
-    
+
     ITNInstance instance = null;
     if (iterator.hasNext())
     {
@@ -145,13 +145,13 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   {
     // Check to ensure that a person ID was specified before proceeding
     String pid = this.getPersonId();
-    if (pid.length()==0)
+    if (pid.length() == 0)
     {
       return;
     }
-    
+
     SurveyedPersonView person;
-    
+
     // Search first
     SurveyedPersonQuery query = new SurveyedPersonQuery(new QueryFactory());
     query.WHERE(query.getPersonId().EQ(pid));
@@ -171,7 +171,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     }
     // close the iterator no matter what
     iterator.close();
-    
+
     person.setHeadOfHousehold(Term.validateByDisplayLabel(this.getHeadOfHousehold(), SurveyedPersonView.getHeadOfHouseholdMd()));
     person.setDob(this.getDob());
     person.setAge(this.getAge());
@@ -195,16 +195,15 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     person.addMalaria(ExcelEnums.getResponse(this.getMalaria()));
     person.setMalariaConformationTechnique(Term.validateByDisplayLabel(this.getMalariaConformationTechnique(), SurveyedPersonView.getMalariaConformationTechniqueMd()));
     person.setPayment(Term.validateByDisplayLabel(this.getPayment(), SurveyedPersonView.getPaymentMd()));
-    
+
     person.applyAll(locations.toArray(new Term[locations.size()]), treatments.toArray(new Term[treatments.size()]));
   }
-  
+
   public SurveyPoint getSurveyPoint()
   {
     SurveyPoint surveyPoint = SurveyPoint.searchByGeoEntityAndDate(this.getGeoEntity(), this.getSurveyDate());
-    
-    
-    if(surveyPoint == null)
+
+    if (surveyPoint == null)
     {
       // The survey point is null so we need to create it
       surveyPoint = new SurveyPoint();
@@ -212,7 +211,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       surveyPoint.setSurveyDate(this.getSurveyDate());
       surveyPoint.apply();
     }
-    
+
     return surveyPoint;
   }
 
@@ -226,17 +225,17 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
   {
     HouseholdView house;
     SurveyPoint surveyPoint = this.getSurveyPoint();
-    
+
     String name = this.getHouseholdName();
     HouseholdQuery query = new HouseholdQuery(new QueryFactory());
     query.WHERE(query.getHouseholdName().EQ(name));
     OIterator<? extends Household> iterator = query.getIterator();
-    
+
     if (iterator.hasNext())
     {
       Household concrete = iterator.next();
       house = concrete.lockView();
-      
+
       if (!house.getSurveyPoint().equals(surveyPoint))
       {
         // Problem!
@@ -252,7 +251,7 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
       house.setSurveyPoint(surveyPoint);
     }
     iterator.close();
-    
+
     house.setUrban(this.getUrban());
     house.setPeople(this.getPeople());
     house.setWall(Term.validateByDisplayLabel(this.getWallSurface(), HouseholdView.getWallMd()));
@@ -264,12 +263,12 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     house.setRooms(this.getRooms());
     house.addHasBeenSprayed(ExcelEnums.getResponse(this.getHasBeenSprayed()));
     house.setLastSprayed(this.getLastSprayed());
-    house.setNets(this.getNets());      
+    house.setNets(this.getNets());
     house.apply();
-    
+
     return house;
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -350,12 +349,12 @@ public class SurveyExcelView extends SurveyExcelViewBase implements
     builder.add(GeoHierarchy.getGeoHierarchyFromType(SentinelSite.CLASS));
     return new DynamicGeoColumnListener(CLASS, GEOENTITY, builder);
   }
-  
+
   public void addLocation(Term location)
   {
     locations.add(location);
   }
-  
+
   public void addTreatment(Term treatment)
   {
     treatments.add(treatment);

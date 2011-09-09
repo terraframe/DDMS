@@ -3,10 +3,10 @@ package dss.vector.solutions.export;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -16,10 +16,10 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.surveillance.CaseDiagnosisTypeView;
 
-public class CaseDiagnosisTypeListener implements ExcelExportListener, ImportListener, Reloadable
+public class CaseDiagnosisTypeListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String DIAGNOSIS = "Diagnosis - ";
-  
+
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term diagnosis : TermRootCache.getRoots(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
@@ -31,7 +31,7 @@ public class CaseDiagnosisTypeListener implements ExcelExportListener, ImportLis
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
   {
     CaseDiagnosisTypeExcelView collection = (CaseDiagnosisTypeExcelView) instance;
-    
+
     for (Term term : TermRootCache.getRoots(CaseDiagnosisTypeView.getDiagnosisCategoryMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -42,13 +42,5 @@ public class CaseDiagnosisTypeListener implements ExcelExportListener, ImportLis
         }
       }
     }
-  }
-  
-  public void preHeader(ExcelColumn columnInfo)
-  {
-  }
-  
-  public void preWrite(HSSFWorkbook workbook)
-  {
   }
 }

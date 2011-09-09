@@ -7,11 +7,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
-public class AggregatedCaseListener implements ExcelExportListener, ImportListener, Reloadable
+public class AggregatedCaseListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String TREATMENT = "treatment ";
   private static final String STOCK = "stock ";

@@ -7,11 +7,12 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
 
-public class DynamicNetListener implements ExcelExportListener, ImportListener, Reloadable
+public class DynamicNetListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   public DynamicNetListener()
   {

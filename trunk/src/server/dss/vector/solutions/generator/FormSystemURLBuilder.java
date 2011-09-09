@@ -33,6 +33,7 @@ import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
+import com.runwaysdk.system.metadata.WebGridField;
 
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
@@ -165,7 +166,7 @@ public class FormSystemURLBuilder implements Reloadable
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebLong.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebSingleTerm.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(MdWebSingleTermGrid.CLASS));
-      queryReadAction.assign(MdClassDAO.getMdClassDAO("com.runwaysdk.system.metadata.WebGridField"));
+      queryReadAction.assign(MdClassDAO.getMdClassDAO(WebGridField.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(FormField.CLASS));
       queryReadAction.assign(MdClassDAO.getMdClassDAO(GeoField.CLASS));

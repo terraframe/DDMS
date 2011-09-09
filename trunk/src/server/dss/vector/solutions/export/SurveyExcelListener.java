@@ -7,6 +7,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -16,18 +17,19 @@ import dss.vector.solutions.intervention.monitor.SurveyedPersonView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class SurveyExcelListener implements ExcelExportListener, ImportListener, Reloadable
+public class SurveyExcelListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
-  private static final String LOCATIONS = "Treatment Sought At ";
+  private static final String LOCATIONS  = "Treatment Sought At ";
+
   private static final String TREATMENTS = "Treatment Taken ";
-  
+
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term location : TermRootCache.getRoots(SurveyedPersonView.getDisplayLocationsMd()))
     {
       extraColumns.add(new ExcelColumn(LOCATIONS + location.getTermId(), location.getTermDisplayLabel().getValue()));
     }
-    
+
     for (Term treatment : TermRootCache.getRoots(SurveyedPersonView.getDisplayTreatmentsMd()))
     {
       extraColumns.add(new ExcelColumn(TREATMENTS + treatment.getTermId(), treatment.getTermDisplayLabel().getValue()));
@@ -45,7 +47,7 @@ public class SurveyExcelListener implements ExcelExportListener, ImportListener,
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
   {
     SurveyExcelView survey = (SurveyExcelView) instance;
-    
+
     for (Term term : TermRootCache.getRoots(SurveyedPersonView.getDisplayLocationsMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -59,7 +61,7 @@ public class SurveyExcelListener implements ExcelExportListener, ImportListener,
         }
       }
     }
-    
+
     for (Term term : TermRootCache.getRoots(SurveyedPersonView.getDisplayTreatmentsMd()))
     {
       for (ExcelColumn column : extraColumns)

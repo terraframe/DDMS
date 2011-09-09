@@ -14,6 +14,7 @@ import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
+import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
@@ -133,9 +134,16 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     ExcelExporter exporter = new FormExcelExporter(new FormImportFilter());
 
-    List<DynamicGeoColumnListener> listeners = MdFormUtil.getGeoListeners(mdForm);
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
 
-    for (DynamicGeoColumnListener listener : listeners)
+    for (DynamicGeoColumnListener listener : geoListeners)
+    {
+      exporter.addListener(listener);
+    }
+
+    List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
+
+    for (MultiTermListener listener : multiTermListeners)
     {
       exporter.addListener(listener);
     }
@@ -159,12 +167,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     try
     {
       ExcelImporter importer = new ExcelImporter(stream, new FormContextBuilder(mdForm, new FormImportFilter()));
-      List<DynamicGeoColumnListener> listeners = MdFormUtil.getGeoListeners(mdForm);
+      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
 
       for (ImportContext context : importer.getContexts())
       {
+        for (DynamicGeoColumnListener listener : geoListeners)
+        {
+          context.addListener(listener);
+        }
 
-        for (DynamicGeoColumnListener listener : listeners)
+        for (MultiTermListener listener : multiTermListeners)
         {
           context.addListener(listener);
         }
@@ -177,6 +190,24 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       TermRootCache.stop();
       EpiCache.stop();
     }
+  }
+
+  private static List<MultiTermListener> getMultitermListeners(MdFormDAOIF mdForm)
+  {
+    List<MultiTermListener> listeners = new LinkedList<MultiTermListener>();
+
+    MdClassDAOIF mdClass = mdForm.getFormMdClass();
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebMultipleTermDAOIF)
+      {
+        listeners.add(new MultiTermListener(mdClass, mdField));
+      }
+    }
+
+    return listeners;
   }
 
   private static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)

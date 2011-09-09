@@ -8,6 +8,7 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -18,10 +19,10 @@ import dss.vector.solutions.intervention.monitor.ITNDistributionView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermRootCache;
 
-public class ITNDistributionListener implements ExcelExportListener, ImportListener, Reloadable
+public class ITNDistributionListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private static final String TARGETGROUPS = "Target group ";
-  
+
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     for (Term grid : TermRootCache.getRoots(ITNDistributionView.getTargetGroupsMd()))
@@ -31,18 +32,10 @@ public class ITNDistributionListener implements ExcelExportListener, ImportListe
     }
   }
 
-  public void preHeader(ExcelColumn columnInfo)
-  {
-  }
-
-  public void preWrite(HSSFWorkbook workbook)
-  {
-  }
-
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row)
   {
     ITNDistributionExcelView aggregatedITN = (ITNDistributionExcelView) instance;
-    
+
     for (Term term : TermRootCache.getRoots(ITNDistributionView.getTargetGroupsMd()))
     {
       for (ExcelColumn column : extraColumns)
@@ -50,9 +43,10 @@ public class ITNDistributionListener implements ExcelExportListener, ImportListe
         if (column.getAttributeName().equals(TARGETGROUPS + term.getTermId()))
         {
           HSSFCell cell = row.getCell(column.getIndex());
-          if (cell != null) {
-        	  Integer amount = new Double(cell.getNumericCellValue()).intValue();
-        	  aggregatedITN.addTargetGroup(term, amount);
+          if (cell != null)
+          {
+            Integer amount = new Double(cell.getNumericCellValue()).intValue();
+            aggregatedITN.addTargetGroup(term, amount);
           }
         }
       }

@@ -8,11 +8,11 @@ import java.util.Map;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
+import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
@@ -28,7 +28,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.GeoEntitySearcher;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class DynamicGeoColumnListener implements ExcelExportListener, ImportListener, Reloadable
+public class DynamicGeoColumnListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
   private String             attributeName;
 
@@ -138,13 +138,5 @@ public class DynamicGeoColumnListener implements ExcelExportListener, ImportList
   {
     String geoTypeName = geoEntityClass.getTypeName();
     return PREFIX + this.attributeName + " " + geoTypeName;
-  }
-
-  public void preHeader(ExcelColumn columnInfo)
-  {
-  }
-
-  public void preWrite(HSSFWorkbook workbook)
-  {
   }
 }
