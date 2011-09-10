@@ -20,6 +20,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/form/";
 
   public static final String LAYOUT           = "/layout.jsp";
+  
+  public static final String MDFORM_ADMIN = JSP_DIR+"mdFormAdmin.jsp";
 
   private static final long  serialVersionUID = -117792511;
 
@@ -268,5 +270,27 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public void failCancel(MdWebFormDTO form) throws IOException, ServletException
   {
     this.edit(form.getId());
+  }
+  
+  @Override
+  public void mdFormAdmin() throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = this.getClientRequest();
+      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
+
+      this.req.setAttribute("forms", forms);
+      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failViewAll();
+      }
+    }
   }
 }
