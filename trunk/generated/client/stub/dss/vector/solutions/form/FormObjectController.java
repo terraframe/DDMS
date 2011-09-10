@@ -64,17 +64,9 @@ public class FormObjectController extends FormObjectControllerBase implements co
       JSONObject json = visitor.getJSON();
       resp.getWriter().print(json.toString());
     }
-    catch(ProblemExceptionDTO e)
+    catch(Throwable t)
     {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
-    catch (Throwable t)
-    {
-      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   

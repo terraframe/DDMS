@@ -9,20 +9,6 @@
   <mjl:dt attribute="width">
     <mjl:input param="width" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="definingMdAttribute">
-    <mjl:select param="definingMdAttribute" items="${_definingMdAttribute}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.keyName}
-      </mjl:option>
-    </mjl:select>
-  </mjl:dt>
-  <mjl:dt attribute="definingMdForm">
-    <mjl:select param="definingMdForm" items="${definingMdForm}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.displayLabel}
-      </mjl:option>
-    </mjl:select>
-  </mjl:dt>
   <mjl:dt attribute="displayLabel">
     <mjl:input param="displayLabel" type="text" />
   </mjl:dt>

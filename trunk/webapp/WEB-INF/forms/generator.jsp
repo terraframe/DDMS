@@ -14,7 +14,21 @@
 <%@page import="dss.vector.solutions.query.AttributeGeoHierarchyDTO"%>
 
 <%@page import="dss.vector.solutions.form.FormObjectController"%>
-<c:set var="page_title" value="Form_Generator"  scope="request"/>
+
+<%@page import="com.runwaysdk.system.metadata.MdWebInteger"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebLongDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebIntegerDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebDecimalDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebDoubleDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebFloatDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebDateDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebTextDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebBooleanDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebCharacterDTO"%>
+
+
+
+<%@page import="dss.vector.solutions.form.MdFormAdminController"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
@@ -24,15 +38,32 @@
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-String[] types = new String[]{FormObjectController.CLASS};
+//String[] types = new String[]{FormObjectController.CLASS};
+String[] types = new String[]{
+MdFormAdminController.CLASS,
+    
+// WebNumber (excluding float)
+MdWebIntegerDTO.CLASS,
+MdWebLongDTO.CLASS,
+MdWebDecimalDTO.CLASS,
+MdWebDoubleDTO.CLASS,
+//MdWebFloatDTO.CLASS, MdWebFloatController.CLASS,
+
+// WebMoment (excluding DateTime, Time)
+MdWebDateDTO.CLASS,
+// Character, Text, Boolean
+MdWebCharacterDTO.CLASS,
+MdWebTextDTO.CLASS,
+MdWebBooleanDTO.CLASS
+};
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);
 %>
 
-
 YAHOO.util.Event.onDOMReady(function(){
 
+/*
   var mdFormId = '<%= request.getParameter("mdFormId") %>';
   var request = new MDSS.Request({
     onSuccess : function(formObjectJSON){
@@ -44,9 +75,38 @@ YAHOO.util.Event.onDOMReady(function(){
   });
   
   dss.vector.solutions.form.FormObjectController.newInstance(request, mdFormId);
+*/
+  
+      YAHOO.util.Event.on('availableMdFields', 'click', function(e){
+      
+        var request = new MDSS.Request({
+          onSuccess : function(html){
+     
+            // FIXME use Async queue
+            var executable = MDSS.util.extractScripts(html);
+            var html = MDSS.util.removeScripts(html);     
+          
+            document.getElementById('formContainer').innerHTML = html;
+          }
+        });
+      
+        var mdFieldType = e.target.id;
+        
+        dss.vector.solutions.form.MdFormAdminController.newMdField(request, mdFieldType);
+        
+      }, null, this);
 });
 </script>
-
+<ul id="availableMdFields">
+  <li><span id="<%= MdWebBooleanDTO.CLASS %>">Boolean</span></li>
+  <li><span id="<%= MdWebCharacterDTO.CLASS %>">Character</span></li>
+  <li><span id="<%= MdWebTextDTO.CLASS %>">Text</span></li>
+  <li><span id="<%= MdWebIntegerDTO.CLASS %>">Integer</span></li>
+  <li><span id="<%= MdWebLongDTO.CLASS %>">Long</span></li>
+  <li><span id="<%= MdWebDoubleDTO.CLASS %>">Double</span></li>
+  <li><span id="<%= MdWebDecimalDTO.CLASS %>">Decimal</span></li>
+  <li><span id="<%= MdWebDateDTO.CLASS %>">Date</span></li>
+</ul>
 <div id="formContainer">
 </div>
 

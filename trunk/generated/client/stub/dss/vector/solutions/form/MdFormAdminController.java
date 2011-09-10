@@ -1,10 +1,15 @@
 package dss.vector.solutions.form;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
 
+import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.constants.TypeGeneratorInfo;
+import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.system.metadata.MdFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
@@ -43,6 +48,48 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       {
         this.failViewAll();
       }
+    }
+  }
+  
+  /**
+   * Provides a new MdField definition screen.
+   */
+  @Override
+  public void newMdField(String mdFieldType) throws IOException, ServletException
+  {
+    try
+    {
+      // grab the appropriate MdField
+      Class<?> klass = LoaderDecorator.load(mdFieldType+TypeGeneratorInfo.DTO_SUFFIX);
+      
+      // populate the new MdField instance
+      BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(this.getClientRequest());
+      this.req.setAttribute("item", dto);
+      
+      // forward to the namespaced jsp
+      String pck = mdFieldType.replaceAll("\\.", File.separator);
+      String createJSP = "WEB-INF"+File.separator+ pck+File.separator+"createComponent.jsp";
+      
+      this.req.getRequestDispatcher(createJSP).forward(req, resp);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void createMdField(MdFieldDTO mdField, String mdFormId) throws IOException, ServletException
+  {
+    try
+    {
+      MdFieldDTO created = MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
+      
+      // forward to the proper read view
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   

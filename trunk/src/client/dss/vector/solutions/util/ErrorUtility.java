@@ -38,6 +38,22 @@ public class ErrorUtility implements Reloadable
 
   public static final String MESSAGE_ARRAY       = "messageArray";
 
+  public static void prepareAjaxThrowable(Throwable t, HttpServletResponse resp) throws IOException
+  {
+    if(t instanceof ProblemExceptionDTO)
+    {
+      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO((ProblemExceptionDTO)t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+    else
+    {
+      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
+      resp.setStatus(500);
+      resp.getWriter().print(jsonE.getJSON());
+    }
+  }
+  
   private static void prepareProblems(ProblemExceptionDTO e, HttpServletRequest req, boolean ignoreNotifications)
   {
     List<String> messages = new LinkedList<String>();

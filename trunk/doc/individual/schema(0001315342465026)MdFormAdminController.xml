@@ -1,0 +1,144 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdController
+         name="dss.vector.solutions.form.MdFormAdminController"
+         label="Form Admin Controller"
+         description="Controller used for form-building functionality.">
+        <mdAction
+          name="viewAll"
+          label="View all forms"
+          description="View all forms"/>
+        <mdAction
+          name="view"
+          label="View form"
+          description="View a form">
+          <mdParameter name="id" label="Form Id" description="Id of the form to be viewed" order="0" type="java.lang.String"/>
+        </mdAction>
+        <mdAction
+          name="create"
+          label="Create form"
+          description="Create a MdForm definition"
+          isPost="true">
+          <mdParameter name="form" label="Form" description="New MdForm which is being created" order="0" type="com.runwaysdk.system.metadata.MdWebForm"/>
+        </mdAction>
+        <mdAction
+          name="delete"
+          label="Delete form"
+          description="Delete an MdForm"
+          isPost="true">
+          <mdParameter name="form" label="Form" description="Form to be deleted" order="0" type="com.runwaysdk.system.metadata.MdWebForm"/>
+        </mdAction>
+        <mdAction
+          name="update"
+          label="Update form"
+          description="Update an existing MdForm definition"
+          isPost="true">
+          <mdParameter name="form" label="Form" description="Existing MdForm definition" order="0" type="com.runwaysdk.system.metadata.MdWebForm"/>
+        </mdAction>
+        <mdAction
+          name="edit"
+          label="Edit form"
+          description="Edit an existing MdForm definition"
+          isPost="true">
+          <mdParameter name="id" label="Form id" description="Existing MdForm id" order="0" type="java.lang.String"/>
+        </mdAction>
+        <mdAction
+          name="cancel"
+          label="Cancel editing form"
+          description="Cancel the edit of an existing MdForm definition"
+          isPost="true">
+          <mdParameter name="form" label="Form" description="Existing MdForm definition" order="0" type="com.runwaysdk.system.metadata.MdWebForm"/>
+        </mdAction>
+        <mdAction
+          name="newInstance"
+          label="New Form"
+          description="Create a new form"/>
+        <mdAction
+          name="mdFormAdmin"
+          label="MdForm Admin"
+          description="Create and manage MdWebForms"/>
+        <mdAction
+          name="newMdField"
+          label="New MdField"
+          description="Gives the page to define a new MdField">
+          <mdParameter
+            name="mdFieldType"
+            label="MdField Type"
+            description="The qualified class of the MdField to instantiate. "
+            order="0"
+            type="java.lang.String"/>
+        </mdAction>
+          <mdAction
+            name="createMdField"
+            label="Create MdField"
+            isPost="true">
+            <mdParameter
+              name="mdField"
+              label="MdField"
+              description="The MdField to create."
+              order="0"
+              type="com.runwaysdk.system.metadata.MdField"/>
+            <mdParameter
+              name="mdFormId"
+              label="MdForm Id"
+              description="The id of the parent MdForm."
+              order="1"
+              type="java.lang.String"/>
+          </mdAction>
+      </mdController>
+    </create>
+    <update>
+    
+     <mdUtil
+       name="dss.vector.solutions.generator.MdFormUtil">
+       <create>
+         <mdMethod
+           name="createMdField"
+           label="Create MdField"
+           description="Creates an MdField on an MdForm"
+           static="true"
+           returnType="com.runwaysdk.system.metadata.MdField">
+           <mdParameter name="mdField"
+             label="MdField"
+             description="The MdField to create."
+             order="0"
+             type="com.runwaysdk.system.metadata.MdField"/>
+           <mdParameter
+              name="mdFormId"
+              label="MdForm Id"
+              description="The id of the parent MdForm."
+              order="1"
+              type="java.lang.String"/>
+         </mdMethod>
+        <mdMethod
+          name="apply"
+          label="Apply"
+          returnType="com.runwaysdk.system.metadata.MdWebForm"
+          static="true">
+          <mdParameter
+            name="mdForm"
+            label="MdForm"
+            order="0"
+            type="com.runwaysdk.system.metadata.MdWebForm" />
+        </mdMethod>
+
+       </create>
+     </mdUtil>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object 
+        key="dss.vector.solutions.form.MdFormAdminController"
+        type="com.runwaysdk.system.metadata.MdController" />
+      <object
+        key="dss.vector.solutions.generator.MdFormUtil.apply"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+      <object
+        key="dss.vector.solutions.generator.MdFormUtil.createMdField"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>
