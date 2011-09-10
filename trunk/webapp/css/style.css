@@ -1071,7 +1071,7 @@ span.currentPage a:active {
   margin: 0px;  
 }
 .tree li {
-  background-image: url(imgs/icon-file.png);
+  background-image: url(/DDMS/imgs/icon-file.png);
   background-repeat: no-repeat;
   list-style-type: none;    
   padding: 0px 0px 0px 20px;
@@ -1095,7 +1095,7 @@ span.currentPage a:active {
   -moz-border-radius: 8px;
   border-radius: 8px;
   width: 700px;
-  background-image: url(imgs/form-content-background.gif);
+  background-image: url(/DDMS/imgs/form-content-background.gif);
   background-repeat: repeat-x;
   margin: 0px 0px 25px 0px; 
 }
@@ -1127,7 +1127,7 @@ span.currentPage a:active {
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px; 
   width: 750px;
-  background-image: url(imgs/form-content-background.gif);
+  background-image: url(/DDMS/imgs/form-content-background.gif);
   background-repeat: repeat-x;
   margin: 60px 0px 25px 0px;    
 }
