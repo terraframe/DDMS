@@ -24,13 +24,11 @@
 body {
   margin: 0px;
   padding: 0px;
-  background-image: url(assets/img/side-bar-back.gif);
+  background-image: url('/DDMS/imgs/side-bar-back.gif');
   background-repeat: repeat-y;
   font-family:Arial, Helvetica, sans-serif;
 }
-
 </style>
-
 
 <jsp:include page="/WEB-INF/templates/header.jsp"></jsp:include>
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
@@ -70,7 +68,6 @@ YAHOO.util.Event.onDOMReady(function(){
   new MDSS.MdFormAdmin('adminPanel').render();
 });
 </script>
-
 
 <!-- start side bar for tree -->
 <div class="form-side-bar">
@@ -136,6 +133,5 @@ YAHOO.util.Event.onDOMReady(function(){
   <!-- end fields -->    
 
 </div>
-
 
 <jsp:include page="/WEB-INF/templates/footer.jsp"></jsp:include>
