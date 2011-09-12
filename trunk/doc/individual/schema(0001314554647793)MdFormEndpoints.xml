@@ -47,6 +47,8 @@
     </update>
   </doIt>
   <undoIt>
-    <delete></delete>
+    <delete>
+      <object key="dss.vector.solutions.form.FormObjectController" type="com.runwaysdk.system.metadata.MdController"/>
+    </delete>
   </undoIt>
 </version>
