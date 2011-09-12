@@ -65,7 +65,7 @@ out.print(js);
 
 YAHOO.util.Event.onDOMReady(function(){
 
-  new MDSS.MdFormAdmin('adminPanel').render();
+  new dss.vector.solutions.MdFormAdmin().render();
 });
 </script>
 
@@ -113,7 +113,7 @@ YAHOO.util.Event.onDOMReady(function(){
         </ul>
         <div class="form-top-action-row">
             <a href="#" class="form-button-done">Done</a>
-            <a href="#" class="form-button-add">Add Field</a>
+            <a href="#" class="form-button-add" id="availableFields">Add Field</a>
         </div>
         <ul class="form-item-row">
             <li><input value="First Name" type="text">

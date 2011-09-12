@@ -12,9 +12,13 @@ var FACTORY = RUNWAY_UI.Manager.getFactory();
  */
 Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin', 
 {
+  Constants : {
+    AVAILABLE_FIELDS : 'availableFields'
+  },
   Instance : {
     initialize : function(adminPanelId, formList)
     {
+      this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
 			this._parentDiv = adminPanelId;
       this._adminLayout = FACTORY.newLayout("horizontal");
 			this._formList = FACTORY.newList("Form List");
@@ -26,10 +30,25 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     render : function()
     {
+      // attach the event handlers to the DOM elements
+      YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       this._adminLayout.render();
     },
+    /**
+     * Makes a request to display all available MdField types for the Form Generator.
+     */
     availableFields : function()
     {
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          
+          // insert HTML into a popup modal
+        }
+      });
+      
+      this._MdFormAdminController.availableFields(request);
     },
     /**
      * Make a request for a new instance of an MdField.

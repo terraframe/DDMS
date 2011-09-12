@@ -22,6 +22,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String LAYOUT           = "/layout.jsp";
   
   public static final String MDFORM_ADMIN = JSP_DIR+"mdFormAdmin.jsp";
+  
+  public static final String AVAILABLE_MD_FIELDS_JSP = JSP_DIR+"mdFormAdmin.jsp";
 
   private static final long  serialVersionUID = -117792511;
 
@@ -50,6 +52,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       {
         this.failViewAll();
       }
+    }
+  }
+  
+  @Override
+  public void availableFields() throws IOException, ServletException
+  {
+    try
+    {
+      MdFieldTypeQueryDTO query = MdFormUtilDTO.getAvailableFields(this.getClientRequest());
+      req.setAttribute("query", query);
+      
+      this.req.getRequestDispatcher(AVAILABLE_MD_FIELDS_JSP).forward(req, resp);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   
