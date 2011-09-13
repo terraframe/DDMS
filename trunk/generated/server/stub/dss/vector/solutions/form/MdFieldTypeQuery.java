@@ -54,7 +54,7 @@ private static final long serialVersionUID = 1649662279;
       MdFieldTypeQuery query = this.getViewQuery();
       query.map(MdFieldType.MDFIELDID, mdTypeQuery.getId("mdFieldId"));
       query.map(MdFieldType.DISPLAYLABEL, mdTypeQuery.getDisplayLabel().localize("displayLabel"));
-      query.map(MdFieldType.DISPLAYLABEL, mdTypeQuery.getDescription().localize("description"));
+      query.map(MdFieldType.DESCRIPTION, mdTypeQuery.getDescription().localize("description"));
     }
 
     /**

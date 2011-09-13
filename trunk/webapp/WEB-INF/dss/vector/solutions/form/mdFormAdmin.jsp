@@ -68,7 +68,6 @@ YAHOO.util.Event.onDOMReady(function(){
   new dss.vector.solutions.MdFormAdmin().render();
 });
 </script>
-
 <!-- start side bar for tree -->
 <div class="form-side-bar">
     <a href="#" class="create-new-form-button">Create New Form</a>

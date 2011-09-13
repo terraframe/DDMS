@@ -7,7 +7,7 @@
 <ul>
 <c:forEach items="${results}" var="item">
   <li>
-    <span>${item.id} - ${item.displayLabel} - ${item.description}</span>
+    <span id="${item.id}" title="${item.description}">${item.displayLabel}</span>
   </li>
 </c:forEach>
 </ul>
