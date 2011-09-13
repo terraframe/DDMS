@@ -83,7 +83,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     QueryFactory f = new QueryFactory();
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
-
+String sql = q.getSQL();
     return q;
   }
 
