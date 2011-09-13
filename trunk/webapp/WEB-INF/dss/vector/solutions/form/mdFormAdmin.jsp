@@ -73,9 +73,7 @@ YAHOO.util.Event.onDOMReady(function(){
     <a href="#" class="create-new-form-button">Create New Form</a>
     
     <!-- start tree control -->
-    <ul class="tree">
-        <li>Form 1</li>
-        <li>Form 2</li>
+    <ul class="tree" id="existingForms">
     </ul>
     <!-- end tree control -->
 

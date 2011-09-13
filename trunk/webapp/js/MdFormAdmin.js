@@ -11,10 +11,12 @@ var UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
 Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin', 
 {
   Constants : {
-    AVAILABLE_FIELDS : 'availableFields'
+    AVAILABLE_FIELDS : 'availableFields',
+		VIEW_FORM : 'viewForm',
+		EXISTING_FORMS : 'existingForms'
   },
   Instance : {
-    initialize : function(adminPanelId, formList)
+    initialize : function()
     {
       UI.Manager.setFactory("YUI3");
       this._Factory = UI.Manager.getFactory();
@@ -25,6 +27,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
+			YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
+			YAHOO.util.Event.delegate(this.constructor.EXISTING_FORMS, 'click', this.viewForm, "li");
     },
     /**
      * Makes a request to display all available MdField types for the Form Generator.
@@ -50,7 +54,41 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
      */
     newField : function(mdFieldType)
     {
-    }
+    },
+		/**
+		 * Makes a request to display all existing forms on the sidebar
+		 */
+		existingForms : function()
+		{
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById("existingForms").innerHTML = pureHTML;
+        },
+        onFailure : function(html){
+          alert("Fetching existing forms failed");
+        }
+      });
+      
+      this._MdFormAdminController.existingForms(request);
+		},
+		viewForm : function(e, matchedEl, container)
+		{
+			var request = new MDSS.Request({
+	      onSuccess : function(html){
+					var executable = MDSS.util.extractScripts(html);
+	        var pureHTML = MDSS.util.removeScripts(html);
+					alert(pureHTML);
+	      },
+	      onFailure : function(html){
+	        alert("Fetching existing forms failed");
+	      }
+      });
+      
+      this._MdFormAdminController.view(request, matchedEl.id);
+		}
+		
   }
 });
 
