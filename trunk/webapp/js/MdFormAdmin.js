@@ -13,7 +13,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
   Constants : {
     AVAILABLE_FIELDS : 'availableFields',
 		VIEW_FORM : 'viewForm',
-		EXISTING_FORMS : 'existingForms'
+		EXISTING_FORMS : 'existingForms',
+		FORM_CONTENT_BOX : 'formContentBox'
   },
   Instance : {
     initialize : function()
@@ -27,8 +28,14 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
-			YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
-			YAHOO.util.Event.delegate(this.constructor.EXISTING_FORMS, 'click', this.viewForm, "li");
+      YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
+			
+			// Could not get this to work, at all:
+      //YAHOO.util.Event.delegate('existingForms', 'click', this.viewForm, 'li', null, this);
+			
+			// Got this to work but it's kinda wonky, behavior does not match API
+      var Y = YUI().use('*');
+      Y.one('#existingForms').delegate('click', this.viewForm, 'li', null, this);
     },
     /**
      * Makes a request to display all available MdField types for the Form Generator.
@@ -60,11 +67,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		 */
 		existingForms : function()
 		{
+			var that = this;
       var request = new MDSS.Request({
         onSuccess : function(html){
           var executable = MDSS.util.extractScripts(html);
           var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById("existingForms").innerHTML = pureHTML;
+          document.getElementById(that.constructor.EXISTING_FORMS).innerHTML = pureHTML;
         },
         onFailure : function(html){
           alert("Fetching existing forms failed");
@@ -73,20 +81,22 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.existingForms(request);
 		},
-		viewForm : function(e, matchedEl, container)
+		viewForm : function(e, that)
 		{
+			var id = e.currentTarget._node.id;
 			var request = new MDSS.Request({
 	      onSuccess : function(html){
 					var executable = MDSS.util.extractScripts(html);
 	        var pureHTML = MDSS.util.removeScripts(html);
-					alert(pureHTML);
+					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+					
 	      },
 	      onFailure : function(html){
-	        alert("Fetching existing forms failed");
+	        alert("Fetching form with id "+id+" failed");
 	      }
       });
       
-      this._MdFormAdminController.view(request, matchedEl.id);
+      that._MdFormAdminController.fetchFormAttributes(request, id);
 		}
 		
   }

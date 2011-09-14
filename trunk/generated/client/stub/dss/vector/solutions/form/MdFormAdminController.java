@@ -28,6 +28,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   
   public static final String EXISTING_FORMS_JSP = JSP_DIR+"existingForms.jsp";
 
+  public static final String FETCH_FORM_ATTRIBUTES_FORMS_JSP = JSP_DIR+"fetchFormAttributes.jsp";
+
   private static final long  serialVersionUID = -117792511;
 
   public MdFormAdminController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
@@ -76,6 +78,25 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+  
+  @Override
+  public void fetchFormAttributes(String id) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
+      //MdWebFormDTO form = MdWebFormDTO.get(clientRequest, id);
+      MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
+      req.setAttribute("form", form);
+
+      this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_FORMS_JSP).forward(req, resp);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
   
   @Override
   public void availableFields() throws IOException, ServletException
@@ -196,6 +217,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     this.newInstance(form);
   }
   
+  @Override
   public void view(String id) throws IOException, ServletException
   {
     try
@@ -234,21 +256,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       req.setAttribute("form", form);
       render("editComponent.jsp");
     }
-    catch(java.lang.Throwable t)
+    catch (Throwable t)
     {
-      if (this.isAsynchronous())
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
       {
-        JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
-        this.resp.setStatus(500);
-        this.resp.getWriter().write(ex.getJSON());
-      }
-      else
-      {
-        boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-        if (!redirect)
-        {
-          this.failEdit(id);
-        }
+        this.failEdit(id);
       }
     }
   }
@@ -267,21 +281,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       form.apply();
       this.view(form.getId());
     }
-    catch(java.lang.Throwable t)
+    catch (Throwable t)
     {
-      if (this.isAsynchronous())
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
       {
-        JSONRunwayExceptionDTO ex = new JSONRunwayExceptionDTO(t);
-        this.resp.setStatus(500);
-        this.resp.getWriter().write(ex.getJSON());
-      }
-      else
-      {
-        boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-        if (!redirect)
-        {
-          this.failUpdate(form);
-        }
+        this.failUpdate(form);
       }
     }
   }
@@ -335,10 +341,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
+      /*
       ClientRequestIF clientRequest = this.getClientRequest();
       MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
 
       this.req.setAttribute("forms", forms);
+      */
       this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
     }
     catch (Throwable t)

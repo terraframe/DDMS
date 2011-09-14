@@ -84,15 +84,19 @@ YAHOO.util.Event.onDOMReady(function(){
 
   <!-- start form attributes -->
   <h4>Form Attributes</h4>
-    <div class="form-content-box">
+    <div class="form-content-box" id="formContentBox">
         <ul class="form-row">
             <li>
                 <label>Form Name</label>
-                <input type="text">
+                <input id="formName" type="text">
+            </li>
+            <li>
+                <label>Form Display Label</label>
+                <input id="formDisplayLabel" type="text">
             </li>
             <li>
                 <label>Form Type</label>
-                <input type="text">
+                <input id="formType" type="text">
             </li>
          </ul>
          <div class="form-action-row">

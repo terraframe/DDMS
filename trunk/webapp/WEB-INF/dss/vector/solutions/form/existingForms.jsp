@@ -5,7 +5,7 @@
 
 <c:forEach items="${forms}" var="item">
   <li id=${item.id}>
-    <span>${item.displayLabel}</span>
+    <a href="#" class="form">${item.displayLabel}</a>
   </li>
 </c:forEach>
 
