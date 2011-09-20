@@ -16,8 +16,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		EXISTING_FORMS : 'existingForms',
 		FORM_CONTENT_BOX : 'formContentBox',
 		FORM_ACTION_ROW : 'formActionRow',
-		CANCEL_BTN : 'cancelBtn',
-		UPDATE_BTN : 'updateBtn'
+		EDIT_BUTTON : 'editBtn'
   },
   Instance : {
     initialize : function()
@@ -36,17 +35,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
+      YAHOO.util.Event.on(this.constructor.EDIT_BUTTON, 'click', this.requestEdit, null, this);
       YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
 			
-			// Could not get this to work, at all:
-      //YAHOO.util.Event.delegate('existingForms', 'click', this.viewForm, 'li', null, this);
-			
-			// Got this to work but it's kinda wonky, behavior does not match API
       var Y = YUI().use('*');
-      Y.one('#existingForms').delegate('click', this.viewForm, 'li', null, this);
-			
-      //YAHOO.util.Event.on(this.constructor.CANCEL_BTN, 'click', this._cancelListener, null, this);
-      //YAHOO.util.Event.on(this.constructor.UPDATE_BTN, 'click', this._updateListener, null, this);
+      Y.one('#existingForms').delegate('click', this.viewForm, 'li', this);
     },
     /**
      * Makes a request to display all available MdField types for the Form Generator.
@@ -92,8 +85,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.existingForms(request);
 		},
-		viewForm : function(e, that)
+		viewForm : function(e)
 		{
+			var that = this;
 			var id = e.currentTarget._node.id;
 			var request = new MDSS.Request({
 	      onSuccess : function(html){
@@ -135,17 +129,16 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 			return request;
 		},
-		_populateForm : function(params)
-		{
-			
-		},
     _cancelListener : function(params)
     {
       var that = this;
       var request = new MDSS.ClientRequest({
-        onSuccess : function()
+        onSuccess : function(html)
         {
           alert('Update Canceled!');
+					var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
           
         },
         onFailure : function(message)
@@ -156,7 +149,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			      
       return request;
     },
-		requestEdit : function(formId)
+		requestEdit : function()
 		{
 			var that = this;
 			var request = new MDSS.Request({
@@ -164,12 +157,16 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			 {
 			   var executable = MDSS.util.extractScripts(html);
 			   var pureHTML = MDSS.util.removeScripts(html);
+				 document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+				 eval(executable);
 			 },
 			 onFailure : function(message)
 			 {
 			   alert(message);
 			 }
 			});
+			var id = document.getElementById("MdFormId").value;
+		  that._MdFormAdminController.editFormAttributes(request, id);
 		}
   }
 });

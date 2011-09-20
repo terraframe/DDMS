@@ -28,7 +28,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   
   public static final String EXISTING_FORMS_JSP = JSP_DIR+"existingForms.jsp";
 
-  public static final String FETCH_FORM_ATTRIBUTES_FORMS_JSP = JSP_DIR+"fetchFormAttributes.jsp";
+  public static final String FETCH_FORM_ATTRIBUTES_JSP = JSP_DIR+"fetchFormAttributes.jsp";
+
+  public static final String EDIT_FORM_ATTRIBUTES_JSP = JSP_DIR+"editFormAttributes.jsp";
 
   private static final long  serialVersionUID = -117792511;
 
@@ -79,10 +81,27 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       ClientRequestIF clientRequest = getClientRequest();
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, id);
+      req.setAttribute("form", form);
+
+      this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_JSP).forward(req, resp);
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void editFormAttributes(String id) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
       req.setAttribute("form", form);
 
-      this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_FORMS_JSP).forward(req, resp);
+      this.req.getRequestDispatcher(EDIT_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
     catch(Throwable t)
     {
