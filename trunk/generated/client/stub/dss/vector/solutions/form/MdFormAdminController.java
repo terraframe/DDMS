@@ -10,6 +10,7 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdFieldDTO;
+import com.runwaysdk.system.metadata.MdTypeDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
@@ -134,15 +135,18 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
+      MdTypeDTO mdType = MdTypeDTO.get(this.getClientRequest(), mdFieldType);
+      String type = mdType.getPackageName()+"."+mdType.getTypeName();
+      
       // grab the appropriate MdField
-      Class<?> klass = LoaderDecorator.load(mdFieldType+TypeGeneratorInfo.DTO_SUFFIX);
+      Class<?> klass = LoaderDecorator.load(type+TypeGeneratorInfo.DTO_SUFFIX);
       
       // populate the new MdField instance
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(this.getClientRequest());
       this.req.setAttribute("item", dto);
       
       // forward to the namespaced jsp
-      String pck = mdFieldType.replaceAll("\\.", File.separator);
+      String pck = type.replaceAll("\\.", File.separator);
       String createJSP = "WEB-INF"+File.separator+ pck+File.separator+"createComponent.jsp";
       
       this.req.getRequestDispatcher(createJSP).forward(req, resp);

@@ -23,13 +23,22 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       UI.Manager.setFactory("YUI3");
       this._Factory = UI.Manager.getFactory();
-    
+      
+      // Dialog for selecting the available MdFields
+      this._fieldsDialog = null;
+      
+      this._fieldFormDialog = null;
+      
 			this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
 			var cancelB = Mojo.Util.bind(this, this._cancelListener);
       this._MdFormAdminController.setCancelListener(cancelB);
       
 			var updateB = Mojo.Util.bind(this, this._updateListener);
       this._MdFormAdminController.setUpdateListener(updateB);
+      
+      // A reference to the MdForm that is being operated on.
+      this._currentMdFormId = null;
+      this._Y = YUI().use('*'); // YUI3 reference
     },
     render : function()
     {
@@ -38,33 +47,90 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       YAHOO.util.Event.on(this.constructor.EDIT_BUTTON, 'click', this.requestEdit, null, this);
       YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
 			
-      var Y = YUI().use('*');
-      Y.one('#existingForms').delegate('click', this.viewForm, 'li', this);
+      this._Y.one('#existingForms').delegate('click', this.viewForm, 'li', this);
+    },
+    destroy : function()
+    {
+      // TODO destroy all dialogs if they are not null
+      //this._fieldsDialog.destroy();
     },
     /**
      * Makes a request to display all available MdField types for the Form Generator.
      */
     availableFields : function()
     {
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(html){
-          var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          
-          var dialog = that._Factory.newDialog('foo');
-          dialog.setInnerHTML(pureHTML);
-          dialog.render();
-        }
-      });
-      
-      this._MdFormAdminController.availableFields(request);
+      if(this._fieldsDialog !== null)
+      {
+        this._fieldsDialog.getImpl().show(); // FIXME add show/hide to widgets
+      }
+      else
+      {
+        // first request, so create the dialog with the available field options.
+        this._fieldsDialog = this._Factory.newDialog('');
+        
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess : function(html){
+            var executable = MDSS.util.extractScripts(html);
+            var pureHTML = MDSS.util.removeScripts(html);
+            
+            that.createAvailableFieldsDialog(pureHTML);            
+          }
+        });
+        
+        this._MdFormAdminController.availableFields(request);
+      }
     },
+    
+    createAvailableFieldsDialog : function(html)
+    {
+      this._fieldsDialog.setInnerHTML(html);
+      this._fieldsDialog.render();
+      
+      // hook the click handler to the dialog to detect which field type was selected.
+      var id = this._fieldsDialog.getContentEl().getId();
+      this._Y.one('#'+id).delegate('click', this.newField, 'li', this);
+    },
+    
     /**
      * Make a request for a new instance of an MdField.
      */
-    newField : function(mdFieldType)
+    newField : function(e)
     {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          that.newMdFieldDialog(html);
+        }
+      });
+      
+      var mdFieldId = e.target.get('id');
+      this._MdFormAdminController.newMdField(request, mdFieldId);
+    },
+    newMdFieldDialog : function(html)
+    {
+      this._fieldsDialog.getImpl().hide();
+    
+      var executable = MDSS.util.extractScripts(html);
+      var pureHTML = MDSS.util.removeScripts(html);
+      
+      if(this._fieldFormDialog !== null)
+      {
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.getImpl().show();
+      }
+      else
+      {
+        this._fieldFormDialog = this._Factory.newDialog('');
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.render();
+        
+        //this._Y.one(this._fieldFormDialog.getContentEl().getId()).delegate('click', this._
+      }
+      
+      // No controllers exist for the MdField classes (at least not yet),
+      // so we do not execute the javascript that will fire the MdAction listeners.
+      //exec(executable);
     },
 		/**
 		 * Makes a request to display all existing forms on the sidebar
@@ -87,8 +153,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		},
 		viewForm : function(e)
 		{
+			var id = e.target.get('id');
+			this._currentMdFormId = id;
 			var that = this;
-			var id = e.currentTarget._node.id;
 			var request = new MDSS.Request({
 	      onSuccess : function(html){
 					var executable = MDSS.util.extractScripts(html);
@@ -107,7 +174,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 	      }
       });
       
-      that._MdFormAdminController.fetchFormAttributes(request, id);
+      this._MdFormAdminController.fetchFormAttributes(request, id);
 		},
 		_updateListener : function(form)
 		{
