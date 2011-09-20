@@ -14,7 +14,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     AVAILABLE_FIELDS : 'availableFields',
 		VIEW_FORM : 'viewForm',
 		EXISTING_FORMS : 'existingForms',
-		FORM_CONTENT_BOX : 'formContentBox'
+		FORM_CONTENT_BOX : 'formContentBox',
+		FORM_ACTION_ROW : 'formActionRow',
+		CANCEL_BTN : 'cancelBtn',
+		UPDATE_BTN : 'updateBtn'
   },
   Instance : {
     initialize : function()
@@ -22,7 +25,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       UI.Manager.setFactory("YUI3");
       this._Factory = UI.Manager.getFactory();
     
-      this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
+			this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
+			var cancelB = Mojo.Util.bind(this, this._cancelListener);
+      this._MdFormAdminController.setCancelListener(cancelB);
+      
+			var updateB = Mojo.Util.bind(this, this._updateListener);
+      this._MdFormAdminController.setUpdateListener(updateB);
     },
     render : function()
     {
@@ -36,6 +44,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			// Got this to work but it's kinda wonky, behavior does not match API
       var Y = YUI().use('*');
       Y.one('#existingForms').delegate('click', this.viewForm, 'li', null, this);
+			
+      //YAHOO.util.Event.on(this.constructor.CANCEL_BTN, 'click', this._cancelListener, null, this);
+      //YAHOO.util.Event.on(this.constructor.UPDATE_BTN, 'click', this._updateListener, null, this);
     },
     /**
      * Makes a request to display all available MdField types for the Form Generator.
@@ -65,9 +76,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		/**
 		 * Makes a request to display all existing forms on the sidebar
 		 */
-		existingForms : function()
-		{
-			var that = this;
+    existingForms : function()
+    {
+      var that = this;
       var request = new MDSS.Request({
         onSuccess : function(html){
           var executable = MDSS.util.extractScripts(html);
@@ -90,6 +101,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 	        var pureHTML = MDSS.util.removeScripts(html);
 					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 					
+					try {
+						eval(executable);
+					} catch (e) {
+						console.log(e);
+					}
+					
 	      },
 	      onFailure : function(html){
 	        alert("Fetching form with id "+id+" failed");
@@ -97,8 +114,63 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       });
       
       that._MdFormAdminController.fetchFormAttributes(request, id);
+		},
+		_updateListener : function(form)
+		{
+			var that = this;
+			var request = new MDSS.Request({
+				onSuccess : function(html)
+				{
+					var executable = MDSS.util.extractScripts(html);
+					var pureHTML = MDSS.util.removeScripts(html);
+					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+					eval(executable);
+					alert('Update Successful!');	
+				},
+				onFailure : function(message)
+				{
+					alert(message);
+				}
+			});
+			
+			return request;
+		},
+		_populateForm : function(params)
+		{
+			
+		},
+    _cancelListener : function(params)
+    {
+      var that = this;
+      var request = new MDSS.ClientRequest({
+        onSuccess : function()
+        {
+          alert('Update Canceled!');
+          
+        },
+        onFailure : function(message)
+        {
+          alert(message);
+        }
+      });
+			      
+      return request;
+    },
+		requestEdit : function(formId)
+		{
+			var that = this;
+			var request = new MDSS.Request({
+			 onSuccess : function(html)
+			 {
+			   var executable = MDSS.util.extractScripts(html);
+			   var pureHTML = MDSS.util.removeScripts(html);
+			 },
+			 onFailure : function(message)
+			 {
+			   alert(message);
+			 }
+			});
 		}
-		
   }
 });
 

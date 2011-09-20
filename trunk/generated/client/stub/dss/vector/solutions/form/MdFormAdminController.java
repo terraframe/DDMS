@@ -49,14 +49,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       render("viewAllComponent.jsp");
     }
-    catch (Throwable t)
+    catch(Throwable t)
     {
-      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirected)
-      {
-        this.failViewAll();
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   
@@ -69,7 +64,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
 
       this.req.setAttribute("forms", forms);
-      //this.req.setAttribute("myInt", 3);
 
       this.req.getRequestDispatcher(EXISTING_FORMS_JSP).forward(req, resp);
     }
@@ -85,7 +79,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       ClientRequestIF clientRequest = getClientRequest();
-      //MdWebFormDTO form = MdWebFormDTO.get(clientRequest, id);
       MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
       req.setAttribute("form", form);
 
@@ -176,14 +169,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       render("createComponent.jsp");
     }
-    catch (Throwable t)
+    catch(Throwable t)
     {
-      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirected)
-      {
-        this.failNewInstance();
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   public void failNewInstance() throws IOException, ServletException
@@ -200,14 +188,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.viewAll();
     }
-    catch (Throwable t)
+    catch(Throwable t)
     {
-      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirected)
-      {
-        this.failCreate(form);
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
 
@@ -228,14 +211,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       render("viewComponent.jsp");
     }
-    catch (Throwable t)
+    catch(Throwable t)
     {
-      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirected)
-      {
-        this.failView(id);
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   
@@ -256,14 +234,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       req.setAttribute("form", form);
       render("editComponent.jsp");
     }
-    catch (Throwable t)
+    catch(Throwable t)
     {
-      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirected)
-      {
-        this.failEdit(id);
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   
@@ -279,16 +252,11 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       form.apply();
-      this.view(form.getId());
+      this.fetchFormAttributes(form.getId());
     }
-    catch (Throwable t)
+    catch(Throwable t)
     {
-      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-
-      if (!redirected)
-      {
-        this.failUpdate(form);
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   
@@ -307,13 +275,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       form.delete();
       this.viewAll();
     }
-    catch(java.lang.Throwable t)
+    catch(Throwable t)
     {
-      boolean redirect = dss.vector.solutions.util.ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
-      if (!redirect)
-      {
-        this.failDelete(form);
-      }
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   

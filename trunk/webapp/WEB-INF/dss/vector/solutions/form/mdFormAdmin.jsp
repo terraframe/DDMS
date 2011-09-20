@@ -94,12 +94,8 @@ YAHOO.util.Event.onDOMReady(function(){
                 <label>Form Display Label</label>
                 <input id="formDisplayLabel" type="text">
             </li>
-            <li>
-                <label>Form Type</label>
-                <input id="formType" type="text">
-            </li>
          </ul>
-         <div class="form-action-row">
+         <div class="form-action-row" id="formActionRow">
             <a href="#" class="form-standard-button">Update</a>         
           <a href="#" class="form-standard-button">Cancel</a>
          </div>

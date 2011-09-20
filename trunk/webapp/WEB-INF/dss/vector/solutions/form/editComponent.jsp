@@ -12,7 +12,6 @@
     <%@ include file="form.jsp"%>
 
     <mdss:localize key="Update" var="Localized_Update" />
-
     <mjl:command value="${Localized_Update}" action="dss.vector.solutions.form.MdFormAdminController.update.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.update.button" />
     <mdss:localize key="Delete" var="Localized_Delete" />
     <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.form.MdFormAdminController.delete.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.delete.button" />
