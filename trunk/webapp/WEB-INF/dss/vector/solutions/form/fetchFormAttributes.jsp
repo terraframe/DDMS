@@ -29,7 +29,7 @@
 			</ul>
 			<div class="form-action-row" id="formActionRow">
 			    <mdss:localize key="Edit" var="Localized_Edit" />
-			    <a href="#"  id="editBtn">${Localized_Edit}</a>
+          <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.form.MdFormAdminController.editFormAttributes.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.editFormAttributes.button"/>
 			</div>
     </div>
   <!-- end form attributes -->    

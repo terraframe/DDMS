@@ -41,6 +41,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			var createB = Mojo.Util.bind(this, this._createListener);
 			this._MdFormAdminController.setCreateListener(createB);
       
+			var editB = Mojo.Util.bind(this, this.requestEdit);
+			this._MdFormAdminController.setEditFormAttributesListener(editB);
+      
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
       this._Y = YUI().use('*'); // YUI3 reference
@@ -49,11 +52,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
-      YAHOO.util.Event.on(this.constructor.EDIT_BUTTON, 'click', this.requestEdit, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
       YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
 			
-      this._Y.one('#existingForms').delegate('click', this.viewForm, 'li', this);
+      this._Y.one('#'+this.constructor.EXISTING_FORMS).delegate('click', this.viewForm, 'li', this);
     },
     destroy : function()
     {
@@ -167,12 +169,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 					var executable = MDSS.util.extractScripts(html);
 	        var pureHTML = MDSS.util.removeScripts(html);
 					document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
-					
-					try {
-						eval(executable);
-					} catch (e) {
-						console.log(e);
-					}
+					eval(executable);
+          //YAHOO.util.Event.on(that.constructor.EDIT_BUTTON, 'click', that.requestEdit, null, this);
 	      }
       });
       
@@ -221,7 +219,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           alert('Update Canceled!');
 					var executable = MDSS.util.extractScripts(html);
           var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+          document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
         }
       });
 			      
@@ -240,7 +238,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			 }
 			});
 			var id = document.getElementById("MdFormId").value;
-		  that._MdFormAdminController.editFormAttributes(request, id);
+		  this._MdFormAdminController.editFormAttributes(request, id);
 		},
 		createNewForm : function()
 		{
