@@ -13,18 +13,40 @@
 <mjl:form name="MdFormAdmin.form.name" id="MdWebFormAdmin.form.id" method="POST">
 <mjl:component param="form" item="${form}"/>
 <mjl:input value="${form.id}" type="hidden" param="id" id="MdFormId"/>
-<ul class="form-row">
-    <li>
-        <label>Form Name</label>
-        <label>${form.formName}</label>
-    </li>
-    <li>
-        <label>Form Display Label</label>
-        <label>${form.displayLabel}</label>
-    </li>
-</ul>
-<div class="form-action-row" id="formActionRow">
-    <mdss:localize key="Edit" var="Localized_Edit" />
-    <a href="#"  id="editBtn">${Localized_Edit}</a>
-</div>
+
+  <!-- start form attributes -->
+  <h4>Form Attributes</h4>
+    <div class="form-content-box" id="formContentBox">
+			<ul class="form-row">
+			    <li>
+			        <label>Form Name</label>
+			        <label>${form.formName}</label>
+			    </li>
+			    <li>
+			        <label>Form Display Label</label>
+			        <label>${form.displayLabel}</label>
+			    </li>
+			</ul>
+			<div class="form-action-row" id="formActionRow">
+			    <mdss:localize key="Edit" var="Localized_Edit" />
+			    <a href="#"  id="editBtn">${Localized_Edit}</a>
+			</div>
+    </div>
+  <!-- end form attributes -->    
+
+  <!-- start fields -->
+  <div class="tabbed-form-box">
+        <ul class="tabs">
+            <li class="tabs-on"><a href="#">Fields</a></li>
+            <li><a href="#">Workflow</a></li>
+        </ul>
+        <div class="form-top-action-row">
+            <a href="#" class="form-button-done">Done</a>
+            <a href="#" class="form-button-add" id="availableFields">Add Field</a>
+        </div>
+        <ul class="form-item-row">
+        </ul>
+    </div>
+  <!-- end fields -->    
+
 </mjl:form>

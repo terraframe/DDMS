@@ -33,6 +33,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
   public static final String EDIT_FORM_ATTRIBUTES_JSP = JSP_DIR+"editFormAttributes.jsp";
 
+  public static final String CREATE_NEW_FORM_JSP = JSP_DIR+"createNewForm.jsp";
+
   private static final long  serialVersionUID = -117792511;
 
   public MdFormAdminController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
@@ -190,7 +192,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       req.setAttribute("form", form);
 
-      render("createComponent.jsp");
+      this.req.getRequestDispatcher(CREATE_NEW_FORM_JSP).forward(req, resp);
     }
     catch(Throwable t)
     {
@@ -204,12 +206,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
   @Override
   public void create(MdWebFormDTO form) throws IOException, ServletException
-  {
+  {    
     try
     {
       MdFormUtilDTO.apply(getClientRequest(), form);
+      req.setAttribute("form", form);
 
-      this.viewAll();
+      this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
     catch(Throwable t)
     {

@@ -70,7 +70,7 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 <!-- start side bar for tree -->
 <div class="form-side-bar">
-    <a href="#" class="create-new-form-button">Create New Form</a>
+    <a href="#" class="create-new-form-button" id="createNewForm">Create New Form</a>
     
     <!-- start tree control -->
     <ul class="tree" id="existingForms">
@@ -80,55 +80,7 @@ YAHOO.util.Event.onDOMReady(function(){
 </div>
 <!-- end side bar for tree -->
 
-<div class="form-content">
-
-  <!-- start form attributes -->
-  <h4>Form Attributes</h4>
-    <div class="form-content-box" id="formContentBox">
-        <ul class="form-row">
-            <li>
-                <label>Form Name</label>
-                <input id="formName" type="text">
-            </li>
-            <li>
-                <label>Form Display Label</label>
-                <input id="formDisplayLabel" type="text">
-            </li>
-         </ul>
-         <div class="form-action-row" id="formActionRow">
-            <a href="#" class="form-standard-button">Update</a>         
-          <a href="#" class="form-standard-button">Cancel</a>
-         </div>
-    </div>
-  <!-- end form attributes -->    
-
-  <!-- start fields -->
-  <div class="tabbed-form-box">
-        <ul class="tabs">
-            <li class="tabs-on"><a href="#">Fields</a></li>
-            <li><a href="#">Workflow</a></li>
-        </ul>
-        <div class="form-top-action-row">
-            <a href="#" class="form-button-done">Done</a>
-            <a href="#" class="form-button-add" id="availableFields">Add Field</a>
-        </div>
-        <ul class="form-item-row">
-            <li><input value="First Name" type="text">
-            <a href="#" class="form-item-row-delete">Delete</a>
-            </li>
-            <li><input value="Last Name" type="text">
-            <a href="#" class="form-item-row-delete">Delete</a>            
-            </li>
-            <li><input value="Phone #" type="text">
-            <a href="#" class="form-item-row-delete">Delete</a>
-            </li>
-            <li><input value="Email" type="text">
-            <a href="#" class="form-item-row-delete">Delete</a>            
-            </li>            
-        </ul>
-    </div>
-  <!-- end fields -->    
-
+<div class="form-content" id="formContent">
 </div>
 
 <jsp:include page="/WEB-INF/templates/footer.jsp"></jsp:include>
