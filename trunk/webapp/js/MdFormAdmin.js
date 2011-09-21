@@ -203,7 +203,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 				{
 					var executable = MDSS.util.extractScripts(html);
 					var pureHTML = MDSS.util.removeScripts(html);
-					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+					document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
 					eval(executable);
 					that.existingForms();
 					alert('Update Successful!');	
