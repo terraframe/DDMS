@@ -36,6 +36,7 @@ import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
 
 import au.com.bytecode.opencsv.CSVReader;
 
+import com.runwaysdk.business.SmartExceptionDTO;
 import com.runwaysdk.constants.ClientProperties;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -87,27 +88,21 @@ public class ReportController extends ReportControllerBase implements Reloadable
     return QueryBuilderDTO.exportQueryToCSV(request, className, queryXML, config, savedSearchId);
 
     /*
-    if(type.equals(QueryTypeDTO.AGGREGATED_CASES))
-    {
-      return AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-    }
-    else if(type.equals(QueryTypeDTO.ENTOMOLOGY))
-    {
-//      return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-    }
-    else if(type.equals(QueryTypeDTO.RESISTANCE))
-    {
-      return AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-    }
-    else if(type.equals(QueryTypeDTO.IRS))
-    {
-      return AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-    }
-    else if(type.equals(QueryTypeDTO.INDICATOR_SURVEY))
-    {
-      return SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML, config, savedSearchId);
-    }
-    */
+     * if(type.equals(QueryTypeDTO.AGGREGATED_CASES)) { return
+     * AggregatedCaseDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
+     * config, savedSearchId); } else if(type.equals(QueryTypeDTO.ENTOMOLOGY)) {
+     * // return MosquitoDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
+     * config, savedSearchId); } else if(type.equals(QueryTypeDTO.RESISTANCE)) {
+     * return
+     * AdultDiscriminatingDoseAssayDTO.exportQueryToCSV(this.getClientRequest(),
+     * queryXML, config, savedSearchId); } else
+     * if(type.equals(QueryTypeDTO.IRS)) { return
+     * AbstractSprayDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
+     * config, savedSearchId); } else
+     * if(type.equals(QueryTypeDTO.INDICATOR_SURVEY)) { return
+     * SurveyPointDTO.exportQueryToCSV(this.getClientRequest(), queryXML,
+     * config, savedSearchId); }
+     */
   }
 
   private void validateParameters(String queryXML, String geoEntityType, String savedSearchId)
@@ -160,8 +155,20 @@ public class ReportController extends ReportControllerBase implements Reloadable
     }
     catch (Throwable e)
     {
-      String msg = "The provided design is not a valid BIRT design";
-      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+      if (e instanceof SmartExceptionDTO)
+      {
+        throw (SmartExceptionDTO) e;
+      }
+      else
+      {
+        /*
+         * Exception is coming from within BIRT so we need to swallow it and
+         * give them a localized message.
+         */
+
+        String msg = "The provided design is not a valid BIRT design";
+        throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+      }
     }
     finally
     {
@@ -174,8 +181,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
   }
 
   @SuppressWarnings("unchecked")
-  private void configureDataSet(String tempDir, IReportRunnable design) throws SemanticException,
-      ServletException
+  private void configureDataSet(String tempDir, IReportRunnable design) throws SemanticException, ServletException
   {
     // Change the data source to the temporary csv directory
     ReportDesignHandle handle = (ReportDesignHandle) design.getDesignHandle();

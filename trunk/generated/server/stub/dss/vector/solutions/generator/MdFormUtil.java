@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.constants.MdAttributeConcreteInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
@@ -31,22 +32,11 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdFieldDisplayLabel;
-import com.runwaysdk.system.metadata.MdFieldQuery;
 import com.runwaysdk.system.metadata.MdRelationship;
-import com.runwaysdk.system.metadata.MdType;
-import com.runwaysdk.system.metadata.MdTypeQuery;
-import com.runwaysdk.system.metadata.MdWebBoolean;
-import com.runwaysdk.system.metadata.MdWebCharacter;
-import com.runwaysdk.system.metadata.MdWebDate;
-import com.runwaysdk.system.metadata.MdWebDecimal;
-import com.runwaysdk.system.metadata.MdWebDouble;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
-import com.runwaysdk.system.metadata.MdWebInteger;
-import com.runwaysdk.system.metadata.MdWebLong;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
-import com.runwaysdk.system.metadata.MdWebText;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.MDSSInfo;
@@ -90,13 +80,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    * Creates an MdField and the associated MdAttribute in DDMS. The mapping is
    * one-to-one.
    * 
+   * >>>>>>> .r6395
+   * 
    * @param mdField
    * @param mdFormId
    * @return
    */
   @Transaction
-  public static com.runwaysdk.system.metadata.MdField createMdField(
-      com.runwaysdk.system.metadata.MdField mdField, java.lang.String mdFormId)
+  public static com.runwaysdk.system.metadata.MdField createMdField(com.runwaysdk.system.metadata.MdField mdField, java.lang.String mdFormId)
   {
     if (mdField instanceof MdWebPrimitive)
     {
@@ -120,10 +111,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdAttr.setValue(MdAttributeConcreteInfo.REQUIRED, required.toString());
       mdAttr.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdClassId);
       // FIXME use current locale
-      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE,
-          displayLabel.getDefaultValue());
-      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE,
-          description.getDefaultValue());
+      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE, displayLabel.getDefaultValue());
+      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE, description.getDefaultValue());
 
       if (mdAttr instanceof MdAttributeCharacterDAO)
       {
@@ -223,8 +212,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdTypeDAOIF mdClass = MdClassDAO.get(formMdClass.getId());
 
     String fieldName = field.getFieldName();
-    String relationshipType = mdClass.definesType() + fieldName.substring(0, 1).toUpperCase()
-        + fieldName.substring(1);
+    String relationshipType = mdClass.definesType() + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
     return relationshipType;
   }
 
@@ -233,8 +221,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     List<MdAttributeConcrete> definedAttributes = new LinkedList<MdAttributeConcrete>();
     MdRelationshipDAOIF mdRelationshipDAO = MdRelationshipDAO.get(mdRelationship.getId());
 
-    List<? extends MdAttributeConcreteDAOIF> mdAttributes = mdRelationshipDAO
-        .getAllDefinedMdAttributes();
+    List<? extends MdAttributeConcreteDAOIF> mdAttributes = mdRelationshipDAO.getAllDefinedMdAttributes();
 
     for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
     {
@@ -248,9 +235,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @Transaction
+  @Authenticate
   public static MdWebForm apply(MdWebForm mdForm)
   {
-    if (mdForm.isNew() && !mdForm.isAppliedToDB())
+    boolean first = mdForm.isNew() && !mdForm.isAppliedToDB();
+
+    if (first)
     {
       String typeName = GeoHierarchy.getSystemName(mdForm.getFormName());
       String label = mdForm.getDisplayLabel().getValue();
@@ -273,6 +263,24 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     mdForm.apply();
 
+    if (first)
+    {
+      new FormSystemURLBuilder(mdForm).generate();
+    }
+
     return mdForm;
+  }
+
+  @Transaction
+  @Authenticate
+  public static void delete(MdWebForm mdForm)
+  {
+    new FormSystemURLBuilder(mdForm).delete();
+
+    MdClass mdClass = mdForm.getFormMdClass();
+
+    mdForm.delete();
+
+    mdClass.delete();
   }
 }

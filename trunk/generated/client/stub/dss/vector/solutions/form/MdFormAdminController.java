@@ -12,36 +12,35 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdFieldDTO;
 import com.runwaysdk.system.metadata.MdTypeDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class MdFormAdminController extends MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/form/";
+  public static final String JSP_DIR                   = "WEB-INF/dss/vector/solutions/form/";
 
-  public static final String LAYOUT           = "/layout.jsp";
-  
-  public static final String MDFORM_ADMIN = JSP_DIR+"mdFormAdmin.jsp";
-  
-  public static final String AVAILABLE_MD_FIELDS_JSP = JSP_DIR+"availableMdFields.jsp";
-  
-  public static final String EXISTING_FORMS_JSP = JSP_DIR+"existingForms.jsp";
+  public static final String LAYOUT                    = "/layout.jsp";
 
-  public static final String FETCH_FORM_ATTRIBUTES_JSP = JSP_DIR+"fetchFormAttributes.jsp";
+  public static final String MDFORM_ADMIN              = JSP_DIR + "mdFormAdmin.jsp";
 
-  public static final String EDIT_FORM_ATTRIBUTES_JSP = JSP_DIR+"editFormAttributes.jsp";
+  public static final String AVAILABLE_MD_FIELDS_JSP   = JSP_DIR + "availableMdFields.jsp";
 
-  public static final String CREATE_NEW_FORM_JSP = JSP_DIR+"createNewForm.jsp";
+  public static final String EXISTING_FORMS_JSP        = JSP_DIR + "existingForms.jsp";
 
-  private static final long  serialVersionUID = -117792511;
+  public static final String FETCH_FORM_ATTRIBUTES_JSP = JSP_DIR + "fetchFormAttributes.jsp";
+
+  public static final String EDIT_FORM_ATTRIBUTES_JSP  = JSP_DIR + "editFormAttributes.jsp";
+
+  public static final String CREATE_NEW_FORM_JSP       = JSP_DIR + "createNewForm.jsp";
+
+  private static final long  serialVersionUID          = -117792511;
 
   public MdFormAdminController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous, JSP_DIR, LAYOUT);
   }
-  
+
   @Override
   public void viewAll() throws IOException, ServletException
   {
@@ -54,12 +53,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       render("viewAllComponent.jsp");
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void existingForms() throws IOException, ServletException
   {
@@ -72,12 +71,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.getRequestDispatcher(EXISTING_FORMS_JSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void fetchFormAttributes(String id) throws IOException, ServletException
   {
@@ -89,12 +88,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void editFormAttributes(String id) throws IOException, ServletException
   {
@@ -106,13 +105,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.getRequestDispatcher(EDIT_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
-  
+
   @Override
   public void availableFields() throws IOException, ServletException
   {
@@ -120,15 +118,15 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       MdFieldTypeQueryDTO query = MdFormUtilDTO.getAvailableFields(this.getClientRequest());
       req.setAttribute("results", query.getResultSet());
-      
+
       this.req.getRequestDispatcher(AVAILABLE_MD_FIELDS_JSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   /**
    * Provides a new MdField definition screen.
    */
@@ -138,42 +136,42 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       MdTypeDTO mdType = MdTypeDTO.get(this.getClientRequest(), mdFieldType);
-      String type = mdType.getPackageName()+"."+mdType.getTypeName();
-      
+      String type = mdType.getPackageName() + "." + mdType.getTypeName();
+
       // grab the appropriate MdField
-      Class<?> klass = LoaderDecorator.load(type+TypeGeneratorInfo.DTO_SUFFIX);
-      
+      Class<?> klass = LoaderDecorator.load(type + TypeGeneratorInfo.DTO_SUFFIX);
+
       // populate the new MdField instance
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(this.getClientRequest());
       this.req.setAttribute("item", dto);
-      
+
       // forward to the namespaced jsp
       String pck = type.replaceAll("\\.", File.separator);
-      String createJSP = "WEB-INF"+File.separator+ pck+File.separator+"createComponent.jsp";
-      
+      String createJSP = "WEB-INF" + File.separator + pck + File.separator + "createComponent.jsp";
+
       this.req.getRequestDispatcher(createJSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void createMdField(MdFieldDTO mdField, String mdFormId) throws IOException, ServletException
   {
     try
     {
       MdFieldDTO created = MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
-      
+
       // forward to the proper read view
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void failViewAll() throws IOException
   {
@@ -181,7 +179,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   @Override
-  public void newInstance() throws java.io.IOException, javax.servlet.ServletException  
+  public void newInstance() throws java.io.IOException, javax.servlet.ServletException
   {
     this.newInstance(new MdWebFormDTO(this.getClientRequest()));
   }
@@ -194,11 +192,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.getRequestDispatcher(CREATE_NEW_FORM_JSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+
   public void failNewInstance() throws IOException, ServletException
   {
     this.viewAll();
@@ -206,7 +205,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
   @Override
   public void create(MdWebFormDTO form) throws IOException, ServletException
-  {    
+  {
     try
     {
       MdFormUtilDTO.apply(getClientRequest(), form);
@@ -214,7 +213,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
@@ -225,7 +224,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     this.newInstance(form);
   }
-  
+
   @Override
   public void view(String id) throws IOException, ServletException
   {
@@ -237,18 +236,18 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
 
       render("viewComponent.jsp");
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void failView(String id) throws IOException, ServletException
   {
     this.viewAll();
   }
-  
+
   @Override
   public void edit(String id) throws IOException, ServletException
   {
@@ -256,22 +255,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = super.getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.lock(clientRequest, id);
-     
+
       req.setAttribute("form", form);
       render("editComponent.jsp");
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void failEdit(String id) throws IOException, ServletException
   {
     this.edit(id);
   }
-  
+
   @Override
   public void update(MdWebFormDTO form) throws IOException, ServletException
   {
@@ -280,63 +279,64 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       form.apply();
       this.fetchFormAttributes(form.getId());
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void failUpdate(MdWebFormDTO form) throws IOException, ServletException
   {
     req.setAttribute("item", form);
     render("editComponent.jsp");
   }
-  
+
   @Override
   public void delete(MdWebFormDTO form) throws IOException, ServletException
   {
     try
     {
-      form.delete();
+      MdFormUtilDTO.delete(getClientRequest(), form);
+
       this.viewAll();
     }
-    catch(Throwable t)
+    catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void failDelete(MdWebFormDTO form) throws IOException, ServletException
   {
     req.setAttribute("item", form);
     render("editComponent.jsp");
   }
-  
+
   @Override
   public void cancel(MdWebFormDTO form) throws IOException, ServletException
   {
     form.unlock();
     this.view(form.getId());
   }
-  
+
   public void failCancel(MdWebFormDTO form) throws IOException, ServletException
   {
     this.edit(form.getId());
   }
-  
+
   @Override
   public void mdFormAdmin() throws IOException, ServletException
   {
     try
     {
       /*
-      ClientRequestIF clientRequest = this.getClientRequest();
-      MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
-
-      this.req.setAttribute("forms", forms);
-      */
+       * ClientRequestIF clientRequest = this.getClientRequest(); MdWebFormDTO[]
+       * forms = MdFormUtilDTO.getAllForms(clientRequest);
+       * 
+       * this.req.setAttribute("forms", forms);
+       */
       this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
     }
     catch (Throwable t)

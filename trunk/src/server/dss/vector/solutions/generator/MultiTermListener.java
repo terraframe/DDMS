@@ -1,5 +1,6 @@
 package dss.vector.solutions.generator;
 
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
@@ -65,17 +66,33 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(mdField.getFieldName());
     Method method = clazz.getMethod(methodName, Term.class);
 
-    for (Term term : roots)
+    try
     {
-      for (ExcelColumn column : extraColumns)
+      for (Term term : roots)
       {
-        String attributeName = this.getAttributeName(fieldName, term);
-
-        if (column.getAttributeName().equals(attributeName) && ExcelUtil.getBoolean(row.getCell(column.getIndex())))
+        for (ExcelColumn column : extraColumns)
         {
-          Relationship relationship = (Relationship) method.invoke(instance, term);
-          relationships.add(relationship);
+          String attributeName = this.getAttributeName(fieldName, term);
+
+          if (column.getAttributeName().equals(attributeName) && ExcelUtil.getBoolean(row.getCell(column.getIndex())))
+          {
+            Relationship relationship = (Relationship) method.invoke(instance, term);
+            relationships.add(relationship);
+          }
         }
+      }
+    }
+    catch (InvocationTargetException e)
+    {
+      Throwable cause = e.getCause();
+
+      if (cause instanceof RuntimeException)
+      {
+        throw (RuntimeException) cause;
+      }
+      else
+      {
+        throw new RuntimeException(cause);
       }
     }
   }

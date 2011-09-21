@@ -1,12 +1,15 @@
 package dss.vector.solutions.generator;
 
+import java.util.LinkedList;
 import java.util.List;
 
-import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.MdFormDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdMethodDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -25,6 +28,7 @@ import com.runwaysdk.system.metadata.MdWebDate;
 import com.runwaysdk.system.metadata.MdWebDouble;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebFloat;
+import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
@@ -52,9 +56,14 @@ import dss.vector.solutions.util.ReadableAttributeView;
 
 public class FormSystemURLBuilder implements Reloadable
 {
-  private MdFormDAOIF mdForm;
+  private MdWebFormDAOIF mdForm;
 
-  public FormSystemURLBuilder(MdFormDAOIF mdForm)
+  public FormSystemURLBuilder(MdWebForm mdForm)
+  {
+    this(MdWebFormDAO.get(mdForm.getId()));
+  }
+
+  public FormSystemURLBuilder(MdWebFormDAOIF mdForm)
   {
     this.mdForm = mdForm;
   }
@@ -108,7 +117,11 @@ public class FormSystemURLBuilder implements Reloadable
   @Transaction
   public void generate()
   {
-    MdClassDAOIF mdClass = mdForm.getFormMdClass();
+    MdBusinessDAOIF mdBusiness = (MdBusinessDAOIF) mdForm.getFormMdClass();
+
+    List<MdRelationshipDAOIF> mdRelationships = new LinkedList<MdRelationshipDAOIF>();
+    mdRelationships.addAll(mdBusiness.getAllChildMdRelationships());
+    mdRelationships.addAll(mdBusiness.getAllParentMdRelationships());
 
     // Create the system url for the CRUD screen
     SystemURL crudURL = new SystemURL();
@@ -128,11 +141,21 @@ public class FormSystemURLBuilder implements Reloadable
     {
       // Create the Write role for the CRUD screen
       WriteAction crudWriteAction = new WriteAction(crudURL, disease);
-      crudWriteAction.assign(mdClass);
+      crudWriteAction.assign(mdBusiness);
+
+      for (MdRelationshipDAOIF mdRelationship : mdRelationships)
+      {
+        crudWriteAction.assign(mdRelationship);
+      }
 
       // Create the Read Role for the CRUD screen
       ReadAction crudReadAction = new ReadAction(crudURL, disease);
-      crudReadAction.assign(mdClass);
+      crudReadAction.assign(mdBusiness);
+
+      for (MdRelationshipDAOIF mdRelationship : mdRelationships)
+      {
+        crudReadAction.assign(mdRelationship);
+      }
 
       // Create the Write role for the query screen
       WriteAction queryWriteAction = new WriteAction(queryURL, disease);
@@ -180,7 +203,7 @@ public class FormSystemURLBuilder implements Reloadable
   @Request
   public static void main(String[] args)
   {
-    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO("com.test.TestTypeForm");
+    MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO("com.test.TestTypeForm");
 
     if (args[0].equals("delete"))
     {
