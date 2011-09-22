@@ -117,7 +117,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     newMdFieldDialog : function(html)
     {
-      this._fieldsDialog.getImpl().hide();
+      this._fieldsDialog.getImpl().hide(); // FIXME add show/hide to widgets
     
       var executable = MDSS.util.extractScripts(html);
       var pureHTML = MDSS.util.removeScripts(html);
@@ -213,7 +213,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     _cancelListener : function(params)
     {
       var that = this;
-      var request = new MDSS.ClientRequest({
+      var request = new MDSS.Request({
         onSuccess : function(html)
         {
           alert('Update Canceled!');
