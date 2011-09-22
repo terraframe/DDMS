@@ -74,6 +74,10 @@ Function patchApplication
   ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
   Call JavaAbort
   
+  # We need to clear the old cache
+  Delete $INSTDIR\tomcat6\$AppName.index
+  Delete $INSTDIR\tomcat6\$AppName.data
+  
   # Build any dimensional metadata with the Master domain
   !insertmacro MUI_HEADER_TEXT "Patching Runway" "Building dimensional metadata for $AppName..."
   ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
@@ -83,10 +87,6 @@ Function patchApplication
   !insertmacro MUI_HEADER_TEXT "Patching Runway" "Recompiling $AppName..."
   ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath  com.runwaysdk.util.UpdateDatabaseSourceAndClasses -compile` $JavaError
   Call JavaAbort  
-  
-  # We need to clear the old cache
-  Delete $INSTDIR\tomcat6\$AppName.index
-  Delete $INSTDIR\tomcat6\$AppName.data
   
 FunctionEnd
 
