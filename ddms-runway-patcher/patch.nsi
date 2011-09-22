@@ -100,7 +100,7 @@ Section -Main SEC0000
     StrCpy $PatchDir "$INSTDIR\runway_patch"
     StrCpy $AgentDir "$PatchDir\output"
     StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
-    StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\java.exe"
+    StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe"
     StrCpy $ManagerLibDir "$INSTDIR\manager\backup-manager-1.0.0\lib"
     
     !insertmacro MUI_HEADER_TEXT "Patching Runway" "Copying patch files"
