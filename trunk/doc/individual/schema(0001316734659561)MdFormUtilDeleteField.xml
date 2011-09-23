@@ -1,0 +1,45 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdUtil
+        name="dss.vector.solutions.generator.MdFormUtil">
+        <create>
+          <mdMethod
+            name="deleteField"
+            label="delete field"
+            returnType="void"
+            static="true">
+            <mdParameter
+              name="mdForm"
+              label="MdForm"
+              order="0"
+              type="com.runwaysdk.system.metadata.MdWebForm" />
+            <mdParameter
+              name="mdField"
+              label="MdField"
+              order="1"
+              type="com.runwaysdk.system.metadata.MdWebField" />
+          </mdMethod>
+        </create>
+      </mdUtil>
+
+    </update>
+    <permissions>
+      <method
+        methodName="deleteField"
+        type="dss.vector.solutions.generator.MdFormUtil">
+        <assignedRole
+          roleName="Administrator" />
+      </method>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.generator.MdFormUtil.deleteField"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>
