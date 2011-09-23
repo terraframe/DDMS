@@ -33,6 +33,7 @@ import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdFieldDisplayLabel;
 import com.runwaysdk.system.metadata.MdRelationship;
+import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
@@ -282,5 +283,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     mdForm.delete();
 
     mdClass.delete();
+  }
+  
+  @Transaction
+  @Authenticate
+  public static void deleteField(MdWebForm mdForm, MdWebField mdField)
+  {
+    try {
+    MdWebAttribute attr = (MdWebAttribute) mdField;
+    MdAttribute definingAttr = attr.getDefiningMdAttribute();
+    mdForm.removeMdFields(attr);
+    attr.delete();
+    definingAttr.delete();
+    } catch (Throwable t)
+    {
+      throw new ProgrammingErrorException(t);
+    }
   }
 }

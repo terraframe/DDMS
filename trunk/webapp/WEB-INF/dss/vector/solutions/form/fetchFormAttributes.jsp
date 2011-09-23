@@ -30,6 +30,8 @@
 			<div class="form-action-row" id="formActionRow">
 			    <mdss:localize key="Edit" var="Localized_Edit" />
           <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.form.MdFormAdminController.editFormAttributes.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.editFormAttributes.button"/>
+			    <mdss:localize key="Delete" var="Localized_Delete" />
+          <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.form.MdFormAdminController.delete.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.delete.button"/>
 			</div>
     </div>
   <!-- end form attributes -->    
@@ -44,7 +46,7 @@
             <a href="#" class="form-button-done">Done</a>
             <a href="#" class="form-button-add" id="availableFields">Add Field</a>
         </div>
-        <ul class="form-item-row">
+        <ul class="form-item-row" id="formItemRow">
         </ul>
     </div>
   <!-- end fields -->    

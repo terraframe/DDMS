@@ -11,6 +11,7 @@ import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdFieldDTO;
 import com.runwaysdk.system.metadata.MdTypeDTO;
+import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
@@ -29,6 +30,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String EXISTING_FORMS_JSP        = JSP_DIR + "existingForms.jsp";
 
   public static final String FETCH_FORM_ATTRIBUTES_JSP = JSP_DIR + "fetchFormAttributes.jsp";
+
+  public static final String FETCH_FORM_FIELDS_JSP = JSP_DIR + "fetchFormFields.jsp";
 
   public static final String EDIT_FORM_ATTRIBUTES_JSP  = JSP_DIR + "editFormAttributes.jsp";
 
@@ -68,7 +71,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
 
       this.req.setAttribute("forms", forms);
-
+      
       this.req.getRequestDispatcher(EXISTING_FORMS_JSP).forward(req, resp);
     }
     catch (Throwable t)
@@ -87,6 +90,24 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       req.setAttribute("form", form);
 
       this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_JSP).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void fetchFormFields(String id) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, id);
+      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
+      req.setAttribute("fields", fields);
+      
+      this.req.getRequestDispatcher(FETCH_FORM_FIELDS_JSP).forward(req, resp);
     }
     catch (Throwable t)
     {
@@ -297,9 +318,39 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      MdFormUtilDTO.delete(getClientRequest(), form);
-
-      this.viewAll();
+      ClientRequestIF clientRequest = getClientRequest();
+      MdFormUtilDTO.delete(clientRequest, form);
+      
+      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
+      
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void deleteField(String formId, String fieldId) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
+      
+      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
+      MdWebFieldDTO fieldToDelete = null;
+      for (MdWebFieldDTO field : fields)
+      {
+        if (fieldId.equals(field.getId()))
+          fieldToDelete = field;
+      }
+      
+      MdFormUtilDTO.deleteField(clientRequest, form, fieldToDelete);
+      
+      req.setAttribute("fields", fields);
+      
+      this.req.getRequestDispatcher(FETCH_FORM_FIELDS_JSP).forward(req, resp);
     }
     catch (Throwable t)
     {

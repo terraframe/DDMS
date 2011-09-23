@@ -18,6 +18,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		FORM_CONTENT : 'formContent',
 		FORM_CONTENT_BOX : 'formContentBox',
 		FORM_ACTION_ROW : 'formActionRow',
+		FORM_ITEM_ROW : 'formItemRow',
 		EDIT_BUTTON : 'editBtn'
   },
   Instance : {
@@ -40,6 +41,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 			var createB = Mojo.Util.bind(this, this._createListener);
 			this._MdFormAdminController.setCreateListener(createB);
+      
+			var deleteB = Mojo.Util.bind(this, this._deleteListener);
+			this._MdFormAdminController.setDeleteListener(deleteB);
       
 			var editB = Mojo.Util.bind(this, this.requestEdit);
 			this._MdFormAdminController.setEditFormAttributesListener(editB);
@@ -159,22 +163,38 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.existingForms(request);
 		},
-		viewForm : function(e)
-		{
-			var id = e.currentTarget.get('id');
-			this._currentMdFormId = id;
+	  viewForm : function(e)
+    {
+      var id = e.currentTarget.get('id');
+      this._currentMdFormId = id;
 			var that = this;
 			var request = new MDSS.Request({
 	      onSuccess : function(html){
 					var executable = MDSS.util.extractScripts(html);
 	        var pureHTML = MDSS.util.removeScripts(html);
 					document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
-					eval(executable);
-          //YAHOO.util.Event.on(that.constructor.EDIT_BUTTON, 'click', that.requestEdit, null, this);
+          eval(executable);
+          that.fetchFormFields();
+          that._Y.one('#'+that.constructor.FORM_ITEM_ROW).delegate('click', that.deleteField, 'a.form-item-row-delete', that);
 	      }
       });
       
       this._MdFormAdminController.fetchFormAttributes(request, id);
+		},
+		fetchFormFields : function()
+		{
+			var id = this._currentMdFormId;
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
+          eval(executable);
+        }
+      });
+      
+      this._MdFormAdminController.fetchFormFields(request, id);
 		},
 		_createListener : function(form)
     {
@@ -187,7 +207,23 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
           eval(executable);
 					that.existingForms();
-          alert('Update Successful!');  
+          alert('New Form Created!');  
+        }
+      });
+      
+      return request;
+    },
+		_deleteListener : function(form)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_CONTENT).innerHTML = "";
+          eval(executable);
+          that.existingForms();
         }
       });
       
@@ -240,6 +276,23 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			var id = document.getElementById("MdFormId").value;
 		  this._MdFormAdminController.editFormAttributes(request, id);
 		},
+		deleteField : function(e)
+    {
+			var fieldId = e.currentTarget.get('id');
+      var that = this;
+      var request = new MDSS.Request({
+       onSuccess : function(html)
+       {
+         var executable = MDSS.util.extractScripts(html);
+         var pureHTML = MDSS.util.removeScripts(html);
+         document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
+         eval(executable);
+				 that.fetchFormFields();
+       }
+      });
+      var formId = document.getElementById("MdFormId").value;
+      this._MdFormAdminController.deleteField(request, formId, fieldId);
+    },
 		createNewForm : function()
 		{
 			var that = this;
