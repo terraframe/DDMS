@@ -4,20 +4,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.constants.MdAttributeConcreteInfo;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdAttributeBooleanDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeCharacterDAO;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDateDAO;
-import com.runwaysdk.dataaccess.metadata.MdAttributeTextDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
@@ -25,22 +19,19 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
-import com.runwaysdk.system.metadata.MdField;
-import com.runwaysdk.system.metadata.MdFieldDisplayLabel;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
-import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.geo.GeoHierarchy;
 
@@ -81,8 +72,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    * Creates an MdField and the associated MdAttribute in DDMS. The mapping is
    * one-to-one.
    * 
-   * >>>>>>> .r6395
-   * 
    * @param mdField
    * @param mdFormId
    * @return
@@ -90,70 +79,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Transaction
   public static com.runwaysdk.system.metadata.MdField createMdField(com.runwaysdk.system.metadata.MdField mdField, java.lang.String mdFormId)
   {
-    if (mdField instanceof MdWebPrimitive)
-    {
-      String fieldName = mdField.getFieldName();
-      MdFieldDisplayLabel displayLabel = mdField.getDisplayLabel();
-      Boolean required = mdField.getRequired();
-      MetadataDisplayLabel description = mdField.getDescription();
-
-      MdWebForm webForm = MdWebForm.get(mdFormId);
-      String mdClassId = webForm.getFormMdClassId();
-
-      // First define an MdAttribute based on the incoming MdField
-      MdWebPrimitive webPrimitive = (MdWebPrimitive) mdField;
-      String mdAttributeType = webPrimitive.getExpectedMdAttributeType();
-
-      Locale locale = SessionFacade.getPublicSession().getLocale();
-
-      // generic attribute info
-      MdAttributeDAO mdAttr = (MdAttributeDAO) MdAttributeDAO.newInstance(mdAttributeType);
-      mdAttr.setValue(MdAttributeConcreteInfo.NAME, fieldName);
-      mdAttr.setValue(MdAttributeConcreteInfo.REQUIRED, required.toString());
-      mdAttr.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdClassId);
-      // FIXME use current locale
-      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE, displayLabel.getDefaultValue());
-      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE, description.getDefaultValue());
-
-      if (mdAttr instanceof MdAttributeCharacterDAO)
-      {
-
-      }
-      else if (mdAttr instanceof MdAttributeTextDAO)
-      {
-
-      }
-      else if (mdAttr instanceof MdAttributeBooleanDAO)
-      {
-
-      }
-      else if (mdAttr instanceof MdAttributeDateDAO)
-      {
-
-      }
-      // else if(mdAttr instanceof MdAttributeNumberDAO)
-      // {
-      //        
-      // }
-
-      mdAttr.apply();
-
-      // now apply the Mdfield
-      webPrimitive.setDefiningMdForm(webForm);
-
-      MdAttribute mdAttrBus = MdAttribute.get(mdAttr.getId());
-      webPrimitive.setDefiningMdAttribute(mdAttrBus);
-    }
-    else
-    {
-      throw new ProgrammingErrorException("The MdField is currently not supported.");
-    }
-
-    // Applying a new MdAttribute can cause a ClassCastException due to a
-    // reload, so get a fresh copy
-    return MdField.get(mdField.getId());
+    DDMSFieldBuilders.create(mdField, mdFormId);
+    
+    return mdField;
   }
-
+  
   public static MdWebForm[] getAllForms()
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());

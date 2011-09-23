@@ -1,7 +1,7 @@
 package dss.vector.solutions.form;
 
+import com.runwaysdk.query.F;
 import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdFieldQuery;
 import com.runwaysdk.system.metadata.MdTypeQuery;
 import com.runwaysdk.system.metadata.MdWebBoolean;
 import com.runwaysdk.system.metadata.MdWebCharacter;
@@ -55,6 +55,7 @@ private static final long serialVersionUID = 1649662279;
       query.map(MdFieldType.MDFIELDID, mdTypeQuery.getId("mdFieldId"));
       query.map(MdFieldType.DISPLAYLABEL, mdTypeQuery.getDisplayLabel().localize("displayLabel"));
       query.map(MdFieldType.DESCRIPTION, mdTypeQuery.getDescription().localize("description"));
+      query.map(MdFieldType.MDFIELDTYPE, F.CONCAT(mdTypeQuery.getPackageName(), F.CONCAT(".", mdTypeQuery.getTypeName())));
     }
 
     /**

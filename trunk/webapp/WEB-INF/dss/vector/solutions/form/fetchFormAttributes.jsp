@@ -15,15 +15,14 @@
 <mjl:input value="${form.id}" type="hidden" param="id" id="MdFormId"/>
 
   <!-- start form attributes -->
-  <h4>Form Attributes</h4>
     <div class="form-content-box" id="formContentBox">
 			<ul class="form-row">
 			    <li>
-			        <label>Form Name</label>
+			        <label>${form.formNameMd.displayLabel}</label>
 			        <label>${form.formName}</label>
 			    </li>
 			    <li>
-			        <label>Form Display Label</label>
+			        <label>${form.displayLabelMd.displayLabel}</label>
 			        <label>${form.displayLabel}</label>
 			    </li>
 			</ul>

@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
-<mjl:component param="dto" item="${item}">
+<mjl:component param="mdField" item="${item}">
   <mjl:dt attribute="height">
     <mjl:input param="height" type="text" />
   </mjl:dt>

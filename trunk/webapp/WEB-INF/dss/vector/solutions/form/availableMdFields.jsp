@@ -5,8 +5,8 @@
 
 <ul>
 <c:forEach items="${results}" var="item">
-  <li id="${item.mdFieldId}">
-    <span title="${item.description}">${item.displayLabel}</span>
+  <li id="${item.mdFieldType}">
+    <span title="${item.description}">${item.mdFieldType}</span>
   </li>
 </c:forEach>
 </ul>

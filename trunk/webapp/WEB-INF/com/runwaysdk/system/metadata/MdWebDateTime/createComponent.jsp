@@ -10,6 +10,6 @@
   <mjl:form id="com.runwaysdk.system.metadata.MdWebDateTime.form.id" name="com.runwaysdk.system.metadata.MdWebDateTime.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize var="Create_Localize" key="Create" />
-    <mjl:command name="com.runwaysdk.system.metadata.MdWebDateTime.form.create.button" value="${Create_Localize}" action="com.runwaysdk.system.metadata.MdWebDateTimeController.create.mojo" />
+    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.createMdField.button" value="${Create_Localize}" action="dss.vector.solutions.form.MdFormAdminController.createMdField.mojo" />
   </mjl:form>
 </dl>

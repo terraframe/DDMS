@@ -1,0 +1,59 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdView name="dss.vector.solutions.form.MdFieldType">
+        <create>
+          <attributes>
+            <char
+              name="mdFieldType"
+              label="MdField Type"
+              description="The fully qualified class name of the MdField."
+              required="true"
+              size="255" />
+          </attributes>
+        </create>
+      </mdView>
+    
+      <mdController name="dss.vector.solutions.form.MdFormAdminController">
+        <create>
+          <mdAction
+            name="updateMdField"
+            label="Update MdField"
+            isPost="true">
+            <mdParameter
+              name="mdField"
+              label="MdField"
+              description="The MdField to update"
+              order="0"
+              type="com.runwaysdk.system.metadata.MdField"/>
+          </mdAction>
+        </create>
+      </mdController>
+    
+     <mdUtil
+       name="dss.vector.solutions.generator.MdFormUtil">
+       <create>
+         <mdMethod
+           name="updateMdField"
+           label="updateMdField"
+           description="Updates an MdField on an MdForm"
+           static="true"
+           returnType="com.runwaysdk.system.metadata.MdField">
+           <mdParameter name="mdField"
+             label="MdField"
+             description="The MdField to update."
+             order="0"
+             type="com.runwaysdk.system.metadata.MdField"/>
+         </mdMethod>
+
+       </create>
+     </mdUtil>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

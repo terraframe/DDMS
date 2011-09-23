@@ -47,6 +47,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
 			var editB = Mojo.Util.bind(this, this.requestEdit);
 			this._MdFormAdminController.setEditFormAttributesListener(editB);
+			
+			var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
+			this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
       
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
@@ -116,8 +119,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         }
       });
       
-      var mdFieldId = e.target.get('id');
-      this._MdFormAdminController.newMdField(request, mdFieldId);
+      var mdFieldType = e.currentTarget.get('id');
+      this._MdFormAdminController.newMdField(request, mdFieldType);
     },
     newMdFieldDialog : function(html)
     {
@@ -140,9 +143,30 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         //this._Y.one(this._fieldFormDialog.getContentEl().getId()).delegate('click', this._
       }
       
-      // No controllers exist for the MdField classes (at least not yet),
-      // so we do not execute the javascript that will fire the MdAction listeners.
-      //exec(executable);
+      // Note that the MdField jsps have been changed to re-route to MdFormAdminController instead
+      // of the normal controller (e.g., MdWebBooleanController). This is because the MdField controllers
+      // do not exist, although we use the generated jsps that normally reference them.
+      eval(executable);
+    },
+    createMdField : function(fieldMap)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          that._fieldFormDialog.getImpl().hide();
+        
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
+          eval(executable);
+        }
+      });
+      
+      // manually set the MdForm id because it is not in the actual form.
+      fieldMap['mdFormId'] = this._currentMdFormId;
+
+      return request;
     },
 		/**
 		 * Makes a request to display all existing forms on the sidebar

@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = -832256959)
+@com.runwaysdk.business.ClassSignature(hash = -815089894)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,8 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
   public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String ID = "id";
   public static java.lang.String MDFIELDID = "mdFieldId";
-  private static final long serialVersionUID = -832256959;
+  public static java.lang.String MDFIELDTYPE = "mdFieldType";
+  private static final long serialVersionUID = -815089894;
   
   public MdFieldTypeBase()
   {
@@ -119,6 +120,34 @@ public abstract class MdFieldTypeBase extends com.runwaysdk.business.View implem
     else
     {
       setValue(MDFIELDID, value);
+    }
+  }
+  
+  public String getMdFieldType()
+  {
+    return getValue(MDFIELDTYPE);
+  }
+  
+  public void validateMdFieldType()
+  {
+    this.validateAttribute(MDFIELDTYPE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFieldTypeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.MdFieldType.CLASS);
+    return mdClassIF.definesAttribute(MDFIELDTYPE);
+  }
+  
+  public void setMdFieldType(String value)
+  {
+    if(value == null)
+    {
+      setValue(MDFIELDTYPE, "");
+    }
+    else
+    {
+      setValue(MDFIELDTYPE, value);
     }
   }
   

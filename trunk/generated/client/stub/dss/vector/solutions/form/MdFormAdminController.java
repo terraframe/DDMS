@@ -10,7 +10,6 @@ import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdFieldDTO;
-import com.runwaysdk.system.metadata.MdTypeDTO;
 import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
 
@@ -156,21 +155,15 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      MdTypeDTO mdType = MdTypeDTO.get(this.getClientRequest(), mdFieldType);
-      String type = mdType.getPackageName() + "." + mdType.getTypeName();
-
       // grab the appropriate MdField
-      Class<?> klass = LoaderDecorator.load(type + TypeGeneratorInfo.DTO_SUFFIX);
+      Class<?> klass = LoaderDecorator.load(mdFieldType + TypeGeneratorInfo.DTO_SUFFIX);
 
       // populate the new MdField instance
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(this.getClientRequest());
       this.req.setAttribute("item", dto);
 
       // forward to the namespaced jsp
-      String pck = type.replaceAll("\\.", File.separator);
-      String createJSP = "WEB-INF" + File.separator + pck + File.separator + "createComponent.jsp";
-
-      this.req.getRequestDispatcher(createJSP).forward(req, resp);
+      this.forwardToFieldPage(mdFieldType, "createComponent.jsp");
     }
     catch (Throwable t)
     {
@@ -183,14 +176,32 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      MdFieldDTO created = MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
-
-      // forward to the proper read view
+      MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
+      
+      // refresh all of the field definitions instead of intelligently trying to insert the field
+      // in the right place.
+      this.fetchFormFields(mdFormId);
     }
     catch (Throwable t)
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
+  }
+  
+  /**
+   * Forwards to the proper namespaced for a given field type.
+   * 
+   * @param type
+   * @param page
+   * @throws IOException 
+   * @throws ServletException 
+   */
+  private void forwardToFieldPage(String type, String page) throws ServletException, IOException
+  {
+    String pck = type.replaceAll("\\.", File.separator);
+    String createJSP = "WEB-INF" + File.separator + pck + File.separator + page;
+
+    this.req.getRequestDispatcher(createJSP).forward(req, resp);
   }
 
   @Override

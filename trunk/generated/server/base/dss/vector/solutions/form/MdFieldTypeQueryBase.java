@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 1623897642)
+@com.runwaysdk.business.ClassSignature(hash = -1928910269)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form;
 public  abstract  class MdFieldTypeQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1623897642;
+private static final long serialVersionUID = -1928910269;
 
   public MdFieldTypeQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -95,6 +95,24 @@ private static final long serialVersionUID = 1623897642;
   public com.runwaysdk.query.SelectableChar getMdFieldId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.form.MdFieldType.MDFIELDID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMdFieldType()
+  {
+    return getMdFieldType(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMdFieldType(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.form.MdFieldType.MDFIELDTYPE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getMdFieldType(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.form.MdFieldType.MDFIELDTYPE, alias, displayLabel);
 
   }
  

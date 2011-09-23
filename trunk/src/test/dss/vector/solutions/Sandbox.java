@@ -20,6 +20,16 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.RequestType;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdType;
+import com.runwaysdk.system.metadata.MdTypeQuery;
+import com.runwaysdk.system.metadata.MdWebBoolean;
+import com.runwaysdk.system.metadata.MdWebCharacter;
+import com.runwaysdk.system.metadata.MdWebDate;
+import com.runwaysdk.system.metadata.MdWebDecimal;
+import com.runwaysdk.system.metadata.MdWebDouble;
+import com.runwaysdk.system.metadata.MdWebInteger;
+import com.runwaysdk.system.metadata.MdWebLong;
+import com.runwaysdk.system.metadata.MdWebText;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyViewQuery;
@@ -46,6 +56,35 @@ public class Sandbox
   @Request
   public static void main(String[] args) throws Exception
   {
+    QueryFactory f = new QueryFactory();
+    MdTypeQuery query = new MdTypeQuery(f);
+    String[] mdFieldIds = new String[] { MdBusiness.getMdBusiness(MdWebBoolean.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebCharacter.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebText.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebInteger.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebLong.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebDouble.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebDecimal.CLASS).getId(),
+        MdBusiness.getMdBusiness(MdWebDate.CLASS).getId() };
+
+    query.WHERE(query.getId().IN(mdFieldIds));
+    
+    OIterator<? extends MdType> iter = query.getIterator();
+    
+    try
+    {
+     while(iter.hasNext())
+     {
+       MdType t = iter.next();
+       String m = t.getId()+" - "+t.getDisplayLabel().getValue()+" - "+t.getDescription().getValue();
+       System.out.println(m);
+     }
+    }
+    finally
+    {
+      iter.close();
+    }
+   
   }
 
   private static String concatenate(Selectable[] selectableArray)
@@ -64,7 +103,8 @@ public class Sandbox
     return sb.toString();
   }
 
-  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
+  private static ValueQuery textLookup(QueryFactory qf, String[] tokenArray,
+      SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
     long WEIGHT = 256;
 
@@ -83,7 +123,8 @@ public class Sandbox
     }
     else
     {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT, 0);
+      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), selectableArray, conditionArray, WEIGHT,
+          0);
     }
 
     // Build outermost select clause. This would be cleaner if the API supported
@@ -116,7 +157,8 @@ public class Sandbox
     return resultQuery;
   }
 
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
+  private static ValueQuery buildQueryForToken(QueryFactory qf, String token,
+      SelectablePrimitive[] selectableArray, Condition[] conditionArray, long WEIGHT, int i)
   {
     ValueQuery vQ = qf.valueQuery();
 
@@ -128,7 +170,8 @@ public class Sandbox
     {
       selectClauseArray[k] = selectableArray[k];
     }
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i) + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
+    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(WEIGHT, i)
+        + " * STRPOS(" + concatenate(selectableArray) + ", ' " + token + "'))");
 
     vQ.SELECT(selectClauseArray);
     vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(selectableArray)).LIKE("% " + token + "%"));
@@ -322,7 +365,8 @@ public class Sandbox
 
   private static void defineDatatypesForAllPaths()
   {
-    MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE + "." + "AllPaths");
+    MdBusinessDAOIF allPathsMdBusinessDAO = MdBusinessDAO.getMdBusinessDAO(PropertyInfo.GEO_PACKAGE
+        + "." + "AllPaths");
     allPathsMdBusinessDAO.getBusinessDAO().delete();
 
     // MdBusinessDAOIF geoEntityMdBusiness =
@@ -395,12 +439,12 @@ public class Sandbox
     // mdIndex.apply();
   }
 
-
   private static void updateAllPaths(GeoHierarchy parentGeoHierarchy)
   {
     updateAllPathsForUniversal(parentGeoHierarchy);
 
-    List<? extends GeoHierarchy> geoHierarchyChildren = parentGeoHierarchy.getAllAcceptsGeoEntity().getAll();
+    List<? extends GeoHierarchy> geoHierarchyChildren = parentGeoHierarchy.getAllAcceptsGeoEntity()
+        .getAll();
 
     for (GeoHierarchy childGeoHierarchy : geoHierarchyChildren)
     {

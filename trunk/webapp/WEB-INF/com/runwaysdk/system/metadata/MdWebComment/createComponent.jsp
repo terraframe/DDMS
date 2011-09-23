@@ -10,6 +10,6 @@
   <mjl:form id="com.runwaysdk.system.metadata.MdWebComment.form.id" name="com.runwaysdk.system.metadata.MdWebComment.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize var="Create_Localize" key="Create" />
-    <mjl:command name="com.runwaysdk.system.metadata.MdWebComment.form.create.button" value="${Create_Localize}" action="com.runwaysdk.system.metadata.MdWebCommentController.create.mojo" />
+    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.createMdField.button" value="${Create_Localize}" action="dss.vector.solutions.form.MdFormAdminController.createMdField.mojo" />
   </mjl:form>
 </dl>
