@@ -453,20 +453,18 @@ public class MenuGenerator implements Reloadable
   private void disableSubmenus(GuiMenuItem menuItem)
   {
     Collection<GuiMenuItem> children = menuItem.getChildren().values();
-    boolean disable = true;
 
-    for (GuiMenuItem child : children)
+    if (children.size() > 0)
     {
-      this.disableSubmenus(child);
-      if (!child.isDisabled())
+      for (GuiMenuItem child : children)
       {
-        disable = false;
-      }
-    }
+        this.disableSubmenus(child);
 
-    if (children.size() > 0 && disable)
-    {
-      menuItem.setDisabled(true);
+        if (!child.isDisabled())
+        {
+          menuItem.setDisabled(false);
+        }
+      }
     }
   }
 
