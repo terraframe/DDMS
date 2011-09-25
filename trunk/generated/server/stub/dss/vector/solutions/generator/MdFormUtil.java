@@ -11,7 +11,6 @@ import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
@@ -23,12 +22,12 @@ import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
-import com.runwaysdk.system.metadata.MdWebPrimitive;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.form.DDMSFieldBuilders;
@@ -83,6 +82,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     
     return mdField;
   }
+  
+  public static MdField updateMdField(MdField mdField)
+  {
+    DDMSFieldBuilders.update(mdField);
+    
+    return mdField;
+  }
+  
   
   public static MdWebForm[] getAllForms()
   {
