@@ -188,6 +188,24 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     }
   }
   
+  @Override
+  public void updateMdField(MdFieldDTO mdField) throws IOException, ServletException
+  {
+    try
+    {
+      MdFormUtilDTO.updateMdField(this.getClientRequest(), mdField);
+      
+      // refresh all of the field definitions instead of intelligently trying to insert the field
+      // in the right place.
+      String mdFormId = ((MdWebFieldDTO)mdField).getDefiningMdFormId();
+      this.fetchFormFields(mdFormId);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
   /**
    * Forwards to the proper namespaced for a given field type.
    * 
