@@ -81,6 +81,25 @@ YAHOO.util.Event.onDOMReady(function(){
 <!-- end side bar for tree -->
 
 <div class="form-content" id="formContent">
+
+  <!-- start form attributes -->
+    <div class="form-content-box" id="formContentBox">
+    </div>
+  <!-- end form attributes -->    
+
+  <!-- start fields -->
+  <div class="tabbed-form-box" id="tabbedFormBox">
+        <ul class="tabs">
+            <li class="tabs-on"><a href="#">Fields</a></li>
+            <li><a href="#">Workflow</a></li>
+        </ul>
+        <div class="form-top-action-row">
+            <a href="#" class="form-button-add" id="availableFields">Add Field</a>
+        </div>
+        <ul class="form-item-row" id="formItemRow">
+        </ul>
+    </div>
+  <!-- end fields -->    
 </div>
 
 <jsp:include page="/WEB-INF/templates/footer.jsp"></jsp:include>

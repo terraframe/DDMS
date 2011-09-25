@@ -216,8 +216,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
    */
   private void forwardToFieldPage(String type, String page) throws ServletException, IOException
   {
-    String pck = type.replaceAll("\\.", File.separator);
-    String createJSP = "WEB-INF" + File.separator + pck + File.separator + page;
+    String pck = type.replaceAll("\\.", "/");
+    String createJSP = "WEB-INF" + "/" + pck + "/" + page;
 
     this.req.getRequestDispatcher(createJSP).forward(req, resp);
   }
@@ -285,6 +285,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       req.setAttribute("form", form);
 
       render("viewComponent.jsp");
+      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
     }
     catch (Throwable t)
     {
@@ -397,8 +398,14 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   @Override
   public void cancel(MdWebFormDTO form) throws IOException, ServletException
   {
-    form.unlock();
-    this.view(form.getId());
+    try {
+      form.unlock();
+      this.fetchFormAttributes(form.getId());
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
   }
 
   public void failCancel(MdWebFormDTO form) throws IOException, ServletException

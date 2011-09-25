@@ -179,9 +179,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var executable = MDSS.util.extractScripts(html);
           var pureHTML = MDSS.util.removeScripts(html);
           document.getElementById(that.constructor.EXISTING_FORMS).innerHTML = pureHTML;
-        },
-        onFailure : function(html){
-          alert("Fetching existing forms failed");
         }
       });
       
@@ -191,15 +188,21 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       var id = e.currentTarget.get('id');
       this._currentMdFormId = id;
+      this.fetchFormAttributes();
+      this.fetchFormFields();
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.deleteField, 'a.form-item-row-delete', this);
+      this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
+		},
+	  fetchFormAttributes : function()
+		{
+			var id = this._currentMdFormId;
 			var that = this;
 			var request = new MDSS.Request({
 	      onSuccess : function(html){
 					var executable = MDSS.util.extractScripts(html);
 	        var pureHTML = MDSS.util.removeScripts(html);
-					document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
+					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
           eval(executable);
-          that.fetchFormFields();
-          that._Y.one('#'+that.constructor.FORM_ITEM_ROW).delegate('click', that.deleteField, 'a.form-item-row-delete', that);
 	      }
       });
       
@@ -228,10 +231,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         {
           var executable = MDSS.util.extractScripts(html);
           var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
+          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
           eval(executable);
 					that.existingForms();
-          alert('New Form Created!');  
         }
       });
       
@@ -261,10 +263,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 				{
 					var executable = MDSS.util.extractScripts(html);
 					var pureHTML = MDSS.util.removeScripts(html);
-					document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
+					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 					eval(executable);
 					that.existingForms();
-					alert('Update Successful!');	
 				}
 			});
 			
@@ -272,18 +273,23 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		},
     _cancelListener : function(params)
     {
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(html)
-        {
-          alert('Update Canceled!');
-					var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
-        }
-      });
-			      
-      return request;
+			if (params["form.isNew"] === "true") {
+			 document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
+			 document.getElementById(this.constructor.FORM_ITEM_ROW).innerHTML = "";
+			 this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+			}
+			else {
+        var that = this;
+				var request = new MDSS.Request({
+					onSuccess: function(html){
+						var executable = MDSS.util.extractScripts(html);
+						var pureHTML = MDSS.util.removeScripts(html);
+						document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+					}
+				});
+				
+				return request;
+			}
     },
 		requestEdit : function()
 		{
@@ -325,7 +331,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        {
          var executable = MDSS.util.extractScripts(html);
          var pureHTML = MDSS.util.removeScripts(html);
-         document.getElementById(that.constructor.FORM_CONTENT).innerHTML = pureHTML;
+         document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
          eval(executable);
        }
       });

@@ -12,25 +12,15 @@
 
 <mjl:form name="MdFormAdmin.form.name" id="MdWebFormAdmin.form.id" method="POST">
 <mjl:component param="form" item="${form}"/>
-
-  <!-- start form attributes -->
-  <h4>Form Attributes</h4>
-    <div class="form-content-box" id="formContentBox">
-			<ul class="form-row">
-			    <li>
-			        <label>Form Name</label>
-			        <mjl:input value="${form.formName}" type="text" param="form.formName" />
-			    </li>
-			    <li>
-			        <label>Form Display Label</label>
-			        <mjl:input value="${form.displayLabel}" type="text" param="form.displayLabel" />
-			    </li>
-			</ul>
-			<div class="form-action-row" id="formActionRow">
-			    <mdss:localize key="Create" var="Localized_Create" />
-			    <mjl:command value="${Localized_Create}" action="dss.vector.solutions.form.MdFormAdminController.create.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.create.button"/>
-			    <mdss:localize key="Cancel" var="Localized_Cancel" />
-			    <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.form.MdFormAdminController.cancel.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.cancel.button" />
-			</div>      
-    </div>
+<mjl:input value="${form.id}" type="hidden" param="id" />
+	<ul class="form-row">
+	  <%@ include file="form.jsp"%>
+	</ul>
+	
+	<div class="form-action-row" id="formActionRow">
+	  <mdss:localize key="Create" var="Localized_Create" />
+	  <mjl:command value="${Localized_Create}" action="dss.vector.solutions.form.MdFormAdminController.create.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.create.button"/>
+	  <mdss:localize key="Cancel" var="Localized_Cancel" />
+	  <mjl:command value="${Localized_Cancel}" action="dss.vector.solutions.form.MdFormAdminController.cancel.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.cancel.button" />
+	</div>      
 </mjl:form>

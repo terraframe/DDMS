@@ -5,10 +5,12 @@
 
 
 <mjl:component param="form" item="${form}">
-  <mjl:dt attribute="formName">
-    <mjl:input type="text" param="formName"/>
-  </mjl:dt>
-  <mjl:dt attribute="displayLabel">
-    <mjl:input type="text" param="displayLabel"/>
-  </mjl:dt>
+    <li>
+        <label>Form Name</label>
+        <mjl:input value="${form.formName}" type="text" param="formName" />
+    </li>
+    <li>
+        <label>Form Display Label</label>
+        <mjl:input value="${form.displayLabel}" type="text" param="displayLabel" />
+    </li>
 </mjl:component>

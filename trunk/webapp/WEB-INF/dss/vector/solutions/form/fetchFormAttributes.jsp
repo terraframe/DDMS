@@ -14,8 +14,6 @@
 <mjl:component param="form" item="${form}"/>
 <mjl:input value="${form.id}" type="hidden" param="id" id="MdFormId"/>
 
-  <!-- start form attributes -->
-    <div class="form-content-box" id="formContentBox">
 			<ul class="form-row">
 			    <li>
 			        <label>${form.formNameMd.displayLabel}</label>
@@ -32,22 +30,5 @@
 			    <mdss:localize key="Delete" var="Localized_Delete" />
           <mjl:command value="${Localized_Delete}" action="dss.vector.solutions.form.MdFormAdminController.delete.mojo" name="dss.vector.solutions.form.MdFormAdminController.form.delete.button"/>
 			</div>
-    </div>
-  <!-- end form attributes -->    
-
-  <!-- start fields -->
-  <div class="tabbed-form-box">
-        <ul class="tabs">
-            <li class="tabs-on"><a href="#">Fields</a></li>
-            <li><a href="#">Workflow</a></li>
-        </ul>
-        <div class="form-top-action-row">
-            <a href="#" class="form-button-done">Done</a>
-            <a href="#" class="form-button-add" id="availableFields">Add Field</a>
-        </div>
-        <ul class="form-item-row" id="formItemRow">
-        </ul>
-    </div>
-  <!-- end fields -->    
 
 </mjl:form>
