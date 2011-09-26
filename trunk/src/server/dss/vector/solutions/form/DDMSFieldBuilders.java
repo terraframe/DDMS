@@ -18,7 +18,6 @@ import com.runwaysdk.system.metadata.MdWebDate;
 import com.runwaysdk.system.metadata.MdWebDateTime;
 import com.runwaysdk.system.metadata.MdWebDecimal;
 import com.runwaysdk.system.metadata.MdWebDouble;
-import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebFloat;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebGeo;
@@ -78,8 +77,7 @@ public class DDMSFieldBuilders implements Reloadable
    */
   public static void update(MdField mdField)
   {
-    WebFieldBuilder builder = builders.get(mdField.getType());
-    builder.update(mdField);
+    
   }
   
   /**
@@ -98,12 +96,7 @@ public class DDMSFieldBuilders implements Reloadable
      */
     protected void create(MdField mdField, MdWebForm webForm)
     {
-      mdField.apply();
-    }
-    
-    protected void update(MdField mdField)
-    {
-      mdField.apply();
+
     }
   }
   
@@ -116,7 +109,7 @@ public class DDMSFieldBuilders implements Reloadable
      * @param webForm
      * @return
      */
-    protected MdAttributeDAO createMdAttribute(MdWebField mdField)
+    protected MdAttributeDAO createMdAttribute(MdField mdField, MdWebForm webForm)
     {
       MdWebPrimitive webPrimitive = (MdWebPrimitive) mdField;
       String mdAttributeType = webPrimitive.getExpectedMdAttributeType();
@@ -124,7 +117,7 @@ public class DDMSFieldBuilders implements Reloadable
       MdAttributeDAO mdAttr = (MdAttributeDAO) MdAttributeDAO.newInstance(mdAttributeType);
       mdAttr.setValue(MdAttributeConcreteInfo.NAME, mdField.getFieldName()); // FIXME use english generated fieldName
       mdAttr.setValue(MdAttributeConcreteInfo.REQUIRED, mdField.getRequired().toString());
-      mdAttr.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdField.getDefiningMdForm().getMdClass().getId());
+      mdAttr.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, webForm.getFormMdClassId());
 
       Locale locale = Session.getCurrentLocale(); // FIXME set proper locale
       mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE, mdField.getDisplayLabel().getValue(locale));
@@ -133,27 +126,26 @@ public class DDMSFieldBuilders implements Reloadable
       return mdAttr;
     }
     
+    protected void createMdField(MdField mdField, MdWebForm webForm)
+    {
+      // Create the MdField
+      MdWebAttribute webAttribute = (MdWebAttribute) mdField;
+      webAttribute.setDefiningMdForm(webForm);
+    }
+    
     @Override
     protected void create(MdField mdField, MdWebForm webForm)
     {
-      // Set the defining MdAttribute. This downcast is fine because only MdWebAttributes
-      // are accepted at this point. // FIXME add more Interface commonality
-      MdWebAttribute webAttribute = (MdWebAttribute) mdField;
-
-      MdAttributeDAO mdAttr = this.createMdAttribute(webAttribute);
+      MdAttributeDAO mdAttr = this.createMdAttribute(mdField, webForm);
       mdAttr.apply();
 
+      // Set the defining MdAttribute. This downcast is fine because only MdWebAttributes
+      // are accepted at this point.
+      MdWebAttribute webAttribute = (MdWebAttribute) mdField;
       webAttribute.setValue(MdWebPrimitive.DEFININGMDATTRIBUTE, mdAttr.getId());
       
-      webAttribute.setDefiningMdForm(webForm);
-      
-      super.create(mdField, webForm);
-    }
-    
-    protected void update(MdField mdField)
-    {
-      
-      super.update(mdField);
+      this.createMdField(mdField, webForm);
+      mdField.apply();
     }
   }
 
