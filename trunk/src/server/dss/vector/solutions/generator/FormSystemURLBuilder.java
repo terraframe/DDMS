@@ -14,7 +14,6 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.session.Session;
 import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.VaultFile;
 import com.runwaysdk.system.metadata.FormField;
@@ -71,8 +70,8 @@ public class FormSystemURLBuilder implements Reloadable
   @Transaction
   public void delete()
   {
-    SystemURL crudURL = SystemURL.getByKey("Enter " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
-    SystemURL queryURL = SystemURL.getByKey("Query " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+    SystemURL crudURL = SystemURL.getByKey("Enter " + mdForm.getFormName());
+    SystemURL queryURL = SystemURL.getByKey("Query " + mdForm.getFormName());
 
     this.deleteRoles(crudURL);
     this.deleteRoles(queryURL);
@@ -126,13 +125,13 @@ public class FormSystemURLBuilder implements Reloadable
     // Create the system url for the CRUD screen
     SystemURL crudURL = new SystemURL();
     crudURL.setUrl("dss.vector.solutions.generator.ExcelController.importType.mojo?type=" + mdForm.definesType());
-    crudURL.getDisplayLabel().setValue("defaultLocale", "Enter " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+    crudURL.getDisplayLabel().setValue("defaultLocale", "Enter " + mdForm.getFormName());
     crudURL.apply();
 
     // Create the system url for the query screen
     SystemURL queryURL = new SystemURL();
     queryURL.setUrl("dss.vector.solutions.query.QueryController.queryType.mojo?type=" + mdForm.definesType());
-    queryURL.getDisplayLabel().setValue("defaultLocale", "Query " + mdForm.getDisplayLabel(Session.getCurrentLocale()));
+    queryURL.getDisplayLabel().setValue("defaultLocale", "Query " + mdForm.getFormName());
     queryURL.apply();
 
     Disease[] diseases = Disease.getAllDiseases();
