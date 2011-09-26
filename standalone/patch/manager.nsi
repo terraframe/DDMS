@@ -52,7 +52,7 @@ Section -Main SEC0000
     SetOverwrite on
     
     # This version number is automatically replaced by manager.xml
-    StrCpy $Version 6206
+    StrCpy $Version 6328
     
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
@@ -72,6 +72,7 @@ Section -Main SEC0000
     
     SetOutPath $INSTDIR
     File manager.bat
+    File manager.ico	
     SetOutPath $INSTDIR\backup-manager-1.0.0
     File /r /x .svn ..\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\ddms-initializer-1.0.0
@@ -79,7 +80,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\geo-manager-1.0.0
     File /r /x .svn ..\geo-manager-1.0.0\*
     SetOutPath $INSTDIR\manager-1.0.0
-    File /r /x .svn /x classes\applications.txt ..\manager-1.0.0\*
+    File /r /x .svn /x *applications.txt ..\manager-1.0.0\*
     SetOutPath $INSTDIR\synch-manager-1.0.0
     File /r /x .svn ..\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\keystore
@@ -87,7 +88,8 @@ Section -Main SEC0000
     
     # These should technically be unnecessary after 1.02, but we're leaving them out of paranoia
     File /oname=C:\MDSS\tomcat6\conf\server.xml server.xml
-    File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
+	# We can't copy over the startup.bat because the multiple install sets it args which would be overwritten incorrectly
+    # File /oname=C:\MDSS\tomcat6\bin\startup.bat startup.bat
     File /oname=C:\MDSS\tomcat6\lib\tomcat-remote-listener-1.0.1.jar ..\manager-1.0.0\lib\tomcat-remote-listener-1.0.1.jar
     
     # Add the special elevation command for backup/restore
@@ -97,7 +99,7 @@ Section -Main SEC0000
     
     SetOutPath $INSTDIR
     Delete "$SMPROGRAMS\$StartMenuGroup\Manager.lnk"
-    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager.bat"
+    CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager.bat" "" "$INSTDIR\manager.ico" 0 "" "" "Start DDMS mananger"
     Delete "$SMPROGRAMS\$StartMenuGroup\GIS.lnk"
     
     WriteRegStr HKLM "${REGKEY}\Components" Manager $Version
