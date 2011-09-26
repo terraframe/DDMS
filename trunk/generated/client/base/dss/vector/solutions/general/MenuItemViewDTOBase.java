@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -233098334)
+@com.runwaysdk.business.ClassSignature(hash = 125345263)
 public abstract class MenuItemViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MenuItemView";
-  private static final long serialVersionUID = -233098334;
+  private static final long serialVersionUID = 125345263;
   
   protected MenuItemViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,11 @@ public abstract class MenuItemViewDTOBase extends com.runwaysdk.business.ViewDTO
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -174,6 +179,14 @@ public abstract class MenuItemViewDTOBase extends com.runwaysdk.business.ViewDTO
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getUrlDisplayMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(URLDISPLAY).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.general.MenuItemViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.Boolean", "java.lang.Integer", "java.lang.Integer"};
+    Object[] _parameters = new Object[]{sortAttribute, isAscending, pageSize, pageNumber};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.MenuItemViewDTO.CLASS, "getPage", _declaredTypes);
+    return (dss.vector.solutions.general.MenuItemViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.general.MenuItemViewQueryDTO getViewsForDisease(com.runwaysdk.constants.ClientRequestIF clientRequest)

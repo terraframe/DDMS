@@ -265,7 +265,7 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
       }
     }
   }
-  
+
   @Override
   public void failUpdateDisease(DiseaseDTO dto) throws IOException, ServletException
   {
@@ -283,7 +283,11 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    MenuItemQueryDTO query = MenuItemDTO.getAllInstances(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+
+    DiseaseDTO disease = DiseaseDTO.getCurrent(this.getClientRequest());
+    MenuItemViewQueryDTO query = MenuItemViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
+
+    req.setAttribute("disease", disease);
     req.setAttribute("query", query);
     render("viewAllComponent.jsp");
   }

@@ -1,0 +1,46 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdView
+        name="dss.vector.solutions.general.MenuItemView">
+        <create>
+          <mdMethod
+            name="getPage"
+            returnType="dss.vector.solutions.general.MenuItemViewQuery"
+            label="getPage"
+            static="true">
+            <mdParameter
+              name="sortAttribute"
+              label="Sort Attribute"
+              type="java.lang.String"
+              order="0" />
+            <mdParameter
+              name="isAscending"
+              label="Is Ascending"
+              type="java.lang.Boolean"
+              order="1" />
+            <mdParameter
+              name="pageSize"
+              label="Page Size"
+              type="java.lang.Integer"
+              order="2" />
+            <mdParameter
+              name="pageNumber"
+              label="Page Number"
+              type="java.lang.Integer"
+              order="3" />
+          </mdMethod>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.general.MenuItemView.getPage"
+        type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

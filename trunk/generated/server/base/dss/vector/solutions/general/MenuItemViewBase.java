@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1516963106)
+@com.runwaysdk.business.ClassSignature(hash = -2083595153)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,7 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
   public static java.lang.String MENUITEMID = "menuItemId";
   public static java.lang.String TERMDISPLAY = "termDisplay";
   public static java.lang.String URLDISPLAY = "urlDisplay";
-  private static final long serialVersionUID = 1516963106;
+  private static final long serialVersionUID = -2083595153;
   
   public MenuItemViewBase()
   {
@@ -33,6 +33,11 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
     {
       return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void validateDisease()
@@ -166,6 +171,12 @@ public abstract class MenuItemViewBase extends com.runwaysdk.business.View imple
   public static MenuItemView get(String id)
   {
     return (MenuItemView) com.runwaysdk.business.View.get(id);
+  }
+  
+  public static dss.vector.solutions.general.MenuItemViewQuery getPage(java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.MenuItemView.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static dss.vector.solutions.general.MenuItemViewQuery getViewsForDisease()
