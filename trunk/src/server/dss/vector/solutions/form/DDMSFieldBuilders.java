@@ -1,14 +1,22 @@
 package dss.vector.solutions.form;
 
 import java.util.HashMap;
-import java.util.Locale;
 import java.util.Map;
 
-import com.runwaysdk.constants.MdAttributeConcreteInfo;
-import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.session.Session;
-import com.runwaysdk.system.metadata.MdAttribute;
+import com.runwaysdk.system.metadata.MdAttributeBoolean;
+import com.runwaysdk.system.metadata.MdAttributeCharacter;
+import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeDate;
+import com.runwaysdk.system.metadata.MdAttributeDateTime;
+import com.runwaysdk.system.metadata.MdAttributeDecimal;
+import com.runwaysdk.system.metadata.MdAttributeDouble;
+import com.runwaysdk.system.metadata.MdAttributeFloat;
+import com.runwaysdk.system.metadata.MdAttributeInteger;
+import com.runwaysdk.system.metadata.MdAttributeLong;
+import com.runwaysdk.system.metadata.MdAttributeText;
+import com.runwaysdk.system.metadata.MdAttributeTime;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebBoolean;
@@ -25,13 +33,13 @@ import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
+import com.runwaysdk.system.metadata.MdWebLong;
 import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.MdWebText;
 import com.runwaysdk.system.metadata.MdWebTime;
-import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 public class DDMSFieldBuilders implements Reloadable
 {
@@ -52,6 +60,7 @@ public class DDMSFieldBuilders implements Reloadable
     builders.put(MdWebFloat.CLASS, new WebFloatBuilder());
     builders.put(MdWebGeo.CLASS, new WebGeoBuilder());
     builders.put(MdWebInteger.CLASS, new WebIntegerBuilder());
+    builders.put(MdWebLong.CLASS, new WebLongBuilder());
     builders.put(MdWebHeader.CLASS, new WebHeaderBuilder());
     builders.put(MdWebMultipleTerm.CLASS, new WebMultipleTermBuilder());
     builders.put(MdWebSingleTerm.CLASS, new WebSingleTermBuilder());
@@ -117,20 +126,21 @@ public class DDMSFieldBuilders implements Reloadable
      * @param webForm
      * @return
      */
-    protected void updateMdAttribute(MdAttributeDAO mdAttr, MdWebField mdField)
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       if(mdAttr.isNew())
       {
-        String mdClassId = mdField.getDefiningMdForm().getFormMdClassId();
-        mdAttr.setValue(MdAttributeConcreteInfo.DEFINING_MD_CLASS, mdClassId);
+        mdAttr.setDefiningMdClass(mdField.getDefiningMdForm().getFormMdClass());
+        mdAttr.setAttributeName(mdField.getFieldName()); // FIXME auto-gen name?
       }
       
-      mdAttr.setValue(MdAttributeConcreteInfo.NAME, mdField.getFieldName()); // FIXME use english generated fieldName
-      mdAttr.setValue(MdAttributeConcreteInfo.REQUIRED, mdField.getRequired().toString());
+      mdAttr.setRequired(mdField.getRequired());
 
-      Locale locale = Session.getCurrentLocale(); // FIXME set proper locale
-      mdAttr.setStructValue(MdAttributeConcreteInfo.DISPLAY_LABEL, MetadataDisplayLabel.DEFAULTLOCALE, mdField.getDisplayLabel().getValue(locale));
-      mdAttr.setStructValue(MdAttributeConcreteInfo.DESCRIPTION, MetadataDisplayLabel.DEFAULTLOCALE, mdField.getDescription().getValue(locale));
+      String displayLabel = mdField.getDisplayLabel().getValue();
+      mdAttr.getDisplayLabel().setValue(displayLabel);
+      
+      String description = mdField.getDescription().getValue();
+      mdAttr.getDescription().setValue(description);
     }
     
     @Override
@@ -139,7 +149,8 @@ public class DDMSFieldBuilders implements Reloadable
       MdWebPrimitive webPrimitive = (MdWebPrimitive) mdField;
       String mdAttributeType = webPrimitive.getExpectedMdAttributeType(); // FIXME move to MdWebAttribute
       
-      MdAttributeDAO mdAttr = (MdAttributeDAO) MdAttributeDAO.newInstance(mdAttributeType);
+      // We are not supporting virtual attributes right now ... so no need to complicate things
+      MdAttributeConcrete mdAttr = (MdAttributeConcrete) BusinessFacade.newBusiness(mdAttributeType);
       webPrimitive.setDefiningMdForm(webForm);
       this.updateMdAttribute(mdAttr, webPrimitive);
       mdAttr.apply();
@@ -152,8 +163,9 @@ public class DDMSFieldBuilders implements Reloadable
     protected void update(MdField mdField)
     {
       MdWebAttribute webAttribute = (MdWebAttribute) mdField;
-      MdAttributeDAO mdAttr = (MdAttributeDAO) MdAttributeDAO.get(webAttribute.getDefiningMdAttributeId()).getBusinessDAO();
+      MdAttributeConcrete mdAttr = (MdAttributeConcrete) webAttribute.getDefiningMdAttribute();
       
+      mdAttr.appLock();
       this.updateMdAttribute(mdAttr, webAttribute);
       mdAttr.apply();
       
@@ -210,57 +222,148 @@ public class DDMSFieldBuilders implements Reloadable
 
   public static class WebBooleanBuilder extends WebPrimitiveBuilder implements Reloadable
   {
-
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeBoolean md = (MdAttributeBoolean) mdAttr;
+      
+      super.updateMdAttribute(md, mdField);
+    }
   }
 
   public static class WebCharacterBuilder extends WebPrimitiveBuilder implements Reloadable
   {
- 
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeCharacter md = (MdAttributeCharacter) mdAttr;
+      MdWebCharacter field = (MdWebCharacter) mdField;
+      
+      md.setDatabaseSize(field.getMaxLength());
+      
+      super.updateMdAttribute(md, mdField);
+    }
   }
 
   public static class WebTextBuilder extends WebPrimitiveBuilder implements Reloadable
   {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeText md = (MdAttributeText) mdAttr;
 
+      super.updateMdAttribute(md, mdField);
+    }
   }
 
   public static class WebDoubleBuilder extends WebPrimitiveBuilder implements Reloadable
   {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeDouble md = (MdAttributeDouble) mdAttr;
+      MdWebDouble field = (MdWebDouble) mdField;
+      
+      md.setDatabaseLength(field.getDecPrecision());
+      md.setDatabaseDecimal(field.getDecScale());
+      
+      super.updateMdAttribute(md, mdField);
+    }
 
   }
 
   public static class WebDecimalBuilder extends WebPrimitiveBuilder implements Reloadable
   {
-
-  }
-
-  public static class WebLongBuilder extends WebPrimitiveBuilder implements Reloadable
-  {
-
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeDecimal md = (MdAttributeDecimal) mdAttr;
+      
+      MdWebDecimal field = (MdWebDecimal) mdField;
+      
+      md.setDatabaseLength(field.getDecPrecision());
+      md.setDatabaseDecimal(field.getDecScale());      
+      
+      super.updateMdAttribute(mdAttr, mdField);
+    }
   }
 
   public static class WebFloatBuilder extends WebPrimitiveBuilder implements Reloadable
   {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeFloat md = (MdAttributeFloat) mdAttr;
+      
+      MdWebFloat field = (MdWebFloat) mdField;
+      
+      md.setDatabaseLength(field.getDecPrecision());
+      md.setDatabaseDecimal(field.getDecScale());    
+      
+      super.updateMdAttribute(md, mdField);
+    }
 
   }
+  
+  public static class WebLongBuilder extends WebPrimitiveBuilder implements Reloadable
+  {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeLong md = (MdAttributeLong) mdAttr;
+      
+      super.updateMdAttribute(md, mdField);
+    }
+  }
+
+
 
   public static class WebIntegerBuilder extends WebPrimitiveBuilder implements Reloadable
   {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeInteger md = (MdAttributeInteger) mdAttr;
+      MdWebInteger field = (MdWebInteger) mdField;
+      
+      super.updateMdAttribute(md, mdField);
+    }
 
   }
 
   public static class WebDateBuilder extends WebPrimitiveBuilder implements Reloadable
   {
 
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeDate md = (MdAttributeDate) mdAttr;
+      
+      super.updateMdAttribute(md, mdField);
+    }
   }
 
   public static class WebDateTimeBuilder extends WebPrimitiveBuilder implements Reloadable
   {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeDateTime md = (MdAttributeDateTime) mdAttr;
+      
+      super.updateMdAttribute(md, mdField);
+    }
 
   }
 
   public static class WebTimeBuilder extends WebPrimitiveBuilder implements Reloadable
   {
-
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      MdAttributeTime md = (MdAttributeTime) mdAttr;
+      
+      super.updateMdAttribute(md, mdField);
+    }
   }
 
 }

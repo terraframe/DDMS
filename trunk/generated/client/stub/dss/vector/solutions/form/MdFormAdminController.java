@@ -193,6 +193,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       MdFieldDTO fieldDTO = MdFieldDTO.lock(this.getClientRequest(), fieldId);
+      
       this.req.setAttribute("item", fieldDTO);
       
       this.forwardToFieldPage(fieldDTO.getType(), "editComponent.jsp");
