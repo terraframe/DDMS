@@ -43,7 +43,7 @@
   String options = "";
   for (int j = 0; j < 7; j++)
   {
-    options += "<option ≈\"" + ( j == Integer.parseInt(item.getPropertyValue()) ? "selected=\"selected\"" : "" ) + "\" value=\"" + j + "\" >";
+    options += "<option " + ( j == Integer.parseInt(item.getPropertyValue()) ? "selected=\"selected\"" : "" ) + " value=\"" + j + "\" >";
     options += fullWd.format(week.getTime()) + "</option>";
     week.add(Calendar.DAY_OF_WEEK, 1);
   }
@@ -88,7 +88,7 @@
 <%
   for (Integer i = 1970; i <= 2070; i++)
   {
-    out.println("<option ≈\"" + ( year.equals(i) ? "selected=\"selected\"" : "" ) + "\" value=\"" + i + "\" >" + i + "</option>");
+    out.println("<option " + ( year.equals(i) ? "selected=\"selected\"" : "" ) + " value=\"" + i + "\" >" + i + "</option>");
   }
 %>
 </select>
