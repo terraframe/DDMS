@@ -48,8 +48,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			var editB = Mojo.Util.bind(this, this.requestEdit);
 			this._MdFormAdminController.setEditFormAttributesListener(editB);
 			
-			var editMdFieldB = Mojo.Util.bind(this, this.editMdField);
-			this._MdFormAdminController.setEditMdFieldListener(editMdFieldB);
+			var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
+			this._MdFormAdminController.setUpdateMdFieldListener(updateMdFieldB);
 			
 			var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
 			this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
@@ -66,6 +66,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
       this._Y.one('#'+this.constructor.EXISTING_FORMS).delegate('click', this.viewForm, 'li', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.deleteField, 'a.form-item-row-delete', this);
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editField, 'input', this);
       
       // show the existing forms
       this.existingForms();
@@ -157,13 +158,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         this._fieldFormDialog.render();
       }
       
-      // Note that the MdField jsps have been changed to re-route to MdFormAdminController instead
-      // of the normal controller (e.g., MdWebBooleanController). This is because the MdField controllers
-      // do not exist, although we use the generated jsps that normally reference them.
       eval(executable);
     },
     
-    editMdField : function(fieldMap)
+    updateMdField : function(fieldMap)
     {
       var that = this;
       var request = new MDSS.Request({
@@ -346,6 +344,37 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 		  this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
 		},
+		editField : function(e)
+		{
+			var fieldId = e.currentTarget.get('id');
+			var that = this;
+		  var request = new MDSS.Request({
+		    onSuccess : function(html){
+		      that.editMdFieldDialog(html);
+		    }
+		  });
+
+      this._MdFormAdminController.editMdField(request, fieldId);
+		},
+    editMdFieldDialog : function(html)
+    {
+      var executable = MDSS.util.extractScripts(html);
+      var pureHTML = MDSS.util.removeScripts(html);
+      
+      if(this._fieldFormDialog !== null)
+      {
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.getImpl().show();
+      }
+      else
+      {
+        this._fieldFormDialog = this._Factory.newDialog('');
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.render();
+      }
+      
+      eval(executable);
+    },
 		deleteField : function(e)
     {
 			var fieldId = e.currentTarget.get('id');

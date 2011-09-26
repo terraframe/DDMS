@@ -10,10 +10,8 @@
   <mjl:form id="com.runwaysdk.system.metadata.MdWebGeo.form.id" name="com.runwaysdk.system.metadata.MdWebGeo.form.name" method="POST">
     <%@include file="form.jsp" %>
     <mdss:localize var="Update_Localize" key="Update" />
-    <mjl:command name="com.runwaysdk.system.metadata.MdWebGeo.form.update.button" value="${Update_Localize}" action="com.runwaysdk.system.metadata.MdWebGeoController.update.mojo" />
-    <mdss:localize var="Delete_Localize" key="Delete" />
-    <mjl:command name="com.runwaysdk.system.metadata.MdWebGeo.form.delete.button" value="${Delete_Localize}" action="com.runwaysdk.system.metadata.MdWebGeoController.delete.mojo" />
+    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.updateMdField.button" value="${Update_Localize}" action="dss.vector.solutions.form.MdFormAdminController.updateMdField.mojo" />
     <mdss:localize var="Cancel_Localize" key="Cancel" />
-    <mjl:command name="com.runwaysdk.system.metadata.MdWebGeo.form.cancel.button" value="${Cancel_Localize}" action="com.runwaysdk.system.metadata.MdWebGeoController.cancel.mojo" />
+    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.cancelMdField.button" value="${Cancel_Localize}" action="dss.vector.solutions.form.MdFormAdminController.cancelMdField.mojo" />
   </mjl:form>
 </dl>
