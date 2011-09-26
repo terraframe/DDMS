@@ -30,6 +30,8 @@ public class SynchronziationManagerLauncher
 
     private String properties;
 
+    private String appName;
+
     @SuppressWarnings("static-access")
     public Arguments(String[] args) throws ParseException
     {
@@ -38,6 +40,7 @@ public class SynchronziationManagerLauncher
       Options options = new Options();
       options.addOption(OptionBuilder.withDescription("Path of the INSTALL property file").hasArg().withArgName("INSTALL").create("i"));
       options.addOption(OptionBuilder.withDescription("LOCALE of app localization").hasArg().withArgName("LOCALE").create("l"));
+      options.addOption(OptionBuilder.withDescription("NAME of the application").hasArg().withArgName("NAME").create("a"));
 
       CommandLineParser parser = new PosixParser();
       CommandLine cmd = parser.parse(options, args);
@@ -65,6 +68,11 @@ public class SynchronziationManagerLauncher
       {
         this.properties = cmd.getOptionValue("i");
       }
+
+      if (cmd.hasOption("a"))
+      {
+        this.appName = cmd.getOptionValue("a");
+      }
     }
 
     public Locale getLocale()
@@ -75,6 +83,11 @@ public class SynchronziationManagerLauncher
     public String getProperties()
     {
       return properties;
+    }
+
+    public String getAppName()
+    {
+      return appName;
     }
   }
 
@@ -97,11 +110,13 @@ public class SynchronziationManagerLauncher
     {
       public void run()
       {
-        IConfiguration configuration = new SlaveConfiguration();
+        String shellText = arguments.getAppName() + " " + Localizer.getMessage("APPLICATION_NAME");
+
+        IConfiguration configuration = new SlaveConfiguration(shellText);
 
         if (isMaster(arguments.getProperties()))
         {
-          configuration = new MasterConfiguration();
+          configuration = new MasterConfiguration(shellText);
         }
 
         try
