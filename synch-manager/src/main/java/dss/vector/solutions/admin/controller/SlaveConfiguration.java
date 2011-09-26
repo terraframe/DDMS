@@ -10,6 +10,19 @@ import com.runwaysdk.manager.controller.ConfigurationAdapter;
 
 public class SlaveConfiguration extends ConfigurationAdapter
 {
+  private String shellText;
+
+  public SlaveConfiguration(String shellText)
+  {
+    this.shellText = shellText;
+  }
+  
+  @Override
+  public String getShellText()
+  {
+    return this.shellText;
+  }
+
   @Override
   public boolean getExportStoredApplicationFiles()
   {

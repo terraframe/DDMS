@@ -19,8 +19,13 @@ public class MasterConfiguration extends ConfigurationAdapter
     public ExportFilter()
     {
       this.filterNames = new TreeSet<String>();
+      this.filterNames.add("common.properties");
       this.filterNames.add("terraframe.properties");
+      this.filterNames.add("database.properties");
       this.filterNames.add("install.properties");
+      this.filterNames.add("style.css");
+      this.filterNames.add("viewComponentOldWay.jsp");
+      this.filterNames.add("login.jsp");
       this.filterNames.add("WEB-INF");
       this.filterNames.add("classes");
       this.filterNames.add("webDir");
@@ -35,6 +40,19 @@ public class MasterConfiguration extends ConfigurationAdapter
 
       return ! ( path.contains(".svn") || filterNames.contains(fileName) );
     }
+  }
+
+  private String shellText;
+
+  public MasterConfiguration(String shellText)
+  {
+    this.shellText = shellText;
+  }
+
+  @Override
+  public String getShellText()
+  {
+    return this.shellText;
   }
 
   @Override
