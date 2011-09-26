@@ -137,7 +137,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
 
     parent.getShell().setSize(DIMENSION);
     parent.getShell().setText(Localizer.getMessage("APPLICATION_NAME"));
-    parent.getShell().setImage(ImageDescriptor.createFromURL(Object.class.getResource("/icons/Manager.png")).createImage());
+    parent.getShell().setImage(ImageDescriptor.createFromURL(Object.class.getResource("/icons/Manager.jpg")).createImage());
 
     Rectangle windowRect = parent.getShell().getBounds();
     Rectangle monitorRect = monitor.getBounds();
