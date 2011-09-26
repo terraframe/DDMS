@@ -54,6 +54,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 			var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
 			this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
+			
+      var cancelMdFieldB = Mojo.Util.bind(this, this.cancelMdField);
+      this._MdFormAdminController.setCancelMdFieldListener(cancelMdFieldB);
       
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
@@ -369,6 +372,16 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       
       eval(executable);
+    },
+    cancelMdField : function(fieldMap)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          that._fieldFormDialog.getImpl().hide();
+        }
+      });
+      return request;
     },
 		deleteField : function(e)
     {
