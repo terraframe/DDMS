@@ -381,7 +381,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
          var pureHTML = MDSS.util.removeScripts(html);
          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
          eval(executable);
-				 that.fetchFormFields();
        }
       });
 
