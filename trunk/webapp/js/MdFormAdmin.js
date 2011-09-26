@@ -29,6 +29,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       // Dialog for selecting the available MdFields
       this._fieldsDialog = null;
+      this._editMode = false; // FIXME implement and cleanup lifecycle
       
       this._fieldFormDialog = null;
       
@@ -221,7 +222,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this.fetchFormAttributes();
       this.fetchFormFields();
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
-      this.toggleEditMode(false);
 		},
 	  fetchFormAttributes : function()
 		{
@@ -281,7 +281,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           eval(executable);
           that.existingForms();
           
-          that.toggleEditMode(false);
           this._currentMdFormId = null;
         }
       });
@@ -299,8 +298,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 					eval(executable);
 					that.existingForms();
-					
-					that.toggleEditMode(false);	
 				}
 			});
 			
@@ -337,8 +334,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			   var pureHTML = MDSS.util.removeScripts(html);
 				 document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 				 eval(executable);
-				 
-				 that.toggleEditMode(true);
 			 }
 			});
 			
