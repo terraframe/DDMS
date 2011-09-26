@@ -287,8 +287,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      MdFormUtilDTO.apply(getClientRequest(), form);
-      req.setAttribute("form", form);
+      MdWebFormDTO applied = MdFormUtilDTO.apply(getClientRequest(), form);
+      req.setAttribute("form", applied);
 
       this.req.getRequestDispatcher(FETCH_FORM_ATTRIBUTES_JSP).forward(req, resp);
     }
@@ -396,17 +396,11 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
-      
-      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
-      MdWebFieldDTO fieldToDelete = null;
-      for (MdWebFieldDTO field : fields)
-      {
-        if (fieldId.equals(field.getId()))
-          fieldToDelete = field;
-      }
-      
+      MdWebFieldDTO fieldToDelete = MdWebFieldDTO.get(clientRequest, fieldId);
+            
       MdFormUtilDTO.deleteField(clientRequest, form, fieldToDelete);
       
+      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
       req.setAttribute("fields", fields);
       
       this.req.getRequestDispatcher(FETCH_FORM_FIELDS_JSP).forward(req, resp);
