@@ -187,6 +187,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+
+  @Override
+  public void editMdField(String fieldId) throws IOException, ServletException
+  {
+    try
+    {
+      MdFieldDTO fieldDTO = MdFieldDTO.lock(this.getClientRequest(), fieldId);
+      this.req.setAttribute("item", fieldDTO);
+      
+      this.forwardToFieldPage(fieldDTO.getType(), "editComponent.jsp");
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
   
   @Override
   public void updateMdField(MdFieldDTO mdField) throws IOException, ServletException

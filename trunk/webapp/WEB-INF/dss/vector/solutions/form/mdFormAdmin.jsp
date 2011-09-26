@@ -94,7 +94,7 @@ YAHOO.util.Event.onDOMReady(function(){
             <li><a href="#">Workflow</a></li>
         </ul>
         <div class="form-top-action-row">
-            <a href="#" class="form-button-add" id="availableFields">Add Field</a>
+            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields">Add Field</a>
         </div>
         <ul class="form-item-row" id="formItemRow">
         </ul>

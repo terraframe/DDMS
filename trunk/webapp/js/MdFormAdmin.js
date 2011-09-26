@@ -48,21 +48,37 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			var editB = Mojo.Util.bind(this, this.requestEdit);
 			this._MdFormAdminController.setEditFormAttributesListener(editB);
 			
+			var editMdFieldB = Mojo.Util.bind(this, this.editMdField);
+			this._MdFormAdminController.setEditMdFieldListener(editMdFieldB);
+			
 			var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
 			this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
       
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
       this._Y = YUI().use('*'); // YUI3 reference
+      
     },
     render : function()
     {
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
-      YAHOO.util.Event.onAvailable(this.constructor.EXISTING_FORMS, this.existingForms, null, this);
-			
       this._Y.one('#'+this.constructor.EXISTING_FORMS).delegate('click', this.viewForm, 'li', this);
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.deleteField, 'a.form-item-row-delete', this);
+      
+      // show the existing forms
+      this.existingForms();
+    },
+    /**
+     * Shows or hides the edit mode functionality of a form (i.e., the CRUD operatons on the fields).
+     * 
+     * @param enable true if edit mode should be shown or false if everything should be in read mode only.
+     */
+    toggleEditMode : function(enable)
+    {
+      var nodeCol = this._Y.all('.edit-mode-functionality'); // TODO optimize or use another call?
+      nodeCol.setStyle('visibility', enable ? 'visible' : 'hidden');
     },
     destroy : function()
     {
@@ -139,14 +155,30 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         this._fieldFormDialog = this._Factory.newDialog('');
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
-        
-        //this._Y.one(this._fieldFormDialog.getContentEl().getId()).delegate('click', this._
       }
       
       // Note that the MdField jsps have been changed to re-route to MdFormAdminController instead
       // of the normal controller (e.g., MdWebBooleanController). This is because the MdField controllers
       // do not exist, although we use the generated jsps that normally reference them.
       eval(executable);
+    },
+    
+    editMdField : function(fieldMap)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          that._fieldFormDialog.getImpl().hide();
+        
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
+          eval(executable);
+        }
+      });
+      
+      return request;
     },
     createMdField : function(fieldMap)
     {
@@ -190,8 +222,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._currentMdFormId = id;
       this.fetchFormAttributes();
       this.fetchFormFields();
-      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.deleteField, 'a.form-item-row-delete', this);
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
+      this.toggleEditMode(false);
 		},
 	  fetchFormAttributes : function()
 		{
@@ -250,6 +282,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           document.getElementById(that.constructor.FORM_CONTENT).innerHTML = "";
           eval(executable);
           that.existingForms();
+          
+          that.toggleEditMode(false);
+          this._currentMdFormId = null;
         }
       });
       
@@ -266,6 +301,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 					eval(executable);
 					that.existingForms();
+					
+					that.toggleEditMode(false);	
 				}
 			});
 			
@@ -274,9 +311,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     _cancelListener : function(params)
     {
 			if (params["form.isNew"] === "true") {
-			 document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
-			 document.getElementById(this.constructor.FORM_ITEM_ROW).innerHTML = "";
-			 this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+			  document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
+			  document.getElementById(this.constructor.FORM_ITEM_ROW).innerHTML = "";
+			  this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+			  this._currentMdFormId = null;
 			}
 			else {
         var that = this;
@@ -301,10 +339,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			   var pureHTML = MDSS.util.removeScripts(html);
 				 document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 				 eval(executable);
+				 
+				 that.toggleEditMode(true);
 			 }
 			});
-			var id = document.getElementById("MdFormId").value;
-		  this._MdFormAdminController.editFormAttributes(request, id);
+			
+		  this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
 		},
 		deleteField : function(e)
     {
@@ -320,8 +360,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 				 that.fetchFormFields();
        }
       });
-      var formId = document.getElementById("MdFormId").value;
-      this._MdFormAdminController.deleteField(request, formId, fieldId);
+
+      this._MdFormAdminController.deleteField(request, this._currentMdFormId, fieldId);
     },
 		createNewForm : function()
 		{

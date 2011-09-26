@@ -6,6 +6,6 @@
 <c:forEach items="${fields}" var="item">
   <li>${item.displayLabel}
     <mjl:input type="text" readonly="true" /> <!-- param="item.fieldName" /-->
-    <a href="#" class="form-item-row-delete" id="${item.id}">Delete</a>            
+    <a href="#" class="form-item-row-delete edit-mode-functionality" id="${item.id}">Delete</a>            
   </li>
 </c:forEach>
