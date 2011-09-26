@@ -214,11 +214,11 @@ public class MdssLocalizationExporter implements Reloadable
     prepareProperties("serverExceptions", serverSheet);
     prepareProperties("commonExceptions", commonSheet);
     prepareProperties("clientExceptions", clientSheet);
-//    prepareProperties(InstallProperties.getManagerClasses(), "localization", managerSheet);
-//    prepareProperties(InstallProperties.getSynchClasses(), "admin", synchSheet);
-//    prepareProperties(InstallProperties.getGeoClasses(), "localization", geoSheet);
-//    prepareProperties(InstallProperties.getInitializerClasses(), "localization", initializerSheet);
-//    prepareProperties(InstallProperties.getBackupClasses(), "localization", backupSheet);
+    prepareProperties(InstallProperties.getManagerClasses(), "localization", managerSheet);
+    prepareProperties(InstallProperties.getSynchClasses(), "admin", synchSheet);
+    prepareProperties(InstallProperties.getGeoClasses(), "localization", geoSheet);
+    prepareProperties(InstallProperties.getInitializerClasses(), "localization", initializerSheet);
+    prepareProperties(InstallProperties.getBackupClasses(), "localization", backupSheet);
     prepareHeaders();
   }
 

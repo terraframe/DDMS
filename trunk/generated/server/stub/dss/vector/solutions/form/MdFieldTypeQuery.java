@@ -4,10 +4,13 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdTypeQuery;
 import com.runwaysdk.system.metadata.MdWebBoolean;
+import com.runwaysdk.system.metadata.MdWebBreak;
 import com.runwaysdk.system.metadata.MdWebCharacter;
+import com.runwaysdk.system.metadata.MdWebComment;
 import com.runwaysdk.system.metadata.MdWebDate;
 import com.runwaysdk.system.metadata.MdWebDecimal;
 import com.runwaysdk.system.metadata.MdWebDouble;
+import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
 import com.runwaysdk.system.metadata.MdWebLong;
 import com.runwaysdk.system.metadata.MdWebText;
@@ -71,7 +74,10 @@ private static final long serialVersionUID = 1649662279;
           MdBusiness.getMdBusiness(MdWebLong.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebDouble.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebDecimal.CLASS).getId(),
-          MdBusiness.getMdBusiness(MdWebDate.CLASS).getId() };
+          MdBusiness.getMdBusiness(MdWebDate.CLASS).getId(),
+          MdBusiness.getMdBusiness(MdWebBreak.CLASS).getId(),
+          MdBusiness.getMdBusiness(MdWebHeader.CLASS).getId(),
+          MdBusiness.getMdBusiness(MdWebComment.CLASS).getId()};
 
       query.WHERE(mdTypeQuery.getId().IN(mdFieldIds));
       

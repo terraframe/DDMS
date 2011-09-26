@@ -83,6 +83,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return mdField;
   }
   
+  @Transaction
   public static MdField updateMdField(MdField mdField)
   {
     DDMSFieldBuilders.update(mdField);

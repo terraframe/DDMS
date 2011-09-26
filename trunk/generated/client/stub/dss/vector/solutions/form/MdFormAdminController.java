@@ -1,6 +1,5 @@
 package dss.vector.solutions.form;
 
-import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -197,6 +196,19 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       this.req.setAttribute("item", fieldDTO);
       
       this.forwardToFieldPage(fieldDTO.getType(), "editComponent.jsp");
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void cancelMdField(MdFieldDTO mdField) throws IOException, ServletException
+  {
+    try
+    {
+      mdField.unlock();
     }
     catch(Throwable t)
     {

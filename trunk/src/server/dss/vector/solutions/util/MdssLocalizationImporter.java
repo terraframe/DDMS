@@ -41,6 +41,8 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.SupportedLocale;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.InstallProperties;
+
 public class MdssLocalizationImporter implements Reloadable
 {
   private HSSFSheet  exceptionSheet;
@@ -128,11 +130,11 @@ public class MdssLocalizationImporter implements Reloadable
     updateProperties("clientExceptions", clientSheet);
 
     // Copy over the manager properties
-//    updateProperties(InstallProperties.getManagerClasses(), "localization", managerSheet);
-//    updateProperties(InstallProperties.getSynchClasses(), "admin", synchSheet);
-//    updateProperties(InstallProperties.getGeoClasses(), "localization", geoSheet);
-//    updateProperties(InstallProperties.getInitializerClasses(), "localization", initializerSheet);
-//    updateProperties(InstallProperties.getBackupClasses(), "localization", backupSheet);
+    updateProperties(InstallProperties.getManagerClasses(), "localization", managerSheet);
+    updateProperties(InstallProperties.getSynchClasses(), "admin", synchSheet);
+    updateProperties(InstallProperties.getGeoClasses(), "localization", geoSheet);
+    updateProperties(InstallProperties.getInitializerClasses(), "localization", initializerSheet);
+    updateProperties(InstallProperties.getBackupClasses(), "localization", backupSheet);
 
     // Demerge perhaps?
     // for (LocaleDimension ld : getColumnHeaders(propertySheet))

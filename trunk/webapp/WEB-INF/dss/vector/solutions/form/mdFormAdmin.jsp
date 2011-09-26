@@ -18,7 +18,10 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebCharacterDTO"%>
 <%@page import="dss.vector.solutions.form.MdFormAdminController"%>
 
-<c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+
+<%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
 <style type="text/css">
 body {
@@ -53,7 +56,12 @@ MdWebDateDTO.CLASS,
 // Character, Text, Boolean
 MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
-MdWebBooleanDTO.CLASS
+MdWebBooleanDTO.CLASS,
+
+// Display related
+MdWebBreakDTO.CLASS,
+MdWebHeaderDTO.CLASS,
+MdWebCommentDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
