@@ -72,6 +72,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.deleteField, 'a.form-item-row-delete', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editField, 'input', this);
       
+			// hide the form content DOM elements
+      this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+			
       // show the existing forms
       this.existingForms();
     },
@@ -256,7 +259,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.fetchFormFields(request, id);
 		},
-		_createListener : function(form)
+		_createListener : function(fieldMap)
     {
       var that = this;
       var request = new MDSS.Request({
@@ -267,6 +270,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
           eval(executable);
 					that.existingForms();
+					that._currentMdFormId = document.getElementsByName("form.componentId")[0].value;
         }
       });
       
@@ -280,11 +284,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         {
           var executable = MDSS.util.extractScripts(html);
           var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_CONTENT).innerHTML = "";
           eval(executable);
+          that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
           that.existingForms();
           
-          this._currentMdFormId = null;
+          that._currentMdFormId = null;
         }
       });
       
@@ -306,9 +310,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 			return request;
 		},
-    _cancelListener : function(params)
+    _cancelListener : function(fieldMap)
     {
-			if (params["form.isNew"] === "true") {
+			if (fieldMap["form.isNew"] === "true") {
 			  document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
 			  document.getElementById(this.constructor.FORM_ITEM_ROW).innerHTML = "";
 			  this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
@@ -375,13 +379,19 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     cancelMdField : function(fieldMap)
     {
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(html){
-          that._fieldFormDialog.getImpl().hide();
-        }
-      });
-      return request;
+      if (fieldMap["mdField.isNew"] === "true") {
+				var dialog = document.getElementsByClassName("yui-dialog")[0];
+				dialog.parentNode.removeChild(dialog);
+			}
+			else {
+				var that = this;
+				var request = new MDSS.Request({
+					onSuccess: function(html){
+						that._fieldFormDialog.getImpl().hide();
+					}
+				});
+				return request;
+			}
     },
 		deleteField : function(e)
     {
@@ -408,7 +418,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
          var executable = MDSS.util.extractScripts(html);
          var pureHTML = MDSS.util.removeScripts(html);
          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+         document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = "";
          eval(executable);
+         that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
        }
       });
       that._MdFormAdminController.newInstance(request);

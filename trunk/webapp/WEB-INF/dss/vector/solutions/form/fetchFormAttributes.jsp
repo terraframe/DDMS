@@ -12,7 +12,6 @@
 
 <mjl:form name="MdFormAdmin.form.name" id="MdWebFormAdmin.form.id" method="POST">
 <mjl:component param="form" item="${form}"/>
-<mjl:input value="${form.id}" type="hidden" param="id" id="MdFormId"/>
 
 			<ul class="form-row">
 			    <li>
