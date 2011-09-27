@@ -6,7 +6,7 @@
 <ul>
 <c:forEach items="${results}" var="item">
   <li id="${item.mdFieldType}">
-    <span title="${item.description}">${item.mdFieldType}</span>
+    <span title="${item.description}">${item.displayLabel}</span>
   </li>
 </c:forEach>
 </ul>

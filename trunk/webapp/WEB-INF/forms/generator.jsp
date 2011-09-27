@@ -28,9 +28,14 @@
 
 
 
-<%@page import="dss.vector.solutions.form.MdFormAdminController"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
+<%@page import="dss.vector.solutions.form.MdFormAdminController"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
+
+<jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 
 <script type="text/javascript">
 
@@ -47,14 +52,18 @@ MdWebIntegerDTO.CLASS,
 MdWebLongDTO.CLASS,
 MdWebDecimalDTO.CLASS,
 MdWebDoubleDTO.CLASS,
-//MdWebFloatDTO.CLASS, MdWebFloatController.CLASS,
+MdWebFloatDTO.CLASS,
 
 // WebMoment (excluding DateTime, Time)
 MdWebDateDTO.CLASS,
 // Character, Text, Boolean
 MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
-MdWebBooleanDTO.CLASS
+MdWebBooleanDTO.CLASS,
+
+MdWebBreakDTO.CLASS,
+MdWebHeaderDTO.CLASS,
+MdWebCommentDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
@@ -75,7 +84,7 @@ YAHOO.util.Event.onDOMReady(function(){
   });
   
   dss.vector.solutions.form.FormObjectController.newInstance(request, mdFormId);
-*/
+
   
       YAHOO.util.Event.on('availableMdFields', 'click', function(e){
       
@@ -95,18 +104,18 @@ YAHOO.util.Event.onDOMReady(function(){
         dss.vector.solutions.form.MdFormAdminController.newMdField(request, mdFieldType);
         
       }, null, this);
+*/
+try
+{
+var UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
+UI.Manager.setFactory("YUI3");
+var factory = UI.Manager.getFactory();
+
+var grid = factory.newDataTable('${mdClassType}');
+grid.render('#formContainer');
+}catch(e){console.log(e);}
 });
 </script>
-<ul id="availableMdFields">
-  <li><span id="<%= MdWebBooleanDTO.CLASS %>">Boolean</span></li>
-  <li><span id="<%= MdWebCharacterDTO.CLASS %>">Character</span></li>
-  <li><span id="<%= MdWebTextDTO.CLASS %>">Text</span></li>
-  <li><span id="<%= MdWebIntegerDTO.CLASS %>">Integer</span></li>
-  <li><span id="<%= MdWebLongDTO.CLASS %>">Long</span></li>
-  <li><span id="<%= MdWebDoubleDTO.CLASS %>">Double</span></li>
-  <li><span id="<%= MdWebDecimalDTO.CLASS %>">Decimal</span></li>
-  <li><span id="<%= MdWebDateDTO.CLASS %>">Date</span></li>
-</ul>
 <div id="formContainer">
 </div>
 

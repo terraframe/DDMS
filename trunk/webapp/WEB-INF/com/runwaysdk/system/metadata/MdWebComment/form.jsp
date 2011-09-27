@@ -3,13 +3,6 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
-  <mjl:dt attribute="definingMdForm">
-    <mjl:select param="definingMdForm" items="${definingMdForm}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.displayLabel}
-      </mjl:option>
-    </mjl:select>
-  </mjl:dt>
   <mjl:dt attribute="displayLabel">
     <mjl:input param="displayLabel" type="text" />
   </mjl:dt>
@@ -27,5 +20,8 @@
   </mjl:dt>
   <mjl:dt attribute="remove">
     <mjl:boolean param="remove" />
+  </mjl:dt>
+  <mjl:dt attribute="commentText">
+    <mjl:input param="commentText" type="text" />
   </mjl:dt>
 </mjl:component>

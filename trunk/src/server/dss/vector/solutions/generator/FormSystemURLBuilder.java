@@ -124,7 +124,8 @@ public class FormSystemURLBuilder implements Reloadable
 
     // Create the system url for the CRUD screen
     SystemURL crudURL = new SystemURL();
-    crudURL.setUrl("dss.vector.solutions.generator.ExcelController.importType.mojo?type=" + mdForm.definesType());
+    crudURL.setUrl("dss.vector.solutions.form.FormObjectController.formGenerator.mojo?mdFormId=" + mdForm.getId());
+//    crudURL.setUrl("dss.vector.solutions.generator.ExcelController.importType.mojo?type=" + mdForm.definesType());
     crudURL.getDisplayLabel().setValue("defaultLocale", "Enter " + mdForm.getFormName());
     crudURL.apply();
 

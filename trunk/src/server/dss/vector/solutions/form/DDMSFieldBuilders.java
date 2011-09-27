@@ -1,5 +1,6 @@
 package dss.vector.solutions.form;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -177,18 +178,36 @@ public class DDMSFieldBuilders implements Reloadable
   
   public static class WebBreakBuilder extends WebFieldBuilder implements Reloadable
   {
-
+    @Override
+    protected void create(MdField mdField, MdWebForm webForm)
+    {
+      MdWebBreak field = (MdWebBreak) mdField;
+      field.setDefiningMdForm(webForm);
+      super.create(mdField, webForm);
+    }
   }
 
   public static class WebCommentBuilder extends WebFieldBuilder implements Reloadable
   {
-
+    @Override
+    protected void create(MdField mdField, MdWebForm webForm)
+    {
+      MdWebComment field = (MdWebComment) mdField;
+      field.setDefiningMdForm(webForm);
+      super.create(mdField, webForm);
+    }
   }
 
 
   public static class WebHeaderBuilder extends WebFieldBuilder implements Reloadable
   {
-
+    @Override
+    protected void create(MdField mdField, MdWebForm webForm)
+    {
+      MdWebHeader field = (MdWebHeader) mdField;
+      field.setDefiningMdForm(webForm);
+      super.create(mdField, webForm);
+    }
   }
   
   // complex attributes
@@ -267,6 +286,18 @@ public class DDMSFieldBuilders implements Reloadable
       md.setDatabaseLength(field.getDecPrecision());
       md.setDatabaseDecimal(field.getDecScale());
       
+      String start = field.getStartRange();
+      if(start != null && start.trim().length() != 0)
+      {
+        md.setStartRange(Double.parseDouble(start));
+      }
+
+      String end = field.getEndRange();
+      if(end != null && end.trim().length() != 0)
+      {
+        md.setEndRange(Double.parseDouble(end));
+      }
+      
       super.updateMdAttribute(md, mdField);
     }
 
@@ -284,6 +315,18 @@ public class DDMSFieldBuilders implements Reloadable
       md.setDatabaseLength(field.getDecPrecision());
       md.setDatabaseDecimal(field.getDecScale());      
       
+      String start = field.getStartRange();
+      if(start != null && start.trim().length() != 0)
+      {
+        md.setStartRange(new BigDecimal(start));
+      }
+
+      String end = field.getEndRange();
+      if(end != null && end.trim().length() != 0)
+      {
+        md.setEndRange(new BigDecimal(end));
+      }
+      
       super.updateMdAttribute(mdAttr, mdField);
     }
   }
@@ -300,6 +343,18 @@ public class DDMSFieldBuilders implements Reloadable
       md.setDatabaseLength(field.getDecPrecision());
       md.setDatabaseDecimal(field.getDecScale());    
       
+      String start = field.getStartRange();
+      if(start != null && start.trim().length() != 0)
+      {
+        md.setStartRange(Float.parseFloat(start));
+      }
+
+      String end = field.getEndRange();
+      if(end != null && end.trim().length() != 0)
+      {
+        md.setEndRange(Float.parseFloat(end));
+      }
+      
       super.updateMdAttribute(md, mdField);
     }
 
@@ -311,6 +366,19 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeLong md = (MdAttributeLong) mdAttr;
+      MdWebLong field = (MdWebLong) mdField;
+      
+      String start = field.getStartRange();
+      if(start != null && start.trim().length() != 0)
+      {
+        md.setStartRange(Long.parseLong(start));
+      }
+
+      String end = field.getEndRange();
+      if(end != null && end.trim().length() != 0)
+      {
+        md.setEndRange(Long.parseLong(end));
+      }
       
       super.updateMdAttribute(md, mdField);
     }
@@ -326,6 +394,18 @@ public class DDMSFieldBuilders implements Reloadable
       MdAttributeInteger md = (MdAttributeInteger) mdAttr;
       MdWebInteger field = (MdWebInteger) mdField;
       
+      String start = field.getStartRange();
+      if(start != null && start.trim().length() != 0)
+      {
+        md.setStartRange(Integer.parseInt(start));
+      }
+
+      String end = field.getEndRange();
+      if(end != null && end.trim().length() != 0)
+      {
+        md.setEndRange(Integer.parseInt(end));
+      }
+      
       super.updateMdAttribute(md, mdField);
     }
 
@@ -339,6 +419,13 @@ public class DDMSFieldBuilders implements Reloadable
     {
       MdAttributeDate md = (MdAttributeDate) mdAttr;
       
+      MdWebDate field = (MdWebDate) mdField;
+      
+      md.setAfterTodayExclusive(field.getAfterTodayExclusive());
+      md.setAfterTodayInclusive(field.getAfterTodayInclusive());
+      md.setBeforeTodayExclusive(field.getBeforeTodayExclusive());
+      md.setBeforeTodayInclusive(field.getBeforeTodayInclusive());
+      
       super.updateMdAttribute(md, mdField);
     }
   }
@@ -349,7 +436,7 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeDateTime md = (MdAttributeDateTime) mdAttr;
-      
+
       super.updateMdAttribute(md, mdField);
     }
 

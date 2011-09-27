@@ -10,6 +10,7 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.form.FormObject;
 import com.runwaysdk.form.web.JSONFormVisitor;
 import com.runwaysdk.form.web.WebFormObject;
+import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
 import com.runwaysdk.web.json.JSONProblemExceptionDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
@@ -34,6 +35,12 @@ public class FormObjectController extends FormObjectControllerBase implements co
   {
     try
     {
+      MdFormDTO mdForm = MdFormDTO.get(this.getClientRequest(), mdFormId);
+      MdClassDTO mdClass = mdForm.getFormMdClass();
+      
+      String type = mdClass.getPackageName()+"."+mdClass.getTypeName();
+      this.req.setAttribute("mdClassType", type);
+      
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
     catch(Throwable t)
