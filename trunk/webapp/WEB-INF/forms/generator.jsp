@@ -1,14 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="com.runwaysdk.web.json.JSONController"%>
-
-
-
-
 
 <%@page import="dss.vector.solutions.query.SavedSearchDTO"%>
 <%@page import="dss.vector.solutions.query.AttributeGeoHierarchyDTO"%>
@@ -31,7 +29,8 @@
 <%@page import="dss.vector.solutions.form.MdFormAdminController"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
-<%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
+<%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
+<c:set var="page_title" value="Form_Generator"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
@@ -43,9 +42,9 @@
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
-//String[] types = new String[]{FormObjectController.CLASS};
 String[] types = new String[]{
-MdFormAdminController.CLASS,
+request.getAttribute("mdClassType").toString(),
+FormObjectController.CLASS,
     
 // WebNumber (excluding float)
 MdWebIntegerDTO.CLASS,
@@ -72,51 +71,13 @@ out.print(js);
 
 YAHOO.util.Event.onDOMReady(function(){
 
-/*
-  var mdFormId = '<%= request.getParameter("mdFormId") %>';
-  var request = new MDSS.Request({
-    onSuccess : function(formObjectJSON){
-      
-      var webForm = new com.runwaysdk.form.web.WebFormObject.parseFromJSON(formObjectJSON);
-      var formRender = new com.runwaysdk.form.FormObjectRenderer(webForm);
-      formRender.render('formContainer');
-    }
-  });
-  
-  dss.vector.solutions.form.FormObjectController.newInstance(request, mdFormId);
-
-  
-      YAHOO.util.Event.on('availableMdFields', 'click', function(e){
-      
-        var request = new MDSS.Request({
-          onSuccess : function(html){
-     
-            // FIXME use Async queue
-            var executable = MDSS.util.extractScripts(html);
-            var html = MDSS.util.removeScripts(html);     
-          
-            document.getElementById('formContainer').innerHTML = html;
-          }
-        });
-      
-        var mdFieldType = e.target.id;
-        
-        dss.vector.solutions.form.MdFormAdminController.newMdField(request, mdFieldType);
-        
-      }, null, this);
-*/
-try
-{
-var UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
-UI.Manager.setFactory("YUI3");
-var factory = UI.Manager.getFactory();
-
-var grid = factory.newDataTable('${mdClassType}');
-grid.render('#formContainer');
-}catch(e){console.log(e);}
+  var generator = new dss.vector.solutions.FormObjectGenerator('${mdFormId}', '${mdClassType}');
+  generator.render();
 });
 </script>
-<div id="formContainer">
+<div id="mainContainer">
 </div>
-
+<a href="#" id="newInstanceCommand">
+  <mdss:localize key="Create" />
+</a>
 <jsp:include page="../templates/footer.jsp"></jsp:include>

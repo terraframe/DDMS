@@ -1570,6 +1570,89 @@ var FormObjectCache = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObjectCache
   }
 });
 
+var FormObjectRenderer = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObjectRenderer', {
+  Instance : {
+    initialize : function(formObject){
+      this.$initialize();
+      this._formObject = formObject;
+      this._domForm = null;
+      
+      FormObjectCache.getInstance().add(formObject);
+    },
+    render : function(parent){
+      // FIXME have Will implement this with a factory
+      this._domForm = document.createElement('form');
+      this._domForm.setAttribute('method', 'POST');
+      this._domForm.setAttribute('id', this._formObject.getId());
+      this._domForm.setAttribute('name', this._formObject.getFormName());
+      
+      var header = document.createElement('h2');
+      header.innerHTML = this._formObject.getMd().getDisplayLabel();
+      this._domForm.appendChild(header);
+      
+      // add each field (use text for now)
+      var dl = document.createElement('dl');
+      this._domForm.appendChild(dl);
+      var fields = this._formObject.getFields();
+      var dt = null;
+      var dd = null;
+      var input = null;
+      for(var i=0, len=fields.length; i<len; i++)
+      {
+        var field = fields[i];
+        dt = document.createElement('dt');
+        dt.innerHTML = field.getFieldMd().getDisplayLabel();
+        dd = document.createElement('dd');
+        
+        input = document.createElement('input');
+        input.setAttribute('type', 'text');
+        input.setAttribute('name', field.getFieldName());
+        input.setAttribute('value', field.getValue());
+        
+        dt.appendChild(input);
+        
+        dl.appendChild(dt);
+        dl.appendChild(dd);
+      }
+      
+      document.getElementById(parent).appendChild(this._domForm);
+    },
+    destroy : function(){
+      FormObjectCache.getInstance().remove(this._formObject);
+      // FIXME this._domForm.getParent().removeChild(this._domForm)
+      this.$destroy();
+    }
+  }
+});
+
+var FormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'FormMd', {
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize();
+      this._formName = obj.formName;
+      this._formMdClass = obj.formMdClass;
+      this._description = obj.description;
+      this._displayLabel = obj.displayLabel;
+      this._id = obj.id;
+    },
+    getId : function(){ return this._id; },
+    getDisplayLabel : function() { return this._displayLabel; },
+    getDescription : function() { return this._description; },
+    getFormName : function(){ return this._formName; },
+    getFormMdClass : function(){ return this._formMdClass; }
+  }
+});
+
+var WebFormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFormMd', {
+  Extends: FormMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
 var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
   IsAbstract: true,
   Instance: {
@@ -1631,6 +1714,7 @@ var FieldIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldIF', {
     isWritable : function(){},
     isReadable : function(){},
     isModified : function(){},
+    render : function(parentNode){}
   }
 });
 
@@ -1655,7 +1739,10 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     getFieldName : function(){ return this.getFieldMd().getFieldName(); },
     isWritable : function(){},
     isReadable : function(){},
-    isModified : function(){}
+    isModified : function(){},
+    render : function(parentNode){
+      // Default is a text input
+    }
   }
 });
 
@@ -1734,7 +1821,7 @@ var WebLong = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebLong', {
 });
 
 var WebDec = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDec', {
-  Extends : WebPrimitive,
+  Extends : WebNumber,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1837,7 +1924,7 @@ var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd',
 });
 
 var WebAttributeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebAttributeMd', {
-  Extends : WebField,
+  Extends : WebFieldMd,
   IsAbstract : true,
   Instance : {
     initialize : function(obj){
@@ -1847,7 +1934,7 @@ var WebAttributeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebAttribute
 });
 
 var WebPrimitiveMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd', {
-  Extends : WebAttribute,
+  Extends : WebAttributeMd,
   IsAbstract : true,
   Instance : {
     initialize : function(obj){
@@ -1865,7 +1952,7 @@ var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBooleanMd',
   }
 });
 var WebCharacterMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCharacterMd', {
-  Extends : WebPrimitive,
+  Extends : WebPrimitiveMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1874,7 +1961,7 @@ var WebCharacterMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCharacter
 });
 
 var WebTextMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebTextMd', {
-  Extends : WebPrimitive,
+  Extends : WebPrimitiveMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1884,7 +1971,7 @@ var WebTextMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebTextMd', {
 
 var WebNumberMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebNumberMd', {
   IsAbstract : true,
-  Extends : WebPrimitive,
+  Extends : WebPrimitiveMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1893,7 +1980,7 @@ var WebNumberMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebNumberMd', {
 });
 
 var WebIntegerMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebIntegerMd', {
-  Extends : WebNumber,
+  Extends : WebNumberMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1902,7 +1989,7 @@ var WebIntegerMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebIntegerMd',
 });
 
 var WebLongMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebLongMd', {
-  Extends : WebNumber,
+  Extends : WebNumberMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1911,7 +1998,7 @@ var WebLongMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebLongMd', {
 });
 
 var WebDecMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDecMd', {
-  Extends : WebPrimitive,
+  Extends : WebNumberMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1920,7 +2007,7 @@ var WebDecMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDecMd', {
 });
 
 var WebDecimalMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDecimalMd', {
-  Extends : WebDec,
+  Extends : WebDecMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1929,7 +2016,7 @@ var WebDecimalMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDecimalMd',
 });
 
 var WebDoubleMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDoubleMd', {
-  Extends : WebDec,
+  Extends : WebDecMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1938,7 +2025,7 @@ var WebDoubleMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDoubleMd', {
 });
 
 var WebFloatMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFloatMd', {
-  Extends : WebDec,
+  Extends : WebDecMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1948,7 +2035,7 @@ var WebFloatMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFloatMd', {
 
 var WebMomentMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebMomentMd', {
   IsAbstract : true,
-  Extends : WebPrimitive,
+  Extends : WebPrimitiveMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1957,7 +2044,7 @@ var WebMomentMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebMomentMd', {
 });
 
 var WebDateMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateMd', {
-  Extends : WebMoment,
+  Extends : WebMomentMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1966,7 +2053,7 @@ var WebDateMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateMd', {
 });
 
 var WebDateTimeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateTimeMd', {
-  Extends : WebMoment,
+  Extends : WebMomentMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1975,7 +2062,7 @@ var WebDateTimeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateTimeMd
 });
 
 var WebTimeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebTimeMd', {
-  Extends : WebMoment,
+  Extends : WebMomentMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);

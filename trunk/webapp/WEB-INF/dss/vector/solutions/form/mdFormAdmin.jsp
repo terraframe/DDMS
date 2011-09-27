@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
+<%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
@@ -78,7 +80,7 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 <!-- start side bar for tree -->
 <div class="form-side-bar">
-    <a href="#" class="create-new-form-button" id="createNewForm">Create New Form</a>
+    <a href="#" class="create-new-form-button" id="createNewForm"><mdss:localize key="Create_a_new_form" /></a>
     
     <!-- start tree control -->
     <ul class="tree" id="existingForms">

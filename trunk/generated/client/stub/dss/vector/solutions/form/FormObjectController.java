@@ -40,6 +40,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
       
       String type = mdClass.getPackageName()+"."+mdClass.getTypeName();
       this.req.setAttribute("mdClassType", type);
+      this.req.setAttribute("mdFormId", mdFormId);
       
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
