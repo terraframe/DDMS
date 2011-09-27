@@ -19,7 +19,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		FORM_CONTENT_BOX : 'formContentBox',
 		FORM_ACTION_ROW : 'formActionRow',
 		FORM_ITEM_ROW : 'formItemRow',
-		EDIT_BUTTON : 'editBtn'
+		EDIT_BUTTON : 'editBtn',
+		TABBED_FORM_BOX : 'tabbedFormBox'
   },
   Instance : {
     initialize : function()
@@ -77,21 +78,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
       // show the existing forms
       this.existingForms();
-    },
-    /**
-     * Shows or hides the edit mode functionality of a form (i.e., the CRUD operatons on the fields).
-     * 
-     * @param enable true if edit mode should be shown or false if everything should be in read mode only.
-     */
-    toggleEditMode : function(enable)
-    {
-			if (arguments.length == 0)
-			{
-				enable = this._editMode;
-			}
-      var nodeCol = this._Y.all('.edit-mode-functionality'); // TODO optimize or use another call?
-      nodeCol.setStyle('visibility', enable ? 'visible' : 'hidden');
-			this._editMode = enable;
     },
     destroy : function()
     {
@@ -230,7 +216,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       var id = e.currentTarget.get('id');
       this._currentMdFormId = id;
-			this.toggleEditMode(false);
       this.fetchFormAttributes();
       this.fetchFormFields();
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
@@ -260,7 +245,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var pureHTML = MDSS.util.removeScripts(html);
           document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
           eval(executable);
-          that.toggleEditMode();
         }
       });
       
@@ -276,8 +260,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var pureHTML = MDSS.util.removeScripts(html);
           document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
           eval(executable);
-					that.existingForms();
-					that._currentMdFormId = document.getElementsByName("form.componentId")[0].value;
+          that.existingForms();
+          that._currentMdFormId = document.getElementsByName("form.componentId")[0].value;
+          that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
         }
       });
       
@@ -311,7 +296,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 					var pureHTML = MDSS.util.removeScripts(html);
 					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 					eval(executable);
-          that.toggleEditMode(false);
 					that.existingForms();
 				}
 			});
@@ -334,7 +318,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 						var pureHTML = MDSS.util.removeScripts(html);
 						document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 						eval(executable);
-            that.toggleEditMode(false);
 					}
 				});
 				
@@ -351,7 +334,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			   var pureHTML = MDSS.util.removeScripts(html);
 				 document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
 				 eval(executable);
-				 that.toggleEditMode(true);
 			 }
 			});
 			
@@ -359,7 +341,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		},
 		editField : function(e)
 		{
-			if (this._editMode === true) {
+			var type = e.target.get('nodeName');
+			if (this._editMode === true && type !== 'A') {
 				var fieldId = e.currentTarget.get('id');
 				var that = this;
 				var request = new MDSS.Request({
@@ -408,7 +391,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
 		deleteField : function(e)
     {
-			e.stopImmediatePropagation();
 			var fieldId = e.currentTarget.get('id');
       var that = this;
       var request = new MDSS.Request({
@@ -434,8 +416,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = "";
          eval(executable);
-				 that.toggleEditMode(false);
          that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
+         that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'hidden');
        }
       });
       that._MdFormAdminController.newInstance(request);
