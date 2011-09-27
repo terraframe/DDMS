@@ -4,7 +4,7 @@
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 
 <c:forEach items="${fields}" var="item">
-  <li>${item.displayLabel}
+  <li id="${item.id}">${item.displayLabel}
     <mjl:input type="text" readonly="true" id="${item.id}" /> <!-- param="item.fieldName" /-->
     <a href="#" class="form-item-row-delete edit-mode-functionality" id="${item.id}">Delete</a>            
   </li>
