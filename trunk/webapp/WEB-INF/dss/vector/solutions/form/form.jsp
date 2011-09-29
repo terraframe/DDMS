@@ -6,11 +6,11 @@
 
 <mjl:component param="form" item="${form}">
     <li>
-        <label>Form Name</label>
+        <label>${form.formNameMd.displayLabel}</label>
         <mjl:input value="${form.formName}" type="text" param="formName" />
     </li>
     <li>
-        <label>Form Display Label</label>
+        <label>${form.displayLabelMd.displayLabel}</label>
         <mjl:input value="${form.displayLabel}" type="text" param="displayLabel" />
     </li>
 </mjl:component>

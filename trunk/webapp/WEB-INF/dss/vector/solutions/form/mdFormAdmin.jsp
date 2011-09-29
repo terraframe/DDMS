@@ -23,7 +23,9 @@
 
 <%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
-<%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+<%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
+
+<c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
 <style type="text/css">
 body {
@@ -100,11 +102,11 @@ YAHOO.util.Event.onDOMReady(function(){
   <!-- start fields -->
   <div class="tabbed-form-box" id="tabbedFormBox">
         <ul class="tabs">
-            <li class="tabs-on"><a href="#">Fields</a></li>
-            <li><a href="#">Workflow</a></li>
+            <li class="tabs-on"><a href="#"><mdss:localize key="Fields"/></a></li>
+            <li><a href="#"><mdss:localize key="Workflow" /></a></li>
         </ul>
         <div class="form-top-action-row">
-            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields">Add Field</a>
+            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"><mdss:localize key="Add_Field"/></a>
         </div>
         <ul class="form-item-row" id="formItemRow">
         </ul>
