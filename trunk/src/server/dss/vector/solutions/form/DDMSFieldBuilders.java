@@ -246,6 +246,13 @@ public class DDMSFieldBuilders implements Reloadable
     {
       MdAttributeBoolean md = (MdAttributeBoolean) mdAttr;
       
+      // FIXME allow user defined labels
+      if(md.isNew())
+      {
+        md.getPositiveDisplayLabel().setDefaultValue("true");
+        md.getNegativeDisplayLabel().setDefaultValue("false");
+      }
+        
       super.updateMdAttribute(md, mdField);
     }
   }

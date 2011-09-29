@@ -1904,7 +1904,11 @@ var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBooleanMd',
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._positiveDisplayLabel = obj.positiveDisplayLabel;
+      this._negativeDisplayLabel = obj.negativeDisplayLabel;
+    },
+    getPositiveDisplayLabel : function(){ return this._positiveDisplayLabel; },
+    getNegativeDisplayLabel : function(){ return this._negativeDisplayLabel; }
   }
 });
 var WebCharacterMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCharacterMd', {

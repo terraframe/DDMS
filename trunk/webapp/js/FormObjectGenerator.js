@@ -78,24 +78,32 @@ var FormObjectRenderer = Mojo.Meta.newClass('dss.vector.solutions.FormObjectRend
       {
         // FIXME use Input classes and better integration with Fields
         var field = fields[i];
+        
         var dt = this._factory.newElement('dt');
         var dd = this._factory.newElement('dd');
         
         dl.appendChild(dt);
         dl.appendChild(dd);
         
+        var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
+        
         // display and annotation fields
         var displayField = false;
         if(field instanceof FIELD.WebHeader)
         {
+          var h = this._factory.newElement('h2');
+          h.setInnerHTML(value);
+          dd.appendChild(h);
           displayField = true;
         }
         else if(field instanceof FIELD.WebBreak)
         {
+          dd.setInnerHTML('<br />');
           displayField = true;
         }
         else if(field instanceof FIELD.WebComment)
         {
+          dd.setInnerHTML(value);
           displayField = true;
         }
         
@@ -131,7 +139,6 @@ var FormObjectRenderer = Mojo.Meta.newClass('dss.vector.solutions.FormObjectRend
         labelEl.setInnerHTML(labelTxt);
         dt.appendChild(labelEl);
         
-        var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
         if(field instanceof FIELD.WebBoolean)
         {
           var radioT = this._factory.newElement('input', {
@@ -140,15 +147,23 @@ var FormObjectRenderer = Mojo.Meta.newClass('dss.vector.solutions.FormObjectRend
             'value':'true',
             'group':field.getFieldName()+'_G',
           });
+          var tLabel = this._factory.newElement('span');
+          tLabel.setInnerHTML(field.getFieldMd().getPositiveDisplayLabel());
+          
           var radioF = this._factory.newElement('input', {
             'type':'radio',
             'name':field.getFieldName(),
             'value':'false',
             'group':field.getFieldName()+'_G',
           });
+          var fLabel = this._factory.newElement('span');
+          fLabel.setInnerHTML(field.getFieldMd().getNegativeDisplayLabel());
+          
           
           dd.appendChild(radioT);
+          dd.appendChild(tLabel);
           dd.appendChild(radioF);
+          dd.appendChild(fLabel);
         }
         else if(field instanceof FIELD.WebCharacter)
         {
@@ -209,6 +224,29 @@ var FormObjectRenderer = Mojo.Meta.newClass('dss.vector.solutions.FormObjectRend
           var msg = 'The field ['+field+'] is not recognized.';
           throw new com.runwaysdk.Exception(msg);
         }
+      }
+      
+      // Add the action buttons
+      if(this._formObject.isNewInstance())
+      {
+        // create
+        var createBtn = this._factory.newElement('button');
+        createBtn.setInnerHTML(MDSS.localize('Create'));
+        formEl.appendChild(createBtn);
+        
+        // cancel
+        var cancelBtn = this._factory.newElement('button');
+        cancelBtn.setInnerHTML(MDSS.localize('Cancel'));
+        formEl.appendChild(cancelBtn);
+      }
+      else
+      {
+        // update
+        
+        
+        // cancel
+        
+        
       }
       
       formEl.render('#'+parent);  

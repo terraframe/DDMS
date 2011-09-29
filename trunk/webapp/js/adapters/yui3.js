@@ -489,6 +489,12 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         for(var i=0; i<attrs.length; i++)
         {
           var attr = attrs[i];
+          var md = attr.getAttributeMdDTO();
+          if(md.isSystem())
+          {
+            continue; // ignore system attributes as columns
+          }
+          
           var label = attr.getAttributeMdDTO().getDisplayLabel();
           var key = attr.getName();
           

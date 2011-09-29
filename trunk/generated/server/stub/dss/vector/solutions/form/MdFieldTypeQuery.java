@@ -10,6 +10,7 @@ import com.runwaysdk.system.metadata.MdWebComment;
 import com.runwaysdk.system.metadata.MdWebDate;
 import com.runwaysdk.system.metadata.MdWebDecimal;
 import com.runwaysdk.system.metadata.MdWebDouble;
+import com.runwaysdk.system.metadata.MdWebFloat;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
 import com.runwaysdk.system.metadata.MdWebLong;
@@ -74,6 +75,7 @@ private static final long serialVersionUID = 1649662279;
           MdBusiness.getMdBusiness(MdWebLong.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebDouble.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebDecimal.CLASS).getId(),
+          MdBusiness.getMdBusiness(MdWebFloat.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebDate.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebBreak.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebHeader.CLASS).getId(),

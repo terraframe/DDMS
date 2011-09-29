@@ -114,7 +114,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdWebForm[] getAllForms()
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
-
+    query.ORDER_BY_ASC(query.getFormName());
+    
     OIterator<? extends MdWebForm> it = query.getIterator();
 
     try
