@@ -10,4 +10,10 @@
   <mjl:dt attribute="decScale">
     <mjl:input param="decScale" type="text" />
   </mjl:dt>
+  <mjl:dt attribute="startRange">
+    <mjl:input param="startRange" type="text" />
+  </mjl:dt>
+  <mjl:dt attribute="endRange">
+    <mjl:input param="endRange" type="text" />
+  </mjl:dt>
 </mjl:component>

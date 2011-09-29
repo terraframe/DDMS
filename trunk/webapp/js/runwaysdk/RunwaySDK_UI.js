@@ -816,7 +816,7 @@ var HTMLElementBase = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'HTMLElementBase',{
         parent = DOMFacade.getBody();
       }
       else {
-        parent = RUNWAY_UI.Util.toElement(parent);
+        parent = Util.toElement(parent);
       }
       parent.appendChild(this);
     }
@@ -1552,79 +1552,6 @@ var RemoveItemEvent = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'RemoveItemEvent', {
   }
 });
 
-var FormObjectCache = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObjectCache', {
-  IsSingleton: true,
-  Instance : {
-    initialize : function(){
-      this._forms = new com.runwaysdk.structure.HashMap();
-    },
-    add : function(form){
-      this._forms.put(form.getId(), form);
-    },
-    get : function(id){
-      return this._forms.get(id);
-    },
-    remove : function(form){
-      this._forms.remove(form);
-    }
-  }
-});
-
-var FormObjectRenderer = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObjectRenderer', {
-  Instance : {
-    initialize : function(formObject){
-      this.$initialize();
-      this._formObject = formObject;
-      this._domForm = null;
-      
-      FormObjectCache.getInstance().add(formObject);
-    },
-    render : function(parent){
-      // FIXME have Will implement this with a factory
-      this._domForm = document.createElement('form');
-      this._domForm.setAttribute('method', 'POST');
-      this._domForm.setAttribute('id', this._formObject.getId());
-      this._domForm.setAttribute('name', this._formObject.getFormName());
-      
-      var header = document.createElement('h2');
-      header.innerHTML = this._formObject.getMd().getDisplayLabel();
-      this._domForm.appendChild(header);
-      
-      // add each field (use text for now)
-      var dl = document.createElement('dl');
-      this._domForm.appendChild(dl);
-      var fields = this._formObject.getFields();
-      var dt = null;
-      var dd = null;
-      var input = null;
-      for(var i=0, len=fields.length; i<len; i++)
-      {
-        var field = fields[i];
-        dt = document.createElement('dt');
-        dt.innerHTML = field.getFieldMd().getDisplayLabel();
-        dd = document.createElement('dd');
-        
-        input = document.createElement('input');
-        input.setAttribute('type', 'text');
-        input.setAttribute('name', field.getFieldName());
-        input.setAttribute('value', field.getValue());
-        
-        dt.appendChild(input);
-        
-        dl.appendChild(dt);
-        dl.appendChild(dd);
-      }
-      
-      document.getElementById(parent).appendChild(this._domForm);
-    },
-    destroy : function(){
-      FormObjectCache.getInstance().remove(this._formObject);
-      // FIXME this._domForm.getParent().removeChild(this._domForm)
-      this.$destroy();
-    }
-  }
-});
-
 var FormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'FormMd', {
   IsAbstract : true,
   Instance : {
@@ -1713,8 +1640,7 @@ var FieldIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldIF', {
     getFieldName : function(){},
     isWritable : function(){},
     isReadable : function(){},
-    isModified : function(){},
-    render : function(parentNode){}
+    isModified : function(){}
   }
 });
 
@@ -1739,10 +1665,7 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     getFieldName : function(){ return this.getFieldMd().getFieldName(); },
     isWritable : function(){},
     isReadable : function(){},
-    isModified : function(){},
-    render : function(parentNode){
-      // Default is a text input
-    }
+    isModified : function(){}
   }
 });
 
@@ -1893,13 +1816,42 @@ var WebTime = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebTime', {
   }
 });
 
+var WebHeader = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebHeader', {
+  Extends : WebField,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebBreak = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebBreak', {
+  Extends : WebField,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebComment = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebComment', {
+  Extends : WebField,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
 var FieldMdIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldMdIF', {
   Instance : {
     getDefiningMdForm : function(){},
     getFieldName : function(){},
     getFieldOrder : function(){},
     getDisplayLabel : function(){},
+    getDescription : function(){},
     getId : function(){},
+    isRequired : function(){}
   }
 });
 
@@ -1911,15 +1863,19 @@ var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd',
       this.$initialize(obj);
       this._definingMdForm = obj.definingMdForm;
       this._displayLabel = obj.displayLabel;
+      this._description = obj.description;
       this._fieldName = obj.fieldName;
       this._fieldOrder = obj.fieldOrder;
       this._id = obj.id;
+      this._required = obj.required;
     },
     getDefiningMdForm : function(){ return this._definingMdForm; },
     getFieldName : function(){ return this._fieldName; },
     getFieldOrder : function(){ return this._fieldOrder; },
     getDisplayLabel : function(){ return this._displayLabel; },
-    getId : function(){ return this.id; }
+    getDescription : function(){ return this._description; },
+    getId : function(){ return this._id; },
+    isRequired : function(){ return this._required; }
   }
 });
 
@@ -1944,7 +1900,7 @@ var WebPrimitiveMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitive
 });
 
 var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBooleanMd', {
-  Extends : WebPrimitive,
+  Extends : WebPrimitiveMd,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -1956,7 +1912,11 @@ var WebCharacterMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCharacter
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._maxLength = obj.maxLength;
+      this._displayLength = obj.displayLength;
+    },
+    getDisplayLength : function(){ return this._displayLength; },
+    getMaxLength : function(){ return this._maxLength; }
   }
 });
 
@@ -1965,7 +1925,11 @@ var WebTextMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebTextMd', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._width = obj.width;
+      this._height = obj.height;
+    },
+    getWidth : function(){ return this._width; },
+    getHeight : function(){ return this._height; }
   }
 });
 
@@ -1975,7 +1939,11 @@ var WebNumberMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebNumberMd', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._startRange = obj.startRange;
+      this._endRange = obj.endRange;
+    },
+    getStartRange : function() { return this._startRange; },
+    getEndRange : function() { return this._endRange; }
   }
 });
 
@@ -2002,7 +1970,11 @@ var WebDecMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDecMd', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._decPrecision = obj.decPrecision;
+      this._decScale = obj.decScale;
+    },
+    getDecPrecision : function() { return this._decPrecision; },
+    getDecScale : function() { return this._decScale; }
   }
 });
 
@@ -2048,7 +2020,19 @@ var WebDateMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateMd', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._beforeTodayExclusive = obj.beforeTodayExclusive;
+      this._beforeTodayInclusive = obj.beforeTodayInclusive;
+      this._afterTodayExclusive = obj.afterTodayExclusive;
+      this._afterTodayInclusive = obj.afterTodayInclusive;
+      this._startDate = obj.startDate;
+      this._endDate = obj.endDate;
+    },
+    getBeforeTodayExclusive : function() { return this._beforeTodayExclusive; },
+    getBeforeTodayInclusive : function() { return this._beforeTodayInclusive; },
+    getAfterTodayExclusive : function() { return this._afterTodayExclusive; },
+    getAfterTodayInclusive : function() { return this._afterTodayInclusive; },
+    getStartDate : function() { return this._startDate; },
+    getEndDate : function() { return this._endDate; }
   }
 });
 
@@ -2070,5 +2054,31 @@ var WebTimeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebTimeMd', {
   }
 });
 
+var WebHeaderMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebHeaderMd', {
+  Extends : WebFieldMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebBreakMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBreakMd', {
+  Extends : WebFieldMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebCommentMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCommentMd', {
+  Extends : WebFieldMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
 
 })();

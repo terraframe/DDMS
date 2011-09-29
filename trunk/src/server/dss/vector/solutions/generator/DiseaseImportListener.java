@@ -8,7 +8,6 @@ import dss.vector.solutions.general.Disease;
 
 public class DiseaseImportListener extends ExcelAdapter implements Reloadable
 {
-  @Override
   public void beforeApply(Mutable instance)
   {
     Disease disease = Disease.getCurrent();

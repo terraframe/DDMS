@@ -51,7 +51,7 @@ MdWebIntegerDTO.CLASS,
 MdWebLongDTO.CLASS,
 MdWebDecimalDTO.CLASS,
 MdWebDoubleDTO.CLASS,
-//MdWebFloatDTO.CLASS, MdWebFloatController.CLASS,
+MdWebFloatDTO.CLASS,
 
 // WebMoment (excluding DateTime, Time)
 MdWebDateDTO.CLASS,
