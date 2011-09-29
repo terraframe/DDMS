@@ -3,6 +3,7 @@ package dss.vector.solutions.generator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.constants.MdTypeInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
@@ -70,8 +71,8 @@ public class FormSystemURLBuilder implements Reloadable
   @Transaction
   public void delete()
   {
-    SystemURL crudURL = SystemURL.getByKey("Enter " + mdForm.getFormName());
-    SystemURL queryURL = SystemURL.getByKey("Query " + mdForm.getFormName());
+    SystemURL crudURL = SystemURL.getByKey("Enter " + mdForm.getValue(MdTypeInfo.NAME));
+    SystemURL queryURL = SystemURL.getByKey("Query " + mdForm.getValue(MdTypeInfo.NAME));
 
     this.deleteRoles(crudURL);
     this.deleteRoles(queryURL);
@@ -126,13 +127,13 @@ public class FormSystemURLBuilder implements Reloadable
     SystemURL crudURL = new SystemURL();
     crudURL.setUrl("dss.vector.solutions.form.FormObjectController.formGenerator.mojo?mdFormId=" + mdForm.getId());
 //    crudURL.setUrl("dss.vector.solutions.generator.ExcelController.importType.mojo?type=" + mdForm.definesType());
-    crudURL.getDisplayLabel().setValue("defaultLocale", "Enter " + mdForm.getFormName());
+    crudURL.getDisplayLabel().setValue("defaultLocale", "Enter " + mdForm.getValue(MdTypeInfo.NAME));
     crudURL.apply();
 
     // Create the system url for the query screen
     SystemURL queryURL = new SystemURL();
     queryURL.setUrl("dss.vector.solutions.query.QueryController.queryType.mojo?type=" + mdForm.definesType());
-    queryURL.getDisplayLabel().setValue("defaultLocale", "Query " + mdForm.getFormName());
+    queryURL.getDisplayLabel().setValue("defaultLocale", "Query " + mdForm.getValue(MdTypeInfo.NAME));
     queryURL.apply();
 
     Disease[] diseases = Disease.getAllDiseases();

@@ -554,7 +554,8 @@ public class QueryUtil implements Reloadable
             attrCol = getColumnName(mdRel, attrib);
           }
 
-          // The default convention is that the child in the relationship is the Term class
+          // The default convention is that the child in the relationship is the
+          // Term class
           String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + childColumn + " = '" + term_id + "' " + "AND " + parentColumn + " = " + tableAlias + ".id";
 
           ( (SelectableSQL) s ).setSQL(sql);
@@ -831,73 +832,79 @@ public class QueryUtil implements Reloadable
     try
     {
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
-      attributeName = dateObj.getString(DATE_ATTRIBUTE);
-      klass = dateObj.getString("klass");
 
-      MdBusiness md = MdBusiness.getMdBusiness(klass);
-      GeneratedEntityQuery attributeQuery = null;
-      while (attributeQuery == null)
+      if (dateObj.has(DATE_ATTRIBUTE))
       {
-        if (md == null)
+        attributeName = dateObj.getString(DATE_ATTRIBUTE);
+        klass = dateObj.getString("klass");
+
+        MdBusiness md = MdBusiness.getMdBusiness(klass);
+        GeneratedEntityQuery attributeQuery = null;
+        while (attributeQuery == null)
         {
-          // the entity that defines the date attribute is not
-          // in the query, so don't do anymore processing.
-          return valueQuery;
+          if (md == null)
+          {
+            // the entity that defines the date attribute is not
+            // in the query, so don't do anymore processing.
+            return valueQuery;
+          }
+
+          attributeQuery = queryMap.get(md.definesType());
+          if (attributeQuery != null)
+          {
+            break;
+          }
+
+          md = md.getSuperMdBusiness();
         }
 
-        attributeQuery = queryMap.get(md.definesType());
-        if (attributeQuery != null)
+        if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
         {
-          break;
+          startValue = dateObj.getString("start");
+
+          if (!ignoreCriteria)
+          {
+            AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+            valueQuery.AND(dateAttriute.GE(startValue));
+          }
+
+        }
+        if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
+        {
+          endValue = dateObj.getString("end");
+
+          if (!ignoreCriteria)
+          {
+            AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
+            valueQuery.AND(dateAttriute.LE(endValue));
+          }
         }
 
-        md = md.getSuperMdBusiness();
+        // now we set the columns that show the restictions
+        if (xml.indexOf(START_DATE_RANGE) > 0)
+        {
+          SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(START_DATE_RANGE);
+          dateGroup.setSQL("''");
+          if (startValue != null)
+          {
+            dateGroup.setSQL("'" + startValue + "'");
+          }
+        }
+
+        if (xml.indexOf(END_DATE_RANGE) > 0)
+        {
+          SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(END_DATE_RANGE);
+          dateGroup.setSQL("''");
+          if (endValue != null)
+          {
+            dateGroup.setSQL("'" + endValue + "'");
+          }
+        }
+
+        return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
       }
 
-      if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
-      {
-        startValue = dateObj.getString("start");
-
-        if (!ignoreCriteria)
-        {
-          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-          valueQuery.AND(dateAttriute.GE(startValue));
-        }
-
-      }
-      if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
-      {
-        endValue = dateObj.getString("end");
-
-        if (!ignoreCriteria)
-        {
-          AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
-          valueQuery.AND(dateAttriute.LE(endValue));
-        }
-      }
-
-      // now we set the columns that show the restictions
-      if (xml.indexOf(START_DATE_RANGE) > 0)
-      {
-        SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(START_DATE_RANGE);
-        dateGroup.setSQL("''");
-        if (startValue != null)
-        {
-          dateGroup.setSQL("'" + startValue + "'");
-        }
-      }
-
-      if (xml.indexOf(END_DATE_RANGE) > 0)
-      {
-        SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(END_DATE_RANGE);
-        dateGroup.setSQL("''");
-        if (endValue != null)
-        {
-          dateGroup.setSQL("'" + endValue + "'");
-        }
-      }
-
-      return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName), diseaseSel);
+      return valueQuery;
     }
     catch (JSONException e)
     {
@@ -918,7 +925,7 @@ public class QueryUtil implements Reloadable
       dateObj = queryConfig.getJSONObject(DATE_ATTRIBUTE);
       attributeName = dateObj.getString(DATE_ATTRIBUTE);
       klass = dateObj.getString("klass");
-      
+
       MdBusiness md = MdBusiness.getMdBusiness(klass);
       GeneratedEntityQuery attributeQuery = null;
       while (attributeQuery == null)
@@ -929,38 +936,38 @@ public class QueryUtil implements Reloadable
           // in the query, so don't do anymore processing.
           return valueQuery;
         }
-        
+
         attributeQuery = queryMap.get(md.definesType());
         if (attributeQuery != null)
         {
           break;
         }
-        
+
         md = md.getSuperMdBusiness();
       }
-      
+
       if (dateObj.has("start") && !dateObj.isNull("start") && !dateObj.getString("start").equals("null"))
       {
         startValue = dateObj.getString("start");
-        
+
         if (!ignoreCriteria)
         {
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.GE(startValue));
         }
-        
+
       }
       if (dateObj.has("end") && !dateObj.isNull("end") && !dateObj.getString("end").equals("null"))
       {
         endValue = dateObj.getString("end");
-        
+
         if (!ignoreCriteria)
         {
           AttributeMoment dateAttriute = (AttributeMoment) attributeQuery.get(attributeName);
           valueQuery.AND(dateAttriute.LE(endValue));
         }
       }
-      
+
       // now we set the columns that show the restictions
       if (xml.indexOf(START_DATE_RANGE) > 0)
       {
@@ -971,7 +978,7 @@ public class QueryUtil implements Reloadable
           dateGroup.setSQL("'" + startValue + "'");
         }
       }
-      
+
       if (xml.indexOf(END_DATE_RANGE) > 0)
       {
         SelectableSQLDate dateGroup = (SelectableSQLDate) valueQuery.getSelectableRef(END_DATE_RANGE);
@@ -981,21 +988,21 @@ public class QueryUtil implements Reloadable
           dateGroup.setSQL("'" + endValue + "'");
         }
       }
-      
+
       return setQueryDates(xml, valueQuery, attributeQuery, (SelectableMoment) attributeQuery.get(attributeName));
     }
     catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }
-    
+
   }
-  
+
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap)
   {
-    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);    
+    return setQueryDates(xml, valueQuery, queryConfig, queryMap, false);
   }
-  
+
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, JSONObject queryConfig, Map<String, GeneratedEntityQuery> queryMap, Selectable diseaseSel)
   {
     return setQueryDates(xml, valueQuery, queryConfig, queryMap, false, diseaseSel);

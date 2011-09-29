@@ -1,5 +1,7 @@
 package dss.vector.solutions.generator;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -8,9 +10,18 @@ import java.util.List;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.MdFieldDAOIF;
+import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
+import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.io.ExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter;
+import com.runwaysdk.dataaccess.io.FormExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
@@ -20,6 +31,7 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
@@ -30,9 +42,15 @@ import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.MdFieldTypeQuery;
+import dss.vector.solutions.general.Disease;
+import dss.vector.solutions.general.EpiCache;
+import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.util.HierarchyBuilder;
 
 public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -48,7 +66,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
-  private static final long serialVersionUID = 1220565977;
+  private static final long  serialVersionUID = 1220565977;
+
+  public static final String DISEASE          = "disease";
 
   public MdFormUtil()
   {
@@ -79,19 +99,18 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static com.runwaysdk.system.metadata.MdField createMdField(com.runwaysdk.system.metadata.MdField mdField, java.lang.String mdFormId)
   {
     DDMSFieldBuilders.create(mdField, mdFormId);
-    
+
     return mdField;
   }
-  
+
   @Transaction
   public static MdField updateMdField(MdField mdField)
   {
     DDMSFieldBuilders.update(mdField);
-    
+
     return mdField;
   }
-  
-  
+
   public static MdWebForm[] getAllForms()
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
@@ -195,6 +214,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdBusiness.setPublish(true);
       mdBusiness.apply();
 
+      // Create the disease attribute
+      MdAttributeReference disease = new MdAttributeReference();
+      disease.setDefiningMdClass(mdBusiness);
+      disease.setAttributeName(MdFormUtil.DISEASE);
+      disease.setMdBusiness(MdBusiness.getMdBusiness(Disease.CLASS));
+      disease.apply();
+
       mdForm.setPackageName(MDSSInfo.GENERATED_FORM_PACKAGE);
       mdForm.setTypeName(typeName);
       mdForm.setFormMdClass(mdBusiness);
@@ -222,20 +248,140 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     mdClass.delete();
   }
-  
+
   @Transaction
   @Authenticate
   public static void deleteField(MdWebForm mdForm, MdWebField mdField)
   {
-    try {
-    MdWebAttribute attr = (MdWebAttribute) mdField;
-    MdAttribute definingAttr = attr.getDefiningMdAttribute();
-    mdForm.removeMdFields(attr);
-    attr.delete();
-    definingAttr.delete();
-    } catch (Throwable t)
+    try
+    {
+      MdWebAttribute attr = (MdWebAttribute) mdField;
+      MdAttribute definingAttr = attr.getDefiningMdAttribute();
+      mdForm.removeMdFields(attr);
+      attr.delete();
+      definingAttr.delete();
+    }
+    catch (Throwable t)
     {
       throw new ProgrammingErrorException(t);
     }
+  }
+
+  public static InputStream excelExport(String type)
+  {
+    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO(type);
+
+    ExcelExporter exporter = new FormExcelExporter(new FormImportFilter());
+
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+
+    for (DynamicGeoColumnListener listener : geoListeners)
+    {
+      exporter.addListener(listener);
+    }
+
+    List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
+
+    for (MultiTermListener listener : multiTermListeners)
+    {
+      exporter.addListener(listener);
+    }
+
+    /*
+     * IMPORTANT: Before adding a template all of the listeners must be added
+     */
+    exporter.addTemplate(type);
+
+    return new ByteArrayInputStream(exporter.write());
+  }
+
+  public static InputStream excelImport(InputStream stream, String type)
+  {
+    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO(type);
+
+    // Start caching Broswer Roots for this Thread.
+    TermRootCache.start();
+    EpiCache.start();
+
+    try
+    {
+      ExcelImporter importer = new ExcelImporter(stream, new FormContextBuilder(mdForm, new FormImportFilter()));
+      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
+
+      for (ImportContext context : importer.getContexts())
+      {
+        for (DynamicGeoColumnListener listener : geoListeners)
+        {
+          context.addListener(listener);
+        }
+
+        for (MultiTermListener listener : multiTermListeners)
+        {
+          context.addListener(listener);
+        }
+
+        // Add the context listener which sets the disease for a entity
+        context.addListener(new DiseaseImportListener());
+      }
+
+      return new ByteArrayInputStream(importer.read());
+    }
+    finally
+    {
+      TermRootCache.stop();
+      EpiCache.stop();
+    }
+  }
+
+  private static List<MultiTermListener> getMultitermListeners(MdFormDAOIF mdForm)
+  {
+    List<MultiTermListener> listeners = new LinkedList<MultiTermListener>();
+
+    MdClassDAOIF mdClass = mdForm.getFormMdClass();
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebMultipleTermDAOIF)
+      {
+        listeners.add(new MultiTermListener(mdClass, mdField));
+      }
+    }
+
+    return listeners;
+  }
+
+  private static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)
+  {
+    List<DynamicGeoColumnListener> listeners = new LinkedList<DynamicGeoColumnListener>();
+
+    MdClassDAOIF mdClass = mdForm.getFormMdClass();
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      // Setup all of the Geo Fields
+      if (mdField instanceof MdWebGeoDAOIF)
+      {
+        GeoField geoField = GeoField.getGeoField(mdClass.definesType(), mdField.getFieldName());
+
+        if (geoField != null)
+        {
+          HierarchyBuilder builder = new HierarchyBuilder();
+
+          List<GeoHierarchy> universals = geoField.getUniversals();
+
+          for (GeoHierarchy universal : universals)
+          {
+            builder.add(universal);
+          }
+
+          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder));
+        }
+      }
+    }
+
+    return listeners;
   }
 }

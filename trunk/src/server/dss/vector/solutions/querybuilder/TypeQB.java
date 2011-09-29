@@ -10,6 +10,7 @@ import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 
+import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.util.QueryUtil;
@@ -37,7 +38,7 @@ public class TypeQB extends AbstractQB implements Reloadable
 
         this.setNumericRestrictions(valueQuery, queryConfig);
 
-        QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get("disease"));
+        QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, query.get(MdFormUtil.DISEASE));
 
         QueryUtil.joinTermAllpaths(valueQuery, query.getClassType(), query);
 
