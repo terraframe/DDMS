@@ -1663,9 +1663,9 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     getFieldMd : function(){ return this._fieldMd; },
     getValue : function(){ return this._value; },
     getFieldName : function(){ return this.getFieldMd().getFieldName(); },
-    isWritable : function(){},
-    isReadable : function(){},
-    isModified : function(){}
+    isWritable : function(){ return this._writable; },
+    isReadable : function(){ return this._readable; },
+    isModified : function(){ return this._modified; }
   }
 });
 

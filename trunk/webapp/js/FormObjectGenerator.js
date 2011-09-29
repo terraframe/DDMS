@@ -78,7 +78,11 @@ var FormObjectRenderer = Mojo.Meta.newClass('dss.vector.solutions.FormObjectRend
       {
         // FIXME use Input classes and better integration with Fields
         var field = fields[i];
-        
+        if(!field.isReadable())
+        {
+          continue; 
+        }
+                
         var dt = this._factory.newElement('dt');
         var dd = this._factory.newElement('dd');
         
