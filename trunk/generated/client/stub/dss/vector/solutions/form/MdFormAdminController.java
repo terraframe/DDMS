@@ -1,6 +1,8 @@
 package dss.vector.solutions.form;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import javax.servlet.ServletException;
 
@@ -32,6 +34,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String FETCH_FORM_FIELDS_JSP = JSP_DIR + "fetchFormFields.jsp";
 
   public static final String EDIT_FORM_ATTRIBUTES_JSP  = JSP_DIR + "editFormAttributes.jsp";
+
+  public static final String CONFIRM_DELETE_FORM_JSP  = JSP_DIR + "editFormAttributes.jsp";
+
+  public static final String CONFIRM_DELETE_MDFIELD_JSP  = JSP_DIR + "confirmDeleteMdField.jsp";
 
   public static final String CREATE_NEW_FORM_JSP       = JSP_DIR + "createNewForm.jsp";
 
@@ -67,7 +73,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       MdWebFormDTO[] forms = MdFormUtilDTO.getAllForms(clientRequest);
-
+      
       this.req.setAttribute("forms", forms);
       
       this.req.getRequestDispatcher(EXISTING_FORMS_JSP).forward(req, resp);
@@ -371,7 +377,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     req.setAttribute("item", form);
     render("editComponent.jsp");
   }
-
+  
   @Override
   public void delete(MdWebFormDTO form) throws IOException, ServletException
   {

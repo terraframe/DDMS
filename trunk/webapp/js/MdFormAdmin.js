@@ -30,11 +30,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       // Dialog for selecting the available MdFields
       this._fieldsDialog = null;
-      this._editMode = false; // FIXME implement and cleanup lifecycle
       
       this._fieldFormDialog = null;
       
 			this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
+			this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;
 			var cancelB = Mojo.Util.bind(this, this._cancelListener);
       this._MdFormAdminController.setCancelListener(cancelB);
       
@@ -151,7 +151,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       else
       {
-        this._fieldFormDialog = this._Factory.newDialog('');
+        this._fieldFormDialog = this._Factory.newDialog('', {close: false});
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
       }
@@ -278,6 +278,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var pureHTML = MDSS.util.removeScripts(html);
           eval(executable);
           that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+          that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'hidden');
           that.existingForms();
           
           that._currentMdFormId = null;
@@ -339,10 +340,39 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 		  this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
 		},
+		confirmDeleteForm : function(e)
+		{
+			var that = this;
+			var request = new MDSS.Request({
+				onFailure : function(html)
+				{
+					var executable = MDSS.util.extractScripts(html);
+					var pureHTML = MDSS.util.removeScripts(html);
+					eval(executable);
+				}
+			});
+			
+			this._MdFormAdminController.confirmDeleteForm(request, this._currentMdFormId);
+		},
+		confirmDeleteMdField : function(e)
+    {
+      var fieldId = e.currentTarget.get('id');
+      var that = this;
+      var request = new MDSS.Request({
+        onFailure : function(html)
+        {
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          eval(executable);
+        }
+      });
+      
+      this._MdFormUtil.confirmDeleteMdField(request, this._currentMdFormId, fieldId);
+    },
 		editField : function(e)
 		{
 			var type = e.target.get('nodeName');
-			if (this._editMode === true && type !== 'A') {
+			if (type !== 'A') {
 				var fieldId = e.currentTarget.get('id');
 				var that = this;
 				var request = new MDSS.Request({
@@ -366,7 +396,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       else
       {
-        this._fieldFormDialog = this._Factory.newDialog('');
+        this._fieldFormDialog = this._Factory.newDialog('', {close: false});
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
       }
@@ -376,8 +406,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     cancelMdField : function(fieldMap)
     {
       if (fieldMap["mdField.isNew"] === "true") {
-				var dialog = document.getElementsByClassName("yui-dialog")[0];
-				dialog.parentNode.removeChild(dialog);
+          this._fieldFormDialog.getImpl().hide();
 			}
 			else {
 				var that = this;

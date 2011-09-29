@@ -19,6 +19,7 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebBooleanDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCharacterDTO"%>
 <%@page import="dss.vector.solutions.form.MdFormAdminController"%>
+<%@page import="dss.vector.solutions.generator.MdFormUtilDTO"%>
 
 
 <%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
@@ -47,6 +48,7 @@ ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstan
 //String[] types = new String[]{FormObjectController.CLASS};
 String[] types = new String[]{
 MdFormAdminController.CLASS,
+MdFormUtilDTO.CLASS,
     
 // WebNumber (excluding float)
 MdWebIntegerDTO.CLASS,
@@ -82,7 +84,7 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 <!-- start side bar for tree -->
 <div class="form-side-bar">
-    <a href="#" class="create-new-form-button" id="createNewForm"><mdss:localize key="Create_a_new_form" /></a>
+    <a href="#" class="create-new-form-button" id="createNewForm"><mdss:localize key="Forms" /></a>
     
     <!-- start tree control -->
     <ul class="tree" id="existingForms">
@@ -106,7 +108,7 @@ YAHOO.util.Event.onDOMReady(function(){
             <li><a href="#"><mdss:localize key="Workflow" /></a></li>
         </ul>
         <div class="form-top-action-row">
-            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"><mdss:localize key="Add_Field"/></a>
+            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"></a>
         </div>
         <ul class="form-item-row" id="formItemRow">
         </ul>

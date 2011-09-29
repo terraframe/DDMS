@@ -3,7 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 
-<ul>
+<ul id="availableFieldList">
 <c:forEach items="${results}" var="item">
   <li id="${item.mdFieldType}">
     <span title="${item.description}">${item.displayLabel}</span>

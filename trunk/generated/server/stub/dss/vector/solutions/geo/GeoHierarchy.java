@@ -2041,8 +2041,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     return false;
   }
-
+  
   public static String getSystemName(String description)
+  {
+    return getSystemName(description, "Universal", true);
+  }
+
+  public static String getSystemName(String description, String suffix, boolean isClassName)
   {
     String systemName = description;
     String name = description.replace("/", " Or ").replace("&", " And ");
@@ -2088,8 +2093,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
       if (ReservedWords.javaContains(systemName) || ReservedWords.sqlContains(systemName))
       {
-        systemName += "Universal";
+        systemName += suffix;
       }
+      
+      if (!isClassName)
+        systemName = systemName.substring(0, 1).toLowerCase();
     }
     return systemName;
   }

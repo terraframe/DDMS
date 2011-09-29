@@ -20,8 +20,8 @@ import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
@@ -43,6 +43,8 @@ import com.runwaysdk.system.metadata.MdWebFormQuery;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
+//import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
+//import dss.vector.solutions.form.ConfirmDeleteMdFormException;
 import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.general.Disease;
@@ -201,7 +203,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     if (first)
     {
-      String typeName = GeoHierarchy.getSystemName(mdForm.getFormName());
+      String typeName = GeoHierarchy.getSystemName(mdForm.getFormName(), "Business", true);
       String label = mdForm.getDisplayLabel().getValue();
       String description = mdForm.getDescription().getValue();
 
@@ -249,7 +251,38 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     mdClass.delete();
   }
-
+  
+  public static void confirmDeleteForm(String mdFormId)
+  {
+    /*
+    ConfirmDeleteMdFormException ex = new ConfirmDeleteMdFormException();
+    MdWebForm mdForm = getForm(mdFormId);
+    ex.setMdFormName(mdForm.getFormName());
+    throw ex;
+    */
+  }
+  
+  public static void confirmDeleteMdField(String mdFormId, String mdFieldId)
+  {
+    /*
+    MdWebForm mdForm = getForm(mdFormId);
+    MdWebField[] fields = getFields(mdForm);
+    MdWebField mdField = null;
+    for (MdWebField field : fields)
+    {
+      if (field.getId().equals(mdFieldId))
+      {
+        mdField = field;
+        break;
+      }
+    } 
+    ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
+    ex.setMdFormName(mdForm.getFormName());
+    ex.setMdFieldName(mdField.getFieldName());
+    throw ex;
+    */
+  }
+  
   @Transaction
   @Authenticate
   public static void deleteField(MdWebForm mdForm, MdWebField mdField)

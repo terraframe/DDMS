@@ -1158,6 +1158,13 @@ span.currentPage a:active {
   text-decoration: none;
   color: #333;
 }
+#availableFieldList li:hover
+{
+	font-weight: bold;
+	background: #999999;
+	color: #666666;
+	cursor: pointer;
+}
 .form-item-row {
   border-top: solid 1px #d5d6d7;  
   margin: 0px;
@@ -1258,10 +1265,9 @@ span.currentPage a:active {
   display: block; 
   position: absolute;
   padding: 3px 0px 0px 30px;
-  top: 18px;
-  right: 0px;
+  top: 22px;
+  right: 10px;
   display: block;
-  width: 100px;
   height: 23px;
   color: #333;
   text-decoration: none;

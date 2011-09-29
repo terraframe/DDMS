@@ -42,6 +42,8 @@ import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.MdWebText;
 import com.runwaysdk.system.metadata.MdWebTime;
 
+import dss.vector.solutions.geo.GeoHierarchy;
+
 public class DDMSFieldBuilders implements Reloadable
 {
   private static Map<String, WebFieldBuilder> builders;
@@ -132,7 +134,7 @@ public class DDMSFieldBuilders implements Reloadable
       if(mdAttr.isNew())
       {
         mdAttr.setDefiningMdClass(mdField.getDefiningMdForm().getFormMdClass());
-        mdAttr.setAttributeName(mdField.getFieldName()); // FIXME auto-gen name?
+        mdAttr.setAttributeName(GeoHierarchy.getSystemName(mdField.getFieldName(), "Attr", false)); // FIXME auto-gen name?
       }
       
       mdAttr.setRequired(mdField.getRequired());
