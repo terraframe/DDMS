@@ -60,11 +60,12 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
       {
         MdClassDTO formMdClass = form.getFormMdClass();
         String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
-        String label = this.getEncodedText(form.getDisplayLabel().getValue());
+        String label = form.getDisplayLabel().getValue();
+        String encodedLabel = this.getEncodedText(label);
 
         StringBuffer buffer = new StringBuffer();
 
-        buffer.append("<a href=\"dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?component=" + label + "&universal=" + classType + "&actor=" + actor + "\">");
+        buffer.append("<a href=\"dss.vector.solutions.util.ReadableAttributeController.getAttributes.mojo?component=" + encodedLabel + "&universal=" + classType + "&actor=" + actor + "\">");
         buffer.append(label);
         buffer.append("</a>");
 
