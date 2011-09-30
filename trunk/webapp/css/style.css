@@ -1302,6 +1302,11 @@ h2.fieldTitle {
   margin: 0px;
 }
 
+span.generatedViewCommand:hover {
+  color: blue;
+  cursor: pointer;
+}
+
 /*---------------------------------------------------------------*/ /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */ /*---------------------------------------------------------------*/
 @media screen {
   .printOnly {

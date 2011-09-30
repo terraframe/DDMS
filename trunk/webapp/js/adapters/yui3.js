@@ -61,8 +61,8 @@ var Factory = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'Factory', {
     {
       return com.runwaysdk.ui.RW.Factory.getInstance().newConsoleFormVisitor();
     },
-    newDataTable : function (type) {
-      return new DataTable(type);
+    newDataTable : function (type, config) {
+      return new DataTable(type, config);
     },
     newColumn : function(config){
       return new Column(config);
@@ -263,8 +263,8 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
       var resultSet = this._resultsQueryDTO.getResultSet();   
       for(var i=0; i<resultSet.length; i++)
       {
-        var obj = {};
         var result = resultSet[i];
+        var obj = {id:result.getId()}; // always include the id for dereferencing
         for(var j=0; j<this._attributeNames.length; j++){
           var name = this._attributeNames[j];
           var value = result.getAttributeDTO(name).getValue();
@@ -370,7 +370,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
   Implements : RUNWAY_UI.DataTableIF,
   Extends : YUI3WidgetBase,
   Instance : {
-    initialize : function(type){
+    initialize : function(type, addedColumns){
     
       this.$initialize();
       
@@ -402,7 +402,10 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
       this._columnSet = new ColumnSet(this._dataTable.get('columnset'));
       this._recordSet = new RecordSet(this._dataTable.get('recordset'));
       
-      this._dataTable.delegate('click', Mojo.Util.bind(this, this._thClickHandler), 'th');
+      this._dataTable.delegate('click', this._thClickHandler, 'th', this);
+
+      // extra columns to add to the end of the table
+      this._addedColumns = addedColumns || [];
     },
     _renderHandler : function(e){
       this._setRendered(true);
@@ -514,6 +517,8 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
             sortable : true
           }));
         }
+        
+        cols = cols.concat(this._addedColumns);
       
         this._columnSet.addColumn(cols);
       }
@@ -589,7 +594,8 @@ var ColumnSet = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"ColumnSet", {
         return {
           key : col.getKey(),
           label : col.getLabel(),
-          sortable : col.isSortable()
+          sortable : col.isSortable(),
+          formatter : col.getFormatter()
         };
       });
       
@@ -634,6 +640,7 @@ var Column = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"Column", {
       this._key = config.key || Mojo.Util.generateId();
       this._label = config.label || '';
       this._sortable = config.sortable || false;
+      this._formatter = config.formatter || null;
     },
     isSortable : function() {
       return this._sortable;
@@ -643,6 +650,9 @@ var Column = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"Column", {
     },
     getLabel : function(){
       return this._label;
+    },
+    getFormatter : function(){
+      return this._formatter;
     }
   }
 });

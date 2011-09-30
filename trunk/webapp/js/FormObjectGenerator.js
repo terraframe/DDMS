@@ -28,7 +28,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       UI.Manager.setFactory("YUI3");
       this._factory = UI.Manager.getFactory();
       
-      this._table = this._factory.newDataTable(this._mdClassType);
+      var col = this._factory.newColumn({
+        key:Mojo.Util.generateId()+'_view',
+        label:'',
+        formatter: Mojo.Util.bind(this, this.viewColumnFormatter)
+      });
+      this._table = this._factory.newDataTable(this._mdClassType, [col]);
       
       this._Y = YUI().use('*'); // YUI3 reference
       this._newInstanceCommand = this._Y.one('#'+this.constructor.NEW_INSTANCE_COMMAND);
@@ -46,6 +51,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._formContainer = this._Y.one('#'+this.constructor.FORM_CONTAINER);
       this._tableContainer = this._Y.one('#'+this.constructor.TABLE_CONTAINER);
       this._excelButtons = this._Y.one('#'+this.constructor.EXCEL_BUTTONS);
+      
+      this._tableContainer.delegate('click', this.viewInstance, 'span.generatedViewCommand', this);
+    },
+    /**
+     * Formats the view column by creating a link that contains a Runway object id for
+     * dereferencing.
+     */
+    viewColumnFormatter : function(o){
+      return '<span id="'+o.data.id+'" class="generatedViewCommand">'+MDSS.localize('View')+'</span>';
     },
     clearFormContainer : function(){
       // clear the form container
@@ -333,6 +347,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           field.setValue(value);
         }
       }
+    },
+    viewInstance : function(e){
+      e.preventDefault();
+      
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(formObjectJSON){
+          that.renderView(formObjectJSON);
+        }
+      });
+      
+      var id = e.target.get('id');
+      this._FormObjectController.viewInstance(request, this._mdFormId, id);    
     },
     deleteInstance : function(e){
       e.preventDefault();  // prevent a synchronous form submit
