@@ -1275,6 +1275,12 @@ span.currentPage a:active {
 .form-button-add:hover {
   background-position: 0px -50px;
 }
+.form-gen-available-pages {
+	margin: 0 0.1em
+}
+.form-gen-total-pages {
+  margin: 0.1em 0
+}
 
 /*---------------------------------------------------------------*/ /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */ /*---------------------------------------------------------------*/
 @media screen {
