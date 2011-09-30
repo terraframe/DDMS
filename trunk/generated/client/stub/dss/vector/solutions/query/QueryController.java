@@ -5,10 +5,11 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 
@@ -25,8 +26,11 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdAttributeDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdRelationshipDTO;
+import com.runwaysdk.system.metadata.MdWebAttributeDTO;
 import com.runwaysdk.system.metadata.MdWebDateDTO;
 import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
@@ -1596,7 +1600,8 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(request, form);
 
       Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
-      Set<String> readableFieldNames = this.getReadableFieldNames(fields, readableAttributeNames);
+      Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap = this.getReadableFieldMap(fields, readableAttributeNames);
+      Set<MdWebFieldDTO> readableFields = readableFieldMap.keySet();
 
       /*
        * Build JSON definition for the date and geo attributes
@@ -1605,57 +1610,90 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       StringBuffer geoAttributes = new StringBuffer();
       List<SelectableGroup> extraGroups = new LinkedList<SelectableGroup>();
 
-      for (MdWebFieldDTO field : fields)
+      for (MdWebFieldDTO field : readableFields)
       {
         String fieldName = field.getFieldName();
         String fieldLabel = field.getDisplayLabel().getValue();
 
-        if (readableFieldNames.contains(fieldName))
+        MdAttributeConcreteDTO mdAttribute = readableFieldMap.get(field);
+        String attributeName = mdAttribute.getAttributeName();
+
+        if (field instanceof MdWebDateDTO)
         {
-          if (field instanceof MdWebDateDTO)
+          StringBuffer object = new StringBuffer();
+          object.append("{klass:Mojo.Meta.findClass('" + classType + "')");
+          object.append(", accessor:'" + attributeName + "'}");
+
+          if (dateAttributes.length() > 0)
           {
-            StringBuffer object = new StringBuffer();
-            object.append("{klass:Mojo.Meta.findClass('" + classType + "')");
-            object.append(", accessor:'" + fieldName + "'}");
-
-            if (dateAttributes.length() > 0)
-            {
-              dateAttributes.append(",");
-            }
-
-            dateAttributes.append(object.toString());
+            dateAttributes.append(",");
           }
-          else if (field instanceof MdWebGeoDTO)
+
+          dateAttributes.append(object.toString());
+        }
+        else if (field instanceof MdWebGeoDTO)
+        {
+          geoField.addField(GeoFieldDTO.getGeoField(request, classType, attributeName));
+
+          StringBuffer object = new StringBuffer();
+          object.append("{");
+          object.append("keyName:'" + classType + "." + attributeName + "'");
+          object.append(", display:'" + fieldLabel + "'");
+          object.append("}");
+
+          if (geoAttributes.length() > 0)
           {
-            geoField.addField(GeoFieldDTO.getGeoField(request, classType, fieldName));
-
-            StringBuffer object = new StringBuffer();
-            object.append("{");
-            object.append("keyName:'" + classType + "." + fieldName + "'");
-            object.append(", display:'" + fieldLabel + "'");
-            object.append("}");
-
-            if (geoAttributes.length() > 0)
-            {
-              geoAttributes.append(",");
-            }
-
-            geoAttributes.append(object.toString());
+            geoAttributes.append(",");
           }
-          else if (field instanceof MdWebMultipleTermDTO)
+
+          geoAttributes.append(object.toString());
+        }
+        else if (field instanceof MdWebMultipleTermDTO)
+        {
+          TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, attributeName);
+          MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
+
+          String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
+          typesToLoad.add(relType);
+
+          SelectableOptionFactory factory = new SelectableOptionFactory(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE, relType);
+          factory.setAttributeNamePrepend(attributeName);
+          factory.setLabel(fieldLabel + " - ");
+
+          SelectableGroup selectableGroup = new SelectableGroup();
+          selectableGroup.setLabel(fieldLabel);
+          selectableGroup.setClassType(relType);
+
+          for (TermDTO term : terms)
           {
-            TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, fieldName);
-            MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
+            selectableGroup.addOption(factory.createOption(term));
+          }
 
-            String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
-            typesToLoad.add(relType);
+          extraGroups.add(selectableGroup);
+        }
+        else if (field instanceof MdWebSingleTermGridDTO)
+        {
+          TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, attributeName);
 
-            SelectableOptionFactory factory = new SelectableOptionFactory(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE, relType);
-            factory.setAttributeNamePrepend(fieldName);
-            factory.setLabel(fieldLabel + " - ");
+          MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
+
+          String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
+          typesToLoad.add(relType);
+
+          List<? extends MdWebPrimitiveDTO> compositeFields = ( (MdWebSingleTermGridDTO) field ).getAllMdFields();
+          Collections.sort(compositeFields, new FieldComparator());
+
+          for (MdWebPrimitiveDTO compositeField : compositeFields)
+          {
+            String compositeAttributeName = compositeField.getFieldName();
+            String attributeLabel = compositeField.getDisplayLabel().getValue();
+
+            SelectableOptionFactory factory = new SelectableOptionFactory(compositeField, compositeAttributeName, relType);
+            factory.setAttributeNamePrepend(fieldName + "_" + compositeAttributeName);
+            factory.setLabel(attributeLabel + " - ");
 
             SelectableGroup selectableGroup = new SelectableGroup();
-            selectableGroup.setLabel(fieldLabel);
+            selectableGroup.setLabel(fieldLabel + " - " + attributeLabel);
             selectableGroup.setClassType(relType);
 
             for (TermDTO term : terms)
@@ -1665,39 +1703,6 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
             extraGroups.add(selectableGroup);
           }
-          else if (field instanceof MdWebSingleTermGridDTO)
-          {
-            TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, fieldName);
-
-            MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
-
-            String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
-            typesToLoad.add(relType);
-
-            List<? extends MdWebPrimitiveDTO> compositeFields = ( (MdWebSingleTermGridDTO) field ).getAllMdFields();
-            Collections.sort(compositeFields, new FieldComparator());
-
-            for (MdWebPrimitiveDTO compositeField : compositeFields)
-            {
-              String attributeName = compositeField.getFieldName();
-              String attributeLabel = compositeField.getDisplayLabel().getValue();
-
-              SelectableOptionFactory factory = new SelectableOptionFactory(compositeField, attributeName, relType);
-              factory.setAttributeNamePrepend(fieldName + "_" + attributeName);
-              factory.setLabel(attributeLabel + " - ");
-
-              SelectableGroup selectableGroup = new SelectableGroup();
-              selectableGroup.setLabel(fieldLabel + " - " + attributeLabel);
-              selectableGroup.setClassType(relType);
-
-              for (TermDTO term : terms)
-              {
-                selectableGroup.addOption(factory.createOption(term));
-              }
-
-              extraGroups.add(selectableGroup);
-            }
-          }
         }
       }
 
@@ -1705,7 +1710,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       req.setAttribute("label", form.getDisplayLabel().getValue());
       req.setAttribute("typesToLoad", typesToLoad);
       req.setAttribute("dropDownMaps", Halp.getDropDownMaps(query, request, ", "));
-      req.setAttribute("attributes", this.getReadablePrimitiveFields(fields, readableAttributeNames).toString());
+      req.setAttribute("attributes", this.getReadablePrimitiveAttributeNames(readableFieldMap).toString());
       req.setAttribute("dateAttributes", dateAttributes.toString());
       req.setAttribute("geoAttributes", geoAttributes.toString());
       req.setAttribute("geoField", geoField);
@@ -1729,40 +1734,46 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     this.failQuery();
   }
 
-  private JSONArray getReadablePrimitiveFields(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
+  private JSONArray getReadablePrimitiveAttributeNames(Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap)
   {
-    JSONArray fieldNames = new JSONArray();
+    JSONArray attributeNames = new JSONArray();
 
-    for (MdWebFieldDTO field : fields)
+    Set<MdWebFieldDTO> readableFields = readableFieldMap.keySet();
+
+    for (MdWebFieldDTO field : readableFields)
     {
       if (! ( ( field instanceof MdWebMultipleTermDTO || field instanceof MdWebSingleTermGridDTO || field instanceof MdWebTextDTO ) ))
       {
-        String fieldName = field.getFieldName();
+        MdAttributeConcreteDTO mdAttribute = readableFieldMap.get(field);
+        attributeNames.put(mdAttribute.getAttributeName());
+      }
+    }
 
-        if (readableAttributeNames.contains(fieldName))
+    return attributeNames;
+  }
+
+  private Map<MdWebFieldDTO, MdAttributeConcreteDTO> getReadableFieldMap(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
+  {
+    Map<MdWebFieldDTO, MdAttributeConcreteDTO> map = new HashMap<MdWebFieldDTO, MdAttributeConcreteDTO>();
+
+    for (MdWebFieldDTO field : fields)
+    {
+      if (field instanceof MdWebAttributeDTO)
+      {
+        MdAttributeDTO mdAttribute = ( (MdWebAttributeDTO) field ).getDefiningMdAttribute();
+
+        if (mdAttribute instanceof MdAttributeConcreteDTO)
         {
-          fieldNames.put(fieldName);
+          MdAttributeConcreteDTO mdAttributeConcrete = (MdAttributeConcreteDTO) mdAttribute;
+
+          if (readableAttributeNames.contains(mdAttributeConcrete.getAttributeName()))
+          {
+            map.put(field, mdAttributeConcrete);
+          }
         }
       }
     }
 
-    return fieldNames;
-  }
-
-  private Set<String> getReadableFieldNames(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
-  {
-    Set<String> set = new TreeSet<String>();
-
-    for (MdWebFieldDTO field : fields)
-    {
-      String fieldName = field.getFieldName();
-
-      if (readableAttributeNames.contains(fieldName))
-      {
-        set.add(fieldName);
-      }
-    }
-
-    return set;
+    return map;
   }
 }

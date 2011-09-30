@@ -82,6 +82,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    * 
    * @return
    */
+  @Authenticate
   public static MdFieldTypeQuery getAvailableFields()
   {
     QueryFactory f = new QueryFactory();
@@ -98,6 +99,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    * @return
    */
   @Transaction
+  @Authenticate
   public static com.runwaysdk.system.metadata.MdField createMdField(com.runwaysdk.system.metadata.MdField mdField, java.lang.String mdFormId)
   {
     DDMSFieldBuilders.create(mdField, mdFormId);
@@ -106,6 +108,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @Transaction
+  @Authenticate
   public static MdField updateMdField(MdField mdField)
   {
     DDMSFieldBuilders.update(mdField);
