@@ -308,7 +308,15 @@ var Facade = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'Facade', {
     {
       if(Mojo.Util.isObject(params))
       {
-        params = {"com.runwaysdk.mojaxObject":Mojo.Util.getJSON(params)};
+        var suffix = '.mofo';
+        if(endpoint.indexOf(suffix, endpoint.length - suffix.length) !== -1)
+        {
+          params = {"com.runwaysdk.mofoObject":Mojo.Util.getJSON(params)};
+        }
+        else
+        {
+          params = {"com.runwaysdk.mojaxObject":Mojo.Util.getJSON(params)};
+        }
       }
   
       new RunwayRequest(endpoint, clientRequest, params, true).apply();
@@ -1141,7 +1149,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'ComponentQueryDTO', {
     
     toJSON : function(key)
     {
-      return new Mojo.$.com.runwaysdk.StandardSerializer(this).toJSON(key);
+      return new com.runwaysdk.StandardSerializer(this).toJSON(key);
     }
   
   }

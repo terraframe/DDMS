@@ -2681,7 +2681,6 @@ var StandardSerializer = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'StandardSerialize
       }
       this._override = override || null;
     },
-    
     toJSON : function(key)
     {
       var ssRef = this;
@@ -2691,13 +2690,6 @@ var StandardSerializer = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'StandardSerialize
         {
           return ssRef._override[key];
         }
-        // Moved from here to init since replacer doesn't get called if key is null
-        /*
-        else if(key === '__context' || isFunction(this[key]))
-        {
-          return undefined;
-        }
-        */
         else
         {
           return value;
@@ -2915,6 +2907,14 @@ var HashMap = Mojo.Meta.newClass(Mojo.STRUCTURE_PACKAGE+'HashMap', {
     values : function()
     {
       return Mojo.Util.getValues(this._map, true);
+    },
+    /**
+     * Serializes this Map into a basic JSON object.
+     */
+    toJSON : function(key){
+      // only serialize the underlying map to avoid infinite recursion or other
+      // circular issues.
+      return new com.runwaysdk.StandardSerializer(this._map).toJSON(key);
     }
   }
 });

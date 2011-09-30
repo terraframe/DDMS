@@ -16,10 +16,19 @@
   <mjl:dt attribute="afterTodayInclusive">
     <mjl:boolean param="afterTodayInclusive" />
   </mjl:dt>
-  <mjl:dt attribute="endDate">
-    <mjl:input param="endDate" type="text" />
-  </mjl:dt>
   <mjl:dt attribute="startDate">
-    <mjl:input param="startDate" type="text" />
+    <mjl:input id="${item.id}_startDate" param="startDate" type="text" />
+  </mjl:dt>
+  <mjl:dt attribute="endDate">
+    <mjl:input id="${item.id}_endDate" param="endDate" type="text" />
   </mjl:dt>
 </mjl:component>
+<script type="text/javascript">
+(function(){
+  var sd = document.getElementById('${item.id}_startDate');
+  var ed = document.getElementById('${item.id}_endDate');
+
+  MDSS.Calendar.addCalendarListeners(sd);
+  MDSS.Calendar.addCalendarListeners(ed);
+})();
+</script>

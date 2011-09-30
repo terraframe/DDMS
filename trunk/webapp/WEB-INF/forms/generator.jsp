@@ -75,7 +75,10 @@ YAHOO.util.Event.onDOMReady(function(){
   generator.render();
 });
 </script>
-<div id="mainContainer">
+<div id="tableContainer">
+</div>
+<div id="formContainer">
+
 </div>
 <a href="#" id="newInstanceCommand">
   <mdss:localize key="Create" />

@@ -6,14 +6,11 @@ import javax.servlet.ServletException;
 
 import org.json.JSONObject;
 
-import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.form.FormObject;
 import com.runwaysdk.form.web.JSONFormVisitor;
 import com.runwaysdk.form.web.WebFormObject;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
-import com.runwaysdk.web.json.JSONProblemExceptionDTO;
-import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -56,6 +53,58 @@ public class FormObjectController extends FormObjectControllerBase implements co
   }
   
   @Override
+  public void editInstance(String mdFormId, String dataId) throws IOException, ServletException
+  {
+    try
+    {
+      
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);      
+    }
+  }
+  
+  @Override
+  public void viewInstance(String mdFormId, String dataId) throws IOException, ServletException
+  {
+    try
+    {
+      
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);      
+    }
+  }
+  
+  @Override
+  public void deleteInstance(String mdFormId, String dataId) throws IOException, ServletException
+  {
+    try
+    {
+      
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);      
+    }
+  }
+  
+  @Override
+  public void updateInstance(FormObject formObject) throws IOException, ServletException
+  {
+    try
+    {
+      
+    }
+    catch(Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);      
+    }
+  }
+  
+  @Override
   public void createInstance(FormObject formObject) throws IOException, ServletException
   {
     try
@@ -64,7 +113,14 @@ public class FormObjectController extends FormObjectControllerBase implements co
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
       WebFormObject form = (WebFormObject) WebFormObject.newInstance(mdFormDTO);
       
-      // TODO apply the underlying DTO with the new values
+      /*
+       *     Disease disease = Disease.getCurrent();
+
+    if (disease != null)
+    {
+      instance.setValue(MdFormUtil.DISEASE, disease.getId());
+    }
+       */
       
       JSONFormVisitor visitor = new JSONFormVisitor();
       form.accept(visitor);
@@ -77,7 +133,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void newInstance(String mdFormId) throws IOException, ServletException
   {
@@ -92,17 +148,9 @@ public class FormObjectController extends FormObjectControllerBase implements co
       JSONObject json = visitor.getJSON();
       resp.getWriter().print(json.toString());
     }
-    catch(ProblemExceptionDTO e)
-    {
-      JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO(e);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
-    }
     catch (Throwable t)
     {
-      JSONRunwayExceptionDTO jsonE = new JSONRunwayExceptionDTO(t);
-      resp.setStatus(500);
-      resp.getWriter().print(jsonE.getJSON());
+      ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
   

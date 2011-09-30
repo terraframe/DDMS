@@ -1567,7 +1567,27 @@ var FormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'FormMd', {
     getDisplayLabel : function() { return this._displayLabel; },
     getDescription : function() { return this._description; },
     getFormName : function(){ return this._formName; },
-    getFormMdClass : function(){ return this._formMdClass; }
+    getFormMdClass : function(){ return this._formMdClass; },
+    toJSON : function(objKey)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          map[newKey] = this[key];
+        }
+        else
+        {
+          map[key] = this[key];
+        }      
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
   }
 });
 
@@ -1589,6 +1609,7 @@ var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
       this._formMd = new WebFormMd(obj.formMd);
       this._fields = new com.runwaysdk.structure.LinkedHashMap();
       this._id = obj.id;
+      this._dataId = obj.dataId;
       this._newInstance = obj.newInstance;
       this._readable = obj.readable;
       this._writable = obj.writable;
@@ -1605,6 +1626,7 @@ var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
     getFormName : function() { return this.getMd().getFormName(); },
     getHashCode : function(){ return this._id; },
     getId: function(){ return this._id; },
+    getDataId : function(){ return this._dataId; },
     isNewInstance: function(){ return this._newInstance; },
     getMd: function(){ return this._formMd; },
     getType : function(){ return this._type; },
@@ -1613,7 +1635,34 @@ var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
     getValue : function(field){ return this._fields[field].getValue(); },
     getFieldMap : function(){ return this._fields; },
     getFields : function(){ return this._fields.values(); },
-    getFieldNames : function(){ return this._fields.keySet(); }
+    getFieldNames : function(){ return this._fields.keySet(); },
+    toJSON : function(objKey)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          if(key === '_fields')
+          {
+            map[newKey] = this._fields.values();
+          }
+          else
+          {
+            map[newKey] = this[key];
+          }
+        }
+        else
+        {
+          map[key] = this[key];
+        }
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
   }
 });
 
@@ -1662,10 +1711,31 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     getType : function(){ return this._type; },
     getFieldMd : function(){ return this._fieldMd; },
     getValue : function(){ return this._value; },
+    setValue : function(value){ this._value = value; },
     getFieldName : function(){ return this.getFieldMd().getFieldName(); },
     isWritable : function(){ return this._writable; },
     isReadable : function(){ return this._readable; },
-    isModified : function(){ return this._modified; }
+    isModified : function(){ return this._modified; },
+    toJSON : function(objKey)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          map[newKey] = this[key];
+        }
+        else
+        {
+          map[key] = this[key];
+        }      
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
   }
 });
 
@@ -1855,7 +1925,7 @@ var FieldMdIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldMdIF', {
   }
 });
 
-var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd', {
+var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFieldMd', {
   Implements : FieldMdIF,
   IsAbstract : true,
   Instance : {
@@ -1875,7 +1945,27 @@ var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebPrimitiveMd',
     getDisplayLabel : function(){ return this._displayLabel; },
     getDescription : function(){ return this._description; },
     getId : function(){ return this._id; },
-    isRequired : function(){ return this._required; }
+    isRequired : function(){ return this._required; },
+    toJSON : function(objKey)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          map[newKey] = this[key];
+        }
+        else
+        {
+          map[key] = this[key];
+        }      
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
   }
 });
 
@@ -1885,7 +1975,9 @@ var WebAttributeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebAttribute
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-    }
+      this._definingMdAttribute = obj.definingMdAttribute;
+    },
+    getDefiningMdAttribute : function(){ return this._definingMdAttribute; }
   }
 });
 
