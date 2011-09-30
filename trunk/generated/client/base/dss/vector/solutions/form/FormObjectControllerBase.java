@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = -1668477429)
+@com.runwaysdk.business.ClassSignature(hash = 552569075)
 public class FormObjectControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.FormObjectController";
@@ -10,7 +10,7 @@ public class FormObjectControllerBase implements com.runwaysdk.generation.loader
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = -1668477429;
+  private static final long serialVersionUID = 552569075;
   
   public FormObjectControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -65,6 +65,20 @@ public class FormObjectControllerBase implements com.runwaysdk.generation.loader
   public com.runwaysdk.ClientSession getClientSession()
   {
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:formObject", post=true)
+  public void cancelInstance(com.runwaysdk.form.FormObject formObject) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.cancelInstance");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:formObject", post=true)
+  public void failCancelInstance(com.runwaysdk.form.FormObject formObject) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.FormObjectController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.FormObjectController.failCancelInstance");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.form.FormObject:formObject", post=true)
