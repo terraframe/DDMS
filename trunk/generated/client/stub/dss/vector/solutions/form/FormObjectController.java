@@ -58,12 +58,17 @@ public class FormObjectController extends FormObjectControllerBase implements co
   {
     try
     {
+      this.req.setAttribute("mdFormId", mdFormId);
+      
       MdFormDTO mdForm = MdFormDTO.get(this.getClientRequest(), mdFormId);
       MdClassDTO mdClass = mdForm.getFormMdClass();
       
       String type = mdClass.getPackageName()+"."+mdClass.getTypeName();
       this.req.setAttribute("mdClassType", type);
-      this.req.setAttribute("mdFormId", mdFormId);
+      
+      String mdFormType = mdForm.getPackageName()+"."+mdForm.getTypeName();
+      this.req.setAttribute("mdFormType", mdFormType);
+      
       
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
