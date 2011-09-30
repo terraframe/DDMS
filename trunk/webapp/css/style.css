@@ -1297,6 +1297,10 @@ div.generatorContent {
   margin: 15px 0px 15px 0px;
 }
 
+#tableContainer th {
+  cursor: pointer;
+}
+
 h2.fieldTitle {
   color: #666666;
   margin: 0px;
