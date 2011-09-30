@@ -121,9 +121,9 @@ public class FormObjectController extends FormObjectControllerBase implements co
         String type = mdClass.getPackageName()+"."+mdClass.getTypeName()+TypeGeneratorInfo.DTO_SUFFIX;
         Class<?> klass = LoaderDecorator.load(type);
 
-        klass.getMethod("unlock", ClientRequestIF.class, String.class).invoke(null, formObject.getDataId());
+        klass.getMethod("unlock", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), formObject.getDataId());
 
-        WebFormObject webFormObject = WebFormObject.getInstance(mdFormDTO, formObject.getId());
+        WebFormObject webFormObject = WebFormObject.getInstance(mdFormDTO, formObject.getDataId());
         
         this.convertToJSON(webFormObject);   
       }
