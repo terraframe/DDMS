@@ -12,6 +12,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 {
   Constants : {
     AVAILABLE_FIELDS : 'availableFields',
+		CANCEL_DELETE_BUTTON : 'cancelDeleteButton',
+		CONFIRM_DELETE_BUTTON : 'confirmDeleteButton',
 		CREATE_NEW_FORM : 'createNewForm',
 		VIEW_FORM : 'viewForm',
 		EXISTING_FORMS : 'existingForms',
@@ -32,6 +34,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._fieldsDialog = null;
       
       this._fieldFormDialog = null;
+			
+			this._confirmDeleteDialog = null;
       
 			this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
 			this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;
@@ -44,7 +48,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			var createB = Mojo.Util.bind(this, this._createListener);
 			this._MdFormAdminController.setCreateListener(createB);
       
-			var deleteB = Mojo.Util.bind(this, this._deleteListener);
+			var deleteB = Mojo.Util.bind(this, this.confirmDeleteForm);
 			this._MdFormAdminController.setDeleteListener(deleteB);
       
 			var editB = Mojo.Util.bind(this, this.requestEdit);
@@ -70,7 +74,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
       this._Y.one('#'+this.constructor.EXISTING_FORMS).delegate('click', this.viewForm, 'li', this);
-      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.deleteField, 'a.form-item-row-delete', this);
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.confirmDeleteMdField, 'a.form-item-row-delete', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editField, 'li', this);
       
 			// hide the form content DOM elements
@@ -158,7 +162,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       eval(executable);
     },
-    
     updateMdField : function(fieldMap)
     {
       var that = this;
@@ -344,31 +347,109 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		{
 			var that = this;
 			var request = new MDSS.Request({
-				onFailure : function(html)
+				onFailure : function(e)
 				{
-					var executable = MDSS.util.extractScripts(html);
-					var pureHTML = MDSS.util.removeScripts(html);
-					eval(executable);
+					var wrapperDiv = that._Factory.newElement('div');
+          
+          var upperDiv = that._Factory.newElement('div');
+          upperDiv.addClassName('alertbox modalAlertBox');
+
+          var message = that._Factory.newElement('span');
+          message.setInnerHTML(e.getLocalizedMessage());
+          upperDiv.appendChild(message);
+
+          // yes/no buttons
+          var lowerDiv = that._Factory.newElement('div');
+          lowerDiv.addClassName('alertbox modalAlertBox');
+          
+          var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
+          confirmButton.setInnerHTML("Confirm");
+          
+          var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
+          cancelButton.setInnerHTML("Cancel");
+          
+          var lowerDiv = that._Factory.newElement('div');
+          lowerDiv.appendChild(confirmButton);
+          lowerDiv.appendChild(cancelButton);
+          
+          wrapperDiv.appendChild(upperDiv);
+          wrapperDiv.appendChild(lowerDiv);
+          
+          if(that._confirmDeleteDialog !== null)
+          {
+						that._confirmDeleteDialog.setInnerHTML("");
+            that._confirmDeleteDialog.appendChild(wrapperDiv);
+            that._confirmDeleteDialog.getImpl().show();
+          }
+          else
+          {
+            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false});
+            that._confirmDeleteDialog.appendChild(wrapperDiv);
+            that._confirmDeleteDialog.render();
+          }
+          YAHOO.util.Event.on(that.constructor.CONFIRM_DELETE_BUTTON, 'click', that.deleteForm, null, that);
+          YAHOO.util.Event.on(that.constructor.CANCEL_DELETE_BUTTON, 'click', that.cancelDeleteDialog, null, that);
 				}
 			});
 			
-			this._MdFormAdminController.confirmDeleteForm(request, this._currentMdFormId);
+			this._MdFormUtil.confirmDeleteForm(request, this._currentMdFormId);
 		},
 		confirmDeleteMdField : function(e)
     {
       var fieldId = e.currentTarget.get('id');
       var that = this;
       var request = new MDSS.Request({
-        onFailure : function(html)
+        onFailure : function(e)
         {
-          var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          eval(executable);
+          var wrapperDiv = that._Factory.newElement('div');
+					
+          var upperDiv = that._Factory.newElement('div');
+          upperDiv.addClassName('alertbox modalAlertBox');
+
+          var message = that._Factory.newElement('span');
+					message.setInnerHTML(e.getLocalizedMessage());
+          upperDiv.appendChild(message);
+
+          // yes/no buttons
+          var lowerDiv = that._Factory.newElement('div');
+          lowerDiv.addClassName('alertbox modalAlertBox');
+          
+          var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
+					confirmButton.setInnerHTML("Confirm");
+					
+          var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
+					cancelButton.setInnerHTML("Cancel");
+					
+          var lowerDiv = that._Factory.newElement('div');
+          lowerDiv.appendChild(confirmButton);
+          lowerDiv.appendChild(cancelButton);
+					
+					wrapperDiv.appendChild(upperDiv);
+					wrapperDiv.appendChild(lowerDiv);
+          
+          if(that._confirmDeleteDialog !== null)
+          {
+						that._confirmDeleteDialog.setInnerHTML("");
+            that._confirmDeleteDialog.appendChild(wrapperDiv);
+            that._confirmDeleteDialog.getImpl().show();
+          }
+          else
+          {
+            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false});
+            that._confirmDeleteDialog.appendChild(wrapperDiv);
+            that._confirmDeleteDialog.render();
+          }
+          YAHOO.util.Event.on(that.constructor.CONFIRM_DELETE_BUTTON, 'click', that.deleteField, fieldId, that);
+          YAHOO.util.Event.on(that.constructor.CANCEL_DELETE_BUTTON, 'click', that.cancelDeleteDialog, null, that);
         }
       });
       
       this._MdFormUtil.confirmDeleteMdField(request, this._currentMdFormId, fieldId);
     },
+		cancelDeleteDialog : function(e)
+		{
+			this._confirmDeleteDialog.getImpl().hide();
+		},
 		editField : function(e)
 		{
 			var type = e.target.get('nodeName');
@@ -418,9 +499,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 				return request;
 			}
     },
-		deleteField : function(e)
+		deleteField : function(e, fieldId)
     {
-			var fieldId = e.currentTarget.get('id');
+      this._confirmDeleteDialog.getImpl().hide();
       var that = this;
       var request = new MDSS.Request({
        onSuccess : function(html)
@@ -433,6 +514,23 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       });
 
       this._MdFormAdminController.deleteField(request, this._currentMdFormId, fieldId);
+    },
+	  deleteForm : function(e)
+    {
+      this._confirmDeleteDialog.getImpl().hide();
+      var that = this;
+      var request = new MDSS.Request({
+       onSuccess : function(html)
+       {
+         var executable = MDSS.util.extractScripts(html);
+         var pureHTML = MDSS.util.removeScripts(html);
+         eval(executable);
+         that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+         that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'hidden');
+       }
+      });
+
+      this._MdFormAdminController.deleteForm(request, this._currentMdFormId);
     },
 		createNewForm : function()
 		{
