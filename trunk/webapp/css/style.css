@@ -1275,6 +1275,11 @@ span.currentPage a:active {
 .form-button-add:hover {
   background-position: 0px -50px;
 }
+.form-dialog-scroll dl {
+	height: 400px;
+	overflow: auto;
+	padding: 8px;
+}
 .form-gen-available-pages {
 	margin: 0 1em;
   cursor: pointer;

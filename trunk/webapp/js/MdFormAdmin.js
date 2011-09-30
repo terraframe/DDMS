@@ -156,10 +156,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       else
       {
         this._fieldFormDialog = this._Factory.newDialog('', {close: false});
+				this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
       }
-      
+			
       eval(executable);
     },
     updateMdField : function(fieldMap)
@@ -478,6 +479,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       else
       {
         this._fieldFormDialog = this._Factory.newDialog('', {close: false});
+        this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
       }
