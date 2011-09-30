@@ -138,6 +138,15 @@ Y.mix(RunwayDataSource, {
     
 Y.extend(RunwayDataSource, Y.DataSource.Local, {
 
+    resetQuery : function(){
+      this._pageNumber = 1;
+      this._pageSize = 20;
+      this._sortAttribute = null;
+      this._ascending = true;
+      
+      if(this._    
+    },
+
     setPageNumber : function(pageNumber){
       this._pageNumber = pageNumber;
     },
@@ -395,6 +404,9 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
     },
     _renderHandler : function(e){
       this._setRendered(true);
+    },
+    resetDataTable : function(){
+      this.load();
     },
     _selectPage : function(e){
       var page = this._pages.get(e.target.get('id'));

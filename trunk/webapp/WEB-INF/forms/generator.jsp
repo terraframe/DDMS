@@ -79,9 +79,26 @@ YAHOO.util.Event.onDOMReady(function(){
 <div id="tableContainer" class="yui3-skin-sam">
 </div>
 <div id="formContainer">
-
 </div>
 <a href="#" id="newInstanceCommand">
   <mdss:localize key="Create" />
 </a>
+<br />
+<a href="#" id="viewAllCommand">
+  <mdss:localize key="View_All" />
+</a>
+
+<div id="excelButtons">
+<br /><br />
+<form action="dss.vector.solutions.generator.ExcelController.excelExport.mojo" method="post">
+  <input type="hidden" value="${mdFormType}" name="type"/>
+  <mdss:localize key="Excel_Export_Header" var="export_label"/>
+  <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
+</form>
+<form action="dss.vector.solutions.generator.ExcelController.importType.mojo" method="post">
+  <mdss:localize key="Excel_Import_Header" var="import_label"/>
+  <input type="hidden" value="${mdFormType}" name="type"/>
+  <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
+</form>
+</div>
 <jsp:include page="../templates/footer.jsp"></jsp:include>

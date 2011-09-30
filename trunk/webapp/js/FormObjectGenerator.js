@@ -13,7 +13,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
   Constants : {
     NEW_INSTANCE_COMMAND : 'newInstanceCommand',
     TABLE_CONTAINER : 'tableContainer',
-    FORM_CONTAINER : 'formContainer'
+    FORM_CONTAINER : 'formContainer',
+    VIEW_ALL_COMMAND : 'viewAllCommand'
   },
   Instance : {
     initialize : function(mdFormId, mdClassType){
@@ -30,16 +31,25 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._Y = YUI().use('*'); // YUI3 reference
       this._Y.one('#'+this.constructor.NEW_INSTANCE_COMMAND).on('click', this.newInstance, this);
+      this._Y.one('#'+this.constructor.VIEW_ALL_COMMAND).on('click', this.viewAllInstance, this);
       
       // Reference to the current form object that is being modified/created.
       // This will be null when viewing all objects.
       this._formObject = null;
       
       this._WebFormObject = com.runwaysdk.form.web.WebFormObject;
+      
+      this._formContainer = this._Y.one('#'+this.constructor.FORM_CONTAINER);
+    },
+    clearFormContainer : function(){
+      // clear the form container
+      this._formContainer.setContent(''); 
     },
     renderView : function(formObjectJSON){
+      this.clearFormContainer();
+    
       var webForm = this._WebFormObject.parseFromJSON(formObjectJSON);
-      this._formObject = webForm;     
+      this._formObject = webForm;
     
       var div = this._factory.newElement('div');
       var dl = this._factory.newElement('dl');
@@ -71,11 +81,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       }
       
       // edit
-      var createBtn = this._factory.newElement('button');
-      createBtn.setInnerHTML(MDSS.localize('Create'));
-      div.appendChild(createBtn);
+      var editBtn = this._factory.newElement('button');
+      editBtn.setInnerHTML(MDSS.localize('Edit'));
+      div.appendChild(editBtn);
       
-      createBtn.getImpl().on('click', this.createInstance, this);
+      editBtn.getImpl().on('click', this.editInstance, this);
       
       // delete
       var deleteBtn = this._factory.newElement('button');
@@ -84,12 +94,14 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
 
       deleteBtn.getImpl().on('click', this.deleteInstance, this);
       
-      div.render('#'+this.constructor.FORM_CONTAINER);
+      div.render('#'+this._formContainer.get('id')); 
     },
     /**
      * Renders the create and upate form.
      */
     renderForm : function(formObjectJSON){
+      this.clearFormContainer();
+    
       var webForm = this._WebFormObject.parseFromJSON(formObjectJSON);
       this._formObject = webForm;    
     
@@ -296,7 +308,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         cancelBtn.getImpl().on('click', this.cancelInstance, this);
       }
       
-      formEl.render('#'+this.constructor.TABLE_CONTAINER);  
+      formEl.render('#'+'#'+this._formContainer.get('id'));  
     },
     /**
      * Updates the values on the FormObject with the current values
@@ -325,7 +337,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       var that = this;
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
-          that.renderView(formObjectJSON);
+          that.clearFormContainer();
         }
       });
       
@@ -365,6 +377,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._FormObjectController.createInstance(request, this._formObject);
     },
+    editInstance : function(e){
+      e.preventDefault(); // prevent a synchronous form submit
+
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(formObjectJSON){
+        
+          that.renderForm(formObjectJSON);
+        }        
+      });
+      
+      this._FormObjectController.editInstance(request, this._mdFormId, this._formObject.getDataId());          
+    },
     /**
      * Cancels the creation or update of a FormObject.
      */
@@ -378,7 +403,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           if(that._formObject.isNewInstance())
           {
             that._formObject = null;
-            
+            that.clearFormContainer();
           }
           else
           {
@@ -399,8 +424,24 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
   
       this._FormObjectController.newInstance(request, this._mdFormId);
     },
+    hideAllInstance : function(){
+      
+    },
+    viewAllInstance : function(){
+      if(this._table.isRendered())
+      {
+        this._table.resetDataTable();
+      }
+      else
+      {
+        this._table.render('#'+this.constructor.TABLE_CONTAINER);
+      }
+    },
+    /**
+     * The initial render shows all 
+     */
     render : function(){
-      this._table.render('#'+this.constructor.TABLE_CONTAINER);
+      this.viewAllInstance();
     }
   }
 });
