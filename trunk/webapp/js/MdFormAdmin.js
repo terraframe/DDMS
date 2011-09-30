@@ -70,6 +70,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     render : function()
     {
+			// hide the form content DOM elements
+      this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+			
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
@@ -77,9 +80,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.confirmDeleteMdField, 'a.form-item-row-delete', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editField, 'li', this);
       
-			// hide the form content DOM elements
-      this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
-			
       // show the existing forms
       this.existingForms();
     },
