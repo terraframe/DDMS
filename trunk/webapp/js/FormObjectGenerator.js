@@ -96,6 +96,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         dl.appendChild(dd);
         
         var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
+        if(field instanceof FIELD.WebDate)
+        {
+          value = MDSS.Calendar.getLocalizedString(value);
+        }
         
         dt.setInnerHTML(field.getFieldMd().getDisplayLabel());
         dd.setInnerHTML(value);
@@ -276,6 +280,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         }
         else if(field instanceof FIELD.WebDate)
         {
+          value = MDSS.Calendar.getLocalizedString(value);
+        
           var input = this._factory.newElement('input', {
             'type':'text',
             'name':field.getFieldName(),
