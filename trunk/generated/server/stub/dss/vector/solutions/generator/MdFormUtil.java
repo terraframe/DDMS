@@ -43,8 +43,8 @@ import com.runwaysdk.system.metadata.MdWebFormQuery;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
-//import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
-//import dss.vector.solutions.form.ConfirmDeleteMdFormException;
+import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
+import dss.vector.solutions.form.ConfirmDeleteMdFormException;
 import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.general.Disease;
@@ -116,8 +116,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdWebForm[] getAllForms()
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
-    query.ORDER_BY_ASC(query.getFormName());
-    
+    query.ORDER_BY_ASC(query.getDisplayLabel().localize());
+       
     OIterator<? extends MdWebForm> it = query.getIterator();
 
     try
@@ -254,18 +254,15 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   
   public static void confirmDeleteForm(String mdFormId)
   {
-    /*
+    MdWebForm mdForm = MdWebForm.get(mdFormId);
     ConfirmDeleteMdFormException ex = new ConfirmDeleteMdFormException();
-    MdWebForm mdForm = getForm(mdFormId);
     ex.setMdFormName(mdForm.getFormName());
     throw ex;
-    */
   }
   
   public static void confirmDeleteMdField(String mdFormId, String mdFieldId)
   {
-    /*
-    MdWebForm mdForm = getForm(mdFormId);
+    MdWebForm mdForm = MdWebForm.get(mdFormId);
     MdWebField[] fields = getFields(mdForm);
     MdWebField mdField = null;
     for (MdWebField field : fields)
@@ -280,7 +277,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     ex.setMdFormName(mdForm.getFormName());
     ex.setMdFieldName(mdField.getFieldName());
     throw ex;
-    */
   }
   
   @Transaction
@@ -289,11 +285,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     try
     {
-      MdWebAttribute attr = (MdWebAttribute) mdField;
-      MdAttribute definingAttr = attr.getDefiningMdAttribute();
-      mdForm.removeMdFields(attr);
-      attr.delete();
-      definingAttr.delete();
+      if (mdField instanceof MdWebAttribute)
+      {
+        MdWebAttribute attr = (MdWebAttribute) mdField;
+        MdAttribute definingAttr = attr.getDefiningMdAttribute();
+        attr.delete();
+        definingAttr.delete();
+      }
+      else
+      {
+        mdField.delete();
+      }
     }
     catch (Throwable t)
     {
