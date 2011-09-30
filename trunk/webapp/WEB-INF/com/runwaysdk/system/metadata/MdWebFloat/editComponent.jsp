@@ -6,6 +6,7 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
+<h2 class="fieldTitle">${item.md.displayLabel}</h2>
 <dl>
   <mjl:form id="com.runwaysdk.system.metadata.MdWebFloat.form.id" name="com.runwaysdk.system.metadata.MdWebFloat.form.name" method="POST">
     <%@include file="form.jsp" %>

@@ -1179,6 +1179,7 @@ span.currentPage a:active {
   padding: 25px 0px 0px 25px;
   background: url('/DDMS/imgs/form-row-item-back.gif') repeat-x;
   border-bottom: solid 1px #d5d6d7;
+  cursor: pointer;
 }
 .form-item-row .form-item-row-delete {
   position: absolute;
@@ -1286,6 +1287,19 @@ span.currentPage a:active {
 }
 .form-gen-total-pages {
   margin: 1em 0;
+}
+
+div.generatorContent {
+  margin-left: 15px;
+}
+
+#tableContainer, #formContainer {
+  margin: 15px 0px 15px 0px;
+}
+
+h2.fieldTitle {
+  color: #666666;
+  margin: 0px;
 }
 
 /*---------------------------------------------------------------*/ /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */ /*---------------------------------------------------------------*/

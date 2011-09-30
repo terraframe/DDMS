@@ -203,7 +203,8 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
             var attrDTO = queryDTO.getAttributeDTO(name);
             
             // TODO Custom filter needed. Should only allow primitives based on IF
-            if(!(attrDTO instanceof RefDTO) && !(attrDTO instanceof StructDTO)){
+            if(!(attrDTO instanceof RefDTO) && !(attrDTO instanceof StructDTO)
+              && !attrDTO.getAttributeMdDTO().isSystem() && name !== 'keyName'){
               thisDS._attributeNames.push(name);
               attrs.push(attrDTO);
             }
@@ -503,11 +504,6 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         for(var i=0; i<attrs.length; i++)
         {
           var attr = attrs[i];
-          var md = attr.getAttributeMdDTO();
-          if(md.isSystem())
-          {
-            continue; // ignore system attributes as columns
-          }
           
           var label = attr.getAttributeMdDTO().getDisplayLabel();
           var key = attr.getName();

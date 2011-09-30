@@ -4,11 +4,13 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 
 import org.json.JSONObject;
 
+import com.runwaysdk.business.ComponentDTOFacade;
 import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.MdAttributeBooleanUtil;
@@ -23,6 +25,7 @@ import com.runwaysdk.form.FormObject;
 import com.runwaysdk.form.field.FieldIF;
 import com.runwaysdk.form.web.JSONFormVisitor;
 import com.runwaysdk.form.web.WebFormObject;
+import com.runwaysdk.form.web.field.WebAttribute;
 import com.runwaysdk.form.web.field.WebBoolean;
 import com.runwaysdk.form.web.field.WebCharacter;
 import com.runwaysdk.form.web.field.WebDate;
@@ -36,6 +39,7 @@ import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
+import com.runwaysdk.transport.attributes.AttributeDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -93,7 +97,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
       String type = mdClass.getPackageName()+"."+mdClass.getTypeName()+TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
 
-      klass.getMethod("lock").invoke(null, dataId);
+      klass.getMethod("lock", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), dataId);
 
       WebFormObject formObject = WebFormObject.getInstance(mdFormDTO, dataId);
       
@@ -117,7 +121,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
         String type = mdClass.getPackageName()+"."+mdClass.getTypeName()+TypeGeneratorInfo.DTO_SUFFIX;
         Class<?> klass = LoaderDecorator.load(type);
 
-        klass.getMethod("unlock").invoke(null, formObject.getDataId());
+        klass.getMethod("unlock", ClientRequestIF.class, String.class).invoke(null, formObject.getDataId());
 
         WebFormObject webFormObject = WebFormObject.getInstance(mdFormDTO, formObject.getId());
         
@@ -156,7 +160,8 @@ public class FormObjectController extends FormObjectControllerBase implements co
       String type = mdClass.getPackageName()+"."+mdClass.getTypeName()+TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
 
-      klass.getMethod("delete").invoke(null, dataId);
+      MutableDTO dto = (MutableDTO) klass.getMethod("get", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), dataId);
+      klass.getMethod("delete").invoke(dto);
     }
     catch(Throwable t)
     {
@@ -176,7 +181,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
       String type = mdClass.getPackageName()+"."+mdClass.getTypeName()+TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
       
-      MutableDTO dto = (MutableDTO) klass.getMethod("get").invoke(null, formObject.getDataId());
+      MutableDTO dto = (MutableDTO) klass.getMethod("get", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), formObject.getDataId());
       this.populate(formObject, dto, klass);
       klass.getMethod("apply").invoke(dto);
       
@@ -201,10 +206,24 @@ public class FormObjectController extends FormObjectControllerBase implements co
   
   private void populate(FormObject formObject, MutableDTO dto, Class<?> klass) throws Throwable
   {
+    Map<String, AttributeDTO> mdIdToAttrDTOs = ComponentDTOFacade.mapMdAttributeIdToAttributeDTOs(dto);
+    
     FieldIF[] fields = formObject.getFields();
     for(FieldIF field : fields)
     {
-      String setter = "set" + CommonGenerationUtil.upperFirstCharacter(field.getFieldName());
+      String setterAttr;
+      if(field instanceof WebAttribute)
+      {
+        String mdAttrId = ((WebAttribute)field).getFieldMd().getDefiningMdAttribute();
+        setterAttr = mdIdToAttrDTOs.get(mdAttrId).getAttributeMdDTO().getName();
+      }
+      else
+      {
+        // TODO will this ever be invoked?
+        setterAttr = field.getFieldName();
+      }
+      
+      String setter = "set" + CommonGenerationUtil.upperFirstCharacter(setterAttr);
       Object o;
       Method m;
       if(field instanceof WebBoolean)
