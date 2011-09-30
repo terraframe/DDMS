@@ -27,6 +27,7 @@ request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !cli
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
 <script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
 <jwr:style src="/bundles/yuiStyle.css" useRandomParam="false"/>
+<jwr:style src="/bundles/yui3Style.css" useRandomParam="false"/>
 <jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
 <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>

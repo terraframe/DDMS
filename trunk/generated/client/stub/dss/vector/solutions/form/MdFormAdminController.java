@@ -395,6 +395,23 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     }
   }
   
+  public void deleteForm(String formId) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
+      MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
+      MdFormUtilDTO.delete(clientRequest, form);
+      
+      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
+      
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
   @Override
   public void deleteField(String formId, String fieldId) throws IOException, ServletException
   {

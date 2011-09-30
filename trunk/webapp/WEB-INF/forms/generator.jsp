@@ -75,7 +75,8 @@ YAHOO.util.Event.onDOMReady(function(){
   generator.render();
 });
 </script>
-<div id="tableContainer">
+
+<div id="tableContainer" class="yui3-skin-sam">
 </div>
 <div id="formContainer">
 
