@@ -204,9 +204,10 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
             
             // TODO Custom filter needed. Should only allow primitives based on IF
             if(!(attrDTO instanceof RefDTO) && !(attrDTO instanceof StructDTO)
-              && !attrDTO.getAttributeMdDTO().isSystem() && name !== 'keyName'){
-              thisDS._attributeNames.push(name);
-              attrs.push(attrDTO);
+              && !attrDTO.getAttributeMdDTO().isSystem() && name !== 'keyName'
+              && attrDTO.isReadable()){
+                thisDS._attributeNames.push(name);
+                attrs.push(attrDTO);
             }
           }
           
