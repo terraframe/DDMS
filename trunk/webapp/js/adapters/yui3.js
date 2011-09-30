@@ -9,7 +9,6 @@
 // non-native parsing and we don't any surprises, even if native is faster.
 // Mojo.ClientSession.setNativeParsingEnabled(false);
 
-
 var RUNWAY_UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
 Mojo.YUI3_PACKAGE = Mojo.UI_PACKAGE+'YUI3.';
 var YUI2 = Mojo.Meta.alias(Mojo.YUI2_PACKAGE+'*');
@@ -143,8 +142,10 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
       this._pageSize = 20;
       this._sortAttribute = null;
       this._ascending = true;
-      
-      if(this._    
+      if(this._resultsQueryDTO !== null)
+      {
+        this._resultsQueryDTO.clearOrderByList();
+      }
     },
 
     setPageNumber : function(pageNumber){
@@ -406,6 +407,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
       this._setRendered(true);
     },
     resetDataTable : function(){
+      this._dataSource.resetQuery();
       this.load();
     },
     _selectPage : function(e){
