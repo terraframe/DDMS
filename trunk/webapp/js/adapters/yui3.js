@@ -445,6 +445,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         var page = pages[i];
   
         var span = this.getFactory().newElement('span');
+				span.addClassName("form-gen-available-pages");
         this._pages.put(span, page);
   
         if(page.isLeft() || page.isRight())
@@ -463,6 +464,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         this._paginationDiv.appendChild(span);
       }
       var countSpan = this.getFactory().newElement('span');
+			countSpan.addClassName("form-gen-total-pages");
       var max = (pageNumber * pageSize);
       if(max > count) max = count;
       countSpan.setInnerHTML(" " + (((pageNumber-1) * pageSize)+1)+ "-" +max+" / "+ count);
