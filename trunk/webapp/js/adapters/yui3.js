@@ -265,7 +265,11 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
       for(var i=0; i<resultSet.length; i++)
       {
         var result = resultSet[i];
-        var obj = {id:result.getId()}; // always include the id for dereferencing
+         // always include the id and type for dereferencing
+        var obj = {
+          id:result.getId(),
+          type:result.getType()
+        };
         for(var j=0; j<this._attributeNames.length; j++){
           var name = this._attributeNames[j];
           var value = result.getAttributeDTO(name).getValue();
