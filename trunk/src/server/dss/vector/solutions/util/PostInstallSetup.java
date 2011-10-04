@@ -60,6 +60,11 @@ public class PostInstallSetup
 
   private String       tomcatDirectory;
 
+  public PostInstallSetup(String appName, String installationNumber, Boolean isMaster)
+  {
+    this(appName, installationNumber, isMaster, DEFAULT_TOMCAT, DEFAULT_MANAGER);
+  }
+
   public PostInstallSetup(String appName, String installationNumber, Boolean isMaster, String tomcatDirectory, String managerDirectory)
   {
     this.appName = appName;
@@ -116,7 +121,7 @@ public class PostInstallSetup
     readAndReplace(new File(appRoot, "test/viewComponentOldWay.jsp"), template, replacer);
   }
 
-  private void updateCSS() throws IOException
+  public void updateCSS() throws IOException
   {
     String template = "/\\w+/imgs/";
     String replacer = "/" + appName + "/imgs/";
