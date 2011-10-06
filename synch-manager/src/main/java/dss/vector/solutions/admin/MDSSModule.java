@@ -1,5 +1,7 @@
 package dss.vector.solutions.admin;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.HashMap;
@@ -20,6 +22,7 @@ import com.runwaysdk.manager.general.IMenuManager;
 import com.runwaysdk.manager.general.IWindow;
 import com.runwaysdk.manager.general.Localizer;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.admin.controller.IModuleController;
 import dss.vector.solutions.admin.controller.ModuleController;
@@ -47,15 +50,11 @@ public class MDSSModule implements IModule, IPropertyListener
     @Override
     public void taskStart(String name, int amount)
     {
-      // TODO Auto-generated method stub
-
     }
 
     @Override
     public void taskProgress(int percent)
     {
-      // TODO Auto-generated method stub
-
     }
 
     @Override
@@ -68,6 +67,8 @@ public class MDSSModule implements IModule, IPropertyListener
     public void done(boolean success)
     {
       rebuildAllPathTables();
+
+      updateCSS();
     }
   }
 
@@ -137,12 +138,25 @@ public class MDSSModule implements IModule, IPropertyListener
 
   public static final String VERSION          = "1.02";
 
+  public static String       DEFAULT_TOMCAT   = "C:/MDSS/tomcat6/";
+
   private IModuleController  controller;
 
   private IWindow            window;
 
-  public MDSSModule()
+  private String             appName;
+
+  private String             tomcatRoot;
+
+  public MDSSModule(String appName)
   {
+    this(DEFAULT_TOMCAT, appName);
+  }
+
+  public MDSSModule(String tomcatRoot, String appName)
+  {
+    this.tomcatRoot = tomcatRoot;
+    this.appName = appName;
     this.controller = new ModuleController(this);
 
     // Window is set in the init method which is called from the super class
@@ -158,10 +172,11 @@ public class MDSSModule implements IModule, IPropertyListener
   @Override
   public void generateMenu(IMenuManager manager)
   {
-//    MenuManager toolsMenu = manager.getMenu(Localizer.getMessage("TOOLS_MENU"));
-//    toolsMenu.add(new AllPathAction(this));
-//
-//    manager.addMenu(toolsMenu);
+    // MenuManager toolsMenu =
+    // manager.getMenu(Localizer.getMessage("TOOLS_MENU"));
+    // toolsMenu.add(new AllPathAction(this));
+    //
+    // manager.addMenu(toolsMenu);
   }
 
   public void error(String msg)
@@ -251,6 +266,24 @@ public class MDSSModule implements IModule, IPropertyListener
   public void rebuildAllPathTables()
   {
     window.getDisplay().asyncExec(new ProgressRunnable(new RebuildRunnable()));
+  }
+
+  private void updateCSS()
+  {
+    try
+    {
+      String regex = "/\\w+/imgs/";
+      String replacement = "/" + appName + "/imgs/";
+
+      File file = new File(tomcatRoot + File.separator + "webapps" + File.separator + appName + File.separator + "css/style.css");
+      String data = FileIO.readString(file);
+      String replaced = data.replaceAll(regex, replacement);
+      FileIO.write(file, replaced);
+    }
+    catch (IOException e)
+    {
+      this.error(e.getLocalizedMessage());
+    }
   }
 
 }

@@ -23,7 +23,7 @@ public class MasterConfiguration extends ConfigurationAdapter
       this.filterNames.add("terraframe.properties");
       this.filterNames.add("database.properties");
       this.filterNames.add("install.properties");
-      this.filterNames.add("style.css");
+//      this.filterNames.add("style.css");
       this.filterNames.add("viewComponentOldWay.jsp");
       this.filterNames.add("login.jsp");
       this.filterNames.add("WEB-INF");

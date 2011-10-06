@@ -123,7 +123,7 @@ public class SynchronziationManagerLauncher
         {
           Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.admin.MDSSModule");
 
-          IModule module = (IModule) clazz.newInstance();
+          IModule module = (IModule) clazz.getConstructor(String.class).newInstance(arguments.getAppName());
 
           MainWindow window = new MainWindow(configuration, module);
           window.run();
