@@ -2393,6 +2393,8 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeDTO', {
     getName : function() { return this.attributeName; },
   
     getValue : function() { return this.value; },
+    
+    getType : function() { return this.type; },
   
     setValue : function(value)
     {

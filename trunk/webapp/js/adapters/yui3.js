@@ -411,6 +411,8 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
 
       // extra columns to add to the end of the table
       this._addedColumns = addedColumns || [];
+      
+      this._typeFormatters = {};
     },
     _renderHandler : function(e){
       this._setRendered(true);
@@ -521,7 +523,8 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           cols.push(new Column({
             key : key,
             label : label,
-            sortable : true
+            sortable : true,
+            formatter : (this._typeFormatters[attr.getType()] || null)
           }));
         }
         
@@ -535,6 +538,9 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         var parent = this.getParent().getRawEl();
         this._dataTable.render(parent);
       }
+    },
+    setTypeFormatter : function(type, formatter){
+      this._typeFormatters[type] = formatter;
     },
     getColumnSet : function(){
       return this._columnSet;
@@ -584,6 +590,15 @@ var ColumnSet = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"ColumnSet", {
       }
 
       this._set.set('definitions', defs);
+    },
+    /**
+     * Returns the column mapped to the given key.
+     */
+    getColumnByKey : function(key){
+      this._getDefinitions('definitions').keySet
+    },
+    getColumnByIndex : function(ind){
+      
     },
     /**
      * Returns the Column object with the given DOM id.
@@ -644,22 +659,39 @@ var Column = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"Column", {
   Implements : RUNWAY_UI.ColumnIF,
   Instance : {
     initialize : function(config){
-      this._key = config.key || Mojo.Util.generateId();
-      this._label = config.label || '';
-      this._sortable = config.sortable || false;
-      this._formatter = config.formatter || null;
+      
+      this._col; // impl
+      if(config instanceof Y.Column)
+      {
+        this._col = config;
+      }
+      else
+      {
+        this._col = new Y.Column({
+          key : config.key || Mojo.Util.generateId(),
+          label : config.label || '',
+          sortable : config.sortable || false,
+          formatter : config.formatter || null
+        });
+      }
+    },
+    getImpl : function(){
+      return this._col;
     },
     isSortable : function() {
-      return this._sortable;
+      return this._col.get('sortable');
     },
     getKey : function(){
-      return this._key;
+      return this._col.get('key');
     },
     getLabel : function(){
-      return this._label;
+      return this._col.get('label');
     },
     getFormatter : function(){
-      return this._formatter;
+      return this._col.get('formatter');
+    },
+    setFormatter : function(formatter){
+      this._col.set('formatter', formatter);
     }
   }
 });

@@ -33,7 +33,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         label:'',
         formatter: Mojo.Util.bind(this, this.viewColumnFormatter)
       });
+      
       this._table = this._factory.newDataTable(this._mdClassType, [col]);
+      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDate', Mojo.Util.bind(this, this.dateColumnFormatter));
       
       this._Y = YUI().use('*'); // YUI3 reference
       this._newInstanceCommand = this._Y.one('#'+this.constructor.NEW_INSTANCE_COMMAND);
@@ -53,6 +55,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._excelButtons = this._Y.one('#'+this.constructor.EXCEL_BUTTONS);
       
       this._tableContainer.delegate('click', this.viewInstance, 'span.generatedViewCommand', this);
+    },
+    /**
+     * Formats dates according to the DDMS specification.
+     */
+    dateColumnFormatter : function(o){
+      return MDSS.Calendar.getLocalizedString(o.data[o.field]);
     },
     /**
      * Formats the view column by creating a link that contains a Runway object id for

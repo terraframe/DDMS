@@ -30,5 +30,8 @@
 
   MDSS.Calendar.addCalendarListeners(sd);
   MDSS.Calendar.addCalendarListeners(ed);
+  
+  sd.value = MDSS.Calendar.getLocalizedString(sd.value);
+  ed.value = MDSS.Calendar.getLocalizedString(ed.value);
 })();
 </script>
