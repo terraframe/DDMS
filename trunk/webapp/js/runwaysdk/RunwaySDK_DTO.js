@@ -1897,6 +1897,7 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO', {
       this.definingType = obj.definingType;
       this.definingTypeDisplayLabel = obj.definingTypeDisplayLabel;
       this.attributeName = obj.attributeName;
+			this.attributeId = obj.attributeId;
       this.attributeDisplayLabel = obj.attributeDisplayLabel;
     },
   
@@ -1907,6 +1908,8 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO', {
     getDefiningTypeDisplayLabel : function() { return this.definingTypeDisplayLabel; },
   
     getAttributeName : function() { return this.attributeName; },
+  
+    getAttributeId : function() { return this.attributeId; },
   
     getAttributeDisplayLabel : function() { return this.attributeDisplayLabel; }
   
@@ -2065,6 +2068,10 @@ Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'ProblemExceptionDTO', {
         else if('dto_type' in problemJSON && problemJSON.dto_type === Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO')
         {
           problem = Mojo.Meta.newInstance(Mojo.BUSINESS_PACKAGE+'AttributeProblemDTO', problemJSON);
+        }
+        else if('dto_type' in problemJSON && problemJSON.dto_type === Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'EmptyValueProblemDTO')
+        {
+          problem = Mojo.Meta.newInstance(Mojo.ATTRIBUTE_PROBLEM_PACKAGE+'EmptyValueProblemDTO', problemJSON);
         }
         else
         {

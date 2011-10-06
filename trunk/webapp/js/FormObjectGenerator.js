@@ -163,10 +163,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
                 
         var dt = this._factory.newElement('dt');
         var dd = this._factory.newElement('dd');
-        
+				
         dl.appendChild(dt);
         dl.appendChild(dd);
-        
+				
         var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
         
         // display and annotation fields
@@ -303,6 +303,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           var msg = 'The field ['+field+'] is not recognized.';
           throw new com.runwaysdk.Exception(msg);
         }
+				
+				// this is so we can place error info spatially
+				var attr = field.getFieldMd();
+				if (attr.getDefiningMdAttribute)
+				{
+          var errorContainer = this._factory.newElement('span');
+          var attrId = field.getFieldMd().getDefiningMdAttribute();
+          errorContainer.setId(attrId);
+          errorContainer.addClassName('alertbox');// modalAlertBox');
+					errorContainer.setStyle('margin-left', '20px');
+          errorContainer.setStyle('visibility', 'hidden');
+					dd.appendChild(errorContainer);
+				}
       }
       
       // Add the action buttons
@@ -401,7 +414,20 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
           that.renderView(formObjectJSON);
-        }
+        },
+				onProblemExceptionDTO : function(e)
+				{
+          var problems = e.getProblems();
+          
+          for (var i = 0; i < problems.length; i++) {
+            var p = problems[i];
+            var attributeId = p.getAttributeId();
+
+            var span = document.getElementById(attributeId);
+            span.innerHTML = p.getLocalizedMessage();
+						that._Y.one('#'+attributeId).setStyle('visibility', 'visible');
+          }
+				}
       });
       
       this._FormObjectController.updateInstance(request, this._formObject);    

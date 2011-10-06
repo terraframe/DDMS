@@ -1,6 +1,7 @@
 package dss.vector.solutions.form;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -209,6 +210,10 @@ public class FormObjectController extends FormObjectControllerBase implements
     }
     catch (Throwable t)
     {
+      if (t instanceof InvocationTargetException)
+      {
+        t = t.getCause();
+      }
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
@@ -252,9 +257,10 @@ public class FormObjectController extends FormObjectControllerBase implements
       }
       else
       {
-        String msg = "The field [" + field.getFieldName() + "] of type [" + field.getClass().getName()
-            + "] is not supported at this time.";
-        throw new ConversionExceptionDTO(msg);
+        continue;
+        //String msg = "The field [" + field.getFieldName() + "] of type [" + field.getClass().getName()
+            //+ "] is not supported at this time.";
+        //throw new ConversionExceptionDTO(msg);
       }
 
       String setter = "set" + CommonGenerationUtil.upperFirstCharacter(setterAttr);
@@ -421,6 +427,10 @@ public class FormObjectController extends FormObjectControllerBase implements
     }
     catch (Throwable t)
     {
+      if (t instanceof InvocationTargetException)
+      {
+        t = t.getCause();
+      }
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
