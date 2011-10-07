@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
@@ -122,6 +123,18 @@ public class DDMSFieldBuilders implements Reloadable
   
   public static abstract class WebAttributeBuilder extends WebFieldBuilder implements Reloadable
   {
+    
+    /**
+     * Validates an MdField
+     * 
+     * @param mdField
+     * @return
+     */
+    protected void validateMdField(MdField mdField)
+    {
+       mdField.validateFieldName();
+    }     
+    
     /**
      * Creates the MdAttribute that maps directly to the MdField.
      * 
@@ -129,6 +142,7 @@ public class DDMSFieldBuilders implements Reloadable
      * @param webForm
      * @return
      */
+    @AbortIfProblem
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       if(mdAttr.isNew())
@@ -155,6 +169,7 @@ public class DDMSFieldBuilders implements Reloadable
       // We are not supporting virtual attributes right now ... so no need to complicate things
       MdAttributeConcrete mdAttr = (MdAttributeConcrete) BusinessFacade.newBusiness(mdAttributeType);
       webPrimitive.setDefiningMdForm(webForm);
+      this.validateMdField(mdField);
       this.updateMdAttribute(mdAttr, webPrimitive);
       mdAttr.apply();
 
@@ -169,6 +184,7 @@ public class DDMSFieldBuilders implements Reloadable
       MdAttributeConcrete mdAttr = (MdAttributeConcrete) webAttribute.getDefiningMdAttribute();
       
       mdAttr.appLock();
+      this.validateMdField(mdField);
       this.updateMdAttribute(mdAttr, webAttribute);
       mdAttr.apply();
       
@@ -430,6 +446,8 @@ public class DDMSFieldBuilders implements Reloadable
       
       MdWebDate field = (MdWebDate) mdField;
       
+      md.setStartDate(field.getStartDate());
+      md.setEndDate(field.getEndDate());
       md.setAfterTodayExclusive(field.getAfterTodayExclusive());
       md.setAfterTodayInclusive(field.getAfterTodayInclusive());
       md.setBeforeTodayExclusive(field.getBeforeTodayExclusive());
