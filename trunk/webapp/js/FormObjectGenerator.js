@@ -311,7 +311,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           var errorContainer = this._factory.newElement('span');
           var attrId = field.getFieldMd().getDefiningMdAttribute();
           errorContainer.setId(attrId);
-          errorContainer.addClassName('alertbox');// modalAlertBox');
+          errorContainer.addClassName('alertbox');
 					errorContainer.setStyle('margin-left', '20px');
           errorContainer.setStyle('visibility', 'hidden');
 					dd.appendChild(errorContainer);
@@ -408,6 +408,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     updateInstance : function(e){
       e.preventDefault(); // prevent a synchronous form submit
       
+      this._Y.all('.alertbox').setStyle('visibility', 'hidden');
+      
       this._updateValues();
       
       var that = this;
@@ -425,7 +427,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
 
             var span = document.getElementById(attributeId);
             span.innerHTML = p.getLocalizedMessage();
-						that._Y.one('#'+attributeId).setStyle('visibility', 'visible');
+            span.style.visibility = 'visible';
           }
 				}
       });
@@ -438,12 +440,27 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     createInstance : function(e){
       e.preventDefault(); // prevent a synchronous form submit
       
+      this._Y.all('.alertbox').setStyle('visibility', 'hidden');
+			
       this._updateValues();
       
       var that = this;
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
           that.renderView(formObjectJSON);
+        },
+        onProblemExceptionDTO : function(e)
+        {
+          var problems = e.getProblems();
+          
+          for (var i = 0; i < problems.length; i++) {
+            var p = problems[i];
+            var attributeId = p.getAttributeId();
+
+            var span = document.getElementById(attributeId);
+            span.innerHTML = p.getLocalizedMessage();
+            span.style.visibility = 'visible';
+          }
         }
       });
       
