@@ -102,10 +102,10 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "DROP INDEX IF EXISTS geoentityclass_btree; \n";
     sql += "DROP INDEX IF EXISTS geoentityclass_hash; \n";
 
-    sql += "CREATE  INDEX fqtn_md_type_hash \n";
-    sql += "  ON " + mdTypeTable + "  \n";
-    sql += "  USING hash \n";
-    sql += "  ((" + pckNameCol + " || '.' || " + nameCol + ")); \n";
+//    sql += "CREATE  INDEX fqtn_md_type_hash \n";
+//    sql += "  ON " + mdTypeTable + "  \n";
+//    sql += "  USING hash \n";
+//    sql += "  ((" + pckNameCol + " || '.' || " + nameCol + ")); \n";
 
     sql += "CREATE  INDEX fqtn_md_type_btree \n";
     sql += "  ON " + mdTypeTable + "  \n";
@@ -121,10 +121,10 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  USING btree \n";
     sql += "  (geo_entity_class); \n";
 
-    sql += "CREATE INDEX geoentityclass_hash \n";
-    sql += "  ON " + geoHierarchyTable + " \n";
-    sql += "  USING hash \n";
-    sql += "  (geo_entity_class); \n";
+//    sql += "CREATE INDEX geoentityclass_hash \n";
+//    sql += "  ON " + geoHierarchyTable + " \n";
+//    sql += "  USING hash \n";
+//    sql += "  (geo_entity_class); \n";
 
     return sql;
 
