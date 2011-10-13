@@ -50,6 +50,12 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     String pid = inferParentId();
     boolean newLocatedIn;
     
+    /*
+     * If an entity is being imported under itself, NEVER delete its located in values or
+     * apply it under a new parent.
+     */
+    boolean selfImport = false;
+    
     String entityType = buildQualifiedType(this.getGeoType());
     if (entityType == null)
     {
@@ -64,13 +70,17 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
       entity = i.next();
       entity.lock();
       
-      // Per Miguel's instructions, importing removes all prior located_in relationships, semantically "moving" the entity 
-      for (LocatedIn l : entity.getAllLocatedInGeoEntityRel())
+      selfImport = entity.getId().equals(pid);
+      if(!selfImport)
       {
-        // Don't bother to delete the node we want to end up under
-        if (!l.getParentId().equals(pid))
+        // Per Miguel's instructions, importing removes all prior located_in relationships, semantically "moving" the entity 
+        for (LocatedIn l : entity.getAllLocatedInGeoEntityRel())
         {
-          l.delete();
+          // Don't bother to delete the node we want to end up under
+          if (!l.getParentId().equals(pid))
+          {
+            l.delete();
+          }
         }
       }
     }
@@ -80,17 +90,26 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     }
     i.close();
     
-    dss.vector.solutions.geo.AllPathsQuery query = new dss.vector.solutions.geo.AllPathsQuery(new QueryFactory());
-    query.WHERE(query.getChildGeoEntity().getGeoId().EQ(newGeoId));
-    query.WHERE(query.getParentGeoEntity().getId().EQ(pid));
-    OIterator<? extends AllPaths> iterator = query.getIterator();
-    if (iterator.hasNext())
+    if(selfImport)
     {
+      // an entity is being imported into itself, so just update the entity and do nothing
+      // relative to located_in relationships.
       newLocatedIn = false;
     }
     else
     {
-      newLocatedIn = true;
+      dss.vector.solutions.geo.AllPathsQuery query = new dss.vector.solutions.geo.AllPathsQuery(new QueryFactory());
+      query.WHERE(query.getChildGeoEntity().getGeoId().EQ(newGeoId));
+      query.WHERE(query.getParentGeoEntity().getId().EQ(pid));
+      OIterator<? extends AllPaths> iterator = query.getIterator();
+      if (iterator.hasNext())
+      {
+        newLocatedIn = false;
+      }
+      else
+      {
+        newLocatedIn = true;
+      }
     }
     
     entity.setEntityName(this.getEntityName());
