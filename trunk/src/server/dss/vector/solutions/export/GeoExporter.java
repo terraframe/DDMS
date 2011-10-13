@@ -84,8 +84,9 @@ public class GeoExporter implements Reloadable
 
   private void writeRow(GeoEntity parent, GeoEntity geo)
   {
-    // Don't export Earth
-    if (geo.getType().equals(Earth.CLASS))
+    // Don't export Earth or the parent itself (which will be null during
+    // the first recursive call).
+    if (geo.getType().equals(Earth.CLASS) || parent == null)
     {
       return;
     }
