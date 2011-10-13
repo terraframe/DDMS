@@ -179,7 +179,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         }
         else if(field instanceof FIELD.WebBreak)
         {
-          dd.setInnerHTML('<br />');
+          dd.setInnerHTML('<hr />');
           continue;
         }
         else if(field instanceof FIELD.WebComment)
