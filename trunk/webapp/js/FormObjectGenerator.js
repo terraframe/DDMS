@@ -236,6 +236,14 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           var fLabel = this._factory.newElement('span');
           fLabel.setInnerHTML(field.getFieldMd().getNegativeDisplayLabel());
           
+          if(value === 'true')
+          {
+            radioT.setAttribute('checked', 'checked');
+          }
+          else
+          {
+            radioF.setAttribute('checked', 'checked');
+          }
           
           dd.appendChild(radioT);
           dd.appendChild(tLabel);
