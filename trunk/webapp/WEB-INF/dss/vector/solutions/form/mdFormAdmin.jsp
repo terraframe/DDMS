@@ -18,6 +18,7 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebTextDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebBooleanDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCharacterDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdFieldDisplayLabelDTO"%>
 <%@page import="dss.vector.solutions.form.MdFormAdminController"%>
 <%@page import="dss.vector.solutions.generator.MdFormUtilDTO"%>
 
@@ -49,6 +50,7 @@ ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstan
 String[] types = new String[]{
 MdFormAdminController.CLASS,
 MdFormUtilDTO.CLASS,
+MdFieldDisplayLabelDTO.CLASS,
     
 // WebNumber (excluding float)
 MdWebIntegerDTO.CLASS,

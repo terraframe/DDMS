@@ -423,10 +423,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
             
       MdFormUtilDTO.deleteField(clientRequest, form, fieldToDelete);
       
-      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
-      req.setAttribute("fields", fields);
+      //MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
+      //req.setAttribute("fields", fields);
       
-      this.req.getRequestDispatcher(FETCH_FORM_FIELDS_JSP).forward(req, resp);
+      //this.req.getRequestDispatcher(FETCH_FORM_FIELDS_JSP).forward(req, resp);
     }
     catch (Throwable t)
     {

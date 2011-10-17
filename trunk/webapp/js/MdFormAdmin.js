@@ -36,10 +36,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._fieldFormDialog = null;
 			
 			this._confirmDeleteDialog = null;
+			
+			this._fieldList = null;
       
-			this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
-			this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;
-			var cancelB = Mojo.Util.bind(this, this._cancelListener);
+      this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
+      this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;
+      var cancelB = Mojo.Util.bind(this, this._cancelListener);
       this._MdFormAdminController.setCancelListener(cancelB);
       
 			var updateB = Mojo.Util.bind(this, this._updateListener);
@@ -244,16 +246,37 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			var id = this._currentMdFormId;
       var that = this;
       var request = new MDSS.Request({
-        onSuccess : function(html){
-          var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
-          eval(executable);
-        }
+				onSuccess : function(fieldList){
+          that.updateFields(fieldList);
+        }        
       });
       
-      this._MdFormAdminController.fetchFormFields(request, id);
+			this._MdFormUtil.getFieldsById(request, id);
 		},
+		updateFields : function(fields){
+			var fieldDiv = document.getElementById(this.constructor.FORM_ITEM_ROW);
+			this._fieldList = this._Factory.newList("Field List", {id: "fieldList", draggable: {constrain2node: fieldDiv}, droppable: true});
+			for (var i = 0; i < fields.length; i++)
+			{
+				var field = fields[i];
+				var itemContent = "[" + field.getFieldName() + "] Type: " + field.getType();
+				var fieldId = field.getId();
+	      var listItem = this._Factory.newListItem(field);
+				listItem.getEl().setId(fieldId);
+				
+		    var deleteLink = this._Factory.newElement("a");
+				deleteLink.addClassName("form-item-row-delete edit-mode-functionality");
+				deleteLink.setInnerHTML("Delete");
+				deleteLink.setId(fieldId);
+				
+				listItem.appendChild(deleteLink);
+				
+	      this._fieldList.addItem(listItem);
+			}
+	    //this._fieldList.getEl().setStyle("float", "left");
+
+			this._fieldList.render(fieldDiv);
+    },
 		_createListener : function(fieldMap)
     {
       var that = this;
@@ -510,8 +533,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        {
          var executable = MDSS.util.extractScripts(html);
          var pureHTML = MDSS.util.removeScripts(html);
-         document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
+         //document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
          eval(executable);
+				 that.fetchFormFields();
        }
       });
 
