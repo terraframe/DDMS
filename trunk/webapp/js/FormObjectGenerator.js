@@ -60,7 +60,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      * Formats dates according to the DDMS specification.
      */
     dateColumnFormatter : function(o){
-      return MDSS.Calendar.getLocalizedString(o.data[o.field]);
+      return MDSS.Calendar.getLocalizedString(o.data[o.field]) || '';
     },
     /**
      * Formats the view column by creating a link that contains a Runway object id for
@@ -236,13 +236,18 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           var fLabel = this._factory.newElement('span');
           fLabel.setInnerHTML(field.getFieldMd().getNegativeDisplayLabel());
           
-          if(value === 'true')
+          // we don't have default values so leave a new instance value blank
+          // and let any validation occur naturally (e.g., required)
+          if(!this._formObject.isNewInstance())
           {
-            radioT.setAttribute('checked', 'checked');
-          }
-          else
-          {
-            radioF.setAttribute('checked', 'checked');
+            if(value === 'true')
+            {
+              radioT.setAttribute('checked', 'checked');
+            }
+            else if(value === 'false')
+            {
+              radioF.setAttribute('checked', 'checked');
+            }
           }
           
           dd.appendChild(radioT);
