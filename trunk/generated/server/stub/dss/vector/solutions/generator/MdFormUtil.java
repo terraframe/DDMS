@@ -141,7 +141,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return MdWebForm.get(mdTypeDAO.getId());
   }
-
+  
   public static MdWebField[] getFields(MdWebForm form)
   {
     OIterator<? extends MdWebField> iterator = form.getAllMdFields();
@@ -157,6 +157,23 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     finally
     {
       iterator.close();
+    }
+  }
+  
+  public static MdWebField[] getFieldsById(String id)
+  {
+    MdWebForm form = MdWebForm.get(id);
+    return getFields(form);
+  }
+  
+  public static void reorderFields(String[] ids)
+  {
+    
+    for (int i = 0; i < ids.length; i++)
+    {
+      String id = ids[i];
+      MdWebField field = MdWebField.get(id);
+      field.setFieldOrder(i);
     }
   }
 
