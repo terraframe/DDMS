@@ -75,11 +75,11 @@ YAHOO.util.Event.onDOMReady(function(){
   generator.render();
 });
 </script>
-<div class="generatorContent">
+<div class="generatorContent" id="generatorContent">
   <a href="#" id="newInstanceCommand">
     <mdss:localize key="New_Instance" />
   </a>
-  <br />
+  <br id="optionBreak" />
   <a href="#" id="viewAllCommand">
     <mdss:localize key="View_All" />
   </a>

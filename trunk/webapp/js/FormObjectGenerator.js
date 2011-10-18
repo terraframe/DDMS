@@ -15,7 +15,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     TABLE_CONTAINER : 'tableContainer',
     FORM_CONTAINER : 'formContainer',
     VIEW_ALL_COMMAND : 'viewAllCommand',
-    EXCEL_BUTTONS : 'excelButtons'
+    EXCEL_BUTTONS : 'excelButtons',
+		OPTION_BREAK : 'optionBreak'
   },
   Instance : {
     initialize : function(mdFormId, mdClassType){
@@ -40,10 +41,14 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._Y = YUI().use('*'); // YUI3 reference
       this._newInstanceCommand = this._Y.one('#'+this.constructor.NEW_INSTANCE_COMMAND);
       this._newInstanceCommand.on('click', this.newInstance, this);
-      
+					
       this._viewAllCommand = this._Y.one('#'+this.constructor.VIEW_ALL_COMMAND);
       this._viewAllCommand.on('click', this.viewAllInstance, this);
       
+			// this break lowers the header on the form create/edit,
+			// so we're going to hide it sometimes
+			this._break = this._Y.one('#'+this.constructor.OPTION_BREAK);
+			
       // Reference to the current form object that is being modified/created.
       // This will be null when viewing all objects.
       this._formObject = null;
@@ -146,6 +151,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     
       var header = this._factory.newElement('h2');
       header.setInnerHTML(this._formObject.getMd().getDisplayLabel());
+			header.addClassName("pageTitle");
       formEl.appendChild(header);
     
       var dl = this._factory.newElement('dl');
@@ -528,6 +534,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     },
     hideAllInstance : function(){
       this._newInstanceCommand.hide();
+			this._break.hide();
       this._tableContainer.hide();
       this._excelButtons.hide();
     },
@@ -538,6 +545,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     viewAllInstance : function(){
       this.clearFormContainer();
       this._tableContainer.show();
+			this._break.show();
       this._excelButtons.show();
       this._viewAllCommand.hide();
       
