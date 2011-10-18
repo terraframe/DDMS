@@ -225,6 +225,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       String typeName = GeoHierarchy.getSystemName(mdForm.getFormName(), "Business", true);
       String label = mdForm.getDisplayLabel().getValue();
+      if (label.length() == 0)
+      {
+        label = mdForm.getFormName();
+        mdForm.getDisplayLabel().setValue(label);
+      }
+      
       String description = mdForm.getDescription().getValue();
 
       MdBusiness mdBusiness = new MdBusiness();
