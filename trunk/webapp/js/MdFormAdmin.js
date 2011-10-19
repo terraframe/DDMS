@@ -22,14 +22,15 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		FORM_ACTION_ROW : 'formActionRow',
 		FORM_ITEM_ROW : 'formItemRow',
 		EDIT_BUTTON : 'editBtn',
-		TABBED_FORM_BOX : 'tabbedFormBox'
+		TABBED_FORM_BOX : 'tabbedFormBox',
+		WORKFLOW_TREE : 'workflowTree'
   },
   Instance : {
     initialize : function()
     {
       UI.Manager.setFactory("YUI3");
       this._Factory = UI.Manager.getFactory();
-      
+     
       // Dialog for selecting the available MdFields
       this._fieldsDialog = null;
       
@@ -37,7 +38,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 			
 			this._confirmDeleteDialog = null;
 			
-			this._fieldList = null;
+      this._fieldList = this._Factory.newList("Field List", {id: "fieldList"});
       
       this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
       this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;
@@ -69,6 +70,32 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._currentMdFormId = null;
       this._Y = YUI().use('*'); // YUI3 reference
       
+      this._tabview = new this._Y.TabView({
+        srcNode: '#tabbedFormBox'
+      });
+
+      this._tabview.render();
+      
+      this._tree = null;
+    },
+    /**
+     * Handler to model the drop operation between a source node (the one being dragged) 
+     * and the destinaton node (the one being dropped on).
+     */
+    dragAndDropHandler : function(sourceDDNode, destId)
+    {
+      var destNode = YAHOO.util.DDM.getDDById(destId).node;
+      var sourceNode = sourceDDNode.node;
+      
+      // remove the source node from its parent
+      var originalParent = sourceNode.parent;
+      sourceNode.tree.popNode(sourceNode);
+      
+      // put the source node beneath the destination node
+      sourceNode.insertAfter(destNode);
+      
+      originalParent.refresh();
+      destNode.parent.refresh();
     },
     render : function()
     {
@@ -172,11 +199,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         onSuccess : function(html)
         {
           that._fieldFormDialog.getImpl().hide();
-        
-          var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
-          eval(executable);
+          that.fetchFormFields();
         }
       });
       
@@ -189,11 +212,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         onSuccess : function(html)
         {
           that._fieldFormDialog.getImpl().hide();
-        
-          var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
-          eval(executable);
+          that.fetchFormFields();
         }
       });
       
@@ -225,6 +244,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this.fetchFormAttributes();
       this.fetchFormFields();
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
+      this._Y.one('#'+this.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
 		},
 	  fetchFormAttributes : function()
 		{
@@ -248,14 +268,58 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var request = new MDSS.Request({
 				onSuccess : function(fieldList){
           that.updateFields(fieldList);
+          that.addFieldsToTree(fieldList);
         }        
       });
       
 			this._MdFormUtil.getFieldsById(request, id);
 		},
+		addFieldsToTree : function(fieldList)
+		{
+		  // destroy the tree entirely and start fresh
+		  if(this._tree !== null)
+		  {
+		    this._tree.destroy();
+		  }
+      
+      var dAndDHandler = Mojo.Util.bind(this, this.dragAndDropHandler);
+      this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler);
+		
+		
+		  // grab the form's display label as the new quasi-root
+		  var formDisplay = this._Y.one(document.getElementById(this._currentMdFormId)).get('text'); // workaround for invalid ids
+		  var formNode = new YAHOO.widget.TextNode({label:formDisplay,formId:this._currentMdFormId}, this._tree.getRoot());
+		  
+		  for(var i=0, len=fieldList.length; i<len; i++)
+		  {
+		    var field = fieldList[i];
+		    var content = field.toString();
+		    new YAHOO.widget.HTMLNode({html:content,fieldId:field.getId()}, formNode);
+		  }
+		  
+  		this._tree.render();
+       
+		},
+		/**
+		 * Clears a single field by removing it from the tree and field list.
+		 */
+		clearField : function(fieldId)
+		{
+		  // remove the field from list
+		  var li = document.getElementById(fieldId);
+		  var item = this._fieldList.getItemByLI(li);
+		  this._fieldList.removeItem(item);
+		  
+		  // remove the field from the tree
+		  var node = this._tree.getNodeByProperty('fieldId', fieldId);
+		  this._tree.removeNode(node, true);
+		  
+		},
 		updateFields : function(fields){
-			var fieldDiv = document.getElementById(this.constructor.FORM_ITEM_ROW);
-			this._fieldList = this._Factory.newList("Field List", {id: "fieldList", draggable: {constrain2node: fieldDiv}, droppable: true});
+		  
+		  // clear any prior field items
+		  this._fieldList.clearItems();
+		
 			for (var i = 0; i < fields.length; i++)
 			{
 				var field = fields[i];
@@ -273,8 +337,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 				
 	      this._fieldList.addItem(listItem);
 			}
-	    //this._fieldList.getEl().setStyle("float", "left");
 
+      var fieldDiv = document.getElementById(this.constructor.FORM_ITEM_ROW);
 			this._fieldList.render(fieldDiv);
     },
 		_createListener : function(fieldMap)
@@ -290,25 +354,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           that.existingForms();
           that._currentMdFormId = document.getElementsByName("form.componentId")[0].value;
           that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
-        }
-      });
-      
-      return request;
-    },
-		_deleteListener : function(form)
-    {
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(html)
-        {
-          var executable = MDSS.util.extractScripts(html);
-          var pureHTML = MDSS.util.removeScripts(html);
-          eval(executable);
-          that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
-          that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'hidden');
-          that.existingForms();
-          
-          that._currentMdFormId = null;
         }
       });
       
@@ -334,7 +379,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
 			if (fieldMap["form.isNew"] === "true") {
 			  document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
-			  document.getElementById(this.constructor.FORM_ITEM_ROW).innerHTML = "";
 			  this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
 			  this._currentMdFormId = null;
 			}
@@ -531,11 +575,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var request = new MDSS.Request({
        onSuccess : function(html)
        {
-         var executable = MDSS.util.extractScripts(html);
-         var pureHTML = MDSS.util.removeScripts(html);
-         //document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = pureHTML;
-         eval(executable);
-				 that.fetchFormFields();
+         that.clearField(fieldId);
        }
       });
 
@@ -548,9 +588,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var request = new MDSS.Request({
        onSuccess : function(html)
        {
-         var executable = MDSS.util.extractScripts(html);
-         var pureHTML = MDSS.util.removeScripts(html);
-         eval(executable);
+         that._fieldList.clearItems();
          that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
          that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'hidden');
        }
@@ -567,8 +605,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
          var executable = MDSS.util.extractScripts(html);
          var pureHTML = MDSS.util.removeScripts(html);
          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
-         document.getElementById(that.constructor.FORM_ITEM_ROW).innerHTML = "";
          eval(executable);
+         
+         that._fieldList.clearItems();
          that._Y.one('#'+that.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
          that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'hidden');
        }

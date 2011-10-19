@@ -24,19 +24,6 @@ var Factory = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Factory', {
         return new HTMLElement(el, attributes, styles);
       }
     },
-    /* Deprecated in favor of newElement()
-    wrapAttr : function (attr, parent)
-    {
-      if (RUNWAY_UI.Util.isAttr(attr))
-      {
-        return attr;
-      }
-      else //FIXME Do proper type checking
-      {
-        return new Attr(attr, parent);
-      }
-    },
-    */
     newDialog: function(title){
       throw new com.runwaysdk.Exception('Not implemented');
       //return new com.runwaysdk.ui.Dialog(title);
@@ -54,38 +41,31 @@ var Factory = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Factory', {
     newListItem : function(data){
       return new com.runwaysdk.ui.RW.ListItem(data);
     },
-    newForm : function(name, config){
+    newForm : function(config){
       return new com.runwaysdk.ui.RW.Form(name, config);
     },
-    newFormInput : function(type, name, config){
-      if (type == "text")
+    newFormControl : function(type, config){
+      
+      if (type === "text")
       {
-        return new com.runwaysdk.ui.RW.TextInput(name, config);
+        return new com.runwaysdk.ui.RW.TextInput(config);
       }
-      else if (type == "textarea")
+      else if (type === "textarea")
       {
-        return new com.runwaysdk.ui.RW.TextArea(name, config);
+        return new com.runwaysdk.ui.RW.TextArea(config);
       }
-      else if (type == "hidden")
+      else if (type === "hidden")
       {
-        return new com.runwaysdk.ui.RW.HiddenInput(name, config);
+        return new com.runwaysdk.ui.RW.HiddenInput(config);
       }
-      else if (type == "select")
+      else if (type === "select")
       {
-        return new com.runwaysdk.ui.RW.Select(name, config);
+        return new com.runwaysdk.ui.RW.Select(config);
       }
       else
       {
         throw new com.runwaysdk.Exception("Input type ["+type+"] not implemented");
       }
-    },
-    newFormVisitor : function()
-    {
-      return new com.runwaysdk.ui.RW.FormVisitor();
-    },
-    newConsoleFormVisitor : function()
-    {
-      return new com.runwaysdk.ui.RW.ConsoleFormVisitor();
     },
     newDataTable : function (type) {
       throw new com.runwaysdk.Exception('Not implemented');

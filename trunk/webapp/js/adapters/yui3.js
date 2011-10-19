@@ -39,27 +39,19 @@ var Factory = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'Factory', {
     },
     newButton : function(label, handler, el) {
       //return YUI2.Factory.getInstance().newButton(label, handler, el);
-      return com.runwaysdk.ui.RW.Factory.getInstance().newButton(label, handler, el);
+      return new com.runwaysdk.ui.RW.Button(label, handler, el);
     },
     newList : function (title, config, items) {
-      return com.runwaysdk.ui.RW.Factory.getInstance().newList(title, config, items);
+      return new com.runwaysdk.ui.RW.List(title, config, items);
     },
     newListItem : function(data){
-      return com.runwaysdk.ui.RW.Factory.getInstance().newListItem(data);
+      return new com.runwaysdk.ui.RW.ListItem(data);
     },
-    newForm : function(name, config){
-      return com.runwaysdk.ui.RW.Factory.getInstance().newForm(name, config);
+    newForm : function(config){
+      return new com.runwaysdk.ui.RW.Form(config);
     },
-    newFormInput : function(type, name, config){
-      return com.runwaysdk.ui.RW.Factory.getInstance().newFormInput(type, name, config);
-    },
-    newFormVisitor : function()
-    {
-      return com.runwaysdk.ui.RW.Factory.getInstance().newFormVisitor();
-    },
-    newConsoleFormVisitor : function()
-    {
-      return com.runwaysdk.ui.RW.Factory.getInstance().newConsoleFormVisitor();
+    newFormControl : function(type, config){
+      return com.runwaysdk.ui.RW.Factory.getInstance().newFormControl(type, config);
     },
     newDataTable : function (type, config) {
       return new DataTable(type, config);

@@ -86,6 +86,9 @@ var AbstractComponentFactoryIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'Abstrac
     // Null, in which case it automatically creates a button tag
     newButton : function(label, handler, el){},
     
+    newForm : function(name, config){},
+    
+    newFormControl : function(type, config){},
     
     newDataTable : function(config){},
     
@@ -1552,6 +1555,23 @@ var RemoveItemEvent = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'RemoveItemEvent', {
   }
 });
 
+var FormComponentIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'FormComponentIF', {
+  Constants : {
+    TEXT : 'text',
+    TEXTAREA : 'textarea',
+    HIDDEN : 'hidden',
+    SELECT : 'select',
+    RADIO : 'radio',
+    RADIO_GROUP : 'radiogroup',
+    HEADER : 'header',
+    BREAK : 'break',
+    COMMENT : 'comment'
+  },
+  Instance : {
+  
+  }
+});
+
 var FormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'FormMd', {
   IsAbstract : true,
   Instance : {
@@ -1689,7 +1709,21 @@ var FieldIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldIF', {
     getFieldName : function(){},
     isWritable : function(){},
     isReadable : function(){},
-    isModified : function(){}
+    isModified : function(){},
+    /**
+     * Returns the LabelIF that marks this field in the DOM, usually
+     * an instance that wraps a Label tag.
+     */
+    getFieldLabel : function(){},
+    
+    /**
+     * Returns a FormComponentIF that allows for modification of
+     * this field, usually in the form of an HTML control object.
+     */
+    getFormComponent : function(){}
+
+// TODO add read only concepts for each field.    
+//    getReadOnlyComponent : function(){},
   }
 });
 
@@ -1716,6 +1750,12 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     isWritable : function(){ return this._writable; },
     isReadable : function(){ return this._readable; },
     isModified : function(){ return this._modified; },
+    getFieldLabel : function(){
+      return null;
+    },
+    getFormComponent : function(){
+      return null;
+    },
     toJSON : function(objKey)
     {
       var map = {};

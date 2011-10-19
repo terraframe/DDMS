@@ -277,7 +277,7 @@ MDSS.Calendar = {};
 
 	MDSS.Calendar.addError = addError;
 	MDSS.Calendar.removeError = removeError;
-	
+
 	function addCalendarListeners(el)
 	{
 	  Event.addListener(el.id, 'focus', showCal);

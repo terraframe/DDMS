@@ -30,6 +30,77 @@
 <c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
 <style type="text/css">
+.yui3-tab-panel {
+    display:none;
+}
+
+.yui3-tab-panel-selected {
+    display:block;
+}
+
+.yui3-tabview-list,
+.yui3-tab {
+    margin:0;
+    padding:0;
+    list-style:none;
+}
+
+.yui3-tabview {
+    position:relative; /* contain absolute positioned tabs (left/right) */
+}
+
+.yui3-tabview,
+.yui3-tabview-list,
+.yui3-tabview-panel,
+.yui3-tab,
+.yui3-tab-panel { /* IE: kill space between horizontal tabs */
+    zoom:1;
+}
+
+.yui3-tab {
+    display:inline-block;
+    *display:inline; /* IE */
+    vertical-align:bottom; /* safari: for overlap */
+    cursor:pointer;
+}
+
+.yui3-tab-label {
+    display:block;
+    display:inline-block;
+    padding: 6px 10px;
+    position:relative; /* IE: to allow overlap */
+    text-decoration: none;
+    vertical-align:bottom; /* safari: for overlap */
+}
+
+.yui3-tab-panel {
+    display: none;
+}
+
+.yui3-tab-selected {
+  border-right: solid 1px #d5d6d7;  
+  border-top: solid 1px #d5d6d7;  
+  border-left: solid 1px #d5d6d7; 
+  background: #FFF; 
+  border-top-right-radius: 8px;
+  border-top-left-radius: 8px; 
+}
+
+.yui3-tab-selected {
+}
+
+.yui3-tab-panel-selected {
+    display: block;
+}
+
+.yui3-tab {
+    display: inline-block;
+    margin-right: 0.5em;
+    zoom: 1;
+};
+</style>
+
+<style type="text/css">
 body {
   margin: 0px;
   padding: 0px;
@@ -106,14 +177,21 @@ YAHOO.util.Event.onDOMReady(function(){
   <!-- start fields -->
   <div class="tabbed-form-box" id="tabbedFormBox">
         <ul class="tabs">
-            <li class="tabs-on"><a href="#"><mdss:localize key="Fields"/></a></li>
-            <li><a href="#"><mdss:localize key="Workflow" /></a></li>
+            <li><a href="#fieldsTab"><mdss:localize key="Fields"/></a></li>
+            <li><a href="#workflowTab"><mdss:localize key="Workflow" /></a></li>
         </ul>
-        <div class="form-top-action-row">
-            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"></a>
+        <div>
+	        <div id="fieldsTab">
+		        <div class="form-top-action-row">
+		            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"></a>
+		        </div>
+		        <ul class="form-item-row" id="formItemRow">
+		        </ul>
+	        </div>
+	        <div id="workflowTab">
+	          <div class="form-top-action-row" id="workflowTree"></div>
+	        </div>
         </div>
-        <ul class="form-item-row" id="formItemRow">
-        </ul>
     </div>
   <!-- end fields -->    
 </div>

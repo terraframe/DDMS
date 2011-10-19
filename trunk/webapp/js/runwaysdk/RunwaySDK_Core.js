@@ -1747,7 +1747,7 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
     removeScripts : function(html)
     {
       return html.replace(/<script\b[^>]*>[\s\S]*?<\/script>/img, '');
-    },    
+    },
     
     // TODO give credit to
     // http://blog.stevenlevithan.com/archives/faster-trim-javascript

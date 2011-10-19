@@ -64,7 +64,13 @@ var Factory = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Factory', {
     },
     newDrop : function(elProvider) {
       throw new com.runwaysdk.Exception('Not implemented');
-    }
+    },
+    newForm : function(name, config){
+      throw new com.runwaysdk.Exception('Not implemented');
+    },
+    newFormControl : function(type, config){
+      throw new com.runwaysdk.Exception('Not implemented');
+    },
   }
 });
 

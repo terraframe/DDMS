@@ -291,7 +291,7 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
     */
   onDragDrop: function(e, id) {
     if (this.validDest(id)) {
-      this.node.tree.dragDropHandler.call(this, id);
+      this.node.tree.dragDropHandler(this, id); // source, destination
       
       // JN Change: remove dragging, drag-hint classes in
       // both success/failure cases

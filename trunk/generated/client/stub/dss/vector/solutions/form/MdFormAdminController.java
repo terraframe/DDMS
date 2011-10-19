@@ -1,8 +1,6 @@
 package dss.vector.solutions.form;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Comparator;
 
 import javax.servlet.ServletException;
 
@@ -182,10 +180,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
-      
-      // refresh all of the field definitions instead of intelligently trying to insert the field
-      // in the right place.
-      this.fetchFormFields(mdFormId);
     }
     catch (Throwable t)
     {
@@ -229,11 +223,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     try
     {
       MdFormUtilDTO.updateMdField(this.getClientRequest(), mdField);
-      
-      // refresh all of the field definitions instead of intelligently trying to insert the field
-      // in the right place.
-      String mdFormId = ((MdWebFieldDTO)mdField).getDefiningMdFormId();
-      this.fetchFormFields(mdFormId);
     }
     catch (Throwable t)
     {
@@ -320,7 +309,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       req.setAttribute("form", form);
 
       render("viewComponent.jsp");
-      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
     }
     catch (Throwable t)
     {
@@ -385,9 +373,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ClientRequestIF clientRequest = getClientRequest();
       MdFormUtilDTO.delete(clientRequest, form);
-      
-      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
-      
     }
     catch (Throwable t)
     {
@@ -402,9 +387,6 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ClientRequestIF clientRequest = getClientRequest();
       MdWebFormDTO form = MdWebFormDTO.get(clientRequest, formId);
       MdFormUtilDTO.delete(clientRequest, form);
-      
-      this.req.getRequestDispatcher(MDFORM_ADMIN).forward(req, resp);
-      
     }
     catch (Throwable t)
     {

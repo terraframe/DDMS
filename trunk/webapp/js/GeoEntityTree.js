@@ -1253,11 +1253,11 @@ MDSS.GeoEntityTree = (function(){
    * Handler for the drag/drop operation. The this
    * reference is set to the YAHOO.util.DDNodeProxy instance.
    */
-  function _dragDropHandler(id)
+  function _dragDropHandler(source, id)
   {
     // create popup asking if this is for a copy operation
     var request = new MDSS.Request({
-      references: {childId:this.id, parentId:id, ddThis:this},
+      references: {childId:source.id, parentId:id, ddThis:source},
       onConfirmParentChangeException : function(e)
       {
         var modal = new YAHOO.widget.Panel("confirmParentChange", {
@@ -1305,9 +1305,9 @@ MDSS.GeoEntityTree = (function(){
     });
 
 
-    var childGeoEntityView = _getGeoEntityView(this.id);
+    var childGeoEntityView = _getGeoEntityView(source.id);
 
-    var childEl = document.getElementById(this.id);
+    var childEl = document.getElementById(source.id);
     var childNode = _geoTree.getNodeByElement(childEl);
     var parentGeoEntityView = _getGeoEntityView(childNode.parent);
 

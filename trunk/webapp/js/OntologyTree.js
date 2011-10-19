@@ -299,31 +299,31 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
      * 
      * The first parameter is the *this* reference of the OntologyTree instance.
      */
-    _dragDropHandler : function(ontologyTree, id)
+    _dragDropHandler : function(source, id)
     {
       var request = new MDSS.Request({
-        that: ontologyTree,
+        that: this,
         onSuccess: function(html)
         {
            this.that._createModal(html, true, true);
         }
       });
 
-      var childNode = this.node;
+      var childNode = source.node;
       var childId = childNode.data.termId;
       
       var newParentEl = document.getElementById(id);
-      var newParentNode = this.node.tree.getNodeByElement(newParentEl);
+      var newParentNode = source.node.tree.getNodeByElement(newParentEl);
 
       var oldParentNode = childNode.parent;
       var oldParentId = oldParentNode.data.termId;
       
       // Change the listeners to contain the relevant nodes and info
       var termController = Mojo.$.dss.vector.solutions.ontology.TermController;
-      termController.setDoCloneListener(Mojo.Util.bind(ontologyTree, 
-        ontologyTree._changeParentListener, true, childNode, newParentNode));
-      termController.setDoNotCloneListener(Mojo.Util.bind(ontologyTree,
-        ontologyTree._changeParentListener, false, childNode, newParentNode));      
+      termController.setDoCloneListener(Mojo.Util.bind(this, 
+        this._changeParentListener, true, childNode, newParentNode));
+      termController.setDoNotCloneListener(Mojo.Util.bind(this,
+        this._changeParentListener, false, childNode, newParentNode));      
       
       Mojo.$.dss.vector.solutions.ontology.TermController.confirmChangeParent(request, childId, oldParentId);
     },
@@ -531,7 +531,7 @@ Mojo.Meta.newClass("MDSS.OntologyTree", {
      */
     _setupTree : function(roots)
     {
-      this._tree = new YAHOO.widget.TreeViewDD(this._treeViewId, roots, Mojo.Util.curry(this._dragDropHandler, this));
+      this._tree = new YAHOO.widget.TreeViewDD(this._treeViewId, roots, Mojo.Util.bind(this, this._dragDropHandler));
           
       var loadB = Mojo.Util.bind(this, this._dynamicLoad);
       this._tree.setDynamicLoad(loadB);
