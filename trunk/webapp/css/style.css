@@ -1061,6 +1061,10 @@ span.currentPage a:active {
   float: left;
 }
 
+#workflowTree {
+  padding: 5px;
+}
+
 /* Side bar for tree */
 .form-side-bar {
   width: 250px;
@@ -1123,7 +1127,7 @@ span.currentPage a:active {
 }
 .tabbed-form-box {
   border: solid 1px #d5d6d7;    
-  padding: 25px 0px 25px 0px;
+  padding: 25px 0px 0px 0px;
   border-bottom-right-radius: 8px;
   border-bottom-left-radius: 8px; 
   width: 750px;

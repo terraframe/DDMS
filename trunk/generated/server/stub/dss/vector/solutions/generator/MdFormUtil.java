@@ -166,14 +166,16 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return getFields(form);
   }
   
+  @Transaction
   public static void reorderFields(String[] ids)
   {
-    
     for (int i = 0; i < ids.length; i++)
     {
       String id = ids[i];
       MdWebField field = MdWebField.get(id);
+      field.appLock();
       field.setFieldOrder(i);
+      field.apply();
     }
   }
 

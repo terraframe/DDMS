@@ -185,11 +185,15 @@ YAHOO.util.Event.onDOMReady(function(){
 		        <div class="form-top-action-row">
 		            <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"></a>
 		        </div>
-		        <ul class="form-item-row" id="formItemRow">
-		        </ul>
+		        <div class="form-item-row" id="formItemRow">
+		        </div>
 	        </div>
 	        <div id="workflowTab">
-	          <div class="form-top-action-row" id="workflowTree"></div>
+	          <div class="form-top-action-row">
+              <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"></a>
+	          </div>
+	          <div class="form-item-row" id="workflowTree">
+	          </div>
 	        </div>
         </div>
     </div>

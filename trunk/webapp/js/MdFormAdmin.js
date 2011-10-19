@@ -96,6 +96,33 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       originalParent.refresh();
       destNode.parent.refresh();
+      
+      // starting at the root, traverse the tree to gather the nodes in reverse pre-order
+      var formNode = this._tree.getRoot().children[0];
+      var orderedIds = [];
+      this._traverseNode(formNode, orderedIds);
+      
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          // refresh the preview mode of the fields.
+          that.fetchFormFields(false);
+        }
+      });
+      
+      this._MdFormUtil.reorderFields(request, orderedIds);
+    },
+    _traverseNode : function(parent, orderedIds)
+    {
+      var children = parent.children;
+      for(var i=0, len=children.length; i<len; i++)
+      {
+        var child = children[i];
+        var fieldId = child.data.fieldId;
+        orderedIds.push(fieldId);
+        
+        this._traverseNode(child, orderedIds);
+      }
     },
     render : function()
     {
@@ -194,16 +221,35 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     updateMdField : function(fieldMap)
     {
+      var fieldId = fieldMap['mdField.componentId'];
       var that = this;
       var request = new MDSS.Request({
         onSuccess : function(html)
         {
           that._fieldFormDialog.getImpl().hide();
-          that.fetchFormFields();
+          that.fetchFormFields(false);
+          
+          that.updateNode(fieldId);
         }
       });
       
       return request;
+    },
+    /**
+     * Resets the contents of the field node with the given id.
+     */
+    updateNode : function(fieldId){
+      
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(field){
+          
+          var node = that._tree.getNodeByProperty('fieldId', fieldId);
+          node.setHtml(field.toString());
+        }
+      });
+      
+      com.runwaysdk.system.metadata.MdField.get(request, fieldId);
     },
     createMdField : function(fieldMap)
     {
@@ -212,7 +258,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         onSuccess : function(html)
         {
           that._fieldFormDialog.getImpl().hide();
-          that.fetchFormFields();
+          that.fetchFormFields(true);
         }
       });
       
@@ -242,7 +288,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var id = e.currentTarget.get('id');
       this._currentMdFormId = id;
       this.fetchFormAttributes();
-      this.fetchFormFields();
+      this.fetchFormFields(true);
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
       this._Y.one('#'+this.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
 		},
@@ -261,14 +307,18 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormAdminController.fetchFormAttributes(request, id);
 		},
-		fetchFormFields : function()
+		fetchFormFields : function(refreshTree)
 		{
 			var id = this._currentMdFormId;
       var that = this;
       var request = new MDSS.Request({
 				onSuccess : function(fieldList){
           that.updateFields(fieldList);
-          that.addFieldsToTree(fieldList);
+          
+          if(refreshTree)
+          {
+            that.addFieldsToTree(fieldList);
+          }
         }        
       });
       
@@ -298,7 +348,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		  }
 		  
   		this._tree.render();
-       
 		},
 		/**
 		 * Clears a single field by removing it from the tree and field list.
@@ -313,7 +362,6 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 		  // remove the field from the tree
 		  var node = this._tree.getNodeByProperty('fieldId', fieldId);
 		  this._tree.removeNode(node, true);
-		  
 		},
 		updateFields : function(fields){
 		  
