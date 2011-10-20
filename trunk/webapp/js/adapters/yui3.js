@@ -100,10 +100,9 @@ RUNWAY_UI.Manager.addFactory("YUI3", Factory);
 // YUI specific implementations and subclasses
 // DataSource
 // TODO can this be a plugin?
-var RunwayDataSource = function() {
-    var args = Array.prototype.splice.call(arguments, 0, arguments.length);
-    var type = args.shift();
-    RunwayDataSource.superclass.constructor.apply(this, args);
+var RunwayDataSource = function(type, containingWidget) {
+    RunwayDataSource.superclass.constructor.apply(this);
+    this._containingWidget = containingWidget;
     
     this._type = type;
     this._taskQueue = new STRUCT.TaskQueue();
@@ -221,6 +220,7 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
       Facade.getQuery(clientRequest, this._type);
     },
     _getResultSet : function(){
+    
       var thisDS = this;
       
       var clientRequest = new Mojo.ClientRequest({
@@ -245,6 +245,8 @@ Y.extend(RunwayDataSource, Y.DataSource.Local, {
         var order = this._ascending ? 'asc' : 'desc';
         this._resultsQueryDTO.addOrderBy(this._sortAttribute, order);
       }
+      
+      this._containingWidget.dispatchEvent(new PreLoadEvent(this._resultsQueryDTO));      
       
       Facade.queryEntities(clientRequest, this._resultsQueryDTO);
     },
@@ -361,6 +363,22 @@ var YUI3WidgetBase = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'YUI3WidgetBase',{
   }
 });
 
+/**
+ * Fired before the underlying DataSource of a widget (e.g., DataTable) loads
+ * a result set.
+ */
+var PreLoadEvent = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'PreLoadEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(queryObject)
+    {
+      this.$initialize();
+      this._queryObject = queryObject;
+    },
+    getQueryObject : function() { return this._queryObject; }
+  }
+});
+
 // --------------------------------
 
 var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
@@ -373,7 +391,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
       
       if(Mojo.Util.isString(type))
       {
-        this._dataSource = new RunwayDataSource(type);
+        this._dataSource = new RunwayDataSource(type, this);
       }
       else
       {
