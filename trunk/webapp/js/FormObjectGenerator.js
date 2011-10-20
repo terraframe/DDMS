@@ -6,6 +6,182 @@
 var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE+'*');
 var FIELD = Mojo.Meta.alias(Mojo.FORM_PACKAGE.FIELD+'*');
 
+Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (mdFormId) {
+      this.$initialize();
+  
+      this._mdFormId = mdFormId;
+    },    
+    defaultAction : function() {
+      var target = this.getTarget();
+      
+      var request = new MDSS.Request({
+        onSuccess : function(formObjectJSON){
+          target.renderForm(formObjectJSON);
+        }
+      });
+    
+      dss.vector.solutions.form.FormObjectController.newInstance(request, this._mdFormId);
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.ViewEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (id, mdFormId) {
+      this.$initialize();
+    
+      this._id = id;
+      this._mdFormId = mdFormId;
+    },    
+    defaultAction : function() {
+      var target = this.getTarget();
+      var request = new MDSS.Request({
+        onSuccess : function(formObjectJSON){
+          target.renderView(formObjectJSON);
+        }
+      });
+        
+      dss.vector.solutions.form.FormObjectController.viewInstance(request, this._mdFormId, this._id);          
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.EditEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (mdFormId, formObject) {
+      this.$initialize();
+    
+      this._mdFormId = mdFormId;
+      this._formObject = formObject;
+    },    
+    defaultAction : function() {
+      var target = this.getTarget();
+      
+      var request = new MDSS.Request({
+        onSuccess : function(formObjectJSON){
+          target.renderForm(formObjectJSON);
+        }        
+      });
+        
+      dss.vector.solutions.form.FormObjectController.editInstance(request, this._mdFormId, this._formObject.getDataId());          
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.CancelEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (formObject) {
+      this.$initialize();
+  
+      this._formObject = formObject;
+    },    
+    defaultAction : function() {        
+      var target = this.getTarget();
+        
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function(formObjectJSON){
+          
+          if(this.that._formObject.isNewInstance())
+          {
+            target.setFormObject(null);
+            target.clearFormContainer();
+            target.viewAllInstance();
+          }
+          else
+          {
+            target.renderView(formObjectJSON);
+          }
+        }        
+      });
+        
+      dss.vector.solutions.form.FormObjectController.cancelInstance(request, this._formObject);
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.DeleteEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (mdFormId, formObject) {
+      this.$initialize();
+  
+      this._mdFormId = mdFormId;
+      this._formObject = formObject;
+    },    
+    defaultAction : function() {        
+      var request = new MDSS.Request({
+      target : this.getTarget(),
+        onSuccess : function(formObjectJSON){
+          this.target.setFormObject(null);
+          this.target.clearFormContainer();
+          this.target.viewAllInstance();
+        }
+      });
+        
+      dss.vector.solutions.form.FormObjectController.deleteInstance(request, this._mdFormId, this._formObject.getDataId());          
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.UpdateEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (formObject) {
+      this.$initialize();
+  
+      this._formObject = formObject;
+    },    
+    defaultAction : function() {                
+      var request = new MDSS.Request({
+        target : this.getTarget(),
+        onSuccess : function(formObjectJSON)
+        {
+          this.target.renderView(formObjectJSON);
+        },
+        onProblemExceptionDTO : function(e)
+        {
+          this.target.renderProblems(e.getProblems());
+        }
+      });
+      
+      dss.vector.solutions.form.FormObjectController.updateInstance(request, this._formObject);    
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (formObject) {
+      this.$initialize();
+  
+      this._formObject = formObject;
+    },    
+    defaultAction : function() {
+      var request = new MDSS.Request({
+        target : this.getTarget(),
+        onSuccess : function(formObjectJSON)
+        {
+          this.target.renderView(formObjectJSON);
+        },
+        onProblemExceptionDTO : function(e)
+        {
+          this.target.renderProblems(e.getProblems());
+        }
+      });
+        
+      dss.vector.solutions.form.FormObjectController.createInstance(request, this._formObject);
+    }
+  }
+});
+
 /**
  * Primary class to handle control flow in the UI.
  */
@@ -16,16 +192,14 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     FORM_CONTAINER : 'formContainer',
     VIEW_ALL_COMMAND : 'viewAllCommand',
     EXCEL_BUTTONS : 'excelButtons',
-		OPTION_BREAK : 'optionBreak'
+    OPTION_BREAK : 'optionBreak'
   },
   Instance : {
     initialize : function(mdFormId, mdClassType){
       this._mdFormId = mdFormId;
       this._mdClassType = mdClassType;
       this._parentDiv = null;
-      
-      this._FormObjectController = dss.vector.solutions.form.FormObjectController;
-      
+            
       UI.Manager.setFactory("YUI3");
       this._factory = UI.Manager.getFactory();
       
@@ -41,14 +215,14 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._Y = YUI().use('*'); // YUI3 reference
       this._newInstanceCommand = this._Y.one('#'+this.constructor.NEW_INSTANCE_COMMAND);
       this._newInstanceCommand.on('click', this.newInstance, this);
-					
+          
       this._viewAllCommand = this._Y.one('#'+this.constructor.VIEW_ALL_COMMAND);
       this._viewAllCommand.on('click', this.viewAllInstance, this);
       
-			// this break lowers the header on the form create/edit,
-			// so we're going to hide it sometimes
-			this._break = this._Y.one('#'+this.constructor.OPTION_BREAK);
-			
+      // this break lowers the header on the form create/edit,
+      // so we're going to hide it sometimes
+      this._break = this._Y.one('#'+this.constructor.OPTION_BREAK);
+      
       // Reference to the current form object that is being modified/created.
       // This will be null when viewing all objects.
       this._formObject = null;
@@ -61,6 +235,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._tableContainer.delegate('click', this.viewInstance, 'span.generatedViewCommand', this);
     },
+    getFormObject : function() {
+      return this._formObject;
+    },
+    setFormObject : function(formObject) {
+      this._formObject = formObject;
+    },    
     /**
      * Formats dates according to the DDMS specification.
      */
@@ -151,7 +331,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     
       var header = this._factory.newElement('h2');
       header.setInnerHTML(this._formObject.getMd().getDisplayLabel());
-			header.addClassName("pageTitle");
+      header.addClassName("pageTitle");
       formEl.appendChild(header);
     
       var dl = this._factory.newElement('dl');
@@ -169,10 +349,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
                 
         var dt = this._factory.newElement('dt');
         var dd = this._factory.newElement('dd');
-				
+        
         dl.appendChild(dt);
         dl.appendChild(dd);
-				
+        
         var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
         
         // display and annotation fields
@@ -322,19 +502,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           var msg = 'The field ['+field+'] is not recognized.';
           throw new com.runwaysdk.Exception(msg);
         }
-				
-				// this is so we can place error info spatially
-				var attr = field.getFieldMd();
-				if (attr.getDefiningMdAttribute)
-				{
+        
+        // this is so we can place error info spatially
+        var attr = field.getFieldMd();
+        if (attr.getDefiningMdAttribute)
+        {
           var errorContainer = this._factory.newElement('span');
           var attrId = field.getFieldMd().getDefiningMdAttribute();
           errorContainer.setId(attrId);
           errorContainer.addClassName('alertbox');
-					errorContainer.setStyle('margin-left', '20px');
+          errorContainer.setStyle('margin-left', '20px');
           errorContainer.setStyle('visibility', 'hidden');
-					dd.appendChild(errorContainer);
-				}
+          dd.appendChild(errorContainer);
+        }
       }
       
       // Add the action buttons
@@ -397,29 +577,16 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     viewInstance : function(e){
       e.preventDefault();
       
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
-          that.renderView(formObjectJSON);
-        }
-      });
-      
       var id = e.target.get('id');
-      this._FormObjectController.viewInstance(request, this._mdFormId, id);    
+      
+      var event = new dss.vector.solutions.ViewEvent(id, this._mdFormId);
+      
+      this.dispatchEvent(event);
     },
     deleteInstance : function(e){
       e.preventDefault();  // prevent a synchronous form submit
-      
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
-          that._formObject = null;
-          that.clearFormContainer();
-          that.viewAllInstance();
-        }
-      });
-      
-      this._FormObjectController.deleteInstance(request, this._mdFormId, this._formObject.getDataId());    
+            
+      this.dispatchEvent(new dss.vector.solutions.DeleteEvent(this._mdFormId, this.getFormObject()));
     },
     /**
      * Updates the FormObject instance.
@@ -431,27 +598,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._updateValues();
       
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
-          that.renderView(formObjectJSON);
-        },
-				onProblemExceptionDTO : function(e)
-				{
-          var problems = e.getProblems();
-          
-          for (var i = 0; i < problems.length; i++) {
-            var p = problems[i];
-            var attributeId = p.getAttributeId();
-
-            var span = document.getElementById(attributeId);
-            span.innerHTML = p.getLocalizedMessage();
-            span.style.visibility = 'visible';
-          }
-				}
-      });
-      
-      this._FormObjectController.updateInstance(request, this._formObject);    
+      this.dispatchEvent(new dss.vector.solutions.UpdateEvent(this.getFormObject()));      
     },
     /**
      * Creates the FormObject instances.
@@ -460,81 +607,30 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       e.preventDefault(); // prevent a synchronous form submit
       
       this._Y.all('.alertbox').setStyle('visibility', 'hidden');
-			
+      
       this._updateValues();
-      
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
-          that.renderView(formObjectJSON);
-        },
-        onProblemExceptionDTO : function(e)
-        {
-          var problems = e.getProblems();
-          
-          for (var i = 0; i < problems.length; i++) {
-            var p = problems[i];
-            var attributeId = p.getAttributeId();
 
-            var span = document.getElementById(attributeId);
-            span.innerHTML = p.getLocalizedMessage();
-            span.style.visibility = 'visible';
-          }
-        }
-      });
-      
-      this._FormObjectController.createInstance(request, this._formObject);
+      this.dispatchEvent(new dss.vector.solutions.CreateEvent(this.getFormObject()));
     },
     editInstance : function(e){
       e.preventDefault(); // prevent a synchronous form submit
 
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
-          that.renderForm(formObjectJSON);
-        }        
-      });
-      
-      this._FormObjectController.editInstance(request, this._mdFormId, this._formObject.getDataId());          
+      this.dispatchEvent(new dss.vector.solutions.EditEvent(this._mdFormId, this.getFormObject()));
     },
     /**
      * Cancels the creation or update of a FormObject.
      */
     cancelInstance : function(e){
-      e.preventDefault(); // prevent a synchronous form submit
-      
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
+      e.preventDefault();
         
-          if(that._formObject.isNewInstance())
-          {
-            that._formObject = null;
-            that.clearFormContainer();
-            that.viewAllInstance();
-          }
-          else
-          {
-            that.renderView(formObjectJSON);
-          }
-        }        
-      });
-      
-      this._FormObjectController.cancelInstance(request, this._formObject);
+      this.dispatchEvent(new dss.vector.solutions.CancelEvent(this.getFormObject()));
     },
     newInstance : function(){
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(formObjectJSON){
-          that.renderForm(formObjectJSON);
-        }
-      });
-  
-      this._FormObjectController.newInstance(request, this._mdFormId);
+      this.dispatchEvent(new dss.vector.solutions.NewInstanceEvent(this._mdFormId));
     },
     hideAllInstance : function(){
       this._newInstanceCommand.hide();
-			this._break.hide();
+      this._break.hide();
       this._tableContainer.hide();
       this._excelButtons.hide();
     },
@@ -545,7 +641,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     viewAllInstance : function(){
       this.clearFormContainer();
       this._tableContainer.show();
-			this._break.show();
+      this._break.show();
       this._excelButtons.show();
       this._viewAllCommand.hide();
       
@@ -565,6 +661,16 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      */
     render : function(){
       this.viewAllInstance();
+    },
+    renderProblems : function(problems){
+      for (var i = 0; i < problems.length; i++) {
+        var p = problems[i];
+        var attributeId = p.getAttributeId();
+
+        var span = document.getElementById(attributeId);
+        span.innerHTML = p.getLocalizedMessage();
+        span.style.visibility = 'visible';
+      }      
     }
   }
 });
