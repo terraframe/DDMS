@@ -71,33 +71,36 @@ out.print(js);
 
 YAHOO.util.Event.onDOMReady(function(){
 
-  var generator = new dss.vector.solutions.FormObjectGenerator('${mdFormId}', '${mdClassType}');
+  var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}');
   generator.render();
 });
 </script>
 <div class="generatorContent" id="generatorContent">
-  <a href="#" id="newInstanceCommand">
+  <a href="#" id="NewInstanceCommand">
     <mdss:localize key="New_Instance" />
   </a>
-  <br id="optionBreak" />
-  <a href="#" id="viewAllCommand">
+  <br id="OptionBreak" />
+  <a href="#" id="ViewAllCommand">
     <mdss:localize key="View_All" />
   </a>
-	<div id="tableContainer" class="yui3-skin-sam">
+	<div id="TableContainer" class="yui3-skin-sam">
 	</div>
-	<div id="formContainer">
+	<div id="FormContainer">
 	</div>
-	<div id="excelButtons">
+	
+	
+  <div id="excelButtons">
 	<form action="dss.vector.solutions.generator.ExcelController.excelExport.mojo" method="post">
 	  <input type="hidden" value="${mdFormType}" name="type"/>
 	  <mdss:localize key="Excel_Export_Header" var="export_label"/>
 	  <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
 	</form>
+	
 	<form action="dss.vector.solutions.generator.ExcelController.importType.mojo" method="post">
 	  <mdss:localize key="Excel_Import_Header" var="import_label"/>
 	  <input type="hidden" value="${mdFormType}" name="type"/>
 	  <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
 	</form>
-	</div>
+  </div>
 </div>
 <jsp:include page="../templates/footer.jsp"></jsp:include>

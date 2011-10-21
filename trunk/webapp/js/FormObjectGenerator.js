@@ -19,7 +19,7 @@ Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent', {
       
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
-          target.renderForm(formObjectJSON);
+          target.renderFormWithJSON(formObjectJSON);
         }
       });
     
@@ -41,11 +41,51 @@ Mojo.Meta.newClass('dss.vector.solutions.ViewEvent', {
       var target = this.getTarget();
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
-          target.renderView(formObjectJSON);
+          target.renderViewWithJSON(formObjectJSON);
         }
       });
         
       dss.vector.solutions.form.FormObjectController.viewInstance(request, this._mdFormId, this._id);          
+    }
+  }
+});
+
+
+Mojo.Meta.newClass('dss.vector.solutions.RenderViewEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (mdFormId) {
+      this.$initialize();
+      
+      this._mdFormId = mdFormId;
+    },    
+    defaultAction : function() {
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.RenderFormEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (mdFormId) {
+      this.$initialize();
+      
+      this._mdFormId = mdFormId;
+    },    
+    defaultAction : function() {
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.ViewParentEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (mdFormId) {
+      this.$initialize();
+      
+      this._mdFormId = mdFormId;
+    },    
+    defaultAction : function() {
     }
   }
 });
@@ -64,7 +104,7 @@ Mojo.Meta.newClass('dss.vector.solutions.EditEvent', {
       
       var request = new MDSS.Request({
         onSuccess : function(formObjectJSON){
-          target.renderForm(formObjectJSON);
+          target.renderFormWithJSON(formObjectJSON);
         }        
       });
         
@@ -96,7 +136,7 @@ Mojo.Meta.newClass('dss.vector.solutions.CancelEvent', {
           }
           else
           {
-            target.renderView(formObjectJSON);
+            target.renderViewWithJSON(formObjectJSON);
           }
         }        
       });
@@ -138,12 +178,15 @@ Mojo.Meta.newClass('dss.vector.solutions.UpdateEvent', {
   
       this._formObject = formObject;
     },    
+    getFormObject : function() {
+      return this._formObject;
+    },
     defaultAction : function() {                
       var request = new MDSS.Request({
         target : this.getTarget(),
         onSuccess : function(formObjectJSON)
         {
-          this.target.renderView(formObjectJSON);
+          this.target.renderViewWithJSON(formObjectJSON);
         },
         onProblemExceptionDTO : function(e)
         {
@@ -164,12 +207,15 @@ Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
   
       this._formObject = formObject;
     },    
+    getFormObject : function() {
+      return this._formObject;
+    },    
     defaultAction : function() {
       var request = new MDSS.Request({
         target : this.getTarget(),
         onSuccess : function(formObjectJSON)
         {
-          this.target.renderView(formObjectJSON);
+          this.target.renderViewWithJSON(formObjectJSON);
         },
         onProblemExceptionDTO : function(e)
         {
@@ -182,20 +228,36 @@ Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
   }
 });
 
+Mojo.Meta.newClass('dss.vector.solutions.ViewAllEvent', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function () {
+      this.$initialize();
+    },    
+    defaultAction : function() {
+      var target = this.getTarget();
+      
+      target.renderViewAll();      
+    }
+  }
+});
+
+
 /**
  * Primary class to handle control flow in the UI.
  */
 Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
   Constants : {
-    NEW_INSTANCE_COMMAND : 'newInstanceCommand',
-    TABLE_CONTAINER : 'tableContainer',
-    FORM_CONTAINER : 'formContainer',
-    VIEW_ALL_COMMAND : 'viewAllCommand',
+    NEW_INSTANCE_COMMAND : 'NewInstanceCommand',
+    TABLE_CONTAINER : 'TableContainer',
+    FORM_CONTAINER : 'FormContainer',
+    VIEW_ALL_COMMAND : 'ViewAllCommand',
+    VIEW_PARENT_COMMAND : 'ViewParentCommand',
     EXCEL_BUTTONS : 'excelButtons',
-    OPTION_BREAK : 'optionBreak'
+    OPTION_BREAK : 'OptionBreak'
   },
   Instance : {
-    initialize : function(mdFormId, mdClassType){
+    initialize : function(prefix, mdFormId, mdClassType){
       this._mdFormId = mdFormId;
       this._mdClassType = mdClassType;
       this._parentDiv = null;
@@ -213,15 +275,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDate', Mojo.Util.bind(this, this.dateColumnFormatter));
       
       this._Y = YUI().use('*'); // YUI3 reference
-      this._newInstanceCommand = this._Y.one('#'+this.constructor.NEW_INSTANCE_COMMAND);
+      this._newInstanceCommand = this._Y.one('#'+ prefix +this.constructor.NEW_INSTANCE_COMMAND);
       this._newInstanceCommand.on('click', this.newInstance, this);
           
-      this._viewAllCommand = this._Y.one('#'+this.constructor.VIEW_ALL_COMMAND);
+      this._viewAllCommand = this._Y.one('#' + prefix + this.constructor.VIEW_ALL_COMMAND);
       this._viewAllCommand.on('click', this.viewAllInstance, this);
-      
+            
       // this break lowers the header on the form create/edit,
       // so we're going to hide it sometimes
-      this._break = this._Y.one('#'+this.constructor.OPTION_BREAK);
+      this._break = this._Y.one('#' + prefix + this.constructor.OPTION_BREAK);
       
       // Reference to the current form object that is being modified/created.
       // This will be null when viewing all objects.
@@ -229,9 +291,16 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._WebFormObject = com.runwaysdk.form.web.WebFormObject;
       
-      this._formContainer = this._Y.one('#'+this.constructor.FORM_CONTAINER);
-      this._tableContainer = this._Y.one('#'+this.constructor.TABLE_CONTAINER);
-      this._excelButtons = this._Y.one('#'+this.constructor.EXCEL_BUTTONS);
+      this._formContainer = this._Y.one('#' + prefix + this.constructor.FORM_CONTAINER);
+      this._tableContainer = this._Y.one('#' + prefix + this.constructor.TABLE_CONTAINER);
+      this._excelButtons = this._Y.one('#' + this.constructor.EXCEL_BUTTONS);
+      
+      this._viewParentCommand = this._Y.one('#' + prefix + this.constructor.VIEW_PARENT_COMMAND);
+      
+      if(this._viewParentCommand != null)
+      {
+        this._viewParentCommand.on('click', this.viewParent, this);
+      }
       
       this._tableContainer.delegate('click', this.viewInstance, 'span.generatedViewCommand', this);
     },
@@ -240,7 +309,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     },
     setFormObject : function(formObject) {
       this._formObject = formObject;
-    },    
+    },
+    createFormObject : function(formObjectJSON) {
+      this._formObject = this._WebFormObject.parseFromJSON(formObjectJSON);        
+    },
     /**
      * Formats dates according to the DDMS specification.
      */
@@ -258,12 +330,21 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // clear the form container
       this._formContainer.setContent(''); 
     },
-    renderView : function(formObjectJSON){
+    renderViewWithJSON : function (formObjectJSON) {
+      this.createFormObject(formObjectJSON);
+      this.renderView();
+    },    
+    renderView : function(){
+      this.dispatchEvent(new dss.vector.solutions.RenderViewEvent(this._mdFormId));
+    
       this.clearFormContainer();
       this.hideAllInstance();
       this._viewAllCommand.show();
-    
-      this._formObject = this._WebFormObject.parseFromJSON(formObjectJSON);
+      
+      if(this._viewParentCommand != null)
+      {
+        this._viewParentCommand.show();        
+      }
     
       var div = this._factory.newElement('div');
       var dl = this._factory.newElement('dl');
@@ -314,15 +395,24 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       div.render('#'+this._formContainer.get('id')); 
     },
+    renderFormWithJSON : function (formObjectJSON) {
+      this.createFormObject(formObjectJSON);
+      this.renderForm();
+    },
     /**
      * Renders the create and upate form.
      */
-    renderForm : function(formObjectJSON){
+    renderForm : function(){
+      this.dispatchEvent(new dss.vector.solutions.RenderFormEvent(this._mdFormId));
+        
       this.clearFormContainer();
       this.hideAllInstance();
       this._viewAllCommand.hide();
-    
-      this._formObject = this._WebFormObject.parseFromJSON(formObjectJSON);
+      
+      if(this._viewParentCommand != null)
+      {
+        this._viewParentCommand.hide();
+      }      
     
       var formEl = this._factory.newElement('form');
       formEl.setAttribute('method', 'POST');
@@ -583,6 +673,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this.dispatchEvent(event);
     },
+    viewParent : function(e){
+      this.dispatchEvent(new dss.vector.solutions.ViewParentEvent(this._mdFormId));
+    },
     deleteInstance : function(e){
       e.preventDefault();  // prevent a synchronous form submit
             
@@ -632,18 +725,29 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._newInstanceCommand.hide();
       this._break.hide();
       this._tableContainer.hide();
-      this._excelButtons.hide();
+            
+      if(this._excelButtons != null)
+      {
+        this._excelButtons.hide();
+      }
     },
     /**
      * Shows the datatable with all the instances of the current
      * type. Unrelated functionality is hidden.
      */
     viewAllInstance : function(){
+      this.dispatchEvent(new dss.vector.solutions.ViewAllEvent());
+    },
+    renderViewAll : function(){
       this.clearFormContainer();
       this._tableContainer.show();
       this._break.show();
-      this._excelButtons.show();
       this._viewAllCommand.hide();
+      
+      if(this._viewParentCommand != null)
+      {
+        this._viewParentCommand.hide();        
+      }
       
       if(this._table.isRendered())
       {
@@ -655,6 +759,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       }
       
       this._newInstanceCommand.show();
+      
+      if(this._excelButtons != null)
+      {
+        this._excelButtons.show();
+      }
     },
     /**
      * The initial render shows all instances.
@@ -671,6 +780,24 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         span.innerHTML = p.getLocalizedMessage();
         span.style.visibility = 'visible';
       }      
+    },
+    hide : function(){
+      this.hideAllInstance();
+      this._viewAllCommand.hide();
+      this.clearFormContainer();
+      this._tableContainer.hide();
+      this._break.hide();
+      this._viewAllCommand.hide();
+            
+      if(this._excelButtons != null)
+      {
+        this._excelButtons.hide();
+      }
+      
+      if(this._viewParentCommand != null)
+      {
+        this._viewParentCommand.hide();        
+      }
     }
   }
 });
