@@ -1807,7 +1807,7 @@ var WebBoolean = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebBoolean', {
     }
   }
 });
-var WebBoolean = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebReference', {
+var WebReference = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebReference', {
   Extends : WebAttribute,
   Instance : {
     initialize : function(obj){
@@ -2052,7 +2052,7 @@ var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBooleanMd',
   }
 });
 
-var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebReferenceMd', {
+var WebReferenceMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebReferenceMd', {
   Extends : WebAttributeMd,
   Instance : {
     initialize : function(obj){
