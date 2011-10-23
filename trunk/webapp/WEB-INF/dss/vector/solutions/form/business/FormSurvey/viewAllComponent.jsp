@@ -205,11 +205,11 @@ YAHOO.util.Event.onDOMReady(function(){
 </script>
 <div class="generatorContent" id="generatorContent">
   <a href="#" id="surveyNewInstanceCommand">
-    <mdss:localize key="New_Survey" />
+    <mdss:localize key="New_Form_Survey" />
   </a>
   <br id="surveyOptionBreak" />
   <a href="#" id="surveyViewAllCommand">
-    <mdss:localize key="View_All_Surveys" />
+    <mdss:localize key="View_All_Form_Surveys" />
   </a>
   <div id="surveyTableContainer" class="yui3-skin-sam">
   </div>
@@ -217,11 +217,11 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
   
   <a href="#" id="householdNewInstanceCommand">
-    <mdss:localize key="New_Instance_Household" />
+    <mdss:localize key="New_Form_Household" />
   </a>
   <br id="householdParentBreak" />
   <a href="#" id="householdViewParentCommand">
-    <mdss:localize key="View_Survey" />
+    <mdss:localize key="View_Form_Survey" />
   </a>
   <div id="householdTableContainer" class="yui3-skin-sam">
   </div>
@@ -229,22 +229,22 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
   
   <a href="#" id="bedNetNewInstanceCommand">
-    <mdss:localize key="New_Instance_Bed_Net" />
+    <mdss:localize key="New_Form_Bed_Net" />
   </a>
   <br id="bedNetParentBreak" />
   <a href="#" id="bedNetViewParentCommand">
-    <mdss:localize key="View_Household" />
+    <mdss:localize key="View_Form_Household" />
   </a>
   <div id="bedNetTableContainer" class="yui3-skin-sam">
   </div>
   <div id="bedNetFormContainer">
   </div>
   <a href="#" id="personNewInstanceCommand">
-    <mdss:localize key="New_Instance_Person" />
+    <mdss:localize key="New_Form_Person" />
   </a>
   <br id="personParentBreak" />
   <a href="#" id="personViewParentCommand">
-    <mdss:localize key="View_Household" />
+    <mdss:localize key="View_Form_Household" />
   </a>
   <div id="personTableContainer" class="yui3-skin-sam">
   </div>
