@@ -1807,6 +1807,14 @@ var WebBoolean = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebBoolean', {
     }
   }
 });
+var WebBoolean = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebReference', {
+  Extends : WebAttribute,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
 var WebCharacter = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebCharacter', {
   Extends : WebPrimitive,
   Instance : {
@@ -2043,6 +2051,21 @@ var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBooleanMd',
     getNegativeDisplayLabel : function(){ return this._negativeDisplayLabel; }
   }
 });
+
+var WebBooleanMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebReferenceMd', {
+  Extends : WebAttributeMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+      this._referencedMdBusiness = obj.referencedMdBusiness;
+      this._referencedDisplayLabel = obj.referencedDisplayLabel;
+    },
+    getReferencedMdBusiness : function(){ return this._referencedMdBusiness; },
+    getReferencedDisplayLabel : function(){ return this._referencedDisplayLabel; }
+  }
+});
+
+
 var WebCharacterMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCharacterMd', {
   Extends : WebPrimitiveMd,
   Instance : {

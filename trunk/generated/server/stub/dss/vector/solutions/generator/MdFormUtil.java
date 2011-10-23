@@ -386,7 +386,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         }
 
         // Add the context listener which sets the disease for a entity
-        context.addListener(new DiseaseImportListener());
+        context.addListener(new DiseaseAndValidationImportListener(mdForm));
       }
 
       return new ByteArrayInputStream(importer.read());

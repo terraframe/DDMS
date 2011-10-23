@@ -308,8 +308,11 @@
       <xs:element name="date" type="mdWebAttribute" />
       <xs:element name="double" type="mdWebAttribute" />
       <xs:element name="float" type="mdWebAttribute" />
+      <xs:element name="boolean" type="mdWebAttribute" />
+      <xs:element name="long" type="mdWebAttribute" />
       <xs:element name="integer" type="mdWebAttribute" />
       <xs:element name="text" type="mdWebAttribute" />
+      <xs:element name="reference" type="mdWebAttribute" />
     </xs:choice>
   </xs:complexType>  
   

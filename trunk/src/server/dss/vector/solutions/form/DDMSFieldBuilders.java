@@ -5,6 +5,10 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.constants.IndexTypes;
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
+import com.runwaysdk.constants.MdAttributeCharacterInfo;
+import com.runwaysdk.constants.MdWebCharacterInfo;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
@@ -71,9 +75,10 @@ public class DDMSFieldBuilders implements Reloadable
     builders.put(MdWebSingleTermGrid.CLASS, new WebSingleTermGridBuilder());
     builders.put(MdWebText.CLASS, new WebTextBuilder());
   }
-  
+
   /**
-   * Creates the MdField and the underlying MdAttribute if one exists for the field type.
+   * Creates the MdField and the underlying MdAttribute if one exists for the
+   * field type.
    * 
    * @param mdField
    * @param mdClassId
@@ -84,18 +89,19 @@ public class DDMSFieldBuilders implements Reloadable
     MdWebForm webForm = MdWebForm.get(mdFormId);
     builder.create(mdField, webForm);
   }
-  
+
   /**
-   * Updates the MdField and the underlying MdAttribute if one exists for the field type.
+   * Updates the MdField and the underlying MdAttribute if one exists for the
+   * field type.
    * 
    * @param mdField
    */
   public static void update(MdField mdField)
   {
     WebFieldBuilder builder = builders.get(mdField.getType());
-    builder.update(mdField);    
+    builder.update(mdField);
   }
-  
+
   /**
    * Builder class to construct a WebField from an MdWebFieldDTO.
    * 
@@ -103,8 +109,8 @@ public class DDMSFieldBuilders implements Reloadable
   private static abstract class WebFieldBuilder implements Reloadable
   {
     /**
-     * Builds a new MdAttributeDAO based on the MdField type. Subclasses should override and call
-     * this method to set attribute specific information.
+     * Builds a new MdAttributeDAO based on the MdField type. Subclasses should
+     * override and call this method to set attribute specific information.
      * 
      * @param mdField
      * @param mdClassId
@@ -114,16 +120,16 @@ public class DDMSFieldBuilders implements Reloadable
     {
       mdField.apply();
     }
-    
+
     protected void update(MdField mdField)
     {
       mdField.apply();
     }
   }
-  
+
   public static abstract class WebAttributeBuilder extends WebFieldBuilder implements Reloadable
   {
-    
+
     /**
      * Validates an MdField
      * 
@@ -132,9 +138,9 @@ public class DDMSFieldBuilders implements Reloadable
      */
     protected void validateMdField(MdField mdField)
     {
-       mdField.validateFieldName();
-    }     
-    
+      mdField.validateFieldName();
+    }
+
     /**
      * Creates the MdAttribute that maps directly to the MdField.
      * 
@@ -145,28 +151,34 @@ public class DDMSFieldBuilders implements Reloadable
     @AbortIfProblem
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
-      if(mdAttr.isNew())
+      if (mdAttr.isNew())
       {
         mdAttr.setDefiningMdClass(mdField.getDefiningMdForm().getFormMdClass());
-        mdAttr.setAttributeName(GeoHierarchy.getSystemName(mdField.getFieldName(), "Attr", false)); // FIXME auto-gen name?
+        mdAttr.setAttributeName(GeoHierarchy.getSystemName(mdField.getFieldName(), "Attr", false)); // FIXME
+        // auto-gen
+        // name?
       }
-      
+
       mdAttr.setRequired(mdField.getRequired());
 
       String displayLabel = mdField.getDisplayLabel().getValue();
       mdAttr.getDisplayLabel().setValue(displayLabel);
-      
+
       String description = mdField.getDescription().getValue();
       mdAttr.getDescription().setValue(description);
     }
-    
+
     @Override
     protected void create(MdField mdField, MdWebForm webForm)
     {
       MdWebPrimitive webPrimitive = (MdWebPrimitive) mdField;
-      String mdAttributeType = webPrimitive.getExpectedMdAttributeType(); // FIXME move to MdWebAttribute
-      
-      // We are not supporting virtual attributes right now ... so no need to complicate things
+      String mdAttributeType = webPrimitive.getExpectedMdAttributeType(); // FIXME
+      // move
+      // to
+      // MdWebAttribute
+
+      // We are not supporting virtual attributes right now ... so no need to
+      // complicate things
       MdAttributeConcrete mdAttr = (MdAttributeConcrete) BusinessFacade.newBusiness(mdAttributeType);
       webPrimitive.setDefiningMdForm(webForm);
       this.validateMdField(mdField);
@@ -174,26 +186,26 @@ public class DDMSFieldBuilders implements Reloadable
       mdAttr.apply();
 
       webPrimitive.setValue(MdWebPrimitive.DEFININGMDATTRIBUTE, mdAttr.getId());
-      
+
       super.create(mdField, webForm);
     }
-    
+
     protected void update(MdField mdField)
     {
       MdWebAttribute webAttribute = (MdWebAttribute) mdField;
       MdAttributeConcrete mdAttr = (MdAttributeConcrete) webAttribute.getDefiningMdAttribute();
-      
+
       mdAttr.appLock();
       this.validateMdField(mdField);
       this.updateMdAttribute(mdAttr, webAttribute);
       mdAttr.apply();
-      
+
       super.update(mdField);
     }
   }
 
   // display related
-  
+
   public static class WebBreakBuilder extends WebFieldBuilder implements Reloadable
   {
     @Override
@@ -216,7 +228,6 @@ public class DDMSFieldBuilders implements Reloadable
     }
   }
 
-
   public static class WebHeaderBuilder extends WebFieldBuilder implements Reloadable
   {
     @Override
@@ -227,12 +238,12 @@ public class DDMSFieldBuilders implements Reloadable
       super.create(mdField, webForm);
     }
   }
-  
+
   // complex attributes
 
   public static class WebGeoBuilder extends WebFieldBuilder implements Reloadable
   {
-    
+
   }
 
   public static class WebSingleTermBuilder extends WebFieldBuilder implements Reloadable
@@ -263,14 +274,14 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeBoolean md = (MdAttributeBoolean) mdAttr;
-      
+
       // FIXME allow user defined labels
-      if(md.isNew())
+      if (md.isNew())
       {
         md.getPositiveDisplayLabel().setDefaultValue("true");
         md.getNegativeDisplayLabel().setDefaultValue("false");
       }
-        
+
       super.updateMdAttribute(md, mdField);
     }
   }
@@ -282,9 +293,20 @@ public class DDMSFieldBuilders implements Reloadable
     {
       MdAttributeCharacter md = (MdAttributeCharacter) mdAttr;
       MdWebCharacter field = (MdWebCharacter) mdField;
-      
+
       md.setDatabaseSize(field.getMaxLength());
-      
+
+      String unique = mdField.getValue(MdWebCharacterInfo.UNIQUE);
+
+      if (unique != null && unique.equalsIgnoreCase(MdAttributeBooleanInfo.TRUE))
+      {
+        md.setValue(MdAttributeCharacterInfo.INDEX_TYPE, IndexTypes.UNIQUE_INDEX.getId());
+      }
+      else
+      {
+        md.setValue(MdAttributeCharacterInfo.INDEX_TYPE, IndexTypes.NO_INDEX.getId());
+      }
+
       super.updateMdAttribute(md, mdField);
     }
   }
@@ -307,22 +329,22 @@ public class DDMSFieldBuilders implements Reloadable
     {
       MdAttributeDouble md = (MdAttributeDouble) mdAttr;
       MdWebDouble field = (MdWebDouble) mdField;
-      
+
       md.setDatabaseLength(field.getDecPrecision());
       md.setDatabaseDecimal(field.getDecScale());
-      
+
       String start = field.getStartRange();
-      if(start != null && start.trim().length() != 0)
+      if (start != null && start.trim().length() != 0)
       {
         md.setStartRange(Double.parseDouble(start));
       }
 
       String end = field.getEndRange();
-      if(end != null && end.trim().length() != 0)
+      if (end != null && end.trim().length() != 0)
       {
         md.setEndRange(Double.parseDouble(end));
       }
-      
+
       super.updateMdAttribute(md, mdField);
     }
 
@@ -334,24 +356,24 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeDecimal md = (MdAttributeDecimal) mdAttr;
-      
+
       MdWebDecimal field = (MdWebDecimal) mdField;
-      
+
       md.setDatabaseLength(field.getDecPrecision());
-      md.setDatabaseDecimal(field.getDecScale());      
-      
+      md.setDatabaseDecimal(field.getDecScale());
+
       String start = field.getStartRange();
-      if(start != null && start.trim().length() != 0)
+      if (start != null && start.trim().length() != 0)
       {
         md.setStartRange(new BigDecimal(start));
       }
 
       String end = field.getEndRange();
-      if(end != null && end.trim().length() != 0)
+      if (end != null && end.trim().length() != 0)
       {
         md.setEndRange(new BigDecimal(end));
       }
-      
+
       super.updateMdAttribute(mdAttr, mdField);
     }
   }
@@ -362,29 +384,29 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeFloat md = (MdAttributeFloat) mdAttr;
-      
+
       MdWebFloat field = (MdWebFloat) mdField;
-      
+
       md.setDatabaseLength(field.getDecPrecision());
-      md.setDatabaseDecimal(field.getDecScale());    
-      
+      md.setDatabaseDecimal(field.getDecScale());
+
       String start = field.getStartRange();
-      if(start != null && start.trim().length() != 0)
+      if (start != null && start.trim().length() != 0)
       {
         md.setStartRange(Float.parseFloat(start));
       }
 
       String end = field.getEndRange();
-      if(end != null && end.trim().length() != 0)
+      if (end != null && end.trim().length() != 0)
       {
         md.setEndRange(Float.parseFloat(end));
       }
-      
+
       super.updateMdAttribute(md, mdField);
     }
 
   }
-  
+
   public static class WebLongBuilder extends WebPrimitiveBuilder implements Reloadable
   {
     @Override
@@ -392,24 +414,22 @@ public class DDMSFieldBuilders implements Reloadable
     {
       MdAttributeLong md = (MdAttributeLong) mdAttr;
       MdWebLong field = (MdWebLong) mdField;
-      
+
       String start = field.getStartRange();
-      if(start != null && start.trim().length() != 0)
+      if (start != null && start.trim().length() != 0)
       {
         md.setStartRange(Long.parseLong(start));
       }
 
       String end = field.getEndRange();
-      if(end != null && end.trim().length() != 0)
+      if (end != null && end.trim().length() != 0)
       {
         md.setEndRange(Long.parseLong(end));
       }
-      
+
       super.updateMdAttribute(md, mdField);
     }
   }
-
-
 
   public static class WebIntegerBuilder extends WebPrimitiveBuilder implements Reloadable
   {
@@ -418,19 +438,19 @@ public class DDMSFieldBuilders implements Reloadable
     {
       MdAttributeInteger md = (MdAttributeInteger) mdAttr;
       MdWebInteger field = (MdWebInteger) mdField;
-      
+
       String start = field.getStartRange();
-      if(start != null && start.trim().length() != 0)
+      if (start != null && start.trim().length() != 0)
       {
         md.setStartRange(Integer.parseInt(start));
       }
 
       String end = field.getEndRange();
-      if(end != null && end.trim().length() != 0)
+      if (end != null && end.trim().length() != 0)
       {
         md.setEndRange(Integer.parseInt(end));
       }
-      
+
       super.updateMdAttribute(md, mdField);
     }
 
@@ -443,16 +463,16 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeDate md = (MdAttributeDate) mdAttr;
-      
+
       MdWebDate field = (MdWebDate) mdField;
-      
+
       md.setStartDate(field.getStartDate());
       md.setEndDate(field.getEndDate());
       md.setAfterTodayExclusive(field.getAfterTodayExclusive());
       md.setAfterTodayInclusive(field.getAfterTodayInclusive());
       md.setBeforeTodayExclusive(field.getBeforeTodayExclusive());
       md.setBeforeTodayInclusive(field.getBeforeTodayInclusive());
-      
+
       super.updateMdAttribute(md, mdField);
     }
   }
@@ -475,7 +495,7 @@ public class DDMSFieldBuilders implements Reloadable
     protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
     {
       MdAttributeTime md = (MdAttributeTime) mdAttr;
-      
+
       super.updateMdAttribute(md, mdField);
     }
   }

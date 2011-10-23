@@ -115,12 +115,12 @@
     {
       if (attachTo === Mojo.GLOBAL)
       {
-    	 throw new Exception("Cannot alias classes to the global scope to avoid naming collisions.");  
+       throw new Exception("Cannot alias classes to the global scope to avoid naming collisions.");  
       }
       
       if (pattern.match(/\*.+/))
       {
-    	 throw new Exception("Invalid alias class specified: "+pattern);  
+       throw new Exception("Invalid alias class specified: "+pattern);  
       }
       
       attachTo = attachTo || {};
@@ -4370,7 +4370,8 @@ var Registry = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Registry', {
         var listeners = this._listeners.get(target);
         for(var i=0, len=listeners.length; i<len; i++)
         {
-          if(listener === listeners[i].getListener())
+          var entry = listeners[i];
+          if(type === entry.getType() && listener === entry.getListener())
           {
             return;
           }

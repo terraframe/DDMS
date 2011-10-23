@@ -10,4 +10,7 @@
   <mjl:dt attribute="maxLength">
     <mjl:input param="maxLength" type="text" />
   </mjl:dt>
+  <mjl:dt attribute="unique">
+    <mjl:boolean param="unique" />
+  </mjl:dt>  
 </mjl:component>
