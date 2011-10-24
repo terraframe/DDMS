@@ -499,7 +499,9 @@ var DialogIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'DialogIF', {
     getButton : function(integer){},
     getButtons : function(){},
     getHeader : function(){},
-    getFooter : function(){}
+    getFooter : function(){},
+    show : function(){},
+    hide : function(){}
   }
 });
 

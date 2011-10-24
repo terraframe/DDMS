@@ -6,24 +6,42 @@
 var UI = Mojo.Meta.alias("com.runwaysdk.ui.*");
 
 /**
+ * Class wrapper around an object literal to pass into a ListItem.
+ */
+var FieldItem = Mojo.Meta.newClass('dss.vector.solutions.FieldItem', {
+  Instance : {
+    initialize : function(id, label){
+      this._id = id;
+      this._label = label;
+    },
+    getId : function() { return this._id; },
+    getHashCode : function() { return this.getId(); },
+    toString : function() { return this._label; }
+  }
+});
+
+/**
  * Primary class to handle control flow in the UI.
  */
 Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin', 
 {
   Constants : {
     AVAILABLE_FIELDS : 'availableFields',
-		CANCEL_DELETE_BUTTON : 'cancelDeleteButton',
-		CONFIRM_DELETE_BUTTON : 'confirmDeleteButton',
-		CREATE_NEW_FORM : 'createNewForm',
-		VIEW_FORM : 'viewForm',
-		EXISTING_FORMS : 'existingForms',
-		FORM_CONTENT : 'formContent',
-		FORM_CONTENT_BOX : 'formContentBox',
-		FORM_ACTION_ROW : 'formActionRow',
-		FORM_ITEM_ROW : 'formItemRow',
-		EDIT_BUTTON : 'editBtn',
-		TABBED_FORM_BOX : 'tabbedFormBox',
-		WORKFLOW_TREE : 'workflowTree'
+    CANCEL_DELETE_BUTTON : 'cancelDeleteButton',
+    CONFIRM_DELETE_BUTTON : 'confirmDeleteButton',
+    CREATE_NEW_FORM : 'createNewForm',
+    VIEW_FORM : 'viewForm',
+    EXISTING_FORMS : 'existingForms',
+    FORM_CONTENT : 'formContent',
+    FORM_CONTENT_BOX : 'formContentBox',
+    FORM_ACTION_ROW : 'formActionRow',
+    FORM_ITEM_ROW : 'formItemRow',
+    EDIT_BUTTON : 'editBtn',
+    TABBED_FORM_BOX : 'tabbedFormBox',
+    WORKFLOW_TREE : 'workflowTree',
+    FORM_NODE : 'formNode',
+    FIELD_NODE : 'fieldNode',
+    GROUP_NODE : 'groupNode'
   },
   Instance : {
     initialize : function()
@@ -35,9 +53,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._fieldsDialog = null;
       
       this._fieldFormDialog = null;
-			
-			this._confirmDeleteDialog = null;
-			
+      
+      this._confirmDeleteDialog = null;
+      
       this._fieldList = this._Factory.newList("Field List", {id: "fieldList"});
       
       this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
@@ -45,26 +63,32 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var cancelB = Mojo.Util.bind(this, this._cancelListener);
       this._MdFormAdminController.setCancelListener(cancelB);
       
-			var updateB = Mojo.Util.bind(this, this._updateListener);
+      var updateB = Mojo.Util.bind(this, this._updateListener);
       this._MdFormAdminController.setUpdateListener(updateB);
-			
-			var createB = Mojo.Util.bind(this, this._createListener);
-			this._MdFormAdminController.setCreateListener(createB);
       
-			var deleteB = Mojo.Util.bind(this, this.confirmDeleteForm);
-			this._MdFormAdminController.setDeleteListener(deleteB);
+      var createB = Mojo.Util.bind(this, this._createListener);
+      this._MdFormAdminController.setCreateListener(createB);
       
-			var editB = Mojo.Util.bind(this, this.requestEdit);
-			this._MdFormAdminController.setEditFormAttributesListener(editB);
-			
-			var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
-			this._MdFormAdminController.setUpdateMdFieldListener(updateMdFieldB);
-			
-			var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
-			this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
-			
+      var deleteB = Mojo.Util.bind(this, this.confirmDeleteForm);
+      this._MdFormAdminController.setDeleteListener(deleteB);
+      
+      var editB = Mojo.Util.bind(this, this.requestEdit);
+      this._MdFormAdminController.setEditFormAttributesListener(editB);
+      
+      var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
+      this._MdFormAdminController.setUpdateMdFieldListener(updateMdFieldB);
+      
+      var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
+      this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
+      
       var cancelMdFieldB = Mojo.Util.bind(this, this.cancelMdField);
       this._MdFormAdminController.setCancelMdFieldListener(cancelMdFieldB);
+      
+      var createCondition = Mojo.Util.bind(this, this.createCondition);
+      this._MdFormAdminController.setCreateConditionListener(createCondition);
+      
+      var cancelCondition = Mojo.Util.bind(this, this.cancelCondition);
+      this._MdFormAdminController.setCancelConditionListener(cancelCondition);
       
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
@@ -77,6 +101,163 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._tabview.render();
       
       this._tree = null;
+
+      /**
+       * ContextMenu for the tree nodes.
+       */
+      var viewConditions = new YAHOO.widget.ContextMenuItem('View Conditions');
+      viewConditions.subscribe("click", this.viewConditions, null, this);
+
+      var addGroup = new YAHOO.widget.ContextMenuItem('Add Group');
+      addGroup.subscribe("click", this.addGroup, null, this);
+
+      /**
+       * A mapping between the type of node and the menu items allowed on it.
+       */
+      this._menuItems = {};
+      this._menuItems[this.constructor.FORM_NODE] = [addGroup];
+      this._menuItems[this.constructor.FIELD_NODE] = [viewConditions];
+      this._menuItems[this.constructor.GROUP_NODE] = [viewConditions];
+
+      this._menu = new YAHOO.widget.ContextMenu('workflowTreeMenu', {
+        trigger:this.constructor.WORKFLOW_TREE,
+        lazyload:true,
+        zindex:500
+      });
+      this._menu.subscribe("triggerContextMenu", this.showContextMenu, null, this);
+      
+      /**
+       * Dialog to contain all the condition related CRUD operations for an MdField.
+       */
+      this._conditionsDialog = null;
+    },
+    /**
+     * Shows the context menu and displays the items allowed for that node type.
+     */
+    showContextMenu : function(eventType, eventArgs)
+    {
+      // ensure an actual node element was clicked
+      var oTarget = this._menu.contextEventTarget;
+      var htmlNode = YAHOO.util.Dom.hasClass(oTarget, "ygtvcell") ? oTarget : YAHOO.util.Dom.getAncestorByClassName(oTarget, "ygtvcell");
+      this._selectedNode = this._tree.getNodeByElement(oTarget);
+      
+      if (this._selectedNode) {
+
+        this._menu.clearContent();
+        
+        var items = this._menuItems[this._selectedNode.data.nodeType];
+        
+        this._menu.addItems(items);
+      
+        if(this._menuRendered)
+        {
+          this._menu.render();
+        }
+        else
+        {
+          this._menu.render(this._menu.cfg.getProperty("container"));
+          this._menuRendered = true;
+        }
+      }
+      else {
+        this._menu.cancel();
+      }      
+    },
+    addGroup : function()
+    {
+      this.newField('com.runwaysdk.system.metadata.MdWebGroup');
+    },
+    createCondition : function(params)
+    {
+    },
+    /**
+     * Requests the HTML to create a new Condition that references the MdField represented
+     * by a select list option.
+     */
+    newCondition : function(e)
+    {
+      var mdFieldId = e.currentTarget.get('value');
+      if(mdFieldId && mdFieldId !== '')
+      {
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess : function(html)
+          {
+            that._conditionsDialog.setInnerHTML(html);
+          }
+        });
+        
+        this._MdFormAdminController.newCondition(request, mdFieldId);
+      }
+    },
+    cancelCondition : function(params)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          that._conditionsDialog.hide();
+        }
+      });
+      
+      return request;
+    },
+    /**
+     * Creates the modal to add a new condition to the selected field.
+     */
+    viewConditions : function()
+    {
+      var fieldId = this._selectedNode.data.fieldId;
+      
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          that.renderConditionList(html);
+        }
+      });
+      
+      this._MdFormAdminController.getConditionList(request, fieldId);
+    },
+    renderConditionList : function(html)
+    {
+      var executable = MDSS.util.extractScripts(html);
+      var pureHTML = MDSS.util.removeScripts(html);
+      
+      if(this._conditionsDialog !== null)
+      {
+        this._conditionsDialog.setInnerHTML(pureHTML);
+        this._conditionsDialog.show();
+      }
+      else
+      {
+        this._conditionsDialog = this._Factory.newDialog('', {close: false});
+        this._conditionsDialog.getContentEl().addClassName("form-dialog-scroll");
+        this._conditionsDialog.setInnerHTML(pureHTML);
+        this._conditionsDialog.render();
+      }
+      
+      eval(executable);
+      
+      this._Y.one('#mdFieldId').on('change', this.newCondition, this);
+    },
+    /**
+     * Adds the source node to the destination node and
+     * removes the link from the old parent.
+     */
+    _addNodeToParent : function(sourceNode, destNode, removeNode)
+    {
+      // remove the source node from its parent
+      var originalParent = sourceNode.parent;
+      sourceNode.tree.popNode(sourceNode);
+      
+      if(removeNode){
+        sourceNode.tree.removeNode(sourceNode);
+      }
+      
+      // put the source node beneath the destination node
+      sourceNode.insertAfter(destNode);
+      
+      originalParent.refresh();
+      destNode.parent.refresh();      
     },
     /**
      * Handler to model the drop operation between a source node (the one being dragged) 
@@ -87,30 +268,42 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var destNode = YAHOO.util.DDM.getDDById(destId).node;
       var sourceNode = sourceDDNode.node;
       
-      // remove the source node from its parent
-      var originalParent = sourceNode.parent;
-      sourceNode.tree.popNode(sourceNode);
+      // Add the field to the group if the destination is a group node
+      if(destNode.data.nodeType === this.constructor.GROUP_NODE)
+      {
+        var groupId = destNode.data.fieldId;
+        var fieldId = sourceNode.data.fieldId;
+        
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess : function(){
+             that._addNodeToParent(sourceNode, destNode, true);
+          }
+        });
+        
+        this._MdFormUtil.addToGroup(request, groupId, fieldId);
+      }
+      // reorder the field
+      else
+      {
+        this._addNodeToParent(sourceNode, destNode);
+        
+        // starting at the root, traverse the tree to gather the nodes in reverse pre-order
+        var formNode = this._tree.getRoot().children[0];
+        var orderedIds = [];
+        this._traverseNode(formNode, orderedIds);
+        
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess : function(){
+            // refresh the preview mode of the fields.
+            that.fetchFormFields(false);
+          }
+        });
+        
+        this._MdFormUtil.reorderFields(request, orderedIds);
+      }
       
-      // put the source node beneath the destination node
-      sourceNode.insertAfter(destNode);
-      
-      originalParent.refresh();
-      destNode.parent.refresh();
-      
-      // starting at the root, traverse the tree to gather the nodes in reverse pre-order
-      var formNode = this._tree.getRoot().children[0];
-      var orderedIds = [];
-      this._traverseNode(formNode, orderedIds);
-      
-      var that = this;
-      var request = new MDSS.Request({
-        onSuccess : function(){
-          // refresh the preview mode of the fields.
-          that.fetchFormFields(false);
-        }
-      });
-      
-      this._MdFormUtil.reorderFields(request, orderedIds);
     },
     _traverseNode : function(parent, orderedIds)
     {
@@ -126,9 +319,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     render : function()
     {
-			// hide the form content DOM elements
+      // hide the form content DOM elements
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
-			
+      
       // attach the event handlers to the DOM elements
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
@@ -151,7 +344,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       if(this._fieldsDialog !== null)
       {
-        this._fieldsDialog.getImpl().show(); // FIXME add show/hide to widgets
+        this._fieldsDialog.show(); // FIXME add show/hide to widgets
       }
       else
       {
@@ -179,13 +372,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       // hook the click handler to the dialog to detect which field type was selected.
       var id = this._fieldsDialog.getContentEl().getId();
-      this._Y.one('#'+id).delegate('click', this.newField, 'li', this);
+      this._Y.one('#'+id).delegate('click', this.newFieldHandler, 'li', this);
     },
-    
-    /**
-     * Make a request for a new instance of an MdField.
-     */
-    newField : function(e)
+    newField : function(mdFieldType)
     {
       var that = this;
       var request = new MDSS.Request({
@@ -194,12 +383,24 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         }
       });
       
-      var mdFieldType = e.currentTarget.get('id');
       this._MdFormAdminController.newMdField(request, mdFieldType);
+    },
+    /**
+     * Make a request for a new instance of an MdField.
+     */
+    newFieldHandler : function(e)
+    {
+      var mdFieldType = e.currentTarget.get('id');
+      this.newField(mdFieldType);
     },
     newMdFieldDialog : function(html)
     {
-      this._fieldsDialog.getImpl().hide(); // FIXME add show/hide to widgets
+      // the fields dialog might not have been rendered if we're adding 
+      // a new group field.
+      if(this._fieldsDialog !== null)
+      {
+        this._fieldsDialog.hide();
+      }
     
       var executable = MDSS.util.extractScripts(html);
       var pureHTML = MDSS.util.removeScripts(html);
@@ -207,16 +408,16 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       if(this._fieldFormDialog !== null)
       {
         this._fieldFormDialog.setInnerHTML(pureHTML);
-        this._fieldFormDialog.getImpl().show();
+        this._fieldFormDialog.show();
       }
       else
       {
         this._fieldFormDialog = this._Factory.newDialog('', {close: false});
-				this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
+        this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
       }
-			
+      
       eval(executable);
     },
     updateMdField : function(fieldMap)
@@ -226,7 +427,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var request = new MDSS.Request({
         onSuccess : function(html)
         {
-          that._fieldFormDialog.getImpl().hide();
+          that._fieldFormDialog.hide();
           that.fetchFormFields(false);
           
           that.updateNode(fieldId);
@@ -257,7 +458,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var request = new MDSS.Request({
         onSuccess : function(html)
         {
-          that._fieldFormDialog.getImpl().hide();
+          that._fieldFormDialog.hide();
           that.fetchFormFields(true);
         }
       });
@@ -267,9 +468,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 
       return request;
     },
-		/**
-		 * Makes a request to display all existing forms on the sidebar
-		 */
+    /**
+     * Makes a request to display all existing forms on the sidebar
+     */
     existingForms : function()
     {
       var that = this;
@@ -282,8 +483,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       });
       
       this._MdFormAdminController.existingForms(request);
-		},
-	  viewForm : function(e)
+    },
+    viewForm : function(e)
     {
       var id = e.currentTarget.get('id');
       this._currentMdFormId = id;
@@ -291,105 +492,138 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this.fetchFormFields(true);
       this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'visible');
       this._Y.one('#'+this.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
-		},
-	  fetchFormAttributes : function()
-		{
-			var id = this._currentMdFormId;
-			var that = this;
-			var request = new MDSS.Request({
-	      onSuccess : function(html){
-					var executable = MDSS.util.extractScripts(html);
-	        var pureHTML = MDSS.util.removeScripts(html);
-					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+    },
+    fetchFormAttributes : function()
+    {
+      var id = this._currentMdFormId;
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
           eval(executable);
-	      }
+        }
       });
       
       this._MdFormAdminController.fetchFormAttributes(request, id);
-		},
-		fetchFormFields : function(refreshTree)
-		{
-			var id = this._currentMdFormId;
+    },
+    fetchFormFields : function(refreshTree)
+    {
+      var id = this._currentMdFormId;
       var that = this;
       var request = new MDSS.Request({
-				onSuccess : function(fieldList){
-          that.updateFields(fieldList);
+        onSuccess : function(formTree){
+          var formTreeObj = Mojo.Util.toObject(formTree);
+        
+          that.updateFields(formTreeObj);
           
           if(refreshTree)
           {
-            that.addFieldsToTree(fieldList);
+            that.refreshWorkflowTree(formTreeObj);
           }
         }        
       });
       
-			this._MdFormUtil.getFieldsById(request, id);
-		},
-		addFieldsToTree : function(fieldList)
-		{
-		  // destroy the tree entirely and start fresh
-		  if(this._tree !== null)
-		  {
-		    this._tree.destroy();
-		  }
+      this._MdFormUtil.getFormTree(request, id);
+    },
+    refreshWorkflowTree : function(formTreeObj)
+    {
+      // destroy the tree entirely and start fresh
+      if(this._tree !== null)
+      {
+        this._tree.removeChildren(this._tree.getRoot());
+      }
+      else
+      {
+        var dAndDHandler = Mojo.Util.bind(this, this.dragAndDropHandler);
+        this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler);
+      }
       
-      var dAndDHandler = Mojo.Util.bind(this, this.dragAndDropHandler);
-      this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler);
-		
-		
-		  // grab the form's display label as the new quasi-root
-		  var formDisplay = this._Y.one(document.getElementById(this._currentMdFormId)).get('text'); // workaround for invalid ids
-		  var formNode = new YAHOO.widget.TextNode({label:formDisplay,formId:this._currentMdFormId}, this._tree.getRoot());
-		  
-		  for(var i=0, len=fieldList.length; i<len; i++)
-		  {
-		    var field = fieldList[i];
-		    var content = field.toString();
-		    new YAHOO.widget.HTMLNode({html:content,fieldId:field.getId()}, formNode);
-		  }
-		  
-  		this._tree.render();
-		},
-		/**
-		 * Clears a single field by removing it from the tree and field list.
-		 */
-		clearField : function(fieldId)
-		{
-		  // remove the field from list
-		  var li = document.getElementById(fieldId);
-		  var item = this._fieldList.getItemByLI(li);
-		  this._fieldList.removeItem(item);
-		  
-		  // remove the field from the tree
-		  var node = this._tree.getNodeByProperty('fieldId', fieldId);
-		  this._tree.removeNode(node, true);
-		},
-		updateFields : function(fields){
-		  
-		  // clear any prior field items
-		  this._fieldList.clearItems();
-		
-			for (var i = 0; i < fields.length; i++)
-			{
-				var field = fields[i];
-				var itemContent = "[" + field.getFieldName() + "] Type: " + field.getType();
-				var fieldId = field.getId();
-	      var listItem = this._Factory.newListItem(field);
-				listItem.getEl().setId(fieldId);
-				
-		    var deleteLink = this._Factory.newElement("a");
-				deleteLink.addClassName("form-item-row-delete edit-mode-functionality");
-				deleteLink.setInnerHTML("Delete");
-				deleteLink.setId(fieldId);
-				
-				listItem.appendChild(deleteLink);
-				
-	      this._fieldList.addItem(listItem);
-			}
+      // grab the form's display label as the new quasi-root
+      var formNode = new YAHOO.widget.TextNode({
+        label:formTreeObj.label,
+        formId:this._currentMdFormId,
+        nodeType:formTreeObj.nodeType,
+        expanded:true} , this._tree.getRoot());
+
+      this._recurseFieldsForTree(formNode, formTreeObj.fields);
+      
+      this._tree.render();
+    },
+    _recurseFieldsForTree : function(parent, fields)
+    {
+      for (var i = 0; i < fields.length; i++)
+      {
+        var field = fields[i];
+        
+        var node = new YAHOO.widget.HTMLNode({
+          html:field.label,
+          nodeType:field.nodeType,
+          fieldId:field.id}, parent);        
+        
+        if(field.nodeType === this.constructor.GROUP_NODE)
+        {
+          this._recurseFieldsForTree(node, field.fields);
+        }
+      }
+    },
+    /**
+     * Clears a single field by removing it from the tree and field list.
+     */
+    clearField : function(fieldId)
+    {
+      // remove the field from list
+      var li = document.getElementById(fieldId);
+      var item = this._fieldList.getItemByLI(li);
+      this._fieldList.removeItem(item);
+      
+      // remove the field from the tree
+      var node = this._tree.getNodeByProperty('fieldId', fieldId);
+      this._tree.removeNode(node, true);
+    },
+    /**
+     * Updates the list of fields and collapses the tree structure to
+     * a linear list and removes the group nodes.
+     */
+    updateFields : function(formTreeObj){
+      
+      // clear any prior field items
+      this._fieldList.clearItems();
+    
+      this._recurseFieldsForList(formTreeObj.fields);
 
       var fieldDiv = document.getElementById(this.constructor.FORM_ITEM_ROW);
-			this._fieldList.render(fieldDiv);
+      this._fieldList.render(fieldDiv);
     },
-		_createListener : function(fieldMap)
+    _recurseFieldsForList : function(fields)
+    {
+      for (var i = 0; i < fields.length; i++)
+      {
+        var field = fields[i];
+        
+        if(field.nodeType === this.constructor.GROUP_NODE)
+        {
+          this._recurseFieldsForList(field.fields);
+        }
+        else
+        {
+          var fieldItem = new FieldItem(field.id, field.label);
+          var listItem = this._Factory.newListItem(fieldItem);
+          listItem.getEl().setId(fieldItem.getId());
+          
+          var deleteLink = this._Factory.newElement("a");
+          deleteLink.addClassName("form-item-row-delete edit-mode-functionality");
+          deleteLink.setInnerHTML("Delete");
+          deleteLink.setId(fieldItem.getId());
+          
+          listItem.appendChild(deleteLink);
+          
+          this._fieldList.addItem(listItem);
+        }
+      }
+    },
+    _createListener : function(fieldMap)
     {
       var that = this;
       var request = new MDSS.Request({
@@ -407,65 +641,65 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       return request;
     },
-		_updateListener : function(form)
-		{
-			var that = this;
-			var request = new MDSS.Request({
-				onSuccess : function(html)
-				{
-					var executable = MDSS.util.extractScripts(html);
-					var pureHTML = MDSS.util.removeScripts(html);
-					document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
-					eval(executable);
-					that.existingForms();
-				}
-			});
-			
-			return request;
-		},
+    _updateListener : function(form)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+          eval(executable);
+          that.existingForms();
+        }
+      });
+      
+      return request;
+    },
     _cancelListener : function(fieldMap)
     {
-			if (fieldMap["form.isNew"] === "true") {
-			  document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
-			  this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
-			  this._currentMdFormId = null;
-			}
-			else {
+      if (fieldMap["form.isNew"] === "true") {
+        document.getElementById(this.constructor.FORM_CONTENT_BOX).innerHTML = "";
+        this._Y.one('#'+this.constructor.FORM_CONTENT).setStyle('visibility', 'hidden');
+        this._currentMdFormId = null;
+      }
+      else {
         var that = this;
-				var request = new MDSS.Request({
-					onSuccess: function(html){
-						var executable = MDSS.util.extractScripts(html);
-						var pureHTML = MDSS.util.removeScripts(html);
-						document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
-						eval(executable);
-					}
-				});
-				
-				return request;
-			}
+        var request = new MDSS.Request({
+          onSuccess: function(html){
+            var executable = MDSS.util.extractScripts(html);
+            var pureHTML = MDSS.util.removeScripts(html);
+            document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+            eval(executable);
+          }
+        });
+        
+        return request;
+      }
     },
-		requestEdit : function()
-		{
-			var that = this;
-			var request = new MDSS.Request({
-			 onSuccess : function(html)
-			 {
-			   var executable = MDSS.util.extractScripts(html);
-			   var pureHTML = MDSS.util.removeScripts(html);
-				 document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
-				 eval(executable);
-			 }
-			});
-			
-		  this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
-		},
-		confirmDeleteForm : function(e)
-		{
-			var that = this;
-			var request = new MDSS.Request({
-				onFailure : function(e)
-				{
-					var wrapperDiv = that._Factory.newElement('div');
+    requestEdit : function()
+    {
+      var that = this;
+      var request = new MDSS.Request({
+       onSuccess : function(html)
+       {
+         var executable = MDSS.util.extractScripts(html);
+         var pureHTML = MDSS.util.removeScripts(html);
+         document.getElementById(that.constructor.FORM_CONTENT_BOX).innerHTML = pureHTML;
+         eval(executable);
+       }
+      });
+      
+      this._MdFormAdminController.editFormAttributes(request, this._currentMdFormId);
+    },
+    confirmDeleteForm : function(e)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onFailure : function(e)
+        {
+          var wrapperDiv = that._Factory.newElement('div');
           
           var upperDiv = that._Factory.newElement('div');
           upperDiv.addClassName('alertbox modalAlertBox');
@@ -493,9 +727,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           
           if(that._confirmDeleteDialog !== null)
           {
-						that._confirmDeleteDialog.setInnerHTML("");
+            that._confirmDeleteDialog.setInnerHTML("");
             that._confirmDeleteDialog.appendChild(wrapperDiv);
-            that._confirmDeleteDialog.getImpl().show();
+            that._confirmDeleteDialog.show();
           }
           else
           {
@@ -505,12 +739,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           }
           YAHOO.util.Event.on(that.constructor.CONFIRM_DELETE_BUTTON, 'click', that.deleteForm, null, that);
           YAHOO.util.Event.on(that.constructor.CANCEL_DELETE_BUTTON, 'click', that.cancelDeleteDialog, null, that);
-				}
-			});
-			
-			this._MdFormUtil.confirmDeleteForm(request, this._currentMdFormId);
-		},
-		confirmDeleteMdField : function(e)
+        }
+      });
+      
+      this._MdFormUtil.confirmDeleteForm(request, this._currentMdFormId);
+    },
+    confirmDeleteMdField : function(e)
     {
       var fieldId = e.currentTarget.get('id');
       var that = this;
@@ -518,12 +752,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         onFailure : function(e)
         {
           var wrapperDiv = that._Factory.newElement('div');
-					
+          
           var upperDiv = that._Factory.newElement('div');
           upperDiv.addClassName('alertbox modalAlertBox');
 
           var message = that._Factory.newElement('span');
-					message.setInnerHTML(e.getLocalizedMessage());
+          message.setInnerHTML(e.getLocalizedMessage());
           upperDiv.appendChild(message);
 
           // yes/no buttons
@@ -531,23 +765,23 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           lowerDiv.addClassName('alertbox modalAlertBox');
           
           var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
-					confirmButton.setInnerHTML("Confirm");
-					
+          confirmButton.setInnerHTML("Confirm");
+          
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
-					cancelButton.setInnerHTML("Cancel");
-					
+          cancelButton.setInnerHTML("Cancel");
+          
           var lowerDiv = that._Factory.newElement('div');
           lowerDiv.appendChild(confirmButton);
           lowerDiv.appendChild(cancelButton);
-					
-					wrapperDiv.appendChild(upperDiv);
-					wrapperDiv.appendChild(lowerDiv);
+          
+          wrapperDiv.appendChild(upperDiv);
+          wrapperDiv.appendChild(lowerDiv);
           
           if(that._confirmDeleteDialog !== null)
           {
-						that._confirmDeleteDialog.setInnerHTML("");
+            that._confirmDeleteDialog.setInnerHTML("");
             that._confirmDeleteDialog.appendChild(wrapperDiv);
-            that._confirmDeleteDialog.getImpl().show();
+            that._confirmDeleteDialog.show();
           }
           else
           {
@@ -562,25 +796,25 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._MdFormUtil.confirmDeleteMdField(request, this._currentMdFormId, fieldId);
     },
-		cancelDeleteDialog : function(e)
-		{
-			this._confirmDeleteDialog.getImpl().hide();
-		},
-		editField : function(e)
-		{
-			var type = e.target.get('nodeName');
-			if (type !== 'A') {
-				var fieldId = e.currentTarget.get('id');
-				var that = this;
-				var request = new MDSS.Request({
-					onSuccess: function(html){
-						that.editMdFieldDialog(html);
-					}
-				});
-				
-				this._MdFormAdminController.editMdField(request, fieldId);
-			}
-		},
+    cancelDeleteDialog : function(e)
+    {
+      this._confirmDeleteDialog.hide();
+    },
+    editField : function(e)
+    {
+      var type = e.target.get('nodeName');
+      if (type !== 'A') {
+        var fieldId = e.currentTarget.get('id');
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess: function(html){
+            that.editMdFieldDialog(html);
+          }
+        });
+        
+        this._MdFormAdminController.editMdField(request, fieldId);
+      }
+    },
     editMdFieldDialog : function(html)
     {
       var executable = MDSS.util.extractScripts(html);
@@ -589,7 +823,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       if(this._fieldFormDialog !== null)
       {
         this._fieldFormDialog.setInnerHTML(pureHTML);
-        this._fieldFormDialog.getImpl().show();
+        this._fieldFormDialog.show();
       }
       else
       {
@@ -604,21 +838,21 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     cancelMdField : function(fieldMap)
     {
       if (fieldMap["mdField.isNew"] === "true") {
-          this._fieldFormDialog.getImpl().hide();
-			}
-			else {
-				var that = this;
-				var request = new MDSS.Request({
-					onSuccess: function(html){
-						that._fieldFormDialog.getImpl().hide();
-					}
-				});
-				return request;
-			}
+          this._fieldFormDialog.hide();
+      }
+      else {
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess: function(html){
+            that._fieldFormDialog.hide();
+          }
+        });
+        return request;
+      }
     },
-		deleteField : function(e, fieldId)
+    deleteField : function(e, fieldId)
     {
-      this._confirmDeleteDialog.getImpl().hide();
+      this._confirmDeleteDialog.hide();
       var that = this;
       var request = new MDSS.Request({
        onSuccess : function(html)
@@ -629,9 +863,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 
       this._MdFormAdminController.deleteField(request, this._currentMdFormId, fieldId);
     },
-	  deleteForm : function(e)
+    deleteForm : function(e)
     {
-      this._confirmDeleteDialog.getImpl().hide();
+      this._confirmDeleteDialog.hide();
       var that = this;
       var request = new MDSS.Request({
        onSuccess : function(html)
@@ -644,9 +878,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 
       this._MdFormAdminController.deleteForm(request, this._currentMdFormId);
     },
-		createNewForm : function()
-		{
-			var that = this;
+    createNewForm : function()
+    {
+      var that = this;
       var request = new MDSS.Request({
        onSuccess : function(html)
        {
@@ -661,7 +895,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
        }
       });
       that._MdFormAdminController.newInstance(request);
-		}
+    }
   }
 });
 

@@ -11,6 +11,8 @@ import com.runwaysdk.constants.MdAttributeCharacterInfo;
 import com.runwaysdk.constants.MdWebCharacterInfo;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
@@ -34,9 +36,11 @@ import com.runwaysdk.system.metadata.MdWebDateTime;
 import com.runwaysdk.system.metadata.MdWebDecimal;
 import com.runwaysdk.system.metadata.MdWebDouble;
 import com.runwaysdk.system.metadata.MdWebField;
+import com.runwaysdk.system.metadata.MdWebFieldQuery;
 import com.runwaysdk.system.metadata.MdWebFloat;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebGeo;
+import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
 import com.runwaysdk.system.metadata.MdWebLong;
@@ -47,6 +51,7 @@ import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.MdWebText;
 import com.runwaysdk.system.metadata.MdWebTime;
 
+import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.GeoHierarchy;
 
 public class DDMSFieldBuilders implements Reloadable
@@ -74,6 +79,7 @@ public class DDMSFieldBuilders implements Reloadable
     builders.put(MdWebSingleTerm.CLASS, new WebSingleTermBuilder());
     builders.put(MdWebSingleTermGrid.CLASS, new WebSingleTermGridBuilder());
     builders.put(MdWebText.CLASS, new WebTextBuilder());
+    builders.put(MdWebGroup.CLASS, new WebGroupBuilder());
   }
 
   /**
@@ -118,6 +124,10 @@ public class DDMSFieldBuilders implements Reloadable
      */
     protected void create(MdField mdField, MdWebForm webForm)
     {
+      // update the field order to one greater than the last field (to simply append it)
+      Integer order = MdFormUtil.getHighestOrder(webForm);
+      mdField.setFieldOrder(order);
+      
       mdField.apply();
     }
 
@@ -201,6 +211,17 @@ public class DDMSFieldBuilders implements Reloadable
       mdAttr.apply();
 
       super.update(mdField);
+    }
+  }
+  
+  public static class WebGroupBuilder extends WebFieldBuilder implements Reloadable
+  {
+    @Override
+    protected void create(MdField mdField, MdWebForm webForm)
+    {
+      MdWebGroup field = (MdWebGroup) mdField;
+      field.setDefiningMdForm(webForm);
+      super.create(mdField, webForm);
     }
   }
 

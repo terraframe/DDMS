@@ -496,14 +496,13 @@ div.thematicVariable {
 }
 
 .drag-hint {
-  background-color: #ff0000;
-  color: white;
+  border: 1px solid black !important;
 }
 
 .dragging {
-  opacity: 0.76;
+  opacity: 0.60;
   border: 1px solid gray;
-  filter: "alpha(opacity=76)";
+  filter: "alpha(opacity=60)";
 }
 
 .activeEntity {
@@ -1200,10 +1199,13 @@ span.currentPage a:active {
 .form-item-row .form-item-row-delete:hover {
   background-position: 0px -50px;
 }
+#fieldsTab .form-top-action-row {
+  height: 20px;
+}
+
 .form-top-action-row {
   clear: right;
   width: 700px;
-  height: 20px;
   padding: 20px;
   position: relative;
 }

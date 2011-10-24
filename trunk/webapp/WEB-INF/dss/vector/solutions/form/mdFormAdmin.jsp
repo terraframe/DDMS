@@ -26,9 +26,10 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebGroupDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
 
-
-<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+<c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
 <style type="text/css">
 .yui3-tab-panel {
@@ -142,7 +143,9 @@ MdWebReferenceDTO.CLASS,
 // Display related
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
-MdWebCommentDTO.CLASS
+MdWebCommentDTO.CLASS,
+
+MdWebGroupDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
@@ -191,11 +194,10 @@ YAHOO.util.Event.onDOMReady(function(){
 		        </div>
 	        </div>
 	        <div id="workflowTab">
-	          <div class="form-top-action-row">
-              <a href="#" class="form-button-add edit-mode-functionality" id="availableFields"></a>
-	          </div>
-	          <div class="form-item-row" id="workflowTree">
-	          </div>
+            <div class="form-top-action-row">
+              <div id="workflowTree">
+              </div>
+            </div>
 	        </div>
         </div>
     </div>

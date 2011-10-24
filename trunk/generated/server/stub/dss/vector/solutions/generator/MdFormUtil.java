@@ -2,11 +2,14 @@ package dss.vector.solutions.generator;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.runwaysdk.business.Business;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
@@ -20,13 +23,12 @@ import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
-import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -37,9 +39,14 @@ import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
+import com.runwaysdk.system.metadata.MdWebAttributeQuery;
 import com.runwaysdk.system.metadata.MdWebField;
+import com.runwaysdk.system.metadata.MdWebFieldQuery;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
+import com.runwaysdk.system.metadata.MdWebGroup;
+import com.runwaysdk.system.metadata.MdWebReference;
+import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -56,18 +63,6 @@ import dss.vector.solutions.util.HierarchyBuilder;
 
 public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  static class FieldComparator implements Reloadable, Comparator<MdWebField>
-  {
-    @Override
-    public int compare(MdWebField field1, MdWebField field2)
-    {
-      Integer order1 = field1.getFieldOrder();
-      Integer order2 = field2.getFieldOrder();
-
-      return order1.compareTo(order2);
-    }
-  }
-
   private static final long  serialVersionUID = 1220565977;
 
   public static final String DISEASE          = "disease";
@@ -89,7 +84,131 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
   }
-
+  
+  /**
+   * Returns all fields that are candidates for conditions that this 
+   * field will reference. For example, the given field is not allowed 
+   * in the list to avoid circular references.
+   */
+  public static MdField[] getFieldsForConditions(String mdFieldId)
+  {
+    MdWebField field = MdWebField.get(mdFieldId);
+    
+    QueryFactory f = new QueryFactory();
+    MdWebAttributeQuery q = new MdWebAttributeQuery(f);
+    
+    // exclude the given MdField and references
+    q.WHERE(q.id().NE(field.getId()));
+    q.AND(q.getType().NE(MdWebReference.CLASS)); // FIXME add this as a possible condition target?
+    q.AND(q.getDefiningMdForm().EQ(field.getDefiningMdForm()));
+    
+    q.ORDER_BY_ASC(q.getFieldOrder());
+    
+    OIterator<? extends MdField> i =  q.getIterator();
+    
+    try
+    {
+      List<? extends MdField> fields = i.getAll();
+      return fields.toArray(new MdField[fields.size()]);
+    }
+    finally
+    {
+      i.close();
+    }
+  }
+  
+  /**
+   * Adds the MdField to the MdWebGroup and adds the
+   * field as the last child of the group.
+   * 
+   * @param groupId
+   * @param fieldId
+   */
+  @Transaction
+  public static void addToGroup(String groupId, String fieldId)
+  {
+    MdWebGroup group = MdWebGroup.get(groupId);
+    MdWebField field = MdWebField.get(fieldId);
+    
+    // ignore this transaction if the field already exists in the group.
+    QueryFactory f = new QueryFactory();
+    MdWebFieldQuery q = new MdWebFieldQuery(f);
+    WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
+    
+    relQ.WHERE(relQ.parentId().EQ(groupId));
+    q.WHERE(q.groupFields(relQ));
+    q.AND(q.getId().EQ(fieldId));
+    
+    if(q.getCount() > 0)
+    {
+      return;
+    }
+    
+    /*
+     * Set the order to one higher than the group if it is the first
+     * field or add it to the highest order within the group's fields.
+     */
+    Integer order = getHighestOrder(group);
+    field.appLock();
+    field.setFieldOrder(order);
+    field.apply();
+    
+    field.addGroupFields(group).apply();
+    
+    
+  }
+  
+  /**
+   * Returns the next highest Order number relative to the object with the given
+   * id, which can be an MdForm or MdWebField.
+   * 
+   * @param id
+   * @return
+   */
+  public static Integer getHighestOrder(Business obj)
+  {
+    QueryFactory f = new QueryFactory();
+    MdWebFieldQuery q = new MdWebFieldQuery(f);
+    
+    if(obj instanceof MdWebForm)
+    {
+      q.WHERE(q.getDefiningMdForm().EQ(obj.getId()));
+    }
+    else if(obj instanceof MdWebGroup)
+    {
+      WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
+      relQ.WHERE(relQ.parentId().EQ(obj.getId()));
+      q.WHERE(q.groupFields(relQ));
+    }
+    else
+    {
+      // we should never land here.
+      throw new ProgrammingErrorException("The object ["+obj+"] is not of type ["+MdWebForm.CLASS+"] or ["+MdWebGroup.CLASS+"] to retrieve the field order.");
+    }
+    
+    q.ORDER_BY_DESC(q.getFieldOrder("fieldOrder"));
+    q.restrictRows(1, 1);
+    
+    OIterator<? extends MdWebField> iter = q.getIterator();
+    
+    try
+    {
+      if(iter.hasNext())
+      {
+        Integer last = iter.next().getFieldOrder();
+        return ++last;
+      }
+      else
+      {
+        return 0;
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+  }
+  
   /**
    * Creates an MdField and the associated MdAttribute in DDMS. The mapping is
    * one-to-one.
@@ -142,16 +261,119 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return MdWebForm.get(mdTypeDAO.getId());
   }
   
-  public static MdWebField[] getFields(MdWebForm form)
+  private static void addFieldsToTree(JSONObject parent, MdWebField[] fields) throws JSONException
   {
-    OIterator<? extends MdWebField> iterator = form.getAllMdFields();
+    JSONArray fieldsArr = new JSONArray();
+    parent.put("fields", fieldsArr);
+    
+    for(MdWebField field : fields)
+    {
+      JSONObject fieldJSON = new JSONObject();
+      fieldsArr.put(fieldJSON);
+
+      fieldJSON.put("label", field.toString());
+      fieldJSON.put("id", field.getId());
+      
+      
+      if(field instanceof MdWebGroup)
+      {
+        fieldJSON.put("nodeType", "groupNode");
+        
+        MdWebField[] gFields = getGroupFields(field.getId());
+        addFieldsToTree(fieldJSON, gFields);
+      }
+      else
+      {
+        fieldJSON.put("nodeType", "fieldNode");
+      }
+    }    
+  }
+  
+  /**
+   * Returns a JSON string representing the tree structure of the form
+   * and its fields.
+   * 
+   * @param mdFormId
+   * @return
+   */
+  public static String getFormTree(String mdFormId)
+  {
+    JSONObject formJSON = new JSONObject();
+    MdWebForm form = MdWebForm.get(mdFormId);
+    try
+    {
+      formJSON.put("label", form.getDisplayLabel().getValue());
+      formJSON.put("id", form.getId());
+      formJSON.put("nodeType", "formNode");
+      
+      MdWebField[] fields = getFields(form);
+      addFieldsToTree(formJSON, fields);
+      
+      return formJSON.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException("Could not get the JSON tree for an MdForm.", e);
+    }
+  }
+  
+  /**
+   * Returns all fields in order for the MdWebGroup.
+   * 
+   * @param groupId
+   * @return
+   */
+  public static MdWebField[] getGroupFields(String groupId)
+  {
+    QueryFactory f = new QueryFactory();
+    MdWebFieldQuery q = new MdWebFieldQuery(f);
+    WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
+    
+    relQ.WHERE(relQ.parentId().EQ(groupId));
+    q.WHERE(q.groupFields(relQ));
+    
+    q.ORDER_BY_ASC(q.getFieldOrder());
+    
+    OIterator<? extends MdWebField> iterator = q.getIterator();
 
     try
     {
       List<? extends MdWebField> fields = iterator.getAll();
+      return fields.toArray(new MdWebField[fields.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
+  /**
+   * Returns all fields in order for the MdWebForm.
+   * 
+   * @param form
+   * @return
+   */
+  public static MdWebField[] getFields(MdWebForm form)
+  {
+    QueryFactory f = new QueryFactory();
+    MdWebFieldQuery q = new MdWebFieldQuery(f);
+    MdWebFieldQuery q1 = new MdWebFieldQuery(f);
+    WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
+    
+    // exclude fields that are directly beneath a group
+    relQ.WHERE(relQ.childId().EQ(q1.getId()));
+    q.AND(q.SUBSELECT_NOT_IN_groupFields(relQ));
+    
 
-      Collections.sort(fields, new FieldComparator());
+    q.WHERE(q.getDefiningMdForm().EQ(form));
+    q.ORDER_BY_ASC(q.getFieldOrder());
+    
+    
+    OIterator<? extends MdWebField> iterator = q.getIterator();
 
+    try
+    {
+      List<? extends MdWebField> fields = iterator.getAll();
       return fields.toArray(new MdWebField[fields.size()]);
     }
     finally

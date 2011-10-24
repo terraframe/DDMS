@@ -93,6 +93,14 @@ var YUI2WidgetBase = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'YUI2WidgetBase',{
         impl.destroy();
       }
     },
+    show : function()
+    {
+      this.getImpl().show();
+    },
+    hide : function()
+    {
+      this.getImpl().hide();
+    },
     /**
      * Checks if this instance delegates to a YUI2 class that defines destroy().
      * This is required per widget because YUI2 has no common base class that defines destroy().

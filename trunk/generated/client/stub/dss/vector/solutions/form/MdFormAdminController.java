@@ -8,9 +8,24 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.system.AllOperationDTO;
+import com.runwaysdk.system.CharacterOperationDTO;
+import com.runwaysdk.system.metadata.CharacterConditionDTO;
+import com.runwaysdk.system.metadata.DateConditionDTO;
+import com.runwaysdk.system.metadata.DoubleConditionDTO;
+import com.runwaysdk.system.metadata.EQFieldConditionDTO;
+import com.runwaysdk.system.metadata.FieldConditionDTO;
+import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
+import com.runwaysdk.system.metadata.MdWebCharacterDTO;
+import com.runwaysdk.system.metadata.MdWebDateDTO;
+import com.runwaysdk.system.metadata.MdWebDoubleDTO;
 import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
+import com.runwaysdk.system.metadata.MdWebLongDTO;
+import com.runwaysdk.system.metadata.MdWebNumberDTO;
+import com.runwaysdk.system.metadata.MdWebTextDTO;
+import com.runwaysdk.system.metadata.NumberConditionDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -38,6 +53,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public static final String CONFIRM_DELETE_MDFIELD_JSP  = JSP_DIR + "confirmDeleteMdField.jsp";
 
   public static final String CREATE_NEW_FORM_JSP       = JSP_DIR + "createNewForm.jsp";
+
+  public static final String NEW_CONDITION_JSP       = JSP_DIR + "newCondition.jsp";
+
+  public static final String CONDITIONS_LIST       = JSP_DIR + "conditionsList.jsp";
 
   private static final long  serialVersionUID          = -117792511;
 
@@ -439,6 +458,116 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   public void failCancel(MdWebFormDTO form) throws IOException, ServletException
   {
     this.edit(form.getId());
+  }
+  
+  @Override
+  public void getConditionList(String mdFieldId) throws IOException, ServletException
+  {
+    try
+    {
+      MdWebFieldDTO field = MdWebFieldDTO.get(this.getClientRequest(), mdFieldId);
+      FieldConditionDTO cond = field.getFieldCondition();
+      if(cond == null)
+      {
+        
+      }
+      else
+      {
+        // traverse the conditions one dimension deep (beyond that is not supported in the UI)
+      }
+      
+      MdFieldDTO[] fields = MdFormUtilDTO.getFieldsForConditions(this.getClientRequest(), mdFieldId);
+      req.setAttribute("fields", fields);
+      
+      this.req.getRequestDispatcher(CONDITIONS_LIST).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void newCondition(String mdFieldId) throws IOException, ServletException
+  {
+    try
+    {
+      // FIXME clean this up and define IFs on MdWebFieldDTO to handle creating new conditions.
+      MdWebFieldDTO mdField = MdWebFieldDTO.get(this.getClientRequest(), mdFieldId);
+      FieldConditionDTO condition = null;
+      if(mdField instanceof MdWebDateDTO)
+      {
+        DateConditionDTO c = new DateConditionDTO(this.getClientRequest());
+        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
+        condition = c;
+      }
+      else if(mdField instanceof MdWebCharacterDTO || mdField instanceof MdWebTextDTO)
+      {
+        CharacterConditionDTO c = new CharacterConditionDTO(this.getClientRequest());
+        this.req.setAttribute("operations", CharacterOperationDTO.allItems(this.getClientRequest()));
+        condition = c;
+      }
+      else if(mdField instanceof MdWebDoubleDTO)
+      {
+        DoubleConditionDTO c = new DoubleConditionDTO(this.getClientRequest());
+        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
+        condition = c;
+      }
+      else if(mdField instanceof MdWebLongDTO)
+      {
+        LongConditionDTO c = new LongConditionDTO(this.getClientRequest());
+        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
+        condition = c;
+      }
+      else if(mdField instanceof MdWebNumberDTO)
+      {
+        NumberConditionDTO c = new NumberConditionDTO(this.getClientRequest());
+        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
+        condition = c;
+      }
+      else
+      {
+        EQFieldConditionDTO c = new EQFieldConditionDTO(this.getClientRequest());
+//        this.req.setAttribute("operations", AllOperationDTO.EQ);
+        condition = c;
+      }
+      
+      this.req.setAttribute("definingMdField", mdFieldId);
+      this.req.setAttribute("condition", condition);
+      
+      this.req.getRequestDispatcher(NEW_CONDITION_JSP).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void createCondition(String mdFieldId, FieldConditionDTO condition) throws IOException,
+      ServletException
+  {
+    try
+    {
+      
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+  
+  @Override
+  public void cancelCondition(FieldConditionDTO condition) throws IOException, ServletException
+  {
+    try
+    {
+      
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
   }
 
   @Override

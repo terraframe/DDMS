@@ -11,9 +11,6 @@
   <mjl:dt attribute="description">
     <mjl:input param="description" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="fieldOrder">
-    <mjl:input param="fieldOrder" type="text" />
-  </mjl:dt>
   <mjl:dt attribute="required">
     <mjl:boolean param="required" />
   </mjl:dt>
