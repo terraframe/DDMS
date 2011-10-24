@@ -35,8 +35,14 @@
             name="survey"
             label="Survey"
             type="dss.vector.solutions.form.business.FormSurvey"
-            required="true" />
+            required="true"
+            removable="false" />
         </attributes>
+        <mdMethod
+          name="getBedNets"
+          label="Get Bed Nets"
+          returnType="dss.vector.solutions.form.business.FormBedNet[]"
+          static="false" />
       </mdBusiness>
 
       <mdWebForm
@@ -67,11 +73,14 @@
             name="household"
             label="household"
             type="dss.vector.solutions.form.business.FormHousehold"
-            required="true" />
+            required="true"
+            removable="false" />
           <char
             name="netId"
             label="Net id"
-            size="255" />
+            size="255"
+            removable="false"
+            indexType="unique index" />
         </attributes>
       </mdBusiness>
 
@@ -95,7 +104,8 @@
             mdAttribute="household" />
         </fields>
       </mdWebForm>
-            <mdBusiness
+
+      <mdBusiness
         name="dss.vector.solutions.form.business.FormPerson"
         label="Person"
         description="Form person survey"
@@ -109,11 +119,13 @@
             name="household"
             label="household"
             type="dss.vector.solutions.form.business.FormHousehold"
-            required="true" />
+            required="true"
+            removable="false" />
           <reference
             name="net"
             label="net"
-            type="dss.vector.solutions.form.business.FormBedNet" />
+            type="dss.vector.solutions.form.business.FormBedNet"
+            removable="false" />
         </attributes>
       </mdBusiness>
 
@@ -127,14 +139,14 @@
             name="household"
             label="Household"
             order="-2"
-            mdAttribute="household" />            
+            mdAttribute="household" />
           <reference
             name="net"
             label="Net"
             order="-1"
             mdAttribute="net" />
         </fields>
-      </mdWebForm>      
+      </mdWebForm>
     </create>
   </doIt>
   <undoIt>
@@ -144,7 +156,7 @@
         type="com.runwaysdk.system.metadata.MdForm" />
       <object
         key="dss.vector.solutions.form.business.FormPerson"
-        type="com.runwaysdk.system.metadata.MdBusiness" />    
+        type="com.runwaysdk.system.metadata.MdBusiness" />
       <object
         key="dss.vector.solutions.form.FormBedNet"
         type="com.runwaysdk.system.metadata.MdForm" />

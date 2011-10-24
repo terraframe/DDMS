@@ -9,4 +9,15 @@ public class FormBedNet extends FormBedNetBase implements com.runwaysdk.generati
     super();
   }
   
+  @Override
+  protected String buildKey()
+  {
+    if(this.getNetId() != null && this.getNetId().length() > 0)
+    {
+      return this.getNetId();
+    }
+    
+    return super.buildKey();
+  }
+  
 }

@@ -27,7 +27,8 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
 
-<c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+
+<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
 <style type="text/css">
 .yui3-tab-panel {
@@ -136,6 +137,7 @@ MdWebDateDTO.CLASS,
 MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
 MdWebBooleanDTO.CLASS,
+MdWebReferenceDTO.CLASS,
 
 // Display related
 MdWebBreakDTO.CLASS,

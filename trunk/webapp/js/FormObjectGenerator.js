@@ -67,6 +67,63 @@ Mojo.Meta.newClass('dss.vector.solutions.BeforeQueryEvent', {
   }
 });
 
+Mojo.Meta.newClass('dss.vector.solutions.RenderFieldEvent', {
+  IsAbstract : true,
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function (field, dt, dtFragment, dd, ddFragment) {
+      this.$initialize();
+      
+      this._field = field;
+      this._dt = dt;
+      this._dtFragment = dtFragment;
+      this._dd = dd;
+      this._ddFragment = ddFragment;
+    },
+    getField : function() {
+      return this._field;
+    },
+    getDT : function() {
+      return this._dt;
+    },
+    getDTFragment : function() {
+      return this._dtFragment;
+    },
+    getDD : function() {
+      return this._dd;
+    },
+    getDDFragment : function() {
+      return this._ddFragment;
+    },    
+    setDDFragment : function(ddFragment) {
+      this._ddFragment = ddFragment;
+    },    
+    defaultAction : function() {
+      this._dt.appendChild(this._dtFragment);
+      this._dd.appendChild(this._ddFragment);
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.RenderEditFieldEvent', {
+  Extends : Mojo.$.dss.vector.solutions.RenderFieldEvent,
+  Instance : {
+    initialize : function (field, dt, dtFragment, dd, ddFragment) {
+      this.$initialize(field, dt, dtFragment, dd, ddFragment);
+    }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.RenderViewFieldEvent', {
+  Extends : Mojo.$.dss.vector.solutions.RenderFieldEvent,
+  Instance : {
+    initialize : function (field, dt, dtFragment, dd, ddFragment) {
+      this.$initialize(field, dt, dtFragment, dd, ddFragment);
+    }
+  }
+});
+
+
 Mojo.Meta.newClass('dss.vector.solutions.RenderViewEvent', {
   Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
   Instance : {
@@ -404,14 +461,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         dl.appendChild(dt);
         dl.appendChild(dd);
         
+        var dtFragment = this._factory.newElement('span');
+        var ddFragment = this._factory.newElement('div');
+        
         var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
         if(field instanceof FIELD.WebDate)
         {
           value = MDSS.Calendar.getLocalizedString(value);
         }
         
-        dt.setInnerHTML(field.getFieldMd().getDisplayLabel());
-        dd.setInnerHTML(value);
+        dtFragment.setInnerHTML(field.getFieldMd().getDisplayLabel());
+        ddFragment.setInnerHTML(value);
+        
+        this.dispatchEvent(new dss.vector.solutions.RenderViewFieldEvent(field, dt, dtFragment, dd, ddFragment));
       }
       
       // edit
@@ -487,6 +549,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         dl.appendChild(dt);
         dl.appendChild(dd);
         
+        var dtFragment = this._factory.newElement('span');
+        var ddFragment = this._factory.newElement('div');
+        
         var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
         
         // display and annotation fields
@@ -494,17 +559,17 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         {
           var h = this._factory.newElement('h2');
           h.setInnerHTML(value);
-          dd.appendChild(h);
+          ddFragment.appendChild(h);
           continue;
         }
         else if(field instanceof FIELD.WebBreak)
         {
-          dd.setInnerHTML('<hr />');
+          ddFragment.setInnerHTML('<hr />');
           continue;
         }
         else if(field instanceof FIELD.WebComment)
         {
-          dd.setInnerHTML(value);
+          ddFragment.setInnerHTML(value);
           continue;
         }
         
@@ -534,7 +599,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           'title': desc
         });
         labelEl.setInnerHTML(labelTxt);
-        dt.appendChild(labelEl);
+        dtFragment.appendChild(labelEl);
         
         if(field instanceof FIELD.WebBoolean)
         {
@@ -570,10 +635,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             }
           }
           
-          dd.appendChild(radioT);
-          dd.appendChild(tLabel);
-          dd.appendChild(radioF);
-          dd.appendChild(fLabel);
+          ddFragment.appendChild(radioT);
+          ddFragment.appendChild(tLabel);
+          ddFragment.appendChild(radioF);
+          ddFragment.appendChild(fLabel);          
         }
         else if(field instanceof FIELD.WebCharacter)
         {
@@ -585,7 +650,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             'size':field.getFieldMd().getDisplayLength()
           });
           
-          dd.appendChild(input);
+          ddFragment.appendChild(input);
         }
         else if(field instanceof FIELD.WebReference)
         {
@@ -597,19 +662,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             'size':64
           });
           
-          dd.appendChild(input);
+          ddFragment.appendChild(input);
         }        
         else if(field instanceof FIELD.WebText)
         {
           var textArea = this._factory.newElement('textarea', {
             'name':field.getFieldName(),
             'rows':field.getFieldMd().getHeight(),
-            'cols':field.getFieldMd().getWidth()
+            'cols':field.getFieldMd().getWidtFragmenth()
           });
           
           textArea.setInnerHTML(value);
           
-          dd.appendChild(textArea);
+          ddFragment.appendChild(textArea);
         }
         else if(field instanceof FIELD.WebDec)
         {
@@ -619,7 +684,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             'value':value
           });
           
-          dd.appendChild(input);
+          ddFragment.appendChild(input);
         }
         else if(field instanceof FIELD.WebNumber)
         {
@@ -629,7 +694,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             'value':value
           });
           
-          dd.appendChild(input);
+          ddFragment.appendChild(input);
         }
         else if(field instanceof FIELD.WebDate)
         {
@@ -641,7 +706,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             'value':value
           });
           MDSS.Calendar.addCalendarListeners(input.getRawEl());
-          dd.appendChild(input);
+          ddFragment.appendChild(input);
         }
         else
         {
@@ -659,8 +724,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           errorContainer.addClassName('alertbox');
           errorContainer.setStyle('margin-left', '20px');
           errorContainer.setStyle('visibility', 'hidden');
-          dd.appendChild(errorContainer);
+          ddFragment.appendChild(errorContainer);
         }
+        
+        this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
       }
       
       // Add the action buttons
@@ -716,7 +783,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         if(values.containsKey(name))
         {
           var value = values.get(name);
-          field.setValue(value);
+          
+          if(field instanceof FIELD.WebReference && Mojo.Util.isArray(value)) 
+          {        
+            field.setValue(value[0]);
+          }
+          else
+          {
+            field.setValue(value);
+          }
         }
       }
     },

@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -431282899)
+@com.runwaysdk.business.ClassSignature(hash = 2087750877)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form.business;
 public  class FormHouseholdQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -431282899;
+private static final long serialVersionUID = 2087750877;
 
   public FormHouseholdQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -447,7 +447,7 @@ private static final long serialVersionUID = -431282899;
  implements FormHouseholdQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1446649035;
+private static final long serialVersionUID = -264351873;
 
   public FormHouseholdQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {

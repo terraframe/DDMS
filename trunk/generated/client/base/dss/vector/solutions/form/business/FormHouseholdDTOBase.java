@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1256934070)
+@com.runwaysdk.business.ClassSignature(hash = 1084782388)
 public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormHousehold";
-  private static final long serialVersionUID = 1256934070;
+  private static final long serialVersionUID = 1084782388;
   
   protected FormHouseholdDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -483,6 +483,22 @@ public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurveyMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURVEY).getAttributeMdDTO();
+  }
+  
+  public final dss.vector.solutions.form.business.FormBedNetDTO[] getBedNets()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormHouseholdDTO.CLASS, "getBedNets", _declaredTypes);
+    return (dss.vector.solutions.form.business.FormBedNetDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.form.business.FormBedNetDTO[] getBedNets(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormHouseholdDTO.CLASS, "getBedNets", _declaredTypes);
+    return (dss.vector.solutions.form.business.FormBedNetDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.form.business.FormHouseholdDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

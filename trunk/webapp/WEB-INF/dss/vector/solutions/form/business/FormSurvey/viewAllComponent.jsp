@@ -25,7 +25,8 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
 
-<c:set var="page_title" value="Form_Generator"  scope="request"/>
+
+<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 
@@ -55,6 +56,7 @@ MdWebDateDTO.CLASS,
 MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
 MdWebBooleanDTO.CLASS,
+MdWebReferenceDTO.CLASS,
 
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
@@ -66,7 +68,9 @@ out.print(js);
 %>
 
 YAHOO.util.Event.onDOMReady(function(){
-
+  var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE+'*');
+  UI.Manager.setFactory("YUI3");
+  
   var preBedNetApply = function(e) {
     var form = e.getFormObject();
     var fieldMap = form.getFieldMap();
@@ -95,6 +99,86 @@ YAHOO.util.Event.onDOMReady(function(){
     }
   };
 
+  var personRenderViewField = function(e) {
+    if(e.getField().getFieldName() == 'household') {
+      e.preventDefault();
+    }
+  };  
+
+  var personRenderEditField = function(e) {
+    if(e.getField().getFieldName() == 'household') {
+      e.preventDefault();
+    }
+    if(e.getField().getFieldName() == 'net') {
+      e.getDDFragment().destroy();
+      
+      var factory = UI.Manager.getFactory();
+            
+      var div = factory.newElement('div');
+      
+      e.setDDFragment(div);      
+                        
+      var request = new MDSS.Request({
+        value : e.getField().getValue(),
+        factory : factory,
+        div : div,
+        onSuccess : function(bednets){
+          var select = factory.newElement('select', {
+           'name':e.getField().getFieldName(),
+          });                 
+
+
+          // Add the blank option
+          var option = factory.newElement('option', {
+              'value' : '',
+          });
+          option.setInnerHTML('');
+          select.appendChild(option);                   
+          
+
+          // Add an option for every bed net that is in the household
+          var fieldValue = e.getField().getValue();
+          
+          for(var i = 0; i < bednets.length; i++) {
+            var label = bednets[i].getNetId();            
+            var value = bednets[i].getId();
+
+            if(label == fieldValue) 
+            {
+              var option = factory.newElement('option', {
+                'label' : label,
+                'value' : value,
+                'selected' : 'selected'
+              });
+              option.setInnerHTML(label);
+            
+              select.appendChild(option);
+            }
+            else
+            {
+              var option = factory.newElement('option', {
+               'label' : label,
+               'value' : value,
+              });
+              option.setInnerHTML(label);
+                
+              select.appendChild(option);                   
+            }
+                
+          }
+
+          div.appendChild(select);
+        }        
+      });
+
+      var dataId = household.getFormObject().getDataId()
+      if(dataId != null)
+      {
+        dss.vector.solutions.form.business.FormHousehold.getBedNets(request, dataId);
+      }
+    }
+  };  
+
   var person = new dss.vector.solutions.FormObjectGenerator('person', '${personFormId}', '${personClassType}');
   person.addEventListener(dss.vector.solutions.NewInstanceEvent, function(e){ household.hide(); bedNet.hide();});  
   person.addEventListener(dss.vector.solutions.RenderViewEvent, function(e){ household.hide(); bedNet.hide();});  
@@ -104,6 +188,8 @@ YAHOO.util.Event.onDOMReady(function(){
   person.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforeBedNetQuery);  
   person.addEventListener(dss.vector.solutions.DeleteEvent, function(e){household.renderView();});
   person.addEventListener(dss.vector.solutions.CancelEvent, personCancel);
+  person.addEventListener(dss.vector.solutions.RenderViewFieldEvent, personRenderViewField);  
+  person.addEventListener(dss.vector.solutions.RenderEditFieldEvent, personRenderEditField);     
   person.hide();
   
   var preBedNetApply = function(e) {
@@ -143,6 +229,16 @@ YAHOO.util.Event.onDOMReady(function(){
   bedNet.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforeBedNetQuery);  
   bedNet.addEventListener(dss.vector.solutions.DeleteEvent, function(e){household.renderView();});
   bedNet.addEventListener(dss.vector.solutions.CancelEvent, bedNetCancel);
+  bedNet.addEventListener(dss.vector.solutions.RenderViewFieldEvent, function(e){
+      if(e.getField().getFieldName() == 'household') {
+        e.preventDefault();
+      }
+    });  
+  bedNet.addEventListener(dss.vector.solutions.RenderEditFieldEvent, function(e){
+    if(e.getField().getFieldName() == 'household') {
+      e.preventDefault();
+    }
+  });     
   bedNet.hide();
 
   var preHouseholdApply = function(e) {
@@ -186,6 +282,16 @@ YAHOO.util.Event.onDOMReady(function(){
   household.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforeHouseholdQuery);  
   household.addEventListener(dss.vector.solutions.DeleteEvent, function(e){survey.renderView();});
   household.addEventListener(dss.vector.solutions.CancelEvent, householdCancel);
+  household.addEventListener(dss.vector.solutions.RenderViewFieldEvent, function(e){
+    if(e.getField().getFieldName() == 'survey') {
+      e.preventDefault();
+    }
+  });  
+  household.addEventListener(dss.vector.solutions.RenderEditFieldEvent, function(e){
+    if(e.getField().getFieldName() == 'survey') {
+        e.preventDefault();
+    }
+  });    
   household.addEventListener(dss.vector.solutions.ViewAllEvent, function(e){ 
     bedNet.hide();
     person.hide();

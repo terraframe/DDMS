@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -1689338113)
+@com.runwaysdk.business.ClassSignature(hash = 1613494987)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form.business;
 public class FormHouseholdQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1689338113;
+private static final long serialVersionUID = 1613494987;
 
   protected FormHouseholdQueryDTO(String type)
   {
