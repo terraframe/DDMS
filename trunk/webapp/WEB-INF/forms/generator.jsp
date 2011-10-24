@@ -30,7 +30,8 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
-<c:set var="page_title" value="Form_Generator"  scope="request"/>
+
+<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
@@ -59,6 +60,7 @@ MdWebDateDTO.CLASS,
 MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
 MdWebBooleanDTO.CLASS,
+MdWebReferenceDTO.CLASS,
 
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
