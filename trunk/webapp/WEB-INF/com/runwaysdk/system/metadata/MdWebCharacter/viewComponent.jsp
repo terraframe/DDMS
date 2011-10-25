@@ -10,12 +10,6 @@
   <mjl:form id="com.runwaysdk.system.metadata.MdWebCharacter.form.id" name="com.runwaysdk.system.metadata.MdWebCharacter.form.name" method="POST">
     <mjl:input param="id" value="${item.id}" type="hidden" />
     <mjl:component param="dto" item="${item}">
-      <mjl:dt attribute="displayLength">
-        ${item.displayLength}
-      </mjl:dt>
-      <mjl:dt attribute="maxLength">
-        ${item.maxLength}
-      </mjl:dt>
       <mjl:dt attribute="definingMdAttribute">
         ${item.definingMdAttribute.keyName}
       </mjl:dt>

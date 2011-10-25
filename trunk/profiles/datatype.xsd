@@ -281,6 +281,7 @@
     <xs:attribute name="order" type="xs:string" />
     <xs:attribute name="label" type="xs:string" />
     <xs:attribute name="description" type="xs:string" />
+    <xs:attribute name="removable" type="xs:boolean" />
   </xs:attributeGroup>
 
   <xs:attributeGroup name="mdWebAttribute">

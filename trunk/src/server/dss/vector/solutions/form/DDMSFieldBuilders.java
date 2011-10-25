@@ -46,6 +46,7 @@ import com.runwaysdk.system.metadata.MdWebInteger;
 import com.runwaysdk.system.metadata.MdWebLong;
 import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
+import com.runwaysdk.system.metadata.MdWebReference;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.MdWebText;
@@ -79,6 +80,7 @@ public class DDMSFieldBuilders implements Reloadable
     builders.put(MdWebSingleTerm.CLASS, new WebSingleTermBuilder());
     builders.put(MdWebSingleTermGrid.CLASS, new WebSingleTermGridBuilder());
     builders.put(MdWebText.CLASS, new WebTextBuilder());
+    builders.put(MdWebReference.CLASS, new WebReferenceBuilder());
     builders.put(MdWebGroup.CLASS, new WebGroupBuilder());
   }
 
@@ -356,6 +358,15 @@ public class DDMSFieldBuilders implements Reloadable
     }
   }
 
+  public static class WebReferenceBuilder extends WebAttributeBuilder implements Reloadable
+  {
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttr, MdWebField mdField)
+    {
+      super.updateMdAttribute(mdAttr, mdField);
+    }
+  }
+  
   public static class WebTextBuilder extends WebPrimitiveBuilder implements Reloadable
   {
     @Override

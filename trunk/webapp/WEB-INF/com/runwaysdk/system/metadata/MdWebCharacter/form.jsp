@@ -4,13 +4,4 @@
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebField/form.jsp" %>
-  <mjl:dt attribute="displayLength">
-    <mjl:input param="displayLength" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="maxLength">
-    <mjl:input param="maxLength" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="unique">
-    <mjl:boolean param="unique" />
-  </mjl:dt>  
 </mjl:component>
