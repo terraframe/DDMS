@@ -46,6 +46,7 @@ import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebReference;
+import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 
 import dss.vector.solutions.MDSSInfo;
@@ -142,6 +143,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     if(q.getCount() > 0)
     {
       return;
+    }
+    
+    // remove any previous group associations
+    for(WebGroupField rel : field.getAllGroupFieldsRel())
+    {
+      rel.delete();
     }
     
     /*
@@ -391,13 +398,61 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Transaction
   public static void reorderFields(String[] ids)
   {
-    for (int i = 0; i < ids.length; i++)
+    // FIXME: extract to a separate method
+    String fieldId = ids[0];
+    String previousId = ids[1];
+    
+    MdWebField field = MdWebField.get(fieldId);
+    MdWebField prev = MdWebField.get(previousId);
+    
+    // remove the field from any prior groups and re-add it to the group of the
+    // previous field--no point in being clever with diffing the groups.
+    for(WebGroupField rel : field.getAllGroupFieldsRel())
     {
-      String id = ids[i];
-      MdWebField field = MdWebField.get(id);
-      field.appLock();
-      field.setFieldOrder(i);
-      field.apply();
+      rel.delete();
+    }
+    
+    MdWebGroup group = null;
+    for(MdWebGroup prevGroup : prev.getAllGroupFields())
+    {
+      field.addGroupFields(prevGroup).apply();
+      group = prevGroup;
+    }
+    
+    // set the order of the field to one higher than the previous
+    // and shift the rest of the fields up.
+    MdWebField[] fields; // fields in order
+    if(group != null)
+    {
+      fields = getGroupFields(group.getId());
+    }
+    else
+    {
+      fields = getFields(field.getDefiningMdForm());
+    }
+    
+    Integer prevOrder = null;
+    for(MdWebField f : fields)
+    {
+      if(f.equals(field))
+      {
+        continue;
+      }
+      
+      if(f.equals(prev))
+      {
+        prevOrder = f.getFieldOrder();
+        field.appLock();
+        field.setFieldOrder(++prevOrder);
+        field.apply();
+      }
+      else if(prevOrder != null)
+      {
+        // increment the rest of the fields after the target field
+        f.appLock();
+        f.setFieldOrder(++prevOrder);
+        f.apply();
+      }
     }
   }
 
@@ -513,16 +568,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void confirmDeleteMdField(String mdFormId, String mdFieldId)
   {
     MdWebForm mdForm = MdWebForm.get(mdFormId);
-    MdWebField[] fields = getFields(mdForm);
-    MdWebField mdField = null;
-    for (MdWebField field : fields)
-    {
-      if (field.getId().equals(mdFieldId))
-      {
-        mdField = field;
-        break;
-      }
-    } 
+    MdWebField mdField = MdWebField.get(mdFieldId);
     ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
     ex.setMdFormName(mdForm.getFormName());
     ex.setMdFieldName(mdField.getFieldName());
@@ -544,6 +590,20 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
       else
       {
+        // if this is a group then remove all of its children and append them to the
+        // end of the form.
+        if(mdField instanceof MdWebGroup)
+        {
+          Integer order = getHighestOrder(mdForm);
+          
+          for(MdWebField f : getGroupFields(mdField.getId()))
+          {
+            f.appLock();
+            f.setFieldOrder(++order);
+            f.apply();
+          }
+        }
+        
         mdField.delete();
       }
     }

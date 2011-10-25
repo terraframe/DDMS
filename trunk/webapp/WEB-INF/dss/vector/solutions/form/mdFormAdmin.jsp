@@ -138,7 +138,6 @@ MdWebDateDTO.CLASS,
 MdWebCharacterDTO.CLASS,
 MdWebTextDTO.CLASS,
 MdWebBooleanDTO.CLASS,
-MdWebReferenceDTO.CLASS,
 
 // Display related
 MdWebBreakDTO.CLASS,

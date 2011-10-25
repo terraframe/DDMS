@@ -2,9 +2,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
-  <mjl:dt attribute="fieldName">
-    <mjl:input param="fieldName" type="text" />
-  </mjl:dt>
   <mjl:dt attribute="displayLabel">
     <mjl:input param="displayLabel" type="text" />
   </mjl:dt>

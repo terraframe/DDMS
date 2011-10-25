@@ -7,12 +7,12 @@
   <mjl:message />
 </mjl:messages>
 <h2 class="fieldTitle">${item.md.displayLabel}</h2>
-<dl>
   <mjl:form id="com.runwaysdk.system.metadata.MdWebFloat.form.id" name="com.runwaysdk.system.metadata.MdWebFloat.form.name" method="POST">
+<dl>
     <%@include file="form.jsp" %>
+</dl>
     <mdss:localize var="Update_Localize" key="Update" />
     <mjl:command name="dss.vector.solutions.form.MdFormAdminController.updateMdField.button" value="${Update_Localize}" action="dss.vector.solutions.form.MdFormAdminController.updateMdField.mojo" />
     <mdss:localize var="Cancel_Localize" key="Cancel" />
     <mjl:command name="dss.vector.solutions.form.MdFormAdminController.cancelMdField.button" value="${Cancel_Localize}" action="dss.vector.solutions.form.MdFormAdminController.cancelMdField.mojo" />
   </mjl:form>
-</dl>

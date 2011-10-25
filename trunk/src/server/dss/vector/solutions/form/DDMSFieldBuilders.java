@@ -9,10 +9,11 @@ import com.runwaysdk.constants.IndexTypes;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeCharacterInfo;
 import com.runwaysdk.constants.MdWebCharacterInfo;
+import com.runwaysdk.dataaccess.EntityDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.attributes.EmptyValueProblem;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
 import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
@@ -36,7 +37,6 @@ import com.runwaysdk.system.metadata.MdWebDateTime;
 import com.runwaysdk.system.metadata.MdWebDecimal;
 import com.runwaysdk.system.metadata.MdWebDouble;
 import com.runwaysdk.system.metadata.MdWebField;
-import com.runwaysdk.system.metadata.MdWebFieldQuery;
 import com.runwaysdk.system.metadata.MdWebFloat;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebGeo;
@@ -85,7 +85,6 @@ public class DDMSFieldBuilders implements Reloadable
   /**
    * Creates the MdField and the underlying MdAttribute if one exists for the
    * field type.
-   * 
    * @param mdField
    * @param mdClassId
    */
@@ -114,6 +113,44 @@ public class DDMSFieldBuilders implements Reloadable
    */
   private static abstract class WebFieldBuilder implements Reloadable
   {
+
+    /**
+     * Validates an MdField and sets the field name.
+     * 
+     * @param mdField
+     * @return
+     */
+    protected void setupAndValidateMdField(MdField mdField)
+    {
+      // FIXME how to validate non-new display labels? The old one is just being used
+      
+      if(mdField.isNew())
+      {
+        // the display label is required because it is used to generate the field
+        // name, and it is the only UI label available to the user.
+        String display = mdField.getDisplayLabel().getValue();
+        if (display == null || display.trim().length() == 0)
+        {
+          String msg = "";
+          MdAttributeDAOIF md = MdField.getDisplayLabelMd();
+          EntityDAOIF field = BusinessFacade.getEntityDAO(mdField);
+          EmptyValueProblem p = new EmptyValueProblem(mdField.getId(), mdField.getMdClass(),
+              md, msg, field.getAttributeIF(MdField.DISPLAYLABEL));
+          p.throwIt();
+        }
+  
+        convertDisplayLabelToFieldName(mdField);
+      }
+    }
+
+    @AbortIfProblem
+    private void convertDisplayLabelToFieldName(MdField mdField)
+    {
+      String displayLabel = mdField.getDisplayLabel().getValue();
+      String fieldName = GeoHierarchy.getSystemName(displayLabel, "Attr", false);
+      mdField.setFieldName(fieldName);
+    }
+    
     /**
      * Builds a new MdAttributeDAO based on the MdField type. Subclasses should
      * override and call this method to set attribute specific information.
@@ -124,10 +161,13 @@ public class DDMSFieldBuilders implements Reloadable
      */
     protected void create(MdField mdField, MdWebForm webForm)
     {
-      // update the field order to one greater than the last field (to simply append it)
+      // update the field order to one greater than the last field (to simply
+      // append it)
+      
+      this.setupAndValidateMdField(mdField);
+      
       Integer order = MdFormUtil.getHighestOrder(webForm);
       mdField.setFieldOrder(order);
-      
       mdField.apply();
     }
 
@@ -139,17 +179,6 @@ public class DDMSFieldBuilders implements Reloadable
 
   public static abstract class WebAttributeBuilder extends WebFieldBuilder implements Reloadable
   {
-
-    /**
-     * Validates an MdField
-     * 
-     * @param mdField
-     * @return
-     */
-    protected void validateMdField(MdField mdField)
-    {
-      mdField.validateFieldName();
-    }
 
     /**
      * Creates the MdAttribute that maps directly to the MdField.
@@ -164,9 +193,7 @@ public class DDMSFieldBuilders implements Reloadable
       if (mdAttr.isNew())
       {
         mdAttr.setDefiningMdClass(mdField.getDefiningMdForm().getFormMdClass());
-        mdAttr.setAttributeName(GeoHierarchy.getSystemName(mdField.getFieldName(), "Attr", false)); // FIXME
-        // auto-gen
-        // name?
+        mdAttr.setAttributeName(mdField.getFieldName());
       }
 
       mdAttr.setRequired(mdField.getRequired());
@@ -182,16 +209,13 @@ public class DDMSFieldBuilders implements Reloadable
     protected void create(MdField mdField, MdWebForm webForm)
     {
       MdWebPrimitive webPrimitive = (MdWebPrimitive) mdField;
-      String mdAttributeType = webPrimitive.getExpectedMdAttributeType(); // FIXME
-      // move
-      // to
-      // MdWebAttribute
+      String mdAttributeType = webPrimitive.getExpectedMdAttributeType();
 
       // We are not supporting virtual attributes right now ... so no need to
       // complicate things
       MdAttributeConcrete mdAttr = (MdAttributeConcrete) BusinessFacade.newBusiness(mdAttributeType);
       webPrimitive.setDefiningMdForm(webForm);
-      this.validateMdField(mdField);
+      this.setupAndValidateMdField(mdField);
       this.updateMdAttribute(mdAttr, webPrimitive);
       mdAttr.apply();
 
@@ -206,14 +230,14 @@ public class DDMSFieldBuilders implements Reloadable
       MdAttributeConcrete mdAttr = (MdAttributeConcrete) webAttribute.getDefiningMdAttribute();
 
       mdAttr.appLock();
-      this.validateMdField(mdField);
+      this.setupAndValidateMdField(mdField);
       this.updateMdAttribute(mdAttr, webAttribute);
       mdAttr.apply();
 
       super.update(mdField);
     }
   }
-  
+
   public static class WebGroupBuilder extends WebFieldBuilder implements Reloadable
   {
     @Override

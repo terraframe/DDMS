@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -1672474235)
+@com.runwaysdk.business.ClassSignature(hash = -1129715692)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -1672474235;
+  private static final long serialVersionUID = -1129715692;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,6 +17,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
   }
   
   public static java.lang.String ID = "id";
+  public static final void addToGroup(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String groupId, java.lang.String fieldId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{groupId, fieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "addToGroup", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.system.metadata.MdWebFormDTO apply(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebFormDTO mdForm)
   {
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm"};
@@ -38,6 +46,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{mdFormId, mdFieldId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "confirmDeleteMdField", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void createCondition(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFieldId, com.runwaysdk.system.metadata.FieldConditionDTO condition)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "com.runwaysdk.system.metadata.FieldCondition"};
+    Object[] _parameters = new Object[]{mdFieldId, condition};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "createCondition", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -70,6 +86,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm", "com.runwaysdk.system.metadata.MdWebField"};
     Object[] _parameters = new Object[]{mdForm, mdField};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "deleteField", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void deleteGroup(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String groupId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{groupId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "deleteGroup", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -121,6 +145,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (com.runwaysdk.system.metadata.MdWebFieldDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final com.runwaysdk.system.metadata.MdFieldDTO[] getFieldsForConditions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFieldId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{mdFieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getFieldsForConditions", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdFieldDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.system.metadata.MdWebFormDTO getForm(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String type)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
@@ -129,12 +161,36 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final java.lang.String getFormTree(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFormId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{mdFormId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getFormTree", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdWebFieldDTO[] getGroupFields(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String groupId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{groupId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getGroupFields", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebFieldDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.system.metadata.MdRelationshipDTO getMdRelationship(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebFieldDTO field)
   {
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebField"};
     Object[] _parameters = new Object[]{field};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getMdRelationship", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdRelationshipDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void removeFromGroup(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String groupId, java.lang.String fieldId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{groupId, fieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "removeFromGroup", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void reorderFields(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String[] ids)
