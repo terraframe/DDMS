@@ -25,7 +25,6 @@ import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebLongDTO;
 import com.runwaysdk.system.metadata.MdWebNumberDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
-import com.runwaysdk.system.metadata.NumberConditionDTO;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -521,9 +520,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       }
       else if(mdField instanceof MdWebNumberDTO)
       {
-        NumberConditionDTO c = new NumberConditionDTO(this.getClientRequest());
-        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
-        condition = c;
+//        NumberConditionDTO c = new NumberConditionDTO(this.getClientRequest());
+//        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
+//        condition = c;
       }
       else
       {
