@@ -448,10 +448,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       {
         var field = fields[i];
       
-        if(!field.isReadable() || 
-          field instanceof FIELD.WebHeader ||
-          field instanceof FIELD.WebBreak ||
-          field instanceof FIELD.WebComment)
+        if(!field.isReadable())
         {
           continue;
         }
@@ -465,13 +462,32 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         var ddFragment = this._factory.newElement('div');
         
         var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
-        if(field instanceof FIELD.WebDate)
-        {
-          value = MDSS.Calendar.getLocalizedString(value);
-        }
         
-        dtFragment.setInnerHTML(field.getFieldMd().getDisplayLabel());
-        ddFragment.setInnerHTML(value);
+        // display and annotation fields
+        if(field instanceof FIELD.WebHeader)
+        {
+          var h = this._factory.newElement('h2');
+          h.setInnerHTML(value);
+          ddFragment.appendChild(h);         
+        }
+        else if(field instanceof FIELD.WebBreak)
+        {
+          ddFragment.setInnerHTML('<hr />');          
+        }
+        else if(field instanceof FIELD.WebComment)
+        {
+          ddFragment.setInnerHTML(value);
+        }
+        else
+        {
+          if(field instanceof FIELD.WebDate)
+          {
+            value = MDSS.Calendar.getLocalizedString(value);
+          }
+        
+          dtFragment.setInnerHTML(field.getFieldMd().getDisplayLabel());
+          ddFragment.setInnerHTML(value);        
+        }
         
         this.dispatchEvent(new dss.vector.solutions.RenderViewFieldEvent(field, dt, dtFragment, dd, ddFragment));
       }
@@ -559,17 +575,23 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         {
           var h = this._factory.newElement('h2');
           h.setInnerHTML(value);
-          ddFragment.appendChild(h);
+          ddFragment.appendChild(h);         
+          this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
+
           continue;
         }
         else if(field instanceof FIELD.WebBreak)
         {
-          ddFragment.setInnerHTML('<hr />');
+          ddFragment.setInnerHTML('<hr />');          
+          this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
+
           continue;
         }
         else if(field instanceof FIELD.WebComment)
         {
           ddFragment.setInnerHTML(value);
+          this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
+
           continue;
         }
         
