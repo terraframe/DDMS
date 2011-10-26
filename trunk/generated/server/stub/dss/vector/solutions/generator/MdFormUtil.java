@@ -11,7 +11,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -30,9 +32,11 @@ import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.system.metadata.AndFieldCondition;
+import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
 import com.runwaysdk.system.metadata.FieldCondition;
 import com.runwaysdk.system.metadata.MdAttribute;
@@ -243,6 +247,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return mdField;
   }
   
+  
+  
   private static void rebuildConditions(Stack<FieldCondition> conds, AndFieldCondition parent)
   {
     FieldCondition sec = conds.pop();
@@ -266,18 +272,45 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     parent.apply();
   }
   
+  /**
+   * Copies a non-composite condition and returns the applied object.
+   * 
+   */
+  // FIXME push to clone() method?
+  private static FieldCondition copyCondition(FieldCondition original)
+  {
+    FieldCondition copy;
+    try
+    {
+      copy = (FieldCondition) LoaderDecorator.load(original.getClass().getName()).newInstance();
+    }
+    catch (Throwable t)
+    {
+      throw new ProgrammingErrorException(t);
+    }
+    
+    if(original.hasAttribute(CharacterCondition.OPERATION))
+    {
+      copy.addEnumItem(CharacterCondition.OPERATION, original.getEnumValues(CharacterCondition.OPERATION).get(0).getId());
+    }
+    copy.setValue(CharacterCondition.DEFININGMDFIELD, original.getValue(CharacterCondition.DEFININGMDFIELD));
+    copy.setValue(CharacterCondition.VALUE, original.getValue(CharacterCondition.VALUE));
+    
+    copy.apply();
+    return  copy;
+  }
+  
   @Transaction
   public static void deleteCondition(String mdFieldId, String conditionId)
   {
     MdField field = MdField.get(mdFieldId);
+    FieldCondition root = field.getFieldCondition();
     FieldCondition cond = FieldCondition.get(conditionId);
     
     // collect all leaf and composite conditions. Delete all composites (these will be rebuilt).
     Stack<FieldCondition> oldConds = new Stack<FieldCondition>();
     Stack<CompositeFieldCondition> composites = new Stack<CompositeFieldCondition>();
-    getConditionsRecurse(oldConds, composites, field.getFieldCondition());
-    
-
+    getConditionsRecurse(oldConds, composites, root);
     
     // rebuild the condition composite without the deleted condition.
     Stack<FieldCondition> newConds = new Stack<FieldCondition>();
@@ -285,10 +318,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       if(!c.equals(cond))
       {
-        newConds.push(c);
+        FieldCondition copied = copyCondition(c);
+        newConds.push(copied);
       }
     }
     
+    root.delete(); // deletes the old root and all prior structures.
+
     FieldCondition newRoot = null;
     if(newConds.size() == 1)
     {
@@ -301,19 +337,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       newRoot = and;
     }
     
+
     if(newRoot != null)
     {
       field.appLock();
       field.setFieldCondition(newRoot);
       field.apply();
     }
-    
-    for(CompositeFieldCondition com : composites)
-    {
-      com.delete();
-    }
-    
-    cond.delete();
   }
   
   /**
