@@ -4,6 +4,7 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Stack;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,9 @@ import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.AndFieldCondition;
+import com.runwaysdk.system.metadata.CompositeFieldCondition;
+import com.runwaysdk.system.metadata.FieldCondition;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeReference;
@@ -40,11 +44,14 @@ import com.runwaysdk.system.metadata.MdField;
 import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebAttributeQuery;
+import com.runwaysdk.system.metadata.MdWebBreak;
+import com.runwaysdk.system.metadata.MdWebComment;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebFieldQuery;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebGroup;
+import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebReference;
 import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
@@ -100,7 +107,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     
     // exclude the given MdField and references
     q.WHERE(q.id().NE(field.getId()));
-    q.AND(q.getType().NE(MdWebReference.CLASS)); // FIXME add this as a possible condition target?
+    q.AND(q.getType().NE(MdWebReference.CLASS));
+    q.AND(q.getType().NE(MdWebBreak.CLASS));
+    q.AND(q.getType().NE(MdWebHeader.CLASS));
+    q.AND(q.getType().NE(MdWebComment.CLASS));
     q.AND(q.getDefiningMdForm().EQ(field.getDefiningMdForm()));
     
     q.ORDER_BY_ASC(q.getFieldOrder());
@@ -231,6 +241,138 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     DDMSFieldBuilders.create(mdField, mdFormId);
 
     return mdField;
+  }
+  
+  private static void rebuildConditions(Stack<FieldCondition> conds, AndFieldCondition parent)
+  {
+    FieldCondition sec = conds.pop();
+    parent.setSecondCondition(sec);
+    
+    FieldCondition first;
+    if(conds.size() == 1)
+    {
+      // our final terminal node on the left branch
+      first = conds.pop();
+    }
+    else
+    {
+      // continue building the left-side composite branches
+      AndFieldCondition leftAnd = new AndFieldCondition();
+      rebuildConditions(conds, leftAnd);
+      first = leftAnd;
+    }
+    
+    parent.setFirstCondition(first);
+    parent.apply();
+  }
+  
+  @Transaction
+  public static void deleteCondition(String mdFieldId, String conditionId)
+  {
+    MdField field = MdField.get(mdFieldId);
+    FieldCondition cond = FieldCondition.get(conditionId);
+    
+    // rebuild the condition composite without the deleted condition.
+    Stack<FieldCondition> newConds = new Stack<FieldCondition>();
+    for(FieldCondition c : getConditions(mdFieldId))
+    {
+      if(!c.equals(cond))
+      {
+        newConds.push(c);
+      }
+    }
+    
+    FieldCondition newRoot = null;
+    if(newConds.size() == 1)
+    {
+      newRoot = newConds.pop();
+    }
+    else if(newConds.size() > 1)
+    {
+      AndFieldCondition and = new AndFieldCondition();
+      rebuildConditions(newConds, and);
+      newRoot = and;
+    }
+    
+    if(newRoot != null)
+    {
+      field.appLock();
+      field.setFieldCondition(newRoot);
+      field.apply();
+    }
+    
+    cond.delete();
+  }
+  
+  /**
+   * Flattens the composite conditions into a linear list.
+   * @param conds
+   * @param parent
+   */
+  private static void flattenConditions(Stack<FieldCondition> conds, FieldCondition parent)
+  {
+    if(parent instanceof CompositeFieldCondition)
+    {
+      CompositeFieldCondition com = (CompositeFieldCondition) parent;
+      flattenConditions(conds, com.getFirstCondition());
+      flattenConditions(conds, com.getSecondCondition());
+    }
+    else
+    {
+      conds.add(parent);
+    }
+  }
+  
+  /**
+   * Collapses the AND tree of an MdField condition into a linear list.
+   * 
+   * @param mdFieldId
+   * @return
+   */
+  public static FieldCondition[] getConditions(String mdFieldId)
+  {
+    MdField field = MdField.get(mdFieldId);
+    FieldCondition cond = field.getFieldCondition();
+    
+    if(cond == null)
+    {
+      return new FieldCondition[0];
+    }
+    else
+    {
+      Stack<FieldCondition> conds = new Stack<FieldCondition>();
+      flattenConditions(conds, cond);
+      return conds.toArray(new FieldCondition[conds.size()]);
+    }
+  }
+  
+  @Transaction
+  public static void createCondition(String mdFieldId, FieldCondition condition)
+  {
+    condition.apply();
+    
+    MdField field = MdField.get(mdFieldId);
+    field.appLock();
+    
+    FieldCondition existing = field.getFieldCondition();
+    FieldCondition root;
+    if(existing != null)
+    {
+      AndFieldCondition and = new AndFieldCondition();
+      and.setFirstCondition(existing);
+      and.setSecondCondition(condition);
+      and.apply();
+      
+      root = and;
+    }
+    else
+    {
+      root = condition;
+    }
+    
+    field.setFieldCondition(root);
+    
+    field.apply();
   }
 
   @Transaction

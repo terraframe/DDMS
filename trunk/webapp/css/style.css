@@ -1210,6 +1210,10 @@ span.currentPage a:active {
   position: relative;
 }
 
+div.addConditionSection {
+  border-bottom: 1px solid #D5D6D7;
+  position: relative;
+}
 
 /* Buttons */
 .create-new-form-button {
@@ -1279,11 +1283,25 @@ span.currentPage a:active {
   color: #333;
   text-decoration: none;
 }
+
+.condition-button-add {
+  background: url('/DDMS/imgs/button-add.png') no-repeat 0px 0px;
+  padding: 3px 0px 0px 30px;
+  height: 23px;
+  color: #333;
+  text-decoration: none;
+}
+
 .form-button-add:hover {
   background-position: 0px -50px;
 }
 .form-dialog-scroll dl {
 	height: 400px;
+	overflow: auto;
+	padding: 8px;
+}
+.condition-dialog-scroll dl {
+  margin-top: 5px;
 	overflow: auto;
 	padding: 8px;
 }

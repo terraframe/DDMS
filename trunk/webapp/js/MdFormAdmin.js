@@ -86,9 +86,18 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       var createCondition = Mojo.Util.bind(this, this.createCondition);
       this._MdFormAdminController.setCreateConditionListener(createCondition);
+
+      var editCondition = Mojo.Util.bind(this, this.editCondition);
+      this._MdFormAdminController.setEditConditionListener(editCondition);
+      
+      var updateCondition = Mojo.Util.bind(this, this.updateCondition);
+      this._MdFormAdminController.setUpdateConditionListener(updateCondition);
       
       var cancelCondition = Mojo.Util.bind(this, this.cancelCondition);
       this._MdFormAdminController.setCancelConditionListener(cancelCondition);
+      
+      var deleteCondition = Mojo.Util.bind(this, this.deleteCondition);
+      this._MdFormAdminController.setDeleteConditionListener(deleteCondition);
       
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
@@ -200,8 +209,85 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var fieldId = this._selectedNode.data.fieldId;
       this.confirmDeleteMdField(fieldId);
     },
+    getConditions : function()
+    {
+      var mdFieldId = this._selectedNode.data.fieldId;
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html)
+        {
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+            
+          that._Factory.newElement('#conditionsList').setInnerHTML(pureHTML);
+
+          eval(executable);
+        }
+      });
+      
+      this._MdFormAdminController.getConditions(request, mdFieldId);
+    },    
     createCondition : function(params)
     {
+      var mdFieldId = this._selectedNode.data.fieldId;
+      params['mdFieldId'] = mdFieldId;
+
+      var that = this;      
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          that._Factory.newElement('#newConditionForm').setInnerHTML('');
+          
+          that.getConditions();        
+        }
+      });
+      
+      return request;
+    },
+    updateCondition : function(params)
+    {
+      var mdFieldId = this._selectedNode.data.fieldId;
+      params['mdFieldId'] = mdFieldId;
+
+      var that = this;      
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          that.getConditions();        
+        }
+      });
+      
+      return request;
+    },
+    editCondition : function(params)
+    {
+      var conditionId = params['conditionId'];
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          // replace the contents of the LI with the condition form.
+          var executable = MDSS.util.extractScripts(html);
+          var pureHTML = MDSS.util.removeScripts(html);
+          
+          that._Factory.newElement('#'+conditionId).setInnerHTML(pureHTML);
+          
+          eval(executable);      
+        }
+      });
+    
+      return request;
+    },
+    deleteCondition : function(params)
+    {
+      var mdFieldId = this._selectedNode.data.fieldId;
+      var conditionId = params['condition.componentId'];
+
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(){
+          that.getConditions();
+        }
+      });
+    
+      this._MdFormAdminController.deleteCondition(request, mdFieldId, conditionId);
     },
     /**
      * Requests the HTML to create a new Condition that references the MdField represented
@@ -209,14 +295,19 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
      */
     newCondition : function(e)
     {
-      var mdFieldId = e.currentTarget.get('value');
+      var mdFieldId = this._Y.one('#definingMdFieldSelect').get('value');
       if(mdFieldId && mdFieldId !== '')
       {
         var that = this;
         var request = new MDSS.Request({
           onSuccess : function(html)
           {
-            that._conditionsDialog.setInnerHTML(html);
+            var executable = MDSS.util.extractScripts(html);
+            var pureHTML = MDSS.util.removeScripts(html);
+            
+            that._Factory.newElement('#newConditionForm').setInnerHTML(pureHTML);
+
+            eval(executable);
           }
         });
         
@@ -228,7 +319,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var that = this;
       var request = new MDSS.Request({
         onSuccess : function(){
-          that._conditionsDialog.hide();
+          that._Factory.newElement('#newConditionForm').setInnerHTML('');
+          that.getConditions();
         }
       });
       
@@ -262,15 +354,15 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       else
       {
-        this._conditionsDialog = this._Factory.newDialog('', {close: false});
-        this._conditionsDialog.getContentEl().addClassName("form-dialog-scroll");
+        this._conditionsDialog = this._Factory.newDialog('', {close: true});
+        this._conditionsDialog.getContentEl().addClassName("condition-dialog-scroll");
         this._conditionsDialog.setInnerHTML(pureHTML);
         this._conditionsDialog.render();
       }
       
       eval(executable);
       
-      this._Y.one('#mdFieldId').on('change', this.newCondition, this);
+      this._Y.one('#createNewCondition').on('click', this.newCondition, this);
     },
     /**
      * Adds the source node to the destination node and
