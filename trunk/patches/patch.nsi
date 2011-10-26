@@ -157,12 +157,12 @@ Section -Main SEC0000
     # Fix overwrite of site master / domain in terraframe.properties
     
     # These version numbers are automatically replaced by patch.xml
-    StrCpy $PatchVersion 6333
-    StrCpy $TermsVersion 5814
-    StrCpy $RootsVersion 5432
-    StrCpy $MenuVersion 5814
-    StrCpy $LocalizationVersion 5978
-    StrCpy $PermissionsVersion 5974
+    StrCpy $PatchVersion 6334
+    StrCpy $TermsVersion 5815
+    StrCpy $RootsVersion 5433
+    StrCpy $MenuVersion 5815
+    StrCpy $LocalizationVersion 5979
+    StrCpy $PermissionsVersion 5975
     
     # Only master installations can be patched.
     Call checkIfMaster
@@ -231,7 +231,9 @@ Section -Main SEC0000
         Call JavaAbort
         StrCpy $Phase "Rebuilding all paths"
         ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
+        StrCpy $JavaError "500"
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
     ${Else}
         DetailPrint "Skipping Ontology because it is already up to date"
     ${EndIf}
@@ -245,6 +247,7 @@ Section -Main SEC0000
         StrCpy $Phase "Post ontology setup"
         ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
     ${Else}
         DetailPrint "Skipping Ontology Roots because they are already up to date"
     ${EndIf}
@@ -258,6 +261,7 @@ Section -Main SEC0000
         StrCpy $Phase "Importing menu items"
         ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
     ${Else}
         DetailPrint "Skipping Menu because it is already up to date"
     ${EndIf}
@@ -274,6 +278,7 @@ Section -Main SEC0000
         StrCpy $Phase "Updating localization"
         ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
     ${Else}
         DetailPrint "Skipping Localization because it is already up to date"
     ${EndIf}
@@ -287,6 +292,7 @@ Section -Main SEC0000
         StrCpy $Phase "Updating permissions"
         ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     ${Else}
         DetailPrint "Skipping Permissions because they are already up to date"
     ${EndIf}
@@ -298,11 +304,6 @@ Section -Main SEC0000
     # Write updated versions into registry 
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     
     # We need to clear the old cache
     Delete $INSTDIR\tomcat6\$AppName.index
@@ -314,7 +315,7 @@ Section -Main SEC0000
 SectionEnd
 
 Function JavaAbort
-    ${If} $JavaError == 1
+    ${If} $JavaError != 0
       ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $AgentDir $INSTDIR\logs`
       DetailPrint "$Phase failed."
       DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send this file"
