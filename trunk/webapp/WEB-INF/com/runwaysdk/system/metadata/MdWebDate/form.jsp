@@ -97,11 +97,11 @@
   }; 
 
   // Set the event handler for the validation radio button
-  dateN.addEventListener('change', clearValues);
-  dateBTE.addEventListener('change', function() {clearValues(); bte.value=true;});  
-  dateBTI.addEventListener('change', function() {clearValues(); bti.value=true;});  
-  dateATE.addEventListener('change', function() {clearValues(); ate.value=true;});  
-  dateATI.addEventListener('change', function() {clearValues(); ati.value=true;});  
-  dateR.addEventListener('change', function() {clearValues(); dateRange.style.display='block';});  
+  dateN.addEventListener('change', clearValues, null);
+  dateBTE.addEventListener('change', function() {clearValues(); bte.value=true;}, null);  
+  dateBTI.addEventListener('change', function() {clearValues(); bti.value=true;}, null);  
+  dateATE.addEventListener('change', function() {clearValues(); ate.value=true;}, null);  
+  dateATI.addEventListener('change', function() {clearValues(); ati.value=true;}, null);  
+  dateR.addEventListener('change', function() {clearValues(); dateRange.style.display='block';}, null);  
 })();
 </script>
