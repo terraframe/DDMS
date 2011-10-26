@@ -3,14 +3,13 @@ package dss.vector.solutions.form;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ComponentDTOFacade;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.generation.loader.LoaderDecorator;
-import com.runwaysdk.system.AllOperationDTO;
-import com.runwaysdk.system.CharacterOperationDTO;
 import com.runwaysdk.system.metadata.CharacterConditionDTO;
 import com.runwaysdk.system.metadata.DateConditionDTO;
 import com.runwaysdk.system.metadata.DoubleConditionDTO;
@@ -206,7 +205,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
+      MdFieldDTO mdFieldDTO = MdFormUtilDTO.createMdField(this.getClientRequest(), mdField, mdFormId);
+      this.resp.getWriter().write(mdFieldDTO.getId());
     }
     catch (Throwable t)
     {
@@ -513,38 +513,29 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       FieldConditionDTO condition = null;
       if(mdField instanceof MdWebDateDTO)
       {
-        DateConditionDTO c = new DateConditionDTO(this.getClientRequest());
-        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
-        condition = c;
+        condition = new DateConditionDTO(this.getClientRequest());
       }
       else if(mdField instanceof MdWebCharacterDTO || mdField instanceof MdWebTextDTO)
       {
-        CharacterConditionDTO c = new CharacterConditionDTO(this.getClientRequest());
-        this.req.setAttribute("operations", CharacterOperationDTO.allItems(this.getClientRequest()));
-        condition = c;
+        condition = new CharacterConditionDTO(this.getClientRequest());
       }
       else if(mdField instanceof MdWebDoubleDTO || mdField instanceof MdWebDecimalDTO || mdField instanceof MdWebFloatDTO)
       {
-        DoubleConditionDTO c = new DoubleConditionDTO(this.getClientRequest());
-        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
-        condition = c;
+        condition = new DoubleConditionDTO(this.getClientRequest());
       }
       else if(mdField instanceof MdWebLongDTO || mdField instanceof MdWebIntegerDTO)
       {
-        LongConditionDTO c = new LongConditionDTO(this.getClientRequest());
-        this.req.setAttribute("operations", AllOperationDTO.allItems(this.getClientRequest()));
-        condition = c;
+        condition = new LongConditionDTO(this.getClientRequest());
       }
       else
       {
-        EQFieldConditionDTO c = new EQFieldConditionDTO(this.getClientRequest());
-//        this.req.setAttribute("operations", AllOperationDTO.EQ);
-        condition = c;
+        condition = new EQFieldConditionDTO(this.getClientRequest());
       }
 
-      this.req.setAttribute("definingMdFieldDisplay", mdField.toString());
-      this.req.setAttribute("definingMdField", mdFieldId);
       this.req.setAttribute("condition", condition);
+
+      prepareConditionView(req, condition, mdField);
+
       
       this.req.getRequestDispatcher(NEW_CONDITION_JSP).forward(req, resp);
     }
@@ -554,27 +545,47 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     }
   }
   
+  public static void prepareConditionView(HttpServletRequest req, FieldConditionDTO condition) throws Throwable
+  {
+    MdFieldDTO mdField = MdFieldDTO.get(condition.getRequest(), condition.getValue(CharacterConditionDTO.DEFININGMDFIELD));
+    prepareConditionView(req, condition, mdField);
+  }
+  
+  /**
+   * Prepares the request with the proper condition information.
+   * 
+   * // FIXME push attributes/constants/methods to common superclass instead of 
+   * using type-unsafety and type-specific constants OR create a ConditionView
+   * 
+   * @param req
+   * @param condition
+   * @throws Throwable
+   */
+  public static void prepareConditionView(HttpServletRequest req, FieldConditionDTO condition, MdFieldDTO mdField) throws Throwable
+  {
+    if(condition.hasAttribute(CharacterConditionDTO.OPERATION))
+    {
+      AttributeEnumerationMdDTO md = ComponentDTOFacade.getAttributeEnumerationDTO(condition, CharacterConditionDTO.OPERATION).getAttributeMdDTO();
+      Class<?> enumClass = LoaderDecorator.load(md.getReferencedMdEnumeration()+TypeGeneratorInfo.DTO_SUFFIX);
+      Object operations = enumClass.getMethod("allItems", ClientRequestIF.class).invoke(null, condition.getRequest());
+      req.setAttribute("operations", operations);
+    }
+    
+    req.setAttribute("definingMdFieldDisplay", mdField.toString());
+    req.setAttribute("definingMdField", mdField.getId());
+    
+    req.setAttribute("includeCalendar", condition instanceof DateConditionDTO);
+  }
+  
   @Override
   public void editCondition(String conditionId) throws IOException, ServletException
   {
     try
     {
       FieldConditionDTO cond = FieldConditionDTO.lock(this.getClientRequest(), conditionId);
-      
-      // FIXME push attributes/constants/methods to common superclass instead of using type-unsafety and type-specific constants
-      MdFieldDTO mdField = MdFieldDTO.get(this.getClientRequest(), cond.getValue(CharacterConditionDTO.DEFININGMDFIELD));
-      
-      if(cond.hasAttribute(CharacterConditionDTO.OPERATION))
-      {
-        AttributeEnumerationMdDTO md = ComponentDTOFacade.getAttributeEnumerationDTO(cond, CharacterConditionDTO.OPERATION).getAttributeMdDTO();
-        Class<?> enumClass = LoaderDecorator.load(md.getReferencedMdEnumeration()+TypeGeneratorInfo.DTO_SUFFIX);
-        Object operations = enumClass.getMethod("allItems", ClientRequestIF.class).invoke(null, this.getClientRequest());
-        this.req.setAttribute("operations", operations);
-      }
-      
-      this.req.setAttribute("definingMdFieldDisplay", mdField.toString());
-      this.req.setAttribute("definingMdField", mdField.getId());
       this.req.setAttribute("condition", cond);
+      
+      prepareConditionView(this.req, cond);
       
       this.req.getRequestDispatcher(EDIT_CONDITION_JSP).forward(req, resp);      
     }

@@ -354,7 +354,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       else
       {
-        this._conditionsDialog = this._Factory.newDialog('', {close: true});
+        this._conditionsDialog = this._Factory.newDialog('', {close: true, modal:true});
         this._conditionsDialog.getContentEl().addClassName("condition-dialog-scroll");
         this._conditionsDialog.setInnerHTML(pureHTML);
         this._conditionsDialog.render();
@@ -385,10 +385,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       this._tree.getRoot().refresh();
       
-      if(!destNode.expanded)
-      {
-        destNode.expand();
-      }
+      destNode.expand();
+    },
+    getGroupNodeHTML : function(display)
+    {
+      return '<div style="float:left">'+display+'</div><div style="float:left" class="groupDropTarget"></div>';
     },
     /**
      * Handler to model the drop operation between a source node (the one being dragged) 
@@ -409,48 +410,54 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         }
       }
       
+      
       // Add the field to the group if the destination is a group node
       if(destNode.data.nodeType === this.constructor.GROUP_NODE)
       {
-        var groupId = destNode.data.fieldId;
-        var fieldId = sourceNode.data.fieldId;
-        
-        var that = this;
-        var request = new MDSS.Request({
-          onSuccess : function(){
-             that._addNodeToParent(sourceNode, destNode, true);
-             that.fetchFormFields();
-          }
-        });
-        
-        this._MdFormUtil.addToGroup(request, groupId, fieldId);
-      }
-      // reorder the field
-      else
-      {
-        var that = this;
-        var request = new MDSS.Request({
-          onSuccess : function(){
-          
-            that._addNodeToParent(sourceNode, destNode, false);
-        
-            // refresh the preview mode of the fields.
-            that.fetchFormFields(false);
-          }
-        });
-        
-        if(destNode.data.nodeType === this.constructor.FORM_NODE)
+        // only move the field to the group if the drop occured on a designated group drop zone
+        var orig = YAHOO.util.Dom.getRegion(document.getElementById(destId).firstChild.nextSibling);
+        var point = sourceDDNode.DDM.interactionInfo.point;
+
+        if(orig.contains(point))      
         {
-          // dragged to the form node, so grab the last field on the form to
-          // simulate appending as the last field.
-          destNode = destNode.children[destNode.children.length-1];
+          var groupId = destNode.data.fieldId;
+          var fieldId = sourceNode.data.fieldId;
+        
+          var that = this;
+          var request = new MDSS.Request({
+            onSuccess : function(){
+               that._addNodeToParent(sourceNode, destNode, true);
+               that.fetchFormFields();
+            }
+          });
+        
+          this._MdFormUtil.addToGroup(request, groupId, fieldId);
+          return;
         }
-        
-        var prevFieldId = destNode.data.fieldId;
-        
-        this._MdFormUtil.reorderFields(request, [sourceNode.data.fieldId, prevFieldId]);
       }
       
+      // reorder the field
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(){
+        
+          that._addNodeToParent(sourceNode, destNode, false);
+      
+          // refresh the preview mode of the fields.
+          that.fetchFormFields(false);
+        }
+      });
+      
+      if(destNode.data.nodeType === this.constructor.FORM_NODE)
+      {
+        // dragged to the form node, so grab the last field on the form to
+        // simulate appending as the last field.
+        destNode = destNode.children[destNode.children.length-1];
+      }
+      
+      var prevFieldId = destNode.data.fieldId;
+      
+      this._MdFormUtil.reorderFields(request, [sourceNode.data.fieldId, prevFieldId]);
     },
     _traverseNode : function(parent, orderedIds)
     {
@@ -473,7 +480,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
       YAHOO.util.Event.on(this.constructor.CREATE_NEW_FORM, 'click', this.createNewForm, null, this);
       this._Y.one('#'+this.constructor.EXISTING_FORMS).delegate('click', this.viewForm, 'li', this);
-      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.confirmDeleteMdField, 'a.form-item-row-delete', this);
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.confirmDeleteMdFieldHandler, 'a.form-item-row-delete', this);
       this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editFieldHandler, 'li', this);
       
       // show the existing forms
@@ -496,7 +503,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       else
       {
         // first request, so create the dialog with the available field options.
-        this._fieldsDialog = this._Factory.newDialog('');
+        this._fieldsDialog = this._Factory.newDialog('', {modal:true});
         
         var that = this;
         var request = new MDSS.Request({
@@ -537,6 +544,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
      */
     newFieldHandler : function(e)
     {
+      // this is called via the fields tab so clear any notion of
+      // the currently selected field. This is to avoid confusing adding
+      // a new group (a field) via the workflow tree.
+      this._selectedNode = null;
+    
       var mdFieldType = e.currentTarget.get('id');
       this.newField(mdFieldType);
     },
@@ -559,7 +571,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       else
       {
-        this._fieldFormDialog = this._Factory.newDialog('', {close: false});
+        this._fieldFormDialog = this._Factory.newDialog('', {close: false, modal:true});
         this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();
@@ -593,7 +605,15 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         onSuccess : function(field){
           
           var node = that._tree.getNodeByProperty('fieldId', fieldId);
-          node.setHtml(field.toString());
+          
+          if(node.data.nodeType === that.constructor.GROUP_NODE)
+          {
+            node.setHtml(that.getGroupNodeHTML(field.toString()));
+          }
+          else
+          {
+            node.setHtml(field.toString());
+          }
         }
       });
       
@@ -603,10 +623,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       var that = this;
       var request = new MDSS.Request({
-        onSuccess : function(html)
+        onSuccess : function(newFieldId)
         {
           that._fieldFormDialog.hide();
-          that.fetchFormFields(true);
+          that._postCreateMdField(newFieldId);
         }
       });
       
@@ -614,6 +634,35 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       fieldMap['mdFormId'] = this._currentMdFormId;
 
       return request;
+    },
+    /**
+     * A field can be created in one of three ways, so different post create
+     * actions are required. These says are:
+     * 
+     * 1. created normally within the fields tab
+     * 2. created as a group beneath the form
+     * 3. created as a group beneath another group
+     */
+    _postCreateMdField : function(fieldId)
+    {
+      if(this._selectedNode !== null && this._selectedNode.data.nodeType === this.constructor.GROUP_NODE)
+      {
+        // this field was created under a group so move it there and refresh the tree
+        var that = this;
+        var request = new MDSS.Request({
+          onSuccess : function(){
+            that.fetchFormFields(true);
+          }
+        });
+        
+        var groupId = this._selectedNode.data.fieldId;
+        this._MdFormUtil.addToGroup(request, groupId, fieldId);
+      }
+      else
+      {
+        // created under the form or within the fields tab. Just refresh the tree
+        this.fetchFormFields(true);
+      }
     },
     /**
      * Makes a request to display all existing forms on the sidebar
@@ -689,27 +738,58 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var formNode = new YAHOO.widget.HTMLNode({
         html:formTreeObj.label,
         formId:this._currentMdFormId,
-        nodeType:formTreeObj.nodeType,
-        expanded:true} , this._tree.getRoot());
+        nodeType:formTreeObj.nodeType} , this._tree.getRoot());
 
-      this._recurseFieldsForTree(formNode, formTreeObj.fields);
+      var groups = [];
+      this._recurseFieldsForTree(formNode, formTreeObj.fields, groups);
       
       this._tree.render();
+      
+      formNode.expand();
     },
-    _recurseFieldsForTree : function(parent, fields)
+    /*
+    _nodeExpanded : function(node)
+    {
+      // expand all GROUP children
+      var children = node.children;
+      for(var i=0; i<children.length; i++)
+      {
+        var child = children[i];
+        if(child.data.nodeType === this.constructor.GROUP_NODE)
+        {
+          var dt = document.createElement('dt');
+          dt.innerHTML = ' OO ';
+          child.getContentEl().parentNode.appendChild(dt);
+        }
+      }
+    },
+    */
+    _recurseFieldsForTree : function(parent, fields, groups)
     {
       for (var i = 0; i < fields.length; i++)
       {
         var field = fields[i];
         
-        var node = new YAHOO.widget.HTMLNode({
-          html:field.label,
-          nodeType:field.nodeType,
-          fieldId:field.id}, parent);        
-        
         if(field.nodeType === this.constructor.GROUP_NODE)
         {
-          this._recurseFieldsForTree(node, field.fields);
+          // recurse into the group and add a drop target
+          // to add to the group.
+          var html = this.getGroupNodeHTML(field.label);
+          var node = new YAHOO.widget.HTMLNode({
+            html:html,
+            nodeType:field.nodeType,
+            fieldId:field.id}, parent); 
+
+          groups.push(node);
+
+          this._recurseFieldsForTree(node, field.fields, groups);
+        }
+        else
+        {
+          new YAHOO.widget.HTMLNode({
+            html:field.label,
+            nodeType:field.nodeType,
+            fieldId:field.id}, parent);
         }
       }
     },
@@ -898,7 +978,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           }
           else
           {
-            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false});
+            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.render();
           }
@@ -954,7 +1034,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           }
           else
           {
-            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false});
+            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.render();
           }
@@ -1000,7 +1080,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       }
       else
       {
-        this._fieldFormDialog = this._Factory.newDialog('', {close: false});
+        this._fieldFormDialog = this._Factory.newDialog('', {close: false, modal: true});
         this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
         this._fieldFormDialog.setInnerHTML(pureHTML);
         this._fieldFormDialog.render();

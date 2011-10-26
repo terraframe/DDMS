@@ -23,7 +23,17 @@
   </c:if>
   
   <mjl:dt attribute="value">
-    <mjl:input type="text" param="value" value="${condition.value}"></mjl:input> 
+    <mjl:input type="text" param="value" value="${condition.value}" id="${condition.id}_value"></mjl:input> 
   </mjl:dt>
 </dl>
 </mjl:component>
+
+<c:if test="${includeCalendar}">
+	<script type="text/javascript">
+	(function(){
+	  var el = document.getElementById('${condition.id}_value');
+	  el.value = MDSS.Calendar.getLocalizedString(el.value);
+	  MDSS.Calendar.addCalendarListeners(el);
+	})();
+	</script>
+</c:if>

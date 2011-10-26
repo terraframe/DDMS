@@ -272,9 +272,16 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdField field = MdField.get(mdFieldId);
     FieldCondition cond = FieldCondition.get(conditionId);
     
+    // collect all leaf and composite conditions. Delete all composites (these will be rebuilt).
+    Stack<FieldCondition> oldConds = new Stack<FieldCondition>();
+    Stack<CompositeFieldCondition> composites = new Stack<CompositeFieldCondition>();
+    getConditionsRecurse(oldConds, composites, field.getFieldCondition());
+    
+
+    
     // rebuild the condition composite without the deleted condition.
     Stack<FieldCondition> newConds = new Stack<FieldCondition>();
-    for(FieldCondition c : getConditions(mdFieldId))
+    for(FieldCondition c : oldConds)
     {
       if(!c.equals(cond))
       {
@@ -301,26 +308,46 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       field.apply();
     }
     
+    for(CompositeFieldCondition com : composites)
+    {
+      com.delete();
+    }
+    
     cond.delete();
   }
   
   /**
-   * Flattens the composite conditions into a linear list.
-   * @param conds
-   * @param parent
+   * Populates the given stacks with the primitive field conditions and composite conditions.
+   * @param conditions
+   * @param composites
    */
-  private static void flattenConditions(Stack<FieldCondition> conds, FieldCondition parent)
+  private static void getConditionsRecurse(Stack<FieldCondition> conditions, Stack<CompositeFieldCondition> composites, FieldCondition parent)
   {
-    if(parent instanceof CompositeFieldCondition)
+    if(parent == null)
+    {
+      return;
+    }
+    else if(parent instanceof CompositeFieldCondition)
     {
       CompositeFieldCondition com = (CompositeFieldCondition) parent;
-      flattenConditions(conds, com.getFirstCondition());
-      flattenConditions(conds, com.getSecondCondition());
+      composites.add(com);
+      
+      getConditionsRecurse(conditions, composites, com.getFirstCondition());
+      getConditionsRecurse(conditions, composites, com.getSecondCondition());
     }
     else
     {
-      conds.add(parent);
+      conditions.add(parent);
     }
+  }
+  
+  private static FieldCondition[] getConditions(MdField field)
+  {
+    FieldCondition cond = field.getFieldCondition();
+    Stack<FieldCondition> conds = new Stack<FieldCondition>();
+    Stack<CompositeFieldCondition> coms = new Stack<CompositeFieldCondition>();
+    getConditionsRecurse(conds, coms, cond);
+    return conds.toArray(new FieldCondition[conds.size()]);
   }
   
   /**
@@ -332,18 +359,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static FieldCondition[] getConditions(String mdFieldId)
   {
     MdField field = MdField.get(mdFieldId);
-    FieldCondition cond = field.getFieldCondition();
-    
-    if(cond == null)
-    {
-      return new FieldCondition[0];
-    }
-    else
-    {
-      Stack<FieldCondition> conds = new Stack<FieldCondition>();
-      flattenConditions(conds, cond);
-      return conds.toArray(new FieldCondition[conds.size()]);
-    }
+    return getConditions(field);
   }
   
   @Transaction

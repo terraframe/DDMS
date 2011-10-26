@@ -1212,7 +1212,15 @@ span.currentPage a:active {
 
 div.addConditionSection {
   border-bottom: 1px solid #D5D6D7;
-  position: relative;
+  height: 25px;
+  padding-top: 5px;
+}
+
+div.groupDropTarget {
+  background: url('/DDMS/imgs/icons/add.png') no-repeat 0px 0px;
+  height: 15px;
+  width: 15px;
+  margin-left: 5px;
 }
 
 /* Buttons */
@@ -1286,17 +1294,28 @@ div.addConditionSection {
 
 .condition-button-add {
   background: url('/DDMS/imgs/button-add.png') no-repeat 0px 0px;
-  padding: 3px 0px 0px 30px;
+  padding: 10px 0px 0px 30px;
   height: 23px;
   color: #333;
   text-decoration: none;
+  margin-left: 10px;
+  position: relative;
+  top: 5px;
+}
+
+.viewConditions {
+  height: 400px;
+  overflow: auto;
+  padding-right: 5px;
+  margin-top: 15px;
 }
 
 .form-button-add:hover {
   background-position: 0px -50px;
 }
 .form-dialog-scroll dl {
-	height: 400px;
+  min-height: 200px;
+	max-height: 400px;
 	overflow: auto;
 	padding: 8px;
 }

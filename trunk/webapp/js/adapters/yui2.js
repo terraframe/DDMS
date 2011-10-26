@@ -194,7 +194,7 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
       config.width = config.width || "30em";
       config.fixedcenter = config.fixedcenter || true;
       config.visible = config.visible || true;
-      config.constraintoviewport || true;
+      config.constraintoviewport = config.constraintoviewport || true;
       
       // YUI2 doesn't know how to properly set a height, so lets do it for them
       if (config.height != null) {
