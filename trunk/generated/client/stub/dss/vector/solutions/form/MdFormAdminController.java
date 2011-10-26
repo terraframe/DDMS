@@ -17,6 +17,7 @@ import com.runwaysdk.system.metadata.EQFieldConditionDTO;
 import com.runwaysdk.system.metadata.FieldConditionDTO;
 import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
+import com.runwaysdk.system.metadata.MdWebBooleanDTO;
 import com.runwaysdk.system.metadata.MdWebCharacterDTO;
 import com.runwaysdk.system.metadata.MdWebDateDTO;
 import com.runwaysdk.system.metadata.MdWebDecimalDTO;
@@ -515,7 +516,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       {
         condition = new DateConditionDTO(this.getClientRequest());
       }
-      else if(mdField instanceof MdWebCharacterDTO || mdField instanceof MdWebTextDTO)
+      else if(mdField instanceof MdWebCharacterDTO || mdField instanceof MdWebTextDTO || mdField instanceof MdWebBooleanDTO)
       {
         condition = new CharacterConditionDTO(this.getClientRequest());
       }
