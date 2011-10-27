@@ -657,10 +657,16 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             }
           }
           
-          ddFragment.appendChild(radioT);
-          ddFragment.appendChild(tLabel);
-          ddFragment.appendChild(radioF);
-          ddFragment.appendChild(fLabel);          
+          // div and class to make sure radios and text are not squished together
+          var radioContainer = this._factory.newElement('div');
+          radioContainer.addClassName('boolean-field-container');
+          
+          radioContainer.appendChild(radioT);
+          radioContainer.appendChild(tLabel);
+          radioContainer.appendChild(radioF);
+          radioContainer.appendChild(fLabel);
+          
+          ddFragment.appendChild(radioContainer);
         }
         else if(field instanceof FIELD.WebCharacter)
         {
