@@ -31,6 +31,9 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
+import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
+import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
+import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.query.OIterator;
@@ -96,19 +99,19 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
   }
-  
+
   /**
-   * Returns all fields that are candidates for conditions that this 
-   * field will reference. For example, the given field is not allowed 
-   * in the list to avoid circular references.
+   * Returns all fields that are candidates for conditions that this field will
+   * reference. For example, the given field is not allowed in the list to avoid
+   * circular references.
    */
   public static MdField[] getFieldsForConditions(String mdFieldId)
   {
     MdWebField field = MdWebField.get(mdFieldId);
-    
+
     QueryFactory f = new QueryFactory();
     MdWebAttributeQuery q = new MdWebAttributeQuery(f);
-    
+
     // exclude the given MdField and references
     q.WHERE(q.id().NE(field.getId()));
     q.AND(q.getType().NE(MdWebReference.CLASS));
@@ -116,11 +119,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     q.AND(q.getType().NE(MdWebHeader.CLASS));
     q.AND(q.getType().NE(MdWebComment.CLASS));
     q.AND(q.getDefiningMdForm().EQ(field.getDefiningMdForm()));
-    
+
     q.ORDER_BY_ASC(q.getFieldOrder());
-    
-    OIterator<? extends MdField> i =  q.getIterator();
-    
+
+    OIterator<? extends MdField> i = q.getIterator();
+
     try
     {
       List<? extends MdField> fields = i.getAll();
@@ -131,10 +134,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       i.close();
     }
   }
-  
+
   /**
-   * Adds the MdField to the MdWebGroup and adds the
-   * field as the last child of the group.
+   * Adds the MdField to the MdWebGroup and adds the field as the last child of
+   * the group.
    * 
    * @param groupId
    * @param fieldId
@@ -144,41 +147,40 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     MdWebGroup group = MdWebGroup.get(groupId);
     MdWebField field = MdWebField.get(fieldId);
-    
+
     // ignore this transaction if the field already exists in the group.
     QueryFactory f = new QueryFactory();
     MdWebFieldQuery q = new MdWebFieldQuery(f);
     WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
-    
+
     relQ.WHERE(relQ.parentId().EQ(groupId));
     q.WHERE(q.groupFields(relQ));
     q.AND(q.getId().EQ(fieldId));
-    
-    if(q.getCount() > 0)
+
+    if (q.getCount() > 0)
     {
       return;
     }
-    
+
     // remove any previous group associations
-    for(WebGroupField rel : field.getAllGroupFieldsRel())
+    for (WebGroupField rel : field.getAllGroupFieldsRel())
     {
       rel.delete();
     }
-    
+
     /*
-     * Set the order to one higher than the group if it is the first
-     * field or add it to the highest order within the group's fields.
+     * Set the order to one higher than the group if it is the first field or
+     * add it to the highest order within the group's fields.
      */
     Integer order = getHighestOrder(group);
     field.appLock();
     field.setFieldOrder(order);
     field.apply();
-    
+
     field.addGroupFields(group).apply();
-    
-    
+
   }
-  
+
   /**
    * Returns the next highest Order number relative to the object with the given
    * id, which can be an MdForm or MdWebField.
@@ -190,12 +192,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     QueryFactory f = new QueryFactory();
     MdWebFieldQuery q = new MdWebFieldQuery(f);
-    
-    if(obj instanceof MdWebForm)
+
+    if (obj instanceof MdWebForm)
     {
       q.WHERE(q.getDefiningMdForm().EQ(obj.getId()));
     }
-    else if(obj instanceof MdWebGroup)
+    else if (obj instanceof MdWebGroup)
     {
       WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
       relQ.WHERE(relQ.parentId().EQ(obj.getId()));
@@ -204,17 +206,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     else
     {
       // we should never land here.
-      throw new ProgrammingErrorException("The object ["+obj+"] is not of type ["+MdWebForm.CLASS+"] or ["+MdWebGroup.CLASS+"] to retrieve the field order.");
+      throw new ProgrammingErrorException("The object [" + obj + "] is not of type [" + MdWebForm.CLASS + "] or [" + MdWebGroup.CLASS + "] to retrieve the field order.");
     }
-    
+
     q.ORDER_BY_DESC(q.getFieldOrder("fieldOrder"));
     q.restrictRows(1, 1);
-    
+
     OIterator<? extends MdWebField> iter = q.getIterator();
-    
+
     try
     {
-      if(iter.hasNext())
+      if (iter.hasNext())
       {
         Integer last = iter.next().getFieldOrder();
         return ++last;
@@ -229,7 +231,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       iter.close();
     }
   }
-  
+
   /**
    * Creates an MdField and the associated MdAttribute in DDMS. The mapping is
    * one-to-one.
@@ -246,16 +248,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return mdField;
   }
-  
-  
-  
+
   private static void rebuildConditions(Stack<FieldCondition> conds, AndFieldCondition parent)
   {
     FieldCondition sec = conds.pop();
     parent.setSecondCondition(sec);
-    
+
     FieldCondition first;
-    if(conds.size() == 1)
+    if (conds.size() == 1)
     {
       // our final terminal node on the left branch
       first = conds.pop();
@@ -267,11 +267,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       rebuildConditions(conds, leftAnd);
       first = leftAnd;
     }
-    
+
     parent.setFirstCondition(first);
     parent.apply();
   }
-  
+
   /**
    * Copies a non-composite condition and returns the applied object.
    * 
@@ -288,80 +288,82 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       throw new ProgrammingErrorException(t);
     }
-    
-    if(original.hasAttribute(CharacterCondition.OPERATION))
+
+    if (original.hasAttribute(CharacterCondition.OPERATION))
     {
       copy.addEnumItem(CharacterCondition.OPERATION, original.getEnumValues(CharacterCondition.OPERATION).get(0).getId());
     }
     copy.setValue(CharacterCondition.DEFININGMDFIELD, original.getValue(CharacterCondition.DEFININGMDFIELD));
     copy.setValue(CharacterCondition.VALUE, original.getValue(CharacterCondition.VALUE));
-    
+
     copy.apply();
-    return  copy;
+    return copy;
   }
-  
+
   @Transaction
   public static void deleteCondition(String mdFieldId, String conditionId)
   {
     MdField field = MdField.get(mdFieldId);
     FieldCondition root = field.getFieldCondition();
     FieldCondition cond = FieldCondition.get(conditionId);
-    
-    // collect all leaf and composite conditions. Delete all composites (these will be rebuilt).
+
+    // collect all leaf and composite conditions. Delete all composites (these
+    // will be rebuilt).
     Stack<FieldCondition> oldConds = new Stack<FieldCondition>();
     Stack<CompositeFieldCondition> composites = new Stack<CompositeFieldCondition>();
     getConditionsRecurse(oldConds, composites, root);
-    
+
     // rebuild the condition composite without the deleted condition.
     Stack<FieldCondition> newConds = new Stack<FieldCondition>();
-    for(FieldCondition c : oldConds)
+    for (FieldCondition c : oldConds)
     {
-      if(!c.equals(cond))
+      if (!c.equals(cond))
       {
         FieldCondition copied = copyCondition(c);
         newConds.push(copied);
       }
     }
-    
+
     root.delete(); // deletes the old root and all prior structures.
 
     FieldCondition newRoot = null;
-    if(newConds.size() == 1)
+    if (newConds.size() == 1)
     {
       newRoot = newConds.pop();
     }
-    else if(newConds.size() > 1)
+    else if (newConds.size() > 1)
     {
       AndFieldCondition and = new AndFieldCondition();
       rebuildConditions(newConds, and);
       newRoot = and;
     }
-    
 
-    if(newRoot != null)
+    if (newRoot != null)
     {
       field.appLock();
       field.setFieldCondition(newRoot);
       field.apply();
     }
   }
-  
+
   /**
-   * Populates the given stacks with the primitive field conditions and composite conditions.
+   * Populates the given stacks with the primitive field conditions and
+   * composite conditions.
+   * 
    * @param conditions
    * @param composites
    */
   private static void getConditionsRecurse(Stack<FieldCondition> conditions, Stack<CompositeFieldCondition> composites, FieldCondition parent)
   {
-    if(parent == null)
+    if (parent == null)
     {
       return;
     }
-    else if(parent instanceof CompositeFieldCondition)
+    else if (parent instanceof CompositeFieldCondition)
     {
       CompositeFieldCondition com = (CompositeFieldCondition) parent;
       composites.add(com);
-      
+
       getConditionsRecurse(conditions, composites, com.getFirstCondition());
       getConditionsRecurse(conditions, composites, com.getSecondCondition());
     }
@@ -370,7 +372,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       conditions.add(parent);
     }
   }
-  
+
   private static FieldCondition[] getConditions(MdField field)
   {
     FieldCondition cond = field.getFieldCondition();
@@ -379,7 +381,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     getConditionsRecurse(conds, coms, cond);
     return conds.toArray(new FieldCondition[conds.size()]);
   }
-  
+
   /**
    * Collapses the AND tree of an MdField condition into a linear list.
    * 
@@ -391,33 +393,33 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdField field = MdField.get(mdFieldId);
     return getConditions(field);
   }
-  
+
   @Transaction
   public static void createCondition(String mdFieldId, FieldCondition condition)
   {
     condition.apply();
-    
+
     MdField field = MdField.get(mdFieldId);
     field.appLock();
-    
+
     FieldCondition existing = field.getFieldCondition();
     FieldCondition root;
-    if(existing != null)
+    if (existing != null)
     {
       AndFieldCondition and = new AndFieldCondition();
       and.setFirstCondition(existing);
       and.setSecondCondition(condition);
       and.apply();
-      
+
       root = and;
     }
     else
     {
       root = condition;
     }
-    
+
     field.setFieldCondition(root);
-    
+
     field.apply();
   }
 
@@ -434,7 +436,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
     query.ORDER_BY_ASC(query.getDisplayLabel().localize());
-       
+
     OIterator<? extends MdWebForm> it = query.getIterator();
 
     try
@@ -455,25 +457,24 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return MdWebForm.get(mdTypeDAO.getId());
   }
-  
+
   private static void addFieldsToTree(JSONObject parent, MdWebField[] fields) throws JSONException
   {
     JSONArray fieldsArr = new JSONArray();
     parent.put("fields", fieldsArr);
-    
-    for(MdWebField field : fields)
+
+    for (MdWebField field : fields)
     {
       JSONObject fieldJSON = new JSONObject();
       fieldsArr.put(fieldJSON);
 
       fieldJSON.put("label", field.toString());
       fieldJSON.put("id", field.getId());
-      
-      
-      if(field instanceof MdWebGroup)
+
+      if (field instanceof MdWebGroup)
       {
         fieldJSON.put("nodeType", "groupNode");
-        
+
         MdWebField[] gFields = getGroupFields(field.getId());
         addFieldsToTree(fieldJSON, gFields);
       }
@@ -481,12 +482,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       {
         fieldJSON.put("nodeType", "fieldNode");
       }
-    }    
+    }
   }
-  
+
   /**
-   * Returns a JSON string representing the tree structure of the form
-   * and its fields.
+   * Returns a JSON string representing the tree structure of the form and its
+   * fields.
    * 
    * @param mdFormId
    * @return
@@ -500,10 +501,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       formJSON.put("label", form.getDisplayLabel().getValue());
       formJSON.put("id", form.getId());
       formJSON.put("nodeType", "formNode");
-      
+
       MdWebField[] fields = getFields(form);
       addFieldsToTree(formJSON, fields);
-      
+
       return formJSON.toString();
     }
     catch (JSONException e)
@@ -511,7 +512,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       throw new ProgrammingErrorException("Could not get the JSON tree for an MdForm.", e);
     }
   }
-  
+
   /**
    * Returns all fields in order for the MdWebGroup.
    * 
@@ -523,12 +524,12 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     QueryFactory f = new QueryFactory();
     MdWebFieldQuery q = new MdWebFieldQuery(f);
     WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
-    
+
     relQ.WHERE(relQ.parentId().EQ(groupId));
     q.WHERE(q.groupFields(relQ));
-    
+
     q.ORDER_BY_ASC(q.getFieldOrder());
-    
+
     OIterator<? extends MdWebField> iterator = q.getIterator();
 
     try
@@ -541,7 +542,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       iterator.close();
     }
   }
-  
+
   /**
    * Returns all fields in order for the MdWebForm.
    * 
@@ -554,16 +555,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdWebFieldQuery q = new MdWebFieldQuery(f);
     MdWebFieldQuery q1 = new MdWebFieldQuery(f);
     WebGroupFieldQuery relQ = new WebGroupFieldQuery(f);
-    
+
     // exclude fields that are directly beneath a group
     relQ.WHERE(relQ.childId().EQ(q1.getId()));
     q.AND(q.SUBSELECT_NOT_IN_groupFields(relQ));
-    
 
     q.WHERE(q.getDefiningMdForm().EQ(form));
     q.ORDER_BY_ASC(q.getFieldOrder());
-    
-    
+
     OIterator<? extends MdWebField> iterator = q.getIterator();
 
     try
@@ -576,41 +575,41 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       iterator.close();
     }
   }
-  
+
   public static MdWebField[] getFieldsById(String id)
   {
     MdWebForm form = MdWebForm.get(id);
     return getFields(form);
   }
-  
+
   @Transaction
   public static void reorderFields(String[] ids)
   {
     // FIXME: extract to a separate method
     String fieldId = ids[0];
     String previousId = ids[1];
-    
+
     MdWebField field = MdWebField.get(fieldId);
     MdWebField prev = MdWebField.get(previousId);
-    
+
     // remove the field from any prior groups and re-add it to the group of the
     // previous field--no point in being clever with diffing the groups.
-    for(WebGroupField rel : field.getAllGroupFieldsRel())
+    for (WebGroupField rel : field.getAllGroupFieldsRel())
     {
       rel.delete();
     }
-    
+
     MdWebGroup group = null;
-    for(MdWebGroup prevGroup : prev.getAllGroupFields())
+    for (MdWebGroup prevGroup : prev.getAllGroupFields())
     {
       field.addGroupFields(prevGroup).apply();
       group = prevGroup;
     }
-    
+
     // set the order of the field to one higher than the previous
     // and shift the rest of the fields up.
     MdWebField[] fields; // fields in order
-    if(group != null)
+    if (group != null)
     {
       fields = getGroupFields(group.getId());
     }
@@ -618,23 +617,23 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       fields = getFields(field.getDefiningMdForm());
     }
-    
+
     Integer prevOrder = null;
-    for(MdWebField f : fields)
+    for (MdWebField f : fields)
     {
-      if(f.equals(field))
+      if (f.equals(field))
       {
         continue;
       }
-      
-      if(f.equals(prev))
+
+      if (f.equals(prev))
       {
         prevOrder = f.getFieldOrder();
         field.appLock();
         field.setFieldOrder(++prevOrder);
         field.apply();
       }
-      else if(prevOrder != null)
+      else if (prevOrder != null)
       {
         // increment the rest of the fields after the target field
         f.appLock();
@@ -697,7 +696,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         label = mdForm.getFormName();
         mdForm.getDisplayLabel().setValue(label);
       }
-      
+
       String description = mdForm.getDescription().getValue();
 
       MdBusiness mdBusiness = new MdBusiness();
@@ -744,7 +743,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     mdClass.delete();
   }
-  
+
   public static void confirmDeleteForm(String mdFormId)
   {
     MdWebForm mdForm = MdWebForm.get(mdFormId);
@@ -752,7 +751,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     ex.setMdFormName(mdForm.getFormName());
     throw ex;
   }
-  
+
   public static void confirmDeleteMdField(String mdFormId, String mdFieldId)
   {
     MdWebForm mdForm = MdWebForm.get(mdFormId);
@@ -762,7 +761,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     ex.setMdFieldName(mdField.getFieldName());
     throw ex;
   }
-  
+
   @Transaction
   @Authenticate
   public static void deleteField(MdWebForm mdForm, MdWebField mdField)
@@ -778,26 +777,30 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
       else
       {
-        // if this is a group then remove all of its children and append them to the
+        // if this is a group then remove all of its children and append them to
+        // the
         // end of the form.
-        if(mdField instanceof MdWebGroup)
+        if (mdField instanceof MdWebGroup)
         {
           Integer order = getHighestOrder(mdForm);
-          
-          for(MdWebField f : getGroupFields(mdField.getId()))
+
+          for (MdWebField f : getGroupFields(mdField.getId()))
           {
             f.appLock();
             f.setFieldOrder(++order);
             f.apply();
           }
         }
-        
+
         mdField.delete();
       }
     }
-    catch (Throwable t)
+    catch (MetadataCannotBeDeletedException e)
     {
-      throw new ProgrammingErrorException(t);
+      String msg = "Field cannont be deleted";
+      MetadataDAO metadata = (MetadataDAO) MdWebFieldDAO.get(mdField.getId()).getBusinessDAO();
+
+      throw new MetadataCannotBeDeletedException(msg, metadata);
     }
   }
 
