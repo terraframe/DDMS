@@ -691,7 +691,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           var textArea = this._factory.newElement('textarea', {
             'name':field.getFieldName(),
             'rows':field.getFieldMd().getHeight(),
-            'cols':field.getFieldMd().getWidtFragmenth()
+            'cols':field.getFieldMd().getWidth()
           });
           
           textArea.setInnerHTML(value);
