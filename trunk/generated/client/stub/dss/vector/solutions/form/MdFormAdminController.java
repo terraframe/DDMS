@@ -13,7 +13,6 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.CharacterConditionDTO;
 import com.runwaysdk.system.metadata.DateConditionDTO;
 import com.runwaysdk.system.metadata.DoubleConditionDTO;
-import com.runwaysdk.system.metadata.EQFieldConditionDTO;
 import com.runwaysdk.system.metadata.FieldConditionDTO;
 import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
@@ -530,7 +529,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       }
       else
       {
-        condition = new EQFieldConditionDTO(this.getClientRequest());
+//        condition = new EQFieldConditionDTO(this.getClientRequest());
       }
 
       this.req.setAttribute("condition", condition);
