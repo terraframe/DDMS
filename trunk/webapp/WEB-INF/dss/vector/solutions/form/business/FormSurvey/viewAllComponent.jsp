@@ -71,7 +71,7 @@ YAHOO.util.Event.onDOMReady(function(){
   var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE+'*');
   UI.Manager.setFactory("YUI3");
   
-  var preBedNetApply = function(e) {
+  var prePersonApply = function(e) {
     var form = e.getFormObject();
     var fieldMap = form.getFieldMap();
     var field = fieldMap.get('household');
@@ -79,7 +79,7 @@ YAHOO.util.Event.onDOMReady(function(){
     field.setValue(household.getFormObject().getDataId());
   };
 
-  var beforeBedNetQuery = function(e) {
+  var beforePersonQuery = function(e) {
     if(household.getFormObject() != null )
     {
       var householdId = household.getFormObject().getDataId();
@@ -183,9 +183,9 @@ YAHOO.util.Event.onDOMReady(function(){
   person.addEventListener(dss.vector.solutions.NewInstanceEvent, function(e){ household.hide(); bedNet.hide();});  
   person.addEventListener(dss.vector.solutions.RenderViewEvent, function(e){ household.hide(); bedNet.hide();});  
   person.addEventListener(dss.vector.solutions.ViewParentEvent, function(e){ household.renderView();});
-  person.addEventListener(dss.vector.solutions.CreateEvent, preBedNetApply);  
-  person.addEventListener(dss.vector.solutions.UpdateEvent, preBedNetApply);  
-  person.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforeBedNetQuery);  
+  person.addEventListener(dss.vector.solutions.CreateEvent, prePersonApply);  
+  person.addEventListener(dss.vector.solutions.UpdateEvent, prePersonApply);  
+  person.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforePersonQuery);  
   person.addEventListener(dss.vector.solutions.DeleteEvent, function(e){household.renderView();});
   person.addEventListener(dss.vector.solutions.CancelEvent, personCancel);
   person.addEventListener(dss.vector.solutions.RenderViewFieldEvent, personRenderViewField);  
