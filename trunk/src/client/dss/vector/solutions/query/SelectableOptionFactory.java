@@ -1,63 +1,85 @@
 package dss.vector.solutions.query;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdFieldDTO;
-import com.runwaysdk.system.metadata.MdWebBooleanDTO;
-
-import dss.vector.solutions.ontology.TermDTO;
+import com.runwaysdk.system.metadata.MdAttributeBooleanDTO;
+import com.runwaysdk.system.metadata.MdAttributeCharacterDTO;
+import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
+import com.runwaysdk.system.metadata.MdAttributeDateDTO;
+import com.runwaysdk.system.metadata.MdAttributeDecimalDTO;
+import com.runwaysdk.system.metadata.MdAttributeDoubleDTO;
+import com.runwaysdk.system.metadata.MdAttributeFloatDTO;
+import com.runwaysdk.system.metadata.MdAttributeIntegerDTO;
+import com.runwaysdk.system.metadata.MdAttributeLongDTO;
+import com.runwaysdk.system.metadata.MdAttributeReferenceDTO;
+import com.runwaysdk.system.metadata.MdBusinessDTO;
 
 public class SelectableOptionFactory implements Reloadable
 {
-  private MdFieldDTO mdField;
+  private String          suffix;
 
-  private String     attributeName;
+  private String          type;
 
-  private String     type;
+  private SelectableGroup group;
 
-  private String     label;
-
-  private String     attributeNamePrepend;
-
-  public SelectableOptionFactory(String attributeName, String type)
+  public SelectableOptionFactory(SelectableGroup group)
   {
-    this(null, attributeName, type);
+    this.group = group;
+    this.suffix = "_" + group.getGroupName();
+    this.type = group.getClassType();
   }
 
-  public SelectableOptionFactory(MdFieldDTO mdField, String attributeName, String type)
+  public void create(MdAttributeConcreteDTO mdAttribute)
   {
-    this.mdField = mdField;
-    this.attributeName = attributeName;
-    this.type = type;
-    this.label = "";
-    this.attributeNamePrepend = "term";
-  }
-
-  public void setLabel(String label)
-  {
-    this.label = label;
-  }
-
-  public void setAttributeNamePrepend(String attributeNamePrepend)
-  {
-    this.attributeNamePrepend = attributeNamePrepend;
-  }
-
-  public SelectableOption createOption(TermDTO term)
-  {
-    String termId = term.getId();
-    String key = ( this.attributeName + "__" + this.type + "__" + termId ).replace(".", "_");
-    String attributeName = attributeNamePrepend + termId.substring(0, 16);
-
-    if (mdField != null && mdField instanceof MdWebBooleanDTO)
+    if (mdAttribute instanceof MdAttributeBooleanDTO)
     {
-      // MdWebBooleanDTO mdFieldBoolean = (MdWebBooleanDTO) mdField;
-      String positiveLabel = "true"; // mdFieldBoolean.getPositiveDisplayLabel().getValue();
-      String negativeLabel = "false"; // mdFieldBoolean.getNegativeDisplayLabel().getValue();
-
-      return new SelectableBooleanOption(attributeName, label + term.getDisplayLabel(), key, positiveLabel, negativeLabel);
+      group.addOption(new SelectableBooleanOption((MdAttributeBooleanDTO) mdAttribute, suffix, type));
     }
+    else if (mdAttribute instanceof MdAttributeCharacterDTO)
+    {
+      group.addOption(new SelectableCharacterOption((MdAttributeCharacterDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeDateDTO)
+    {
+      group.addOption(new SelectableDateOption((MdAttributeDateDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeDecimalDTO)
+    {
+      group.addOption(new SelectableDecimalOption((MdAttributeDecimalDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeDoubleDTO)
+    {
+      group.addOption(new SelectableDoubleOption((MdAttributeDoubleDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeFloatDTO)
+    {
+      group.addOption(new SelectableFloatOption((MdAttributeFloatDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeIntegerDTO)
+    {
+      group.addOption(new SelectableIntegerOption((MdAttributeIntegerDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeLongDTO)
+    {
+      group.addOption(new SelectableLongOption((MdAttributeLongDTO) mdAttribute, suffix, type));
+    }
+    else if (mdAttribute instanceof MdAttributeReferenceDTO)
+    {
+      MdAttributeReferenceDTO mdAttributeReference = (MdAttributeReferenceDTO) mdAttribute;
 
-    return new SelectableIntegerOption(attributeName, label + term.getDisplayLabel(), key);
+      MdBusinessDTO mdBusiness = mdAttributeReference.getMdBusiness();
+
+      if (mdBusiness.getTypeName().equals("Term"))
+      {
+        group.addOption(new SelectableTermOption((MdAttributeReferenceDTO) mdAttribute, suffix, type));
+      }
+      if (mdBusiness.getTypeName().equals("Disease"))
+      {
+        group.addOption(new SelectableDiseaseOption((MdAttributeReferenceDTO) mdAttribute, suffix, type));
+      }
+      if (mdBusiness.getPackageName().equals("dss.vector.solutions.geo.generated"))
+      {
+        group.addOption(new SelectableGeoOption((MdAttributeReferenceDTO) mdAttribute, suffix, type));
+      }
+    }
   }
-
 }

@@ -33,7 +33,7 @@ public class SelectableGroup implements Reloadable
     this.label = label;
   }
 
-  public String getGroup()
+  public String getGroupName()
   {
     return group;
   }

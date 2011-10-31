@@ -5,11 +5,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 
@@ -26,19 +22,8 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ClassQueryDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
-import com.runwaysdk.system.metadata.MdAttributeDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
-import com.runwaysdk.system.metadata.MdRelationshipDTO;
-import com.runwaysdk.system.metadata.MdWebAttributeDTO;
-import com.runwaysdk.system.metadata.MdWebDateDTO;
-import com.runwaysdk.system.metadata.MdWebFieldDTO;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
-import com.runwaysdk.system.metadata.MdWebGeoDTO;
-import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
-import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
-import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
-import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 
 import dss.vector.solutions.entomology.BiochemicalAssayDTO;
@@ -58,10 +43,12 @@ import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO;
 import dss.vector.solutions.entomology.assay.EfficacyAssayDTO;
 import dss.vector.solutions.entomology.assay.KnockDownAssayDTO;
 import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayDTO;
-import dss.vector.solutions.general.EpiDateDTO;
+import dss.vector.solutions.form.business.FormBedNetDTO;
+import dss.vector.solutions.form.business.FormHouseholdDTO;
+import dss.vector.solutions.form.business.FormPersonDTO;
+import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.generator.MdFormUtilDTO;
-import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedIPTViewDTO;
 import dss.vector.solutions.intervention.monitor.AggregatedPremiseMethodDTO;
@@ -106,7 +93,6 @@ import dss.vector.solutions.irs.AbstractSprayDTO;
 import dss.vector.solutions.irs.InsecticideBrandDTO;
 import dss.vector.solutions.irs.InsecticideBrandViewDTO;
 import dss.vector.solutions.irs.OperatorSprayDTO;
-import dss.vector.solutions.ontology.NestedTermsWarningDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.stock.StockEventDTO;
 import dss.vector.solutions.stock.StockItemDTO;
@@ -1588,133 +1574,11 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       MdClassDTO formMdClass = form.getFormMdClass();
       String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
 
-      BusinessDTO businessDTO = request.newBusiness(classType);
-      ClassQueryDTO query = request.getQuery(classType);
-      CompositeGeoField geoField = new CompositeGeoField();
+      FormQueryBuilder builder = new FormQueryBuilder(request, QueryConstants.TYPE_QB);
+      builder.setQuerySpecifics(classType, form.getDisplayLabel().getValue());
+      builder.addForm(MdFormUtilDTO.getForm(request, type), "root");
 
-      loadQuerySpecifics(classType, businessDTO.getMd().getDisplayLabel());
-
-      List<String> typesToLoad = new LinkedList<String>();
-      typesToLoad.addAll(Arrays.asList(new String[] { classType, NestedTermsWarningDTO.CLASS, EpiDateDTO.CLASS, SavedSearchDTO.CLASS, SavedSearchViewDTO.CLASS, QueryController.CLASS, QueryBuilderDTO.CLASS }));
-
-      MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(request, form);
-
-      Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
-      Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap = this.getReadableFieldMap(fields, readableAttributeNames);
-      Set<MdWebFieldDTO> readableFields = readableFieldMap.keySet();
-
-      /*
-       * Build JSON definition for the date and geo attributes
-       */
-      StringBuffer dateAttributes = new StringBuffer();
-      StringBuffer geoAttributes = new StringBuffer();
-      List<SelectableGroup> extraGroups = new LinkedList<SelectableGroup>();
-
-      for (MdWebFieldDTO field : readableFields)
-      {
-        String fieldName = field.getFieldName();
-        String fieldLabel = field.getDisplayLabel().getValue();
-
-        MdAttributeConcreteDTO mdAttribute = readableFieldMap.get(field);
-        String attributeName = mdAttribute.getAttributeName();
-
-        if (field instanceof MdWebDateDTO)
-        {
-          StringBuffer object = new StringBuffer();
-          object.append("{klass:Mojo.Meta.findClass('" + classType + "')");
-          object.append(", accessor:'" + attributeName + "'}");
-
-          if (dateAttributes.length() > 0)
-          {
-            dateAttributes.append(",");
-          }
-
-          dateAttributes.append(object.toString());
-        }
-        else if (field instanceof MdWebGeoDTO)
-        {
-          geoField.addField(GeoFieldDTO.getGeoField(request, classType, attributeName));
-
-          StringBuffer object = new StringBuffer();
-          object.append("{");
-          object.append("keyName:'" + classType + "." + attributeName + "'");
-          object.append(", display:'" + fieldLabel + "'");
-          object.append("}");
-
-          if (geoAttributes.length() > 0)
-          {
-            geoAttributes.append(",");
-          }
-
-          geoAttributes.append(object.toString());
-        }
-        else if (field instanceof MdWebMultipleTermDTO)
-        {
-          TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, attributeName);
-          MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
-
-          String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
-          typesToLoad.add(relType);
-
-          SelectableOptionFactory factory = new SelectableOptionFactory(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE, relType);
-          factory.setAttributeNamePrepend(attributeName);
-          factory.setLabel(fieldLabel + " - ");
-
-          SelectableGroup selectableGroup = new SelectableGroup();
-          selectableGroup.setLabel(fieldLabel);
-          selectableGroup.setClassType(relType);
-
-          for (TermDTO term : terms)
-          {
-            selectableGroup.addOption(factory.createOption(term));
-          }
-
-          extraGroups.add(selectableGroup);
-        }
-        else if (field instanceof MdWebSingleTermGridDTO)
-        {
-          TermDTO[] terms = TermDTO.getAllTermsForField(request, classType, attributeName);
-
-          MdRelationshipDTO mdRelationship = MdFormUtilDTO.getMdRelationship(request, field);
-
-          String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
-          typesToLoad.add(relType);
-
-          List<? extends MdWebPrimitiveDTO> compositeFields = ( (MdWebSingleTermGridDTO) field ).getAllMdFields();
-          Collections.sort(compositeFields, new FieldComparator());
-
-          for (MdWebPrimitiveDTO compositeField : compositeFields)
-          {
-            String compositeAttributeName = compositeField.getFieldName();
-            String attributeLabel = compositeField.getDisplayLabel().getValue();
-
-            SelectableOptionFactory factory = new SelectableOptionFactory(compositeField, compositeAttributeName, relType);
-            factory.setAttributeNamePrepend(fieldName + "_" + compositeAttributeName);
-            factory.setLabel(attributeLabel + " - ");
-
-            SelectableGroup selectableGroup = new SelectableGroup();
-            selectableGroup.setLabel(fieldLabel + " - " + attributeLabel);
-            selectableGroup.setClassType(relType);
-
-            for (TermDTO term : terms)
-            {
-              selectableGroup.addOption(factory.createOption(term));
-            }
-
-            extraGroups.add(selectableGroup);
-          }
-        }
-      }
-
-      req.setAttribute("type", classType);
-      req.setAttribute("label", form.getDisplayLabel().getValue());
-      req.setAttribute("typesToLoad", typesToLoad);
-      req.setAttribute("dropDownMaps", Halp.getDropDownMaps(query, request, ", "));
-      req.setAttribute("attributes", this.getReadablePrimitiveAttributeNames(readableFieldMap).toString());
-      req.setAttribute("dateAttributes", dateAttributes.toString());
-      req.setAttribute("geoAttributes", geoAttributes.toString());
-      req.setAttribute("geoField", geoField);
-      req.setAttribute("extraGroups", extraGroups);
+      builder.populateRequest(req);
 
       req.getRequestDispatcher(QUERY_TYPE).forward(req, resp);
     }
@@ -1727,6 +1591,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
         this.failQuery();
       }
     }
+
   }
 
   public void failQueryType(String type) throws IOException, ServletException
@@ -1734,46 +1599,32 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
     this.failQuery();
   }
 
-  private JSONArray getReadablePrimitiveAttributeNames(Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap)
+  @Override
+  public void queryFormSurvey() throws IOException, ServletException
   {
-    JSONArray attributeNames = new JSONArray();
-
-    Set<MdWebFieldDTO> readableFields = readableFieldMap.keySet();
-
-    for (MdWebFieldDTO field : readableFields)
+    try
     {
-      if (! ( ( field instanceof MdWebMultipleTermDTO || field instanceof MdWebSingleTermGridDTO || field instanceof MdWebTextDTO ) ))
+      ClientRequestIF request = this.getClientRequest();
+
+      FormQueryBuilder builder = new FormQueryBuilder(request, QueryConstants.FORM_SURVEY_QB);
+      builder.setQuerySpecifics(FormSurveyDTO.CLASS, QueryConstants.QueryType.QUERY_FORM_SURVEY);
+      builder.addForm(MdFormUtilDTO.getForm(request, FormSurveyDTO.FORM_TYPE), "root");
+      builder.addForm(MdFormUtilDTO.getForm(request, FormHouseholdDTO.FORM_TYPE), "root");
+      builder.addForm(MdFormUtilDTO.getForm(request, FormPersonDTO.FORM_TYPE), "root");
+      builder.addForm(MdFormUtilDTO.getForm(request, FormBedNetDTO.FORM_TYPE), "root");
+
+      builder.populateRequest(req);
+
+      req.getRequestDispatcher(QUERY_TYPE).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
       {
-        MdAttributeConcreteDTO mdAttribute = readableFieldMap.get(field);
-        attributeNames.put(mdAttribute.getAttributeName());
+        this.failQuery();
       }
     }
-
-    return attributeNames;
-  }
-
-  private Map<MdWebFieldDTO, MdAttributeConcreteDTO> getReadableFieldMap(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
-  {
-    Map<MdWebFieldDTO, MdAttributeConcreteDTO> map = new HashMap<MdWebFieldDTO, MdAttributeConcreteDTO>();
-
-    for (MdWebFieldDTO field : fields)
-    {
-      if (field instanceof MdWebAttributeDTO)
-      {
-        MdAttributeDTO mdAttribute = ( (MdWebAttributeDTO) field ).getDefiningMdAttribute();
-
-        if (mdAttribute instanceof MdAttributeConcreteDTO)
-        {
-          MdAttributeConcreteDTO mdAttributeConcrete = (MdAttributeConcreteDTO) mdAttribute;
-
-          if (readableAttributeNames.contains(mdAttributeConcrete.getAttributeName()))
-          {
-            map.put(field, mdAttributeConcrete);
-          }
-        }
-      }
-    }
-
-    return map;
   }
 }

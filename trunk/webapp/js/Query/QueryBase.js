@@ -13,7 +13,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
 
   Instance : {
 
-    initialize : function(queryList)
+    initialize : function(queryList, renderDateRange)
     {
       this._queryPanel = new MDSS.QueryPanel(this, 'queryPanel', 'mapPanel', {
         executeQuery: this.executeQuery,
@@ -25,7 +25,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         exportReport : this.exportReport,
         paginationHandler : this.paginationHandler,
         postRender : this.postRender
-      });
+      }, renderDateRange);
       
       this._dm = new MDSS.DependencyManager();
       
@@ -598,27 +598,30 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       }
   
   
-      var options = Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts);
-      var keys = Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts);
-      for(var j=0; j<options.length; j++)
+      if(this._queryPanel.getRenderDateRange())
       {
-        var countCheck = document.createElement('input');
-        YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
-        YAHOO.util.Dom.setAttribute(countCheck, 'value', keys[j]);
-        YAHOO.util.Dom.setAttribute(countCheck, 'id', keys[j].toLowerCase());
-        YAHOO.util.Dom.addClass(countCheck,'uncheckMeOnQueryTypeSwitch');
-        YAHOO.util.Event.on(countCheck, 'click', that._dateGroupHandler, keys[j],that);
-        this._defaults.push({element: countCheck, checked: false});
+        var options = Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts);
+        var keys = Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts);
+        for(var j=0; j<options.length; j++)
+        {
+          var countCheck = document.createElement('input');
+          YAHOO.util.Dom.setAttribute(countCheck, 'type', 'checkbox');
+          YAHOO.util.Dom.setAttribute(countCheck, 'value', keys[j]);
+          YAHOO.util.Dom.setAttribute(countCheck, 'id', keys[j].toLowerCase());
+          YAHOO.util.Dom.addClass(countCheck,'uncheckMeOnQueryTypeSwitch');
+          YAHOO.util.Event.on(countCheck, 'click', that._dateGroupHandler, keys[j],that);
+          this._defaults.push({element: countCheck, checked: false});
   
-        var countSpan = document.createElement('span');
-        countSpan.innerHTML = options[j];
+          var countSpan = document.createElement('span');
+          countSpan.innerHTML = options[j];
   
-        var li = document.createElement('li');
+          var li = document.createElement('li');
   
-        li.appendChild(countCheck);
-        li.appendChild(countSpan);
+          li.appendChild(countCheck);
+          li.appendChild(countSpan);
   
-        visibleUl.appendChild(li);
+          visibleUl.appendChild(li);
+        }
       }
   
   

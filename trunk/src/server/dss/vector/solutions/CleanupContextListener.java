@@ -629,6 +629,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _next_Start_Date := get_epiStart(_year+1,_first_Day_Of_Epi_Week); \n";
     sql += "  --RAISE NOTICE '% % % %', _year,_prev_Start_Date,_start_Date,_next_Start_Date; \n";
     sql += "  CASE \n";
+    sql += "   WHEN _date IS NULL THEN \n";
+    sql += "      _epi_Week := NULL; \n";    
     sql += "   WHEN (_date >= _start_Date ) AND (_date < _next_Start_Date)  THEN \n";
     sql += "      _epi_Week := EXTRACT('epoch' FROM _date)::INT  - EXTRACT('epoch' FROM _start_Date)::INT; \n";
     sql += "      _epi_Week := round((_epi_Week::FLOAT /(60.0*60.0*24.0))::INT  / 7)+1; \n";
@@ -640,6 +642,8 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "   WHEN _date < _start_Date THEN \n";
     sql += "      _epi_Week := EXTRACT('epoch' FROM _date)::INT  - EXTRACT('epoch' FROM _prev_Start_Date)::INT; \n";
     sql += "      _epi_Week := (round(_epi_Week::FLOAT /(60.0*60.0*24.0))::INT  / 7 )+1; \n";
+    sql += "   ELSE \n";
+    sql += "      _epi_Week := NULL; \n";        
     sql += "  END CASE; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
@@ -667,12 +671,16 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  _next_Start_Date := get_epiStart(_year+1,_first_Day_Of_Epi_Week); \n";
     sql += "  RAISE NOTICE '% % % %', _year,_prev_Start_Date,_start_Date,_next_Start_Date; \n";
     sql += "  CASE \n";
+    sql += "   WHEN _date is NULL THEN \n";
+    sql += "      _epi_Year := NULL; \n";
     sql += "   WHEN (_date >= _start_Date ) AND (_date < _next_Start_Date)  THEN \n";
     sql += "      _epi_Year := _year; \n";
     sql += "   WHEN _date >= _next_Start_Date THEN \n";
     sql += "      _epi_Year := _year + 1; \n";
     sql += "   WHEN _date < _start_Date THEN \n";
     sql += "      _epi_Year := _year - 1;  \n";
+    sql += "   ELSE \n";
+    sql += "      _epi_Year := NULL; \n";    
     sql += "  END CASE; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";

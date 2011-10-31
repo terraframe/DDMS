@@ -49,28 +49,18 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var queryList = <%=(String) request.getAttribute("queryList")%>;
 
-    var item = new Mojo.$.<%=(String) request.getAttribute("type")%>();
-    
-    var attributes = <%=request.getAttribute("attributes")%>;
-
-    var dropDownMaps = {<%=(String) request.getAttribute("dropDownMaps")%>};
-        
-    var columns = attributes.map(MDSS.QueryBaseNew.mapAttribs, {obj:item, suffix:'_root', dropDownMaps:dropDownMaps});
-
-    var selectableGroups = [{title:'<%=(String) request.getAttribute("label")%>', values:columns, group:"root", klass:'<%=(String) request.getAttribute("type")%>'}];
-
+    var selectableGroups = [];
 
     <%
-    List<SelectableGroup> extraGroups = (List<SelectableGroup>) request.getAttribute("extraGroups");
-    for (SelectableGroup extraGroup : extraGroups)
+    List<SelectableGroup> groups = (List<SelectableGroup>) request.getAttribute("groups");
+    for (SelectableGroup group : groups)
     {
-      out.write("selectableGroups.push(" + extraGroup.serialize() + ");\n");
+      out.write("selectableGroups.push(" + group.serialize() + ");\n");
     }
     %>
 
     var query = new MDSS.QueryType(selectableGroups, queryList);
     query.render();
-
 });
 
 </script>

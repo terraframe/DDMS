@@ -4,9 +4,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
   Instance : {
   
-    initialize : function(selectableGroups, queryList)
+    initialize : function(selectableGroups, queryList, renderDateRange)
     {
-      this.$initialize(queryList);
+      this.$initialize(queryList, renderDateRange);
 
       // list of columns that have bee_visibleAttributeHandlern added before a call to render()
       this._preconfiguredColumns = [];

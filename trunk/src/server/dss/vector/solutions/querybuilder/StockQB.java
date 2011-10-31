@@ -29,30 +29,28 @@ public class StockQB extends AbstractQB implements Reloadable
   }
 
   @Override
-  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
+  protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
     StockItemQuery stockItemQuery = (StockItemQuery) queryMap.get(StockItem.CLASS);
-    
+
     StockEventQuery stockEventQuery = (StockEventQuery) queryMap.get(StockEvent.CLASS);
 
     dss.vector.solutions.PersonQuery personQuery = (dss.vector.solutions.PersonQuery) queryMap.get(dss.vector.solutions.Person.CLASS);
-    
-    if(stockEventQuery != null)
+
+    if (stockEventQuery != null)
     {
       valueQuery.WHERE(stockEventQuery.getItem().EQ(stockItemQuery.getId()));
-      
-      
+
       this.addGeoDisplayLabelQuery(stockEventQuery);
-      
-      QueryUtil.joinEnumerationDisplayLabels(valueQuery,StockEvent.CLASS,stockEventQuery);
-      
-      if(personQuery != null)
+
+      QueryUtil.joinEnumerationDisplayLabels(valueQuery, StockEvent.CLASS, stockEventQuery);
+
+      if (personQuery != null)
       {
         valueQuery.WHERE(stockEventQuery.getStaff().EQ(personQuery.getStockStaffDelegate()));
       }
     }
-    
+
     try
     {
       SelectableSQLInteger dobSel = (SelectableSQLInteger) valueQuery.getSelectableRef("quanity_instock");
@@ -61,21 +59,19 @@ public class StockQB extends AbstractQB implements Reloadable
       MdEntityDAOIF eventMD = stockEventQuery.getMdClassIF();
       String transactionTypeCol = QueryUtil.getColumnName(eventMD, StockEvent.TRANSACTIONTYPE);
       String quantityCol = QueryUtil.getColumnName(eventMD, StockEvent.QUANTITY);
-      
-      String sql = "SUM("
-      +"CASE "+eventTable+"."+transactionTypeCol+"_c WHEN '"+EventOption.STOCK_IN.getId()+"' THEN "+eventTable+"."+quantityCol
-      +" ELSE "+eventTable+"."+quantityCol+" * -1 END)";
-      
+
+      String sql = "SUM(" + "CASE " + eventTable + "." + transactionTypeCol + "_c WHEN '" + EventOption.STOCK_IN.getId() + "' THEN " + eventTable + "." + quantityCol + " ELSE " + eventTable + "." + quantityCol + " * -1 END)";
+
       dobSel.setSQL(sql);
     }
     catch (QueryException e)
     {
     }
-    
-    QueryUtil.joinTermAllpaths(valueQuery,StockItem.CLASS,stockItemQuery);  
+
+    QueryUtil.joinTermAllpaths(valueQuery, StockItem.CLASS, stockItemQuery);
 
     this.setNumericRestrictions(valueQuery, queryConfig);
-    
+
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, stockEventQuery.getDisease());
 
     return valueQuery;

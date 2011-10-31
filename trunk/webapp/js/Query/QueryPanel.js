@@ -1,7 +1,7 @@
 /**
  * Class to create a Query Panel.
  */
-MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
+MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config, renderDateRange)
 {
 
   this._queryClass = queryClass;
@@ -70,7 +70,14 @@ MDSS.QueryPanel = function(queryClass, queryPanelId, mapPanelId, config)
   this._deleteBatch = [];
   
   // Flag denoting if the date range widget should be rendered
-  this._renderDateRange = true;
+  if(renderDateRange != null)
+  {
+    this._renderDateRange = renderDateRange;	  
+  }
+  else
+  {
+    this._renderDateRange = true;
+  }
 };
 
 MDSS.QueryPanel.prototype = {

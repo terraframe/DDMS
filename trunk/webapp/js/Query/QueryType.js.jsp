@@ -21,17 +21,16 @@ Mojo.Meta.newClass('MDSS.QueryType', {
       this._exclusionClasses = [];      
       this._geoEntityAttribs = [<%=(String) request.getAttribute("geoAttributes")%>];      
       this._showRatioSelectable = false;
-
-      this.$initialize(selectableGroups, queryList);   
-      
-      this._xmlToValueQueryClass = 'dss.vector.solutions.querybuilder.TypeQB';
       
       /**
        * Determine if the date range widget should be rendered
        */
       var renderDateRange = (this._dateAttribs.length > 0);
-      this._queryPanel.setRenderDateRange(renderDateRange);
       
+      this.$initialize(selectableGroups, queryList, renderDateRange);   
+      
+      this._xmlToValueQueryClass = '<%=(String) request.getAttribute("queryClass") %>';
+            
       /**
        * Restrict the geo picker to the proper universals
        */
