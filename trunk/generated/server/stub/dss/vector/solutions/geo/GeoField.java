@@ -1,5 +1,7 @@
 package dss.vector.solutions.geo;
 
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +9,10 @@ import java.util.TreeSet;
 
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.system.metadata.MdAttribute;
+
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class GeoField extends GeoFieldBase implements com.runwaysdk.generation.loader.Reloadable
 {
@@ -120,5 +126,49 @@ public class GeoField extends GeoFieldBase implements com.runwaysdk.generation.l
   private SearchParameter getSearchParameter()
   {
     return new SearchParameter(this.getIsPoliticalHierarchy(), this.getIsSprayHierarchy(), this.getIsPopulationHierarchy(), this.getIsUrbanHierarchy(), false, false);
+  }
+
+  public static GeoField getGeoField(MdAttribute definingAttr)
+  {
+    GeoFieldQuery query = new GeoFieldQuery(new QueryFactory());
+
+    query.WHERE(query.getGeoAttribute().EQ(definingAttr));
+
+    OIterator<? extends GeoField> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return null;
+  }
+
+  public static GeoHierarchyView[] getFieldUniversals()
+  {
+    GeoHierarchyView[] views = GeoHierarchy.getAllViews();
+
+    List<GeoHierarchyView> list = new LinkedList<GeoHierarchyView>(Arrays.asList(views));
+
+    Iterator<GeoHierarchyView> it = list.iterator();
+
+    while (it.hasNext())
+    {
+      GeoHierarchyView view = it.next();
+
+      if (view.getGeneratedType().equals(Earth.CLASS) || view.getGeneratedType().equals(GeoEntity.CLASS))
+      {
+        it.remove();
+      }
+    }
+
+    return list.toArray(new GeoHierarchyView[list.size()]);
   }
 }

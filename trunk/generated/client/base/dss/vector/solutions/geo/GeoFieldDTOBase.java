@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1771637431)
+@com.runwaysdk.business.ClassSignature(hash = 555300879)
 public abstract class GeoFieldDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoField";
-  private static final long serialVersionUID = 1771637431;
+  private static final long serialVersionUID = 555300879;
   
   protected GeoFieldDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -689,6 +689,14 @@ public abstract class GeoFieldDTOBase extends com.runwaysdk.business.BusinessDTO
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoFieldDTO.CLASS, "getExtraUniversals", _declaredTypes);
     return (java.lang.String[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoHierarchyViewDTO[] getFieldUniversals(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoFieldDTO.CLASS, "getFieldUniversals", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoHierarchyViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.String getFilterType()

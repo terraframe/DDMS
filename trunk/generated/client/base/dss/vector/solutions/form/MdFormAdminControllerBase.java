@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 1623574998)
+@com.runwaysdk.business.ClassSignature(hash = -121812615)
 public class MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.form.MdFormAdminController";
@@ -10,7 +10,7 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 1623574998;
+  private static final long serialVersionUID = -121812615;
   
   public MdFormAdminControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -163,6 +163,20 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failCreateCondition");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebGeoDTO:mdField, java.lang.String:mdFormId, dss.vector.solutions.geo.GeoFieldDTO:geoField, [Ljava.lang.String;:extraUniversals", post=true)
+  public void createGeoField(com.runwaysdk.system.metadata.MdWebGeoDTO mdField, java.lang.String mdFormId, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.createGeoField");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebGeoDTO:mdField, java.lang.String:mdFormId, dss.vector.solutions.geo.GeoFieldDTO:geoField, [Ljava.lang.String;:extraUniversals", post=true)
+  public void failCreateGeoField(com.runwaysdk.system.metadata.MdWebGeoDTO mdField, java.lang.String mdFormId, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failCreateGeoField");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdFieldDTO:mdField, java.lang.String:mdFormId", post=true)
@@ -443,6 +457,20 @@ public class MdFormAdminControllerBase implements com.runwaysdk.generation.loade
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failUpdateCondition");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebGeoDTO:mdField, dss.vector.solutions.geo.GeoFieldDTO:geoField, [Ljava.lang.String;:extraUniversals", post=true)
+  public void updateGeoField(com.runwaysdk.system.metadata.MdWebGeoDTO mdField, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.updateGeoField");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdWebGeoDTO:mdField, dss.vector.solutions.geo.GeoFieldDTO:geoField, [Ljava.lang.String;:extraUniversals", post=true)
+  public void failUpdateGeoField(com.runwaysdk.system.metadata.MdWebGeoDTO mdField, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.MdFormAdminController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.form.MdFormAdminController.failUpdateGeoField");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="com.runwaysdk.system.metadata.MdFieldDTO:mdField", post=true)

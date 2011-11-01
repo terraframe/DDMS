@@ -77,9 +77,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
       this._MdFormAdminController.setUpdateMdFieldListener(updateMdFieldB);
+      this._MdFormAdminController.setUpdateGeoFieldListener(updateMdFieldB);
       
       var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
       this._MdFormAdminController.setCreateMdFieldListener(createMdFieldB);
+      this._MdFormAdminController.setCreateGeoFieldListener(createMdFieldB);
       
       var cancelMdFieldB = Mojo.Util.bind(this, this.cancelMdField);
       this._MdFormAdminController.setCancelMdFieldListener(cancelMdFieldB);
@@ -97,8 +99,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._MdFormAdminController.setCancelConditionListener(cancelCondition);
       
       var deleteCondition = Mojo.Util.bind(this, this.deleteCondition);
-      this._MdFormAdminController.setDeleteConditionListener(deleteCondition);
-      
+      this._MdFormAdminController.setDeleteConditionListener(deleteCondition);      
+            
       // A reference to the MdForm that is being operated on.
       this._currentMdFormId = null;
       this._Y = YUI().use('*'); // YUI3 reference

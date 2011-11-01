@@ -355,83 +355,81 @@ MDSS.QueryPanel.prototype = {
     var dateRange = new YAHOO.util.Element(document.createElement('div'));
     dateRange.set('id', this.DATE_RANGE_DIV);
 
-    var startLabel = document.createElement('span');
-    startLabel.innerHTML = MDSS.localize('Query_Start_Date');
+    if(this.getRenderDateRange())
+    {     
+      var startLabel = document.createElement('span');
+      startLabel.innerHTML = MDSS.localize('Query_Start_Date');
 
-    this._startDate = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
-    this._startDate.id = this.START_DATE_RANGE;
-    YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
-    YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
+      this._startDate = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._startDate, 'type', 'text');
+      this._startDate.id = this.START_DATE_RANGE;
+      YAHOO.util.Dom.addClass(this._startDate, 'DatePick');
+      YAHOO.util.Event.addListener(this._startDate, "blur", this.disableDateCheck, null, this);
 
-    this._startDateRangeCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', this.START_DATE_RANGE_CHECK);
-    YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
+      this._startDateRangeCheck = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'type', 'checkbox');
+      YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'id', this.START_DATE_RANGE_CHECK);
+      YAHOO.util.Dom.setAttribute(this._startDateRangeCheck, 'disabled', true);
 
-    var endLabel = document.createElement('span');
-    endLabel.innerHTML = MDSS.localize('Query_End_Date');
+      var endLabel = document.createElement('span');
+      endLabel.innerHTML = MDSS.localize('Query_End_Date');
 
-    this._endDate = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
-    this._endDate.id = this.END_DATE_RANGE;
-    YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
-    YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
+      this._endDate = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._endDate, 'type', 'text');
+      this._endDate.id = this.END_DATE_RANGE;
+      YAHOO.util.Dom.addClass(this._endDate, 'DatePick');
+      YAHOO.util.Event.addListener(this._endDate, "blur", this.disableDateCheck, null, this);
 
-    this._endDateRangeCheck = document.createElement('input');
-    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
-    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', this.END_DATE_RANGE_CHECK);
-    YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
+      this._endDateRangeCheck = document.createElement('input');
+      YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'type', 'checkbox');
+      YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'id', this.END_DATE_RANGE_CHECK);
+      YAHOO.util.Dom.setAttribute(this._endDateRangeCheck, 'disabled', true);
 
-    var toggleDatesSpan = document.createElement('span');
-    toggleDatesSpan.innerHTML = MDSS.localize('Toggle_Show');
-
-
-  
-    // add the date fields
-    if(this._queryClass._dateAttribs){
-      this._queryClass._buildDateAttributesSelect(dateRange);
-    }
+      var toggleDatesSpan = document.createElement('span');
+      toggleDatesSpan.innerHTML = MDSS.localize('Toggle_Show');
     
-    dateRange.appendChild(startLabel);
-    dateRange.appendChild(this._startDateRangeCheck);
-    dateRange.appendChild(this._startDate);
-    dateRange.appendChild(endLabel);
-    dateRange.appendChild(this._endDateRangeCheck);
-    dateRange.appendChild(this._endDate);
-
-    var dateGroupLabel = document.createElement('span');
-    dateGroupLabel.innerHTML = MDSS.localize("Snap_To_Nearest");
-
-    this._dateGroupBy = document.createElement('select');
-    this._dateGroupBy.id = this.DATE_GROUP_ID;
-    var options = [''];
-    var keys = [''];
-    options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts));
-    keys = keys.concat(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts));
-
-    for(var j=0; j<options.length; j++)
-    {
-      var optionEl = document.createElement('option');
-      optionEl.innerHTML = options[j];
-      YAHOO.util.Dom.setAttribute(optionEl, 'value', keys[j]);
-      //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
-      this._dateGroupBy.appendChild(optionEl);
-    }
-    dateRange.appendChild(dateGroupLabel);
-    dateRange.appendChild(this._dateGroupBy);
+      // add the date fields
+      if(this._queryClass._dateAttribs){
+        this._queryClass._buildDateAttributesSelect(dateRange);
+      }
     
+      dateRange.appendChild(startLabel);
+      dateRange.appendChild(this._startDateRangeCheck);
+      dateRange.appendChild(this._startDate);
+      dateRange.appendChild(endLabel);
+      dateRange.appendChild(this._endDateRangeCheck);
+      dateRange.appendChild(this._endDate);
+
+      var dateGroupLabel = document.createElement('span');
+      dateGroupLabel.innerHTML = MDSS.localize("Snap_To_Nearest");
+
+      this._dateGroupBy = document.createElement('select');
+      this._dateGroupBy.id = this.DATE_GROUP_ID;
+      var options = [''];
+      var keys = [''];
+      options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.DateGroupOpts));
+      keys = keys.concat(Mojo.Util.getKeys(MDSS.QueryXML.DateGroupOpts));
+
+      for(var j=0; j<options.length; j++)
+      {
+        var optionEl = document.createElement('option');
+        optionEl.innerHTML = options[j];
+        YAHOO.util.Dom.setAttribute(optionEl, 'value', keys[j]);
+        //YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
+        this._dateGroupBy.appendChild(optionEl);
+      }
+      dateRange.appendChild(dateGroupLabel);
+      dateRange.appendChild(this._dateGroupBy);
+    }
     
     //add geo entity chooser    
     if(this._queryClass._geoEntityAttribs)
     {
       this._queryClass._addGeoAttributes(dateRange);
-    }
-    
+    }   
 
     var body = new YAHOO.util.Element(this._qTopUnit.body);
     body.appendChild(dateRange);
-
   },
   
   disableDates : function(disableStart, disableEnd)
@@ -556,10 +554,8 @@ MDSS.QueryPanel.prototype = {
 
     this._buildButtons();
 
-    if(this.getRenderDateRange()) {
-      this._buildDateRange();
-    }
-
+    this._buildDateRange();
+    
     this._buildQueryItems();
 
     this._buildContentGrid([]);

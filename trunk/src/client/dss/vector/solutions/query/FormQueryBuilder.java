@@ -190,15 +190,15 @@ public class FormQueryBuilder implements Reloadable
           this.groups.add(selectableGroup);
         }
       }
-      else if (field instanceof MdWebGeoDTO)
-      {
-        this.geoField.addField(GeoFieldDTO.getGeoField(request, classType, attributeName));
-
-        this.geoGroup.addOption(new GeoOption(classType, attributeName, fieldLabel));
-      }
       else if (! ( field instanceof MdWebTextDTO ))
       {
-        if (field instanceof MdWebDateDTO)
+        if (field instanceof MdWebGeoDTO)
+        {
+          this.geoField.addField(GeoFieldDTO.getGeoField(request, classType, attributeName));
+
+          this.geoGroup.addOption(new GeoOption(classType, attributeName, fieldLabel));
+        }
+        else if (field instanceof MdWebDateDTO)  
         {
           this.dateGroup.addOption(new DateOption(classType, attributeName));
         }

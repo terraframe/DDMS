@@ -3,36 +3,38 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
-  <mjl:dt attribute="definingMdAttribute">
-    <mjl:select param="definingMdAttribute" items="${_definingMdAttribute}" var="current" valueAttribute="id">
-      <mjl:option>
-        ${current.keyName}
-      </mjl:option>
-    </mjl:select>
+  <%@include file="../MdWebField/form.jsp" %>
+</mjl:component>
+<mjl:component param="geoField" item="${geoField}">
+  <mjl:dt attribute="isUnderSystemRoot">
+    <mjl:boolean param="isUnderSystemRoot" />
   </mjl:dt>
-  <mjl:dt attribute="definingMdForm">
-    <mjl:select param="definingMdForm" items="${definingMdForm}" var="current" valueAttribute="id">
+  <mjl:dt attribute="isPoliticalHierarchy">
+    <mjl:boolean param="isPoliticalHierarchy" />
+  </mjl:dt>
+  <mjl:dt attribute="isSprayHierarchy">
+    <mjl:boolean param="isSprayHierarchy" />
+  </mjl:dt>
+  <mjl:dt attribute="isPopulationHierarchy">
+    <mjl:boolean param="isPopulationHierarchy" />
+  </mjl:dt>
+  <mjl:dt attribute="isUrbanHierarchy">
+    <mjl:boolean param="isUrbanHierarchy" />
+  </mjl:dt>
+  <mjl:dt attribute="filter">
+    <mjl:select param="filter" items="${universals}" var="current" valueAttribute="geoHierarchyId" includeBlank="true">
       <mjl:option>
         ${current.displayLabel}
       </mjl:option>
     </mjl:select>
-  </mjl:dt>
-  <mjl:dt attribute="displayLabel">
-    <mjl:input param="displayLabel" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="fieldName">
-    <mjl:input param="fieldName" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="fieldOrder">
-    <mjl:input param="fieldOrder" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="required">
-    <mjl:boolean param="required" />
-  </mjl:dt>
-  <mjl:dt attribute="description">
-    <mjl:input param="description" type="text" />
-  </mjl:dt>
-  <mjl:dt attribute="remove">
-    <mjl:boolean param="remove" />
-  </mjl:dt>
+  </mjl:dt>  
 </mjl:component>
+<br />
+<dt>
+  <label><mdss:localize key="Extra_Universals"/></label>
+</dt>  
+<mjl:group type="checkbox" param="extraUniversals" items="${universals}" var="current" valueAttribute="geoHierarchyId">
+  <mjl:groupOption checked="${mjl:contains(selected, current.geoHierarchyId) ? 'checked' : 'false'}">
+    ${current.displayLabel} <br />
+  </mjl:groupOption>
+</mjl:group>

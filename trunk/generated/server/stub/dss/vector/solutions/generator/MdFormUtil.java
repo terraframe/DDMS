@@ -11,9 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
-import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.dataaccess.BusinessDAO;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -57,6 +55,7 @@ import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebFieldQuery;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebFormQuery;
+import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebReference;
@@ -249,6 +248,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return mdField;
   }
 
+  @Transaction
+  public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals)
+  {
+    DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
+
+    return mdField;
+  }
+
   private static void rebuildConditions(Stack<FieldCondition> conds, AndFieldCondition parent)
   {
     FieldCondition sec = conds.pop();
@@ -428,6 +435,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdField updateMdField(MdField mdField)
   {
     DDMSFieldBuilders.update(mdField);
+
+    return mdField;
+  }
+
+  @Transaction
+  public static MdWebGeo updateGeoField(MdWebGeo mdField, GeoField geoField, String[] extraUniversals)
+  {
+    DDMSFieldBuilders.updateGeoField(mdField, geoField, extraUniversals);
 
     return mdField;
   }
@@ -768,6 +783,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     try
     {
+      if (mdField instanceof MdWebGeo)
+      {
+        MdWebAttribute attr = (MdWebAttribute) mdField;
+        MdAttribute definingAttr = attr.getDefiningMdAttribute();
+        
+        GeoField geoField = GeoField.getGeoField(definingAttr);
+        
+        attr.delete();
+        geoField.delete();
+        definingAttr.delete();        
+      }
       if (mdField instanceof MdWebAttribute)
       {
         MdWebAttribute attr = (MdWebAttribute) mdField;

@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -866553612)
+@com.runwaysdk.business.ClassSignature(hash = 1530319789)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = -866553612;
+  private static final long serialVersionUID = 1530319789;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -55,6 +55,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{mdFieldId, condition};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "createCondition", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdWebGeoDTO createGeoField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebGeoDTO mdField, java.lang.String mdFormId, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebGeo", "java.lang.String", "dss.vector.solutions.geo.GeoField", "[Ljava.lang.String;"};
+    Object[] _parameters = new Object[]{mdField, mdFormId, geoField, extraUniversals};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "createGeoField", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebGeoDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdFieldDTO createMdField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdFieldDTO mdField, java.lang.String mdFormId)
@@ -215,6 +223,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{ids};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "reorderFields", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdWebGeoDTO updateGeoField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebGeoDTO mdField, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebGeo", "dss.vector.solutions.geo.GeoField", "[Ljava.lang.String;"};
+    Object[] _parameters = new Object[]{mdField, geoField, extraUniversals};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "updateGeoField", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebGeoDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdFieldDTO updateMdField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdFieldDTO mdField)
