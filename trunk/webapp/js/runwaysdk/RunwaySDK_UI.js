@@ -10,7 +10,8 @@ Mojo.FORM_PACKAGE = {
   FORM: Mojo.ROOT_PACKAGE+'form.',
   WEB: Mojo.ROOT_PACKAGE+'form.web.',
   FIELD: Mojo.ROOT_PACKAGE+'form.web.field.',
-  METADATA: Mojo.ROOT_PACKAGE+'form.web.metadata.'
+  METADATA: Mojo.ROOT_PACKAGE+'form.web.metadata.',
+  CONDITION: Mojo.ROOT_PACKAGE+'form.web.condition.'
 };
 
 // FIXME use module shortcut from RunwaySDK.js to access these (e.g., Mojo.EVENT)
@@ -1738,6 +1739,10 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
       
       var fieldMd = obj.fieldMd;
       this._fieldMd = Mojo.Meta.newInstance(fieldMd.js_class, fieldMd);
+      var conditionObj = obj.condition;
+      if (conditionObj) {
+        this._condition = Mojo.Meta.newInstance(conditionObj.js_class, conditionObj);
+      }
       this._writable = obj.writable;
       this._readable = obj.readable;
       this._value = obj.value;
@@ -1752,6 +1757,7 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     isWritable : function(){ return this._writable; },
     isReadable : function(){ return this._readable; },
     isModified : function(){ return this._modified; },
+    getCondition : function(){ return this._condition; },
     getFieldLabel : function(){
       return null;
     },
@@ -2235,6 +2241,78 @@ var WebBreakMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebBreakMd', {
 
 var WebCommentMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCommentMd', {
   Extends : WebFieldMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize();
+      
+			this._operation = obj.operation;
+			this._value = obj.value;
+			this._definingMdField = obj.definingMdField;
+    },
+    getOperation : function(){ return this._operation; },
+    getValue : function(){ return this._value; },
+    getDefiningMdField : function(){ return this._definingMdField; },
+    toJSON : function(objKey)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          map[newKey] = this[key];
+        }
+        else
+        {
+          map[key] = this[key];
+        }      
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
+  }
+});
+
+var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'CharacterCondition', {
+  Extends : Condition,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateCondition', {
+  Extends : Condition,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCondition', {
+  Extends : Condition,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var LongCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'LongCondition', {
+  Extends : Condition,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
