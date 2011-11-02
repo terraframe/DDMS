@@ -1713,9 +1713,14 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
       var fieldMd = obj.fieldMd;
       this._fieldMd = Mojo.Meta.newInstance(fieldMd.js_class, fieldMd);
       var conditionObj = obj.condition;
+      
       if (conditionObj) {
         this._condition = Mojo.Meta.newInstance(conditionObj.js_class, conditionObj);
       }
+      else {
+        this._condition = null;
+      }
+      
       this._writable = obj.writable;
       this._readable = obj.readable;
       this._value = obj.value;
@@ -2261,6 +2266,106 @@ var WebCommentMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCommentMd',
   }
 });
 
+var ConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'ConditionMd', {
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize();
+      this._id = obj.id;
+      this._referencingMdField = obj.referencingMdField;
+      this._referencingMdForm = obj.referencingMdForm;
+    },
+    getId : function() { return this._id; },
+    getReferencingMdField : function() { return this._referencingMdField; },
+    getReferencingMdForm : function() { return this._referencingMdForm; },
+    toJSON : function(objKey)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          map[newKey] = this[key];
+        }
+        else
+        {
+          map[key] = this[key];
+        }      
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
+  }
+});
+
+var BasicConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'BasicConditionMd', {
+  Extends : ConditionMd,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var CharacterConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'CharacterConditionMd', {
+  Extends : BasicConditionMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var DateConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'DateConditionMd', {
+  Extends : BasicConditionMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var DoubleConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'DoubleConditionMd', {
+  Extends : BasicConditionMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var LongConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'LongConditionMd', {
+  Extends : BasicConditionMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var CompositeFieldConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'CompositeFieldConditionMd', {
+  Extends : ConditionMd,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var AndFieldConditionMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'AndFieldConditionMd', {
+  Extends : CompositeFieldConditionMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
 var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
   Implements : VisitableIF,
   IsAbstract : true,
@@ -2268,17 +2373,17 @@ var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
     initialize : function(obj){
       this.$initialize();
       
+      var conditionMd = obj.conditionMd;
+      this._conditionMd = Mojo.Meta.newInstance(conditionMd.js_class, conditionMd);
+      
 			this._operation = obj.operation;
 			this._definingMdField = obj.definingMdField;
-			
-			this._isTrue = false; // has the condition criterion been met?
+			this._value = obj.value;
     },
     getOperation : function(){ return this._operation; },
     getValue : function(){ return this._value; },
     getDefiningMdField : function(){ return this._definingMdField; },
-    evaluate : { IsAbstract : true },
-    isTrue : function() { return this._isTrue; },
-    _setTrue : function(isTrue) { this._isTrue = isTrue; },
+    isTrue : { IsAbstract : true },
     toJSON : function(objKey)
     {
       var map = {};
@@ -2314,7 +2419,9 @@ var CompositeFieldCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Co
 			
       this._firstCondition = Mojo.Meta.newInstance(firstConditionObj.js_class, firstConditionObj);
       this._secondCondition = Mojo.Meta.newInstance(secondConditionObj.js_class, secondConditionObj);
-		}
+		},
+		getFirstCondition : function(){ return this._firstCondition; },
+		getSecondCondition : function(){ return this._secondCondition; }
 	}
 });
 
@@ -2327,8 +2434,8 @@ var AndFieldCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'AndField
 		accept : function(visitor){
 		  visitor.visitAndFieldCondition(this);
 		},
-		evaluate : function(value){
-		
+		isTrue : function(){
+		  return this.getFirstConditon().isTrue() && this.getSecondCondition().isTrue();
 		}
 	}
 });
@@ -2340,7 +2447,39 @@ var BasicCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'BasicCondit
 		initialize : function(obj) {
 			this.$initialize(obj);
 			this._value = obj.value;
-		}
+			this._isTrue = false; // has the condition criterion been met?
+		},
+    _setTrue : function(isTrue) { this._isTrue = isTrue; },
+    isTrue : function() { return this._isTrue; },
+		evaluate : function(changedValue){
+      var value = this.getValue();
+      var op = this.getOperation();
+      var isTrue = false;
+      switch (op) {
+        case 'EQ':
+          isTrue = changedValue == value;
+          break;
+        case 'GT':
+          isTrue = changedValue > value;
+          break;
+        case 'GTE':
+          isTrue = changedValue >= value;
+          break;
+        case 'LT':
+          isTrue = changedValue < value;
+          break;
+        case 'LTE':
+          isTrue = changedValue <= value;
+          break;
+        case 'NEQ':
+          isTrue = changedValue != value;
+          break;
+        default:
+          isTrue = false;
+      }
+      
+      this._setTrue(isTrue);      
+    }
 	}
 });
 
@@ -2352,10 +2491,6 @@ var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Charact
     },
     accept : function(visitor){
       visitor.visitCharacterCondition(this);
-    },
-    evaluate : function(value){
-      console.log('cur: '+ this.getValue());
-      console.log('inc: '+ value);
     }
   }
 });
@@ -2368,10 +2503,6 @@ var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateConditio
     },
     accept : function(visitor){
       visitor.visitDateCondition(this);
-    },
-    evaluate : function(value){
-      console.log('cur: '+ this.getValue());
-      console.log('inc: '+ value);
     }
   }
 });
@@ -2384,10 +2515,6 @@ var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCond
     },
     accept : function(visitor){
       visitor.visitDoubleCondition(this);
-    },
-    evaluate : function(value){
-      console.log('cur: '+ this.getValue());
-      console.log('inc: '+ value);
     }
   }
 });
@@ -2400,10 +2527,6 @@ var LongCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'LongConditio
     },
     accept : function(visitor){
       visitor.visitLongCondition(this);
-    },
-    evaluate : function(value){
-      console.log('cur: '+ this.getValue());
-      console.log('inc: '+ value);
     }
   }
 });
