@@ -2255,7 +2255,6 @@ var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
       this.$initialize();
       
 			this._operation = obj.operation;
-			this._value = obj.value;
 			this._definingMdField = obj.definingMdField;
     },
     getOperation : function(){ return this._operation; },
@@ -2284,8 +2283,44 @@ var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
   }
 });
 
+var CompositeFieldCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'CompositeFieldCondition',{
+	IsAbstract : true,
+	Extends : Condition,
+	Instance : {
+		initialize : function(obj) {
+			this.$initialize(obj);
+			
+			var firstConditionObj = obj.firstCondition;
+			var secondConditionObj = obj.secondCondition;
+			
+      this._firstCondition = Mojo.Meta.newInstance(firstConditionObj.js_class, firstConditionObj);
+      this._secondCondition = Mojo.Meta.newInstance(secondConditionObj.js_class, secondConditionObj);
+		}
+	}
+});
+
+var AndFieldCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'AndFieldCondition',{
+	Extends : CompositeFieldCondition,
+	Instance : {
+		initialize : function(obj) {
+			this.$initialize(obj);
+		}
+	}
+});
+
+var BasicCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'BasicCondition', {
+	IsAbstract : true,
+	Extends : Condition,
+	Instance : {
+		initialize : function(obj) {
+			this.$initialize(obj);
+			this._value = obj.value;
+		}
+	}
+});
+
 var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'CharacterCondition', {
-  Extends : Condition,
+  Extends : BasicCondition,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -2294,7 +2329,7 @@ var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Charact
 });
 
 var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateCondition', {
-  Extends : Condition,
+  Extends : BasicCondition,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -2303,7 +2338,7 @@ var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateConditio
 });
 
 var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCondition', {
-  Extends : Condition,
+  Extends : BasicCondition,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
@@ -2312,7 +2347,7 @@ var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCond
 });
 
 var LongCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'LongCondition', {
-  Extends : Condition,
+  Extends : BasicCondition,
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
