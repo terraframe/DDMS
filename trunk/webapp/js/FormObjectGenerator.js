@@ -96,23 +96,17 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
     defaultAction : function() {
     
       var com = this.getFormComponent();
-      var f = com.getFactory();
-			
-			var rowDiv = f.newElement('div');
-			var fieldColDiv = f.newElement('div');
-			fieldColDiv.setStyle('float', 'left');
-			
-			this._parent.appendChild(rowDiv);
-			rowDiv.appendChild(fieldColDiv);
     
       // dt
       var displayNode = com.getDisplayNode();
+      var f = com.getFactory();
       if(displayNode)
       {
         var dt = f.newElement('dt');
         dt.appendChild(displayNode);
         
-				fieldColDiv.appendChild(dt);
+        this._parent.appendChild(dt);
+        com.addDOMParent(dt);
       }
       
       // dd
@@ -123,25 +117,19 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
         dd.appendChild(contentNode);
         
         var field = com.getField();
-				
-        var errorDiv = f.newElement('div');
-        errorDiv.addClassName('alertbox');
-        errorDiv.setStyle('float', 'left');
-        errorDiv.setStyle('visibility', 'hidden');
-        rowDiv.appendChild(errorDiv);
-				
         if(field instanceof FIELD.WebPrimitive)
         {
+          var errorContainer = f.newElement('span');
           var attrId = field.getFieldMd().getDefiningMdAttribute();
-          errorDiv.setId(attrId);
+          errorContainer.setId(attrId);
+          errorContainer.addClassName('alertbox');
+          errorContainer.setStyle('margin-left', '20px');
+          errorContainer.setStyle('visibility', 'hidden');
+          dd.appendChild(errorContainer);
         }        
        
-				fieldColDiv.appendChild(dd);
-				
-				// this allows 2 divs to sit side by side
-				var clearDiv = f.newElement('div');
-				rowDiv.appendChild(clearDiv);
-				clearDiv.setStyle('clear', 'both');
+        this._parent.appendChild(dd);
+        com.addDOMParent(dd);
         
         if(ValueFieldIF.getMetaClass().isInstance(com))
         {
@@ -395,6 +383,7 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       
       this._formObjectGenerator = formObjectGenerator; // the generator that created this visitor
       this._formObjectGenerator.clearConditions();
+      this._formObjectGenerator.clearFieldComponents();
       
       this._factory = this._formObjectGenerator.getFactory();
       this._editMode = editMode;
@@ -430,6 +419,7 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
         // if the field was added (i.e., the default action executed) then
         // visit the condition if one exists.
         if(!evt.getPreventDefault()){
+          this._formObjectGenerator.addFieldComponent(formComponent);
           var cond = formComponent.getField().getCondition();
           if(cond){
             cond.accept(this);
@@ -549,11 +539,13 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
     },
     
     visitDateCondition : function(cond){
+      cond._setValue(MDSS.Calendar.getLocalizedString(cond.getValue()));
       this._formObjectGenerator.addCondition(cond);
     },
     
-    visitAndFieldCondition : function(field){
-    
+    visitAndFieldCondition : function(cond){
+      cond.getFirstCondition().accept(this);
+      cond.getSecondCondition().accept(this);
     }
   }
 });
@@ -672,6 +664,20 @@ var FieldComponent = Mojo.Meta.newClass('dss.vector.solutions.FieldComponent', {
     initialize : function(field){
       this.$initialize();
       this._field = field;
+      this._domParents = [];
+    },
+    show : function(){
+      for(var i=0, len=this._domParents.length; i<len; i++){
+        this._domParents[i].setStyle('display', 'block');
+      }
+    },
+    hide : function(){
+      for(var i=0, len=this._domParents.length; i<len; i++){
+        this._domParents[i].setStyle('display', 'none');
+      }    
+    },
+    addDOMParent : function(parent){
+      this._domParents.push(parent);
     },
     getField : function() { return this._field; },
     /**
@@ -721,6 +727,15 @@ var FieldComponent = Mojo.Meta.newClass('dss.vector.solutions.FieldComponent', {
       var node = this.getFactory().newElement('span');
       node.setInnerHTML(this.getValue());
       return node;
+    },
+    forceValueChangeEvent : function(){
+    
+      var el = document.getElementsByName(this.getField().getFieldName())[0];
+    
+      // FIXME use library
+      var evt = document.createEvent("HTMLEvents");
+      evt.initEvent("change", true, false);
+      el.dispatchEvent(evt);
     }
   }  
 });
@@ -879,6 +894,19 @@ var BooleanComponent = Mojo.Meta.newClass('dss.vector.solutions.BooleanComponent
     dispatchValueChangeEvent : function(e){
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    forceValueChangeEvent : function(){
+    
+      var els = document.getElementsByName(this.getField().getFieldName());
+      for(var i=0, len=els.length; i<len; i++){
+        var el = els[i];
+        if(el.checked){
+          // FIXME use library
+          var evt = document.createEvent("HTMLEvents");
+          evt.initEvent("change", true, false);
+          el.dispatchEvent(evt);
+        }
+      }
     }
   }
 });
@@ -987,11 +1015,20 @@ var DateComponent = Mojo.Meta.newClass('dss.vector.solutions.DateComponent', {
       return node;
     },
     monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+      node.addEventListener('blur', this.dispatchValueChangeEvent, null, this);
     },
     dispatchValueChangeEvent : function(e){
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    forceValueChangeEvent : function(){
+    
+      var el = document.getElementsByName(this.getField().getFieldName())[0];
+    
+      // FIXME use library
+      var evt = document.createEvent("UIEvent");
+      evt.initEvent("blur", false, false);
+      el.dispatchEvent(evt);
     }
   }
 });
@@ -1002,7 +1039,17 @@ var AnnotationComponent = Mojo.Meta.newClass('dss.vector.solutions.BreakComponen
   Instance : {
     initialize : function(field){
       this.$initialize(field);
-    }
+    },
+    _getDisplayNode : function() {
+      return null;
+    },
+    _getReadNode : function(){
+      return this._getContentNode();
+    },
+    /**
+     * Override to do nothing because conditions can't be based on display fields.
+     */
+    forceValueChangeEvent : function() {}
   }
 });
 
@@ -1012,7 +1059,7 @@ var BreakComponent = Mojo.Meta.newClass('dss.vector.solutions.BreakComponent', {
     initialize : function(field){
       this.$initialize(field);
     },
-    _getReadNode : function(){
+    _getContentNode : function(){
       return this.getFactory().newElement('hr');
     }
   }
@@ -1024,7 +1071,7 @@ var HeaderComponent = Mojo.Meta.newClass('dss.vector.solutions.HeaderComponent',
     initialize : function(field){
       this.$initialize(field);
     },
-    _getReadNode : function(){
+    _getContentNode : function(){
       var node = this.getFactory().newElement('h2');
       node.setInnerHTML(this.getValue());
       
@@ -1038,6 +1085,11 @@ var CommentComponent = Mojo.Meta.newClass('dss.vector.solutions.CommentComponent
   Instance : {
     initialize : function(field){
       this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var node = this.getFactory().newElement('span');
+      node.setInnerHTML(this.getValue());
+      return node;
     }
   }
 });
@@ -1127,6 +1179,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       // mapping between defining MdField and Condition objects
       this._conditions = new com.runwaysdk.structure.HashMap();
+      this._fieldComponents = new com.runwaysdk.structure.HashMap();
     },
     clearConditions : function(){
       this._conditions.clear();
@@ -1143,6 +1196,13 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         this._conditions.put(mdFieldId, [cond]);
       }
     },
+    addFieldComponent : function(fieldComponent){
+      var mdFieldId = fieldComponent.getField().getFieldMd().getId();
+      this._fieldComponents.put(mdFieldId, fieldComponent);   
+    },
+    clearFieldComponents : function(){
+      this._fieldComponents.clear();
+    },
     handleValueChange : function(valueChangeEvent){
       var component = valueChangeEvent.getTarget();
       var value = valueChangeEvent.getValue();
@@ -1151,11 +1211,28 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // its value changed
       var conditions = this._conditions.get(component.getField().getFieldMd().getId());
       if(conditions){
+        var fieldsToCheck = new com.runwaysdk.structure.HashSet();
         for(var i=0; i<conditions.length; i++)
         {
           var cond = conditions[i];
           cond.evaluate(value);
-          console.log('isTrue: '+cond.isTrue());
+
+          fieldsToCheck.add(cond.getConditionMd().getReferencingMdField());
+        }
+        
+        // for each field that has a condition check the
+        // root condition (in the case of composites) such that all conditions
+        // in the hierarchy are true. If so, show the field.
+        var fieldsArr = fieldsToCheck.toArray();
+        for(var i=0; i<fieldsArr.length; i++){
+          var fieldComponent = this._fieldComponents.get(fieldsArr[i]);
+          var cond = fieldComponent.getField().getCondition();
+          if(cond.isTrue()){
+            fieldComponent.show();
+          }
+          else {
+            fieldComponent.hide();
+          }
         }
       }
     },
@@ -1272,6 +1349,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     
       var visitor = new FormObjectRenderVisitor(this, true);
       this._formObject.accept(visitor);
+      
       var formContent = visitor.getNode();
       
       
@@ -1311,7 +1389,20 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       }
       
       var formContent = visitor.getNode();
+      formContent.setStyle('visibility', 'hidden');
+      
       this._formContainer.appendChild(formContent.getRawEl());
+      
+      // we are done visiting the form so all fields are constructed.
+      // To initialize the proper show/hide status of the form, check
+      // each value manually as if the value had been changed via the UI.
+      // Show the form when we're done
+      var fields = this._fieldComponents.values();
+      for(var i=0; i<fields.length; i++){
+        fields[i].forceValueChangeEvent();
+      }
+      
+      formContent.setStyle('visibility', 'visible');
     },
     /**
      * Updates the values on the FormObject with the current values

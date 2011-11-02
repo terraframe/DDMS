@@ -2374,14 +2374,18 @@ var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
       this.$initialize();
       
       var conditionMd = obj.conditionMd;
-      this._conditionMd = Mojo.Meta.newInstance(conditionMd.js_class, conditionMd);
+      if(obj.conditionMd){
+        this._conditionMd = Mojo.Meta.newInstance(conditionMd.js_class, conditionMd);
+      }
       
 			this._operation = obj.operation;
 			this._definingMdField = obj.definingMdField;
 			this._value = obj.value;
     },
+    getConditionMd : function() { return this._conditionMd; },
     getOperation : function(){ return this._operation; },
     getValue : function(){ return this._value; },
+    _setValue : function(value) { this._value = value; },
     getDefiningMdField : function(){ return this._definingMdField; },
     isTrue : { IsAbstract : true },
     toJSON : function(objKey)
@@ -2435,7 +2439,7 @@ var AndFieldCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'AndField
 		  visitor.visitAndFieldCondition(this);
 		},
 		isTrue : function(){
-		  return this.getFirstConditon().isTrue() && this.getSecondCondition().isTrue();
+		  return this.getFirstCondition().isTrue() && this.getSecondCondition().isTrue();
 		}
 	}
 });

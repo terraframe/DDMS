@@ -3295,7 +3295,7 @@ var CustomEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'CustomEventIF', {
   }
 });
 
-var FormEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'FormEventIF', {
+var HTMLEventsIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'HTMLEventsIF', {
   Extends : EventIF,
   Instance : {
 
@@ -3582,9 +3582,9 @@ var Event = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Event', {
   }
 });
 
-var FormEvent = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'FormEvent', {
+var HTMLEvents = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'HTMLEvents', {
   Extends : Event,
-  Implements: FormEventIF,
+  Implements: HTMLEventsIF,
   Instance : {
     initialize : function(event)
     {
@@ -3592,11 +3592,11 @@ var FormEvent = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'FormEvent', {
     }, 
     getEventInterface : function()
     {
-      return 'Event';
+      return 'HTMLEvents';
     },
     initEvent : function(type, canBubble, cancelable)
     {
-      this.initUIEvent.apply(this, arguments);
+      this.$initEvent.apply(this, arguments);
     },
   }
 });
@@ -4154,7 +4154,7 @@ var EventUtil = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'EventUtil', {
     DOM_EVENTS : {
     
       // FormEvent
-      change : {eventInterface : FormEvent},
+      change : {eventInterface : HTMLEvents},
     
       // UIEvent
       abort : {eventInterface : UIEvent},

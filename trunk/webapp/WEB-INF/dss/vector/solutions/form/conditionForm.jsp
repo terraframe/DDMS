@@ -32,8 +32,8 @@
 	<script type="text/javascript">
 	(function(){
 	  var el = document.getElementById('${condition.id}_value');
-	  el.value = MDSS.Calendar.getLocalizedString(el.value);
 	  MDSS.Calendar.addCalendarListeners(el);
+	  el.value = MDSS.Calendar.getLocalizedString(el.value);
 	})();
 	</script>
 </c:if>

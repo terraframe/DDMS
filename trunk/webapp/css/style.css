@@ -312,7 +312,7 @@ textarea {
 }
 
 #cal1Container {
-  z-index: 500;
+  z-index: 999999;
 }
 
 .hide {
