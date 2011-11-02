@@ -3295,6 +3295,13 @@ var CustomEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'CustomEventIF', {
   }
 });
 
+var FormEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'FormEventIF', {
+  Extends : EventIF,
+  Instance : {
+
+  }
+});
+
 var UIEventIF = Mojo.Meta.newInterface(Mojo.EVENT_PACKAGE+'UIEventIF', {
   Extends : EventIF,
   Instance : {
@@ -3572,6 +3579,25 @@ var Event = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'Event', {
     {
       this._evt.initEvent(eventType, canBubble, cancelable);
     }
+  }
+});
+
+var FormEvent = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'FormEvent', {
+  Extends : Event,
+  Implements: FormEventIF,
+  Instance : {
+    initialize : function(event)
+    {
+      this.$initialize(event);
+    }, 
+    getEventInterface : function()
+    {
+      return 'Event';
+    },
+    initEvent : function(type, canBubble, cancelable)
+    {
+      this.initUIEvent.apply(this, arguments);
+    },
   }
 });
 
@@ -4126,6 +4152,10 @@ var EventUtil = Mojo.Meta.newClass(Mojo.EVENT_PACKAGE+'EventUtil', {
     
     // FIXME add default args ... maybe use LinkedHashMap for ordering and overrides
     DOM_EVENTS : {
+    
+      // FormEvent
+      change : {eventInterface : FormEvent},
+    
       // UIEvent
       abort : {eventInterface : UIEvent},
       load : {eventInterface : UIEvent},

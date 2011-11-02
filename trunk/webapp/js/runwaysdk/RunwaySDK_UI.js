@@ -75,6 +75,7 @@ var AbstractComponentFactoryIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'Abstrac
     // A raw DOM element, in which case it wraps it and returns a HTMLElementIF wrapper.
     newElement : function(el, attributes, styles){},
     
+    newDocumentFragment : function(el){},
     
     newDialog : function(title, config){},
     
@@ -125,8 +126,7 @@ var ComponentIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'ComponentIF', {
     replaceChild : function(newChild, oldChild){},
     render : function(){},
     isRendered : function(){},
-    destroy : function(){},
-    dispatchEvent : function(evt){}
+    destroy : function(){}
   }
 });
 
@@ -135,7 +135,7 @@ var ComponentIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'ComponentIF', {
  * Essentially a UI base class for both adapters to extend as well as Runway implementations.
  */
 var Component = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'Component',{
-  Implements: [ComponentIF, EVENT.EventTarget],
+  Implements: [ComponentIF],
   IsAbstract : true,
   Instance : {
     initialize : function(id)
@@ -371,7 +371,7 @@ var NodeIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'NodeIF', {
     DOCUMENT_NODE : 9,
     DOCUMENT_TYPE_NODE : 10,
     DOCUMENT_FRAGMENT_NODE : 11,
-    NOTATION_NODE : 12
+    NOTATION_NODE : 12  
   },
   Instance : {
     // DOM Methods
@@ -381,7 +381,7 @@ var NodeIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'NodeIF', {
     hasChildNodes : function(){},
     insertBefore : function(newChild, refChild){},
     isSupported : function(feature, version){},
-    normalize : function(){},
+
     removeChild : function(oldChild){},
     replaceChild : function(newChild, oldChild){},
     
@@ -425,7 +425,8 @@ var ElementIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'ElementIF', {
     replaceChild : function(oldChild, newChild){},
     addEventListener : function(oTarget, sEvent, oListener, bUseCapture){},
     removeEventListener : function(oTarget, sEvent, oListener, bUseCapture){},
-    getImpl : function(name){}
+    getImpl : function(name){},
+    normalize : function(){},
   }
 });
 
@@ -443,36 +444,7 @@ var HTMLElementIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'HTMLElementIF', {
     setStyles:function(styles){},
     getStyle:function(property){},
     getElementsByClassName : function(className, tag){},
-    getRawEl : function(){}
-    /*
-    getClassName:function(c){},
-    getElementsByClassName:function(classNames){},
-    setOuterHTML:function(html){},
-    getOuterHTML:function(){},
-    insertAdjacentHTML:function(position, text){},
-    getId:function(){},
-    setId:function(id){},
-    getTitle:function(){},
-    setTitle:function(title){},
-    getLang:function(){},
-    setLang:function(lang){},
-    getDir:function(){},
-    setDir:function(dir){},
-    getDataset:function(){},
-    isHidden:function(){},
-    setHidden:function(hidden){},
-    click:function(){},
-    scrollIntoView:function(top){},
-    offsetLeft:function(){},
-    offsetTop:function(){},
-    offsetWidth:function(){},
-    offsetHeight:function(){},
-    getPos:function(){},
-    getSize:function(){},
-    /* TODO Add the selectors
-     querySelector(),
-     querySelectorAll(),
-     */
+    getRawEl : function(){},
   }
 });
 
@@ -535,20 +507,6 @@ var ListItemIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'ListItemIF', {
   Instance : {
     getData:function(){},
     hasLI:function(HTMLElementIF_or_RawDOM){}
-  }
-});
-
-var TabViewIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'TabViewIF', {
-  Extends : ComponentIF,
-  
-  Instance : {
-  }
-});
-
-var TabIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'TabIF', {
-  Extends : ComponentIF,
-  
-  Instance : {
   }
 });
 
@@ -815,6 +773,12 @@ var HTMLElementBase = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'HTMLElementBase',{
     getContentEl : function() {
       return this.getEl();
     },
+    normalize : function() {
+      this.getImpl().normalize();
+    },
+    cloneNode : function(deep){
+      return this.getImpl().cloneNode(deep);
+    },
     render : function(parent) {
       this.$render();
       
@@ -834,19 +798,12 @@ var HTMLElementBase = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'HTMLElementBase',{
  */
 var DOMFacade = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'DOMFacade', {
   
-  IsSingleton : true,
-  
-  Instance : {
-    initialize : function() {
-      this._body = Manager.getFactory().newElement( DOMFacade.getRawBody() );
-    },
-    
-    getBody : function() {
-      return this._body;
-    }
-  },
-  
   Static : {
+  
+    createDocumentFragment : function()
+    {
+      return document.createDocumentFragment();
+    },
   
     createElement : function(type, attributes, styles)
     {
@@ -1043,7 +1000,7 @@ var DOMFacade = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'DOMFacade', {
     },
     
     getBody : function() {
-      return this.getInstance().getBody();
+      return Manager.getFactory().newElement(DOMFacade.getRawBody());
     },
     
     getRawBody : function()
@@ -1191,7 +1148,7 @@ var Util = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"Util", {
     },
     
     isRawElement : function(o) {
-      return o instanceof Mojo.GLOBAL.Element;
+      return o instanceof Mojo.GLOBAL.Element || o instanceof Mojo.GLOBAL.DocumentFragment;
     },
     
     isRawAttr : function(o) {
@@ -1231,7 +1188,7 @@ var Util = Mojo.Meta.newClass(Mojo.UI_PACKAGE+"Util", {
       if (!Mojo.Util.isValid(el))
       return el;
       else if (Mojo.Util.isString(el))
-        return this.getFactory().createElement(el);
+        return DOMFacade.createElement(el);
       else if (this.isRawElement(el))
         return el;
       else if (this.isElement(el))
@@ -1536,7 +1493,7 @@ var DropIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'DropIF', {
 });
 
 var AddItemEvent = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'AddItemEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Extends : EVENT.CustomEvent,
   Instance : {
     initialize : function(listItem)
     {
@@ -1547,7 +1504,7 @@ var AddItemEvent = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'AddItemEvent', {
   }
 });
 var RemoveItemEvent = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'RemoveItemEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Extends : EVENT.CustomEvent,
   Instance : {
     initialize : function(listItem)
     {
@@ -1558,20 +1515,39 @@ var RemoveItemEvent = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'RemoveItemEvent', {
   }
 });
 
-var FormComponentIF = Mojo.Meta.newInterface(Mojo.UI_PACKAGE+'FormComponentIF', {
-  Constants : {
-    TEXT : 'text',
-    TEXTAREA : 'textarea',
-    HIDDEN : 'hidden',
-    SELECT : 'select',
-    RADIO : 'radio',
-    RADIO_GROUP : 'radiogroup',
-    HEADER : 'header',
-    BREAK : 'break',
-    COMMENT : 'comment'
-  },
+/**
+ * Visitor to traverse the field structures of a FormObject.
+ */
+var FormObjectVisitorIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FORM+'FormObjectVisitorIF', {
   Instance : {
-  
+    visitFormObject : function(formObject){},
+    visitCharacter : function(webCharacter){},
+    visitText : function(webText){},
+    visitDate : function(webDate){},
+    visitInteger : function(webInteger){},
+    visitLong : function(webLong){},
+    visitDouble : function(webDouble){},
+    visitDecimal : function(webDecimal){},
+    visitFloat : function(webFloat){},
+    visitBreak : function(webBreak){},
+    visitHeader : function(webHeader){},
+    visitComment : function(webComment){},
+    visitReference : function(webReference){},
+    visitGroup : function(webGroup){},
+    visitCharacterCondition : function(characterCondition){},
+    visitLongCondition : function(longCondition){},
+    visitDoubleCondition : function(doubleCondition){},
+    visitDateCondition : function(dateCondition){},
+    visitAndFieldCondition : function(andCondition){}
+  }
+});
+
+var VisitableIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FORM+'VisitableIF', {
+  Instance : {
+    /**
+     * @param visitor FormObjectVisitorIF
+     */
+    accept : function(visitor){}
   }
 });
 
@@ -1625,6 +1601,7 @@ var WebFormMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFormMd', {
 
 var FormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FORM+'FormObject', {
   IsAbstract: true,
+  Implements : VisitableIF,
   Instance: {
     initialize : function(obj) {
 
@@ -1694,6 +1671,16 @@ var WebFormObject = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.WEB+'WebFormObject', {
   Instance: {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+
+      var fields = this.getFields();
+      for(var i=0; i<fields.length; i++)
+      {
+        fields[i].accept(visitor);
+      }
+      
+      visitor.visitFormObject(this);
     }
   },
   Static : {
@@ -1712,26 +1699,12 @@ var FieldIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldIF', {
     getFieldName : function(){},
     isWritable : function(){},
     isReadable : function(){},
-    isModified : function(){},
-    /**
-     * Returns the LabelIF that marks this field in the DOM, usually
-     * an instance that wraps a Label tag.
-     */
-    getFieldLabel : function(){},
-    
-    /**
-     * Returns a FormComponentIF that allows for modification of
-     * this field, usually in the form of an HTML control object.
-     */
-    getFormComponent : function(){}
-
-// TODO add read only concepts for each field.    
-//    getReadOnlyComponent : function(){},
+    isModified : function(){}
   }
 });
 
 var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
-  Implements: FieldIF,
+  Implements: [FieldIF, VisitableIF],
   IsAbstract : true,
   Instance : {
     initialize : function(obj){
@@ -1758,12 +1731,6 @@ var WebField = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebField', {
     isReadable : function(){ return this._readable; },
     isModified : function(){ return this._modified; },
     getCondition : function(){ return this._condition; },
-    getFieldLabel : function(){
-      return null;
-    },
-    getFormComponent : function(){
-      return null;
-    },
     toJSON : function(objKey)
     {
       var map = {};
@@ -1812,6 +1779,9 @@ var WebBoolean = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebBoolean', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitBoolean(this);
     }
   }
 });
@@ -1820,6 +1790,9 @@ var WebReference = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebReference', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitReference(this);
     }
   }
 });
@@ -1828,6 +1801,9 @@ var WebCharacter = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebCharacter', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitCharacter(this);
     }
   }
 });
@@ -1837,6 +1813,9 @@ var WebText = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebText', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitText(this);
     }
   }
 });
@@ -1856,6 +1835,9 @@ var WebInteger = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebInteger', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitInteger(this);
     }
   }
 });
@@ -1865,11 +1847,15 @@ var WebLong = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebLong', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitLong(this);
     }
   }
 });
 
 var WebDec = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDec', {
+  IsAbstract : true,
   Extends : WebNumber,
   Instance : {
     initialize : function(obj){
@@ -1883,6 +1869,9 @@ var WebDecimal = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDecimal', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDecimal(this);
     }
   }
 });
@@ -1892,6 +1881,9 @@ var WebDouble = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDouble', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDouble(this);
     }
   }
 });
@@ -1901,6 +1893,9 @@ var WebFloat = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebFloat', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitFloat(this);
     }
   }
 });
@@ -1920,6 +1915,9 @@ var WebDate = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDate', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDate(this);
     }
   }
 });
@@ -1929,6 +1927,9 @@ var WebDateTime = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebDateTime', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDateTime(this);
     }
   }
 });
@@ -1938,6 +1939,9 @@ var WebTime = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebTime', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitTime(this);
     }
   }
 });
@@ -1947,6 +1951,9 @@ var WebHeader = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebHeader', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitHeader(this);
     }
   }
 });
@@ -1956,6 +1963,9 @@ var WebBreak = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebBreak', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitBreak(this);
     }
   }
 });
@@ -1965,6 +1975,9 @@ var WebComment = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebComment', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitComment(this);
     }
   }
 });
@@ -2191,7 +2204,7 @@ var WebDateMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateMd', {
       this._beforeTodayInclusive = obj.beforeTodayInclusive;
       this._afterTodayExclusive = obj.afterTodayExclusive;
       this._afterTodayInclusive = obj.afterTodayInclusive;
-      this._startDate = obj.startDate;
+      this._startDate = obj.stardddtDate;
       this._endDate = obj.endDate;
     },
     getBeforeTodayExclusive : function() { return this._beforeTodayExclusive; },
@@ -2249,6 +2262,7 @@ var WebCommentMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebCommentMd',
 });
 
 var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
+  Implements : VisitableIF,
   IsAbstract : true,
   Instance : {
     initialize : function(obj){
@@ -2256,10 +2270,15 @@ var Condition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Condition', {
       
 			this._operation = obj.operation;
 			this._definingMdField = obj.definingMdField;
+			
+			this._isTrue = false; // has the condition criterion been met?
     },
     getOperation : function(){ return this._operation; },
     getValue : function(){ return this._value; },
     getDefiningMdField : function(){ return this._definingMdField; },
+    evaluate : { IsAbstract : true },
+    isTrue : function() { return this._isTrue; },
+    _setTrue : function(isTrue) { this._isTrue = isTrue; },
     toJSON : function(objKey)
     {
       var map = {};
@@ -2304,6 +2323,12 @@ var AndFieldCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'AndField
 	Instance : {
 		initialize : function(obj) {
 			this.$initialize(obj);
+		},
+		accept : function(visitor){
+		  visitor.visitAndFieldCondition(this);
+		},
+		evaluate : function(value){
+		
 		}
 	}
 });
@@ -2324,6 +2349,13 @@ var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Charact
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitCharacterCondition(this);
+    },
+    evaluate : function(value){
+      console.log('cur: '+ this.getValue());
+      console.log('inc: '+ value);
     }
   }
 });
@@ -2333,6 +2365,13 @@ var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateConditio
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDateCondition(this);
+    },
+    evaluate : function(value){
+      console.log('cur: '+ this.getValue());
+      console.log('inc: '+ value);
     }
   }
 });
@@ -2342,6 +2381,13 @@ var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCond
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDoubleCondition(this);
+    },
+    evaluate : function(value){
+      console.log('cur: '+ this.getValue());
+      console.log('inc: '+ value);
     }
   }
 });
@@ -2351,6 +2397,13 @@ var LongCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'LongConditio
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitLongCondition(this);
+    },
+    evaluate : function(value){
+      console.log('cur: '+ this.getValue());
+      console.log('inc: '+ value);
     }
   }
 });

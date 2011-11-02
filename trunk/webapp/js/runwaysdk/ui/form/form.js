@@ -27,7 +27,7 @@ var Visitor = Mojo.Meta.newInterface(Mojo.RW_PACKAGE+'Visitor', {
 
 var FormDisplay = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'FormDisplay', {
   IsAbstract : true,
-  Implements : [RUNWAY_UI.FormComponentIF, RUNWAY_UI.ElementProviderIF, Visitable],
+  Implements : Visitable,
   Instance : {
     initialize : function(){
       this.$initialize();

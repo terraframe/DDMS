@@ -72,7 +72,6 @@ out.print(js);
 %>
 
 YAHOO.util.Event.onDOMReady(function(){
-
   var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}');
   generator.render();
 });

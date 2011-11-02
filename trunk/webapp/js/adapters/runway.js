@@ -24,6 +24,9 @@ var Factory = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Factory', {
         return new HTMLElement(el, attributes, styles);
       }
     },
+    newDocumentFragment : function(el){
+      throw new DocumentFragment(el);
+    },
     newDialog: function(title){
       throw new com.runwaysdk.Exception('Not implemented');
       //return new com.runwaysdk.ui.Dialog(title);
@@ -74,12 +77,6 @@ var Factory = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'Factory', {
       throw new com.runwaysdk.Exception('Not implemented');
     },
     newRecord : function(obj){
-      throw new com.runwaysdk.Exception('Not implemented');
-    },
-    newTabView : function (config, tabs) {
-      throw new com.runwaysdk.Exception('Not implemented');
-    },
-    newTab : function (title, content) {
       throw new com.runwaysdk.Exception('Not implemented');
     },
     newDrag : function(elProvider) {
@@ -388,6 +385,10 @@ var Element = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'Element', {
         return newId;
       }
     },
+    normalize : function()
+    {
+      this.getRawEl().normalize();
+    },
     toString : function()
     {
       return 'Element: ['+this.getNodeName()+'] ['+this.getAttribute('id')+'].';
@@ -574,6 +575,56 @@ var Attr = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'Attr', {
     getImpl : function()
     {
       return this;
+    }
+  }
+});
+
+/**
+ * Wrapper for a DocumentFragment that delegates to an underlying node for its
+ * implementation.
+ */
+var DocumentFragment = Mojo.Meta.newClass(Mojo.RW_PACKAGE+'DocumentFragment', {
+  Extends : RUNWAY_UI.HTMLElementBase,
+  Instance : {
+    initialize : function(el){
+      this.$initialize();
+      
+      this._impl = el || RUNWAY_UI.DOMFacade.createDocumentFragment();
+    },
+    _generateId : function()
+    {
+      return this.getMetaClass().getName()+'_'+Mojo.Util.generateId(16);
+    },
+    getImpl : function(){
+      return this._impl
+    },
+    getRawEl : function()
+    {
+      return this.getImpl();
+    },
+    setId : function(id){
+      this._id = id;
+    },
+    getId : function(){
+      return this._id;
+    },
+    getRawNode : function(){
+      return this.getRawEl();
+    },
+    hasAttributes : function(){
+      return false;
+    },
+    getChildren : function(){
+      var childNodes = this.getRawEl().childNodes;
+      
+      var len = children.length;
+      var elementIFs = [len];
+      var f = this.getFactory();
+      for(var i=0; i<len; i++)
+      {
+        elementIFs[i] = f.newElement(children[i]);
+      }
+      return elementIFs;
     }
   }
 });

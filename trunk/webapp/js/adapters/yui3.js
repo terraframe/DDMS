@@ -34,6 +34,9 @@ var Factory = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'Factory', {
         return new HTMLElement(el, attributes, styles);
       }
     },
+    newDocumentFragment : function(el){
+      return new com.runwaysdk.ui.RW.DocumentFragment(el);
+    },
     newDialog : function (title, config) {
       return YUI2.Factory.getInstance().newDialog(title, config);
     },
@@ -780,6 +783,10 @@ var HTMLElement = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'HTMLElement', {
       {
         return Y.Node.getDOMNode(this.getImpl());
       },
+      normalize : function()
+      {
+        this.getRawEl().normalize();
+      },
       setInnerHTML : function (html)
       {
         this.getImpl().setContent(html);
@@ -789,7 +796,16 @@ var HTMLElement = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'HTMLElement', {
         return this.getImpl().getContent();
       },
       getChildren : function() {
-        throw new com.runwaysdk.Exception("Implement me");
+        var children = this.getImpl().get('children');
+        
+        var len = children.length;
+        var elementIFs = [len];
+        var f = this.getFactory();
+        for(var i=0; i<len; i++)
+        {
+          elementIFs[i] = f.newElement(children[i]);
+        }
+        return elementIFs;
       }
     }
 });

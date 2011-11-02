@@ -5,9 +5,10 @@
 
 var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE+'*');
 var FIELD = Mojo.Meta.alias(Mojo.FORM_PACKAGE.FIELD+'*');
+var CustomEvent = Mojo.$.com.runwaysdk.event.CustomEvent;
 
-Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var NewInstanceEvent = Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId) {
       this.$initialize();
@@ -28,8 +29,8 @@ Mojo.Meta.newClass('dss.vector.solutions.NewInstanceEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.ViewEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var ViewEvent = Mojo.Meta.newClass('dss.vector.solutions.ViewEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (id, mdFormId) {
       this.$initialize();
@@ -50,8 +51,8 @@ Mojo.Meta.newClass('dss.vector.solutions.ViewEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.BeforeQueryEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var BeforeQueryEvent = Mojo.Meta.newClass('dss.vector.solutions.BeforeQueryEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId, query) {
       this.$initialize();
@@ -67,65 +68,116 @@ Mojo.Meta.newClass('dss.vector.solutions.BeforeQueryEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.RenderFieldEvent', {
+var RenderFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderFieldEvent', {
   IsAbstract : true,
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Extends : CustomEvent,
   Instance : {
-    initialize : function (field, dt, dtFragment, dd, ddFragment) {
+    initialize : function (formComponent, parent) {
       this.$initialize();
       
-      this._field = field;
-      this._dt = dt;
-      this._dtFragment = dtFragment;
-      this._dd = dd;
-      this._ddFragment = ddFragment;
+      this._formComponent = formComponent;
+      this._parent = parent;
     },
-    getField : function() {
-      return this._field;
+    getField : function(){
+      return this.getFormComponent().getField();
     },
-    getDT : function() {
-      return this._dt;
+    getFormComponent : function() {
+      return this._formComponent;
+    }
+  }
+});
+
+var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFieldEvent', {
+  Extends : RenderFieldEvent,
+  Instance : {
+    initialize : function (component, parent) {
+      this.$initialize(component, parent);
     },
-    getDTFragment : function() {
-      return this._dtFragment;
-    },
-    getDD : function() {
-      return this._dd;
-    },
-    getDDFragment : function() {
-      return this._ddFragment;
-    },    
-    setDDFragment : function(ddFragment) {
-      this._ddFragment = ddFragment;
-    },    
     defaultAction : function() {
-      this._dt.appendChild(this._dtFragment);
-      this._dd.appendChild(this._ddFragment);
+    
+      var com = this.getFormComponent();
+    
+      // dt
+      var displayNode = com.getDisplayNode();
+      var f = com.getFactory();
+      if(displayNode)
+      {
+        var dt = f.newElement('dt');
+        dt.appendChild(displayNode);
+        
+        this._parent.appendChild(dt);
+      }
+      
+      // dd
+      var contentNode = com.getContentNode();
+      if(contentNode)
+      {
+        var dd = f.newElement('dd');
+        dd.appendChild(contentNode);
+        
+        var field = com.getField();
+        if(field instanceof FIELD.WebPrimitive)
+        {
+          var errorContainer = f.newElement('span');
+          var attrId = field.getFieldMd().getDefiningMdAttribute();
+          errorContainer.setId(attrId);
+          errorContainer.addClassName('alertbox');
+          errorContainer.setStyle('margin-left', '20px');
+          errorContainer.setStyle('visibility', 'hidden');
+          dd.appendChild(errorContainer);
+        }        
+       
+        this._parent.appendChild(dd);
+        
+        if(ValueFieldIF.getMetaClass().isInstance(com))
+        {
+          com.monitorValueChange(contentNode);
+          // have the FormObjectGenerator listen for changes to the field
+          var fog = this.getTarget();
+          com.addEventListener(ValueChangeEvent, fog.handleValueChange, null, fog);
+        }
+      }
     }
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.RenderEditFieldEvent', {
-  Extends : Mojo.$.dss.vector.solutions.RenderFieldEvent,
+var RenderViewFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderViewFieldEvent', {
+  Extends : RenderFieldEvent,
   Instance : {
-    initialize : function (field, dt, dtFragment, dd, ddFragment) {
-      this.$initialize(field, dt, dtFragment, dd, ddFragment);
+    initialize : function (component, parent) {
+      this.$initialize(component, parent);
+    },
+    defaultAction : function() {
+    
+      var com = this.getFormComponent();
+          
+      // dt
+      var displayNode = com.getDisplayNode();
+      var f = com.getFactory();
+      if(displayNode)
+      {
+        var dt = f.newElement('dt');
+        dt.appendChild(displayNode);
+        
+        this._parent.appendChild(dt);
+      }
+      
+      // dd
+      var contentNode = com.getReadNode();
+      if(contentNode)
+      {
+        var dd = f.newElement('dd');
+        dd.appendChild(contentNode);
+        
+        this._parent.appendChild(dd);
+      }
     }
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.RenderViewFieldEvent', {
-  Extends : Mojo.$.dss.vector.solutions.RenderFieldEvent,
-  Instance : {
-    initialize : function (field, dt, dtFragment, dd, ddFragment) {
-      this.$initialize(field, dt, dtFragment, dd, ddFragment);
-    }
-  }
-});
 
-
-Mojo.Meta.newClass('dss.vector.solutions.RenderViewEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var RenderViewEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderViewEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId) {
       this.$initialize();
@@ -137,8 +189,8 @@ Mojo.Meta.newClass('dss.vector.solutions.RenderViewEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.RenderFormEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var RenderFormEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderFormEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId) {
       this.$initialize();
@@ -150,8 +202,8 @@ Mojo.Meta.newClass('dss.vector.solutions.RenderFormEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.ViewParentEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var ViewParentEvent = Mojo.Meta.newClass('dss.vector.solutions.ViewParentEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId) {
       this.$initialize();
@@ -163,8 +215,8 @@ Mojo.Meta.newClass('dss.vector.solutions.ViewParentEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.EditEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var EditEvent = Mojo.Meta.newClass('dss.vector.solutions.EditEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId, formObject) {
       this.$initialize();
@@ -186,8 +238,8 @@ Mojo.Meta.newClass('dss.vector.solutions.EditEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.CancelEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var CancelEvent = Mojo.Meta.newClass('dss.vector.solutions.CancelEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (formObject) {
       this.$initialize();
@@ -222,8 +274,8 @@ Mojo.Meta.newClass('dss.vector.solutions.CancelEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.DeleteEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var DeleteEvent = Mojo.Meta.newClass('dss.vector.solutions.DeleteEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (mdFormId, formObject) {
       this.$initialize();
@@ -246,8 +298,8 @@ Mojo.Meta.newClass('dss.vector.solutions.DeleteEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.UpdateEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var UpdateEvent = Mojo.Meta.newClass('dss.vector.solutions.UpdateEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (formObject) {
       this.$initialize();
@@ -275,8 +327,8 @@ Mojo.Meta.newClass('dss.vector.solutions.UpdateEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var CreateEvent = Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function (formObject) {
       this.$initialize();
@@ -304,8 +356,8 @@ Mojo.Meta.newClass('dss.vector.solutions.CreateEvent', {
   }
 });
 
-Mojo.Meta.newClass('dss.vector.solutions.ViewAllEvent', {
-  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+var ViewAllEvent = Mojo.Meta.newClass('dss.vector.solutions.ViewAllEvent', {
+  Extends : CustomEvent,
   Instance : {
     initialize : function () {
       this.$initialize();
@@ -318,11 +370,683 @@ Mojo.Meta.newClass('dss.vector.solutions.ViewAllEvent', {
   }
 });
 
+/**
+ * Renders the read-only view of a FormObject. This creates a form tag wit a structured
+ * definition list to contain the fields.
+ */
+var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjectViewVisitor', {
+  Instance : {
+    initialize : function(formObjectGenerator, editMode){
+      this.$initialize();
+      
+      this._formObjectGenerator = formObjectGenerator; // the generator that created this visitor
+      this._formObjectGenerator.clearConditions();
+      
+      this._factory = this._formObjectGenerator.getFactory();
+      this._editMode = editMode;
+      
+      // placeholders for known elements in the form.
+      this._header = null;
+      this._form = null;
+      this._dl = this._factory.newElement('dl');
+      this._buttons = this._factory.newElement('div');
+    },
+    /**
+     * Returns the fully constructed Node from the traversal of the FormObject.
+     */
+    getNode : function(){
+      //var frag = this._factory.newDocumentFragment();
+      //frag.appendChild(this._form);
+      this._form.appendChild(this._header);
+      this._form.appendChild(this._dl);
+      this._form.appendChild(this._buttons);
+      return this._form;
+    },
+    _addField : function(formComponent){
+      
+      if(formComponent.getField().isReadable())
+      {
+        var evt = this._editMode ? new RenderEditFieldEvent(formComponent, this._dl) 
+          : new RenderViewFieldEvent(formComponent, this._dl);
+        
+        // the FormObjectGenerator is the object that dispatches the event, such
+        // that calling code can listen for it.
+        this._formObjectGenerator.dispatchEvent(evt);
+        
+        // if the field was added (i.e., the default action executed) then
+        // visit the condition if one exists.
+        if(!evt.getPreventDefault()){
+          var cond = formComponent.getField().getCondition();
+          if(cond){
+            cond.accept(this);
+          }
+        }
+      }
+    },
+    visitFormObject : function(formObject){
+      var com = new FormBody(formObject);
+      com.setDefaultNodes();
+      this._header = com.getDisplayNode();
+      this._form = com.getContentNode();
+    },
+    
+    visitBoolean : function(field){
+      var com = new BooleanComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitCharacter : function(field){
+      var com = new CharacterComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitText : function(field){
+      var com = new TextComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitDate : function(field){
+      var com = new DateComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitInteger : function(field){
+      var com = new IntegerComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitLong : function(field){
+      var com = new LongComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitDouble : function(field){
+      var com = new DoubleComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitDecimal : function(field){
+      var com = new DecimalComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitFloat : function(field){
+      var com = new FloatComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitBreak : function(field){
+      var com = new BreakComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitHeader : function(field){
+      var com = new HeaderComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitComment : function(field){
+      var com = new CommentComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitReference : function(field){
+      var com = new ReferenceComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitGroup : function(field){
+    
+    },
+    
+    /**
+     * Buttons may one day be implemented as a Field because giving them
+     * displays, behavior, and visibility capability would be useful.
+     */
+    visitButton : function(element){
+      var com = new ButtonComponent(element);
+      com.setDefaultNodes();
+      this._buttons.appendChild(com.getContentNode());
+    },
+    
+    visitCharacterCondition : function(cond){
+      this._formObjectGenerator.addCondition(cond);
+    },
+    
+    visitLongCondition : function(cond){
+      this._formObjectGenerator.addCondition(cond);
+    },
+
+    visitDoubleCondition : function(cond){
+      this._formObjectGenerator.addCondition(cond);
+    },
+    
+    visitDateCondition : function(cond){
+      this._formObjectGenerator.addCondition(cond);
+    },
+    
+    visitAndFieldCondition : function(field){
+    
+    }
+  }
+});
+
+
+var ContentFragment = Mojo.Meta.newClass('dss.vector.solutions.ContentFragment', {
+  IsAbstract : true,
+  Instance : {
+    initialize : function(){
+      this.$initialize();
+      this._factory = UI.Manager.getFactory();
+      
+      // create the default nodes
+      this._displayNode = null;
+      this._contentNode = null;
+      this._readNode = null;
+    },
+    getFactory : function(){
+      return this._factory;
+    },
+    setDisplayNode : function(node){
+      this._displayNode = node;
+    },
+    setContentNode : function(node){
+      this._contentNode = node;
+    },
+    setReadNode : function(node){
+      this._readNode = node;
+    },
+    _getDisplayNode : function(){
+      return null;
+    },
+    _getContentNode : function(){
+      return null;
+    },
+    _getReadNode : function(){
+      return null;
+    },
+    getDisplayNode : function() { return this._displayNode; },
+    getContentNode : function() { return this._contentNode; },
+    getReadNode : function() { return this._readNode; },
+    setDefaultNodes : function(){
+      this.setDisplayNode(this._getDisplayNode());
+      this.setContentNode(this._getContentNode());
+      this.setReadNode(this._getReadNode());
+    }
+  }
+});
+
+/**
+ * The primary container for a form based on a FormObject.
+ */
+var FormBody = Mojo.Meta.newClass('dss.vector.solutions.FormBody', {
+  Extends : ContentFragment,
+  Instance : {
+    initialize : function(formObject){
+      this.$initialize();
+      this._formObject = formObject;
+    },
+    _getDisplayNode : function(){
+      var header = this.getFactory().newElement('h2');
+      header.setInnerHTML(this._formObject.getMd().getDisplayLabel());
+      header.addClassName("pageTitle");
+      return header;
+    },
+    _getContentNode : function(){
+      var form = this.getFactory().newElement('form', {
+          id: this._formObject.getId(),
+          name: this._formObject.getMd().getFormName(),
+          method: 'POST'
+        });
+        
+      return form;
+    }
+  }
+});
+
+/**
+ * Implemented by classes that have a value that can be changed.
+ */
+var ValueFieldIF = Mojo.Meta.newInterface('dss.vector.solutions.FormComponent', {
+  Instance : {
+    monitorValueChange : function(node){},
+    dispatchValueChangeEvent : function(e){}
+  }
+});
+
+var ValueChangeEvent = Mojo.Meta.newClass('dss.vector.solutions.ValueChangeEvent', {
+  Extends: CustomEvent,
+  Instance : {
+    initialize : function(value){
+      this.$initialize();
+      this._value = value;
+    },
+    getValue : function() { return this._value; }
+  }
+});
+
+/**
+ * Abstract superclass to represent a single component of a form, whether it be a control, annotation, or button.
+ */
+var FormComponent = Mojo.Meta.newClass('dss.vector.solutions.FormComponent', {
+  Extends: ContentFragment,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(){
+      this.$initialize();
+    }
+  }
+});
+
+var FieldComponent = Mojo.Meta.newClass('dss.vector.solutions.FieldComponent', {
+  Extends : FormComponent,
+  IsAbstract : true,
+  Instance : {
+    initialize : function(field){
+      this.$initialize();
+      this._field = field;
+    },
+    getField : function() { return this._field; },
+    /**
+     * Returns the value of the field formatted for the DOM.
+     */
+    getValue : function(){
+      var v = this.getField().getValue();
+      return v != null ? v : '';
+    },
+    _getDisplayNode : function(){
+        
+      var fMd = this.getField().getFieldMd();
+      var labelTxt;
+      if(fMd.isRequired())
+      {
+        // Required star styled via CSS
+        labelTxt = '* '+fMd.getDisplayLabel();
+      }
+      else
+      {
+        labelTxt = fMd.getDisplayLabel();
+      }
+      
+      var desc = fMd.getDescription();
+      if(!Mojo.Util.isString(desc) || desc.trim().length === 0)
+      {
+        desc = fMd.getDisplayLabel();
+      }
+    
+      var node = this.getFactory().newElement('label', {
+        'for': this.getField().getFieldName(),
+        'title':desc
+      });
+      
+      node.setInnerHTML(labelTxt);
+      
+      return node;
+    },
+    _getContentNode : function(){
+      return this.getFactory().newElement('input', {
+        type: 'text',
+        value: this.getValue(),
+        name: this.getField().getFieldName()
+      });
+    },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('span');
+      node.setInnerHTML(this.getValue());
+      return node;
+    }
+  }  
+});
+
+var GroupComponent = Mojo.Meta.newClass('dss.vector.solutions.GroupComponent', {
+  Extends : FieldComponent,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    }
+  }  
+});
+
+var CharacterComponent = Mojo.Meta.newClass('dss.vector.solutions.CharacterComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var fMd = this.getField().getFieldMd();
+      var node = this.$_getContentNode();
+      node.setAttributes({
+        'maxlength':fMd.getMaxLength(),
+        'size':fMd.getDisplayLength()
+      });
+      
+      return node;
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var TextComponent = Mojo.Meta.newClass('dss.vector.solutions.TextComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var node = this.getFactory().newElement('textarea', {
+          'name':this.getField().getFieldName(),
+          'rows':this.getField().getFieldMd().getHeight(),
+          'cols':this.getField().getFieldMd().getWidth()
+      });
+      
+      var value = this.getValue();
+      node.setInnerHTML(value);
+      return node;
+    },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('p');
+      node.setInnerHTML(this.getValue());
+      
+      return node;    
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().innerHTML;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var ReferenceComponent = Mojo.Meta.newClass('dss.vector.solutions.ReferenceComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var input = this.getFactory().newElement('input', {
+        'type':'text',
+        'name':this.getField().getFieldName(),
+        'value':this.getValue(),
+        'maxlength':64,
+        'size':64
+      });
+      
+      return input;  
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var BooleanComponent = Mojo.Meta.newClass('dss.vector.solutions.BooleanComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+    
+      var field = this.getField();
+    
+      var radioT = this.getFactory().newElement('input', {
+        'type':'radio',
+        'name':field.getFieldName(),
+        'value':'true',
+        'group':field.getFieldName()+'_G',
+      });
+      var tLabel = this.getFactory().newElement('span');
+      tLabel.setInnerHTML(field.getFieldMd().getPositiveDisplayLabel());
+      
+      var radioF = this.getFactory().newElement('input', {
+        'type':'radio',
+        'name':field.getFieldName(),
+        'value':'false',
+        'group':field.getFieldName()+'_G',
+      });
+      var fLabel = this.getFactory().newElement('span');
+      fLabel.setInnerHTML(field.getFieldMd().getNegativeDisplayLabel());
+      
+      var value = this.getValue();
+      if(value === 'true')
+      {
+        radioT.setAttribute('checked', 'checked');
+      }
+      else if(value === 'false')
+      {
+        radioF.setAttribute('checked', 'checked');
+      }
+      
+      // div and class to make sure radios and text are not squished together
+      var radioContainer = this.getFactory().newElement('div');
+      radioContainer.addClassName('boolean-field-container');
+      
+      radioContainer.appendChild(radioT);
+      radioContainer.appendChild(tLabel);
+      radioContainer.appendChild(radioF);
+      radioContainer.appendChild(fLabel);
+      
+      return radioContainer;    
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+var IntegerComponent = Mojo.Meta.newClass('dss.vector.solutions.IntegerComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var LongComponent = Mojo.Meta.newClass('dss.vector.solutions.LongComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var DoubleComponent = Mojo.Meta.newClass('dss.vector.solutions.DoubleComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var DecimalComponent = Mojo.Meta.newClass('dss.vector.solutions.DecimalComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var FloatComponent = Mojo.Meta.newClass('dss.vector.solutions.FloatComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+/**
+ * Adds a special calendar widget to the date input and localizes the value.
+ */
+var DateComponent = Mojo.Meta.newClass('dss.vector.solutions.DateComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    getValue : function(){
+      var v = this.$getValue();
+      return MDSS.Calendar.getLocalizedString(v) || '';
+    },
+    _getContentNode : function(){
+      var node = this.$_getContentNode();
+      MDSS.Calendar.addCalendarListeners(node.getRawEl());
+      return node;
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var AnnotationComponent = Mojo.Meta.newClass('dss.vector.solutions.BreakComponent', {
+  IsAbstract : true,
+  Extends : FieldComponent,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    }
+  }
+});
+
+var BreakComponent = Mojo.Meta.newClass('dss.vector.solutions.BreakComponent', {
+  Extends : AnnotationComponent,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getReadNode : function(){
+      return this.getFactory().newElement('hr');
+    }
+  }
+});
+
+var HeaderComponent = Mojo.Meta.newClass('dss.vector.solutions.HeaderComponent', {
+  Extends : AnnotationComponent,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('h2');
+      node.setInnerHTML(this.getValue());
+      
+      return node;
+    }
+  }
+});
+
+var CommentComponent = Mojo.Meta.newClass('dss.vector.solutions.CommentComponent', {
+  Extends : AnnotationComponent,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    }
+  }
+});
+
+var ButtonComponent = Mojo.Meta.newClass('dss.vector.solutions.ButtonComponent', {
+  Extends : FormComponent,
+  Instance : {
+    initialize : function(el){
+      this.$initialize();
+      
+      this._el = el;
+    },
+    _getContentNode : function(){
+      return this._el;
+    }
+  }
+});
 
 /**
  * Primary class to handle control flow in the UI.
  */
 Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
+  Extends: UI.Component,
   Constants : {
     NEW_INSTANCE_COMMAND : 'NewInstanceCommand',
     TABLE_CONTAINER : 'TableContainer',
@@ -335,20 +1059,20 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
   },
   Instance : {
     initialize : function(prefix, mdFormId, mdClassType){
+      this.$initialize();
       this._mdFormId = mdFormId;
       this._mdClassType = mdClassType;
       this._parentDiv = null;
             
-      UI.Manager.setFactory("YUI3");
-      this._factory = UI.Manager.getFactory();
+      this.getManager().setFactory("YUI3");
       
-      var col = this._factory.newColumn({
+      var col = this.getFactory().newColumn({
         key:Mojo.Util.generateId()+'_view',
         label:'',
         formatter: Mojo.Util.bind(this, this.viewColumnFormatter)
       });
       
-      this._table = this._factory.newDataTable(this._mdClassType, [col]);
+      this._table = this.getFactory().newDataTable(this._mdClassType, [col]);
       this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDate', Mojo.Util.bind(this, this.dateColumnFormatter));
       this._table.addEventListener(com.runwaysdk.ui.YUI3.PreLoadEvent, this.fireBeforeQueryEvent, null, this);
       
@@ -386,6 +1110,49 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       }
       
       this._tableContainer.delegate('click', this.viewInstance, 'span.generatedViewCommand', this);
+      
+      // mapping between defining MdField and Condition objects
+      this._conditions = new com.runwaysdk.structure.HashMap();
+    },
+    clearConditions : function(){
+      this._conditions.clear();
+    },
+    addCondition : function(cond){
+     
+      var mdFieldId = cond.getDefiningMdField();
+      if(this._conditions.containsKey(mdFieldId))
+      {
+        this._conditions.get(mdFieldId).push(cond);
+      }
+      else
+      {
+        this._conditions.put(mdFieldId, [cond]);
+      }
+    },
+    handleValueChange : function(valueChangeEvent){
+      var component = valueChangeEvent.getTarget();
+      var value = valueChangeEvent.getValue();
+      
+      // evaluate all conditions whose definingMdField is that of the FieldComponent that had
+      // its value changed
+      var conditions = this._conditions.get(component.getField().getFieldMd().getId());
+      if(conditions){
+        for(var i=0; i<conditions.length; i++)
+        {
+          var cond = conditions[i];
+          cond.evaluate(value);
+          console.log('isTrue: '+cond.isTrue());
+        }
+      }
+    },
+    getChildren : function(){
+      return null; // TODO remove
+    },
+    hasChild : function(){
+      return null; // TODO remove
+    },
+    getChild : function(id){
+      return null; // TODO remove
     },
     getFormObject : function() {
       return this._formObject;
@@ -418,7 +1185,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this.renderView();
     },    
     renderView : function(){
-      this.dispatchEvent(new dss.vector.solutions.RenderViewEvent(this._mdFormId));
+      this.dispatchEvent(new RenderViewEvent(this._mdFormId));
     
       this.clearFormContainer();
       this.hideAllInstance();
@@ -437,86 +1204,39 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       {
         this._parentBreak.show();
       }
-    
-      var div = this._factory.newElement('div');
-      var dl = this._factory.newElement('dl');
+
+      var visitor = new FormObjectRenderVisitor(this, false);
+      this._formObject.accept(visitor);
       
-      div.appendChild(dl);
-      
-      var fields = this._formObject.getFields();
-      for(var i=0, len=fields.length; i<len; i++)
-      {
-        var field = fields[i];
-      
-        if(!field.isReadable())
-        {
-          continue;
-        }
-      
-        var dt = this._factory.newElement('dt');
-        var dd = this._factory.newElement('dd');
-        dl.appendChild(dt);
-        dl.appendChild(dd);
-        
-        var dtFragment = this._factory.newElement('span');
-        var ddFragment = this._factory.newElement('div');
-        
-        var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
-        
-        // display and annotation fields
-        if(field instanceof FIELD.WebHeader)
-        {
-          var h = this._factory.newElement('h2');
-          h.setInnerHTML(value);
-          ddFragment.appendChild(h);         
-        }
-        else if(field instanceof FIELD.WebBreak)
-        {
-          ddFragment.setInnerHTML('<hr />');          
-        }
-        else if(field instanceof FIELD.WebComment)
-        {
-          ddFragment.setInnerHTML(value);
-        }
-        else
-        {
-          if(field instanceof FIELD.WebDate)
-          {
-            value = MDSS.Calendar.getLocalizedString(value);
-          }
-        
-          dtFragment.setInnerHTML(field.getFieldMd().getDisplayLabel());
-          ddFragment.setInnerHTML(value);        
-        }
-        
-        this.dispatchEvent(new dss.vector.solutions.RenderViewFieldEvent(field, dt, dtFragment, dd, ddFragment));
-      }
-      
+
       // edit
-      var editBtn = this._factory.newElement('button');
+      var editBtn = this.getFactory().newElement('button');
       editBtn.setInnerHTML(MDSS.localize('Edit'));
-      div.appendChild(editBtn);
-      
       editBtn.getImpl().on('click', this.editInstance, this);
       
+      visitor.visitButton(editBtn);
+      
       // delete
-      var deleteBtn = this._factory.newElement('button');
+      var deleteBtn = this.getFactory().newElement('button');
       deleteBtn.setInnerHTML(MDSS.localize('Delete'));
-      div.appendChild(deleteBtn);
-
       deleteBtn.getImpl().on('click', this.deleteInstance, this);
       
-      div.render('#'+this._formContainer.get('id')); 
+      visitor.visitButton(deleteBtn);
+      
+      // the view of the form is constructed, so add it to the main container.
+      var formContent = visitor.getNode();
+      this._formContainer.appendChild(formContent.getRawEl());
     },
     renderFormWithJSON : function (formObjectJSON) {
       this.createFormObject(formObjectJSON);
       this.renderForm();
     },
+    
     /**
      * Renders the create and upate form.
      */
     renderForm : function(){
-      this.dispatchEvent(new dss.vector.solutions.RenderFormEvent(this._mdFormId));
+      this.dispatchEvent(new RenderFormEvent(this._mdFormId));
         
       this.clearFormContainer();
       this.hideAllInstance();
@@ -536,263 +1256,48 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         this._parentBreak.hide();
       }          
     
-      var formEl = this._factory.newElement('form');
-      formEl.setAttribute('method', 'POST');
-      formEl.setAttribute('id', this._formObject.getId());
-      formEl.setAttribute('name', this._formObject.getFormName());
-    
-      var header = this._factory.newElement('h2');
-      header.setInnerHTML(this._formObject.getMd().getDisplayLabel());
-      header.addClassName("pageTitle");
-      formEl.appendChild(header);
-    
-      var dl = this._factory.newElement('dl');
-      formEl.appendChild(dl);
-    
-      var fields = this._formObject.getFields();
-      for(var i=0, len=fields.length; i<len; i++)
-      {
-        // FIXME use Input classes and better integration with Fields
-        var field = fields[i];
-        if(!field.isReadable())
-        {
-          continue; 
-        }
-                
-        var dt = this._factory.newElement('dt');
-        var dd = this._factory.newElement('dd');
-        
-        dl.appendChild(dt);
-        dl.appendChild(dd);
-        
-        var dtFragment = this._factory.newElement('span');
-        var ddFragment = this._factory.newElement('div');
-        
-        var value = Mojo.Util.isValid(field.getValue()) ? field.getValue() : '';
-        
-        // display and annotation fields
-        if(field instanceof FIELD.WebHeader)
-        {
-          var h = this._factory.newElement('h2');
-          h.setInnerHTML(value);
-          ddFragment.appendChild(h);         
-          this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
-
-          continue;
-        }
-        else if(field instanceof FIELD.WebBreak)
-        {
-          ddFragment.setInnerHTML('<hr />');          
-          this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
-
-          continue;
-        }
-        else if(field instanceof FIELD.WebComment)
-        {
-          ddFragment.setInnerHTML(value);
-          this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
-
-          continue;
-        }
-        
-        
-        // attribute fields
-        var labelTxt;
-        if(field.getFieldMd().isRequired())
-        {
-          // Required star styled via CSS
-          labelTxt = '* '+field.getFieldMd().getDisplayLabel();
-        }
-        else
-        {
-          labelTxt = field.getFieldMd().getDisplayLabel();
-        }
-        
-        // set the title to the description or the display label
-        // if the description is empty or null
-        var desc = field.getFieldMd().getDescription();
-        if(!Mojo.Util.isString(desc) || desc.trim().length === 0)
-        {
-          desc = field.getFieldMd().getDisplayLabel();
-        }
-        
-        var labelEl = this._factory.newElement('label', {
-          'for': field.getFieldName(),
-          'title': desc
-        });
-        labelEl.setInnerHTML(labelTxt);
-        dtFragment.appendChild(labelEl);
-        
-        if(field instanceof FIELD.WebBoolean)
-        {
-          var radioT = this._factory.newElement('input', {
-            'type':'radio',
-            'name':field.getFieldName(),
-            'value':'true',
-            'group':field.getFieldName()+'_G',
-          });
-          var tLabel = this._factory.newElement('span');
-          tLabel.setInnerHTML(field.getFieldMd().getPositiveDisplayLabel());
-          
-          var radioF = this._factory.newElement('input', {
-            'type':'radio',
-            'name':field.getFieldName(),
-            'value':'false',
-            'group':field.getFieldName()+'_G',
-          });
-          var fLabel = this._factory.newElement('span');
-          fLabel.setInnerHTML(field.getFieldMd().getNegativeDisplayLabel());
-          
-          // we don't have default values so leave a new instance value blank
-          // and let any validation occur naturally (e.g., required)
-          if(!this._formObject.isNewInstance())
-          {
-            if(value === 'true')
-            {
-              radioT.setAttribute('checked', 'checked');
-            }
-            else if(value === 'false')
-            {
-              radioF.setAttribute('checked', 'checked');
-            }
-          }
-          
-          // div and class to make sure radios and text are not squished together
-          var radioContainer = this._factory.newElement('div');
-          radioContainer.addClassName('boolean-field-container');
-          
-          radioContainer.appendChild(radioT);
-          radioContainer.appendChild(tLabel);
-          radioContainer.appendChild(radioF);
-          radioContainer.appendChild(fLabel);
-          
-          ddFragment.appendChild(radioContainer);
-        }
-        else if(field instanceof FIELD.WebCharacter)
-        {
-          var input = this._factory.newElement('input', {
-            'type':'text',
-            'name':field.getFieldName(),
-            'value':value,
-            'maxlength':field.getFieldMd().getMaxLength(),
-            'size':field.getFieldMd().getDisplayLength()
-          });
-          
-          ddFragment.appendChild(input);
-        }
-        else if(field instanceof FIELD.WebReference)
-        {
-          var input = this._factory.newElement('input', {
-            'type':'text',
-            'name':field.getFieldName(),
-            'value':value,
-            'maxlength':64,
-            'size':64
-          });
-          
-          ddFragment.appendChild(input);
-        }        
-        else if(field instanceof FIELD.WebText)
-        {
-          var textArea = this._factory.newElement('textarea', {
-            'name':field.getFieldName(),
-            'rows':field.getFieldMd().getHeight(),
-            'cols':field.getFieldMd().getWidth()
-          });
-          
-          textArea.setInnerHTML(value);
-          
-          ddFragment.appendChild(textArea);
-        }
-        else if(field instanceof FIELD.WebDec)
-        {
-          var input = this._factory.newElement('input', {
-            'type':'text',
-            'name':field.getFieldName(),
-            'value':value
-          });
-          
-          ddFragment.appendChild(input);
-        }
-        else if(field instanceof FIELD.WebNumber)
-        {
-          var input = this._factory.newElement('input', {
-            'type':'text',
-            'name':field.getFieldName(),
-            'value':value
-          });
-          
-          ddFragment.appendChild(input);
-        }
-        else if(field instanceof FIELD.WebDate)
-        {
-          value = MDSS.Calendar.getLocalizedString(value);
-        
-          var input = this._factory.newElement('input', {
-            'type':'text',
-            'name':field.getFieldName(),
-            'value':value
-          });
-          MDSS.Calendar.addCalendarListeners(input.getRawEl());
-          ddFragment.appendChild(input);
-        }
-        else
-        {
-          var msg = 'The field ['+field+'] is not recognized.';
-          throw new com.runwaysdk.Exception(msg);
-        }
-        
-        // this is so we can place error info spatially
-        var attr = field.getFieldMd();
-        if (attr.getDefiningMdAttribute)
-        {
-          var errorContainer = this._factory.newElement('span');
-          var attrId = field.getFieldMd().getDefiningMdAttribute();
-          errorContainer.setId(attrId);
-          errorContainer.addClassName('alertbox');
-          errorContainer.setStyle('margin-left', '20px');
-          errorContainer.setStyle('visibility', 'hidden');
-          ddFragment.appendChild(errorContainer);
-        }
-        
-        this.dispatchEvent(new dss.vector.solutions.RenderEditFieldEvent(field, dt, dtFragment, dd, ddFragment));
-      }
+      var visitor = new FormObjectRenderVisitor(this, true);
+      this._formObject.accept(visitor);
+      var formContent = visitor.getNode();
+      
       
       // Add the action buttons
       if(this._formObject.isNewInstance())
       {
         // create
-        var createBtn = this._factory.newElement('button');
+        var createBtn = this.getFactory().newElement('button');
         createBtn.setInnerHTML(MDSS.localize('Create'));
-        formEl.appendChild(createBtn);
-        
         createBtn.getImpl().on('click', this.createInstance, this);
+
+        visitor.visitButton(createBtn);
+        
         
         // cancel
-        var cancelBtn = this._factory.newElement('button');
+        var cancelBtn = this.getFactory().newElement('button');
         cancelBtn.setInnerHTML(MDSS.localize('Cancel'));
-        formEl.appendChild(cancelBtn);
-
         cancelBtn.getImpl().on('click', this.cancelInstance, this);
+        
+        visitor.visitButton(cancelBtn);
       }
       else
       {
         // update
-        var updateBtn = this._factory.newElement('button');
+        var updateBtn = this.getFactory().newElement('button');
         updateBtn.setInnerHTML(MDSS.localize('Update'));
-        formEl.appendChild(updateBtn);
-        
         updateBtn.getImpl().on('click', this.updateInstance, this);
         
+        visitor.visitButton(updateBtn);
+        
         // cancel
-        var cancelBtn = this._factory.newElement('button');
+        var cancelBtn = this.getFactory().newElement('button');
         cancelBtn.setInnerHTML(MDSS.localize('Cancel'));
-        formEl.appendChild(cancelBtn);
-
         cancelBtn.getImpl().on('click', this.cancelInstance, this);
+        
+        visitor.visitButton(cancelBtn);
       }
       
-      formEl.render('#'+this._formContainer.get('id'));  
+      var formContent = visitor.getNode();
+      this._formContainer.appendChild(formContent.getRawEl());
     },
     /**
      * Updates the values on the FormObject with the current values
@@ -833,15 +1338,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this.dispatchEvent(event);
     },
     viewParent : function(e){
-      this.dispatchEvent(new dss.vector.solutions.ViewParentEvent(this._mdFormId));
+      this.dispatchEvent(new ViewParentEvent(this._mdFormId));
     },
     deleteInstance : function(e){
       e.preventDefault();  // prevent a synchronous form submit
             
-      this.dispatchEvent(new dss.vector.solutions.DeleteEvent(this._mdFormId, this.getFormObject()));
+      this.dispatchEvent(new DeleteEvent(this._mdFormId, this.getFormObject()));
     },
     fireBeforeQueryEvent : function(e){
-      this.dispatchEvent(new dss.vector.solutions.BeforeQueryEvent(this._mdFormId, e.getQueryObject()));
+      this.dispatchEvent(new BeforeQueryEvent(this._mdFormId, e.getQueryObject()));
     },    
     /**
      * Updates the FormObject instance.
@@ -853,7 +1358,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._updateValues();
       
-      this.dispatchEvent(new dss.vector.solutions.UpdateEvent(this.getFormObject()));      
+      this.dispatchEvent(new UpdateEvent(this.getFormObject()));      
     },
     /**
      * Creates the FormObject instances.
@@ -865,12 +1370,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._updateValues();
 
-      this.dispatchEvent(new dss.vector.solutions.CreateEvent(this.getFormObject()));
+      this.dispatchEvent(new CreateEvent(this.getFormObject()));
     },
     editInstance : function(e){
       e.preventDefault(); // prevent a synchronous form submit
 
-      this.dispatchEvent(new dss.vector.solutions.EditEvent(this._mdFormId, this.getFormObject()));
+      this.dispatchEvent(new EditEvent(this._mdFormId, this.getFormObject()));
     },
     /**
      * Cancels the creation or update of a FormObject.
@@ -878,10 +1383,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     cancelInstance : function(e){
       e.preventDefault();
         
-      this.dispatchEvent(new dss.vector.solutions.CancelEvent(this.getFormObject()));
+      this.dispatchEvent(new CancelEvent(this.getFormObject()));
     },
     newInstance : function(){
-      this.dispatchEvent(new dss.vector.solutions.NewInstanceEvent(this._mdFormId));
+      this.dispatchEvent(new NewInstanceEvent(this._mdFormId));
     },
     hideAllInstance : function(){
       this._newInstanceCommand.hide();
@@ -902,7 +1407,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      * type. Unrelated functionality is hidden.
      */
     viewAllInstance : function(){
-      this.dispatchEvent(new dss.vector.solutions.ViewAllEvent());
+      this.dispatchEvent(new ViewAllEvent());
     },
     renderViewAll : function(){
       this.clearFormContainer();

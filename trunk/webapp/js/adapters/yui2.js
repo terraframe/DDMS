@@ -27,6 +27,9 @@ var Factory = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Factory', {
       */
       throw new com.runwaysdk.Exception('Not implemented');
     },
+    newDocumentFragment : function(el){
+      throw new com.runwaysdk.Exception('Not implemented');      
+    },
     newDialog : function (title, config) {
       return new Dialog(title, config);
     },
@@ -51,12 +54,6 @@ var Factory = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Factory', {
       throw new com.runwaysdk.Exception('Not implemented');
     },
     newRecord : function(obj){
-      throw new com.runwaysdk.Exception('Not implemented');
-    },
-    newTabView : function (config, tabs) {
-      throw new com.runwaysdk.Exception('Not implemented');
-    },
-    newTab : function (title, content) {
       throw new com.runwaysdk.Exception('Not implemented');
     },
     newDrag : function(elProvider) {
