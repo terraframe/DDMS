@@ -3,9 +3,6 @@
  */
 (function(){
 
-var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE+'*');
-UI.Manager.setFactory("YUI3");
-
 Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
   Instance : {
     initialize : function(params){
@@ -52,6 +49,8 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
     }
     if(e.getField().getFieldName() == 'net') {
       
+      var UI = Mojo.Meta.alias(Mojo.UI_PACKAGE+'*');
+      UI.Manager.setFactory("YUI3");
       var factory = UI.Manager.getFactory();
             
       var div = factory.newElement('div');
