@@ -39,6 +39,9 @@ request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !cli
   <script type="text/javascript" src="js/getClass.js.jsp?includeUniversalTypes=true"></script>
 </c:if>
 <c:choose>
+  <c:when test='${localized_page_title != null }'>
+    <title>${localized_page_title}</title>
+  </c:when>
   <c:when test='${window_title != null}'>
     <title><mdss:localize key="${window_title}"/></title>
   </c:when>

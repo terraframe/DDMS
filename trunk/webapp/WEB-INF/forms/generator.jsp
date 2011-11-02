@@ -31,7 +31,7 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
 
-<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
+<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 
@@ -76,6 +76,7 @@ YAHOO.util.Event.onDOMReady(function(){
   generator.render();
 });
 </script>
+
 <div class="generatorContent" id="generatorContent">
   <a href="#" id="NewInstanceCommand">
     <mdss:localize key="New_Instance" />

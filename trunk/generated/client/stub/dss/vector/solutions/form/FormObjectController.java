@@ -84,6 +84,9 @@ public class FormObjectController extends FormObjectControllerBase implements
 
       String mdFormType = mdForm.getPackageName() + "." + mdForm.getTypeName();
       this.req.setAttribute("mdFormType", mdFormType);
+      
+      String formDisplayLabel = mdForm.getDisplayLabel().toString();
+      this.req.setAttribute("localized_page_title", formDisplayLabel);
 
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
