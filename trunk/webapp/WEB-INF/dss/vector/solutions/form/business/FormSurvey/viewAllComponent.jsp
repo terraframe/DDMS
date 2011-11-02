@@ -67,7 +67,6 @@ String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);
 %>
 </script>
-<script type="text/javascript" src="js/SurveyForm.js"></script>
 <script type="text/javascript">
 YAHOO.util.Event.onDOMReady(function(){
 
