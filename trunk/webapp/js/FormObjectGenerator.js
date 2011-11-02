@@ -96,16 +96,23 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
     defaultAction : function() {
     
       var com = this.getFormComponent();
+      var f = com.getFactory();
+			
+			var rowDiv = f.newElement('div');
+			var fieldColDiv = f.newElement('div');
+			fieldColDiv.setStyle('float', 'left');
+			
+			this._parent.appendChild(rowDiv);
+			rowDiv.appendChild(fieldColDiv);
     
       // dt
       var displayNode = com.getDisplayNode();
-      var f = com.getFactory();
       if(displayNode)
       {
         var dt = f.newElement('dt');
         dt.appendChild(displayNode);
         
-        this._parent.appendChild(dt);
+				fieldColDiv.appendChild(dt);
       }
       
       // dd
@@ -116,18 +123,25 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
         dd.appendChild(contentNode);
         
         var field = com.getField();
+				
+        var errorDiv = f.newElement('div');
+        errorDiv.addClassName('alertbox');
+        errorDiv.setStyle('float', 'left');
+        errorDiv.setStyle('visibility', 'hidden');
+        rowDiv.appendChild(errorDiv);
+				
         if(field instanceof FIELD.WebPrimitive)
         {
-          var errorContainer = f.newElement('span');
           var attrId = field.getFieldMd().getDefiningMdAttribute();
-          errorContainer.setId(attrId);
-          errorContainer.addClassName('alertbox');
-          errorContainer.setStyle('margin-left', '20px');
-          errorContainer.setStyle('visibility', 'hidden');
-          dd.appendChild(errorContainer);
+          errorDiv.setId(attrId);
         }        
        
-        this._parent.appendChild(dd);
+				fieldColDiv.appendChild(dd);
+				
+				// this allows 2 divs to sit side by side
+				var clearDiv = f.newElement('div');
+				rowDiv.appendChild(clearDiv);
+				clearDiv.setStyle('clear', 'both');
         
         if(ValueFieldIF.getMetaClass().isInstance(com))
         {
