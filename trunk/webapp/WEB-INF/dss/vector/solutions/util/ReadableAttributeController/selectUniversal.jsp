@@ -844,14 +844,12 @@
   
   <dl>
     <dt><label><mdss:localize key="Manage_Forms"/></label></dt>
-    <dd>
       <%
         List<String> forms = (List<String>) request.getAttribute("forms");
       
         for(String form : forms)
-        {
-          out.write(form + "\n");
+        {    
+          out.write("<dd>" + form + "</dd>\n");
         }
       %>
-    </dd>
   </dl>
