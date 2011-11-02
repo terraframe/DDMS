@@ -249,6 +249,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @Transaction
+  @Authenticate
   public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals)
   {
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
@@ -440,6 +441,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @Transaction
+  @Authenticate
   public static MdWebGeo updateGeoField(MdWebGeo mdField, GeoField geoField, String[] extraUniversals)
   {
     DDMSFieldBuilders.updateGeoField(mdField, geoField, extraUniversals);
