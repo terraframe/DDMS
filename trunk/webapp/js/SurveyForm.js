@@ -54,17 +54,18 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
       var factory = UI.Manager.getFactory();
             
       var div = factory.newElement('div');
-      
+
+          var select = factory.newElement('select', {
+           'name':e.getField().getFieldName(),
+          });  
+      div.appendChild(select);      
       e.getFormComponent().setContentNode(div);      
                         
       var request = new MDSS.Request({
         value : e.getField().getValue(),
         factory : factory,
-        div : div,
         onSuccess : function(bednets){
-          var select = factory.newElement('select', {
-           'name':e.getField().getFieldName(),
-          });                 
+               
 
 
           // Add the blank option
@@ -105,8 +106,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
             }
                 
           }
-
-          div.appendChild(select);
         }        
       });
 
