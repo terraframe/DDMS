@@ -117,6 +117,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     q.AND(q.getType().NE(MdWebBreak.CLASS));
     q.AND(q.getType().NE(MdWebHeader.CLASS));
     q.AND(q.getType().NE(MdWebComment.CLASS));
+    q.AND(q.getType().NE(MdWebGeo.CLASS));
     q.AND(q.getDefiningMdForm().EQ(field.getDefiningMdForm()));
 
     q.ORDER_BY_ASC(q.getFieldOrder());
