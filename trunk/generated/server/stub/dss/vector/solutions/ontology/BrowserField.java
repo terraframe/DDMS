@@ -140,15 +140,15 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
     return root.toView();
   }
 
-  public static BrowserField getBrowserField(MdAttributeDAOIF mdAttribute)
+  public static BrowserField getBrowserField(String mdAttributeId)
   {
     BrowserFieldQuery query = new BrowserFieldQuery(new QueryFactory());
-    query.WHERE(query.getMdAttribute().EQ(mdAttribute));
+    query.WHERE(query.getMdAttribute().EQ(mdAttributeId));
     OIterator<? extends BrowserField> it = query.getIterator();
-    
+
     try
     {
-      if(it.hasNext())
+      if (it.hasNext())
       {
         return it.next();
       }
@@ -157,17 +157,27 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
     {
       it.close();
     }
-    
+
     return null;
   }
-  
+
+  public static BrowserField getBrowserField(MdAttributeDAOIF mdAttribute)
+  {
+    return BrowserField.getBrowserField(mdAttribute.getId());
+  }
+
+  public static BrowserField getBrowserField(MdAttribute mdAttribute)
+  {
+    return BrowserField.getBrowserField(mdAttribute.getId());
+  }
+
   public BrowserRootView[] getRoots()
   {
     List<BrowserRootView> list = new LinkedList<BrowserRootView>();
-    
+
     BrowserRootViewQuery query = BrowserRootViewQuery.getRootsFromField(this);
     OIterator<? extends BrowserRootView> it = query.getIterator();
-    
+
     try
     {
       list.addAll(it.getAll());
@@ -176,32 +186,32 @@ public class BrowserField extends BrowserFieldBase implements com.runwaysdk.gene
     {
       it.close();
     }
-    
+
     return list.toArray(new BrowserRootView[list.size()]);
   }
-  
+
   @Override
   public BrowserFieldView getView()
   {
     MdAttributeDAOIF _mdAttribute = (MdAttributeDAOIF) MdAttributeDAO.get(this.getMdAttribute().getId());
     MdDimensionDAOIF mdDimension = Session.getCurrentDimension();
-    
+
     MdAttributeDimensionDAOIF mdAttributeDimension = _mdAttribute.getMdAttributeConcrete().getMdAttributeDimension(mdDimension);
     MdClassDAOIF _mdClass = _mdAttribute.definedByClass();
     String _defaultValue = mdAttributeDimension.getDefaultValue();
-        
+
     BrowserFieldView view = new BrowserFieldView();
     view.setBrowserFieldId(this.getId());
     view.setMdClassId(_mdClass.getId());
     view.setMdClassLabel(_mdClass.getDisplayLabel(Session.getCurrentLocale()));
     view.setMdAttributeId(_mdAttribute.getId());
     view.setMdAttributeLabel(_mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
-    
-    if(_defaultValue != null && _defaultValue.length() > 0)
+
+    if (_defaultValue != null && _defaultValue.length() > 0)
     {
       view.setDefaultValue(Term.get(_defaultValue));
     }
-    
+
     return view;
   }
 }

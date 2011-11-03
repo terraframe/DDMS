@@ -26,7 +26,6 @@ import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
-import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -58,7 +57,9 @@ import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebHeader;
+import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebReference;
+import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 
@@ -72,6 +73,8 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -672,13 +675,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   private static String getRelationshipType(MdWebField field)
   {
-    MdWebForm mdForm = field.getDefiningMdForm();
-    MdClass formMdClass = mdForm.getFormMdClass();
-    MdTypeDAOIF mdClass = MdClassDAO.get(formMdClass.getId());
-
-    String fieldName = field.getFieldName();
-    String relationshipType = mdClass.definesType() + fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
-    return relationshipType;
+    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getMutliTermTypeName((MdWebAttribute) field);
   }
 
   public static MdAttributeConcrete[] definesAttributes(MdRelationship mdRelationship)
@@ -731,6 +728,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       MdAttributeReference disease = new MdAttributeReference();
       disease.setDefiningMdClass(mdBusiness);
       disease.setAttributeName(MdFormUtil.DISEASE);
+      disease.getDisplayLabel().setValue(MdFormUtil.DISEASE);
       disease.setMdBusiness(MdBusiness.getMdBusiness(Disease.CLASS));
       disease.apply();
 
@@ -790,14 +788,70 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       {
         MdWebAttribute attr = (MdWebAttribute) mdField;
         MdAttribute definingAttr = attr.getDefiningMdAttribute();
-        
+
         GeoField geoField = GeoField.getGeoField(definingAttr);
-        
+
         attr.delete();
         geoField.delete();
-        definingAttr.delete();        
+        definingAttr.delete();
       }
-      if (mdField instanceof MdWebAttribute)
+      else if (mdField instanceof MdWebSingleTerm)
+      {
+        MdWebAttribute attr = (MdWebAttribute) mdField;
+        MdAttribute definingAttr = attr.getDefiningMdAttribute();
+
+        BrowserField field = BrowserField.getBrowserField(definingAttr);
+
+        OIterator<? extends BrowserRoot> it = field.getAllroot();
+        try
+        {
+          List<? extends BrowserRoot> roots = it.getAll();
+
+          for (BrowserRoot root : roots)
+          {
+            root.delete();
+          }
+        }
+        finally
+        {
+          it.close();
+        }
+
+        field.delete();
+        attr.delete();
+        definingAttr.delete();
+      }
+      else if (mdField instanceof MdWebMultipleTerm)
+      {
+        MdWebAttribute attr = (MdWebAttribute) mdField;
+        MdAttribute definingAttr = attr.getDefiningMdAttribute();
+
+        BrowserField field = BrowserField.getBrowserField(definingAttr);
+
+        OIterator<? extends BrowserRoot> it = field.getAllroot();
+        try
+        {
+          List<? extends BrowserRoot> roots = it.getAll();
+
+          for (BrowserRoot root : roots)
+          {
+            root.delete();
+          }
+        }
+        finally
+        {
+          it.close();
+        }
+
+        field.delete();
+
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(mdField);
+        mdRelationship.delete();
+
+        attr.delete();
+        definingAttr.delete();
+      }
+      else if (mdField instanceof MdWebAttribute)
       {
         MdWebAttribute attr = (MdWebAttribute) mdField;
         MdAttribute definingAttr = attr.getDefiningMdAttribute();
@@ -837,7 +891,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO(type);
 
-    ExcelExporter exporter = new FormExcelExporter(new FormImportFilter());
+    ExcelExporter exporter = new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
 
     List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
 
@@ -846,7 +900,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       exporter.addListener(listener);
     }
 
-    List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
+    List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
 
     for (MultiTermListener listener : multiTermListeners)
     {
@@ -873,7 +927,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       ExcelImporter importer = new ExcelImporter(stream, new FormContextBuilder(mdForm, new FormImportFilter()));
       List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
-      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultitermListeners(mdForm);
+      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
 
       for (ImportContext context : importer.getContexts())
       {
@@ -900,7 +954,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
-  private static List<MultiTermListener> getMultitermListeners(MdFormDAOIF mdForm)
+  private static List<MultiTermListener> getMultiTermListeners(MdFormDAOIF mdForm)
   {
     List<MultiTermListener> listeners = new LinkedList<MultiTermListener>();
 
@@ -911,7 +965,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       if (mdField instanceof MdWebMultipleTermDAOIF)
       {
-        listeners.add(new MultiTermListener(mdClass, mdField));
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
+
+        listeners.add(new MultiTermListener(mdClass, mdField, mdRelationship.getParentMethod()));
       }
     }
 

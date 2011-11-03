@@ -9,13 +9,18 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.constants.IndexTypes;
 import com.runwaysdk.constants.MdAttributeBooleanInfo;
 import com.runwaysdk.constants.MdAttributeCharacterInfo;
+import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdAttributeReferenceInfo;
+import com.runwaysdk.constants.MdTreeInfo;
 import com.runwaysdk.constants.MdWebCharacterInfo;
 import com.runwaysdk.dataaccess.EntityDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.attributes.EmptyValueProblem;
+import com.runwaysdk.dataaccess.metadata.MdTreeDAO;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.system.metadata.MdAttributeBoolean;
@@ -58,11 +63,14 @@ import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.MdWebText;
 import com.runwaysdk.system.metadata.MdWebTime;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.geo.ExtraFieldUniversal;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.ontology.BrowserField;
+import dss.vector.solutions.ontology.Term;
 
 public class DDMSFieldBuilders implements Reloadable
 {
@@ -401,14 +409,85 @@ public class DDMSFieldBuilders implements Reloadable
     }
   }
 
-  public static class WebSingleTermBuilder extends WebFieldBuilder implements Reloadable
+  public static class WebSingleTermBuilder extends WebAttributeBuilder implements Reloadable
   {
+    @Override
+    protected void create(MdField mdField, MdWebForm webForm)
+    {
+      super.create(mdField, webForm);
 
+      MdAttributeReference mdAttributeReference = (MdAttributeReference) ( (MdWebAttribute) mdField ).getDefiningMdAttribute();
+
+      BrowserField field = new BrowserField();
+      field.setMdAttribute(mdAttributeReference);
+      field.apply();
+    }
+
+    @Override
+    protected MdAttributeConcrete newMdAttribute(MdWebAttribute mdWebAttribute)
+    {
+      return new MdAttributeReference();
+    }
+
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttribute, MdWebField mdField)
+    {
+      super.updateMdAttribute(mdAttribute, mdField);
+
+      mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_BUSINESS, MdClass.getMdClass(Term.CLASS).getId());
+    }
   }
 
-  public static class WebMultipleTermBuilder extends WebFieldBuilder implements Reloadable
+  public static class WebMultipleTermBuilder extends WebAttributeBuilder implements Reloadable
   {
+    @Override
+    protected void create(MdField mdField, MdWebForm webForm)
+    {
+      super.create(mdField, webForm);
 
+      MdAttributeReference mdAttributeReference = (MdAttributeReference) ( (MdWebAttribute) mdField ).getDefiningMdAttribute();
+
+      // Create the browser field
+      BrowserField field = new BrowserField();
+      field.setMdAttribute(mdAttributeReference);
+      field.apply();
+
+      String typeName = DDMSFieldBuilders.getMutliTermTypeName(webForm, (MdWebMultipleTerm) mdField);
+
+      MdClass mdClass = webForm.getFormMdClass();
+      // Create the relationship
+      MdTreeDAO mdTree = MdTreeDAO.newInstance();
+      mdTree.setValue(MdTreeInfo.PACKAGE, MDSSInfo.GENERATED_FORM_TREE_PACKAGE);
+      mdTree.setValue(MdTreeInfo.NAME, typeName);
+      mdTree.setStructValue(MdTreeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, typeName);
+      mdTree.setValue(MdTreeInfo.ABSTRACT, MdAttributeBooleanInfo.FALSE);
+      mdTree.setValue(MdTreeInfo.EXTENDABLE, MdAttributeBooleanInfo.TRUE);
+      mdTree.setValue(MdTreeInfo.PUBLISH, MdAttributeBooleanInfo.TRUE);
+      mdTree.setValue(MdTreeInfo.PARENT_MD_BUSINESS, mdClass.getId());
+      mdTree.setValue(MdTreeInfo.PARENT_METHOD, typeName);
+      mdTree.setValue(MdTreeInfo.PARENT_CARDINALITY, "*");
+      mdTree.setStructValue(MdTreeInfo.PARENT_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdClass.getDisplayLabel().getValue());
+      mdTree.setValue(MdTreeInfo.CHILD_MD_BUSINESS, MdClass.getMdClass(Term.CLASS).getId());
+      mdTree.setValue(MdTreeInfo.CHILD_METHOD, typeName);
+      mdTree.setValue(MdTreeInfo.CHILD_CARDINALITY, "*");
+      mdTree.setStructValue(MdTreeInfo.CHILD_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdClass.getDisplayLabel().getValue());
+      mdTree.setGenerateMdController(false);
+      mdTree.apply();
+    }
+
+    @Override
+    protected MdAttributeConcrete newMdAttribute(MdWebAttribute mdWebAttribute)
+    {
+      return new MdAttributeReference();
+    }
+
+    @Override
+    protected void updateMdAttribute(MdAttributeConcrete mdAttribute, MdWebField mdField)
+    {
+      super.updateMdAttribute(mdAttribute, mdField);
+
+      mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_BUSINESS, MdClass.getMdClass(Term.CLASS).getId());
+    }
   }
 
   public static class WebSingleTermGridBuilder extends WebFieldBuilder implements Reloadable
@@ -682,4 +761,23 @@ public class DDMSFieldBuilders implements Reloadable
       super.updateMdAttribute(md, mdField);
     }
   }
+
+  public static String getMutliTermTypeName(MdWebForm webForm, MdWebAttribute mdWebAttribute)
+  {
+    MdClass mdClass = webForm.getFormMdClass();
+    MdAttributeConcrete mdAttribute = (MdAttributeConcrete) mdWebAttribute.getDefiningMdAttribute();
+
+    return mdClass.getTypeName() + CommonGenerationUtil.upperFirstCharacter(mdAttribute.getAttributeName());
+  }
+
+  public static String getMutliTermTypeName(MdWebAttribute mdWebAttribute)
+  {
+    return DDMSFieldBuilders.getMutliTermTypeName(mdWebAttribute.getDefiningMdForm(), mdWebAttribute);
+  }
+
+  public static String getMutliTermTypeName(MdFieldDAOIF mdField)
+  {
+    return DDMSFieldBuilders.getMutliTermTypeName(MdWebAttribute.get(mdField.getId()));
+  }
+
 }

@@ -15,6 +15,8 @@ import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebInteger;
 import com.runwaysdk.system.metadata.MdWebLong;
+import com.runwaysdk.system.metadata.MdWebMultipleTerm;
+import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebText;
 
 /**
@@ -81,7 +83,10 @@ public class MdFieldTypeQuery extends dss.vector.solutions.form.MdFieldTypeQuery
           MdBusiness.getMdBusiness(MdWebBreak.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebHeader.CLASS).getId(),
           MdBusiness.getMdBusiness(MdWebComment.CLASS).getId(),
-          MdBusiness.getMdBusiness(MdWebGeo.CLASS).getId()};
+          MdBusiness.getMdBusiness(MdWebSingleTerm.CLASS).getId(),
+          MdBusiness.getMdBusiness(MdWebMultipleTerm.CLASS).getId(), 
+          MdBusiness.getMdBusiness(MdWebGeo.CLASS).getId()
+      };
 
       query.WHERE(mdTypeQuery.getId().IN(mdFieldIds));
       

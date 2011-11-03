@@ -32,10 +32,14 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
 
   private List<Relationship> relationships;
 
-  public MultiTermListener(MdClassDAOIF mdClass, MdFieldDAOIF mdField)
+  private String             relationsihpMethod;
+
+  public MultiTermListener(MdClassDAOIF mdClass, MdFieldDAOIF mdField, String relationshipName)
   {
     this.mdClass = mdClass;
     this.mdField = mdField;
+    this.relationsihpMethod = relationshipName;
+
     this.relationships = new LinkedList<Relationship>();
   }
 
@@ -63,7 +67,7 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     Term[] roots = TermRootCache.getRoots(mdAttribute);
 
     Class<? extends Mutable> clazz = instance.getClass();
-    String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(mdField.getFieldName());
+    String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(this.relationsihpMethod);
     Method method = clazz.getMethod(methodName, Term.class);
 
     try
@@ -104,6 +108,8 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     {
       relationship.apply();
     }
+
+    relationships.clear();
   }
 
   private String getAttributeName(String fieldName, Term root)
