@@ -8,9 +8,6 @@
   <mjl:dt attribute="description">
     <mjl:input param="description" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="required">
-    <mjl:boolean param="required" />
-  </mjl:dt>
   <mjl:dt attribute="remove">
     <mjl:boolean param="remove" />
   </mjl:dt>

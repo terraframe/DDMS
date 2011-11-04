@@ -3,7 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
-  <%@include file="../MdWebField/form.jsp" %>
+  <%@include file="../MdWebAttribute/form.jsp" %>
   
   <dt><label><mdss:localize key="Date_Restriction"/></label></dt>
   <dd>
