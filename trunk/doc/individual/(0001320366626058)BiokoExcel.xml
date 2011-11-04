@@ -4,6 +4,16 @@
   <doIt>
     <create>
       <mdException
+        name="dss.vector.solutions.generator.UnsupportedImportTypeException"
+        label="Unsupported import type exception"
+        message="The type [{classType}] is not a supported import type of this import screen">
+        <attributes>
+          <text
+            name="classType"
+            label="Class type" />
+        </attributes>
+      </mdException>    
+      <mdException
         name="dss.vector.solutions.general.UnknownValueException"
         label="Unknown value exception"
         message="Unable to find a(n) {typeLabel} with a {attributeLabel} of [{value}]">
@@ -82,6 +92,9 @@
   </doIt>
   <undoIt>
     <delete>
+      <object
+        key="dss.vector.solutions.generator.UnsupportedImportTypeException"
+        type="com.runwaysdk.system.metadata.MdException" />    
       <object
         key="dss.vector.solutions.form.HouseholdMismatchException"
         type="com.runwaysdk.system.metadata.MdException" />

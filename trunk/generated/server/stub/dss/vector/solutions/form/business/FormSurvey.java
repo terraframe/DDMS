@@ -30,6 +30,7 @@ import dss.vector.solutions.generator.FormSurveyImportFilter;
 import dss.vector.solutions.generator.HouseholdReferenceContextBuilder;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.generator.MultiTermListener;
+import dss.vector.solutions.generator.UnsupportedImportTypeException;
 import dss.vector.solutions.ontology.TermRootCache;
 
 public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generation.loader.Reloadable
@@ -179,7 +180,11 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
       return (MdFormDAOIF) MdFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
     }
 
-    return null;
+    UnsupportedImportTypeException e = new UnsupportedImportTypeException();
+    e.setClassType(mdClassType);
+    e.apply();
+
+    throw e;
   }
 
   public static FormSurvey getBySurveyId(String surveyId)

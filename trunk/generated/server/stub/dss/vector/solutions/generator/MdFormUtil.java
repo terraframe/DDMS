@@ -19,6 +19,7 @@ import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -918,7 +919,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   public static InputStream excelImport(InputStream stream, String type)
   {
-    MdFormDAOIF mdForm = (MdFormDAOIF) MdFormDAO.getMdTypeDAO(type);
+    MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(type);
 
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
@@ -926,7 +927,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     try
     {
-      ExcelImporter importer = new ExcelImporter(stream, new FormContextBuilder(mdForm, new FormImportFilter()));
+      ContextBuilderFacade builder = new ContextBuilderFacade();
+      builder.add(mdForm.getFormMdClass().definesType(), new FormContextBuilder(mdForm, new FormImportFilter()));
+
+      ExcelImporter importer = new ExcelImporter(stream, builder);
       List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
       List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
 
@@ -939,7 +943,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
         for (MultiTermListener listener : multiTermListeners)
         {
-          context.addListener(listener);
+          context.addListener(listener);  
         }
 
         // Add the context listener which sets the disease for a entity

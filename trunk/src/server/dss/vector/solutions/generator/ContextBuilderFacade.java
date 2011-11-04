@@ -28,6 +28,18 @@ public class ContextBuilderFacade implements ContextBuilderIF, Reloadable
   {
     ContextBuilderIF builder = this.map.get(currentContext.getMdClassType());
 
-    builder.configure(currentContext, typeRow, nameRow, labelRow);
+    if (builder != null)
+    {
+      builder.configure(currentContext, typeRow, nameRow, labelRow);
+    }
+    else
+    {
+      UnsupportedImportTypeException e = new UnsupportedImportTypeException();
+      e.setClassType(currentContext.getMdClassType());
+      e.apply();
+
+      throw e;
+    }
+
   }
 }
