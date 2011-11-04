@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1084782388)
+@com.runwaysdk.business.ClassSignature(hash = -226071216)
 public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormHousehold";
-  private static final long serialVersionUID = 1084782388;
+  private static final long serialVersionUID = -226071216;
   
   protected FormHouseholdDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,7 @@ public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.Busine
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
+  public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
@@ -199,6 +200,43 @@ public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getEntityDomainMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
+  }
+  
+  public String getHouseholdId()
+  {
+    return getValue(HOUSEHOLDID);
+  }
+  
+  public void setHouseholdId(String value)
+  {
+    if(value == null)
+    {
+      setValue(HOUSEHOLDID, "");
+    }
+    else
+    {
+      setValue(HOUSEHOLDID, value);
+    }
+  }
+  
+  public boolean isHouseholdIdWritable()
+  {
+    return isWritable(HOUSEHOLDID);
+  }
+  
+  public boolean isHouseholdIdReadable()
+  {
+    return isReadable(HOUSEHOLDID);
+  }
+  
+  public boolean isHouseholdIdModified()
+  {
+    return isModified(HOUSEHOLDID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getHouseholdIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(HOUSEHOLDID).getAttributeMdDTO();
   }
   
   public String getKeyName()

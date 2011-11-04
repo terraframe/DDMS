@@ -1,9 +1,12 @@
 package dss.vector.solutions.geo;
 
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdBusiness;
 
+import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.util.GeoEntityAllPathBuilder;
 
 public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.loader.Reloadable
@@ -13,6 +16,24 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   public AllPaths()
   {
     super();
+  }
+
+  /**
+   * @param args
+   */
+  @Request
+  public static void main(String[] args)
+  {
+    System.out.println(System.currentTimeMillis());
+    try
+    {
+      GeoEntity.buildAllPathsFast();
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+    System.out.println(System.currentTimeMillis());
   }
 
   public static void deleteAllTableRecords()

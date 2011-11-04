@@ -50,8 +50,16 @@ public class AllPaths extends AllPathsBase implements com.runwaysdk.generation.l
   @Request
   public static void main(String[] args)
   {
-    rebuildAllPaths();
-    CacheShutdown.shutdown();
+    System.out.println(System.currentTimeMillis());
+    try
+    {
+      rebuildAllPaths();
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+    System.out.println(System.currentTimeMillis());
   }
 
   /**

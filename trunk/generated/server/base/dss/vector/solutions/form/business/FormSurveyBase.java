@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -1159999318)
+@com.runwaysdk.business.ClassSignature(hash = 1217526973)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,8 +23,9 @@ public abstract class FormSurveyBase extends com.runwaysdk.business.Business imp
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SURVEYID = "surveyId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1159999318;
+  private static final long serialVersionUID = 1217526973;
   
   public FormSurveyBase()
   {
@@ -343,6 +344,34 @@ public abstract class FormSurveyBase extends com.runwaysdk.business.Business imp
     return mdClassIF.definesAttribute(SITEMASTER);
   }
   
+  public String getSurveyId()
+  {
+    return getValue(SURVEYID);
+  }
+  
+  public void validateSurveyId()
+  {
+    this.validateAttribute(SURVEYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurveyIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormSurvey.CLASS);
+    return mdClassIF.definesAttribute(SURVEYID);
+  }
+  
+  public void setSurveyId(String value)
+  {
+    if(value == null)
+    {
+      setValue(SURVEYID, "");
+    }
+    else
+    {
+      setValue(SURVEYID, value);
+    }
+  }
+  
   public String getType()
   {
     return getValue(TYPE);
@@ -379,6 +408,18 @@ public abstract class FormSurveyBase extends com.runwaysdk.business.Business imp
   public static FormSurvey getByKey(String key)
   {
     return (FormSurvey) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.io.InputStream excelExport()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormSurvey.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.io.InputStream excelImport(java.io.InputStream stream)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormSurvey.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static FormSurvey lock(java.lang.String id)

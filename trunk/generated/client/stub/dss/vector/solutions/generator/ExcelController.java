@@ -18,6 +18,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.form.business.FormSurveyDTO;
 import dss.vector.solutions.geo.UnknownGeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
@@ -63,9 +64,36 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
-  @SuppressWarnings("unchecked")
+  @Override
+  public void surveyExcelExport() throws IOException, ServletException
+  {
+    try
+    {
+      InputStream inputStream = FormSurveyDTO.excelExport(this.getClientRequest());
+      FileDownloadUtil.writeXLS(resp, "survey", inputStream);
+    }
+    catch (Exception e)
+    {
+      ErrorUtility.prepareThrowable(e, req, resp, false);
+
+      this.failSurveyExcelExport();
+    }
+  }
+
+  @Override
+  public void failSurveyExcelExport() throws IOException, ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+  }
+
   @Override
   public void excelImport() throws IOException, ServletException
+  {
+    this.excelImport(new DefaultImportConfiguration());
+  }
+
+  @SuppressWarnings("unchecked")
+  private void excelImport(ImportConfiguration configuration) throws IOException, ServletException
   {
     if (ServletFileUpload.isMultipartContent(req))
     {
@@ -109,43 +137,55 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
 
           String excelType = fields.get(TYPE);
 
-          UnknownGeoEntityDTO[] unknownEntities = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
-
-          // all geo entities in the file were identified
-          if (unknownEntities != null && unknownEntities.length == 0)
+          try
           {
-            InputStream errorStream = MdFormUtilDTO.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType);
 
-            if (errorStream.available() > 0)
+            UnknownGeoEntityDTO[] unknownEntities = FacadeDTO.checkSynonyms(clientRequest, new ByteArrayInputStream(bytes), excelType);
+
+            // all geo entities in the file were identified
+            if (unknownEntities != null && unknownEntities.length == 0)
             {
-              resp.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
-              ServletOutputStream outputStream = resp.getOutputStream();
-              FileIO.write(outputStream, errorStream);
+              InputStream errorStream = configuration.excelImport(clientRequest, new ByteArrayInputStream(bytes), excelType);
+
+              if (errorStream.available() > 0)
+              {
+                resp.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
+                ServletOutputStream outputStream = resp.getOutputStream();
+                FileIO.write(outputStream, errorStream);
+              }
+              else
+              {
+                render("importSuccess.jsp");
+              }
+            }
+            else if (unknownEntities != null && unknownEntities.length > 0)
+            {
+              req.setAttribute("excelType", excelType);
+              req.setAttribute("unknownGeoEntitys", unknownEntities);
+              req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, resp);
             }
             else
             {
-              render("importSuccess.jsp");
+              ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
+
+              render("importFailure.jsp");
             }
           }
-          else if (unknownEntities != null && unknownEntities.length > 0)
+          catch (Throwable t)
           {
-            req.setAttribute("excelType", excelType);
-            req.setAttribute("unknownGeoEntitys", unknownEntities);
-            req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, resp);
-          }
-          else
-          {
-            ErrorUtility.prepareInformation(clientRequest.getInformation(), req);
+            boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
 
-            render("importFailure.jsp");
+            if (!redirected)
+            {
+              configuration.redirectError(this, excelType);
+            }
           }
-
         }
         else
         {
           // No file was uploaded
 
-          this.failExcelImport();
+          render("importFailure.jsp");
         }
       }
       catch (FileUploadException e)
@@ -159,6 +199,12 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
     {
       this.importType("");
     }
+  }
+
+  @Override
+  public void failExcelImport() throws IOException, ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
 
   @Override
@@ -183,5 +229,40 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
         this.failImportType(type);
       }
     }
+  }
+
+  @Override
+  public void failImportType(String type) throws IOException, ServletException
+  {
+    req.getRequestDispatcher("/index.jsp").forward(req, resp);
+  }
+
+  @Override
+  public void surveyImportType() throws IOException, ServletException
+  {
+    try
+    {
+      // go back to household view after entering person
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.checkURL(this.getClass().getSimpleName(), "surveyImportType");
+
+      this.req.setAttribute("type", FormSurveyDTO.CLASS);
+      this.render("importSurveyType.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failSurveyImportType();
+      }
+    }
+  }
+
+  @Override
+  public void surveyExcelImport() throws IOException, ServletException
+  {
+    this.excelImport(new SurveyImportConfiguration());
   }
 }

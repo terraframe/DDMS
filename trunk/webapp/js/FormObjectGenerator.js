@@ -1119,7 +1119,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     FORM_CONTAINER : 'FormContainer',
     VIEW_ALL_COMMAND : 'ViewAllCommand',
     VIEW_PARENT_COMMAND : 'ViewParentCommand',
-    EXCEL_BUTTONS : 'excelButtons',
+    EXCEL_BUTTONS : 'ExcelButtons',
     PARENT_BREAK : 'ParentBreak',
     OPTION_BREAK : 'OptionBreak'
   },
@@ -1165,7 +1165,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._formContainer = this._Y.one('#' + prefix + this.constructor.FORM_CONTAINER);
       this._tableContainer = this._Y.one('#' + prefix + this.constructor.TABLE_CONTAINER);
-      this._excelButtons = this._Y.one('#' + this.constructor.EXCEL_BUTTONS);
+      this._excelButtons = this._Y.one('#' + prefix + this.constructor.EXCEL_BUTTONS);
 
       this._parentBreak = this._Y.one('#' + prefix + this.constructor.PARENT_BREAK);
       this._viewParentCommand = this._Y.one('#' + prefix + this.constructor.VIEW_PARENT_COMMAND);

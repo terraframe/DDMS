@@ -133,5 +133,15 @@ YAHOO.util.Event.onDOMReady(function(){
   <div id="personFormContainer">
   </div>
   
-  
+  <div id="surveyExcelButtons">
+    <form action="dss.vector.solutions.generator.ExcelController.surveyExcelExport.mojo" method="post">
+      <mdss:localize key="Excel_Export_Header" var="export_label"/>
+      <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
+    </form>  
+
+	<form action="dss.vector.solutions.generator.ExcelController.surveyImportType.mojo" method="post">
+	  <mdss:localize key="Excel_Import_Header" var="import_label"/>
+	  <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
+	</form>    
+  </div>  
 </div>

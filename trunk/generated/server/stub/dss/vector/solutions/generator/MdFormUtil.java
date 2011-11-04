@@ -728,7 +728,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       MdAttributeReference disease = new MdAttributeReference();
       disease.setDefiningMdClass(mdBusiness);
       disease.setAttributeName(MdFormUtil.DISEASE);
-      disease.getDisplayLabel().setValue(MdFormUtil.DISEASE);
+      disease.getDisplayLabel().setValue("Disease");
+      disease.setRequired(true);
       disease.setMdBusiness(MdBusiness.getMdBusiness(Disease.CLASS));
       disease.apply();
 
@@ -954,7 +955,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
-  private static List<MultiTermListener> getMultiTermListeners(MdFormDAOIF mdForm)
+  public static List<MultiTermListener> getMultiTermListeners(MdFormDAOIF mdForm)
   {
     List<MultiTermListener> listeners = new LinkedList<MultiTermListener>();
 
@@ -974,7 +975,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return listeners;
   }
 
-  private static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)
+  public static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)
   {
     List<DynamicGeoColumnListener> listeners = new LinkedList<DynamicGeoColumnListener>();
 

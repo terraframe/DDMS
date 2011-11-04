@@ -42,6 +42,7 @@
           <xs:element name="mdView" type="mdView" />
           <xs:element name="mdUtil" type="mdSession" />
           <xs:element name="mdController" type="mdController" />
+          <xs:element name="mdWebForm" type="mdWebForm" />          
         </xs:choice>
         <xs:element name="object" type="entity" minOccurs="0" maxOccurs="unbounded" />
         <xs:element name="relationship" type="entity" minOccurs="0" maxOccurs="unbounded" />
@@ -297,6 +298,7 @@
     <xs:attributeGroup ref="mdWebAttribute" />
     <xs:attribute name="maxLength" type="xs:string" />
     <xs:attribute name="displayLength" type="xs:string" />
+    <xs:attribute name="unique" type="xs:boolean" />    
   </xs:complexType>
     
   <xs:complexType name="fields">
@@ -322,7 +324,14 @@
       <xs:extension base="mdType">
         <xs:sequence>
           <!--The methods defined for the MdWebForms-->
-          <xs:element name="fields" type="fields" minOccurs="0" maxOccurs="1" />
+          <xs:element name="fields" type="fields" minOccurs="0" maxOccurs="1" />        
+          <xs:element name="create" minOccurs="0" maxOccurs="1" >
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element name="fields" type="fields" minOccurs="0" maxOccurs="1" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>                  
         </xs:sequence>
         <xs:attribute name="formName" type="xs:string" />        
         <xs:attribute name="mdClass" type="xs:string" />

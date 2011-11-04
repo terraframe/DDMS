@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 872612164)
+@com.runwaysdk.business.ClassSignature(hash = -790645884)
 public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormPerson";
-  private static final long serialVersionUID = 872612164;
+  private static final long serialVersionUID = -790645884;
   
   protected FormPersonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -39,6 +39,7 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NET = "net";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String PERSONID = "personId";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
@@ -483,6 +484,43 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public String getPersonId()
+  {
+    return getValue(PERSONID);
+  }
+  
+  public void setPersonId(String value)
+  {
+    if(value == null)
+    {
+      setValue(PERSONID, "");
+    }
+    else
+    {
+      setValue(PERSONID, value);
+    }
+  }
+  
+  public boolean isPersonIdWritable()
+  {
+    return isWritable(PERSONID);
+  }
+  
+  public boolean isPersonIdReadable()
+  {
+    return isReadable(PERSONID);
+  }
+  
+  public boolean isPersonIdModified()
+  {
+    return isModified(PERSONID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPersonIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
   }
   
   public Long getSeq()

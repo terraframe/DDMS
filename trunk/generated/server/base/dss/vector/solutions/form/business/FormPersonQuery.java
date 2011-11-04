@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1272635501)
+@com.runwaysdk.business.ClassSignature(hash = 331760571)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form.business;
 public  class FormPersonQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1272635501;
+private static final long serialVersionUID = 331760571;
 
   public FormPersonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -291,6 +291,23 @@ private static final long serialVersionUID = 1272635501;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.form.business.FormPerson.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getPersonId()
+  {
+    return getPersonId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPersonId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormPerson.PERSONID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPersonId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormPerson.PERSONID, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableLong getSeq()
   {
     return getSeq(null);
@@ -453,6 +470,9 @@ private static final long serialVersionUID = 1272635501;
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getPersonId();
+    public com.runwaysdk.query.SelectableChar getPersonId(String alias);
+    public com.runwaysdk.query.SelectableChar getPersonId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableLong getSeq();
     public com.runwaysdk.query.SelectableLong getSeq(String alias);
     public com.runwaysdk.query.SelectableLong getSeq(String alias, String displayLabel);
@@ -477,7 +497,7 @@ private static final long serialVersionUID = 1272635501;
  implements FormPersonQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 2109795855;
+private static final long serialVersionUID = 116839129;
 
   public FormPersonQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -700,6 +720,23 @@ private static final long serialVersionUID = 2109795855;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormPerson.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getPersonId()
+  {
+    return getPersonId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPersonId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.PERSONID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getPersonId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormPerson.PERSONID, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableLong getSeq()

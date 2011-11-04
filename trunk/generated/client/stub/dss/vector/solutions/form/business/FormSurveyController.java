@@ -189,34 +189,26 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
   {
     try
     {
-      String surveyFormType = "dss.vector.solutions.form.FormSurvey";
+      MdWebFormDTO surveyForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormSurveyDTO.FORM_TYPE);
 
-      MdWebFormDTO surveyForm = MdFormUtilDTO.getForm(this.getClientRequest(), surveyFormType);
+      MdWebFormDTO householdForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormHouseholdDTO.FORM_TYPE);
 
-      String householdFormType = "dss.vector.solutions.form.FormHousehold";
+      MdWebFormDTO bedNetForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormBedNetDTO.FORM_TYPE);
 
-      MdWebFormDTO householdForm = MdFormUtilDTO.getForm(this.getClientRequest(), householdFormType);
+      MdWebFormDTO personForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormPersonDTO.FORM_TYPE);
 
-      String bedNetFormType = "dss.vector.solutions.form.FormBedNet";
-
-      MdWebFormDTO bedNetForm = MdFormUtilDTO.getForm(this.getClientRequest(), bedNetFormType);
-
-      String personFormType = "dss.vector.solutions.form.FormPerson";
-      
-      MdWebFormDTO personForm = MdFormUtilDTO.getForm(this.getClientRequest(), personFormType);
-      
       this.req.setAttribute("surveyFormId", surveyForm.getId());
       this.req.setAttribute("surveyClassType", FormSurveyDTO.CLASS);
-      this.req.setAttribute("surveyFormType", surveyFormType);
+      this.req.setAttribute("surveyFormType", FormSurveyDTO.FORM_TYPE);
       this.req.setAttribute("householdFormId", householdForm.getId());
       this.req.setAttribute("householdClassType", FormHouseholdDTO.CLASS);
-      this.req.setAttribute("householdFormType", householdFormType);
+      this.req.setAttribute("householdFormType", FormHouseholdDTO.FORM_TYPE);
       this.req.setAttribute("bedNetFormId", bedNetForm.getId());
       this.req.setAttribute("bedNetClassType", FormBedNetDTO.CLASS);
-      this.req.setAttribute("bedNetFormType", bedNetFormType);
+      this.req.setAttribute("bedNetFormType", FormBedNetDTO.FORM_TYPE);
       this.req.setAttribute("personFormId", personForm.getId());
       this.req.setAttribute("personClassType", FormPersonDTO.CLASS);
-      this.req.setAttribute("personFormType", personFormType);
+      this.req.setAttribute("personFormType", FormPersonDTO.FORM_TYPE);
 
       render("viewAllComponent.jsp");
     }

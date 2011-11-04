@@ -7,11 +7,24 @@ import com.runwaysdk.query.QueryFactory;
 
 public class FormHousehold extends FormHouseholdBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 786880441;
+  private static final long  serialVersionUID = 786880441;
+
+  public static final String FORM_TYPE        = "dss.vector.solutions.form.FormHousehold";
 
   public FormHousehold()
   {
     super();
+  }
+
+  @Override
+  protected String buildKey()
+  {
+    if (this.getHouseholdId() != null && this.getHouseholdId().length() > 0)
+    {
+      return this.getHouseholdId();
+    }
+
+    return super.buildKey();
   }
 
   @Override
@@ -34,4 +47,25 @@ public class FormHousehold extends FormHouseholdBase implements com.runwaysdk.ge
     }
   }
 
+  public static FormHousehold getByHouseholdId(String householdId)
+  {
+    FormHouseholdQuery query = new FormHouseholdQuery(new QueryFactory());
+    query.WHERE(query.getHouseholdId().EQ(householdId));
+
+    OIterator<? extends FormHousehold> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return null;
+  }
 }

@@ -37,12 +37,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
     }
   };
 
-  var personRenderViewField = function(e) {
-    if(e.getField().getFieldName() == 'household') {
-      e.preventDefault();
-    }
-  };  
-
   var personRenderEditField = function(e) {
     if(e.getField().getFieldName() == 'household') {
       e.preventDefault();
@@ -126,7 +120,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
   person.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforePersonQuery);  
   person.addEventListener(dss.vector.solutions.DeleteEvent, function(e){household.renderView();});
   person.addEventListener(dss.vector.solutions.CancelEvent, personCancel);
-  person.addEventListener(dss.vector.solutions.RenderViewFieldEvent, personRenderViewField);  
   person.addEventListener(dss.vector.solutions.RenderEditFieldEvent, personRenderEditField);     
   person.hide();
   
@@ -167,11 +160,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
   bedNet.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforeBedNetQuery);  
   bedNet.addEventListener(dss.vector.solutions.DeleteEvent, function(e){household.renderView();});
   bedNet.addEventListener(dss.vector.solutions.CancelEvent, bedNetCancel);
-  bedNet.addEventListener(dss.vector.solutions.RenderViewFieldEvent, function(e){
-      if(e.getField().getFieldName() == 'household') {
-        e.preventDefault();
-      }
-    });  
   bedNet.addEventListener(dss.vector.solutions.RenderEditFieldEvent, function(e){
     if(e.getField().getFieldName() == 'household') {
       e.preventDefault();
@@ -220,11 +208,6 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
   household.addEventListener(dss.vector.solutions.BeforeQueryEvent, beforeHouseholdQuery);  
   household.addEventListener(dss.vector.solutions.DeleteEvent, function(e){survey.renderView();});
   household.addEventListener(dss.vector.solutions.CancelEvent, householdCancel);
-  household.addEventListener(dss.vector.solutions.RenderViewFieldEvent, function(e){
-    if(e.getField().getFieldName() == 'survey') {
-      e.preventDefault();
-    }
-  });  
   household.addEventListener(dss.vector.solutions.RenderEditFieldEvent, function(e){
     if(e.getField().getFieldName() == 'survey') {
         e.preventDefault();
