@@ -29,7 +29,13 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebGroupDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
 
-<c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+
+<%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.TermDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
+<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 
 <style type="text/css">
 .yui3-tab-panel {
@@ -145,13 +151,23 @@ MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
 MdWebCommentDTO.CLASS,
 
-MdWebGroupDTO.CLASS
+MdWebGroupDTO.CLASS,
+
+TermViewDTO.CLASS,
+TermDTO.CLASS,
+BrowserRootDTO.CLASS,
+
+GeoEntityTreeController.CLASS,
+GeoEntityDTO.CLASS,
+GeoEntityViewDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);
 %>
 </script>
+
+<jsp:include page="../../../../selectSearch.jsp"/>
 
 <script type="text/javascript">
 

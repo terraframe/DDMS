@@ -889,8 +889,6 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
           onSuccess : function(views){
             var view = views.getResultSet()[0];
             
-            
-            
             var geoInput = document.getElementById(that._inputId);
             geoInput.value = view.getGeoId();
             var selectSearch = new MDSS.SingleSelectSearch(true);

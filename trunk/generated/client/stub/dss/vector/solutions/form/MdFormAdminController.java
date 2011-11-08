@@ -42,6 +42,7 @@ import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -705,31 +706,61 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       req.setAttribute("name", name);
       
       // get the term display label
-      String display = getTermDisplayLabel(condition);
-      req.setAttribute("termDisplayLabel", display);
+      TermDTO term = getTerm(condition);
+      req.setAttribute("termDisplayLabel", term != null ? term.getDisplayLabel() : "");
     }
     req.setAttribute("isTerm", isTerm);
     
     boolean isGeo = false;
     if(mdField instanceof MdWebGeoDTO)
     {
+      isGeo = true;
+      GeoEntityDTO geo = getGeoEntity(condition);
       
+      String geoId = "";
+      String display = "";
+      if(geo != null)
+      {
+        geoId = geo.getGeoId();
+        display = geo.toString();
+      }
+      
+      req.setAttribute("geoId", geoId);
+      req.setAttribute("geoDisplayLabel", display);
     }
     req.setAttribute("isGeo", isGeo);
-    
   }
   
-  public static String getTermDisplayLabel(FieldConditionDTO condition)
+  public static GeoEntityDTO getGeoEntity(FieldConditionDTO condition)
+  {
+    String geoId = condition.getValue(CharacterConditionDTO.VALUE);
+    if(geoId != null && geoId.trim().length() > 0)
+    {
+      return GeoEntityDTO.get(condition.getRequest(), geoId);
+    }
+    else
+    {
+      return null;
+    }
+  }
+  
+  /**
+   * Gets the display label for a Term on a condition.
+   * 
+   * @param condition
+   * @return
+   */
+  private static TermDTO getTerm(FieldConditionDTO condition)
   {
     String termId = condition.getValue(CharacterConditionDTO.VALUE);
-    String display = "";
     if(termId != null && termId.trim().length() > 0)
     {
-      TermDTO term = TermDTO.get(condition.getRequest(), termId);
-      display = term.getDisplayLabel();
+      return TermDTO.get(condition.getRequest(), termId);
     }
-    
-    return display;
+    else
+    {
+      return null;
+    }
   }
 
   @Override

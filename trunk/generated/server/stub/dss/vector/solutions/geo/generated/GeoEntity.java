@@ -2007,9 +2007,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   @Override
   public String toString()
   {
-    String toString = this.getEntityName();
-    toString += "(" + this.getTypeDisplayLabel() + ")";
-    return toString;
+    return getLabel();
   }
 
   /**
