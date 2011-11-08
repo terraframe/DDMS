@@ -827,11 +827,19 @@ var TextComponent = Mojo.Meta.newClass('dss.vector.solutions.TextComponent', {
       return node;    
     },
     monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+      node.addEventListener('blur', this.dispatchValueChangeEvent, null, this);
     },
     dispatchValueChangeEvent : function(e){
-      var value = e.getTarget().innerHTML;
+      var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    forceValueChangeEvent : function(){
+    
+      var el = document.getElementsByName(this.getField().getFieldName())[0];
+      // FIXME use library
+      var evt = document.createEvent("UIEvent");
+      evt.initEvent("blur", true, false);
+      el.dispatchEvent(evt);
     }
   }
 });
@@ -858,7 +866,6 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
     
       var input = this.getFactory().newElement('input', {
         'type':'text',
-        'value':this.getValue()
       });
       div.appendChild(input);
       this._inputId = input.getId();
