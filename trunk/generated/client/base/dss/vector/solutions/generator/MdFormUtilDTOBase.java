@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1530319789)
+@com.runwaysdk.business.ClassSignature(hash = 1454696393)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = 1530319789;
+  private static final long serialVersionUID = 1454696393;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -55,6 +55,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{mdFieldId, condition};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "createCondition", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdWebPrimitiveDTO createFieldForComposite(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebPrimitiveDTO mdField, java.lang.String mdCompositeFieldId)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebPrimitive", "java.lang.String"};
+    Object[] _parameters = new Object[]{mdField, mdCompositeFieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "createFieldForComposite", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebPrimitiveDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdWebGeoDTO createGeoField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebGeoDTO mdField, java.lang.String mdFormId, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals)
@@ -135,6 +143,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getAllForms", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdWebFormDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.form.MdFieldTypeQueryDTO getAvailableCompositeFields(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getAvailableCompositeFields", _declaredTypes);
+    return (dss.vector.solutions.form.MdFieldTypeQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.form.MdFieldTypeQueryDTO getAvailableFields(com.runwaysdk.constants.ClientRequestIF clientRequest)
@@ -223,6 +239,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{ids};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "reorderFields", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.system.metadata.MdWebPrimitiveDTO updateFieldForComposite(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebPrimitiveDTO mdField)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebPrimitive"};
+    Object[] _parameters = new Object[]{mdField};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "updateFieldForComposite", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebPrimitiveDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdWebGeoDTO updateGeoField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebGeoDTO mdField, dss.vector.solutions.geo.GeoFieldDTO geoField, java.lang.String[] extraUniversals)

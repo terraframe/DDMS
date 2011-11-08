@@ -41,7 +41,6 @@ import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
 import com.runwaysdk.system.metadata.FieldCondition;
-import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -59,9 +58,9 @@ import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebHeader;
-import com.runwaysdk.system.metadata.MdWebMultipleTerm;
+import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebReference;
-import com.runwaysdk.system.metadata.MdWebSingleTerm;
+import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
 import com.runwaysdk.web.view.html.EscapeUtil;
@@ -77,8 +76,6 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
-import dss.vector.solutions.ontology.BrowserField;
-import dss.vector.solutions.ontology.BrowserRoot;
 import dss.vector.solutions.ontology.TermRootCache;
 import dss.vector.solutions.util.HierarchyBuilder;
 
@@ -104,6 +101,13 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     QueryFactory f = new QueryFactory();
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
+  }
+
+  public static MdFieldTypeQuery getAvailableCompositeFields()
+  {
+    QueryFactory factory = new QueryFactory();
+
+    return new MdFieldTypeQuery(factory, new MdFieldTypeQuery.CompositeMdFieldTypeBuilder(factory));
   }
 
   /**
@@ -248,7 +252,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    */
   @Transaction
   @Authenticate
-  public static com.runwaysdk.system.metadata.MdField createMdField(com.runwaysdk.system.metadata.MdField mdField, java.lang.String mdFormId)
+  public static MdField createMdField(MdField mdField, String mdFormId)
   {
     DDMSFieldBuilders.create(mdField, mdFormId);
     return mdField;
@@ -261,6 +265,16 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
 
     return mdField;
+  }
+
+  @Transaction
+  public static MdWebPrimitive createFieldForComposite(MdWebPrimitive mdField, String mdCompositeFieldId)
+  {
+    MdWebSingleTermGrid mdWebSingleTermGrid = MdWebSingleTermGrid.get(mdCompositeFieldId);
+    DDMSFieldBuilders.create(mdField, mdWebSingleTermGrid);
+
+    return mdField;
+
   }
 
   private static void rebuildConditions(Stack<FieldCondition> conds, AndFieldCondition parent)
@@ -677,7 +691,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   private static String getRelationshipType(MdWebField field)
   {
-    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getMutliTermTypeName((MdWebAttribute) field);
+    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttribute) field);
   }
 
   public static MdAttributeConcrete[] definesAttributes(MdRelationship mdRelationship)
@@ -801,99 +815,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     try
     {
-      if (mdField instanceof MdWebGeo)
+      // if this is a group then remove all of its children and append them to
+      // the end of the form.
+      if (mdField instanceof MdWebGroup)
       {
-        MdWebAttribute attr = (MdWebAttribute) mdField;
-        MdAttribute definingAttr = attr.getDefiningMdAttribute();
+        Integer order = getHighestOrder(mdForm);
 
-        GeoField geoField = GeoField.getGeoField(definingAttr);
-
-        attr.delete();
-        geoField.delete();
-        definingAttr.delete();
-      }
-      else if (mdField instanceof MdWebSingleTerm)
-      {
-        MdWebAttribute attr = (MdWebAttribute) mdField;
-        MdAttribute definingAttr = attr.getDefiningMdAttribute();
-
-        BrowserField field = BrowserField.getBrowserField(definingAttr);
-
-        OIterator<? extends BrowserRoot> it = field.getAllroot();
-        try
+        for (MdWebField f : getGroupFields(mdField.getId()))
         {
-          List<? extends BrowserRoot> roots = it.getAll();
-
-          for (BrowserRoot root : roots)
-          {
-            root.delete();
-          }
+          f.appLock();
+          f.setFieldOrder(++order);
+          f.apply();
         }
-        finally
-        {
-          it.close();
-        }
-
-        field.delete();
-        attr.delete();
-        definingAttr.delete();
       }
-      else if (mdField instanceof MdWebMultipleTerm)
-      {
-        MdWebAttribute attr = (MdWebAttribute) mdField;
-        MdAttribute definingAttr = attr.getDefiningMdAttribute();
 
-        BrowserField field = BrowserField.getBrowserField(definingAttr);
-
-        OIterator<? extends BrowserRoot> it = field.getAllroot();
-        try
-        {
-          List<? extends BrowserRoot> roots = it.getAll();
-
-          for (BrowserRoot root : roots)
-          {
-            root.delete();
-          }
-        }
-        finally
-        {
-          it.close();
-        }
-
-        field.delete();
-
-        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(mdField);
-        mdRelationship.delete();
-
-        attr.delete();
-        definingAttr.delete();
-      }
-      else if (mdField instanceof MdWebAttribute)
-      {
-        MdWebAttribute attr = (MdWebAttribute) mdField;
-        MdAttribute definingAttr = attr.getDefiningMdAttribute();
-        attr.delete();
-        definingAttr.delete();
-      }
-      else
-      {
-        // if this is a group then remove all of its children and append them to
-        // the
-        // end of the form.
-        if (mdField instanceof MdWebGroup)
-        {
-          Integer order = getHighestOrder(mdForm);
-
-          for (MdWebField f : getGroupFields(mdField.getId()))
-          {
-            f.appLock();
-            f.setFieldOrder(++order);
-            f.apply();
-          }
-        }
-
-        mdField.delete();
-      }
+      DDMSFieldBuilders.delete(mdField);
     }
     catch (MetadataCannotBeDeletedException e)
     {
@@ -958,7 +894,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
         for (MultiTermListener listener : multiTermListeners)
         {
-          context.addListener(listener);  
+          context.addListener(listener);
         }
 
         // Add the context listener which sets the disease for a entity
