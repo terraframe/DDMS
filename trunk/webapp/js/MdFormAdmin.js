@@ -946,6 +946,11 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       var request = new MDSS.Request({
         onFailure : function(e)
         {
+          var hasInstances = false;
+          if (e.getDeveloperMessage().match("ConfirmDelete") === null)
+          {
+            hasInstances = true;
+          }
           var wrapperDiv = that._Factory.newElement('div');
           
           var upperDiv = that._Factory.newElement('div');
@@ -957,16 +962,22 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
 
           // yes/no buttons
           var lowerDiv = that._Factory.newElement('div');
-          lowerDiv.addClassName('alertbox modalAlertBox');
           
           var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
           confirmButton.setInnerHTML("Confirm");
           
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
-          cancelButton.setInnerHTML("Cancel");
+					
+          if (hasInstances)
+          {
+            cancelButton.setInnerHTML("OK");
+          }
+					else
+          {
+            cancelButton.setInnerHTML("Cancel");
+            lowerDiv.appendChild(confirmButton);
+          }
           
-          var lowerDiv = that._Factory.newElement('div');
-          lowerDiv.appendChild(confirmButton);
           lowerDiv.appendChild(cancelButton);
           
           wrapperDiv.appendChild(upperDiv);

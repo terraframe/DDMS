@@ -1577,6 +1577,9 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       FormQueryBuilder builder = new FormQueryBuilder(request, QueryConstants.TYPE_QB);
       builder.setQuerySpecifics(classType, form.getDisplayLabel().getValue());
       builder.addForm(MdFormUtilDTO.getForm(request, type), "root");
+      
+      String formDisplayLabel = form.getDisplayLabel().toString();
+      this.req.setAttribute("localized_page_title", formDisplayLabel);
 
       builder.populateRequest(req);
 

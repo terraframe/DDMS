@@ -11,8 +11,6 @@
 
 <%@page import="dss.vector.solutions.query.SelectableGroup"%>
 
-<c:set	var="page_title" value="Query_Type" scope="request" />
-
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="/WEB-INF/inlineError.jsp" />
 <jwr:script src="/bundles/queryBundle.js" useRandomParam="false" />

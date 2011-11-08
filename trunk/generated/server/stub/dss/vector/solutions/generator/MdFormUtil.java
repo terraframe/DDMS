@@ -11,6 +11,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
@@ -25,8 +26,8 @@ import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -63,6 +64,7 @@ import com.runwaysdk.system.metadata.MdWebReference;
 import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
+import com.runwaysdk.web.view.html.EscapeUtil;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -70,6 +72,7 @@ import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
 import dss.vector.solutions.form.ConfirmDeleteMdFormException;
 import dss.vector.solutions.form.DDMSFieldBuilders;
 import dss.vector.solutions.form.MdFieldTypeQuery;
+import dss.vector.solutions.form.MdFormHasInstancesException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.GeoField;
@@ -753,9 +756,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Authenticate
   public static void delete(MdWebForm mdForm)
   {
-    new FormSystemURLBuilder(mdForm).delete();
-
     MdClass mdClass = mdForm.getFormMdClass();
+    
+    new FormSystemURLBuilder(mdForm).delete();
 
     mdForm.delete();
 
@@ -765,9 +768,23 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void confirmDeleteForm(String mdFormId)
   {
     MdWebForm mdForm = MdWebForm.get(mdFormId);
-    ConfirmDeleteMdFormException ex = new ConfirmDeleteMdFormException();
-    ex.setMdFormName(mdForm.getFormName());
-    throw ex;
+    
+    String type = mdForm.getFormMdClass().definesType();
+    QueryFactory f = new QueryFactory();
+    BusinessQuery q = f.businessQuery(type);
+    if(q.getCount() > 0)
+    {
+      MdFormHasInstancesException ex = new MdFormHasInstancesException();
+      ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().toString());
+      throw ex;
+    }
+    else
+    {
+      ConfirmDeleteMdFormException ex = new ConfirmDeleteMdFormException();
+      ex.setMdFormName(mdForm.getFormName());
+      throw ex;      
+    }
+
   }
 
   public static void confirmDeleteMdField(String mdFormId, String mdFieldId)

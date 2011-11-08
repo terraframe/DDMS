@@ -111,21 +111,22 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
       
       // dd
       var contentNode = com.getContentNode();
+      contentNode.addClassName('field-content-node');
       if(contentNode)
       {
         var dd = f.newElement('dd');
         dd.appendChild(contentNode);
         
+        // inline errors
+        var errorContainer = f.newElement('span');
+        errorContainer.addClassName('inline-alert');
+        dd.appendChild(errorContainer);
+					
         var field = com.getField();
         if(field instanceof FIELD.WebPrimitive)
         {
-          var errorContainer = f.newElement('span');
           var attrId = field.getFieldMd().getDefiningMdAttribute();
           errorContainer.setId(attrId);
-          errorContainer.addClassName('alertbox');
-          errorContainer.setStyle('margin-left', '20px');
-          errorContainer.setStyle('visibility', 'hidden');
-          dd.appendChild(errorContainer);
         }        
        
         this._parent.appendChild(dd);
@@ -1459,7 +1460,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     updateInstance : function(e){
       e.preventDefault(); // prevent a synchronous form submit
       
-      this._Y.all('.alertbox').setStyle('visibility', 'hidden');
+      this._Y.all('.inline-alert').setStyle('display', 'none');
+      this._Y.all('.field-content-node').setStyle('float', 'none');
       
       this._updateValues();
       
@@ -1471,7 +1473,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     createInstance : function(e){
       e.preventDefault(); // prevent a synchronous form submit
       
-      this._Y.all('.alertbox').setStyle('visibility', 'hidden');
+      this._Y.all('.inline-alert').setStyle('display', 'none');
+      this._Y.all('.field-content-node').setStyle('float', 'none');
       
       this._updateValues();
 
@@ -1567,7 +1570,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
 
         var span = document.getElementById(attributeId);
         span.innerHTML = p.getLocalizedMessage();
-        span.style.visibility = 'visible';
+        span.style.display = 'inline-block';
+				var contentNode = span.parentNode.children.item(0);
+				contentNode.style.cssFloat = 'left';
       }      
     },
     hide : function(){
