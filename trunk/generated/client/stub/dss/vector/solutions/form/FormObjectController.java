@@ -12,6 +12,8 @@ import java.util.Map;
 
 import javax.servlet.ServletException;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.ProblemExceptionDTO;
@@ -41,16 +43,20 @@ import com.runwaysdk.form.web.field.WebDouble;
 import com.runwaysdk.form.web.field.WebFloat;
 import com.runwaysdk.form.web.field.WebInteger;
 import com.runwaysdk.form.web.field.WebLong;
+import com.runwaysdk.form.web.field.WebMultipleTerm;
+import com.runwaysdk.form.web.field.WebSingleTerm;
 import com.runwaysdk.form.web.field.WebText;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.system.metadata.MdAttributeReferenceDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
 import com.runwaysdk.transport.attributes.AttributeDTO;
-import com.runwaysdk.transport.conversion.ConversionExceptionDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
+import dss.vector.solutions.ontology.BrowserRootDTO;
+import dss.vector.solutions.ontology.BrowserRootViewDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
@@ -124,6 +130,39 @@ public class FormObjectController extends FormObjectControllerBase implements
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+  
+//  private JSONObject getRootsForTermFields(WebFormObject formObject) throws JSONException
+//  {
+//    // Add the browser roots manually
+//    JSONObject rootsJSON = new JSONObject();
+//    for(FieldIF field : formObject.getFields())
+//    {
+//      if(field instanceof WebSingleTerm || field instanceof WebMultipleTerm)
+//      {
+//        String mdAttributeId = ((WebAttribute)field).getFieldMd().getDefiningMdAttribute();
+//        MdAttributeReferenceDTO mdAttr = MdAttributeReferenceDTO.get(this.getClientRequest(), mdAttributeId);
+//        
+//        String clazz = mdAttr.getDefiningMdClassMd().getReferencedMdBusiness();
+//        String name = mdAttr.getAttributeName();
+//        
+//        BrowserRootViewDTO[] roots = BrowserRootDTO.getAttributeRoots(this.getClientRequest(), clazz, name);
+//        JSONArray rootsArr = new JSONArray();
+//        for(BrowserRootViewDTO root : roots)
+//        {
+//          JSONObject rootJSON = new JSONObject();
+//          rootJSON.put("termId", root.getTermId());
+//          rootJSON.put("selectable", root.getSelectable());
+//          rootJSON.put("type", clazz);
+//          rootJSON.put("attribute", name);
+//          
+//          rootsArr.put(rootJSON);
+//        }
+//        rootsJSON.put(field.getFieldName(), rootsArr);
+//      }
+//    }
+//    
+//    return rootsJSON;
+//  }
 
   @Override
   public void cancelInstance(FormObject formObject) throws IOException, ServletException
@@ -221,12 +260,16 @@ public class FormObjectController extends FormObjectControllerBase implements
     }
   }
 
-  private void convertToJSON(WebFormObject formObject) throws IOException
+  private void convertToJSON(WebFormObject formObject) throws IOException, JSONException
   {
     JSONFormVisitor visitor = new JSONFormVisitor();
     formObject.accept(visitor);
 
     JSONObject json = visitor.getJSON();
+    
+//    JSONObject roots = getRootsForTermFields(formObject);
+//    json.put("_roots", roots);
+    
     resp.getWriter().print(json.toString());
   }
 
@@ -446,11 +489,7 @@ public class FormObjectController extends FormObjectControllerBase implements
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
       WebFormObject form = (WebFormObject) WebFormObject.newInstance(mdFormDTO);
 
-      JSONFormVisitor visitor = new JSONFormVisitor();
-      form.accept(visitor);
-
-      JSONObject json = visitor.getJSON();
-      resp.getWriter().print(json.toString());
+      this.convertToJSON(form);
     }
     catch (Throwable t)
     {

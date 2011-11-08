@@ -23,12 +23,33 @@
   </c:if>
   
   <mjl:dt attribute="value">
-    <mjl:input type="text" param="value" value="${condition.value}" id="${condition.id}_value"></mjl:input> 
+  <c:choose>
+    <c:when test="${isDate}">
+    
+    </c:when>
+    <c:when test="${isTerm}">
+      <div>
+        <!--
+             Hack Alert! We have to use the name of the defining MdField as DOM properties
+             in order for the GenericOntologyBrowser to work. The name of the field input
+             is still condition.value as expected.
+         -->
+        <input type="hidden" id="${name}" name="condition.value" value="${condition.value}">
+        <input type="text" id="${name}Display" value="${termDisplayLabel}" autocomplete="off">
+        <span id="${name}Btn" class="clickable">
+          <img alt="Browser" title="Browser" src="./imgs/icons/term.png" class="ontologyOpener">
+        </span>
+      </div>    
+    </c:when>
+    <c:otherwise>
+      <mjl:input type="text" param="value" value="${condition.value}" id="${condition.id}_value"></mjl:input> 
+    </c:otherwise>
+  </c:choose>
   </mjl:dt>
 </dl>
 </mjl:component>
 
-<c:if test="${includeCalendar}">
+<c:if test="${isDate}">
 	<script type="text/javascript">
 	(function(){
 	  var el = document.getElementById('${condition.id}_value');
@@ -37,3 +58,23 @@
 	})();
 	</script>
 </c:if>
+
+<c:if test="${isTerm}">
+	<script type="text/javascript">
+	(function(){
+        var browser = new MDSS.GenericOntologyBrowser('${type}', {
+          attributeName : '${name}'
+        });
+	})();
+	</script>
+</c:if>
+
+<c:if test="${isGeo}">
+	<script type="text/javascript">
+	(function(){
+
+
+	})();
+	</script>
+</c:if>
+

@@ -513,6 +513,24 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       this._addField(com);
     },
     
+    visitGeo : function(field){
+      var com = new GeoComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitSingleTerm : function(field){
+      var com = new SingleTermComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
+    visitMultipleTerm : function(field){
+      var com = new MultipleTermComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+    
     visitGroup : function(field){
     
     },
@@ -654,6 +672,13 @@ var FormComponent = Mojo.Meta.newClass('dss.vector.solutions.FormComponent', {
   Instance : {
     initialize : function(){
       this.$initialize();
+    },
+    /**
+     * Called after the successful rendering of the component within the form.
+     * Subclasses may override this to provide additional behavior.
+     */
+    postRender : function(editMode){
+      // do nothing by default
     }
   }
 });
@@ -811,23 +836,42 @@ var TextComponent = Mojo.Meta.newClass('dss.vector.solutions.TextComponent', {
   }
 });
 
-var ReferenceComponent = Mojo.Meta.newClass('dss.vector.solutions.ReferenceComponent', {
+var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
   Extends : FieldComponent,
   Implements : ValueFieldIF,
   Instance : {
     initialize : function(field){
       this.$initialize(field);
+      this._inputId = null;
+    },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('span');
+      node.setInnerHTML(this.getField().getFieldMd().getGeoDisplayLabel() || '');
+      
+      return node;    
     },
     _getContentNode : function(){
+    
+      var f = this.getFactory();
+      
+      var div = f.newElement('div');
+    
       var input = this.getFactory().newElement('input', {
         'type':'text',
+        'value':this.getValue()
+      });
+      div.appendChild(input);
+      this._inputId = input.getId();
+
+      var hidden = this.getFactory().newElement('input', {
+        'type':'hidden',
         'name':this.getField().getFieldName(),
         'value':this.getValue(),
-        'maxlength':64,
-        'size':64
+        'id': this._inputId+"_geoEntityId"
       });
+      div.appendChild(hidden);
       
-      return input;  
+      return div;
     },
     monitorValueChange : function(node){
       node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
@@ -835,6 +879,155 @@ var ReferenceComponent = Mojo.Meta.newClass('dss.vector.solutions.ReferenceCompo
     dispatchValueChangeEvent : function(e){
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    postRender : function(editMode){
+    
+      var that = this;
+      if(editMode && this._inputId !== null){
+        
+        var request = new MDSS.Request({
+          onSuccess : function(views){
+            var view = views.getResultSet()[0];
+            
+            
+            
+            var geoInput = document.getElementById(that._inputId);
+            geoInput.value = view.getGeoId();
+            var selectSearch = new MDSS.SingleSelectSearch(true);
+            var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);            
+          }
+        });
+        
+        dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, [this.getValue()]);
+      }
+    }
+  }
+});
+
+var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+      this._inputId = null;
+    },
+    _getContentNode : function(){
+    
+      var f = this.getFactory();
+      
+      var div = f.newElement('div');
+    
+      var input = this.getFactory().newElement('input', {
+        'type':'hidden',
+        'name':this.getField().getFieldName(),
+        'value':this.getValue(),
+        'maxlength':64,
+        'size':64,
+        'id':this.getField().getFieldMd().getDefiningAttribute()
+      });
+      div.appendChild(input);
+      this._inputId = input.getId();
+      
+      var display = f.newElement('input', {
+        'type':'text',
+        'id': this._inputId+'Display',
+        'value':(this.getField().getFieldMd().getTermDisplayLabel() || '')
+      });
+
+      div.appendChild(display);      
+      
+      var btn = f.newElement('span', {
+        'id': this._inputId+'Btn'
+      });
+      btn.addClassName('clickable');
+      btn.setInnerHTML('<img class="ontologyOpener" src="./imgs/icons/term.png" title="Browser" alt="Browser">');
+      div.appendChild(btn);
+      
+      return div;  
+    },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('span');
+      node.setInnerHTML(this.getField().getFieldMd().getTermDisplayLabel());
+      return node;      
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    postRender : function(editMode){
+    
+      // if we are editing then create the ontology browser
+      if(editMode && this._inputId !== null)
+      {
+        var clazz = this.getField().getFieldMd().getDefiningClass();
+        var browser = new MDSS.GenericOntologyBrowser(clazz, {
+          attributeName : this._inputId
+        });
+      }
+    }
+  }
+});
+
+var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTermComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var f = this.getFactory();
+      
+      var div = f.newElement('div');
+    
+      var input = this.getFactory().newElement('input', {
+        'type':'hidden',
+        'name':this.getField().getFieldName(),
+        'value':this.getValue(),
+        'maxlength':64,
+        'size':64,
+        'id':this.getField().getFieldMd().getDefiningAttribute()
+      });
+      div.appendChild(input);
+      this._inputId = input.getId();
+      
+      var display = f.newElement('input', {
+        'type':'text',
+        'id': this._inputId+'Display',
+      });
+
+      div.appendChild(display);      
+      
+      var btn = f.newElement('span', {
+        'id': this._inputId+'Btn'
+      });
+      btn.addClassName('clickable');
+      btn.setInnerHTML('<img class="ontologyOpener" src="./imgs/icons/term.png" title="Browser" alt="Browser">');
+      div.appendChild(btn);
+      
+      return div;  
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    postRender : function(editMode){
+    
+      // if we are editing then create the ontology browser
+      if(editMode && this._inputId !== null)
+      {
+        var clazz = this.getField().getFieldMd().getDefiningClass();
+        var browser = new MDSS.GenericMultiOntologyBrowser(clazz, {
+          attributeName : this._inputId
+        });
+      }
     }
   }
 });
@@ -1318,6 +1511,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // the view of the form is constructed, so add it to the main container.
       var formContent = visitor.getNode();
       this._formContainer.appendChild(formContent.getRawEl());
+      
+      var fields = this._fieldComponents.values();
+      for(var i=0; i<fields.length; i++){
+        var field = fields[i];
+        field.postRender(false);
+      }      
     },
     renderFormWithJSON : function (formObjectJSON) {
       this.createFormObject(formObjectJSON);
@@ -1400,7 +1599,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // Show the form when we're done
       var fields = this._fieldComponents.values();
       for(var i=0; i<fields.length; i++){
-        fields[i].forceValueChangeEvent();
+        var field = fields[i];
+        field.forceValueChangeEvent();
+        field.postRender(true);
       }
       
       formContent.setStyle('visibility', 'visible');

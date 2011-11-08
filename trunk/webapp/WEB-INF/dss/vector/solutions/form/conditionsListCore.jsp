@@ -11,12 +11,32 @@
 
 <%@page import="com.runwaysdk.dataaccess.ProgrammingErrorExceptionDTO"%>
 <%@page import="com.runwaysdk.ClientException"%>
-<c:forEach items="${conditions}" var="condition">
+
+<%@page import="com.runwaysdk.system.metadata.CharacterConditionDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdFieldDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebSingleTermDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebMultipleTermDTO"%>
+
+<%@page import="com.runwaysdk.constants.MdWebSingleTermInfo"%><c:forEach items="${conditions}" var="condition">
 <c:set value="${condition}" scope="request" var="condition"></c:set>
 <%
   try
   {
-    MdFormAdminController.prepareConditionView(request, (FieldConditionDTO) request.getAttribute("condition"));
+    FieldConditionDTO cond = (FieldConditionDTO) request.getAttribute("condition");
+    MdFormAdminController.prepareConditionView(request, cond);
+    
+    // get the localized value of the term
+    if(cond instanceof CharacterConditionDTO)
+    {
+      CharacterConditionDTO charCond = (CharacterConditionDTO) cond;
+      MdFieldDTO field = charCond.getDefiningMdField();
+      
+      if(field instanceof MdWebSingleTermDTO || field instanceof MdWebMultipleTermDTO)
+      {
+        String display = MdFormAdminController.getTermDisplayLabel(cond);
+        request.setAttribute("termDisplayLabel", display);
+      }
+    }
   }
   catch(Throwable t)
   {
@@ -39,7 +59,14 @@
   </c:if>
   
   <mjl:dt attribute="value">
-    <span id="${condition.id}_value">${condition.value}</span>
+    <c:choose>
+      <c:when test="${termDisplayLabel != null}">
+        <span id="${condition.id}_value">${termDisplayLabel}</span>
+      </c:when>
+      <c:otherwise>
+        <span id="${condition.id}_value">${condition.value}</span>
+      </c:otherwise>
+    </c:choose>
   </mjl:dt>
 </dl>
 

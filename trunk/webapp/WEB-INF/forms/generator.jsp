@@ -33,7 +33,14 @@
 
 <%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
 
-<jsp:include page="../templates/header.jsp"></jsp:include>
+
+<%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
+<%@page import="dss.vector.solutions.ontology.TermDTO"%>
+<%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
+<%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+<jsp:include page="../templates/header.jsp" />
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 
@@ -64,7 +71,15 @@ MdWebReferenceDTO.CLASS,
 
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
-MdWebCommentDTO.CLASS
+MdWebCommentDTO.CLASS,
+
+TermViewDTO.CLASS,
+TermDTO.CLASS,
+BrowserRootDTO.CLASS,
+
+GeoEntityTreeController.CLASS,
+GeoEntityDTO.CLASS,
+GeoEntityViewDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
@@ -76,6 +91,8 @@ YAHOO.util.Event.onDOMReady(function(){
   generator.render();
 });
 </script>
+
+<jsp:include page="../selectSearch.jsp"/>
 
 <div class="generatorContent" id="generatorContent">
   <a href="#" id="NewInstanceCommand">
@@ -89,7 +106,6 @@ YAHOO.util.Event.onDOMReady(function(){
 	</div>
 	<div id="FormContainer">
 	</div>
-	
 	
   <div id="excelButtons">
 	<form action="dss.vector.solutions.generator.ExcelController.excelExport.mojo" method="post">

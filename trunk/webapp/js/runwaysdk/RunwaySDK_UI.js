@@ -600,7 +600,7 @@ var HTMLElementBase = Mojo.Meta.newClass(Mojo.UI_PACKAGE+'HTMLElementBase',{
   Instance : {
     initialize : function(el, attributes, styles)
     {
-      this.$initialize(); // _generateId() will take care of this object's id
+      this.$initialize();  //_generateId() will take care of this object's id
       this.setAttributes(attributes);
       this.setStyles(styles);
     },
@@ -1533,6 +1533,9 @@ var FormObjectVisitorIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FORM+'FormObj
     visitHeader : function(webHeader){},
     visitComment : function(webComment){},
     visitReference : function(webReference){},
+    visitGeo : function(webGeo){},
+    visitSingleTerm : function(webSingleTerm){},
+    visitMultipleTerm : function(webMultipleTerm){},
     visitGroup : function(webGroup){},
     visitCharacterCondition : function(characterCondition){},
     visitLongCondition : function(longCondition){},
@@ -1801,6 +1804,43 @@ var WebReference = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebReference', {
     }
   }
 });
+
+var WebGeo = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebGeo', {
+  Extends : WebAttribute,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitGeo(this);
+    }
+  }
+});
+
+var WebSingleTerm = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebSingleTerm', {
+  Extends : WebAttribute,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitSingleTerm(this);
+    }
+  }
+});
+
+var WebMultipleTerm = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebMultipleTerm', {
+  Extends : WebAttribute,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitMultipleTerm(this);
+    }
+  }
+});
+
 var WebCharacter = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebCharacter', {
   Extends : WebPrimitive,
   Instance : {
@@ -2050,8 +2090,12 @@ var WebAttributeMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebAttribute
     initialize : function(obj){
       this.$initialize(obj);
       this._definingMdAttribute = obj.definingMdAttribute;
+      this._definingAttribute = obj.definingAttribute;
+      this._definingClass = obj.definingClass;
     },
-    getDefiningMdAttribute : function(){ return this._definingMdAttribute; }
+    getDefiningMdAttribute : function(){ return this._definingMdAttribute; },
+    getDefiningAttribute : function(){ return this._definingAttribute; },
+    getDefiningClass : function(){ return this._definingClass; }
   }
 });
 
@@ -2088,6 +2132,37 @@ var WebReferenceMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebReference
     },
     getReferencedMdBusiness : function(){ return this._referencedMdBusiness; },
     getReferencedDisplayLabel : function(){ return this._referencedDisplayLabel; }
+  }
+});
+
+var WebGeoMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebGeoMd', {
+  Extends : WebAttributeMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+      this._geoDisplayLabel = obj.geoDisplayLabel;
+    },
+    getGeoDisplayLabel : function(){ return this._geoDisplayLabel; }
+  }
+});
+
+var WebSingleTermMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebSingleTermMd', {
+  Extends : WebAttributeMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+      this._termDisplayLabel = obj.termDisplayLabel;
+    },
+    getTermDisplayLabel : function(){ return this._termDisplayLabel; }
+  }
+});
+
+var WebMultipleTermMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebMultipleTermMd', {
+  Extends : WebAttributeMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
   }
 });
 

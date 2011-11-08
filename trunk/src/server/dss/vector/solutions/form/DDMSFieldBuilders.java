@@ -194,9 +194,6 @@ public class DDMSFieldBuilders implements Reloadable
      */
     protected void create(MdField mdField, MdWebForm webForm)
     {
-      // update the field order to one greater than the last field (to simply
-      // append it)
-
       this.setupAndValidateMdField(mdField);
 
       Integer order = MdFormUtil.getHighestOrder(webForm);

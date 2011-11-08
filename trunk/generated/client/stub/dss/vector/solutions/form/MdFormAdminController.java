@@ -21,6 +21,7 @@ import com.runwaysdk.system.metadata.LongConditionDTO;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
+import com.runwaysdk.system.metadata.MdWebAttributeDTO;
 import com.runwaysdk.system.metadata.MdWebBooleanDTO;
 import com.runwaysdk.system.metadata.MdWebCharacterDTO;
 import com.runwaysdk.system.metadata.MdWebDateDTO;
@@ -32,6 +33,8 @@ import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebGeoDTO;
 import com.runwaysdk.system.metadata.MdWebIntegerDTO;
 import com.runwaysdk.system.metadata.MdWebLongDTO;
+import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 
@@ -39,6 +42,7 @@ import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class MdFormAdminController extends MdFormAdminControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -633,7 +637,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       }
       else
       {
-        // condition = new EQFieldConditionDTO(this.getClientRequest());
+        condition = new CharacterConditionDTO(this.getClientRequest());
       }
 
       this.req.setAttribute("condition", condition);
@@ -677,7 +681,55 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     req.setAttribute("definingMdFieldDisplay", mdField.toString());
     req.setAttribute("definingMdField", mdField.getId());
 
-    req.setAttribute("includeCalendar", condition instanceof DateConditionDTO);
+    boolean isDate = false;
+    if(condition instanceof DateConditionDTO)
+    {
+      isDate = true;
+    }
+    req.setAttribute("isDate", isDate);
+    
+    boolean isTerm = false;
+    if(mdField instanceof MdWebSingleTermDTO || mdField instanceof MdWebMultipleTermDTO)
+    {
+      isTerm = true;
+      
+      MdWebAttributeDTO webAttr = (MdWebAttributeDTO) mdField;
+      String definingMdAttrId = webAttr.getDefiningMdAttributeId();
+      
+      MdAttributeConcreteDTO attrDTO = MdAttributeConcreteDTO.get(mdField.getRequest(), definingMdAttrId);
+      MdClassDTO definingClass = attrDTO.getDefiningMdClass();
+      String clazz = definingClass.getPackageName()+"."+definingClass.getTypeName();
+      String name = attrDTO.getAttributeName();
+      
+      req.setAttribute("type", clazz);
+      req.setAttribute("name", name);
+      
+      // get the term display label
+      String display = getTermDisplayLabel(condition);
+      req.setAttribute("termDisplayLabel", display);
+    }
+    req.setAttribute("isTerm", isTerm);
+    
+    boolean isGeo = false;
+    if(mdField instanceof MdWebGeoDTO)
+    {
+      
+    }
+    req.setAttribute("isGeo", isGeo);
+    
+  }
+  
+  public static String getTermDisplayLabel(FieldConditionDTO condition)
+  {
+    String termId = condition.getValue(CharacterConditionDTO.VALUE);
+    String display = "";
+    if(termId != null && termId.trim().length() > 0)
+    {
+      TermDTO term = TermDTO.get(condition.getRequest(), termId);
+      display = term.getDisplayLabel();
+    }
+    
+    return display;
   }
 
   @Override
