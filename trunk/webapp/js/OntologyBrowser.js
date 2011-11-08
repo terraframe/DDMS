@@ -295,11 +295,8 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
         divParent.scrollTop = sHeight - oHeight;
       }
       
-      
-      if(!this.isMultiSelect())
-      {
-        // this._save();
-      }      
+      var evt = new dss.vector.solutions.ontology.TermSelectedEvent(termId);
+      this.dispatchEvent(evt);
     },
     
     _doTermSelect : function(termId, dontAdd)
@@ -858,7 +855,7 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       this._attributeEl = document.getElementById(this._attributeName);
       this._displayEl = document.getElementById(this._attributeName + 'Display');        
       this._button = document.getElementById(this._attributeName + 'Btn');
-      
+      this._TermSelectedEvent = dss.vector.solutions.ontology.TermSelectedEvent;
       this._roots = [];
        
       // Setup the ontology browser
@@ -883,7 +880,14 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       
       new MDSS.OntologyValidator(this._attributeName, this._search, gP, sF);
     },
+    /**
+     * @param com.runwaysdk.event.EventListener listener
+     */
+    addTermSelectedListener : function(listener){
     
+      this.addEventListener(this._TermSelectedEvent, listener);
+      this._browser.addEventListener(this._TermSelectedEvent, listener);
+    },    
     addRoot : function (root) {
       this._roots.push(root);
     },
@@ -903,20 +907,27 @@ Mojo.Meta.newClass("MDSS.GenericOntologyBrowser", {
       }
     },
     
-    _selectFunction : function () {
-      MDSS.Calendar.removeError(this._button);      
+    _selectFunction : function (li) {
+      MDSS.Calendar.removeError(this._button); 
+      
+      var termId = li.id;
+      var evt = new this._TermSelectedEvent(termId);
+      this.dispatchEvent(evt);   
     },
         
     setField : function(selected) {
+      var termId;
       if(selected.length > 0) {
         var sel = selected[0];
         
-        this._attributeEl.value = this._idFunction(sel);
+        termId = this._idFunction(sel);
+        this._attributeEl.value = termId;
         this._displayEl.value = this._displayFunction(sel);
       }
       else
       {
-        this._attributeEl.value = '';
+        termId = '';
+        this._attributeEl.value = termId;
         this._displayEl.value = '';
       }
 
@@ -982,6 +993,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.index = -1;
       this.map = {};
       this._roots = [];
+      this._TermSelectedEvent = dss.vector.solutions.ontology.TermSelectedEvent;
           
       // Setup the ontology browser
       this.browser = new MDSS.OntologyBrowser(true, this.attributeClass, this.browserField);
@@ -1001,7 +1013,14 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       
       var search = new MDSS.GenericSearch(this.attributeElement, null, lF, dF, iF, sF, sH); 
     },
-
+    /**
+     * @param com.runwaysdk.event.EventListener listener
+     */
+    addTermSelectedListener : function(listener){
+    
+      this.addEventListener(this._TermSelectedEvent, listener);
+      this.browser.addEventListener(this._TermSelectedEvent, listener);
+    },
     setField : function(selected) {
       // this: the browser instances
 
@@ -1280,6 +1299,18 @@ getInputDisplayLabel : function() {
 
 
 });
+
+Mojo.Meta.newClass('dss.vector.solutions.ontology.TermSelectedEvent', {
+  Extends: Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(termId){
+      this.$initialize();
+      this._termId = termId;
+    },
+    getTermId : function(){ return this._termId; }
+  }
+});
+
 
 // Copy static members to OntologyTermEditor class
 YAHOO.lang.augmentObject(YAHOO.widget.OntologyTermEditor, YAHOO.widget.BaseCellEditor);

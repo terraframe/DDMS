@@ -846,7 +846,7 @@ var TextComponent = Mojo.Meta.newClass('dss.vector.solutions.TextComponent', {
 
 var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
   Extends : FieldComponent,
-  Implements : ValueFieldIF,
+  Implements : [ValueFieldIF, com.runwaysdk.event.EventListener],
   Instance : {
     initialize : function(field){
       this.$initialize(field);
@@ -887,6 +887,14 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
     },
+    /**
+     * Handler method called when a geo entity is selected through the 101 widget or ajax
+     * search.
+     */
+    handleEvent : function(e){
+      var geoEntityId = e.getValue().selected.getGeoEntityId();
+      this.dispatchEvent(new ValueChangeEvent(geoEntityId));
+    },
     postRender : function(editMode){
     
       var that = this;
@@ -899,7 +907,8 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
             var geoInput = document.getElementById(that._inputId);
             geoInput.value = view.getGeoId();
             var selectSearch = new MDSS.SingleSelectSearch(true);
-            var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);            
+            selectSearch.addListener(that);
+            var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);
           }
         });
         
@@ -911,7 +920,7 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
 
 var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermComponent', {
   Extends : FieldComponent,
-  Implements : ValueFieldIF,
+  Implements : [ValueFieldIF, com.runwaysdk.event.EventListener],
   Instance : {
     initialize : function(field){
       this.$initialize(field);
@@ -963,6 +972,9 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
     },
+    handleEvent : function(evt){
+      this.dispatchEvent(new ValueChangeEvent(evt.getTermId()));
+    },
     postRender : function(editMode){
     
       // if we are editing then create the ontology browser
@@ -972,6 +984,8 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
         var browser = new MDSS.GenericOntologyBrowser(clazz, {
           attributeName : this._inputId
         });
+        
+        browser.addTermSelectedListener(this);
       }
     }
   }
