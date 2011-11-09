@@ -47,9 +47,18 @@ public abstract class WebPrimitiveBuilder extends WebAttributeBuilder implements
   {
     if (this.getMdWebForm() == null && this.mdWebSingleTermGrid != null)
     {
-      List<MdWebPrimitive> fields = MdFormUtil.getCompositeFields(this.mdWebSingleTermGrid.getId());
+      Integer order = this.getMdField().getFieldOrder();
 
-      return fields.size();
+      if (order == null)
+      {
+        List<MdWebPrimitive> fields = MdFormUtil.getCompositeFields(this.mdWebSingleTermGrid.getId());
+
+        return fields.size();
+      }
+      else
+      {
+        return order;
+      }
     }
 
     return super.getFieldOrder();

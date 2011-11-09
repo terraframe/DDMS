@@ -14,3 +14,9 @@
   <mjl:dt attribute="remove">
     <mjl:boolean param="remove" />
   </mjl:dt>
+<c:if test="${isComposite}">
+  <mjl:dt attribute="fieldOrder">
+    <mjl:input param="fieldOrder" type="text" />
+  </mjl:dt>
+</c:if>
+  
