@@ -1810,7 +1810,9 @@ var WebGeo = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebGeo', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+      this._geoField = Mojo.Util.toObject(obj.geoField);
     },
+    getGeoField : function(){ return this._geoField; },
     accept : function(visitor){
       visitor.visitGeo(this);
     }
@@ -1834,9 +1836,26 @@ var WebMultipleTerm = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebMultipleTer
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+      var termsArr = obj.terms;
+      this._termIds = new com.runwaysdk.structure.HashMap(obj.terms);
     },
     accept : function(visitor){
       visitor.visitMultipleTerm(this);
+    },
+    addTerm : function(termId, display){
+      this._termIds.put(termId, display || null);
+    },
+    getTerm : function(termId){
+      return this._termIds.get(termId);
+    },
+    removeTerm : function(termId){
+      this._termIds.remove(termId);
+    },
+    clearTerms : function(){
+      this._termIds.clear();
+    },
+    getTermIds : function(){
+      return this._termIds.keySet();
     }
   }
 });

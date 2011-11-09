@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 2023360911)
+@com.runwaysdk.business.ClassSignature(hash = -1435005402)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,7 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 2023360911;
+  private static final long serialVersionUID = -1435005402;
   
   public GeoFieldBase()
   {
@@ -641,6 +641,12 @@ public abstract class GeoFieldBase extends com.runwaysdk.business.Business imple
   }
   
   public static dss.vector.solutions.geo.GeoField getGeoField(java.lang.String klass, java.lang.String name)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoField.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.geo.GeoField getGeoFieldForMdWebGeo(java.lang.String mdWebGeoId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.geo.GeoField.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

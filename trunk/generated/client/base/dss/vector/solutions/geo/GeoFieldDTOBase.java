@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 555300879)
+@com.runwaysdk.business.ClassSignature(hash = 165670822)
 public abstract class GeoFieldDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoField";
-  private static final long serialVersionUID = 555300879;
+  private static final long serialVersionUID = 165670822;
   
   protected GeoFieldDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -720,6 +720,14 @@ public abstract class GeoFieldDTOBase extends com.runwaysdk.business.BusinessDTO
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
     Object[] _parameters = new Object[]{klass, name};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoFieldDTO.CLASS, "getGeoField", _declaredTypes);
+    return (dss.vector.solutions.geo.GeoFieldDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.geo.GeoFieldDTO getGeoFieldForMdWebGeo(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdWebGeoId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{mdWebGeoId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.geo.GeoFieldDTO.CLASS, "getGeoFieldForMdWebGeo", _declaredTypes);
     return (dss.vector.solutions.geo.GeoFieldDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   

@@ -887,6 +887,30 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
     },
+    _setupGeoWidget : function(geoId){
+      var geoInput = document.getElementById(this._inputId);
+      geoInput.value = geoId;
+      var selectSearch = new MDSS.SingleSelectSearch(true);
+      
+      var geoField = this.getField().getGeoField();
+      selectSearch.setPolitical(geoField.isPoliticalHierarchy);
+      selectSearch.setPopulated(geoField.isPopulationHierarchy);
+      selectSearch.setSprayTargetAllowed(geoField.isSprayHierarchy);
+      selectSearch.setUrban(geoField.isUrbanHierarchy);
+  
+      // filter
+      selectSearch.setFilter(geoField.filter);
+          
+      // extra universals
+      var extra = geoField.extraUniversals;
+      for(var i=0; i<extra.length; i++)
+      {
+        selectSearch.addExtraUniversal(extra[i]);
+      }      
+      
+      selectSearch.addListener(this);
+      var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);    
+    },
     /**
      * Handler method called when a geo entity is selected through the 101 widget or ajax
      * search.
@@ -900,19 +924,22 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
       var that = this;
       if(editMode && this._inputId !== null){
         
-        var request = new MDSS.Request({
-          onSuccess : function(views){
-            var view = views.getResultSet()[0];
-            
-            var geoInput = document.getElementById(that._inputId);
-            geoInput.value = view.getGeoId();
-            var selectSearch = new MDSS.SingleSelectSearch(true);
-            selectSearch.addListener(that);
-            var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);
-          }
-        });
-        
-        dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, [this.getValue()]);
+        var value = this.getValue();
+        if(value !== null && value.length > 0)
+        {
+          var request = new MDSS.Request({
+            onSuccess : function(views){
+              var view = views.getResultSet()[0];
+              that._setupGeoWidget(view.getGeoId());
+            }
+          });
+          
+          dss.vector.solutions.geo.generated.GeoEntity.getAsViews(request, [this.getValue()]);
+        }
+        else
+        {
+          this._setupGeoWidget('');
+        }
       }
     }
   }
@@ -993,7 +1020,7 @@ var SingleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermCom
 
 var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTermComponent', {
   Extends : FieldComponent,
-  Implements : ValueFieldIF,
+  Implements : [ValueFieldIF, com.runwaysdk.event.EventListener],
   Instance : {
     initialize : function(field){
       this.$initialize(field);
@@ -1004,22 +1031,13 @@ var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTer
       var div = f.newElement('div');
     
       var input = this.getFactory().newElement('input', {
-        'type':'hidden',
+        'type':'text',
         'name':this.getField().getFieldName(),
-        'value':this.getValue(),
-        'maxlength':64,
-        'size':64,
+        'value':'',
         'id':this.getField().getFieldMd().getDefiningAttribute()
       });
       div.appendChild(input);
       this._inputId = input.getId();
-      
-      var display = f.newElement('input', {
-        'type':'text',
-        'id': this._inputId+'Display',
-      });
-
-      div.appendChild(display);      
       
       var btn = f.newElement('span', {
         'id': this._inputId+'Btn'
@@ -1028,14 +1046,65 @@ var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTer
       btn.setInnerHTML('<img class="ontologyOpener" src="./imgs/icons/term.png" title="Browser" alt="Browser">');
       div.appendChild(btn);
       
+      var results = f.newElement('ul', {
+        'id': this._inputId+'ResultList',
+        'type':'hidden'
+      });
+      div.appendChild(results);
+      
       return div;  
+    },
+    handleEvent : function(evt){
+      var termId = evt.getTermId();
+      
+      if(evt instanceof dss.vector.solutions.ontology.TermDeletedEvent)
+      {
+        this.getField().removeTerm(termId);
+        
+        // Because we can't diff values, we must refire the ValueChangeEvent
+        // on all terms.
+        this.dispatchValueChangeEvent(null);
+      }
+      else
+      {
+        this.getField().addTerm(evt.getTermId());
+        this.dispatchEvent(new ValueChangeEvent(evt.getTermId()));
+      }
+    },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('span');
+      var field = this.getField();
+      var termIds = field.getTermIds();
+      var html = '';
+      for(var i=0; i<termIds.length; i++)
+      {
+        var termId = termIds[i];
+        var display = field.getTerm(termId);
+        html += display + '<br />';
+      }
+      node.setInnerHTML(html);
+      return node;      
     },
     monitorValueChange : function(node){
       node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
     },
     dispatchValueChangeEvent : function(e){
-      var value = e.getTarget().value;
-      this.dispatchEvent(new ValueChangeEvent(value));
+      
+      // this field is unique in that it has multiple values.
+      // send a value change event for each value.
+      var termIds = this.getField().getTermIds();
+      if(termIds.length > 0)
+      {
+        for(var i=0; i<termIds.length; i++)
+        {
+          this.dispatchEvent(new ValueChangeEvent(termIds[i]));
+        }
+      }
+      else
+      {
+        // there are no terms, so send in a dummy value that will fail
+        this.dispatchEvent(new ValueChangeEvent(''));
+      }
     },
     postRender : function(editMode){
     
@@ -1046,6 +1115,14 @@ var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTer
         var browser = new MDSS.GenericMultiOntologyBrowser(clazz, {
           attributeName : this._inputId
         });
+        
+        browser.addTermSelectedListener(this);
+        var termIds = this.getField().getTermIds();
+        for(var i=0; i<termIds.length; i++){
+          var termId = termIds[i];
+          var display = this.getField().getTerm(termId);
+          browser.addSelection(display, termId);
+        }
       }
     }
   }
@@ -1646,6 +1723,12 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           if(field instanceof FIELD.WebReference && Mojo.Util.isArray(value)) 
           {        
             field.setValue(value[0]);
+          }
+          else if(field instanceof FIELD.WebMultipleTerm)
+          {
+            var termIds = field.getTermIds();
+            var json = Mojo.Util.getJSON(termIds);
+            field.setValue(json);
           }
           else
           {

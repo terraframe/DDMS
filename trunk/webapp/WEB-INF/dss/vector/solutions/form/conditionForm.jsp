@@ -72,9 +72,29 @@
 
 <c:if test="${isGeo}">
 	<script type="text/javascript">
+	
 	(function(){
+	
+	  var geoField = ${geoField};
+	
     var geoInput = document.getElementById('${condition.id}_value');
     var selectSearch = new MDSS.SingleSelectSearch(true);
+    selectSearch.setPolitical(geoField.isPoliticalHierarchy);
+    selectSearch.setPopulated(geoField.isPopulationHierarchy);
+    selectSearch.setSprayTargetAllowed(geoField.isSprayHierarchy);
+    selectSearch.setUrban(geoField.isUrbanHierarchy);
+
+    // filter
+    selectSearch.setFilter(geoField.filter);
+        
+    // extra universals
+    var extra = geoField.extraUniversals;
+    for(var i=0; i<extra.length; i++)
+    {
+      selectSearch.addExtraUniversal(extra[i]);
+    }
+    
+    
     var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);  
 	})();
 	</script>

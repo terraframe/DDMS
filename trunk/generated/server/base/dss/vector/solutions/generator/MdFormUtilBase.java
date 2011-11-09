@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = -1243220920)
+@com.runwaysdk.business.ClassSignature(hash = 1370614938)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = -1243220920;
+  private static final long serialVersionUID = 1370614938;
   
   public MdFormUtilBase()
   {
@@ -214,6 +214,18 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static com.runwaysdk.system.metadata.MdRelationship getMdRelationship(com.runwaysdk.system.metadata.MdWebField field)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static dss.vector.solutions.ontology.TermViewQuery getTermsForMultiTermField(com.runwaysdk.system.metadata.MdWebMultipleTerm mdWebMultipleTerm, java.lang.String parentId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static com.runwaysdk.business.Business persistObject(com.runwaysdk.business.Business busObj, java.lang.String multipleTermJSON)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

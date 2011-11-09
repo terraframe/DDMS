@@ -756,6 +756,9 @@ Mojo.Meta.newClass("MDSS.OntologyBrowser", {
       
       var li = el.parentNode;
       li.parentNode.removeChild(li);
+      
+      var evt = new dss.vector.solutions.ontology.TermDeletedEvent(termId);
+      this.dispatchEvent(evt);
     },
     
     isRendered : function()
@@ -1020,6 +1023,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
     
       this.addEventListener(this._TermSelectedEvent, listener);
       this.browser.addEventListener(this._TermSelectedEvent, listener);
+      this.browser.addEventListener(dss.vector.solutions.ontology.TermDeletedEvent, listener);
     },
     setField : function(selected) {
       // this: the browser instances
@@ -1037,6 +1041,9 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
           innerHTML += this._getInnerHTML(i, label, id);
           
           this.map[id] = label;
+          
+          var evt = new this._TermSelectedEvent(id);
+          this.dispatchEvent(evt); 
         }
 
         resultEl.innerHTML = innerHTML;
@@ -1045,7 +1052,7 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       else {
         resultEl.innerHTML = '';
         this.index = 0;
-        this.map = {};        
+        this.map = {};  
       }      
     },        
 
@@ -1153,6 +1160,9 @@ Mojo.Meta.newClass("MDSS.GenericMultiOntologyBrowser", {
       this.addSelection(selection.label, selection.id);
       
       this.attributeElement.value = '';
+      
+      var evt = new this._TermSelectedEvent(selection.id);
+      this.dispatchEvent(evt);
     }        
   }
 });
@@ -1301,6 +1311,17 @@ getInputDisplayLabel : function() {
 });
 
 Mojo.Meta.newClass('dss.vector.solutions.ontology.TermSelectedEvent', {
+  Extends: Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(termId){
+      this.$initialize();
+      this._termId = termId;
+    },
+    getTermId : function(){ return this._termId; }
+  }
+});
+
+Mojo.Meta.newClass('dss.vector.solutions.ontology.TermDeletedEvent', {
   Extends: Mojo.$.com.runwaysdk.event.CustomEvent,
   Instance : {
     initialize : function(termId){

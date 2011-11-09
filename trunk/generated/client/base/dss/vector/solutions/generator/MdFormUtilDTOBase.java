@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 872936904)
+@com.runwaysdk.business.ClassSignature(hash = 1760328474)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = 872936904;
+  private static final long serialVersionUID = 1760328474;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -247,6 +247,22 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{field};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getMdRelationship", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdRelationshipDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final dss.vector.solutions.ontology.TermViewQueryDTO getTermsForMultiTermField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebMultipleTermDTO mdWebMultipleTerm, java.lang.String parentId)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebMultipleTerm", "java.lang.String"};
+    Object[] _parameters = new Object[]{mdWebMultipleTerm, parentId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getTermsForMultiTermField", _declaredTypes);
+    return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final com.runwaysdk.business.BusinessDTO persistObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO busObj, java.lang.String multipleTermJSON)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String"};
+    Object[] _parameters = new Object[]{busObj, multipleTermJSON};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "persistObject", _declaredTypes);
+    return (com.runwaysdk.business.BusinessDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void removeFromGroup(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String groupId, java.lang.String fieldId)

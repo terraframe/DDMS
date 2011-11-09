@@ -10,6 +10,7 @@ import java.util.TreeSet;
 
 import org.json.JSONArray;
 
+import com.runwaysdk.business.RelationshipQuery;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -631,7 +632,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return term;
   }
-
+  
   private static class FetchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
     private String[]              termIds;
@@ -655,7 +656,6 @@ public class Term extends TermBase implements Reloadable, OptionIF
       GeneratedViewQuery query = this.getViewQuery();
 
       query.map(TermView.TERMID, termQuery.getId());
-      // query.map(TermView.TERMNAME, termQuery.getName());
       query.map(TermView.TERMNAME, termQuery.getTermDisplayLabel().localize());
       query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
       query.map(TermView.INACTIVE, this.inactivePropQuery.getInactive());
