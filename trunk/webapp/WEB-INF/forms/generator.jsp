@@ -107,7 +107,7 @@ YAHOO.util.Event.onDOMReady(function(){
 	<div id="FormContainer">
 	</div>
 	
-  <div id="excelButtons">
+  <div id="ExcelButtons">
 	<form action="dss.vector.solutions.generator.ExcelController.excelExport.mojo" method="post">
 	  <input type="hidden" value="${mdFormType}" name="type"/>
 	  <mdss:localize key="Excel_Export_Header" var="export_label"/>

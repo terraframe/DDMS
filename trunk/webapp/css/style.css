@@ -1212,6 +1212,37 @@ span.currentPage a:active {
 .form-item-row .form-item-row-delete:hover {
   background-position: 0px -50px;
 }
+.grid-form-item-row {
+  border-top: solid 1px #d5d6d7;  
+  margin: 0px;
+  padding: 0px; 
+}
+.grid-form-item-row li {
+  position: relative;
+  list-style-type: none;
+  display: block;
+  width: 100%;
+  height: 25px;
+  padding: 5px 0px 0px 5px;
+  background: url('/DDMS/imgs/form-row-item-back.gif') repeat-x;
+  border-bottom: solid 1px #d5d6d7;
+  cursor: pointer;
+}
+.grid-form-item-row .grid-form-item-row-delete {
+  position: absolute;
+  top: 5px;
+  right: 25px;
+  display: block;
+  height: 0px;
+  width: 24px;
+  overflow: hidden;
+  padding: 24px 0px 0px 0px;
+  margin: 0px 0px 0px 0px;
+  background: url('/DDMS/imgs/button-delete.png') no-repeat 0px 0px;
+}
+.grid-form-item-row .grid-form-item-row-delete:hover {
+  background-position: 0px -50px;
+}
 #fieldsTab .form-top-action-row {
   height: 20px;
 }

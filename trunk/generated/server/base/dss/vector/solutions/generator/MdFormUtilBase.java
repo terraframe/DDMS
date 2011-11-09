@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1869175113)
+@com.runwaysdk.business.ClassSignature(hash = -1243220920)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,7 +12,7 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 1869175113;
+  private static final long serialVersionUID = -1243220920;
   
   public MdFormUtilBase()
   {
@@ -52,6 +52,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static com.runwaysdk.system.metadata.MdWebForm apply(com.runwaysdk.system.metadata.MdWebForm mdForm)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void confirmDeleteCompositeField(java.lang.String mdCompositeFieldId, java.lang.String mdFieldId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
@@ -100,6 +106,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static void delete(com.runwaysdk.system.metadata.MdWebForm mdForm)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void deleteCompositeField(com.runwaysdk.system.metadata.MdWebPrimitive mdField)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
@@ -166,6 +178,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
   }
   
   public static com.runwaysdk.system.metadata.MdWebField[] getFieldsById(java.lang.String id)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static java.lang.String getFieldsForComposite(java.lang.String compositeFieldId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

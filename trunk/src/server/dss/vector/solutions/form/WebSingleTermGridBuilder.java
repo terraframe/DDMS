@@ -146,21 +146,11 @@ public class WebSingleTermGridBuilder extends WebAttributeBuilder implements Rel
   private void deleteFields()
   {
     MdWebSingleTermGrid mdWebGrid = this.getMdField();
+    List<MdWebPrimitive> mdFields = MdFormUtil.getCompositeFields(mdWebGrid.getId());
 
-    OIterator<? extends MdWebPrimitive> it = mdWebGrid.getAllMdFields();
-
-    try
+    for (MdWebPrimitive mdField : mdFields)
     {
-      List<? extends MdWebPrimitive> mdFields = it.getAll();
-
-      for (MdWebPrimitive mdField : mdFields)
-      {
-        mdField.delete();
-      }
-    }
-    finally
-    {
-      it.close();
+      mdField.delete();
     }
   }
 }

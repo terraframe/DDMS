@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1454696393)
+@com.runwaysdk.business.ClassSignature(hash = 872936904)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = 1454696393;
+  private static final long serialVersionUID = 872936904;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,6 +31,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{mdForm};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "apply", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdWebFormDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void confirmDeleteCompositeField(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdCompositeFieldId, java.lang.String mdFieldId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{mdCompositeFieldId, mdFieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "confirmDeleteCompositeField", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final void confirmDeleteForm(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFormId)
@@ -94,6 +102,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebForm"};
     Object[] _parameters = new Object[]{mdForm};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "delete", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void deleteCompositeField(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.system.metadata.MdWebPrimitiveDTO mdField)
+  {
+    String[] _declaredTypes = new String[]{"com.runwaysdk.system.metadata.MdWebPrimitive"};
+    Object[] _parameters = new Object[]{mdField};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "deleteCompositeField", _declaredTypes);
     clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
@@ -183,6 +199,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getFieldsById", _declaredTypes);
     return (com.runwaysdk.system.metadata.MdWebFieldDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final java.lang.String getFieldsForComposite(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String compositeFieldId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{compositeFieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getFieldsForComposite", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final com.runwaysdk.system.metadata.MdFieldDTO[] getFieldsForConditions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFieldId)

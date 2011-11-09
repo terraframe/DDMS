@@ -3,11 +3,15 @@
  */
 package dss.vector.solutions.form;
 
+import java.util.List;
+
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
+
+import dss.vector.solutions.generator.MdFormUtil;
 
 public abstract class WebPrimitiveBuilder extends WebAttributeBuilder implements Reloadable
 {
@@ -36,6 +40,19 @@ public abstract class WebPrimitiveBuilder extends WebAttributeBuilder implements
 
     return (MdAttributeConcrete) BusinessFacade.newBusiness(mdAttributeType);
 
+  }
+
+  @Override
+  protected Integer getFieldOrder()
+  {
+    if (this.getMdWebForm() == null && this.mdWebSingleTermGrid != null)
+    {
+      List<MdWebPrimitive> fields = MdFormUtil.getCompositeFields(this.mdWebSingleTermGrid.getId());
+
+      return fields.size();
+    }
+
+    return super.getFieldOrder();
   }
 
   public void setMdWebSingleTermGrid(MdWebSingleTermGrid mdWebSingleTermGrid)

@@ -6,10 +6,17 @@
 <mjl:messages>
   <mjl:message />
 </mjl:messages>
-<dl>
+<h2 class="fieldTitle">${item.md.displayLabel}</h2>
   <mjl:form id="com.runwaysdk.system.metadata.MdWebSingleTermGrid.form.id" name="com.runwaysdk.system.metadata.MdWebSingleTermGrid.form.name" method="POST">
+<dl>
     <%@include file="form.jsp" %>
-    <mdss:localize var="Create_Localize" key="Create" />
-    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.createMdField.button" value="${Create_Localize}" action="dss.vector.solutions.form.MdFormAdminController.createMdField.mojo" />
-  </mjl:form>
+    <dt>
+      <label><mdss:localize key="Fields"/></label>      
+    </dt>    
+    <dd>
+      <mdss:localize key="Cannot_add_fields_till_create"/>
+    </dd>
 </dl>
+
+    <%@include file="../MdWebAttribute/createActions.jsp" %>
+  </mjl:form>

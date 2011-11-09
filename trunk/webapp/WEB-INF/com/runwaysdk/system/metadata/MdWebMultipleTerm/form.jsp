@@ -3,5 +3,13 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@taglib prefix="mdss" uri="/WEB-INF/tlds/mdssLib.tld" %>
 <mjl:component param="mdField" item="${item}">
-  <%@include file="../MdWebAttribute/form.jsp" %>
+  <mjl:dt attribute="displayLabel">
+    <mjl:input param="displayLabel" type="text" />
+  </mjl:dt>
+  <mjl:dt attribute="description">
+    <mjl:input param="description" type="text" />
+  </mjl:dt>
+  <mjl:dt attribute="remove">
+    <mjl:boolean param="remove" />
+  </mjl:dt>
 </mjl:component>

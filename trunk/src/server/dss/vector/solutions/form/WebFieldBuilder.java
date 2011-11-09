@@ -107,18 +107,25 @@ public abstract class WebFieldBuilder implements Reloadable
 
     this.setupAndValidateMdField();
 
+    Integer order = this.getFieldOrder();
+
     if (mdWebForm != null)
     {
-      Integer order = MdFormUtil.getHighestOrder(mdWebForm);
       mdField.setDefiningMdForm(mdWebForm);
-      mdField.setFieldOrder(order);
-    }
-    else
-    {
-      mdField.setFieldOrder(0);
     }
 
+    mdField.setFieldOrder(order);
     mdField.apply();
+  }
+
+  protected Integer getFieldOrder()
+  {
+    if (mdWebForm != null)
+    {
+      return MdFormUtil.getHighestOrder(mdWebForm);
+    }
+
+    return 0;
   }
 
   protected void update()

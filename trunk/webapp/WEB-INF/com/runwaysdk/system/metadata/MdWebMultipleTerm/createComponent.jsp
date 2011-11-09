@@ -11,8 +11,5 @@
 <dl>
     <%@include file="form.jsp" %>
 </dl>
-      <mdss:localize var="Create_Localize" key="Create" />
-      <mjl:command name="dss.vector.solutions.form.MdFormAdminController.createMdField.button" value="${Create_Localize}" action="dss.vector.solutions.form.MdFormAdminController.createMdField.mojo" />
-      <mdss:localize var="Cancel_Localize" key="Cancel" />
-      <mjl:command name="dss.vector.solutions.form.MdFormAdminController.cancelMdField.button" value="${Cancel_Localize}" action="dss.vector.solutions.form.MdFormAdminController.cancelMdField.mojo" />
+    <%@include file="../MdWebAttribute/createActions.jsp" %>
   </mjl:form>

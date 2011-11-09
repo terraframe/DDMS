@@ -2,6 +2,7 @@ package dss.vector.solutions.generator;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Stack;
@@ -26,8 +27,8 @@ import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
+import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
@@ -61,9 +62,10 @@ import com.runwaysdk.system.metadata.MdWebHeader;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebReference;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
+import com.runwaysdk.system.metadata.WebGridField;
+import com.runwaysdk.system.metadata.WebGridFieldQuery;
 import com.runwaysdk.system.metadata.WebGroupField;
 import com.runwaysdk.system.metadata.WebGroupFieldQuery;
-import com.runwaysdk.web.view.html.EscapeUtil;
 
 import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.export.DynamicGeoColumnListener;
@@ -268,6 +270,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   @Transaction
+  @Authenticate
   public static MdWebPrimitive createFieldForComposite(MdWebPrimitive mdField, String mdCompositeFieldId)
   {
     MdWebSingleTermGrid mdWebSingleTermGrid = MdWebSingleTermGrid.get(mdCompositeFieldId);
@@ -769,7 +772,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void delete(MdWebForm mdForm)
   {
     MdClass mdClass = mdForm.getFormMdClass();
-    
+
     new FormSystemURLBuilder(mdForm).delete();
 
     mdForm.delete();
@@ -780,11 +783,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void confirmDeleteForm(String mdFormId)
   {
     MdWebForm mdForm = MdWebForm.get(mdFormId);
-    
+
     String type = mdForm.getFormMdClass().definesType();
     QueryFactory f = new QueryFactory();
     BusinessQuery q = f.businessQuery(type);
-    if(q.getCount() > 0)
+    if (q.getCount() > 0)
     {
       MdFormHasInstancesException ex = new MdFormHasInstancesException();
       ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().toString());
@@ -794,7 +797,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       ConfirmDeleteMdFormException ex = new ConfirmDeleteMdFormException();
       ex.setMdFormName(mdForm.getFormName());
-      throw ex;      
+      throw ex;
     }
 
   }
@@ -804,7 +807,18 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdWebForm mdForm = MdWebForm.get(mdFormId);
     MdWebField mdField = MdWebField.get(mdFieldId);
     ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
-    ex.setMdFormName(mdForm.getFormName());
+    ex.setMdFormName(mdForm.getDisplayLabel().getValue());
+    ex.setMdFieldName(mdField.getDisplayLabel().getValue());
+    throw ex;
+  }
+
+  public static void confirmDeleteCompositeField(String mdCompositeFieldId, String mdFieldId)
+  {
+    MdWebSingleTermGrid mdWebGrid = MdWebSingleTermGrid.get(mdCompositeFieldId);
+    MdWebField mdField = MdWebField.get(mdFieldId);
+
+    ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
+    ex.setMdFormName(mdWebGrid.getFieldName());
     ex.setMdFieldName(mdField.getFieldName());
     throw ex;
   }
@@ -829,6 +843,23 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         }
       }
 
+      DDMSFieldBuilders.delete(mdField);
+    }
+    catch (MetadataCannotBeDeletedException e)
+    {
+      String msg = "Field cannont be deleted";
+      MetadataDAO metadata = (MetadataDAO) MdWebFieldDAO.get(mdField.getId()).getBusinessDAO();
+
+      throw new MetadataCannotBeDeletedException(msg, metadata);
+    }
+  }
+
+  @Transaction
+  @Authenticate
+  public static void deleteCompositeField(MdWebPrimitive mdField)
+  {
+    try
+    {
       DDMSFieldBuilders.delete(mdField);
     }
     catch (MetadataCannotBeDeletedException e)
@@ -961,5 +992,58 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
 
     return listeners;
+  }
+
+  public static String getFieldsForComposite(String compositeFieldId)
+  {
+    JSONArray array = new JSONArray();
+    try
+    {
+      List<MdWebPrimitive> fields = MdFormUtil.getCompositeFields(compositeFieldId);
+
+      for (MdWebPrimitive field : fields)
+      {
+        JSONObject fieldJSON = new JSONObject();
+        array.put(fieldJSON);
+
+        fieldJSON.put("label", field.toString());
+        fieldJSON.put("id", field.getId());
+        fieldJSON.put("nodeType", "fieldNode");
+      }
+
+      return array.toString();
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException("Could not get the JSON tree for an MdForm.", e);
+    }
+  }
+
+  public static List<MdWebPrimitive> getCompositeFields(String compositeFieldId)
+  {
+    QueryFactory factory = new QueryFactory();
+
+    WebGridFieldQuery query = new WebGridFieldQuery(factory);
+    query.WHERE(query.parentId().EQ(compositeFieldId));
+
+    OIterator<? extends WebGridField> it = query.getIterator();
+
+    List<MdWebPrimitive> collection = new LinkedList<MdWebPrimitive>();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        collection.add(it.next().getChild());
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    Collections.sort(collection, new FieldComparator());
+
+    return collection;
   }
 }

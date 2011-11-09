@@ -34,6 +34,7 @@ import com.runwaysdk.system.metadata.MdWebGeoDTO;
 import com.runwaysdk.system.metadata.MdWebIntegerDTO;
 import com.runwaysdk.system.metadata.MdWebLongDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
@@ -189,11 +190,24 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     }
   }
 
-  /**
-   * Provides a new MdField definition screen.
-   */
   @Override
-  public void newMdField(String mdFieldType) throws IOException, ServletException
+  public void availableCompositeFields() throws IOException, ServletException
+  {
+    try
+    {
+      MdFieldTypeQueryDTO query = MdFormUtilDTO.getAvailableCompositeFields(this.getClientRequest());
+      req.setAttribute("results", query.getResultSet());
+
+      this.req.getRequestDispatcher(AVAILABLE_MD_FIELDS_JSP).forward(req, resp);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+
+  @Override
+  public void newMdField(String mdFieldType, Boolean isComposite) throws IOException, ServletException
   {
     try
     {
@@ -205,6 +219,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       // populate the new MdField instance
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(clientRequest);
       this.req.setAttribute("item", dto);
+      this.req.setAttribute("isComposite", isComposite);
 
       if (dto instanceof MdWebGeoDTO)
       {
@@ -259,12 +274,29 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   @Override
-  public void editMdField(String fieldId) throws IOException, ServletException
+  public void createCompositeField(MdWebPrimitiveDTO mdField, String mdCompositeFieldId) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF request = this.getClientRequest();
+
+      MdWebPrimitiveDTO field = MdFormUtilDTO.createFieldForComposite(request, mdField, mdCompositeFieldId);
+
+      this.resp.getWriter().write(field.getId());
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
+
+  @Override
+  public void editMdField(String mdFieldId, Boolean isComposite) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF clientRequest = this.getClientRequest();
-      MdFieldDTO dto = MdFieldDTO.lock(clientRequest, fieldId);
+      MdFieldDTO dto = MdFieldDTO.lock(clientRequest, mdFieldId);
 
       if (dto instanceof MdWebGeoDTO)
       {
@@ -295,6 +327,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       }
 
       this.req.setAttribute("item", dto);
+      this.req.setAttribute("isComposite", isComposite);
 
       this.forwardToFieldPage(dto.getType(), "editComponent.jsp");
     }
@@ -333,6 +366,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   }
 
   @Override
+  public void cancelCompositeField(MdWebPrimitiveDTO mdField) throws IOException, ServletException
+  {
+    this.cancelMdField(mdField);
+  }
+
+  @Override
   public void updateMdField(MdFieldDTO mdField) throws IOException, ServletException
   {
     try
@@ -343,6 +382,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
+  }
+
+  @Override
+  public void updateCompositeField(MdWebPrimitiveDTO mdField) throws IOException, ServletException
+  {
+    this.updateMdField(mdField);
   }
 
   @Override
@@ -537,12 +582,22 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       MdWebFieldDTO fieldToDelete = MdWebFieldDTO.get(clientRequest, fieldId);
 
       MdFormUtilDTO.deleteField(clientRequest, form, fieldToDelete);
+    }
+    catch (Throwable t)
+    {
+      ErrorUtility.prepareAjaxThrowable(t, resp);
+    }
+  }
 
-      // MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(clientRequest, form);
-      // req.setAttribute("fields", fields);
+  @Override
+  public void deleteCompositeField(String mdFieldId) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = getClientRequest();
+      MdWebPrimitiveDTO mdField = MdWebPrimitiveDTO.get(clientRequest, mdFieldId);
 
-      // this.req.getRequestDispatcher(FETCH_FORM_FIELDS_JSP).forward(req,
-      // resp);
+      MdFormUtilDTO.deleteCompositeField(clientRequest, mdField);
     }
     catch (Throwable t)
     {
@@ -683,36 +738,36 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     req.setAttribute("definingMdField", mdField.getId());
 
     boolean isDate = false;
-    if(condition instanceof DateConditionDTO)
+    if (condition instanceof DateConditionDTO)
     {
       isDate = true;
     }
     req.setAttribute("isDate", isDate);
-    
+
     boolean isTerm = false;
-    if(mdField instanceof MdWebSingleTermDTO || mdField instanceof MdWebMultipleTermDTO)
+    if (mdField instanceof MdWebSingleTermDTO || mdField instanceof MdWebMultipleTermDTO)
     {
       isTerm = true;
-      
+
       MdWebAttributeDTO webAttr = (MdWebAttributeDTO) mdField;
       String definingMdAttrId = webAttr.getDefiningMdAttributeId();
-      
+
       MdAttributeConcreteDTO attrDTO = MdAttributeConcreteDTO.get(mdField.getRequest(), definingMdAttrId);
       MdClassDTO definingClass = attrDTO.getDefiningMdClass();
-      String clazz = definingClass.getPackageName()+"."+definingClass.getTypeName();
+      String clazz = definingClass.getPackageName() + "." + definingClass.getTypeName();
       String name = attrDTO.getAttributeName();
-      
+
       req.setAttribute("type", clazz);
       req.setAttribute("name", name);
-      
+
       // get the term display label
       TermDTO term = getTerm(condition);
       req.setAttribute("termDisplayLabel", term != null ? term.getDisplayLabel() : "");
     }
     req.setAttribute("isTerm", isTerm);
-    
+
     boolean isGeo = false;
-    if(mdField instanceof MdWebGeoDTO)
+    if (mdField instanceof MdWebGeoDTO)
     {
       isGeo = true;
       GeoEntityDTO geo = getGeoEntity(condition);
@@ -743,7 +798,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       return null;
     }
   }
-  
+
   /**
    * Gets the display label for a Term on a condition.
    * 
@@ -753,7 +808,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   private static TermDTO getTerm(FieldConditionDTO condition)
   {
     String termId = condition.getValue(CharacterConditionDTO.VALUE);
-    if(termId != null && termId.trim().length() > 0)
+    if (termId != null && termId.trim().length() > 0)
     {
       return TermDTO.get(condition.getRequest(), termId);
     }

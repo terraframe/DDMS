@@ -11,8 +11,5 @@
 <dl>
     <%@include file="form.jsp" %>
 </dl>
-    <mdss:localize var="Update_Localize" key="Update" />
-    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.updateMdField.button" value="${Update_Localize}" action="dss.vector.solutions.form.MdFormAdminController.updateMdField.mojo" />
-    <mdss:localize var="Cancel_Localize" key="Cancel" />
-    <mjl:command name="dss.vector.solutions.form.MdFormAdminController.cancelMdField.button" value="${Cancel_Localize}" action="dss.vector.solutions.form.MdFormAdminController.cancelMdField.mojo" />
+    <%@include file="../MdWebAttribute/editActions.jsp" %>
   </mjl:form>
