@@ -2529,9 +2529,94 @@ var BasicCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'BasicCondit
 			this._isTrue = false; // has the condition criterion been met?
 		},
     _setTrue : function(isTrue) { this._isTrue = isTrue; },
-    isTrue : function() { return this._isTrue; },
+    isTrue : function() { return this._isTrue; }
+	}
+});
+
+var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'CharacterCondition', {
+  Extends : BasicCondition,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitCharacterCondition(this);
+    },
 		evaluate : function(changedValue){
       var value = this.getValue();
+      var op = this.getOperation();
+      var isTrue = false;
+      switch (op) {
+        case 'EQ':
+          isTrue = changedValue == value;
+          break;
+        case 'NEQ':
+          isTrue = changedValue != value;
+          break;
+        default:
+          isTrue = false;
+      }
+      
+      this._setTrue(isTrue);      
+    }
+  }
+});
+
+var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateCondition', {
+  Extends : BasicCondition,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDateCondition(this);
+    },
+    evaluate : function(changedValue){
+      var value = MDSS.Calendar.parseDate(this.getValue());
+      changedValue = MDSS.Calendar.parseDate(changedValue);
+			
+      var op = this.getOperation();
+      var isTrue = false;
+      switch (op) {
+        case 'EQ':
+          isTrue = changedValue.equals(value);
+          break;
+        case 'GT':
+          isTrue = changedValue.isAfter(value); 
+          break;
+        case 'GTE':
+          isTrue = (changedValue.isAfter(value) || changedValue.equalsIgnoreTime(value)); 
+          break;
+        case 'LT':
+          isTrue = changedValue.isBefore(value); 
+          break;
+        case 'LTE':
+          isTrue = (changedValue.isBefore(value) || changedValue.equalsIgnoreTime(value)); 
+          break;
+        case 'NEQ':
+          isTrue = !changedValue.equalsIgnoreTime(value);
+          break;
+        default:
+          isTrue = false;
+      }
+      
+      this._setTrue(isTrue);      
+    }
+  }
+});
+
+var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCondition', {
+  Extends : BasicCondition,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    },
+    accept : function(visitor){
+      visitor.visitDoubleCondition(this);
+    },
+		evaluate : function(changedValue){
+      var value = parseFloat(this.getValue());
+			changedValue = parseFloat(changedValue);
       var op = this.getOperation();
       var isTrue = false;
       switch (op) {
@@ -2559,42 +2644,6 @@ var BasicCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'BasicCondit
       
       this._setTrue(isTrue);      
     }
-	}
-});
-
-var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'CharacterCondition', {
-  Extends : BasicCondition,
-  Instance : {
-    initialize : function(obj){
-      this.$initialize(obj);
-    },
-    accept : function(visitor){
-      visitor.visitCharacterCondition(this);
-    }
-  }
-});
-
-var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateCondition', {
-  Extends : BasicCondition,
-  Instance : {
-    initialize : function(obj){
-      this.$initialize(obj);
-    },
-    accept : function(visitor){
-      visitor.visitDateCondition(this);
-    }
-  }
-});
-
-var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCondition', {
-  Extends : BasicCondition,
-  Instance : {
-    initialize : function(obj){
-      this.$initialize(obj);
-    },
-    accept : function(visitor){
-      visitor.visitDoubleCondition(this);
-    }
   }
 });
 
@@ -2606,7 +2655,37 @@ var LongCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'LongConditio
     },
     accept : function(visitor){
       visitor.visitLongCondition(this);
-    }
+    },
+	  evaluate : function(changedValue){
+      var value = parseInt(this.getValue());
+			changedValue = parseInt(changedValue);
+      var op = this.getOperation();
+      var isTrue = false;
+      switch (op) {
+        case 'EQ':
+          isTrue = changedValue == value;
+          break;
+        case 'GT':
+          isTrue = changedValue > value;
+          break;
+        case 'GTE':
+          isTrue = changedValue >= value;
+          break;
+        case 'LT':
+          isTrue = changedValue < value;
+          break;
+        case 'LTE':
+          isTrue = changedValue <= value;
+          break;
+        case 'NEQ':
+          isTrue = changedValue != value;
+          break;
+        default:
+          isTrue = false;
+      }
+      
+      this._setTrue(isTrue);      
+    }	
   }
 });
 
