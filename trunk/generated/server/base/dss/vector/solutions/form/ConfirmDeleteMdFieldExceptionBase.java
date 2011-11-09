@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = -1440879045)
+@com.runwaysdk.business.ClassSignature(hash = 1413331163)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,9 +12,9 @@ public abstract class ConfirmDeleteMdFieldExceptionBase extends com.runwaysdk.bu
 {
   public final static String CLASS = "dss.vector.solutions.form.ConfirmDeleteMdFieldException";
   public static java.lang.String ID = "id";
-  public static java.lang.String MDFIELDNAME = "mdFieldName";
-  public static java.lang.String MDFORMNAME = "mdFormName";
-  private static final long serialVersionUID = -1440879045;
+  public static java.lang.String MDFIELDDISPLAYLABEL = "mdFieldDisplayLabel";
+  public static java.lang.String MDFORMDISPLAYLABEL = "mdFormDisplayLabel";
+  private static final long serialVersionUID = 1413331163;
   
   public ConfirmDeleteMdFieldExceptionBase()
   {
@@ -52,59 +52,59 @@ public abstract class ConfirmDeleteMdFieldExceptionBase extends com.runwaysdk.bu
     return mdClassIF.definesAttribute(ID);
   }
   
-  public String getMdFieldName()
+  public String getMdFieldDisplayLabel()
   {
-    return getValue(MDFIELDNAME);
+    return getValue(MDFIELDDISPLAYLABEL);
   }
   
-  public void validateMdFieldName()
+  public void validateMdFieldDisplayLabel()
   {
-    this.validateAttribute(MDFIELDNAME);
+    this.validateAttribute(MDFIELDDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFieldNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFieldDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.ConfirmDeleteMdFieldException.CLASS);
-    return mdClassIF.definesAttribute(MDFIELDNAME);
+    return mdClassIF.definesAttribute(MDFIELDDISPLAYLABEL);
   }
   
-  public void setMdFieldName(String value)
+  public void setMdFieldDisplayLabel(String value)
   {
     if(value == null)
     {
-      setValue(MDFIELDNAME, "");
+      setValue(MDFIELDDISPLAYLABEL, "");
     }
     else
     {
-      setValue(MDFIELDNAME, value);
+      setValue(MDFIELDDISPLAYLABEL, value);
     }
   }
   
-  public String getMdFormName()
+  public String getMdFormDisplayLabel()
   {
-    return getValue(MDFORMNAME);
+    return getValue(MDFORMDISPLAYLABEL);
   }
   
-  public void validateMdFormName()
+  public void validateMdFormDisplayLabel()
   {
-    this.validateAttribute(MDFORMNAME);
+    this.validateAttribute(MDFORMDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFormNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFormDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.ConfirmDeleteMdFieldException.CLASS);
-    return mdClassIF.definesAttribute(MDFORMNAME);
+    return mdClassIF.definesAttribute(MDFORMDISPLAYLABEL);
   }
   
-  public void setMdFormName(String value)
+  public void setMdFormDisplayLabel(String value)
   {
     if(value == null)
     {
-      setValue(MDFORMNAME, "");
+      setValue(MDFORMDISPLAYLABEL, "");
     }
     else
     {
-      setValue(MDFORMNAME, value);
+      setValue(MDFORMDISPLAYLABEL, value);
     }
   }
   
@@ -117,8 +117,8 @@ public abstract class ConfirmDeleteMdFieldExceptionBase extends com.runwaysdk.bu
   {
     java.lang.String message = super.localize(locale);
     message = replace(message, "{id}", this.getId());
-    message = replace(message, "{mdFieldName}", this.getMdFieldName());
-    message = replace(message, "{mdFormName}", this.getMdFormName());
+    message = replace(message, "{mdFieldDisplayLabel}", this.getMdFieldDisplayLabel());
+    message = replace(message, "{mdFormDisplayLabel}", this.getMdFormDisplayLabel());
     return message;
   }
   

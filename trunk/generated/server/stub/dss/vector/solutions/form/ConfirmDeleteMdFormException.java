@@ -2,7 +2,7 @@ package dss.vector.solutions.form;
 
 public class ConfirmDeleteMdFormException extends ConfirmDeleteMdFormExceptionBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = -1249721530;
+  private static final long serialVersionUID = -1377261409;
   
   public ConfirmDeleteMdFormException()
   {

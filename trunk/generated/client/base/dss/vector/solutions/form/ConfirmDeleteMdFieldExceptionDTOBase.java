@@ -1,10 +1,10 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = -498577477)
+@com.runwaysdk.business.ClassSignature(hash = -1435166117)
 public abstract class ConfirmDeleteMdFieldExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.ConfirmDeleteMdFieldException";
-  private static final long serialVersionUID = -498577477;
+  private static final long serialVersionUID = -1435166117;
   
   public ConfirmDeleteMdFieldExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -52,80 +52,80 @@ public abstract class ConfirmDeleteMdFieldExceptionDTOBase extends com.runwaysdk
   }
   
   public static java.lang.String ID = "id";
-  public static java.lang.String MDFIELDNAME = "mdFieldName";
-  public static java.lang.String MDFORMNAME = "mdFormName";
-  public String getMdFieldName()
+  public static java.lang.String MDFIELDDISPLAYLABEL = "mdFieldDisplayLabel";
+  public static java.lang.String MDFORMDISPLAYLABEL = "mdFormDisplayLabel";
+  public String getMdFieldDisplayLabel()
   {
-    return getValue(MDFIELDNAME);
+    return getValue(MDFIELDDISPLAYLABEL);
   }
   
-  public void setMdFieldName(String value)
+  public void setMdFieldDisplayLabel(String value)
   {
     if(value == null)
     {
-      setValue(MDFIELDNAME, "");
+      setValue(MDFIELDDISPLAYLABEL, "");
     }
     else
     {
-      setValue(MDFIELDNAME, value);
+      setValue(MDFIELDDISPLAYLABEL, value);
     }
   }
   
-  public boolean isMdFieldNameWritable()
+  public boolean isMdFieldDisplayLabelWritable()
   {
-    return isWritable(MDFIELDNAME);
+    return isWritable(MDFIELDDISPLAYLABEL);
   }
   
-  public boolean isMdFieldNameReadable()
+  public boolean isMdFieldDisplayLabelReadable()
   {
-    return isReadable(MDFIELDNAME);
+    return isReadable(MDFIELDDISPLAYLABEL);
   }
   
-  public boolean isMdFieldNameModified()
+  public boolean isMdFieldDisplayLabelModified()
   {
-    return isModified(MDFIELDNAME);
+    return isModified(MDFIELDDISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdFieldNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdFieldDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDFIELDNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDFIELDDISPLAYLABEL).getAttributeMdDTO();
   }
   
-  public String getMdFormName()
+  public String getMdFormDisplayLabel()
   {
-    return getValue(MDFORMNAME);
+    return getValue(MDFORMDISPLAYLABEL);
   }
   
-  public void setMdFormName(String value)
+  public void setMdFormDisplayLabel(String value)
   {
     if(value == null)
     {
-      setValue(MDFORMNAME, "");
+      setValue(MDFORMDISPLAYLABEL, "");
     }
     else
     {
-      setValue(MDFORMNAME, value);
+      setValue(MDFORMDISPLAYLABEL, value);
     }
   }
   
-  public boolean isMdFormNameWritable()
+  public boolean isMdFormDisplayLabelWritable()
   {
-    return isWritable(MDFORMNAME);
+    return isWritable(MDFORMDISPLAYLABEL);
   }
   
-  public boolean isMdFormNameReadable()
+  public boolean isMdFormDisplayLabelReadable()
   {
-    return isReadable(MDFORMNAME);
+    return isReadable(MDFORMDISPLAYLABEL);
   }
   
-  public boolean isMdFormNameModified()
+  public boolean isMdFormDisplayLabelModified()
   {
-    return isModified(MDFORMNAME);
+    return isModified(MDFORMDISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdFormNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdFormDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDFORMNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDFORMDISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**
@@ -137,8 +137,8 @@ public abstract class ConfirmDeleteMdFieldExceptionDTOBase extends com.runwaysdk
     java.lang.String template = super.getMessage();
     
     template = template.replace("{id}", this.getId().toString());
-    template = template.replace("{mdFieldName}", this.getMdFieldName().toString());
-    template = template.replace("{mdFormName}", this.getMdFormName().toString());
+    template = template.replace("{mdFieldDisplayLabel}", this.getMdFieldDisplayLabel().toString());
+    template = template.replace("{mdFormDisplayLabel}", this.getMdFormDisplayLabel().toString());
     
     return template;
   }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 676347561)
+@com.runwaysdk.business.ClassSignature(hash = 998379778)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,8 +12,8 @@ public abstract class ConfirmDeleteMdFormExceptionBase extends com.runwaysdk.bus
 {
   public final static String CLASS = "dss.vector.solutions.form.ConfirmDeleteMdFormException";
   public static java.lang.String ID = "id";
-  public static java.lang.String MDFORMNAME = "mdFormName";
-  private static final long serialVersionUID = 676347561;
+  public static java.lang.String MDFORMDISPLAYLABEL = "mdFormDisplayLabel";
+  private static final long serialVersionUID = 998379778;
   
   public ConfirmDeleteMdFormExceptionBase()
   {
@@ -51,31 +51,31 @@ public abstract class ConfirmDeleteMdFormExceptionBase extends com.runwaysdk.bus
     return mdClassIF.definesAttribute(ID);
   }
   
-  public String getMdFormName()
+  public String getMdFormDisplayLabel()
   {
-    return getValue(MDFORMNAME);
+    return getValue(MDFORMDISPLAYLABEL);
   }
   
-  public void validateMdFormName()
+  public void validateMdFormDisplayLabel()
   {
-    this.validateAttribute(MDFORMNAME);
+    this.validateAttribute(MDFORMDISPLAYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFormNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getMdFormDisplayLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.ConfirmDeleteMdFormException.CLASS);
-    return mdClassIF.definesAttribute(MDFORMNAME);
+    return mdClassIF.definesAttribute(MDFORMDISPLAYLABEL);
   }
   
-  public void setMdFormName(String value)
+  public void setMdFormDisplayLabel(String value)
   {
     if(value == null)
     {
-      setValue(MDFORMNAME, "");
+      setValue(MDFORMDISPLAYLABEL, "");
     }
     else
     {
-      setValue(MDFORMNAME, value);
+      setValue(MDFORMDISPLAYLABEL, value);
     }
   }
   
@@ -88,7 +88,7 @@ public abstract class ConfirmDeleteMdFormExceptionBase extends com.runwaysdk.bus
   {
     java.lang.String message = super.localize(locale);
     message = replace(message, "{id}", this.getId());
-    message = replace(message, "{mdFormName}", this.getMdFormName());
+    message = replace(message, "{mdFormDisplayLabel}", this.getMdFormDisplayLabel());
     return message;
   }
   

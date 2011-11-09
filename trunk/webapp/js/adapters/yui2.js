@@ -296,6 +296,13 @@ var Dialog = Mojo.Meta.newClass(Mojo.YUI2_PACKAGE+'Dialog', {
     {
       return this._buttons.values();
     },
+		setClose : function(bool)
+		{
+			if (bool === true || bool === false)
+			{
+				this.getImpl().cfg.setProperty('close',bool);
+			}
+		},
     _render : function(parent){
     
       // delegate to YUI's render and mark the Dialog as rendered

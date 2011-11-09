@@ -1,10 +1,10 @@
 package dss.vector.solutions.form;
 
-@com.runwaysdk.business.ClassSignature(hash = 737578281)
+@com.runwaysdk.business.ClassSignature(hash = 892460930)
 public abstract class ConfirmDeleteMdFormExceptionDTOBase extends com.runwaysdk.business.SmartExceptionDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.ConfirmDeleteMdFormException";
-  private static final long serialVersionUID = 737578281;
+  private static final long serialVersionUID = 892460930;
   
   public ConfirmDeleteMdFormExceptionDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequestIF)
   {
@@ -52,42 +52,42 @@ public abstract class ConfirmDeleteMdFormExceptionDTOBase extends com.runwaysdk.
   }
   
   public static java.lang.String ID = "id";
-  public static java.lang.String MDFORMNAME = "mdFormName";
-  public String getMdFormName()
+  public static java.lang.String MDFORMDISPLAYLABEL = "mdFormDisplayLabel";
+  public String getMdFormDisplayLabel()
   {
-    return getValue(MDFORMNAME);
+    return getValue(MDFORMDISPLAYLABEL);
   }
   
-  public void setMdFormName(String value)
+  public void setMdFormDisplayLabel(String value)
   {
     if(value == null)
     {
-      setValue(MDFORMNAME, "");
+      setValue(MDFORMDISPLAYLABEL, "");
     }
     else
     {
-      setValue(MDFORMNAME, value);
+      setValue(MDFORMDISPLAYLABEL, value);
     }
   }
   
-  public boolean isMdFormNameWritable()
+  public boolean isMdFormDisplayLabelWritable()
   {
-    return isWritable(MDFORMNAME);
+    return isWritable(MDFORMDISPLAYLABEL);
   }
   
-  public boolean isMdFormNameReadable()
+  public boolean isMdFormDisplayLabelReadable()
   {
-    return isReadable(MDFORMNAME);
+    return isReadable(MDFORMDISPLAYLABEL);
   }
   
-  public boolean isMdFormNameModified()
+  public boolean isMdFormDisplayLabelModified()
   {
-    return isModified(MDFORMNAME);
+    return isModified(MDFORMDISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdFormNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getMdFormDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDFORMNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(MDFORMDISPLAYLABEL).getAttributeMdDTO();
   }
   
   /**
@@ -99,7 +99,7 @@ public abstract class ConfirmDeleteMdFormExceptionDTOBase extends com.runwaysdk.
     java.lang.String template = super.getMessage();
     
     template = template.replace("{id}", this.getId().toString());
-    template = template.replace("{mdFormName}", this.getMdFormName().toString());
+    template = template.replace("{mdFormDisplayLabel}", this.getMdFormDisplayLabel().toString());
     
     return template;
   }

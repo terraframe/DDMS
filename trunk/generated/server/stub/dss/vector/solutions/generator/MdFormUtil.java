@@ -790,16 +790,15 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     if (q.getCount() > 0)
     {
       MdFormHasInstancesException ex = new MdFormHasInstancesException();
-      ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().toString());
+      ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().getValue);
       throw ex;
     }
     else
     {
       ConfirmDeleteMdFormException ex = new ConfirmDeleteMdFormException();
-      ex.setMdFormName(mdForm.getFormName());
+      ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().getValue());
       throw ex;
     }
-
   }
 
   public static void confirmDeleteMdField(String mdFormId, String mdFieldId)
@@ -807,8 +806,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdWebForm mdForm = MdWebForm.get(mdFormId);
     MdWebField mdField = MdWebField.get(mdFieldId);
     ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
-    ex.setMdFormName(mdForm.getDisplayLabel().getValue());
-    ex.setMdFieldName(mdField.getDisplayLabel().getValue());
+    ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().getValue());
+    ex.setMdFieldDisplayLabel(mdField.getDisplayLabel().getValue());
     throw ex;
   }
 
@@ -818,8 +817,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdWebField mdField = MdWebField.get(mdFieldId);
 
     ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
-    ex.setMdFormName(mdWebGrid.getFieldName());
-    ex.setMdFieldName(mdField.getFieldName());
+    ex.setMdFormDisplayLabel(mdWebGrid.getFieldName());
+    ex.setMdFieldDisplayLabel(mdField.getFieldName());
     throw ex;
   }
 
