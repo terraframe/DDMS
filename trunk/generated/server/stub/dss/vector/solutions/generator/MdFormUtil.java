@@ -907,8 +907,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdWebField mdField = MdWebField.get(mdFieldId);
 
     ConfirmDeleteMdFieldException ex = new ConfirmDeleteMdFieldException();
-    ex.setMdFormDisplayLabel(mdWebGrid.getFieldName());
-    ex.setMdFieldDisplayLabel(mdField.getFieldName());
+    ex.setMdFormDisplayLabel(mdWebGrid.getDisplayLabel().getValue());
+    ex.setMdFieldDisplayLabel(mdField.getDisplayLabel().getValue());
     throw ex;
   }
 
