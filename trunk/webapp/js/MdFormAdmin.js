@@ -138,25 +138,25 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     _viewConditionsItem : function()
     {
-      var viewConditions = new YAHOO.widget.ContextMenuItem(MDSS.localize('view_conditions'));
+      var viewConditions = new YAHOO.widget.ContextMenuItem('View Conditions');
       viewConditions.subscribe("click", this.viewConditions, null, this);
       return viewConditions;
     },
     _addGroupItem : function()
     {
-      var addGroup = new YAHOO.widget.ContextMenuItem(MDSS.localize('add_group'));
+      var addGroup = new YAHOO.widget.ContextMenuItem('Add Group');
       addGroup.subscribe("click", this.addGroup, null, this);
       return addGroup;
     },
     _editGroupItem : function()
     {
-      var editGroup = new YAHOO.widget.ContextMenuItem(MDSS.localize('edit_group'));
+      var editGroup = new YAHOO.widget.ContextMenuItem('Edit Group');
       editGroup.subscribe("click", this.editGroup, null, this);
       return editGroup;
     },
     _deleteGroupItem : function()
     {
-      var deleteGroup = new YAHOO.widget.ContextMenuItem(MDSS.localize('delete_group'));
+      var deleteGroup = new YAHOO.widget.ContextMenuItem('Delete Group');
       deleteGroup.subscribe("click", this.deleteGroup, null, this);
       return deleteGroup;
     },
@@ -519,8 +519,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         
         this._MdFormAdminController.availableFields(request);
       }
-    },
-    
+    },    
     createAvailableFieldsDialog : function(html)
     {
       this._fieldsDialog.setInnerHTML(html);
@@ -539,7 +538,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         }
       });
       
-      this._MdFormAdminController.newMdField(request, mdFieldType);
+      this._MdFormAdminController.newMdField(request, mdFieldType, false);
     },
     /**
      * Make a request for a new instance of an MdField.
@@ -964,45 +963,34 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var lowerDiv = that._Factory.newElement('div');
           
           var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
-          confirmButton.setInnerHTML(MDSS.localize("Confirm"));
+          confirmButton.setInnerHTML("Confirm");
           
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
-          cancelButton.setInnerHTML(MDSS.localize("Cancel"));
-					
-          if (!hasInstances)
+          
+          if (hasInstances)
           {
+            cancelButton.setInnerHTML("OK");
+          }
+          else
+          {
+            cancelButton.setInnerHTML("Cancel");
             lowerDiv.appendChild(confirmButton);
-            lowerDiv.appendChild(cancelButton);
           }
           
+          lowerDiv.appendChild(cancelButton);
           
           wrapperDiv.appendChild(upperDiv);
           wrapperDiv.appendChild(lowerDiv);
           
           if(that._confirmDeleteDialog !== null)
           {
-						if (hasInstances)
-						{
-							that._confirmDeleteDialog.setClose(true);
-						}
-						else
-						{
-							that._confirmDeleteDialog.setClose(false);
-						}
             that._confirmDeleteDialog.setInnerHTML("");
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.show();
           }
           else
           {
-						if (hasInstances)
-						{
-              that._confirmDeleteDialog = that._Factory.newDialog('', {close: true, modal:true});
-						}
-						else 
-						{
-						 that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
-						}
+            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.render();
           }
@@ -1038,10 +1026,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           lowerDiv.addClassName('alertbox modalAlertBox');
           
           var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
-          confirmButton.setInnerHTML(MDSS.localize("Confirm"));
+          confirmButton.setInnerHTML("Confirm");
           
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
-          cancelButton.setInnerHTML(MDSS.localize("Cancel"));
+          cancelButton.setInnerHTML("Cancel");
           
           var lowerDiv = that._Factory.newElement('div');
           lowerDiv.appendChild(confirmButton);
@@ -1082,7 +1070,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
         }
       });
       
-      this._MdFormAdminController.editMdField(request, fieldId);
+      this._MdFormAdminController.editMdField(request, fieldId, false);
     },
     editFieldHandler : function(e)
     {
@@ -1175,6 +1163,338 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       });
       that._MdFormAdminController.newInstance(request);
     }
+  }
+});
+
+/**
+ * Primary class to handle control flow in the UI.
+ */
+Mojo.Meta.newClass('dss.vector.solutions.GridFieldAdmin', 
+{
+  Constants : {
+    AVAILABLE_FIELDS : 'gridAvailableFields',
+    FORM_ITEM_ROW : 'gridFormItemRow',
+    CANCEL_DELETE_BUTTON : 'gridCancelDeleteButton',
+    CONFIRM_DELETE_BUTTON : 'gridConfirmDeleteButton'    
+  },
+  Instance : {
+    initialize : function(compositeFieldId)
+    {
+      UI.Manager.setFactory("YUI3");
+      
+      this._Factory = UI.Manager.getFactory();
+      this._MdFormAdminController = dss.vector.solutions.form.MdFormAdminController;
+      this._MdFormUtil = dss.vector.solutions.generator.MdFormUtil;  
+      this._Y = YUI().use('*'); // YUI3 reference          
+      
+      // Dialog for selecting the available MdFields
+      this._compositeFieldId = compositeFieldId;
+      this._fieldsDialog = null;      
+      this._fieldFormDialog = null;
+      this._confirmDeleteDialog = null;
+      this._fieldList = this._Factory.newList("Field List", {id: "fieldList"});
+
+      // Action handlers
+      var createMdFieldB = Mojo.Util.bind(this, this.createMdField);
+      this._MdFormAdminController.setCreateCompositeFieldListener(createMdFieldB);
+      
+      var cancelMdFieldB = Mojo.Util.bind(this, this.cancelMdField);
+      this._MdFormAdminController.setCancelCompositeFieldListener(cancelMdFieldB);
+      
+      var updateMdFieldB = Mojo.Util.bind(this, this.updateMdField);
+      this._MdFormAdminController.setUpdateCompositeFieldListener(updateMdFieldB);      
+    },
+    render : function()
+    {
+      YAHOO.util.Event.on(this.constructor.AVAILABLE_FIELDS, 'click', this.availableFields, null, this);
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.confirmDeleteMdFieldHandler, 'a.grid-form-item-row-delete', this);
+      this._Y.one('#'+this.constructor.FORM_ITEM_ROW).delegate('click', this.editFieldHandler, 'li', this);
+
+      this.refreshFields();
+    },
+    /**
+     * Makes a request to display all available MdField types for the Form Generator.
+     */
+    availableFields : function()
+    {
+      if(this._fieldsDialog !== null)
+      {
+        this._fieldsDialog.show(); // FIXME add show/hide to widgets
+      }
+      else
+      {
+        // first request, so create the dialog with the available field options.
+        this._fieldsDialog = this._Factory.newDialog('', {modal:true});
+        
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess : function(html){
+            var executable = MDSS.util.extractScripts(html);
+            var pureHTML = MDSS.util.removeScripts(html);
+            
+            this.that.createAvailableFieldsDialog(pureHTML);            
+          }
+        });
+        
+        this._MdFormAdminController.availableCompositeFields(request);
+      }
+    },    
+    createAvailableFieldsDialog : function(html)
+    {
+      this._fieldsDialog.setInnerHTML(html);
+      this._fieldsDialog.render();
+      
+      // hook the click handler to the dialog to detect which field type was selected.
+      var id = this._fieldsDialog.getContentEl().getId();
+      this._Y.one('#'+id).delegate('click', this.newFieldHandler, 'li', this);
+    },
+    newField : function(mdFieldType)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(html){
+          that.newMdFieldDialog(html);
+        }
+      });
+      
+      this._MdFormAdminController.newMdField(request, mdFieldType, true);
+    },
+    /**
+     * Make a request for a new instance of an MdField.
+     */
+    newFieldHandler : function(e)
+    {
+      // this is called via the fields tab so clear any notion of
+      // the currently selected field. This is to avoid confusing adding
+      // a new group (a field) via the workflow tree.
+      this._selectedNode = null;
+    
+      var mdFieldType = e.currentTarget.get('id');
+      this.newField(mdFieldType);
+    },
+    newMdFieldDialog : function(html)
+    {
+      // the fields dialog might not have been rendered if we're adding 
+      // a new group field.
+      if(this._fieldsDialog !== null)
+      {
+        this._fieldsDialog.hide();
+      }
+    
+      var executable = MDSS.util.extractScripts(html);
+      var pureHTML = MDSS.util.removeScripts(html);
+      
+      if(this._fieldFormDialog !== null)
+      {
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.show();
+      }
+      else
+      {
+        this._fieldFormDialog = this._Factory.newDialog('', {close: false, modal:true});
+        this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.render();
+      }
+      
+      eval(executable);
+    },
+    createMdField : function(params)
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function(newFieldId)
+        {
+          this.that._fieldFormDialog.hide();
+          
+          this.that.refreshFields();
+        }
+      });
+      
+      params['mdCompositeFieldId'] = this._compositeFieldId;
+      
+      return request;
+    },
+    refreshFields : function()
+    {
+      var request = new MDSS.Request({
+        that : this,
+        onSuccess : function(fields){
+          this.that.updateFields(Mojo.Util.toObject(fields));          
+        }        
+      });
+      
+      this._MdFormUtil.getFieldsForComposite(request, this._compositeFieldId);
+    },
+    updateFields : function(fields){
+        
+      // clear any prior field items
+      this._fieldList.clearItems();
+      
+      for (var i = 0; i < fields.length; i++)
+      {
+        var field = fields[i];
+          
+        var fieldItem = new FieldItem(field.id, field.label);
+        
+        var listItem = this._Factory.newListItem(fieldItem);
+        listItem.getEl().setId(fieldItem.getId());
+            
+        var deleteLink = this._Factory.newElement("a");
+        deleteLink.addClassName("grid-form-item-row-delete edit-mode-functionality");
+        deleteLink.setInnerHTML("Delete");
+        deleteLink.setId(fieldItem.getId());
+            
+        listItem.appendChild(deleteLink);
+            
+        this._fieldList.addItem(listItem);
+      }
+
+      var fieldDiv = document.getElementById(this.constructor.FORM_ITEM_ROW);
+      this._fieldList.render(fieldDiv);
+    },
+    cancelMdField : function(fieldMap)
+    {
+      if (fieldMap["mdField.isNew"] === "true") {
+          this._fieldFormDialog.hide();
+      }
+      else 
+      {
+        var request = new MDSS.Request({
+          that : this,
+          onSuccess: function(html){
+            this.that._fieldFormDialog.hide();
+          }
+        });
+        return request;
+      }
+    },
+    confirmDeleteMdFieldHandler : function(e)
+    {
+      var fieldId = e.currentTarget.get('id');
+      this.confirmDeleteMdField(fieldId);
+    },
+    confirmDeleteMdField : function(fieldId)
+    {
+      var request = new MDSS.Request({
+    	that : this,
+        onFailure : function(e)
+        {
+          var wrapperDiv = this.that._Factory.newElement('div');
+          
+          var upperDiv = this.that._Factory.newElement('div');
+          upperDiv.addClassName('alertbox modalAlertBox');
+
+          var message = this.that._Factory.newElement('span');
+          message.setInnerHTML(e.getLocalizedMessage());
+          upperDiv.appendChild(message);
+
+          // yes/no buttons
+          var lowerDiv = this.that._Factory.newElement('div');
+          lowerDiv.addClassName('alertbox modalAlertBox');
+          
+          var confirmButton = this.that._Factory.newElement('button', {id:this.that.constructor.CONFIRM_DELETE_BUTTON});
+          confirmButton.setInnerHTML("Confirm");
+          
+          var cancelButton = this.that._Factory.newElement('button', {id:this.that.constructor.CANCEL_DELETE_BUTTON});
+          cancelButton.setInnerHTML("Cancel");
+          
+          var lowerDiv = this.that._Factory.newElement('div');
+          lowerDiv.appendChild(confirmButton);
+          lowerDiv.appendChild(cancelButton);
+          
+          wrapperDiv.appendChild(upperDiv);
+          wrapperDiv.appendChild(lowerDiv);
+          
+          if(this.that._confirmDeleteDialog !== null)
+          {
+            this.that._confirmDeleteDialog.setInnerHTML("");
+            this.that._confirmDeleteDialog.appendChild(wrapperDiv);
+            this.that._confirmDeleteDialog.show();
+          }
+          else
+          {
+            this.that._confirmDeleteDialog = this.that._Factory.newDialog('', {close: false, modal:true});
+            this.that._confirmDeleteDialog.appendChild(wrapperDiv);
+            this.that._confirmDeleteDialog.render();
+          }
+          YAHOO.util.Event.on(this.that.constructor.CONFIRM_DELETE_BUTTON, 'click', this.that.deleteField, fieldId, this.that);
+          YAHOO.util.Event.on(this.that.constructor.CANCEL_DELETE_BUTTON, 'click', this.that.cancelDeleteDialog, null, this.that);
+        }
+      });
+      
+      this._MdFormUtil.confirmDeleteCompositeField(request, this._compositeFieldId, fieldId);
+    },
+    deleteField : function(e, fieldId)
+    {
+      this._confirmDeleteDialog.hide();
+      var request = new MDSS.Request({
+       that : this,
+       onSuccess : function(html)
+       {
+         this.that.refreshFields();
+       }
+      });
+
+      this._MdFormAdminController.deleteCompositeField(request, fieldId);
+    },    
+    cancelDeleteDialog : function(e)
+    {
+      this._confirmDeleteDialog.hide();
+    },
+    editField : function(fieldId)
+    {
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess: function(html){
+          that.editMdFieldDialog(html);
+        }
+      });
+      
+      this._MdFormAdminController.editMdField(request, fieldId, true);
+    },
+    editFieldHandler : function(e)
+    {
+      var type = e.target.get('nodeName');
+      if (type !== 'A') {
+        var fieldId = e.currentTarget.get('id');
+        this.editField(fieldId);
+      }
+    },
+    editMdFieldDialog : function(html)
+    {
+      var executable = MDSS.util.extractScripts(html);
+      var pureHTML = MDSS.util.removeScripts(html);
+      
+      if(this._fieldFormDialog !== null)
+      {
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.show();
+      }
+      else
+      {
+        this._fieldFormDialog = this._Factory.newDialog('', {close: false, modal: true});
+        this._fieldFormDialog.getContentEl().addClassName("form-dialog-scroll");
+        this._fieldFormDialog.setInnerHTML(pureHTML);
+        this._fieldFormDialog.render();
+      }
+      
+      eval(executable);
+    },    
+    updateMdField : function(fieldMap)
+    {
+      var fieldId = fieldMap['mdField.componentId'];
+      var request = new MDSS.Request({
+    	that : this,
+        onSuccess : function(html)
+        {
+          this.that._fieldFormDialog.hide();
+    	  this.that.refreshFields();
+        }
+      });
+      
+      return request;
+    }    
   }
 });
 
