@@ -13,6 +13,8 @@ import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.business.Relationship;
+import com.runwaysdk.business.RelationshipQuery;
 import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
@@ -36,8 +38,11 @@ import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
@@ -59,6 +64,7 @@ import com.runwaysdk.system.metadata.MdWebFormQuery;
 import com.runwaysdk.system.metadata.MdWebGeo;
 import com.runwaysdk.system.metadata.MdWebGroup;
 import com.runwaysdk.system.metadata.MdWebHeader;
+import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebReference;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
@@ -78,7 +84,11 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.geo.GeoField;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.ontology.InactivePropertyQuery;
+import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.ontology.TermRootCache;
+import dss.vector.solutions.ontology.TermView;
+import dss.vector.solutions.ontology.TermViewQuery;
 import dss.vector.solutions.util.HierarchyBuilder;
 
 public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generation.loader.Reloadable
@@ -103,6 +113,46 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     QueryFactory f = new QueryFactory();
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
+  }
+  
+  /**
+   * Creates or updates an existing 
+   * @param busObj
+   * @return
+   */
+  @Transaction
+  public static Business persistObject(Business busObj, String mutipleTermJSON)
+  {
+    busObj.apply();
+
+    // Create the relationships between the MdBusiness and Term class for
+    // the multiple term field.
+    try
+    {
+      JSONArray entries = new JSONArray(mutipleTermJSON);
+      for(int i=0; i<entries.length(); i++)
+      {
+        JSONObject entry = entries.getJSONObject(i);
+        String mdFieldId = entry.getString("mdField");
+        JSONArray termIds = entry.getJSONArray("termIds");
+        
+        String[] terms = new String[termIds.length()];
+        for(int j=0; j<terms.length; j++)
+        {
+          terms[j] = termIds.getString(j);
+        }
+        
+        MdWebField mdField = MdWebField.get(mdFieldId);
+        String relType = getRelationshipType(mdField);
+        createMultipleTermRelationships(busObj.getId(), terms, relType);
+      }
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
+    return busObj;
   }
 
   public static MdFieldTypeQuery getAvailableCompositeFields()
@@ -144,6 +194,34 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     finally
     {
       i.close();
+    }
+  }
+  
+  @Transaction
+  public static void createMultipleTermRelationships(String parentId, String childIds[], String relType)
+  {
+    // remove all old relationships instead of being too clever with diffing the relationships
+    QueryFactory f = new QueryFactory();
+    RelationshipQuery q = f.relationshipQuery(relType);
+    
+    q.WHERE(q.parentId().EQ(parentId));
+    
+    OIterator<Relationship> iter = q.getIterator();
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    
+    for(String childId : childIds)
+    {
+      new Relationship(parentId, childId, relType).apply();
     }
   }
 
@@ -682,6 +760,18 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
     }
   }
+  
+  public static TermViewQuery getTermsForMultiTermField(MdWebMultipleTerm mdField, String parentId)
+  {
+    QueryFactory f = new QueryFactory();
+
+    String relType = getRelationshipType(mdField);
+    MultipleTermValues builder = new MultipleTermValues(f, relType, parentId);
+
+    TermViewQuery q = new TermViewQuery(f, builder);
+
+    return q;
+  }
 
   public static MdRelationship getMdRelationship(MdWebField field)
   {
@@ -790,7 +880,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     if (q.getCount() > 0)
     {
       MdFormHasInstancesException ex = new MdFormHasInstancesException();
-      ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().getValue);
+      ex.setMdFormDisplayLabel(mdForm.getDisplayLabel().getValue());
       throw ex;
     }
     else
@@ -992,6 +1082,55 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return listeners;
   }
+  
+  private static class MultipleTermValues extends ViewQueryBuilder implements Reloadable
+  {
+    private String parentId;
+    
+    private TermQuery             termQuery;
+
+    private InactivePropertyQuery inactivePropQuery;
+    
+    private RelationshipQuery mdRel;
+    
+    protected MultipleTermValues(QueryFactory queryFactory, String relType, String parentId)
+    {
+      super(queryFactory);
+      
+      this.parentId = parentId;
+      this.mdRel = queryFactory.relationshipQuery(relType);
+      this.termQuery = new TermQuery(queryFactory);
+      this.inactivePropQuery = new InactivePropertyQuery(queryFactory);
+      
+    }
+
+    @Override
+    protected void buildSelectClause()
+    {
+      GeneratedViewQuery query = this.getViewQuery();
+
+      query.map(TermView.TERMID, termQuery.getId());
+      query.map(TermView.TERMNAME, termQuery.getTermDisplayLabel().localize());
+      query.map(TermView.TERMONTOLOGYID, termQuery.getTermId());
+      query.map(TermView.INACTIVE, this.inactivePropQuery.getInactive());
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      GeneratedViewQuery query = this.getViewQuery();
+
+      Disease disease = Disease.getCurrent();
+      this.inactivePropQuery.AND(this.inactivePropQuery.getDisease().EQ(disease));
+
+      query.AND(termQuery.inactiveProperties(this.inactivePropQuery));
+      
+      this.mdRel.WHERE(this.mdRel.parentId().EQ(this.parentId));
+      query.AND(termQuery.getId().EQ(this.mdRel.childId()));
+    }
+    
+  }
+
 
   public static String getFieldsForComposite(String compositeFieldId)
   {
