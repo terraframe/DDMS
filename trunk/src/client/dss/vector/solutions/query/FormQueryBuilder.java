@@ -117,7 +117,9 @@ public class FormQueryBuilder implements Reloadable
 
     Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
     Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap = this.getReadableFieldMap(fields, readableAttributeNames);
-    Set<MdWebFieldDTO> readableFields = readableFieldMap.keySet();
+    List<MdWebFieldDTO> readableFields = new LinkedList<MdWebFieldDTO>(readableFieldMap.keySet());
+    
+    Collections.sort(readableFields, new FieldComparator());
 
     SelectableGroup group = new SelectableGroup();
     group.setClassType(classType);

@@ -283,39 +283,34 @@ public class FormObjectController extends FormObjectControllerBase implements
     // dereference those metadata instances here and create our own transient
     // data structures.
     JSONArray fieldsArr = json.getJSONArray(JSONWebFieldConstants.FIELDS);
-    if (!formObject.isNewInstance())
+    FieldIF[] fields = formObject.getFields();
+    JSONObject terms = new JSONObject();
+    for (int i = 0; i < fields.length; i++)
     {
-      FieldIF[] fields = formObject.getFields();
-      JSONObject terms = new JSONObject();
-      for (int i = 0; i < fields.length; i++)
+      FieldIF field = fields[i];
+      if (field instanceof WebMultipleTerm && !formObject.isNewInstance())
       {
-        FieldIF field = fields[i];
-        if (field instanceof WebMultipleTerm)
+        WebMultipleTerm mTerm = (WebMultipleTerm) field;
+        String parentId = formObject.getDataId();
+
+        MdWebMultipleTermDTO mdField = MdWebMultipleTermDTO.get(this.getClientRequest(), mTerm.getFieldMd().getId());
+        TermViewQueryDTO query = MdFormUtilDTO.getTermsForMultiTermField(this.getClientRequest(), mdField, parentId);
+
+        for (TermViewDTO term : query.getResultSet())
         {
-          WebMultipleTerm mTerm = (WebMultipleTerm) field;
-          String parentId = formObject.getDataId();
-
-          MdWebMultipleTermDTO mdField = MdWebMultipleTermDTO.get(this.getClientRequest(), mTerm
-              .getFieldMd().getId());
-          TermViewQueryDTO query = MdFormUtilDTO.getTermsForMultiTermField(this.getClientRequest(),
-              mdField, parentId);
-
-          for (TermViewDTO term : query.getResultSet())
-          {
-            terms.put(term.getTermId(), term.getTermName());
-          }
-
-          // put the term ids and display labels manually into the outgoing JSON
-          // object.
-          JSONObject fieldJSON = fieldsArr.getJSONObject(i);
-          fieldJSON.put("terms", terms);
+          terms.put(term.getTermId(), term.getTermName());
         }
-        else if (field instanceof WebGeo)
-        {
-          GeoFieldDTO geoField = GeoFieldDTO.getGeoFieldForMdWebGeo(this.getClientRequest(), field.getFieldMd().getId());
-          JSONObject fieldJSON = fieldsArr.getJSONObject(i);
-          fieldJSON.put("geoField", geoField.convertToJSON().toString());
-        }
+
+        // put the term ids and display labels manually into the outgoing JSON
+        // object.
+        JSONObject fieldJSON = fieldsArr.getJSONObject(i);
+        fieldJSON.put("terms", terms);
+      }
+      else if (field instanceof WebGeo)
+      {
+        GeoFieldDTO geoField = GeoFieldDTO.getGeoFieldForMdWebGeo(this.getClientRequest(), field.getFieldMd().getId());
+        JSONObject fieldJSON = fieldsArr.getJSONObject(i);
+        fieldJSON.put("geoField", geoField.convertToJSON().toString());
       }
     }
 

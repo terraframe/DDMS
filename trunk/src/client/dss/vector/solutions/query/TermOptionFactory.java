@@ -4,6 +4,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeBooleanDTO;
 import com.runwaysdk.system.metadata.MdFieldDTO;
 import com.runwaysdk.system.metadata.MdWebBooleanDTO;
+import com.runwaysdk.system.metadata.MdWebDecimalDTO;
+import com.runwaysdk.system.metadata.MdWebDoubleDTO;
+import com.runwaysdk.system.metadata.MdWebFloatDTO;
+import com.runwaysdk.system.metadata.MdWebLongDTO;
 
 import dss.vector.solutions.ontology.TermDTO;
 
@@ -59,7 +63,22 @@ public class TermOptionFactory implements Reloadable
 
       return new TermBooleanOption(attributeName, label + term.getDisplayLabel(), key, positiveLabel, negativeLabel);
     }
-
+    else if (mdField != null && mdField instanceof MdWebDecimalDTO)
+    {
+      return new TermDecimalOption(attributeName, label + term.getDisplayLabel(), key);
+    }
+    else if (mdField != null && mdField instanceof MdWebDoubleDTO)
+    {
+      return new TermDoubleOption(attributeName, label + term.getDisplayLabel(), key);
+    }
+    else if (mdField != null && mdField instanceof MdWebFloatDTO)
+    {
+      return new TermFloatOption(attributeName, label + term.getDisplayLabel(), key);
+    }
+    else if (mdField != null && mdField instanceof MdWebLongDTO)
+    {
+      return new TermLongOption(attributeName, label + term.getDisplayLabel(), key);
+    }
     return new TermIntegerOption(attributeName, label + term.getDisplayLabel(), key);
   }
 

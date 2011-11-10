@@ -31,8 +31,7 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
    *          The clientRequest this DTO should use to communicate with the
    *          server.
    */
-  protected GeoFieldDTO(com.runwaysdk.business.BusinessDTO businessDTO,
-      com.runwaysdk.constants.ClientRequestIF clientRequest)
+  protected GeoFieldDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
   }
@@ -50,9 +49,15 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
       geoFieldJSON.put(GeoFieldDTO.ISURBANHIERARCHY, this.getIsUrbanHierarchy());
 
       // create the filter
-      GeoHierarchyViewDTO filterGH = GeoHierarchyDTO.getViewForGeoHierarchy(this.getRequest(), this
-          .getFilterId());
-      geoFieldJSON.put("filter", MDSSInfo.GENERATED_GEO_PACKAGE + "." + filterGH.getTypeName());
+      if (this.getFilterId() != null && this.getFilterId().length() > 0)
+      {
+        GeoHierarchyViewDTO filterGH = GeoHierarchyDTO.getViewForGeoHierarchy(this.getRequest(), this.getFilterId());
+        geoFieldJSON.put("filter", MDSSInfo.GENERATED_GEO_PACKAGE + "." + filterGH.getTypeName());
+      }
+      else
+      {
+        geoFieldJSON.put("filter", JSONObject.NULL);        
+      }
 
       List<? extends GeoHierarchyDTO> geoHierarchies = this.getAllGeoHierarchies();
 
@@ -62,14 +67,13 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
       {
         // The GeoHierarchyView is the object that contains the qualified type
         // name
-        GeoHierarchyViewDTO extra = GeoHierarchyDTO.getViewForGeoHierarchy(universal.getRequest(),
-            universal.getId());
+        GeoHierarchyViewDTO extra = GeoHierarchyDTO.getViewForGeoHierarchy(universal.getRequest(), universal.getId());
         extraUniversals.put(MDSSInfo.GENERATED_GEO_PACKAGE + "." + extra.getTypeName());
       }
     }
     catch (JSONException e)
     {
-      throw new ConversionExceptionDTO("Could not convert an instance of ["+GeoFieldDTO.CLASS+"] to JSON.", e);
+      throw new ConversionExceptionDTO("Could not convert an instance of [" + GeoFieldDTO.CLASS + "] to JSON.", e);
     }
 
     return geoFieldJSON;
