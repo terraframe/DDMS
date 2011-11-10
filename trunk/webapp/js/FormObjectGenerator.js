@@ -844,6 +844,34 @@ var TextComponent = Mojo.Meta.newClass('dss.vector.solutions.TextComponent', {
   }
 });
 
+var ReferenceComponent = Mojo.Meta.newClass('dss.vector.solutions.ReferenceComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var input = this.getFactory().newElement('input', {
+        'type':'text',
+        'name':this.getField().getFieldName(),
+        'value':this.getValue(),
+        'maxlength':64,
+        'size':64
+      });
+      
+      return input;  
+    },
+    monitorValueChange : function(node){
+      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      var value = e.getTarget().value;
+      this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
 var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
   Extends : FieldComponent,
   Implements : [ValueFieldIF, com.runwaysdk.event.EventListener],
