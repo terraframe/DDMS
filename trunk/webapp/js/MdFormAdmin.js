@@ -138,25 +138,25 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     _viewConditionsItem : function()
     {
-      var viewConditions = new YAHOO.widget.ContextMenuItem('View Conditions');
+      var viewConditions = new YAHOO.widget.ContextMenuItem(MDSS.localize('view_conditions'));
       viewConditions.subscribe("click", this.viewConditions, null, this);
       return viewConditions;
     },
     _addGroupItem : function()
     {
-      var addGroup = new YAHOO.widget.ContextMenuItem('Add Group');
+      var addGroup = new YAHOO.widget.ContextMenuItem(MDSS.localize('add_group'));
       addGroup.subscribe("click", this.addGroup, null, this);
       return addGroup;
     },
     _editGroupItem : function()
     {
-      var editGroup = new YAHOO.widget.ContextMenuItem('Edit Group');
+      var editGroup = new YAHOO.widget.ContextMenuItem(MDSS.localize('edit_group'));
       editGroup.subscribe("click", this.editGroup, null, this);
       return editGroup;
     },
     _deleteGroupItem : function()
     {
-      var deleteGroup = new YAHOO.widget.ContextMenuItem('Delete Group');
+      var deleteGroup = new YAHOO.widget.ContextMenuItem(MDSS.localize('delete_group'));
       deleteGroup.subscribe("click", this.deleteGroup, null, this);
       return deleteGroup;
     },
@@ -963,34 +963,44 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var lowerDiv = that._Factory.newElement('div');
           
           var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
-          confirmButton.setInnerHTML("Confirm");
+          confirmButton.setInnerHTML(MDSS.localize("Confirm"));
           
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
+          cancelButton.setInnerHTML(MDSS.localize("Cancel"));
           
-          if (hasInstances)
+          if (!hasInstances)
           {
-            cancelButton.setInnerHTML("OK");
-          }
-          else
-          {
-            cancelButton.setInnerHTML("Cancel");
             lowerDiv.appendChild(confirmButton);
-          }
-          
-          lowerDiv.appendChild(cancelButton);
+            lowerDiv.appendChild(cancelButton);
+          }          
           
           wrapperDiv.appendChild(upperDiv);
           wrapperDiv.appendChild(lowerDiv);
           
           if(that._confirmDeleteDialog !== null)
           {
+            if (hasInstances)
+            {
+              that._confirmDeleteDialog.setClose(true);
+            }
+            else
+            {
+              that._confirmDeleteDialog.setClose(false);
+            }
             that._confirmDeleteDialog.setInnerHTML("");
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.show();
           }
           else
           {
-            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
+            if (hasInstances)
+            {
+              that._confirmDeleteDialog = that._Factory.newDialog('', {close: true, modal:true});
+            }
+            else 
+            {
+              that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
+            }
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.render();
           }
@@ -1026,10 +1036,10 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           lowerDiv.addClassName('alertbox modalAlertBox');
           
           var confirmButton = that._Factory.newElement('button', {id:'confirmDeleteButton'});
-          confirmButton.setInnerHTML("Confirm");
+          confirmButton.setInnerHTML(MDSS.localize("Confirm"));
           
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
-          cancelButton.setInnerHTML("Cancel");
+          cancelButton.setInnerHTML(MDSS.localize("Cancel"));
           
           var lowerDiv = that._Factory.newElement('div');
           lowerDiv.appendChild(confirmButton);
