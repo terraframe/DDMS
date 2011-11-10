@@ -1798,7 +1798,9 @@ var WebReference = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebReference', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
+      this._referenceDisplay = obj.referenceDisplay || '';
     },
+    getReferenceDisplay : function() { return this._referenceDisplay; },
     accept : function(visitor){
       visitor.visitReference(this);
     }

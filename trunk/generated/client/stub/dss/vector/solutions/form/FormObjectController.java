@@ -47,6 +47,7 @@ import com.runwaysdk.form.web.field.WebGeo;
 import com.runwaysdk.form.web.field.WebInteger;
 import com.runwaysdk.form.web.field.WebLong;
 import com.runwaysdk.form.web.field.WebMultipleTerm;
+import com.runwaysdk.form.web.field.WebReference;
 import com.runwaysdk.form.web.field.WebText;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -311,6 +312,16 @@ public class FormObjectController extends FormObjectControllerBase implements
         GeoFieldDTO geoField = GeoFieldDTO.getGeoFieldForMdWebGeo(this.getClientRequest(), field.getFieldMd().getId());
         JSONObject fieldJSON = fieldsArr.getJSONObject(i);
         fieldJSON.put("geoField", geoField.convertToJSON().toString());
+      }
+      else if(field instanceof WebReference && !formObject.isNewInstance())
+      {
+        String refId = field.getValue();
+        if(refId != null && refId.trim().length() > 0)
+        {
+          BusinessDTO ref = (BusinessDTO) this.getClientRequest().get(refId);
+          JSONObject fieldJSON = fieldsArr.getJSONObject(i);
+          fieldJSON.put("referenceDisplay", ref.getValue(BusinessDTO.KEYNAME));
+        }
       }
     }
 

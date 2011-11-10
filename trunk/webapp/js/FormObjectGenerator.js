@@ -862,6 +862,12 @@ var ReferenceComponent = Mojo.Meta.newClass('dss.vector.solutions.ReferenceCompo
       
       return input;  
     },
+    _getReadNode : function(){
+      var node = this.getFactory().newElement('span');
+      node.setInnerHTML(this.getField().getReferencedDisplay());
+      
+      return node;    
+    },
     monitorValueChange : function(node){
       node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
     },
