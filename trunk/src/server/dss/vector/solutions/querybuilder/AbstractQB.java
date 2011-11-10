@@ -19,7 +19,6 @@ import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AggregateFunction;
-import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeCondition;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.COUNT;
@@ -313,10 +312,26 @@ public abstract class AbstractQB implements Reloadable
           }
           else
           {
-            Attribute attr = attributeQuery.get(attrib_name);
-            alias = attr.getDefiningTableAlias();
-          }
+            com.runwaysdk.query.Attribute attr = attributeQuery.get(attrib_name);
 
+            // first check to see if attributeQuery directly defines the metadata
+            // or it's defined on a superclass. If it's on the suberclass then use that table
+            // alias instead.
+            String originalClass = attr.getMdAttributeIF().definedByClass().definesType();
+            if(originalClass.equals(klass))
+            {
+              alias = attr.getDefiningTableAlias();
+            }
+            else if (queryMap.containsKey(originalClass))
+            {
+              alias = queryMap.get(originalClass).getTableAlias();
+            }
+            else
+            {
+              alias = attr.getDefiningTableAlias();
+            }
+          }
+          
           ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
           termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
           termVQ.AND(allPathsQuery.getChildTerm().EQ(
