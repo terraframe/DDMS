@@ -1,43 +1,74 @@
-<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <doIt>
-  <delete>
-    <object
-      key="dss.vector.solutions.form.ConfirmDeleteMdFormException"
-      type="com.runwaysdk.system.metadata.MdException" />
-    <object
-      key="dss.vector.solutions.form.ConfirmDeleteMdFieldException"
-      type="com.runwaysdk.system.metadata.MdException" />
-  </delete>
     <create>
       <mdException
-         name="dss.vector.solutions.form.MdFormHasInstancesException"
-         label="MdForm Has Instances Exception"
-         description="Thrown when a delete is requested for an MdForm with instances"
-         message="The form [{mdFormDisplayLabel}] cannot be deleted if data entered into it is present.">
+        name="dss.vector.solutions.form.MdFormHasInstancesException"
+        label="MdForm Has Instances Exception"
+        description="Thrown when a delete is requested for an MdForm with instances"
+        message="The form [{mdFormDisplayLabel}] cannot be deleted if data entered into it is present.">
         <attributes>
-          <char name="mdFormDisplayLabel" label="MdForm Display Label" size="100" required="true" description="MdForm display label" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.form.ConfirmDeleteMdFormException"
-         label="Confirm Delete MdForm Exception"
-         description="Thrown when a delete is requested for an MdForm"
-         message="Are you sure you want to delete the form [{mdFormDisplayLabel}]?">
-        <attributes>
-          <char name="mdFormDisplayLabel" label="MdForm Display Label" size="100" required="true" description="MdForm display label" />
-        </attributes>
-      </mdException>
-      <mdException
-         name="dss.vector.solutions.form.ConfirmDeleteMdFieldException"
-         label="Confirm Delete MdField Exception"
-         description="Thrown when a delete is requested for an MdField"
-         message="Are you sure you want to delete the field [{mdFieldDisplayLabel}] from form [{mdFormDisplayLabel}]?">
-        <attributes>
-          <char name="mdFormDisplayLabel" label="MdForm Display Label" size="100" required="true" description="MdForm display label" />
-          <char name="mdFieldDisplayLabel" label="MdField Display Label" size="100" required="true" description="MdField display label" />
+          <char
+            name="mdFormDisplayLabel"
+            label="MdForm Display Label"
+            size="100"
+            required="true"
+            description="MdForm display label" />
         </attributes>
       </mdException>
     </create>
+    <update>
+      <mdException
+        name="dss.vector.solutions.form.ConfirmDeleteMdFormException"
+        label="Confirm Delete MdForm Exception"
+        description="Thrown when a delete is requested for an MdForm"
+        message="Are you sure you want to delete the form [{mdFormDisplayLabel}]?">
+        <create>
+          <attributes>
+            <char
+              name="mdFormDisplayLabel"
+              label="MdForm Display Label"
+              size="100"
+              required="true"
+              description="MdForm display label" />
+          </attributes>
+        </create>
+      </mdException>
+      <mdException
+        name="dss.vector.solutions.form.ConfirmDeleteMdFieldException"
+        label="Confirm Delete MdField Exception"
+        description="Thrown when a delete is requested for an MdField"
+        message="Are you sure you want to delete the field [{mdFieldDisplayLabel}] from form [{mdFormDisplayLabel}]?">
+        <create>
+          <attributes>
+            <char
+              name="mdFormDisplayLabel"
+              label="MdForm Display Label"
+              size="100"
+              required="true"
+              description="MdForm display label" />
+            <char
+              name="mdFieldDisplayLabel"
+              label="MdField Display Label"
+              size="100"
+              required="true"
+              description="MdField display label" />
+          </attributes>
+        </create>
+      </mdException>
+    </update>
+    <delete>
+      <object
+        key="dss.vector.solutions.form.ConfirmDeleteMdFormException.mdFormName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.form.ConfirmDeleteMdFieldException.mdFormName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object
+        key="dss.vector.solutions.form.ConfirmDeleteMdFieldException.mdFieldName"
+        type="com.runwaysdk.system.metadata.MdAttribute" />
+    </delete>    
   </doIt>
   <undoIt>
     <delete>
