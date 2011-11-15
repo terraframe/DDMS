@@ -43,7 +43,7 @@ public class BedNetColumn extends AttributeColumn implements Reloadable
 
       MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(FormBedNet.CLASS);
       String typeLabel = mdBusiness.getDisplayLabel(Session.getCurrentLocale());
-      String attributeLabel = mdBusiness.definesAttribute(FormBedNet.NETID).getDisplayLabel(Session.getCurrentLocale());
+      String attributeLabel = mdBusiness.definesAttribute(FormBedNet.OID).getDisplayLabel(Session.getCurrentLocale());
 
       UnknownValueException ex = new UnknownValueException(msg);
       ex.setAttributeLabel(attributeLabel);

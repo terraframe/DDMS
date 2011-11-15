@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 870545938)
+@com.runwaysdk.business.ClassSignature(hash = -967382458)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = 870545938;
+  private static final long serialVersionUID = -967382458;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -177,6 +177,14 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (dss.vector.solutions.form.MdFieldTypeQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
+  public static final com.runwaysdk.system.metadata.MdWebPrimitiveDTO[] getCompositeFields(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String compositeFieldId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{compositeFieldId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "getCompositeFields", _declaredTypes);
+    return (com.runwaysdk.system.metadata.MdWebPrimitiveDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final com.runwaysdk.system.metadata.FieldConditionDTO[] getConditions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String mdFieldId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String"};
@@ -257,10 +265,10 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.runwaysdk.business.BusinessDTO persistObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO busObj, java.lang.String multipleTermJSON, java.lang.String singleTermGridJSON)
+  public static final com.runwaysdk.business.BusinessDTO persistObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO busObj, java.lang.String multipleTermJSON)
   {
-    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String", "java.lang.String"};
-    Object[] _parameters = new Object[]{busObj, multipleTermJSON, singleTermGridJSON};
+    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String"};
+    Object[] _parameters = new Object[]{busObj, multipleTermJSON};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "persistObject", _declaredTypes);
     return (com.runwaysdk.business.BusinessDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

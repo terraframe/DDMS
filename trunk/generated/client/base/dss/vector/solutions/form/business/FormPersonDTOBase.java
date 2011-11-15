@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -790645884)
+@com.runwaysdk.business.ClassSignature(hash = 704194736)
 public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormPerson";
-  private static final long serialVersionUID = -790645884;
+  private static final long serialVersionUID = 704194736;
   
   protected FormPersonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -38,8 +38,8 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NET = "net";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
-  public static java.lang.String PERSONID = "personId";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
@@ -437,6 +437,43 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(NET).getAttributeMdDTO();
   }
   
+  public String getOid()
+  {
+    return getValue(OID);
+  }
+  
+  public void setOid(String value)
+  {
+    if(value == null)
+    {
+      setValue(OID, "");
+    }
+    else
+    {
+      setValue(OID, value);
+    }
+  }
+  
+  public boolean isOidWritable()
+  {
+    return isWritable(OID);
+  }
+  
+  public boolean isOidReadable()
+  {
+    return isReadable(OID);
+  }
+  
+  public boolean isOidModified()
+  {
+    return isModified(OID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getOidMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OID).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -484,43 +521,6 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
-  }
-  
-  public String getPersonId()
-  {
-    return getValue(PERSONID);
-  }
-  
-  public void setPersonId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PERSONID, "");
-    }
-    else
-    {
-      setValue(PERSONID, value);
-    }
-  }
-  
-  public boolean isPersonIdWritable()
-  {
-    return isWritable(PERSONID);
-  }
-  
-  public boolean isPersonIdReadable()
-  {
-    return isReadable(PERSONID);
-  }
-  
-  public boolean isPersonIdModified()
-  {
-    return isModified(PERSONID);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getPersonIdMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(PERSONID).getAttributeMdDTO();
   }
   
   public Long getSeq()

@@ -28,7 +28,9 @@ import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
+import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
@@ -54,7 +56,9 @@ import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
 import com.runwaysdk.system.metadata.FieldCondition;
+import com.runwaysdk.system.metadata.MdAttributeCharacter;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
+import com.runwaysdk.system.metadata.MdAttributeIndices;
 import com.runwaysdk.system.metadata.MdAttributeReference;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdClass;
@@ -63,6 +67,7 @@ import com.runwaysdk.system.metadata.MdRelationship;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebAttributeQuery;
 import com.runwaysdk.system.metadata.MdWebBreak;
+import com.runwaysdk.system.metadata.MdWebCharacter;
 import com.runwaysdk.system.metadata.MdWebComment;
 import com.runwaysdk.system.metadata.MdWebField;
 import com.runwaysdk.system.metadata.MdWebFieldQuery;
@@ -104,6 +109,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   public static final String DISEASE          = "disease";
 
+  public static final String OID              = "oid";
+
   public MdFormUtil()
   {
     super();
@@ -121,9 +128,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
   }
-  
+
   /**
-   * Creates or updates an existing 
+   * Creates or updates an existing
+   * 
    * @param busObj
    * @return
    */
@@ -144,7 +152,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
         String mdFieldId = entry.getString("mdField");
         MdWebSingleTermGrid grid = MdWebSingleTermGrid.get(mdFieldId);
         String relType = getRelationshipType(grid);
-        List<MdWebPrimitive> gridFields = MdFormUtil.getCompositeFields(mdFieldId);
+        MdWebPrimitive[] gridFields = MdFormUtil.getCompositeFields(mdFieldId);
         
         JSONArray rows = entry.getJSONArray("rows");
         for(int j=0; j<rows.length(); j++)
@@ -201,18 +209,18 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     try
     {
       JSONArray entries = new JSONArray(mutipleTermJSON);
-      for(int i=0; i<entries.length(); i++)
+      for (int i = 0; i < entries.length(); i++)
       {
         JSONObject entry = entries.getJSONObject(i);
         String mdFieldId = entry.getString("mdField");
         JSONArray termIds = entry.getJSONArray("termIds");
-        
+
         String[] terms = new String[termIds.length()];
-        for(int j=0; j<terms.length; j++)
+        for (int j = 0; j < terms.length; j++)
         {
           terms[j] = termIds.getString(j);
         }
-        
+
         MdWebField mdField = MdWebField.get(mdFieldId);
         String relType = getRelationshipType(mdField);
         createMultipleTermRelationships(busObj.getId(), terms, relType);
@@ -222,7 +230,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       throw new ProgrammingErrorException(e);
     }
-    
+
     return busObj;
   }
 
@@ -267,20 +275,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       i.close();
     }
   }
-  
+
   @Transaction
   public static void createMultipleTermRelationships(String parentId, String childIds[], String relType)
   {
-    // remove all old relationships instead of being too clever with diffing the relationships
+    // remove all old relationships instead of being too clever with diffing the
+    // relationships
     QueryFactory f = new QueryFactory();
     RelationshipQuery q = f.relationshipQuery(relType);
-    
+
     q.WHERE(q.parentId().EQ(parentId));
-    
+
     OIterator<Relationship> iter = q.getIterator();
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         iter.next().delete();
       }
@@ -289,8 +298,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     {
       iter.close();
     }
-    
-    for(String childId : childIds)
+
+    for (String childId : childIds)
     {
       new Relationship(parentId, childId, relType).apply();
     }
@@ -831,7 +840,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
     }
   }
-  
+
   public static TermViewQuery getTermsForMultiTermField(MdWebMultipleTerm mdField, String parentId)
   {
     QueryFactory f = new QueryFactory();
@@ -880,6 +889,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   @Authenticate
   public static MdWebForm apply(MdWebForm mdForm)
   {
+    MdBusiness mdBusiness = null;
     boolean first = mdForm.isNew() && !mdForm.isAppliedToDB();
 
     if (first)
@@ -894,7 +904,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
       String description = mdForm.getDescription().getValue();
 
-      MdBusiness mdBusiness = new MdBusiness();
+      mdBusiness = new MdBusiness();
       mdBusiness.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
       mdBusiness.setTypeName(typeName);
       mdBusiness.getDisplayLabel().setValue(label);
@@ -923,6 +933,28 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     if (first)
     {
       new FormSystemURLBuilder(mdForm).generate();
+
+      MdAttributeCharacter mdAttributeCharacter = new MdAttributeCharacter();
+      mdAttributeCharacter.setAttributeName(OID);
+      mdAttributeCharacter.setDatabaseSize(16);
+      mdAttributeCharacter.addIndexType(MdAttributeIndices.UNIQUE_INDEX);
+      mdAttributeCharacter.setDefiningMdClass(mdBusiness);
+      mdAttributeCharacter.setRemove(false);
+      mdAttributeCharacter.setRequired(true);
+      mdAttributeCharacter.getDisplayLabel().setValue("Id");
+      mdAttributeCharacter.apply();
+
+      MdWebCharacter mdWebCharacter = new MdWebCharacter();
+      mdWebCharacter.setFieldName(OID);
+      mdWebCharacter.setFieldOrder(0);
+      mdWebCharacter.setDisplayLength(16);
+      mdWebCharacter.setMaxLength(16);
+      mdWebCharacter.setUnique(true);
+      mdWebCharacter.setRemove(false);
+      mdWebCharacter.getDisplayLabel().setValue("Id");
+      mdWebCharacter.setDefiningMdAttribute(mdAttributeCharacter);
+      mdWebCharacter.setDefiningMdForm(mdForm);
+      mdWebCharacter.apply();
     }
 
     return mdForm;
@@ -1037,24 +1069,28 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     ExcelExporter exporter = new FormExcelExporter(new FormImportFilter(), new FormColumnFactory());
 
+    List<ExcelExportListener> listeners = new LinkedList<ExcelExportListener>();
+
     List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
 
     for (DynamicGeoColumnListener listener : geoListeners)
     {
-      exporter.addListener(listener);
+      listeners.add(listener);
     }
 
     List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
 
     for (MultiTermListener listener : multiTermListeners)
     {
-      exporter.addListener(listener);
+      listeners.add(listener);
     }
 
     /*
      * IMPORTANT: Before adding a template all of the listeners must be added
      */
-    exporter.addTemplate(type);
+    exporter.addTemplate(type, listeners);
+
+    MdFormUtil.addGridSheets(mdForm, exporter);
 
     return new ByteArrayInputStream(exporter.write());
   }
@@ -1062,6 +1098,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static InputStream excelImport(InputStream stream, String type)
   {
     MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(type);
+    String classType = mdForm.getFormMdClass().definesType();
 
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
@@ -1070,7 +1107,9 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     try
     {
       ContextBuilderFacade builder = new ContextBuilderFacade();
-      builder.add(mdForm.getFormMdClass().definesType(), new FormContextBuilder(mdForm, new FormImportFilter()));
+      builder.add(classType, new FormContextBuilder(mdForm, new FormImportFilter()));
+
+      MdFormUtil.addGridContexts(mdForm, builder);
 
       ExcelImporter importer = new ExcelImporter(stream, builder);
       List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
@@ -1078,18 +1117,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
       for (ImportContext context : importer.getContexts())
       {
-        for (DynamicGeoColumnListener listener : geoListeners)
+        if (context.getMdClassType().equals(classType))
         {
-          context.addListener(listener);
-        }
+          for (DynamicGeoColumnListener listener : geoListeners)
+          {
+            context.addListener(listener);
+          }
 
-        for (MultiTermListener listener : multiTermListeners)
-        {
-          context.addListener(listener);
-        }
+          for (MultiTermListener listener : multiTermListeners)
+          {
+            context.addListener(listener);
+          }
 
-        // Add the context listener which sets the disease for a entity
-        context.addListener(new DiseaseAndValidationImportListener(mdForm));
+          // Add the context listener which sets the disease for a entity
+          context.addListener(new DiseaseAndValidationImportListener(mdForm));
+        }
       }
 
       return new ByteArrayInputStream(importer.read());
@@ -1105,7 +1147,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     List<MultiTermListener> listeners = new LinkedList<MultiTermListener>();
 
-    MdClassDAOIF mdClass = mdForm.getFormMdClass();
     List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
 
     for (MdFieldDAOIF mdField : mdFields)
@@ -1114,11 +1155,65 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       {
         MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
 
-        listeners.add(new MultiTermListener(mdClass, mdField, mdRelationship.getParentMethod()));
+        listeners.add(new MultiTermListener((MdWebMultipleTermDAOIF) mdField, mdRelationship.getParentMethod()));
       }
     }
 
     return listeners;
+  }
+
+  public static void addGridContexts(MdWebFormDAOIF mdForm, ContextBuilderFacade builder)
+  {
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebSingleTermGridDAOIF)
+      {
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
+        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade.getEntityDAO(mdRelationship);
+
+        GridExcelAdapter context = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField, mdRelationshipDAO);
+
+        builder.add(mdRelationship.definesType(), context);
+      }
+    }
+  }
+
+  public static void addGridSheets(MdFormDAOIF mdForm, ExcelExporter exporter)
+  {
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebSingleTermGridDAOIF)
+      {
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
+        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade.getEntityDAO(mdRelationship);
+
+        GridExcelAdapter sheet = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField, mdRelationshipDAO);
+        sheet.addTemplate(mdRelationship.definesType());
+        exporter.addSheet(sheet);
+      }
+    }
+  }
+
+  public static void addGridContexts(MdFormDAOIF mdForm, ExcelExporter exporter)
+  {
+    List<? extends MdFieldDAOIF> mdFields = mdForm.getSortedFields();
+
+    for (MdFieldDAOIF mdField : mdFields)
+    {
+      if (mdField instanceof MdWebSingleTermGridDAOIF)
+      {
+        MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
+        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade.getEntityDAO(mdRelationship);
+
+        GridExcelAdapter sheet = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField, mdRelationshipDAO);
+        sheet.addTemplate(mdRelationship.definesType());
+        exporter.addSheet(sheet);
+      }
+    }
   }
 
   public static List<DynamicGeoColumnListener> getGeoListeners(MdFormDAOIF mdForm)
@@ -1153,26 +1248,26 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     return listeners;
   }
-  
+
   private static class MultipleTermValues extends ViewQueryBuilder implements Reloadable
   {
-    private String parentId;
-    
+    private String                parentId;
+
     private TermQuery             termQuery;
 
     private InactivePropertyQuery inactivePropQuery;
-    
-    private RelationshipQuery mdRel;
-    
+
+    private RelationshipQuery     mdRel;
+
     protected MultipleTermValues(QueryFactory queryFactory, String relType, String parentId)
     {
       super(queryFactory);
-      
+
       this.parentId = parentId;
       this.mdRel = queryFactory.relationshipQuery(relType);
       this.termQuery = new TermQuery(queryFactory);
       this.inactivePropQuery = new InactivePropertyQuery(queryFactory);
-      
+
     }
 
     @Override
@@ -1195,20 +1290,19 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       this.inactivePropQuery.AND(this.inactivePropQuery.getDisease().EQ(disease));
 
       query.AND(termQuery.inactiveProperties(this.inactivePropQuery));
-      
+
       this.mdRel.WHERE(this.mdRel.parentId().EQ(this.parentId));
       query.AND(termQuery.getId().EQ(this.mdRel.childId()));
     }
-    
-  }
 
+  }
 
   public static String getFieldsForComposite(String compositeFieldId)
   {
     JSONArray array = new JSONArray();
     try
     {
-      List<MdWebPrimitive> fields = MdFormUtil.getCompositeFields(compositeFieldId);
+      MdWebPrimitive[] fields = MdFormUtil.getCompositeFields(compositeFieldId);
 
       for (MdWebPrimitive field : fields)
       {
@@ -1228,7 +1322,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
-  public static List<MdWebPrimitive> getCompositeFields(String compositeFieldId)
+  public static MdWebPrimitive[] getCompositeFields(String compositeFieldId)
   {
     QueryFactory factory = new QueryFactory();
 
@@ -1253,6 +1347,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     Collections.sort(collection, new FieldComparator());
 
-    return collection;
+    return collection.toArray(new MdWebPrimitive[collection.size()]);
   }
 }

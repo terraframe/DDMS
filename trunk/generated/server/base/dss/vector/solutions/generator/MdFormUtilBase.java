@@ -165,6 +165,12 @@ public abstract class MdFormUtilBase extends com.runwaysdk.business.Util impleme
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
+  public static com.runwaysdk.system.metadata.MdWebPrimitive[] getCompositeFields(java.lang.String compositeFieldId)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
   public static com.runwaysdk.system.metadata.FieldCondition[] getConditions(java.lang.String mdFieldId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.MdFormUtil.java";

@@ -24,12 +24,12 @@ public class BedNetValidationImportListener extends ImportAdapter implements Rel
 
       if (!bedNet.getHouseholdId().equals(householdId))
       {
-        String msg = "The bednet [" + bedNet.getNetId() + "] is not under the household [" + household.getHouseholdId() + "]";
+        String msg = "The bednet [" + bedNet.getOid() + "] is not under the household [" + household.getOid() + "]";
 
         HouseholdMismatchException ex = new HouseholdMismatchException(msg);
-        ex.setHouseholdId(household.getHouseholdId());
-        ex.setNetId(bedNet.getNetId());
-        ex.setPersonId(instance.getValue(FormPerson.PERSONID));
+        ex.setHouseholdId(household.getOid());
+        ex.setNetId(bedNet.getOid());
+        ex.setPersonId(instance.getValue(FormPerson.OID));
         ex.apply();
 
         throw ex;

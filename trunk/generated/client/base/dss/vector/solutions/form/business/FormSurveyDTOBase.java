@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 359091005)
+@com.runwaysdk.business.ClassSignature(hash = 427534458)
 public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormSurvey";
-  private static final long serialVersionUID = 359091005;
+  private static final long serialVersionUID = 427534458;
   
   protected FormSurveyDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -36,10 +36,10 @@ public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessD
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String SURVEYID = "surveyId";
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
@@ -337,6 +337,43 @@ public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessD
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
+  public String getOid()
+  {
+    return getValue(OID);
+  }
+  
+  public void setOid(String value)
+  {
+    if(value == null)
+    {
+      setValue(OID, "");
+    }
+    else
+    {
+      setValue(OID, value);
+    }
+  }
+  
+  public boolean isOidWritable()
+  {
+    return isWritable(OID);
+  }
+  
+  public boolean isOidReadable()
+  {
+    return isReadable(OID);
+  }
+  
+  public boolean isOidModified()
+  {
+    return isModified(OID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getOidMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OID).getAttributeMdDTO();
+  }
+  
   public com.runwaysdk.system.ActorDTO getOwner()
   {
     if(getValue(OWNER) == null || getValue(OWNER).trim().equals(""))
@@ -434,43 +471,6 @@ public abstract class FormSurveyDTOBase extends com.runwaysdk.business.BusinessD
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
-  }
-  
-  public String getSurveyId()
-  {
-    return getValue(SURVEYID);
-  }
-  
-  public void setSurveyId(String value)
-  {
-    if(value == null)
-    {
-      setValue(SURVEYID, "");
-    }
-    else
-    {
-      setValue(SURVEYID, value);
-    }
-  }
-  
-  public boolean isSurveyIdWritable()
-  {
-    return isWritable(SURVEYID);
-  }
-  
-  public boolean isSurveyIdReadable()
-  {
-    return isReadable(SURVEYID);
-  }
-  
-  public boolean isSurveyIdModified()
-  {
-    return isModified(SURVEYID);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSurveyIdMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SURVEYID).getAttributeMdDTO();
   }
   
   public static final java.io.InputStream excelExport(com.runwaysdk.constants.ClientRequestIF clientRequest)

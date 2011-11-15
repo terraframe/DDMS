@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 66180225)
+@com.runwaysdk.business.ClassSignature(hash = 1362383759)
 public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormBedNet";
-  private static final long serialVersionUID = 66180225;
+  private static final long serialVersionUID = 1362383759;
   
   protected FormBedNetDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -37,7 +37,7 @@ public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessD
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String NETID = "netId";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
@@ -387,41 +387,41 @@ public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessD
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(LOCKEDBY).getAttributeMdDTO();
   }
   
-  public String getNetId()
+  public String getOid()
   {
-    return getValue(NETID);
+    return getValue(OID);
   }
   
-  public void setNetId(String value)
+  public void setOid(String value)
   {
     if(value == null)
     {
-      setValue(NETID, "");
+      setValue(OID, "");
     }
     else
     {
-      setValue(NETID, value);
+      setValue(OID, value);
     }
   }
   
-  public boolean isNetIdWritable()
+  public boolean isOidWritable()
   {
-    return isWritable(NETID);
+    return isWritable(OID);
   }
   
-  public boolean isNetIdReadable()
+  public boolean isOidReadable()
   {
-    return isReadable(NETID);
+    return isReadable(OID);
   }
   
-  public boolean isNetIdModified()
+  public boolean isOidModified()
   {
-    return isModified(NETID);
+    return isModified(OID);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getNetIdMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getOidMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(NETID).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(OID).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.ActorDTO getOwner()

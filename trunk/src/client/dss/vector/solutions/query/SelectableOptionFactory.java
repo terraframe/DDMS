@@ -1,5 +1,8 @@
 package dss.vector.solutions.query;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeBooleanDTO;
 import com.runwaysdk.system.metadata.MdAttributeCharacterDTO;
@@ -21,10 +24,12 @@ public class SelectableOptionFactory implements Reloadable
 
   private SelectableGroup group;
 
-  public SelectableOptionFactory(SelectableGroup group)
+  public SelectableOptionFactory(SelectableGroup group, String formName)
   {
+    Matcher matcher = Pattern.compile("[^A-Za-z_]").matcher(formName.toLowerCase());
+
     this.group = group;
-    this.suffix = "_" + group.getGroupName();
+    this.suffix = "_" + matcher.replaceAll("");
     this.type = group.getClassType();
   }
 

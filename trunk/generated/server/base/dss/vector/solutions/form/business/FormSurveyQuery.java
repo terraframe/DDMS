@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -1561944730)
+@com.runwaysdk.business.ClassSignature(hash = -671489871)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form.business;
 public  class FormSurveyQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1561944730;
+private static final long serialVersionUID = -671489871;
 
   public FormSurveyQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -222,6 +222,23 @@ private static final long serialVersionUID = -1561944730;
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.form.business.FormSurvey.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getOid()
+  {
+    return getOid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormSurvey.OID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormSurvey.OID, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -277,23 +294,6 @@ private static final long serialVersionUID = -1561944730;
   public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormSurvey.SITEMASTER, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSurveyId()
-  {
-    return getSurveyId(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSurveyId(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormSurvey.SURVEYID, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSurveyId(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormSurvey.SURVEYID, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()
@@ -407,6 +407,9 @@ private static final long serialVersionUID = -1561944730;
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getOid();
+    public com.runwaysdk.query.SelectableChar getOid(String alias);
+    public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -416,9 +419,6 @@ private static final long serialVersionUID = -1561944730;
     public com.runwaysdk.query.SelectableChar getSiteMaster();
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias);
     public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getSurveyId();
-    public com.runwaysdk.query.SelectableChar getSurveyId(String alias);
-    public com.runwaysdk.query.SelectableChar getSurveyId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
@@ -437,7 +437,7 @@ private static final long serialVersionUID = -1561944730;
  implements FormSurveyQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1622343944;
+private static final long serialVersionUID = 1724006351;
 
   public FormSurveyQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -611,6 +611,23 @@ private static final long serialVersionUID = 1622343944;
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormSurvey.LOCKEDBY,  alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getOid()
+  {
+    return getOid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormSurvey.OID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormSurvey.OID, alias, displayLabel);
+
+  }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
   {
     return getOwner(null);
@@ -660,23 +677,6 @@ private static final long serialVersionUID = 1622343944;
   public com.runwaysdk.query.SelectableChar getSiteMaster(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormSurvey.SITEMASTER, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getSurveyId()
-  {
-    return getSurveyId(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSurveyId(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormSurvey.SURVEYID, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getSurveyId(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormSurvey.SURVEYID, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getType()

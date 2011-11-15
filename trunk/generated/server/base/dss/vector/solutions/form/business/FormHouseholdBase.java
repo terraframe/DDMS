@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 3096272)
+@com.runwaysdk.business.ClassSignature(hash = 1639054432)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,18 +15,18 @@ public abstract class FormHouseholdBase extends com.runwaysdk.business.Business 
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String HOUSEHOLDID = "householdId";
   public static java.lang.String ID = "id";
   public static java.lang.String KEYNAME = "keyName";
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SURVEY = "survey";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 3096272;
+  private static final long serialVersionUID = 1639054432;
   
   public FormHouseholdBase()
   {
@@ -157,34 +157,6 @@ public abstract class FormHouseholdBase extends com.runwaysdk.business.Business 
     }
   }
   
-  public String getHouseholdId()
-  {
-    return getValue(HOUSEHOLDID);
-  }
-  
-  public void validateHouseholdId()
-  {
-    this.validateAttribute(HOUSEHOLDID);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getHouseholdIdMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormHousehold.CLASS);
-    return mdClassIF.definesAttribute(HOUSEHOLDID);
-  }
-  
-  public void setHouseholdId(String value)
-  {
-    if(value == null)
-    {
-      setValue(HOUSEHOLDID, "");
-    }
-    else
-    {
-      setValue(HOUSEHOLDID, value);
-    }
-  }
-  
   public String getId()
   {
     return getValue(ID);
@@ -299,6 +271,34 @@ public abstract class FormHouseholdBase extends com.runwaysdk.business.Business 
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormHousehold.CLASS);
     return mdClassIF.definesAttribute(LOCKEDBY);
+  }
+  
+  public String getOid()
+  {
+    return getValue(OID);
+  }
+  
+  public void validateOid()
+  {
+    this.validateAttribute(OID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOidMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormHousehold.CLASS);
+    return mdClassIF.definesAttribute(OID);
+  }
+  
+  public void setOid(String value)
+  {
+    if(value == null)
+    {
+      setValue(OID, "");
+    }
+    else
+    {
+      setValue(OID, value);
+    }
   }
   
   public com.runwaysdk.system.Actor getOwner()

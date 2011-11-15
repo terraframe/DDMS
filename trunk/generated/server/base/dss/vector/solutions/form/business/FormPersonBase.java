@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 948965892)
+@com.runwaysdk.business.ClassSignature(hash = -1205355984)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,12 +22,12 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String NET = "net";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
-  public static java.lang.String PERSONID = "personId";
   public static java.lang.String SEQ = "seq";
-  public static java.lang.String SITEMASTER = "siteMaster";  
+  public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 948965892;
+  private static final long serialVersionUID = -1205355984;
   
   public FormPersonBase()
   {
@@ -354,6 +354,34 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
     }
   }
   
+  public String getOid()
+  {
+    return getValue(OID);
+  }
+  
+  public void validateOid()
+  {
+    this.validateAttribute(OID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOidMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormPerson.CLASS);
+    return mdClassIF.definesAttribute(OID);
+  }
+  
+  public void setOid(String value)
+  {
+    if(value == null)
+    {
+      setValue(OID, "");
+    }
+    else
+    {
+      setValue(OID, value);
+    }
+  }
+  
   public com.runwaysdk.system.Actor getOwner()
   {
     if (getValue(OWNER).trim().equals(""))
@@ -391,34 +419,6 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
     else
     {
       setValue(OWNER, value.getId());
-    }
-  }
-  
-  public String getPersonId()
-  {
-    return getValue(PERSONID);
-  }
-  
-  public void validatePersonId()
-  {
-    this.validateAttribute(PERSONID);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPersonIdMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormPerson.CLASS);
-    return mdClassIF.definesAttribute(PERSONID);
-  }
-  
-  public void setPersonId(String value)
-  {
-    if(value == null)
-    {
-      setValue(PERSONID, "");
-    }
-    else
-    {
-      setValue(PERSONID, value);
     }
   }
   

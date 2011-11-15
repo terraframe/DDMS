@@ -118,7 +118,7 @@ public class FormQueryBuilder implements Reloadable
     Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
     Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap = this.getReadableFieldMap(fields, readableAttributeNames);
     List<MdWebFieldDTO> readableFields = new LinkedList<MdWebFieldDTO>(readableFieldMap.keySet());
-    
+
     Collections.sort(readableFields, new FieldComparator());
 
     SelectableGroup group = new SelectableGroup();
@@ -168,8 +168,7 @@ public class FormQueryBuilder implements Reloadable
         String relType = mdRelationship.getPackageName() + "." + mdRelationship.getTypeName();
         this.typesToLoad.add(relType);
 
-        List<? extends MdWebPrimitiveDTO> compositeFields = ( (MdWebSingleTermGridDTO) field ).getAllMdFields();
-        Collections.sort(compositeFields, new FieldComparator());
+        MdWebPrimitiveDTO[] compositeFields = MdFormUtilDTO.getCompositeFields(request, field.getId());
 
         for (MdWebPrimitiveDTO compositeField : compositeFields)
         {
@@ -200,12 +199,12 @@ public class FormQueryBuilder implements Reloadable
 
           this.geoGroup.addOption(new GeoOption(classType, attributeName, fieldLabel));
         }
-        else if (field instanceof MdWebDateDTO)  
+        else if (field instanceof MdWebDateDTO)
         {
           this.dateGroup.addOption(new DateOption(classType, attributeName));
         }
 
-        new SelectableOptionFactory(group).create(mdAttribute);
+        new SelectableOptionFactory(group, form.getFormName()).create(mdAttribute);
       }
     }
   }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -1106365383)
+@com.runwaysdk.business.ClassSignature(hash = 852323017)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form.business;
 public  class FormHouseholdQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1106365383;
+private static final long serialVersionUID = 852323017;
 
   public FormHouseholdQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -125,23 +125,6 @@ private static final long serialVersionUID = -1106365383;
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.form.business.FormHousehold.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getHouseholdId()
-  {
-    return getHouseholdId(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getHouseholdId(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormHousehold.HOUSEHOLDID, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getHouseholdId(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormHousehold.HOUSEHOLDID, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -237,6 +220,23 @@ private static final long serialVersionUID = -1106365383;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.form.business.FormHousehold.LOCKEDBY);
 
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.form.business.FormHousehold.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getOid()
+  {
+    return getOid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormHousehold.OID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormHousehold.OID, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -419,9 +419,6 @@ private static final long serialVersionUID = -1106365383;
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getHouseholdId();
-    public com.runwaysdk.query.SelectableChar getHouseholdId(String alias);
-    public com.runwaysdk.query.SelectableChar getHouseholdId(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -437,6 +434,9 @@ private static final long serialVersionUID = -1106365383;
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getOid();
+    public com.runwaysdk.query.SelectableChar getOid(String alias);
+    public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -467,7 +467,7 @@ private static final long serialVersionUID = -1106365383;
  implements FormHouseholdQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1329388891;
+private static final long serialVersionUID = -1828694549;
 
   public FormHouseholdQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -556,23 +556,6 @@ private static final long serialVersionUID = 1329388891;
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormHousehold.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getHouseholdId()
-  {
-    return getHouseholdId(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getHouseholdId(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormHousehold.HOUSEHOLDID, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getHouseholdId(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormHousehold.HOUSEHOLDID, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableChar getId()
   {
     return getId(null);
@@ -656,6 +639,23 @@ private static final long serialVersionUID = 1329388891;
   public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormHousehold.LOCKEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getOid()
+  {
+    return getOid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormHousehold.OID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormHousehold.OID, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()

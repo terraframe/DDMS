@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1217526973)
+@com.runwaysdk.business.ClassSignature(hash = 935855866)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -20,12 +20,12 @@ public abstract class FormSurveyBase extends com.runwaysdk.business.Business imp
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
-  public static java.lang.String SURVEYID = "surveyId";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1217526973;
+  private static final long serialVersionUID = 935855866;
   
   public FormSurveyBase()
   {
@@ -272,6 +272,34 @@ public abstract class FormSurveyBase extends com.runwaysdk.business.Business imp
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
+  public String getOid()
+  {
+    return getValue(OID);
+  }
+  
+  public void validateOid()
+  {
+    this.validateAttribute(OID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOidMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormSurvey.CLASS);
+    return mdClassIF.definesAttribute(OID);
+  }
+  
+  public void setOid(String value)
+  {
+    if(value == null)
+    {
+      setValue(OID, "");
+    }
+    else
+    {
+      setValue(OID, value);
+    }
+  }
+  
   public com.runwaysdk.system.Actor getOwner()
   {
     if (getValue(OWNER).trim().equals(""))
@@ -342,34 +370,6 @@ public abstract class FormSurveyBase extends com.runwaysdk.business.Business imp
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormSurvey.CLASS);
     return mdClassIF.definesAttribute(SITEMASTER);
-  }
-  
-  public String getSurveyId()
-  {
-    return getValue(SURVEYID);
-  }
-  
-  public void validateSurveyId()
-  {
-    this.validateAttribute(SURVEYID);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurveyIdMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormSurvey.CLASS);
-    return mdClassIF.definesAttribute(SURVEYID);
-  }
-  
-  public void setSurveyId(String value)
-  {
-    if(value == null)
-    {
-      setValue(SURVEYID, "");
-    }
-    else
-    {
-      setValue(SURVEYID, value);
-    }
   }
   
   public String getType()

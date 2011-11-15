@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -1854855510)
+@com.runwaysdk.business.ClassSignature(hash = 864295928)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.form.business;
 public  class FormBedNetQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1854855510;
+private static final long serialVersionUID = 864295928;
 
   public FormBedNetQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -245,21 +245,21 @@ private static final long serialVersionUID = -1854855510;
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.form.business.FormBedNet.LOCKEDBY, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getNetId()
+  public com.runwaysdk.query.SelectableChar getOid()
   {
-    return getNetId(null);
+    return getOid(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getNetId(String alias)
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormBedNet.NETID, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormBedNet.OID, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getNetId(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormBedNet.NETID, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.form.business.FormBedNet.OID, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()
@@ -437,9 +437,9 @@ private static final long serialVersionUID = -1854855510;
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy();
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias);
     public com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF getLockedBy(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getNetId();
-    public com.runwaysdk.query.SelectableChar getNetId(String alias);
-    public com.runwaysdk.query.SelectableChar getNetId(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getOid();
+    public com.runwaysdk.query.SelectableChar getOid(String alias);
+    public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
@@ -467,7 +467,7 @@ private static final long serialVersionUID = -1854855510;
  implements FormBedNetQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1329433164;
+private static final long serialVersionUID = -84344806;
 
   public FormBedNetQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -658,21 +658,21 @@ private static final long serialVersionUID = 1329433164;
     return (com.runwaysdk.system.UsersQuery.UsersQueryReferenceIF)this.get(dss.vector.solutions.form.business.FormBedNet.LOCKEDBY,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getNetId()
+  public com.runwaysdk.query.SelectableChar getOid()
   {
-    return getNetId(null);
+    return getOid(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getNetId(String alias)
+  public com.runwaysdk.query.SelectableChar getOid(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormBedNet.NETID, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormBedNet.OID, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getNetId(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getOid(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormBedNet.NETID, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.form.business.FormBedNet.OID, alias, displayLabel);
 
   }
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 924616193)
+@com.runwaysdk.business.ClassSignature(hash = 710763791)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,12 +21,12 @@ public abstract class FormBedNetBase extends com.runwaysdk.business.Business imp
   public static java.lang.String LASTUPDATEDATE = "lastUpdateDate";
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
-  public static java.lang.String NETID = "netId";
+  public static java.lang.String OID = "oid";
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 924616193;
+  private static final long serialVersionUID = 710763791;
   
   public FormBedNetBase()
   {
@@ -313,31 +313,31 @@ public abstract class FormBedNetBase extends com.runwaysdk.business.Business imp
     return mdClassIF.definesAttribute(LOCKEDBY);
   }
   
-  public String getNetId()
+  public String getOid()
   {
-    return getValue(NETID);
+    return getValue(OID);
   }
   
-  public void validateNetId()
+  public void validateOid()
   {
-    this.validateAttribute(NETID);
+    this.validateAttribute(OID);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getNetIdMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getOidMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormBedNet.CLASS);
-    return mdClassIF.definesAttribute(NETID);
+    return mdClassIF.definesAttribute(OID);
   }
   
-  public void setNetId(String value)
+  public void setOid(String value)
   {
     if(value == null)
     {
-      setValue(NETID, "");
+      setValue(OID, "");
     }
     else
     {
-      setValue(NETID, value);
+      setValue(OID, value);
     }
   }
   

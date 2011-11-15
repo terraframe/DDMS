@@ -50,7 +50,7 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
 
       // create the filter
       if (this.getFilterId() != null && this.getFilterId().length() > 0)
-      {
+      {  
         GeoHierarchyViewDTO filterGH = GeoHierarchyDTO.getViewForGeoHierarchy(this.getRequest(), this.getFilterId());
         geoFieldJSON.put("filter", MDSSInfo.GENERATED_GEO_PACKAGE + "." + filterGH.getTypeName());
       }

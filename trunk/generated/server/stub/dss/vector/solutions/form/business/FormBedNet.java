@@ -17,9 +17,9 @@ public class FormBedNet extends FormBedNetBase implements com.runwaysdk.generati
   @Override
   protected String buildKey()
   {
-    if (this.getNetId() != null && this.getNetId().length() > 0)
+    if (this.getOid() != null && this.getOid().length() > 0)
     {
-      return this.getNetId();
+      return this.getOid();
     }
 
     return super.buildKey();
@@ -28,7 +28,7 @@ public class FormBedNet extends FormBedNetBase implements com.runwaysdk.generati
   public static FormBedNet getByBedNetId(String netId)
   {
     FormBedNetQuery query = new FormBedNetQuery(new QueryFactory());
-    query.WHERE(query.getNetId().EQ(netId));
+    query.WHERE(query.getOid().EQ(netId));
 
     OIterator<? extends FormBedNet> it = query.getIterator();
 

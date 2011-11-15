@@ -19,9 +19,9 @@ public class FormHousehold extends FormHouseholdBase implements com.runwaysdk.ge
   @Override
   protected String buildKey()
   {
-    if (this.getHouseholdId() != null && this.getHouseholdId().length() > 0)
+    if (this.getOid() != null && this.getOid().length() > 0)
     {
-      return this.getHouseholdId();
+      return this.getOid();
     }
 
     return super.buildKey();
@@ -50,7 +50,7 @@ public class FormHousehold extends FormHouseholdBase implements com.runwaysdk.ge
   public static FormHousehold getByHouseholdId(String householdId)
   {
     FormHouseholdQuery query = new FormHouseholdQuery(new QueryFactory());
-    query.WHERE(query.getHouseholdId().EQ(householdId));
+    query.WHERE(query.getOid().EQ(householdId));
 
     OIterator<? extends FormHousehold> it = query.getIterator();
 

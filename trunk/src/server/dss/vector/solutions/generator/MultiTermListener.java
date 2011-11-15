@@ -10,8 +10,7 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Relationship;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
-import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.MdFieldDAOIF;
+import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
@@ -26,19 +25,16 @@ import dss.vector.solutions.ontology.TermRootCache;
 
 public class MultiTermListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
-  private MdClassDAOIF       mdClass;
+  private MdWebMultipleTermDAOIF mdField;
 
-  private MdFieldDAOIF       mdField;
+  private List<Relationship>     relationships;
 
-  private List<Relationship> relationships;
+  private String                 relationshipMethod;
 
-  private String             relationsihpMethod;
-
-  public MultiTermListener(MdClassDAOIF mdClass, MdFieldDAOIF mdField, String relationshipName)
+  public MultiTermListener(MdWebMultipleTermDAOIF mdField, String relationshipName)
   {
-    this.mdClass = mdClass;
     this.mdField = mdField;
-    this.relationsihpMethod = relationshipName;
+    this.relationshipMethod = relationshipName;
 
     this.relationships = new LinkedList<Relationship>();
   }
@@ -47,7 +43,7 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
   public void addColumns(List<ExcelColumn> extraColumns)
   {
     String fieldName = mdField.getFieldName();
-    MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(fieldName);
+    MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();
     String fieldDisplayLabel = mdField.getDisplayLabel(Session.getCurrentLocale());
     Term[] roots = TermRootCache.getRoots(mdAttribute);
 
@@ -63,11 +59,11 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
   public void handleExtraColumns(Mutable instance, List<ExcelColumn> extraColumns, HSSFRow row) throws Exception
   {
     String fieldName = mdField.getFieldName();
-    MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(fieldName);
+    MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();
     Term[] roots = TermRootCache.getRoots(mdAttribute);
 
     Class<? extends Mutable> clazz = instance.getClass();
-    String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(this.relationsihpMethod);
+    String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(this.relationshipMethod);
     Method method = clazz.getMethod(methodName, Term.class);
 
     try

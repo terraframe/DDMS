@@ -43,7 +43,7 @@ public class SurveyColumn extends AttributeColumn implements Reloadable
 
       MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(FormSurvey.CLASS);
       String typeLabel = mdBusiness.getDisplayLabel(Session.getCurrentLocale());
-      String attributeLabel = mdBusiness.definesAttribute(FormSurvey.SURVEYID).getDisplayLabel(Session.getCurrentLocale());
+      String attributeLabel = mdBusiness.definesAttribute(FormSurvey.OID).getDisplayLabel(Session.getCurrentLocale());
 
       UnknownValueException ex = new UnknownValueException(msg);
       ex.setAttributeLabel(attributeLabel);

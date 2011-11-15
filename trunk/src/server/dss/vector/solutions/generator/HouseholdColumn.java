@@ -43,7 +43,7 @@ public class HouseholdColumn extends AttributeColumn implements Reloadable
 
       MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(FormHousehold.CLASS);
       String typeLabel = mdBusiness.getDisplayLabel(Session.getCurrentLocale());
-      String attributeLabel = mdBusiness.definesAttribute(FormHousehold.HOUSEHOLDID).getDisplayLabel(Session.getCurrentLocale());
+      String attributeLabel = mdBusiness.definesAttribute(FormHousehold.OID).getDisplayLabel(Session.getCurrentLocale());
 
       UnknownValueException ex = new UnknownValueException(msg);
       ex.setAttributeLabel(attributeLabel);

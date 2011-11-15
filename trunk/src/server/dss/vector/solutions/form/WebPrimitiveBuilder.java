@@ -3,8 +3,6 @@
  */
 package dss.vector.solutions.form;
 
-import java.util.List;
-
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
@@ -51,9 +49,9 @@ public abstract class WebPrimitiveBuilder extends WebAttributeBuilder implements
 
       if (order == null)
       {
-        List<MdWebPrimitive> fields = MdFormUtil.getCompositeFields(this.mdWebSingleTermGrid.getId());
+        MdWebPrimitive[] fields = MdFormUtil.getCompositeFields(this.mdWebSingleTermGrid.getId());
 
-        return fields.size();
+        return fields.length;
       }
       else
       {
