@@ -13,12 +13,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.ClientException;
-import com.runwaysdk.business.ViewDTO;
+import com.runwaysdk.business.MutableDTO;
+import com.runwaysdk.business.RelationshipDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 
+import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.util.Halp;
 
 public class ViewDataGrid extends DataGrid implements Reloadable
@@ -26,34 +28,37 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   /**
    * MdView defining the attributes generated per term
    */
-  private ViewDTO                          view;
+  private MutableDTO                       view;
 
   /**
    * Rows
    */
-  private ViewDTO[]                        data;
+  private MutableDTO[]                     data;
 
   /**
    * Ordered Map of the YUI columns
    */
   private LinkedHashMap<String, YUIColumn> yuiColumns;
 
-  public ViewDataGrid(ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data)
+  public ViewDataGrid(MutableDTO view, Map<String, ColumnSetup> map, String[] keys, MutableDTO[] data)
   {
     this("", true, view, map, keys, data, "");
   }
 
-  public ViewDataGrid(String tableId, boolean readable, ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data)
+  public ViewDataGrid(String tableId, boolean readable, MutableDTO view, Map<String, ColumnSetup> map,
+      String[] keys, MutableDTO[] data)
   {
     this(tableId, readable, view, map, keys, data, "");
   }
 
-  public ViewDataGrid(ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data, String postfix)
+  public ViewDataGrid(MutableDTO view, Map<String, ColumnSetup> map, String[] keys, MutableDTO[] data,
+      String postfix)
   {
     this("", true, view, map, keys, data, postfix);
   }
 
-  public ViewDataGrid(String tableId, boolean readable, ViewDTO view, Map<String, ColumnSetup> map, String[] keys, ViewDTO[] data, String postfix)
+  public ViewDataGrid(String tableId, boolean readable, MutableDTO view, Map<String, ColumnSetup> map,
+      String[] keys, MutableDTO[] data, String postfix)
   {
     super(tableId, readable);
 
@@ -92,7 +97,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   {
     return this.yuiColumns.get(key);
   }
-
+  
   /**
    * @return
    */
@@ -145,7 +150,8 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   {
     List<String> buffer = this.getKeys();
 
-    return "{start:" + start + ", end:" + ( start + yuiColumns.size() - 1 ) + ", type:'" + view.getType() + "', keys:[" + Halp.join(buffer) + "]}";
+    return "{start:" + start + ", end:" + ( start + yuiColumns.size() - 1 ) + ", type:'"
+        + view.getType() + "', keys:[" + Halp.join(buffer) + "]}";
   }
 
   public ClientRequestIF getRequest()
@@ -153,30 +159,56 @@ public class ViewDataGrid extends DataGrid implements Reloadable
     return view.getRequest();
   }
 
-  protected JSONObject convertToJSONObject(ViewDTO row)
+  protected JSONObject convertToJSONObject(MutableDTO row)
   {
     Set<String> keys = this.yuiColumns.keySet();
     JSONObject element = new JSONObject();
 
-    for (String key : keys)
+    try
     {
-      YUIColumn column = this.yuiColumns.get(key);
 
-      String value = column.getValue(row);
-
-      if (value != null)
+      for (String key : keys)
       {
-        try
+        YUIColumn column = this.yuiColumns.get(key);
+
+        if (column.isCustom())
         {
-          element.put(column.getColumnKey(), value);
+          RelationshipDTO rel = (RelationshipDTO) row;
+          if (key.equals("parentId"))
+          {
+            element.put(column.getColumnKey(), rel.getParentId());
+          }
+          else if (key.equals("childId"))
+          {
+            element.put(column.getColumnKey(), rel.getChildId());
+          }
+          else if (key.equals("relId"))
+          {
+            element.put(column.getColumnKey(), rel.getId());
+          }
+          else if (key.equals("termDisplayLabel"))
+          {
+            String displayLabel = TermDTO.get(this.view.getRequest(), rel.getChildId()).toString();
+            element.put(column.getColumnKey(), displayLabel);
+          }
         }
-        catch (JSONException e)
+        else
         {
-          throw new ClientException(e);
+          String value = column.getValue(row);
+  
+          if (value != null)
+          {
+            element.put(column.getColumnKey(), value);
+          }
         }
       }
+      
+      return element;
     }
-    return element;
+    catch (JSONException e)
+    {
+      throw new ClientException(e);
+    }
   }
 
   @Override
@@ -184,7 +216,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   {
     JSONArray array = new JSONArray();
 
-    for (ViewDTO view : data)
+    for (MutableDTO view : data)
     {
       JSONObject element = this.convertToJSONObject(view);
 

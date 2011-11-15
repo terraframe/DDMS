@@ -524,9 +524,15 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       com.setDefaultNodes();
       this._addField(com);
     },
-    
+
     visitMultipleTerm : function(field){
       var com = new MultipleTermComponent(field);
+      com.setDefaultNodes();
+      this._addField(com);
+    },
+
+    visitSingleTermGrid : function(field){
+      var com = new SingleTermGridComponent(field);
       com.setDefaultNodes();
       this._addField(com);
     },
@@ -1162,6 +1168,43 @@ var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTer
   }
 });
 
+var SingleTermGridComponent = Mojo.Meta.newClass('dss.vector.solutions.SingleTermGridComponent', {
+  Extends : FieldComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
+    },
+    _getContentNode : function(){
+      var fMd = this.getField().getFieldMd();
+      var gridId = 'g_'+fMd.getId();
+      var node = this.getFactory().newElement('div', {
+        id: gridId
+      });
+      
+      return node;
+    },
+    _getReadNode : function(){
+      return this._getContentNode();
+    },
+    monitorValueChange : function(node){
+      //node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    dispatchValueChangeEvent : function(e){
+      //var value = e.getTarget().value;
+      //this.dispatchEvent(new ValueChangeEvent(value));
+    },
+    forceValueChangeEvent : function(){
+    
+    },
+    postRender : function(editMode){
+      var exec = this.getField().getGridExecutable();
+      var grid = eval(exec);
+      this.getField().setGrid(grid);
+    }
+  }
+});
+
 var BooleanComponent = Mojo.Meta.newClass('dss.vector.solutions.BooleanComponent', {
   Extends : FieldComponent,
   Implements : ValueFieldIF,
@@ -1761,7 +1804,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
           else if(field instanceof FIELD.WebMultipleTerm)
           {
             var termIds = field.getTermIds();
-            var json = Mojo.Util.getJSON(termIds);
+            var json = Mojo.Util.toJSON(termIds);
             field.setValue(json);
           }
           else
@@ -1769,7 +1812,29 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
             field.setValue(value);
           }
         }
+        // grids don't have a standard presense in the form as inputs
+        else if(field instanceof FIELD.WebSingleTermGrid)
+        {
+          var rows = field.getGrid().getModel().getRows();
+          for(var i=0; i<rows.length; i++)
+          {
+            var row = rows[i];
+            var cols =  Mojo.Util.getKeys(row, true);
+            for(var j=0; j<cols.length; j++)
+            {
+              var col = cols[j];
+              var val = row[col];
+              if(!Mojo.Util.isValid(val) || (Mojo.Util.isNumber(val) && isNaN(val)))
+              {
+                delete row[col]; // removes it from the row to avoid a "null" string as the value
+              }
+            }
+          }
+          var json = Mojo.Util.toJSON(rows);
+          field.setValue(json);
+        }
       }
+      
     },
     viewInstance : function(e){
       e.preventDefault();

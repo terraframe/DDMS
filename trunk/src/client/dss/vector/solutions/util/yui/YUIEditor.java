@@ -2,7 +2,7 @@ package dss.vector.solutions.util.yui;
 
 import java.util.List;
 
-import com.runwaysdk.business.ViewDTO;
+import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.metadata.AttributeBooleanMdDTO;
@@ -38,7 +38,7 @@ public abstract class YUIEditor implements Reloadable
     return object.toString();
   }
 
-  public static YUIEditor getEditor(AttributeMdDTO attribute, ColumnSetup setup, ViewDTO view, String key) throws Exception
+  public static YUIEditor getEditor(AttributeMdDTO attribute, ColumnSetup setup, MutableDTO view, String key) throws Exception
   {
     if (attribute instanceof AttributeBooleanMdDTO)
     {

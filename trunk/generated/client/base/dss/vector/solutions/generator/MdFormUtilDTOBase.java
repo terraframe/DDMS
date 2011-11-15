@@ -1,10 +1,10 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 1760328474)
+@com.runwaysdk.business.ClassSignature(hash = 870545938)
 public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.generator.MdFormUtil";
-  private static final long serialVersionUID = 1760328474;
+  private static final long serialVersionUID = 870545938;
   
   protected MdFormUtilDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -257,10 +257,10 @@ public abstract class MdFormUtilDTOBase extends com.runwaysdk.business.UtilDTO i
     return (dss.vector.solutions.ontology.TermViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final com.runwaysdk.business.BusinessDTO persistObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO busObj, java.lang.String multipleTermJSON)
+  public static final com.runwaysdk.business.BusinessDTO persistObject(com.runwaysdk.constants.ClientRequestIF clientRequest, com.runwaysdk.business.BusinessDTO busObj, java.lang.String multipleTermJSON, java.lang.String singleTermGridJSON)
   {
-    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String"};
-    Object[] _parameters = new Object[]{busObj, multipleTermJSON};
+    String[] _declaredTypes = new String[]{"com.runwaysdk.business.Business", "java.lang.String", "java.lang.String"};
+    Object[] _parameters = new Object[]{busObj, multipleTermJSON, singleTermGridJSON};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.generator.MdFormUtilDTO.CLASS, "persistObject", _declaredTypes);
     return (com.runwaysdk.business.BusinessDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }

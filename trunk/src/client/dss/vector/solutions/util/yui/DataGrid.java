@@ -3,6 +3,8 @@ package dss.vector.solutions.util.yui;
 import java.util.List;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -118,7 +120,37 @@ public abstract class DataGrid implements Reloadable
   {
     return "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
   }
-
+  
+  public String getTableId()
+  {
+    return this.tableId;
+  }
+  
+  public JSONObject getJSON() throws JSONException
+  {
+    List<String> cols = this.getColumns();
+    JSONArray colsArr = new JSONArray();
+    for(String col : cols)
+    {
+      colsArr.put(new JSONObject(col));
+    }
+    
+    JSONObject config = new JSONObject();
+    config.put("columnDefs", colsArr);
+    config.put("defaults" ,  new JSONObject( this.getDefaultValues()));
+    config.put("div_id" , this.tableId);
+    config.put("excelButtons" , this.excelButtons);
+    config.put("addButton" , this.addButton);
+    config.put("saveButton" , this.saveButton);
+    
+    JSONObject json = new JSONObject();
+    json.put("config", config);
+    json.put("metadata", new JSONArray( this.getMetadata()));
+    json.put("data", this.getData());
+    
+    return json;
+  }
+  
   public String getJavascript()
   {
     StringBuffer buffer = new StringBuffer();
@@ -134,6 +166,7 @@ public abstract class DataGrid implements Reloadable
       buffer.append("  saveButton:" + this.saveButton + "\n");
       buffer.append("};\n");
       buffer.append("var " + this.tableId + "Grid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(" + this.getMetadata() + "), " + this.getData().toString() + ", null), " + this.tableId + "Data);\n");
+      buffer.append(this.tableId+"Grid;");
     }
     else
     {

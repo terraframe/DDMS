@@ -1537,6 +1537,7 @@ var FormObjectVisitorIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FORM+'FormObj
     visitSingleTerm : function(webSingleTerm){},
     visitMultipleTerm : function(webMultipleTerm){},
     visitGroup : function(webGroup){},
+    visitSingleTermGrid : function(webSingleTerm){},
     visitCharacterCondition : function(characterCondition){},
     visitLongCondition : function(longCondition){},
     visitDoubleCondition : function(doubleCondition){},
@@ -1862,6 +1863,47 @@ var WebMultipleTerm = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebMultipleTer
   }
 });
 
+var WebSingleTermGrid = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebSingleTermGrid', {
+  Extends : WebAttribute,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+      this._gridExec = obj.grid;
+      this._grid = null;
+    },
+    getGridExecutable : function() { return this._gridExec; },
+    setGrid : function(grid){ this._grid = grid; },
+    getGrid : function(){ return this._grid; },
+    accept : function(visitor){
+      visitor.visitSingleTermGrid(this);
+    },
+    toJSON : function(key)
+    {
+      var map = {};
+      var keys = Mojo.Util.getKeys(this);
+      for(var i=0, len=keys.length; i<len; i++)
+      {
+        var key = keys[i];
+        if(key === '_gridExec' || key === '_grid')
+        {
+          continue;
+        }
+        else if(key.indexOf('_') === 0 && key.indexOf('__') !== 0)
+        {
+          var newKey = key.substr(1, key.length);
+          map[newKey] = this[key];
+        }
+        else
+        {
+          map[key] = this[key];
+        }      
+      }
+    
+      return new com.runwaysdk.StandardSerializer(map).toJSON(key);
+    }
+  }
+});
+
 var WebCharacter = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebCharacter', {
   Extends : WebPrimitive,
   Instance : {
@@ -2179,6 +2221,15 @@ var WebSingleTermMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebSingleTe
 });
 
 var WebMultipleTermMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebMultipleTermMd', {
+  Extends : WebAttributeMd,
+  Instance : {
+    initialize : function(obj){
+      this.$initialize(obj);
+    }
+  }
+});
+
+var WebSingleTermGridMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebSingleTermGridMd', {
   Extends : WebAttributeMd,
   Instance : {
     initialize : function(obj){

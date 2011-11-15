@@ -12,10 +12,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.Relationship;
 import com.runwaysdk.business.RelationshipQuery;
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeRefDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
@@ -27,22 +29,27 @@ import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
+import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
 import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdWebFieldDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
+import com.runwaysdk.session.Session;
+import com.runwaysdk.session.SessionFacade;
 import com.runwaysdk.system.metadata.AndFieldCondition;
 import com.runwaysdk.system.metadata.CharacterCondition;
 import com.runwaysdk.system.metadata.CompositeFieldCondition;
@@ -121,10 +128,74 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    * @return
    */
   @Transaction
-  public static Business persistObject(Business busObj, String mutipleTermJSON)
+  public static Business persistObject(Business busObj, String mutipleTermJSON, String singleTermGridJSON)
   {
+    String sessionId = Session.getCurrentSession().getId();
     busObj.apply();
-
+    
+    try
+    {
+      // create the grid rows
+      JSONArray entries = new JSONArray(singleTermGridJSON);
+      for(int i=0; i<entries.length(); i++)
+      {
+        JSONObject entry = entries.getJSONObject(i);
+        
+        String mdFieldId = entry.getString("mdField");
+        MdWebSingleTermGrid grid = MdWebSingleTermGrid.get(mdFieldId);
+        String relType = getRelationshipType(grid);
+        List<MdWebPrimitive> gridFields = MdFormUtil.getCompositeFields(mdFieldId);
+        
+        JSONArray rows = entry.getJSONArray("rows");
+        for(int j=0; j<rows.length(); j++)
+        {
+          JSONObject row = rows.getJSONObject(j);
+          String childId = row.getString("childId");
+          String relId = row.getString("relId");
+          
+          // convert the field name to the key sent by the grid (as created in YUIColumn's constructor).
+          Relationship rel;
+          try
+          {
+            rel = Relationship.get(relId);
+            rel.appLock();
+          }
+          catch(DataNotFoundException e)
+          {
+            rel = BusinessFacade.newRelationship(busObj.getId(), childId, relType);
+          }
+          
+          for(MdWebPrimitive gridField : gridFields)
+          {
+            String key = CommonGenerationUtil.upperFirstCharacter(gridField.getFieldName());
+            MdAttributeConcreteDAOIF attr = MdAttributeConcreteDAO.get(gridField.getDefiningMdAttributeId());
+            String attrName =  attr.definesAttribute();
+            
+            // null out any values that aren't in the JSON
+            if(SessionFacade.checkAttributeAccess(sessionId, Operation.WRITE, attr))
+            {
+              if(row.has(key))
+              {
+                String value = row.getString(key);
+                rel.setValue(attrName, value);
+              }
+              else
+              {
+                rel.setValue(attrName, null);
+              }
+            }
+          }
+          
+          rel.apply();
+        }
+      }
+      
+    }
+    catch (JSONException e)
+    {
+      throw new ProgrammingErrorException(e);
+    }
+    
     // Create the relationships between the MdBusiness and Term class for
     // the multiple term field.
     try

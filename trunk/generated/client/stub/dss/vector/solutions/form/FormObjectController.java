@@ -48,6 +48,7 @@ import com.runwaysdk.form.web.field.WebInteger;
 import com.runwaysdk.form.web.field.WebLong;
 import com.runwaysdk.form.web.field.WebMultipleTerm;
 import com.runwaysdk.form.web.field.WebReference;
+import com.runwaysdk.form.web.field.WebSingleTermGrid;
 import com.runwaysdk.form.web.field.WebText;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -58,12 +59,14 @@ import com.runwaysdk.transport.attributes.AttributeDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
 import dss.vector.solutions.general.DiseaseDTO;
+import dss.vector.solutions.generator.GenericGridBuilder;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.ontology.TermViewDTO;
 import dss.vector.solutions.ontology.TermViewQueryDTO;
 import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.yui.DataGrid;
 
 public class FormObjectController extends FormObjectControllerBase implements
     com.runwaysdk.generation.loader.Reloadable
@@ -128,7 +131,7 @@ public class FormObjectController extends FormObjectControllerBase implements
 
       WebFormObject formObject = WebFormObject.getInstance(mdFormDTO, dataId);
 
-      this.convertToJSON(formObject);
+      this.convertToJSON(formObject, true);
     }
     catch (Throwable t)
     {
@@ -191,7 +194,7 @@ public class FormObjectController extends FormObjectControllerBase implements
 
         WebFormObject webFormObject = WebFormObject.getInstance(mdFormDTO, formObject.getDataId());
 
-        this.convertToJSON(webFormObject);
+        this.convertToJSON(webFormObject, false);
       }
     }
     catch (Throwable t)
@@ -208,7 +211,7 @@ public class FormObjectController extends FormObjectControllerBase implements
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
       WebFormObject formObject = WebFormObject.getInstance(mdFormDTO, dataId);
 
-      this.convertToJSON(formObject);
+      this.convertToJSON(formObject, false);
     }
     catch (Throwable t)
     {
@@ -253,13 +256,16 @@ public class FormObjectController extends FormObjectControllerBase implements
       BusinessDTO dto = (BusinessDTO) klass.getMethod("get", ClientRequestIF.class, String.class)
           .invoke(null, this.getClientRequest(), formObject.getDataId());
 
-      JSONArray multipleTermJSON = this.populate(formObject, dto);
+      JSONArray multipleTermJSON = new JSONArray();
+      JSONArray singleTermGridJSON = new JSONArray();
+      
+      this.populate(formObject, dto, multipleTermJSON, singleTermGridJSON);
 
-      dto = MdFormUtilDTO.persistObject(this.getClientRequest(), dto, multipleTermJSON.toString());
+      dto = MdFormUtilDTO.persistObject(this.getClientRequest(), dto, multipleTermJSON.toString(), singleTermGridJSON.toString());
 
       WebFormObject applied = WebFormObject.getInstance(mdFormDTO, dto.getId());
 
-      this.convertToJSON(applied);
+      this.convertToJSON(applied, false);
     }
     catch (Throwable t)
     {
@@ -271,7 +277,7 @@ public class FormObjectController extends FormObjectControllerBase implements
     }
   }
 
-  private void convertToJSON(WebFormObject formObject) throws IOException,
+  private void convertToJSON(WebFormObject formObject, boolean editMode) throws IOException,
       JSONException
   {
     JSONFormVisitor visitor = new JSONFormVisitor();
@@ -289,7 +295,8 @@ public class FormObjectController extends FormObjectControllerBase implements
     for (int i = 0; i < fields.length; i++)
     {
       FieldIF field = fields[i];
-      if (field instanceof WebMultipleTerm && !formObject.isNewInstance())
+      JSONObject fieldJSON = fieldsArr.getJSONObject(i);
+      if (editMode && field instanceof WebMultipleTerm && !formObject.isNewInstance())
       {
         WebMultipleTerm mTerm = (WebMultipleTerm) field;
         String parentId = formObject.getDataId();
@@ -304,13 +311,11 @@ public class FormObjectController extends FormObjectControllerBase implements
 
         // put the term ids and display labels manually into the outgoing JSON
         // object.
-        JSONObject fieldJSON = fieldsArr.getJSONObject(i);
         fieldJSON.put("terms", terms);
       }
-      else if (field instanceof WebGeo)
+      else if (editMode && field instanceof WebGeo)
       {
         GeoFieldDTO geoField = GeoFieldDTO.getGeoFieldForMdWebGeo(this.getClientRequest(), field.getFieldMd().getId());
-        JSONObject fieldJSON = fieldsArr.getJSONObject(i);
         fieldJSON.put("geoField", geoField.convertToJSON().toString());
       }
       else if(field instanceof WebReference && !formObject.isNewInstance())
@@ -319,9 +324,17 @@ public class FormObjectController extends FormObjectControllerBase implements
         if(refId != null && refId.trim().length() > 0)
         {
           BusinessDTO ref = (BusinessDTO) this.getClientRequest().get(refId);
-          JSONObject fieldJSON = fieldsArr.getJSONObject(i);
           fieldJSON.put("referenceDisplay", ref.getValue(BusinessDTO.KEYNAME));
         }
+      }
+      else if(field instanceof WebSingleTermGrid)
+      {
+        WebSingleTermGrid grid = (WebSingleTermGrid) field;
+        GenericGridBuilder builder = new GenericGridBuilder(formObject, grid, this.getClientRequest(), !editMode);
+        
+        DataGrid dataGrid = builder.build();
+        
+        fieldJSON.put("grid", dataGrid.getJavascript());
       }
     }
 
@@ -333,13 +346,13 @@ public class FormObjectController extends FormObjectControllerBase implements
    * 
    * @param formObject
    * @param dto
+   * @param singleTermGridJSON 
+   * @param multipleTermJSON 
    * @param klass
    * @throws Throwable
    */
-  private JSONArray populate(FormObject formObject, MutableDTO dto) throws Throwable
+  private void populate(FormObject formObject, MutableDTO dto, JSONArray multipleTermJSON, JSONArray singleTermGridJSON) throws Throwable
   {
-    JSONArray multipleTermJSON = new JSONArray();
-
     Map<String, AttributeDTO> mdIdToAttrDTOs = ComponentDTOFacade.mapMdAttributeIdToAttributeDTOs(dto);
 
     FieldIF[] fields = formObject.getFields();
@@ -368,6 +381,19 @@ public class FormObjectController extends FormObjectControllerBase implements
         // clear the field to avoid errors from the reference value being
         // invalid.
         wmt.setValue(null);
+      }
+      if(field instanceof WebSingleTermGrid)
+      {
+        WebSingleTermGrid grid = (WebSingleTermGrid) field;
+        
+        JSONObject entry = new JSONObject();
+        entry.put("mdField", field.getFieldMd().getId());
+        JSONArray arr = new JSONArray(field.getValue());
+        entry.put("rows", arr);
+        
+        singleTermGridJSON.put(entry);
+        
+        grid.setValue(null);
       }
       else if (field instanceof WebAttribute)
       {
@@ -518,8 +544,6 @@ public class FormObjectController extends FormObjectControllerBase implements
 
     DiseaseDTO d = DiseaseDTO.getCurrent(this.getClientRequest());
     dto.setValue("disease", d.getId()); // FIXME create MdFormUtilInfo.DISEASE
-
-    return multipleTermJSON;
   }
 
   @Override
@@ -538,13 +562,16 @@ public class FormObjectController extends FormObjectControllerBase implements
       BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(
           this.getClientRequest());
 
-      JSONArray multipleTermJSON = this.populate(formObject, dto);
+      JSONArray multipleTermJSON = new JSONArray();
+      JSONArray singleTermGridJSON = new JSONArray();
+      
+      this.populate(formObject, dto, multipleTermJSON, singleTermGridJSON);
 
-      dto = MdFormUtilDTO.persistObject(this.getClientRequest(), dto, multipleTermJSON.toString());
+      dto = MdFormUtilDTO.persistObject(this.getClientRequest(), dto, multipleTermJSON.toString(), singleTermGridJSON.toString());
 
       WebFormObject applied = WebFormObject.getInstance(mdFormDTO, dto.getId());
 
-      this.convertToJSON(applied);
+      this.convertToJSON(applied, false);
     }
     catch (Throwable t)
     {
@@ -564,7 +591,7 @@ public class FormObjectController extends FormObjectControllerBase implements
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
       WebFormObject form = (WebFormObject) WebFormObject.newInstance(mdFormDTO);
 
-      this.convertToJSON(form);
+      this.convertToJSON(form, true);
     }
     catch (Throwable t)
     {

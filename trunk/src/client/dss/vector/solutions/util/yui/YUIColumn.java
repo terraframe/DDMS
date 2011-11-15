@@ -1,7 +1,7 @@
 package dss.vector.solutions.util.yui;
 
 import com.runwaysdk.ClientException;
-import com.runwaysdk.business.ViewDTO;
+import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.controller.DTOFacade;
 import com.runwaysdk.generation.CommonGenerationUtil;
@@ -51,19 +51,46 @@ public class YUIColumn implements Reloadable
   private String    options;
 
   private Integer   width;
+  
+  private String customValue;
+  
+  private boolean isCustom;
 
-  public YUIColumn(ColumnSetup setup, ViewDTO view, String attribute, String postfix)
+  public YUIColumn(ColumnSetup setup, MutableDTO view, String attribute, String postfix)
   {
     try
     {
-      DTOFacade facade = new DTOFacade(attribute, view);
-
-      AttributeMdDTO attributeMd = facade.getAttributeMdDTO();
+      if(setup.isCustom())
+      {
+        this.writable = false;
+        this.attributeName = setup.getKey();
+        this.key = setup.getKey();
+        this.editor = null;
+        this.label = setup.getLabel();
+        this.title = setup.getTitle();
+        this.isCustom = true;
+      }
+      else
+      {
+        DTOFacade facade = new DTOFacade(attribute, view);
+        AttributeMdDTO attributeMd = facade.getAttributeMdDTO();
+        
+        this.writable = view.isWritable(attributeMd.getName());
+        this.attributeName = attributeMd.getName();
+        this.key = CommonGenerationUtil.upperFirstCharacter(attributeMd.getName());
+        this.editor = YUIEditor.getEditor(attributeMd, setup, view, key + postfix);
+        this.label = setup.getLabel() != null ? setup.getLabel() : attributeMd.getDisplayLabel();
+        if(attributeMd.isRequired() && setup.isIndicateRequired())
+        {
+          this.label = "* " + this.label;
+        }
+        
+        this.initDefaultValue(facade);
+        this.isCustom = false;
+      }
+      
 
       this.postfix = postfix;
-      this.writable = view.isWritable(attributeMd.getName());
-      this.attributeName = attributeMd.getName();
-      this.key = CommonGenerationUtil.upperFirstCharacter(attributeMd.getName());
       this.hidden = setup.isHidden();
       this.editable = setup.isEditable();
       this.sum = setup.isSum();
@@ -72,16 +99,8 @@ public class YUIColumn implements Reloadable
       this.getter = setup.getGetter();
       this.defaultValue = null;
       this.options = null;
-      this.editor = YUIEditor.getEditor(attributeMd, setup, view, key + postfix);
       this.width = setup.getWidth();
-      this.label = setup.getLabel() != null ? setup.getLabel() : attributeMd.getDisplayLabel();
       
-      if(attributeMd.isRequired() && setup.isIndicateRequired())
-      {
-        this.label = "* " + this.label;
-      }
-
-      this.initDefaultValue(facade);
       this.initOptions(view);
     }
     catch (Exception e)
@@ -90,7 +109,7 @@ public class YUIColumn implements Reloadable
     }
   }
 
-  private final void initOptions(ViewDTO view)
+  private final void initOptions(MutableDTO view)
   {
     if (this.editor instanceof YUILabeledEditor)
     {
@@ -114,6 +133,11 @@ public class YUIColumn implements Reloadable
         this.defaultValue = "'" + key + this.postfix + "':" + _defaultValue;
       }
     }
+  }
+  
+  public boolean isCustom()
+  {
+    return isCustom;
   }
 
   public Boolean getWritable()
@@ -181,7 +205,7 @@ public class YUIColumn implements Reloadable
     return width;
   }
 
-  public String getValue(ViewDTO view)
+  public String getValue(MutableDTO view)
   {
     try
     {
@@ -197,7 +221,7 @@ public class YUIColumn implements Reloadable
       {
         if (this.getter != null && this.getter.length() > 0)
         {
-          Class<? extends ViewDTO> klass = view.getClass();
+          Class<? extends MutableDTO> klass = view.getClass();
           object = klass.getMethod(getter).invoke(view);
         }
         else

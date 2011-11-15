@@ -1402,6 +1402,10 @@ span.generatedViewCommand:hover {
   margin-right: 5px;
 }
 
+.yui-dt-hidden {
+  display: none;
+}
+
 /*---------------------------------------------------------------*/ /*   DO NOT PUT ANYTHING BELOW THE PRINT SYTLES                */ /*---------------------------------------------------------------*/
 @media screen {
   .printOnly {

@@ -9,6 +9,12 @@ import com.runwaysdk.generation.loader.Reloadable;
 public class ColumnSetup implements Reloadable
 {
   /**
+   * Denotes if this column is custom or not, meaning a custom column 
+   * doesn't map to a DTO but instead contains all the information it needs.
+   */
+  private boolean isCustom;
+  
+  /**
    * If this column is hidden
    */
   private boolean hidden;
@@ -51,6 +57,10 @@ public class ColumnSetup implements Reloadable
   private Boolean includeBlank;
 
   private boolean indicateRequired;
+  
+  private String display;
+  
+  private String key;
 
   public ColumnSetup()
   {
@@ -74,6 +84,45 @@ public class ColumnSetup implements Reloadable
     this.title = null;
     this.label = null;
     this.indicateRequired = true;
+    
+    this.display = null;
+    this.key = null;
+    this.isCustom = false;
+  }
+  
+  public ColumnSetup(String key)
+  {
+    this(true, false);
+    
+    this.isCustom = true;
+    this.label = key+"_l";
+    this.title = key+"_t";
+    this.key = key;
+  }
+  
+  public void setCustom(boolean isCustom)
+  {
+    this.isCustom = isCustom;
+  }
+  
+  public boolean isCustom()
+  {
+    return isCustom;
+  }
+  
+  public String getKey()
+  {
+    return key;
+  }
+   
+  public String getDisplay()
+  {
+    return display;
+  }
+  
+  public void setDisplay(String display)
+  {
+    this.display = display;
   }
 
   public boolean isHidden()
