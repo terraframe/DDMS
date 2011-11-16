@@ -3,6 +3,8 @@ package dss.vector.solutions.query;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.MDSSInfo;
+
 public class QueryConstants implements Reloadable
 {
   public static final String  CATEGORY_OVERRIDE_PREPEND               = "enable_";
@@ -168,6 +170,11 @@ public class QueryConstants implements Reloadable
    */
   public static String getQueryClass(String namespacedType)
   {
+    if (namespacedType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
+    {
+      return MDSSInfo.TYPE_QB;
+    }
+
     return namespacedType.split(NAMESPACE_DELIM)[0];
   }
 

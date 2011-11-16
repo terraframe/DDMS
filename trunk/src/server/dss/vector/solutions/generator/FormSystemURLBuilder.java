@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.runwaysdk.constants.MdTypeInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
@@ -39,6 +40,10 @@ import com.runwaysdk.system.metadata.MdWebSingleTerm;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 import com.runwaysdk.system.metadata.WebGridField;
 
+import dss.vector.solutions.form.business.FormBedNet;
+import dss.vector.solutions.form.business.FormHousehold;
+import dss.vector.solutions.form.business.FormPerson;
+import dss.vector.solutions.form.business.FormSurvey;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.MenuItem;
 import dss.vector.solutions.general.SystemURL;
@@ -56,7 +61,29 @@ import dss.vector.solutions.util.ReadableAttributeView;
 
 public class FormSystemURLBuilder implements Reloadable
 {
-  private MdWebFormDAOIF mdForm;
+  /**
+   * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
+   * form survey query url
+   */
+  private static final String FORM_SURVEY_QUERY_URL = "Query form survey";
+
+  /**
+   * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
+   * form survey view all url
+   */
+  private static final String FORM_SURVEY_CRUD_URL  = "Enter form survey";
+
+  /**
+   * Prefix to add to before all generated CRUD URLs
+   */
+  private static final String CRUD_URL_PREFIX       = "Enter ";
+
+  /**
+   * Prefix to add to before all generated Query URLs
+   */
+  private static final String QUERY_URL_PREFIX      = "Query ";
+
+  private MdWebFormDAOIF      mdForm;
 
   public FormSystemURLBuilder(MdWebForm mdForm)
   {
@@ -71,8 +98,8 @@ public class FormSystemURLBuilder implements Reloadable
   @Transaction
   public void delete()
   {
-    SystemURL crudURL = SystemURL.getByKey("Enter " + mdForm.getValue(MdTypeInfo.NAME));
-    SystemURL queryURL = SystemURL.getByKey("Query " + mdForm.getValue(MdTypeInfo.NAME));
+    SystemURL crudURL = this.getCrudURL();
+    SystemURL queryURL = this.getQueryURL();
 
     this.deleteRoles(crudURL);
     this.deleteRoles(queryURL);
@@ -81,6 +108,25 @@ public class FormSystemURLBuilder implements Reloadable
 
     crudURL.delete();
     queryURL.delete();
+  }
+
+  @Transaction
+  public void add(MdClassDAOIF mdClass)
+  {
+    SystemURL crudURL = this.getCrudURL();
+
+    Disease[] diseases = Disease.getAllDiseases();
+
+    for (Disease disease : diseases)
+    {
+      // Create the Write role for the CRUD screen
+      WriteAction crudWriteAction = new WriteAction(crudURL, disease);
+      crudWriteAction.assign(mdClass);
+
+      // Create the Read Role for the CRUD screen
+      ReadAction crudReadAction = new ReadAction(crudURL, disease);
+      crudReadAction.assign(mdClass);
+    }
   }
 
   private void deleteMenu(SystemURL crudURL)
@@ -126,14 +172,13 @@ public class FormSystemURLBuilder implements Reloadable
     // Create the system url for the CRUD screen
     SystemURL crudURL = new SystemURL();
     crudURL.setUrl("dss.vector.solutions.form.FormObjectController.formGenerator.mojo?mdFormId=" + mdForm.getId());
-//    crudURL.setUrl("dss.vector.solutions.generator.ExcelController.importType.mojo?type=" + mdForm.definesType());
-    crudURL.getDisplayLabel().setValue("defaultLocale", "Enter " + mdForm.getValue(MdTypeInfo.NAME));
+    crudURL.getDisplayLabel().setValue("defaultLocale", this.getCrudURLKey());
     crudURL.apply();
 
     // Create the system url for the query screen
     SystemURL queryURL = new SystemURL();
     queryURL.setUrl("dss.vector.solutions.query.QueryController.queryType.mojo?type=" + mdForm.definesType());
-    queryURL.getDisplayLabel().setValue("defaultLocale", "Query " + mdForm.getValue(MdTypeInfo.NAME));
+    queryURL.getDisplayLabel().setValue("defaultLocale", this.getQueryURLKey());
     queryURL.apply();
 
     Disease[] diseases = Disease.getAllDiseases();
@@ -201,6 +246,42 @@ public class FormSystemURLBuilder implements Reloadable
 
   }
 
+  private SystemURL getCrudURL()
+  {
+    return SystemURL.getByKey(this.getCrudURLKey());
+  }
+
+  private SystemURL getQueryURL()
+  {
+    return SystemURL.getByKey(this.getQueryURLKey());
+  }
+
+  private String getQueryURLKey()
+  {
+    String formType = mdForm.definesType();
+
+    // All types on the form survey share the same hard-coded url
+    if (formType.equals(FormSurvey.FORM_TYPE) || formType.equals(FormHousehold.FORM_TYPE) || formType.equals(FormBedNet.FORM_TYPE) || formType.equals(FormPerson.FORM_TYPE))
+    {
+      return FORM_SURVEY_QUERY_URL;
+    }
+
+    return QUERY_URL_PREFIX + mdForm.getValue(MdTypeInfo.NAME);
+  }
+
+  private String getCrudURLKey()
+  {
+    String formType = mdForm.definesType();
+
+    // All types on the form survey share the same hard-coded url
+    if (formType.equals(FormSurvey.FORM_TYPE) || formType.equals(FormHousehold.FORM_TYPE) || formType.equals(FormBedNet.FORM_TYPE) || formType.equals(FormPerson.FORM_TYPE))
+    {
+      return FORM_SURVEY_CRUD_URL;
+    }
+
+    return CRUD_URL_PREFIX + mdForm.getValue(MdTypeInfo.NAME);
+  }
+
   @Request
   public static void main(String[] args)
   {
@@ -215,4 +296,5 @@ public class FormSystemURLBuilder implements Reloadable
       new FormSystemURLBuilder(mdForm).generate();
     }
   }
+
 }

@@ -21,6 +21,7 @@ import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebMultipleTerm;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.generator.FormSystemURLBuilder;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.BrowserRoot;
@@ -54,7 +55,7 @@ public class WebMultipleTermBuilder extends WebAttributeBuilder implements Reloa
   protected void create()
   {
     super.create();
-
+    
     MdWebMultipleTerm mdWebMultipleTerm = this.getMdField();
     MdAttributeReference mdAttributeReference = (MdAttributeReference) mdWebMultipleTerm.getDefiningMdAttribute();
 
@@ -85,6 +86,9 @@ public class WebMultipleTermBuilder extends WebAttributeBuilder implements Reloa
     mdTree.setStructValue(MdTreeInfo.CHILD_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdClass.getDisplayLabel().getValue());
     mdTree.setGenerateMdController(false);
     mdTree.apply();
+    
+    FormSystemURLBuilder builder = new FormSystemURLBuilder(mdWebMultipleTerm.getDefiningMdForm());
+    builder.add(mdTree);
   }
 
   @Override

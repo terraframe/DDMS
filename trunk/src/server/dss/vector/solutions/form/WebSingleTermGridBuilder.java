@@ -21,6 +21,7 @@ import com.runwaysdk.system.metadata.MdWebPrimitive;
 import com.runwaysdk.system.metadata.MdWebSingleTermGrid;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.generator.FormSystemURLBuilder;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.ontology.BrowserField;
 import dss.vector.solutions.ontology.BrowserRoot;
@@ -85,6 +86,9 @@ public class WebSingleTermGridBuilder extends WebAttributeBuilder implements Rel
     mdTree.setStructValue(MdTreeInfo.CHILD_DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE, mdClass.getDisplayLabel().getValue());
     mdTree.setGenerateMdController(false);
     mdTree.apply();
+    
+    FormSystemURLBuilder builder = new FormSystemURLBuilder(mdWebSingleTermGrid.getDefiningMdForm());
+    builder.add(mdTree);
   }
 
   @Override
