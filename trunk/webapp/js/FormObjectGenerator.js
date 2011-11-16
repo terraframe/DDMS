@@ -1788,7 +1788,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       var values = new com.runwaysdk.structure.HashMap(Mojo.Util.collectFormValues(this._formObject.getId()));
       var fields = this._formObject.getFields();
       
-      for(var i=0, len=fields.length; i<len; i++)
+      for(var i=0, len=fields.length; i<len ; i++)
       {
         var field = fields[i];
         var name = field.getFieldName();
@@ -1816,13 +1816,13 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
         else if(field instanceof FIELD.WebSingleTermGrid)
         {
           var rows = field.getGrid().getModel().getRows();
-          for(var i=0; i<rows.length; i++)
+          for(var j=0; j<rows.length; j++)
           {
-            var row = rows[i];
+            var row = rows[j];
             var cols =  Mojo.Util.getKeys(row, true);
-            for(var j=0; j<cols.length; j++)
+            for(var k=0; k<cols.length; k++)
             {
-              var col = cols[j];
+              var col = cols[k];
               var val = row[col];
               if(!Mojo.Util.isValid(val) || (Mojo.Util.isNumber(val) && isNaN(val)))
               {

@@ -388,7 +388,8 @@ public class FormObjectController extends FormObjectControllerBase implements
         
         JSONObject entry = new JSONObject();
         entry.put("mdField", field.getFieldMd().getId());
-        JSONArray arr = new JSONArray(field.getValue());
+        
+        JSONArray arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
         entry.put("rows", arr);
         
         singleTermGridJSON.put(entry);
