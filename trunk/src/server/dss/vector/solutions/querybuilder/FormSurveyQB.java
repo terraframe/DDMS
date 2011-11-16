@@ -47,7 +47,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
     this.addGeoDisplayLabelQuery(surveyQuery);
     QueryUtil.joinTermAllpaths(valueQuery, surveyQuery.getClassType(), surveyQuery);
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyQuery.get(MdFormUtil.DISEASE));
-    this.getSingleAttributeGridSql(valueQuery, surveyQuery);
+    this.getSingleAttributeGridSql(valueQuery, surveyQuery, "id");
 
     if (householdQuery != null)
     {
@@ -56,7 +56,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       this.addGeoDisplayLabelQuery(householdQuery);
       QueryUtil.joinTermAllpaths(valueQuery, householdQuery.getClassType(), householdQuery);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, householdQuery.get(MdFormUtil.DISEASE));
-      this.getSingleAttributeGridSql(valueQuery, householdQuery);
+      this.getSingleAttributeGridSql(valueQuery, householdQuery, "id");
     }
 
     if (personQuery != null)
@@ -72,7 +72,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       this.addGeoDisplayLabelQuery(personQuery);
       QueryUtil.joinTermAllpaths(valueQuery, personQuery.getClassType(), personQuery);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, personQuery.get(MdFormUtil.DISEASE));
-      this.getSingleAttributeGridSql(valueQuery, personQuery);
+      this.getSingleAttributeGridSql(valueQuery, personQuery, "id");
     }
 
     if (bedNetQuery != null)
@@ -90,18 +90,18 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         this.addGeoDisplayLabelQuery(bedNetQuery);
         QueryUtil.joinTermAllpaths(valueQuery, bedNetQuery.getClassType(), bedNetQuery);
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
-        this.getSingleAttributeGridSql(valueQuery, bedNetQuery);
+        this.getSingleAttributeGridSql(valueQuery, bedNetQuery, "id");
       }
       else
       {
         // left join against the person if person is in this query
         LeftJoinEq leftJoin = personQuery.getNet().LEFT_JOIN_EQ(bedNetQuery);
         valueQuery.WHERE(leftJoin);
-
+        
         this.addGeoDisplayLabelQuery(bedNetQuery);
         QueryUtil.leftJoinTermDisplayLabels(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias());
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
-        this.getSingleAttributeGridSql(valueQuery, bedNetQuery);
+        this.getSingleAttributeGridSql(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias());
       }
 
     }
@@ -118,9 +118,10 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
    * 
    * @param valueQuery
    * @param query
+   * @param idColumnAlias TODO
    * @return
    */
-  private boolean getSingleAttributeGridSql(ValueQuery valueQuery, GeneratedEntityQuery query)
+  private boolean getSingleAttributeGridSql(ValueQuery valueQuery, GeneratedEntityQuery query, String idColumnAlias)
   {
     boolean foundGrid = false;
 
@@ -178,7 +179,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
           // The default convention is that the child in the relationship is the
           // Term class
           String tableAlias = query.getTableAlias();
-          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + term_id + "' " + "AND " + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + tableAlias + ".id";
+          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + term_id + "' " + "AND " + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + tableAlias + "." + idColumnAlias;
 
           ( (SelectableSQL) s ).setSQL(sql);
         }
