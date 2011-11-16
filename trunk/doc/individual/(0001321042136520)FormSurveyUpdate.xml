@@ -53,44 +53,7 @@
             name="netId"
             rename="oid" />
         </attributes>
-      </mdBusiness>
-
-      <mdWebForm
-        name="dss.vector.solutions.form.FormSurvey">
-        <fields>
-          <char
-            name="surveyId"
-            mdAttribute="oid" />
-        </fields>
-      </mdWebForm>
-
-      <mdWebForm
-        name="dss.vector.solutions.form.FormHousehold">
-        <fields>
-          <char
-            name="householdId"
-            mdAttribute="oid" />
-        </fields>
-      </mdWebForm>
-
-      <mdWebForm
-        name="dss.vector.solutions.form.FormPerson">
-        <create>
-          <fields>
-            <char
-              name="personId"
-              mdAttribute="oid" />
-          </fields>
-        </create>
-      </mdWebForm>
-      
-      <mdWebForm
-         name="dss.vector.solutions.form.FormBedNet">
-        <fields>
-          <char name="netId" mdAttribute="oid" />
-        </fields>
-      </mdWebForm>
-      
+      </mdBusiness>      
     </update>
   </doIt>
   <undoIt>
