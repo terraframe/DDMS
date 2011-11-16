@@ -2620,10 +2620,10 @@ var CharacterCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'Charact
       var isTrue = false;
       switch (op) {
         case 'EQ':
-          isTrue = changedValue == value;
+          isTrue = changedValue === value;
           break;
         case 'NEQ':
-          isTrue = changedValue != value;
+          isTrue = changedValue !== value;
           break;
         default:
           isTrue = false;

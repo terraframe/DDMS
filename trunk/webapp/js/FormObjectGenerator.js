@@ -1265,14 +1265,21 @@ var BooleanComponent = Mojo.Meta.newClass('dss.vector.solutions.BooleanComponent
     forceValueChangeEvent : function(){
     
       var els = document.getElementsByName(this.getField().getFieldName());
+      var found = false;
       for(var i=0, len=els.length; i<len; i++){
         var el = els[i];
         if(el.checked){
           // FIXME use library
+          found = true;
           var evt = document.createEvent("HTMLEvents");
           evt.initEvent("change", true, false);
           el.dispatchEvent(evt);
         }
+      }
+      
+      if(!found){
+        // no box was checked, so all conditions MUST fail since it's neither true nor false.
+        this.dispatchEvent(new ValueChangeEvent(null));
       }
     }
   }

@@ -42,6 +42,9 @@
 	      <mjl:input type="text" value="${geoId}" id="${condition.id}_value" /> 
 	      <mjl:input type="hidden" param="value" value="${condition.value}" id="${condition.id}_value_geoEntityId" /> 
 	    </c:when>
+	    <c:when test="${isBool}">
+	      <mjl:boolean param="value" />
+	    </c:when>
 	    <c:otherwise>
 	      <mjl:input type="text" param="value" value="${condition.value}" id="${condition.id}_value" /> 
 	    </c:otherwise>
