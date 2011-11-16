@@ -9,13 +9,17 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Relationship;
+import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.excel.ExcelAdapter;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.io.excel.ImportListener;
+import com.runwaysdk.dataaccess.metadata.FieldValidationProblem;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
@@ -25,11 +29,13 @@ import dss.vector.solutions.ontology.TermRootCache;
 
 public class MultiTermListener extends ExcelAdapter implements ExcelExportListener, ImportListener, Reloadable
 {
-  private MdWebMultipleTermDAOIF mdField;
+  private MdWebMultipleTermDAOIF    mdField;
 
-  private List<Relationship>     relationships;
+  private List<Relationship>        relationships;
 
-  private String                 relationshipMethod;
+  private String                    relationshipMethod;
+
+  private List<FieldConditionDAOIF> conditions;
 
   public MultiTermListener(MdWebMultipleTermDAOIF mdField, String relationshipName)
   {
@@ -37,6 +43,7 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     this.relationshipMethod = relationshipName;
 
     this.relationships = new LinkedList<Relationship>();
+    this.conditions = mdField.getConditions();
   }
 
   @Override
@@ -97,9 +104,36 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     }
   }
 
+  private void validateConditions(Mutable instance)
+  {
+    for (FieldConditionDAOIF condition : conditions)
+    {
+      boolean valid = condition.evaluate(instance);
+
+      if (!valid)
+      {
+        MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(instance.getType());
+        MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();
+        
+        String formattedString = condition.getFormattedString();
+        String msg = "Attribute is not applicable when [" + condition + "] does not evaluate to true";
+
+        FieldValidationProblem problem = new FieldValidationProblem(instance.getId(), mdClass, mdAttribute, msg);
+        problem.setCondition(formattedString);
+        problem.throwIt();
+      }
+    }
+  }
+
   @Override
   public void afterApply(Mutable instance)
   {
+    if(this.relationships.size() > 0)
+    {
+      // Validate any conditions on the field
+      this.validateConditions(instance);
+    }
+    
     for (Relationship relationship : relationships)
     {
       relationship.apply();

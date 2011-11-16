@@ -17,7 +17,9 @@ import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Relationship;
+import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
@@ -25,6 +27,7 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.AttributeColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelColumn;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.FieldValidationProblem;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -44,6 +47,12 @@ public class GridContext extends ImportContext implements Reloadable
 
   private HashMap<String, ExcelColumn> columnNameMapping;
 
+  private List<FieldConditionDAOIF>    conditions;
+
+  private MdBusinessDAOIF              mdClass;
+
+  private MdAttributeDAOIF             mdAttribute;
+
   public GridContext(HSSFSheet sheet, String sheetName, HSSFSheet error, MdRelationshipDAOIF mdRelationship, MdWebSingleTermGridDAOIF mdCompositeField)
   {
     super(sheet, sheetName, error, mdRelationship);
@@ -51,6 +60,9 @@ public class GridContext extends ImportContext implements Reloadable
     this.roots = TermRootCache.getRoots(mdCompositeField.getDefiningMdAttribute());
     this.map = new HashMap<Term, List<ExcelColumn>>();
     this.columnNameMapping = new HashMap<String, ExcelColumn>();
+    this.conditions = mdCompositeField.getConditions();
+    this.mdClass = mdRelationship.getParentMdBusiness();
+    this.mdAttribute = mdCompositeField.getDefiningMdAttribute();
 
     for (Term root : roots)
     {
@@ -101,6 +113,9 @@ public class GridContext extends ImportContext implements Reloadable
 
     Mutable instance = this.getInstance(oid);
 
+    boolean hasGridValues = false;
+    List<Relationship> relationships = new LinkedList<Relationship>();
+
     try
     {
       Class<? extends Mutable> clazz = instance.getClass();
@@ -121,9 +136,16 @@ public class GridContext extends ImportContext implements Reloadable
           {
             HSSFCell cell = row.getCell(column.getIndex());
 
-            Object attributeValue = attributeColumn.getValue(cell);
+            if (cell != null)
+            {
+              Object value = attributeColumn.getValue(cell);
 
-            attributeColumn.setInstanceValue(relationship, attributeValue);
+              if (value != null)
+              {
+                attributeColumn.setInstanceValue(relationship, value);
+                hasGridValues = true;
+              }
+            }
           }
           catch (InvocationTargetException e)
           {
@@ -152,7 +174,17 @@ public class GridContext extends ImportContext implements Reloadable
           problemsInTransaction.clear();
         }
 
-        relationship.apply();
+        relationships.add(relationship);
+      }
+
+      if (hasGridValues)
+      {
+        this.validateConditions(instance);
+
+        for (Relationship relationship : relationships)
+        {
+          relationship.apply();
+        }
       }
     }
     catch (InvocationTargetException e)
@@ -214,4 +246,23 @@ public class GridContext extends ImportContext implements Reloadable
 
     throw e;
   }
+
+  private void validateConditions(Mutable instance)
+  {
+    for (FieldConditionDAOIF condition : conditions)
+    {
+      boolean valid = condition.evaluate(instance);
+
+      if (!valid)
+      {
+        String formattedString = condition.getFormattedString();
+        String msg = "Attribute is not applicable when [" + condition + "] does not evaluate to true";
+
+        FieldValidationProblem problem = new FieldValidationProblem(instance.getId(), mdClass, mdAttribute, msg);
+        problem.setCondition(formattedString);
+        problem.throwIt();
+      }
+    }
+  }
+
 }
