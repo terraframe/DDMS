@@ -4,10 +4,16 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.RelationshipDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.ValueQuery;
 
 import dss.vector.solutions.form.business.FormBedNet;
@@ -41,7 +47,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
     this.addGeoDisplayLabelQuery(surveyQuery);
     QueryUtil.joinTermAllpaths(valueQuery, surveyQuery.getClassType(), surveyQuery);
     QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, surveyQuery.get(MdFormUtil.DISEASE));
-    QueryUtil.getSingleAttribteGridSql(valueQuery, surveyQuery.getTableAlias());
+    this.getSingleAttributeGridSql(valueQuery, surveyQuery);
 
     if (householdQuery != null)
     {
@@ -50,7 +56,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       this.addGeoDisplayLabelQuery(householdQuery);
       QueryUtil.joinTermAllpaths(valueQuery, householdQuery.getClassType(), householdQuery);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, householdQuery.get(MdFormUtil.DISEASE));
-      QueryUtil.getSingleAttribteGridSql(valueQuery, householdQuery.getTableAlias());
+      this.getSingleAttributeGridSql(valueQuery, householdQuery);
     }
 
     if (personQuery != null)
@@ -66,7 +72,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
       this.addGeoDisplayLabelQuery(personQuery);
       QueryUtil.joinTermAllpaths(valueQuery, personQuery.getClassType(), personQuery);
       QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, personQuery.get(MdFormUtil.DISEASE));
-      QueryUtil.getSingleAttribteGridSql(valueQuery, personQuery.getTableAlias());
+      this.getSingleAttributeGridSql(valueQuery, personQuery);
     }
 
     if (bedNetQuery != null)
@@ -84,7 +90,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         this.addGeoDisplayLabelQuery(bedNetQuery);
         QueryUtil.joinTermAllpaths(valueQuery, bedNetQuery.getClassType(), bedNetQuery);
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
-        QueryUtil.getSingleAttribteGridSql(valueQuery, bedNetQuery.getTableAlias());
+        this.getSingleAttributeGridSql(valueQuery, bedNetQuery);
       }
       else
       {
@@ -95,7 +101,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         this.addGeoDisplayLabelQuery(bedNetQuery);
         QueryUtil.leftJoinTermDisplayLabels(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias());
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
-        QueryUtil.getSingleAttribteGridSql(valueQuery, bedNetQuery.getTableAlias());
+        this.getSingleAttributeGridSql(valueQuery, bedNetQuery);
       }
 
     }
@@ -104,6 +110,81 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
     valueQuery.FROM(surveyQuery.getMdClassIF().getTableName(), surveyQuery.getTableAlias());
 
     return valueQuery;
+  }
+  
+  /**
+   * Gets the grid attributes for the given GeneratedEntityQuery. This also checks that the given query
+   * actually defines the grid, whereas the version defined in QueryUtil doesn't do that.
+   * 
+   * @param valueQuery
+   * @param query
+   * @return
+   */
+  private boolean getSingleAttributeGridSql(ValueQuery valueQuery, GeneratedEntityQuery query)
+  {
+    boolean foundGrid = false;
+
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String gridAlias = s.getUserDefinedAlias();
+        int index1 = gridAlias.indexOf("__");
+        int index2 = gridAlias.lastIndexOf("__");
+        if (index1 > 0 && index2 > 0 && index1 != index2)
+        {
+          foundGrid = true;
+
+          String attrib = gridAlias.substring(0, index1);
+
+          // here we make a dummy value when the relationship has no ammount
+          if (attrib.equals(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE))
+          {
+            attrib = QueryUtil.DUMMY_RELATIONSHIP_VALUE_COL;
+          }
+
+          String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
+          String term_id = gridAlias.substring(index2 + 2, gridAlias.length());
+
+          MdRelationshipDAOIF mdRel = MdRelationshipDAO.getMdRelationshipDAO(klass);
+          
+          // make sure the given query is the parent type in the relationship
+          // FIXME does not take inheritance into account
+          String parentClass = mdRel.getParentMdBusiness().definesType();
+          String queryClass = query.getClassType();
+          if(!parentClass.equals(queryClass))
+          {
+            continue;
+          }
+          
+          String table = mdRel.getTableName();
+
+          String attrCol;
+          if (attrib.equals(QueryUtil.DUMMY_RELATIONSHIP_VALUE_COL))
+          {
+            attrCol = QueryUtil.DUMMY_RELATIONSHIP_VALUE_COL;
+          }
+          else
+          {
+            attrCol = QueryUtil.getColumnName(mdRel, attrib);
+          }
+
+          // The default convention is that the child in the relationship is the
+          // Term class
+          String tableAlias = query.getTableAlias();
+          String sql = "SELECT " + attrCol + " FROM " + table + " WHERE " + RelationshipDAOIF.CHILD_ID_COLUMN + " = '" + term_id + "' " + "AND " + RelationshipDAOIF.PARENT_ID_COLUMN + " = " + tableAlias + ".id";
+
+          ( (SelectableSQL) s ).setSQL(sql);
+        }
+      }
+    }
+    return foundGrid;
   }
 
   /**

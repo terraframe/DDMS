@@ -508,7 +508,7 @@ public class QueryUtil implements Reloadable
   {
     return getSingleAttribteGridSql(valueQuery, tableAlias, RelationshipDAOIF.PARENT_ID_COLUMN, RelationshipDAOIF.CHILD_ID_COLUMN);
   }
-
+  
   public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias, String parentColumn, String childColumn)
   {
     boolean foundGrid = false;
