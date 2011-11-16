@@ -434,15 +434,18 @@ MDSS.QueryPanel.prototype = {
   
   disableDates : function(disableStart, disableEnd)
   {
-    if(disableStart !== null)
-    {
-      this._startDateRangeCheck.disabled = disableStart;
-    }
+	if(this.getRenderDateRange())
+	{
+      if(disableStart !== null)
+      {
+        this._startDateRangeCheck.disabled = disableStart;
+      }
     
-    if(disableEnd !== null)
-    {
+      if(disableEnd !== null)
+      {
       this._endDateRangeCheck.disabled = disableEnd;
-    }
+      }
+	}
   },
   
   getDateGroupBy : function()
@@ -454,30 +457,33 @@ MDSS.QueryPanel.prototype = {
    */
   disableDateCheck : function()
   {
-    if(this._startDate.value.length == 0)
+    if(this.getRenderDateRange())
     {
-      if(this._startDateRangeCheck.checked)
+      if(this._startDate.value.length == 0)
       {
-        this._startDateRangeCheck.click();
+        if(this._startDateRangeCheck.checked)
+        {
+          this._startDateRangeCheck.click();
+        }
+        this._startDateRangeCheck.disabled = true;
       }
-      this._startDateRangeCheck.disabled = true;
-    }
-    else
-    {
-      this._startDateRangeCheck.disabled = false;
-    }
+      else
+      {
+        this._startDateRangeCheck.disabled = false;
+      }
 
-    if(this._endDate.value.length == 0)
-    {
-      if(this._endDateRangeCheck.checked)
+      if(this._endDate.value.length == 0)
       {
-        this._endDateRangeCheck.click();
+        if(this._endDateRangeCheck.checked)
+        {
+          this._endDateRangeCheck.click();
+        }
+        this._endDateRangeCheck.disabled = true;
       }
-      this._endDateRangeCheck.disabled = true;
-    }
-    else
-    {
-      this._endDateRangeCheck.disabled = false;
+      else
+      {
+        this._endDateRangeCheck.disabled = false;
+      }
     }
   },
 
