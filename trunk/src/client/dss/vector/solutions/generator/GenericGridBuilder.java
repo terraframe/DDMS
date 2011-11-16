@@ -18,8 +18,8 @@ import com.runwaysdk.form.web.WebFormObject;
 import com.runwaysdk.form.web.field.WebSingleTermGrid;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdFieldDTO;
 import com.runwaysdk.system.metadata.MdRelationshipDTO;
+import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermGridDTO;
 
 import dss.vector.solutions.GridBuilder;
@@ -152,7 +152,6 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
       String busClass = this.grid.getFieldMd().getDefiningClass();
       String attribute = this.grid.getFieldMd().getDefiningAttribute();
       
-      // TODO sorting
       Set<RelationshipDTO> data = new LinkedHashSet<RelationshipDTO>();
       List<TermDTO> terms = Arrays.asList(TermDTO.getAllTermsForField(this.request, busClass, attribute));
       Collections.sort(terms, new TermComparator());
@@ -181,19 +180,18 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
   
   private String[] getKeys()
   {
-    // FIXME add field order
     // FIXME add hidden/editable/read
-    List<? extends MdFieldDTO> columnFields = this.mdField.getAllMdFields();
-    String[] keys = new String[columnFields.size()+4];
+    MdWebPrimitiveDTO[] columnFields = MdFormUtilDTO.getCompositeFields(this.request, this.mdField.getId());
+    String[] keys = new String[columnFields.length+4];
 
     keys[0] = "parentId"; // Business Id
     keys[1] = "childId"; // Term Id
     keys[2] = "relId"; // Relationship Id
     keys[3] = "termDisplayLabel";
     
-    for (int i = 0; i < columnFields.size(); i++)
+    for (int i = 0; i < columnFields.length; i++)
     {
-      keys[i+4] = columnFields.get(i).getFieldName();
+      keys[i+4] = columnFields[i].getFieldName();
     }
 
     return keys;
