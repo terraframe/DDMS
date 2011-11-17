@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -15,13 +16,17 @@ import org.apache.poi.hssf.usermodel.HSSFSheet;
 import com.runwaysdk.ProblemIF;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Relationship;
+import com.runwaysdk.business.RelationshipQuery;
 import com.runwaysdk.dataaccess.FieldConditionDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
+import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.excel.AttributeColumn;
@@ -41,17 +46,19 @@ import dss.vector.solutions.ontology.TermRootCache;
 
 public class GridContext extends ImportContext implements Reloadable
 {
-  private Term[]                       roots;
+  private Term[]                                               roots;
 
-  private Map<Term, List<ExcelColumn>> map;
+  private Map<Term, List<ExcelColumn>>                         map;
 
-  private HashMap<String, ExcelColumn> columnNameMapping;
+  private HashMap<String, ExcelColumn>                         columnNameMapping;
 
-  private List<FieldConditionDAOIF>    conditions;
+  private List<FieldConditionDAOIF>                            conditions;
 
-  private MdBusinessDAOIF              mdClass;
+  private HashMap<MdWebMultipleTermDAOIF, MdRelationshipDAOIF> multiTermFields;
 
-  private MdAttributeDAOIF             mdAttribute;
+  private MdBusinessDAOIF                                      mdClass;
+
+  private MdAttributeDAOIF                                     mdAttribute;
 
   public GridContext(HSSFSheet sheet, String sheetName, HSSFSheet error, MdRelationshipDAOIF mdRelationship, MdWebSingleTermGridDAOIF mdCompositeField)
   {
@@ -63,10 +70,24 @@ public class GridContext extends ImportContext implements Reloadable
     this.conditions = mdCompositeField.getConditions();
     this.mdClass = mdRelationship.getParentMdBusiness();
     this.mdAttribute = mdCompositeField.getDefiningMdAttribute();
+    this.multiTermFields = new HashMap<MdWebMultipleTermDAOIF, MdRelationshipDAOIF>();
 
     for (Term root : roots)
     {
       this.map.put(root, new LinkedList<ExcelColumn>());
+    }
+
+    List<? extends MdFieldDAOIF> fields = mdCompositeField.getMdForm().getAllMdFields();
+
+    for (MdFieldDAOIF mdField : fields)
+    {
+      if (mdField instanceof MdWebMultipleTermDAOIF)
+      {
+        MdWebMultipleTermDAOIF mdWebMultiTerm = (MdWebMultipleTermDAOIF) mdField;
+        MdRelationshipDAOIF termRelationship = MdFormUtil.getMdRelationship(mdWebMultiTerm);
+
+        this.multiTermFields.put(mdWebMultiTerm, termRelationship);
+      }
     }
   }
 
@@ -249,9 +270,14 @@ public class GridContext extends ImportContext implements Reloadable
 
   private void validateConditions(Mutable instance)
   {
+    // First build the extra entity mapping of the instance object. We need to
+    // do this in order for conditions on multi term fields to evaluate
+    // correctly
+    HashMap<String, List<Entity>> extraEntities = this.getExtraEntities(instance);
+
     for (FieldConditionDAOIF condition : conditions)
     {
-      boolean valid = condition.evaluate(instance);
+      boolean valid = condition.evaluate(instance, extraEntities);
 
       if (!valid)
       {
@@ -265,4 +291,39 @@ public class GridContext extends ImportContext implements Reloadable
     }
   }
 
+  private HashMap<String, List<Entity>> getExtraEntities(Mutable instance)
+  {
+    HashMap<String, List<Entity>> extraFieldEntities = new HashMap<String, List<Entity>>();
+
+    Set<MdWebMultipleTermDAOIF> multiTermFields = this.multiTermFields.keySet();
+    for (MdWebMultipleTermDAOIF mdWebMultiTerm : multiTermFields)
+    {
+      MdRelationshipDAOIF mdRelationship = this.multiTermFields.get(mdWebMultiTerm);
+
+      List<Entity> entities = new LinkedList<Entity>();
+
+      QueryFactory factory = new QueryFactory();
+
+      RelationshipQuery query = factory.relationshipQuery(mdRelationship.definesType());
+      query.WHERE(query.parentId().EQ(instance.getId()));
+
+      OIterator<Relationship> it = query.getIterator();
+
+      try
+      {
+        while (it.hasNext())
+        {
+          entities.add(it.next());
+        }
+
+        extraFieldEntities.put(mdWebMultiTerm.getId(), entities);
+      }
+      finally
+      {
+        it.close();
+      }
+
+    }
+    return extraFieldEntities;
+  }
 }

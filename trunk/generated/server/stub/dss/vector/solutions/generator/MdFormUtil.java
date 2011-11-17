@@ -25,6 +25,8 @@ import com.runwaysdk.dataaccess.MdFieldDAOIF;
 import com.runwaysdk.dataaccess.MdFormDAOIF;
 import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MdTypeDAOIF;
+import com.runwaysdk.dataaccess.MdWebAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdWebFieldDAOIF;
 import com.runwaysdk.dataaccess.MdWebFormDAOIF;
 import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
@@ -140,49 +142,50 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     String sessionId = Session.getCurrentSession().getId();
     busObj.apply();
-    
+
     try
     {
       // create the grid rows
       JSONArray entries = new JSONArray(singleTermGridJSON);
-      for(int i=0; i<entries.length(); i++)
+      for (int i = 0; i < entries.length(); i++)
       {
         JSONObject entry = entries.getJSONObject(i);
-        
+
         String mdFieldId = entry.getString("mdField");
         MdWebSingleTermGrid grid = MdWebSingleTermGrid.get(mdFieldId);
         String relType = getRelationshipType(grid);
         MdWebPrimitive[] gridFields = MdFormUtil.getCompositeFields(mdFieldId);
-        
+
         JSONArray rows = entry.getJSONArray("rows");
-        for(int j=0; j<rows.length(); j++)
+        for (int j = 0; j < rows.length(); j++)
         {
           JSONObject row = rows.getJSONObject(j);
           String childId = row.getString("childId");
           String relId = row.getString("relId");
-          
-          // convert the field name to the key sent by the grid (as created in YUIColumn's constructor).
+
+          // convert the field name to the key sent by the grid (as created in
+          // YUIColumn's constructor).
           Relationship rel;
           try
           {
             rel = Relationship.get(relId);
             rel.appLock();
           }
-          catch(DataNotFoundException e)
+          catch (DataNotFoundException e)
           {
             rel = BusinessFacade.newRelationship(busObj.getId(), childId, relType);
           }
-          
-          for(MdWebPrimitive gridField : gridFields)
+
+          for (MdWebPrimitive gridField : gridFields)
           {
             String key = CommonGenerationUtil.upperFirstCharacter(gridField.getFieldName());
             MdAttributeConcreteDAOIF attr = MdAttributeConcreteDAO.get(gridField.getDefiningMdAttributeId());
-            String attrName =  attr.definesAttribute();
-            
+            String attrName = attr.definesAttribute();
+
             // null out any values that aren't in the JSON
-            if(SessionFacade.checkAttributeAccess(sessionId, Operation.WRITE, attr))
+            if (SessionFacade.checkAttributeAccess(sessionId, Operation.WRITE, attr))
             {
-              if(row.has(key))
+              if (row.has(key))
               {
                 String value = row.getString(key);
                 rel.setValue(attrName, value);
@@ -193,17 +196,17 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
               }
             }
           }
-          
+
           rel.apply();
         }
       }
-      
+
     }
     catch (JSONException e)
     {
       throw new ProgrammingErrorException(e);
     }
-    
+
     // Create the relationships between the MdBusiness and Term class for
     // the multiple term field.
     try
@@ -862,9 +865,21 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return MdRelationship.get(mdRelationship.getId());
   }
 
+  public static MdRelationshipDAOIF getMdRelationship(MdWebFieldDAOIF field)
+  {
+    String relationshipType = MdFormUtil.getRelationshipType(field);
+
+    return MdRelationshipDAO.getMdRelationshipDAO(relationshipType);
+  }
+
   private static String getRelationshipType(MdWebField field)
   {
     return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttribute) field);
+  }
+
+  private static String getRelationshipType(MdWebFieldDAOIF field)
+  {
+    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttributeDAOIF) field);
   }
 
   public static MdAttributeConcrete[] definesAttributes(MdRelationship mdRelationship)

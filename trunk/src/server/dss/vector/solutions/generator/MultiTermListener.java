@@ -2,11 +2,13 @@ package dss.vector.solutions.generator;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFRow;
 
+import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.Mutable;
 import com.runwaysdk.business.Relationship;
 import com.runwaysdk.dataaccess.FieldConditionDAOIF;
@@ -104,17 +106,17 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     }
   }
 
-  private void validateConditions(Mutable instance)
+  private void validateConditions(Mutable instance, HashMap<String, List<Entity>> entities)
   {
     for (FieldConditionDAOIF condition : conditions)
     {
-      boolean valid = condition.evaluate(instance);
+      boolean valid = condition.evaluate(instance, entities);
 
       if (!valid)
       {
         MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(instance.getType());
         MdAttributeDAOIF mdAttribute = mdField.getDefiningMdAttribute();
-        
+
         String formattedString = condition.getFormattedString();
         String msg = "Attribute is not applicable when [" + condition + "] does not evaluate to true";
 
@@ -126,14 +128,24 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
   }
 
   @Override
-  public void afterApply(Mutable instance)
+  public void addAdditionalEntities(HashMap<String, List<Entity>> map)
   {
-    if(this.relationships.size() > 0)
+    map.put(this.mdField.getId(), new LinkedList<Entity>(this.relationships));
+  }
+
+  @Override
+  public void validate(Mutable instance, HashMap<String, List<Entity>> entities)
+  {
+    if (this.relationships.size() > 0)
     {
       // Validate any conditions on the field
-      this.validateConditions(instance);
+      this.validateConditions(instance, entities);
     }
-    
+  }
+
+  @Override
+  public void afterApply(Mutable instance)
+  {
     for (Relationship relationship : relationships)
     {
       relationship.apply();
