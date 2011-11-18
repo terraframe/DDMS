@@ -879,6 +879,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           that.existingForms();
           that._currentMdFormId = document.getElementsByName("form.componentId")[0].value;
           that._Y.one('#'+that.constructor.TABBED_FORM_BOX).setStyle('visibility', 'visible');
+          
+          that.fetchFormFields(true);
         }
       });
       
@@ -1387,7 +1389,7 @@ Mojo.Meta.newClass('dss.vector.solutions.GridFieldAdmin',
     confirmDeleteMdField : function(fieldId)
     {
       var request = new MDSS.Request({
-    	that : this,
+      that : this,
         onFailure : function(e)
         {
           var wrapperDiv = this.that._Factory.newElement('div');
@@ -1495,11 +1497,11 @@ Mojo.Meta.newClass('dss.vector.solutions.GridFieldAdmin',
     {
       var fieldId = fieldMap['mdField.componentId'];
       var request = new MDSS.Request({
-    	that : this,
+      that : this,
         onSuccess : function(html)
         {
           this.that._fieldFormDialog.hide();
-    	  this.that.refreshFields();
+          this.that.refreshFields();
         }
       });
       
