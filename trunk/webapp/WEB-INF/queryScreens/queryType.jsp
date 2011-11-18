@@ -7,9 +7,9 @@
 <%@page import="com.runwaysdk.constants.ClientConstants"%>
 <%@page import="java.util.List"%>
 <%@page import="dss.vector.solutions.util.Halp"%>
-
-
 <%@page import="dss.vector.solutions.query.SelectableGroup"%>
+
+<c:set var="page_title" value="Query_Form"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="/WEB-INF/inlineError.jsp" />
