@@ -296,7 +296,7 @@ public class FormObjectController extends FormObjectControllerBase implements
     {
       FieldIF field = fields[i];
       JSONObject fieldJSON = fieldsArr.getJSONObject(i);
-      if (editMode && field instanceof WebMultipleTerm && !formObject.isNewInstance())
+      if (field instanceof WebMultipleTerm && !formObject.isNewInstance())
       {
         WebMultipleTerm mTerm = (WebMultipleTerm) field;
         String parentId = formObject.getDataId();
