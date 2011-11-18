@@ -65,13 +65,13 @@ public class FormSystemURLBuilder implements Reloadable
    * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
    * form survey query url
    */
-  private static final String FORM_SURVEY_QUERY_URL = "Query form survey";
+  private static final String FORM_SURVEY_QUERY_URL = "Query MERG survey model";
 
   /**
    * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
    * form survey view all url
    */
-  private static final String FORM_SURVEY_CRUD_URL  = "Enter form survey";
+  private static final String FORM_SURVEY_CRUD_URL  = "Enter MERG survey model";
 
   /**
    * Prefix to add to before all generated CRUD URLs
