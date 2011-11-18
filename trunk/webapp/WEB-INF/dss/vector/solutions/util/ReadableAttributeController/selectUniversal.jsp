@@ -842,6 +842,198 @@
     </dd>    
   </dl>  
   
+  <!-- Form admin -->
+  <dl>
+    <dt><label><mdss:localize key="Manage_Form_Admin"/></label></dt>
+    <dd>
+      <mdss:localize var="component" key="Form"/>
+      <mjl:commandLink
+        name="Form"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebForm" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Boolean_Field"/>
+      <mjl:commandLink
+        name="Boolean_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebBoolean" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Character_Field"/>
+      <mjl:commandLink
+        name="Character_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebCharacter" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Text_Field"/>
+      <mjl:commandLink
+        name="Text_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebText" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Integer_Field"/>
+      <mjl:commandLink
+        name="Integer_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebInteger" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Long_Field"/>
+      <mjl:commandLink
+        name="Long_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebLong" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Double_Field"/>
+      <mjl:commandLink
+        name="Double_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebDouble" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Decimal_Field"/>
+      <mjl:commandLink
+        name="Decimal_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebDecimal" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Float_Field"/>
+      <mjl:commandLink
+        name="Float_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebFloat" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Date_Field"/>
+      <mjl:commandLink
+        name="Date_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebDate" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Break_Field"/>
+      <mjl:commandLink
+        name="Break_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebBreak" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Header_Field"/>
+      <mjl:commandLink
+        name="Header_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebHeader" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Comment_Field"/>
+      <mjl:commandLink
+        name="Comment_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebComment" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Term_Field"/>
+      <mjl:commandLink
+        name="Term_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebSingleTerm" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="MultipleTerm_Field"/>
+      <mjl:commandLink
+        name="MultipleTerm_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebMultipleTerm" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="Geo_Field"/>
+      <mjl:commandLink
+        name="Geo_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebGeo" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+    <dd>
+      <mdss:localize var="component" key="SingleTermGrid_Field"/>
+      <mjl:commandLink
+        name="SingleTermGrid_Field"
+        action="${action}">
+        <mjl:property name="universal" value="com.runwaysdk.system.metadata.MdWebSingleTermGrid" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>
+    </dd>    
+  </dl>  
+  
   <dl>
     <dt><label><mdss:localize key="Manage_Forms"/></label></dt>
       <%
