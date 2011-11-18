@@ -842,7 +842,7 @@
     </dd>    
   </dl>  
   
-  <!-- Form admin -->
+  <!-- Form admin 
   <dl>
     <dt><label><mdss:localize key="Manage_Form_Admin"/></label></dt>
     <dd>
@@ -1033,6 +1033,7 @@
       </mjl:commandLink>
     </dd>    
   </dl>  
+  -->
   
   <dl>
     <dt><label><mdss:localize key="Manage_Forms"/></label></dt>
