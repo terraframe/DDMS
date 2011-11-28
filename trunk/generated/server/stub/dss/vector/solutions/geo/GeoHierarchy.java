@@ -2051,7 +2051,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     String systemName = description;
     String name = description.replace("/", " Or ").replace("&", " And ");
-    String[] parts = name.split("[^a-zA-Z0-9]");
+    //String[] parts = name.split("[^a-zA-Z0-9]");
+    String[] parts = name.split("[^\\p{L}0-9]");
     StringBuffer sb = new StringBuffer();
     if (parts.length == 1 && description.equals(description.toUpperCase()))
     {
