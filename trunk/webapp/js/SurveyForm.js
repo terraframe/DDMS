@@ -74,7 +74,7 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
           var fieldValue = e.getField().getValue();
           
           for(var i = 0; i < bednets.length; i++) {
-            var label = bednets[i].getNetId();            
+            var label = bednets[i].getOid();
             var value = bednets[i].getId();
 
             if(value == fieldValue) 
