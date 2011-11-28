@@ -3,14 +3,17 @@
  */
 package dss.vector.solutions.form;
 
+import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdWebAttribute;
 import com.runwaysdk.system.metadata.MdWebForm;
 import com.runwaysdk.system.metadata.MdWebPrimitive;
+
+import dss.vector.solutions.generator.MdFormUtil;
 
 public abstract class WebAttributeBuilder extends WebFieldBuilder implements Reloadable
 {
@@ -81,7 +84,7 @@ public abstract class WebAttributeBuilder extends WebFieldBuilder implements Rel
   protected void create()
   {
     this.setupAndValidateMdField();
-    
+
     MdAttributeConcrete mdAttribute = this.newMdAttribute();
     this.updateMdAttribute(mdAttribute);
     mdAttribute.apply();
@@ -110,11 +113,23 @@ public abstract class WebAttributeBuilder extends WebFieldBuilder implements Rel
   @Override
   public void delete()
   {
-    super.delete();
-
     MdWebAttribute mdWebAttribute = this.getMdField();
 
-    MdAttribute mdAttribute = mdWebAttribute.getDefiningMdAttribute();
+    MdAttributeConcrete mdAttribute = (MdAttributeConcrete) mdWebAttribute.getDefiningMdAttribute();
+
+    // IMPORTANT: We cannot delete the OID field regardless of the status of the
+    // removable flag. This is due to the fact that the excel import/export
+    // funcationality has a lot of hard-coded dependencies on the OID field.
+    if (mdAttribute.getAttributeName().equals(MdFormUtil.OID))
+    {
+      MdAttributeDAO mdAttributeDAO = (MdAttributeDAO) MdAttributeDAO.get(mdAttribute.getId()).getBusinessDAO();
+      String msg = "The hard-coded field [" + MdFormUtil.OID + "] cannot be deleted";
+
+      throw new MetadataCannotBeDeletedException(msg, mdAttributeDAO);
+    }
+
+    super.delete();
+
     mdAttribute.delete();
   }
 }
