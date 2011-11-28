@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -104706543)
+@com.runwaysdk.business.ClassSignature(hash = -1135160429)
 public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemURL";
-  private static final long serialVersionUID = -104706543;
+  private static final long serialVersionUID = -1135160429;
   
   protected SystemURLDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -41,6 +41,7 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
+  public static java.lang.String URLNAME = "urlName";
   public java.util.Date getCreateDate()
   {
     return com.runwaysdk.constants.MdAttributeDateTimeUtil.getTypeSafeValue(getValue(CREATEDATE));
@@ -76,6 +77,11 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.SingleActorDTO.get(getRequest(), getValue(CREATEDBY));
     }
+  }
+  
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
   }
   
   public boolean isCreatedByWritable()
@@ -118,9 +124,9 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     return isModified(DISPLAYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getDisplayLabelMd()
+  public final com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO getDisplayLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO) getAttributeDTO(DISPLAYLABEL).getAttributeMdDTO();
   }
   
   public com.runwaysdk.system.metadata.MdDomainDTO getEntityDomain()
@@ -133,6 +139,11 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -241,6 +252,11 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -273,6 +289,11 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -303,6 +324,11 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -422,6 +448,51 @@ public abstract class SystemURLDTOBase extends com.runwaysdk.business.BusinessDT
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUrlMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(URL).getAttributeMdDTO();
+  }
+  
+  public String getUrlName()
+  {
+    return getValue(URLNAME);
+  }
+  
+  public void setUrlName(String value)
+  {
+    if(value == null)
+    {
+      setValue(URLNAME, "");
+    }
+    else
+    {
+      setValue(URLNAME, value);
+    }
+  }
+  
+  public boolean isUrlNameWritable()
+  {
+    return isWritable(URLNAME);
+  }
+  
+  public boolean isUrlNameReadable()
+  {
+    return isReadable(URLNAME);
+  }
+  
+  public boolean isUrlNameModified()
+  {
+    return isModified(URLNAME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUrlNameMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(URLNAME).getAttributeMdDTO();
+  }
+  
+  public static final dss.vector.solutions.general.SystemURLQueryDTO getURLs(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.general.SystemURLDTO.CLASS, "getURLs", _declaredTypes);
+    return (dss.vector.solutions.general.SystemURLQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.Boolean hasReadPermissions(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String url)

@@ -57,10 +57,7 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
 
   public void failCreate(MenuItemDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("term", AttributeUtil.getValue(MenuItemDTO.TERM, dto));
-    req.setAttribute("url", SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("createComponent.jsp");
+    this.newInstance(dto);
   }
 
   public void delete(MenuItemDTO dto) throws IOException, ServletException
@@ -82,21 +79,14 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
 
   public void failDelete(MenuItemDTO dto) throws IOException, ServletException
   {
-    req.setAttribute("term", AttributeUtil.getValue(MenuItemDTO.TERM, dto));
-    req.setAttribute("url", SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-    req.setAttribute("item", dto);
-    render("editComponent.jsp");
+    this.edit(dto);
   }
 
   public void edit(String id) throws IOException, ServletException
   {
     try
     {
-      MenuItemDTO dto = MenuItemDTO.lock(super.getClientRequest(), id);
-      req.setAttribute("term", AttributeUtil.getValue(MenuItemDTO.TERM, dto));
-      req.setAttribute("url", SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
-      req.setAttribute("item", dto);
-      render("editComponent.jsp");
+      this.edit(MenuItemDTO.lock(super.getClientRequest(), id));
     }
     catch (Throwable t)
     {
@@ -104,6 +94,26 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
       if (!redirect)
       {
         this.failEdit(id);
+      }
+    }
+  }
+
+  private void edit(MenuItemDTO dto) throws IOException, ServletException
+  {
+    try
+    {
+      req.setAttribute("term", AttributeUtil.getValue(MenuItemDTO.TERM, dto));
+      req.setAttribute("url", SystemURLDTO.getURLs(this.getClientRequest()).getResultSet());
+      req.setAttribute("item", dto);
+      render("editComponent.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirect)
+      {
+        this.failEdit(dto.getId());
       }
     }
   }
@@ -117,10 +127,24 @@ public class MenuItemController extends MenuItemControllerBase implements com.ru
   {
     try
     {
-      ClientRequestIF clientRequest = super.getClientRequest();
-      MenuItemDTO dto = new MenuItemDTO(clientRequest);
+      this.newInstance(new MenuItemDTO(super.getClientRequest()));
+    }
+    catch (Throwable t)
+    {
+      boolean redirect = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+      if (!redirect)
+      {
+        this.failNewInstance();
+      }
+    }
+  }
+
+  private void newInstance(MenuItemDTO dto) throws IOException, ServletException
+  {
+    try
+    {
       req.setAttribute("term", AttributeUtil.getValue(MenuItemDTO.TERM, dto));
-      req.setAttribute("url", SystemURLDTO.getAllInstances(super.getClientSession().getRequest(), "keyName", true, 0, 0).getResultSet());
+      req.setAttribute("url", SystemURLDTO.getURLs(this.getClientRequest()).getResultSet());
       req.setAttribute("item", dto);
       render("createComponent.jsp");
     }

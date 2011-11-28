@@ -967,6 +967,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdWebCharacter.setMaxLength(16);
       mdWebCharacter.setUnique(true);
       mdWebCharacter.setRemove(false);
+      mdWebCharacter.setRequired(true);
       mdWebCharacter.getDisplayLabel().setValue("Id");
       mdWebCharacter.setDefiningMdAttribute(mdAttributeCharacter);
       mdWebCharacter.setDefiningMdForm(mdForm);

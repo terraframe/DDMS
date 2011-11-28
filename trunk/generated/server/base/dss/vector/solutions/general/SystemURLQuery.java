@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -262424198)
+@com.runwaysdk.business.ClassSignature(hash = -813720694)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.general;
 public  class SystemURLQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -262424198;
+private static final long serialVersionUID = -813720694;
 
   public SystemURLQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -313,6 +313,23 @@ private static final long serialVersionUID = -262424198;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURL.URL, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getUrlName()
+  {
+    return getUrlName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUrlName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURL.URLNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUrlName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemURL.URLNAME, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -549,6 +566,9 @@ private static final long serialVersionUID = -262424198;
     public com.runwaysdk.query.SelectableChar getUrl();
     public com.runwaysdk.query.SelectableChar getUrl(String alias);
     public com.runwaysdk.query.SelectableChar getUrl(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUrlName();
+    public com.runwaysdk.query.SelectableChar getUrlName(String alias);
+    public com.runwaysdk.query.SelectableChar getUrlName(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.general.SystemURL systemURL);
 
@@ -592,7 +612,7 @@ private static final long serialVersionUID = -262424198;
  implements SystemURLQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -2023599204;
+private static final long serialVersionUID = -1369545176;
 
   public SystemURLQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -849,6 +869,23 @@ private static final long serialVersionUID = -2023599204;
   public com.runwaysdk.query.SelectableChar getUrl(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURL.URL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUrlName()
+  {
+    return getUrlName(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUrlName(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURL.URLNAME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUrlName(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemURL.URLNAME, alias, displayLabel);
 
   }
 

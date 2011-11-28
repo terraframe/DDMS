@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1461985391)
+@com.runwaysdk.business.ClassSignature(hash = -953822701)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,8 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String URL = "url";
-  private static final long serialVersionUID = -1461985391;
+  public static java.lang.String URLNAME = "urlName";
+  private static final long serialVersionUID = -953822701;
   
   public SystemURLBase()
   {
@@ -61,6 +62,11 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     {
       return com.runwaysdk.system.SingleActor.get(getValue(CREATEDBY));
     }
+  }
+  
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
   }
   
   public void validateCreatedBy()
@@ -100,6 +106,11 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -197,6 +208,11 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -220,6 +236,11 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -241,6 +262,11 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -342,6 +368,34 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
     }
   }
   
+  public String getUrlName()
+  {
+    return getValue(URLNAME);
+  }
+  
+  public void validateUrlName()
+  {
+    this.validateAttribute(URLNAME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUrlNameMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemURL.CLASS);
+    return mdClassIF.definesAttribute(URLNAME);
+  }
+  
+  public void setUrlName(String value)
+  {
+    if(value == null)
+    {
+      setValue(URLNAME, "");
+    }
+    else
+    {
+      setValue(URLNAME, value);
+    }
+  }
+  
   protected String getDeclaredType()
   {
     return CLASS;
@@ -405,6 +459,12 @@ public abstract class SystemURLBase extends com.runwaysdk.business.Business impl
   public static SystemURL getByKey(String key)
   {
     return (SystemURL) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static dss.vector.solutions.general.SystemURLQuery getURLs()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.general.SystemURL.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static java.lang.Boolean hasReadPermissions(java.lang.String url)

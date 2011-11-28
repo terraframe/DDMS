@@ -110,4 +110,27 @@ public class MenuItem extends MenuItemBase implements com.runwaysdk.generation.l
       it.close();
     }
   }
+
+  public static MenuItem findMenuItem(SystemURL url, Disease disease)
+  {
+    MenuItemQuery query = new MenuItemQuery(new QueryFactory());
+    query.WHERE(query.getUrl().EQ(url));
+    query.WHERE(query.getDisease().EQ(disease));
+
+    OIterator<? extends MenuItem> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
 }

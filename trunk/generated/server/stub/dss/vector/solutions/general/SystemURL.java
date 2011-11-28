@@ -26,7 +26,7 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
   @Override
   protected String buildKey()
   {
-    return this.getDisplayLabel().getValue("defaultLocale");
+    return this.getUrlName();
   }
 
   public RoleDAO getRole(PermissionOption type)
@@ -134,4 +134,61 @@ public class SystemURL extends SystemURLBase implements com.runwaysdk.generation
 
     return ( query.getCount() > 0 );
   }
+
+  public static SystemURL getByURL(String url)
+  {
+    QueryFactory factory = new QueryFactory();
+    SystemURLQuery query = new SystemURLQuery(factory);
+
+    query.WHERE(query.getUrl().EQ(url));
+
+    OIterator<? extends SystemURL> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  public static SystemURL getByName(String urlName)
+  {
+    QueryFactory factory = new QueryFactory();
+    SystemURLQuery query = new SystemURLQuery(factory);
+
+    query.WHERE(query.getUrlName().EQ(urlName));
+
+    OIterator<? extends SystemURL> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  public static SystemURLQuery getURLs()
+  {
+    SystemURLQuery query = new SystemURLQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getDisplayLabel().localize());
+
+    return query;
+  }
+
 }
