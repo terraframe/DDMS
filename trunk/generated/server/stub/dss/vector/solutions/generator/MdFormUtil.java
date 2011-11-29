@@ -107,11 +107,13 @@ import dss.vector.solutions.util.HierarchyBuilder;
 
 public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long  serialVersionUID = 1220565977;
+  private static final long  serialVersionUID  = 1220565977;
 
-  public static final String DISEASE          = "disease";
+  public static final String DISEASE           = "disease";
 
-  public static final String OID              = "oid";
+  public static final String OID               = "oid";
+
+  public static final String DEFAULT_OID_LABEL = "Form Id";
 
   public MdFormUtil()
   {
@@ -957,7 +959,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdAttributeCharacter.setDefiningMdClass(mdBusiness);
       mdAttributeCharacter.setRemove(false);
       mdAttributeCharacter.setRequired(true);
-      mdAttributeCharacter.getDisplayLabel().setValue("Id");
+      mdAttributeCharacter.getDisplayLabel().setValue(DEFAULT_OID_LABEL);
       mdAttributeCharacter.apply();
 
       MdWebCharacter mdWebCharacter = new MdWebCharacter();
@@ -968,7 +970,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       mdWebCharacter.setUnique(true);
       mdWebCharacter.setRemove(false);
       mdWebCharacter.setRequired(true);
-      mdWebCharacter.getDisplayLabel().setValue("Id");
+      mdWebCharacter.getDisplayLabel().setValue(DEFAULT_OID_LABEL);
       mdWebCharacter.setDefiningMdAttribute(mdAttributeCharacter);
       mdWebCharacter.setDefiningMdForm(mdForm);
       mdWebCharacter.apply();
