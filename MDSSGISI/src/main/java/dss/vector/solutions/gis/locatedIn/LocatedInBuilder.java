@@ -11,6 +11,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdType;
 
@@ -65,6 +66,16 @@ public class LocatedInBuilder implements Reloadable
 
   private static final String CHILD_CLASS                = "child_class";
 
+  @Request
+  public static void main(String[] args)
+  {
+    LocatedInBuilder b = new LocatedInBuilder(BuildTypes.REBUILD_ALL, 80);
+    b.setup();
+    b.deriveLocatedIn();
+    b.cleanup();
+    
+  }
+  
   public LocatedInBuilder(BuildTypes type, int percent)
   {
     this.type = type;
@@ -181,7 +192,10 @@ public class LocatedInBuilder implements Reloadable
 
     "CREATE OR REPLACE FUNCTION " + DERIVE_LOCATED_IN_REC_FUNC + "(pctThreshold integer, childId " + ENTITIES_TABLE + "." + id + "%TYPE, \n" + "  currentMd " + ENTITIES_TABLE + ".md%TYPE) \n" + "RETURNS SETOF " + CHILD_PARENT_TYPE + " AS \n" + "$$\n" + "DECLARE\n" + "  matched " + CHILD_PARENT_TYPE + "%ROWTYPE;\n" + "  parentMd " + UNIVERSALS_TABLE + "." + PARENT_CLASS + "%TYPE;\n" + "  foundMatch boolean;\n" + "BEGIN\n" + "  BEGIN\n" + "    FOR parentMd IN SELECT " + PARENT_CLASS + " FROM "
         + UNIVERSALS_TABLE + " WHERE " + CHILD_CLASS + " = currentMd LOOP\n" + "      foundMatch := false;\n" + "      FOR matched IN SELECT child." + id + " " + CHILD_ID + ", parents." + id + " " + PARENT_ID + "\n" + "        FROM " + ENTITIES_TABLE + " parents\n" + "        INNER JOIN " + ENTITIES_TABLE + " child ON child.id = childId AND child.geom && parents.geom\n" + "        AND parents.md = parentMd\n"
-        + "        AND CASE WHEN st_dimension(child.geo_data) = 1 THEN st_crosses(st_geomfromtext(child.geo_data, st_srid(parents.geom)), parents.geom)\n" + "        ELSE st_area(st_intersection(parents.geom, child.geom))/st_area(child.geom)*100.0 >= pctThreshold END\n" + "      LOOP\n" + "        foundMatch := true;\n" + "        RETURN QUERY SELECT matched." + CHILD_ID + ", matched." + PARENT_ID + ";\n" + "      END LOOP;\n" + "      IF foundMatch = false THEN\n"
+        + "        AND CASE WHEN st_dimension(child.geo_data) = 1 THEN st_crosses(st_geomfromtext(child.geo_data, st_srid(parents.geom)), parents.geom)\n"
+        + " WHEN st_dimension(child.geo_data) = 0\n"
+        + "   THEN st_within(st_centroid(child.geom), parents.geom)\n"
+        + "        ELSE st_area(st_intersection(parents.geom, child.geom))/st_area(child.geom)*100.0 >= pctThreshold END\n" + "      LOOP\n" + "        foundMatch := true;\n" + "        RETURN QUERY SELECT matched." + CHILD_ID + ", matched." + PARENT_ID + ";\n" + "      END LOOP;\n" + "      IF foundMatch = false THEN\n"
         + "        RETURN QUERY SELECT * FROM " + DERIVE_LOCATED_IN_REC_FUNC + "(pctThreshold, childId, parentMd);\n" + "      END IF;\n"
 
         + "    END LOOP;\n" + "  EXCEPTION WHEN OTHERS THEN\n" + "    INSERT INTO " + FAILED_ENTITIES_TABLE + " (" + id + ") VALUES (childId);" + "    RETURN;\n" + "  END;\n" + "END\n" + "$$\n" + "LANGUAGE plpgsql VOLATILE;\n" + "CREATE OR REPLACE FUNCTION " + DERIVE_LOCATED_IN_FUNC + "(pctThreshold integer, deriveType int)\n" + "RETURNS SETOF " + CHILD_PARENT_TYPE + " AS\n" + "$$\n" + "DECLARE\n" + "  childRow " + ENTITIES_TABLE + "%ROWTYPE;\n" + "  pointAvg int;\n" + "  standardDev int;\n"
