@@ -2649,27 +2649,30 @@ var DateCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DateConditio
 			
       var op = this.getOperation();
       var isTrue = false;
-      switch (op) {
-        case 'EQ':
-          isTrue = changedValue.equals(value);
-          break;
-        case 'GT':
-          isTrue = changedValue.isAfter(value); 
-          break;
-        case 'GTE':
-          isTrue = (changedValue.isAfter(value) || changedValue.equalsIgnoreTime(value)); 
-          break;
-        case 'LT':
-          isTrue = changedValue.isBefore(value); 
-          break;
-        case 'LTE':
-          isTrue = (changedValue.isBefore(value) || changedValue.equalsIgnoreTime(value)); 
-          break;
-        case 'NEQ':
-          isTrue = !changedValue.equalsIgnoreTime(value);
-          break;
-        default:
-          isTrue = false;
+      if (changedValue !== "")
+      {
+        switch (op) {
+          case 'EQ':
+            isTrue = changedValue.equals(value);
+            break;
+          case 'GT':
+            isTrue = changedValue.isAfter(value); 
+            break;
+          case 'GTE':
+            isTrue = (changedValue.isAfter(value) || changedValue.equalsIgnoreTime(value)); 
+            break;
+          case 'LT':
+            isTrue = changedValue.isBefore(value); 
+            break;
+          case 'LTE':
+            isTrue = (changedValue.isBefore(value) || changedValue.equalsIgnoreTime(value)); 
+            break;
+          case 'NEQ':
+            isTrue = !changedValue.equalsIgnoreTime(value);
+            break;
+          default:
+            isTrue = false;
+        }
       }
       
       this._setTrue(isTrue);      

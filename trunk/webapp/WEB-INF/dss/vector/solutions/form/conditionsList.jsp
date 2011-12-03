@@ -5,6 +5,7 @@
 
 
 <div class="viewConditions">
+  <h2 class="fieldTitle"><mdss:localize key="editing_conditions_for_field"/> [[${thisField}]]</h2>
   <div class="addConditionSection">
 	 <select name="mdFieldId" id="definingMdFieldSelect">
 	    <c:forEach items="${fields}" var="field">

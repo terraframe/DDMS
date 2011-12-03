@@ -95,6 +95,7 @@ YAHOO.util.Event.onDOMReady(function(){
 <jsp:include page="../selectSearch.jsp"/>
 
 <div class="generatorContent" id="generatorContent">
+  <h2 class="pageTitle">${localized_page_title}</h2>
   <a href="#" id="NewInstanceCommand">
     <mdss:localize key="New_Instance" />
   </a>

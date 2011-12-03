@@ -123,7 +123,7 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
         dd.appendChild(errorContainer);
 					
         var field = com.getField();
-        if(field instanceof FIELD.WebPrimitive)
+        if(field instanceof FIELD.WebAttribute)
         {
           var attrId = field.getFieldMd().getDefiningMdAttribute();
           errorContainer.setId(attrId);
@@ -390,7 +390,6 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
       this._editMode = editMode;
       
       // placeholders for known elements in the form.
-      this._header = null;
       this._form = null;
       this._dl = this._factory.newElement('dl');
       this._buttons = this._factory.newElement('div');
@@ -401,7 +400,6 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
     getNode : function(){
       //var frag = this._factory.newDocumentFragment();
       //frag.appendChild(this._form);
-      this._form.appendChild(this._header);
       this._form.appendChild(this._dl);
       this._form.appendChild(this._buttons);
       return this._form;
@@ -431,7 +429,6 @@ var FormObjectRenderVisitor = Mojo.Meta.newClass('dss.vector.solutions.FormObjec
     visitFormObject : function(formObject){
       var com = new FormBody(formObject);
       com.setDefaultNodes();
-      this._header = com.getDisplayNode();
       this._form = com.getContentNode();
     },
     
@@ -1769,7 +1766,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       }
       
       var formContent = visitor.getNode();
-      formContent.setStyle('visibility', 'hidden');
+      //formContent.setStyle('visibility', 'hidden');
       
       this._formContainer.appendChild(formContent.getRawEl());
       

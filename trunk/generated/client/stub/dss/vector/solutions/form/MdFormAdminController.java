@@ -258,6 +258,13 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+  
+  @Override
+  public void failCreateMdField(MdFieldDTO field, String mdFormId) throws IOException, ServletException
+  {
+    //TODO this needs to fire an error instead of just resuming with the default
+    this.createMdField(field, mdFormId);
+  }
 
   @Override
   public void createGeoField(MdWebGeoDTO mdField, String mdFormId, GeoFieldDTO geoField, String[] extraUniversals) throws IOException, ServletException
@@ -656,6 +663,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
+      MdFieldDTO thisField = MdFieldDTO.get(this.getClientRequest(), mdFieldId);
+      req.setAttribute("thisField", thisField.getDisplayLabel().getValue());
+      
       MdFieldDTO[] fields = MdFormUtilDTO.getFieldsForConditions(this.getClientRequest(), mdFieldId);
       req.setAttribute("fields", fields);
 

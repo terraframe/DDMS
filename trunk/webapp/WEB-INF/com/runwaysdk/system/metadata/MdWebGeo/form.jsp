@@ -31,7 +31,7 @@
 </mjl:component>
 <br />
 <dt>
-  <label><mdss:localize key="Extra_Universals"/></label>
+  <label><mdss:localize key="Specific_Universals"/></label>
 </dt>  
 <mjl:group type="checkbox" param="extraUniversals" items="${universals}" var="current" valueAttribute="geoHierarchyId">
   <mjl:groupOption checked="${mjl:contains(selected, current.geoHierarchyId) ? 'checked' : 'false'}">
