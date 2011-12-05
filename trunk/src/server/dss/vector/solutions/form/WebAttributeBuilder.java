@@ -3,6 +3,12 @@
  */
 package dss.vector.solutions.form;
 
+import com.runwaysdk.business.BusinessFacade;
+import com.runwaysdk.dataaccess.AttributeIF;
+import com.runwaysdk.dataaccess.EntityDAOIF;
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.attributes.ImmutableAttributeProblem;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataCannotBeDeletedException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
@@ -101,6 +107,21 @@ public abstract class WebAttributeBuilder extends WebFieldBuilder implements Rel
   {
     MdWebAttribute mdWebAttribute = this.getMdField();
     MdAttributeConcrete mdAttribute = (MdAttributeConcrete) mdWebAttribute.getDefiningMdAttribute();
+
+    if (mdAttribute.getAttributeName().equals(MdFormUtil.OID))
+    {
+      if (mdWebAttribute.isModified(MdWebAttribute.REQUIRED))
+      {
+        MdClassDAOIF mdClass = mdWebAttribute.getMdClass();
+        MdAttributeDAOIF mdAttributeIF = MdWebAttribute.getRequiredMd();
+        EntityDAOIF mdWebAttributeDAO = BusinessFacade.getEntityDAO(mdWebAttribute);
+        AttributeIF attribute = mdWebAttributeDAO.getAttributeIF(MdWebAttribute.REQUIRED);
+        String msg = "The [" + MdWebAttribute.REQUIRED + "] flag on [" + MdFormUtil.OID + "] can not be changed.";
+
+        ImmutableAttributeProblem problem = new ImmutableAttributeProblem(mdWebAttribute.getId(), mdClass, mdAttributeIF, msg, attribute);
+        problem.throwIt();
+      }
+    }
 
     mdAttribute.appLock();
     this.setupAndValidateMdField();

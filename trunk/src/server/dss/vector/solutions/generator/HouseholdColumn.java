@@ -1,6 +1,7 @@
 package dss.vector.solutions.generator;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -15,9 +16,26 @@ import dss.vector.solutions.general.UnknownValueException;
 
 public class HouseholdColumn extends AttributeColumn implements Reloadable
 {
+  /**
+   * The index of the survey column
+   */
+  private int surveyIndex;
+
   public HouseholdColumn(MdAttributeReferenceDAOIF mdAttribute)
   {
     super(mdAttribute);
+
+    this.surveyIndex = 0;
+  }
+
+  public void setSurveyIndex(int surveyIndex)
+  {
+    this.surveyIndex = surveyIndex;
+  }
+
+  public int getSurveyIndex()
+  {
+    return surveyIndex;
   }
 
   @Override
@@ -29,9 +47,12 @@ public class HouseholdColumn extends AttributeColumn implements Reloadable
   @Override
   public Object getValue(HSSFCell cell) throws Exception
   {
+    HSSFRow row = cell.getSheet().getRow(cell.getRowIndex());
+
+    String surveyId = ExcelUtil.getString(row.getCell(this.surveyIndex));
     String householdId = ExcelUtil.getString(cell);
 
-    FormHousehold household = FormHousehold.getByHouseholdId(householdId);
+    FormHousehold household = FormHousehold.getByHouseholdId(surveyId, householdId);
 
     if (household != null)
     {
@@ -39,7 +60,7 @@ public class HouseholdColumn extends AttributeColumn implements Reloadable
     }
     else
     {
-      String msg = "Unknown household with householdId [" + householdId + "]";
+      String msg = "Unknown household with householdId [" + householdId + "] in the survey [" + surveyId + "]";
 
       MdBusinessDAOIF mdBusiness = MdBusinessDAO.getMdBusinessDAO(FormHousehold.CLASS);
       String typeLabel = mdBusiness.getDisplayLabel(Session.getCurrentLocale());

@@ -121,7 +121,7 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
         var errorContainer = f.newElement('span');
         errorContainer.addClassName('inline-alert');
         dd.appendChild(errorContainer);
-					
+          
         var field = com.getField();
         if(field instanceof FIELD.WebAttribute)
         {
@@ -143,6 +143,8 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
     }
   }
 });
+
+
 
 var RenderViewFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderViewFieldEvent', {
   Extends : RenderFieldEvent,
@@ -174,6 +176,42 @@ var RenderViewFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderViewFi
         
         this._parent.appendChild(dd);
       }
+    }
+  }
+});
+
+var PostRenderViewFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.PostRenderViewFieldEvent', {
+  Extends : CustomEvent,
+  Instance : {
+    initialize : function (fieldComponent) {
+      this.$initialize();
+      
+      this._fieldComponent = fieldComponent;
+    },
+    getFieldComponent : function() {
+      return this._fieldComponent;
+    },    
+    defaultAction : function() {
+      this._fieldComponent.postRender(false);
+    }
+  }
+});
+
+
+var PostRenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.PostRenderEditFieldEvent', {
+  Extends : CustomEvent,
+  Instance : {
+    initialize : function (fieldComponent) {
+      this.$initialize();
+      
+      this._fieldComponent = fieldComponent;
+    },
+    getFieldComponent : function() {
+      return this._fieldComponent;
+    },    
+    defaultAction : function() {
+      this._fieldComponent.forceValueChangeEvent();
+      this._fieldComponent.postRender(true);
     }
   }
 });
@@ -784,6 +822,8 @@ var CharacterComponent = Mojo.Meta.newClass('dss.vector.solutions.CharacterCompo
   Instance : {
     initialize : function(field){
       this.$initialize(field);
+      
+      this._inputId = null;
     },
     _getContentNode : function(){
       var fMd = this.getField().getFieldMd();
@@ -793,7 +833,12 @@ var CharacterComponent = Mojo.Meta.newClass('dss.vector.solutions.CharacterCompo
         'size':fMd.getDisplayLength()
       });
       
+      this._inputId = node.getId();
+      
       return node;
+    },
+    getInputId : function() {
+      return this._inputId;
     },
     monitorValueChange : function(node){
       node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
@@ -1692,7 +1737,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       var fields = this._fieldComponents.values();
       for(var i=0; i<fields.length; i++){
         var field = fields[i];
-        field.postRender(false);
+        
+        this.dispatchEvent(new PostRenderViewFieldEvent(field));
       }      
     },
     renderFormWithJSON : function (formObjectJSON) {
@@ -1777,8 +1823,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       var fields = this._fieldComponents.values();
       for(var i=0; i<fields.length; i++){
         var field = fields[i];
-        field.forceValueChangeEvent();
-        field.postRender(true);
+        
+        this.dispatchEvent(new PostRenderEditFieldEvent(field));
       }
       
       formContent.setStyle('visibility', 'visible');
@@ -1970,16 +2016,40 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this.viewAllInstance();
     },
     renderProblems : function(problems){
+      var globalProblems = [];  // List of problems which don't have a corresponding field on the page
+      
       for (var i = 0; i < problems.length; i++) {
         var p = problems[i];
         var attributeId = p.getAttributeId();
 
         var span = document.getElementById(attributeId);
-        span.innerHTML = p.getLocalizedMessage();
-        span.style.display = 'inline-block';
-				var contentNode = span.parentNode.children.item(0);
-				contentNode.style.cssFloat = 'left';
-      }      
+        
+        if(span != null)
+        {  
+          span.innerHTML = p.getLocalizedMessage();
+          span.style.display = 'inline-block';
+        
+          var contentNode = span.parentNode.children.item(0);
+          contentNode.style.cssFloat = 'left';
+        }
+        else
+        {
+          globalProblems.push(p);
+        }
+      }
+      
+      if(globalProblems.length > 0)
+      {
+        var msg = "";
+        for (var i = 0; i < globalProblems.length; i++)
+        {
+          var p = globalProblems[i];
+          
+          msg += p.getLocalizedMessage() + "\n";
+        }
+        
+        new MDSS.ErrorModal(msg);
+      }
     },
     hide : function(){
       this.hideAllInstance();

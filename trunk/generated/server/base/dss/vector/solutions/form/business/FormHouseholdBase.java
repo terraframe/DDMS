@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1639054432)
+@com.runwaysdk.business.ClassSignature(hash = 209722792)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,7 +26,7 @@ public abstract class FormHouseholdBase extends com.runwaysdk.business.Business 
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SURVEY = "survey";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1639054432;
+  private static final long serialVersionUID = 209722792;
   
   public FormHouseholdBase()
   {
@@ -461,6 +461,12 @@ public abstract class FormHouseholdBase extends com.runwaysdk.business.Business 
   {
     FormHousehold _instance = FormHousehold.get(id);
     return _instance.getBedNets();
+  }
+  
+  public static com.runwaysdk.query.ValueQuery getHouseIds(java.lang.String value)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormHousehold.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static FormHousehold lock(java.lang.String id)

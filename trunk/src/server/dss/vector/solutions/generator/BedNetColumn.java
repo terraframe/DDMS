@@ -1,6 +1,7 @@
 package dss.vector.solutions.generator;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
 
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
@@ -15,9 +16,26 @@ import dss.vector.solutions.general.UnknownValueException;
 
 public class BedNetColumn extends AttributeColumn implements Reloadable
 {
+  /**
+   * The index of the survey column
+   */
+  private int surveyIndex;
+
   public BedNetColumn(MdAttributeReferenceDAOIF mdAttribute)
   {
     super(mdAttribute);
+
+    this.surveyIndex = 0;
+  }
+
+  public void setSurveyIndex(int surveyIndex)
+  {
+    this.surveyIndex = surveyIndex;
+  }
+
+  public int getSurveyIndex()
+  {
+    return surveyIndex;
   }
 
   @Override
@@ -29,9 +47,12 @@ public class BedNetColumn extends AttributeColumn implements Reloadable
   @Override
   public Object getValue(HSSFCell cell) throws Exception
   {
+    HSSFRow row = cell.getSheet().getRow(cell.getRowIndex());
+    String surveyId = ExcelUtil.getString(row.getCell(this.surveyIndex));
+
     String netId = ExcelUtil.getString(cell);
 
-    FormBedNet bedNet = FormBedNet.getByBedNetId(netId);
+    FormBedNet bedNet = FormBedNet.getByBedNetId(surveyId, netId);
 
     if (bedNet != null)
     {

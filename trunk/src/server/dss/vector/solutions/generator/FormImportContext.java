@@ -28,8 +28,7 @@ public class FormImportContext extends ImportContext implements Reloadable
   @Override
   protected Mutable getMutableForRow(HSSFRow row)
   {
-    ExcelColumn column = this.getColumn(MdFormUtil.OID);
-    String oid = ExcelUtil.getString(row.getCell(column.getIndex()));
+    String oid = this.getCellValue(row, MdFormUtil.OID);
 
     if (oid != null && oid.length() > 0)
     {
@@ -60,7 +59,7 @@ public class FormImportContext extends ImportContext implements Reloadable
     return super.getMutableForRow(row);
   }
 
-  private ExcelColumn getColumn(String columnName)
+  protected ExcelColumn getColumn(String columnName)
   {
     List<AttributeColumn> columns = this.getExpectedColumns();
 
@@ -74,4 +73,12 @@ public class FormImportContext extends ImportContext implements Reloadable
 
     return null;
   }
+
+  protected String getCellValue(HSSFRow row, String columnName)
+  {
+    ExcelColumn column = this.getColumn(columnName);
+    
+    return ExcelUtil.getString(row.getCell(column.getIndex()));
+  }
+
 }

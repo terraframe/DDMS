@@ -81,8 +81,8 @@ YAHOO.util.Event.onDOMReady(function(){
     surveyClassType: '${surveyClassType}'
   };
   
-  new dss.vector.solutions.SurveyFormGenerator(params);
-
+  var generator = new dss.vector.solutions.SurveyFormGenerator(params);
+  generator.render();
 });
 </script>
 <div class="generatorContent" id="generatorContent">

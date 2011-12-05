@@ -21,13 +21,13 @@ import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.generator.BedNetValidationImportListener;
 import dss.vector.solutions.generator.ContextBuilderFacade;
 import dss.vector.solutions.generator.DiseaseAndValidationImportListener;
+import dss.vector.solutions.generator.FormBedNetContextBuilder;
 import dss.vector.solutions.generator.FormContextBuilder;
 import dss.vector.solutions.generator.FormHouseholdContextBuilder;
 import dss.vector.solutions.generator.FormImportFilter;
 import dss.vector.solutions.generator.FormPersonContextBuilder;
 import dss.vector.solutions.generator.FormSurveyColumnFactory;
 import dss.vector.solutions.generator.FormSurveyImportFilter;
-import dss.vector.solutions.generator.HouseholdReferenceContextBuilder;
 import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.generator.MultiTermListener;
 import dss.vector.solutions.ontology.TermRootCache;
@@ -110,7 +110,7 @@ public class FormSurvey extends FormSurveyBase implements com.runwaysdk.generati
 
     builder.add(FormSurvey.CLASS, new FormContextBuilder(formSurvey, new FormImportFilter()));
     builder.add(FormHousehold.CLASS, new FormHouseholdContextBuilder());
-    builder.add(FormBedNet.CLASS, new HouseholdReferenceContextBuilder(formBedNet));
+    builder.add(FormBedNet.CLASS, new FormBedNetContextBuilder());
     builder.add(FormPerson.CLASS, new FormPersonContextBuilder());
 
     MdFormUtil.addGridContexts(formSurvey, builder);

@@ -17,11 +17,9 @@ import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeReferenceDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.database.Database;
 import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AND;
-import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
@@ -42,6 +40,9 @@ import dss.vector.solutions.PersonQuery;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamMemberQuery;
 import dss.vector.solutions.irs.TeamMemberView;
+import dss.vector.solutions.querybuilder.DistinctOrderedLookupBuilder;
+import dss.vector.solutions.querybuilder.OrderedLookupBuilder;
+import dss.vector.solutions.querybuilder.TextLookupBuilder;
 import dss.vector.solutions.util.QueryUtil;
 
 public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.generation.loader.Reloadable
@@ -62,7 +63,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     ValueQuery valueQuery = null;
     try
     {
-      // TODO instantiate querybuilder classes directly and remove static calls from domain classes
+      // TODO instantiate querybuilder classes directly and remove static calls
+      // from domain classes
       clazz = Class.forName(queryClass);
       xmlToValueQuery = clazz.getMethod("xmlToValueQuery", String.class, String.class, Layer.class);
       valueQuery = (ValueQuery) xmlToValueQuery.invoke(clazz, queryXML, config, layer);
@@ -285,139 +287,26 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
   public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)
   {
-    QueryBuilder.textLookup(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray, new Join[] {});
+    new TextLookupBuilder(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray).buildQuery();
   }
 
   public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins)
   {
-    long WEIGHT = 256;
-
-    ValueQuery uQ = qf.valueQuery();
-
-    ValueQuery[] valueQueryArray = new ValueQuery[tokenArray.length];
-
-    if (tokenArray.length > 1)
-    {
-      for (int i = 0; i < tokenArray.length; i++)
-      {
-        String token = tokenArray[i].toLowerCase();
-        valueQueryArray[i] = buildQueryForToken(qf, token, searchableArray, selectableArray, conditionArray, joins, WEIGHT, i);
-      }
-      uQ.UNION(valueQueryArray);
-    }
-    else
-    {
-      uQ = buildQueryForToken(qf, tokenArray[0].toLowerCase(), searchableArray, selectableArray, conditionArray, joins, WEIGHT, 0);
-    }
-
-    // Build outermost select clause. This would be cleaner if the API supported
-    // incrementally adding to the select clause. One day that will be
-    // supported.
-    Selectable[] selectClauseArray = new Selectable[selectableArray.length + 2];
-    for (int k = 0; k < selectableArray.length; k++)
-    {
-      selectClauseArray[k] = uQ.get(selectableArray[k].getResultAttributeName());
-    }
-
-    selectClauseArray[selectableArray.length] = F.COUNT(uQ.get("weight"), "weight");
-    selectClauseArray[selectableArray.length + 1] = F.SUM(uQ.get("weight"), "sum");
-
-    valueQuery.SELECT(selectClauseArray);
-    valueQuery.ORDER_BY_DESC(F.COUNT(uQ.get("weight"), "weight"));
-    valueQuery.ORDER_BY_DESC(F.SUM(uQ.get("weight"), "sum"));
-
-    for (SelectablePrimitive selectable : selectableArray)
-    {
-      valueQuery.ORDER_BY_ASC((AttributePrimitive) uQ.get(selectable.getResultAttributeName()));
-    }
-
-    valueQuery.HAVING(F.COUNT(uQ.get("weight")).EQ(tokenArray.length));
-
-    // for (ValueObject valueObject : valueQuery.getIterator())
-    // {
-    // valueObject.printAttributes();
-    // }
-  }
-
-  private static ValueQuery buildQueryForToken(QueryFactory qf, String token, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray, Join[] joins, long weight, int i)
-  {
-    ValueQuery vQ = qf.valueQuery();
-
-    token = token.replace("%", "!%");
-
-    // Build select clause. This would be cleaner if the API supported
-    // incrementally adding
-    // to the select clause. One day that will be supported.
-    SelectablePrimitive[] selectClauseArray = new SelectablePrimitive[selectableArray.length + 1];
-    for (int k = 0; k < selectableArray.length; k++)
-    {
-      selectClauseArray[k] = selectableArray[k];
-    }
-
-    String sql = Database.instance().escapeSQLCharacters(token);
-
-    selectClauseArray[selectableArray.length] = vQ.aSQLDouble("weight", "1.0 / (" + Math.pow(weight, i) + " * NULLIF(STRPOS(" + concatenate(searchableArray) + ", ' " + sql + "'),0))");
-    vQ.SELECT_DISTINCT(selectClauseArray);
-    vQ.WHERE(vQ.aSQLCharacter("fields", concatenate(searchableArray)).LIKE("% " + sql + "%"));
-
-    for (Condition condition : conditionArray)
-    {
-      vQ.AND(condition);
-    }
-
-    for (Join join : joins)
-    {
-      vQ.AND(join);
-    }
-
-    return vQ;
-  }
-
-  private static String concatenate(Selectable[] selectableArray)
-  {
-    StringBuilder sb = new StringBuilder();
-    sb.append("LOWER(' ' || ");
-
-    for (int i = 0; i < selectableArray.length; i++)
-    {
-      if (i > 0)
-      {
-        sb.append(" || ' ' || ");
-      }
-
-      // IMPORTANT: The selectable may not be required, as such we must COALESCE
-      // the selectable with the empty string in order for rows with NULL values
-      // to work.
-      sb.append("COALESCE(" + selectableArray[i].getDbQualifiedName() + ",'')");
-    }
-
-    sb.append(")");
-    return sb.toString();
+    new TextLookupBuilder(valueQuery, qf, tokenArray, searchableArray, selectableArray, conditionArray, joins).buildQuery();
   }
 
   public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions)
   {
-    QueryBuilder.orderedLookup(query, factory, orderBy, selectables, conditions, new Join[] {});
+    new OrderedLookupBuilder(query, orderBy, selectables, conditions).buildQuery();
   }
 
   public static void orderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions, Join[] joins)
   {
-    Condition condition = null;
-
-    for (Condition cond : conditions)
-    {
-      condition = ( condition == null ) ? cond : AND.get(condition, cond);
-    }
-
-    query.SELECT(selectables);
-    query.WHERE(condition);
-
-    for (Join join : joins)
-    {
-      query.AND(join);
-    }
-
-    query.ORDER_BY_ASC(orderBy);
+    new OrderedLookupBuilder(query, orderBy, selectables, conditions, joins).buildQuery();
   }
 
+  public static void distinctOrderedLookup(ValueQuery query, QueryFactory factory, SelectablePrimitive orderBy, SelectablePrimitive[] selectables, Condition[] conditions, Join[] joins)
+  {
+    new DistinctOrderedLookupBuilder(query, orderBy, selectables, conditions, joins).buildQuery();
+  }
 }

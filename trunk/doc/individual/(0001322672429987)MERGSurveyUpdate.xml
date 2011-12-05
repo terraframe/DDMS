@@ -1,0 +1,170 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormSurvey">
+        <attributes>
+          <char
+            name="oid"
+            indexType="unique index"
+            required="true" />
+        </attributes>
+      </mdBusiness>
+    
+      <mdWebForm
+        name="dss.vector.solutions.form.FormSurvey">
+        <fields>
+          <char
+            name="surveyId"
+            unique="true"
+            required="true" />
+        </fields>
+      </mdWebForm>
+    
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormHousehold">
+        <attributes>
+          <char
+            name="oid"
+            indexType="no index"
+            required="true" />
+        </attributes>
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormHousehold">
+        <fields>
+          <char
+            name="householdId"
+            unique="false"
+            required="true"
+            order="-10" />
+        </fields>
+      </mdWebForm>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormPerson">
+        <attributes>
+          <char
+            name="oid"
+            indexType="no index"
+            required="true" />
+        </attributes>
+        <create>
+          <attributes>
+            <reference
+              name="survey"
+              label="Survey"
+              type="dss.vector.solutions.form.business.FormSurvey"
+              required="true"
+              removable="false" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormPerson">
+        <fields>
+          <char
+            name="personId"
+            unique="false"
+            required="true"
+            order="-10" />
+        </fields>
+        <create>
+          <fields>
+            <reference
+              name="survey"
+              label="Survey"
+              order="-2"
+              mdAttribute="survey"
+              removable="false" />
+          </fields>
+        </create>
+      </mdWebForm>
+
+      <mdBusiness
+        name="dss.vector.solutions.form.business.FormBedNet">
+        <attributes>
+          <char
+            name="oid"
+            indexType="no index"
+            required="true" />
+        </attributes>
+        <create>
+          <attributes>
+            <reference
+              name="survey"
+              label="Survey"
+              type="dss.vector.solutions.form.business.FormSurvey"
+              required="true"
+              removable="false" />
+          </attributes>
+        </create>
+      </mdBusiness>
+
+      <mdWebForm
+        name="dss.vector.solutions.form.FormBedNet">
+        <fields>
+          <char
+            name="netId"
+            unique="false"
+            required="true"
+            order="-10" />
+        </fields>
+        <create>
+          <fields>
+            <reference
+              name="survey"
+              label="Survey"
+              order="-2"
+              mdAttribute="survey"
+              removable="false" />
+          </fields>
+        </create>
+      </mdWebForm>
+    </update>
+    <create>
+      <mdIndex
+        type="dss.vector.solutions.form.business.FormHousehold"
+        label="Form household index"
+        active="true"
+        unique="true">
+        <attribute
+          name="oid"
+          indexOrder="0" />
+        <attribute
+          name="survey"
+          indexOrder="1" />
+      </mdIndex>
+      <mdIndex
+        type="dss.vector.solutions.form.business.FormPerson"
+        label="Form person index"        
+        active="true"
+        unique="true">
+        <attribute
+          name="oid"
+          indexOrder="0" />
+        <attribute
+          name="survey"
+          indexOrder="1" />
+      </mdIndex>
+      <mdIndex
+        type="dss.vector.solutions.form.business.FormBedNet"
+        label="Form bed net index"        
+        active="true"
+        unique="true">
+        <attribute
+          name="oid"
+          indexOrder="0" />
+        <attribute
+          name="survey"
+          indexOrder="1" />
+      </mdIndex>
+    </create>
+  </doIt>
+  <undoIt>
+  </undoIt>
+</version>

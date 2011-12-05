@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -1205355984)
+@com.runwaysdk.business.ClassSignature(hash = -933539822)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -26,8 +26,9 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SURVEY = "survey";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1205355984;
+  private static final long serialVersionUID = -933539822;
   
   public FormPersonBase()
   {
@@ -454,6 +455,46 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
     return mdClassIF.definesAttribute(SITEMASTER);
   }
   
+  public dss.vector.solutions.form.business.FormSurvey getSurvey()
+  {
+    if (getValue(SURVEY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.form.business.FormSurvey.get(getValue(SURVEY));
+    }
+  }
+  
+  public String getSurveyId()
+  {
+    return getValue(SURVEY);
+  }
+  
+  public void validateSurvey()
+  {
+    this.validateAttribute(SURVEY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSurveyMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.form.business.FormPerson.CLASS);
+    return mdClassIF.definesAttribute(SURVEY);
+  }
+  
+  public void setSurvey(dss.vector.solutions.form.business.FormSurvey value)
+  {
+    if(value == null)
+    {
+      setValue(SURVEY, "");
+    }
+    else
+    {
+      setValue(SURVEY, value.getId());
+    }
+  }
+  
   public String getType()
   {
     return getValue(TYPE);
@@ -490,6 +531,12 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
   public static FormPerson getByKey(String key)
   {
     return (FormPerson) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static com.runwaysdk.query.ValueQuery getPersonIds(java.lang.String value)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormPerson.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public static FormPerson lock(java.lang.String id)

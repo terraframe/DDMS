@@ -8,9 +8,6 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ComponentDTOFacade;
 import com.runwaysdk.constants.ClientRequestIF;
@@ -42,7 +39,6 @@ import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 
-import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;

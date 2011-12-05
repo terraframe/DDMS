@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1362383759)
+@com.runwaysdk.business.ClassSignature(hash = 444654273)
 public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormBedNet";
-  private static final long serialVersionUID = 1362383759;
+  private static final long serialVersionUID = 444654273;
   
   protected FormBedNetDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -41,6 +41,7 @@ public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessD
   public static java.lang.String OWNER = "owner";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
+  public static java.lang.String SURVEY = "survey";
   public static java.lang.String TYPE = "type";
   public java.util.Date getCreateDate()
   {
@@ -521,6 +522,63 @@ public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessD
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSiteMasterMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SITEMASTER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.form.business.FormSurveyDTO getSurvey()
+  {
+    if(getValue(SURVEY) == null || getValue(SURVEY).trim().equals(""))
+    {
+      return null;
+    }
+    else
+    {
+      return dss.vector.solutions.form.business.FormSurveyDTO.get(getRequest(), getValue(SURVEY));
+    }
+  }
+  
+  public String getSurveyId()
+  {
+    return getValue(SURVEY);
+  }
+  
+  public void setSurvey(dss.vector.solutions.form.business.FormSurveyDTO value)
+  {
+    if(value == null)
+    {
+      setValue(SURVEY, "");
+    }
+    else
+    {
+      setValue(SURVEY, value.getId());
+    }
+  }
+  
+  public boolean isSurveyWritable()
+  {
+    return isWritable(SURVEY);
+  }
+  
+  public boolean isSurveyReadable()
+  {
+    return isReadable(SURVEY);
+  }
+  
+  public boolean isSurveyModified()
+  {
+    return isModified(SURVEY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSurveyMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SURVEY).getAttributeMdDTO();
+  }
+  
+  public static final com.runwaysdk.business.ValueQueryDTO getNetIds(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String value)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{value};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormBedNetDTO.CLASS, "getNetIds", _declaredTypes);
+    return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.form.business.FormBedNetDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

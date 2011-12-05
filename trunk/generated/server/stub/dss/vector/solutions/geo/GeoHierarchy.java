@@ -21,6 +21,7 @@ import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.generation.CompilerException;
 import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
+import com.runwaysdk.business.rbac.Authenticate;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
@@ -596,6 +597,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * @param geoHierarchyId
    * @return An array of ids for all GeoHierarchies that were deleted.
    */
+  @Authenticate
   public static String[] deleteGeoHierarchy(String geoHierarchyId)
   {
     Set<String> ids;
@@ -741,6 +743,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   /**
    * Defines a new GeoEntity type based on the value of this view.
    */
+  @Authenticate
   public static String defineGeoEntity(GeoEntityDefinition definition)
   {
 
@@ -1019,6 +1022,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * 
    * @param view
    */
+  @Authenticate
   public static void updateFromView(GeoHierarchyView view)
   {
     synchronized (Object.class)
@@ -1221,6 +1225,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * @param parentId
    * @param cloneOperation
    */
+  @Authenticate
   public static void applyExistingWithParent(String childGeoHierarchyId, String parentGeoHierarchyId, Boolean cloneOperation)
   {
 

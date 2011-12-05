@@ -6,6 +6,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URLEncoder;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,6 +41,11 @@ public class ErrorUtility implements Reloadable
 
   public static void prepareAjaxThrowable(Throwable t, HttpServletResponse resp) throws IOException
   {
+    while(t instanceof InvocationTargetException)
+    {
+      t = t.getCause();
+    }
+    
     if(t instanceof ProblemExceptionDTO)
     {
       JSONProblemExceptionDTO jsonE = new JSONProblemExceptionDTO((ProblemExceptionDTO)t);
