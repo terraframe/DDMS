@@ -1,12 +1,17 @@
 package dss.vector.solutions.form.business;
 
+import com.runwaysdk.dataaccess.MdWebAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdWebFormDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.LeftJoinEq;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.generator.FormIdAlreadyExistException;
 import dss.vector.solutions.query.QueryBuilder;
 
 public class FormPerson extends FormPersonBase implements com.runwaysdk.generation.loader.Reloadable
@@ -14,6 +19,8 @@ public class FormPerson extends FormPersonBase implements com.runwaysdk.generati
   private static final long  serialVersionUID = -1668815263;
 
   public static final String FORM_TYPE        = "dss.vector.solutions.form.FormPerson";
+
+  public static final String PERSON_ID        = "personId";
 
   public FormPerson()
   {
@@ -59,6 +66,29 @@ public class FormPerson extends FormPersonBase implements com.runwaysdk.generati
     valueQuery.restrictRows(20, 1);
 
     return valueQuery;
+  }
+
+  public static void validatePersonId(String value)
+  {
+    FormPersonQuery query = new FormPersonQuery(new QueryFactory());
+
+    query.WHERE(query.getOid().EQ(value));
+
+    if (query.getCount() > 0)
+    {
+      MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdWebFormDAO.getMdTypeDAO(FormPerson.FORM_TYPE);
+      MdWebAttributeDAOIF mdField = (MdWebAttributeDAOIF) mdForm.getMdField(PERSON_ID);
+
+      String msg = "A form household already exists with the oid [" + value + "]";
+
+      FormIdAlreadyExistException e = new FormIdAlreadyExistException(msg);
+      e.setTypeDisplayLabel(mdForm.getDisplayLabel(Session.getCurrentLocale()));
+      e.setAttributeDisplayLabel(mdField.getDisplayLabel(Session.getCurrentLocale()));
+      e.setValue(value);
+      e.apply();
+
+      throw e;
+    }
   }
 
 }

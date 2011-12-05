@@ -1,5 +1,8 @@
 package dss.vector.solutions.form.business;
 
+import com.runwaysdk.dataaccess.MdWebAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdWebFormDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdWebFormDAO;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.LeftJoinEq;
@@ -8,7 +11,9 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectablePrimitive;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.generator.FormIdAlreadyExistException;
 import dss.vector.solutions.query.QueryBuilder;
 
 public class FormBedNet extends FormBedNetBase implements com.runwaysdk.generation.loader.Reloadable
@@ -16,6 +21,8 @@ public class FormBedNet extends FormBedNetBase implements com.runwaysdk.generati
   private static final long  serialVersionUID = -1917753186;
 
   public static final String FORM_TYPE        = "dss.vector.solutions.form.FormBedNet";
+
+  public static final String NET_ID           = "netId";
 
   public FormBedNet()
   {
@@ -83,6 +90,29 @@ public class FormBedNet extends FormBedNetBase implements com.runwaysdk.generati
     valueQuery.restrictRows(20, 1);
 
     return valueQuery;
-
   }
+
+  public static void validateNetId(String value)
+  {
+    FormBedNetQuery query = new FormBedNetQuery(new QueryFactory());
+
+    query.WHERE(query.getOid().EQ(value));
+
+    if (query.getCount() > 0)
+    {
+      MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdWebFormDAO.getMdTypeDAO(FormBedNet.FORM_TYPE);
+      MdWebAttributeDAOIF mdField = (MdWebAttributeDAOIF) mdForm.getMdField(NET_ID);
+
+      String msg = "A form household already exists with the oid [" + value + "]";
+
+      FormIdAlreadyExistException e = new FormIdAlreadyExistException(msg);
+      e.setTypeDisplayLabel(mdForm.getDisplayLabel(Session.getCurrentLocale()));
+      e.setAttributeDisplayLabel(mdField.getDisplayLabel(Session.getCurrentLocale()));
+      e.setValue(value);
+      e.apply();
+
+      throw e;
+    }
+  }
+
 }

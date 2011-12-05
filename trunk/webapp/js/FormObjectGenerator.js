@@ -127,7 +127,8 @@ var RenderEditFieldEvent = Mojo.Meta.newClass('dss.vector.solutions.RenderEditFi
         {
           var attrId = field.getFieldMd().getDefiningMdAttribute();
           errorContainer.setId(attrId);
-        }        
+          com.setErrorContainerId(attrId);
+        }
        
         this._parent.appendChild(dd);
         com.addDOMParent(dd);
@@ -732,6 +733,7 @@ var FieldComponent = Mojo.Meta.newClass('dss.vector.solutions.FieldComponent', {
       this.$initialize();
       this._field = field;
       this._domParents = [];
+      this._errorContainerId = null;
     },
     show : function(){
       for(var i=0, len=this._domParents.length; i<len; i++){
@@ -742,6 +744,12 @@ var FieldComponent = Mojo.Meta.newClass('dss.vector.solutions.FieldComponent', {
       for(var i=0, len=this._domParents.length; i<len; i++){
         this._domParents[i].setStyle('display', 'none');
       }    
+    },
+    getErrorContainerId : function() {
+      return this._errorContainerId;
+    },
+    setErrorContainerId : function(errorContainerId) {
+      this._errorContainerId = errorContainerId;
     },
     addDOMParent : function(parent){
       this._domParents.push(parent);

@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 444654273)
+@com.runwaysdk.business.ClassSignature(hash = -186559872)
 public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormBedNet";
-  private static final long serialVersionUID = 444654273;
+  private static final long serialVersionUID = -186559872;
   
   protected FormBedNetDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -579,6 +579,14 @@ public abstract class FormBedNetDTOBase extends com.runwaysdk.business.BusinessD
     Object[] _parameters = new Object[]{value};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormBedNetDTO.CLASS, "getNetIds", _declaredTypes);
     return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void validateNetId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String netId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{netId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormBedNetDTO.CLASS, "validateNetId", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.form.business.FormBedNetDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -729611967)
+@com.runwaysdk.business.ClassSignature(hash = -838348544)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -27,7 +27,7 @@ public abstract class FormBedNetBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SURVEY = "survey";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -729611967;
+  private static final long serialVersionUID = -838348544;
   
   public FormBedNetBase()
   {
@@ -493,6 +493,12 @@ public abstract class FormBedNetBase extends com.runwaysdk.business.Business imp
   }
   
   public static com.runwaysdk.query.ValueQuery getNetIds(java.lang.String value)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormBedNet.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void validateNetId(java.lang.String netId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormBedNet.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);

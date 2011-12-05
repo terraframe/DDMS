@@ -6,20 +6,51 @@
 Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
   IsAbstract : true,
   Instance : {
-    initialize : function(id){
+    initialize : function(id, errorContainerId){
       var dF = Mojo.Util.bind(this, this._displayFunction);
       var sF = Mojo.Util.bind(this, this._searchFunction);
       var sEH = Mojo.Util.bind(this, this._selectEventHandler);
 
       this._element = document.getElementById(id);
+      this._errorSpan = document.getElementById(errorContainerId);
       this._genericSearch = new MDSS.GenericSearch(id, null, dF, dF, dF, sF, sEH);
       
-      YAHOO.util.Event.on(this._element, 'blur', this._changeEventHandler, null, this);
+      YAHOO.util.Event.on(this._element, 'blur', this._blurEventHandler, null, this);
     },
+    showErrorMessage : function(message)
+    {
+      if(this._errorSpan != null)
+      {  
+        this._errorSpan.innerHTML = message
+        this._errorSpan.style.display = 'inline-block';
+        
+        var contentNode = this._errorSpan.parentNode.children.item(0);
+        contentNode.style.cssFloat = 'left';
+      }
+      else
+      {
+        new MDSS.ErrorModal(message);
+      }    	
+    },
+    clearErrors : function()
+    {
+      if(this._errorSpan != null)
+      {  
+        this._errorSpan.innerHTML = "";
+        this._errorSpan.style.display = 'none';
+        
+        var contentNode = this._errorSpan.parentNode.children.item(0);
+        contentNode.style.cssFloat = 'none';
+      }      
+    },    
     _searchFunction : function(request, value)
     {
       IsAbstract : true
     },        
+    _validate : function(request, value)
+    {
+      IsAbstract : true
+    },
     _displayFunction : function(valueObj)
     {
       return valueObj.getValue('oid');
@@ -27,10 +58,25 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
     _selectEventHandler : function(selected)
     {
       this._element.value = selected.id;
+      this.clearErrors();
     },
-    _changeEventHandler : function(e)
+    _blurEventHandler : function(e)
     {
-      //alert("Blur");
+      var request = new MDSS.Request({
+      that : this,
+        onSend: function(){},
+        onComplete: function(){},      
+        onSuccess : function()
+        {
+          this.that.clearErrors();
+        },
+        onFailure : function(e)
+        {
+          this.that.showErrorMessage(e.getLocalizedMessage());
+        }
+      });
+
+      this._validate(request, this._element.value);
     }
   }
 });
@@ -38,12 +84,16 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
 Mojo.Meta.newClass('dss.vector.solutions.FormHouseholdSearch', {
   Extends : Mojo.$.dss.vector.solutions.FormSearch,
   Instance : {
-    initialize : function(id){
-      this.$initialize(id);
+    initialize : function(id, errorContainerId){
+      this.$initialize(id, errorContainerId);
     },
     _searchFunction : function(request, value)
     {
       Mojo.$.dss.vector.solutions.form.business.FormHousehold.getHouseIds(request, value);
+    },
+    _validate : function(request, value)
+    {
+      Mojo.$.dss.vector.solutions.form.business.FormHousehold.validateHouseholdId(request, value);
     }
   }
 });
@@ -51,30 +101,36 @@ Mojo.Meta.newClass('dss.vector.solutions.FormHouseholdSearch', {
 Mojo.Meta.newClass('dss.vector.solutions.FormBedNetSearch', {
   Extends : Mojo.$.dss.vector.solutions.FormSearch,
   Instance : {
-    initialize : function(id){
-      this.$initialize(id);
+    initialize : function(id, errorContainerId){
+      this.$initialize(id, errorContainerId);
     },
     _searchFunction : function(request, value)
     {
       Mojo.$.dss.vector.solutions.form.business.FormBedNet.getNetIds(request, value);
-    }
+    },
+    _validate : function(request, value)
+    {
+      Mojo.$.dss.vector.solutions.form.business.FormBedNet.validateNetId(request, value);
+    }    
   }
 });
 
 Mojo.Meta.newClass('dss.vector.solutions.FormPersonSearch', {
   Extends : Mojo.$.dss.vector.solutions.FormSearch,
   Instance : {
-    initialize : function(id){
-      this.$initialize(id);
+    initialize : function(id, errorContainerId){
+      this.$initialize(id, errorContainerId);
     },
     _searchFunction : function(request, value)
     {
       Mojo.$.dss.vector.solutions.form.business.FormPerson.getPersonIds(request, value);
+    },
+    _validate : function(request, value)
+    {
+      Mojo.$.dss.vector.solutions.form.business.FormPerson.validatePersonId(request, value);
     }    
   }
 });
-
-
 
 Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
   Instance : {
@@ -160,8 +216,10 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
       
       if(field.getFieldName() == 'householdId')
       {
-        // add generic ajax search
-        new dss.vector.solutions.FormHouseholdSearch(fieldComponent.getInputId());
+        var inputId = fieldComponent.getInputId();
+        var errorContainerId = fieldComponent.getErrorContainerId();
+      
+        new dss.vector.solutions.FormHouseholdSearch(inputId, errorContainerId);
       }
     },
     householdViewParentEventHandler : function(e)
@@ -265,7 +323,7 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
       if(field.getFieldName() == 'netId')
       {
         // add generic ajax search
-        new dss.vector.solutions.FormBedNetSearch(fieldComponent.getInputId());
+        new dss.vector.solutions.FormBedNetSearch(fieldComponent.getInputId(), fieldComponent.getErrorContainerId());
       }
     },    
     bedNetRenderViewFieldEventHandler : function(e)
@@ -391,7 +449,7 @@ Mojo.Meta.newClass('dss.vector.solutions.SurveyFormGenerator', {
       if(field.getFieldName() == 'personId')
       {
         // add generic ajax search
-        new dss.vector.solutions.FormPersonSearch(fieldComponent.getInputId());
+        new dss.vector.solutions.FormPersonSearch(fieldComponent.getInputId(), fieldComponent.getErrorContainerId());
       }
     },    
     personRenderViewFieldEventHandler : function(e)

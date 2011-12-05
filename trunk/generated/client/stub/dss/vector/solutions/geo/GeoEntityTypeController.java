@@ -14,8 +14,7 @@ import com.runwaysdk.web.json.JSONRunwayExceptionDTO;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
 
-public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class GeoEntityTypeController extends GeoEntityTypeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID              = 1236133816932L;
 
@@ -33,8 +32,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
 
   public static final String  ROOT_GEO_HIERARCHY_ID         = "rootGeoHierarchyId";
 
-  public GeoEntityTypeController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public GeoEntityTypeController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
@@ -44,18 +42,17 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
   {
     try
     {
-    	new GeoHierarchyDTO(this.getClientRequest());
       GeoEntityDefinitionDTO def = new GeoEntityDefinitionDTO(this.getClientRequest());
       def.setParentGeoHierarchyId(parentGeoHierarchyId);
 
-      GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getGeoEntityHierarchyViews(this
-          .getClientRequest(), MdBusinessInfo.DISPLAY_LABEL, true, null, null);
-//      List<SpatialMasterDTO> types = SpatialTypesDTO.allItems(this.getClientRequest());
+      GeoHierarchyViewQueryDTO query = GeoHierarchyDTO.getGeoEntityHierarchyViews(this.getClientRequest(), MdBusinessInfo.DISPLAY_LABEL, true, null, null);
+      // List<SpatialMasterDTO> types =
+      // SpatialTypesDTO.allItems(this.getClientRequest());
 
       req.setAttribute("availableParents", query.getResultSet());
-//      req.setAttribute("types", types);
+      // req.setAttribute("types", types);
       req.setAttribute("definition", def);
-      
+
       req.getRequestDispatcher(NEW_DEFINITION_JSP).forward(req, resp);
     }
     catch (ProblemExceptionDTO e)
@@ -109,10 +106,10 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       GeoHierarchyDTO.lock(clientRequest, geoHierarchyId);
-      
+
       GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(clientRequest, geoHierarchyId);
       GeoEntityDefinitionDTO definition = GeoHierarchyDTO.getGeoEntityDefinition(clientRequest, geoHierarchyId);
-      
+
       req.setAttribute("term", definition.getTerm());
       req.setAttribute("geoHierarchyId", geoHierarchyId);
       req.setAttribute("definition", definition);
@@ -189,7 +186,7 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
     {
       ClientRequestIF clientRequest = this.getClientRequest();
       GeoHierarchyViewDTO view = GeoHierarchyDTO.getViewForGeoHierarchy(clientRequest, geoHierarchyId);
-            
+
       req.setAttribute("view", view);
 
       if (this.isAsynchronous())
@@ -238,16 +235,16 @@ public class GeoEntityTypeController extends GeoEntityTypeControllerBase impleme
       this.resp.getWriter().write(ex.getJSON());
     }
   }
-  
+
   @Override
   public void export(String hierarchyId, Boolean includeGeoData) throws IOException, ServletException
   {
     try
     {
       ClientRequestIF clientRequest = this.getClientRequest();
-      
+
       InputStream stream = FacadeDTO.exportGeosByType(clientRequest, hierarchyId, includeGeoData);
-      
+
       FileDownloadUtil.writeXLS(resp, "GeoExport", stream);
     }
     catch (Throwable t)

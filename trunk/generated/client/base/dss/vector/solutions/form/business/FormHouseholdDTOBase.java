@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -2075481048)
+@com.runwaysdk.business.ClassSignature(hash = -2033061725)
 public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormHousehold";
-  private static final long serialVersionUID = -2075481048;
+  private static final long serialVersionUID = -2033061725;
   
   protected FormHouseholdDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -545,6 +545,14 @@ public abstract class FormHouseholdDTOBase extends com.runwaysdk.business.Busine
     Object[] _parameters = new Object[]{value};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormHouseholdDTO.CLASS, "getHouseIds", _declaredTypes);
     return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void validateHouseholdId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String householdId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{householdId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormHouseholdDTO.CLASS, "validateHouseholdId", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.form.business.FormHouseholdDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

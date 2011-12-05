@@ -1,10 +1,10 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = 1987739282)
+@com.runwaysdk.business.ClassSignature(hash = 851408917)
 public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.form.business.FormPerson";
-  private static final long serialVersionUID = 1987739282;
+  private static final long serialVersionUID = 851408917;
   
   protected FormPersonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -629,6 +629,14 @@ public abstract class FormPersonDTOBase extends com.runwaysdk.business.BusinessD
     Object[] _parameters = new Object[]{value};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormPersonDTO.CLASS, "getPersonIds", _declaredTypes);
     return (com.runwaysdk.business.ValueQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public static final void validatePersonId(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String personId)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{personId};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.form.business.FormPersonDTO.CLASS, "validatePersonId", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static dss.vector.solutions.form.business.FormPersonDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

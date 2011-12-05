@@ -1,6 +1,6 @@
 package dss.vector.solutions.form.business;
 
-@com.runwaysdk.business.ClassSignature(hash = -933539822)
+@com.runwaysdk.business.ClassSignature(hash = -1534801515)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -28,7 +28,7 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SURVEY = "survey";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -933539822;
+  private static final long serialVersionUID = -1534801515;
   
   public FormPersonBase()
   {
@@ -534,6 +534,12 @@ public abstract class FormPersonBase extends com.runwaysdk.business.Business imp
   }
   
   public static com.runwaysdk.query.ValueQuery getPersonIds(java.lang.String value)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormPerson.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static void validatePersonId(java.lang.String personId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.form.business.FormPerson.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
