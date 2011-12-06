@@ -1,5 +1,6 @@
 package dss.vector.solutions.ontology;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -36,24 +37,24 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 
     return super.toString();
   }
-  
+
   @Override
   public void apply()
   {
-    boolean applied = (!this.isNew() || this.isAppliedToDB());
+    boolean applied = ( !this.isNew() || this.isAppliedToDB() );
 
-    if(this.getDisease() == null && this.isNew())
+    if (this.getDisease() == null && this.isNew())
     {
       this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
 
     // We must apply the browser root before we can create the relationship
-    if(!applied)
+    if (!applied)
     {
       this.addfield(this.getBrowserField()).apply();
-    }    
+    }
   }
 
   @Override
@@ -63,7 +64,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     {
       return this.getId(); // object not properly constructed.
     }
-    
+
     return this.getDisease().getKey() + ":" + this.getBrowserField().getKey() + "." + this.getTerm().getKey();
   }
 
@@ -180,7 +181,7 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
       else
       {
         rootQuery.WHERE(rootQuery.getTerm().EQ(""));
-      }      
+      }
     }
     // restricted by MdAttributeId
     else if (className == null || className.length() == 0)
@@ -214,30 +215,8 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
    */
   public static BrowserRootView[] getAttributeRoots(String className, String attribute)
   {
-    List<BrowserRootView> views = new LinkedList<BrowserRootView>();
+    List<BrowserRootView> views = BrowserRoot.getDirectAttributeRoots(className, attribute);
 
-    // MenuItem searching
-    if (className.equals(MenuItem.CLASS) && attribute.equals(MenuItem.TERM))
-    {
-      return getMenuItemRoot();
-    }
-
-    BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
-
-    OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
-
-    try
-    {
-      while (iter.hasNext())
-      {
-        BrowserRoot root = iter.next();
-        views.add(root.toView());
-      }
-    }
-    finally
-    {
-      iter.close();
-    }
     // Ticket #848: Return a roots children if only one root
     // exists that is not selectable.
     if (views.size() == 1 && !views.get(0).getSelectable())
@@ -260,6 +239,38 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
     }
 
     return views.toArray(new BrowserRootView[views.size()]);
+  }
+
+  public static List<BrowserRootView> getDirectAttributeRoots(String className, String attribute)
+  {
+    List<BrowserRootView> views = new LinkedList<BrowserRootView>();
+
+    // MenuItem searching
+    if (className.equals(MenuItem.CLASS) && attribute.equals(MenuItem.TERM))
+    {
+      BrowserRootView[] roots = BrowserRoot.getMenuItemRoot();
+
+      return Arrays.asList(roots);
+    }
+
+    BrowserRootQuery rootQ = BrowserRoot.getAttributeRoots(className, attribute, new QueryFactory());
+
+    OIterator<? extends BrowserRoot> iter = rootQ.getIterator();
+
+    try
+    {
+      while (iter.hasNext())
+      {
+        BrowserRoot root = iter.next();
+        views.add(root.toView());
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+
+    return views;
   }
 
   private static BrowserRootView toView(TermView termView)
@@ -342,6 +353,5 @@ public class BrowserRoot extends BrowserRootBase implements com.runwaysdk.genera
 
     return otherTerm.getTermId().equals(thisTerm.getTermId()) && thisDisease.getId().equals(otherDisease.getId());
   }
-  
-  
+
 }

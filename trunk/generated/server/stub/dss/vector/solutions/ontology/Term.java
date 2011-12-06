@@ -10,7 +10,6 @@ import java.util.TreeSet;
 
 import org.json.JSONArray;
 
-import com.runwaysdk.business.RelationshipQuery;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.DuplicateGraphPathException;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
@@ -632,7 +631,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return term;
   }
-  
+
   private static class FetchQueryBuilder extends ViewQueryBuilder implements Reloadable
   {
     private String[]              termIds;
@@ -1127,7 +1126,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
   public static Term[] getRootChildren(String className, String attributeName, Boolean returnOnlySelectable)
   {
-    BrowserRootView[] roots = BrowserRoot.getAttributeRoots(className, attributeName);
+    List<BrowserRootView> roots = BrowserRoot.getDirectAttributeRoots(className, attributeName);
     Set<Term> children = new TreeSet<Term>(new TermComparator());
 
     for (BrowserRootView view : roots)
@@ -1160,7 +1159,7 @@ public class Term extends TermBase implements Reloadable, OptionIF
           children.add(child);
         }
       }
-      
+
     }
 
     List<Term> sorted = new ArrayList<Term>(children);
@@ -1548,52 +1547,54 @@ public class Term extends TermBase implements Reloadable, OptionIF
 
     return conditions;
   }
-  
+
   /**
-   * Checks all given terms against one another for the possibility of nested selections.
-   * A nested selection is one in which two terms occupy the same branch, such as when
-   * a selected term is a child of parent term that is also selected.
+   * Checks all given terms against one another for the possibility of nested
+   * selections. A nested selection is one in which two terms occupy the same
+   * branch, such as when a selected term is a child of parent term that is also
+   * selected.
    * 
    * @param termIds
-   * @throws NestedTermsException if there is more than one term in a branch.
+   * @throws NestedTermsException
+   *           if there is more than one term in a branch.
    */
   @Transaction
   public static String[] checkForNestedTerms(java.lang.String[] termIds)
   {
-    if(termIds.length <= 1)
+    if (termIds.length <= 1)
     {
       return null;
     }
-    
+
     QueryFactory f = new QueryFactory();
     ValueQuery v = new ValueQuery(f);
-    
+
     AllPathsQuery q = new AllPathsQuery(v);
     v.SELECT_DISTINCT(q.getChildTerm().getId("childId"), q.getChildTerm().getTermDisplayLabel().localize("childDisplay"));
     v.WHERE(q.getChildTerm("childId").IN(termIds));
     v.AND(q.getParentTerm("parentId").IN(termIds));
     v.AND(q.getChildTerm("childId").NE(q.getParentTerm("parentId")));
-    
+
     OIterator<ValueObject> iter = v.getIterator();
-    
+
     try
     {
-      if(iter.hasNext())
+      if (iter.hasNext())
       {
         List<String> toRemove = new LinkedList<String>();
         JSONArray arr = new JSONArray();
-        
-        while(iter.hasNext())
+
+        while (iter.hasNext())
         {
           ValueObject o = iter.next();
           toRemove.add(o.getValue("childId"));
           arr.put(o.getValue("childDisplay"));
         }
-        
+
         NestedTermsWarning w = new NestedTermsWarning();
         w.setNestedTerms(arr.toString());
         w.throwIt();
-        
+
         return toRemove.toArray(new String[toRemove.size()]);
       }
       else
