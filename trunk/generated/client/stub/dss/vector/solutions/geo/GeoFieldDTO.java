@@ -10,11 +10,14 @@ import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.conversion.ConversionExceptionDTO;
 
 import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.geo.generated.EarthDTO;
 import dss.vector.solutions.query.GeoFieldIF;
 
 public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoFieldIF
 {
-  private static final long serialVersionUID = 727056416;
+  private static final long   serialVersionUID      = 727056416;
+
+  private static final String SELECT_SEARCH_ROOT_ID = "selectSearchRootId";
 
   public GeoFieldDTO(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -47,16 +50,26 @@ public class GeoFieldDTO extends GeoFieldDTOBase implements Reloadable, GeoField
       geoFieldJSON.put(GeoFieldDTO.ISPOPULATIONHIERARCHY, this.getIsPopulationHierarchy());
       geoFieldJSON.put(GeoFieldDTO.ISSPRAYHIERARCHY, this.getIsSprayHierarchy());
       geoFieldJSON.put(GeoFieldDTO.ISURBANHIERARCHY, this.getIsUrbanHierarchy());
+      geoFieldJSON.put(GeoFieldDTO.ISUNDERSYSTEMROOT, this.getIsUnderSystemRoot());
+
+      if (!this.getIsUnderSystemRoot())
+      {
+        geoFieldJSON.put(SELECT_SEARCH_ROOT_ID, EarthDTO.getEarthInstance(this.getRequest()).getId());
+      }
+      else
+      {
+        geoFieldJSON.put(SELECT_SEARCH_ROOT_ID, JSONObject.NULL);
+      }
 
       // create the filter
       if (this.getFilterId() != null && this.getFilterId().length() > 0)
-      {  
+      {
         GeoHierarchyViewDTO filterGH = GeoHierarchyDTO.getViewForGeoHierarchy(this.getRequest(), this.getFilterId());
         geoFieldJSON.put("filter", MDSSInfo.GENERATED_GEO_PACKAGE + "." + filterGH.getTypeName());
       }
       else
       {
-        geoFieldJSON.put("filter", JSONObject.NULL);        
+        geoFieldJSON.put("filter", JSONObject.NULL);
       }
 
       List<? extends GeoHierarchyDTO> geoHierarchies = this.getAllGeoHierarchies();

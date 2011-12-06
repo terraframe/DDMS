@@ -190,7 +190,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     
     _doCreateRoot : function(request)
     {
-      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, MDSS.SelectSearchRootId, false, '');
+      Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, this._selectSearchRootId, false, '');
     },    
     
     /**

@@ -7,9 +7,15 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     /**
      * Constructor.
      */
-    initialize : function(enforceRoot)
+    initialize : function(enforceRoot, selectSearchRootId)
     {
       this._enforceRoot = enforceRoot;
+      this._selectSearchRootId = MDSS.SelectSearchRootId;
+      
+      if(selectSearchRootId != null)
+      {
+        this._selectSearchRootId = selectSearchRootId;
+      }
     
       // handler for when a new geo entity is selected
       this._selectHandler = null;
@@ -286,7 +292,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
   
       var method = this._getControllerAction();
       
-      method(request, MDSS.SelectSearchRootId, this.getFlags(), this.getExtraUniversals());
+      method(request, this._selectSearchRootId, this.getFlags(), this.getExtraUniversals());
     },
     
     getFlags : function()

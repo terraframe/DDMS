@@ -17,6 +17,6 @@ request.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, EarthDTO.getEar
 <jsp:include page="/WEB-INF/selectSearch.jsp" />
 <mjl:component param="dto" item="${item}">
   <mjl:dt attribute="geoEntity">
-    <mdss:geo param="geoEntity" value="${item.geoEntity}" />
+    <mdss:geo param="geoEntity" enforceRoot="false" value="${item.geoEntity}"  />
   </mjl:dt>
 </mjl:component>

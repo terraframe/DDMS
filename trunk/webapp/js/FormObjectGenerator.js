@@ -978,11 +978,12 @@ var GeoComponent = Mojo.Meta.newClass('dss.vector.solutions.GeoComponent', {
       this.dispatchEvent(new ValueChangeEvent(value));
     },
     _setupGeoWidget : function(geoId){
+      var geoField = this.getField().getGeoField();
+    	
       var geoInput = document.getElementById(this._inputId);
       geoInput.value = geoId;
-      var selectSearch = new MDSS.SingleSelectSearch(true);
       
-      var geoField = this.getField().getGeoField();
+      var selectSearch = new MDSS.SingleSelectSearch(geoField.isUnderSystemRoot, geoField.selectSearchRootId);      
       selectSearch.setPolitical(geoField.isPoliticalHierarchy);
       selectSearch.setPopulated(geoField.isPopulationHierarchy);
       selectSearch.setSprayTargetAllowed(geoField.isSprayHierarchy);

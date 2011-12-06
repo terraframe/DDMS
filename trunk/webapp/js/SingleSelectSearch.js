@@ -10,9 +10,9 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     /**
      * Constructor.
      */
-    initialize : function(enforceRoot)
+    initialize : function(enforceRoot, selectSearchRootId)
     {
-      this.$initialize(enforceRoot);
+      this.$initialize(enforceRoot, selectSearchRootId);
 
       this._currentSelection = null;
       this._CURRENT_SELECTION = 'currentSelection';
@@ -206,7 +206,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       else
       {
         // Fetch the system default root.
-        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, MDSS.SelectSearchRootId, false, this._filterType);
+        Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.collectAllLocatedIn(request, this._selectSearchRootId, false, this._filterType);
       }
     },
 
