@@ -283,6 +283,7 @@
     <xs:attribute name="label" type="xs:string" />
     <xs:attribute name="description" type="xs:string" />
     <xs:attribute name="removable" type="xs:boolean" />
+    <xs:attribute name="required" type="xs:boolean" />
   </xs:attributeGroup>
 
   <xs:attributeGroup name="mdWebAttribute">
@@ -298,7 +299,7 @@
     <xs:attributeGroup ref="mdWebAttribute" />
     <xs:attribute name="maxLength" type="xs:string" />
     <xs:attribute name="displayLength" type="xs:string" />
-    <xs:attribute name="unique" type="xs:boolean" />    
+    <xs:attribute name="unique" type="xs:boolean" />
   </xs:complexType>
     
   <xs:complexType name="fields">
