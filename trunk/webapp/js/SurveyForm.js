@@ -14,8 +14,19 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
       this._element = document.getElementById(id);
       this._errorSpan = document.getElementById(errorContainerId);
       this._genericSearch = new MDSS.GenericSearch(id, null, dF, dF, dF, sF, sEH);
+      this._genericSearch.addEventListener(MDSS.EnterResults, this._enterResultsHandler, null, this);
+      this._genericSearch.addEventListener(MDSS.ExitResults, this._exitResultsHandler, null, this);
       
       YAHOO.util.Event.on(this._element, 'blur', this._blurEventHandler, null, this);
+      this._withinResults = false; // toggled when the user is entering, existing the results panel
+    },
+    _enterResultsHandler : function(e){
+      this._withinResults = true;
+      console.log(e);
+    },
+    _exitResultsHandler : function(e){
+      this._withinResults = false;
+      console.log(e);
     },
     showErrorMessage : function(message)
     {
@@ -62,6 +73,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
     },
     _blurEventHandler : function(e)
     {
+      // don't perform validation if we're selecting from the search results
+      if(this._withinResults){
+        return;
+      }
+    
       var request = new MDSS.Request({
       that : this,
         onSend: function(){},

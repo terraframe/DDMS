@@ -698,13 +698,13 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       this.ul.id = element.id + '_results_ul';
       this.index = 0;
 
-      var resultsDiv = document.createElement('div');
-      resultsDiv.id = element.id + '_results';
-      resultsDiv.className = "yui-panel-container show-scrollbars shadow";
+      this._resultsDiv = document.createElement('div');
+      this._resultsDiv.id = element.id + '_results';
+      this._resultsDiv.className = "yui-panel-container show-scrollbars shadow";
     
-      YAHOO.util.Dom.insertAfter(resultsDiv,element);
+      YAHOO.util.Dom.insertAfter(this._resultsDiv,element);
 
-      this.panel = new YAHOO.widget.Panel(resultsDiv, {
+      this.panel = new YAHOO.widget.Panel(this._resultsDiv, {
         zindex:15,
         draggable: false,
         close: false,
@@ -724,7 +724,7 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       this.panel.setBody(outer);
       outer.appendChild(inner);
 
-      YAHOO.util.Dom.addClass(this.ul, 'selectableList')
+      YAHOO.util.Dom.addClass(this.ul, 'selectableList');
 
       YAHOO.util.Event.on(this.ul, 'mouseover', function(e, obj){
         var li = e.target; 
@@ -759,6 +759,10 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
         this._autocomplete.selectHandler(li);
 
       }, this, this);
+    },
+    
+    getResultsEl : function(){
+      return this._resultsDiv;
     },
     
     _getOption : function(i) {
@@ -1120,6 +1124,24 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
   }
 });
 
+Mojo.Meta.newClass('MDSS.EnterResults', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(){
+      this.$initialize();
+    }
+  }
+});
+
+Mojo.Meta.newClass('MDSS.ExitResults', {
+  Extends : Mojo.$.com.runwaysdk.event.CustomEvent,
+  Instance : {
+    initialize : function(){
+      this.$initialize();
+    }
+  }
+});
+
 Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
   Extends : MDSS.AutoComplete,
   Instance: {
@@ -1135,6 +1157,9 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         var dataSource = new MDSS.DataSource(this, searchFunction);
         var optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
         var panel = new MDSS.ResultPanel(this, this._displayElement);
+        var el = panel.getResultsEl();
+        YAHOO.util.Event.on(el, 'mouseover', this._mouseOverHandler, null, this);
+        YAHOO.util.Event.on(el, 'mouseout', this._mouseOutHandler, null, this);
 
         this.$initialize(dataSource, optionBuilder, panel, selectEventHandler, prop);
 
@@ -1144,6 +1169,14 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         YAHOO.util.Event.on(this._displayElement, 'keypress', this.preventFormSubmit, null, this);
         YAHOO.util.Event.on(this._displayElement, 'keyup', this.keyHandler, this, this);
       }
+    },
+    
+    _mouseOverHandler : function(){
+      this.dispatchEvent(new MDSS.EnterResults());
+    },
+    
+    _mouseOutHandler : function(){
+      this.dispatchEvent(new MDSS.ExitResults());
     },
     
     getDisplayElement : function() {

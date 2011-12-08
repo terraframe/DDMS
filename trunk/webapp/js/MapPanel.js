@@ -1246,42 +1246,18 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
 
           var mapLayers = [];
 
-
-          // setup base tiled layer
-          var baseLayer = layers[0];
-          var format = OpenLayers.Format.SVG;
-          var base = new OpenLayers.Layer.WMS(
-              "", geoServerPath+"/wms",
-              {
-                  srs: 'EPSG:4326',
-                  layers: baseLayer.view,
-                  styles: '',
-                  sld: Mojo.ClientSession.getBaseEndpoint()+baseLayer.sld,
-                  format: format,
-                  isBaseLayer: true
-                },
-                {
-                  buffer: 0,
-                  opacity: baseLayer.opacity,
-                  singleTile : true
-                }
-          );
-          
-          mapLayers.push(base);
-      
-          for(var i=1; i<layers.length; i++)
+          for(var i=0; i<layers.length; i++)
           {
             var layer = layers[i];
-              var extraLayer = new OpenLayers.Layer.WMS(
-              "", geoServerPath+"/wms",
+              var extraLayer = new OpenLayers.Layer.WMS("", geoServerPath+"/wms",
               {
                   srs: 'EPSG:4326',
                   layers: layer.view,
                   styles: '',
                   sld: Mojo.ClientSession.getBaseEndpoint()+layer.sld,
-                  format: format,
-                  transparent: true,
-                  isBaseLayer : false
+                  format: OpenLayers.Format.SVG,
+                  transparent: (i !== 0), // base layer is false
+                  isBaseLayer : (i === 0) // base layer is true
               },
               {
                 buffer: 0,
@@ -1292,6 +1268,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       
             mapLayers.push(extraLayer);
           }
+          // ... map.addLayers(mapLayers)
           
           var lineLayer = new OpenLayers.Layer.Vector("Line Layer");
           that._drawLineControl = new OpenLayers.Control.DrawFeature(lineLayer, OpenLayers.Handler.Path);
