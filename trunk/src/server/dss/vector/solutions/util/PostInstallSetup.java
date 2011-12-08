@@ -103,7 +103,7 @@ public class PostInstallSetup
 
     // Update tomcat RAM, each app needs at least 768M inorder to compile the system
     File startup = new File(tomcatDirectory + "/bin/startup.bat");
-    int totalMemory = Math.min(2048, 768 * appCount);
+    int totalMemory = Math.min(1792, 768 * appCount);
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
 
     // Update Geoserver's catalog.xml
