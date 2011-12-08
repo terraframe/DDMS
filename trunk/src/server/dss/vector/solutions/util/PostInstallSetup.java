@@ -29,36 +29,38 @@ import com.runwaysdk.util.FileIO;
  */
 public class PostInstallSetup
 {
+  private static final int MAX_PERM_SIZE   = 256;
+
   /**
    * Exit status for the success case. NSIS considers any non-zero exit status
    * as an error, as such the SUCCESS exit status must be 0.
    */
-  public static int    SUCCESS         = 0;
+  public static int        SUCCESS         = 0;
 
   /**
    * Exit status for the failure case.
    */
-  public static int    FAILURE         = -1;
+  public static int        FAILURE         = -1;
 
-  public static String DEFAULT_TOMCAT  = "C:/MDSS/tomcat6/";
+  public static String     DEFAULT_TOMCAT  = "C:/MDSS/tomcat6/";
 
-  public static String DEFAULT_MANAGER = "C:/MDSS/manager/";
+  public static String     DEFAULT_MANAGER = "C:/MDSS/manager/";
 
-  private File         appRoot;
+  private File             appRoot;
 
-  private File         classes;
+  private File             classes;
 
-  private String       appName;
+  private String           appName;
 
-  private String       dbName;
+  private String           dbName;
 
-  private String       installationNumber;
+  private String           installationNumber;
 
-  private Boolean      isMaster;
+  private Boolean          isMaster;
 
-  private String       managerDirectory;
+  private String           managerDirectory;
 
-  private String       tomcatDirectory;
+  private String           tomcatDirectory;
 
   public PostInstallSetup(String appName, String installationNumber, Boolean isMaster)
   {
@@ -101,7 +103,8 @@ public class PostInstallSetup
     // And give common.properties a unique rmi.port
     editWebappProperty("rmi.port", Integer.toString(1099 - appCount), "common.properties");
 
-    // Update tomcat RAM, each app needs at least 768M inorder to compile the system
+    // Update tomcat RAM, each app needs at least 768M inorder to compile the
+    // system
     File startup = new File(tomcatDirectory + "/bin/startup.bat");
     int totalMemory = Math.min(1792, 768 * appCount);
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
@@ -121,12 +124,24 @@ public class PostInstallSetup
     readAndReplace(new File(appRoot, "test/viewComponentOldWay.jsp"), template, replacer);
   }
 
+  public void patch() throws IOException
+  {
+    this.updateCSS();
+    this.updateMaxPermSize();
+  }
+
   public void updateCSS() throws IOException
   {
     String template = "/\\w+/imgs/";
     String replacer = "/" + appName + "/imgs/";
 
     readAndReplace(new File(appRoot, "css/style.css"), template, replacer);
+  }
+
+  private void updateMaxPermSize() throws IOException
+  {
+    File startup = new File(PostInstallSetup.DEFAULT_TOMCAT + "/bin/startup.bat");
+    this.readAndReplace(startup, "-XX:MaxPermSize=\\d*M", "-XX:MaxPermSize=" + MAX_PERM_SIZE + "M");
   }
 
   private void updateProperties() throws IOException
@@ -194,6 +209,7 @@ public class PostInstallSetup
     options.addOption(installationNumberOption);
     options.addOption(isMasterOption);
     options.addOption(new Option("c", "css-only", false, "Setup will only update the css files"));
+    options.addOption(new Option("p", "patch", false, "Post patch setup"));
     options.addOption(new Option("t", true, "Tomcat directory"));
     options.addOption(new Option("m", true, "Manager directory"));
 
@@ -210,7 +226,11 @@ public class PostInstallSetup
 
       PostInstallSetup setup = new PostInstallSetup(appName, installationNumber, isMaster, tomcatDirectory, managerDirectory);
 
-      if (cmd.hasOption("c"))
+      if (cmd.hasOption("p"))
+      {
+        setup.patch();
+      }
+      else if (cmd.hasOption("c"))
       {
         setup.updateCSS();
       }
