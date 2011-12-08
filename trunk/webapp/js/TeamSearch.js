@@ -983,6 +983,8 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
                   
     selectHandler : function(selected) {
       if(selected) {
+        this.dispatchEvent(new MDSS.EnterResults());
+        this._displayElement.blur();
         this._hasSelection = true;
         this.setOption(selected);
           
@@ -990,7 +992,8 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
           this._selectEventHandler(selected);
         }
         
-        this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION, {selected:selected}));
+        this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION, {selected:selected})); // old
+        this.dispatchEvent(new MDSS.ExitResults());
       }
         
       this.hide();
@@ -1047,7 +1050,9 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
         }   
         // Handle the 'enter' key
         else if (oData.keyCode === 13) {
+          this.dispatchEvent(new MDSS.EnterResults());
           this._panel.selectCurrent();
+          this.dispatchEvent(new MDSS.ExitResults());
         }
         else { 
           if(this._isDifferent(value)) {
@@ -1157,9 +1162,6 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         var dataSource = new MDSS.DataSource(this, searchFunction);
         var optionBuilder = new MDSS.OptionBuilder(listFunction, displayFunction, idFunction);      
         var panel = new MDSS.ResultPanel(this, this._displayElement);
-        var el = panel.getResultsEl();
-        YAHOO.util.Event.on(el, 'mouseover', this._mouseOverHandler, null, this);
-        YAHOO.util.Event.on(el, 'mouseout', this._mouseOutHandler, null, this);
 
         this.$initialize(dataSource, optionBuilder, panel, selectEventHandler, prop);
 
@@ -1169,16 +1171,10 @@ Mojo.Meta.newClass('MDSS.GenericSearch', { // Implements CallBack
         YAHOO.util.Event.on(this._displayElement, 'keypress', this.preventFormSubmit, null, this);
         YAHOO.util.Event.on(this._displayElement, 'keyup', this.keyHandler, this, this);
       }
+      
+      // block all blur events if the display element is being modified through a result panel
+      YAHOO.util.Event.on(this._displayElement, 'blur', this._blurHandler, null, this);
     },
-    
-    _mouseOverHandler : function(){
-      this.dispatchEvent(new MDSS.EnterResults());
-    },
-    
-    _mouseOutHandler : function(){
-      this.dispatchEvent(new MDSS.ExitResults());
-    },
-    
     getDisplayElement : function() {
       return this._displayElement;
     },
