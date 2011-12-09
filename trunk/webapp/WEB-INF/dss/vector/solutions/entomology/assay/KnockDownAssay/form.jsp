@@ -68,11 +68,13 @@
   </mjl:dt>
 
   <mjl:dt attribute="kd50">
-    <mjl:input type="text" param="kd50" />
+    <fmt:formatNumber minFractionDigits="2" var="formatKd50" value="${item.kd50}" />
+    <mjl:input type="text" param="kd50" value="${formatKd50}" />
   </mjl:dt>
 
   <mjl:dt attribute="kd95">
-    <mjl:input type="text" param="kd95" />
+    <fmt:formatNumber minFractionDigits="2" var="formatKd95" value="${item.kd95}" />
+    <mjl:input type="text" param="kd95" value="${formatKd95}" />
   </mjl:dt>
 
   <div id="intervalsDiv">

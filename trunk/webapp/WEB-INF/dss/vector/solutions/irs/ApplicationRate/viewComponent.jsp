@@ -39,10 +39,22 @@
           </mjl:option>
         </mjl:select>
       </mjl:dt>
-      <mjl:dt attribute="unitNozzleAreaCoverage" type="text" />
-      <mjl:dt attribute="room" type="text" />
-      <mjl:dt attribute="structureArea" type="text" />
-      <mjl:dt attribute="household" type="text" />
+      <mjl:dt attribute="unitNozzleAreaCoverage" >
+        <fmt:formatNumber minFractionDigits="2" var="formatUnitNozzleAreaCoverage" value="${dto.unitNozzleAreaCoverage}" />
+        <mjl:input type="text" param="unitNozzleAreaCoverage" value="${formatUnitNozzleAreaCoverage}" />              
+      </mjl:dt>
+      <mjl:dt attribute="room" >
+        <fmt:formatNumber minFractionDigits="2" var="formatRoom" value="${dto.room}" />
+        <mjl:input type="text" param="room" value="${formatRoom}" />        
+      </mjl:dt>
+      <mjl:dt attribute="structureArea">
+        <fmt:formatNumber minFractionDigits="2" var="formatStructureArea" value="${dto.structureArea}" />
+        <mjl:input type="text" param="structureArea" value="${formatStructureArea}" />              
+      </mjl:dt>
+      <mjl:dt attribute="household">
+        <fmt:formatNumber minFractionDigits="2" var="formatHousehold" value="${dto.household}" />
+        <mjl:input type="text" param="household" value="${formatHousehold}" />        
+      </mjl:dt>
       </mjl:component>
       <mdss:localize key="Update" var="Localized_Update" />
       <mjl:command value="${Localized_Update}" id="update.id" action="dss.vector.solutions.irs.ApplicationRateController.update.mojo" name="update.button" />

@@ -92,8 +92,10 @@ vertical-align: baseline;
          <mjl:input type="text" param="numberExamined" id="numberExamined" classes="collection mutable"/>
        </mjl:dt>
        <mjl:dt attribute="premiseSize">
-         <mjl:input type="text" param="premiseSize" id="premiseSize" classes="collection mutable"/>
+         <fmt:formatNumber minFractionDigits="2" var="formatPremiseSize" value="${item.premiseSize}" />       
+         <mjl:input type="text" param="premiseSize" id="premiseSize" classes="collection mutable" value="${formatPremiseSize}"/>
        </mjl:dt>
+       
        <mjl:dt attribute="numberInhabitants">
          <mjl:input type="text" param="numberInhabitants" id="numberInhabitants" classes="collection mutable"/>
        </mjl:dt>
@@ -214,6 +216,13 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
 
         attributeDTO.setValue(date);        
       }
+      else if(attributeDTO instanceof com.runwaysdk.transport.attributes.AttributeDecDTO) {
+        value = (value == '') ? null : value;
+            
+        var parsed = MDSS.parseNumber(value);
+
+        attributeDTO.setValue(parsed);        
+      }
       else {
         attributeDTO.setValue(value);
       }
@@ -227,7 +236,13 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
           
       for each (el in this._mutables) {          
         var key = el.key;          
-        var value = collection.getAttributeDTO(key).getValue();
+        var attribute = collection.getAttributeDTO(key);        	
+        var value = attribute.getValue();
+
+        if(attribute instanceof com.runwaysdk.transport.attributes.AttributeDecDTO)
+        {
+          value = MDSS.formatNumber(value);            
+        }
 
         el.value = value;
       }

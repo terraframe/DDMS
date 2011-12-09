@@ -76,14 +76,14 @@
         ${item.quantityDead}
       </mjl:dt>
       <mjl:dt attribute="mortality">
-        ${item.mortality}
+        <fmt:formatNumber minFractionDigits="2">${item.mortality}</fmt:formatNumber>
       </mjl:dt>
       <mjl:dt attribute="lt50">
-        ${item.lt50}
+        <fmt:formatNumber minFractionDigits="2">${item.lt50}</fmt:formatNumber>
       </mjl:dt>
       <mjl:dt attribute="lt95">
-        ${item.lt95}
-      </mjl:dt>     
+        <fmt:formatNumber minFractionDigits="2">${item.lt95}</fmt:formatNumber>
+      </mjl:dt>
     </mjl:component>
     <mdss:localize key="Edit" var="Localized_Edit" />
     <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayController.edit.mojo"

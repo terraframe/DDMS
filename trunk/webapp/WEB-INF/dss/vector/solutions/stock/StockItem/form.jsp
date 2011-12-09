@@ -15,7 +15,8 @@
     <mdss:mo param="itemName" value="${itemName}"/>
   </mjl:dt>
   <mjl:dt attribute="quantity">
-    <mjl:input param="quantity" type="text" />
+    <fmt:formatNumber minFractionDigits="2" var="formatQuantity" value="${item.quantity}" />
+    <mjl:input type="text" param="quantity" value="${formatQuantity}" />  
   </mjl:dt>
   <mjl:dt attribute="unit">
     <mdss:mo param="unit" value="${unit}"/>

@@ -15,8 +15,8 @@
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="amount">
-      <mjl:row>
-        ${item.amount}
+      <mjl:row>      
+        <fmt:formatNumber minFractionDigits="2">${item.amount}</fmt:formatNumber>
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="units">

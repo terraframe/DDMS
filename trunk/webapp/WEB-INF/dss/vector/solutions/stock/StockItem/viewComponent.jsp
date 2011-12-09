@@ -14,7 +14,7 @@
         ${item.itemName.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="quantity">
-        ${item.quantity}
+        <fmt:formatNumber minFractionDigits="2">${item.quantity}</fmt:formatNumber>              
       </mjl:dt>
       <mjl:dt attribute="unit">
         ${item.unit.displayLabel}

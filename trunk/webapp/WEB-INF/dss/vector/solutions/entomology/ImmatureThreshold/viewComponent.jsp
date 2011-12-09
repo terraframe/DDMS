@@ -11,7 +11,7 @@
         ${item.displayLabel.value}
       </mjl:dt>
       <mjl:dt attribute="thresholdValue">
-        ${item.thresholdValue}
+        <fmt:formatNumber minFractionDigits="2">${item.thresholdValue}</fmt:formatNumber>
       </mjl:dt>
     </mjl:component>
     <mdss:localize key="Edit" var="Localized_Edit" />

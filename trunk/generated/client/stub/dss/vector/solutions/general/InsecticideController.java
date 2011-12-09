@@ -45,7 +45,6 @@ public class InsecticideController extends InsecticideControllerBase implements 
 
   public void failCreate(InsecticideDTO dto) throws IOException, ServletException
   {
-
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");

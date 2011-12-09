@@ -97,6 +97,9 @@
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="mortality">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2">${item.mortality}</fmt:formatNumber>
+      </mjl:row>
     </mjl:attributeColumn>
 
   <mjl:freeColumn>

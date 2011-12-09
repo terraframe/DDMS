@@ -83,7 +83,7 @@
         ${item.quantityDead}
         </mjl:dt>
       <mjl:dt attribute="mortality">
-        ${item.mortality}
+        <fmt:formatNumber minFractionDigits="2">${item.mortality}</fmt:formatNumber>
       </mjl:dt>
       
       <dt><label> <mdss:localize key="Overall_Mortality_for_surface" /> </label></dt>

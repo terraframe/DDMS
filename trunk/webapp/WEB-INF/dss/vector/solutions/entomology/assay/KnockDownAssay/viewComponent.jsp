@@ -75,10 +75,10 @@
         ${item.quantityTested}
       </mjl:dt>
       <mjl:dt attribute="kd50">
-        ${item.kd50}
+        <fmt:formatNumber minFractionDigits="2">${item.kd50}</fmt:formatNumber>
       </mjl:dt>
       <mjl:dt attribute="kd95">
-        ${item.kd95}
+        <fmt:formatNumber minFractionDigits="2">${item.kd95}</fmt:formatNumber>
       </mjl:dt>
       
       <div id="intervalsDiv">

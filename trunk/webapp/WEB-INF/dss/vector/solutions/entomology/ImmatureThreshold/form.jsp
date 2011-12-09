@@ -9,6 +9,7 @@
     ${item.displayLabel}
   </mjl:dt>
   <mjl:dt attribute="thresholdValue">
-    <mjl:input param="thresholdValue" type="text" />
+    <fmt:formatNumber minFractionDigits="2" var="formatThresholdValue" value="${item.thresholdValue}" />
+    <mjl:input type="text" param="thresholdValue" value="${formatThresholdValue}" />
   </mjl:dt>
 </mjl:component>

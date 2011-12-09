@@ -58,7 +58,8 @@
          <mjl:input type="text" classes="mutable" param="numberWithImmatures"/>
        </mjl:dt>
        <mjl:dt attribute="premiseSize">
-         <mjl:input type="text" classes="mutable" param="premiseSize"/>
+         <fmt:formatNumber minFractionDigits="2" var="formatPremiseSize" value="${item.premiseSize}" />       
+         <mjl:input type="text" classes="mutable" param="premiseSize" value="${formatPremiseSize}"/>
        </mjl:dt>
        <mjl:dt attribute="numberInhabitants">
          <mjl:input type="text" classes="mutable" param="numberInhabitants"/>

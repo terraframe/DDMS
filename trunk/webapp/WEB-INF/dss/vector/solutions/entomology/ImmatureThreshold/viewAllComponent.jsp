@@ -11,6 +11,9 @@
     <mjl:attributeColumn attributeName="displayLabel">
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="thresholdValue">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2">${item.thresholdValue}</fmt:formatNumber>      
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

@@ -63,14 +63,17 @@
     <mjl:input type="text" param="quantityDead" />
   </mjl:dt>
   <mjl:dt attribute="controlTestMortality">
-    <mjl:input type="text" param="controlTestMortality" />
+    <fmt:formatNumber minFractionDigits="2" var="formatControlTestMortality" value="${item.controlTestMortality}" />
+    <mjl:input type="text" param="controlTestMortality" value="${formatControlTestMortality}" />
   </mjl:dt>
   <mjl:dt attribute="lt50">
-    <mjl:input type="text" param="lt50" />
+    <fmt:formatNumber minFractionDigits="2" var="formatLt50" value="${item.lt50}" />
+    <mjl:input type="text" param="lt50" value="${formatLt50}" />
   </mjl:dt>
   <mjl:dt attribute="lt95">
-    <mjl:input type="text" param="lt95" />
-  </mjl:dt>  
+    <fmt:formatNumber minFractionDigits="2" var="formatLt95" value="${item.lt95}" />
+    <mjl:input type="text" param="lt95" value="${formatLt95}" />
+  </mjl:dt>
 </mjl:component>
 
 <%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
