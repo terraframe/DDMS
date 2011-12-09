@@ -51,16 +51,25 @@ public class YUIColumn implements Reloadable
   private String    options;
 
   private Integer   width;
-  
-  private String customValue;
-  
-  private boolean isCustom;
+
+  private boolean   isCustom;
 
   public YUIColumn(ColumnSetup setup, MutableDTO view, String attribute, String postfix)
   {
     try
     {
-      if(setup.isCustom())
+      this.postfix = postfix;
+      this.hidden = setup.isHidden();
+      this.editable = setup.isEditable();
+      this.sum = setup.isSum();
+      this.validator = setup.getValidator();
+      this.title = setup.getTitle();
+      this.getter = setup.getGetter();
+      this.defaultValue = null;
+      this.options = null;
+      this.width = setup.getWidth();
+      
+      if (setup.isCustom())
       {
         this.writable = false;
         this.attributeName = setup.getKey();
@@ -74,33 +83,21 @@ public class YUIColumn implements Reloadable
       {
         DTOFacade facade = new DTOFacade(attribute, view);
         AttributeMdDTO attributeMd = facade.getAttributeMdDTO();
-        
+
         this.writable = view.isWritable(attributeMd.getName());
         this.attributeName = attributeMd.getName();
         this.key = CommonGenerationUtil.upperFirstCharacter(attributeMd.getName());
         this.editor = YUIEditor.getEditor(attributeMd, setup, view, key + postfix);
         this.label = setup.getLabel() != null ? setup.getLabel() : attributeMd.getDisplayLabel();
-        if(attributeMd.isRequired() && setup.isIndicateRequired())
+        if (attributeMd.isRequired() && setup.isIndicateRequired())
         {
           this.label = "* " + this.label;
         }
-        
+
         this.initDefaultValue(facade);
         this.isCustom = false;
       }
-      
 
-      this.postfix = postfix;
-      this.hidden = setup.isHidden();
-      this.editable = setup.isEditable();
-      this.sum = setup.isSum();
-      this.validator = setup.getValidator();
-      this.title = setup.getTitle();
-      this.getter = setup.getGetter();
-      this.defaultValue = null;
-      this.options = null;
-      this.width = setup.getWidth();
-      
       this.initOptions(view);
     }
     catch (Exception e)
@@ -134,7 +131,7 @@ public class YUIColumn implements Reloadable
       }
     }
   }
-  
+
   public boolean isCustom()
   {
     return isCustom;
@@ -213,7 +210,7 @@ public class YUIColumn implements Reloadable
 
       Object object = view.getValue(attributeName);
 
-      if (this.isHidden() && object != null && !(editor instanceof YUIEnumerationEditor))
+      if (this.isHidden() && object != null && ! ( editor instanceof YUIEnumerationEditor ))
       {
         return object.toString();
       }
