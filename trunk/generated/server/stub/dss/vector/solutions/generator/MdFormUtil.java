@@ -32,8 +32,9 @@ import com.runwaysdk.dataaccess.MdWebGeoDAOIF;
 import com.runwaysdk.dataaccess.MdWebMultipleTermDAOIF;
 import com.runwaysdk.dataaccess.MdWebSingleTermGridDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
-import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.dataaccess.database.DatabaseException;
+import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
@@ -92,6 +93,7 @@ import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.form.ConfirmDeleteMdFieldException;
 import dss.vector.solutions.form.ConfirmDeleteMdFormException;
 import dss.vector.solutions.form.DDMSFieldBuilders;
+import dss.vector.solutions.form.FormNameNotBlankException;
 import dss.vector.solutions.form.MdFieldTypeQuery;
 import dss.vector.solutions.form.MdFormHasInstancesException;
 import dss.vector.solutions.general.Disease;
@@ -181,7 +183,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
           for (MdWebPrimitive gridField : gridFields)
           {
             String key = CommonGenerationUtil.upperFirstCharacter(gridField.getFieldName());
-            MdAttributeConcreteDAOIF attr = MdAttributeConcreteDAO.get(gridField.getDefiningMdAttributeId());
+            MdAttributeConcreteDAOIF attr = MdAttributeConcreteDAO.get(gridField
+                .getDefiningMdAttributeId());
             String attrName = attr.definesAttribute();
 
             // null out any values that aren't in the JSON
@@ -382,7 +385,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     else
     {
       // we should never land here.
-      throw new ProgrammingErrorException("The object [" + obj + "] is not of type [" + MdWebForm.CLASS + "] or [" + MdWebGroup.CLASS + "] to retrieve the field order.");
+      throw new ProgrammingErrorException("The object [" + obj + "] is not of type [" + MdWebForm.CLASS
+          + "] or [" + MdWebGroup.CLASS + "] to retrieve the field order.");
     }
 
     q.ORDER_BY_DESC(q.getFieldOrder("fieldOrder"));
@@ -426,7 +430,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   @Transaction
   @Authenticate
-  public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals)
+  public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField,
+      String[] extraUniversals)
   {
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
 
@@ -486,9 +491,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     if (original.hasAttribute(CharacterCondition.OPERATION))
     {
-      copy.addEnumItem(CharacterCondition.OPERATION, original.getEnumValues(CharacterCondition.OPERATION).get(0).getId());
+      copy.addEnumItem(CharacterCondition.OPERATION, original
+          .getEnumValues(CharacterCondition.OPERATION).get(0).getId());
     }
-    copy.setValue(CharacterCondition.DEFININGMDFIELD, original.getValue(CharacterCondition.DEFININGMDFIELD));
+    copy.setValue(CharacterCondition.DEFININGMDFIELD, original
+        .getValue(CharacterCondition.DEFININGMDFIELD));
     copy.setValue(CharacterCondition.VALUE, original.getValue(CharacterCondition.VALUE));
 
     copy.apply();
@@ -548,7 +555,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
    * @param conditions
    * @param composites
    */
-  private static void getConditionsRecurse(Stack<FieldCondition> conditions, Stack<CompositeFieldCondition> composites, FieldCondition parent)
+  private static void getConditionsRecurse(Stack<FieldCondition> conditions,
+      Stack<CompositeFieldCondition> composites, FieldCondition parent)
   {
     if (parent == null)
     {
@@ -877,12 +885,14 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   private static String getRelationshipType(MdWebField field)
   {
-    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttribute) field);
+    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "."
+        + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttribute) field);
   }
 
   private static String getRelationshipType(MdWebFieldDAOIF field)
   {
-    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "." + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttributeDAOIF) field);
+    return MDSSInfo.GENERATED_FORM_TREE_PACKAGE + "."
+        + DDMSFieldBuilders.getTermRelationshipTypeName((MdWebAttributeDAOIF) field);
   }
 
   public static MdAttributeConcrete[] definesAttributes(MdRelationship mdRelationship)
@@ -890,7 +900,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     List<MdAttributeConcrete> definedAttributes = new LinkedList<MdAttributeConcrete>();
     MdRelationshipDAOIF mdRelationshipDAO = MdRelationshipDAO.get(mdRelationship.getId());
 
-    List<? extends MdAttributeConcreteDAOIF> mdAttributes = mdRelationshipDAO.getAllDefinedMdAttributes();
+    List<? extends MdAttributeConcreteDAOIF> mdAttributes = mdRelationshipDAO
+        .getAllDefinedMdAttributes();
 
     for (MdAttributeConcreteDAOIF mdAttribute : mdAttributes)
     {
@@ -921,6 +932,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
 
       String description = mdForm.getDescription().getValue();
+
+      if (typeName == null || typeName.trim().length() == 0)
+      {
+        throw new FormNameNotBlankException();
+      }
 
       mdBusiness = new MdBusiness();
       mdBusiness.setPackageName(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
@@ -1174,7 +1190,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       {
         MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
 
-        listeners.add(new MultiTermListener((MdWebMultipleTermDAOIF) mdField, mdRelationship.getParentMethod()));
+        listeners.add(new MultiTermListener((MdWebMultipleTermDAOIF) mdField, mdRelationship
+            .getParentMethod()));
       }
     }
 
@@ -1190,9 +1207,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       if (mdField instanceof MdWebSingleTermGridDAOIF)
       {
         MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
-        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade.getEntityDAO(mdRelationship);
+        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade
+            .getEntityDAO(mdRelationship);
 
-        GridExcelAdapter context = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField, mdRelationshipDAO);
+        GridExcelAdapter context = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField,
+            mdRelationshipDAO);
 
         builder.add(mdRelationship.definesType(), context);
       }
@@ -1208,9 +1227,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       if (mdField instanceof MdWebSingleTermGridDAOIF)
       {
         MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
-        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade.getEntityDAO(mdRelationship);
+        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade
+            .getEntityDAO(mdRelationship);
 
-        GridExcelAdapter sheet = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField, mdRelationshipDAO);
+        GridExcelAdapter sheet = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField,
+            mdRelationshipDAO);
         sheet.addTemplate(mdRelationship.definesType());
         exporter.addSheet(sheet);
       }
@@ -1226,9 +1247,11 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       if (mdField instanceof MdWebSingleTermGridDAOIF)
       {
         MdRelationship mdRelationship = MdFormUtil.getMdRelationship(MdWebField.get(mdField.getId()));
-        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade.getEntityDAO(mdRelationship);
+        MdRelationshipDAOIF mdRelationshipDAO = (MdRelationshipDAOIF) BusinessFacade
+            .getEntityDAO(mdRelationship);
 
-        GridExcelAdapter sheet = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField, mdRelationshipDAO);
+        GridExcelAdapter sheet = new GridExcelAdapter(mdForm, (MdWebSingleTermGridDAOIF) mdField,
+            mdRelationshipDAO);
         sheet.addTemplate(mdRelationship.definesType());
         exporter.addSheet(sheet);
       }
@@ -1260,7 +1283,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
             builder.add(universal);
           }
 
-          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(), builder));
+          listeners.add(new DynamicGeoColumnListener(mdClass.definesType(), mdField.getFieldName(),
+              builder));
         }
       }
     }
