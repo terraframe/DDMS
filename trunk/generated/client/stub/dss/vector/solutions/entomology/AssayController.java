@@ -402,9 +402,11 @@ public class AssayController extends AssayControllerBase implements Reloadable
     String[] keys = this.getDiagnosticKeys();
     Map<String, ColumnSetup> map = this.getColumns(keys);
     DiagnosticAssayViewDTO[] data = view.getDiagnosticAssays();
-
+    
+    ViewDataGrid grid = new ViewDataGrid(dto, map, keys, data);
+    
     req.setAttribute(DIAGNOSTIC, dto);
-    req.setAttribute(DIAGNOSTIC_GRID, new ViewDataGrid(dto, map, keys, data));
+    req.setAttribute(DIAGNOSTIC_GRID, grid);
   }
 
   private String[] getDiagnosticKeys()

@@ -91,9 +91,8 @@ public class DefaultConverter extends StandardConverter implements Reloadable
       try
       {
         Number number = format.parse(value);
-        float floatValue = number.floatValue();
         
-        return new Float(floatValue);  
+        return new Float(number.floatValue());  
       }
       catch (Exception e)
       {

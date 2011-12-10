@@ -45,20 +45,17 @@ public class ViewDataGrid extends DataGrid implements Reloadable
     this("", true, view, map, keys, data, "");
   }
 
-  public ViewDataGrid(String tableId, boolean readable, MutableDTO view, Map<String, ColumnSetup> map,
-      String[] keys, MutableDTO[] data)
+  public ViewDataGrid(String tableId, boolean readable, MutableDTO view, Map<String, ColumnSetup> map, String[] keys, MutableDTO[] data)
   {
     this(tableId, readable, view, map, keys, data, "");
   }
 
-  public ViewDataGrid(MutableDTO view, Map<String, ColumnSetup> map, String[] keys, MutableDTO[] data,
-      String postfix)
+  public ViewDataGrid(MutableDTO view, Map<String, ColumnSetup> map, String[] keys, MutableDTO[] data, String postfix)
   {
     this("", true, view, map, keys, data, postfix);
   }
 
-  public ViewDataGrid(String tableId, boolean readable, MutableDTO view, Map<String, ColumnSetup> map,
-      String[] keys, MutableDTO[] data, String postfix)
+  public ViewDataGrid(String tableId, boolean readable, MutableDTO view, Map<String, ColumnSetup> map, String[] keys, MutableDTO[] data, String postfix)
   {
     super(tableId, readable);
 
@@ -97,7 +94,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   {
     return this.yuiColumns.get(key);
   }
-  
+
   /**
    * @return
    */
@@ -150,8 +147,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
   {
     List<String> buffer = this.getKeys();
 
-    return "{start:" + start + ", end:" + ( start + yuiColumns.size() - 1 ) + ", type:'"
-        + view.getType() + "', keys:[" + Halp.join(buffer) + "]}";
+    return "{start:" + start + ", end:" + ( start + yuiColumns.size() - 1 ) + ", type:'" + view.getType() + "', keys:[" + Halp.join(buffer) + "]}";
   }
 
   public ClientRequestIF getRequest()
@@ -195,14 +191,14 @@ public class ViewDataGrid extends DataGrid implements Reloadable
         else
         {
           String value = column.getValue(row);
-  
+
           if (value != null)
           {
             element.put(column.getColumnKey(), value);
           }
         }
       }
-      
+
       return element;
     }
     catch (JSONException e)

@@ -18,5 +18,5 @@ public interface MDSSInfo
 
   public static final String GENERATED_FORM_TREE_PACKAGE     = GENERATED_FORM_PACKAGE + ".tree";
 
-  public static final String TYPE_QB                         = "dss.vector.solutions.querybuilder.TypeQB";
+  public static final String TYPE_QB                         = ROOT_PACKAGE + ".querybuilder.TypeQB";
 }

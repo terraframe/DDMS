@@ -34,6 +34,7 @@ import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.session.Request;
 import com.runwaysdk.system.Roles;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdClassQuery;
@@ -127,6 +128,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
    * @param params
    * @return
    */
+  @Request
   public static InputStream importExcelFile(InputStream inputStream, String type, String listenerMethod, String[] params)
   {
     // Start caching Broswer Roots for this Thread.
