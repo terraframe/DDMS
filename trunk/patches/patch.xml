@@ -14,9 +14,15 @@
 	<target name="build">
 
 		<delete dir="webapp" includeemptydirs="true" />
-		
+				
 		<!-- Compile -->
 		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+
+		<!-- Generate an up to date localization spread sheet -->		
+		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
 			<property name="profile.name" value="develop" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
@@ -27,11 +33,6 @@
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>
 		
-		<!-- Deploy the GIS project
-		<ant inheritAll="false" dir="../scripts/ant/deploy/" antfile="deploy.xml" target="deploy_gis">
-			<property name="profile.name" value="patch" />
-			<property name="geodata.db" value="${geodata.db}" />
-		</ant-->		
 
 		<!-- Copy in the appropriate geo universals xls -->
 		<copy file="../doc/country/${geodata.db}-universals.xls" tofile="geo-universals.xls" />
@@ -45,7 +46,7 @@
 		<delete file="webapp/WEB-INF/classes/terraframe.properties" />
 		<delete file="webapp/WEB-INF/classes/database.properties" />
 		<delete file="webapp/WEB-INF/classes/common.properties" />
-		<delete file="webapp/css/style.css" />
+		<!--<delete file="webapp/css/style.css" />-->
 		<delete file="webapp/login.jsp" />
 		
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
@@ -65,7 +66,7 @@
 			<info target="${project.root}/trunk/doc/ontology/MOterms.xls" verbose="true" propPrefix="moterms.svn." />
 			<info target="${project.root}/trunk/doc/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
 			<info target="${project.root}/trunk/doc/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
-			<info target="${project.root}/trunk/doc/DiseaseLocalizationDefaults.xls" verbose="true" propPrefix="localization.svn." />
+			<info target="${project.root}/trunk/doc/localization" verbose="true" propPrefix="localization.svn." />
 			<info target="${project.root}/trunk/doc/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />
 		</svn>
 
