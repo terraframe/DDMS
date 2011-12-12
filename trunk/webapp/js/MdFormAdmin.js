@@ -944,14 +944,13 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     confirmDeleteForm : function(e)
     {
       var that = this;
-      var request = new MDSS.Request({
-        onFailure : function(e)
+      var request = new MDSS.Request({        
+    	onMdFormHasInstancesException : function(e)
+    	{
+    	  new MDSS.ErrorModal(e.getLocalizedMessage());
+    	},
+    	onConfirmDeleteMdFormException : function(e)
         {
-          var hasInstances = false;
-          if (e.getDeveloperMessage().match("ConfirmDelete") === null)
-          {
-            hasInstances = true;
-          }
           var wrapperDiv = that._Factory.newElement('div');
           
           var upperDiv = that._Factory.newElement('div');
@@ -970,39 +969,22 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
           var cancelButton = that._Factory.newElement('button', {id:'cancelDeleteButton'});
           cancelButton.setInnerHTML(MDSS.localize("Cancel"));
           
-          if (!hasInstances)
-          {
-            lowerDiv.appendChild(confirmButton);
-            lowerDiv.appendChild(cancelButton);
-          }          
+          lowerDiv.appendChild(confirmButton);
+          lowerDiv.appendChild(cancelButton);
           
           wrapperDiv.appendChild(upperDiv);
           wrapperDiv.appendChild(lowerDiv);
           
           if(that._confirmDeleteDialog !== null)
           {
-            if (hasInstances)
-            {
-              that._confirmDeleteDialog.setClose(true);
-            }
-            else
-            {
-              that._confirmDeleteDialog.setClose(false);
-            }
+            that._confirmDeleteDialog.setClose(false);
             that._confirmDeleteDialog.setInnerHTML("");
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.show();
           }
           else
           {
-            if (hasInstances)
-            {
-              that._confirmDeleteDialog = that._Factory.newDialog('', {close: true, modal:true});
-            }
-            else 
-            {
-              that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
-            }
+            that._confirmDeleteDialog = that._Factory.newDialog('', {close: false, modal:true});
             that._confirmDeleteDialog.appendChild(wrapperDiv);
             that._confirmDeleteDialog.render();
           }
