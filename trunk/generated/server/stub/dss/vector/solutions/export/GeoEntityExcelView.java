@@ -9,6 +9,8 @@ import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.AND;
+import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
@@ -17,10 +19,14 @@ import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
 
 import dss.vector.solutions.AmbigiousGeoEntityException;
+import dss.vector.solutions.MDSSInfo;
+import dss.vector.solutions.UnknownGeoEntityException;
 import dss.vector.solutions.UnknownTermProblem;
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoTypeMismatchException;
 import dss.vector.solutions.geo.LocatedIn;
+import dss.vector.solutions.geo.UnknownGeoParentException;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.AllPathsQuery;
@@ -29,70 +35,91 @@ import dss.vector.solutions.ontology.TermQuery;
 
 public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long serialVersionUID = 1247004716597L;
-  
-  public static final String LARGE_GEO_DATA = "+++";
-  public static final String NOT_EXPORTED = "###";
-  
-  private String parentGeoEntityId;
-  
+  private static final long  serialVersionUID = 1247004716597L;
+
+  public static final String LARGE_GEO_DATA   = "+++";
+
+  public static final String NOT_EXPORTED     = "###";
+
+  private String             parentGeoEntityId;
+
   public GeoEntityExcelView()
   {
     super();
   }
-  
+
   @Override
-  @Transaction
   public void apply()
   {
     GeoEntity entity;
     String newGeoId = this.getGeoId();
     String pid = inferParentId();
     boolean newLocatedIn;
-    
+
     /*
-     * If an entity is being imported under itself, NEVER delete its located in values or
-     * apply it under a new parent.
+     * If an entity is being imported under itself, NEVER delete its located in
+     * values or apply it under a new parent.
      */
     boolean selfImport = false;
-    
+
     String entityType = buildQualifiedType(this.getGeoType());
     if (entityType == null)
     {
       throw new DataNotFoundException("Invalid value: " + this.getGeoType(), MdTypeDAO.getMdTypeDAO(GeoHierarchy.CLASS));
     }
-    
+
     GeoEntityQuery q = new GeoEntityQuery(new QueryFactory());
     q.WHERE(q.getGeoId().EQ(newGeoId));
-    OIterator<? extends GeoEntity> i = q.getIterator();
-    if (i.hasNext())
+
+    OIterator<? extends GeoEntity> it = q.getIterator();
+    try
     {
-      entity = i.next();
-      entity.lock();
-      
-      selfImport = entity.getId().equals(pid);
-      if(!selfImport)
+      if (it.hasNext())
       {
-        // Per Miguel's instructions, importing removes all prior located_in relationships, semantically "moving" the entity 
-        for (LocatedIn l : entity.getAllLocatedInGeoEntityRel())
+        entity = it.next();
+
+        // Validate that the entity and the universal type match
+        if (!entity.getType().equals(entityType))
         {
-          // Don't bother to delete the node we want to end up under
-          if (!l.getParentId().equals(pid))
+          GeoTypeMismatchException e = new GeoTypeMismatchException();
+          e.setGeoId(newGeoId);
+          e.setGeoType(this.getGeoType());
+          e.apply();
+
+          throw e;
+        }
+
+        entity.lock();
+
+        selfImport = entity.getId().equals(pid);
+        if (!selfImport)
+        {
+          // Per Miguel's instructions, importing removes all prior located_in
+          // relationships, semantically "moving" the entity
+          for (LocatedIn l : entity.getAllLocatedInGeoEntityRel())
           {
-            l.delete();
+            // Don't bother to delete the node we want to end up under
+            if (!l.getParentId().equals(pid))
+            {
+              l.delete();
+            }
           }
         }
       }
+      else
+      {
+        entity = (GeoEntity) BusinessFacade.newBusiness(entityType);
+      }
     }
-    else
+    finally
     {
-      entity = (GeoEntity) BusinessFacade.newBusiness(entityType);
+      it.close();
     }
-    i.close();
-    
-    if(selfImport)
+
+    if (selfImport)
     {
-      // an entity is being imported into itself, so just update the entity and do nothing
+      // an entity is being imported into itself, so just update the entity and
+      // do nothing
       // relative to located_in relationships.
       newLocatedIn = false;
     }
@@ -111,18 +138,18 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
         newLocatedIn = true;
       }
     }
-    
+
     entity.setEntityName(this.getEntityName());
     entity.setActivated(this.getActivated() != null && this.getActivated());
     entity.setGeoId(newGeoId);
     entity.setTerm(this.validateGeoSubtypeByDisplayLabel(entity, this.getSubType(), GeoEntity.getTermMd()));
-    
+
     String importData = this.getGeometryWKT();
     if (!importData.equals(LARGE_GEO_DATA) && !importData.equals(NOT_EXPORTED))
     {
       entity.setGeoData(importData);
     }
-    
+
     if (newLocatedIn)
     {
       entity.applyWithParent(pid, false, null);
@@ -136,17 +163,20 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
   private String buildQualifiedType(String input)
   {
     int lastDot = input.lastIndexOf('.');
-    
+
     String geoPackage = null;
     String geoType = null;
-    if (lastDot > 0) {
-    	geoPackage = input.substring(0, lastDot);
-    	geoType = input.substring(lastDot+1);
-    } else {
-        geoPackage = "dss.vector.solutions.geo.generated";
-        geoType = input;
+    if (lastDot > 0)
+    {
+      geoPackage = input.substring(0, lastDot);
+      geoType = input.substring(lastDot + 1);
     }
-    
+    else
+    {
+      geoPackage = MDSSInfo.GENERATED_GEO_PACKAGE;
+      geoType = input;
+    }
+
     MdBusinessQuery query = new MdBusinessQuery(new QueryFactory());
     query.WHERE(query.getPackageName().EQ(geoPackage));
     query.AND(OR.get(query.getTypeName().EQi(geoType), query.getDisplayLabel().localize().EQi(geoType)));
@@ -164,19 +194,18 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
       iterator.close();
     }
   }
-  
+
   @Override
   public String getGeoId()
   {
-    String superId = super.getGeoId();
-    return superId; //.split("\\.")[0];
+    return super.getGeoId(); // .split("\\.")[0];
   }
-  
+
   public static void setupImportListener(ImportContext context, String... params)
   {
     context.addListener(new GeoParentListener(params[0]));
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -195,46 +224,68 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
   {
     String pName = this.getParentName();
     String pType = this.getParentType();
-    if (pName.length()==0)
+
+    if (pName == null || pName.length() == 0)
     {
       return parentGeoEntityId;
     }
-    
+
     GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
-    query.WHERE(OR.get(query.getEntityName().EQ(pName), query.getGeoId().EQ(pName)));
-    
-    if (pType.length()>0)
+    Condition condition = OR.get(query.getEntityName().EQ(pName), query.getGeoId().EQ(pName));
+
+    if (pType != null && pType.length() > 0)
     {
-      query.WHERE(query.getType().EQ(buildQualifiedType(pType)));
+      String geoType = buildQualifiedType(pType);
+
+      condition = AND.get(condition, query.getType().EQ(geoType));
     }
-    
+
+    query.WHERE(condition);
+
     OIterator<? extends GeoEntity> iterator = query.getIterator();
-    if (!iterator.hasNext())
+
+    try
     {
-      UnknownGeoParentWarning w = new UnknownGeoParentWarning();
-      w.setChildName(this.getEntityName());
-      w.setParentName(pName);
-      w.setParentType(pType.length()>0 ? pType : " ");
-      w.setDefaultParent(GeoEntity.get(parentGeoEntityId).getEntityName());
-      w.throwIt();
-      return parentGeoEntityId;
+      if (!iterator.hasNext())
+      {
+        if (pType != null && pType.length() > 0)
+        {
+          UnknownGeoParentException exception = new UnknownGeoParentException();
+          exception.setGeoId(pName);
+          exception.setGeoType(pType);
+          exception.apply();
+
+          throw exception;
+        }
+        else
+        {
+          UnknownGeoEntityException exception = new UnknownGeoEntityException();
+          exception.setEntityName(pName);
+          exception.apply();
+
+          throw exception;
+        }
+      }
+
+      GeoEntity parent = iterator.next();
+
+      if (iterator.hasNext())
+      {
+        String msg = "Geo Entity name [" + pName + "] is ambiguous (It has more than one possible solution)";
+        AmbigiousGeoEntityException ex = new AmbigiousGeoEntityException(msg);
+        ex.setEntityName(pName);
+
+        throw ex;
+      }
+
+      return parent.getId();
     }
-    
-    String queriedId = iterator.next().getId();
-    
-    if (iterator.hasNext())
+    finally
     {
       iterator.close();
-      String msg = "Geo Entity name [" + pName + "] is ambiguous (It has more than one possible solution)";
-      AmbigiousGeoEntityException ex = new AmbigiousGeoEntityException(msg);
-      ex.setEntityName(pName);
-      throw ex;
     }
-    
-    iterator.close();
-    return queriedId;
   }
-  
+
   public String getParentGeoEntityId()
   {
     return parentGeoEntityId;
@@ -244,18 +295,19 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
   {
     this.parentGeoEntityId = parentGeoEntityId;
   }
-  
+
   @Transaction
   public Term validateGeoSubtypeByDisplayLabel(GeoEntity entity, String displayLabel, MdAttributeDAOIF mdAttribute)
   {
-    // No value means they didn't specify one.  Don't throw a problem; just return null
-    if (displayLabel.trim().length()==0)
+    // No value means they didn't specify one. Don't throw a problem; just
+    // return null
+    if (displayLabel.trim().length() == 0)
     {
       return null;
     }
 
     QueryFactory factory = new QueryFactory();
-    
+
     String type = entity.getType();
     GeoHierarchy universal = GeoHierarchy.getGeoHierarchyFromType(type);
     Term universalMoRoot = universal.getTerm();
@@ -284,7 +336,8 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
       e.setAttributeLabel(attributeLabel);
       e.throwIt();
 
-      // We expect to return nothing, as we're throwing a problem, but include this to satisfy the compile time requirement
+      // We expect to return nothing, as we're throwing a problem, but include
+      // this to satisfy the compile time requirement
       return null;
     }
     finally

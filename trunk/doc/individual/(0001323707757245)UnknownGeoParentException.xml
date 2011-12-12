@@ -1,0 +1,28 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdException
+        name="dss.vector.solutions.geo.UnknownGeoParentException"
+        label="Unknown geo parent exception"
+        message="Unable to find the parent geo entity with the geo id [{geoId}] and type [{geoType}]">
+        <attributes>
+          <text
+            name="geoId"
+            label="Geo id" />
+          <text
+            name="geoType"
+            label="Geo type" />
+        </attributes>
+      </mdException>
+    </create>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object
+        key="dss.vector.solutions.geo.UnknownGeoParentException"
+        type="com.runwaysdk.system.metadata.MdException" />
+    </delete>
+  </undoIt>
+</version>
