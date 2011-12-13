@@ -3,10 +3,7 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <mjl:component param="dto" item="${item}">
-  <mjl:dt attribute="disease">
-    ${item.disease}
-    <mjl:input type="hidden" param="disease" value="${item.disease.id}" ></mjl:input>
-  </mjl:dt>
+  <mjl:input type="hidden" param="disease" value="${item.disease.id}" />
   <mjl:dt attribute="term">
     <mdss:mo param="term" value="${term}" />
   </mjl:dt>
