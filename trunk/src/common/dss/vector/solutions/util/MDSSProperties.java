@@ -7,6 +7,8 @@ import com.runwaysdk.business.Business;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.localization.MultiBundle;
+
 /**
  * A wrapper for access to the MDSS.properties bundle, this fixes isolated
  * scenarios where the system would be unable to find the bundle
@@ -21,9 +23,7 @@ public class MDSSProperties
 
   public static String getString(String key)
   {
-    ResourceBundle bundle = ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER);
-
-    return bundle.getString(key);
+    return MultiBundle.get(key);
   }
 
   public static Object getObject(String key)
@@ -33,9 +33,7 @@ public class MDSSProperties
 
   public static String getString(String key, Locale locale)
   {
-    ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER);
-
-    return other.getString(key);
+    return MultiBundle.get(key, locale);
   }
 
   public static Object getObject(String key, Locale locale)

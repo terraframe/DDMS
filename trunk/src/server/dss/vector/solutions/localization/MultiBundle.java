@@ -8,6 +8,7 @@ import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.session.Session;
+import java.util.Locale;
 
 import dss.vector.solutions.util.LocaleDimension;
 
@@ -36,13 +37,18 @@ public class MultiBundle
   
   public static String get(String key)
   {
+    return get(key, Session.getCurrentLocale());
+  }
+  
+  public static String get(String key, Locale locale)
+  {
     synchronized (Singleton.INSTANCE)
     {
-      String locale = Session.getCurrentLocale().toString();
+      String localeName = locale.toString();
       MdDimensionDAOIF dimension = Session.getCurrentDimension();
-      LocaleDimension ld = new LocaleDimension(locale, dimension);
+      LocaleDimension ld = new LocaleDimension(localeName, dimension);
       
-      return smartGet(key, locale, dimension, ld);
+      return smartGet(key, localeName, dimension, ld);
     }
   }
 
