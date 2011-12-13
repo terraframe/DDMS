@@ -128,8 +128,63 @@ public class ReadableAttributeController extends ReadableAttributeControllerBase
   }
 
   @Override
+  public void getFormAttributes(String actor) throws IOException, ServletException
+  {
+    try
+    {
+      ClientRequestIF clientRequest = super.getClientRequest();
+
+      RedirectUtility utility = new RedirectUtility(req, resp);
+      utility.put("universal", MdWebFormDTO.CLASS);
+      utility.put("actor", actor);
+      utility.checkURL(this.getClass().getSimpleName(), "getFormAttributes");
+
+      ReadableAttributeViewDTO[] views = ReadableAttributeViewDTO.getActorAttributes(clientRequest, MdWebFormDTO.CLASS, actor);
+      List<ReadableAttributeViewDTO> list = new LinkedList<ReadableAttributeViewDTO>();
+
+      for (ReadableAttributeViewDTO view : views)
+      {
+        String attributeName = view.getAttributeName();
+
+        if (attributeName.equals(MdWebFormDTO.DISPLAYLABEL) || attributeName.equals(MdWebFormDTO.FORMNAME))
+        {
+          list.add(view);
+        }
+      }
+
+      req.setAttribute("views", list);
+      req.setAttribute("universal", MdWebFormDTO.CLASS);
+      req.setAttribute("actor", actor);
+      req.setAttribute("actorLabel", this.getAllRoles(clientRequest).get(actor).getDisplayLabel());
+      req.setAttribute("component", req.getParameter("component"));
+
+      render("view.jsp");
+    }
+    catch (Throwable t)
+    {
+      boolean redirected = ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous());
+
+      if (!redirected)
+      {
+        this.failGetFormAttributes(actor);
+      }
+    }
+  }
+
+  @Override
+  public void failGetFormAttributes(String actor) throws IOException, ServletException
+  {
+    this.getUniversal(actor);
+  }
+
+  @Override
   public void getAttributes(String universal, String actor) throws IOException, ServletException
   {
+    if (universal.equals(MdWebFormDTO.CLASS))
+    {
+      this.getFormAttributes(actor);
+    }
+    
     try
     {
       ClientRequestIF clientRequest = super.getClientRequest();

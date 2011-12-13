@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 396542066)
+@com.runwaysdk.business.ClassSignature(hash = -823659548)
 public class ReadableAttributeControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.util.ReadableAttributeController";
@@ -10,7 +10,7 @@ public class ReadableAttributeControllerBase implements com.runwaysdk.generation
   protected java.lang.String dir;
   protected java.lang.String layout;
   
-  private static final long serialVersionUID = 396542066;
+  private static final long serialVersionUID = -823659548;
   
   public ReadableAttributeControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -93,6 +93,20 @@ public class ReadableAttributeControllerBase implements com.runwaysdk.generation
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failGetAttributes");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:actor", post=false)
+  public void getFormAttributes(java.lang.String actor) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.getFormAttributes");
+  }
+  
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:actor", post=false)
+  public void failGetFormAttributes(java.lang.String actor) throws java.io.IOException, javax.servlet.ServletException
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.util.ReadableAttributeController.java";
+    throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.util.ReadableAttributeController.failGetFormAttributes");
   }
   
   @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:actor", post=false)

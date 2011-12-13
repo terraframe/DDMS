@@ -20,11 +20,13 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
       YAHOO.util.Event.on(this._element, 'blur', this._blurEventHandler, null, this);
       this._withinResults = false; // toggled when the user is entering, existing the results panel
     },
-    _enterResultsHandler : function(e){
+    _enterResultsHandler : function(e)
+    {
       this._withinResults = true;
       console.log(e);
     },
-    _exitResultsHandler : function(e){
+    _exitResultsHandler : function(e)
+    {
       this._withinResults = false;
       console.log(e);
     },
@@ -74,7 +76,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
     _blurEventHandler : function(e)
     {
       // don't perform validation if we're selecting from the search results
-      if(this._withinResults){
+      if(this._withinResults)
+      {
         return;
       }
     
