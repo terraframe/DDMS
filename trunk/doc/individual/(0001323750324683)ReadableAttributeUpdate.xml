@@ -24,7 +24,7 @@
   <undoIt>
     <delete>
       <object
-        key="dss.vector.solutions.util.ReadableAttributeController.getRestrictedAttributes"
+        key="dss.vector.solutions.util.ReadableAttributeController.getFormAttributes"
         type="com.runwaysdk.system.metadata.MdAction" />
     </delete>
   </undoIt>
