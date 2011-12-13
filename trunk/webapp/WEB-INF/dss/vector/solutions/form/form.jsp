@@ -4,13 +4,21 @@
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 
 
+<%
+  
+%>
+
 <mjl:component param="form" item="${form}">
-    <li>
+    <c:if test="${form.formNameReadable}">
+      <li>
         <label>${form.formNameMd.displayLabel}</label>
         <mjl:input value="${form.formName}" type="text" param="formName" />
-    </li>
-    <li>
+      </li>
+    </c:if>
+    <c:if test="${form.displayLabelReadable}">
+      <li>
         <label>${form.displayLabelMd.displayLabel}</label>
         <mjl:input value="${form.displayLabel}" type="text" param="displayLabel" />
-    </li>
+      </li>
+    </c:if>
 </mjl:component>

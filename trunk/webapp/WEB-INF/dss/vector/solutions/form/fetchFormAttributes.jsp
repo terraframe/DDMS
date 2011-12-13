@@ -14,14 +14,18 @@
 <mjl:component param="form" item="${form}"/>
 
 			<ul class="form-row">
-			    <li>
-			        <label>${form.formNameMd.displayLabel}</label>
-			        <label>${form.formName}</label>
-			    </li>
-			    <li>
-			        <label>${form.displayLabelMd.displayLabel}</label>
-			        <label>${form.displayLabel}</label>
-			    </li>
+              <c:if test="${form.formNameReadable}">
+                <li>
+                  <label>${form.formNameMd.displayLabel}</label>
+                  ${form.formName}
+                </li>
+              </c:if>
+              <c:if test="${form.displayLabelReadable}">
+                <li>
+                  <label>${form.displayLabelMd.displayLabel}</label>
+                  ${form.displayLabel}
+                </li>
+              </c:if>			
 			</ul>
 			<div class="form-action-row" id="formActionRow">
 			    <mdss:localize key="Edit" var="Localized_Edit" />
