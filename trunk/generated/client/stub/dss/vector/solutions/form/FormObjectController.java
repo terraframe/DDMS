@@ -58,6 +58,7 @@ import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
 import com.runwaysdk.transport.attributes.AttributeDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 
+import dss.vector.solutions.LabeledDTO;
 import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.generator.GenericGridBuilder;
 import dss.vector.solutions.generator.MdFormUtilDTO;
@@ -68,8 +69,7 @@ import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.yui.DataGrid;
 
-public class FormObjectController extends FormObjectControllerBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class FormObjectController extends FormObjectControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long   serialVersionUID = 2036299192;
 
@@ -77,8 +77,7 @@ public class FormObjectController extends FormObjectControllerBase implements
 
   private static final String FORM_GENERATOR   = JSP_DIR + "generator.jsp";
 
-  public FormObjectController(javax.servlet.http.HttpServletRequest req,
-      javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
+  public FormObjectController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
     super(req, resp, isAsynchronous);
   }
@@ -122,12 +121,10 @@ public class FormObjectController extends FormObjectControllerBase implements
     {
       MdFormDTO mdFormDTO = MdFormDTO.get(getClientRequest(), mdFormId);
       MdClassDTO mdClass = mdFormDTO.getFormMdClass();
-      String type = mdClass.getPackageName() + "." + mdClass.getTypeName()
-          + TypeGeneratorInfo.DTO_SUFFIX;
+      String type = mdClass.getPackageName() + "." + mdClass.getTypeName() + TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
 
-      klass.getMethod("lock", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(),
-          dataId);
+      klass.getMethod("lock", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), dataId);
 
       WebFormObject formObject = WebFormObject.getInstance(mdFormDTO, dataId);
 
@@ -185,12 +182,10 @@ public class FormObjectController extends FormObjectControllerBase implements
       {
         MdFormDTO mdFormDTO = MdFormDTO.get(getClientRequest(), formObject.getMd().getId());
         MdClassDTO mdClass = mdFormDTO.getFormMdClass();
-        String type = mdClass.getPackageName() + "." + mdClass.getTypeName()
-            + TypeGeneratorInfo.DTO_SUFFIX;
+        String type = mdClass.getPackageName() + "." + mdClass.getTypeName() + TypeGeneratorInfo.DTO_SUFFIX;
         Class<?> klass = LoaderDecorator.load(type);
 
-        klass.getMethod("unlock", ClientRequestIF.class, String.class).invoke(null,
-            this.getClientRequest(), formObject.getDataId());
+        klass.getMethod("unlock", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), formObject.getDataId());
 
         WebFormObject webFormObject = WebFormObject.getInstance(mdFormDTO, formObject.getDataId());
 
@@ -226,12 +221,10 @@ public class FormObjectController extends FormObjectControllerBase implements
     {
       MdFormDTO mdFormDTO = MdFormDTO.get(getClientRequest(), mdFormId);
       MdClassDTO mdClass = mdFormDTO.getFormMdClass();
-      String type = mdClass.getPackageName() + "." + mdClass.getTypeName()
-          + TypeGeneratorInfo.DTO_SUFFIX;
+      String type = mdClass.getPackageName() + "." + mdClass.getTypeName() + TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
 
-      MutableDTO dto = (MutableDTO) klass.getMethod("get", ClientRequestIF.class, String.class).invoke(
-          null, this.getClientRequest(), dataId);
+      MutableDTO dto = (MutableDTO) klass.getMethod("get", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), dataId);
       klass.getMethod("delete").invoke(dto);
     }
     catch (Throwable t)
@@ -249,16 +242,14 @@ public class FormObjectController extends FormObjectControllerBase implements
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
 
       MdClassDTO mdClass = mdFormDTO.getFormMdClass();
-      String type = mdClass.getPackageName() + "." + mdClass.getTypeName()
-          + TypeGeneratorInfo.DTO_SUFFIX;
+      String type = mdClass.getPackageName() + "." + mdClass.getTypeName() + TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
 
-      BusinessDTO dto = (BusinessDTO) klass.getMethod("get", ClientRequestIF.class, String.class)
-          .invoke(null, this.getClientRequest(), formObject.getDataId());
+      BusinessDTO dto = (BusinessDTO) klass.getMethod("get", ClientRequestIF.class, String.class).invoke(null, this.getClientRequest(), formObject.getDataId());
 
       JSONArray multipleTermJSON = new JSONArray();
       JSONArray singleTermGridJSON = new JSONArray();
-      
+
       this.populate(formObject, dto, multipleTermJSON, singleTermGridJSON);
 
       dto = MdFormUtilDTO.persistObject(this.getClientRequest(), dto, multipleTermJSON.toString(), singleTermGridJSON.toString());
@@ -277,8 +268,7 @@ public class FormObjectController extends FormObjectControllerBase implements
     }
   }
 
-  private void convertToJSON(WebFormObject formObject, boolean editMode) throws IOException,
-      JSONException
+  private void convertToJSON(WebFormObject formObject, boolean editMode) throws IOException, JSONException
   {
     JSONFormVisitor visitor = new JSONFormVisitor();
     formObject.accept(visitor);
@@ -318,22 +308,29 @@ public class FormObjectController extends FormObjectControllerBase implements
         GeoFieldDTO geoField = GeoFieldDTO.getGeoFieldForMdWebGeo(this.getClientRequest(), field.getFieldMd().getId());
         fieldJSON.put("geoField", geoField.convertToJSON().toString());
       }
-      else if(field instanceof WebReference && !formObject.isNewInstance())
+      else if (field instanceof WebReference && !formObject.isNewInstance())
       {
         String refId = field.getValue();
-        if(refId != null && refId.trim().length() > 0)
+        if (refId != null && refId.trim().length() > 0)
         {
           BusinessDTO ref = (BusinessDTO) this.getClientRequest().get(refId);
-          fieldJSON.put("referenceDisplay", ref.getValue(BusinessDTO.KEYNAME));
+          String label = ref.getValue(BusinessDTO.KEYNAME);
+
+          if (ref instanceof LabeledDTO)
+          {
+            label = ( (LabeledDTO) ref ).getLabel();
+          }
+
+          fieldJSON.put("referenceDisplay", label);
         }
       }
-      else if(field instanceof WebSingleTermGrid)
+      else if (field instanceof WebSingleTermGrid)
       {
         WebSingleTermGrid grid = (WebSingleTermGrid) field;
         GenericGridBuilder builder = new GenericGridBuilder(formObject, grid, this.getClientRequest(), !editMode);
-        
+
         DataGrid dataGrid = builder.build();
-        
+
         fieldJSON.put("grid", dataGrid.getJavascript());
       }
     }
@@ -346,8 +343,8 @@ public class FormObjectController extends FormObjectControllerBase implements
    * 
    * @param formObject
    * @param dto
-   * @param singleTermGridJSON 
-   * @param multipleTermJSON 
+   * @param singleTermGridJSON
+   * @param multipleTermJSON
    * @param klass
    * @throws Throwable
    */
@@ -382,18 +379,18 @@ public class FormObjectController extends FormObjectControllerBase implements
         // invalid.
         wmt.setValue(null);
       }
-      if(field instanceof WebSingleTermGrid)
+      if (field instanceof WebSingleTermGrid)
       {
         WebSingleTermGrid grid = (WebSingleTermGrid) field;
-        
+
         JSONObject entry = new JSONObject();
         entry.put("mdField", field.getFieldMd().getId());
-        
+
         JSONArray arr = field.getValue() != null ? new JSONArray(field.getValue()) : new JSONArray();
         entry.put("rows", arr);
-        
+
         singleTermGridJSON.put(entry);
-        
+
         grid.setValue(null);
       }
       else if (field instanceof WebAttribute)
@@ -445,8 +442,7 @@ public class FormObjectController extends FormObjectControllerBase implements
           }
           catch (StringParseException e)
           {
-            problems.add(new DateParseProblemDTO(dto, attributeMdDTO, locale, value,
-                Constants.DATE_FORMAT));
+            problems.add(new DateParseProblemDTO(dto, attributeMdDTO, locale, value, Constants.DATE_FORMAT));
           }
         }
         else if (field instanceof WebInteger)
@@ -538,8 +534,7 @@ public class FormObjectController extends FormObjectControllerBase implements
     // throw an exception if we have any problems
     if (problems.size() > 0)
     {
-      String msg = "Problems have occurred while submitting the form ["
-          + formObject.getMd().getDisplayLabel() + "].";
+      String msg = "Problems have occurred while submitting the form [" + formObject.getMd().getDisplayLabel() + "].";
       throw new ProblemExceptionDTO(msg, problems);
     }
 
@@ -556,16 +551,14 @@ public class FormObjectController extends FormObjectControllerBase implements
       MdFormDTO mdFormDTO = MdFormDTO.get(this.getClientRequest(), mdFormId);
 
       MdClassDTO mdClass = mdFormDTO.getFormMdClass();
-      String type = mdClass.getPackageName() + "." + mdClass.getTypeName()
-          + TypeGeneratorInfo.DTO_SUFFIX;
+      String type = mdClass.getPackageName() + "." + mdClass.getTypeName() + TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> klass = LoaderDecorator.load(type);
 
-      BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(
-          this.getClientRequest());
+      BusinessDTO dto = (BusinessDTO) klass.getConstructor(ClientRequestIF.class).newInstance(this.getClientRequest());
 
       JSONArray multipleTermJSON = new JSONArray();
       JSONArray singleTermGridJSON = new JSONArray();
-      
+
       this.populate(formObject, dto, multipleTermJSON, singleTermGridJSON);
 
       dto = MdFormUtilDTO.persistObject(this.getClientRequest(), dto, multipleTermJSON.toString(), singleTermGridJSON.toString());

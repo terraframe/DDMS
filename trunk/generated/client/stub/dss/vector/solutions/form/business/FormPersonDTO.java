@@ -1,6 +1,10 @@
 package dss.vector.solutions.form.business;
 
-public class FormPersonDTO extends FormPersonDTOBase implements com.runwaysdk.generation.loader.Reloadable
+import com.runwaysdk.generation.loader.Reloadable;
+
+import dss.vector.solutions.LabeledDTO;
+
+public class FormPersonDTO extends FormPersonDTOBase implements Reloadable, LabeledDTO
 {
   private static final long  serialVersionUID = 876983521;
 
@@ -26,4 +30,15 @@ public class FormPersonDTO extends FormPersonDTOBase implements com.runwaysdk.ge
     super(businessDTO, clientRequest);
   }
 
+  @Override
+  public String getLabel()
+  {
+    return this.getOid();
+  }
+
+  @Override
+  public String getOptionId()
+  {
+    return this.getId();
+  }
 }
