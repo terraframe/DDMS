@@ -26,7 +26,9 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
 
 
-<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%><c:set var="page_title" value="Form_Generator"  scope="request"/>
+<%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
+
+<c:set var="page_title" value="MERG_Survey"  scope="request"/>
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 

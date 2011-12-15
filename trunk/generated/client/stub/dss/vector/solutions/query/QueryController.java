@@ -1618,6 +1618,8 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
 
       builder.populateRequest(req);
 
+      req.setAttribute("page_title", "Query_MERG_survey");
+      
       req.getRequestDispatcher(QUERY_TYPE).forward(req, resp);
     }
     catch (Throwable t)

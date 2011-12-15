@@ -34,7 +34,8 @@
 <%@page import="dss.vector.solutions.intervention.monitor.HouseholdViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.SurveyedPersonViewDTO"%>
 <%@page import="dss.vector.solutions.intervention.monitor.ITNInstanceViewDTO"%>
-<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Indicator_Surveys"  scope="request" />
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%>
+<c:set var="page_title" value="Query_Indicator_Surveys"  scope="request" />
 
 <jsp:include page="../templates/header.jsp"></jsp:include>
 <jsp:include page="/WEB-INF/inlineError.jsp" flush="false"  />
