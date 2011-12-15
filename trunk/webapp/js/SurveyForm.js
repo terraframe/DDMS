@@ -23,12 +23,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
     _enterResultsHandler : function(e)
     {
       this._withinResults = true;
-      console.log(e);
     },
     _exitResultsHandler : function(e)
     {
       this._withinResults = false;
-      console.log(e);
     },
     showErrorMessage : function(message)
     {

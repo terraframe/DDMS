@@ -10,7 +10,7 @@ Mojo.Meta.newClass('MDSS.TeamSearch', {
       this._leaderSelect = Mojo.Util.isString(leaderSelect) ? document.getElementById(leaderSelect) : leaderSelect;
       this._pollingId = null;     
       
-      YAHOO.util.Event.addListener(this._teamSelect, "change", this.populateFields, this, true); 
+      YAHOO.util.Event.addListener(this._teamSelect, "change", this.populateFields, this, true);
     },
   
     // Public getter functions
@@ -984,7 +984,35 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
     selectHandler : function(selected) {
       if(selected) {
         this.dispatchEvent(new MDSS.EnterResults());
+
         this._displayElement.blur();
+
+        // focus the next element if possible, although we don't make the assumption
+        // that the search is being performed by an element within a form. This is just
+        // a best attempt
+        try
+        {
+          var form = this._displayElement.form;
+          var els = form.elements;
+          for(var i=0, len=els.length; i<len; i++)
+          {
+            var el = els[i];
+            if(el === this._displayElement && i+1 < len)
+            {
+              var next = els[i+1];
+
+              if(next.focus)
+              {
+                next.focus();
+              }
+            }
+          }
+        }
+        catch(e)
+        {
+          // we tried but it didn't work
+        }
+        
         this._hasSelection = true;
         this.setOption(selected);
           
@@ -994,6 +1022,8 @@ Mojo.Meta.newClass('MDSS.AutoComplete', {
         
         this.fireEvent(new MDSS.Event(MDSS.Event.AFTER_SELECTION, {selected:selected})); // old
         this.dispatchEvent(new MDSS.ExitResults());
+        
+        
       }
         
       this.hide();
