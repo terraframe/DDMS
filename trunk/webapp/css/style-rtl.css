@@ -1091,6 +1091,7 @@ span.currentPage a:active {
 .tree li {
   background-image: url(/DDMS/imgs/icon-file.png);
   background-repeat: no-repeat;
+  background-position: top right;
   list-style-type: none;    
   padding: 0px 20px 0px 0px;
   height: 25px;
@@ -1274,7 +1275,7 @@ div.groupDropTarget {
   display: block;
   height: 31px;
   width: 203px;
-  background: url('/DDMS/imgs/create-button-background.png') no-repeat 0px 0px;
+  background: url('/DDMS/imgs/create-button-background-rtl.png') no-repeat 0px 0px;
   text-decoration: none;  
   color: #4e4e4e;
   font-size: 15px;
