@@ -30,12 +30,17 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
 
 
+<%@page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <%@page import="dss.vector.solutions.ontology.TermViewDTO"%>
 <%@page import="dss.vector.solutions.ontology.TermDTO"%>
 <%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+<%
+ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+String orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(requestIF);
+%>
 
 <style type="text/css">
 .yui3-tab-panel {
@@ -112,7 +117,12 @@
 body {
   margin: 0px;
   padding: 0px;
+  <% if (orientation.equals("LTR")) { %>
   background-image: url('/DDMS/imgs/side-bar-back.gif');
+  <% } else if (orientation.equals("RTL")) { %>
+  background-image: url('/DDMS/imgs/side-bar-back-rtl.gif');
+  background-position: right;
+  <% } %>
   background-repeat: repeat-y;
   font-family:Arial, Helvetica, sans-serif;
 }
@@ -123,8 +133,6 @@ body {
 
 <script type="text/javascript">
 <%
-ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-
 //String[] types = new String[]{FormObjectController.CLASS};
 String[] types = new String[]{
 MdFormAdminController.CLASS,
@@ -177,6 +185,7 @@ YAHOO.util.Event.onDOMReady(function(){
 });
 </script>
 <!-- start side bar for tree -->
+<% %>
 <div class="form-side-bar">
     <a href="#" class="create-new-form-button" id="createNewForm"><mdss:localize key="Forms" /></a>
     
