@@ -9,7 +9,10 @@
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.query.SelectableGroup"%>
 
-<c:set var="page_title" value="Query_Form"  scope="request"/>
+
+<c:if test="${page_title == null}">
+  <c:set var="page_title" value="Query_Form"  scope="request"/>
+</c:if>
 
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="/WEB-INF/inlineError.jsp" />
