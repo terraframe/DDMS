@@ -1,5 +1,6 @@
 package dss.vector.solutions.util;
 
+import java.awt.ComponentOrientation;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
@@ -129,6 +130,15 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   public static String getFromBundles(String key)
   {
     return MultiBundle.get(key);
+  }
+  
+  public static String getSessionLocaleOrientation()
+  {
+    boolean isLTR = ComponentOrientation.getOrientation(Session.getCurrentLocale()).isLeftToRight();
+    if (isLTR)
+      return "LTR";
+    else
+      return "RTL";
   }
   
   public static String getSessionLocale()
