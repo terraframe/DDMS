@@ -345,7 +345,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " aggregated_premise_method.child_id as id,  term0.name as childId_displayLabel,\n";
         viewSql += " term0.id AS "+viewTerm+", "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+"  LEFT JOIN term as term0 on "+aggVisitMethodTable+".child_id = term0.id\n";
-        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
+        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id \n";
 
         this.addWITHEntry(new WITHEntry(view, viewSql));
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
@@ -368,7 +368,7 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
         viewSql += " SELECT  point," + premises + ", " + visited + " , " + treated + ", " + apAmount + ", "+available+", "+included+", "+aggVisitMethodTable+".parent_id as visit, \n";
         viewSql += " aggregated_premise_method.child_id as id, "+aGE+" AS geo_entity \n";
         viewSql += " FROM " + aggVisitTable + " aggregated_premise_visit , " + aggVisitMethodTable + " "+aggVisitMethodTable+" \n";
-        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id AND "+visited+" IS NOT null \n";
+        viewSql += " WHERE  "+aggVisitMethodTable+".parent_id = aggregated_premise_visit.id \n";
       
         this.addWITHEntry(new WITHEntry(view, viewSql));
         valueQuery.AND(new InnerJoinEq(idCol, controlInterventionTable, controlInterventionQuery.getTableAlias(), "point", view, view));
