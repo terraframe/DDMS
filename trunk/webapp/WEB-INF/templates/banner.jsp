@@ -6,6 +6,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ page import="dss.vector.solutions.util.Halp"%>
+<%@ page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
+<%@ page import="com.runwaysdk.web.WebClientSession"%>
+<%@ page import="com.runwaysdk.ClientSession"%>
+<%@ page import="java.util.ArrayList"%>
+<%@ page import="java.util.Locale"%>
+<%@ page import="java.util.Enumeration"%>
 <%
 ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !clientRequest.isPublicUser()));
@@ -21,14 +27,41 @@ request.setAttribute("generateJavaScriptClasses", (clientRequest != null && !cli
 </c:choose>
 
 <%@page import="com.runwaysdk.constants.ClientRequestIF"%>
-<%@page import="com.runwaysdk.constants.ClientConstants"%><html xmlns="http://www.w3.org/1999/xhtml" dir="ltr">
+<%@page import="com.runwaysdk.constants.ClientConstants"%><html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 <link rel="icon" type="image/png" href="./imgs/favicon.png" >
 <script>document.cookie = "PrevLoadTime=;path=/;expires=Thu, 01-Jan-1970 00:00:01 GMT";</script>
 <jwr:style src="/bundles/yuiStyle.css" useRandomParam="false"/>
 <jwr:style src="/bundles/yui3Style.css" useRandomParam="false"/>
+<%
+ClientSession clientSession = (ClientSession) pageContext.findAttribute(ClientConstants.CLIENTSESSION);
+if (clientSession==null)
+{
+  ArrayList<Locale> arrayList = new ArrayList<Locale>();
+  Enumeration<Locale> locales = pageContext.getRequest().getLocales();
+  while (locales.hasMoreElements())
+  {
+    arrayList.add(locales.nextElement());
+  }
+  Locale[] array = arrayList.toArray(new Locale[arrayList.size()]);
+  
+  clientSession = ClientSession.createAnonymousSession(array);
+  clientRequest = clientSession.getRequest();
+}
+String orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(clientRequest);
+
+
+if (orientation.equals("LTR")) { 
+%>
 <jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
+<%
+} else if (orientation.equals("RTL")) {
+%>
+<jwr:style src="/bundles/mdssScreen-rtl.css" media="all" useRandomParam="false"/>
+<%
+}
+%>
 <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
 <c:if test="${generateJavaScriptClasses}">
