@@ -96,7 +96,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
 
     ClientRequestIF clientRequest = super.getClientSession().getRequest();
-    
+
     if (diagnosisDate == null)
     {
       problems.add(new RequiredDiagnosisDateProblemDTO(clientRequest, req.getLocale()));
@@ -120,7 +120,7 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
       if (personId != null)
       {
         PersonDTO person = PersonDTO.get(clientRequest, personId);
-        
+
         if (person != null && diagnosisDate.before(person.getDateOfBirth()))
         {
           String diagnosisDateLabel = FacadeDTO.getAttributeDisplayLabel(clientRequest, IndividualCaseDTO.CLASS, IndividualCaseDTO.DIAGNOSISDATE);
@@ -238,12 +238,19 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     utility.put("id", individualCaseDTO.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
-
-    req.setAttribute("person", person);
-    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
+    try
+    {
+      PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
+
+      req.setAttribute("person", person);
+      req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
+    }
+    catch (Exception e)
+    {
+
+    }
 
     render("viewComponent.jsp");
   }

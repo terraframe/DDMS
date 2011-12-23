@@ -30,14 +30,12 @@
 <%@page import="dss.vector.solutions.surveillance.IndividualCaseSymptomDTO"%>
 <%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@page import="dss.vector.solutions.PersonDTO"%>
-
-
-
-
 <%@page import="com.runwaysdk.business.BusinessDTO"%>
 <%@page import="dss.vector.solutions.PersonViewDTO"%>
 <%@page import="dss.vector.solutions.PhysicianDTO"%>
-<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%>
+
+<c:set var="page_title" value="Query_Individual_Cases"  scope="request"/>
 
 <jsp:include page="../templates/header.jsp"/>
 <jsp:include page="/WEB-INF/inlineError.jsp"/>
@@ -93,6 +91,8 @@ YAHOO.util.Event.onDOMReady(function(){
     caseAttribs = Mojo.Iter.filter(caseAttribs, function(attrib){
       return this.contains(attrib);
     }, available);
+
+    var hasPatient = available.contains('<%= IndividualCaseDTO.PATIENT %>');
     
     var caseColumns = caseAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualCase, suffix:'_case', dropDownMaps:{}});
     
@@ -103,8 +103,8 @@ YAHOO.util.Event.onDOMReady(function(){
                            "diedInFacility", "dateOfDeath",   "activelyDetected", "caseDetection", "detectedBy","patientCategory",
                            "diagnosisType","diagnosis", "confirmedDiagnosis", "confirmedDiagnosisDate",
                            "classification", "sampleType", "labTest","testSampleDate","labTestDate",
-                       "testResult","malariaType", "primaryInfection", "anaemiaPatient", 
-                         "pregnant", "treatment","treatmentMethod", "treatmentStartDate"];
+                           "testResult","malariaType", "primaryInfection", "anaemiaPatient", 
+                           "pregnant", "treatment","treatmentMethod", "treatmentStartDate"];
     <%
     Halp.setReadableAttributes(request, "instanceAttribs", IndividualInstanceDTO.CLASS, requestIF);
     %>
@@ -113,7 +113,8 @@ YAHOO.util.Event.onDOMReady(function(){
       return this.contains(attrib);
     }, available);
     var hasSymptoms = available.contains('<%= IndividualInstanceDTO.SYMPTOM %>');
-    
+    var hasPhysician = available.contains('<%= IndividualInstanceDTO.PHYSICIAN %>');
+        
     var instanceColumns = instanceAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:individualInstance, suffix:'_ins', dropDownMaps:instanceMaps});
 
     var person = new Mojo.$.dss.vector.solutions.Person();   
@@ -213,14 +214,21 @@ YAHOO.util.Event.onDOMReady(function(){
                           },
 
                          ]);
+
+    var selectableGroups = [{title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS}];
+
+    if(hasPatient)
+    {    
+      selectableGroups.push({title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS});
+    }
+
+    if(hasPhysician)
+    {    
+      selectableGroups.push({title:"Physician", values:physicianColumns, group: "c", klass:Mojo.$.dss.vector.solutions.Physician.CLASS});
+    }
     
-    var selectableGroups = [
-              {title:"Case", values:caseColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Patient", values:personColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Physician", values:physicianColumns, group: "c", klass:Mojo.$.dss.vector.solutions.Physician.CLASS},
-              {title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS},
-              {title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS},
-    ];
+    selectableGroups.push({title:"Instance", values:instanceColumns, group:"c", klass:individualCase.CLASS});
+    selectableGroups.push({title:"Calculations", values:calculations, group:"c", klass:individualCase.CLASS});
 
     if(hasSymptoms)
     {

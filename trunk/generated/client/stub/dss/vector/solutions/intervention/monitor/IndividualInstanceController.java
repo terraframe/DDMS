@@ -337,14 +337,22 @@ public class IndividualInstanceController extends IndividualInstanceControllerBa
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+    try
+    {
+      PersonViewDTO person = dto.getIndividualCase().getPatient().getPerson().getView();
+      req.setAttribute("person", person);
+      req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
+    }
+    catch (Exception e)
+    {
+
+    }
+
 
     PhysicianDTO _physician = (PhysicianDTO) AttributeUtil.getValue(IndividualInstanceDTO.PHYSICIAN, dto);
     PersonViewDTO physician = ( _physician == null ? null : _physician.getView() );
 
     req.setAttribute("physician", physician);
-    req.setAttribute("person", person);
-    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("item", dto);
     req.setAttribute("symptoms", Arrays.asList(dto.getSymptoms()));
     render("viewComponent.jsp");
