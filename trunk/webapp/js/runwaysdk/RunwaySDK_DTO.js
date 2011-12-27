@@ -2753,7 +2753,7 @@ Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeClobMdDTO',        {
   
   initialize : function(obj)
   {
-  this.$initialize(obj);
+    this.$initialize(obj);
   }
 
 }
@@ -2770,22 +2770,21 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalTextDTO', {
   initialize : function(obj)
   {
     this.$initialize(obj);
-  }
-
+    this._structDTO = obj.structDTO;
+  },
+  getStructDTO : function(){ return this._structDTO; }
 }
 });
 
 Mojo.Meta.newClass(Mojo.MD_DTO_PACKAGE+'AttributeLocalTextMdDTO',        {
   
   Extends : Mojo.MD_DTO_PACKAGE+'AttributeMdDTO',
-  
   Instance : {
   
   initialize : function(obj)
   {
     this.$initialize(obj);
   }
-
 }
 });
 
@@ -2800,7 +2799,6 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeCharacterDTO', {
     {
       this.$initialize(obj);
     }
-  
   }
 });
 
@@ -2832,8 +2830,9 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalCharacterDTO', {
     initialize : function(obj)
     {
       this.$initialize(obj);
-    }
-  
+      this._structDTO = obj.structDTO;
+    },
+    getStructDTO : function(){ return this._structDTO; }    
   }
 });
 
