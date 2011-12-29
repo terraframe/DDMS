@@ -73,9 +73,9 @@ public class LocatedInBuilder implements Reloadable
     b.setup();
     b.deriveLocatedIn();
     b.cleanup();
-    
+
   }
-  
+
   public LocatedInBuilder(BuildTypes type, int percent)
   {
     this.type = type;
@@ -111,27 +111,116 @@ public class LocatedInBuilder implements Reloadable
       String sql = ""
 
       // FIXME use Runway call once the transaction bug is fixed
-          + "DELETE FROM " + allPaths
+          + "DELETE FROM "
+          + allPaths
           + ";\n"
 
           // dereference all universals for allowed_in lookup
-          + "drop table if exists " + UNIVERSALS_TABLE + ";\n" + "create table " + UNIVERSALS_TABLE + " as (\n" + "    select c_gh." + geoEntityClass + " " + CHILD_CLASS + ", p_gh." + geoEntityClass + " " + PARENT_CLASS + " \n" + "    from " + allowedIn + " ai \n" + "    inner join " + geoHierarchy + " c_gh on c_gh." + id + " = ai." + RelationshipDAOIF.CHILD_ID_COLUMN + "\n" + "    inner join " + geoHierarchy + " p_gh on p_gh." + id + " = ai." + RelationshipDAOIF.PARENT_ID_COLUMN + "\n"
-          + "  );\n" + "  create index parent_child_ind on " + UNIVERSALS_TABLE + "(" + CHILD_CLASS + ", " + PARENT_CLASS + ");\n"
+          + "drop table if exists "
+          + UNIVERSALS_TABLE
+          + ";\n"
+          + "create table "
+          + UNIVERSALS_TABLE
+          + " as (\n"
+          + "    select c_gh."
+          + geoEntityClass
+          + " "
+          + CHILD_CLASS
+          + ", p_gh."
+          + geoEntityClass
+          + " "
+          + PARENT_CLASS
+          + " \n"
+          + "    from "
+          + allowedIn
+          + " ai \n"
+          + "    inner join "
+          + geoHierarchy
+          + " c_gh on c_gh."
+          + id
+          + " = ai."
+          + RelationshipDAOIF.CHILD_ID_COLUMN
+          + "\n"
+          + "    inner join "
+          + geoHierarchy
+          + " p_gh on p_gh."
+          + id
+          + " = ai."
+          + RelationshipDAOIF.PARENT_ID_COLUMN
+          + "\n"
+          + "  );\n"
+          + "  create index parent_child_ind on "
+          + UNIVERSALS_TABLE
+          + "("
+          + CHILD_CLASS
+          + ", "
+          + PARENT_CLASS
+          + ");\n"
           // collect all geometry valid entities
-          + "drop table if exists " + ENTITIES_TABLE + ";\n" + "create table " + ENTITIES_TABLE + " as (\n" + "  select g." + id + ", geom,\n" + "  md." + id + " as md,\n" + "  st_npoints(geom) points,\n" + "  g.geo_data geo_data\n" + "  from " + geoEntity + " g \n" + "  inner join (SELECT " + id + ", st_buffer(" + geoMultiPolygon + ",0) geom FROM " + geoEntity + " \n" + "    WHERE " + geoMultiPolygon + " IS NOT NULL) g2 on g2." + id + " = g." + id + "\n" + "  inner join " + mdType
-          + " md on g." + type + " =  (md." + packageName + " || '.' || md." + typeName + ")\n" + "  where st_isvalid(geom) AND st_issimple(geom) AND st_isempty(geom) != true AND st_isclosed(geom)\n" + ");\n" + "create unique index id_ind on " + ENTITIES_TABLE + "(" + id + ");\n" + "CREATE INDEX geom_ind ON " + ENTITIES_TABLE + " USING GIST (geom);\n"
+          + "drop table if exists "
+          + ENTITIES_TABLE
+          + ";\n"
+          + "create table "
+          + ENTITIES_TABLE
+          + " as (\n"
+          + "  select g."
+          + id
+          + ", geom,\n"
+          + "  md."
+          + id
+          + " as md,\n"
+          + "  st_npoints(geom) points,\n"
+          + "  g.geo_data geo_data\n"
+          + "  from "
+          + geoEntity
+          + " g \n"
+          + "  inner join (SELECT "
+          + id
+          + ", st_buffer("
+          + geoMultiPolygon
+          + ",0) geom FROM "
+          + geoEntity
+          + " \n"
+          + "    WHERE "
+          + geoMultiPolygon
+          + " IS NOT NULL) g2 on g2."
+          + id
+          + " = g."
+          + id
+          + "\n"
+          + "  inner join "
+          + mdType
+          + " md on g."
+          + type
+          + " =  (md."
+          + packageName
+          + " || '.' || md."
+          + typeName
+          + ")\n"
+          + "  where st_isvalid(geom) AND st_issimple(geom) AND st_isempty(geom) != true AND st_isclosed(geom)\n"
+          + ");\n" + "create unique index id_ind on " + ENTITIES_TABLE + "(" + id
+          + ");\n"
+          + "CREATE INDEX geom_ind ON "
+          + ENTITIES_TABLE
+          + " USING GIST (geom);\n"
 
           // child->parent mapping for new located_in relationships
-          + "drop type if exists " + CHILD_PARENT_TYPE + " cascade;\n" + "create type " + CHILD_PARENT_TYPE + " as (" + CHILD_ID + " character(64), " + PARENT_ID + " character(64));\n"
+          + "drop type if exists " + CHILD_PARENT_TYPE + " cascade;\n" + "create type "
+          + CHILD_PARENT_TYPE + " as (" + CHILD_ID + " character(64), "
+          + PARENT_ID
+          + " character(64));\n"
 
           // failed entities
-          + "drop table if exists " + FAILED_ENTITIES_TABLE + ";\n" + "create table " + FAILED_ENTITIES_TABLE + " as (SELECT " + id + " FROM " + geoEntity + " \n" + "WHERE " + type + " != '" + Earth.CLASS + "' EXCEPT SELECT " + id + " FROM " + ENTITIES_TABLE + ");\n";
+          + "drop table if exists " + FAILED_ENTITIES_TABLE + ";\n" + "create table "
+          + FAILED_ENTITIES_TABLE + " as (SELECT " + id + " FROM " + geoEntity + " \n" + "WHERE " + type
+          + " != '" + Earth.CLASS + "' EXCEPT SELECT " + id + " FROM " + ENTITIES_TABLE + ");\n";
 
       sql += "drop sequence if exists " + GEO_TOTAL_SEQ + ";";
       sql += "create sequence " + GEO_TOTAL_SEQ + ";";
       sql += "drop sequence if exists " + GEO_PROGRESS_SEQ + ";";
       sql += "create sequence " + GEO_PROGRESS_SEQ + ";";
-      sql += "SELECT setval('" + GEO_TOTAL_SEQ + "', (SELECT count(*) + 1 FROM " + ENTITIES_TABLE + "));";
+      sql += "SELECT setval('" + GEO_TOTAL_SEQ + "', (SELECT count(*) + 1 FROM " + ENTITIES_TABLE
+          + "));";
 
       stmt.execute(sql);
       conn.commit();
@@ -139,7 +228,7 @@ public class LocatedInBuilder implements Reloadable
     catch (SQLException e)
     {
       MdssLog.error("LocatedInBuilder", e);
-      
+
       Database.throwDatabaseException(e);
     }
     finally
@@ -176,7 +265,8 @@ public class LocatedInBuilder implements Reloadable
   {
     QueryFactory f = new QueryFactory();
     ValueQuery vq = new ValueQuery(f);
-    vq.SELECT(vq.aSQLInteger(PROCESSED, "p." + POSTGRES_SEQ_LAST_VALUE + ""), vq.aSQLInteger(TOTAL, "t." + POSTGRES_SEQ_LAST_VALUE + ""));
+    vq.SELECT(vq.aSQLInteger(PROCESSED, "p." + POSTGRES_SEQ_LAST_VALUE + ""), vq.aSQLInteger(TOTAL, "t."
+        + POSTGRES_SEQ_LAST_VALUE + ""));
     vq.FROM("" + GEO_PROGRESS_SEQ + "", "p");
     vq.FROM("" + GEO_TOTAL_SEQ + "", "t");
 
@@ -190,18 +280,86 @@ public class LocatedInBuilder implements Reloadable
 
     String sql = "" +
 
-    "CREATE OR REPLACE FUNCTION " + DERIVE_LOCATED_IN_REC_FUNC + "(pctThreshold integer, childId " + ENTITIES_TABLE + "." + id + "%TYPE, \n" + "  currentMd " + ENTITIES_TABLE + ".md%TYPE) \n" + "RETURNS SETOF " + CHILD_PARENT_TYPE + " AS \n" + "$$\n" + "DECLARE\n" + "  matched " + CHILD_PARENT_TYPE + "%ROWTYPE;\n" + "  parentMd " + UNIVERSALS_TABLE + "." + PARENT_CLASS + "%TYPE;\n" + "  foundMatch boolean;\n" + "BEGIN\n" + "  BEGIN\n" + "    FOR parentMd IN SELECT " + PARENT_CLASS + " FROM "
-        + UNIVERSALS_TABLE + " WHERE " + CHILD_CLASS + " = currentMd LOOP\n" + "      foundMatch := false;\n" + "      FOR matched IN SELECT child." + id + " " + CHILD_ID + ", parents." + id + " " + PARENT_ID + "\n" + "        FROM " + ENTITIES_TABLE + " parents\n" + "        INNER JOIN " + ENTITIES_TABLE + " child ON child.id = childId AND child.geom && parents.geom\n" + "        AND parents.md = parentMd\n"
+    "CREATE OR REPLACE FUNCTION "
+        + DERIVE_LOCATED_IN_REC_FUNC
+        + "(pctThreshold integer, childId "
+        + ENTITIES_TABLE
+        + "."
+        + id
+        + "%TYPE, \n"
+        + "  currentMd "
+        + ENTITIES_TABLE
+        + ".md%TYPE) \n"
+        + "RETURNS SETOF "
+        + CHILD_PARENT_TYPE
+        + " AS \n"
+        + "$$\n"
+        + "DECLARE\n"
+        + "  matched "
+        + CHILD_PARENT_TYPE
+        + "%ROWTYPE;\n"
+        + "  parentMd "
+        + UNIVERSALS_TABLE
+        + "."
+        + PARENT_CLASS
+        + "%TYPE;\n"
+        + "  foundMatch boolean;\n"
+        + "BEGIN\n"
+        + "  BEGIN\n"
+        + "    FOR parentMd IN SELECT "
+        + PARENT_CLASS
+        + " FROM "
+        + UNIVERSALS_TABLE
+        + " WHERE "
+        + CHILD_CLASS
+        + " = currentMd LOOP\n"
+        + "      foundMatch := false;\n"
+        + "      FOR matched IN SELECT child."
+        + id
+        + " "
+        + CHILD_ID
+        + ", parents."
+        + id
+        + " "
+        + PARENT_ID
+        + "\n"
+        + "        FROM "
+        + ENTITIES_TABLE
+        + " parents\n"
+        + "        INNER JOIN "
+        + ENTITIES_TABLE
+        + " child ON child.id = childId AND child.geom && parents.geom\n"
+        + "        AND parents.md = parentMd\n"
         + "        AND CASE WHEN st_dimension(child.geo_data) = 1 THEN st_crosses(st_geomfromtext(child.geo_data, st_srid(parents.geom)), parents.geom)\n"
         + " WHEN st_dimension(child.geo_data) = 0\n"
         + "   THEN st_within(st_centroid(child.geom), parents.geom)\n"
-        + "        ELSE st_area(st_intersection(parents.geom, child.geom))/st_area(child.geom)*100.0 >= pctThreshold END\n" + "      LOOP\n" + "        foundMatch := true;\n" + "        RETURN QUERY SELECT matched." + CHILD_ID + ", matched." + PARENT_ID + ";\n" + "      END LOOP;\n" + "      IF foundMatch = false THEN\n"
-        + "        RETURN QUERY SELECT * FROM " + DERIVE_LOCATED_IN_REC_FUNC + "(pctThreshold, childId, parentMd);\n" + "      END IF;\n"
+        + "        ELSE st_area(st_intersection(parents.geom, child.geom))/st_area(child.geom)*100.0 >= pctThreshold END\n"
+        + "      LOOP\n" + "        foundMatch := true;\n" + "        RETURN QUERY SELECT matched."
+        + CHILD_ID + ", matched." + PARENT_ID + ";\n" + "      END LOOP;\n"
+        + "      IF foundMatch = false THEN\n" + "        RETURN QUERY SELECT * FROM "
+        + DERIVE_LOCATED_IN_REC_FUNC + "(pctThreshold, childId, parentMd);\n" + "      END IF;\n"
 
-        + "    END LOOP;\n" + "  EXCEPTION WHEN OTHERS THEN\n" + "    INSERT INTO " + FAILED_ENTITIES_TABLE + " (" + id + ") VALUES (childId);" + "    RETURN;\n" + "  END;\n" + "END\n" + "$$\n" + "LANGUAGE plpgsql VOLATILE;\n" + "CREATE OR REPLACE FUNCTION " + DERIVE_LOCATED_IN_FUNC + "(pctThreshold integer, deriveType int)\n" + "RETURNS SETOF " + CHILD_PARENT_TYPE + " AS\n" + "$$\n" + "DECLARE\n" + "  childRow " + ENTITIES_TABLE + "%ROWTYPE;\n" + "  pointAvg int;\n" + "  standardDev int;\n"
-        + "BEGIN\n" + "  SELECT round(AVG(points)) FROM " + ENTITIES_TABLE + " INTO pointAvg;\n" + "  SELECT round(sqrt(AVG((points-pointAvg)^2))) FROM " + ENTITIES_TABLE + " INTO standardDev;\n" + "  UPDATE " + ENTITIES_TABLE + " SET geom = st_envelope(geom) WHERE points > (pointAvg+(standardDev*3));\n" + "  CASE deriveType\n" + "    WHEN 1, 2 THEN\n" + "      FOR childRow IN SELECT * FROM " + ENTITIES_TABLE + " LOOP\n" + "        RETURN QUERY SELECT * FROM " + DERIVE_LOCATED_IN_REC_FUNC
-        + "(pctThreshold, childRow." + id + ", childRow.md);\n" + "        perform nextval('" + GEO_PROGRESS_SEQ + "');\n" + "      END LOOP;\n" + "    WHEN 3 THEN\n" + "      FOR childRow IN SELECT * FROM " + ENTITIES_TABLE + " e INNER JOIN \n" + "        (SELECT " + id + " from " + ENTITIES_TABLE + " except select " + RelationshipDAOIF.CHILD_ID_COLUMN + " from " + locatedIn + ") orphaned \n" + " ON orphaned." + id + " = e." + id + " LOOP\n" + "        RETURN QUERY SELECT * FROM "
-        + DERIVE_LOCATED_IN_FUNC + "_rec(pctThreshold, childRow." + id + ", childRow.md);\n" + "        perform nextval('" + GEO_PROGRESS_SEQ + "');\n" + "      END LOOP;\n" + "    ELSE\n" + "      RETURN;\n" + "  END CASE;\n" + "  RETURN;\n" + "END\n" + "$$\n" + "LANGUAGE plpgsql VOLATILE;\n";
+        + "    END LOOP;\n" + "  EXCEPTION WHEN OTHERS THEN\n" + "    INSERT INTO "
+        + FAILED_ENTITIES_TABLE + " (" + id + ") VALUES (childId);" + "    RETURN;\n" + "  END;\n"
+        + "END\n" + "$$\n" + "LANGUAGE plpgsql VOLATILE;\n" + "CREATE OR REPLACE FUNCTION "
+        + DERIVE_LOCATED_IN_FUNC + "(pctThreshold integer, deriveType int)\n" + "RETURNS SETOF "
+        + CHILD_PARENT_TYPE + " AS\n" + "$$\n" + "DECLARE\n" + "  childRow " + ENTITIES_TABLE
+        + "%ROWTYPE;\n" + "  pointAvg int;\n" + "  standardDev int;\n" + "BEGIN\n"
+//        + "  SELECT round(AVG(points)) FROM " + ENTITIES_TABLE + " INTO pointAvg;\n"
+//        + "  SELECT round(sqrt(AVG((points-pointAvg)^2))) FROM " + ENTITIES_TABLE
+//        + " INTO standardDev;\n" + "  UPDATE " + ENTITIES_TABLE
+//        + " SET geom = st_envelope(geom) WHERE points > (pointAvg+(standardDev*3));\n"
+        + "  CASE deriveType\n" + "    WHEN 1, 2 THEN\n" + "      FOR childRow IN SELECT * FROM "
+        + ENTITIES_TABLE + " LOOP\n" + "        RETURN QUERY SELECT * FROM "
+        + DERIVE_LOCATED_IN_REC_FUNC + "(pctThreshold, childRow." + id + ", childRow.md);\n"
+        + "        perform nextval('" + GEO_PROGRESS_SEQ + "');\n" + "      END LOOP;\n"
+        + "    WHEN 3 THEN\n" + "      FOR childRow IN SELECT * FROM " + ENTITIES_TABLE
+        + " e INNER JOIN \n" + "        (SELECT " + id + " from " + ENTITIES_TABLE + " except select "
+        + RelationshipDAOIF.CHILD_ID_COLUMN + " from " + locatedIn + ") orphaned \n" + " ON orphaned."
+        + id + " = e." + id + " LOOP\n" + "        RETURN QUERY SELECT * FROM " + DERIVE_LOCATED_IN_FUNC
+        + "_rec(pctThreshold, childRow." + id + ", childRow.md);\n" + "        perform nextval('"
+        + GEO_PROGRESS_SEQ + "');\n" + "      END LOOP;\n" + "    ELSE\n" + "      RETURN;\n"
+        + "  END CASE;\n" + "  RETURN;\n" + "END\n" + "$$\n" + "LANGUAGE plpgsql VOLATILE;\n";
 
     Connection conn = Database.getConnection();
     Statement stmt = null;
@@ -306,12 +464,14 @@ public class LocatedInBuilder implements Reloadable
 
     ValueQuery vq = new ValueQuery(f);
     vq.SELECT_DISTINCT(vq.aSQLCharacter(CHILD_ID, CHILD_ID), vq.aSQLCharacter(PARENT_ID, PARENT_ID));
-    vq.FROM("" + DERIVE_LOCATED_IN_FUNC + "(" + percent + "::integer, " + type.getCode() + "::integer)", "derivation");
+    vq.FROM("" + DERIVE_LOCATED_IN_FUNC + "(" + percent + "::integer, " + type.getCode() + "::integer)",
+        "derivation");
 
     ValueQuery liVQ = new ValueQuery(f);
     LocatedInQuery liQ = new LocatedInQuery(liVQ);
 
-    liVQ.SELECT(liVQ.aSQLCharacter("li_child_id", liQ.childId().getDbQualifiedName()), liVQ.aSQLCharacter("li_parent_id", liQ.parentId().getDbQualifiedName()));
+    liVQ.SELECT(liVQ.aSQLCharacter("li_child_id", liQ.childId().getDbQualifiedName()), liVQ
+        .aSQLCharacter("li_parent_id", liQ.parentId().getDbQualifiedName()));
     liVQ.FROM(liQ.getMdClassIF().getTableName(), liQ.getTableAlias());
 
     minus.MINUS(vq, liVQ);
@@ -337,7 +497,8 @@ public class LocatedInBuilder implements Reloadable
       sql += "drop sequence " + GEO_TOTAL_SEQ + ";";
       sql += "drop sequence " + GEO_PROGRESS_SEQ + ";";
       sql += "drop function " + DERIVE_LOCATED_IN_FUNC + "(integer, integer);";
-      sql += "drop function " + DERIVE_LOCATED_IN_REC_FUNC + "(integer, " + ENTITIES_TABLE + ".id%TYPE, " + ENTITIES_TABLE + ".md%TYPE);";
+      sql += "drop function " + DERIVE_LOCATED_IN_REC_FUNC + "(integer, " + ENTITIES_TABLE
+          + ".id%TYPE, " + ENTITIES_TABLE + ".md%TYPE);";
       sql += "drop type " + CHILD_PARENT_TYPE + ";";
       sql += "drop table " + ENTITIES_TABLE + ";";
       sql += "drop table " + UNIVERSALS_TABLE + ";";
