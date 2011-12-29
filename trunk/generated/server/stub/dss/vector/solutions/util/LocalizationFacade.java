@@ -132,13 +132,13 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     return MultiBundle.get(key);
   }
   
-  public static String getSessionLocaleOrientation()
+  public static OrientationType getSessionLocaleOrientation()
   {
     boolean isLTR = ComponentOrientation.getOrientation(Session.getCurrentLocale()).isLeftToRight();
     if (isLTR)
-      return "LTR";
+      return OrientationType.LTR;
     else
-      return "RTL";
+      return OrientationType.RTL;
   }
   
   public static String getSessionLocale()
