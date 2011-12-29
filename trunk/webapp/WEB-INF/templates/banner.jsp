@@ -7,6 +7,7 @@
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ page import="dss.vector.solutions.util.Halp"%>
 <%@ page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
+<%@ page import="dss.vector.solutions.util.OrientationTypeDTO"%>
 <%@ page import="com.runwaysdk.web.WebClientSession"%>
 <%@ page import="com.runwaysdk.ClientSession"%>
 <%@ page import="java.util.ArrayList"%>
@@ -49,14 +50,14 @@ if (clientSession==null)
   clientSession = ClientSession.createAnonymousSession(array);
   clientRequest = clientSession.getRequest();
 }
-String orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(clientRequest);
+OrientationTypeDTO orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(clientRequest);
 
 
-if (orientation.equals("LTR")) { 
+if (orientation.equals(OrientationTypeDTO.LTR)) { 
 %>
 <jwr:style src="/bundles/mdssScreen.css" media="all" useRandomParam="false"/>
 <%
-} else if (orientation.equals("RTL")) {
+} else if (orientation.equals(OrientationTypeDTO.RTL)) {
 %>
 <jwr:style src="/bundles/mdssScreen-rtl.css" media="all" useRandomParam="false"/>
 <%
