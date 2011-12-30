@@ -1,6 +1,6 @@
 package dss.vector.solutions.util;
 
-@com.runwaysdk.business.ClassSignature(hash = 1428843175)
+@com.runwaysdk.business.ClassSignature(hash = 613159431)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.util;
 public class LocalizationFacadeQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1428843175;
+private static final long serialVersionUID = 613159431;
 
   protected LocalizationFacadeQueryDTO(String type)
   {
