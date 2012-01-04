@@ -36,10 +36,11 @@
 <%@page import="dss.vector.solutions.ontology.BrowserRootDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
-<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
+<%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+<%@page import="dss.vector.solutions.util.OrientationTypeDTO"%><c:set var="page_title" value="MdForm_Admin"  scope="request"/>
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
-String orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(requestIF);
+OrientationTypeDTO orientation =  LocalizationFacadeDTO.getSessionLocaleOrientation(requestIF);
 %>
 
 <style type="text/css">
@@ -117,9 +118,9 @@ String orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(requestIF
 body {
   margin: 0px;
   padding: 0px;
-  <% if (orientation.equals("LTR")) { %>
+  <% if (orientation.equals(OrientationTypeDTO.LTR)) { %>
   background-image: url('/DDMS/imgs/side-bar-back.gif');
-  <% } else if (orientation.equals("RTL")) { %>
+  <% } else if (orientation.equals(OrientationTypeDTO.RTL)) { %>
   background-image: url('/DDMS/imgs/side-bar-back-rtl.gif');
   background-position: right;
   <% } %>
