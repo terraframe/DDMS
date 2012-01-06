@@ -1004,7 +1004,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       var that = this;
       var request = new MDSS.Request({
-        onFailure : function(e)
+      	onConfirmDeleteMdFieldException : function(e)
         {
           var wrapperDiv = that._Factory.newElement('div');
           

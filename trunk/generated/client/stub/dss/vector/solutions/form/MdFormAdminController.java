@@ -254,11 +254,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
-  
+
   @Override
   public void failCreateMdField(MdFieldDTO field, String mdFormId) throws IOException, ServletException
   {
-    //TODO this needs to fire an error instead of just resuming with the default
+    // TODO this needs to fire an error instead of just resuming with the
+    // default
     this.createMdField(field, mdFormId);
   }
 
@@ -535,8 +536,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
   {
     try
     {
-      form.apply();
-      this.fetchFormAttributes(form.getId());
+      MdWebFormDTO updatedForm = MdFormUtilDTO.apply(this.getClientRequest(), form);
+
+      this.fetchFormAttributes(updatedForm.getId());
     }
     catch (Throwable t)
     {
@@ -661,7 +663,7 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       MdFieldDTO thisField = MdFieldDTO.get(this.getClientRequest(), mdFieldId);
       req.setAttribute("thisField", thisField.getDisplayLabel().getValue());
-      
+
       MdFieldDTO[] fields = MdFormUtilDTO.getFieldsForConditions(this.getClientRequest(), mdFieldId);
       req.setAttribute("fields", fields);
 
@@ -748,12 +750,12 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     req.setAttribute("definingMdField", mdField.getId());
 
     boolean isBool = false;
-    if(mdField instanceof MdWebBooleanDTO)
+    if (mdField instanceof MdWebBooleanDTO)
     {
       isBool = true;
     }
     req.setAttribute("isBool", isBool);
-    
+
     boolean isDate = false;
     if (condition instanceof DateConditionDTO)
     {
@@ -788,29 +790,29 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     {
       isGeo = true;
       GeoEntityDTO geo = getGeoEntity(condition);
-      
+
       String geoId = "";
       String display = "";
-      if(geo != null)
+      if (geo != null)
       {
         geoId = geo.getGeoId();
         display = geo.toString();
       }
-      
+
       req.setAttribute("geoId", geoId);
       req.setAttribute("geoDisplayLabel", display);
-      
+
       GeoFieldDTO geoField = GeoFieldDTO.getGeoFieldForMdWebGeo(mdField.getRequest(), mdField.getId());
-      
+
       req.setAttribute("geoField", geoField.convertToJSON().toString());
     }
     req.setAttribute("isGeo", isGeo);
   }
-  
+
   public static GeoEntityDTO getGeoEntity(FieldConditionDTO condition)
   {
     String geoId = condition.getValue(CharacterConditionDTO.VALUE);
-    if(geoId != null && geoId.trim().length() > 0)
+    if (geoId != null && geoId.trim().length() > 0)
     {
       return GeoEntityDTO.get(condition.getRequest(), geoId);
     }
