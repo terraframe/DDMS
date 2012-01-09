@@ -29,22 +29,24 @@ import com.runwaysdk.util.FileIO;
  */
 public class PostInstallSetup
 {
-  private static final int MAX_PERM_SIZE   = 256;
+  /**
+   * Max perm size in MB which should be given to tomcat.
+   */
+  private static final int MAX_PERM_SIZE    = 256;
 
   /**
-   * Exit status for the success case. NSIS considers any non-zero exit status
-   * as an error, as such the SUCCESS exit status must be 0.
+   * Amount of memory in MB to allocate to tomcat per app.
    */
-  public static int        SUCCESS         = 0;
+  private static final int MEMORY_PER_APP   = 768;
 
   /**
-   * Exit status for the failure case.
+   * Maximum amount of memory in MB to give to tomcat for all apps.
    */
-  public static int        FAILURE         = -1;
+  private static int       MAX_TOTAL_MEMORY = 1350;
 
-  public static String     DEFAULT_TOMCAT  = "C:/MDSS/tomcat6/";
+  public static String     DEFAULT_TOMCAT   = "C:/MDSS/tomcat6/";
 
-  public static String     DEFAULT_MANAGER = "C:/MDSS/manager/";
+  public static String     DEFAULT_MANAGER  = "C:/MDSS/manager/";
 
   private File             appRoot;
 
@@ -106,7 +108,7 @@ public class PostInstallSetup
     // Update tomcat RAM, each app needs at least 768M inorder to compile the
     // system
     File startup = new File(tomcatDirectory + "/bin/startup.bat");
-    int totalMemory = Math.min(1792, 768 * appCount);
+    int totalMemory = Math.min(MAX_TOTAL_MEMORY, MEMORY_PER_APP * appCount);
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
 
     // Update Geoserver's catalog.xml
