@@ -727,6 +727,7 @@ Mojo.Meta.newClass('MDSS.ResultPanel', {
       YAHOO.util.Dom.addClass(this.ul, 'selectableList');
 
       YAHOO.util.Event.on(this.ul, 'mouseover', function(e, obj){
+        this._autocomplete.dispatchEvent(new MDSS.EnterResults());
         var li = e.target; 
         var ul = e.currentTarget;
         
