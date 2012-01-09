@@ -70,6 +70,47 @@ Mojo.Meta.newClass('dss.vector.solutions.FormSearch', {
     {
       this._element.value = selected.id;
       this.clearErrors();
+      
+      if(this._withinResults)
+      {
+          var el = this._genericSearch.getDisplayElement();
+          if(el)
+          {
+            el.blur();
+          }
+
+          // focus the next element if possible, although we don't make the assumption
+          // that the search is being performed by an element within a form. This is just
+          // a best attempt
+          /*
+          try
+          {
+            var form = this._displayElement.form;
+            
+            if(form != null)
+            {
+              var els = form.elements;
+              for(var i=0, len=els.length; i<len; i++)
+              {
+                var el = els[i];
+                if(el === this._displayElement && i+1 < len)
+                {
+                  var next = els[i+1];
+
+                  if(next.focus)
+                  {
+                    next.focus();
+                  }
+                }
+              }
+            }
+          }
+          catch(e)
+          {
+            // we tried but it didn't work
+          }
+        */
+      }
     },
     _blurEventHandler : function(e)
     {
