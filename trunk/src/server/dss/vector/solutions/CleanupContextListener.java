@@ -12,7 +12,6 @@ import javax.servlet.ServletContextListener;
 
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdTypeInfo;
-import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.RelationshipDAOIF;
@@ -33,7 +32,6 @@ import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.PopulationData;
 import dss.vector.solutions.geo.AllPaths;
-import dss.vector.solutions.geo.AllowedIn;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -213,53 +211,11 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
 
   private String getGeohierarchyAllpathsSQL()
   {
-    MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
-    String geoHierarchyTable = geoHierarchyMd.getTableName();
-    String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
-    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
-    String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
-    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
-
-    MdEntityDAOIF mdTypeMd = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS);
-    String mdTypeTable = mdTypeMd.getTableName();
-    String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
-    String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
-
-    String allowedInTable = MdEntityDAO.getMdEntityDAO(AllowedIn.CLASS).getTableName();
-
+    String allPathsSQL = GeoHierarchy.getAllPathsSQL();
     String sql = "";
 
     sql += "CREATE OR REPLACE VIEW "+GeoHierarchy.ALLPATHS_VIEW+" AS \n";
-    sql += "WITH RECURSIVE geohierarchy_flags AS( \n";
-    sql += "SELECT  (t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type, \n";
-    sql += "  g1." + geoEntityClassCol + " as parent_class, \n";
-    sql += "  g1." + politicalCol + " AS parent_political, \n";
-    sql += "  g1." + sprayTargetAllowedCol + " AS parent_spraytargetallowed,  \n";
-    sql += "  g1." + populationAllowedCol + " AS parent_populationallowed, \n";
-    sql += "  (t2." + pckNameCol + " || '.' || t2." + nameCol + ") AS child_type, \n";
-    sql += "  g2." + geoEntityClassCol + " As child_class, \n";
-    sql += "  g2." + politicalCol + " AS child_political, \n";
-    sql += "  g2." + sprayTargetAllowedCol + " AS child_spraytargetallowed,  \n";
-    sql += "  g2." + populationAllowedCol + " AS child_populationallowed \n";
-    sql += "FROM " + allowedInTable + " , \n";
-    sql += "  " + geoHierarchyTable + " g1,  \n";
-    sql += "  " + geoHierarchyTable + " g2, \n";
-    sql += "  " + mdTypeTable + " t1 , \n";
-    sql += "  " + mdTypeTable + " t2  \n";
-    sql += "WHERE  " + allowedInTable + "." + RelationshipInfo.PARENT_ID + " = g1.id \n";
-    sql += "AND " + allowedInTable + "." + RelationshipInfo.CHILD_ID + " = g2.id \n";
-    sql += "AND t1.id = g1." + geoEntityClassCol + "  \n";
-    sql += "AND t2.id = g2." + geoEntityClassCol + " \n";
-    sql += ") \n";
-    sql += ", recursive_rollup AS ( \n";
-    sql += " SELECT child_type, parent_type, parent_type as root_type, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed, parent_class as root_class ,0 as depth,  child_class \n";
-    sql += "   \n";
-    sql += "  FROM geohierarchy_flags \n";
-    sql += " UNION \n";
-    sql += " SELECT b.child_type, b.parent_type, a.root_type, b.child_political, b.child_spraytargetallowed, b.child_populationallowed, a.parent_political, a.parent_spraytargetallowed, a.parent_populationallowed, a.root_class , a.depth+1 , b.child_class \n";
-    sql += " FROM recursive_rollup a,  geohierarchy_flags b \n";
-    sql += " WHERE a.child_type = b.parent_type \n";
-    sql += ") \n";
+    sql += allPathsSQL;
     sql += "select root_type, root_class, child_type, child_class, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed , depth \n";
     sql += "from recursive_rollup  ; \n";
 

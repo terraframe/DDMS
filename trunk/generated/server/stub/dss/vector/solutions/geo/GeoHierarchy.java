@@ -22,11 +22,15 @@ import com.runwaysdk.business.Entity;
 import com.runwaysdk.business.generation.CompilerException;
 import com.runwaysdk.business.generation.EntityQueryAPIGenerator;
 import com.runwaysdk.business.rbac.Authenticate;
+import com.runwaysdk.constants.MdTypeInfo;
+import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.ReservedWords;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
@@ -48,6 +52,7 @@ import com.runwaysdk.session.Request;
 import com.runwaysdk.system.gis.metadata.MdAttributeGeometry;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.runwaysdk.system.metadata.MdBusinessQuery;
+import com.runwaysdk.system.metadata.MdType;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSInfo;
@@ -60,6 +65,7 @@ import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.query.SavedSearchQuery;
+import dss.vector.solutions.util.QueryUtil;
 import dss.vector.solutions.util.UniversalSearchHelper;
 
 public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.generation.loader.Reloadable
@@ -73,6 +79,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   private static final String THEMATIC_SUFFIX     = "_thematic";
 
   public static final String  ALLPATHS_VIEW       = "geohierarchy_allpaths";
+  
+  public static final String GEOHIERARCHY_FLAGS = "geohierarchy_flags"; // FIXME find literal string refernces
+
+  public static final String ALLPATHS_ROLLUP = "recursive_rollup"; // FIXME find literal string refernces
 
   public static final String  ALLPATHS_CHILD_TYPE = "child_type";
 
@@ -85,6 +95,58 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   public GeoHierarchy()
   {
     super();
+  }
+  
+  public static String getAllPathsSQL()
+  {
+    MdEntityDAOIF geoHierarchyMd = MdEntityDAO.getMdEntityDAO(GeoHierarchy.CLASS);
+    String geoHierarchyTable = geoHierarchyMd.getTableName();
+    String geoEntityClassCol = QueryUtil.getColumnName(GeoHierarchy.getGeoEntityClassMd());
+    String politicalCol = QueryUtil.getColumnName(GeoHierarchy.getPoliticalMd());
+    String sprayTargetAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getSprayTargetAllowedMd());
+    String populationAllowedCol = QueryUtil.getColumnName(GeoHierarchy.getPopulationAllowedMd());
+
+    MdEntityDAOIF mdTypeMd = MdEntityDAO.getMdEntityDAO(MdTypeInfo.CLASS);
+    String mdTypeTable = mdTypeMd.getTableName();
+    String pckNameCol = QueryUtil.getColumnName(MdType.getPackageNameMd());
+    String nameCol = QueryUtil.getColumnName(MdType.getTypeNameMd());
+
+    String allowedInTable = MdEntityDAO.getMdEntityDAO(AllowedIn.CLASS).getTableName();
+
+    String sql = "";
+
+    sql += "WITH RECURSIVE geohierarchy_flags AS( \n";
+    sql += "SELECT  (t1." + pckNameCol + " || '.' || t1." + nameCol + ") AS parent_type, \n";
+    sql += "  g1." + geoEntityClassCol + " as parent_class, \n";
+    sql += "  g1." + politicalCol + " AS parent_political, \n";
+    sql += "  g1." + sprayTargetAllowedCol + " AS parent_spraytargetallowed,  \n";
+    sql += "  g1." + populationAllowedCol + " AS parent_populationallowed, \n";
+    sql += "  (t2." + pckNameCol + " || '.' || t2." + nameCol + ") AS child_type, \n";
+    sql += "  g2." + geoEntityClassCol + " As child_class, \n";
+    sql += "  g2." + politicalCol + " AS child_political, \n";
+    sql += "  g2." + sprayTargetAllowedCol + " AS child_spraytargetallowed,  \n";
+    sql += "  g2." + populationAllowedCol + " AS child_populationallowed \n";
+    sql += "FROM " + allowedInTable + " , \n";
+    sql += "  " + geoHierarchyTable + " g1,  \n";
+    sql += "  " + geoHierarchyTable + " g2, \n";
+    sql += "  " + mdTypeTable + " t1 , \n";
+    sql += "  " + mdTypeTable + " t2  \n";
+    sql += "WHERE  " + allowedInTable + "." + RelationshipInfo.PARENT_ID + " = g1.id \n";
+    sql += "AND " + allowedInTable + "." + RelationshipInfo.CHILD_ID + " = g2.id \n";
+    sql += "AND t1.id = g1." + geoEntityClassCol + "  \n";
+    sql += "AND t2.id = g2." + geoEntityClassCol + " \n";
+    sql += ") \n";
+    sql += ", recursive_rollup AS ( \n";
+    sql += " SELECT child_type, parent_type, parent_type as root_type, child_political, child_spraytargetallowed, child_populationallowed, parent_political, parent_spraytargetallowed, parent_populationallowed, parent_class as root_class ,0 as depth,  child_class \n";
+    sql += "   \n";
+    sql += "  FROM geohierarchy_flags \n";
+    sql += " UNION \n";
+    sql += " SELECT b.child_type, b.parent_type, a.root_type, b.child_political, b.child_spraytargetallowed, b.child_populationallowed, a.parent_political, a.parent_spraytargetallowed, a.parent_populationallowed, a.root_class , a.depth+1 , b.child_class \n";
+    sql += " FROM recursive_rollup a,  geohierarchy_flags b \n";
+    sql += " WHERE a.child_type = b.parent_type \n";
+    sql += ") \n";
+
+    return sql;
   }
 
   public static ValueQuery xmlToValueQuery(String xml, String config, Layer layer)
@@ -1109,7 +1171,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isPolitical && !politicalParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the political hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
+        PoliticalGapException ex = new PoliticalGapException(msg);
         throw ex;
       }
       else if (isPolitical && politicalChild)
@@ -1137,7 +1199,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isUrban && !urbanParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the urban hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
+        UrbanGapException ex = new UrbanGapException(msg);
         throw ex;
       }
       else if (isUrban && urbanChild)
