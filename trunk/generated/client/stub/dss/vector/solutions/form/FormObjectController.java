@@ -113,6 +113,12 @@ public class FormObjectController extends FormObjectControllerBase implements co
       }
     }
   }
+  
+  @Override
+  public void failNewInstance(String mdFormId) throws IOException, ServletException
+  {
+    this.req.getRequestDispatcher("index.jsp").forward(req, resp);
+  }
 
   @Override
   public void editInstance(String mdFormId, String dataId) throws IOException, ServletException
