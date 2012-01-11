@@ -1171,7 +1171,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isPolitical && !politicalParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the political hierarchy.";
-        PoliticalGapException ex = new PoliticalGapException(msg);
+        HierarchyGapException ex = new HierarchyGapException(msg);
         throw ex;
       }
       else if (isPolitical && politicalChild)
@@ -1199,7 +1199,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isUrban && !urbanParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the urban hierarchy.";
-        UrbanGapException ex = new UrbanGapException(msg);
+        HierarchyGapException ex = new HierarchyGapException(msg);
         throw ex;
       }
       else if (isUrban && urbanChild)
