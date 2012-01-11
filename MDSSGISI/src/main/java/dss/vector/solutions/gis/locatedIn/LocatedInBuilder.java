@@ -73,7 +73,6 @@ public class LocatedInBuilder implements Reloadable
     b.setup();
     b.deriveLocatedIn();
     b.cleanup();
-
   }
 
   public LocatedInBuilder(BuildTypes type, int percent)
@@ -170,7 +169,7 @@ public class LocatedInBuilder implements Reloadable
           + id
           + " as md,\n"
           + "  st_npoints(geom) points,\n"
-          + "  g.geo_data geo_data\n"
+          + "  g."+geoData+" geo_data\n"
           + "  from "
           + geoEntity
           + " g \n"

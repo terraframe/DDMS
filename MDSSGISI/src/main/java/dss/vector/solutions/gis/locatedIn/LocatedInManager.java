@@ -11,15 +11,20 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.RequestState;
 import com.runwaysdk.system.metadata.MdBusiness;
 import com.sun.tools.javac.util.Pair;
 
 import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.LocatedInQuery;
 import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.EarthQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.gis.Localizer;
@@ -53,6 +58,10 @@ public class LocatedInManager extends TaskObservable implements UncaughtExceptio
       {
         this.deleteExisting();
       }
+      else if(bean.getOption().equals(BuildTypes.ADDITIVE))
+      {
+        this.deleteEarthChildren();
+      }
 
       List<Pair<String, String>> pairs = this.computeLocatedInRelationship(logger);
 
@@ -77,6 +86,71 @@ public class LocatedInManager extends TaskObservable implements UncaughtExceptio
       throw new InvocationTargetException(e);
     }
 
+  }
+  
+  /**
+   * Deletes all children under Earth whose universal is not directly allowed under Earth.
+   * For example, Country entities will most likely remain but not Village entities.
+   */
+  @Transaction
+  protected void deleteEarthChildren()
+  {
+    // First query for all valid child universal types that are not directly beneath earth.
+    QueryFactory f = new QueryFactory();
+    ValueQuery v = new ValueQuery(f);
+
+    v.setSqlPrefix(GeoHierarchy.getAllPathsSQL());
+    
+    SelectableSQLCharacter childType = v.aSQLCharacter(GeoHierarchy.ALLPATHS_CHILD_TYPE, GeoHierarchy.ALLPATHS_CHILD_TYPE);
+    SelectableSQLInteger depth = v.aSQLAggregateInteger(GeoHierarchy.ALLPATHS_DEPTH, "MAX(" + GeoHierarchy.ALLPATHS_DEPTH + ")");
+    
+    v.SELECT(childType);
+    
+    v.FROM(GeoHierarchy.ALLPATHS_ROLLUP, GeoHierarchy.ALLPATHS_ROLLUP);
+    
+    v.GROUP_BY(childType);
+    v.HAVING(depth.GT(0));
+    
+    List<ValueObject> objs = v.getIterator().getAll();
+    String[] types = new String[objs.size()];
+    for(int i=0; i<objs.size(); i++)
+    {
+      types[i] = objs.get(i).getValue(GeoHierarchy.ALLPATHS_CHILD_TYPE);
+    }
+    
+    
+    // now query all located in relationships whose child entities contain the allowed types
+    QueryFactory f2 = new QueryFactory();
+    LocatedInQuery toDelete = new LocatedInQuery(f2);
+    GeoEntityQuery children = new GeoEntityQuery(f2);
+    EarthQuery parent = new EarthQuery(f2);
+    
+    children.WHERE(children.getType().IN(types));
+    toDelete.WHERE(toDelete.hasChild(children));
+    toDelete.WHERE(toDelete.hasParent(parent));
+    
+    toDelete.ORDER_BY_ASC(toDelete.getType());
+    
+    int count = (int) toDelete.getCount();
+
+    this.fireStartTask(Localizer.getMessage("DELETE_EXISTING"), count);
+    
+    OIterator<? extends LocatedIn> validChildren = toDelete.getIterator();
+
+    try
+    {
+      while (validChildren.hasNext())
+      {
+        LocatedIn relationship = validChildren.next();
+        relationship.delete();
+        
+        this.fireTaskProgress(1);
+      }
+    }
+    finally
+    {
+      validChildren.close();
+    }
   }
 
   @Transaction
