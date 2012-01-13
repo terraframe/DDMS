@@ -17,6 +17,18 @@ Name "DDMS"
 # Included files
 !include Sections.nsh
 !include MUI2.nsh
+!include nsDialogs.nsh
+!include LogicLib.nsh
+!include FileFunc.nsh
+
+# Define access to the StrTrimNewLines function
+!macro StrTrimNewLines ResultVar String
+  Push "${String}"
+  Call StrTrimNewLines
+  Pop "${ResultVar}"
+!macroend
+
+!define StrTrimNewLines "!insertmacro StrTrimNewLines"
 
 # Variables
 Var Version
@@ -52,7 +64,7 @@ Section -Main SEC0000
     SetOverwrite on
     
     # This version number is automatically replaced by manager.xml
-    StrCpy $Version 6328
+    StrCpy $Version 6740
     
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
@@ -96,7 +108,31 @@ Section -Main SEC0000
     SetOutPath C:\MDSS
     File ..\..\installer-stage\elevate.cmd
     File ..\..\installer-stage\elevate.vbs
+	
+	# Copy any updated runway properties to all of the backedup profile directories
+    ClearErrors
+    FileOpen $0 $INSTDIR\manager-1.0.0\classes\applications.txt r
     
+    appNameFileReadLoop:
+    # Read a line from the file into $1
+    FileRead $0 $1
+    
+    # Errors means end of File
+    IfErrors appNameDone
+    
+    # Removes the newline from the end of $1
+    ${StrTrimNewLines} $1 $1
+    
+    # Copy over updated runway properties
+    SetOutPath $INSTDIR\backup-manager-1.0.0\profiles\$1
+    File /r /x .svn profiles\*
+  
+    Goto appNameFileReadLoop
+        
+    appNameDone:
+    ClearErrors
+    FileClose $0    
+	
     SetOutPath $INSTDIR
     Delete "$SMPROGRAMS\$StartMenuGroup\Manager.lnk"
     CreateShortcut "$SMPROGRAMS\$StartMenuGroup\Manager.lnk" "$INSTDIR\manager.bat" "" "$INSTDIR\manager.ico" 0 "" "" "Start DDMS mananger"
@@ -104,6 +140,48 @@ Section -Main SEC0000
     
     WriteRegStr HKLM "${REGKEY}\Components" Manager $Version
 SectionEnd
+
+Function StrTrimNewLines
+/*After this point:
+  ------------------------------------------
+  $R0 = String (input)
+  $R1 = TrimCounter (temp)
+  $R2 = Temp (temp)*/
+ 
+  ;Get input from user
+  Exch $R0
+  Push $R1
+  Push $R2
+ 
+  ;Initialize trim counter
+  StrCpy $R1 0
+ 
+  loop:
+  ;Subtract to get "String"'s last characters
+  IntOp $R1 $R1 - 1
+ 
+  ;Verify if they are either $\r or $\n
+  StrCpy $R2 $R0 1 $R1
+  ${If} $R2 == `$\r`
+  ${OrIf} $R2 == `$\n`
+    Goto loop
+  ${EndIf}
+ 
+  ;Trim characters (if needed)
+  IntOp $R1 $R1 + 1
+  ${If} $R1 < 0
+    StrCpy $R0 $R0 $R1
+  ${EndIf}
+ 
+/*After this point:
+  ------------------------------------------
+  $R0 = ResultVar (output)*/
+ 
+  ;Return output to user
+  Pop $R2
+  Pop $R1
+  Exch $R0
+FunctionEnd
 
 # Installer functions
 Function .onInit
