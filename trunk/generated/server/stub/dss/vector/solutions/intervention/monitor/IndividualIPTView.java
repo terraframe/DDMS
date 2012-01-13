@@ -29,7 +29,7 @@ public class IndividualIPTView extends IndividualIPTViewBase implements com.runw
     if (concrete.getFacility() != null)
     {
       this.setFacility(concrete.getFacility().getGeoId());
-      this.setFacilityName(concrete.getFacility().getEntityName());
+      this.setFacilityName(concrete.getFacility().getEntityLabel().getValue());
     }
 
     this.setIptCase(concrete.getIptCase());

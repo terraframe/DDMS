@@ -45,6 +45,7 @@ public abstract class GridBuilder implements Reloadable
   public static void setEditable(Map<String, ColumnSetup> columns, String key, boolean editable)
   {
     ColumnSetup setup = getSetup(columns, key);
+    
     setup.setEditable(editable);
   }
 

@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -1631218326)
+@com.runwaysdk.business.ClassSignature(hash = -1189574651)
 public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.generated.GeoEntity";
-  private static final long serialVersionUID = -1631218326;
+  private static final long serialVersionUID = -1189574651;
   
   protected GeoEntityDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -31,7 +31,7 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String GEODATA = "geoData";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String GEOMULTIPOLYGON = "geoMultiPolygon";
@@ -194,41 +194,29 @@ public abstract class GeoEntityDTOBase extends com.runwaysdk.business.BusinessDT
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(ENTITYDOMAIN).getAttributeMdDTO();
   }
   
-  public String getEntityName()
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelDTO getEntityLabel()
   {
-    return getValue(ENTITYNAME);
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelDTO) this.getAttributeStructDTO(ENTITYLABEL).getStructDTO();
   }
   
-  public void setEntityName(String value)
+  public boolean isEntityLabelWritable()
   {
-    if(value == null)
-    {
-      setValue(ENTITYNAME, "");
-    }
-    else
-    {
-      setValue(ENTITYNAME, value);
-    }
+    return isWritable(ENTITYLABEL);
   }
   
-  public boolean isEntityNameWritable()
+  public boolean isEntityLabelReadable()
   {
-    return isWritable(ENTITYNAME);
+    return isReadable(ENTITYLABEL);
   }
   
-  public boolean isEntityNameReadable()
+  public boolean isEntityLabelModified()
   {
-    return isReadable(ENTITYNAME);
+    return isModified(ENTITYLABEL);
   }
   
-  public boolean isEntityNameModified()
+  public final com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO getEntityLabelMd()
   {
-    return isModified(ENTITYNAME);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public String getGeoData()

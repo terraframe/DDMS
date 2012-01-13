@@ -14,6 +14,8 @@
 <%@page import="dss.vector.solutions.geo.AllPathsDTO"%>
 <%@page import="dss.vector.solutions.DefaultGeoEntityDTO"%>
 <%@page import="dss.vector.solutions.geo.ChildEntityOverflowInformationDTO"%>
+<%@page import="dss.vector.solutions.geo.generated.GeoEntityEntityLabelDTO"%>
+
 <%
   ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
 
@@ -34,7 +36,7 @@
   request.setAttribute(GeoEntityTreeController.ROOT_GEO_ENTITY_ID, rootId);
   
 %>
-<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS, AllPathsDTO.CLASS, ChildEntityOverflowInformationDTO.CLASS}))%>
+<%=Halp.loadTypes((List<String>) Arrays.asList(new String[]{GeoEntityViewDTO.CLASS, AllPathsDTO.CLASS, ChildEntityOverflowInformationDTO.CLASS, GeoEntityEntityLabelDTO.CLASS}))%>
 
 
 <script type="text/javascript">

@@ -167,7 +167,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       // Add the GeoEntity selectables to the ValueQuery
       List<Selectable> selectables = new LinkedList<Selectable>();
 
-      selectables.add(geoQuery.getEntityName(GeoEntity.ENTITYNAME));
+      selectables.add(geoQuery.getEntityLabel().localize(GeoEntity.ENTITYLABEL));
       selectables.add(geoQuery.getGeoId(GeoEntity.GEOID));
       selectables.add(geoQuery.getType(GeoEntity.TYPE));
 
@@ -195,8 +195,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
           Attribute thematic = geoQuery2.get(thematicUserAlias);
 
           // Set a user alias that differs from any alias specified on the first
-          // geoQuery
-          // to avoid an AmbiguousAttributeException.
+          // geoQuery to avoid an AmbiguousAttributeException.
           thematic.setUserDefinedAlias(thematicUserAlias + THEMATIC_SUFFIX);
           selectables.add(thematic);
         }
@@ -206,8 +205,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
       vq.SELECT(selectables.toArray(new Selectable[selectables.size()]));
 
-      // Rename the column aliases so GeoServer and the SLD can read them
-      vq.getSelectableRef(GeoEntity.ENTITYNAME).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      vq.getSelectableRef(GeoEntity.ENTITYLABEL).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
       vq.getSelectableRef(GeoEntity.GEOID).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       if (layer != null)
@@ -373,8 +371,9 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     }
     else
     {
-//      String errMsg = "Unable to find a universal with the name \"" + label + "\" (or \"" + systemName + "\")";
-//      System.err.println(errMsg);
+      // String errMsg = "Unable to find a universal with the name \"" + label +
+      // "\" (or \"" + systemName + "\")";
+      // System.err.println(errMsg);
 
       return null;
     }
@@ -1209,7 +1208,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         throw ex;
       }
     }
-    
+
     if (!isPolitical)
     {
       // Political has been set to false, so set all of its children political
@@ -2108,7 +2107,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
     return false;
   }
-  
+
   public static String getSystemName(String description)
   {
     return getSystemName(description, "Universal", true);
@@ -2118,7 +2117,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     String systemName = description;
     String name = description.replace("/", " Or ").replace("&", " And ");
-    //String[] parts = name.split("[^a-zA-Z0-9]");
+    // String[] parts = name.split("[^a-zA-Z0-9]");
     String[] parts = name.split("[^\\p{L}0-9]");
     StringBuffer sb = new StringBuffer();
     if (parts.length == 1 && description.equals(description.toUpperCase()))
@@ -2163,7 +2162,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       {
         systemName += suffix;
       }
-      
+
       if (!isClassName)
         systemName = systemName.substring(0, 1).toLowerCase() + systemName.substring(1);
     }

@@ -177,8 +177,7 @@ public abstract class AbstractQB implements Reloadable
     this.setGeoDisplayLabelSQL();
 
     // Universals, mapping, and geo entity criteria
-    Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery,
-        this.xml, queryConfig, layer, parser);
+    Map<String, GeneratedEntityQuery> queryMap = this.joinQueryWithGeoEntities(factory, valueQuery, this.xml, queryConfig, layer, parser);
 
     // Reset the ValueQuery to be returned because the subclass has the option
     // to substitute it with a custom one.
@@ -268,8 +267,7 @@ public abstract class AbstractQB implements Reloadable
    * @param queryMap
    * @param interceptor
    */
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
-      QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
   {
     if (interceptor == null)
     {
@@ -286,8 +284,7 @@ public abstract class AbstractQB implements Reloadable
         String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
-          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap
-              .get(entityAlias);
+          dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
           GeneratedEntityQuery attributeQuery = queryMap.get(klass);
 
           String attrCol = QueryUtil.getColumnName(attributeQuery.getMdClassIF(), attrib_name);
@@ -299,9 +296,7 @@ public abstract class AbstractQB implements Reloadable
           // Instead, rely on the query and metadata to resolve the
           // class/attribute mapping.
           String alias;
-          if (attributeQuery instanceof GeneratedRelationshipQuery
-              && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol
-                  .equals(RelationshipInfo.PARENT_ID) ))
+          if (attributeQuery instanceof GeneratedRelationshipQuery && ( attrCol.equals(RelationshipInfo.CHILD_ID) || attrCol.equals(RelationshipInfo.PARENT_ID) ))
           {
             // We don't have metadata for childId or parentId so we have to
             // manually get the table and alias
@@ -314,11 +309,13 @@ public abstract class AbstractQB implements Reloadable
           {
             com.runwaysdk.query.Attribute attr = attributeQuery.get(attrib_name);
 
-            // first check to see if attributeQuery directly defines the metadata
-            // or it's defined on a superclass. If it's on the suberclass then use that table
+            // first check to see if attributeQuery directly defines the
+            // metadata
+            // or it's defined on a superclass. If it's on the suberclass then
+            // use that table
             // alias instead.
             String originalClass = attr.getMdAttributeIF().definedByClass().definesType();
-            if(originalClass.equals(klass))
+            if (originalClass.equals(klass))
             {
               alias = attr.getDefiningTableAlias();
             }
@@ -331,17 +328,14 @@ public abstract class AbstractQB implements Reloadable
               alias = attr.getDefiningTableAlias();
             }
           }
-          
+
           ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
           termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
-          termVQ.AND(allPathsQuery.getChildTerm().EQ(
-              termVQ.aSQLCharacter(alias + "_" + attrCol + "_" + entityAlias, alias + "." + attrCol)));
+          termVQ.AND(allPathsQuery.getChildTerm().EQ(termVQ.aSQLCharacter(alias + "_" + attrCol + "_" + entityAlias, alias + "." + attrCol)));
 
           // There is no condition passthrough so we have to hack in the EXISTS
           // operator
-          valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL",
-              "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(
-              termVQ.aSQLCharacter("termExistsSpoof", "true")));
+          valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
         }
       }
     }
@@ -402,28 +396,25 @@ public abstract class AbstractQB implements Reloadable
               String range2 = range[1].trim();
               if (range1.length() > 0)
               {
-                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(range1)
-                    : ( (SelectableNumber) original ).GE(range1));
+                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(range1) : ( (SelectableNumber) original ).GE(range1));
               }
 
               if (range2.length() > 0)
               {
-                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).LE(range2)
-                    : ( (SelectableNumber) original ).LE(range2));
+                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).LE(range2) : ( (SelectableNumber) original ).LE(range2));
               }
             }
             else
             {
               String lowerBound = range[0].trim();
               // Just the GE criteria was specified (e.g., "7-")
-              conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(lowerBound)
-                  : ( (SelectableNumber) original ).GE(lowerBound));
+              conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(lowerBound) : ( (SelectableNumber) original ).GE(lowerBound));
             }
           }
           else
           {
             // exact value
-            conditions.add( (AttributeCondition) original.EQ(value));
+            conditions.add((AttributeCondition) original.EQ(value));
           }
         }
 
@@ -456,8 +447,7 @@ public abstract class AbstractQB implements Reloadable
     for (GeneratedEntityQuery query : this.geoDisplayLabelQueries)
     {
       String klass = query.getMdClassIF().definesType();
-      String[] geoAttributes = QueryUtil.filterSelectedAttributes(valueQuery, GeoEntity
-          .getGeoAttributes(klass));
+      String[] geoAttributes = QueryUtil.filterSelectedAttributes(valueQuery, GeoEntity.getGeoAttributes(klass));
       if (geoAttributes.length > 0)
       {
         String id = QueryUtil.getIdColumn();
@@ -532,8 +522,7 @@ public abstract class AbstractQB implements Reloadable
    * @param queryConfig
    * @param layer2
    */
-  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory,
-      ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
+  protected Map<String, GeneratedEntityQuery> joinQueryWithGeoEntities(QueryFactory factory, ValueQuery valueQuery, String xml, JSONObject queryConfig, Layer layer, ValueQueryParser parser)
   {
     Map<String, GeneratedEntityQuery> queryMap;
 
@@ -550,8 +539,7 @@ public abstract class AbstractQB implements Reloadable
       layerGeoEntityType = layer.getGeoHierarchy().getQualifiedType();
       MdAttribute mdAttribute = layer.getMdAttribute();
       key = mdAttribute.getKey();
-      attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT
-          : GeoEntity.GEOMULTIPOLYGON;
+      attr = layer.getRenderAs().get(0) == AllRenderTypes.POINT ? GeoEntity.GEOPOINT : GeoEntity.GEOMULTIPOLYGON;
     }
 
     // Normal query (non-mapping)
@@ -573,8 +561,7 @@ public abstract class AbstractQB implements Reloadable
           selectedUniversals[i] = universals.getString(i);
         }
 
-        addUniversalsForAttribute(joinData, factory, attributeKey, selectedUniversals, parser, key,
-            attr, layerGeoEntityType, thematicUserAlias);
+        addUniversalsForAttribute(joinData, factory, attributeKey, selectedUniversals, parser, key, attr, layerGeoEntityType, thematicUserAlias);
       }
     }
     catch (JSONException e)
@@ -591,8 +578,7 @@ public abstract class AbstractQB implements Reloadable
 
       if (joinData.geoThematicAlias != null)
       {
-        parser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr,
-            joinData.geoThematicAlias, "data");
+        parser.addAttributeSelectable(joinData.geoThematicEntity, joinData.geoThematicAttr, joinData.geoThematicAlias, "data");
       }
     }
 
@@ -605,8 +591,7 @@ public abstract class AbstractQB implements Reloadable
     // Set the entity name and geo id columns to something predictable
     if (layer != null)
     {
-      valueQuery.getSelectableRef(joinData.entityNameAlias).setColumnAlias(
-          QueryConstants.ENTITY_NAME_COLUMN);
+      valueQuery.getSelectableRef(joinData.entityNameAlias).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
       valueQuery.getSelectableRef(joinData.geoIdAlias).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       // Name the thematic column if a thematic variable has been selected
@@ -642,8 +627,7 @@ public abstract class AbstractQB implements Reloadable
       AllPathsQuery allPathsQuery = (AllPathsQuery) queryMap.get(getGeoAllPathsAlias(attributeKey));
       List<ValueQuery> leftJoinValueQueries = joinData.attributeKeysAndJoins.get(attributeKey);
 
-      setGeoCriteria(interceptor, attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery,
-          queryMap);
+      setGeoCriteria(interceptor, attributeKey, allPathsQuery, leftJoinValueQueries, valueQuery, queryMap);
     }
 
     QueryUtil.setQueryRatio(xml, valueQuery, "COUNT(*)");
@@ -663,9 +647,7 @@ public abstract class AbstractQB implements Reloadable
     return AllPaths.CLASS + "_" + attributeKey;
   }
 
-  private void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory,
-      String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser,
-      String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
+  private void addUniversalsForAttribute(GeoEntityJoinData joinData, QueryFactory queryFactory, String attributeKey, String[] selectedUniversals, ValueQueryParser valueQueryParser, String layerKey, String geoAttr, String layerGeoEntityType, String thematicUserAlias)
   {
     List<ValueQuery> leftJoinValueQueries = new LinkedList<ValueQuery>();
     String idCol = QueryUtil.getIdColumn();
@@ -680,14 +662,12 @@ public abstract class AbstractQB implements Reloadable
       MdBusinessDAOIF geoEntityMd = MdBusinessDAO.getMdBusinessDAO(selectedGeoEntityType);
 
       String prepend = attributeKey.replaceAll("\\.", "_") + "__";
-      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_"
-          + GeoEntityView.ENTITYNAME;
+      String entityNameAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.ENTITYLABEL;
       String geoIdAlias = prepend + geoEntityMd.getTypeName().toLowerCase() + "_" + GeoEntityView.GEOID;
 
-      Selectable selectable1 = geoEntityQuery.getEntityName(entityNameAlias);
+      Selectable selectable1 = geoEntityQuery.getEntityLabel().localize(entityNameAlias);
       Selectable selectable2 = geoEntityQuery.getGeoId(geoIdAlias);
-      Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, QueryUtil.GEO_DISPLAY_LABEL
-          + "." + QueryUtil.LABEL_COLUMN, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
+      Selectable selectable4 = geoEntityVQ.aSQLCharacter(entityNameAlias, QueryUtil.GEO_DISPLAY_LABEL + "." + QueryUtil.LABEL_COLUMN, entityNameAlias, selectable1.getUserDefinedDisplayLabel());
 
       selectables.add(selectable2);
       selectables.add(selectable4);
@@ -697,8 +677,7 @@ public abstract class AbstractQB implements Reloadable
 
       String geoVQEntityAlias = attributeKey + "__" + selectedGeoEntityType;
       GeoEntityQuery geoEntityQuery2 = null;
-      if (layerKey != null && attributeKey.equals(layerKey)
-          && selectedGeoEntityType.equals(layerGeoEntityType))
+      if (layerKey != null && attributeKey.equals(layerKey) && selectedGeoEntityType.equals(layerGeoEntityType))
       {
         // save the aliases used for mapping the entity name and geo id columns
         joinData.entityNameAlias = entityNameAlias;
@@ -717,8 +696,8 @@ public abstract class AbstractQB implements Reloadable
 
             joinData.geoThematicEntity = geoVQEntityAlias;
             joinData.geoThematicAlias = entityNameAlias + "_entityname_thematic";
-            joinData.geoThematicAttr = GeoEntity.ENTITYNAME;
-            thematicSel = geoEntityQuery2.getEntityName(joinData.geoThematicAlias);
+            joinData.geoThematicAttr = GeoEntity.ENTITYLABEL;
+            thematicSel = geoEntityQuery2.getEntityLabel().localize(joinData.geoThematicAlias);
             selectables.add(thematicSel);
           }
           else if (thematicUserAlias.equals(geoIdAlias))
@@ -750,9 +729,7 @@ public abstract class AbstractQB implements Reloadable
 
       geoEntityVQ.WHERE(OR.get(geoConditions));
       geoEntityVQ.AND(subAllPathsQuery.getParentGeoEntity().EQ(geoEntityQuery));
-      geoEntityVQ.AND(geoEntityQuery.getId().EQ(
-          geoEntityVQ.aSQLCharacter(prepend + "geoDisplayLabel", QueryUtil.GEO_DISPLAY_LABEL + "."
-              + idCol)));
+      geoEntityVQ.AND(geoEntityQuery.getId().EQ(geoEntityVQ.aSQLCharacter(prepend + "geoDisplayLabel", QueryUtil.GEO_DISPLAY_LABEL + "." + idCol)));
 
       if (geoEntityQuery2 != null)
       {
@@ -767,9 +744,7 @@ public abstract class AbstractQB implements Reloadable
     joinData.attributeKeysAndJoins.put(attributeKey, leftJoinValueQueries);
   }
 
-  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey,
-      AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap)
+  protected void setGeoCriteria(QBInterceptor interceptor, String attributeKey, AllPathsQuery allPathsQuery, List<ValueQuery> leftJoinValueQueries, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
   {
     if (allPathsQuery == null && leftJoinValueQueries.size() > 0)
     {
@@ -781,7 +756,7 @@ public abstract class AbstractQB implements Reloadable
     if (allPathsQuery != null)
     {
       GeoEntityQuery geQ = new GeoEntityQuery(valueQuery);
-      
+
       // this case is for when they have restricted to a specific geoEntity
       List<SelectableSingle> leftJoinSelectables = new LinkedList<SelectableSingle>();
       for (ValueQuery leftJoinVQ : leftJoinValueQueries)
@@ -792,8 +767,7 @@ public abstract class AbstractQB implements Reloadable
       int size = leftJoinSelectables.size();
       if (size > 0)
       {
-        valueQuery.AND(geQ.getId().getAttribute().LEFT_JOIN_EQ(
-            leftJoinSelectables.toArray(new SelectableSingle[size])));
+        valueQuery.AND(geQ.getId().getAttribute().LEFT_JOIN_EQ(leftJoinSelectables.toArray(new SelectableSingle[size])));
       }
 
       int ind = attributeKey.lastIndexOf(".");
@@ -817,10 +791,8 @@ public abstract class AbstractQB implements Reloadable
         existsVQ.WHERE(cond);
       }
       existsVQ.AND(allPathsQuery.getChildGeoEntity().EQ(existsVQ.aSQLCharacter("childId", geQ.getId().getDbQualifiedName())));
-      
-      Condition newCond = valueQuery.aSQLCharacter("geoExistsSQL",
-          "EXISTS (" + existsVQ.getSQL() + ") AND true").EQ(
-          valueQuery.aSQLCharacter("geoExistsSpoof", "true"));
+
+      Condition newCond = valueQuery.aSQLCharacter("geoExistsSQL", "EXISTS (" + existsVQ.getSQL() + ") AND true").EQ(valueQuery.aSQLCharacter("geoExistsSpoof", "true"));
       valueQuery.AND(newCond);
     }
   }
@@ -841,8 +813,7 @@ public abstract class AbstractQB implements Reloadable
       throw ex;
     }
 
-    if (size == 1
-        && ( valueQuery.hasSelectableRef(QueryUtil.RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
+    if (size == 1 && ( valueQuery.hasSelectableRef(QueryUtil.RATIO) || valueQuery.getSelectableRefs().get(0) instanceof COUNT ))
     {
       throw new CountOrRatioAloneException();
     }
@@ -907,6 +878,5 @@ public abstract class AbstractQB implements Reloadable
     }
   }
 
-  protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
-      Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);
+  protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);
 }

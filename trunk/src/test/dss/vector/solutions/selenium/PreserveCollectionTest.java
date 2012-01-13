@@ -46,7 +46,7 @@ public class PreserveCollectionTest
         String entityType = universals[1].getGeneratedType();
 
         entity = (GeoEntity) LoaderDecorator.load(entityType).newInstance();
-        entity.setEntityName("Test Parent Entity");
+        entity.getEntityLabel().setValue("Test Parent Entity");
         entity.setGeoId("CollectionEntity");
         entity.applyWithParent(zambia.getId(), false, null);
 

@@ -171,7 +171,7 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
       search = search.replace(" ", "% ");
 
       Condition condition = vQuery.getCollectionId().LIKEi(search);
-      condition = OR.get(condition, vQuery.getGeoEntity().getEntityName().LIKEi(search));
+      condition = OR.get(condition, vQuery.getGeoEntity().getEntityLabel().localize().LIKEi(search));
       condition = OR.get(condition, vQuery.getGeoEntity().getGeoId().LIKEi(search));
 
       vQuery.WHERE(condition);

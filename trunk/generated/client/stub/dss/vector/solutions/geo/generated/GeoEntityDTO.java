@@ -43,6 +43,6 @@ public abstract class GeoEntityDTO extends GeoEntityDTOBase implements Reloadabl
       display = typeDisplay;
     }
 
-    return this.getEntityName() + " (" + display + ") - " + this.getGeoId();
+    return this.getEntityLabel().getValue() + " (" + display + ") - " + this.getGeoId();
   }  
 }

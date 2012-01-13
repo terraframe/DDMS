@@ -28,6 +28,6 @@ public class SurveyPointDTO extends SurveyPointDTOBase
     //TODO localize the this display label
     DateFormat format = DateFormat.getDateInstance(DateFormat.SHORT, Locale.US);
 
-    return this.getGeoEntity().getEntityName() + " - " + format.format(this.getSurveyDate());
+    return this.getGeoEntity().getEntityLabel().getValue() + " - " + format.format(this.getSurveyDate());
   }
 }

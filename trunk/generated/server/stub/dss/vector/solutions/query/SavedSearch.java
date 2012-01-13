@@ -16,6 +16,7 @@ import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AND;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.GeneratedViewQuery;
 import com.runwaysdk.query.OIterator;
@@ -37,8 +38,7 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.TermQuery;
 import dss.vector.solutions.report.UndefinedTemplateException;
 
-public class SavedSearch extends SavedSearchBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class SavedSearch extends SavedSearchBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1241158161320L;
 
@@ -106,7 +106,7 @@ public class SavedSearch extends SavedSearchBase implements
     SavedSearchQuery searchQuery = new SavedSearchQuery(f);
 
     // a search name must be unique across all types for mapping purposes.
-    // We exclude the DefaultSavedSearch subclass. 
+    // We exclude the DefaultSavedSearch subclass.
     searchQuery.WHERE(searchQuery.getQueryName().EQ(searchName));
     searchQuery.AND(searchQuery.getType().EQ(SavedSearch.CLASS));
     searchQuery.AND(searchQuery.getDisease().EQ(Disease.getCurrent()));
@@ -211,7 +211,6 @@ public class SavedSearch extends SavedSearchBase implements
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
 
-
     String name = view.getQueryName();
 
     String xml = view.getQueryXml();
@@ -225,18 +224,18 @@ public class SavedSearch extends SavedSearchBase implements
     checkUniqueness(name, mdssUser);
 
     this.apply();
-    
+
     if (asDefault)
     {
       // Always replace the old default search.
       UserSettings settings = UserSettings.createIfNotExists(mdssUser);
       DefaultSavedSearch search = settings.getDefaultSearch();
-      
+
       if (search != null)
       {
         search.delete();
       }
-      
+
       settings.appLock();
       settings.setDefaultSearch((DefaultSavedSearch) this);
       settings.apply();
@@ -386,8 +385,7 @@ public class SavedSearch extends SavedSearchBase implements
     return search.getAsView(false, false);
   }
 
-  private static class MappableSearchBuilder extends com.runwaysdk.query.ViewQueryBuilder
-      implements Reloadable
+  private static class MappableSearchBuilder extends com.runwaysdk.query.ViewQueryBuilder implements Reloadable
   {
     private SavedSearchQuery searchQuery;
 
@@ -412,8 +410,8 @@ public class SavedSearch extends SavedSearchBase implements
     protected void buildWhereClause()
     {
       GeneratedViewQuery viewQuery = this.getViewQuery();
-      
-      Condition condition = OR.get(this.searchQuery.getDisease().EQ(Disease.getCurrent()), this.searchQuery.getDisease().EQ((Disease)null));
+
+      Condition condition = OR.get(this.searchQuery.getDisease().EQ(Disease.getCurrent()), this.searchQuery.getDisease().EQ((Disease) null));
 
       viewQuery.WHERE(this.searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.AND(this.searchQuery.getMappable().EQ(true));
@@ -435,23 +433,23 @@ public class SavedSearch extends SavedSearchBase implements
       // For the universal queries we can grab the entity name and
       // geo id directly as thematic variables.
       ThematicVariable[] thematicVars = new ThematicVariable[2];
-      
-      MdAttribute entityName = MdAttribute.getByKey(GeoEntity.CLASS+"."+GeoEntity.ENTITYNAME);
-      MdAttribute geoId = MdAttribute.getByKey(GeoEntity.CLASS+"."+GeoEntity.GEOID);
-      
+
+      MdAttribute entityName = MdAttribute.getByKey(GeoEntity.CLASS + "." + GeoEntity.ENTITYLABEL);
+      MdAttribute geoId = MdAttribute.getByKey(GeoEntity.CLASS + "." + GeoEntity.GEOID);
+
       ThematicVariable entityNameVar = new ThematicVariable();
-      entityNameVar.setAttributeName(GeoEntity.ENTITYNAME);
+      entityNameVar.setAttributeName(GeoEntity.ENTITYLABEL);
       entityNameVar.setDisplayLabel(entityName.getDisplayLabel().getValue());
-      entityNameVar.setUserAlias(GeoEntity.ENTITYNAME);
+      entityNameVar.setUserAlias(GeoEntity.ENTITYLABEL);
 
       ThematicVariable geoIdVar = new ThematicVariable();
       geoIdVar.setAttributeName(GeoEntity.GEOID);
       geoIdVar.setDisplayLabel(geoId.getDisplayLabel().getValue());
       geoIdVar.setUserAlias(GeoEntity.GEOID);
-      
+
       thematicVars[0] = entityNameVar;
       thematicVars[1] = geoIdVar;
-      
+
       return thematicVars;
     }
     else
@@ -501,15 +499,16 @@ public class SavedSearch extends SavedSearchBase implements
       {
         JSONObject config = new JSONObject(configStr);
         JSONObject selected = config.getJSONObject(QueryConstants.SELECTED_UNIVERSALS);
-        universal = (String) selected.keys().next(); // There will always be one key
-        
+        universal = (String) selected.keys().next(); // There will always be one
+        // key
+
       }
       catch (JSONException e)
       {
         // We should never hit this since MDSS controls the JSON configuration.
         throw new ProgrammingErrorException(e);
       }
-      
+
       GeoHierarchy geoH = GeoHierarchy.getGeoHierarchyFromType(universal);
 
       // To keep things generic, we steal the metadata of the GeoEntity class
@@ -518,7 +517,7 @@ public class SavedSearch extends SavedSearchBase implements
       // is adequate for universal queries. The MdAttribute reference is spoofed
       // and simply points to the MdAttribute that defines GeoEntity.entityName.
       MdBusiness mdBusiness = MdBusiness.getMdBusiness(GeoEntity.CLASS);
-      MdAttribute mdAttr = MdAttribute.getByKey(GeoEntity.CLASS + "." + GeoEntity.ENTITYNAME);
+      MdAttribute mdAttr = MdAttribute.getByKey(GeoEntity.CLASS + "." + GeoEntity.ENTITYLABEL);
 
       AttributeGeoHierarchy attrGeo = new AttributeGeoHierarchy();
       attrGeo.setAttributeDisplayLabel(mdBusiness.getDisplayLabel().getValue());
@@ -570,5 +569,27 @@ public class SavedSearch extends SavedSearchBase implements
   public String toString()
   {
     return this.getQueryName();
+  }
+
+  public static SavedSearch getSavedSearch(String queryName, String queryType)
+  {
+    SavedSearchQuery query = new SavedSearchQuery(new QueryFactory());
+    query.WHERE(AND.get(query.getQueryType().EQ(queryType), query.getQueryName().EQ(queryName)));
+
+    OIterator<? extends SavedSearch> it = query.getIterator();
+
+    try
+    {
+      if (it.hasNext())
+      {
+        return it.next();
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+
+    return null;
   }
 }

@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1158921552)
+@com.runwaysdk.business.ClassSignature(hash = 1370034969)
 public abstract class GeoTargetViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.GeoTargetView";
-  private static final long serialVersionUID = 1158921552;
+  private static final long serialVersionUID = 1370034969;
   
   protected GeoTargetViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -16,7 +16,7 @@ public abstract class GeoTargetViewDTOBase extends com.runwaysdk.business.ViewDT
     return CLASS;
   }
   
-  public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String SEASON = "season";
@@ -74,41 +74,41 @@ public abstract class GeoTargetViewDTOBase extends com.runwaysdk.business.ViewDT
   public static java.lang.String TARGET_7 = "target_7";
   public static java.lang.String TARGET_8 = "target_8";
   public static java.lang.String TARGET_9 = "target_9";
-  public String getEntityName()
+  public String getEntityLabel()
   {
-    return getValue(ENTITYNAME);
+    return getValue(ENTITYLABEL);
   }
   
-  public void setEntityName(String value)
+  public void setEntityLabel(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYNAME, "");
+      setValue(ENTITYLABEL, "");
     }
     else
     {
-      setValue(ENTITYNAME, value);
+      setValue(ENTITYLABEL, value);
     }
   }
   
-  public boolean isEntityNameWritable()
+  public boolean isEntityLabelWritable()
   {
-    return isWritable(ENTITYNAME);
+    return isWritable(ENTITYLABEL);
   }
   
-  public boolean isEntityNameReadable()
+  public boolean isEntityLabelReadable()
   {
-    return isReadable(ENTITYNAME);
+    return isReadable(ENTITYLABEL);
   }
   
-  public boolean isEntityNameModified()
+  public boolean isEntityLabelModified()
   {
-    return isModified(ENTITYNAME);
+    return isModified(ENTITYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public dss.vector.solutions.geo.generated.GeoEntityDTO getGeoEntity()
@@ -121,6 +121,11 @@ public abstract class GeoTargetViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
@@ -165,6 +170,11 @@ public abstract class GeoTargetViewDTOBase extends com.runwaysdk.business.ViewDT
     {
       return dss.vector.solutions.general.MalariaSeasonDTO.get(getRequest(), getValue(SEASON));
     }
+  }
+  
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
   }
   
   public void setSeason(dss.vector.solutions.general.MalariaSeasonDTO value)

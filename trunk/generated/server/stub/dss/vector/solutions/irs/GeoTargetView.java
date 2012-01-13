@@ -65,9 +65,9 @@ public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.ge
   public void setEntityName(GeoEntity entity)
   {
     String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
-    String geoEntityName = entity.getEntityName();
+    String geoEntityName = entity.getEntityLabel().getValue();
 
-    this.setEntityName(geoEntityName + " (" + universal + ")");
+    this.setEntityLabel(geoEntityName + " (" + universal + ")");
   }
 
   public void populateView(GeoTarget target)

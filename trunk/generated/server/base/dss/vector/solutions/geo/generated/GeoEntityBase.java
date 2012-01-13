@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = 693466090)
+@com.runwaysdk.business.ClassSignature(hash = -940639867)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,7 +15,9 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
+  private com.runwaysdk.business.Struct entityLabel = null;
+  
   public static java.lang.String GEODATA = "geoData";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String GEOMULTIPOLYGON = "geoMultiPolygon";
@@ -30,11 +32,12 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TERM = "term";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 693466090;
+  private static final long serialVersionUID = -940639867;
   
   public GeoEntityBase()
   {
     super();
+    entityLabel = super.getStruct("entityLabel");
   }
   
   public Boolean getActivated()
@@ -149,32 +152,20 @@ public abstract class GeoEntityBase extends com.runwaysdk.business.Business impl
     }
   }
   
-  public String getEntityName()
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabel getEntityLabel()
   {
-    return getValue(ENTITYNAME);
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabel) entityLabel;
   }
   
-  public void validateEntityName()
+  public void validateEntityLabel()
   {
-    this.validateAttribute(ENTITYNAME);
+    this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.generated.GeoEntity.CLASS);
-    return mdClassIF.definesAttribute(ENTITYNAME);
-  }
-  
-  public void setEntityName(String value)
-  {
-    if(value == null)
-    {
-      setValue(ENTITYNAME, "");
-    }
-    else
-    {
-      setValue(ENTITYNAME, value);
-    }
+    return mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
   public String getGeoData()

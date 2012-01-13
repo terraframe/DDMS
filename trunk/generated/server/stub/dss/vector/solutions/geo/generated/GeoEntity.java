@@ -125,6 +125,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   {
     applyInternal();
   }
+  
+  public void directApply()
+  {
+    super.apply();
+  }
 
   /**
    * Applies this GeoEntity and recursively sets the activated status of all
@@ -204,9 +209,10 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       ids.add(this.getId());
     }
 
-    if (this.getEntityName() == null || this.getEntityName().length() == 0)
+    String entityLabel = this.getEntityLabel().getValue();
+    if (entityLabel == null || entityLabel.length() == 0)
     {
-      this.setEntityName(this.getGeoId());
+      this.getEntityLabel().setValue(this.getGeoId());
     }
 
     super.apply();
@@ -277,7 +283,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     GeoEntityQuery q = new GeoEntityQuery(valueQuery);
     TermQuery tq = new TermQuery(valueQuery);
 
-    SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
+    SelectableChar orderBy = q.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
 
     Condition[] conditions = new Condition[] { q.getType(GeoEntity.TYPE).EQ(type), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
@@ -400,7 +406,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     SearchParameter parameter = new SearchParameter(political, sprayTarget, populated, urban, false, false);
     GeoHierarchyView[] views = GeoHierarchy.getHierarchies(parameter);
 
-    SelectableChar orderBy = q.getEntityName(GeoEntity.ENTITYNAME);
+    SelectableChar orderBy = q.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
     SelectablePrimitive[] selectables = new SelectablePrimitive[] { q.getId(GeoEntity.ID), orderBy, q.getGeoId(GeoEntity.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusinessInfo.DISPLAY_LABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
 
     Condition condition = null;
@@ -472,7 +478,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     GeoEntity parent = GeoEntity.get(parentId);
 
     ConfirmParentChangeException ex = new ConfirmParentChangeException();
-    ex.setEntityName(parent.getEntityName());
+    ex.setEntityName(parent.getEntityLabel().getValue());
 
     throw ex;
   }
@@ -495,7 +501,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       GeoEntity parent = GeoEntity.get(parentId);
       ConfirmDeleteEntityException ex = new ConfirmDeleteEntityException();
-      ex.setEntityName(parent.getEntityName());
+      ex.setEntityName(parent.getEntityLabel().getValue());
       throw ex;
     }
     else
@@ -677,7 +683,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     GeoEntityView view = new GeoEntityView();
 
     view.setActivated(this.getActivated());
-    view.setEntityName(this.getEntityName());
+    view.setEntityLabel(this.getEntityLabel().getValue());
     view.setEntityType(this.getType());
     view.setGeoEntityId(this.getId());
     view.setGeoId(this.getGeoId());
@@ -712,7 +718,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   public String getLabel()
   {
     String universal = this.getTypeDisplayLabel();
-    String geoEntityName = this.getEntityName();
+    String geoEntityName = this.getEntityLabel().getValue();
 
     return geoEntityName + " (" + universal + ") - " + this.getGeoId();
   }
@@ -1202,11 +1208,11 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     // make sure a child cannot be applied to itself
     if (this.getId().equals(parentGeoEntityId))
     {
-      String error = "The child [" + this.getEntityName() + "] cannot be its own parent.";
+      String error = "The child [" + this.getEntityLabel().getValue() + "] cannot be its own parent.";
 
       LocatedInException e = new LocatedInException(error);
-      e.setEntityName(this.getEntityName());
-      e.setParentDisplayLabel(this.getEntityName());
+      e.setEntityName(this.getEntityLabel().getValue());
+      e.setParentDisplayLabel(this.getEntityLabel().getValue());
       throw e;
     }
 
@@ -1244,8 +1250,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
       if (q.getCount() > 0)
       {
-        String childDL = this.getEntityName();
-        String parentDL = parent.getEntityName();
+        String childDL = this.getEntityLabel().getValue();
+        String parentDL = parent.getEntityLabel().getValue();
 
         String error = "The child [" + childDL + "] is already located in the parent [" + parentDL + "].";
         DuplicateParentException e = new DuplicateParentException(error);
@@ -1341,7 +1347,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
     {
       String error = "The universal type [" + childType + "] cannot be located in [" + parentType + "].";
       LocatedInException e = new LocatedInException(error);
-      e.setEntityName(this.getEntityName());
+      e.setEntityName(this.getEntityLabel().getValue());
       e.setParentDisplayLabel(parentMd.getDisplayLabel().getValue(Session.getCurrentLocale()));
       throw e;
     }
@@ -1536,7 +1542,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       vQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
       vQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
-      vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
+      vQuery.map(GeoEntityView.ENTITYLABEL, geoEntityQuery.getEntityLabel().localize());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
@@ -1590,7 +1596,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
 
       vQuery.AND(geoEntityQuery.getTerm("geoTermId").LEFT_JOIN_EQ(termQuery.getId("termId")));
 
-      vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
+      vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityLabel().localize());
     }
   }
 
@@ -1657,7 +1663,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   {
     public int compare(GeoEntityView geo1, GeoEntityView geo2)
     {
-      return geo1.getEntityName().compareTo(geo2.getEntityName());
+      return geo1.getEntityLabel().compareTo(geo2.getEntityLabel());
     }
   }
 
@@ -1665,7 +1671,7 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
   {
     public int compare(GeoEntity geo1, GeoEntity geo2)
     {
-      return geo1.getEntityName().compareTo(geo2.getEntityName());
+      return geo1.getEntityLabel().getValue().compareTo(geo2.getEntityLabel().getValue());
     }
   }
 
@@ -2201,7 +2207,8 @@ public abstract class GeoEntity extends GeoEntityBase implements com.runwaysdk.g
       {
         while (iter2.hasNext())
         {
-          displays.add(iter2.next().getEntityName()); // TODO include full
+          displays.add(iter2.next().getEntityLabel()); // TODO include
+          // full
           // display (or build on
           // client)
         }

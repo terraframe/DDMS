@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = 1555281983)
+@com.runwaysdk.business.ClassSignature(hash = 1378365206)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -12,14 +12,14 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityView";
   public static java.lang.String ACTIVATED = "activated";
-  public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ENTITYTYPE = "entityType";
   public static java.lang.String GEOENTITYID = "geoEntityId";
   public static java.lang.String GEOID = "geoId";
   public static java.lang.String ID = "id";
   public static java.lang.String MOSUBTYPE = "moSubType";
   public static java.lang.String TYPEDISPLAYLABEL = "typeDisplayLabel";
-  private static final long serialVersionUID = 1555281983;
+  private static final long serialVersionUID = 1378365206;
   
   public GeoEntityViewBase()
   {
@@ -54,31 +54,31 @@ public abstract class GeoEntityViewBase extends com.runwaysdk.business.View impl
     }
   }
   
-  public String getEntityName()
+  public String getEntityLabel()
   {
-    return getValue(ENTITYNAME);
+    return getValue(ENTITYLABEL);
   }
   
-  public void validateEntityName()
+  public void validateEntityLabel()
   {
-    this.validateAttribute(ENTITYNAME);
+    this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.geo.GeoEntityView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYNAME);
+    return mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
-  public void setEntityName(String value)
+  public void setEntityLabel(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYNAME, "");
+      setValue(ENTITYLABEL, "");
     }
     else
     {
-      setValue(ENTITYNAME, value);
+      setValue(ENTITYLABEL, value);
     }
   }
   

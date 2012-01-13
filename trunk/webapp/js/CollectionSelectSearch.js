@@ -3,11 +3,11 @@ MDSS.collectionSearch = function(config) {
   var concreteEl = Mojo.Util.isString(config.concrete) ? document.getElementById(config.concrete) : config.concrete;
 
   var listFunction = function(valueObject) {    
-    var entityName = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.ENTITYNAME);    
+    var entityLabel = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.ENTITYLABEL);    
     var geoId = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.GEOID);    
     var moSubType = valueObject.getValue(Mojo.$.dss.vector.solutions.geo.GeoEntityView.MOSUBTYPE);    
     var typeDisplayLabel = valueObject.getValue("displayLabel");    
-    var geoEntityLabel = MDSS.AbstractSelectSearch.formatDisplay2(entityName, typeDisplayLabel, geoId, moSubType)
+    var geoEntityLabel = MDSS.AbstractSelectSearch.formatDisplay2(entityLabel, typeDisplayLabel, geoId, moSubType)
   
     var collectionDate = valueObject.getValue(Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONDATE);    
     var collectionId = valueObject.getValue(Mojo.$.dss.vector.solutions.entomology.MosquitoCollectionView.COLLECTIONID);    

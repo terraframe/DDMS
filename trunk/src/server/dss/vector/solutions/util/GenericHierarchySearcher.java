@@ -38,7 +38,7 @@ public class GenericHierarchySearcher implements SearchableHierarchy, Reloadable
     for (GeoEntity child : children)
     {
       String type = child.getType();
-      String name = child.getEntityName();
+      String name = child.getEntityLabel().getValue();
 
       if (name.equals(entityName) && ( types.contains(type)))
       {

@@ -85,7 +85,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       view.setGeoEntityId(geoEntity.getId());
       view.setGeoId(geoEntity.getGeoId());
       view.setActivated(geoEntity.getActivated());
-      view.setEntityName(geoEntity.getEntityName());
+      view.setEntityLabel(geoEntity.getEntityLabel().getLocalizedValue());
       view.setEntityType(geoEntity.getType());
       view.setTypeDisplayLabel(geoEntity.getTypeMd().getDisplayLabel());
   
@@ -342,7 +342,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         var optionRaw = document.createElement('option');
         optionRaw.value = geoEntityView.getGeoEntityId();
         optionRaw.id = geoEntityView.getGeoEntityId();
-        optionRaw.innerHTML = geoEntityView.getEntityName();
+        optionRaw.innerHTML = geoEntityView.getEntityLabel();
   
         select.appendChild(optionRaw);
   
@@ -603,14 +603,14 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     _modalListFunction : function(valueObject) {
       var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity;
       var geoIdAttr = GeoEntity.GEOID;
-      var entityNameAttr = GeoEntity.ENTITYNAME;
+      var entityLabelAttr = GeoEntity.ENTITYLABEL;
         
-      var entityName = valueObject.getValue(entityNameAttr);
+      var entityLabel = valueObject.getValue(entityLabelAttr);
       var displayLabel = valueObject.getValue('displayLabel');
       var geoId = valueObject.getValue(geoIdAttr);
       var moSubType = valueObject.getValue('moSubType');
           
-      return MDSS.AbstractSelectSearch.formatDisplay2(entityName, displayLabel, geoId, moSubType);    
+      return MDSS.AbstractSelectSearch.formatDisplay2(entityLabel, displayLabel, geoId, moSubType);    
     },
         
     _modalDisplayFunction : function(valueObject) {
@@ -852,19 +852,19 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
     formatDisplay : function(geoEntityView)
     {
       // IMPORTANT: Don't include the moSubType because geoEntityView.getTypeDisplayLabel() already appends the mo sub type  
-      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityName(), geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), null);
+      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityLabel(), geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), null);
     },
     
     getDisplayWithSubtype : function(geoEntityView)
     {
-      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityName(), geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), geoEntityView.getMoSubType());
+      return MDSS.AbstractSelectSearch.formatDisplay2(geoEntityView.getEntityLabel(), geoEntityView.getTypeDisplayLabel(), geoEntityView.getGeoId(), geoEntityView.getMoSubType());
     },
     
-    formatDisplay2 : function(entityName, typeDisplayLabel, geoId, moSubType)
+    formatDisplay2 : function(entityLabel, typeDisplayLabel, geoId, moSubType)
     {
       var mo = moSubType != null && moSubType.length > 0 ? " : "+moSubType : '';
       
-      return entityName + ' ('+typeDisplayLabel+mo+') - ' + geoId;
+      return entityLabel + ' ('+typeDisplayLabel+mo+') - ' + geoId;
     }
   }
 });

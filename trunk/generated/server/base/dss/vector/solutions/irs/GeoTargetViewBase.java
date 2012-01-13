@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1377668816)
+@com.runwaysdk.business.ClassSignature(hash = -1339071335)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public abstract class GeoTargetViewBase extends com.runwaysdk.business.View implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.GeoTargetView";
-  public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String GEOENTITY = "geoEntity";
   public static java.lang.String ID = "id";
   public static java.lang.String SEASON = "season";
@@ -69,38 +69,38 @@ public abstract class GeoTargetViewBase extends com.runwaysdk.business.View impl
   public static java.lang.String TARGET_7 = "target_7";
   public static java.lang.String TARGET_8 = "target_8";
   public static java.lang.String TARGET_9 = "target_9";
-  private static final long serialVersionUID = 1377668816;
+  private static final long serialVersionUID = -1339071335;
   
   public GeoTargetViewBase()
   {
     super();
   }
   
-  public String getEntityName()
+  public String getEntityLabel()
   {
-    return getValue(ENTITYNAME);
+    return getValue(ENTITYLABEL);
   }
   
-  public void validateEntityName()
+  public void validateEntityLabel()
   {
-    this.validateAttribute(ENTITYNAME);
+    this.validateAttribute(ENTITYLABEL);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityNameMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.GeoTargetView.CLASS);
-    return mdClassIF.definesAttribute(ENTITYNAME);
+    return mdClassIF.definesAttribute(ENTITYLABEL);
   }
   
-  public void setEntityName(String value)
+  public void setEntityLabel(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYNAME, "");
+      setValue(ENTITYLABEL, "");
     }
     else
     {
-      setValue(ENTITYNAME, value);
+      setValue(ENTITYLABEL, value);
     }
   }
   
@@ -114,6 +114,11 @@ public abstract class GeoTargetViewBase extends com.runwaysdk.business.View impl
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()
@@ -165,6 +170,11 @@ public abstract class GeoTargetViewBase extends com.runwaysdk.business.View impl
     {
       return dss.vector.solutions.general.MalariaSeason.get(getValue(SEASON));
     }
+  }
+  
+  public String getSeasonId()
+  {
+    return getValue(SEASON);
   }
   
   public void validateSeason()

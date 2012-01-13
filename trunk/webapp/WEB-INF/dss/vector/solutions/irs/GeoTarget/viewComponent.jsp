@@ -74,8 +74,8 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
           str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
           str += '<input type="hidden" name="season.componentId" value="true"/>';
           str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
-          str += record.getData('EntityName')+'</a></form>';
-          this.getDataTable().updateCell(record, 'EntityName', str);
+          str += record.getData('EntityLabel')+'</a></form>';
+          this.getDataTable().updateCell(record, 'EntityLabel', str);
         }
       }
     };

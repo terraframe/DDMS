@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 2117210608)
+@com.runwaysdk.business.ClassSignature(hash = 1894168053)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,9 +11,10 @@ package dss.vector.solutions.query;
 public abstract class GeoEntityNotUniqueExceptionBase extends com.runwaysdk.business.SmartException implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.GeoEntityNotUniqueException";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ENTITYTYPE = "entityType";
   public static java.lang.String ID = "id";
-  private static final long serialVersionUID = 2117210608;
+  private static final long serialVersionUID = 1894168053;
   
   public GeoEntityNotUniqueExceptionBase()
   {
@@ -33,6 +34,34 @@ public abstract class GeoEntityNotUniqueExceptionBase extends com.runwaysdk.busi
   public GeoEntityNotUniqueExceptionBase(java.lang.Throwable cause)
   {
     super(cause);
+  }
+  
+  public String getEntityLabel()
+  {
+    return getValue(ENTITYLABEL);
+  }
+  
+  public void validateEntityLabel()
+  {
+    this.validateAttribute(ENTITYLABEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEntityLabelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.query.GeoEntityNotUniqueException.CLASS);
+    return mdClassIF.definesAttribute(ENTITYLABEL);
+  }
+  
+  public void setEntityLabel(String value)
+  {
+    if(value == null)
+    {
+      setValue(ENTITYLABEL, "");
+    }
+    else
+    {
+      setValue(ENTITYLABEL, value);
+    }
   }
   
   public String getEntityType()
@@ -87,6 +116,7 @@ public abstract class GeoEntityNotUniqueExceptionBase extends com.runwaysdk.busi
   public java.lang.String localize(java.util.Locale locale)
   {
     java.lang.String message = super.localize(locale);
+    message = replace(message, "{entityLabel}", this.getEntityLabel());
     message = replace(message, "{entityType}", this.getEntityType());
     message = replace(message, "{id}", this.getId());
     return message;

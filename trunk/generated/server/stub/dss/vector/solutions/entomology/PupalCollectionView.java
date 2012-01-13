@@ -209,7 +209,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     view.setCollectionId(this.getCollectionId());
 
     return view;
-  }  
+  }
 
   private PupalCollectionView searchCollection()
   {
@@ -259,22 +259,21 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     {
       collectionIt.close();
     }
-    
+
     return null;
   }
-
 
   private boolean validateSearch()
   {
     boolean valid = true;
-    
+
     if (this.getGeoEntity() == null)
     {
       RequiredAttributeProblem p = new RequiredAttributeProblem();
       p.setNotification(this, PupalCollectionView.GEOENTITY);
       p.apply();
       p.throwIt();
-      
+
       valid = false;
     }
 
@@ -284,7 +283,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
       p.setNotification(this, PupalCollectionView.STARTDATE);
       p.apply();
       p.throwIt();
-      
+
       valid = false;
     }
 
@@ -294,7 +293,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
       p.setNotification(this, PupalCollectionView.ENDDATE);
       p.apply();
       p.throwIt();
-      
+
       valid = false;
     }
 
@@ -307,7 +306,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
 
       valid = false;
     }
-    
+
     return valid;
   }
 
@@ -343,7 +342,7 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
 
       if (sortAttribute.equalsIgnoreCase(PupalCollectionView.GEOENTITY))
       {
-        attribute = query.getGeoEntity().getEntityName();
+        attribute = query.getGeoEntity().getEntityLabel().localize();
       }
       else if (sortAttribute.equalsIgnoreCase(PupalCollectionView.PREMISETYPE))
       {
@@ -373,8 +372,8 @@ public class PupalCollectionView extends PupalCollectionViewBase implements com.
     if (valid)
     {
       PupalCollectionView view = collection.searchCollection();
-      
-      if(view != null)
+
+      if (view != null)
       {
         return view;
       }

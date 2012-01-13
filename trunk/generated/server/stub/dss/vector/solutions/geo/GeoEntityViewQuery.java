@@ -84,7 +84,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       vQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
       vQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
-      vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
+      vQuery.map(GeoEntityView.ENTITYLABEL, geoEntityQuery.getEntityLabel().localize());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
     }
@@ -137,7 +137,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       vQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
       vQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
-      vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
+      vQuery.map(GeoEntityView.ENTITYLABEL, geoEntityQuery.getEntityLabel().localize());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
@@ -215,7 +215,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
 
       vQuery.AND(geoEntityQuery.getTerm("geoTermId").LEFT_JOIN_EQ(termQuery.getId("termId")));
 
-      vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
+      vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityLabel().localize());
     }
   }
 
@@ -254,7 +254,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
       vQuery.map(GeoEntityView.GEOENTITYID, geoEntityQuery.getId());
       vQuery.map(GeoEntityView.GEOID, geoEntityQuery.getGeoId());
       vQuery.map(GeoEntityView.ACTIVATED, geoEntityQuery.getActivated());
-      vQuery.map(GeoEntityView.ENTITYNAME, geoEntityQuery.getEntityName());
+      vQuery.map(GeoEntityView.ENTITYLABEL, geoEntityQuery.getEntityLabel().localize());
       vQuery.map(GeoEntityView.ENTITYTYPE, geoEntityQuery.getType());
       vQuery.map(GeoEntityView.TYPEDISPLAYLABEL, mdBusinessQuery.getDisplayLabel().localize());
       vQuery.map(GeoEntityView.MOSUBTYPE, termQuery.getTermDisplayLabel().localize());
@@ -331,7 +331,7 @@ public class GeoEntityViewQuery extends dss.vector.solutions.geo.GeoEntityViewQu
 
       vQuery.AND(geoEntityQuery.getTerm("geoTermId").LEFT_JOIN_EQ(termQuery.getId("termId")));
 
-      vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityName());
+      vQuery.ORDER_BY_ASC(this.geoEntityQuery.getEntityLabel().localize());
     }
   }
 

@@ -14,7 +14,7 @@
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="sprayZone">
       <mjl:row>
-        ${item.sprayZone.entityName}
+        ${item.sprayZone.entityLabel}
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>

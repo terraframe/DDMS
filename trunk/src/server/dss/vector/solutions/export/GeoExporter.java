@@ -31,7 +31,7 @@ public class GeoExporter implements Reloadable
   private HSSFWorkbook workbook;
 
   private HSSFSheet    sheet;
-  
+
   private Boolean      exportGIS;
 
   private GeoExporter(Boolean exportGIS)
@@ -47,7 +47,7 @@ public class GeoExporter implements Reloadable
     geoExporter.recursiveExport(null, geo);
     return geoExporter.getWorkbookStream();
   }
-  
+
   public static InputStream exportUniversal(GeoHierarchy gh, Boolean includeGIS)
   {
     GeoExporter geoExporter = new GeoExporter(includeGIS);
@@ -61,7 +61,7 @@ public class GeoExporter implements Reloadable
     GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
     query.WHERE(query.getType().EQ(hierarchy.getQualifiedType()));
     OIterator<? extends GeoEntity> iterator = query.getIterator();
-    
+
     while (iterator.hasNext())
     {
       GeoEntity geo = iterator.next();
@@ -90,34 +90,34 @@ public class GeoExporter implements Reloadable
     {
       return;
     }
-    
+
     HSSFRow row = sheet.createRow(rownum++);
-    
+
     // Follows GeoEntityExcelView.customAttributeOrder()
-    row.createCell(0).setCellValue(new HSSFRichTextString(geo.getEntityName()));
+    row.createCell(0).setCellValue(new HSSFRichTextString(geo.getEntityLabel().getValue()));
     row.createCell(1).setCellValue(new HSSFRichTextString(geo.getGeoId()));
     row.createCell(2).setCellValue(new HSSFRichTextString(geo.getType()));
-    
+
     Term term = geo.getTerm();
-    if (term!=null)
+    if (term != null)
     {
       row.createCell(3).setCellValue(new HSSFRichTextString(term.getName()));
     }
-    
-    if (parent!=null)
+
+    if (parent != null)
     {
       row.createCell(4).setCellValue(new HSSFRichTextString(parent.getGeoId()));
       row.createCell(5).setCellValue(new HSSFRichTextString(parent.getType()));
     }
-    
+
     row.createCell(6).setCellValue(geo.getActivated());
-    
+
     String geoData = geo.getGeoData();
-    if (geoData.length()>32767)
+    if (geoData.length() > 32767)
     {
       geoData = GeoEntityExcelView.LARGE_GEO_DATA;
     }
-    else if (!exportGIS && geoData.length()>0)
+    else if (!exportGIS && geoData.length() > 0)
     {
       geoData = GeoEntityExcelView.NOT_EXPORTED;
     }
@@ -144,11 +144,11 @@ public class GeoExporter implements Reloadable
   {
     try
     {
-      for (short c=0; c<GeoEntityExcelView.customAttributeOrder().size(); c++)
+      for (short c = 0; c < GeoEntityExcelView.customAttributeOrder().size(); c++)
       {
         sheet.autoSizeColumn(c);
       }
-      
+
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       BufferedOutputStream buffer = new BufferedOutputStream(bytes);
       workbook.write(buffer);

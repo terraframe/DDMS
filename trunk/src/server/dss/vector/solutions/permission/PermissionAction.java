@@ -74,10 +74,10 @@ public abstract class PermissionAction implements Reloadable
 
     RoleProperty property = this.getRoleProperty(role);
 
-    if(!url.hasRole(property))
+    if (!url.hasRole(property))
     {
       property.removeExistingURLs();
-      
+
       url.addRoles(property).apply();
     }
   }

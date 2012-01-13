@@ -139,7 +139,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
       }
     }
 
-    entity.setEntityName(this.getEntityName());
+    entity.getEntityLabel().setValue(this.getEntityLabel());
     entity.setActivated(this.getActivated() != null && this.getActivated());
     entity.setGeoId(newGeoId);
     entity.setTerm(this.validateGeoSubtypeByDisplayLabel(entity, this.getSubType(), GeoEntity.getTermMd()));
@@ -209,7 +209,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
-    list.add(ENTITYNAME);
+    list.add(ENTITYLABEL);
     list.add(GEOID);
     list.add(GEOTYPE);
     list.add(SUBTYPE);
@@ -231,7 +231,7 @@ public class GeoEntityExcelView extends GeoEntityExcelViewBase implements com.ru
     }
 
     GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
-    Condition condition = OR.get(query.getEntityName().EQ(pName), query.getGeoId().EQ(pName));
+    Condition condition = OR.get(query.getEntityLabel().localize().EQ(pName), query.getGeoId().EQ(pName));
 
     if (pType != null && pType.length() > 0)
     {

@@ -540,25 +540,30 @@ Mojo.Meta.newClass('MDSS.DecimalParser', {
     },
     
     parse : function(string) {
-      var isNegative = ((this._negPrefix != '' && string.indexOf(this._negPrefix) != -1) || (this._negSuffix != '' && string.indexOf(this._negSuffix) != -1));
+      if(string != null)
+      {
+        var isNegative = ((this._negPrefix != '' && string.indexOf(this._negPrefix) != -1) || (this._negSuffix != '' && string.indexOf(this._negSuffix) != -1));
     	
-      // Remove all suffix and prefix values
-      var temp = new String(string);
-      temp = temp.replace(this._posPrefix, "");
-      temp = temp.replace(this._posSuffix, "");
-      temp = temp.replace(this._negPrefix, "");
-      temp = temp.replace(this._negSuffix, "");
+        // Remove all suffix and prefix values
+        var temp = new String(string);
+        temp = temp.replace(this._posPrefix, "");
+        temp = temp.replace(this._posSuffix, "");
+        temp = temp.replace(this._negPrefix, "");
+        temp = temp.replace(this._negSuffix, "");
       
-      // Convert the decimal point
-      temp = temp.replace(this._decimal, ".");
+        // Convert the decimal point
+        temp = temp.replace(this._decimal, ".");
       
-      var number = parseFloat(temp);
+        var number = parseFloat(temp);
       
-      if(isNegative) {
-        number = number * -1;
+        if(isNegative) {
+          number = number * -1;
+        }
+      
+        return number;
       }
       
-      return number;
+      return null;
     },
     
     format : function(number) {

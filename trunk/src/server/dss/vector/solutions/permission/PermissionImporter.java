@@ -314,23 +314,11 @@ public class PermissionImporter implements Reloadable
   {
     if (!this.systemURLs.containsKey(urlKey))
     {
-      SystemURLQuery query = new SystemURLQuery(new QueryFactory());
-      query.WHERE(query.getUrl().EQ(urlKey));
-
-      OIterator<? extends SystemURL> it = query.getIterator();
-
-      try
+      SystemURL url = SystemURL.getByURL(urlKey);
+      
+      if (url != null)
       {
-        if (it.hasNext())
-        {
-          SystemURL url = it.next();
-
-          this.systemURLs.put(urlKey, url);
-        }
-      }
-      finally
-      {
-        it.close();
+        this.systemURLs.put(urlKey, url);
       }
     }
 
@@ -440,7 +428,7 @@ public class PermissionImporter implements Reloadable
 
     PermissionImporter importer = new PermissionImporter();
     importer.read(new BufferedInputStream(new FileInputStream(file)));
-    
+
     CacheShutdown.shutdown();
   }
 }

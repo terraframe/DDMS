@@ -1439,6 +1439,23 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructQueryDTO', {
 });
 
 /**
+ * LocalStructQueryDTO
+ */
+Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalStructQueryDTO', {
+
+  Extends : Mojo.BUSINESS_PACKAGE+'StructQueryDTO',
+
+  Instance : {
+
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+    }
+  
+  }
+});
+
+/**
  * BusinessQueryDTO
  */
 Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'BusinessQueryDTO', {
@@ -2365,6 +2382,49 @@ Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'StructDTO', {
   }
 });
 
+/**
+ * LocalStructDTO
+ */
+Mojo.Meta.newClass(Mojo.BUSINESS_PACKAGE+'LocalStructDTO', {
+
+  Extends : Mojo.BUSINESS_PACKAGE+'StructDTO',
+
+  Instance : {
+
+    initialize : function(obj)
+    {
+      this.$initialize(obj);
+      
+      this.localizedValue = obj.localizedValue;
+    },
+    
+    getLocalizedValue : function()
+    {
+      return this.localizedValue;
+    },
+    
+    setLocalizedValue : function(localizedValue)
+    {
+      this.localizedValue = localizedValue;    	
+    },
+    
+    apply : function(clientRequest)
+    {
+      if(this.isWritable())
+      {
+        if(this.isNewInstance())
+        {
+          Facade.createStruct(clientRequest, this);
+        }
+        else
+        {
+          Facade.update(clientRequest, this);
+        }
+      }
+    }  
+  }
+});
+
 /*
  * Attribute definitions
  */
@@ -2770,9 +2830,10 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalTextDTO', {
   initialize : function(obj)
   {
     this.$initialize(obj);
-    this._structDTO = obj.structDTO;
+    this.structDTO = obj.structDTO
   },
-  getStructDTO : function(){ return this._structDTO; }
+  getStructDTO : function(){ return this.structDTO; },
+  setStructDTO : function(structDTO){ this.structDTO = structDTO; }
 }
 });
 
@@ -2830,9 +2891,10 @@ Mojo.Meta.newClass(Mojo.ATTRIBUTE_DTO_PACKAGE+'AttributeLocalCharacterDTO', {
     initialize : function(obj)
     {
       this.$initialize(obj);
-      this._structDTO = obj.structDTO;
+      this.structDTO = obj.structDTO;
     },
-    getStructDTO : function(){ return this._structDTO; }    
+    getStructDTO : function(){ return this.structDTO; },
+    setStructDTO : function(structDTO){ this.structDTO = structDTO; }
   }
 });
 

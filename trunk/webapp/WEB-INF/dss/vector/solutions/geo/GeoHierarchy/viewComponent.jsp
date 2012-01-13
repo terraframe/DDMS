@@ -13,8 +13,9 @@
       </label>
     </dt>
     <dd>
-      <mjl:commandLink display="${item.geoEntityClass.keyName}" action="com.runwaysdk.system.metadata.MdBusinessController.view.mojo" name="com.runwaysdk.system.metadata.MdBusiness.form.view.link">
+      <mjl:commandLink action="com.runwaysdk.system.metadata.MdBusinessController.view.mojo" name="com.runwaysdk.system.metadata.MdBusiness.form.view.link">
         <mjl:property value="${item.geoEntityClass.id}" name="id" />
+        ${item.geoEntityClass.keyName}        
       </mjl:commandLink>
     </dd>
     <dt>
@@ -39,7 +40,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.geo.AllowedInController.parentQuery.mojo" name="dss.vector.solutions.geo.AllowedIn.parentQuery.link">
+        <mjl:commandLink action="dss.vector.solutions.geo.AllowedInController.parentQuery.mojo" name="dss.vector.solutions.geo.AllowedIn.parentQuery.link">
           <mjl:property value="${item.id}" name="parentId" />
         </mjl:commandLink>
       </li>
@@ -53,7 +54,7 @@
   <dd>
     <ul>
       <li>
-        <mjl:commandLink display="" action="dss.vector.solutions.geo.AllowedInController.childQuery.mojo" name="dss.vector.solutions.geo.AllowedIn.childQuery.link">
+        <mjl:commandLink action="dss.vector.solutions.geo.AllowedInController.childQuery.mojo" name="dss.vector.solutions.geo.AllowedIn.childQuery.link">
           <mjl:property value="${item.id}" name="childId" />
         </mjl:commandLink>
       </li>

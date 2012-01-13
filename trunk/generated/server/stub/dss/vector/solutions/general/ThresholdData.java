@@ -106,7 +106,7 @@ public class ThresholdData extends ThresholdDataBase implements com.runwaysdk.ge
       if (!geoHierarchy.getPopulationAllowed())
       {
         String universal = entity.getMdClass().getDisplayLabel(Session.getCurrentLocale());
-        String geoEntityName = entity.getEntityName();
+        String geoEntityName = entity.getEntityLabel().getValue();
 
         String label = geoEntityName + " (" + universal + ")";
 

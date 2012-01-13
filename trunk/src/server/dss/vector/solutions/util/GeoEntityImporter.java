@@ -387,7 +387,8 @@ public class GeoEntityImporter
         GeoEntity geoEntity = (GeoEntity) businessClass.getConstructor().newInstance();
 
         geoEntity.setGeoId(Long.toString(geoId));
-        geoEntity.setEntityName(geoName);
+//        geoEntity.setEntityName(geoName);
+        geoEntity.getEntityLabel().setValue(geoName);
 
         geoEntity.setTerm(universalSubtype.moTerm);
 

@@ -60,17 +60,17 @@ public class PopulationDataTest
     String childType = universals[2].getGeneratedType();
 
     parentEntity = (GeoEntity) LoaderDecorator.load(parentType).newInstance();
-    parentEntity.setEntityName("Test Parent Entity");
+    parentEntity.getEntityLabel().setValue("Test Parent Entity");
     parentEntity.setGeoId("ParentId1");
     parentEntity.applyWithParent(zambia.getId(), false, null);
 
     childEntity = (GeoEntity) LoaderDecorator.load(childType).newInstance();
-    childEntity.setEntityName("Test Child Entity");
+    childEntity.getEntityLabel().setValue("Test Child Entity");
     childEntity.setGeoId("ChildId1");
     childEntity.applyWithParent(parentEntity.getId(), false, null);
 
     siblingEntity = (GeoEntity) LoaderDecorator.load(childType).newInstance();
-    siblingEntity.setEntityName("Test Child Entity 2");
+    siblingEntity.getEntityLabel().setValue("Test Child Entity 2");
     siblingEntity.setGeoId("ChildId2");
     siblingEntity.applyWithParent(parentEntity.getId(), false, null);
 

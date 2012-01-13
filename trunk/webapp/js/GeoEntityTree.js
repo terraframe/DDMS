@@ -223,14 +223,14 @@ MDSS.GeoEntityTree = (function(){
 
   function _setGeoEntityAttributes(params, geoEntity)
   {
-    var entityName = params['dto.entityName'];
+    var entityLabel = params['dto.entityLabel'];
     var geoId = params['dto.geoId'];
     var activatedVal = params['dto.activated'];
     var activated = (activatedVal === "true") ? true : false;
     var geoData = params['dto.geoData'];
     var term = document.getElementById('term');
 
-    geoEntity.setEntityName(entityName);
+    geoEntity.getEntityLabel().setLocalizedValue(entityLabel);
     geoEntity.setGeoId(geoId);
     geoEntity.setActivated(activated);
     geoEntity.setGeoData(geoData);
@@ -297,11 +297,13 @@ MDSS.GeoEntityTree = (function(){
   function _copyEntityToView(geoEntity)
   {
     var view = new Mojo.$.dss.vector.solutions.geo.GeoEntityView();
+    
+    var label = geoEntity.getEntityLabel();
 
     view.setGeoEntityId(geoEntity.getId());
     view.setGeoId(geoEntity.getGeoId());
     view.setActivated(geoEntity.getActivated());
-    view.setEntityName(geoEntity.getEntityName());
+    view.setEntityLabel(label.getLocalizedValue());
     view.setEntityType(geoEntity.getType());
     view.setTypeDisplayLabel(geoEntity.getTypeMd().getDisplayLabel());
 

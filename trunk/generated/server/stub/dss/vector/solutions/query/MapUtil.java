@@ -107,18 +107,16 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       try
       {
         valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, layer);
-        
+
         // Format any decimal thematic variable to two decimal places
-        if(layer.hasThematicVariable())
+        if (layer.hasThematicVariable())
         {
           Selectable thematicSel = valueQuery.getSelectableRef(layer.getThematicUserAlias());
-          
-          if(thematicSel instanceof SelectableDouble
-              || thematicSel instanceof SelectableFloat
-              || thematicSel instanceof SelectableDecimal)
+
+          if (thematicSel instanceof SelectableDouble || thematicSel instanceof SelectableFloat || thematicSel instanceof SelectableDecimal)
           {
             SelectableSQLDouble newSel;
-            if(thematicSel.isAggregateFunction())
+            if (thematicSel.isAggregateFunction())
             {
               newSel = valueQuery.aSQLAggregateDouble(thematicSel.getDbColumnName(), "");
             }
@@ -126,10 +124,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
             {
               newSel = valueQuery.aSQLDouble(thematicSel.getDbColumnName(), "");
             }
-            newSel.setSQL(thematicSel.getSQL()+"::decimal(20,2)");
+            newSel.setSQL(thematicSel.getSQL() + "::decimal(20,2)");
             newSel.setColumnAlias(thematicSel.getColumnAlias());
             newSel.setUserDefinedAlias(thematicSel.getUserDefinedAlias());
-            
+
             valueQuery.replaceSelectable(newSel);
           }
         }
@@ -138,16 +136,15 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       {
         String layerName = layer.getLayerName();
         String queryName = layer.getSavedSearch().getQueryName();
-        
-        String error = "The map could not be generated while getting the query ["
-          + queryName + "] for layer [" + layerName + "]";
-        
+
+        String error = "The map could not be generated while getting the query [" + queryName + "] for layer [" + layerName + "]";
+
         if (e.getCause() instanceof InvocationTargetException)
         {
           InvocationTargetException ex = (InvocationTargetException) e.getCause();
           if (ex.getCause() instanceof QueryException)
           {
-            if(i == 0)
+            if (i == 0)
             {
               BaseLayerQueryChangedException changeEx = new BaseLayerQueryChangedException();
               changeEx.setLayerName(layerName);
@@ -160,13 +157,13 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
               info.setLayerName(layerName);
               info.setQueryName(queryName);
               info.throwIt();
-              
+
               layers[i] = null;
               continue;
             }
           }
         }
-        
+
         GeoServerReloadException gsEX = new GeoServerReloadException(error, e.getCause());
         throw gsEX;
       }
@@ -191,12 +188,11 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     for (int i = 0; i < layers.length; i++)
     {
       Layer layer = layers[i];
-      if(layer == null)
+      if (layer == null)
       {
         continue; // The layer failed the first pass
       }
-      
-      
+
       // Remove the old layer
       try
       {
@@ -208,29 +204,28 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         // View doesn't exist, but that's okay. It may have never
         // been created or a cleanup task has removed it.
       }
-      
-      
+
       String layerName = layer.getLayerName();
 
       // Update the view name on the layer for this refresh cycle
       String newViewName = Layer.GEO_VIEW_PREFIX + System.currentTimeMillis();
-      if(!infoOnly)
+      if (!infoOnly)
       {
         layer.appLock();
       }
-        
+
       layer.setViewName(newViewName);
-      
-      if(!infoOnly)
+
+      if (!infoOnly)
       {
         layer.apply();
       }
-      
-      if(i == 0)
+
+      if (i == 0)
       {
         baseView = newViewName;
       }
-      
+
       ValueQuery valueQuery = layerValueQueries.get(layer.getId());
 
       // Any empty non-base layer will be omitted from the map to
@@ -245,50 +240,49 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       }
 
       String sql;
-      if(i !=0 && layer.getClipToBaseLayer())
+      if (i != 0 && layer.getClipToBaseLayer())
       {
         List<Selectable> selectables = valueQuery.getSelectableRefs();
         Selectable geoSelectable = null;
         int count = 0;
         int removeInd = 0;
-        for(Selectable selectable : selectables)
+        for (Selectable selectable : selectables)
         {
-          if(selectable.getColumnAlias().equals(QueryConstants.GEOMETRY_NAME_COLUMN))
+          if (selectable.getColumnAlias().equals(QueryConstants.GEOMETRY_NAME_COLUMN))
           {
             geoSelectable = selectable;
             removeInd = count;
           }
-          
+
           count++;
         }
-        
+
         selectables.remove(removeInd);
-        
-        String geoAttr = geoSelectable.getDefiningTableAlias()+"."+geoSelectable.getDbColumnName();
-        
+
+        String geoAttr = geoSelectable.getDefiningTableAlias() + "." + geoSelectable.getDbColumnName();
+
         String clippingAlias = "geoentity_clipping";
         String clippingColumnAlias = "clipping_column";
-        String clippingColumn = clippingAlias+"."+clippingColumnAlias;
-        
-        SelectableSQLCharacter geoS = valueQuery.aSQLAggregateCharacter(QueryConstants.GEOMETRY_NAME_COLUMN,
-          "collect(intersection("+geoAttr+", "+clippingColumn+"))");
+        String clippingColumn = clippingAlias + "." + clippingColumnAlias;
+
+        SelectableSQLCharacter geoS = valueQuery.aSQLAggregateCharacter(QueryConstants.GEOMETRY_NAME_COLUMN, "collect(intersection(" + geoAttr + ", " + clippingColumn + "))");
         selectables.add(geoS);
-        
+
         valueQuery.clearSelectClause();
         valueQuery.SELECT(selectables.toArray(new Selectable[selectables.size()]));
-        
-        valueQuery.FROM("(SELECT "+QueryConstants.GEOMETRY_NAME_COLUMN+" AS "+clippingColumnAlias+" FROM "+baseView+")", clippingAlias);
-        
+
+        valueQuery.FROM("(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS " + clippingColumnAlias + " FROM " + baseView + ")", clippingAlias);
+
         sql = valueQuery.getSQL();
       }
       else
       {
         sql = valueQuery.getSQL();
       }
-      
+
       // Create a new view that will reflect the current state of the query.
       Database.createView(newViewName, sql);
-      
+
       // make sure there are no duplicate geo entities
       String countSQL = "SELECT COUNT(*) " + Database.formatColumnAlias("ct") + " FROM " + newViewName;
       countSQL += " GROUP BY " + QueryConstants.GEO_ID_COLUMN + " HAVING COUNT(*) > 1";
@@ -312,7 +306,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
             LayerOmittedDuplicateDataInformation info = new LayerOmittedDuplicateDataInformation();
             info.setLayerName(layerName);
             info.throwIt();
-            
+
             continue;
           }
         }
@@ -362,8 +356,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     {
       webDir = webDir.substring(1);
     }
-    String filePath = webDir + "/" + QueryConstants.SLD_WEB_DIR + QueryConstants.createSLDName(layer.getId()) + "."
-        + QueryConstants.SLD_EXTENSION;
+    String filePath = webDir + "/" + QueryConstants.SLD_WEB_DIR + QueryConstants.createSLDName(layer.getId()) + "." + QueryConstants.SLD_EXTENSION;
 
     // Generated a random query string to force GeoServer to not cache the SLD
     String random = String.valueOf(Math.random());
@@ -372,12 +365,9 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     return filePath + "?a=" + random;
   }
 
-  private static final Pattern        JSESSIONID_PATTERN = Pattern
-                                                             .compile("(?:.*?)JSESSIONID=(\\w*);.*");
+  private static final Pattern        JSESSIONID_PATTERN = Pattern.compile("(?:.*?)JSESSIONID=(\\w*);.*");
 
-  private static final ResourceBundle bundle             = ResourceBundle.getBundle("GeoServer", Locale
-                                                             .getDefault(), Business.class
-                                                             .getClassLoader());
+  private static final ResourceBundle bundle             = ResourceBundle.getBundle("GeoServer", Locale.getDefault(), Business.class.getClassLoader());
 
   /**
    * Returns the url to access GeoServer locally.
@@ -413,14 +403,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       try
       {
         pokeGet = new GetMethod(geoserverPath + "/welcome.do");
-        pokeGet.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-            new DefaultHttpMethodRetryHandler(3, false));
+        pokeGet.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
 
-        NameValuePair[] pokeQueryString = new NameValuePair[] { new NameValuePair(
-            CredentialsSingleton.GLOBAL_SESSION_ID, sessionId) };
+        NameValuePair[] pokeQueryString = new NameValuePair[] { new NameValuePair(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId) };
         pokeGet.setQueryString(pokeQueryString);
 
-        int pokeCode = client.executeMethod(pokeGet);
+        client.executeMethod(pokeGet);
         Header cookies = pokeGet.getResponseHeader("Set-Cookie");
         pokeGet.getResponseBody(); // REQUIRED
         value = cookies.getValue();
@@ -452,10 +440,8 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       try
       {
         get1 = new GetMethod(geoserverPath + "/admin/loadFromXML.do");
-        get1.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-            new DefaultHttpMethodRetryHandler(3, false));
-        NameValuePair[] params = new NameValuePair[] { new NameValuePair(
-            CredentialsSingleton.GLOBAL_SESSION_ID, sessionId) };
+        get1.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
+        NameValuePair[] params = new NameValuePair[] { new NameValuePair(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId) };
         get1.setQueryString(params);
 
         int responseCode3 = client.executeMethod(get1);
@@ -477,10 +463,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
 
       // Create each layer as a feature on GeoServer
       Iterator<Layer> iter = reloads.keySet().iterator();
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         Layer reload = iter.next();
-        
+
         String viewName = reload.getViewName();
         String defaultStyle = reload.getRenderAs().get(0) == AllRenderTypes.POINT ? "point" : "polygon";
 
@@ -489,12 +475,10 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         {
           // request a new feature
           newPost = new PostMethod(geoserverPath + "/config/data/typeNewSubmit.do");
-          newPost.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-              new DefaultHttpMethodRetryHandler(3, false));
+          newPost.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
           newPost.addRequestHeader("Cookie", "JSESSIONID=" + jSessionId);
           newPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
-          newPost.addParameter("selectedNewFeatureType", QueryConstants.getNamespacedDataStore() + ":::"
-              + viewName.toLowerCase());
+          newPost.addParameter("selectedNewFeatureType", QueryConstants.getNamespacedDataStore() + ":::" + viewName.toLowerCase());
 
           int newCode = client.executeMethod(newPost);
           newPost.getResponseBody(); // REQUIRED
@@ -518,8 +502,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         try
         {
           createPost = new PostMethod(geoserverPath + "/config/data/typeEditorSubmit.do");
-          createPost.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-              new DefaultHttpMethodRetryHandler(3, false));
+          createPost.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
           createPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
           createPost.addRequestHeader("Cookie", "JSESSIONID=" + jSessionId);
 
@@ -534,12 +517,12 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
           createPost.addParameter("keywords", viewName);
           createPost.addParameter("maxFeatures", "0");
 
-//          createPost.addParameter("metadataLink[0].content", "");
-//          createPost.addParameter("metadataLink[0].metadataType", "FGDC");
-//          createPost.addParameter("metadataLink[0].type", "text/plain");
-//          createPost.addParameter("metadataLink[1].content", "");
-//          createPost.addParameter("metadataLink[1].metadataType", "FGDC");
-//          createPost.addParameter("metadataLink[1].type", "text/plain");
+          // createPost.addParameter("metadataLink[0].content", "");
+          // createPost.addParameter("metadataLink[0].metadataType", "FGDC");
+          // createPost.addParameter("metadataLink[0].type", "text/plain");
+          // createPost.addParameter("metadataLink[1].content", "");
+          // createPost.addParameter("metadataLink[1].metadataType", "FGDC");
+          // createPost.addParameter("metadataLink[1].type", "text/plain");
 
           createPost.addParameter("nameTemplate", "null");
           createPost.addParameter("regionateAttribute", "null");
@@ -576,8 +559,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
       try
       {
         applyPost = new PostMethod(geoserverPath + "/admin/saveToGeoServer.do");
-        applyPost.getParams().setParameter(HttpMethodParams.RETRY_HANDLER,
-            new DefaultHttpMethodRetryHandler(3, false));
+        applyPost.getParams().setParameter(HttpMethodParams.RETRY_HANDLER, new DefaultHttpMethodRetryHandler(3, false));
         applyPost.addParameter(CredentialsSingleton.GLOBAL_SESSION_ID, sessionId);
         applyPost.addParameter("submit", "Apply");
 
@@ -652,8 +634,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         String viewName = layer.getViewName();
         layerNames[0] = layer.getLayerName();
 
-        sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN
-            + ")) AS bbox FROM " + viewName;
+        sql = "SELECT AsText(extent(" + viewName + "." + QueryConstants.GEOMETRY_NAME_COLUMN + ")) AS bbox FROM " + viewName;
       }
       else
       {
@@ -666,8 +647,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
           String viewName = layer.getViewName();
           layerNames[i] = layer.getLayerName();
 
-          sql += "(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS geo_v FROM " + viewName
-              + ") \n";
+          sql += "(SELECT " + QueryConstants.GEOMETRY_NAME_COLUMN + " AS geo_v FROM " + viewName + ") \n";
 
           if (i != layers.size() - 1)
           {
@@ -745,8 +725,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
               }
               else
               {
-                String error = "The database view(s) [" + StringUtils.join(layerNames, ",")
-                    + "] could not be used to create a valid bounding box";
+                String error = "The database view(s) [" + StringUtils.join(layerNames, ",") + "] could not be used to create a valid bounding box";
                 throw new GeoServerReloadException(error);
               }
             }

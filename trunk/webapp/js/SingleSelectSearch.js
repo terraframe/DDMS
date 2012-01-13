@@ -279,7 +279,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
       // 
       var GeoEntity = Mojo.$.dss.vector.solutions.geo.generated.GeoEntity
       this._idAttr = GeoEntity.ID;
-      this._entityNameAttr = GeoEntity.ENTITYNAME;
+      this._entityLabelAttr = GeoEntity.ENTITYLABEL;
       this._geoIdAttr = GeoEntity.GEOID;
       this._typeAttr = GeoEntity.TYPE;
       
@@ -367,8 +367,12 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     
     _listFunction : function(valueObj)
     {
-      return MDSS.AbstractSelectSearch.formatDisplay2(valueObj.getValue(this._entityNameAttr),
-        valueObj.getValue('displayLabel'), valueObj.getValue(this._geoIdAttr), valueObj.getValue('moSubType'));
+      var entityLabel = valueObj.getValue(this._entityLabelAttr);
+      var typeLabel = valueObj.getValue('displayLabel');
+      var geoId = valueObj.getValue(this._geoIdAttr);
+      var subType = valueObj.getValue('moSubType');
+      
+      return MDSS.AbstractSelectSearch.formatDisplay2(entityLabel, typeLabel, geoId, subType);
     },
     
     _idFunction : function(valueObj)

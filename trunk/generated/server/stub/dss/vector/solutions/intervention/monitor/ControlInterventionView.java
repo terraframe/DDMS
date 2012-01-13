@@ -447,19 +447,19 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
   {
     Date start = this.getStartDate();
     Date end = this.getEndDate();
-    
+
     if (start != null && end != null && start.after(end))
     {
       MalariaSeasonDateProblem p = new MalariaSeasonDateProblem();
       p.apply();
       p.throwIt();
-      
+
       return false;
     }
-    
+
     return true;
   }
-  
+
   private ControlInterventionView searchClone()
   {
     ControlInterventionView view = new ControlInterventionView();
@@ -475,11 +475,11 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
     return ControlInterventionViewQuery.searchCollections();
   }
 
-  @Transaction  
+  @Transaction
   public static ControlInterventionViewQuery search(ControlInterventionView criteria, String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
   {
     criteria.validateSearchDates();
-    
+
     ControlInterventionViewQuery query = ControlInterventionViewQuery.searchCollections(criteria);
 
     if (sortAttribute != null)
@@ -488,7 +488,7 @@ public class ControlInterventionView extends ControlInterventionViewBase impleme
 
       if (sortAttribute.equalsIgnoreCase(ControlInterventionView.GEOENTITY))
       {
-        attribute = query.getGeoEntity().getEntityName();
+        attribute = query.getGeoEntity().getEntityLabel().localize();
       }
 
       if (isAscending)

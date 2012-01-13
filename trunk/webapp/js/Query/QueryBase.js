@@ -1224,11 +1224,11 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         // use the type name and lowercase it so it adheres to attribute naming conventions
         var typeName = type.substring(type.lastIndexOf('.')+1).toLowerCase();
 
-        var entityName = this._addUniversalColumn(attributeKey, geoEntityView, typeName, entityAlias, geoEntityView.getEntityNameMd().getName());
+        var entityName = this._addUniversalColumn(attributeKey, geoEntityView, typeName, entityAlias, geoEntityView.getEntityLabelMd().getName());
         var geoId = this._addUniversalColumn(attributeKey, geoEntityView, typeName, entityAlias, geoEntityView.getGeoIdMd().getName());
         
         this._geoEntitySelectables[namespacedType] = {
-            entityName : entityName,
+          entityName : entityName,
           geoId : geoId
         };
       }

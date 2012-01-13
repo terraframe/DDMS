@@ -366,7 +366,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
       if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.GEOENTITY))
       {
-        attribute = query.getGeoEntity().getEntityName();
+        attribute = query.getGeoEntity().getEntityLabel().localize();
       }
       else if (sortAttribute.equalsIgnoreCase(MosquitoCollectionView.COLLECTIONMETHOD))
       {
@@ -484,7 +484,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     GeoEntityQuery q = new GeoEntityQuery(valueQuery);
     TermQuery tq = new TermQuery(valueQuery);
 
-    SelectablePrimitive[] selectables = new SelectablePrimitive[] { cQ.getId(MosquitoCollection.ID), cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), cQ.getCollectionDate(MosquitoCollectionView.COLLECTIONDATE), q.getEntityName(GeoEntityView.ENTITYNAME), q.getGeoId(GeoEntityView.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusiness.DISPLAYLABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
+    SelectablePrimitive[] selectables = new SelectablePrimitive[] { cQ.getId(MosquitoCollection.ID), cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), cQ.getCollectionDate(MosquitoCollectionView.COLLECTIONDATE), q.getEntityLabel().localize(GeoEntityView.ENTITYLABEL), q.getGeoId(GeoEntityView.GEOID), q.getType(GeoEntity.TYPE), mdQ.getDisplayLabel().localize(MdBusiness.DISPLAYLABEL), tq.getTermDisplayLabel().localize(GeoEntityView.MOSUBTYPE) };
 
     Condition[] conditions = new Condition[] {q.getId().EQ(cQ.getGeoEntity().getId()), F.CONCAT(mdQ.getPackageName(), F.CONCAT(".", mdQ.getTypeName())).EQ(q.getType()), q.getActivated().EQ(true) };
 
@@ -493,7 +493,7 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
     if (value != null && !value.equals(""))
     {
       String[] tokens = value.split(" ");
-      SelectablePrimitive[] searchables = new SelectablePrimitive[] { cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), q.getEntityName(GeoEntityView.ENTITYNAME), q.getGeoId(GeoEntityView.GEOID) };
+      SelectablePrimitive[] searchables = new SelectablePrimitive[] { cQ.getCollectionId(MosquitoCollectionView.COLLECTIONID), q.getEntityLabel().localize(GeoEntityView.ENTITYLABEL), q.getGeoId(GeoEntityView.GEOID) };
 
       QueryBuilder.textLookup(valueQuery, factory, tokens, searchables, selectables, conditions, joins);
     }
@@ -504,8 +504,6 @@ public class MosquitoCollectionView extends MosquitoCollectionViewBase implement
 
     valueQuery.restrictRows(20, 1);
     
-    System.out.println(valueQuery.getSQL());
-
     return valueQuery;
   }
 

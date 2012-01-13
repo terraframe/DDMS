@@ -1,10 +1,10 @@
 package dss.vector.solutions.geo;
 
-@com.runwaysdk.business.ClassSignature(hash = -2052310593)
+@com.runwaysdk.business.ClassSignature(hash = 833433750)
 public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.geo.GeoEntityView";
-  private static final long serialVersionUID = -2052310593;
+  private static final long serialVersionUID = 833433750;
   
   protected GeoEntityViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,7 +17,7 @@ public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDT
   }
   
   public static java.lang.String ACTIVATED = "activated";
-  public static java.lang.String ENTITYNAME = "entityName";
+  public static java.lang.String ENTITYLABEL = "entityLabel";
   public static java.lang.String ENTITYTYPE = "entityType";
   public static java.lang.String GEOENTITYID = "geoEntityId";
   public static java.lang.String GEOID = "geoId";
@@ -61,41 +61,41 @@ public abstract class GeoEntityViewDTOBase extends com.runwaysdk.business.ViewDT
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(ACTIVATED).getAttributeMdDTO();
   }
   
-  public String getEntityName()
+  public String getEntityLabel()
   {
-    return getValue(ENTITYNAME);
+    return getValue(ENTITYLABEL);
   }
   
-  public void setEntityName(String value)
+  public void setEntityLabel(String value)
   {
     if(value == null)
     {
-      setValue(ENTITYNAME, "");
+      setValue(ENTITYLABEL, "");
     }
     else
     {
-      setValue(ENTITYNAME, value);
+      setValue(ENTITYLABEL, value);
     }
   }
   
-  public boolean isEntityNameWritable()
+  public boolean isEntityLabelWritable()
   {
-    return isWritable(ENTITYNAME);
+    return isWritable(ENTITYLABEL);
   }
   
-  public boolean isEntityNameReadable()
+  public boolean isEntityLabelReadable()
   {
-    return isReadable(ENTITYNAME);
+    return isReadable(ENTITYLABEL);
   }
   
-  public boolean isEntityNameModified()
+  public boolean isEntityLabelModified()
   {
-    return isModified(ENTITYNAME);
+    return isModified(ENTITYLABEL);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityNameMd()
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEntityLabelMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYNAME).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(ENTITYLABEL).getAttributeMdDTO();
   }
   
   public String getEntityType()

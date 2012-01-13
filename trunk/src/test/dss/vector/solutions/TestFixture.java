@@ -122,7 +122,7 @@ public class TestFixture
   {
     Country country = new Country();
     country.setGeoId(TestFixture.getRandomGeoId());
-    country.setEntityName("Test Country");
+    country.getEntityLabel().setValue("Test Country");
     country.apply();
 
     return country;
@@ -132,7 +132,7 @@ public class TestFixture
   {
     SentinelSite site = new SentinelSite();
     site.setGeoId(TestFixture.getRandomGeoId());
-    site.setEntityName("Test Site");
+    site.getEntityLabel().setValue("Test Site");
     site.apply();
 
     return site;
@@ -142,7 +142,7 @@ public class TestFixture
   {
     SentinelSiteDTO site = new SentinelSiteDTO(clientRequest);
     site.setGeoId(TestFixture.getRandomGeoId());
-    site.setEntityName("Test Site");
+    site.getEntityLabel().setValue("Test Site");
     site.apply();
 
     return site;
@@ -152,7 +152,7 @@ public class TestFixture
   {
     CollectionSite site = new CollectionSite();
     site.setGeoId(TestFixture.getRandomGeoId());
-    site.setEntityName("Test Site");
+    site.getEntityLabel().setValue("Test Site");
     site.apply();
 
     return site;
@@ -162,7 +162,7 @@ public class TestFixture
   {
     HealthFacility facility = new HealthFacility();
     facility.setGeoId(TestFixture.getRandomGeoId());
-    facility.setEntityName("Test Site");
+    facility.getEntityLabel().setValue("Test Site");
     facility.apply();
 
     return facility;
@@ -172,7 +172,7 @@ public class TestFixture
   {
     Surface surface = new Surface();
     surface.setGeoId(TestFixture.getRandomGeoId());
-    surface.setEntityName("Test Site");
+    surface.getEntityLabel().setValue("Test Site");
     surface.apply();
 
     return surface;
@@ -182,7 +182,7 @@ public class TestFixture
   {
     SprayZone sprayZone = new SprayZone();
     sprayZone.setGeoId(TestFixture.getRandomGeoId());
-    sprayZone.setEntityName("Test Site");
+    sprayZone.getEntityLabel().setValue("Test Site");
     sprayZone.apply();
 
     return sprayZone;
@@ -192,7 +192,7 @@ public class TestFixture
   {
     StockDepot depot = new StockDepot();
     depot.setGeoId(TestFixture.getRandomGeoId());
-    depot.setEntityName("Test Depot");
+    depot.getEntityLabel().setValue("Test Depot");
     depot.apply();
 
     return depot;

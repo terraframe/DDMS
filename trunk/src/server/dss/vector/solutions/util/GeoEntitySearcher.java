@@ -27,6 +27,7 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
 
@@ -37,6 +38,7 @@ import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoSynonymQuery;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class GeoEntitySearcher implements Reloadable
@@ -44,8 +46,11 @@ public class GeoEntitySearcher implements Reloadable
   private static class GeoHeaderInfo implements Reloadable
   {
     private String excelColumnName;
-    private int columnIndex;
+
+    private int    columnIndex;
+
     private String attributeName;
+
     private String geoType;
 
     private GeoHeaderInfo(String excelColumnName, int columnIndex, String attributeName, String geoType)
@@ -79,7 +84,7 @@ public class GeoEntitySearcher implements Reloadable
 
   private Map<String, List<GeoHeaderInfo>> geoColumnInfoMap;
 
-  private String geoUniversalPackage;
+  private String                           geoUniversalPackage;
 
   public GeoEntitySearcher()
   {
@@ -114,14 +119,14 @@ public class GeoEntitySearcher implements Reloadable
     }
     catch (IOException e)
     {
-      // If we've encountered an exception already, there's no point in proceeding
+      // If we've encountered an exception already, there's no point in
+      // proceeding
       throw new ExcelReadException(e);
     }
 
     // list of potential synonym matches, if any
     List<UnknownGeoEntity> unknownEntityList = new LinkedList<UnknownGeoEntity>();
-    Set<String>unknownGeoEntityNameSet = new HashSet<String>();
-
+    Set<String> unknownGeoEntityNameSet = new HashSet<String>();
 
     Iterator<HSSFRow> rowIterator = sheet.rowIterator();
 
@@ -131,7 +136,7 @@ public class GeoEntitySearcher implements Reloadable
     // Iterate over the geo attributes
     for (String attributeName : this.geoColumnInfoMap.keySet())
     {
-      // Errors occured on this column.  Stop processing additional columns.
+      // Errors occured on this column. Stop processing additional columns.
       if (unknownEntityList.size() > 0)
       {
         break;
@@ -142,9 +147,9 @@ public class GeoEntitySearcher implements Reloadable
       GeoHeaderInfo[] geoHeaderInfoArray = new GeoHeaderInfo[geoHeaderInfoList.size()];
       geoHeaderInfoList.toArray(geoHeaderInfoArray);
 
-      for (int i=0; i<geoHeaderInfoArray.length; i++)
+      for (int i = 0; i < geoHeaderInfoArray.length; i++)
       {
-        // Errors occured on this column.  Stop processing additional columns.
+        // Errors occured on this column. Stop processing additional columns.
         if (unknownEntityList.size() > 0)
         {
           break;
@@ -159,7 +164,7 @@ public class GeoEntitySearcher implements Reloadable
           String endPointEntityType = "";
           Map<String, String> parentGeoEntityMap = new LinkedHashMap<String, String>();
 
-          for (int j=0; j<=i; j++)
+          for (int j = 0; j <= i; j++)
           {
             GeoHeaderInfo geoHeaderInfo = geoHeaderInfoArray[j];
 
@@ -200,109 +205,27 @@ public class GeoEntitySearcher implements Reloadable
                 continue;
               }
 
-              // Unable to find a match
-              // Look up synonyms
-              List<GeoEntity> possibleMatchEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
+              // Unable to find a match look up synonyms
+              List<GeoEntity> synonymEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
 
-              // Create a delimited list of synonyms
-              String delimitedSynonymList = "";
-              boolean firstIteration = true;
-              for (GeoEntity synonymEntity: possibleMatchEntityList)
-              {
-                if (!firstIteration)
-                {
-                  delimitedSynonymList+=":";
-                }
-                else
-                {
-                  firstIteration = false;
-                }
-
-                delimitedSynonymList+=synonymEntity.getGeoId()+";"+synonymEntity.getEntityName();
-              }
-
-              List<GeoEntity> siblingGeoEntityList = GeoEntitySearcher.searchChildren(parentGeoEntityMap, endPointEntityType, possibleMatchEntityList);
-
-              // Create a delimited list of childeren of the same type from the same parent
-              String delimitedSiblingList = "";
-              firstIteration = true;
-              for (GeoEntity siblingEntity: siblingGeoEntityList)
-              {
-                if (!firstIteration)
-                {
-                  delimitedSiblingList+=":";
-                }
-                else
-                {
-                  firstIteration = false;
-                }
-
-                delimitedSiblingList+=siblingEntity.getGeoId()+";"+siblingEntity.getEntityName();
-              }
-
-              String knownHierarchy = "";
-              firstIteration = true;
-              for (String geoType : parentGeoEntityMap.keySet())
-              {
-                if (geoType != endPointEntityType)
-                {
-                  if (!firstIteration)
-                  {
-                    knownHierarchy+=", ";
-                  }
-                  else
-                  {
-                    firstIteration = false;
-                  }
-
-                  String entityName = parentGeoEntityMap.get(geoType);
-                  String geoTypeDisplayLabel = MdBusiness.getMdBusiness(geoType).getDisplayLabel().getValue();
-                  knownHierarchy += entityName +" ("+geoTypeDisplayLabel+")";
-                }
-              }
-
+              List<GeoEntity> siblingGeoEntityList = GeoEntitySearcher.searchChildren(parentGeoEntityMap, endPointEntityType, synonymEntityList);
 
               UnknownGeoEntity unknownGeoEntity = new UnknownGeoEntity();
-
               unknownGeoEntity.setEntityType(MdBusiness.getMdBusiness(endPointEntityType).getDisplayLabel().getValue());
               unknownGeoEntity.setEntityName(endPointEntityName);
-              unknownGeoEntity.setSynonyms(delimitedSynonymList);
-              unknownGeoEntity.setKnownHierarchy(knownHierarchy);
-              unknownGeoEntity.setSiblings(delimitedSiblingList);
+              unknownGeoEntity.setSynonyms(this.getDelimitedList(synonymEntityList));
+              unknownGeoEntity.setSiblings(this.getDelimitedList(siblingGeoEntityList));
+              unknownGeoEntity.setKnownHierarchy(this.getDelimitedHierarchy(parentGeoEntityMap, endPointEntityType));
               unknownGeoEntity.applyNoPersist();
 
               unknownEntityList.add(unknownGeoEntity);
               unknownGeoEntityNameSet.add(endPointEntityName);
 
-
-//              MdssLog.debug("matches for: " + endPointEntityName + " " + endPointEntityType +
-//                  "\n   Known Hierarchy: " + knownHierarchy + 
-//                  "\n   Possible synonym matches: " + delimitedSynonymList +
-//                  "\n   Siblings: " + delimitedSiblingList);
             }
             else if (geoEntityList.size() == 1)
             {
-              // do nothing.  We found an exact match, which is what we wanted
-//MdssLog.debug("match: "+geoEntityList.get(0).getEntityName());
+              // do nothing. We found an exact match, which is what we wanted
             }
-            /*
-             
-            This final else condition accounts for an ambiguous geo entry.
-            However, we really are just checking for unknown entries which
-            can have synonyms attached to them.  Exceptions about ambiguous
-            entries should be thrown in the context of the import, where
-            row number can be captured and returned to the user.
-             
-            else // geoEntityList.size() > 1
-            {
-              String msg = "Geo Entity ending with [" + endPointEntityName + "] is ambiguous (It has more than one possible solution)";
-              AmbigiousGeoEntityException e = new AmbigiousGeoEntityException(msg);
-              e.setEntityName(endPointEntityName);
-              e.apply();
-              throw e;
-            }
-            */
-
           } // if (!endPointEntityName.trim().equals(""))
 
         } // while (rowIterator.hasNext())
@@ -314,9 +237,60 @@ public class GeoEntitySearcher implements Reloadable
     return unknownEntityList;
   }
 
+  private String getDelimitedList(List<GeoEntity> entities)
+  {
+    StringBuffer buffer = new StringBuffer();
+    boolean firstIteration = true;
+    for (GeoEntity entity : entities)
+    {
+      if (!firstIteration)
+      {
+        buffer.append(":");
+      }
+      else
+      {
+        firstIteration = false;
+      }
+
+      buffer.append(entity.getGeoId() + ";" + entity.getEntityLabel().getValue());
+    }
+
+    return buffer.toString();
+  }
+
+  private String getDelimitedHierarchy(Map<String, String> parentGeoEntityMap, String endPointEntityType)
+  {
+    StringBuffer buffer = new StringBuffer();
+
+    boolean firstIteration = true;
+    for (String geoType : parentGeoEntityMap.keySet())
+    {
+      if (geoType != endPointEntityType)
+      {
+        if (!firstIteration)
+        {
+          buffer.append(", ");
+        }
+        else
+        {
+          firstIteration = false;
+        }
+
+        String entityName = parentGeoEntityMap.get(geoType);
+        String geoTypeDisplayLabel = MdBusiness.getMdBusiness(geoType).getDisplayLabel().getValue();
+        buffer.append(entityName + " (" + geoTypeDisplayLabel + ")");
+      }
+    }
+
+    return buffer.toString();
+  }
+
   /**
-   * Returns a row iterator that is advanced passed the headers to the first row of content.
-   * @return iterator that is advanced passed the headers to the first row of content.
+   * Returns a row iterator that is advanced passed the headers to the first row
+   * of content.
+   * 
+   * @return iterator that is advanced passed the headers to the first row of
+   *         content.
    */
   @SuppressWarnings("unchecked")
   private Iterator<HSSFRow> getRowIteratorAdvancedToContent(HSSFSheet sheet)
@@ -333,12 +307,11 @@ public class GeoEntitySearcher implements Reloadable
     return rowIterator;
   }
 
-
   /**
    * Reads the first two rows, which represent the attribute names and attribute
    * display labels respectively. Creates the list of {@link ColumnInfo}s that
    * is referenced when importing row data.
-   *
+   * 
    * @param rowIterator
    */
   @SuppressWarnings("unchecked")
@@ -363,9 +336,8 @@ public class GeoEntitySearcher implements Reloadable
         String attributeName = nameComponents[1];
         String geoTypeName = nameComponents[2];
 
-
         // Record information about this column header
-        GeoHeaderInfo geoHeaderInfo = new GeoHeaderInfo(nameValue, nameCell.getColumnIndex(), attributeName, this.geoUniversalPackage+"."+geoTypeName);
+        GeoHeaderInfo geoHeaderInfo = new GeoHeaderInfo(nameValue, nameCell.getColumnIndex(), attributeName, this.geoUniversalPackage + "." + geoTypeName);
         this.getGeoHeaderInfoList(attributeName).add(geoHeaderInfo);
       }
     }
@@ -384,19 +356,22 @@ public class GeoEntitySearcher implements Reloadable
     return geoHeaderInfoList;
   }
 
-
   /**
    * Finds a geo entity match.
-   *
-   * @param soundsLikeMatch if true then a sounds like match will be made with the given child entity name.
-   *   if false, then an exact string match will be used.
-   * @param parentGeoEntityMap Key is the geo type, value is the geo name.
-   * @param childGeoEntityType geo entity type of the child.
-   * @param childGeoEntityName geo entity name of the child.
+   * 
+   * @param soundsLikeMatch
+   *          if true then a sounds like match will be made with the given child
+   *          entity name. if false, then an exact string match will be used.
+   * @param parentGeoEntityMap
+   *          Key is the geo type, value is the geo name.
+   * @param childGeoEntityType
+   *          geo entity type of the child.
+   * @param childGeoEntityName
+   *          geo entity name of the child.
    */
   public static List<GeoEntity> search(boolean soundsLikeMatch, Map<String, String> parentGeoEntityMap, String childGeoEntityType, String childGeoEntityName)
   {
-    if(childGeoEntityType.equals("") && childGeoEntityName.equals(""))
+    if (childGeoEntityType.equals("") && childGeoEntityName.equals(""))
     {
       return new LinkedList<GeoEntity>();
     }
@@ -411,28 +386,36 @@ public class GeoEntitySearcher implements Reloadable
 
     if (soundsLikeMatch)
     {
-      geoEntityIdQuery.
-      WHERE(geoEntityIdQuery.aSQLCharacter("entityMetaphone", "metaphone("+childGeoEntityQuery.getEntityName().getDbQualifiedName()+", 255)", "entityMetaphone").
-          EQ(geoEntityIdQuery.aSQLCharacter("unknownMetaphone", "metaphone('"+childGeoEntityName+"', 255)", "unknownMetaphone")));
+      GeoEntityEntityLabelQuery labelQuery = new GeoEntityEntityLabelQuery(qf);
+      String qualifiedName = childGeoEntityQuery.getEntityLabel().localize().getDbQualifiedName();
+
+      // A sql pass through character for the metaphone of existing entity
+      // labels
+      SelectableSQLCharacter entityMetaphone = geoEntityIdQuery.aSQLCharacter("entityMetaphone", "metaphone(" + qualifiedName + ", 255)", "entityMetaphone");
+
+      // A sql pass through character for the metaphone of unknown entity label
+      SelectableSQLCharacter unknownMetaphone = geoEntityIdQuery.aSQLCharacter("unknownMetaphone", "metaphone('" + childGeoEntityName + "', 255)", "unknownMetaphone");
+
+      // geoEntityIdQuery.FROM(entityMetaphone.EQ(unknownMetaphone));
+      geoEntityIdQuery.WHERE(childGeoEntityQuery.getEntityLabel().getId().EQ(labelQuery.getId()));
+      geoEntityIdQuery.AND(entityMetaphone.EQ(unknownMetaphone));
     }
     else
     {
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
       geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQi(childGeoEntityName));
 
-      geoEntityIdQuery.
-      WHERE(
-          OR.get(
-          // Check for a name match
-          childGeoEntityQuery.getEntityName().EQi(childGeoEntityName),
+      geoEntityIdQuery.WHERE(OR.get(
+      // Check for a name match
+          childGeoEntityQuery.getEntityLabel().localize().EQi(childGeoEntityName),
           // OR check for a GeoId Match
           childGeoEntityQuery.getGeoId().EQ(childGeoEntityName),
           // Or check for a synonym match
           childGeoEntityQuery.synonyms(geoSynonymQuery)));
-
     }
 
-    // This select clause must be located here and not above the if block, otherwise the
+    // This select clause must be located here and not above the if block,
+    // otherwise the
     // joins above will not be proper subselects
     geoEntityIdQuery.SELECT(childGeoEntityQuery.getId("child_id", "child_id"));
 
@@ -453,22 +436,14 @@ public class GeoEntitySearcher implements Reloadable
 
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
 
-      parentGeoEntityQuery.
-      WHERE(
-          OR.get(parentGeoEntityQuery.getEntityName().EQi(parentGeoEntityName),
-              parentGeoEntityQuery.getGeoId().EQi(parentGeoEntityName),
-              parentGeoEntityQuery.synonyms(geoSynonymQuery)));
+      parentGeoEntityQuery.WHERE(OR.get(parentGeoEntityQuery.getEntityLabel().localize().EQi(parentGeoEntityName), parentGeoEntityQuery.getGeoId().EQi(parentGeoEntityName), parentGeoEntityQuery.synonyms(geoSynonymQuery)));
 
-      geoEntityIdQuery.
-        AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
-        AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).
-        AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).
-        AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
+      geoEntityIdQuery.AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
     }
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
     resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery.get("child_id")));
-    resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
+    resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aLocalCharacter(GeoEntity.ENTITYLABEL).localize()));
 
     OIterator<Business> iterator = resultQuery.getIterator();
 
@@ -478,7 +453,7 @@ public class GeoEntitySearcher implements Reloadable
     {
       for (Business business : iterator)
       {
-        returnGeoEntityList.add((GeoEntity)business);
+        returnGeoEntityList.add((GeoEntity) business);
       }
     }
     finally
@@ -490,12 +465,16 @@ public class GeoEntitySearcher implements Reloadable
 
   /**
    * Finds a geo entity match for all children of the given type.
-   *
-   * @param soundsLikeMatch if true then a sounds like match will be made with the given child entity name.
-   *   if false, then an exact string match will be used.
-   * @param parentGeoEntityMap Key is the geo type, value is the geo name.
-   * @param childGeoEntityType geo entity type of the child.
-   * @param excludeGeoEntityList geo entities to exclude from the result set.
+   * 
+   * @param soundsLikeMatch
+   *          if true then a sounds like match will be made with the given child
+   *          entity name. if false, then an exact string match will be used.
+   * @param parentGeoEntityMap
+   *          Key is the geo type, value is the geo name.
+   * @param childGeoEntityType
+   *          geo entity type of the child.
+   * @param excludeGeoEntityList
+   *          geo entities to exclude from the result set.
    */
   public static List<GeoEntity> searchChildren(Map<String, String> parentGeoEntityMap, String childGeoEntityType, List<GeoEntity> excludeGeoEntityList)
   {
@@ -530,33 +509,22 @@ public class GeoEntitySearcher implements Reloadable
         continue;
       }
 
-      AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
-      MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
-
       String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
-
+      MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
+      
+      AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
-      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
-
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
 
-      parentGeoEntityQuery.
-      WHERE(
-          OR.get(parentGeoEntityQuery.getEntityName().EQ(parentGeoEntityName),
-              parentGeoEntityQuery.synonyms(geoSynonymQuery)));
-
-      geoEntityIdQuery.
-        AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).
-        AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).
-        AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).
-        AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
+      geoSynonymQuery.WHERE(geoSynonymQuery.getEntityName().EQ(parentGeoEntityName));
+      parentGeoEntityQuery.WHERE(OR.get(parentGeoEntityQuery.getEntityLabel().localize().EQ(parentGeoEntityName), parentGeoEntityQuery.synonyms(geoSynonymQuery)));
+      geoEntityIdQuery.AND(allPathsQuery.getParentUniversal().EQ(parentMdBusiness).AND(allPathsQuery.getParentGeoEntity().EQ(parentGeoEntityQuery.getId())).AND(allPathsQuery.getChildUniversal().EQ(childMdBusiness)).AND(allPathsQuery.getChildGeoEntity().EQ(childGeoEntityQuery.getId())));
     }
-
 
     BusinessQuery resultQuery = qf.businessQuery(childGeoEntityType);
     resultQuery.WHERE(resultQuery.id().SUBSELECT_IN(geoEntityIdQuery.get("child_id")));
 
-    resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aCharacter(GeoEntity.ENTITYNAME)));
+    resultQuery.ORDER_BY_ASC(F.UPPER(resultQuery.aLocalCharacter(GeoEntity.ENTITYLABEL).localize()));
 
     OIterator<Business> iterator = resultQuery.getIterator();
 
@@ -566,7 +534,7 @@ public class GeoEntitySearcher implements Reloadable
     {
       for (Business business : iterator)
       {
-        returnGeoEntityList.add((GeoEntity)business);
+        returnGeoEntityList.add((GeoEntity) business);
       }
     }
     finally

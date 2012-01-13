@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 2065943097)
+@com.runwaysdk.business.ClassSignature(hash = -1485305086)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.irs;
 public  abstract  class GeoTargetViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 2065943097;
+private static final long serialVersionUID = -1485305086;
 
   public GeoTargetViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -26,21 +26,21 @@ private static final long serialVersionUID = 2065943097;
   {
     return dss.vector.solutions.irs.GeoTargetView.CLASS;
   }
-  public com.runwaysdk.query.SelectableChar getEntityName()
+  public com.runwaysdk.query.SelectableChar getEntityLabel()
   {
-    return getEntityName(null);
+    return getEntityLabel(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityName(String alias)
+  public com.runwaysdk.query.SelectableChar getEntityLabel(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.GeoTargetView.ENTITYNAME, alias, null);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.GeoTargetView.ENTITYLABEL, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityName(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableChar getEntityLabel(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.GeoTargetView.ENTITYNAME, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.irs.GeoTargetView.ENTITYLABEL, alias, displayLabel);
 
   }
  

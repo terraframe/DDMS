@@ -459,7 +459,7 @@ public class ImmatureCollectionView extends ImmatureCollectionViewBase implement
 
       if (sortAttribute.equalsIgnoreCase(ImmatureCollectionView.GEOENTITY))
       {
-        attribute = query.getGeoEntity().getEntityName();
+        attribute = query.getGeoEntity().getEntityLabel().localize();
       }
       else if (sortAttribute.equalsIgnoreCase(ImmatureCollectionView.PREMISETYPE))
       {

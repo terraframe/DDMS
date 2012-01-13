@@ -2,10 +2,8 @@ package dss.vector.solutions.irs;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -18,17 +16,12 @@ import org.json.JSONObject;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
-import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.general.EpiDateDTO;
 import dss.vector.solutions.general.MalariaSeasonDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.util.ErrorUtility;
-import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
-import dss.vector.solutions.util.yui.ColumnSetup;
-import dss.vector.solutions.util.yui.ViewDataGrid;
 
 public class GeoTargetController extends GeoTargetControllerBase implements Reloadable
 {
@@ -57,15 +50,10 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
 
       GeoTargetViewDTO[] data = GeoTargetViewDTO.getGeoTargetViews(clientRequest, geoEntity.getGeoId(), season);
 
-      EpiDateDTO[] weeks = season.getEpiWeeks();
-
-      String[] keys = this.getKeys(weeks);
-      Map<String, ColumnSetup> map = this.getColumns(weeks);
-
       JSONObject calculated = this.getCalculatedTargets(data);
 
       req.setAttribute("item", view);
-      req.setAttribute("grid", new ViewDataGrid(view, map, keys, data));
+      req.setAttribute("grid", new GeoTargetGridBuilder(clientRequest, data, season, req).build());
       req.setAttribute("calculated", calculated);
 
       render("viewComponent.jsp");
@@ -122,63 +110,6 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
     resp.sendError(500);
   }
 
-  private String[] getKeys(EpiDateDTO[] weeks)
-  {
-    List<String> keys = new LinkedList<String>();
-
-    keys.add(GeoTargetViewDTO.TARGETID);
-    keys.add(GeoTargetViewDTO.GEOENTITY);
-    keys.add(GeoTargetViewDTO.ENTITYNAME);
-    keys.add(GeoTargetViewDTO.SEASON);
-
-    for (EpiDateDTO week : weeks)
-    {
-      Integer numberOfWeeks = week.getNumberOfEpiWeeks();
-      int index = ( week.getPeriod() % numberOfWeeks );
-      String key = CommonGenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
-
-      keys.add(key);
-    }
-
-    String[] array = keys.toArray(new String[keys.size()]);
-
-    this.upperFirstCharacter(array);
-
-    return array;
-  }
-
-  private Map<String, ColumnSetup> getColumns(EpiDateDTO[] weeks)
-  {
-    Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
-
-    map.put("TargetId", new ColumnSetup(true, false));
-    map.put("GeoEntity", new ColumnSetup(true, false));
-    map.put("EntityName", new ColumnSetup(false, false));
-    map.put("Season", new ColumnSetup(true, false));
-
-    for (EpiDateDTO week : weeks)
-    {
-      String startDate = Halp.getFormatedDate(req, week.getStartDate());
-      String endDate = Halp.getFormatedDate(req, week.getEndDate());
-      Integer numberOfWeeks = week.getNumberOfEpiWeeks();
-
-      int index = ( week.getPeriod() % numberOfWeeks );
-      String key = CommonGenerationUtil.upperFirstCharacter(GeoTargetViewDTO.TARGET + index);
-      String label = new Integer(index + 1).toString();
-
-      ColumnSetup setup = new ColumnSetup(false, true);
-      setup.setSum(true);
-      setup.setTitle(startDate + " -> " + endDate);
-      setup.setLabel(label);
-      setup.setWidth(20);
-      setup.setIndicateRequired(false);
-
-      map.put(key, setup);
-    }
-
-    return map;
-  }
-
   private JSONObject getCalculatedTargets(GeoTargetViewDTO[] data) throws JSONException
   {
     JSONObject calcuatedTargets = new JSONObject();
@@ -190,13 +121,4 @@ public class GeoTargetController extends GeoTargetControllerBase implements Relo
 
     return calcuatedTargets;
   }
-
-  private void upperFirstCharacter(String[] array)
-  {
-    for (int i = 0; i < array.length; i++)
-    {
-      array[i] = CommonGenerationUtil.upperFirstCharacter(array[i]);
-    }
-  }
-
 }

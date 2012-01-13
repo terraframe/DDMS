@@ -66,6 +66,7 @@ import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
+import dss.vector.solutions.geo.generated.GeoEntityEntityLabel;
 import dss.vector.solutions.geo.generated.GeoEntityQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.ontology.TermQuery;
@@ -643,7 +644,7 @@ public class QueryUtil implements Reloadable
     CONCAT universal = F.CONCAT(mdTypeQuery.getDisplayLabel().localize(), subType);
     CONCAT sublabel = F.CONCAT(F.CONCAT(" (", universal), " )");
 
-    vQuery.SELECT(geoEntityQuery.getId(), F.CONCAT(geoEntityQuery.getEntityName(), sublabel));
+    vQuery.SELECT(geoEntityQuery.getId(), F.CONCAT(geoEntityQuery.getEntityLabel().localize(), sublabel));
     vQuery.WHERE(geoEntityQuery.getTerm().LEFT_JOIN_EQ(termQuery));
     vQuery.AND(mdTypeQuery.getId().EQ(geoHierarchyQuery.getGeoEntityClass().getId()));
     vQuery.AND(geoEntityQuery.getType().EQ(F.CONCAT(F.CONCAT(mdTypeQuery.getPackageName(), "."), mdTypeQuery.getTypeName())));
@@ -655,6 +656,7 @@ public class QueryUtil implements Reloadable
   {
     // Define the aliases
     String GEO_ALIAS = "geo";
+    String GEO_LABEL = "geoLabel";
     String TERM_DISPLAY_ALIAS = "termLabel";
     String TERM_ALIAS = "term";
     String MD_TYPE_ALIAS = "md";
@@ -664,15 +666,17 @@ public class QueryUtil implements Reloadable
     String mdTypeTable = MdEntity.getMdEntity(MdType.CLASS).getTableName();
     String metadataLabelTable = MdEntity.getMdEntity(MetadataDisplayLabel.CLASS).getTableName();
     String geoEntityTable = MdEntity.getMdEntity(GeoEntity.CLASS).getTableName();
+    String geoLabelTable = MdEntity.getMdEntity(GeoEntityEntityLabel.CLASS).getTableName();
     String termTable = MdEntity.getMdEntity(Term.CLASS).getTableName();
     String termLabelTable = MdEntity.getMdEntity(TermTermDisplayLabel.CLASS).getTableName();
 
     // Define the columns
-    String entityNameColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ENTITYNAME);
     String idColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ID);
     String geoId = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.GEOID);
     String termColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TERM);
     String typeColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.TYPE);
+    String entityLabelColumn = QueryUtil.getColumnName(GeoEntity.CLASS, GeoEntity.ENTITYLABEL);
+    String entityLabelIdColumn = QueryUtil.getColumnName(GeoEntityEntityLabel.CLASS, GeoEntity.ID);
     String termLabelColumn = QueryUtil.getColumnName(Term.CLASS, Term.TERMDISPLAYLABEL);
     String labelColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.DISPLAYLABEL);
     String packageColumn = QueryUtil.getColumnName(MdType.CLASS, MdType.PACKAGENAME);
@@ -680,7 +684,7 @@ public class QueryUtil implements Reloadable
 
     StringBuffer buffer = new StringBuffer();
 
-    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + GEO_ALIAS + "." + entityNameColumn + " || ' (' || \n");
+    buffer.append("SELECT " + GEO_ALIAS + "." + idColumn + ", " + QueryUtil.getLocaleCoalesce(GEO_LABEL + ".") + " || ' (' || \n");
     buffer.append(QueryUtil.getLocaleCoalesce("" + TYPE_DISPLAY_ALIAS + ".") + " ||\n");
     buffer.append(QueryUtil.getLocaleCoalesce("' : ' || " + TERM_DISPLAY_ALIAS + ".", "''") + " || ')'");
 
@@ -692,6 +696,7 @@ public class QueryUtil implements Reloadable
     buffer.append(" AS " + QueryUtil.LABEL_COLUMN + "\n");
     buffer.append("FROM  \n");
     buffer.append(geoEntityTable + " " + GEO_ALIAS + " \n");
+    buffer.append("INNER JOIN " + geoLabelTable + " " + GEO_LABEL + " ON " + GEO_ALIAS + "." + entityLabelColumn + " = " + GEO_LABEL + "." + entityLabelIdColumn + "\n");
     buffer.append("INNER JOIN " + mdTypeTable + " " + MD_TYPE_ALIAS + " ON " + GEO_ALIAS + "." + typeColumn + " =  (" + MD_TYPE_ALIAS + "." + packageColumn + " || '.' || " + MD_TYPE_ALIAS + "." + typeNameColumn + ")\n");
     buffer.append("INNER JOIN " + metadataLabelTable + " " + TYPE_DISPLAY_ALIAS + " ON " + MD_TYPE_ALIAS + "." + labelColumn + " = " + TYPE_DISPLAY_ALIAS + "." + idColumn + " \n");
     buffer.append("LEFT JOIN " + termTable + " AS " + TERM_ALIAS + " ON " + TERM_ALIAS + "." + idColumn + " = " + GEO_ALIAS + "." + termColumn + " \n");

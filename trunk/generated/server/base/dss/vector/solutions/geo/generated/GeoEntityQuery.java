@@ -1,6 +1,6 @@
 package dss.vector.solutions.geo.generated;
 
-@com.runwaysdk.business.ClassSignature(hash = -386440543)
+@com.runwaysdk.business.ClassSignature(hash = -2083856210)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.geo.generated;
 public  class GeoEntityQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -386440543;
+private static final long serialVersionUID = -2083856210;
 
   public GeoEntityQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -119,21 +119,27 @@ private static final long serialVersionUID = -386440543;
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getEntityName()
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel()
   {
-    return getEntityName(null);
+    return getEntityLabel(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityName(String alias)
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME, alias, null);
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL);
+
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityName(String alias, String displayLabel)
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME, alias, displayLabel);
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL);
+
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getGeoData()
@@ -425,6 +431,21 @@ private static final long serialVersionUID = -386440543;
     else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.TERM)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL)) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
@@ -825,9 +846,9 @@ private static final long serialVersionUID = -386440543;
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getEntityName();
-    public com.runwaysdk.query.SelectableChar getEntityName(String alias);
-    public com.runwaysdk.query.SelectableChar getEntityName(String alias, String displayLabel);
+    public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel();
+    public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias);
+    public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getGeoData();
     public com.runwaysdk.query.SelectableChar getGeoData(String alias);
     public com.runwaysdk.query.SelectableChar getGeoData(String alias, String displayLabel);
@@ -965,7 +986,7 @@ private static final long serialVersionUID = -386440543;
  implements GeoEntityQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1191838785;
+private static final long serialVersionUID = 1605212496;
 
   public GeoEntityQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1054,21 +1075,21 @@ private static final long serialVersionUID = -1191838785;
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getEntityName()
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel()
   {
-    return getEntityName(null);
+    return getEntityLabel(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityName(String alias)
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME, alias, null);
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEntityName(String alias, String displayLabel)
+  public dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF getEntityLabel(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.geo.generated.GeoEntity.ENTITYNAME, alias, displayLabel);
+    return (dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getGeoData()
@@ -1684,6 +1705,21 @@ private static final long serialVersionUID = -1191838785;
     else if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.TERM)) 
     {
        return new dss.vector.solutions.ontology.TermQuery.TermQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.geo.generated.GeoEntity.ENTITYLABEL)) 
+    {
+       return new dss.vector.solutions.geo.generated.GeoEntityEntityLabelQuery.GeoEntityEntityLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {
