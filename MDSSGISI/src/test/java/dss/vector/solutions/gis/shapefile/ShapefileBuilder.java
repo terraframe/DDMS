@@ -153,7 +153,7 @@ public class ShapefileBuilder
 
   public String getParentEntityName(int i)
   {
-    return parent.getEntityName();
+    return parent.getEntityLabel().getValue();
   }
 
   public String getParentType(int i)

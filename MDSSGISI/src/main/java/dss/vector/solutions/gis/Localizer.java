@@ -13,7 +13,7 @@ public class Localizer
 
   private Localizer()
   {
-    this("manager", getLocale());
+    this("localization", getLocale());
   }
 
   private Localizer(String name, Locale locale)

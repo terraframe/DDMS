@@ -332,7 +332,7 @@ public class ShapefileImporter extends TaskObservable implements Reloadable
     entity.setGeoData(geometry.toText());
     entity.setGeoPoint(helper.getGeoPoint(geometry));
     entity.setGeoMultiPolygon(helper.getGeoMultiPolygon(geometry));
-    entity.setEntityName(entityName);
+    entity.getEntityLabel().setValue(entityName);
     entity.setGeoId(geoId);
     entity.setTerm(term);
 
@@ -585,7 +585,7 @@ public class ShapefileImporter extends TaskObservable implements Reloadable
     GeoEntityQuery entityQuery = new GeoEntityQuery(factory);
     MdBusinessQuery mdBusinessQuery = new MdBusinessQuery(factory);
 
-    entityQuery.WHERE(OR.get(entityQuery.getEntityName().EQ(entityName), entityQuery.getGeoId().EQ(entityName)));
+    entityQuery.WHERE(OR.get(entityQuery.getEntityLabel().localize().EQ(entityName), entityQuery.getGeoId().EQ(entityName)));
     mdBusinessQuery.AND(F.CONCAT(F.CONCAT(mdBusinessQuery.getPackageName(), "."), mdBusinessQuery.getTypeName()).EQ(entityQuery.getType()));
     mdBusinessQuery.AND(mdBusinessQuery.getDisplayLabel().localize().EQ(type));
 
@@ -682,7 +682,7 @@ public class ShapefileImporter extends TaskObservable implements Reloadable
   public static GeoEntity getByEntityName(String entityName)
   {
     GeoEntityQuery query = new GeoEntityQuery(new QueryFactory());
-    query.WHERE(query.getEntityName().EQ(entityName));
+    query.WHERE(query.getEntityLabel().localize().EQ(entityName));
     query.OR(query.getGeoId().EQ(entityName));
 
     long count = query.getCount();
