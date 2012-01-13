@@ -88,6 +88,7 @@ Page custom userInputPage exitUserInputPage
 !insertmacro MUI_PAGE_FINISH
 !insertmacro MUI_UNPAGE_CONFIRM
 !insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
 
 # Installer languages
 !insertmacro MUI_LANGUAGE English
@@ -245,6 +246,7 @@ Function sanitizeName
   ${CharStrip} "^" $0 $0
   ${CharStrip} "~" $0 $0
   ${CharStrip} "`" $0 $0
+  ${CharStrip} "." $0 $0
   
   StrCmp $AppName $0 +2
   
@@ -252,25 +254,74 @@ Function sanitizeName
   
 FunctionEnd
 
+Function stopPostgres
+  ExecWait `net stop postgresql-8.4` 
+
+  # Wait until postgres is stopped
+  StrCpy $0 0
+  
+  PostgresUp:
+    # Sleep 2 seconds
+    Sleep 5000	
+	
+	# Increment the timeout counter
+	IntOp $0 $0 + 1
+	
+	# Check to make sure the timeout hasn't expired
+	${If} $0 > 50
+  	# Goto PostgresDown
+	  MessageBox MB_OK "Postgres failed to stop." 
+	  #Abort
+    ${EndIf}	
+	
+	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresUp PostgresDown
+  PostgresDown:
+FunctionEnd
+
+Function startPostgres
+  ExecWait `net start postgresql-8.4` 
+
+  # Wait until postgres is stopped
+  StrCpy $0 0
+  
+  PostgresUp:
+    # Sleep 2 seconds
+    Sleep 5000	
+	
+	# Increment the timeout counter
+	IntOp $0 $0 + 1
+	
+	# Check to make sure the timeout hasn't expired
+	${If} $0 > 50
+	  Goto PostgresDown
+	  MessageBox MB_OK "Postgres failed to start." 
+	  #Abort
+    ${EndIf}	
+	
+	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresDown PostgresUp
+  PostgresDown:
+FunctionEnd
+
+
 # Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6330
-    StrCpy $TermsVersion 5814
+    StrCpy $PatchVersion 6742
+    StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
-    StrCpy $MenuVersion 5814
-    StrCpy $LocalizationVersion 5978
-    StrCpy $PermissionsVersion 5974
+    StrCpy $MenuVersion 6655
+    StrCpy $LocalizationVersion 6734
+    StrCpy $PermissionsVersion 6716
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
     StrCmp $FPath "" installFireFox doneInstallFireFox
     installFireFox:
       !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
-      File "Firefox Setup 3.6.7.exe"
-      ExecWait `"$INSTDIR\Firefox Setup 3.6.7.exe"`
+      File "Firefox Setup 8.0.1.exe"
+      ExecWait `"$INSTDIR\Firefox Setup 8.0.1.exe"`
       Call findFireFox
     doneInstallFireFox:
       
@@ -286,10 +337,10 @@ Section -Main SEC0000
     StrCmp $0 "" 0 appInstall
     
     # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
-    SetOutPath $INSTDIR
-    File closeme.html
-    File logo.gif
-	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html"`
+#    SetOutPath $INSTDIR
+#    File closeme.html
+#    File logo.gif
+#	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html"`
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
@@ -302,6 +353,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
+    File ..\standalone\patch\manager.ico	
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     File /r /x .svn ..\standalone\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
@@ -333,20 +385,21 @@ Section -Main SEC0000
     SetOutPath $INSTDIR\tomcat6
     File /r /x .svn tomcat6\*
     SetOutPath $INSTDIR
-    
-    # Install the ScreenGrab addon
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing the ScreenGrab Plugin"
-    #File "/oname=$FPath\extensions\screengrab-0.96.3-fx.xpi" "screengrab-0.96.3-fx.xpi"
-	File "screengrab-0.96.3-fx.xpi"
-	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html" "$INSTDIR\screengrab-0.96.3-fx.xpi"`
-    
+        
     # Install Postgres
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSql"
     File "postgresql-8.4.1-1-windows.exe"
     ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
-    ExecWait `net stop postgresql-8.4` 
-    Sleep 2000	
-    
+    #IfErrors PostgresInstallError PostgressInstallSuccess
+	#IfFileExists C:\MDSS\PostgreSql\8.4\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
+
+	#PostgresInstallError:
+	#MessageBox MB_OK "Postgres failed to install correctly" 
+	#Abort
+	
+	#PostgressInstallSuccess:
+	Call stopPostgres
+	
     # Get the Windows Version (XP, Vista, etc.)
     nsisos::osversion
     
@@ -366,12 +419,9 @@ Section -Main SEC0000
     
     # Copy the tweaked postgres config
     File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
-    
-	Sleep 2000
-    ExecWait `net start postgresql-8.4`
-    
-    # Put in a delay to ensure that Postgres has started up before trying to install PostGIS
-    Sleep 5000
+
+	Sleep 2000    
+	Call startPostgres
     
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
@@ -406,7 +456,7 @@ Section -Main SEC0000
     
     # Update lots of things	
 	ClearErrors
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup $AppName $InstallationNumber $Master_Value`
+    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
     IfErrors postInstallError skipErrorMsg
 	
 	postInstallError:
@@ -446,7 +496,8 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     CreateShortcut "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     SetOutPath $INSTDIR\manager
-    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat"
+    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
+	
 SectionEnd
 
 Section -post SEC0001
@@ -477,8 +528,8 @@ done${UNSECTION_ID}:
 
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
-    ExecWait $INSTDIR\PostgreSQL\8.4\uninstall-postgis-pg84-1.4.0-2.exe
-    ExecWait $INSTDIR\PostgreSQL\8.4\uninstall-postgresql.exe
+    CreateDirectory $DESKTOP\temp_uninstall_files
+    CopyFiles $INSTDIR\PostgreSQL\8.4\uninstall*.exe $DESKTOP\temp_uninstall_files
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
@@ -489,6 +540,9 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
     DeleteRegValue HKLM "${REGKEY}\Components" Manager
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
+	ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgis-pg84-1.4.0-2.exe
+    ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgresql.exe
+    RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
 SectionEnd
 
 Section -un.post UNSEC0001
@@ -853,5 +907,6 @@ FunctionEnd
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
+	SetRebootFlag true
 FunctionEnd
 
