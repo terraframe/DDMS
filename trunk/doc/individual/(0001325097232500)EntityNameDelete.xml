@@ -11,7 +11,7 @@
         type="com.runwaysdk.system.metadata.MdAttribute" />
       <object
         key="dss.vector.solutions.geo.GeoEntityView.entityName"
-        type="com.runwaysdk.system.metadata.MdAttribute" />
+        type="com.runwaysdk.system.metadata.MdAttribute" />        
       <object
         key="dss.vector.solutions.geo.generated.GeoEntity.entityName"
         type="com.runwaysdk.system.metadata.MdAttribute" />
