@@ -1,5 +1,8 @@
 package dss.vector.solutions.manager;
 
+import it.sauronsoftware.junique.AlreadyLockedException;
+import it.sauronsoftware.junique.JUnique;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.BufferedReader;
@@ -555,8 +558,20 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
     {
       public void run()
       {
-        ServerManagerWindow window = new ServerManagerWindow();
-        window.run();
+        try
+        {
+          JUnique.acquireLock(ServerManagerWindow.class.getName());
+
+          ServerManagerWindow window = new ServerManagerWindow();
+          window.run();
+        }
+        catch (AlreadyLockedException e)
+        {
+          String title = Localizer.getMessage("ERROR_TITLE");
+          String msg = Localizer.getMessage("MANAGER_ALREADY_OPEN");
+          
+          MessageDialog.openError(null, title, msg);
+        }
       }
     });
   }

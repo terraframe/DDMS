@@ -21,6 +21,14 @@
   </repositories>
   <dependencies>
     <dependency>
+      <groupId>sauronsoftware</groupId>
+      <artifactId>junique</artifactId>
+      <version>1.0.4</version>
+      <type>jar</type>
+      <scope>system</scope>
+      <systemPath>/home/jsmethie/workspace/manager/lib/junique-1.0.4.jar</systemPath>
+    </dependency>
+    <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>swt</artifactId>
       <version>3.557</version>
