@@ -308,12 +308,12 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6742
+    StrCpy $PatchVersion 6755
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
     StrCpy $LocalizationVersion 6734
-    StrCpy $PermissionsVersion 6716
+    StrCpy $PermissionsVersion 6743
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
