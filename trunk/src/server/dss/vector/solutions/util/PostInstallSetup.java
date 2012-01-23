@@ -6,6 +6,7 @@ import java.security.AccessController;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -234,6 +235,8 @@ public class PostInstallSetup
     {
       // Set up logging
       FileHandler logFile = new FileHandler(ROOT_DIRECTORY+"/PostInstallSetup.log");
+      SimpleFormatter formatter = new SimpleFormatter();
+      logFile.setFormatter(formatter);
       logger.addHandler(logFile);
       logger.setLevel(Level.INFO);
     
