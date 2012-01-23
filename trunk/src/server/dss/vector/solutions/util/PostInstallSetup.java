@@ -3,6 +3,9 @@ package dss.vector.solutions.util;
 import java.io.File;
 import java.io.IOException;
 import java.security.AccessController;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -43,10 +46,14 @@ public class PostInstallSetup
    * Maximum amount of memory in MB to give to tomcat for all apps.
    */
   private static int       MAX_TOTAL_MEMORY = 1350;
+  
+  public static String     ROOT_DIRECTORY = "C:/MDSS";
 
-  public static String     DEFAULT_TOMCAT   = "C:/MDSS/tomcat6/";
+  public static String     DEFAULT_TOMCAT  = ROOT_DIRECTORY+"/tomcat6/";
 
-  public static String     DEFAULT_MANAGER  = "C:/MDSS/manager/";
+  public static String     DEFAULT_MANAGER = ROOT_DIRECTORY+"/manager/";
+  
+  private final static Logger logger = Logger.getLogger(PostInstallSetup.class.getName());
 
   private File             appRoot;
 
@@ -92,6 +99,7 @@ public class PostInstallSetup
     this.updateJSPs();
 
     // Add this app to the list in applications.txt
+    logger.info("Adding "+appName+" to applications.txt");
     String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
 
     File applications = new File(this.managerDirectory + "manager-1.0.0/classes/applications.txt");
@@ -103,15 +111,18 @@ public class PostInstallSetup
 
     FileIO.write(applications, appTxt);
     // And give common.properties a unique rmi.port
+    logger.info("Setting a unique rmi port in common.properties");
     editWebappProperty("rmi.port", Integer.toString(1099 - appCount), "common.properties");
 
     // Update tomcat RAM, each app needs at least 768M inorder to compile the
     // system
     File startup = new File(tomcatDirectory + "/bin/startup.bat");
     int totalMemory = Math.min(MAX_TOTAL_MEMORY, MEMORY_PER_APP * appCount);
+    logger.info("Updating Tomcat RAM in startup.bat to use "+totalMemory+"M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
 
     // Update Geoserver's catalog.xml
+    logger.info("Updating Geoserver catalog.xml");
     CatalogBuilder builder = new CatalogBuilder(tomcatDirectory + "/webapps/geoserver/data/catalog.xml");
     builder.addApplication(appName, dbName);
     builder.write();
@@ -119,6 +130,7 @@ public class PostInstallSetup
 
   private void updateJSPs() throws IOException
   {
+    logger.info("Modifying login.jsp to use "+appName+" path");
     String template = "/DDMS/";
     String replacer = "/" + appName + "/";
 
@@ -134,6 +146,7 @@ public class PostInstallSetup
 
   public void updateCSS() throws IOException
   {
+    logger.info("Updating style.css paths to images to use "+appName+"/imgs");
     String template = "/\\w+/imgs/";
     String replacer = "/" + appName + "/imgs/";
 
@@ -142,12 +155,14 @@ public class PostInstallSetup
 
   private void updateMaxPermSize() throws IOException
   {
+    logger.info("Setting MAX_PERM_SIZE to "+MAX_PERM_SIZE+"M");
     File startup = new File(PostInstallSetup.DEFAULT_TOMCAT + "/bin/startup.bat");
     this.readAndReplace(startup, "-XX:MaxPermSize=\\d*M", "-XX:MaxPermSize=" + MAX_PERM_SIZE + "M");
   }
 
   private void updateProperties() throws IOException
   {
+    logger.info("Updating property files to use specified AppName ["+appName+"]");
     String domain = installationNumber + ".mdss.ivcc.com";
 
     // Update property files
@@ -217,6 +232,11 @@ public class PostInstallSetup
 
     try
     {
+      // Set up logging
+      FileHandler logFile = new FileHandler(ROOT_DIRECTORY+"/PostInstallSetup.log");
+      logger.addHandler(logFile);
+      logger.setLevel(Level.INFO);
+    
       CommandLineParser parser = new PosixParser();
       CommandLine cmd = parser.parse(options, args);
 
@@ -245,15 +265,18 @@ public class PostInstallSetup
     {
       HelpFormatter formatter = new HelpFormatter();
       formatter.printHelp("setup", options);
-
+      
+      logger.severe(exp.getLocalizedMessage());
       throw new RuntimeException(exp);
     }
     catch (RuntimeException e)
     {
+      logger.severe(e.getLocalizedMessage());
       throw e;
     }
     catch (Exception e)
     {
+      logger.severe(e.getLocalizedMessage());
       throw new RuntimeException(e);
     }
   }
