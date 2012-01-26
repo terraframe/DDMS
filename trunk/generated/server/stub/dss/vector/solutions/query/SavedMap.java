@@ -301,12 +301,14 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
   @Authenticate
   public LayerViewQuery createFromExisting(String existingMapId)
   {
+    boolean returnExisting = true;
     if (this.isNew())
     {
       this.apply();
     }
     else
     {
+      returnExisting = false;
       for (Layer layer : this.getAllLayer().getAll())
       {
         layer.delete();
@@ -388,7 +390,12 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
 
     }
 
-    return this.getAllLayers();
+    UserDAOIF userDAO = Session.getCurrentSession().getUser();
+    MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
+
+    UserSettings settings = UserSettings.createIfNotExists(mdssUser);
+    DefaultSavedMap defaultMap = settings.getDefaultMap();
+    return defaultMap.getAllLayers();
   }
 
   /**
