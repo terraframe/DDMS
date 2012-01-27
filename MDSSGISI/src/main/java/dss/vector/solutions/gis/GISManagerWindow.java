@@ -90,7 +90,7 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
       new ActionContributionItem(new ImportShapefileAction(appName, views)).fill(container);
       new ActionContributionItem(new BuildLocatedInAction(appName)).fill(container);
     }
-    catch (Exception e)
+    catch (Throwable e)
     {
       MessageDialog.openError(this.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
 
