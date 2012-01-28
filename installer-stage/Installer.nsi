@@ -79,6 +79,7 @@ Var LocalizationVersion
 Var PermissionsVersion
 Var AppName
 Var LowerAppName
+Var Timestamp
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -254,7 +255,60 @@ Function sanitizeName
   
 FunctionEnd
 
-Function stopPostgres
+<<<<<<< .mineFunction stopPostgres
+  LogEx::Write "Stopping PostgreSQL"
+  ExecWait `net stop postgresql-8.4` 
+
+  # Wait until postgres is stopped
+  StrCpy $0 0
+  
+  PostgresUp:
+    # Sleep 2 seconds
+    Sleep 5000	
+	
+	# Increment the timeout counter
+	IntOp $0 $0 + 1
+	
+	# Check to make sure the timeout hasn't expired
+	${If} $0 > 50
+  	# Goto PostgresDown
+    LogEx::Write "PostgreSQL failed to stop."
+	  MessageBox MB_OK "Postgres failed to stop." 
+	  #Abort
+    ${EndIf}	
+	
+	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresUp PostgresDown
+  PostgresDown:
+FunctionEnd
+
+Function startPostgres
+  LogEx::Write "Starting PostgreSQL"
+  ExecWait `net start postgresql-8.4` 
+
+  # Wait until postgres is stopped
+  StrCpy $0 0
+  
+  PostgresUp:
+    # Sleep 2 seconds
+    Sleep 5000	
+	
+	# Increment the timeout counter
+	IntOp $0 $0 + 1
+	
+	# Check to make sure the timeout hasn't expired
+	${If} $0 > 50
+	  Goto PostgresDown
+    LogEx::Write "PostgreSQL failed to start."
+	  MessageBox MB_OK "Postgres failed to start." 
+	  #Abort
+    ${EndIf}	
+	
+	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresDown PostgresUp
+  PostgresDown:
+FunctionEnd
+
+
+=======Function stopPostgres
   ExecWait `net stop postgresql-8.4` 
 
   # Wait until postgres is stopped
@@ -303,22 +357,30 @@ Function startPostgres
 FunctionEnd
 
 
-# Installer sections
+>>>>>>> .theirs# Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6755
+<<<<<<< .mine    StrCpy $PatchVersion 6764
     StrCpy $TermsVersion 6644
-    StrCpy $RootsVersion 5432
+=======    StrCpy $PatchVersion 6755
+    StrCpy $TermsVersion 6644
+>>>>>>> .theirs    StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
     StrCpy $LocalizationVersion 6734
     StrCpy $PermissionsVersion 6743
+    
+    LogEx::Init "$INSTDIR\installer-log.txt"
+    StrCmp $Master_Value "true" +1 +2
+    LogEx::Write "Beginning MASTER install named $AppName"
+    LogEx::Write "Beginning dependent install named $AppName"
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Searching for Firefox"
     Call findFireFox
     StrCmp $FPath "" installFireFox doneInstallFireFox
     installFireFox:
+      LogEx::Write "Installing Firefox 8.0.1"
       !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Firefox"
       File "Firefox Setup 8.0.1.exe"
       ExecWait `"$INSTDIR\Firefox Setup 8.0.1.exe"`
@@ -328,6 +390,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Verifying Firefox Installation"
     StrCmp $FPath "" fireFoxNotFound fireFoxFound
     fireFoxNotFound:
+      LogEx::Write "Firefox 8.0.1 was not found."
       MessageBox MB_OK "Could not find FireFox.  Please install again and ensure that FireFox installs correctly"
       Abort
     
@@ -335,6 +398,7 @@ Section -Main SEC0000
     #Determine if this is a full install or just another app
     ReadRegStr $0 HKLM "${REGKEY}\Components" Main
     StrCmp $0 "" 0 appInstall
+    LogEx::Write "Firefox 8.0.1 is installed."
     
     # Force firefox to open up, just in case it has been freshly installed, so that the first-time setup can finish before we isntall the screengrab plugin
 #    SetOutPath $INSTDIR
@@ -343,14 +407,17 @@ Section -Main SEC0000
 #	ExecWait `"$FPath\firefox.exe" "$INSTDIR\closeme.html"`
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Qcal"
+    LogEx::Write "Installing Qcal"
     SetOutPath $INSTDIR\IRMA
     File /r /x .svn IRMA\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing BIRT"
+    LogEx::Write "Installing BIRT"
     SetOutPath $INSTDIR\birt
     File /r /x .svn birt\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing DDMS Managers"
+    LogEx::Write "Installing DDMS Managers"
     SetOutPath $INSTDIR\manager
     File ..\standalone\patch\manager.bat
     File ..\standalone\patch\manager.ico	
@@ -368,29 +435,45 @@ Section -Main SEC0000
     File /r /x .svn ..\standalone\doc\keystore\*
     
     # Add the special elevation command for backup/restore
+    LogEx::Write "Adding special elevation command for backup/restore"
     SetOutPath $INSTDIR
     File elevate.cmd
     File elevate.vbs
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Java"
+    LogEx::Write "Installing Java"
     SetOutPath $INSTDIR\Java
     File /r /x .svn Java\*
     
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying docs"
+    LogEx::Write "Copying docs"
     SetOutPath $INSTDIR\doc
     File /r /x .svn doc\*
     
     # To accomodate multi-installs, this does not include the user-named webapp, which is instead copied later
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
+    LogEx::Write "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat6
     File /r /x .svn tomcat6\*
     SetOutPath $INSTDIR
         
     # Install Postgres
-    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSql"
+    !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
+    LogEx::Write "Installing PostgreSQL"
     File "postgresql-8.4.1-1-windows.exe"
     ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
+<<<<<<< .mine	LogEx::AddFile "   >" "$TEMP\install-postgresql.log"
     #IfErrors PostgresInstallError PostgressInstallSuccess
+	#IfFileExists C:\MDSS\PostgreSql\8.4\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
+
+	#PostgresInstallError:
+	#MessageBox MB_OK "Postgres failed to install correctly" 
+	#Abort
+	
+	#PostgressInstallSuccess:
+    Call stopPostgres
+	
+=======    #IfErrors PostgresInstallError PostgressInstallSuccess
 	#IfFileExists C:\MDSS\PostgreSql\8.4\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
 	#PostgresInstallError:
@@ -400,14 +483,15 @@ Section -Main SEC0000
 	#PostgressInstallSuccess:
 	Call stopPostgres
 	
-    # Get the Windows Version (XP, Vista, etc.)
+>>>>>>> .theirs    # Get the Windows Version (XP, Vista, etc.)
     nsisos::osversion
     
+    LogEx::Write "Installing custom pg_hba.conf"
     # Version 5 means XP.  No IPv6
     ${If} $0 == 5
       File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv4.conf"
     
-    # Version 5 means Vista or Seven.  IPv6 enabled
+    # Version 6 means Vista or Seven.  IPv6 enabled
     ${ElseIf} $0 == 6
       File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv6.conf"
     
@@ -418,6 +502,7 @@ Section -Main SEC0000
     ${EndIf}
     
     # Copy the tweaked postgres config
+    LogEx::Write "Installing custom postgresql.conf"
     File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
 
 	Sleep 2000    
@@ -425,6 +510,7 @@ Section -Main SEC0000
     
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
+    LogEx::Write "Installing PostGIS"
     File "postgis-pg84-setup-1.4.2-1.exe"
     ExecWait `"$INSTDIR\postgis-pg84-setup-1.4.2-1.exe" /S`
     
@@ -433,21 +519,25 @@ Section -Main SEC0000
     
     # Copy the webapp in the correct folder
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
+    LogEx::Write "Copying the webapp to $INSTDIR\tomcat6\webapps\$AppName"
     SetOutPath $INSTDIR\tomcat6\webapps\$AppName
     File /r /x .svn webapp\*
     SetOutPath $INSTDIR
     
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
+    LogEx::Write "Creating the database"
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C' OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
+    LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
 
     # Update the installation number
+    LogEx::Write "Updating the installation number"
     ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
@@ -455,25 +545,34 @@ Section -Main SEC0000
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
     # Update lots of things	
-	ClearErrors
+<<<<<<< .mine	  ClearErrors
+    LogEx::Write "Executing Post Install Setup Java"
     ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
-    IfErrors postInstallError skipErrorMsg
+	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
+	delete $INSTDIR\PostInstallSetup.log
+=======	ClearErrors
+    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
+>>>>>>> .theirs    IfErrors postInstallError skipErrorMsg
 	
 	postInstallError:
+    LogEx::Write "Post Install Setup Failed"
 	MessageBox MB_OK "Post install process failed." 
 	ClearErrors
 	
 	skipErrorMsg:
 	
     # Copy the profile to the backup manager
+    LogEx::Write "Copying profile to backup manager"
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     
     # Copy in the pregenerated cache files
+    LogEx::Write "Copying over pregenerated cache files"
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Copying cache files"
     File /oname=$INSTDIR\tomcat6\$AppName.data DDMS.data
     File /oname=$INSTDIR\tomcat6\$AppName.index DDMS.index
     
+    LogEx::Write "Writing version numbers to registry"
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
@@ -485,6 +584,7 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
     
     # Write some shortcuts
+    LogEx::Write "Creating shortcuts"
     SetShellVarContext all
     CreateDirectory $SMPROGRAMS\DDMS
     SetOutPath $FPath
@@ -496,9 +596,12 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     CreateShortcut "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     SetOutPath $INSTDIR\manager
-    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
+<<<<<<< .mine    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
+	LogEx::Write "Installation complete."
+	LogEx::Close
+=======    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
 	
-SectionEnd
+>>>>>>> .theirsSectionEnd
 
 Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
@@ -592,6 +695,7 @@ FunctionEnd
 
 # Finds the firefox executable by checking an assortment of registry keys and stores the path in $FPath
 Function findFireFox
+    LogEx::Write "Searching for Firefox"
     ReadRegStr $FPath HKCR "firefoxhtml\defaulticon" ""
     call StripPath
     StrCmp $FPath "" +1 FDone
@@ -907,6 +1011,8 @@ FunctionEnd
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
-	SetRebootFlag true
+<<<<<<< .mine	SetRebootFlag true
+FunctionEnd=======	SetRebootFlag true
 FunctionEnd
 
+>>>>>>> .theirs
