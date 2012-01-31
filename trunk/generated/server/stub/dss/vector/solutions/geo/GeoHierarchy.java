@@ -162,15 +162,18 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       // Load the type-specific universal query class
       QueryFactory f = new QueryFactory();
       GeoEntityQuery geoQuery = new GeoEntityQuery(f);
-      GeoEntityQuery geoQuery2 = new GeoEntityQuery(f);
 
       // Add the GeoEntity selectables to the ValueQuery
       List<Selectable> selectables = new LinkedList<Selectable>();
 
-      selectables.add(geoQuery.getEntityLabel().localize(GeoEntity.ENTITYLABEL));
-      selectables.add(geoQuery.getGeoId(GeoEntity.GEOID));
-      selectables.add(geoQuery.getType(GeoEntity.TYPE));
-
+      Selectable localizedLabel = geoQuery.getEntityLabel().localize(GeoEntity.ENTITYLABEL);
+      Selectable geoId = geoQuery.getGeoId(GeoEntity.GEOID);
+      Selectable type = geoQuery.getType(GeoEntity.TYPE);
+      
+      selectables.add(localizedLabel);
+      selectables.add(geoId);
+      selectables.add(type);
+      
       // If we're mapping then include the geometry column
       if (layer != null)
       {
@@ -186,27 +189,14 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
         attr.setUserDefinedAlias(QueryConstants.GEOMETRY_NAME_COLUMN);
         selectables.add(attr);
-
-        // Look for the thematic variable. The user alias is the name of the
-        // attribute
-        if (layer.hasThematicVariable())
-        {
-          String thematicUserAlias = layer.getThematicUserAlias();
-          Attribute thematic = geoQuery2.get(thematicUserAlias);
-
-          // Set a user alias that differs from any alias specified on the first
-          // geoQuery to avoid an AmbiguousAttributeException.
-          thematic.setUserDefinedAlias(thematicUserAlias + THEMATIC_SUFFIX);
-          selectables.add(thematic);
-        }
       }
 
       ValueQuery vq = new ValueQuery(f);
 
       vq.SELECT(selectables.toArray(new Selectable[selectables.size()]));
 
-      vq.getSelectableRef(GeoEntity.ENTITYLABEL).setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
-      vq.getSelectableRef(GeoEntity.GEOID).setColumnAlias(QueryConstants.GEO_ID_COLUMN);
+      localizedLabel.setColumnAlias(QueryConstants.ENTITY_NAME_COLUMN);
+      geoId.setColumnAlias(QueryConstants.GEO_ID_COLUMN);
 
       if (layer != null)
       {
@@ -216,7 +206,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
 
         if (layer.hasThematicVariable())
         {
-          Selectable thematic = vq.getSelectableRef(layer.getThematicUserAlias() + THEMATIC_SUFFIX);
+          Selectable thematic = vq.getSelectableRef(layer.getThematicUserAlias());
 
           // Only lock and apply the layer if it's not new to avoid erroring out
           // on a new instance used for calculations.
@@ -231,12 +221,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
           {
             layer.apply();
           }
-
-          vq.AND(geoQuery.getId().EQ(geoQuery2.getId()));
         }
       }
 
-      vq.WHERE(geoQuery.get(GeoEntity.TYPE).EQ(universalType));
+      vq.WHERE(geoQuery.getType().EQ(universalType));
 
       return vq;
     }
@@ -700,14 +688,24 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       throw ex;
     }
 
-    List<GeoHierarchy> children = geoHierarchy.getImmediateChildren();
-    for (GeoHierarchy child : children)
-    {
-      child.deleteInternal(ids);
-    }
-
     geoHierarchy.deleteInternal(ids);
 
+    // Move all orphaned children under Earth
+    GeoHierarchy geoEntityGH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
+    GeoHierarchy earthGH = GeoHierarchy.getGeoHierarchyFromType(Earth.CLASS);
+    
+    QueryFactory f = new QueryFactory();
+    GeoHierarchyQuery children = new GeoHierarchyQuery(f);
+    AllowedInQuery rel = new AllowedInQuery(f);
+
+    children.WHERE(children.SUBSELECT_NOT_IN_allowedInGeoEntity(rel));
+    children.AND(children.getId().NI(earthGH.getId(), geoEntityGH.getId()));
+
+    for(GeoHierarchy child : children.getIterator().getAll())
+    {
+      earthGH.addAcceptsGeoEntity(child).apply();
+    }
+    
     return ids;
   }
 
@@ -1121,10 +1119,10 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       boolean sprayChild = false;
       boolean urbanChild = false;
 
+      // To avoid gaps, we compare this GeoHierarchies political/spray
+      // value to that of its parent. One match must exist.
       for (GeoHierarchy parent : parents)
       {
-        // To avoid gaps, we compare this GeoHierarchies political/spray
-        // value to that of its parent. One match must exist.
         if (parent.getPolitical())
         {
           politicalParent = true;
@@ -1139,12 +1137,15 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         {
           urbanParent = true;
         }
-
-        // To avoid branching, we must check the immediate children of each
-        // parent and see if the political/spray hierarchy continues.
+      }
+      
+      // To avoid branching, we must check the immediate children of each
+      // parent and see if the political/spray hierarchy continues.
+      for(GeoHierarchy parent : parents)
+      {
         for (GeoHierarchy child : parent.getImmediateChildren())
         {
-          if (child.equals(this))
+          if (child.equals(this) || parents.contains(child))
           {
             continue;
           }
