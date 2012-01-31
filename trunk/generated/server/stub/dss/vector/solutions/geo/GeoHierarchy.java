@@ -166,7 +166,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       // Add the GeoEntity selectables to the ValueQuery
       List<Selectable> selectables = new LinkedList<Selectable>();
 
-      Selectable localizedLabel = geoQuery.getEntityName();
+      Selectable localizedLabel = geoQuery.getEntityName(GeoEntity.ENTITYNAME);
       Selectable geoId = geoQuery.getGeoId(GeoEntity.GEOID);
       Selectable type = geoQuery.getType(GeoEntity.TYPE);
       
