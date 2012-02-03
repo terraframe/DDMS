@@ -255,7 +255,7 @@ Function sanitizeName
   
 FunctionEnd
 
-<<<<<<< .mineFunction stopPostgres
+Function stopPostgres
   LogEx::Write "Stopping PostgreSQL"
   ExecWait `net stop postgresql-8.4` 
 
@@ -308,65 +308,14 @@ Function startPostgres
 FunctionEnd
 
 
-=======Function stopPostgres
-  ExecWait `net stop postgresql-8.4` 
-
-  # Wait until postgres is stopped
-  StrCpy $0 0
-  
-  PostgresUp:
-    # Sleep 2 seconds
-    Sleep 5000	
-	
-	# Increment the timeout counter
-	IntOp $0 $0 + 1
-	
-	# Check to make sure the timeout hasn't expired
-	${If} $0 > 50
-  	# Goto PostgresDown
-	  MessageBox MB_OK "Postgres failed to stop." 
-	  #Abort
-    ${EndIf}	
-	
-	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresUp PostgresDown
-  PostgresDown:
-FunctionEnd
-
-Function startPostgres
-  ExecWait `net start postgresql-8.4` 
-
-  # Wait until postgres is stopped
-  StrCpy $0 0
-  
-  PostgresUp:
-    # Sleep 2 seconds
-    Sleep 5000	
-	
-	# Increment the timeout counter
-	IntOp $0 $0 + 1
-	
-	# Check to make sure the timeout hasn't expired
-	${If} $0 > 50
-	  Goto PostgresDown
-	  MessageBox MB_OK "Postgres failed to start." 
-	  #Abort
-    ${EndIf}	
-	
-	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresDown PostgresUp
-  PostgresDown:
-FunctionEnd
-
-
->>>>>>> .theirs# Installer sections
+# Installer sections
 Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-<<<<<<< .mine    StrCpy $PatchVersion 6764
+    StrCpy $PatchVersion 6776
     StrCpy $TermsVersion 6644
-=======    StrCpy $PatchVersion 6755
-    StrCpy $TermsVersion 6644
->>>>>>> .theirs    StrCpy $RootsVersion 5432
+    StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
     StrCpy $LocalizationVersion 6734
     StrCpy $PermissionsVersion 6743
@@ -462,7 +411,7 @@ Section -Main SEC0000
     LogEx::Write "Installing PostgreSQL"
     File "postgresql-8.4.1-1-windows.exe"
     ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
-<<<<<<< .mine	LogEx::AddFile "   >" "$TEMP\install-postgresql.log"
+	LogEx::AddFile "   >" "$TEMP\install-postgresql.log"
     #IfErrors PostgresInstallError PostgressInstallSuccess
 	#IfFileExists C:\MDSS\PostgreSql\8.4\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
@@ -473,17 +422,7 @@ Section -Main SEC0000
 	#PostgressInstallSuccess:
     Call stopPostgres
 	
-=======    #IfErrors PostgresInstallError PostgressInstallSuccess
-	#IfFileExists C:\MDSS\PostgreSql\8.4\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
-
-	#PostgresInstallError:
-	#MessageBox MB_OK "Postgres failed to install correctly" 
-	#Abort
-	
-	#PostgressInstallSuccess:
-	Call stopPostgres
-	
->>>>>>> .theirs    # Get the Windows Version (XP, Vista, etc.)
+    # Get the Windows Version (XP, Vista, etc.)
     nsisos::osversion
     
     LogEx::Write "Installing custom pg_hba.conf"
@@ -545,14 +484,12 @@ Section -Main SEC0000
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
     # Update lots of things	
-<<<<<<< .mine	  ClearErrors
+	  ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
     ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
 	delete $INSTDIR\PostInstallSetup.log
-=======	ClearErrors
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
->>>>>>> .theirs    IfErrors postInstallError skipErrorMsg
+    IfErrors postInstallError skipErrorMsg
 	
 	postInstallError:
     LogEx::Write "Post Install Setup Failed"
@@ -596,12 +533,10 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     CreateShortcut "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk" "$INSTDIR\uninstall.exe"
     SetOutPath $INSTDIR\manager
-<<<<<<< .mine    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
+    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
 	LogEx::Write "Installation complete."
 	LogEx::Close
-=======    CreateShortcut "$SMPROGRAMS\DDMS\Manager.lnk" "$INSTDIR\manager\manager.bat" "" "$INSTDIR\manager\manager.ico" 0 "" "" "Start DDMS mananger"
-	
->>>>>>> .theirsSectionEnd
+SectionEnd
 
 Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
@@ -1011,8 +946,5 @@ FunctionEnd
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
-<<<<<<< .mine	SetRebootFlag true
-FunctionEnd=======	SetRebootFlag true
+SetRebootFlag true
 FunctionEnd
-
->>>>>>> .theirs
