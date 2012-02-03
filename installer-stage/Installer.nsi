@@ -474,7 +474,7 @@ Section -Main SEC0000
     ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
 
     # Update the installation number
-    LogEx::Wirte "Updating the installation number"
+    LogEx::Write "Updating the installation number"
     ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
