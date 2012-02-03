@@ -79,7 +79,6 @@ Var LocalizationVersion
 Var PermissionsVersion
 Var AppName
 Var LowerAppName
-Var Timestamp
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -257,7 +256,7 @@ FunctionEnd
 
 Function stopPostgres
   LogEx::Write "Stopping PostgreSQL"
-  ExecWait `net stop postgresql-8.4` 
+  ExecWait `$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe stop -D $INSTDIR\PostgreSql\9.1\data` 
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -277,13 +276,13 @@ Function stopPostgres
 	  #Abort
     ${EndIf}	
 	
-	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresUp PostgresDown
+	IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgresUp PostgresDown
   PostgresDown:
 FunctionEnd
 
 Function startPostgres
   LogEx::Write "Starting PostgreSQL"
-  ExecWait `net start postgresql-8.4` 
+  ExecWait `$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data` 
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -303,7 +302,7 @@ Function startPostgres
 	  #Abort
     ${EndIf}	
 	
-	IfFileExists $INSTDIR\PostgreSql\8.4\data\postmaster.pid PostgresDown PostgresUp
+	IfFileExists $INSTDIR\PostgreSql\9.1\data\postmaster.pid PostgresDown PostgresUp
   PostgresDown:
 FunctionEnd
 
@@ -313,7 +312,7 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6776
+    StrCpy $PatchVersion 6755
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
@@ -409,11 +408,10 @@ Section -Main SEC0000
     # Install Postgres
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
     LogEx::Write "Installing PostgreSQL"
-    File "postgresql-8.4.1-1-windows.exe"
-    ExecWait `"$INSTDIR\postgresql-8.4.1-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\8.4 --datadir C:\MDSS\PostgreSql\8.4\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
-	LogEx::AddFile "   >" "$TEMP\install-postgresql.log"
+    File "postgresql-9.1.2-1-windows.exe"
+    ExecWait `"$INSTDIR\postgresql-9.1.2-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\9.1 --datadir C:\MDSS\PostgreSql\9.1\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
     #IfErrors PostgresInstallError PostgressInstallSuccess
-	#IfFileExists C:\MDSS\PostgreSql\8.4\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
+	#IfFileExists C:\MDSS\PostgreSql\9.1\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
 	#PostgresInstallError:
 	#MessageBox MB_OK "Postgres failed to install correctly" 
@@ -428,21 +426,21 @@ Section -Main SEC0000
     LogEx::Write "Installing custom pg_hba.conf"
     # Version 5 means XP.  No IPv6
     ${If} $0 == 5
-      File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv4.conf"
+      File "/oname=C:\MDSS\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv4.conf"
     
-    # Version 6 means Vista or Seven.  IPv6 enabled
+    # Version 5 means Vista or Seven.  IPv6 enabled
     ${ElseIf} $0 == 6
-      File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv6.conf"
+      File "/oname=C:\MDSS\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
     
     # Who knows what version we're on.
     ${Else}
       MessageBox MB_OK "Unable to detect your windows version. DDMS is designed for Windows XP, Vista, or 7, and may not function properly on other platforms."
-      File "/oname=C:\MDSS\PostgreSql\8.4\data\pg_hba.conf" "pg_hba_ipv6.conf"
+      File "/oname=C:\MDSS\PostgreSql\9.1\data\pg_hba.conf" "pg_hba_ipv6.conf"
     ${EndIf}
     
     # Copy the tweaked postgres config
     LogEx::Write "Installing custom postgresql.conf"
-    File "/oname=C:\MDSS\PostgreSql\8.4\data\postgresql.conf" "postgresql.conf"
+    File "/oname=C:\MDSS\PostgreSql\9.1\data\postgresql.conf" "postgresql.conf"
 
 	Sleep 2000    
 	Call startPostgres
@@ -450,8 +448,8 @@ Section -Main SEC0000
     # Install PostGIS
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostGIS"
     LogEx::Write "Installing PostGIS"
-    File "postgis-pg84-setup-1.4.2-1.exe"
-    ExecWait `"$INSTDIR\postgis-pg84-setup-1.4.2-1.exe" /S`
+    File "postgis-pg91-setup-1.5.3-2.exe"
+    ExecWait `"$INSTDIR\postgis-pg91-setup-1.5.3-2.exe" /S`
     
     # We jump to this point if only installing a new app
     appInstall:
@@ -466,18 +464,18 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C' OWNER=mdssdeploy"`
+    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C' OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
+    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
 
     # Update the installation number
-    LogEx::Write "Updating the installation number"
-    ExecWait `"C:\MDSS\PostgreSql\8.4\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    LogEx::Wirte "Updating the installation number"
+    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f C:\MDSS\PostgreSql /r /d y
@@ -542,7 +540,7 @@ Section -post SEC0001
     WriteRegStr HKLM "${REGKEY}" Path $INSTDIR
     SetOutPath $INSTDIR
     WriteUninstaller $INSTDIR\uninstall.exe
-    RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.4 for PostgreSQL 8.4"
+    RmDir /r /REBOOTOK "$SMPROGRAMS\PostGIS 1.5 for PostgreSQL 9.1"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayName "$(^Name)"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayVersion "${VERSION}"
     WriteRegStr HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)" DisplayIcon $INSTDIR\uninstall.exe
@@ -567,7 +565,7 @@ done${UNSECTION_ID}:
 # Uninstaller sections
 Section /o -un.Main UNSEC0000
     CreateDirectory $DESKTOP\temp_uninstall_files
-    CopyFiles $INSTDIR\PostgreSQL\8.4\uninstall*.exe $DESKTOP\temp_uninstall_files
+    CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
     RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
@@ -578,7 +576,7 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
     DeleteRegValue HKLM "${REGKEY}\Components" Manager
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
-	ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgis-pg84-1.4.0-2.exe
+    ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe
     ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgresql.exe
     RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
 SectionEnd
@@ -946,5 +944,6 @@ FunctionEnd
 Function un.onInit
     ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
     !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
-SetRebootFlag true
+	SetRebootFlag true
 FunctionEnd
+
