@@ -465,7 +465,7 @@ Section -Main SEC0000
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
     ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 LC_COLLATE='C' LC_CTYPE='C' OWNER=mdssdeploy"`
+    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
