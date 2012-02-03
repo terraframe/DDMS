@@ -472,7 +472,7 @@ Section -Main SEC0000
     LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
     ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=data,public"`
+    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
 
     # Update the installation number
     LogEx::Write "Updating the installation number"
