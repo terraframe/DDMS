@@ -1,0 +1,34 @@
+<featureType>
+  <id>FeatureTypeInfoImpl--506ed3bd:13517a48012:-7ff8</id>
+  <name>geo$1327541694179</name>
+  <nativeName>geo$1327541694179</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl-19aa05c:134eec39c32:-7fee</id>
+  </namespace>
+  <title>geo$1327541694179</title>
+  <keywords>
+    <string>KEYWORD</string>
+  </keywords>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>22.0831362906172</minx>
+    <maxx>33.5562771557806</maxx>
+    <miny>-17.8441247708106</miny>
+    <maxy>-8.3843710522457</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>22.0831362906172</minx>
+    <maxx>33.5562771557806</maxx>
+    <miny>-17.8441247708106</miny>
+    <maxy>-8.3843710522457</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <projectionPolicy>REPROJECT_TO_DECLARED</projectionPolicy>
+  <enabled>true</enabled>
+  <store class="dataStore">
+    <id>DataStoreInfoImpl-19aa05c:134eec39c32:-7fc5</id>
+  </store>
+  <maxFeatures>0</maxFeatures>
+  <numDecimals>0</numDecimals>
+</featureType>

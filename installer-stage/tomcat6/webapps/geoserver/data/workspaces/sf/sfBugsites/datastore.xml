@@ -1,0 +1,14 @@
+<dataStore>
+  <id>DataStoreInfoImpl-19aa05c:134eec39c32:-7fca</id>
+  <name>sfBugsites</name>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-19aa05c:134eec39c32:-7feb</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="charset">ISO-8859-1</entry>
+    <entry key="url">file:data/sf/bugsites.shp</entry>
+    <entry key="namespace">http://www.openplans.org/spearfish</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

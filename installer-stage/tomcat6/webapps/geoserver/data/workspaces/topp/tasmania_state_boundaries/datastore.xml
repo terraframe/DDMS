@@ -1,0 +1,13 @@
+<dataStore>
+  <id>DataStoreInfoImpl-19aa05c:134eec39c32:-7fc0</id>
+  <name>tasmania_state_boundaries</name>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-19aa05c:134eec39c32:-7fef</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="url">file:data/taz_shapes/tasmania_state_boundaries.shp</entry>
+    <entry key="namespace">http://www.openplans.org/topp</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

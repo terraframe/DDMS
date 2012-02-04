@@ -1,0 +1,14 @@
+<dataStore>
+  <id>DataStoreInfoImpl-19aa05c:134eec39c32:-7fc2</id>
+  <name>broomfield</name>
+  <enabled>true</enabled>
+  <workspace>
+    <id>WorkspaceInfoImpl-19aa05c:134eec39c32:-7fef</id>
+  </workspace>
+  <connectionParameters>
+    <entry key="charset">ISO-8859-1</entry>
+    <entry key="url">file:data/broomfield/fe_2007_08014_edges.shp</entry>
+    <entry key="namespace">http://www.openplans.org/topp</entry>
+  </connectionParameters>
+  <__default>false</__default>
+</dataStore>

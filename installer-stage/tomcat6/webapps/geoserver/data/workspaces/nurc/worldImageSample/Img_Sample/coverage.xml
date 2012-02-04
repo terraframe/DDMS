@@ -1,0 +1,104 @@
+<coverage>
+  <id>CoverageInfoImpl-19aa05c:134eec39c32:-7fb2</id>
+  <name>Img_Sample</name>
+  <nativeName>Img_Sample</nativeName>
+  <namespace>
+    <id>NamespaceInfoImpl-19aa05c:134eec39c32:-7fea</id>
+  </namespace>
+  <title>North America sample imagery</title>
+  <description>A very rough imagery of North America</description>
+  <keywords>
+    <string>WCS</string>
+    <string>worldImageSample</string>
+    <string>worldImageSample_Coverage</string>
+  </keywords>
+  <nativeCRS>GEOGCS[&quot;WGS 84&quot;, &#xd;
+  DATUM[&quot;WGS_1984&quot;, &#xd;
+    SPHEROID[&quot;WGS 84&quot;, 6378137.0, 298.257223563, AUTHORITY[&quot;EPSG&quot;,&quot;7030&quot;]], &#xd;
+    AUTHORITY[&quot;EPSG&quot;,&quot;6326&quot;]], &#xd;
+  PRIMEM[&quot;Greenwich&quot;, 0.0, AUTHORITY[&quot;EPSG&quot;,&quot;8901&quot;]], &#xd;
+  UNIT[&quot;degree&quot;, 0.017453292519943295], &#xd;
+  AXIS[&quot;Longitude&quot;, EAST], &#xd;
+  AXIS[&quot;Latitude&quot;, NORTH], &#xd;
+  AUTHORITY[&quot;EPSG&quot;,&quot;4326&quot;]]</nativeCRS>
+  <srs>EPSG:4326</srs>
+  <nativeBoundingBox>
+    <minx>-130.85168</minx>
+    <maxx>-62.0054</maxx>
+    <miny>20.7052</miny>
+    <maxy>54.1141</maxy>
+    <crs>EPSG:4326</crs>
+  </nativeBoundingBox>
+  <latLonBoundingBox>
+    <minx>-130.85168</minx>
+    <maxx>-62.0054</maxx>
+    <miny>20.7052</miny>
+    <maxy>54.1141</maxy>
+    <crs>EPSG:4326</crs>
+  </latLonBoundingBox>
+  <enabled>true</enabled>
+  <metadata>
+    <entry key="dirName">worldImageSample_Img_Sample</entry>
+  </metadata>
+  <store class="coverageStore">
+    <id>CoverageStoreInfoImpl-19aa05c:134eec39c32:-7fbb</id>
+  </store>
+  <nativeFormat>WorldImage</nativeFormat>
+  <grid dimension="2">
+    <range>
+      <low>0 0</low>
+      <high>983 598</high>
+    </range>
+    <transform>
+      <scaleX>0.07003690742624616</scaleX>
+      <scaleY>-0.05586772575250837</scaleY>
+      <shearX>0.0</shearX>
+      <shearY>0.0</shearY>
+      <translateX>-130.81666154628687</translateX>
+      <translateY>54.08616613712375</translateY>
+    </transform>
+    <crs>EPSG:4326</crs>
+  </grid>
+  <supportedFormats>
+    <string>GEOTIFF</string>
+    <string>PNG</string>
+    <string>GIF</string>
+    <string>TIFF</string>
+  </supportedFormats>
+  <interpolationMethods>
+    <string>nearest neighbor</string>
+  </interpolationMethods>
+  <defaultInterpolationMethod>nearest neighbor</defaultInterpolationMethod>
+  <dimensions>
+    <coverageDimension>
+      <name>Red band</name>
+      <description>GridSampleDimension[0.0,255.0]</description>
+      <range>
+        <min>0.0</min>
+        <max>255.0</max>
+      </range>
+    </coverageDimension>
+    <coverageDimension>
+      <name>Green band</name>
+      <description>GridSampleDimension[0.0,255.0]</description>
+      <range>
+        <min>0.0</min>
+        <max>255.0</max>
+      </range>
+    </coverageDimension>
+    <coverageDimension>
+      <name>Blue band</name>
+      <description>GridSampleDimension[0.0,255.0]</description>
+      <range>
+        <min>0.0</min>
+        <max>255.0</max>
+      </range>
+    </coverageDimension>
+  </dimensions>
+  <requestSRS>
+    <string>EPSG:4326</string>
+  </requestSRS>
+  <responseSRS>
+    <string>EPSG:4326</string>
+  </responseSRS>
+</coverage>

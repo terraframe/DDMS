@@ -1,0 +1,72 @@
+<coverage format = "sfdem" >
+  <name>sfdem</name>
+  <label>sfdem is a Tagged Image File Format with Geographic information</label>
+  <description>Generated from sfdem</description>
+  <wmspath>/</wmspath>
+  <keywords>WCS,sfdem,sfdem</keywords>
+  <!--
+    the default style this CoverageInfoDTO can be represented by.
+    at least must contain the "default" attribute
+  -->
+  <styles default = "dem" />
+  <!--
+    crs: native CRS definition, srsName: user defined CRS identifier
+  -->
+  <envelope crs = "PROJCS[&apos;NAD27 / UTM zone 13N&apos;, 
+  GEOGCS[&apos;NAD27&apos;, 
+    DATUM[&apos;North American Datum 1927&apos;, 
+      SPHEROID[&apos;Clarke 1866&apos;, 6378206.4, 294.9786982138982, AUTHORITY[&apos;EPSG&apos;,&apos;7008&apos;]], 
+      TOWGS84[-4.2, 135.4, 181.9, 0.0, 0.0, 0.0, 0.0], 
+      AUTHORITY[&apos;EPSG&apos;,&apos;6267&apos;]], 
+    PRIMEM[&apos;Greenwich&apos;, 0.0, AUTHORITY[&apos;EPSG&apos;,&apos;8901&apos;]], 
+    UNIT[&apos;degree&apos;, 0.017453292519943295], 
+    AXIS[&apos;Geodetic longitude&apos;, EAST], 
+    AXIS[&apos;Geodetic latitude&apos;, NORTH], 
+    AUTHORITY[&apos;EPSG&apos;,&apos;4267&apos;]], 
+  PROJECTION[&apos;Transverse_Mercator&apos;], 
+  PARAMETER[&apos;central_meridian&apos;, -105.0], 
+  PARAMETER[&apos;latitude_of_origin&apos;, 0.0], 
+  PARAMETER[&apos;scale_factor&apos;, 0.9996], 
+  PARAMETER[&apos;false_easting&apos;, 500000.0], 
+  PARAMETER[&apos;false_northing&apos;, 0.0], 
+  UNIT[&apos;m&apos;, 1.0], 
+  AXIS[&apos;Easting&apos;, EAST], 
+  AXIS[&apos;Northing&apos;, NORTH], 
+  AUTHORITY[&apos;EPSG&apos;,&apos;26713&apos;]]" srsName = "EPSG:26713" >
+    <pos>589980.0 4913700.0</pos>
+    <pos>609000.0 4928010.0</pos>
+  </envelope>
+  <grid dimension = "2" >
+    <low>0 0 </low>
+    <high>634 477 </high>
+    <axisName>GRAY_INDEX</axisName>
+    <geoTransform >
+      <scaleX>30.0</scaleX>
+      <scaleY>-30.0</scaleY>
+      <shearX>0.0</shearX>
+      <shearY>0.0</shearY>
+      <translateX>589995.0</translateX>
+      <translateY>4927995.0</translateY>
+    </geoTransform>
+  </grid>
+  <CoverageDimension >
+    <name>GRAY_INDEX</name>
+    <description>GridSampleDimension[-9.999999933815813E36,-9.999999933815813E36]</description>
+    <interval >
+      <min>-9.999999933815813E36</min>
+      <max>-9.999999933815813E36</max>
+    </interval>
+    <nullValues >
+    </nullValues>
+  </CoverageDimension>
+  <supportedCRSs >
+    <requestCRSs>EPSG:26713</requestCRSs>
+    <responseCRSs>EPSG:26713</responseCRSs>
+  </supportedCRSs>
+  <supportedFormats nativeFormat = "GeoTIFF" >
+    <formats>ARCGRID,IMAGEMOSAIC,GTOPO30,GEOTIFF,GIF,PNG,JPEG,TIFF</formats>
+  </supportedFormats>
+  <supportedInterpolations default = "nearest neighbor" >
+    <interpolationMethods>nearest neighbor,bilinear,bicubic</interpolationMethods>
+  </supportedInterpolations>
+</coverage>
