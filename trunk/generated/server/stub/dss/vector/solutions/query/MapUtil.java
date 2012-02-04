@@ -1,12 +1,14 @@
 package dss.vector.solutions.query;
 
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
+import it.geosolutions.geoserver.rest.GeoServerRESTReader;
 import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -14,6 +16,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.ResourceBundle;
+import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -46,6 +50,10 @@ import dss.vector.solutions.geo.GeoServerReloadException;
 public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242080109170L;
+  
+  private static Set<String> workspaceSet;
+  
+  private static final ReentrantLock lock = new ReentrantLock();
 
   public MapUtil()
   {
@@ -398,6 +406,23 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     try
     {
       String geoserverPath = getGeoServerLocalURL();
+      GeoServerRESTReader reader = new GeoServerRESTReader(geoserverPath, "admin", "geoserver");
+      try
+      {
+        lock.lock();
+        if (workspaceSet == null)
+          workspaceSet = new HashSet<String>(reader.getWorkspaceNames());
+        if (!workspaceSet.contains(CommonProperties.getDeployAppName()))
+        {
+          createWorkspaceAndDatastore();
+          workspaceSet = new HashSet<String>(reader.getWorkspaceNames());
+        }
+      }
+      finally
+      {
+        lock.unlock();
+      }
+      
       GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
       
       // reload the catalog (this will force GeoServer to dump any cached

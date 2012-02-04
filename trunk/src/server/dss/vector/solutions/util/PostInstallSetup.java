@@ -123,10 +123,6 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     int totalMemory = Math.min(MAX_TOTAL_MEMORY, MEMORY_PER_APP * appCount);
     logger.info("Updating Tomcat RAM in startup.bat to use "+totalMemory+"M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
-
-    // Create Geoserver workspace and datastore
-    logger.info("Creating workspace and datastore in Geoserver");
-    MapUtil.createWorkspaceAndDatastore();
   }
 
   private void updateJSPs() throws IOException
