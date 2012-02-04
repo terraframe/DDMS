@@ -20,7 +20,7 @@
   <property name="deploy.db" value="mdssdeploy" />
   <property name="develop.db" value="mdssdevelop" />
   <property name="nsis.dir" location="C:/Program Files (x86)/NSIS" />
-  <property name="postgres.bin" location="C:/Program Files (x86)/PostgreSQL/8.4/bin"/>
+  <property name="postgres.bin" location="C:/Program Files (x86)/PostgreSQL/9.1/bin"/>
   <property name="profile.root" location="${local.root}/profiles" />
   <property name="install.dir" location="../installer-windows" />
   <property name="stage.dir" location="." />
@@ -94,8 +94,8 @@
       <delete dir="src/test" />       
     -->
   
-    <!--<echo message="Deleting directory: ${stage.webapp}/" /> -->
-    <!--<delete dir="${stage.webapp}" />-->
+    <echo message="Deleting directory: ${stage.webapp}/" />
+    <delete dir="${stage.webapp}" />
     <propertyfile file="${profile.root}/default/common/terraframe.properties">
       <entry key="local.root" value="${local.root}" />
       <entry key="deploy.root" value="${deploy.root}" />
@@ -198,7 +198,7 @@
       <entry key="port" value="5444" />
       <entry key="db.connection.initial" value="10" />
       <entry key="db.connection.max" value="15" />
-      <entry key="databaseBinDirectory" value="C:/MDSS/PostgreSQL/8.4/bin/" />
+      <entry key="databaseBinDirectory" value="C:/MDSS/PostgreSQL/9.1/bin/" />
       <entry key="dataDumpExecutable" value="pg_dump" />
       <entry key="dataImportExecutable" value="pg_restore" />
     </propertyfile>
@@ -257,7 +257,7 @@
       <info target="${project.root}/trunk/doc/ontology/MOterms.xls" verbose="true" propPrefix="moterms.svn." />
       <info target="${project.root}/trunk/doc/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
       <info target="${project.root}/trunk/doc/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
-      <info target="${project.root}/trunk/doc/DiseaseLocalizationDefaults.xls" verbose="true" propPrefix="localization.svn." />
+      <info target="${project.root}/trunk/doc/localization" verbose="true" propPrefix="localization.svn." />
       <info target="${project.root}/trunk/doc/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />
     </svn>
     
