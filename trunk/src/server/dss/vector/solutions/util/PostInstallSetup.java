@@ -25,13 +25,15 @@ import sun.security.action.GetPropertyAction;
 
 import com.runwaysdk.util.FileIO;
 
+import dss.vector.solutions.query.MapUtil;
+
 /**
  * Called at the end of NSIS installation. Edits the user-supplied app name into
  * all appropriate files
  * 
  * @author Eric Grunzke
  */
-public class PostInstallSetup
+public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloadable
 {
   /**
    * Max perm size in MB which should be given to tomcat.
@@ -122,11 +124,9 @@ public class PostInstallSetup
     logger.info("Updating Tomcat RAM in startup.bat to use "+totalMemory+"M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
 
-    // Update Geoserver's catalog.xml
-    logger.info("Updating Geoserver catalog.xml");
-    CatalogBuilder builder = new CatalogBuilder(tomcatDirectory + "/webapps/geoserver/data/catalog.xml");
-    builder.addApplication(appName, dbName);
-    builder.write();
+    // Create Geoserver workspace and datastore
+    logger.info("Creating workspace and datastore in Geoserver");
+    MapUtil.createWorkspaceAndDatastore();
   }
 
   private void updateJSPs() throws IOException

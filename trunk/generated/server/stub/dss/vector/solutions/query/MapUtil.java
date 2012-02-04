@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
+import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
 
 import java.lang.reflect.InvocationTargetException;
 import java.sql.ResultSet;
@@ -22,6 +23,7 @@ import org.json.JSONException;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.constants.CommonProperties;
+import com.runwaysdk.constants.DatabaseProperties;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.database.Database;
@@ -417,6 +419,43 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     {
       String error = "Could not reload GeoServer.";
       GeoServerReloadException ex = new GeoServerReloadException(error, e);
+      throw ex;
+    }
+  }
+  
+  public static void createWorkspaceAndDatastore()
+  {
+    try
+    {
+      String appName = CommonProperties.getDeployAppName();
+      String geoserverPath = getGeoServerLocalURL();
+      GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
+      
+      publisher.createWorkspace(appName);
+      GSPostGISDatastoreEncoder datastore = new GSPostGISDatastoreEncoder();
+      datastore.setPort(5444);
+      datastore.setPassword("mdssdeploy");
+      datastore.setDatabaseType("postgis");
+      datastore.setHost("localhost");
+      datastore.setValidateConnections(false);
+      datastore.setMaxConnections(10);
+      datastore.setDatabase(appName.toLowerCase());
+      datastore.setNamespace("http://"+appName+".terraframe.com");
+      datastore.setSchema(DatabaseProperties.getNamespace());
+      datastore.setLooseBBox(true);
+      datastore.setPreparedStatements(false);
+      datastore.setExposePrimaryKeys(false);
+      datastore.setUser("mdssdeploy");
+      datastore.setMinConnections(4);
+      datastore.setEnabled(true);
+      datastore.setName(QueryConstants.getNamespacedDataStore());
+      
+      publisher.createPostGISDatastore(appName, datastore);
+    }
+    catch (Exception e)
+    {
+      String error = "Could not create Geoserver artifacts";
+      GeoServerReloadException ex = new GeoServerReloadException(error);
       throw ex;
     }
   }
