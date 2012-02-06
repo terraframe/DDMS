@@ -148,6 +148,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     String replacer = "/" + appName + "/imgs/";
 
     readAndReplace(new File(appRoot, "css/style.css"), template, replacer);
+    readAndReplace(new File(appRoot, "css/style-rtl.css"), template, replacer);
   }
 
   private void updateMaxPermSize() throws IOException
