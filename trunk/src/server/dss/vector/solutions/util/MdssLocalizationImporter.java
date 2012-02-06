@@ -48,6 +48,8 @@ public class MdssLocalizationImporter implements Reloadable
   private HSSFSheet  exceptionSheet;
 
   private HSSFSheet  termSheet;
+  
+  private HSSFSheet  entityLabelSheet;
 
   private HSSFSheet  labelSheet;
 
@@ -122,6 +124,7 @@ public class MdssLocalizationImporter implements Reloadable
 
     updateLocalAttribute(exceptionSheet);
     updateLocalAttribute(termSheet);
+    updateLocalAttribute(entityLabelSheet);
     updateLocalAttribute(labelSheet);
     updateLocalAttribute(descriptionSheet);
     updateProperties("MDSS", propertySheet);
@@ -235,7 +238,7 @@ public class MdssLocalizationImporter implements Reloadable
   private void checkLocales()
   {
     Set<String> allLocales = new TreeSet<String>();
-    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, termSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
+    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, termSheet, entityLabelSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
     for (HSSFSheet sheet : sheets)
     {
       for (LocaleDimension ld : getColumnHeaders(sheet))
@@ -276,7 +279,7 @@ public class MdssLocalizationImporter implements Reloadable
     Iterator<HSSFCell> cellIterator = row.cellIterator();
     cellIterator.next();
 
-    if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(descriptionSheet) || sheet.equals(exceptionSheet))
+    if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(descriptionSheet) || sheet.equals(exceptionSheet))
     {
       cellIterator.next();
       cellIterator.next();
@@ -504,6 +507,7 @@ public class MdssLocalizationImporter implements Reloadable
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
       exceptionSheet = workbook.getSheet(MdssLocalizationExporter.MD_EXCEPTIONS);
       termSheet = workbook.getSheet(MdssLocalizationExporter.TERM_LABELS);
+      entityLabelSheet = workbook.getSheet(MdssLocalizationExporter.GEO_ENTITY_LABELS);
       descriptionSheet = workbook.getSheet(MdssLocalizationExporter.DESCRIPTIONS);
       clientSheet = workbook.getSheet(MdssLocalizationExporter.CLIENT_EXCEPTIONS);
       serverSheet = workbook.getSheet(MdssLocalizationExporter.SERVER_EXCEPTIONS);
@@ -538,6 +542,10 @@ public class MdssLocalizationImporter implements Reloadable
     else if (sheet.equals(termSheet))
     {
       return MdssLocalizationExporter.TERM_LABELS;
+    }
+    else if (sheet.equals(entityLabelSheet))
+    {
+      return MdssLocalizationExporter.GEO_ENTITY_LABELS;
     }
     else if (sheet.equals(descriptionSheet))
     {

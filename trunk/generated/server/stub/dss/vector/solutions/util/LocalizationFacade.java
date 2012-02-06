@@ -31,7 +31,7 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
   private static final long serialVersionUID = 1002885644;
   
   public LocalizationFacade()
-  {
+  { 
     super();
   }
   
