@@ -23,7 +23,7 @@ rem ---------------------------------------------------------------------------
 
 set JAVA_HOME=C:\MDSS\Java\jdk1.6.0_16
 set CATALINA_HOME=C:\MDSS\tomcat6
-set JAVA_OPTS=-Xmx512M -XX:MaxPermSize=256M
+set JAVA_OPTS=-Xmx512M -XX:MaxPermSize=256M -Dfile.encoding=UTF8
 set CATALINA_OPTS=-Djavax.rmi.ssl.client.enabledProtocols=TLSv1 -Djavax.rmi.ssl.client.enabledCipherSuites=SSL_RSA_WITH_RC4_128_MD5 -Djavax.net.ssl.trustStorePassword=1206b6579Acb3 -Djavax.net.ssl.trustStore=C:\MDSS\manager\keystore\ddms.ts -Djavax.net.ssl.keyStorePassword=4b657920666fZ -Djavax.net.ssl.keyStore=C:\MDSS\manager\keystore\ddms.ks
 
 rem Guess CATALINA_HOME if not defined
