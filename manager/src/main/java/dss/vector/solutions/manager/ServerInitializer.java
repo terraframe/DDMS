@@ -82,6 +82,7 @@ public class ServerInitializer implements Runnable
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
             java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
+            java.createJvmarg().setValue("-Dfile.encoding=UTF8");
 
             int results = java.executeJava();
 
