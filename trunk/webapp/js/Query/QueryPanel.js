@@ -830,6 +830,9 @@ MDSS.QueryPanel.prototype = {
     }
     else
     {
+      var frame = document.getElementById('templateIframe');
+      frame.contentDocument.firstChild.innerHTML = '';
+      
       this._uploadModal.show();
     }
   },
