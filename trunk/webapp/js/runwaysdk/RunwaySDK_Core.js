@@ -1852,6 +1852,11 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
 
     toISO8601 : function (date, ignoreTimezone)
     {
+      if(ignoreTimezone == null)
+      {
+        ignoreTimezone = Mojo.ClientSession.isIgnoreTimezone();
+      }
+      
       /*
      * ISO8601 format: Complete date plus hours, minutes, seconds and a
      * decimal fraction of a second YYYY-MM-DDThh:mm:ssZ (eg
@@ -1959,19 +1964,19 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
 
         // Normally we wouldn't modify the prototype of a native object
         // but the spec defines the following behavior for Date serialization.
-        if (typeof Date.prototype.toJSON !== 'function') {
-
-          Date.prototype.toJSON = function (key) {
-
-              return isFinite(this.valueOf()) ?
-                     this.getUTCFullYear()   + '-' +
-                   f(this.getUTCMonth() + 1) + '-' +
-                   f(this.getUTCDate())      + 'T' +
-                   f(this.getUTCHours())     + ':' +
-                   f(this.getUTCMinutes())   + ':' +
-                   f(this.getUTCSeconds())   + 'Z' : null;
-          };
-        }
+//        if (typeof Date.prototype.toJSON !== 'function') {
+//
+//          Date.prototype.toJSON = function (key) {
+//
+//              return isFinite(this.valueOf()) ?
+//                     this.getUTCFullYear()   + '-' +
+//                   f(this.getUTCMonth() + 1) + '-' +
+//                   f(this.getUTCDate())      + 'T' +
+//                   f(this.getUTCHours())     + ':' +
+//                   f(this.getUTCMinutes())   + ':' +
+//                   f(this.getUTCSeconds())   + 'Z' : null;
+//          };
+//        }
 
 
         function str(key, holder) {
@@ -1983,12 +1988,17 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
                 mind = gap,
                 partial,
                 value = holder[key];
+            
+            if(Mojo.Util.isDate(value))
+            {
+              return "'" + Mojo.Util.toISO8601(value) + "'";
+            }            
 
             if(typeof value === 'function')
             {
               return undefined;
             }
-            
+                        
             //var isClass = value instanceof Base;
             
             if (value && typeof value === 'object' &&
@@ -2019,9 +2029,8 @@ var Util = Mojo.Meta.newClass('Mojo.Util', {
 
             case 'boolean':
             case 'null':
-
                 return String(value);
-
+                
             case 'object':
 
                 if (!value) {
@@ -2484,6 +2493,7 @@ var ClientSession = Mojo.Meta.newClass('Mojo.ClientSession', {
     initialize : function()
     {
       this._nativeParsingEnabled = true;
+      this._ignoreTimezone = false;
       
       // FIXME use constants for the keys
       this._ajaxOptions ={
@@ -2504,6 +2514,10 @@ var ClientSession = Mojo.Meta.newClass('Mojo.ClientSession', {
     
     setNativeParsingEnabled : function(enabled){ Mojo.ClientSession.getInstance()._nativeParsingEnabled = enabled; },
 
+    isIgnoreTimezone : function() { return Mojo.ClientSession.getInstance()._ignoreTimezone; },
+    
+    setIgnoreTimezone : function(ignore){ Mojo.ClientSession.getInstance()._ignoreTimezone = ignore; },
+    
     getBaseEndpoint : function() { return Mojo.ClientSession.getInstance()._baseEndpoint; },
     
     setBaseEndpoint : function(baseEndpoint) { Mojo.ClientSession.getInstance()._baseEndpoint = baseEndpoint; },
