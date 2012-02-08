@@ -8,11 +8,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -23,14 +23,10 @@ import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
 import org.eclipse.birt.report.engine.api.RenderOption;
-import org.eclipse.birt.report.model.api.CachedMetaDataHandle;
 import org.eclipse.birt.report.model.api.DesignElementHandle;
-import org.eclipse.birt.report.model.api.MemberHandle;
-import org.eclipse.birt.report.model.api.OdaDataSetHandle;
 import org.eclipse.birt.report.model.api.OdaDataSourceHandle;
 import org.eclipse.birt.report.model.api.ReportDesignHandle;
 import org.eclipse.birt.report.model.api.activity.SemanticException;
-import org.eclipse.birt.report.model.api.elements.structures.ResultSetColumn;
 
 import au.com.bytecode.opencsv.CSVReader;
 
@@ -46,6 +42,10 @@ import dss.vector.solutions.report.UnsupportedDataSourceExceptionDTO;
 
 public class ReportGenerator implements Reloadable
 {
+  private static final String SELECTABLE_REGEX    = "^select\\s+(.*?)\\s+from\\s+(.*?)(\\s+:.*)$";
+
+  private static final String QUERY_REGEX         = "^(select\\s+.*?\\s+from\\s+)(.*?)(\\s+:.*)$";
+
   private static final String DATA_SET_QUERY      = "queryText";
 
   private static final String TEMP_FILE_NAME      = "temp.csv";
@@ -58,11 +58,14 @@ public class ReportGenerator implements Reloadable
 
   private ClientRequestIF     clientRequest;
 
-  public ReportGenerator(String logDirectory, String tempDirectory, ClientRequestIF clientRequest)
+  private Locale              locale;
+
+  public ReportGenerator(String logDirectory, String tempDirectory, ClientRequestIF clientRequest, Locale locale)
   {
     this.logDirectory = logDirectory;
     this.tempDirectory = tempDirectory;
     this.clientRequest = clientRequest;
+    this.locale = locale;
   }
 
   public void generate(InputStream template, InputStream csv, OutputStream oStream) throws IOException, BirtException
@@ -122,9 +125,10 @@ public class ReportGenerator implements Reloadable
     for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
     {
       DesignElementHandle dataset = (DesignElementHandle) i.next();
+      String query = dataset.getStringProperty(DATA_SET_QUERY);
 
-      Pattern pattern = Pattern.compile("^(select\\s+.*?\\s+from\\s+)(.*?)(\\s+:.*)$");
-      Matcher matcher = pattern.matcher(dataset.getStringProperty(DATA_SET_QUERY));
+      Pattern pattern = Pattern.compile(QUERY_REGEX);
+      Matcher matcher = pattern.matcher(query);
 
       matcher.find();
 
@@ -141,12 +145,12 @@ public class ReportGenerator implements Reloadable
   {
     if (handle.getAllDataSets().size() > 1)
     {
-      throw new DataSetLimitExceptionDTO(this.clientRequest);
+      throw new DataSetLimitExceptionDTO(this.clientRequest, this.locale);
     }
 
     if (handle.getAllDataSources().size() > 1)
     {
-      throw new DataSourceLimitExceptionDTO(this.clientRequest);
+      throw new DataSourceLimitExceptionDTO(this.clientRequest, this.locale);
     }
 
     // Validate the csv structure against the report structure
@@ -171,28 +175,29 @@ public class ReportGenerator implements Reloadable
 
       if (!extensionID.equals(FLAT_FILE_EXTENSION))
       {
-        throw new UnsupportedDataSourceExceptionDTO(this.clientRequest);
+        throw new UnsupportedDataSourceExceptionDTO(this.clientRequest, this.locale);
       }
     }
 
+    // Update the data set to use the temporary csv file
     for (Iterator i = handle.getDataSets().iterator(); i.hasNext();)
     {
-      OdaDataSetHandle dataset = (OdaDataSetHandle) i.next();
+      DesignElementHandle dataset = (DesignElementHandle) i.next();
+      String query = dataset.getStringProperty(DATA_SET_QUERY);
 
-      CachedMetaDataHandle metadata = dataset.getCachedMetaDataHandle();
+      Pattern pattern = Pattern.compile(SELECTABLE_REGEX);
+      Matcher matcher = pattern.matcher(query);
 
-      MemberHandle members = metadata.getResultSet();
+      matcher.find();
 
-      ArrayList list = members.getListValue();
+      String group = matcher.group(1).replaceAll("\"", "");
+      String[] selectables = group.split(",");
 
-      for (Object choice : list)
+      for (String selectable : selectables)
       {
-        ResultSetColumn column = (ResultSetColumn) choice;
-        String columnName = column.getColumnName();
-
-        if (!headers.contains(columnName))
+        if (!headers.contains(selectable.trim()))
         {
-          throw new QueryConfigurationExceptionDTO(this.clientRequest);
+          throw new QueryConfigurationExceptionDTO(this.clientRequest, this.locale);
         }
       }
     }
@@ -206,21 +211,7 @@ public class ReportGenerator implements Reloadable
     File file = new File(this.tempDirectory + File.separator + fileName);
     file.deleteOnExit();
 
-//    FileIO.write(new BufferedOutputStream(new FileOutputStream(file)), in);
-    this.copy(new BufferedOutputStream(new FileOutputStream(file)), in);
-  }
-
-  private void copy(OutputStream out, InputStream in) throws IOException
-  {
-    // Transfer bytes from in to out
-    byte[] buf = new byte[1024];
-    int len;
-    while ( ( len = in.read(buf) ) > 0)
-    {
-      out.write(buf, 0, len);
-    }
-    in.close();
-    out.close();
+    FileIO.write(new BufferedOutputStream(new FileOutputStream(file)), in);
   }
 
   private void deleteTempDirectory(String file)

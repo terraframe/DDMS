@@ -78,7 +78,7 @@ public class ReportController extends ReportControllerBase implements Reloadable
     try
     {
       // Generate the report;
-      ReportGenerator generator = new ReportGenerator(LocalProperties.getLogDirectory(), directory, this.getClientRequest());
+      ReportGenerator generator = new ReportGenerator(LocalProperties.getLogDirectory(), directory, this.getClientRequest(), this.req.getLocale());
       generator.generate(template, input, resp.getOutputStream());
     }
     catch (BirtException e)
