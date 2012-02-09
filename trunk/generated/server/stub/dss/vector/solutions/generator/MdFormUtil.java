@@ -131,7 +131,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdFieldTypeQuery getAvailableFields()
   {
     InstallProperties.validateMasterOperation();
-   
+
     QueryFactory f = new QueryFactory();
     MdFieldTypeQuery q = new MdFieldTypeQuery(f);
     return q;
@@ -429,7 +429,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdField createMdField(MdField mdField, String mdFormId)
   {
     InstallProperties.validateMasterOperation();
-    
+
     DDMSFieldBuilders.create(mdField, mdFormId);
     return mdField;
   }
@@ -439,7 +439,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdWebGeo createGeoField(MdWebGeo mdField, String mdFormId, GeoField geoField, String[] extraUniversals)
   {
     InstallProperties.validateMasterOperation();
-    
+
     DDMSFieldBuilders.createGeoField(mdField, mdFormId, geoField, extraUniversals);
 
     return mdField;
@@ -513,7 +513,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void deleteCondition(String mdFieldId, String conditionId)
   {
     InstallProperties.validateMasterOperation();
-    
+
     MdField field = MdField.get(mdFieldId);
     FieldCondition root = field.getFieldCondition();
     FieldCondition cond = FieldCondition.get(conditionId);
@@ -639,7 +639,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdField updateMdField(MdField mdField)
   {
     InstallProperties.validateMasterOperation();
-    
+
     DDMSFieldBuilders.update(mdField);
 
     return mdField;
@@ -650,7 +650,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static MdWebGeo updateGeoField(MdWebGeo mdField, GeoField geoField, String[] extraUniversals)
   {
     InstallProperties.validateMasterOperation();
-    
+
     DDMSFieldBuilders.updateGeoField(mdField, geoField, extraUniversals);
 
     return mdField;
@@ -810,7 +810,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void reorderFields(String[] ids)
   {
     InstallProperties.validateMasterOperation();
-    
+
     // FIXME: extract to a separate method
     String fieldId = ids[0];
     String previousId = ids[1];
@@ -1013,10 +1013,36 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void delete(MdWebForm mdForm)
   {
     InstallProperties.validateMasterOperation();
-    
+
     MdClass mdClass = mdForm.getFormMdClass();
 
     new FormSystemURLBuilder(mdForm).delete();
+
+    /*
+     * Delete all of the conditions which have been specified on fields of the
+     * form. Conditions have required attribute which reference fields of the
+     * form. If the conditions are not deleted first they will prevent the form
+     * from being deleted.
+     */
+    OIterator<? extends MdWebField> it = mdForm.getAllMdFields();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        MdWebField mdField = it.next();
+        FieldCondition condition = mdField.getFieldCondition();
+
+        if (condition != null)
+        {
+          condition.delete();
+        }
+      }
+    }
+    finally
+    {
+      it.close();
+    }
 
     mdForm.delete();
 
@@ -1076,7 +1102,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void deleteField(MdWebForm mdForm, MdWebField mdField)
   {
     InstallProperties.validateMasterOperation();
-    
+
     try
     {
       // if this is a group then remove all of its children and append them to
@@ -1109,7 +1135,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   public static void deleteCompositeField(MdWebPrimitive mdField)
   {
     InstallProperties.validateMasterOperation();
-    
+
     try
     {
       DDMSFieldBuilders.delete(mdField);
