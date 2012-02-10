@@ -26,16 +26,16 @@ public class InstallProperties implements Reloadable
    * and thread safety because the class is not loaded until the first access to
    * INSTANCE.
    */
-  private static class Singleton
+  static class Singleton implements Reloadable
   {
     private static final InstallProperties INSTANCE = new InstallProperties();
 
-    private static boolean getBoolean(String propertyName)
+    static boolean getBoolean(String propertyName)
     {
       return INSTANCE.props.getBoolean(propertyName);
     }
 
-    private static String getString(String propertyName)
+    static String getString(String propertyName)
     {
       return INSTANCE.props.getString(propertyName);
     }
