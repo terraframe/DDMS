@@ -1,19 +1,49 @@
 package dss.vector.solutions;
 
 import java.io.File;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
+import com.runwaysdk.constants.ProfileManager;
+import com.runwaysdk.constants.ProfileReader;
 import com.runwaysdk.generation.loader.Reloadable;
 
 public class InstallProperties implements Reloadable
 {
+  /**
+   * The install.properties configuration file
+   */
+  private ProfileReader props;
 
-  private static final ResourceBundle bundle = ResourceBundle.getBundle("install", Locale.getDefault(), InstallProperties.class.getClassLoader());
+  /**
+   * Private constructor loads the server.properties configuration
+   */
+  private InstallProperties()
+  {
+    this.props = ProfileManager.getBundle("server/install.properties");
+  }
+
+  /**
+   * A holder class for access to the singleton. Allows for lazy instantiation
+   * and thread safety because the class is not loaded until the first access to
+   * INSTANCE.
+   */
+  private static class Singleton
+  {
+    private static final InstallProperties INSTANCE = new InstallProperties();
+
+    private static boolean getBoolean(String propertyName)
+    {
+      return INSTANCE.props.getBoolean(propertyName);
+    }
+
+    private static String getString(String propertyName)
+    {
+      return INSTANCE.props.getString(propertyName);
+    }
+  }
 
   public static boolean isMaster()
   {
-    return Boolean.parseBoolean(bundle.getString("master"));
+    return Singleton.getBoolean("master");
   }
 
   /**
@@ -32,26 +62,26 @@ public class InstallProperties implements Reloadable
 
   public static File getManagerClasses()
   {
-    return new File(bundle.getString("manager.classes"));
+    return new File(Singleton.getString("manager.classes"));
   }
 
   public static File getSynchClasses()
   {
-    return new File(bundle.getString("synch.classes"));
+    return new File(Singleton.getString("synch.classes"));
   }
 
   public static File getGeoClasses()
   {
-    return new File(bundle.getString("geo.classes"));
+    return new File(Singleton.getString("geo.classes"));
   }
 
   public static File getInitializerClasses()
   {
-    return new File(bundle.getString("initializer.classes"));
+    return new File(Singleton.getString("initializer.classes"));
   }
 
   public static File getBackupClasses()
   {
-    return new File(bundle.getString("backup.classes"));
+    return new File(Singleton.getString("backup.classes"));
   }
 }
