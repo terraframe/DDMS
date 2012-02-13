@@ -1508,17 +1508,17 @@ MDSS.GeoEntityTree = (function(){
    * Initializes the tree by setting the GeoEntity with the
    * given id as first node under the root.
    */
-  function _initializeTree(treeId, selectCallback) {
+  function _initializeTree(treeId, selectCallback, rootId) {
 
     var request = new MDSS.Request({
       onSuccess : function(geoEntity){
         // build tree
         _renderTree(treeId, geoEntity, selectCallback);
       }
-    });
+    });    
     
     // Fetch the root node
-    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, MDSS.GeoEntityTreeRootId);
+    Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.get(request, rootId);
   }
   
   function _setValidator(validator) {

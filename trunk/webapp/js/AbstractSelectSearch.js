@@ -416,7 +416,7 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         })(this);
   
         YAHOO.util.Dom.setStyle(containerId, 'overflow', 'scroll');
-        MDSS.GeoEntityTree.initializeTree("treeView", wrappedHandler);
+        MDSS.GeoEntityTree.initializeTree("treeView", wrappedHandler, this._selectSearchRootId);
       }
       else
       {

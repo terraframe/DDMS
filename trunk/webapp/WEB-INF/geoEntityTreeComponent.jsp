@@ -41,7 +41,6 @@
 
 <script type="text/javascript">
   MDSS.GeoTreeSelectables = <%= tree %>;
-  MDSS.GeoEntityTreeRootId = '<%= rootId %>';
 </script>
 
 <iframe id="exportIframe" name="exportIframe" style="display: none; width: 1px; height: 1px;"></iframe>
