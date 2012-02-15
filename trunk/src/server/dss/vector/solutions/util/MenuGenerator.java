@@ -1,11 +1,13 @@
 package dss.vector.solutions.util;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
@@ -18,11 +20,11 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Coalesce;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
-import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.session.SessionIF;
 
@@ -470,80 +472,74 @@ public class MenuGenerator implements Reloadable
 
   public String getJson()
   {
-    StringWriter out = new StringWriter();
-    this.printMenu(new PrintWriter(out), 0, this.menu);
-    return out.toString();
+    JSONArray jsonArray = new JSONArray();
+    this.printMenu(jsonArray, this.menu);
+    return jsonArray.toString();
   }
-
-  private void printMenu(PrintWriter out, int level, GuiMenuItem guiMenuItem)
+  
+  private void printMenu(JSONArray jsonArray, GuiMenuItem guiMenuItem)
   {
-    boolean first = true;
     for (GuiMenuItem child : guiMenuItem.getChildren().values())
     {
-      if (first)
+      jsonArray.put(printItem(child, true));
+    }
+  }
+  
+  private JSONObject printItem(GuiMenuItem guiMenuItem, boolean topLevel)
+  {
+    JSONObject json = new JSONObject();
+    try
+    {
+      json.put("text", guiMenuItem.getLabel());
+      json.put("id", "_"+guiMenuItem.getId());
+      if (guiMenuItem.getChildren().size() == 0)
       {
-        first = false;
+        json.put("url", guiMenuItem.getUrl());
+        json.put("visibleTo", "Administrator");
+        if (guiMenuItem.isDisabled())
+          json.put("disabled", "true");
+        else
+          json.put("disabled", "false");
+        
+        if (guiMenuItem.getUrl().equals("#"))
+          json.put("checked", "true");
+        else
+          json.put("checked", "false");
       }
       else
       {
-        this.printIndented(out, level, ",");
-      }
-      this.printItem(out, level, child);
-    }
-  }
-
-  private void printItem(PrintWriter out, int level, GuiMenuItem guiMenuItem)
-  {
-    if (guiMenuItem.getChildren().size() == 0)
-    {
-      String label = "text: '" + guiMenuItem.getLabel() + "', id: '_" + guiMenuItem.getId() + "', url: '" + guiMenuItem.getUrl() + "', visibleTo:'Administrator'";
-      if (guiMenuItem.isDisabled())
-      {
-        label += ", disabled: true";
-      }
-      if (guiMenuItem.getUrl().equals("#"))
-      {
-        label += ", checked: true";
-      }
-      this.printIndented(out, level, "{ " + label + "}");
-    }
-    else
-    {
-      this.printIndented(out, level, "{ text: '" + guiMenuItem.getLabel() + "',");
-      this.printIndented(out, level, "  id: '_" + guiMenuItem.getId() + "',");
-      if (guiMenuItem.isDisabled())
-      {
-        this.printIndented(out, level, "  classname: 'grayed',");
-      }
-      this.printIndented(out, level, "  submenu: {");
-      this.printIndented(out, level, "    id: '_" + guiMenuItem.getId() + "_Submenu',");
-      this.printIndented(out, level, "    itemdata: [");
-      boolean first = true;
-      for (GuiMenuItem child : guiMenuItem.getChildren().values())
-      {
-        if (first)
+        if (guiMenuItem.isDisabled())
+          json.put("classname", "grayed");
+        
+        OrientationType orientation = LocalizationFacade.getSessionLocaleOrientation();
+        if (!topLevel && orientation.equals(OrientationType.RTL))
         {
-          first = false;
+          JSONArray alignment = new JSONArray();
+          alignment.put("tr");
+          alignment.put("tl");
+          json.put("submenualignment", alignment);
         }
-        else
+        
+        JSONObject submenu = new JSONObject();
+        submenu.put("id", "_"+guiMenuItem.getId()+"_Submenu");
+        
+        JSONArray menuItems = new JSONArray();
+        for (GuiMenuItem child : guiMenuItem.getChildren().values())
         {
-          this.printIndented(out, level + 1, ",");
+          menuItems.put(printItem(child, false));
         }
-        this.printItem(out, level + 1, child);
+        
+        submenu.put("itemdata", menuItems);
+        json.put("submenu", submenu);
       }
-      this.printIndented(out, level, "    ]");
-      this.printIndented(out, level, "  }");
-      this.printIndented(out, level, "}");
     }
-  }
-
-  private void printIndented(PrintWriter out, int level, String label)
-  {
-    for (int i = 0; i < level; i++)
+    catch (JSONException e)
     {
-      out.print("\t");
+      // TODO Auto-generated catch block
+      e.printStackTrace();
     }
-    out.println(label);
+    
+    return json;
   }
 
   /**

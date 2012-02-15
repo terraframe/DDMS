@@ -1175,10 +1175,10 @@ span.currentPage a:active {
 }
 #availableFieldList li:hover
 {
-	font-weight: bold;
-	background: #999999;
-	color: #666666;
-	cursor: pointer;
+  font-weight: bold;
+  background: #999999;
+  color: #666666;
+  cursor: pointer;
 }
 .form-item-row {
   border-top: solid 1px #d5d6d7;  
@@ -1358,17 +1358,17 @@ div.groupDropTarget {
 }
 .form-dialog-scroll dl {
   min-height: 200px;
-	max-height: 400px;
-	overflow: auto;
-	padding: 8px;
+  max-height: 400px;
+  overflow: auto;
+  padding: 8px;
 }
 .condition-dialog-scroll dl {
   margin-top: 5px;
-	overflow: auto;
-	padding: 8px;
+  overflow: auto;
+  padding: 8px;
 }
 .form-gen-available-pages {
-	margin: 0 1em;
+  margin: 0 1em;
   cursor: pointer;
 }
 .form-gen-total-pages {
@@ -1430,7 +1430,7 @@ span.generatedViewCommand:hover {
     border-top: 1px solid black;
   }
   #navContainer {
-    display: none;
+    display: inline-block;
   }
   #uploadLogo img {
     display: none;

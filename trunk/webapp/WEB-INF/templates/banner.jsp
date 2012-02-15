@@ -65,6 +65,7 @@ if (orientation.equals(OrientationTypeDTO.LTR)) {
 %>
 <jwr:script src="/bundles/yuiBundle.js" useRandomParam="false"/>
 <jwr:script src="/bundles/Mojo.js" useRandomParam="false"/>
+<jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 <c:if test="${generateJavaScriptClasses}">
   <script type="text/javascript" src="js/Localized.js.jsp"></script>
 </c:if>
