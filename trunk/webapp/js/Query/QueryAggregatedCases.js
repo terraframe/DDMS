@@ -39,8 +39,10 @@ Mojo.Meta.newClass('MDSS.QueryAggregatedCases', {
       this.$initialize(selectableGroups, queryList);   
  
       var picker = this.getGeoPicker();      
-      picker.setPolitical(false);
+      picker.setPolitical(true);
       picker.setSprayTargetAllowed(false);
+      picker.addExtraUniversal('dss.vector.solutions.geo.generated.HealthFacility');
+
       },
 
     }
