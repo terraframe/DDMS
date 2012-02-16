@@ -1489,7 +1489,7 @@ MDSS.GeoEntityTree = (function(){
     deleteMenuItem.subscribe("click", _deleteNodeHandler);
     itemData.push(deleteMenuItem);
 
-    _menu = new YAHOO.widget.ContextMenu("treeMenu", {
+    _menu = new YAHOO.widget.ContextMenu("treeMenu" + Mojo.Util.generateId(), {
       trigger:treeId,
       lazyload:true,
       itemdata: itemData,

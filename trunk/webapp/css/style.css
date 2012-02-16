@@ -359,7 +359,7 @@ span.linkify:hover {
   cursor: pointer;
 }
 
-#selectSearchComponent {
+.selectSearchComponent {
   height: 450px;
   width: 400px;
   overflow-y: scroll;
@@ -368,7 +368,7 @@ span.linkify:hover {
   float: left;
 }
 
-#searchSelection {
+.searchSelection {
   width: 290px;
   height: 450px;
   overflow-y: scroll;

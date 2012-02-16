@@ -1,3 +1,5 @@
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+
 <%@page import="com.runwaysdk.web.json.JSONController"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoHierarchyViewDTO"%>
@@ -13,6 +15,7 @@
 
 <%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
 
+<jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 
 <jsp:include page="geoEntityTreeComponent.jsp"/>
 <%

@@ -24,6 +24,19 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       this.setTreeSelectHandler(Mojo.Util.bind(this, this.selectHandler));
     },
     
+    _renderHierarchyHeader : function(factory, hierarchy, index, rootId)
+    {
+      var dt = factory.newElement('dt', {'id':rootId + '_dt'});
+      dt.setInnerHTML(hierarchy.getDisplayLabel());
+      
+      return dt;
+    },
+        
+    _renderCurrentSelection : function(factory)
+    {
+      return factory.newElement('span', {'id':'currentSelection' + this._suffix});
+    },
+    
     setGeoId : function(geoId)
     {
       this._geoId = geoId;
@@ -45,7 +58,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       if(selected != null)
       {
 
-      if(typeof selected == 'string'){
+        if(typeof selected == 'string'){
           var request = new MDSS.Request({
               that: this,
               onSend: function(){},
@@ -134,7 +147,7 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
      */
     _updateSelection : function(geoEntityView)
     {
-      var div = document.getElementById(this._CURRENT_SELECTION);
+      var div = document.getElementById(this._CURRENT_SELECTION + this._suffix);
       div.innerHTML = this.constructor.formatDisplay(geoEntityView);
 
       this._currentSelection = geoEntityView;
@@ -171,6 +184,8 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
       {
         this._treeSelectHandler(geoEntityView);
       }
+      
+      this._resetWithSelection(geoEntityView.getEntityType(), geoEntityView.getGeoEntityId());
     },
 
     getSelectHandler : function()
@@ -185,15 +200,6 @@ Mojo.Meta.newClass('MDSS.SingleSelectSearch', {
     _getStartIndex : function()
     {
       return 1;
-    },
-
-    /**
-     * Returns the appropriate controller action to
-     * render the select search component.
-     */
-    _getControllerAction : function()
-    {
-      return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displaySingleSelectSearch;
     },
     
     _doCreateRoot : function(request)

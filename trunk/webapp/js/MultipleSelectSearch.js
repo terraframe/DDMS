@@ -20,8 +20,37 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       
       this._initSelectedUniversals = [];
       
+      // A mapping between type - checkbox element id
+      this._checkboxMap = {};
+      
       // optional function handler that will be called before adding an entity as criteria
       this._validator = null;
+    },
+    
+    _renderHierarchyHeader : function(factory, hierarchy, index, rootId)
+    {
+      var dt = factory.newElement('dt', {'id':rootId + '_dt'});
+      var type = 'dss.vector.solutions.geo.generated.' + hierarchy.getTypeName();
+        
+      if(index != 0)
+      {
+        var checkbox = factory.newElement('input', {'type':'checkbox', 'value':type, 'id':rootId + '_selectUniversalType', 'class':'selectUniversalType'})
+
+        YAHOO.util.Event.on(checkbox.getRawEl(), 'click', this._notifySelectUniversalTypeHandler, checkbox.getRawEl().value, this);
+        dt.appendChild(checkbox);
+        dt.appendInnerHTML('&nbsp;');        
+        
+        this._checkboxMap[type] = checkbox.getId();
+      }
+        
+      dt.appendInnerHTML(hierarchy.getDisplayLabel());
+      
+      return dt;
+    },
+
+    _renderCurrentSelection : function(factory)
+    {
+      return factory.newElement('ul', {'id':this._CURRENT_SELECTIONS + this._suffix});
     },
     
     setValidator : function(validator)
@@ -59,7 +88,9 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
         {
           if(this._rendered)
           {
-            var check = document.getElementById(selected[i]+'_selectUniversalType');
+            var elementId = this._checkboxMap[selected[i]];
+            var check = document.getElementById(elementId);
+            
             if(check)
             {
               check.checked = true;
@@ -111,7 +142,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
       
         if(this._rendered)
         {
-          var selections = document.getElementById(this._CURRENT_SELECTIONS);
+          var selections = document.getElementById(this._CURRENT_SELECTIONS + this._suffix);
           selections.innerHTML = '';
         }
     
@@ -184,7 +215,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
   
       li.appendChild(div);
   
-      var selections = document.getElementById(this._CURRENT_SELECTIONS);
+      var selections = document.getElementById(this._CURRENT_SELECTIONS + this._suffix);
       selections.appendChild(li);
     },
     
@@ -260,7 +291,7 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
           checkboxes[i].checked = false;
         }
   
-        var selections = document.getElementById(this._CURRENT_SELECTIONS);
+        var selections = document.getElementById(this._CURRENT_SELECTIONS + this._suffix);
         selections.innerHTML = '';
         this._criteriaMap = {};
   
@@ -286,13 +317,6 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     _postRender : function()
     {
       // create toggle events to display selectable types
-      var toggles = YAHOO.util.Selector.query('input.selectUniversalType', this._SELECT_CONTAINER_ID);
-      for(var i=0; i<toggles.length; i++)
-      {
-        var toggle = toggles[i];
-        YAHOO.util.Event.on(toggle, 'click', this._notifySelectUniversalTypeHandler, toggle.value, this);
-      }
-      
       var views = Mojo.Util.getValues(this._criteriaMap);
       for(var i=0; i<views.length; i++)
       {
@@ -315,15 +339,6 @@ Mojo.Meta.newClass('MDSS.MultipleSelectSearch', {
     _getStartIndex : function()
     {
       return 1;
-    },
-  
-    /**
-     * Gets the appropriate controller action to
-     * render the select search component.
-     */
-    _getControllerAction : function()
-    {
-      return Mojo.$.dss.vector.solutions.geo.GeoEntityTreeController.displayMultipleSelectSearch;
     },
   
     _disableAllowed : function()
