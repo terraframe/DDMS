@@ -256,7 +256,7 @@ FunctionEnd
 
 Function stopPostgres
   LogEx::Write "Stopping PostgreSQL"
-  ExecWait `$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe stop -D $INSTDIR\PostgreSql\9.1\data` 
+  ExecDos::exec /NOUNLOAD /ASYNC "$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data"
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -282,7 +282,7 @@ FunctionEnd
 
 Function startPostgres
   LogEx::Write "Starting PostgreSQL"
-  ExecWait `$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data` 
+  ExecDos::exec "$INSTDIR\PostgreSql\9.1\bin\pg_ctl.exe start -D $INSTDIR\PostgreSql\9.1\data" 
 
   # Wait until postgres is stopped
   StrCpy $0 0
@@ -312,11 +312,11 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6803
+    StrCpy $PatchVersion 6828
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 6734
+    StrCpy $LocalizationVersion 6827
     StrCpy $PermissionsVersion 6743
     
     LogEx::Init "$INSTDIR\installer-log.txt"
@@ -409,7 +409,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing PostgreSQL"
     LogEx::Write "Installing PostgreSQL"
     File "postgresql-9.1.2-1-windows.exe"
-    ExecWait `"$INSTDIR\postgresql-9.1.2-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\9.1 --datadir C:\MDSS\PostgreSql\9.1\data --superpassword CbyD6aTc54HA --serverport 5444 --locale en`
+    ExecWait `"$INSTDIR\postgresql-9.1.2-1-windows.exe" --mode unattended --serviceaccount ddmspostgres --servicepassword RQ42juEdxa3o --create_shortcuts 0 --prefix C:\MDSS\PostgreSql\9.1 --datadir C:\MDSS\PostgreSql\9.1\data --superpassword CbyD6aTc54HA --serverport 5444 --locale "Arabic, Saudi Arabia"`
     #IfErrors PostgresInstallError PostgressInstallSuccess
 	#IfFileExists C:\MDSS\PostgreSql\9.1\data\postmaster.pid PostgressInstallSuccess PostgresInstallError
 
@@ -441,8 +441,9 @@ Section -Main SEC0000
     # Copy the tweaked postgres config
     LogEx::Write "Installing custom postgresql.conf"
     File "/oname=C:\MDSS\PostgreSql\9.1\data\postgresql.conf" "postgresql.conf"
-
+	
 	Sleep 2000    
+	DetailPrint "The database is initializing. This may take a few minutes."
 	Call startPostgres
     
     # Install PostGIS
@@ -464,19 +465,19 @@ Section -Main SEC0000
     # Create the database
     ${StrCase} $LowerAppName $AppName "L"
     LogEx::Write "Creating the database"
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
+    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE USER mdssdeploy ENCRYPTED PASSWORD 'mdssdeploy'"`
+    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "CREATE DATABASE $LowerAppName WITH ENCODING='UTF8' TEMPLATE=template0 OWNER=mdssdeploy"`
     
     # Restore the db from the dump file
     # pg_dump.exe -b -f C:\stage\mdss.backup -F p -U postgres mdssdeploy
     LogEx::Write "Restoring the database from dump file"
     File "mdss.backup"
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
+    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -U postgres -d $LowerAppName -p 5444 -h 127.0.0.1 -f C:\MDSS\mdss.backup`
+    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -p 5444 -h 127.0.0.1 -U postgres -d postgres -c "ALTER DATABASE $LowerAppName SET search_path=ddms,public"`
 
     # Update the installation number
     LogEx::Write "Updating the installation number"
-    ExecWait `"C:\MDSS\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
+    nsExec::Exec `"C:\MDSS\PostgreSql\9.1\bin\psql" -U mdssdeploy -d $LowerAppName -p 5444 -h 127.0.0.1 -c "update local_property set property_value='$InstallationNumber' where property_name='SHORT_ID_OFFSET'"`
     
     # Ports 5444-5452 and 8149-8159 available
     # takeown /f C:\MDSS\PostgreSql /r /d y
@@ -485,7 +486,7 @@ Section -Main SEC0000
     # Update lots of things	
 	  ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
+    nsExec::Exec `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
 	delete $INSTDIR\PostInstallSetup.log
     IfErrors postInstallError skipErrorMsg
@@ -577,8 +578,8 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
     DeleteRegValue HKLM "${REGKEY}\Components" Manager
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
-    ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe
-    ExecWait $DESKTOP\temp_uninstall_files\uninstall-postgresql.exe
+    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
+    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
     RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
 SectionEnd
 
