@@ -527,7 +527,7 @@ Section -Main SEC0000
     SetOutPath $FPath
     CreateShortcut "$SMPROGRAMS\DDMS\Open $AppName.lnk" "$FPath\firefox.exe" "http://127.0.0.1:8080/$AppName/"
     SetOutPath $INSTDIR\birt
-    CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\BIRT.exe"
+    CreateShortcut "$SMPROGRAMS\DDMS\BIRT.lnk" "$INSTDIR\birt\birt.bat" "" "$INSTDIR\birt\BIRT.exe" 0 SW_SHOWMINIMIZED
     SetOutPath $INSTDIR\IRMA
     CreateShortcut "$SMPROGRAMS\DDMS\Qcal.lnk" "$INSTDIR\IRMA\Qcal.exe"
     SetOutPath $INSTDIR
