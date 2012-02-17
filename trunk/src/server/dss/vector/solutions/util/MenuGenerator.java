@@ -481,11 +481,11 @@ public class MenuGenerator implements Reloadable
   {
     for (GuiMenuItem child : guiMenuItem.getChildren().values())
     {
-      jsonArray.put(printItem(child, true));
+      jsonArray.put(printItem(child));
     }
   }
   
-  private JSONObject printItem(GuiMenuItem guiMenuItem, boolean topLevel)
+  private JSONObject printItem(GuiMenuItem guiMenuItem)
   {
     JSONObject json = new JSONObject();
     try
@@ -512,21 +512,22 @@ public class MenuGenerator implements Reloadable
           json.put("classname", "grayed");
         
         OrientationType orientation = LocalizationFacade.getSessionLocaleOrientation();
-        if (!topLevel && orientation.equals(OrientationType.RTL))
+        
+        JSONObject submenu = new JSONObject();
+        submenu.put("id", "_"+guiMenuItem.getId()+"_Submenu");
+        if (orientation.equals(OrientationType.RTL))
         {
           JSONArray alignment = new JSONArray();
           alignment.put("tr");
           alignment.put("tl");
-          json.put("submenualignment", alignment);
+          submenu.put("submenualignment", alignment);
         }
-        
-        JSONObject submenu = new JSONObject();
-        submenu.put("id", "_"+guiMenuItem.getId()+"_Submenu");
+
         
         JSONArray menuItems = new JSONArray();
         for (GuiMenuItem child : guiMenuItem.getChildren().values())
         {
-          menuItems.put(printItem(child, false));
+          menuItems.put(printItem(child));
         }
         
         submenu.put("itemdata", menuItems);

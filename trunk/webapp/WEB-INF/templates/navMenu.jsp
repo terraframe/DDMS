@@ -1,5 +1,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page import="com.runwaysdk.ClientSession"%>
+<%@ page import="com.runwaysdk.constants.ClientConstants"%>
+<%@ page import="com.runwaysdk.constants.ClientRequestIF"%>
+<%@ page import="dss.vector.solutions.util.OrientationTypeDTO"%>
+<%@ page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <div class="navContainer" style="min-width: 1152px;">
  <div id="mainNav" class="yuimenubar yuimenubarnav">
   </div>
@@ -19,6 +24,16 @@ YAHOO.util.Event.onContentReady("mainNav", function () {
     
     var oMenuBar = new YAHOO.widget.MenuBar("menuBar",{
         itemdata : aMenuItems,
+        <%
+        ClientRequestIF clientRequest = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+        OrientationTypeDTO orientation = LocalizationFacadeDTO.getSessionLocaleOrientation(clientRequest);
+
+        if (orientation.equals(OrientationTypeDTO.RTL)) { 
+        %>   
+          submenualignment: ["tr", "br"],
+        <%
+        }
+        %>
 		autosubmenudisplay: true,
 		hidedelay: 750,
 		lazyload: true });
