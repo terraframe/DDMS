@@ -17,6 +17,7 @@ import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.SupportedLocale;
@@ -132,13 +133,25 @@ public abstract class LocalizationFacade extends LocalizationFacadeBase implemen
     return MultiBundle.get(key);
   }
   
+  @Authenticate
   public static OrientationType getSessionLocaleOrientation()
   {
     boolean isLTR = ComponentOrientation.getOrientation(Session.getCurrentLocale()).isLeftToRight();
     if (isLTR)
       return OrientationType.LTR;
     else
-      return OrientationType.RTL;
+    {
+      SupportedLocaleQuery installedLocales = getInstalledLocales();
+      OIterator<? extends SupportedLocale> iterator = installedLocales.getIterator();
+  
+      while (iterator.hasNext())
+      {
+        SupportedLocale supportedLocale = (SupportedLocale) iterator.next();
+        if (Session.getCurrentLocale().toString().equals(supportedLocale.getEnumName()))
+          return OrientationType.RTL;
+      }
+      return OrientationType.LTR;
+    }
   }
   
   public static String getSessionLocale()
