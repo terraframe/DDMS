@@ -1096,7 +1096,7 @@ span.currentPage a:active {
   margin: 0px;  
 }
 .tree li {
-  background-image: url(/DDMS/imgs/icon-file.png);
+  background-image: url(/DDMS/imgs/icon-file-rtl.png);
   background-repeat: no-repeat;
   list-style-type: none;    
   padding: 0px 20px 0px 0px;
