@@ -371,11 +371,11 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       else
       {
         var a = factory.newElement('a', {'id':'treeOpener' + this._suffix, 'href':'#'});
-        a.setStyle('margin-left', '20px');          
+        a.setStyle('marginLeft', '20px');          
         container.appendChild(a);
           
         var img = factory.newElement('img', {'src':'./imgs/icons/world.png'});
-        img.setStyle('margin-right', '5px');          
+        img.setStyle('marginRight', '5px');          
         a.appendChild(img);
         a.appendInnerHTML(MDSS.localize('Tree'));
                     

@@ -1081,7 +1081,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           // We have to access itemData directly as a property instead of using getItem()
           // because the ContextMenu only loads items after the first render (possibly because
           // of lazy loading).
-          if(this.__validator != null)
+          if(this._validator != null)
           {
             var item = this._menu.itemData[0];
             item.cfg.setProperty('disabled', true);
