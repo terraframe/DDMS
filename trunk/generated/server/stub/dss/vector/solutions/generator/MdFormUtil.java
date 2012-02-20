@@ -1028,14 +1028,27 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
     try
     {
-      while (it.hasNext())
+      List<? extends MdWebField> fields = it.getAll();
+
+      for (MdWebField mdField : fields)
       {
-        MdWebField mdField = it.next();
         FieldCondition condition = mdField.getFieldCondition();
 
         if (condition != null)
         {
           condition.delete();
+        }
+      }
+
+      /*
+       * We need to delete all of the GeoField objects which have been
+       * associated with a geo field.
+       */
+      for (MdWebField mdField : fields)
+      {
+        if (mdField instanceof MdWebGeo)
+        {
+          MdFormUtil.deleteField(mdForm, mdField);
         }
       }
     }
