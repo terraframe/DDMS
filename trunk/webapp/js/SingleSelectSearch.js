@@ -334,7 +334,7 @@ Mojo.Meta.newClass("MDSS.GeoSearch", {
     
     _setTreeValidator : function()
     {
-      MDSS.GeoEntityTree.setValidator(Mojo.Util.bind(this, this._validator));          
+      this._selectSearch._tree.setValidator(Mojo.Util.bind(this, this._validator));          
     },
     
     destroy : function()

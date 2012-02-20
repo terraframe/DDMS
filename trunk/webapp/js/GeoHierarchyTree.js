@@ -334,42 +334,68 @@ MDSS.GeoHierarchyTree = (function(){
 
   /**
    * Performs the DOM level cleanup after a hierarchy
-   * has been deleted. The deleteAll
-   * param denotes if the deleted entity should
+   * has been deleted.
+   * 
+   * @param deleteAll denotes if the deleted entity should
    * be removed from all parent nodes (as opposed
    * to the current parent).
+   * 
+   * @param ids array of ids whose geo hierarchy nodes need to be moved under Earth
+   * 
+   * @param geoHierarchyId The id of the geohierarchy to be deleted.
    */
-  function _postDeleteCleanup(deleteAll, ids)
+  function _postDeleteCleanup(deleteAll, ids, geoHierarchyId)
   {
   	if(deleteAll)
   	{
-  	   function deleteNodeFromTree(geoHierarchyId)
+  	   function deleteNodeFromTree(id, earth)
   	   {
-   	     var nodeIds = _geoHierarchyIdToNodeIdMap[geoHierarchyId];
-   	     if(!nodeIds) return;
-  	     for(var i=nodeIds.length-1; i>=0; i--)
+  	     // remove the node from the DOM
+   	     var nodeIds = _geoHierarchyIdToNodeIdMap[id];
+   	     
+   	     if(!nodeIds || nodeIds.length === 0)
+   	     {
+   	       // there is no DOM representation of the object so exit
+   	       return;
+   	     }
+   	     
+  	     for(var i=0; i<nodeIds.length; i++)
   	     {
   	       var nodeId = nodeIds[i];
   	       var nodeEl = document.getElementById(nodeId);
            var node = _hierarchyTree.getNodeByElement(nodeEl);
 
-           _removeMapping(node);
+           // simplify things by moving the first node under earth. Anything else can be discarded.
+           if(i === 0 && earth !== null)
+           {
+             _hierarchyTree.popNode(node);
+             earth.appendChild(node);
+           }
+           else
+           {
+             _removeMapping(node);
 
-           var parent = node.parent;
-           _hierarchyTree.removeNode(node);
+             var parent = node.parent;
+             _hierarchyTree.removeNode(node);
 
-           parent.refresh();
-  	     } 	   
-  	   } 
-  	   
-   	   // remove is_a children entries (this happens after a full deletion
-  	   // of a parent. Remove the parent itself
-//  	   var getHierarchyView = _getGeoHierarchyView(_selectedNode);
-//  	   ids.push(getHierarchyView.getGeoHierarchyId());
-  	   for(var i=0; i<ids.length; i++)
-  	   {
-  	     deleteNodeFromTree(ids[i]);
+             parent.refresh();
+           }
+  	     }
   	   }
+  	   
+  	   // place the necessary children under Earth
+  	   if(ids.length > 0)
+  	   {
+  	     var earth = _hierarchyTree.getRoot().children[0];
+  	     for(var i=0; i<ids.length; i++)
+  	     {
+  	       deleteNodeFromTree(ids[i], earth);
+  	     }
+  	     earth.refresh();
+  	   }
+
+  	   // remove the geo hierarchy from the tree
+  	   deleteNodeFromTree(geoHierarchyId, null);
   	}
   	else
   	{
@@ -389,21 +415,22 @@ MDSS.GeoHierarchyTree = (function(){
   function _deleteAfterConfirmation(e, obj)
   {
   	var geoHierarchyView = obj.childHierarchy;
+  	var geoHierarchyId = geoHierarchyView.getGeoHierarchyId();
 
   	var request = new MDSS.Request({
   	  // deleting the GeoEntity means all parent nodes containing
   	  // the child must delete the child node.
   	  deleteAll: obj.deleteHierarchy,
   	  modal:obj.modal,
+  	  geoHierarchyId : geoHierarchyId,
   	  onSuccess: function(ids)
   	  {
   	  	this.modal.destroy();
 
-  	  	_postDeleteCleanup(this.deleteAll, ids);
+  	  	_postDeleteCleanup(this.deleteAll, ids, this.geoHierarchyId);
   	  }
   	});
 
-  	var geoHierarchyId = geoHierarchyView.getGeoHierarchyId();
   	if(obj.deleteHierarchy)
   	{
   	  Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyId);
@@ -422,6 +449,7 @@ MDSS.GeoHierarchyTree = (function(){
     // get its immediate parent
     var parent = _selectedNode.parent;
     var parentGeoHierarchyView = _getGeoHierarchyView(parent);
+    var geoHierarchyId = geoHierarchyView.getGeoHierarchyId();
     var parentId = parentGeoHierarchyView != null ? parentGeoHierarchyView.getGeoHierarchyId() : null;
 
     var request = new MDSS.Request({
@@ -435,7 +463,7 @@ MDSS.GeoHierarchyTree = (function(){
           _modal.destroy();
         }
 
-        _postDeleteCleanup(true, ids);
+        _postDeleteCleanup(true, ids, this.childHierarchy.getGeoHierarchyId());
       },
       onConfirmDeleteHierarchyException: function(e){
 
@@ -493,7 +521,6 @@ MDSS.GeoHierarchyTree = (function(){
       }
     });
 
-    var geoHierarchyId = geoHierarchyView.getGeoHierarchyId();
     if(parent == null || parentGeoHierarchyView == null)
     {
       Mojo.$.dss.vector.solutions.geo.GeoHierarchy.deleteGeoHierarchy(request, geoHierarchyId);

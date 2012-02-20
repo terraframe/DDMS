@@ -50,10 +50,11 @@ version: 2.5.1
  * @param {string|HTMLElement} id The id of the element, or the element
  * itself that the tree will be inserted into.
  */
-YAHOO.widget.TreeViewDD = function(id, data, dragDropHandler) {
+YAHOO.widget.TreeViewDD = function(id, data, dragDropHandler, dragEnterHandler) {
   YAHOO.widget.TreeViewDD.superclass.constructor.call(this, id, data);
   
   this.dragDropHandler = dragDropHandler;
+  this.dragEnterHandler = dragEnterHandler;
 };
 
 YAHOO.lang.extend(YAHOO.widget.TreeViewDD, YAHOO.widget.TreeView, {
@@ -277,6 +278,13 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
       el = this.getElDom(id);
       el.classNameBeforeDrag = el.className;
       el.className += ' drag-hint';
+      
+      // notify the calling code that a drag enter event has occurred in case it has
+      // custom logic (e.g., to style the DOM for a drag hint).
+      var handler = this.node.tree.dragEnterHandler;
+      if(handler){
+        handler(this, id);
+      }
     }
   },
   

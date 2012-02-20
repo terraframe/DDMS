@@ -134,7 +134,8 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       this._conditionsDialog = null;
       
       var dAndDHandler = Mojo.Util.bind(this, this.dragAndDropHandler);
-      this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler);
+      var enterHandler = Mojo.Util.bind(this, this.enterHandler);
+      this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler, enterHandler);
     },
     _viewConditionsItem : function()
     {
@@ -392,6 +393,9 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     getGroupNodeHTML : function(display)
     {
       return '<div style="float:left">'+display+'</div><div style="float:left" class="groupDropTarget"></div>';
+    },
+    enterHandler : function(sourceDDNode, destId){
+     //console.log('foo');
     },
     /**
      * Handler to model the drop operation between a source node (the one being dragged) 

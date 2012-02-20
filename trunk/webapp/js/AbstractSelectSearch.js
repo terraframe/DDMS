@@ -74,6 +74,18 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
       this._clearAfterFilter = false;
       
       this._suffix = Mojo.Util.generateId();
+      
+      // TODO this is hacky ... clean it up
+      var wrappedHandler = (function(searchRef)
+      {
+        return function(geoEntity){
+        
+          searchRef._notifyTreeSelectHandler(geoEntity);
+          searchRef._geoTreePanel.hide();
+        }
+      })(this);
+
+      this._tree = new MDSS.GeoEntityTree("treeView" + this._suffix, wrappedHandler, this._selectSearchRootId);
     },
     
     enforcesRoot : function()
@@ -496,17 +508,9 @@ Mojo.Meta.newClass('MDSS.AbstractSelectSearch', {
         this._geoTreePanel.render();
         this._geoTreePanel.bringToTop();
   
-        var wrappedHandler = (function(searchRef)
-        {
-          return function(geoEntity){
-          
-            searchRef._notifyTreeSelectHandler(geoEntity);
-            searchRef._geoTreePanel.hide();
-          }
-        })(this);
-  
         YAHOO.util.Dom.setStyle(containerId, 'overflow', 'scroll');
-        MDSS.GeoEntityTree.initializeTree("treeView" + this._suffix, wrappedHandler, this._selectSearchRootId);
+        this._tree.render();
+        //MDSS.GeoEntityTree.initializeTree("treeView" + this._suffix, wrappedHandler, this._selectSearchRootId);
       }
       else
       {

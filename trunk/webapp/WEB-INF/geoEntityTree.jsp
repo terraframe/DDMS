@@ -14,8 +14,8 @@
 <script type="text/javascript">
   YAHOO.util.Event.onDOMReady(function(){
 
-    MDSS.GeoEntityTree.initializeTree("treeView", null, MDSS.DefaultRoot);
-
+    var tree = new MDSS.GeoEntityTree("treeView", null, MDSS.DefaultRoot);
+    tree.render();
   }, null, true);
 </script>
 
