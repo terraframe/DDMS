@@ -135,7 +135,12 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       
       var dAndDHandler = Mojo.Util.bind(this, this.dragAndDropHandler);
       var enterHandler = Mojo.Util.bind(this, this.enterHandler);
-      this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler, enterHandler);
+      var exitHandler = Mojo.Util.bind(this, this.exitHandler);
+      var dragHandler = Mojo.Util.bind(this, this.dragHandler);
+      this._tree = new YAHOO.widget.TreeViewDD(this.constructor.WORKFLOW_TREE, [], dAndDHandler, enterHandler, exitHandler, dragHandler);
+      
+      // Region reference to the plus sign of a group node for giving visual hints of an add-to-group operation.
+      this._dropRegion = null;
     },
     _viewConditionsItem : function()
     {
@@ -394,8 +399,53 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     {
       return '<div style="float:left">'+display+'</div><div style="float:left" class="groupDropTarget"></div>';
     },
+    enableDropZone : function(plusEl){
+      plusEl.style.backgroundColor = '#000000';
+      plusEl.style.backgroundImage = 'URL("/DDMS/imgs/icons/tick.png")';
+    },
+    disableDropZone : function(plusEl){
+      plusEl.style.backgroundColor = '';
+      plusEl.style.backgroundImage = '';
+    },
+    /**
+     * Checks if the drag target is hovering over a group node to add to the group. If so, the
+     * drag hints are changed to reflect a valid group drop operation.
+     */
+    dragHandler : function(ddProxy){
+      
+      if(this._dropRegion !== null){
+        var point = ddProxy.DDM.interactionInfo.point;
+        
+        // get the region of the plus sign
+        
+        var plusEl = this._dropRegion.getContentEl().firstChild.nextSibling;
+        var plus = YAHOO.util.Dom.getRegion(plusEl);
+        if(plus.contains(point)){
+          this.enableDropZone(plusEl);
+        }
+        else {
+          this.disableDropZone(plusEl);
+        }
+      }
+      
+    },
     enterHandler : function(sourceDDNode, destId){
-     //console.log('foo');
+    
+      var destNode = YAHOO.util.DDM.getDDById(destId).node;
+      
+      if(destNode.data.nodeType === this.constructor.GROUP_NODE){
+
+        this._dropRegion = destNode;
+      }
+    },
+    exitHandler : function(sourceDDNode, destId){
+    
+      if(this._dropRegion !== null){
+         var plusEl = this._dropRegion.getContentEl().firstChild.nextSibling;
+         this.disableDropZone(plusEl);
+      }
+    
+      this._dropRegion = null;
     },
     /**
      * Handler to model the drop operation between a source node (the one being dragged) 
@@ -403,6 +453,13 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
      */
     dragAndDropHandler : function(sourceDDNode, destId)
     {
+      if(this._dropRegion !== null){
+        var plusEl = this._dropRegion.getContentEl().firstChild.nextSibling;
+        this.disableDropZone(plusEl);
+      }
+  
+      this._dropRegion = null;
+    
       var destNode = YAHOO.util.DDM.getDDById(destId).node;
       var sourceNode = sourceDDNode.node;
       
