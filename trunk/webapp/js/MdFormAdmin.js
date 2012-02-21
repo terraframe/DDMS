@@ -469,7 +469,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
       {
         if(sourceNode === children[i])
         {
-          return;
+          //return;
         }
       }
       

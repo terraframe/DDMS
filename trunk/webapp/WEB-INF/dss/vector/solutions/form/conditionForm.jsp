@@ -57,7 +57,16 @@
 	<script type="text/javascript">
 	(function(){
 	  var el = document.getElementById('${condition.id}_value');
-	  MDSS.Calendar.addCalendarListeners(el);
+	  
+	  var config = {};
+    config[MDSS.Calendar.Config.BEFORE_TODAY_INCLUSIVE] = ${mdWebDate.beforeTodayInclusive};
+    config[MDSS.Calendar.Config.BEFORE_TODAY_EXCLUSIVE] = ${mdWebDate.beforeTodayExclusive};
+    config[MDSS.Calendar.Config.AFTER_TODAY_INCLUSIVE] = ${mdWebDate.afterTodayInclusive};
+    config[MDSS.Calendar.Config.AFTER_TODAY_EXCLUSIVE] = ${mdWebDate.afterTodayExclusive};
+    config[MDSS.Calendar.Config.START_DATE] = '${mdWebDate.startDate}';
+    config[MDSS.Calendar.Config.END_DATE] = '${mdWebDate.endDate}';	  
+	  
+	  MDSS.Calendar.addCalendarListeners(el, config);
 	  el.value = MDSS.Calendar.getLocalizedString(el.value);
 	})();
 	</script>

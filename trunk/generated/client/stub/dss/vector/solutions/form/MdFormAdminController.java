@@ -757,8 +757,9 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     req.setAttribute("isBool", isBool);
 
     boolean isDate = false;
-    if (condition instanceof DateConditionDTO)
+    if (mdField instanceof MdWebDateDTO)
     {
+      req.setAttribute("mdWebDate", mdField);
       isDate = true;
     }
     req.setAttribute("isDate", isDate);

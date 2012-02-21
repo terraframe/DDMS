@@ -1431,7 +1431,17 @@ var DateComponent = Mojo.Meta.newClass('dss.vector.solutions.DateComponent', {
     },
     _getContentNode : function(){
       var node = this.$_getContentNode();
-      MDSS.Calendar.addCalendarListeners(node.getRawEl());
+      
+      var md = this.getField().getFieldMd();
+      var config = {};
+      config[MDSS.Calendar.Config.BEFORE_TODAY_INCLUSIVE] = md.getBeforeTodayInclusive();
+      config[MDSS.Calendar.Config.BEFORE_TODAY_EXCLUSIVE] = md.getBeforeTodayExclusive();
+      config[MDSS.Calendar.Config.AFTER_TODAY_INCLUSIVE] = md.getAfterTodayInclusive();
+      config[MDSS.Calendar.Config.AFTER_TODAY_EXCLUSIVE] = md.getAfterTodayExclusive();
+      config[MDSS.Calendar.Config.START_DATE] = md.getStartDate();
+      config[MDSS.Calendar.Config.END_DATE] = md.getEndDate();
+      
+      MDSS.Calendar.addCalendarListeners(node.getRawEl(), config);
       return node;
     },
     monitorValueChange : function(node){

@@ -3,7 +3,16 @@
 // HOW TO USE
 // 1. Set the class of the input to "DATE PICK"
 // 2. MAKE SURE THE ELEMENT HAS A DOM ID !!!!!!!
-MDSS.Calendar = {};
+MDSS.Calendar = {
+  Config : {
+    BEFORE_TODAY_INCLUSIVE : 'beforeTodayInc',
+    BEFORE_TODAY_EXCLUSIVE : 'beforeTodayExc',
+    AFTER_TODAY_INCLUSIVE : 'afterTodayInc',
+    AFTER_TODAY_EXCLUSIVE : 'afterTodayExc',
+    START_DATE : 'startDate',
+    END_DATE : 'endDate'
+  }
+};
 
 (function() {
 
@@ -116,7 +125,12 @@ MDSS.Calendar = {};
 
     MDSS.Calendar.getLocalizedString = var_to_localized_string;
 
-    var showCal = function(ev) {
+    /**
+     * Shows (renders) the calendar.
+     * @param the DOM Event that triggered the operation
+     * @param config The Object configuration detailing how to render the calendar.
+     */
+    var showCal = function(ev, config) {
         var tar = Event.getTarget(ev);
         cur_field = tar;
         var xy = Dom.getXY(tar);
@@ -129,8 +143,10 @@ MDSS.Calendar = {};
         }
         else
         {
-        	cal1.cfg.setProperty('maxdate', null);
+        	cal1.cfg.setProperty('maxdate', null); // clear the previous restriction
         }
+        
+        cal1.cfg.setProperty('mindate', null); // clear the previous restriction
 
 
         if (date_str && (date != null)) {
@@ -140,6 +156,34 @@ MDSS.Calendar = {};
             cal1.cfg.setProperty('selected', '');
             cal1.cfg.setProperty('pagedate', new Date(), true);
         }
+        
+        // apply any configuration settings
+        if(config){
+          var date = new Date();
+          if(config[MDSS.Calendar.Config.BEFORE_TODAY_INCLUSIVE]){
+            cal1.cfg.setProperty('maxdate', date);
+          }
+          if(config[MDSS.Calendar.Config.BEFORE_TODAY_EXCLUSIVE]){
+            date.setDate(date.getDate()-1);
+            cal1.cfg.setProperty('maxdate', date);
+          }
+          if(config[MDSS.Calendar.Config.AFTER_TODAY_INCLUSIVE]){
+            cal1.cfg.setProperty('mindate', date);
+          }
+          if(config[MDSS.Calendar.Config.AFTER_TODAY_EXCLUSIVE]){
+            date.setDate(date.getDate()+1);
+            cal1.cfg.setProperty('mindate', date);
+          }
+          if(config[MDSS.Calendar.Config.START_DATE]){
+            date = MDSS.Calendar.parseDate(config[MDSS.Calendar.Config.START_DATE]);
+            cal1.cfg.setProperty('mindate', date);
+          }
+          if(config[MDSS.Calendar.Config.END_DATE]){
+            date = MDSS.Calendar.parseDate(config[MDSS.Calendar.Config.END_DATE]);
+            cal1.cfg.setProperty('maxdate', date);
+          }
+        }
+        
         cal1.render();
         Dom.setStyle('cal1Container', 'display', 'block');
         xy[1] = xy[1] + 20;
@@ -278,9 +322,9 @@ MDSS.Calendar = {};
 	MDSS.Calendar.addError = addError;
 	MDSS.Calendar.removeError = removeError;
 
-	function addCalendarListeners(el)
+	function addCalendarListeners(el, config)
 	{
-	  Event.addListener(el.id, 'focus', showCal);
+	  Event.addListener(el.id, 'focus', showCal, config);
 	  Event.addListener(el.id, 'blur', hideCal);
 	  el.value = var_to_localized_string(el.value);
 	}

@@ -2092,7 +2092,7 @@ var WebComment = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.FIELD+'WebComment', {
 
 var FieldMdIF = Mojo.Meta.newInterface(Mojo.FORM_PACKAGE.FIELD+'FieldMdIF', {
   Instance : {
-    getDefiningMdForm : function(){},
+    //getDefiningMdForm : function(){}, // TODO still needs server-side info
     getFieldName : function(){},
     getFieldOrder : function(){},
     getDisplayLabel : function(){},
@@ -2108,7 +2108,7 @@ var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFieldMd', {
   Instance : {
     initialize : function(obj){
       this.$initialize(obj);
-      this._definingMdForm = obj.definingMdForm;
+      //this._definingMdForm = obj.definingMdForm;
       this._displayLabel = obj.displayLabel;
       this._description = obj.description;
       this._fieldName = obj.fieldName;
@@ -2116,7 +2116,7 @@ var WebFieldMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebFieldMd', {
       this._id = obj.id;
       this._required = obj.required;
     },
-    getDefiningMdForm : function(){ return this._definingMdForm; },
+    //getDefiningMdForm : function(){ return this._definingMdForm; },
     getFieldName : function(){ return this._fieldName; },
     getFieldOrder : function(){ return this._fieldOrder; },
     getDisplayLabel : function(){ return this._displayLabel; },
@@ -2356,7 +2356,7 @@ var WebDateMd = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.METADATA+'WebDateMd', {
       this._beforeTodayInclusive = obj.beforeTodayInclusive;
       this._afterTodayExclusive = obj.afterTodayExclusive;
       this._afterTodayInclusive = obj.afterTodayInclusive;
-      this._startDate = obj.stardddtDate;
+      this._startDate = obj.startDate;
       this._endDate = obj.endDate;
     },
     getBeforeTodayExclusive : function() { return this._beforeTodayExclusive; },

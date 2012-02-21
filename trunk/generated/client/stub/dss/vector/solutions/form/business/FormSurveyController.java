@@ -6,8 +6,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.gargoylesoftware.htmlunit.WebClient;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
+import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.util.ErrorUtility;
