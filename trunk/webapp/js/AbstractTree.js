@@ -284,7 +284,7 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
     */
   onDragEnter: function(e, id) {
     if (this.validDest(id)) {
-      el = this.getElDom(id);
+      var el = this.getElDom(id);
       el.classNameBeforeDrag = el.className;
       el.className += ' drag-hint';
       
@@ -329,7 +329,7 @@ YAHOO.extend(YAHOO.util.DDNodeProxy, YAHOO.util.DDProxy, {
     */
   onDragOut: function(e, id) {
     if (this.validDest(id)) {
-      el = this.getElDom(id);
+      var el = this.getElDom(id);
       el.className = el.classNameBeforeDrag;
       
       // notify the calling code that a drag enter event has occurred in case it has
