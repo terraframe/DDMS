@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
 
 import org.eclipse.birt.core.exception.BirtException;
 import org.eclipse.birt.report.engine.api.EngineConstants;
+import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.IRenderOption;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
@@ -60,51 +61,55 @@ public class ReportGenerator implements Reloadable
 
   private Locale              locale;
 
-  public ReportGenerator(String logDirectory, String tempDirectory, ClientRequestIF clientRequest, Locale locale)
+  private IReportEngine       engine;
+
+  public ReportGenerator(String logDirectory, String tempDirectory, ClientRequestIF clientRequest, Locale locale) throws BirtException
   {
     this.logDirectory = logDirectory;
     this.tempDirectory = tempDirectory;
     this.clientRequest = clientRequest;
     this.locale = locale;
+    this.engine = BirtEngine.getBirtEngine(this.logDirectory);
   }
 
-  public void generate(InputStream template, InputStream csv, OutputStream oStream) throws IOException, BirtException
+  public IReportRunnable getReportDesign(InputStream template, InputStream csv) throws FileNotFoundException, IOException, EngineException, SemanticException
   {
-    try
+    this.generateTempCSVFile(csv, TEMP_FILE_NAME);
+
+    // Open report design
+    IReportRunnable design = engine.openReportDesign(template);
+
+    this.configureDataSet(design);
+
+    return design;
+  }
+
+  public void generate(IReportRunnable design, OutputStream oStream) throws IOException, BirtException
+  {
+    // set output options
+    IRenderOption options = new RenderOption();
+    options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
+    options.setOutputStream(oStream);
+
+    HashMap<String, Object> contextMap = new HashMap<String, Object>();
+    contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
+
+    // create task to run and render report
+    IRunAndRenderTask task = engine.createRunAndRenderTask(design);
+    task.setAppContext(contextMap);
+    task.setRenderOption(options);
+
+    // run report
+    task.run();
+    task.close();
+  }
+
+  public void cleanup()
+  {
+    // Delete the temp file
+    if (this.tempDirectory != null)
     {
-      IReportEngine engine = BirtEngine.getBirtEngine(this.logDirectory);
-
-      this.generateTempCSVFile(csv, TEMP_FILE_NAME);
-
-      // Open report design
-      IReportRunnable design = engine.openReportDesign(template);
-
-      this.configureDataSet(design);
-
-      // set output options
-      IRenderOption options = new RenderOption();
-      options.setOutputFormat(RenderOption.OUTPUT_FORMAT_PDF);
-      options.setOutputStream(oStream);
-
-      HashMap<String, Object> contextMap = new HashMap<String, Object>();
-      contextMap.put(EngineConstants.APPCONTEXT_CLASSLOADER_KEY, this.getClass().getClassLoader());
-
-      // create task to run and render report
-      IRunAndRenderTask task = engine.createRunAndRenderTask(design);
-      task.setAppContext(contextMap);
-      task.setRenderOption(options);
-
-      // run report
-      task.run();
-      task.close();
-    }
-    finally
-    {
-      // Delete the temp file
-      if (this.tempDirectory != null)
-      {
-        this.deleteTempDirectory(this.tempDirectory);
-      }
+      this.deleteTempDirectory(this.tempDirectory);
     }
   }
 

@@ -18,6 +18,8 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 
+import dss.vector.solutions.MdssLog;
+
 public class Email extends EmailBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1506997120;
@@ -167,6 +169,8 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
     }
     catch (Exception e)
     {
+      MdssLog.error("Exception when sending email", e);
+      
       this.lock();
       this.setError(new Date() + ": " + e.getLocalizedMessage());
       this.apply();

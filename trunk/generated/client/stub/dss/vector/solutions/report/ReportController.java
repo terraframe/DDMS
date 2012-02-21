@@ -8,11 +8,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.birt.core.exception.BirtException;
+import org.eclipse.birt.report.engine.api.EngineException;
+import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.model.api.activity.SemanticException;
 
 import com.runwaysdk.constants.ClientProperties;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.LocalProperties;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.util.IDGenerator;
 
@@ -69,21 +72,65 @@ public class ReportController extends ReportControllerBase implements Reloadable
     SavedSearchDTO search = SavedSearchDTO.get(request, savedSearchId);
 
     InputStream template = search.getTemplateStream();
-    String fileName = search.getQueryName().replaceAll("\\s", "");
 
     String directory = ClientProperties.getFileCacheDirectory() + IDGenerator.nextID();
 
-    resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
-
     try
     {
+      String fileName = search.getQueryName().replaceAll("\\s", "");
       // Generate the report;
       ReportGenerator generator = new ReportGenerator(LocalProperties.getLogDirectory(), directory, this.getClientRequest(), this.req.getLocale());
-      generator.generate(template, input, resp.getOutputStream());
+      IReportRunnable design = generator.getReportDesign(template, input);
+
+      try
+      {
+        resp.setHeader("Content-Disposition", "attachment;filename=" + fileName + ".pdf");
+
+        generator.generate(design, resp.getOutputStream());
+      }
+      finally
+      {
+        generator.cleanup();
+      }
+    }
+    catch (IOException e)
+    {
+      /*
+       * Exception is coming from within BIRT so we need to swallow it and give
+       * them a localized message.
+       */
+
+      String msg = "The provided design is not a valid BIRT design";
+      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+    }
+    catch (SemanticException e)
+    {
+      /*
+       * Exception is coming from within BIRT so we need to swallow it and give
+       * them a localized message.
+       */
+
+      String msg = "The provided design is not a valid BIRT design";
+      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
+    }
+    catch (EngineException e)
+    {
+      /*
+       * Exception is coming from within BIRT so we need to swallow it and give
+       * them a localized message.
+       */
+
+      String msg = "The provided design is not a valid BIRT design";
+      throw new TemplateExceptionDTO(this.getClientRequest(), req.getLocale(), msg);
     }
     catch (BirtException e)
     {
-      throw new ServletException(e);
+      /*
+       * Unable to setup the BIRT: This is a developer problem and should never
+       * happen. It is indicitive of a configuration or class path problem.
+       */
+
+      throw new ProgrammingErrorException(e);
     }
   }
 }
