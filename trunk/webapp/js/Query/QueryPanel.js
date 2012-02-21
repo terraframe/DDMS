@@ -796,7 +796,7 @@ MDSS.QueryPanel.prototype = {
       html += "<iframe name='templateIframe' id='templateIframe' style='height:65px; width:350px; margin-bottom: 15px'></iframe>";
       html += "<form action='"+action+"' enctype='multipart/form-data' target='templateIframe' id='"+formId+"' method='post'>";
       html += "<input type='hidden' name='savedSearchId' id='savedSearchIdInput' value='' />";
-      html += "<input type='file' name='templateFile' /><br />";
+      html += "<input type='file' name='templateFile' id='templateFileElementId'/><br />";
       html += "<input type='submit' name='import' value='"+MDSS.localize('Submit')+"' />"
       html += "</form>";
 
@@ -826,15 +826,20 @@ MDSS.QueryPanel.prototype = {
       this._uploadModal.setBody(outer);
       this._uploadModal.render(document.body);
 
+      YAHOO.util.Event.on('templateFileElementId', 'change', this._clearTemplateFrame, null, this);      
       YAHOO.util.Event.on(formId, 'submit', this._uploadTemplateOnSubmit, null, this);
     }
     else
     {
-      var frame = document.getElementById('templateIframe');
-      frame.contentDocument.firstChild.innerHTML = '';
-      
+      this._clearTemplateFrame();
       this._uploadModal.show();
     }
+  },
+  
+  _clearTemplateFrame : function()
+  {
+    var frame = document.getElementById('templateIframe');
+    frame.contentDocument.firstChild.innerHTML = '';	  
   },
 
   /**
