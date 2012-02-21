@@ -1145,23 +1145,6 @@ var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTer
       
       return div;  
     },
-    handleEvent : function(evt){
-      var termId = evt.getTermId();
-      
-      if(evt instanceof dss.vector.solutions.ontology.TermDeletedEvent)
-      {
-        this.getField().removeTerm(termId);
-        
-        // Because we can't diff values, we must refire the ValueChangeEvent
-        // on all terms.
-        this.dispatchValueChangeEvent(null);
-      }
-      else
-      {
-        this.getField().addTerm(evt.getTermId());
-        this.dispatchEvent(new ValueChangeEvent(evt.getTermId()));
-      }
-    },
     _getReadNode : function(){
       var node = this.getFactory().newElement('span');
       var field = this.getField();
@@ -1177,19 +1160,31 @@ var MultipleTermComponent = Mojo.Meta.newClass('dss.vector.solutions.MultipleTer
       return node;      
     },
     monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+       node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
+    },
+    handleEvent : function(evt){
+      var termId = evt.getTermId();
+      
+      if(evt instanceof dss.vector.solutions.ontology.TermDeletedEvent)
+      {
+        this.getField().removeTerm(termId);
+      }
+      else
+      {
+        this.getField().addTerm(evt.getTermId());
+      }
+      
+      this.dispatchValueChangeEvent(null);
     },
     dispatchValueChangeEvent : function(e){
       
-      // this field is unique in that it has multiple values.
-      // send a value change event for each value.
       var termIds = this.getField().getTermIds();
+      
       if(termIds.length > 0)
       {
-        for(var i=0; i<termIds.length; i++)
-        {
-          this.dispatchEvent(new ValueChangeEvent(termIds[i]));
-        }
+        // this field is unique in that it has multiple values.
+        // send all values in as a batch for a "contains" operation
+        this.dispatchEvent(new ValueChangeEvent(termIds));
       }
       else
       {
@@ -1631,33 +1626,54 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     handleValueChange : function(valueChangeEvent){
       var component = valueChangeEvent.getTarget();
       var value = valueChangeEvent.getValue();
-      
-      // evaluate all conditions whose definingMdField is that of the FieldComponent that had
-      // its value changed
       var conditions = this._conditions.get(component.getField().getFieldMd().getId());
-      if(conditions){
-        var fieldsToCheck = new com.runwaysdk.structure.HashSet();
-        for(var i=0; i<conditions.length; i++)
-        {
-          var cond = conditions[i];
-          cond.evaluate(value);
-
-          fieldsToCheck.add(cond.getConditionMd().getReferencingMdField());
+      var fieldsToCheck = new com.runwaysdk.structure.HashSet();
+      
+      // if there are multiple values treat evaluation as a "contains" operation.
+      if(Mojo.Util.isArray(value)){
+        if(conditions){
+          //var valueSet = new com.runwaysdk.structure.HashSet(value);
+          for(var i=0; i<conditions.length; i++){
+            var cond = conditions[i];
+            
+            // we want to match on at least one value for each condition
+            for(var j=0; j<value.length; j++){
+              var v = value[j];
+              cond.evaluate(v);
+              if(cond.isTrue()){
+                fieldsToCheck.add(cond.getConditionMd().getReferencingMdField());
+                break; // this one condition has been met, so move on to the next.
+              }
+            }
+          }
         }
-        
-        // for each field that has a condition check the
-        // root condition (in the case of composites) such that all conditions
-        // in the hierarchy are true. If so, show the field.
-        var fieldsArr = fieldsToCheck.toArray();
-        for(var i=0; i<fieldsArr.length; i++){
-          var fieldComponent = this._fieldComponents.get(fieldsArr[i]);
-          var cond = fieldComponent.getField().getCondition();
-          if(cond.isTrue()){
-            fieldComponent.show();
+      }
+      else {
+        // evaluate all conditions whose definingMdField is that of the FieldComponent that had
+        // its value changed
+        if(conditions){
+          for(var i=0; i<conditions.length; i++)
+          {
+            var cond = conditions[i];
+            cond.evaluate(value);
+  
+            fieldsToCheck.add(cond.getConditionMd().getReferencingMdField());
           }
-          else {
-            fieldComponent.hide();
-          }
+        }
+      }
+
+      // for each field that has a condition check the
+      // root condition (in the case of composites) such that all conditions
+      // in the hierarchy are true. If so, show the field.
+      var fieldsArr = fieldsToCheck.toArray();
+      for(var i=0; i<fieldsArr.length; i++){
+        var fieldComponent = this._fieldComponents.get(fieldsArr[i]);
+        var cond = fieldComponent.getField().getCondition();
+        if(cond.isTrue()){
+          fieldComponent.show();
+        }
+        else {
+          fieldComponent.hide();
         }
       }
     },
