@@ -674,6 +674,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     InstallProperties.validateMasterOperation();
 
+    // Ids of GeoHierarchy objects that will be placed under Earth.
     Set<String> ids = new HashSet<String>();
 
     GeoHierarchy geoHierarchy = GeoHierarchy.get(geoHierarchyId);
@@ -688,7 +689,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       throw ex;
     }
 
-    geoHierarchy.deleteInternal(ids);
+    geoHierarchy.deleteInternal();
 
     // Move all orphaned children under Earth
     GeoHierarchy geoEntityGH = GeoHierarchy.getGeoHierarchyFromType(GeoEntity.CLASS);
@@ -704,6 +705,7 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
     for(GeoHierarchy child : children.getIterator().getAll())
     {
       earthGH.addAcceptsGeoEntity(child).apply();
+      ids.add(child.getId());
     }
     
     return ids;
@@ -719,10 +721,8 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
    * GeoEntity subtype. All children are deleted recursively.
    */
   @Transaction
-  private void deleteInternal(Set<String> ids)
+  private void deleteInternal()
   {
-    ids.add(this.getId());
-
     MdBusiness geoEntityClass = this.getGeoEntityClass();
 
     // Regenerate the all paths table if any entities exist for this universal
@@ -1171,13 +1171,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isPolitical && !politicalParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the political hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
+        PoliticalGapException ex = new PoliticalGapException(msg);
         throw ex;
       }
       else if (isPolitical && politicalChild)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the political hierarchy.";
-        HierarchyBranchException ex = new HierarchyBranchException(msg);
+        PoliticalBranchException ex = new PoliticalBranchException(msg);
         throw ex;
       }
 
@@ -1185,13 +1185,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isSpray && !sprayParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the spray hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
+        SprayGapException ex = new SprayGapException(msg);
         throw ex;
       }
       else if (isSpray && sprayChild)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the spray hierarchy.";
-        HierarchyBranchException ex = new HierarchyBranchException(msg);
+        SprayBranchException ex = new SprayBranchException(msg);
         throw ex;
       }
 
@@ -1199,13 +1199,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
       if (isUrban && !urbanParent)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to create a" + " gap in the urban hierarchy.";
-        HierarchyGapException ex = new HierarchyGapException(msg);
+        UrbanGapException ex = new UrbanGapException(msg);
         throw ex;
       }
       else if (isUrban && urbanChild)
       {
         String msg = "The universal [" + this.getQualifiedType() + "] attempted to branch the urban hierarchy.";
-        HierarchyBranchException ex = new HierarchyBranchException(msg);
+        UrbanBranchException ex = new UrbanBranchException(msg);
         throw ex;
       }
     }
