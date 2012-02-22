@@ -281,7 +281,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   
       this._selectedNode.expand();
   
-      this._modal.destroy();  
+      this._destroyModal();  
     },
   
     /**
@@ -342,7 +342,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   
       this._updateActivatedOnNodes(ids, geoEntity.getActivated());
   
-      this._modal.destroy();  
+      this._destroyModal();  
     },
   
     _performUpdate : function(params, geoEntity)
@@ -532,7 +532,9 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     
     _destroyModal : function()
     {
-      this._modal.destroy();
+      if(this._modal.cfg != null){
+        this._modal.destroy();
+      }
       this._modal = null;
     },
     
@@ -567,7 +569,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   
       this._setMapping(this._selectedNode, view);
   
-      this._modal.destroy();  
+      this._destroyModal();  
     },
   
     /**
@@ -651,7 +653,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           listDiv.appendChild(ul);
           outer.appendChild(listDiv);
   
-          that._createModal(outer, true);
+          that._createModal(outer, false);
         }
       });
   
@@ -742,7 +744,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       listDiv.appendChild(ulRaw);
       outer.appendChild(listDiv);
   
-      this._createModal(outer, true);
+      this._createModal(outer, false);
     },
   
     /**
@@ -752,14 +754,14 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     {
       if(params['dto.isNew'] === 'true')
       {
-        this._modal.destroy();
+        this._destroyModal();
       }
       else
       {
         var that = this;
         var request = new MDSS.Request({
           onSuccess: function(){
-            that._modal.destroy();
+            that._destroyModal();
           }
         });
   
@@ -857,7 +859,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   
           if(that._modal != null)
           {
-            that._modal.destroy();
+            that._destroyModal();
           }
   
           // the entity is being deleted
