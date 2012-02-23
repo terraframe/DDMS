@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="patch" default="build">
+	<property name="nsis.dir" value="C:\Program Files (x86)\NSIS" />
+	<property name="project.dir" value="C:\cruisecontrol-bin-2.8.3\projects\mdss" />
+	<property name="svnant.dir" value="${project.dir}\trunk\lib\ant" />
+	<property name="manager.dir" value="${project.dir}\standalone" />
+	<property name="runway-patch.dir" value="${project.dir}\ddms-runway-patcher" />
+	
+	<!-- SVN task definition -->
+	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
+		<classpath>
+			<fileset dir="${svnant.dir}">
+				<include name="*.jar" />
+			</fileset>
+		</classpath>
+	</typedef>
+
+	<target name="build">
+		<!-- Get revision info from svn -->
+		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
+			<info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
+			<info target="${runway-patch.dir}" verbose="true" propPrefix="runway-patch.info." />			
+		</svn>
+		
+		<!-- Write revision info into all-in-one-patch.nsi -->
+		<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />		
+		
+		<!-- Copy over an updated serverExceptions.property file -->
+		<copy file="${project.dir}\trunk\profiles\serverExceptions.properties" todir="${manager.dir}\patch\profiles\" />
+
+		<!-- Compile patch.nsi -->
+		<exec executable="${nsis.dir}/makensis" dir="." failonerror="true" searchpath="true" logError="true">
+			<arg line="all-in-one-patch.nsi" />
+		</exec>
+	</target>
+</project>
