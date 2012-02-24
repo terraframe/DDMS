@@ -34,22 +34,22 @@ RequestExecutionLevel highest
 Var Java
 Var JavaOpts
 Var JavaError
-Var Classpath
-Var PatchDir
-Var AgentDir
-Var isMaster
-Var AppName
-Var TargetLoc
+Var Classpath               # Classpath to use when running java commands.  Changes depending on $AppName.
+Var PatchDir                # Location of the temp patch directory on the client install.
+Var AgentDir                # Location of the logging agent directory on the client install.
+Var isMaster                # Temp flag denoting if the current app is a master or not.
+Var AppName                 # Temp variable for the name of the current app being patched.
+Var TargetLoc               # Location of the WEB-INF classes directory on the client install.  Changes depending on $AppName.
 Var Phase
-Var RunwayVersion
-Var ManagerVersion
-Var PatchVersion
-Var TermsVersion
-Var RootsVersion
-Var MenuVersion
-Var LocalizationVersion
-Var PermissionsVersion
-
+Var RunwayVersion           # Version of the runway metadata contained in the install.
+Var ManagerVersion          # Version of the manager contained in the install.
+Var PatchVersion            # Version of the patch contained in the install.
+Var TermsVersion            # Version of them terms contained in the install.
+Var RootsVersion            # Version of the roots contained in the install.
+Var MenuVersion             # Version of the menu structure contained in the install.
+Var LocalizationVersion     # Version of the localization file contained in the install.
+Var PermissionsVersion      # Version of the permissions contained in the install.
+Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -149,11 +149,11 @@ FunctionEnd
 
 Function patchApplications
   ClearErrors
-  FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+  FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
       
   appNameFileReadLoop:
   # Read a line from the file into $1
-  FileRead $0 $1
+  FileRead $AppFile $1
       
   # Errors means end of File
   IfErrors appNameDone
@@ -177,7 +177,7 @@ Function patchApplications
           
   appNameDone:
   ClearErrors
-  FileClose $0
+  FileClose $AppFile
 FunctionEnd
 
 
@@ -194,13 +194,13 @@ Function patchApplication
       Delete $AgentDir\*.err
         
       # Copy web files
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating web files"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
       SetOutPath $INSTDIR\tomcat6\webapps\$AppName
       File /r /x .svn ..\trunk\patches\webapp\*
       File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
     
       # Import Most Recent
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing updated schema definitions"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
       SetOutPath $PatchDir\schema
       File /x .svn ..\trunk\doc\individual\*
       StrCpy $Phase "Importing updated schema definitions"
@@ -208,7 +208,7 @@ Function patchApplication
       Call JavaAbort
     
       # Update Database Source and Class
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Database"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Database"
       StrCpy $Phase "Updating database"
       ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses` $JavaError
       Call JavaAbort
@@ -219,7 +219,7 @@ Function patchApplication
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
     
       # Terms
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing Ontology"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Ontology"
       SetOutPath $PatchDir\doc
       File ..\trunk\doc\ontology\MOterms.xls
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
@@ -237,7 +237,7 @@ Function patchApplication
       ${EndIf}
     
       # Term Roots
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Setting up Ontology Roots"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Setting up Ontology Roots"
       File ..\trunk\doc\ontology\MOroots.xls
       File ..\trunk\patches\geo-universals.xls
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
@@ -251,7 +251,7 @@ Function patchApplication
       ${EndIf}
     
       # Menu Items
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing Menu Items"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing Menu Items"
       SetOutPath $PatchDir\doc
       File ..\trunk\doc\menu\MenuItems.xls
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
@@ -265,7 +265,7 @@ Function patchApplication
       ${EndIf}
         
       # Localization
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Localization"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Localization"
       SetOutPath $PatchDir\doc
       File ..\trunk\doc\DiseaseLocalizationDefaults.xls
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Localization
@@ -279,13 +279,13 @@ Function patchApplication
       ${EndIf}
     
       # Permissions
-      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Permissions"
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating Permissions"
       SetOutPath $PatchDir\doc
       File ..\trunk\doc\permissions\Permissions.xls
       ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
       ${If} $PermissionsVersion > $0
         StrCpy $Phase "Updating permissions"
-        ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
+        ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
         Call JavaAbort
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
       ${Else}
@@ -318,11 +318,11 @@ FunctionEnd
 
 Function patchAllMetadata
   ClearErrors
-  FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+  FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
       
   appNameFileReadLoop:
     # Read a line from the file into $1
-    FileRead $0 $1
+    FileRead $AppFile $1
       
     # Errors means end of File
     IfErrors appNameDone
@@ -339,7 +339,7 @@ Function patchAllMetadata
           
   appNameDone:
   ClearErrors
-  FileClose $0      
+  FileClose $AppFile      
 FunctionEnd
 
 
@@ -350,7 +350,7 @@ Function patchMetadata
     StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
   
     # Execute patch
-    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Patching $AppName..."
+    !insertmacro MUI_HEADER_TEXT "Patching metadata" "Patching $AppName..."
     ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath -jar $PatchDir\runway-patcher-1.0.0.jar $TargetLoc\classes\database.properties $TargetLoc\lib` $JavaError
     Call JavaAbort
   
@@ -359,12 +359,12 @@ Function patchMetadata
     Delete $INSTDIR\tomcat6\$AppName.data
   
     # Build any dimensional metadata with the Master domain
-    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Building dimensional metadata for $AppName..."
+    !insertmacro MUI_HEADER_TEXT "Patching metadata" "Building dimensional metadata for $AppName..."
     ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath com.runwaysdk.dataaccess.ClassAndAttributeDimensionBuilder 0.mdss.ivcc.com` $JavaError
     Call JavaAbort
 
     # Build any dimensional metadata with the Master domain
-    !insertmacro MUI_HEADER_TEXT "Patching Runway" "Recompiling $AppName..."
+    !insertmacro MUI_HEADER_TEXT "Patching metadata" "Recompiling $AppName..."
     ExecWait `$Java $JavaOpts=$AgentDir -cp $Classpath  com.runwaysdk.util.UpdateDatabaseSourceAndClasses -compile` $JavaError
     Call JavaAbort  
   
@@ -375,6 +375,8 @@ Function patchMetadata
 FunctionEnd
 
 Function patchManager
+  !insertmacro MUI_HEADER_TEXT "Patching manager" "Patching manager"
+
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
   ${If} $ManagerVersion > $0    
@@ -431,9 +433,9 @@ FunctionEnd
 
 Function JavaAbort
     ${If} $JavaError == 1
-      ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\RunwayPatchFailure.7z $PatchDir\*.err $PatchDir\*.out $INSTDIR\logs`
-      DetailPrint "Runway Patch failed."
-      DetailPrint "A file called RunwayPatchFailure.7z has been created on your desktop. Please send"
+      ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\*.err $PatchDir\*.out $INSTDIR\logs`
+      DetailPrint "Patch failed."
+      DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
       DetailPrint "this file to technical support staff for review."
       DetailPrint "It is strongly recommended to restore from a backup to ensure that the app continues"
       Abort "to function properly."

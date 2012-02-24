@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="patch" default="build">
-	<property name="nsis.dir" value="C:\Program Files (x86)\NSIS" />
-	<property name="project.dir" value="C:\cruisecontrol-bin-2.8.3\projects\mdss" />
-	<property name="svnant.dir" value="${project.dir}\trunk\lib\ant" />
-	<property name="manager.dir" value="${project.dir}\standalone" />
-	<property name="runway-patch.dir" value="${project.dir}\ddms-runway-patcher" />
+	<property name="nsis.dir" value="C:/Program Files (x86)/NSIS" />
+	<property name="project.dir" value="C:/cruisecontrol-bin-2.8.3/projects/mdss" />
+	<property name="svnant.dir" value="${project.dir}/trunk/lib/ant" />
+	<property name="manager.dir" value="${project.dir}/standalone" />
+	<property name="runway-patch.dir" value="${project.dir}/ddms-runway-patcher" />
+	<property name="trunk.dir" value="${project.dir}/trunk" />
+	<property name="doc.dir" value="${trunk.dir}/doc" />
+	<property name="patches.dir" value="${trunk.dir}/patches" />
+	<property name="geodata.db" value="mrc_blank" />	
 	
 	<!-- SVN task definition -->
 	<typedef resource="org/tigris/subversion/svnant/svnantlib.xml">
@@ -15,23 +19,76 @@
 		</classpath>
 	</typedef>
 
-	<target name="build">
+<!--	<target name="build"> -->
+	<target name="build" depends="setup-files">
+	
 		<!-- Get revision info from svn -->
 		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
 			<info target="${manager.dir}" verbose="true" propPrefix="manager.info." />
 			<info target="${runway-patch.dir}" verbose="true" propPrefix="runway-patch.info." />			
+			<info target="${trunk.dir}" verbose="true" propPrefix="svn.info." />
+			<info target="${doc.dir}/ontology/MOterms.xls" verbose="true" propPrefix="moterms.svn." />
+			<info target="${doc.dir}/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
+			<info target="${doc.dir}/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
+			<info target="${doc.dir}/localization" verbose="true" propPrefix="localization.svn." />
+			<info target="${doc.dir}/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />			
 		</svn>
 		
 		<!-- Write revision info into all-in-one-patch.nsi -->
-		<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />		
+		<replaceregexp match="StrCpy /$ManagerVersion /d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy /$RunwayVersion /d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />	
+		<replaceregexp match="StrCpy /$PatchVersion /d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy /$TermsVersion /d*" replace="StrCpy $TermsVersion ${moterms.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy /$RootsVersion /d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy /$MenuVersion /d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy /$LocalizationVersion /d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy /$PermissionsVersion /d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />			
 		
 		<!-- Copy over an updated serverExceptions.property file -->
-		<copy file="${project.dir}\trunk\profiles\serverExceptions.properties" todir="${manager.dir}\patch\profiles\" />
+		<copy file="${project.dir}/trunk/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
 
-		<!-- Compile patch.nsi -->
+		<!-- Compile all-in-one-patch.nsi -->
 		<exec executable="${nsis.dir}/makensis" dir="." failonerror="true" searchpath="true" logError="true">
 			<arg line="all-in-one-patch.nsi" />
 		</exec>
+	</target>
+	
+	<target name="setup-files">
+		<delete dir="${patches.dir}/webapp" includeemptydirs="true" />
+				
+		<!-- Compile -->
+		<ant inheritAll="false" dir="${trunk.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="compile_generated">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+
+		<!-- Generate an up to date localization spread sheet -->		
+		<ant inheritAll="false" dir="${trunk.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="import_localization_disease_defaults">
+			<property name="profile.name" value="develop" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>
+		
+		<!-- Get a copy of all web files -->
+		<ant inheritAll="false" dir="${trunk.dir}/scripts/ant/deploy/" antfile="deploy.xml" target="deploy_all_files">
+			<property name="profile.name" value="patch" />
+			<property name="geodata.db" value="${geodata.db}" />
+		</ant>	
+
+		<!-- Copy in the appropriate geo universals xls -->
+		<copy file="${doc.dir}/country/${geodata.db}-universals.xls" tofile="${patches.dir}/geo-universals.xls" />
+		
+		<!-- Create the local-develop.properties file -->
+		<copy file="${patches.dir}/webapp/WEB-INF/classes/local.properties" tofile="${patches.dir}/webapp/WEB-INF/classes/local-develop.properties" />
+		<replace file="${patches.dir}/webapp/WEB-INF/classes/local-develop.properties" token="environment=deploy" value="environment=develop" />
+		
+		<!-- We need to make sure we don't overwrite the domain/site master.  A better solution is to -->
+		<!-- merge the old value into the new one.  For now, we just won't copy that file. -->
+		<delete file="${patches.dir}/webapp/WEB-INF/classes/terraframe.properties" />
+		<delete file="${patches.dir}/webapp/WEB-INF/classes/database.properties" />
+		<delete file="${patches.dir}/webapp/WEB-INF/classes/common.properties" />
+		<delete file="${patches.dir}/webapp/login.jsp" />
+		
+		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
+		<delete file="${patches.dir}/webapp/imgs/flags/default" />		
 	</target>
 </project>
