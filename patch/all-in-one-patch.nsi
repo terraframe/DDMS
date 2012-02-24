@@ -37,11 +37,19 @@ Var JavaError
 Var Classpath
 Var PatchDir
 Var AgentDir
+Var isMaster
 Var AppName
 Var TargetLoc
-Var ManagerLibDir
+Var Phase
 Var RunwayVersion
 Var ManagerVersion
+Var PatchVersion
+Var TermsVersion
+Var RootsVersion
+Var MenuVersion
+Var LocalizationVersion
+Var PermissionsVersion
+
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -74,13 +82,25 @@ Section -Main SEC0000
     # The version numbers are automatically replaced by all-in-one-patch.xml
     StrCpy $RunwayVersion 6847
     StrCpy $ManagerVersion 6846
+    StrCpy $PatchVersion 6849
+    StrCpy $TermsVersion 6644
+    StrCpy $RootsVersion 5432
+    StrCpy $MenuVersion 6655
+    StrCpy $LocalizationVersion 6843
+    StrCpy $PermissionsVersion 6829
     
     # Set some constants
-    StrCpy $PatchDir "$INSTDIR\runway_patch"
+    StrCpy $PatchDir "$INSTDIR\patch"
     StrCpy $AgentDir "$PatchDir\output"
     StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
     StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe"
-    StrCpy $ManagerLibDir "$INSTDIR\manager\backup-manager-1.0.0\lib"	
+	
+	# Extract the logging libs
+    !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
+    SetOutPath $PatchDir
+    File ..\ddms-runway-patcher\OutputAgent.jar
+    File ..\ddms-runway-patcher\7za.exe
+    File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
 	
 	#####################################################################
 	# First we must patch any runway metadata changes for all of the apps
@@ -91,16 +111,43 @@ Section -Main SEC0000
 	# Next we must patch the manager jars and associated files
 	#####################################################################
     Call patchManager
-    
+	
+	#####################################################################
+	# Finally we can patch master applications
+	#####################################################################
+    Call patchApplications    
+
+ 	# Clean-up the logging libs
+    Delete $PatchDir\*	
 SectionEnd
 
-Function patchAllMetadata
-  !insertmacro MUI_HEADER_TEXT "Patching Runway" "Copying patch files"
-  SetOutPath $PatchDir
-  File ..\ddms-runway-patcher\OutputAgent.jar
-  File ..\ddms-runway-patcher\7za.exe
-  File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
+Function checkIfMaster
+  # Set default status to false
+  StrCpy $IsMaster "false"
+  
+  ClearErrors
+  FileOpen $0 $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\install.properties r
+    
+  propFileReadLoop:
+  # Read a line from the file into $1
+  FileRead $0 $1
+  # Errors means end of File
+  IfErrors isNotMaster
+    
+  # Removes the newline from the end of $1
+  ${StrTrimNewLines} $1 $1
+    
+  StrCmp $1 "master=true" isMaster propFileReadLoop
+  
+  isMaster:
+  StrCpy $IsMaster "true"
+    
+  isNotMaster:
+  ClearErrors
+  FileClose $0
+FunctionEnd
 
+Function patchApplications
   ClearErrors
   FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
       
@@ -115,23 +162,188 @@ Function patchAllMetadata
   ${StrTrimNewLines} $1 $1
     
   Push $1
-      
-  Call patchMetadata
-    
+  Pop $AppName
+
+  # Only master installations can be patched.  
+  Call checkIfMaster
+
+  ${If} $IsMaster == "true"
+    Call patchApplication
+  ${Else}
+    DetailPrint "$AppName cannot be patched because it is not a master install."
+  ${EndIf}
+
   Goto appNameFileReadLoop
           
   appNameDone:
   ClearErrors
   FileClose $0
-      
-  # Remove libs
-  Delete $PatchDir\*
 FunctionEnd
 
 
-Function patchMetadata
-  Pop $AppName  
-  
+Function patchApplication    
+    # Before we start, check the versions to make sure this is actually a patch.
+    ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
+    ${If} $PatchVersion > $0     
+	
+	  # Update the classpath to reference the particular application being patched
+      StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
+
+      # Remove any old log files that may be laying around
+      Delete $AgentDir\*.out
+      Delete $AgentDir\*.err
+        
+      # Copy web files
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating web files"
+      SetOutPath $INSTDIR\tomcat6\webapps\$AppName
+      File /r /x .svn ..\trunk\patches\webapp\*
+      File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
+    
+      # Import Most Recent
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing updated schema definitions"
+      SetOutPath $PatchDir\schema
+      File /x .svn ..\trunk\doc\individual\*
+      StrCpy $Phase "Importing updated schema definitions"
+      ExecWait `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd` $JavaError
+      Call JavaAbort
+    
+      # Update Database Source and Class
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Database"
+      StrCpy $Phase "Updating database"
+      ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses` $JavaError
+      Call JavaAbort
+      # Delete $PatchDir\schema
+    
+      # Switch to the develop environment
+      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties
+      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
+    
+      # Terms
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing Ontology"
+      SetOutPath $PatchDir\doc
+      File ..\trunk\doc\ontology\MOterms.xls
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Terms
+      ${If} $TermsVersion > $0
+        StrCpy $Phase "Importing ontology from spreadsheet"
+        ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.OntologyExcelImporter $PatchDir\doc\MOterms.xls` $JavaError
+        Call JavaAbort
+        StrCpy $Phase "Rebuilding all paths"
+        ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
+        StrCpy $JavaError "500"
+        Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
+      ${Else}
+        DetailPrint "Skipping Ontology because it is already up to date"
+      ${EndIf}
+    
+      # Term Roots
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Setting up Ontology Roots"
+      File ..\trunk\doc\ontology\MOroots.xls
+      File ..\trunk\patches\geo-universals.xls
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Roots
+      ${If} $RootsVersion > $0
+        StrCpy $Phase "Post ontology setup"
+        ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls` $JavaError
+        Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
+      ${Else}
+        DetailPrint "Skipping Ontology Roots because they are already up to date"
+      ${EndIf}
+    
+      # Menu Items
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing Menu Items"
+      SetOutPath $PatchDir\doc
+      File ..\trunk\doc\menu\MenuItems.xls
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Menu
+      ${If} $MenuVersion > $0
+        StrCpy $Phase "Importing menu items"
+        ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls` $JavaError
+        Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
+      ${Else}
+        DetailPrint "Skipping Menu because it is already up to date"
+      ${EndIf}
+        
+      # Localization
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Localization"
+      SetOutPath $PatchDir\doc
+      File ..\trunk\doc\DiseaseLocalizationDefaults.xls
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Localization
+      ${If} $LocalizationVersion > $0
+        StrCpy $Phase "Updating localization"
+        ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls` $JavaError
+        Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
+      ${Else}
+        DetailPrint "Skipping Localization because it is already up to date"
+      ${EndIf}
+    
+      # Permissions
+      !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Permissions"
+      SetOutPath $PatchDir\doc
+      File ..\trunk\doc\permissions\Permissions.xls
+      ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" Permissions
+      ${If} $PermissionsVersion > $0
+        StrCpy $Phase "Updating permissions"
+        ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
+        Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
+      ${Else}
+        DetailPrint "Skipping Permissions because they are already up to date"
+      ${EndIf}
+    
+      # Switch back to the deploy environment
+      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
+      Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
+	
+	  # Update the .css file with the correct pathing
+      ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -itrue -p`
+    
+      # Copy the profile to the backup manager
+      CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+      CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
+    
+      # Write updated versions into registry 
+      WriteRegStr HKLM "${REGKEY}\Components" Main 1
+      WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
+    
+      # We need to clear the old cache
+      Delete $INSTDIR\tomcat6\$AppName.index
+      Delete $INSTDIR\tomcat6\$AppName.data	
+	${Else}
+        DetailPrint "The application $AppName is already up to date."
+    ${EndIf}
+    
+FunctionEnd
+
+Function patchAllMetadata
+  ClearErrors
+  FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
+      
+  appNameFileReadLoop:
+    # Read a line from the file into $1
+    FileRead $0 $1
+      
+    # Errors means end of File
+    IfErrors appNameDone
+      
+    # Removes the newline from the end of $1
+    ${StrTrimNewLines} $1 $1
+    
+    Push $1
+    Pop $AppName  
+      
+    Call patchMetadata
+    
+  Goto appNameFileReadLoop
+          
+  appNameDone:
+  ClearErrors
+  FileClose $0      
+FunctionEnd
+
+
+Function patchMetadata  
   ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" RunwayVersion  
   ${If} $RunwayVersion > $0
     StrCpy $TargetLoc "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF"    
@@ -169,23 +381,23 @@ Function patchManager
     SetOutPath $INSTDIR
     File ..\standalone\patch\manager.bat
     File ..\standalone\patch\manager.ico	
-    SetOutPath $INSTDIR\backup-manager-1.0.0
-    SetOutPath $INSTDIR\ddms-initializer-1.0.0
+    SetOutPath $INSTDIR\manager\backup-manager-1.0.0
+    SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
     File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
-    SetOutPath $INSTDIR\geo-manager-1.0.0
+    SetOutPath $INSTDIR\manager\geo-manager-1.0.0
     File /r /x .svn ..\standalone\geo-manager-1.0.0\*
-    SetOutPath $INSTDIR\manager-1.0.0
+    SetOutPath $INSTDIR\manager\manager-1.0.0
     File /r /x .svn /x *applications.txt ..\standalone\manager-1.0.0\*
-    SetOutPath $INSTDIR\synch-manager-1.0.0
+    SetOutPath $INSTDIR\manager\synch-manager-1.0.0
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
-    SetOutPath $INSTDIR\keystore
+    SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
     	
     ################################################################################
     # Copy any updated runway properties to all of the backedup profile directories
     ################################################################################
     ClearErrors
-    FileOpen $0 $INSTDIR\manager-1.0.0\classes\applications.txt r
+    FileOpen $0 $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
     
     appNameFileReadLoop:
     # Read a line from the file into $1
@@ -198,7 +410,7 @@ Function patchManager
     ${StrTrimNewLines} $1 $1
     
     # Copy over updated runway properties
-    SetOutPath $INSTDIR\backup-manager-1.0.0\profiles\$1
+    SetOutPath $INSTDIR\manager\backup-manager-1.0.0\profiles\$1
     File /r /x .svn ..\standalone\patch\profiles\*
   
     Goto appNameFileReadLoop
