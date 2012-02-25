@@ -185,7 +185,9 @@ Function patchApplication
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} $PatchVersion > $0     
-	
+
+      MessageBox MB_YESNO "Patch application $AppName?" IDYES true IDNO false	
+	  true:
 	  # Update the classpath to reference the particular application being patched
       StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
 
@@ -310,6 +312,11 @@ Function patchApplication
       # We need to clear the old cache
       Delete $INSTDIR\tomcat6\$AppName.index
       Delete $INSTDIR\tomcat6\$AppName.data	
+	  Goto next
+	  false:
+	  DetailPrint "Skipping patch of $AppName"
+	  next:	  
+
 	${Else}
         DetailPrint "The application $AppName is already up to date."
     ${EndIf}
@@ -320,28 +327,27 @@ Function patchAllMetadata
   ClearErrors
   FileOpen $AppFile $INSTDIR\manager\manager-1.0.0\classes\applications.txt r
       
-  appNameFileReadLoop:
-    # Read a line from the file into $1
-    FileRead $AppFile $1
+  metadataLoop:
+  # Read a line from the file into $1
+  FileRead $AppFile $1
       
-    # Errors means end of File
-    IfErrors appNameDone
+  # Errors means end of File
+  IfErrors metadataLoopDone
       
-    # Removes the newline from the end of $1
-    ${StrTrimNewLines} $1 $1
+  # Removes the newline from the end of $1
+  ${StrTrimNewLines} $1 $1
     
-    Push $1
-    Pop $AppName  
-      
-    Call patchMetadata
-    
-  Goto appNameFileReadLoop
-          
-  appNameDone:
-  ClearErrors
-  FileClose $AppFile      
-FunctionEnd
+  Push $1
+  Pop $AppName
 
+  Call patchMetadata
+
+  Goto metadataLoop
+          
+  metadataLoopDone:
+  ClearErrors
+  FileClose $AppFile
+FunctionEnd
 
 Function patchMetadata  
   ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" RunwayVersion  
@@ -371,7 +377,9 @@ Function patchMetadata
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
   ${Else}
     DetailPrint "Runway metadata for application $AppName is already up to date"
-  ${EndIf}          
+  ${EndIf}
+  
+  ClearErrors  
 FunctionEnd
 
 Function patchManager

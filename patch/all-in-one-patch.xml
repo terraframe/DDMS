@@ -20,7 +20,7 @@
 	</typedef>
 
 <!--	<target name="build"> -->
-	<target name="build" depends="setup-files">
+	<target name="build">
 	
 		<!-- Get revision info from svn -->
 		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
