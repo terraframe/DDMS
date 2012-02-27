@@ -121,14 +121,11 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
         case SMTPS:
           port = 465;
 
-          MailSSLSocketFactory factory = new MailSSLSocketFactory();
-          factory.setTrustAllHosts(true);
-
           props.put("mail.transport.protocol", "smtps");
-          props.put("mail.smtps.host", smtp);
-          props.put("mail.smtps.auth", "true");
-          //props.put("mail.smtp.ssl.enable", "true");
-          props.put("mail.smtp.ssl.socketFactory", factory);
+          props.put("mail.smtp.host", smtp);
+          props.put("mail.smtp.auth", "true");
+          props.put("mail.smtp.ssl.enable", "true");
+          props.put("mail.smtp.ssl.trust", "*");
 
           break;
       }
