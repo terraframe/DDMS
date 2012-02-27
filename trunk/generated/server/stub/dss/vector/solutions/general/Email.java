@@ -17,6 +17,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.sun.mail.util.MailSSLSocketFactory;
 
 import dss.vector.solutions.MdssLog;
 
@@ -100,30 +101,38 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
   public synchronized boolean send(String smtp, EmailProtocol protocol, String userid, String password)
   {
     boolean sent = false;
-    Properties props = new Properties();
-    int port = 25;
-
-    switch (protocol)
-    {
-      case SMTP_TLS:
-        port = 587;
-        props.put("mail.smtp.starttls.enable", "true");
-        // Also apply SMTP settings
-      case SMTP:
-        // use default port 25 for SMTP
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", smtp);
-        break;
-      case SMTPS:
-        port = 465;
-        props.put("mail.transport.protocol", "smtps");
-        props.put("mail.smtps.host", smtp);
-        props.put("mail.smtps.auth", "true");
-        break;
-    }
-
+    
     try
     {
+      Properties props = new Properties();
+      int port = 25;
+
+      switch (protocol)
+      {
+        case SMTP_TLS:
+          port = 587;
+          props.put("mail.smtp.starttls.enable", "true");
+          // Also apply SMTP settings
+        case SMTP:
+          // use default port 25 for SMTP
+          props.put("mail.transport.protocol", "smtp");
+          props.put("mail.smtp.host", smtp);
+          break;
+        case SMTPS:
+          port = 465;
+
+          MailSSLSocketFactory factory = new MailSSLSocketFactory();
+          factory.setTrustAllHosts(true);
+
+          props.put("mail.transport.protocol", "smtps");
+          props.put("mail.smtps.host", smtp);
+          props.put("mail.smtps.auth", "true");
+          //props.put("mail.smtp.ssl.enable", "true");
+          props.put("mail.smtp.ssl.socketFactory", factory);
+
+          break;
+      }
+
       // Get the current session
       Session session = Session.getInstance(props);
       // session.setDebug(true);
@@ -141,14 +150,14 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
       msg.setText(this.getBody());
       /*
        * Multipart mp = new MimeMultipart("alternative");
-       *
+       * 
        * Iterator iterator = doc.getBodyParts().keySet().iterator(); while
        * (iterator.hasNext()) { String mimeType = (String)iterator.next();
        * String partContent = (String) doc.getBodyParts().get(mimeType);
-       *
+       * 
        * BodyPart part = new MimeBodyPart(); part.setContent(partContent,
        * mimeType); mp.addBodyPart(part); }
-       *
+       * 
        * msg.setContent(mp);
        */
 
@@ -170,7 +179,7 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
     catch (Exception e)
     {
       MdssLog.error("Exception when sending email", e);
-      
+
       this.lock();
       this.setError(new Date() + ": " + e.getLocalizedMessage());
       this.apply();
