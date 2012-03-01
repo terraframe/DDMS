@@ -140,19 +140,6 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
       // Set the subject and body text
       msg.setSubject(this.getSubject());
       msg.setText(this.getBody());
-      /*
-       * Multipart mp = new MimeMultipart("alternative");
-       *
-       * Iterator iterator = doc.getBodyParts().keySet().iterator(); while
-       * (iterator.hasNext()) { String mimeType = (String)iterator.next();
-       * String partContent = (String) doc.getBodyParts().get(mimeType);
-       *
-       * BodyPart part = new MimeBodyPart(); part.setContent(partContent,
-       * mimeType); mp.addBodyPart(part); }
-       *
-       * msg.setContent(mp);
-       */
-
       msg.saveChanges();
 
       // Send the message
