@@ -119,6 +119,7 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
         props.put("mail.transport.protocol", "smtps");
         props.put("mail.smtps.host", smtp);
         props.put("mail.smtps.auth", "true");
+        
         break;
     }
 
