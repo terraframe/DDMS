@@ -94,6 +94,13 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
   @Transaction
   public synchronized boolean send(String smtp, EmailProtocol protocol, String userid, String password)
   {
+    System.out.println(System.getProperty("java.home"));
+
+//    String store = "/etc/java-6-sun/security/cacerts";
+    String store = "C:/MDSS/Java/jdk1.6.0_16/jre/lib/security/cacerts";
+    
+    System.setProperty("javax.net.ssl.trustStore", store);
+
     org.apache.commons.mail.Email email = new SimpleEmail();
     email.setHostName(smtp);
 
@@ -145,6 +152,8 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
     }
     catch (Exception e)
     {
+      e.printStackTrace();
+      
       MdssLog.error("Exception when sending email", e);
 
       this.lock();
