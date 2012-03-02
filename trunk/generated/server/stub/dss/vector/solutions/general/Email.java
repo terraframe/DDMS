@@ -2,16 +2,11 @@ package dss.vector.solutions.general;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
+import java.util.LinkedList;
+import java.util.List;
 
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.Message.RecipientType;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import org.apache.commons.mail.DefaultAuthenticator;
+import org.apache.commons.mail.SimpleEmail;
 
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -99,83 +94,79 @@ public class Email extends EmailBase implements com.runwaysdk.generation.loader.
   @Transaction
   public synchronized boolean send(String smtp, EmailProtocol protocol, String userid, String password)
   {
-    boolean sent = false;
-    Properties props = new Properties();
-    int port = 25;
+    org.apache.commons.mail.Email email = new SimpleEmail();
+    email.setHostName(smtp);
 
     switch (protocol)
     {
       case SMTP_TLS:
-        port = 587;
-        props.put("mail.smtp.starttls.enable", "true");
-        // Also apply SMTP settings
+        email.setSmtpPort(587);
+        email.setTLS(true);
+        break;
       case SMTP:
-        // use default port 25 for SMTP
-        props.put("mail.transport.protocol", "smtp");
-        props.put("mail.smtp.host", smtp);
+        email.setSmtpPort(25);
         break;
       case SMTPS:
-        port = 465;
-        props.put("mail.transport.protocol", "smtps");
-        props.put("mail.smtps.host", smtp);
-        props.put("mail.smtps.auth", "true");
-        
+        email.setSmtpPort(465);
+        email.setSSL(true);
+        email.setTLS(true);
         break;
     }
 
     try
     {
-      // Get the current session
-      Session session = Session.getInstance(props);
-      // session.setDebug(true);
-
-      // Create a new message
-      Message msg = new MimeMessage(session);
-      // Set the FROM and TO fields
-      msg.setFrom(new InternetAddress(this.getFromAddress()));
-      this.addRecipients(msg, Message.RecipientType.TO, this.getToAddresses());
-      this.addRecipients(msg, Message.RecipientType.CC, this.getCcAddresses());
-      this.addRecipients(msg, Message.RecipientType.BCC, this.getBccAddresses());
-
-      // Set the subject and body text
-      msg.setSubject(this.getSubject());
-      msg.setText(this.getBody());
-      msg.saveChanges();
-
-      // Send the message
-      Transport transport = session.getTransport();
-      transport.connect(smtp, port, userid, password);
-      transport.sendMessage(msg, msg.getAllRecipients());
-      transport.close();
+      email.setAuthenticator(new DefaultAuthenticator(userid, password));
+      email.setFrom(this.getFromAddress());
+      
+      for(String address : this.getAddresses(this.getToAddresses()))
+      {
+        email.addTo(address);
+      }
+      
+      for(String address : this.getAddresses(this.getCcAddresses()))
+      {
+        email.addCc(address);
+      }
+      
+      for(String address : this.getAddresses(this.getBccAddresses()))
+      {
+        email.addBcc(address);
+      }
+      email.setSubject(this.getSubject());
+      email.setMsg(this.getBody());
+      email.send();
 
       // Update this email object
       this.lock();
       this.setSentDate(new Date());
       this.apply();
 
-      sent = true;
+      return true;
     }
     catch (Exception e)
     {
       MdssLog.error("Exception when sending email", e);
-      
+
       this.lock();
       this.setError(new Date() + ": " + e.getLocalizedMessage());
       this.apply();
     }
 
-    return sent;
+    return false;
   }
 
-  private void addRecipients(Message msg, RecipientType type, String addressList) throws AddressException, MessagingException
+  private List<String> getAddresses(String addressList)
   {
+    List<String> list = new LinkedList<String>();
     if (addressList != null && addressList.length() > 0)
     {
       String[] addresses = addressList.split(",");
-      for (int i = 0; i < addresses.length; i++)
+      for (String address : addresses)
       {
-        msg.addRecipient(type, new InternetAddress(addresses[i].trim()));
+        list.add(address.trim());
       }
     }
+    
+    return list;
   }
 }
