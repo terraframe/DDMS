@@ -30,11 +30,13 @@ import com.runwaysdk.dataaccess.attributes.entity.AttributeStruct;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+import com.runwaysdk.dataaccess.database.EntityDAOFactory;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.dataaccess.metadata.SupportedLocaleDAO;
+import com.runwaysdk.dataaccess.transaction.ActionEnumDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Request;
@@ -48,7 +50,7 @@ public class MdssLocalizationImporter implements Reloadable
   private HSSFSheet  exceptionSheet;
 
   private HSSFSheet  termSheet;
-  
+
   private HSSFSheet  entityLabelSheet;
 
   private HSSFSheet  labelSheet;
@@ -489,7 +491,13 @@ public class MdssLocalizationImporter implements Reloadable
     if (apply)
     {
       struct.apply();
+
+      // We need to apply the entity to ensure that the localization changes are
+      // logged in the transaction record
+      entity.apply();
+
       ObjectCache.updateCache(entity);
+
       modifiedCount++;
     }
   }
