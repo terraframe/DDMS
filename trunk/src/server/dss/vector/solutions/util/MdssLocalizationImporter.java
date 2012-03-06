@@ -24,6 +24,7 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.dataaccess.EntityDAO;
 import com.runwaysdk.dataaccess.StructDAO;
 import com.runwaysdk.dataaccess.attributes.entity.AttributeStruct;
@@ -492,11 +493,14 @@ public class MdssLocalizationImporter implements Reloadable
     {
       struct.apply();
 
+      ObjectCache.updateCache(entity);
+
       // We need to apply the entity to ensure that the localization changes are
       // logged in the transaction record
-      entity.apply();
-
-      ObjectCache.updateCache(entity);
+      if (ServerProperties.logTransactions())
+      {
+        EntityDAOFactory.logTransactionItem(entity, ActionEnumDAO.UPDATE, true);
+      }
 
       modifiedCount++;
     }
