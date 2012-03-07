@@ -17,6 +17,8 @@ import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.SystemException;
+import com.runwaysdk.business.rbac.ActorDAO;
+import com.runwaysdk.business.rbac.ActorDAOIF;
 import com.runwaysdk.business.rbac.Operation;
 import com.runwaysdk.business.rbac.RoleDAO;
 import com.runwaysdk.business.rbac.RoleDAOIF;
@@ -35,15 +37,14 @@ import com.runwaysdk.dataaccess.metadata.MdMethodDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.query.OIterator;
-import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.PermissionBuilder;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.Roles;
 
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
-import dss.vector.solutions.general.SystemURLQuery;
 
 public class PermissionImporter implements Reloadable
 {
@@ -81,6 +82,37 @@ public class PermissionImporter implements Reloadable
     this.readURLSheet(workbook);
     this.readVisibilitySheet(workbook);
     this.readRoleAssignment(workbook);
+    this.serializeURLRoles();
+  }
+
+  private void serializeURLRoles()
+  {
+    Set<String> keys = this.systemURLs.keySet();
+
+    for (String key : keys)
+    {
+      SystemURL url = this.systemURLs.get(key);
+
+      for (Disease disease : diseases)
+      {
+        String[] actionKeys = new String[] { "READ", "WRITE" };
+
+        for (String actionKey : actionKeys)
+        {
+          PermissionFactory factory = new PermissionFactory(actionKey);
+
+          PermissionAction action = factory.getAction(url, disease);
+          Roles role = action.getRole();
+
+          ActorDAOIF actor = (ActorDAOIF) ActorDAO.get(role.getId());
+          
+          new PermissionBuilder(actor).serialize();
+        }
+      }
+    }
+
+    RoleDAO role = RoleDAO.findRole(RoleDAOIF.PUBLIC_ROLE).getBusinessDAO();
+    new PermissionBuilder(role).serialize();
   }
 
   @SuppressWarnings("unchecked")
@@ -315,7 +347,7 @@ public class PermissionImporter implements Reloadable
     if (!this.systemURLs.containsKey(urlKey))
     {
       SystemURL url = SystemURL.getByURL(urlKey);
-      
+
       if (url != null)
       {
         this.systemURLs.put(urlKey, url);
