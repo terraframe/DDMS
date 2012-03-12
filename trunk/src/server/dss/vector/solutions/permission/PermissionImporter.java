@@ -3,6 +3,7 @@ package dss.vector.solutions.permission;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -434,8 +435,20 @@ public class PermissionImporter implements Reloadable
     }
   }
 
-  @Request
   public static void main(String[] args) throws Exception
+  {
+    try
+    {
+      PermissionImporter.start(args);
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+
+  @Request
+  private static void start(String[] args) throws FileNotFoundException
   {
     String fileName = "Permissions.xls";
     File file = new File(fileName);
@@ -460,7 +473,5 @@ public class PermissionImporter implements Reloadable
 
     PermissionImporter importer = new PermissionImporter();
     importer.read(new BufferedInputStream(new FileInputStream(file)));
-
-    CacheShutdown.shutdown();
   }
 }

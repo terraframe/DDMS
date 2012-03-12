@@ -78,8 +78,20 @@ public class MdssLocalizationImporter implements Reloadable
 
   private static int modifiedCount = 0;
 
-  @Request
   public static void main(String[] args) throws FileNotFoundException
+  {
+    try
+    {
+      MdssLocalizationImporter.start(args);
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+
+  @Request
+  private static void start(String[] args) throws FileNotFoundException
   {
     // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
@@ -110,8 +122,6 @@ public class MdssLocalizationImporter implements Reloadable
 
     long stop = System.currentTimeMillis();
     System.out.println("\nImported in " + ( stop - start ) / 1000.0 + " seconds");
-
-    CacheShutdown.shutdown();
   }
 
   public MdssLocalizationImporter()
@@ -141,15 +151,6 @@ public class MdssLocalizationImporter implements Reloadable
     updateProperties(InstallProperties.getGeoClasses(), "localization", geoSheet);
     updateProperties(InstallProperties.getInitializerClasses(), "localization", initializerSheet);
     updateProperties(InstallProperties.getBackupClasses(), "localization", backupSheet);
-
-    // Demerge perhaps?
-    // for (LocaleDimension ld : getColumnHeaders(propertySheet))
-    // {
-    // if (ld.hasDimension())
-    // {
-    // mergeProperties(ld);
-    // }
-    // }
   }
 
   @SuppressWarnings("unused")
@@ -497,7 +498,7 @@ public class MdssLocalizationImporter implements Reloadable
 
       // We need to apply the entity to ensure that the localization changes are
       // logged in the transaction record
-      if (ServerProperties.logTransactions())
+      if (ServerProperties.logTransactions() && (entity.getSiteMaster() != null && entity.getSiteMaster().length() > 0))
       {
         EntityDAOFactory.logTransactionItem(entity, ActionEnumDAO.UPDATE, true);
       }
