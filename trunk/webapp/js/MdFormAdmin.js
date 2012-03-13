@@ -401,7 +401,7 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     },
     enableDropZone : function(plusEl){
       plusEl.style.backgroundColor = '#000000';
-      plusEl.style.backgroundImage = 'URL("/DDMS/imgs/icons/tick.png")';
+      plusEl.style.backgroundImage = 'URL(imgs/icons/tick.png)';
     },
     disableDropZone : function(plusEl){
       plusEl.style.backgroundColor = '';
