@@ -1,7 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
+<%@ taglib uri="http://jawr.net/tags" prefix="jwr"%>
 <%@page import="com.runwaysdk.business.ClassQueryDTO"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="com.runwaysdk.transport.attributes.AttributeDTO"%>
@@ -26,21 +27,25 @@
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.runwaysdk.constants.MdAttributeConcreteInfo"%>
 <%@page import="com.runwaysdk.constants.MdAttributeVirtualInfo"%>
-<%@page import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page
+	import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
+<%@page
+	import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.util.ReadableAttributeViewDTO"%>
 <%@page import="java.util.Set"%>
-<%@page import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
+<%@page
+	import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
-<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set var="page_title" value="Query_Mosquito_Collections"  scope="request"/>
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set
+	var="page_title" value="Query_Mosquito_Collections" scope="request" />
 
-<jsp:include page="../templates/header.jsp"/>
-<jsp:include page="/WEB-INF/inlineError.jsp"/>
-<jwr:script src="/bundles/queryBundle.js" useRandomParam="false"/>
-<jsp:include page="/WEB-INF/selectSearch.jsp"/>
+<jsp:include page="../templates/header.jsp" />
+<jsp:include page="/WEB-INF/inlineError.jsp" />
+<jwr:script src="/bundles/queryBundle.js" useRandomParam="false" />
+<jsp:include page="/WEB-INF/selectSearch.jsp" />
 
 <%
     ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
@@ -56,10 +61,6 @@
 <%=Halp.loadTypes(loadables)%>
 
 <script type="text/javascript">
-// Setting both values to false will select *all* univerals
-MDSS.AbstractSelectSearch.Political = false;
-MDSS.AbstractSelectSearch.SprayTargetAllowed = false;
-
 
 YAHOO.util.Event.onDOMReady(function(){
 
@@ -215,8 +216,11 @@ YAHOO.util.Event.onDOMReady(function(){
     var query = new MDSS.QueryMosquitoCollections(selectableGroups, queryList);
     query.render();
 
-    var picker = query.getGeoPicker();
-    picker.addExtraUniversal('<%= CollectionSiteDTO.CLASS %>');
+    var picker = query.getGeoPicker();      
+    picker.setPolitical(true);
+    picker.setSprayTargetAllowed(false);
+    picker.addExtraUniversal('<%=CollectionSiteDTO.CLASS%>');
+    picker.addExtraUniversal('<%=SentinelSiteDTO.CLASS%>');
 
     var dm = query.getDependencyManager();
 
