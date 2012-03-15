@@ -46,6 +46,7 @@ import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.generator.FormSystemURLBuilder;
 
 public class PermissionImporter implements Reloadable
 {
@@ -106,8 +107,15 @@ public class PermissionImporter implements Reloadable
           Roles role = action.getRole();
 
           ActorDAOIF actor = (ActorDAOIF) ActorDAO.get(role.getId());
-          
-          new PermissionBuilder(actor).serialize();
+
+          if (url.getUrl().equals(FormSystemURLBuilder.FORM_SURVEY_CRUD_URL) || url.getUrl().equals(FormSystemURLBuilder.FORM_SURVEY_QUERY_URL))
+          {
+            new PermissionBuilder(actor).cleanup();
+          }
+          else
+          {
+            new PermissionBuilder(actor).serialize();
+          }
         }
       }
     }

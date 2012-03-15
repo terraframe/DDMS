@@ -65,13 +65,13 @@ public class FormSystemURLBuilder implements Reloadable
    * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
    * form survey query url
    */
-  private static final String FORM_SURVEY_QUERY_URL = "dss.vector.solutions.query.QueryController.queryFormSurvey.mojo";
+  public static final String FORM_SURVEY_QUERY_URL = "dss.vector.solutions.query.QueryController.queryFormSurvey.mojo";
 
   /**
    * IMPORTANT: THIS VALUE MUST MATCH THE KEY DEFINED IN MenuItems.xls for the
    * form survey view all url
    */
-  private static final String FORM_SURVEY_CRUD_URL  = "dss.vector.solutions.form.business.FormSurveyController.viewAll.mojo";
+  public static final String FORM_SURVEY_CRUD_URL  = "dss.vector.solutions.form.business.FormSurveyController.viewAll.mojo";
 
   /**
    * Prefix to add to before all generated CRUD URLs
