@@ -1,0 +1,16 @@
+<version
+  xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <permissions>
+      <method
+        methodName="getAvailableCompositeFields"
+        type="dss.vector.solutions.generator.MdFormUtil">
+        <assignedRole roleName="Administrator"/>
+      </method>
+    </permissions>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

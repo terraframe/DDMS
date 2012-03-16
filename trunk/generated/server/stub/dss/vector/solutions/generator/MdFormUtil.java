@@ -243,6 +243,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     return busObj;
   }
 
+  @Authenticate
   public static MdFieldTypeQuery getAvailableCompositeFields()
   {
     InstallProperties.validateMasterOperation();
