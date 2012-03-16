@@ -1,9 +1,14 @@
 package dss.vector.solutions.admin.controller;
 
+import java.io.File;
+
+import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
+import com.runwaysdk.manager.controller.IConfiguration;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.admin.MDSSModule;
 import dss.vector.solutions.ontology.AllPaths;
@@ -32,7 +37,7 @@ public class ModuleController implements IModuleController
       Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.geo.generated.GeoEntity");
       clazz.getMethod("buildAllPathsFastInner").invoke(null);
 
-//      GeoEntity.buildAllPathsFastInner();
+      // GeoEntity.buildAllPathsFastInner();
     }
     catch (Exception e)
     {
@@ -54,7 +59,7 @@ public class ModuleController implements IModuleController
     {
       Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.ontology.AllPaths");
       clazz.getMethod("rebuildAllPathsInner").invoke(null);
-//      AllPaths.rebuildAllPathsInner();
+      // AllPaths.rebuildAllPathsInner();
     }
     catch (Exception e)
     {
@@ -105,6 +110,26 @@ public class ModuleController implements IModuleController
     }
   }
 
+  @Override
+  public void deletePermissionCache()
+  {
+    IConfiguration configuration = this.module.getConfiguration();
+
+    if (configuration != null && configuration instanceof SlaveConfiguration)
+    {
+      try
+      {
+        String cacheDirectory = LocalProperties.getPermissionCacheDirectory();
+
+        FileIO.deleteDirectory(new File(cacheDirectory));
+      }
+      catch (Exception e)
+      {
+        module.asyncError(e);
+      }
+    }
+  }
+
   @Request
   public boolean hasAllPathTables()
   {
@@ -117,7 +142,7 @@ public class ModuleController implements IModuleController
     {
       Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.ontology.AllPaths");
       return (Boolean) clazz.getMethod("containsValues").invoke(null);
-//      return AllPaths.containsValues();
+      // return AllPaths.containsValues();
     }
     catch (Exception e)
     {
@@ -134,7 +159,7 @@ public class ModuleController implements IModuleController
       Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.geo.AllPaths");
       return (Boolean) clazz.getMethod("containsValues").invoke(null);
 
-//      return dss.vector.solutions.geo.AllPaths.containsValues();
+      // return dss.vector.solutions.geo.AllPaths.containsValues();
     }
     catch (Exception e)
     {

@@ -11,6 +11,8 @@ public interface IModuleController
   public void deleteGeoPaths();
 
   public void deleteTermPaths();
+  
+  public void deletePermissionCache();
 
   public boolean hasAllPathTables();
 }

@@ -17,6 +17,7 @@ import org.eclipse.swt.widgets.Display;
 
 import com.runwaysdk.dataaccess.transaction.IPropertyListener;
 import com.runwaysdk.dataaccess.transaction.ITaskListener;
+import com.runwaysdk.manager.controller.IConfiguration;
 import com.runwaysdk.manager.controller.IModule;
 import com.runwaysdk.manager.general.IMenuManager;
 import com.runwaysdk.manager.general.IWindow;
@@ -113,6 +114,8 @@ public class MDSSModule implements IModule, IPropertyListener
 
       controller.deleteTermPaths();
 
+      controller.deletePermissionCache();
+
       monitor.done();
     }
   }
@@ -148,6 +151,8 @@ public class MDSSModule implements IModule, IPropertyListener
 
   private String             tomcatRoot;
 
+  private IConfiguration     configuration;
+
   public MDSSModule(String appName)
   {
     this(DEFAULT_TOMCAT, appName);
@@ -161,12 +166,19 @@ public class MDSSModule implements IModule, IPropertyListener
 
     // Window is set in the init method which is called from the super class
     this.window = null;
+    this.configuration = null;
   }
 
   @Override
   public void init(IWindow window)
   {
     this.window = window;
+    this.configuration = window.getConfiguration();
+  }
+
+  public IConfiguration getConfiguration()
+  {
+    return configuration;
   }
 
   @Override
