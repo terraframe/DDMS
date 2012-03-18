@@ -801,6 +801,32 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     }
   }
 
+  /**
+   * Returns all fields in order for the MdWebForm.
+   * 
+   * @param form
+   * @return
+   */
+  public static MdWebField[] getAllFields(MdWebForm form)
+  {
+    MdWebFieldQuery q = new MdWebFieldQuery(new QueryFactory());
+    
+    q.WHERE(q.getDefiningMdForm().EQ(form));
+    q.ORDER_BY_ASC(q.getFieldOrder());
+    
+    OIterator<? extends MdWebField> iterator = q.getIterator();
+    
+    try
+    {
+      List<? extends MdWebField> fields = iterator.getAll();
+      return fields.toArray(new MdWebField[fields.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+  
   public static MdWebField[] getFieldsById(String id)
   {
     MdWebForm form = MdWebForm.get(id);

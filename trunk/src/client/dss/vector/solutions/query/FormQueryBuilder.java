@@ -113,7 +113,7 @@ public class FormQueryBuilder implements Reloadable
 
     this.typesToLoad.add(classType);
 
-    MdWebFieldDTO[] fields = MdFormUtilDTO.getFields(request, form);
+    MdWebFieldDTO[] fields = MdFormUtilDTO.getAllFields(request, form);
 
     Set<String> readableAttributeNames = Halp.getReadableAttributeNames(classType, request);
     Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap = this.getReadableFieldMap(fields, readableAttributeNames);
