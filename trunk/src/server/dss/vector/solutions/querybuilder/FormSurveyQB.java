@@ -1,6 +1,9 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.Collection;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.json.JSONObject;
 
@@ -39,6 +42,8 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    this.prepareQueryMap(queryFactory, valueQuery, queryMap);
+
     FormSurveyQuery surveyQuery = (FormSurveyQuery) queryMap.get(FormSurvey.CLASS);
     FormHouseholdQuery householdQuery = (FormHouseholdQuery) queryMap.get(FormHousehold.CLASS);
     FormBedNetQuery bedNetQuery = (FormBedNetQuery) queryMap.get(FormBedNet.CLASS);
@@ -97,7 +102,7 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
         // left join against the person if person is in this query
         LeftJoinEq leftJoin = personQuery.getNet().LEFT_JOIN_EQ(bedNetQuery);
         valueQuery.WHERE(leftJoin);
-        
+
         this.addGeoDisplayLabelQuery(bedNetQuery);
         QueryUtil.leftJoinTermDisplayLabels(valueQuery, bedNetQuery, bedNetQuery.getId().getColumnAlias());
         QueryUtil.setQueryDates(xml, valueQuery, queryConfig, queryMap, bedNetQuery.get(MdFormUtil.DISEASE));
@@ -111,14 +116,74 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
 
     return valueQuery;
   }
-  
+
+  private void prepareQueryMap(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    Collection<String> parentClasses = this.getGridParentClasses(valueQuery);
+
+    if (parentClasses.contains(FormHousehold.CLASS) && !queryMap.containsKey(FormHousehold.CLASS))
+    {
+      queryMap.put(FormHousehold.CLASS, new FormHouseholdQuery(queryFactory));
+    }
+    if (parentClasses.contains(FormBedNet.CLASS) && !queryMap.containsKey(FormBedNet.CLASS))
+    {
+      queryMap.put(FormBedNet.CLASS, new FormBedNetQuery(queryFactory));
+    }
+    if (parentClasses.contains(FormPerson.CLASS) && !queryMap.containsKey(FormPerson.CLASS))
+    {
+      queryMap.put(FormPerson.CLASS, new FormPersonQuery(queryFactory));
+    }
+  }
+
+  public Collection<String> getGridParentClasses(ValueQuery valueQuery)
+  {
+    Set<String> set = new TreeSet<String>();
+
+    for (Selectable s : valueQuery.getSelectableRefs())
+    {
+      while (s instanceof Function)
+      {
+        Function f = (Function) s;
+        s = f.getSelectable();
+      }
+
+      if (s instanceof SelectableSQL)
+      {
+        String gridAlias = s.getUserDefinedAlias();
+        int index1 = gridAlias.indexOf("__");
+        int index2 = gridAlias.lastIndexOf("__");
+        if (index1 > 0 && index2 > 0 && index1 != index2)
+        {
+
+          String attrib = gridAlias.substring(0, index1);
+
+          // here we make a dummy value when the relationship has no ammount
+          if (attrib.equals(QueryUtil.DUMMY_RELATIONSHIP_VALUE_ONE))
+          {
+            attrib = QueryUtil.DUMMY_RELATIONSHIP_VALUE_COL;
+          }
+
+          String klass = gridAlias.substring(index1 + 2, index2).replace("_", ".");
+
+          MdRelationshipDAOIF mdRel = MdRelationshipDAO.getMdRelationshipDAO(klass);
+
+          set.add(mdRel.getParentMdBusiness().definesType());
+        }
+      }
+    }
+
+    return set;
+  }
+
   /**
-   * Gets the grid attributes for the given GeneratedEntityQuery. This also checks that the given query
-   * actually defines the grid, whereas the version defined in QueryUtil doesn't do that.
+   * Gets the grid attributes for the given GeneratedEntityQuery. This also
+   * checks that the given query actually defines the grid, whereas the version
+   * defined in QueryUtil doesn't do that.
    * 
    * @param valueQuery
    * @param query
-   * @param idColumnAlias TODO
+   * @param idColumnAlias
+   *          TODO
    * @return
    */
   private boolean getSingleAttributeGridSql(ValueQuery valueQuery, GeneratedEntityQuery query, String idColumnAlias)
@@ -154,16 +219,16 @@ public class FormSurveyQB extends AbstractQB implements Reloadable
           String term_id = gridAlias.substring(index2 + 2, gridAlias.length());
 
           MdRelationshipDAOIF mdRel = MdRelationshipDAO.getMdRelationshipDAO(klass);
-          
+
           // make sure the given query is the parent type in the relationship
           // FIXME does not take inheritance into account
           String parentClass = mdRel.getParentMdBusiness().definesType();
           String queryClass = query.getClassType();
-          if(!parentClass.equals(queryClass))
+          if (!parentClass.equals(queryClass))
           {
             continue;
           }
-          
+
           String table = mdRel.getTableName();
 
           String attrCol;
