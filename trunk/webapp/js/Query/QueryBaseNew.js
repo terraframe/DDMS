@@ -221,6 +221,10 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqldate('', n, k));
           }
+          else if(t == 'sqllong')
+          {
+            var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqllong('', n, k));
+          }
           else
           {
             var whereSelectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Attribute(t,n,k));
@@ -429,6 +433,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
       }else
+      if(attribute.getType() == 'sqllong'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqllong('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }else
       if(attribute.getType() == 'sqlfloat'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),attribute._isAggregate));
         selectable.attribute = attribute;
@@ -629,6 +639,12 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
          column.attribute = attribute;
       }
+      if(attribute.getType() == 'sqllong'){
+        var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqllong('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
+        selectable.attribute = attribute;
+        var column = new YAHOO.widget.Column({ key: attribute.getKey(),label: attribute.getDisplayLabel()});
+         column.attribute = attribute;
+      }
       
       if(attribute.getType() == 'sqlfloat'){
         var selectable = new MDSS.QueryXML.Selectable(new MDSS.QueryXML.Sqlfloat('', attributeName, attribute.getKey(),attribute.getDisplayLabel(),false));
@@ -817,6 +833,11 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           
         },
         sqlinteger: function(entityAlias, attributeName, userAlias){
+          
+          var checked = thisRef._checkBox(userAlias);
+          thisRef._setNumberCriteriaFromLoad(checked, userAlias);
+        },
+        sqllong: function(entityAlias, attributeName, userAlias){
           
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);

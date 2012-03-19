@@ -539,6 +539,37 @@ MDSS.QueryXML.Sqlinteger.prototype = {
   }
 }
 
+MDSS.QueryXML.Sqllong = function(entityAlias, name, userAlias, userDisplayLabel, isAggregate)
+{
+  this._entityAlias = entityAlias;
+  this._name = name;
+  this._userAlias = userAlias || '';
+  this._userDisplayLabel = userDisplayLabel || '';
+  this._isAggregate = isAggregate || false;
+}
+MDSS.QueryXML.Sqllong.prototype = {
+
+  getName : function() { return this._name; },
+
+  getEntityAlias : function() { return this._entityAlias; },
+
+  getUserAlias : function() { return this._userAlias; },
+  
+  build : function()
+  {
+    var obj = {
+      'sqllong': {
+        'name': this._name,
+        'userAlias': this._userAlias,
+        'userDisplayLabel': this._userDisplayLabel,
+        'isaggregate': this._isAggregate
+      }
+    };
+
+    return obj;
+  }
+}
+
 
 MDSS.QueryXML.Sqlfloat = function(entityAlias, name, userAlias, userDisplayLabel, isAggregate)
 {

@@ -19,7 +19,7 @@ public class TermLongOption extends SelectableOption implements Reloadable
   @Override
   public String getType()
   {
-    return "sqlbigint";
+    return "sqllong";
   }
 
 }
