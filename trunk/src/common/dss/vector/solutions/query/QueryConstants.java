@@ -104,7 +104,7 @@ public class QueryConstants implements Reloadable
 
     QUERY_AGGREGATED_CASE,
 
-    QUERY_ENTOMOLOGY,
+    QUERY_ENTOMOLOGY("dss.vector.solutions.entomology.InfectionAssay"),
 
     QUERY_INDICATOR_SURVEY,
 
@@ -114,9 +114,9 @@ public class QueryConstants implements Reloadable
 
     QUERY_IRS,
 
-    QUERY_RESISTANCE,
+    QUERY_RESISTANCE("dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay"),
 
-    QUERY_RESISTANCE_BIOASSAY,
+    QUERY_RESISTANCE_BIOASSAY("dss.vector.solutions.entomology.TimeResponseAssay"),
 
     QUERY_AGGREGATED_IPT,
 
@@ -138,7 +138,31 @@ public class QueryConstants implements Reloadable
 
     QUERY_UNIVERSAL,
 
-    QUERY_FORM_SURVEY
+    QUERY_FORM_SURVEY;
+    
+    private String queryClass;
+    
+    /**
+     * Constructor for the query types that have a different query class (the Java class
+     * that processes the XML/JSON for a query) than the domain class that is being queried.
+     * @param queryClass
+     */
+    private QueryType(String queryClass)
+    {
+      this();
+      
+      this.queryClass = queryClass;
+    }
+    
+    private QueryType()
+    {
+      this.queryClass = null; 
+    }
+    
+    public String getQueryClass()
+    {
+      return this.queryClass;  
+    }
   }
 
   public static String getNamespacedDataStore()
@@ -174,8 +198,11 @@ public class QueryConstants implements Reloadable
     {
       return MDSSInfo.TYPE_QB;
     }
-
-    return namespacedType.split(NAMESPACE_DELIM)[0];
+    
+    String[] parts = namespacedType.split(NAMESPACE_DELIM);
+    QueryType queryType = QueryType.valueOf(parts[1]);
+    
+    return queryType.getQueryClass() != null ? queryType.getQueryClass() : parts[0];
   }
 
   public static QueryType getQueryType(String namespacedType)
