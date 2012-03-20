@@ -30,6 +30,8 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.EnumerationMaster;
+import com.runwaysdk.system.metadata.MdClass;
+import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
 import dss.vector.solutions.Property;
@@ -43,10 +45,12 @@ import dss.vector.solutions.irs.AbstractSpray;
 import dss.vector.solutions.irs.AbstractSprayQuery;
 import dss.vector.solutions.irs.AreaStandards;
 import dss.vector.solutions.irs.GeoTarget;
+import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.InsecticideBrandQuery;
 import dss.vector.solutions.irs.InsecticideNozzle;
 import dss.vector.solutions.irs.Nozzle;
+import dss.vector.solutions.irs.OperatorSpray;
 import dss.vector.solutions.irs.ResourceTarget;
 import dss.vector.solutions.irs.TargetUnit;
 import dss.vector.solutions.irs.ZoneSpray;
@@ -142,6 +146,16 @@ public class IRSQB extends AbstractQB implements Reloadable
   public static final String                RESOURCE_TARGET_VIEW       = "resourceTargetView";
 
   public static final String                DATE_EXTRAPOLATION         = "dateExtrapolation";
+  
+  public static final String                SPRAY_SUMMARY              = "spraySummary";
+
+  public static final String                SPRAYED_ROOMS_SUM          = "sprayedRoomsSum";
+  
+  public static final String                SPRAYED_STRUCTURES_SUM     = "sprayedStructuresSum";
+  
+  public static final String                SPRAYED_HOUSEHOLDS_SUM     = "sprayedHouseholdsSum";
+
+  public static final String                OPERATOR_SPRAY_ID     = "operatorSprayId";
 
   public static final String                GEO_TARGET_VIEW            = "geoTargetView";
 
@@ -819,6 +833,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     String geoTargetViewQuery = this.getGeoTargetView();
     String insecticideBrandQuery = this.getInsecticideView();
     String dateExtrapolationQuery = this.getDateExtrapolationView();
+    String spraySummaryQuery = this.getSpraySummaryView();
     // String targetRollupQuery = this.getTargetRollupView();
     // String rollupResultsQuery = this.getRollupResultsView();
 
@@ -835,6 +850,8 @@ public class IRSQB extends AbstractQB implements Reloadable
 //    sql += ", " + GEO_TARGET_VIEW + " AS \n";
 //    sql += "(" + geoTargetViewQuery + ")\n";
     this.addWITHEntry(new WITHEntry(GEO_TARGET_VIEW, geoTargetViewQuery));
+    
+    this.addWITHEntry(new WITHEntry(SPRAY_SUMMARY, spraySummaryQuery));
 
     // sql += ", " + TARGET_ROLLUP + " AS \n";
     // sql += "(" + targetRollupQuery + ")\n";
@@ -892,6 +909,28 @@ public class IRSQB extends AbstractQB implements Reloadable
         + ")*7, '999')||' days')::interval)::date AS " + Alias.PLANNED_DATE + " \n";
     sql += "FROM epi_week ";
 
+    return sql;
+  }
+  
+  private String getSpraySummaryView()
+  {
+    String sprayedRooms = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedRoomsMd());
+    String sprayedHouseholds = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedHouseholdsMd());
+    String sprayedStructures = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedStructuresMd());
+    String householdSprayStatus = MdEntity.getMdEntity(HouseholdSprayStatus.CLASS).getTableName();
+    String operatorSpray = MdEntity.getMdEntity(OperatorSpray.CLASS).getTableName();
+    String spray = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayMd());
+    
+    String sql = "";
+    sql += "SELECT \n";
+    sql += " o."+QueryUtil.getIdColumn()+" as "+OPERATOR_SPRAY_ID+", \n";
+    sql += " SUM("+sprayedRooms+") as "+SPRAYED_ROOMS_SUM+", \n";
+    sql += " SUM("+sprayedHouseholds+") as "+SPRAYED_HOUSEHOLDS_SUM+", \n";
+    sql += " SUM("+sprayedStructures+") as "+SPRAYED_STRUCTURES_SUM+" \n";
+    sql += "FROM \n";
+    sql += " "+householdSprayStatus+" h inner join "+operatorSpray+" o on o."+QueryUtil.getIdColumn()+" = h.spray \n";
+    sql += "GROUP BY \n";
+    sql += " o.id \n";
     return sql;
   }
 

@@ -7,6 +7,7 @@ import com.runwaysdk.generation.loader.Reloadable;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.irs.HouseholdSprayStatus;
 import dss.vector.solutions.irs.OperatorSpray;
+import dss.vector.solutions.querybuilder.IRSQB;
 import dss.vector.solutions.util.QueryUtil;
 
 public class ActualOperatorSprayTarget extends ActualTargetUnion implements Reloadable
@@ -293,22 +294,25 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   @Override
   public String setSprayedRoomsShare(Alias alias)
   {
-    return set(""+sprayedRoomsCol+"/nullif((SELECT SUM("+sprayedRoomsCol+") from "+householdSprayStatusTable+
-        " hss where "+operSprayTable+".id = hss.spray),0)::float", alias);
+//    return set(""+sprayedRoomsCol+"/nullif((SELECT SUM("+sprayedRoomsCol+") from "+householdSprayStatusTable+
+//        " hss where "+operSprayTable+".id = hss.spray),0)::float", alias);
+    return set(""+sprayedRoomsCol+"/nullif("+IRSQB.SPRAYED_ROOMS_SUM+",0)::float", alias);
   }
   
   @Override
   public String setSprayedStructuresShare(Alias alias)
   {
-    return set(""+sprayedStructuresCol+"/nullif((SELECT SUM("+sprayedStructuresCol+") from "+
-        householdSprayStatusTable+" hss where "+operSprayTable+".id = hss.spray),0)::float", alias);
+//    return set(""+sprayedStructuresCol+"/nullif((SELECT SUM("+sprayedStructuresCol+") from "+
+//        householdSprayStatusTable+" hss where "+operSprayTable+".id = hss.spray),0)::float", alias);
+    return set(""+sprayedStructuresCol+"/nullif("+IRSQB.SPRAYED_STRUCTURES_SUM+",0)::float", alias);
   }
   
   @Override
   public String setSprayedHouseholdsShare(Alias alias)
   {
-    return set(""+sprayedHouseholdsCol+"/nullif((SELECT SUM("+sprayedHouseholdsCol+") from "
-        +householdSprayStatusTable+" hss where "+operSprayTable+".id = hss.spray),0)::float", alias);
+//    return set(""+sprayedHouseholdsCol+"/nullif((SELECT SUM("+sprayedHouseholdsCol+") from "
+//        +householdSprayStatusTable+" hss where "+operSprayTable+".id = hss.spray),0)::float", alias);
+    return set(""+sprayedHouseholdsCol+"/nullif("+IRSQB.SPRAYED_HOUSEHOLDS_SUM+",0)::float", alias);
   }
   
   @Override
@@ -318,7 +322,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     
     from += operSprayTable + " AS "+operSprayTable+" LEFT JOIN ";
     from += householdSprayStatusTable + " AS "+householdSprayStatusTable+" ON "+operSprayTable+".id = "+householdSprayStatusTable+"."+sprayCol+" \n";
-
+    from += "LEFT JOIN "+IRSQB.SPRAY_SUMMARY+" ON "+IRSQB.SPRAY_SUMMARY+"."+IRSQB.OPERATOR_SPRAY_ID+" = "+operSprayTable+".id \n";
     from += "LEFT JOIN "+teamMemberTable + " AS "+teamMemberTable + " ON "+teamMemberTable + ".id = "+operSprayTable+"."+sprayOperatorCol+" \n"; 
     from += "LEFT JOIN "+personTable + " AS "+personTable+" ON "+teamMemberTable + "."+personCol+" = "+personTable+".id \n";
     from += "LEFT JOIN "+sprayTeamTable+" AS "+sprayTeamTable+" ON "+sprayTeamTable+"."+idCol+" = "+operSprayTable+"."+sprayTeamCol+", \n";
