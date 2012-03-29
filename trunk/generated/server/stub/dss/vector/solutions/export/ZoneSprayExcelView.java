@@ -14,11 +14,13 @@ import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.InsecticideBrand;
 import dss.vector.solutions.irs.OperatorSprayView;
 import dss.vector.solutions.irs.RequiredGeoIdProblem;
+import dss.vector.solutions.irs.SprayTeam;
 import dss.vector.solutions.irs.Supervisor;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamSprayStatus;
 import dss.vector.solutions.irs.TeamSprayStatusQuery;
 import dss.vector.solutions.irs.TeamSprayStatusView;
+import dss.vector.solutions.irs.ZoneSpray;
 import dss.vector.solutions.irs.ZoneSprayView;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
@@ -50,16 +52,16 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
 
     if (zsv.getConcreteId() == null || zsv.getConcreteId().equals(""))
     {
-      zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));      
+      zsv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
       zsv.setSupervisor(Supervisor.getByName(this.getSupervisorName(), this.getSupervisorSurname()));
 
       zsv.apply();
     }
-    
+
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {
       TeamSprayStatusView view = new TeamSprayStatusView();
-      
+
       // Check for existing records
       TeamSprayStatusQuery query = new TeamSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getSpray().getId().EQ(zsv.getConcreteId()));
@@ -69,9 +71,12 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       {
         view = iterator.next().lockView();
       }
-      
-//      view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
-//      view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));
+      else
+      {
+        view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
+        view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));
+      }
+
       view.setTeamLeader(TeamMember.getMemberById(this.getLeaderId()));
       view.setTarget(this.getTeamTarget());
       view.setReceived(this.getTeamReceived());
@@ -95,7 +100,7 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       view.apply();
     }
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
