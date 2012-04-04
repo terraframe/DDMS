@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -50,10 +51,9 @@ public class LayerController extends LayerControllerBase implements
     StylesController.populateRequestForStyles(req, styles, false);
 
     // fetch queries
-    SavedSearchViewQueryDTO query = SavedSearchDTO.getMappableSearches(request);
-    List<? extends SavedSearchViewDTO> results = query.getResultSet();
+    SavedSearchViewDTO[] results = SavedSearchDTO.getMappableSearches(request);
 
-    this.req.setAttribute("queryList", results);
+    this.req.setAttribute("queryList", Arrays.asList(results));
     this.req.setAttribute("renderAsOptions", AllRenderTypesDTO.allItems(request));
 
     // fetch categories
@@ -69,9 +69,9 @@ public class LayerController extends LayerControllerBase implements
 
       // Check if there is at least one valid SavedSearch which has geometry in
       // the query.
-      if (results.size() > 0)
+      if (results.length > 0)
       {
-        SavedSearchViewDTO ssView = results.get(0);
+        SavedSearchViewDTO ssView = results[0];
         String ssId = ssView.getSavedQueryId();
 
         // Add any of available universal geometries

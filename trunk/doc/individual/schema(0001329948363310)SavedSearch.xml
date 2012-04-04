@@ -1,0 +1,17 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create></create>
+    <update>
+    
+      <mdBusiness name="dss.vector.solutions.query.SavedSearch">
+        <mdMethod name="getMappableSearches"
+          returnType="dss.vector.solutions.query.SavedSearchView[]">
+        </mdMethod>
+      </mdBusiness>
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

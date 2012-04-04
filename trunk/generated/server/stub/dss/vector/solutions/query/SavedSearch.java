@@ -24,12 +24,15 @@ import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.query.ViewQueryBuilder;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.vault.VaultFileDAO;
 import com.runwaysdk.vault.VaultFileDAOIF;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MDSSUser;
 import dss.vector.solutions.UserSettings;
 import dss.vector.solutions.general.Disease;
@@ -124,13 +127,20 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * 
    * @return
    */
-  public static SavedSearchViewQuery getMappableSearches()
+  public static SavedSearchView[] getMappableSearches()
   {
+    List<SavedSearchView> views = new LinkedList<SavedSearchView>();
+    
     QueryFactory f = new QueryFactory();
+    UniversalSearchBuilder builder2 = new UniversalSearchBuilder(f);
+    SavedSearchViewQuery q2 = new SavedSearchViewQuery(f, builder2);
+    views.addAll(q2.getIterator().getAll());
+    
     MappableSearchBuilder builder = new MappableSearchBuilder(f);
     SavedSearchViewQuery q = new SavedSearchViewQuery(f, builder);
-
-    return q;
+    views.addAll(q.getIterator().getAll());
+    
+    return views.toArray(new SavedSearchView[views.size()]);
   }
 
   /**
@@ -384,6 +394,48 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 
     return search.getAsView(false, false);
   }
+  
+  private static class UniversalSearchBuilder extends ViewQueryBuilder implements Reloadable
+  {
+    private SavedSearchQuery searchQuery;
+    private MdBusinessQuery mdBusiness;
+    
+    private UniversalSearchBuilder(QueryFactory f)
+    {
+      super(f);
+      
+      this.searchQuery = new SavedSearchQuery(f);
+      this.mdBusiness = new MdBusinessQuery(f);
+    }
+    
+    @Override
+    protected void buildSelectClause()
+    {
+      GeneratedViewQuery viewQuery = this.getViewQuery();
+
+      viewQuery.map(SavedSearchView.QUERYNAME, mdBusiness.getDisplayLabel().localize());
+      viewQuery.map(SavedSearchView.SAVEDQUERYID, searchQuery.getId());
+      viewQuery.map(SavedSearchView.QUERYTYPE, searchQuery.getQueryType());
+    }
+
+    @Override
+    protected void buildWhereClause()
+    {
+      GeneratedViewQuery viewQuery = this.getViewQuery();
+
+      Condition condition = OR.get(this.searchQuery.getDisease().EQ(Disease.getCurrent()), this.searchQuery.getDisease().EQ((Disease) null));
+
+      viewQuery.WHERE(this.searchQuery.getType().EQ(SavedSearch.CLASS));
+      viewQuery.AND(this.searchQuery.getMappable().EQ(true));
+      viewQuery.AND(condition);
+      viewQuery.AND(this.searchQuery.getQueryType().EQ(GeoHierarchy.getQueryType()));
+      
+      viewQuery.AND(this.mdBusiness.getPackageName().EQ(MDSSInfo.GENERATED_GEO_PACKAGE));
+      viewQuery.AND(this.mdBusiness.getTypeName().EQ(this.searchQuery.getQueryName()));
+      
+      viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
+    }
+  }
 
   private static class MappableSearchBuilder extends com.runwaysdk.query.ViewQueryBuilder implements Reloadable
   {
@@ -416,6 +468,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       viewQuery.WHERE(this.searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.AND(this.searchQuery.getMappable().EQ(true));
       viewQuery.AND(condition);
+      viewQuery.AND(this.searchQuery.getQueryType().NE(GeoHierarchy.getQueryType()));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());
     }
 

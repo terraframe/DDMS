@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = 913657218)
+@com.runwaysdk.business.ClassSignature(hash = -1532772632)
 public abstract class SavedSearchDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearch";
-  private static final long serialVersionUID = 913657218;
+  private static final long serialVersionUID = -1532772632;
   
   protected SavedSearchDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -723,12 +723,12 @@ public abstract class SavedSearchDTOBase extends com.runwaysdk.business.Business
     return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
-  public static final dss.vector.solutions.query.SavedSearchViewQueryDTO getMappableSearches(com.runwaysdk.constants.ClientRequestIF clientRequest)
+  public static final dss.vector.solutions.query.SavedSearchViewDTO[] getMappableSearches(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     String[] _declaredTypes = new String[]{};
     Object[] _parameters = new Object[]{};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getMappableSearches", _declaredTypes);
-    return (dss.vector.solutions.query.SavedSearchViewQueryDTO) clientRequest.invokeMethod(_metadata, null, _parameters);
+    return (dss.vector.solutions.query.SavedSearchViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.query.SavedSearchViewQueryDTO getSearchesForType(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String searchType)

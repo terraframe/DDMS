@@ -15,9 +15,9 @@ similar to the following when running MDSS:
 
 tail -f /usr/local/tomcat6/logs/catalina.out
 
-[JasperLoader@1a94b1d0] info using configuration file:/usr/local/tomcat6/webapps/MDSS/WEB-INF/lib/terraframe.jar!/META-INF/aop.xml
-[JasperLoader@1a94b1d0] info using configuration file:/usr/local/tomcat6/webapps/MDSS/WEB-INF/lib/terraframe_gis.jar!/META-INF/aop.xml
-[JasperLoader@1a94b1d0] info register aspect com.terraframe.mojo.session.SessionManagement
-[JasperLoader@1a94b1d0] info register aspect com.terraframe.mojo.dataaccess.transaction.TransactionManagement
-[JasperLoader@1a94b1d0] info register aspect com.terraframe.mojo.session.SessionManagement
-[JasperLoader@1a94b1d0] info register aspect com.terraframe.mojo.dataaccess.transaction.TransactionManagement
+[JasperLoader@1a94b1d0] info using configuration file:/usr/local/tomcat6/webapps/MDSS/WEB-INF/lib/runwaysdk.jar!/META-INF/aop.xml
+[JasperLoader@1a94b1d0] info using configuration file:/usr/local/tomcat6/webapps/MDSS/WEB-INF/lib/runwaysdk_gis.jar!/META-INF/aop.xml
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.session.SessionManagement
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.dataaccess.transaction.TransactionManagement
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.session.SessionManagement
+[JasperLoader@1a94b1d0] info register aspect com.runwaysdk.dataaccess.transaction.TransactionManagement
