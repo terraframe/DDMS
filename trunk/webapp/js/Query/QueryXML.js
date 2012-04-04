@@ -936,11 +936,24 @@ MDSS.Query.Config.prototype = {
 
   addSelectedUniversal : function(attributeKey, universal)
   {
+    if(this._config.selectedUniversals[attributeKey])
+    {
     this._config.selectedUniversals[attributeKey].push(universal);
+    }
+    else
+    {
+      this._config.selectedUniversals[attributeKey] = [universal];
+    }
+    
   },
 
   getSelectedUniversals : function(attributeKey)
   {
+    if(!this._config.selectedUniversals[attributeKey])
+    {
+      this._config.selectedUniversals[attributeKey] = [];
+    }
+    
     return this._config.selectedUniversals[attributeKey];
   },
 
