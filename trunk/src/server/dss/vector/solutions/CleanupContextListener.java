@@ -23,6 +23,7 @@ import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
@@ -36,8 +37,10 @@ import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.irs.GeoTarget;
+import dss.vector.solutions.ontology.TermRelationship;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedMap;
+import dss.vector.solutions.querybuilder.MosquitoCollectionQB;
 import dss.vector.solutions.util.QueryUtil;
 
 public class CleanupContextListener implements ServletContextListener, Reloadable
@@ -74,6 +77,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "DROP FUNCTION IF EXISTS get_epiStart(int,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiYear_from_date(date,int); \n";
     sql += "DROP FUNCTION IF EXISTS get_epiWeek_from_date(date,int); \n";
+    sql += "DROP FUNCTION IF EXISTS "+MosquitoCollectionQB.GET_NEXT_TAXON_FUNCTION+"(varchar); \n";
 
     sql += "DROP FUNCTION IF EXISTS get_yearly_population_by_geoid_and_date(varchar,date); \n";
     sql += "DROP FUNCTION IF EXISTS get_seasonal_population_by_geoid_and_date(varchar,date); \n";
@@ -664,6 +668,21 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
     sql += "  END IF; \n";
     sql += "END; \n";
     sql += "$$ LANGUAGE plpgsql; \n";
+    
+    String termRel = MdEntity.getMdEntity(TermRelationship.CLASS).getTableName();
+    
+    sql += "CREATE OR REPLACE FUNCTION "+MosquitoCollectionQB.GET_NEXT_TAXON_FUNCTION+"(taxon varchar) \n";
+    sql += "RETURNS TABLE(parent varchar, depth integer) AS \n";
+    sql += "$BODY$ \n";
+    sql += "WITH RECURSIVE parents (child, parent, depth) AS ( \n";
+    sql += " SELECT "+RelationshipDAOIF.CHILD_ID_COLUMN+", "+RelationshipDAOIF.PARENT_ID_COLUMN+", 0 FROM "+termRel+" WHERE "+RelationshipDAOIF.CHILD_ID_COLUMN+" = $1 \n";
+    sql += " UNION \n";
+    sql += " SELECT tr."+RelationshipDAOIF.CHILD_ID_COLUMN+", tr."+RelationshipDAOIF.PARENT_ID_COLUMN+", p.depth+1 FROM parents p INNER JOIN "+termRel+" tr ON tr."+RelationshipDAOIF.CHILD_ID_COLUMN+" = p.parent \n";
+    sql += ")\n";
+    sql += " SELECT parent::varchar, depth::int FROM parents; \n";
+    sql += "$BODY$ \n";
+    sql += "LANGUAGE sql VOLATILE \n";
+    
     return sql;
   }
 

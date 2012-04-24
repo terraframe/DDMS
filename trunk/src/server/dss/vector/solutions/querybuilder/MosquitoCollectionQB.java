@@ -39,6 +39,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private boolean forceUniversal;
 
   private String  universalClass;
+  
+  public static final String GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
 
   public MosquitoCollectionQB(String xml, String config, Layer layer)
   {
@@ -339,7 +341,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 //    taxonCountQuery += "(SELECT ss." + taxonCol + " as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss." + taxonCol + " = " + parentTermCol + "  AND " + childTermCol + " = mainQuery." + taxonCol + " AND ss." + taxonCol + " != mainQuery." + taxonCol + " " + joinMainQuery;
 //    taxonCountQuery += " GROUP BY ss." + taxonCol + " ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
     // JN fix
-    taxonCountQuery +=  "(SELECT nt.parent FROM getNextTaxon(mainQuery.taxon) nt, mainQuery mq \n";
+    taxonCountQuery +=  "(SELECT nt.parent FROM "+GET_NEXT_TAXON_FUNCTION+"(mainQuery.taxon) nt, mainQuery mq \n";
     taxonCountQuery +=  " where nt.parent = mq.taxon AND mainQuery.taxon != nt.parent AND \n";
     taxonCountQuery +=  " mq.collectionMethod_displayLabel = mainQuery.collectionMethod_displayLabel \n";
     taxonCountQuery +=  " ORDER BY nt.depth ASC LIMIT 1) as parent, \n";
