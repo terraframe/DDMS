@@ -27,7 +27,6 @@ import dss.vector.solutions.AmbigiousTermException;
 import dss.vector.solutions.TransactionExecuter;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.generated.Country;
-import dss.vector.solutions.geo.generated.District;
 import dss.vector.solutions.geo.generated.Earth;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.HealthFacility;
@@ -71,17 +70,17 @@ public class ShapefileImporterTest
       {
         parent = new Country();
         parent.setGeoId("TestParent04");
-        parent.setEntityName("Test Parent Entity 2");
+        parent.getEntityLabel().setDefaultValue("Test Parent Entity 2");
         parent.apply();
 
         entity1 = new Country();
         entity1.setGeoId("TestParent05");
-        entity1.setEntityName("Test Parent Entity Duplicate");
+        entity1.getEntityLabel().setDefaultValue("Test Parent Entity Duplicate");
         entity1.apply();
 
         entity2 = new Country();
         entity2.setGeoId("TestParent06");
-        entity2.setEntityName("Test Parent Entity Duplicate");
+        entity2.getEntityLabel().setDefaultValue("Test Parent Entity Duplicate");
         entity2.apply();
       }
     }.execute();
@@ -199,7 +198,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(earth));
@@ -250,7 +249,7 @@ public class ShapefileImporterTest
         GeoEntity entity = ShapefileImporter.getByEntityName(builder.getName(i));
 
         assertNotNull(entity);
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertTrue(entity.getGeoId().length() > 0);
       }
     }
@@ -301,7 +300,7 @@ public class ShapefileImporterTest
         GeoEntity entity = ShapefileImporter.getByEntityName(builder.getName(i));
 
         assertNotNull(entity);
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
       }
     }
@@ -347,7 +346,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(parent));
@@ -398,7 +397,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(earth));
@@ -448,7 +447,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(parent));
@@ -505,7 +504,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(earth));
@@ -561,7 +560,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(parent));
@@ -617,7 +616,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(parent));
@@ -670,7 +669,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(earth));
@@ -803,10 +802,10 @@ public class ShapefileImporterTest
       {
         if (i % 2 == 0)
         {
-          return entity1.getEntityName();
+          return entity1.getEntityLabel().getDefaultValue();
         }
 
-        return parent.getEntityName();
+        return parent.getEntityLabel().getDefaultValue();
       }
     };
     builder.build();
@@ -882,7 +881,7 @@ public class ShapefileImporterTest
         List<GeoEntity> parents = entity.getAllParents();
 
         assertEquals(Settlement.CLASS, entity.getType());
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(entity));
@@ -932,7 +931,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(earth));
@@ -992,7 +991,7 @@ public class ShapefileImporterTest
 
         List<GeoEntity> parents = entity.getAllParents();
 
-        assertEquals(builder.getName(i), entity.getEntityName());
+        assertEquals(builder.getName(i), entity.getEntityLabel().getDefaultValue());
         assertEquals(builder.getGeoId(i), entity.getGeoId());
         assertEquals(2, parents.size());
         assertTrue(parents.contains(earth));
