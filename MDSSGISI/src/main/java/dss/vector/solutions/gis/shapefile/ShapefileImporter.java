@@ -19,6 +19,7 @@ import org.opengis.feature.type.AttributeType;
 
 import com.runwaysdk.ProblemException;
 import com.runwaysdk.ProblemIF;
+import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -318,28 +319,53 @@ public class ShapefileImporter extends TaskObservable implements Reloadable
     }
   }
 
+  /**
+   * Imports a GeoEntity based on the given SimpleFeature. If a matching
+   * GeoEntity already exists then it is simply updated.
+   * 
+   * @param feature
+   * @throws Exception
+   */
   @Transaction
   private void importEntity(SimpleFeature feature) throws Exception
   {
-    GeoEntity entity = this.newInstance(feature);
+    String geoId = this.getGeoId(feature);
+
+    GeoEntity entity;
+    boolean isNew = false;
+    try
+    {
+      // try an update
+      isNew = false;
+      entity = GeoEntity.getByKey(geoId);
+    }
+    catch(DataNotFoundException e)
+    {
+      // create a new entity
+      isNew = true;
+      entity = this.newInstance(feature);
+    }
 
     Geometry geometry = (Geometry) feature.getDefaultGeometry();
     String entityName = this.getName(feature);
-    String geoId = this.getGeoId(feature);
-    GeoEntity parent = this.getParent(feature);
     Term term = this.getSubtype(feature, entity);
-
+    
     entity.setGeoData(geometry.toText());
     entity.setGeoPoint(helper.getGeoPoint(geometry));
     entity.setGeoMultiPolygon(helper.getGeoMultiPolygon(geometry));
     entity.getEntityLabel().setValue(entityName);
     entity.setGeoId(geoId);
     entity.setTerm(term);
-
+    
     entity.apply();
-
-    LocatedIn locIn = entity.addLocatedInGeoEntity(parent);
-    locIn.applyWithoutCreatingAllPaths();
+    
+    if(isNew)
+    {
+      GeoEntity parent = this.getParent(feature);
+      
+      LocatedIn locIn = entity.addLocatedInGeoEntity(parent);
+      locIn.applyWithoutCreatingAllPaths();
+    }
 
     // We must ensure that any problems created during the transaction are
     // logged now instead of when the request returns. As such, if any problems
