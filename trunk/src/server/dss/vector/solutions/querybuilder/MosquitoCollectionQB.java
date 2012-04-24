@@ -336,9 +336,15 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     // used to order the recursive decent
     taxonCountQuery += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss." + taxonCol + " = " + parentTermCol + "  AND " + childTermCol + " = mainQuery." + taxonCol + " AND ss.taxon != mainQuery." + taxonCol + " " + joinMainQuery + " )as depth, ";
     // the parent specie of this row in this group, may skip levels
-    taxonCountQuery += "(SELECT ss." + taxonCol + " as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss." + taxonCol + " = " + parentTermCol + "  AND " + childTermCol + " = mainQuery." + taxonCol + " AND ss." + taxonCol + " != mainQuery." + taxonCol + " " + joinMainQuery;
-    taxonCountQuery += " GROUP BY ss." + taxonCol + " ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
+//    taxonCountQuery += "(SELECT ss." + taxonCol + " as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss." + taxonCol + " = " + parentTermCol + "  AND " + childTermCol + " = mainQuery." + taxonCol + " AND ss." + taxonCol + " != mainQuery." + taxonCol + " " + joinMainQuery;
+//    taxonCountQuery += " GROUP BY ss." + taxonCol + " ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
+    // JN fix
+    taxonCountQuery +=  "(SELECT nt.parent FROM getNextTaxon(mainQuery.taxon) nt, mainQuery mq \n";
+    taxonCountQuery +=  " where nt.parent = mq.taxon AND mainQuery.taxon != nt.parent AND \n";
+    taxonCountQuery +=  " mq.collectionMethod_displayLabel = mainQuery.collectionMethod_displayLabel \n";
+    taxonCountQuery +=  " ORDER BY nt.depth ASC LIMIT 1) as parent, \n";
 
+    
     taxonCountQuery += areaGroup + " AS areaGroup\n";
     taxonCountQuery += " FROM mainQuery";
     this.addWITHEntry(new WITHEntry("taxonCountQuery", taxonCountQuery));
