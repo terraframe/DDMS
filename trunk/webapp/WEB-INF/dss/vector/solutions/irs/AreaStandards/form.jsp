@@ -14,16 +14,20 @@
       </mjl:option>
     </mjl:select>
   </mjl:dt>
-  <mjl:dt attribute="unitNozzleAreaCoverage">
-    <mjl:input param="unitNozzleAreaCoverage" type="text" />
-  </mjl:dt>    
-  <mjl:dt attribute="room">
-    <mjl:input param="room" type="text" />
+  <mjl:dt attribute="unitNozzleAreaCoverage" >
+    <fmt:formatNumber minFractionDigits="2" var="formatUnitNozzleAreaCoverage" value="${item.unitNozzleAreaCoverage}" />
+    <mjl:input type="text" param="unitNozzleAreaCoverage" value="${formatUnitNozzleAreaCoverage}" />              
+  </mjl:dt>
+  <mjl:dt attribute="room" >
+    <fmt:formatNumber minFractionDigits="2" var="formatRoom" value="${item.room}" />
+    <mjl:input type="text" param="room" value="${formatRoom}" />        
   </mjl:dt>
   <mjl:dt attribute="structureArea">
-    <mjl:input param="structureArea" type="text" />
+    <fmt:formatNumber minFractionDigits="2" var="formatStructureArea" value="${item.structureArea}" />
+    <mjl:input type="text" param="structureArea" value="${formatStructureArea}" />              
   </mjl:dt>
   <mjl:dt attribute="household">
-    <mjl:input param="household" type="text" />
+    <fmt:formatNumber minFractionDigits="2" var="formatHousehold" value="${item.household}" />
+    <mjl:input type="text" param="household" value="${formatHousehold}" />        
   </mjl:dt>
 </mjl:component>

@@ -31,12 +31,24 @@
       </mjl:row>
     </mjl:attributeColumn>    
     <mjl:attributeColumn attributeName="unitNozzleAreaCoverage">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2" value="${item.unitNozzleAreaCoverage}" />
+      </mjl:row>
     </mjl:attributeColumn>    
     <mjl:attributeColumn attributeName="room">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2" value="${item.room}" />
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="structureArea">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2" value="${item.structureArea}" />        
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="household">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2" value="${item.household}" />        
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:freeColumn>
       <mjl:header>

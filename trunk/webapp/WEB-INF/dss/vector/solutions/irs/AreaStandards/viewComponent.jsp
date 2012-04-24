@@ -26,16 +26,16 @@
         </ul>
       </mjl:dt>      
       <mjl:dt attribute="unitNozzleAreaCoverage">
-        ${item.unitNozzleAreaCoverage}
+        <fmt:formatNumber minFractionDigits="2" value="${item.unitNozzleAreaCoverage}" />
       </mjl:dt>      
       <mjl:dt attribute="room">
-        ${item.room}
+        <fmt:formatNumber minFractionDigits="2" value="${item.room}" />
       </mjl:dt>
       <mjl:dt attribute="structureArea">
-        ${item.structureArea}
+        <fmt:formatNumber minFractionDigits="2" value="${item.structureArea}" />        
       </mjl:dt>
       <mjl:dt attribute="household">
-        ${item.household}
+        <fmt:formatNumber minFractionDigits="2" value="${item.household}" />        
       </mjl:dt>
     </mjl:component>
     <mdss:localize key="Edit" var="Localized_Edit" />
