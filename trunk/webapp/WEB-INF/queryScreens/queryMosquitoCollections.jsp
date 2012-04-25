@@ -121,7 +121,8 @@ YAHOO.util.Event.onDOMReady(function(){
                                   key:"taxon",
                                   type:"sqlcharacter",
                                   attributeName:"taxon_displayLabel",
-                                  isAggregate:false
+                                  isAggregate:false,
+                                  isTerm:true
                                 },
                                 {
                                   
