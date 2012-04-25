@@ -88,7 +88,7 @@
 	</mjl:table>
   </c:when> 
   <c:otherwise>
-  	<span class="nomatch"><fmt:message key="Search_Found_No_Results"/></span>
+  	<span class="nomatch"><mdss:localize key="Search_Found_No_Results"/></span>
   </c:otherwise> 
 </c:choose>  
 <br />
