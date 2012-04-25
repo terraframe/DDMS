@@ -1642,17 +1642,29 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // if there are multiple values treat evaluation as a "contains" operation.
       if(Mojo.Util.isArray(value)){
         if(conditions){
-          //var valueSet = new com.runwaysdk.structure.HashSet(value);
+        
+          // first reset all conditions since we need to treat this set
+          // of conditions as a fresh transaction
+          for(var i=0; i<conditions.length; i++){
+            var cond = conditions[i];
+            cond._setTrue(false);
+            fieldsToCheck.add(cond.getConditionMd().getReferencingMdField());
+          }
+          
           for(var i=0; i<conditions.length; i++){
             var cond = conditions[i];
             
             // we want to match on at least one value for each condition
             for(var j=0; j<value.length; j++){
               var v = value[j];
+              
               cond.evaluate(v);
-              if(cond.isTrue()){
-                fieldsToCheck.add(cond.getConditionMd().getReferencingMdField());
-                break; // this one condition has been met, so move on to the next.
+              
+              if(cond.getOperation() === 'EQ' && cond.isTrue()){
+                break; // we only need one match for EQ
+              }
+              else if(cond.getOperation() === 'NEQ' && !cond.isTrue()){
+                break; // only one false match is enough to invalidate everything
               }
             }
           }
