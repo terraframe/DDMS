@@ -497,14 +497,14 @@ public class MenuGenerator implements Reloadable
         json.put("url", guiMenuItem.getUrl());
         json.put("visibleTo", "Administrator");
         if (guiMenuItem.isDisabled())
-          json.put("disabled", "true");
+          json.put("disabled", true);
         else
-          json.put("disabled", "false");
+          json.put("disabled", false);
         
         if (guiMenuItem.getUrl().equals("#"))
-          json.put("checked", "true");
+          json.put("checked", true);
         else
-          json.put("checked", "false");
+          json.put("checked", false);
       }
       else
       {
