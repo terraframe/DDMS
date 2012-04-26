@@ -18,7 +18,7 @@
 <mjl:form name="ThresholdData.search.mojo" method="POST" id="threshold.form">
   <dl>
     <mjl:component item="${thresholdCalculation}" param="thresholdCalculation">    
-      <h2><fmt:message key="current_case_count_parameters" /></h2>
+      <h2><mdss:localize key="current_case_count_parameters" /></h2>
       <mjl:dt attribute="countingMethod">
         <mjl:group type="radio" param="countingMethod" items="${methods}" var="current" valueAttribute="enumName">
           <mjl:groupOption checked="${(thresholdCalculation.countingMethod[0]==current.enumName) ? 'checked' : 'false'}">
@@ -37,7 +37,7 @@
         <mjl:input type="text" param="clinicalPositivePercentage"/>
       </mjl:dt>
       <hr/>
-      <h2><fmt:message key="threshold_calculation_parameters"/></h2>
+      <h2><mdss:localize key="threshold_calculation_parameters"/></h2>
       <mjl:dt attribute="caseTypes">
         <mjl:select valueAttribute="enumName" param="caseTypes" items="${thresholdCalculationCaseTypes}" var="current">
           <mjl:option>${current.displayLabel}</mjl:option>
