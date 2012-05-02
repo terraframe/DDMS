@@ -41,6 +41,10 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private String  universalClass;
   
   public static final String GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
+  
+  private Selectable collectionMethod;
+  
+  private static final String ABUNDANCE_VIEW = "abundance_view";
 
   public MosquitoCollectionQB(String xml, String config, Layer layer)
   {
@@ -49,6 +53,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.universalClass = Country.CLASS;
     this.forceUniversal = false;
     this.hasAbundance = this.hasAbundanceCalc(xml);
+    this.collectionMethod = null;
   }
 
   /**
@@ -181,16 +186,18 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     if (this.hasAbundance)
     {
 
-      String viewName = "abundance_view";
 
       setAbundance(valueQuery, 1, "1");
       setAbundance(valueQuery, 10, "10");
       setAbundance(valueQuery, 100, "100");
       setAbundance(valueQuery, 1000, "1000");
 
+      this.collectionMethod = mosquitoCollectionQuery.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD);
+      valueQuery.SELECT(collectionMethod);
+      
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
 
-      setWithQuerySQL(viewName, valueQuery);
+      setWithQuerySQL(ABUNDANCE_VIEW, valueQuery);
 
       ValueQuery overrideQuery = new ValueQuery(queryFactory);
 
@@ -259,14 +266,14 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
-        else
+        else if (!s.equals(collectionMethod))
         {
           overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
 
       }
 
-      overrideQuery.FROM(viewName, viewName);
+      overrideQuery.FROM(ABUNDANCE_VIEW, ABUNDANCE_VIEW);
       return overrideQuery;
 
     }
@@ -290,6 +297,33 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       calc.setSQL(sql);
     }
 
+  }
+  
+  @Override
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
+      QBInterceptor interceptor)
+  {
+    if(this.hasAbundance && interceptor != null)
+    {
+      for(String entityAlias : queryMap.keySet())
+      {
+        ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
+        if(termVQ != null)
+        {
+          dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+          termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
+          termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW+"."+this.collectionMethod.getColumnAlias())));
+
+          // There is no condition passthrough so we have to hack in the EXISTS
+          // operator
+          valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+        }
+      }
+    }
+    else
+    {
+      super.setTermCriteria(valueQuery, queryMap, interceptor);
+    }
   }
 
   private void setWithQuerySQL(String viewName, ValueQuery valueQuery)

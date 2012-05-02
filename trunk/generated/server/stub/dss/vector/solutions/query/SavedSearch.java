@@ -201,7 +201,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     String config = view.getConfig();
 
     this.appLock();
-
+    
     this.setQueryXml(xml);
     this.setConfig(config);
 

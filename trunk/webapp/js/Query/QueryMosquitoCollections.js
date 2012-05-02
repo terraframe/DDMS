@@ -23,7 +23,8 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
       
       this._queryType = this._mainQueryClass;
       this.$initialize(selectableGroups, queryList);   
-    },
+    }
+    /*,
     _getBrowserRootClass : function(attribute)
     {
       return attribute.getKey() === 'taxon' ? 'dss.vector.solutions.entomology.SubCollectionView' : this.$_getBrowserRootClass(attribute);
@@ -32,6 +33,6 @@ Mojo.Meta.newClass('MDSS.QueryMosquitoCollections', {
     {
       return attribute.getKey() === 'taxon' ? 'taxon' : 
         this.$_getBrowserRootAttribute(attribute);
-    }, 
+    },*/
   }
 });

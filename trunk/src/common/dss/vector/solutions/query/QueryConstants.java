@@ -43,7 +43,7 @@ public class QueryConstants implements Reloadable
 
   public static final String  DOB_CRITERIA                            = "dobCriteria";
 
-  private static final String NAMESPACE_DELIM                         = ":";
+  public static final String NAMESPACE_DELIM                         = ":";
 
   /*
    * Constant used to query IndividualPremiseVisit.REASONSFORNOTTREATED in the
@@ -185,6 +185,29 @@ public class QueryConstants implements Reloadable
   {
     return type + NAMESPACE_DELIM + typeName;
   }
+  
+  /**
+   * Tests if a saved query is from the form generator.
+   * 
+   * @param namespacedType
+   * @return
+   */
+  public static boolean isFormGeneratorQuery(String namespacedType)
+  {
+    return getQueryClass(namespacedType).equals(MDSSInfo.TYPE_QB);
+  }
+  
+  /**
+   * Returns the domain class of the namespaced query type. This should
+   * be called if QueryConstants.isFormGeneratorQuery(String) returns true.
+   * 
+   * @param namespacedType
+   * @return
+   */
+  public static String getFormGeneratorClass(String namespacedType)
+  {
+    return namespacedType.split(NAMESPACE_DELIM)[0];
+  }
 
   /**
    * Extracts the query class from the string generated with namespaceQuery().
@@ -205,11 +228,11 @@ public class QueryConstants implements Reloadable
     return queryType.getQueryClass() != null ? queryType.getQueryClass() : parts[0];
   }
 
-  public static QueryType getQueryType(String namespacedType)
-  {
-    String name = namespacedType.split(NAMESPACE_DELIM)[1];
-    return QueryType.valueOf(name);
-  }
+//  public static QueryType getQueryType(String namespacedType)
+//  {
+//    String name = namespacedType.split(NAMESPACE_DELIM)[1];
+//    return QueryType.valueOf(name);
+//  }
 
   public static String createSLDName(String layerId)
   {

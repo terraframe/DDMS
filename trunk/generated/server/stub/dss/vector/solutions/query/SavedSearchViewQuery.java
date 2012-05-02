@@ -1,5 +1,7 @@
 package dss.vector.solutions.query;
 
+import com.runwaysdk.query.Condition;
+
 import dss.vector.solutions.general.Disease;
 
 
@@ -78,7 +80,29 @@ private static final long serialVersionUID = 1240879208564L;
     {
       SavedSearchViewQuery viewQuery = this.getViewQuery();
       
-      viewQuery.WHERE(searchQuery.getQueryType().EQ(queryType));
+      /*
+       * Fix for #2682 - Changing a form name could lose its saved queries.
+       * 
+       * The convention for query type should be [domain_class_being_queried]:[java_class_to_process_the query].
+       * The reason for the convention is that the domain class is not always the class that processes the query.
+       * All form generator query builders will be [domain_class]:[MDSSInfo.TYPE_QB], but to provide backwards
+       * compatibility where the query type was erroneously [domain_class]:[form_name], the matching criteria for
+       * the query type will differ (to avoid writing a migration script). All new queries will follow the proper
+       * convention.
+       */
+      
+      Condition cond;
+      if(QueryConstants.isFormGeneratorQuery(queryType))
+      {
+        String domainClass = QueryConstants.getFormGeneratorClass(queryType);
+        cond = searchQuery.getQueryType().LIKE(domainClass+QueryConstants.NAMESPACE_DELIM+"*");
+      }
+      else
+      {
+        cond = searchQuery.getQueryType().EQ(queryType);
+      }
+      
+      viewQuery.WHERE(cond);
       viewQuery.AND(searchQuery.getType().EQ(SavedSearch.CLASS));
       viewQuery.AND(searchQuery.getDisease().EQ(Disease.getCurrent()));
       viewQuery.ORDER_BY_ASC(searchQuery.getQueryName());

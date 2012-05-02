@@ -1575,7 +1575,7 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       String classType = formMdClass.getPackageName() + "." + formMdClass.getTypeName();
 
       FormQueryBuilder builder = new FormQueryBuilder(request, QueryConstants.TYPE_QB);
-      builder.setQuerySpecifics(classType, form.getDisplayLabel().getValue());
+      builder.setQuerySpecifics(classType, QueryConstants.TYPE_QB);
       builder.addForm(MdFormUtilDTO.getForm(request, type), "root");
       
       String formDisplayLabel = form.getDisplayLabel().toString();
