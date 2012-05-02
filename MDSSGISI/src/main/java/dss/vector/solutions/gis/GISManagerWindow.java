@@ -1,6 +1,8 @@
 package dss.vector.solutions.gis;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.ActionContributionItem;
@@ -19,9 +21,13 @@ import org.eclipse.swt.widgets.Monitor;
 
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
+import com.runwaysdk.system.metadata.MdBusiness;
 
 import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.GeoHierarchyView;
 import dss.vector.solutions.gis.locatedIn.BuildLocatedInAction;
 import dss.vector.solutions.gis.shapefile.ImportShapefileAction;
@@ -114,7 +120,45 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
   @Request
   private GeoHierarchyView[] getGeoHierarchy()
   {
-    return GeoHierarchy.getAllViews();
+    List<GeoHierarchyView> list = new LinkedList<GeoHierarchyView>();
+
+    GeoHierarchyQuery query = new GeoHierarchyQuery(new QueryFactory());
+    query.ORDER_BY_ASC(query.getGeoEntityClass().getTypeName());
+
+    OIterator<? extends GeoHierarchy> iterator = query.getIterator();
+
+    try
+    {
+      while (iterator.hasNext())
+      {
+        GeoHierarchy hierarchy = iterator.next();
+        MdBusiness md = hierarchy.getGeoEntityClass();
+
+        GeoHierarchyView view = new GeoHierarchyView();
+        view.setPolitical(hierarchy.getPolitical());
+        view.setSprayTargetAllowed(hierarchy.getSprayTargetAllowed());
+        view.setUrban(hierarchy.getUrban());
+        view.setDescription(md.getDescription().getValue(Localizer.getLocale()));
+        view.setTypeName(md.getTypeName());
+        view.setDisplayLabel(md.getDisplayLabel().getValue(Localizer.getLocale()));
+        view.setReferenceId(md.getId());
+        view.setGeoHierarchyId(hierarchy.getId());
+        view.setTerm(hierarchy.getTerm());
+        view.setPopulationAllowed(hierarchy.getPopulationAllowed());
+
+        MdBusiness superMd = hierarchy.getGeoEntityClass().getSuperMdBusiness();
+        String isADisplayLabel = ( superMd != null ) ? superMd.getDisplayLabel().getValue() : "";
+        view.setIsADisplayLabel(isADisplayLabel);
+
+        list.add(view);
+      }
+
+      return list.toArray(new GeoHierarchyView[list.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
   private Splash createSplash(Monitor monitor)
