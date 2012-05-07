@@ -1,9 +1,12 @@
 package dss.vector.solutions.querybuilder;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,6 +48,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   private Selectable collectionMethod;
   
   private static final String ABUNDANCE_VIEW = "abundance_view";
+  
+  private Set<String> abundanceCols;
 
   public MosquitoCollectionQB(String xml, String config, Layer layer)
   {
@@ -54,6 +59,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.forceUniversal = false;
     this.hasAbundance = this.hasAbundanceCalc(xml);
     this.collectionMethod = null;
+    this.abundanceCols = new HashSet<String>();
   }
 
   /**
@@ -170,17 +176,17 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     if (valueQuery.hasSelectableRef("mosquitoCount"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("mosquitoCount");
-      calc.setSQL("NULL");
+      calc.setSQL("NULL::integer");
     }
     if (valueQuery.hasSelectableRef("collectionCount"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("collectionCount");
-      calc.setSQL("NULL");
+      calc.setSQL("NULL::integer");
     }
     if (valueQuery.hasSelectableRef("subCollectionCount"))
     {
       SelectableSQLInteger calc = (SelectableSQLInteger) valueQuery.getSelectableRef("subCollectionCount");
-      calc.setSQL("NULL");
+      calc.setSQL("NULL::integer");
     }
 
     if (this.hasAbundance)
@@ -335,6 +341,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     for (Selectable s : valueQuery.getSelectableRefs())
     {
+      this.abundanceCols.add(s.getColumnAlias());
+      
       if (s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP"))
       {
         joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " ";
@@ -392,6 +400,24 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     percentViewSQL += "((abundance_sum + coalesce(total_of_children,0)) / \n ";
     percentViewSQL += "(SELECT SUM(coalesce(ss.total_of_children,0) + ss.abundance_sum) FROM taxonCountQuery AS ss WHERE ss.parent = taxonCountQuery.parent" + joinMainQuery + "   ))  as my_share \n";
     percentViewSQL += "FROM taxonCountQuery \n";
+    
+    // This is a terrible hack but we've already broken out of the ValueQuery and done manual SQL building, so this GROUP BY
+    // must be done manually
+    this.abundanceCols.add(taxonCol);
+    this.abundanceCols.add("collectionIDs");
+    this.abundanceCols.add("subCollectionIDs");
+    this.abundanceCols.add("abundance_sum");
+    this.abundanceCols.add("total_of_children");
+    this.abundanceCols.add("allCollectionIds");
+    this.abundanceCols.add("allSubCollectionIds");
+    this.abundanceCols.add("depth");
+    this.abundanceCols.add("parent");
+    this.abundanceCols.add("areaGroup");
+    
+    String pctGB = StringUtils.join(this.abundanceCols, ',');
+    
+    percentViewSQL += "GROUP BY "+pctGB+" \n";
+    
     this.addWITHEntry(new WITHEntry("percent_view", percentViewSQL));
 
     String rollupView = " SELECT areagroup, " + taxonCol + ", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
