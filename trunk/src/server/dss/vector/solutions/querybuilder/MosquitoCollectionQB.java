@@ -20,6 +20,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
+import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdEntity;
 
@@ -377,7 +378,9 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       }
 
     }
+    
     areaGroup = areaGroup.substring(2);
+
 
     String origQuery = valueQuery.getSQL();
 
