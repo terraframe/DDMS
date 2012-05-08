@@ -102,7 +102,7 @@ public class ShapeFilePage extends WizardPage implements Reloadable
 
     Button fileButton = new Button(fileComposite, SWT.BORDER);
     fileButton.setLayoutData(fileButtonData);
-    fileButton.setText("Select File");
+    fileButton.setText(Localizer.getMessage("SELECT_FILE"));
     fileButton.addListener(SWT.Selection, new FileListener());
 
     setControl(composite);

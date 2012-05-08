@@ -13,10 +13,10 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.geo.GeoHierarchyView;
-import dss.vector.solutions.gis.Localizer;
 import dss.vector.solutions.gis.GISImportLogger;
 import dss.vector.solutions.gis.GISImportLoggerIF;
 import dss.vector.solutions.gis.GISManagerWindow;
+import dss.vector.solutions.gis.Localizer;
 import dss.vector.solutions.gis.TaskListener;
 
 public class ShapeFileWizard extends Wizard implements Reloadable

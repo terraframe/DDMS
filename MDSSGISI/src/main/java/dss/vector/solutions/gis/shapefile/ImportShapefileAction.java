@@ -1,13 +1,13 @@
 package dss.vector.solutions.gis.shapefile;
 
 import org.eclipse.jface.action.Action;
-import org.eclipse.jface.wizard.WizardDialog;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Shell;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.gis.LocalizedWizardDialog;
 import dss.vector.solutions.gis.Localizer;
 
 public class ImportShapefileAction extends Action implements Reloadable
@@ -30,7 +30,7 @@ public class ImportShapefileAction extends Action implements Reloadable
     Shell shell = Display.getCurrent().getActiveShell();
     ShapeFileWizard wizard = new ShapeFileWizard(appName, views);
 
-    WizardDialog dialog = new WizardDialog(shell, wizard);
+    LocalizedWizardDialog dialog = new LocalizedWizardDialog(shell, wizard);
     dialog.setBlockOnOpen(true);
     dialog.open();
   }

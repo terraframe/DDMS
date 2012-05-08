@@ -7,16 +7,17 @@ import org.eclipse.swt.widgets.Shell;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.gis.LocalizedWizardDialog;
 import dss.vector.solutions.gis.Localizer;
 
 public class BuildLocatedInAction extends Action implements Reloadable
 {
   private String appName;
-  
+
   public BuildLocatedInAction(String appName)
   {
     this.appName = appName;
-    
+
     this.setText(Localizer.getMessage("BUILD_LOCATED_IN"));
   }
 
@@ -26,7 +27,7 @@ public class BuildLocatedInAction extends Action implements Reloadable
     Shell shell = Display.getCurrent().getActiveShell();
     LocatedInWizard wizard = new LocatedInWizard(appName);
 
-    WizardDialog dialog = new WizardDialog(shell, wizard);
+    LocalizedWizardDialog dialog = new LocalizedWizardDialog(shell, wizard);
     dialog.setBlockOnOpen(true);
     dialog.open();
 
