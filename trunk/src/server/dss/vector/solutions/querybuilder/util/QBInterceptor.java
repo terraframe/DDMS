@@ -24,7 +24,16 @@ public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadab
   private Map<String, ValueQuery> termValueQueries;
   private Map<String, Condition> geoConditions;
   
+  /**
+   * Flag that denotes if term criteria is being processed. This should be checked between
+   * calls to visit(Attribute) and interceptCondition() because the value will be toggled to false
+   * after the latter call.
+   */
   private boolean hasTermCriteria;
+  
+  /**
+   * 
+   */
   private boolean hasGeoCriteria;
   
   public QBInterceptor(ValueQuery valueQuery)
@@ -35,6 +44,16 @@ public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadab
     this.hasGeoCriteria = false;
     this.termValueQueries = new HashMap<String, ValueQuery>();
     this.geoConditions = new HashMap<String, Condition>();
+  }
+  
+  protected boolean hasTermCriteria()
+  {
+    return this.hasTermCriteria;
+  }
+  
+  protected boolean hasGeoCriteria()
+  {
+    return this.hasGeoCriteria;
   }
   
   public ValueQuery getTermValueQuery(String entityAlias)

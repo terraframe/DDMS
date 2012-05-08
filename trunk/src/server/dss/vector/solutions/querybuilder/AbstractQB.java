@@ -74,7 +74,7 @@ public abstract class AbstractQB implements Reloadable
     private String                        geoThematicEntity;
 
     private Map<String, List<ValueQuery>> attributeKeysAndJoins;
-
+    
     private GeoEntityJoinData()
     {
       entityNameAlias = null;
@@ -83,6 +83,28 @@ public abstract class AbstractQB implements Reloadable
       geoThematicAttr = null;
       geoThematicEntity = null;
       attributeKeysAndJoins = new HashMap<String, List<ValueQuery>>();
+    }
+  }
+  
+  protected class ClassAttributePair implements Reloadable
+  {
+    private String klass;
+    private String attribute;
+    
+    private ClassAttributePair(String klass, String attribute)
+    {
+      this.klass = klass;
+      this.attribute = attribute;
+    }
+    
+    private String getClazz()
+    {
+      return klass;
+    }
+    
+    public String getAttribute()
+    {
+      return attribute;
     }
   }
 
@@ -259,6 +281,29 @@ public abstract class AbstractQB implements Reloadable
   {
     this.geoDisplayLabelQueries.add(query);
   }
+  
+  /**
+   * Extracts a class and attribute pair from the entity alias for dereferencing term criteria.
+   * If the alias is not a valid string for term criteria then null is returned.
+   *  
+   * @param entityAlias
+   * @return
+   */
+  protected ClassAttributePair extractClassAndAttributeFromAlias(String entityAlias)
+  {
+    int index1 = entityAlias.indexOf("__");
+    int index2 = entityAlias.lastIndexOf("__");
+    if (index1 > 0 && index2 > 0)
+    {
+      String attrib_name = entityAlias.substring(0, index1);
+      String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
+      return new ClassAttributePair(klass, attrib_name);
+    }
+    else
+    {
+      return null;
+    }
+  }
 
   /**
    * Sets the term criteria on the given ValueQuery.
@@ -276,12 +321,11 @@ public abstract class AbstractQB implements Reloadable
 
     for (String entityAlias : queryMap.keySet())
     {
-      int index1 = entityAlias.indexOf("__");
-      int index2 = entityAlias.lastIndexOf("__");
-      if (index1 > 0 && index2 > 0)
+      ClassAttributePair pair = this.extractClassAndAttributeFromAlias(entityAlias);
+      if (pair != null)
       {
-        String attrib_name = entityAlias.substring(0, index1);
-        String klass = entityAlias.substring(index1 + 2, index2).replace("_", ".");
+        String klass = pair.getClazz();
+        String attrib_name = pair.getAttribute();
         if (queryMap.get(entityAlias) instanceof dss.vector.solutions.ontology.AllPathsQuery)
         {
           dss.vector.solutions.ontology.AllPathsQuery allPathsQuery = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);

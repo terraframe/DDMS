@@ -17,6 +17,7 @@ import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
@@ -45,11 +46,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   
   public static final String GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
   
-  private Selectable collectionMethod;
-  
   private static final String ABUNDANCE_VIEW = "abundance_view";
   
   private Set<String> abundanceCols;
+  
+  private Selectable collectionMethod;
 
   public MosquitoCollectionQB(String xml, String config, Layer layer)
   {
@@ -58,8 +59,8 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.universalClass = Country.CLASS;
     this.forceUniversal = false;
     this.hasAbundance = this.hasAbundanceCalc(xml);
-    this.collectionMethod = null;
     this.abundanceCols = new HashSet<String>();
+    this.collectionMethod = null;
   }
 
   /**
@@ -191,8 +192,6 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
     if (this.hasAbundance)
     {
-
-
       setAbundance(valueQuery, 1, "1");
       setAbundance(valueQuery, 10, "10");
       setAbundance(valueQuery, 100, "100");
@@ -272,7 +271,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
-        else if (!s.equals(collectionMethod))
+        else
         {
           overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
@@ -309,20 +308,48 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
       QBInterceptor interceptor)
   {
-    if(this.hasAbundance && interceptor != null)
+    if(interceptor == null)
+    {
+      return;
+    }
+    
+    if(this.hasAbundance)
     {
       for(String entityAlias : queryMap.keySet())
       {
-        ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
-        if(termVQ != null)
+        ClassAttributePair pair = this.extractClassAndAttributeFromAlias(entityAlias);
+        if(pair != null)
         {
-          dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-          termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
-          termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW+"."+this.collectionMethod.getColumnAlias())));
-
-          // There is no condition passthrough so we have to hack in the EXISTS
-          // operator
-          valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+          if(pair.getAttribute().equals(MosquitoCollection.COLLECTIONMETHOD))
+          {
+            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
+            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+            termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
+            termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW+"."+this.collectionMethod.getColumnAlias())));
+  
+            // There is no condition passthrough so we have to hack in the EXISTS
+            // operator
+            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+          }
+          else if(pair.getAttribute().equals("taxon_displayLabel"))
+          {
+            // Filtering on species during abundance calculation has to be done at the end so it doesn't disrupt the results
+            // of the recursive rollup. Even though the conditions are on the ontology allpaths table, we strictly match on the 
+            // terms and do not include children.
+            
+            ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
+            dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
+            
+            String taxonCol = ABUNDANCE_VIEW+"."+QueryUtil.getColumnName(SubCollection.getTaxonMd());
+            SelectableSQLCharacter taxon = termVQ.aSQLCharacter("taxon_term_criteria", taxonCol);
+            
+            termVQ.SELECT(allpathsQ.getParentTerm());
+            termVQ.AND(allpathsQ.getChildTerm().EQ(taxon));
+  
+            // There is no condition passthrough so we have to hack in the EXISTS
+            // operator
+            valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", taxonCol + " IN ((" + termVQ.getSQL() + ")) AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
+          }
         }
       }
     }
@@ -433,4 +460,5 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     viewSQL += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv." + taxonCol + " = pv." + taxonCol + " \n";
     this.addWITHEntry(new WITHEntry(viewName, viewSQL));
   }
+
 }
