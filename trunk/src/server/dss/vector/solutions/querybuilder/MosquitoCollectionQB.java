@@ -155,6 +155,13 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig)
   {
+    // protect the user if they're doing abundance calcs without enough columns
+    // (the collection method and species columns are not enough)
+    if(!this.hasAbundance && (valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_ab")))
+    {
+      throw new AbundanceColumnException("Abundance and/or aggregate calculations must be selected when in the Abundance section.");
+    }
+    
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
 
