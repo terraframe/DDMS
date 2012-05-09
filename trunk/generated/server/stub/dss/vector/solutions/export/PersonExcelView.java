@@ -39,6 +39,7 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     personView.setFirstName(this.getFirstName());
     personView.setLastName(this.getLastName());
     personView.setDateOfBirth(this.getDateOfBirth());
+    personView.setIdentifier(this.getIdentifier()); 
     personView.setSex(Term.validateByDisplayLabel(this.getSex(), PersonView.getSexMd()));
     
     PersonWithDelegatesViewQuery query = personView.searchForDuplicates();

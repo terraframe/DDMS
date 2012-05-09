@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1537767660)
+@com.runwaysdk.business.ClassSignature(hash = -286617272)
 public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.PersonExcelView";
-  private static final long serialVersionUID = 1537767660;
+  private static final long serialVersionUID = -286617272;
   
   protected PersonExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -20,6 +20,7 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFIER = "identifier";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
   public static java.lang.String ISMDSSUSER = "isMDSSUser";
@@ -144,6 +145,43 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getFirstNameMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(FIRSTNAME).getAttributeMdDTO();
+  }
+  
+  public String getIdentifier()
+  {
+    return getValue(IDENTIFIER);
+  }
+  
+  public void setIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFIER, "");
+    }
+    else
+    {
+      setValue(IDENTIFIER, value);
+    }
+  }
+  
+  public boolean isIdentifierWritable()
+  {
+    return isWritable(IDENTIFIER);
+  }
+  
+  public boolean isIdentifierReadable()
+  {
+    return isReadable(IDENTIFIER);
+  }
+  
+  public boolean isIdentifierModified()
+  {
+    return isModified(IDENTIFIER);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getIdentifierMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(IDENTIFIER).getAttributeMdDTO();
   }
   
   public Boolean getIsIPTRecipient()
@@ -565,6 +603,11 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getResidentialGeoEntityId()
+  {
+    return getValue(RESIDENTIALGEOENTITY);
+  }
+  
   public void setResidentialGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)
   {
     if(value == null)
@@ -681,6 +724,11 @@ public abstract class PersonExcelViewDTOBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(WORKGEOENTITY));
     }
+  }
+  
+  public String getWorkGeoEntityId()
+  {
+    return getValue(WORKGEOENTITY);
   }
   
   public void setWorkGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)

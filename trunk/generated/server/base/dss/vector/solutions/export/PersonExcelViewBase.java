@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1707591828)
+@com.runwaysdk.business.ClassSignature(hash = -1091571768)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String FIRSTNAME = "firstName";
   public static java.lang.String ID = "id";
+  public static java.lang.String IDENTIFIER = "identifier";
   public static java.lang.String ISIPTRECIPIENT = "isIPTRecipient";
   public static java.lang.String ISITNRECIPIENT = "isITNRecipient";
   public static java.lang.String ISMDSSUSER = "isMDSSUser";
@@ -30,7 +31,7 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
   public static java.lang.String SEX = "sex";
   public static java.lang.String USERNAME = "username";
   public static java.lang.String WORKGEOENTITY = "workGeoEntity";
-  private static final long serialVersionUID = -1707591828;
+  private static final long serialVersionUID = -1091571768;
   
   public PersonExcelViewBase()
   {
@@ -135,6 +136,34 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
     return mdClassIF.definesAttribute(ID);
+  }
+  
+  public String getIdentifier()
+  {
+    return getValue(IDENTIFIER);
+  }
+  
+  public void validateIdentifier()
+  {
+    this.validateAttribute(IDENTIFIER);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIdentifierMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PersonExcelView.CLASS);
+    return mdClassIF.definesAttribute(IDENTIFIER);
+  }
+  
+  public void setIdentifier(String value)
+  {
+    if(value == null)
+    {
+      setValue(IDENTIFIER, "");
+    }
+    else
+    {
+      setValue(IDENTIFIER, value);
+    }
   }
   
   public Boolean getIsIPTRecipient()
@@ -457,6 +486,11 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
     }
   }
   
+  public String getResidentialGeoEntityId()
+  {
+    return getValue(RESIDENTIALGEOENTITY);
+  }
+  
   public void validateResidentialGeoEntity()
   {
     this.validateAttribute(RESIDENTIALGEOENTITY);
@@ -546,6 +580,11 @@ public abstract class PersonExcelViewBase extends com.runwaysdk.business.View im
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(WORKGEOENTITY));
     }
+  }
+  
+  public String getWorkGeoEntityId()
+  {
+    return getValue(WORKGEOENTITY);
   }
   
   public void validateWorkGeoEntity()
