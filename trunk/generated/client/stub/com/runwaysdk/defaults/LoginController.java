@@ -61,9 +61,13 @@ public class LoginController extends LoginControllerBase implements Reloadable
       BusinessDTO user = clientRequest.getSessionUser();
       MDSSUserDTO mdss = (MDSSUserDTO) user;
 
-      req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, mdss.getDiseaseName());
+      String diseaseName = mdss.getDiseaseName();
+      String diseaseDisplay = DiseaseDTO.getCurrent(clientRequest).getDimension().getDisplayLabel().getValue();
+      
+      req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
+      req.getSession().setAttribute(MDSSUserDTO.DISEASELABEL, diseaseDisplay);
       Map<String, String> menus = new HashMap<String, String>();
-      menus.put(mdss.getDiseaseName(), DiseaseDTO.getMenuJson(this.getClientRequest()));
+      menus.put(diseaseName, DiseaseDTO.getMenuJson(this.getClientRequest()));
       req.getSession().setAttribute("menus", menus);
 
       req.getRequestDispatcher("index.jsp").forward(req, resp);
@@ -97,6 +101,7 @@ public class LoginController extends LoginControllerBase implements Reloadable
     req.getSession().removeAttribute(GlobalSessionListener.GLOBAL_SESSION_LISTENER);
     req.getSession().removeAttribute(ClientConstants.CLIENTSESSION);
     req.getSession().removeAttribute(MDSSUserDTO.DISEASENAME);
+    req.getSession().removeAttribute(MDSSUserDTO.DISEASELABEL);
     req.getSession().removeAttribute("menu");
     req.getSession().invalidate();
 

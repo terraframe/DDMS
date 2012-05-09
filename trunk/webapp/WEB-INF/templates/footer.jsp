@@ -25,7 +25,7 @@ if(clientRequest != null && clientRequest.isLoggedIn())
 {
     %> <mdss:localize key="logged_in_as" />: <%
     //out.print(user.getUsername());
-    out.print(clientRequest.getSessionUser()); %> (&lrm;${diseaseName})&lrm; <%
+    out.print(clientRequest.getSessionUser()); %> (&lrm;${diseaseLabel})&lrm; <%
 }
 else
 {

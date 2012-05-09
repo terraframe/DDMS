@@ -62,7 +62,7 @@
     out.println(LocalizationFacadeDTO.getSessionLocale(requestIF));
   %><br/>
   <br>
-  <mdss:localize key="Current_disease"/> ${diseaseName}.
+  <mdss:localize key="Current_disease"/> ${diseaseLabel}.
   <br>
 <pre>
 

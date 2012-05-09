@@ -513,6 +513,9 @@ public class PersonController extends PersonControllerBase implements Reloadable
     }
 
     req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
+    
+    String diseaseDisplay = DiseaseDTO.getCurrent(clientRequest).getDimension().getDisplayLabel().getValue();
+    req.getSession().setAttribute(MDSSUserDTO.DISEASELABEL, diseaseDisplay);
 
     Map<String, String> menus = (Map<String, String>) req.getSession().getAttribute("menus");
 
