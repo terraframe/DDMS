@@ -201,7 +201,7 @@ Section -Main SEC0000
     # Copy web files
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating web files"
     SetOutPath $INSTDIR\tomcat6\webapps\$AppName
-    File /r webapp\*
+    File /r /x webapp\WEB-INF\originalVersion.jsp webapp\*
     File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\profiles\version.xsd
     
     # Import Most Recent

@@ -6,8 +6,9 @@
 <%@ taglib uri="http://java.sun.com/jstl/core" prefix="c" %>
 <%@page import="java.util.*"%>
 <%@page import="dss.vector.solutions.global.CredentialsSingleton"%>
+<jsp:include page="/WEB-INF/originalVersion.jsp" />
 <c:set var="page_title" value="About"  scope="request"/>
-<c:set var="version" value="1.00.0000" scope="request" />
+<c:set var="version" value="1.02.0013" scope="request" />
 <jsp:include page="/WEB-INF/templates/header.jsp" />
 
 <div class="pageContent">
@@ -15,7 +16,7 @@
 
 <dl>
   <dt><mdss:localize key="About_System_Name"/>:</dt>
-  <dd><mdss:localize key="About_Version"/> ${version}</dd>
+  <dd><mdss:localize key="About_Version"/> ${version} (<mdss:localize key="About_Original_Version"/> ${original_version})</dd>
   <dt><mdss:localize key="developed_by"/>:</dt>
   <dd>
     <ul>
