@@ -157,12 +157,12 @@ Section -Main SEC0000
     # Fix overwrite of site master / domain in terraframe.properties
     
     # These version numbers are automatically replaced by patch.xml
-    StrCpy $PatchVersion 6742
+    StrCpy $PatchVersion 6849
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 6734
-    StrCpy $PermissionsVersion 6716
+    StrCpy $LocalizationVersion 6843
+    StrCpy $PermissionsVersion 6829
     
     # Only master installations can be patched.
     Call checkIfMaster
@@ -190,17 +190,20 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
     SetOutPath $PatchDir
     File OutputAgent.jar
-    # File 7za.exe
+    File 7za.exe
     
     # Special check to make sure ajde goes away.
     Delete $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\ajde.jar
+	
+	# Remove GIS directory artifacts if present
+	RMDir /r $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\dss\vector\solutions\gis
     
     # Copy web files
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating web files"
     SetOutPath $INSTDIR\tomcat6\webapps\$AppName
     File /r webapp\*
     File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\profiles\version.xsd
-	    
+    
     # Import Most Recent
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Importing updated schema definitions"
     SetOutPath $PatchDir\schema
@@ -208,29 +211,12 @@ Section -Main SEC0000
     StrCpy $Phase "Importing updated schema definitions"
     ExecWait `$Java $JavaOpts=$AgentDir\versioning -cp $Classpath com.runwaysdk.dataaccess.io.Versioning $PatchDir\schema /version.xsd` $JavaError
     Call JavaAbort
-	
-    # We need to clear the old cache
-    Delete $INSTDIR\tomcat6\$AppName.index
-    Delete $INSTDIR\tomcat6\$AppName.data
     
     # Update Database Source and Class
     !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Database"
     StrCpy $Phase "Updating database"
     ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses` $JavaError
     Call JavaAbort
-
-    # Regenerate base source and class
-    !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Regenerating class files"
-    StrCpy $Phase "Regenerating class files"
-    ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.GenerateMetaDataBusinesses` $JavaError
-    Call JavaAbort
-	
-    # Update Database Source and Class
-    !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Updating Database"
-    StrCpy $Phase "Updating database"
-    ExecWait `$Java $JavaOpts=$AgentDir\updateDB -cp $Classpath com.runwaysdk.util.UpdateDatabaseSourceAndClasses` $JavaError
-    Call JavaAbort
-	
     # Delete $PatchDir\schema
     
     # Switch to the develop environment
@@ -248,7 +234,9 @@ Section -Main SEC0000
         Call JavaAbort
         StrCpy $Phase "Rebuilding all paths"
         ExecWait `$Java $JavaOpts=$AgentDir\term_all_paths -cp $Classpath dss.vector.solutions.ontology.AllPaths` $JavaError
+        StrCpy $JavaError "500"
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
     ${Else}
         DetailPrint "Skipping Ontology because it is already up to date"
     ${EndIf}
@@ -262,6 +250,7 @@ Section -Main SEC0000
         StrCpy $Phase "Post ontology setup"
         ExecWait `$Java $JavaOpts=$AgentDir\terms -cp $Classpath dss.vector.solutions.ontology.PostOntologySetup $PatchDir\doc\MOroots.xls $PatchDir\doc\geo-universals.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
     ${Else}
         DetailPrint "Skipping Ontology Roots because they are already up to date"
     ${EndIf}
@@ -275,6 +264,7 @@ Section -Main SEC0000
         StrCpy $Phase "Importing menu items"
         ExecWait `$Java $JavaOpts=$AgentDir\menu -cp $Classpath dss.vector.solutions.util.MenuItemImporter $PatchDir\doc\MenuItems.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
     ${Else}
         DetailPrint "Skipping Menu because it is already up to date"
     ${EndIf}
@@ -291,6 +281,7 @@ Section -Main SEC0000
         StrCpy $Phase "Updating localization"
         ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.util.MdssLocalizationImporter $PatchDir\doc\DiseaseLocalizationDefaults.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
     ${Else}
         DetailPrint "Skipping Localization because it is already up to date"
     ${EndIf}
@@ -304,6 +295,7 @@ Section -Main SEC0000
         StrCpy $Phase "Updating permissions"
         ExecWait `$Java $JavaOpts=$AgentDir\localization -cp $Classpath dss.vector.solutions.permission.PermissionImporter $PatchDir\doc\Permissions.xls` $JavaError
         Call JavaAbort
+        WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     ${Else}
         DetailPrint "Skipping Permissions because they are already up to date"
     ${EndIf}
@@ -318,16 +310,14 @@ Section -Main SEC0000
     # Copy the profile to the backup manager
     CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
     CopyFiles /FILESONLY $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\*.* $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
-	
+    
     # Write updated versions into registry 
     WriteRegStr HKLM "${REGKEY}\Components" Main 1
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" App $PatchVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Terms $TermsVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Roots $RootsVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
-    WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     
+    # We need to clear the old cache
+    Delete $INSTDIR\tomcat6\$AppName.index
+    Delete $INSTDIR\tomcat6\$AppName.data
     
     #Overwriting manage and runway is a mistake, since they may be up to date already.
 ;    WriteRegStr HKLM "${REGKEY}\Components" Manager 1
@@ -335,7 +325,7 @@ Section -Main SEC0000
 SectionEnd
 
 Function JavaAbort
-    ${If} $JavaError == 1
+    ${If} $JavaError != 0
       ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $AgentDir $INSTDIR\logs`
       DetailPrint "$Phase failed."
       DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send this file"
