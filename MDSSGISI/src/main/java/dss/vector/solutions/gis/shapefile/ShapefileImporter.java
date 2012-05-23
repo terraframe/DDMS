@@ -440,7 +440,7 @@ public class ShapefileImporter extends TaskObservable implements Reloadable
   {
     Object label = feature.getAttribute(this.type);
 
-    if (label != null)
+    if (label != null && label.toString().trim().length() > 0)
     {
       GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromLabel(label.toString());
 

@@ -39,6 +39,8 @@ public class ShapeFileWizard extends Wizard implements Reloadable
 
       importer.addListener(new TaskListener(monitor));
       importer.setUniversal(data.getUniversal());
+      importer.setType(data.getType());
+      importer.setType(data.getType());
       importer.setName(data.getName());
       importer.setId(data.getId());
       importer.setParent(data.getParent());
