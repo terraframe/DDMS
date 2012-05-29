@@ -33,6 +33,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableReference;
+import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
@@ -56,6 +57,8 @@ import dss.vector.solutions.util.QueryUtil;
 
 public abstract class AbstractQB implements Reloadable
 {
+  public static final String WINDOW_COUNT_ALIAS = "dss_vector_solutions__window_count";
+  
   /**
    * Class to help with the structure of the join criteria for GeoEntity data
    * and mapping.
@@ -141,6 +144,8 @@ public abstract class AbstractQB implements Reloadable
   private ValueQueryParser           parser;
 
   private List<WITHEntry>            withEntries;
+  
+  protected boolean enableWindowCount;
 
   public AbstractQB(String xml, String config, Layer layer)
   {
@@ -154,6 +159,7 @@ public abstract class AbstractQB implements Reloadable
     this.valueQuery = null;
     this.parser = null;
     this.withEntries = new LinkedList<WITHEntry>();
+    this.enableWindowCount = false;
   }
 
   protected void setWITHRecursive(boolean recursive)
@@ -212,6 +218,11 @@ public abstract class AbstractQB implements Reloadable
 
     this.setWITHClause();
 
+    if(enableWindowCount)
+    {
+      this.addCountSelectable(valueQuery);
+    }
+    
     return valueQuery;
   }
 
@@ -920,6 +931,23 @@ public abstract class AbstractQB implements Reloadable
       String error = "The start and end date must be added with other selectables.";
       throw new DatesOnlyException(error);
     }
+  }
+  
+  /**
+   * Sets a selectable that represents the total count of the result set with
+   * Postgres's window function.
+   * 
+   * @param v
+   */
+  protected void addCountSelectable(ValueQuery v)
+  {
+    String windowCount = "count(*) over()";
+    SelectableSQLLong c = v.isGrouping() ? 
+        v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) :
+          v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
+        
+    v.SELECT(c);
+    v.setCountSelectable(c);
   }
 
   protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);

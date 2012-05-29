@@ -111,11 +111,11 @@ public class MenuItemViewQuery extends dss.vector.solutions.general.MenuItemView
       Disease disease = Disease.getCurrent();
       q.WHERE(this.menuItemQuery.getDisease().EQ(disease));
 
-      if (this.sortAttribute.equals(MenuItemViewDTO.URLDISPLAY))
+      if (this.sortAttribute.equals(MenuItemView.URLDISPLAY))
       {
         q.ORDER_BY(this.menuItemQuery.getUrl().getDisplayLabel().localize(), this.orderBy);
       }
-      else if (this.sortAttribute.equals(MenuItemViewDTO.TERMDISPLAY))
+      else if (this.sortAttribute.equals(MenuItemView.TERMDISPLAY))
       {
         q.ORDER_BY(this.menuItemQuery.getTerm().getTermDisplayLabel().localize(), this.orderBy);
       }

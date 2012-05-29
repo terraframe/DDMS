@@ -286,6 +286,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     nonActuals.add(Alias.SPRAY_OPERATOR_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.SPRAY_TEAM_DEFAULT_LOCALE.getAlias());
     nonActuals.add(Alias.ZONE_SUPERVISOR_DEFAULT_LOCALE.getAlias());
+    
+    this.enableWindowCount = true;
   }
 
   @Override
