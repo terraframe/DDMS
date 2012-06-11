@@ -64,7 +64,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
   /**
    * 
    */
-  private static final long                  serialVersionUID = -6658235304142152484L;
+  public static final long                   serialVersionUID = -6658235304142152484L;
 
   private Button                             startButton;
 
@@ -569,7 +569,7 @@ public class ServerManagerWindow extends ApplicationWindow implements IServerLis
         {
           String title = Localizer.getMessage("ERROR_TITLE");
           String msg = Localizer.getMessage("MANAGER_ALREADY_OPEN");
-          
+
           MessageDialog.openError(null, title, msg);
         }
       }

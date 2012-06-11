@@ -1,7 +1,4 @@
-<project
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>dds.vector.solutions</groupId>
   <artifactId>manager</artifactId>
@@ -9,46 +6,16 @@
   <name>Manager</name>
   <description>Manager</description>
   <packaging>jar</packaging>
-  <repositories>
-    <repository>
-      <id>nexus</id>
-      <name>nexus</name>
-      <url>http://nexus.madrivercode.com/content/repositories/eclipse-3.5.2</url>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-    </repository>
-  </repositories>
   <dependencies>
     <dependency>
       <groupId>sauronsoftware</groupId>
       <artifactId>junique</artifactId>
       <version>1.0.4</version>
-      <type>jar</type>
-      <scope>system</scope>
-      <systemPath>/home/jsmethie/workspace/manager/lib/junique-1.0.4.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>org.eclipse</groupId>
       <artifactId>swt</artifactId>
       <version>3.557</version>
-      <type>jar</type>
-      <scope>system</scope>
-      <systemPath>/home/jsmethie/workspace/org.eclipse.swt/swt.jar</systemPath>
-    </dependency>
-    <dependency>
-      <groupId>dss.vector.solutions</groupId>
-      <artifactId>tomcat-remote-listener</artifactId>
-      <version>1.0.1</version>
-      <type>jar</type>
-      <scope>compile</scope>
-    </dependency>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.8.2</version>
-      <type>jar</type>
-      <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.apache.ant</groupId>
@@ -78,8 +45,47 @@
       <type>jar</type>
       <scope>compile</scope>
     </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.10</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mod4j.org.eclipse.core.databinding</groupId>
+      <artifactId>property</artifactId>
+      <version>1.2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mod4j.org.eclipse</groupId>
+      <artifactId>jface</artifactId>
+      <version>3.5.0</version>
+    </dependency>
+    <dependency>
+      <groupId>ant</groupId>
+      <artifactId>ant-launcher</artifactId>
+      <version>1.6.5</version>
+    </dependency>    
+    <dependency>
+      <groupId>dss.vector.solutions</groupId>
+      <artifactId>tomcat-remote-listener</artifactId>
+      <version>1.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mod4j.org.eclipse.jface</groupId>
+      <artifactId>databinding</artifactId>
+      <version>1.3.0</version>
+    </dependency>
   </dependencies>
   <build>
+    <plugins>
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
     <resources>
       <resource>
         <directory>src/main/resources</directory>
