@@ -13,7 +13,7 @@ public class Localizer
 
   private Localizer()
   {
-    this("localization", getLocale());
+    this("localization", Locale.US);
   }
 
   private Localizer(String name, Locale locale)
@@ -31,6 +31,11 @@ public class Localizer
     {
       return null;
     }
+  }
+
+  private Locale getBundleLocale()
+  {
+    return bundle.getLocale();
   }
 
   private static synchronized Localizer instance()
@@ -62,6 +67,6 @@ public class Localizer
 
   public static Locale getLocale()
   {
-    return Locale.US;
+    return instance().getBundleLocale();
   }
 }
