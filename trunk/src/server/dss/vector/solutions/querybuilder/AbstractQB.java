@@ -145,7 +145,7 @@ public abstract class AbstractQB implements Reloadable
 
   private List<WITHEntry>            withEntries;
   
-  protected boolean enableWindowCount;
+  private boolean enableWindowCount;
 
   public AbstractQB(String xml, String config, Layer layer)
   {
@@ -159,7 +159,7 @@ public abstract class AbstractQB implements Reloadable
     this.valueQuery = null;
     this.parser = null;
     this.withEntries = new LinkedList<WITHEntry>();
-    this.enableWindowCount = false;
+    this.enableWindowCount = true;
   }
 
   protected void setWITHRecursive(boolean recursive)
