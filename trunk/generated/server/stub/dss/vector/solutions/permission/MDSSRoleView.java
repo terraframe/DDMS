@@ -9,7 +9,9 @@ import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeConcreteDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.QueryFactory;
@@ -19,6 +21,8 @@ import com.runwaysdk.system.Roles;
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.MDSSRoleInfo;
 import dss.vector.solutions.general.SystemURL;
+import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.LocatedIn;
 import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.generation.loader.Reloadable
@@ -228,6 +232,20 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
       {
         role.revokePermission(Operation.WRITE, mdAttribute.getId());
       }
+    }
+
+    if (hasUniversalPermissions)
+    {
+      MdRelationshipDAOIF locatedIn = MdRelationshipDAO.getMdRelationshipDAO(LocatedIn.CLASS);
+      MdBusinessDAOIF allPaths = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
+
+      role.grantPermission(Operation.WRITE, locatedIn.getId());
+      role.grantPermission(Operation.CREATE, locatedIn.getId());
+      role.grantPermission(Operation.DELETE, locatedIn.getId());
+
+      role.grantPermission(Operation.WRITE, allPaths.getId());
+      role.grantPermission(Operation.CREATE, allPaths.getId());
+      role.grantPermission(Operation.DELETE, allPaths.getId());
     }
   }
 
