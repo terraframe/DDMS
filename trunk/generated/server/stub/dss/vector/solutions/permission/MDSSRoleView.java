@@ -234,11 +234,11 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
       }
     }
 
+    MdRelationshipDAOIF locatedIn = MdRelationshipDAO.getMdRelationshipDAO(LocatedIn.CLASS);
+    MdBusinessDAOIF allPaths = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
+
     if (hasUniversalPermissions)
     {
-      MdRelationshipDAOIF locatedIn = MdRelationshipDAO.getMdRelationshipDAO(LocatedIn.CLASS);
-      MdBusinessDAOIF allPaths = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
-
       role.grantPermission(Operation.WRITE, locatedIn.getId());
       role.grantPermission(Operation.CREATE, locatedIn.getId());
       role.grantPermission(Operation.DELETE, locatedIn.getId());
@@ -246,6 +246,16 @@ public class MDSSRoleView extends MDSSRoleViewBase implements com.runwaysdk.gene
       role.grantPermission(Operation.WRITE, allPaths.getId());
       role.grantPermission(Operation.CREATE, allPaths.getId());
       role.grantPermission(Operation.DELETE, allPaths.getId());
+    }
+    else
+    {
+      role.revokePermission(Operation.WRITE, locatedIn.getId());
+      role.revokePermission(Operation.CREATE, locatedIn.getId());
+      role.revokePermission(Operation.DELETE, locatedIn.getId());
+
+      role.revokePermission(Operation.WRITE, allPaths.getId());
+      role.revokePermission(Operation.CREATE, allPaths.getId());
+      role.revokePermission(Operation.DELETE, allPaths.getId());
     }
   }
 

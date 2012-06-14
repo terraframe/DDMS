@@ -26,18 +26,24 @@ import com.runwaysdk.business.rbac.RoleDAOIF;
 import com.runwaysdk.constants.MetadataInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdAttributeDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdBusinessDAOIF;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
+import com.runwaysdk.dataaccess.MdRelationshipDAOIF;
 import com.runwaysdk.dataaccess.MetadataDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdAttributeDAO;
+import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.dataaccess.metadata.MdMethodDAO;
+import com.runwaysdk.dataaccess.metadata.MdRelationshipDAO;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.PermissionBuilder;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.system.Roles;
@@ -47,6 +53,12 @@ import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.SystemURL;
 import dss.vector.solutions.generator.FormSystemURLBuilder;
+import dss.vector.solutions.geo.AllPaths;
+import dss.vector.solutions.geo.GeoHierarchy;
+import dss.vector.solutions.geo.GeoHierarchyView;
+import dss.vector.solutions.geo.LocatedIn;
+import dss.vector.solutions.geo.generated.Earth;
+import dss.vector.solutions.geo.generated.GeoEntity;
 
 public class PermissionImporter implements Reloadable
 {
@@ -84,7 +96,77 @@ public class PermissionImporter implements Reloadable
     this.readURLSheet(workbook);
     this.readVisibilitySheet(workbook);
     this.readRoleAssignment(workbook);
+    this.addLocatedInPermissions();
     this.serializeURLRoles();
+  }
+
+  private void addLocatedInPermissions()
+  {
+    MdRelationshipDAOIF locatedIn = MdRelationshipDAO.getMdRelationshipDAO(LocatedIn.CLASS);
+    MdBusinessDAOIF allPaths = MdBusinessDAO.getMdBusinessDAO(AllPaths.CLASS);
+
+    MDSSRoleViewQuery query = new MDSSRoleViewQuery(new QueryFactory());
+    OIterator<? extends MDSSRoleView> it = query.getIterator();
+
+    try
+    {
+      while (it.hasNext())
+      {
+        MDSSRoleView view = it.next();
+        RoleDAO role = view.getRole().getBusinessDAO();
+
+        boolean hasUniversalPermissions = this.hasUniversalPermissions(role);
+
+        if (hasUniversalPermissions)
+        {
+          role.grantPermission(Operation.WRITE, locatedIn.getId());
+          role.grantPermission(Operation.CREATE, locatedIn.getId());
+          role.grantPermission(Operation.DELETE, locatedIn.getId());
+
+          role.grantPermission(Operation.WRITE, allPaths.getId());
+          role.grantPermission(Operation.CREATE, allPaths.getId());
+          role.grantPermission(Operation.DELETE, allPaths.getId());
+        }
+        else
+        {
+          role.revokePermission(Operation.WRITE, locatedIn.getId());
+          role.revokePermission(Operation.CREATE, locatedIn.getId());
+          role.revokePermission(Operation.DELETE, locatedIn.getId());
+
+          role.revokePermission(Operation.WRITE, allPaths.getId());
+          role.revokePermission(Operation.CREATE, allPaths.getId());
+          role.revokePermission(Operation.DELETE, allPaths.getId());
+        }
+      }
+    }
+    finally
+    {
+      it.close();
+    }
+  }
+
+  private boolean hasUniversalPermissions(RoleDAO role)
+  {
+    boolean hasUniversalPermissions = false;
+
+    GeoHierarchyView[] universals = GeoHierarchy.getAllViews();
+
+    for (GeoHierarchyView universal : universals)
+    {
+      String generatedType = universal.getGeneratedType();
+
+      if (!generatedType.equals(Earth.CLASS) && !generatedType.equals(GeoEntity.CLASS))
+      {
+        MetadataDAOIF metadata = MdBusinessDAO.getMdBusinessDAO(generatedType);
+        Set<Operation> permissions = role.getAssignedPermissions(metadata);
+
+        if (permissions.contains(Operation.CREATE))
+        {
+          hasUniversalPermissions = true;
+        }
+      }
+    }
+    return hasUniversalPermissions;
   }
 
   private void serializeURLRoles()
