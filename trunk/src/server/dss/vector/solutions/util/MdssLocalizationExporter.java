@@ -167,14 +167,14 @@ public class MdssLocalizationExporter implements Reloadable
   {
     this.locales = new LinkedList<Locale>();
     this.columns = new LinkedList<LocaleDimension>();
-    
+
     this.typeExemptions = new LinkedList<String>();
     this.typeExemptions.add(MdAction.CLASS);
     this.typeExemptions.add(MdParameter.CLASS);
     this.typeExemptions.add(MdIndex.CLASS);
     this.typeExemptions.add(MdMethod.CLASS);
     this.typeExemptions.add(MdAttributeDimension.CLASS);
-    
+
     this.addLocaleDimensions(MdAttributeLocalInfo.DEFAULT_LOCALE);
   }
 
@@ -476,15 +476,19 @@ public class MdssLocalizationExporter implements Reloadable
 
     // Now read each locale
     boolean ignoreDimensions = this.isIgnoreDimensions(sheet);
+    int cellIndex = 0;
 
     for (int i = 0; i < columns.size(); i++)
     {
       LocaleDimension localeDimension = columns.get(i);
-      int cellIndex = i + 1;
 
       if (ignoreDimensions && localeDimension.hasDimension())
       {
         continue;
+      }
+      else
+      {
+        cellIndex++;
       }
 
       File localFile = new File(dir, localeDimension.getPropertyFileName(bundleName));
