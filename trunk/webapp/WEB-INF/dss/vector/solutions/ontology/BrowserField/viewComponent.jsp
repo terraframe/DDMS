@@ -38,7 +38,7 @@
       <c:forEach items="${roots}" var="root">
         <tr id="${root.browserRootId}_row">
           <td>${root.displayLabel}</td>
-          <td>${root.selectable}</td>
+          <td>${root.selectable ? root.selectableMd.positiveDisplayLabel : root.selectableMd.negativeDisplayLabel}</td>
           <td><button class="editRootBtn" value="${root.browserRootId}"><mdss:localize key="Edit" /></button></td>
           <td><button class="deleteRootBtn" value="${root.browserRootId}"><mdss:localize key="Delete" /></button></td>
        </tr>

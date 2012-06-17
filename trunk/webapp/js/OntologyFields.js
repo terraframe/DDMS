@@ -403,7 +403,16 @@ Mojo.Meta.newClass("MDSS.OntologyFields", {
       
       var html = '';
       html += '<td>'+rootView.getTermName()+'</td>';
-      html += '<td>'+rootView.getSelectable()+'</td>';
+      
+      if(rootView.getSelectable())
+      {
+        html += '<td>'+rootView.getSelectableMd().getPositiveDisplayLabel()+'</td>';        
+      }
+      else
+      {
+        html += '<td>'+rootView.getSelectableMd().getNegativeDisplayLabel()+'</td>';        
+      }
+      
       html += '<td><button class="editRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.localize('Edit')+'</button></td>';
       html += '<td><button class="deleteRootBtn" value="'+rootView.getBrowserRootId()+'">'+MDSS.localize('Delete')+'</button></td>';
       
