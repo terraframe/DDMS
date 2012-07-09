@@ -255,7 +255,7 @@ h2 {
   font-size: 12px;
 }
 
-#menuBar #Print a {
+#menuBar #ZZZZ\:9000000 a {
   background: url("/DDMS/imgs/icons/printer.png") no-repeat center;
 }
 
@@ -1098,6 +1098,7 @@ span.currentPage a:active {
 .tree li {
   background-image: url(/DDMS/imgs/icon-file-rtl.png);
   background-repeat: no-repeat;
+  background-position: top right;
   list-style-type: none;    
   padding: 0px 20px 0px 0px;
   height: 25px;
