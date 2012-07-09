@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1346368170)
+@com.runwaysdk.business.ClassSignature(hash = -739462922)
 public abstract class SystemAlertTypeMasterDTOBase extends com.runwaysdk.system.EnumerationMasterDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertTypeMaster";
-  private static final long serialVersionUID = 1346368170;
+  private static final long serialVersionUID = -739462922;
   
   protected SystemAlertTypeMasterDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,7 +27,33 @@ public abstract class SystemAlertTypeMasterDTOBase extends com.runwaysdk.system.
     return CLASS;
   }
   
+  public static java.lang.String EMAILBODYTEXT = "emailBodyText";
   public static java.lang.String EMAILTEMPLATEVARIABLES = "emailTemplateVariables";
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextDTO getEmailBodyText()
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyTextDTO) this.getAttributeStructDTO(EMAILBODYTEXT).getStructDTO();
+  }
+  
+  public boolean isEmailBodyTextWritable()
+  {
+    return isWritable(EMAILBODYTEXT);
+  }
+  
+  public boolean isEmailBodyTextReadable()
+  {
+    return isReadable(EMAILBODYTEXT);
+  }
+  
+  public boolean isEmailBodyTextModified()
+  {
+    return isModified(EMAILBODYTEXT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO getEmailBodyTextMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO) getAttributeDTO(EMAILBODYTEXT).getAttributeMdDTO();
+  }
+  
   public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesDTO getEmailTemplateVariables()
   {
     return (dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariablesDTO) this.getAttributeStructDTO(EMAILTEMPLATEVARIABLES).getStructDTO();
@@ -48,9 +74,9 @@ public abstract class SystemAlertTypeMasterDTOBase extends com.runwaysdk.system.
     return isModified(EMAILTEMPLATEVARIABLES);
   }
   
-  public final com.runwaysdk.transport.metadata.AttributeLocalMdDTO getEmailTemplateVariablesMd()
+  public final com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO getEmailTemplateVariablesMd()
   {
-    return (com.runwaysdk.transport.metadata.AttributeLocalMdDTO) getAttributeDTO(EMAILTEMPLATEVARIABLES).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO) getAttributeDTO(EMAILTEMPLATEVARIABLES).getAttributeMdDTO();
   }
   
   public static dss.vector.solutions.general.SystemAlertTypeMasterDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

@@ -106,11 +106,12 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
       SystemAlertTypeDTO alertType = list.get(0);
       SystemAlertTypeMasterDTO master = alertType.item(super.getClientRequest());
       String templateVariables = this.getTemplateVariables(alertType);
-
+      
       req.setAttribute("item", dto);
       req.setAttribute("master", master);
       req.setAttribute("templateLabel", master.getEmailTemplateVariablesMd().getDisplayLabel());
       req.setAttribute("templateVariables", templateVariables);
+      //req.setAttribute("emailBodyText", master.getEmailBodyText().getValue());
 
       render("editComponent.jsp");
     }

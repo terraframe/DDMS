@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -559875454)
+@com.runwaysdk.business.ClassSignature(hash = 349708810)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -17,6 +17,9 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
   public static java.lang.String EMAILBODY = "emailBody";
+  public static java.lang.String EMAILBODYTEXT = "emailBodyText";
+  private com.runwaysdk.business.Struct emailBodyText = null;
+  
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
   public static java.lang.String EMAILFROMADDRESS = "emailFromAddress";
   public static java.lang.String EMAILSUBJECT = "emailSubject";
@@ -33,11 +36,12 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -559875454;
+  private static final long serialVersionUID = 349708810;
   
   public SystemAlertBase()
   {
     super();
+    emailBodyText = super.getStruct("emailBodyText");
   }
   
   @SuppressWarnings("unchecked")
@@ -106,6 +110,11 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -127,6 +136,11 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     {
       return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void validateDisease()
@@ -206,6 +220,22 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     {
       setValue(EMAILBODY, value);
     }
+  }
+  
+  public dss.vector.solutions.general.SystemAlertEmailBodyText getEmailBodyText()
+  {
+    return (dss.vector.solutions.general.SystemAlertEmailBodyText) emailBodyText;
+  }
+  
+  public void validateEmailBodyText()
+  {
+    this.validateAttribute(EMAILBODYTEXT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailBodyTextMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
+    return mdClassIF.definesAttribute(EMAILBODYTEXT);
   }
   
   public String getEmailCcAddresses()
@@ -330,6 +360,11 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -483,6 +518,11 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -506,6 +546,11 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -527,6 +572,11 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()

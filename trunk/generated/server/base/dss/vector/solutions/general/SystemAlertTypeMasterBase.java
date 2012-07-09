@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 856957994)
+@com.runwaysdk.business.ClassSignature(hash = -1777725578)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,15 +11,35 @@ package dss.vector.solutions.general;
 public abstract class SystemAlertTypeMasterBase extends com.runwaysdk.system.EnumerationMaster implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlertTypeMaster";
+  public static java.lang.String EMAILBODYTEXT = "emailBodyText";
+  private com.runwaysdk.business.Struct emailBodyText = null;
+  
   public static java.lang.String EMAILTEMPLATEVARIABLES = "emailTemplateVariables";
   private com.runwaysdk.business.Struct emailTemplateVariables = null;
   
-  private static final long serialVersionUID = 856957994;
+  private static final long serialVersionUID = -1777725578;
   
   public SystemAlertTypeMasterBase()
   {
     super();
+    emailBodyText = super.getStruct("emailBodyText");
     emailTemplateVariables = super.getStruct("emailTemplateVariables");
+  }
+  
+  public dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyText getEmailBodyText()
+  {
+    return (dss.vector.solutions.general.SystemAlertTypeMasterEmailBodyText) emailBodyText;
+  }
+  
+  public void validateEmailBodyText()
+  {
+    this.validateAttribute(EMAILBODYTEXT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailBodyTextMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlertTypeMaster.CLASS);
+    return mdClassIF.definesAttribute(EMAILBODYTEXT);
   }
   
   public dss.vector.solutions.general.SystemAlertTypeMasterEmailTemplateVariables getEmailTemplateVariables()

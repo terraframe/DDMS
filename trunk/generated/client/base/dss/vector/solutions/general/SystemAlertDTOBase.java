@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1482749694)
+@com.runwaysdk.business.ClassSignature(hash = 1468294026)
 public abstract class SystemAlertDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
-  private static final long serialVersionUID = -1482749694;
+  private static final long serialVersionUID = 1468294026;
   
   protected SystemAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -33,6 +33,7 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
   public static java.lang.String EMAILBODY = "emailBody";
+  public static java.lang.String EMAILBODYTEXT = "emailBodyText";
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
   public static java.lang.String EMAILFROMADDRESS = "emailFromAddress";
   public static java.lang.String EMAILSUBJECT = "emailSubject";
@@ -132,6 +133,11 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -162,6 +168,11 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -268,6 +279,31 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
   public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getEmailBodyMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(EMAILBODY).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.SystemAlertEmailBodyTextDTO getEmailBodyText()
+  {
+    return (dss.vector.solutions.general.SystemAlertEmailBodyTextDTO) this.getAttributeStructDTO(EMAILBODYTEXT).getStructDTO();
+  }
+  
+  public boolean isEmailBodyTextWritable()
+  {
+    return isWritable(EMAILBODYTEXT);
+  }
+  
+  public boolean isEmailBodyTextReadable()
+  {
+    return isReadable(EMAILBODYTEXT);
+  }
+  
+  public boolean isEmailBodyTextModified()
+  {
+    return isModified(EMAILBODYTEXT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO getEmailBodyTextMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO) getAttributeDTO(EMAILBODYTEXT).getAttributeMdDTO();
   }
   
   public String getEmailCcAddresses()
@@ -428,6 +464,11 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -610,6 +651,11 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -642,6 +688,11 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -672,6 +723,11 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)

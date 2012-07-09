@@ -34,8 +34,8 @@
   <mjl:dt attribute="emailSubject">
     <mjl:input param="emailSubject" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="emailBody">
-    <mjl:textarea param="emailBody" rows="5" />
+  <mjl:dt attribute="emailBodyText">
+    <mjl:textarea param="emailBodyText"  value="${item.emailBodyText}" rows="5" />
     <i><b>${templateLabel}:</b> ${templateVariables}</i>
   </mjl:dt>
 
