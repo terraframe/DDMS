@@ -1160,15 +1160,15 @@ span.currentPage a:active {
 .tabbed-form-box .tabs {
   margin: -61px -1px 0px 0px;
   padding: 0px;
-  height: 30px;
+  height: 7%;
 }
 .tabbed-form-box .tabs li {
-  display: block;
+  display: table;
   width: 100px;
   height: 25px; 
   float: right;
   text-align: center;
-  padding: 10px 0px 0px 0px;
+  padding: 0 0 10px 0;
 }
 .tabbed-form-box .tabs-on {
   border-left: solid 1px #d5d6d7;  

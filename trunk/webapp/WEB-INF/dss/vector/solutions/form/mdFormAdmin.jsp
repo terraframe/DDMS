@@ -79,9 +79,9 @@ OrientationTypeDTO orientation =  LocalizationFacadeDTO.getSessionLocaleOrientat
 }
 
 .yui3-tab-label {
-    display:block;
-    display:inline-block;
-    padding: 6px 10px;
+    display:table-cell;
+    padding: 0 10px;
+    /* padding: 6px 10px; */
     position:relative; /* IE: to allow overlap */
     text-decoration: none;
     vertical-align:bottom; /* safari: for overlap */
