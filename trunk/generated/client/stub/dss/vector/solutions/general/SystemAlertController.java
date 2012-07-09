@@ -111,7 +111,6 @@ public class SystemAlertController extends SystemAlertControllerBase implements 
       req.setAttribute("master", master);
       req.setAttribute("templateLabel", master.getEmailTemplateVariablesMd().getDisplayLabel());
       req.setAttribute("templateVariables", templateVariables);
-      //req.setAttribute("emailBodyText", master.getEmailBodyText().getValue());
 
       render("editComponent.jsp");
     }
