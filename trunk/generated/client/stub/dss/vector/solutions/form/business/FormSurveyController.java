@@ -6,10 +6,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.gargoylesoftware.htmlunit.WebClient;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.system.metadata.MdWebFormDTO;
-import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.util.ErrorUtility;
@@ -19,7 +17,7 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
   public static final String JSP_DIR          = "WEB-INF/dss/vector/solutions/form/business/FormSurvey/";
 
   public static final String LAYOUT           = "/layout.jsp";
-
+  
   private static final long  serialVersionUID = 1196476865;
 
   public FormSurveyController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
@@ -198,7 +196,8 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
       MdWebFormDTO bedNetForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormBedNetDTO.FORM_TYPE);
 
       MdWebFormDTO personForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormPersonDTO.FORM_TYPE);
-
+      
+      this.req.setAttribute("localized_page_title", surveyForm.getDisplayLabel().getValue());
       this.req.setAttribute("surveyFormId", surveyForm.getId());
       this.req.setAttribute("surveyClassType", FormSurveyDTO.CLASS);
       this.req.setAttribute("surveyFormType", FormSurveyDTO.FORM_TYPE);
@@ -212,7 +211,8 @@ public class FormSurveyController extends FormSurveyControllerBase implements co
       this.req.setAttribute("personClassType", FormPersonDTO.CLASS);
       this.req.setAttribute("personFormType", FormPersonDTO.FORM_TYPE);
 
-      render("viewAllComponent.jsp");
+      //render("viewAllComponent.jsp");
+      this.req.getRequestDispatcher(JSP_DIR+"viewAllComponent.jsp").forward(req, resp);
     }
     catch (Throwable t)
     {

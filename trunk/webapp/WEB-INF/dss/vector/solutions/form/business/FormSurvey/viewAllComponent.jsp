@@ -27,8 +27,8 @@
 
 
 <%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
+<jsp:include page="../../../../../../templates/header.jsp" />
 
-<c:set var="page_title" value="MERG_Survey"  scope="request"/>
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
 
@@ -88,6 +88,7 @@ YAHOO.util.Event.onDOMReady(function(){
 });
 </script>
 <div class="generatorContent" id="generatorContent">
+  <h2 class="pageTitle">${localized_page_title}</h2>
   <a href="#" id="surveyNewInstanceCommand">
     <mdss:localize key="New_Form_Survey" />
   </a>
@@ -103,7 +104,6 @@ YAHOO.util.Event.onDOMReady(function(){
   <a href="#" id="householdNewInstanceCommand">
     <mdss:localize key="New_Form_Household" />
   </a>
-  <br id="householdParentBreak" />
   <a href="#" id="householdViewParentCommand">
     <mdss:localize key="View_Form_Survey" />
   </a>
@@ -115,7 +115,6 @@ YAHOO.util.Event.onDOMReady(function(){
   <a href="#" id="bedNetNewInstanceCommand">
     <mdss:localize key="New_Form_Bed_Net" />
   </a>
-  <br id="bedNetParentBreak" />
   <a href="#" id="bedNetViewParentCommand">
     <mdss:localize key="View_Form_Household" />
   </a>
@@ -126,7 +125,6 @@ YAHOO.util.Event.onDOMReady(function(){
   <a href="#" id="personNewInstanceCommand">
     <mdss:localize key="New_Form_Person" />
   </a>
-  <br id="personParentBreak" />
   <a href="#" id="personViewParentCommand">
     <mdss:localize key="View_Form_Household" />
   </a>
@@ -147,3 +145,4 @@ YAHOO.util.Event.onDOMReady(function(){
 	</form>    
   </div>  
 </div>
+<jsp:include page="../../../../../../templates/footer.jsp"></jsp:include>
