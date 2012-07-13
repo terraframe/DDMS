@@ -379,7 +379,13 @@ Mojo.Meta.newClass('dss.vector.solutions.MdFormAdmin',
     _addNodeToParent : function(sourceNode, destNode, appendTo)
     {
       // remove the source node from its parent
-      var originalParent = sourceNode.parent;
+	  var originalParent = sourceNode.parent;
+      if (sourceNode === destNode)
+      {
+        destNode = originalParent;
+        appendTo = true;
+      }
+
       sourceNode.tree.popNode(sourceNode);
 
       if(appendTo)
