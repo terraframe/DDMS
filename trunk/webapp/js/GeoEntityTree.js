@@ -12,15 +12,6 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       
       this._rootId = rootId;
     
-      // key/value is node id/GeoEntity id
-      this._nodeToGeoEntityMap = {};
-    
-      // key/value is entity id/[node ids]
-      this._geoEntityIdToNodeIdMap = {};
-    
-      // key/value is GeoEntity id/GeoEntityView
-      this._geoEntityViewCache = {};
-    
       // The selected node in tree
       this._selectedNode = null;
     
@@ -119,7 +110,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     _uploadImportOnSubmit : function(e)
     {
       var input = document.getElementById('parentGeoEntityId');
-      input.value = this._getGeoEntityView(this._selectedNode).getGeoEntityId();
+      input.value = this._selectedNode.data.geoEntityView.getGeoEntityId();
       
       return true;
     },
@@ -129,8 +120,6 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _destroyAll : function()
     {
-      this._nodeToGeoEntityMap = {};
-      this._geoEntityViewCache = {};
       this._selectedNode = null;
       this._modal = null;
       this._selectCallback = null;
@@ -148,84 +137,6 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   
       this._geoTree.destroy();
       this._geoTree = null;
-    },
-  
-    /**
-     * Sets the mapping between a node and GeoEntity.
-     * More than one node may point to a GeoEntity.
-     */
-    _setMapping : function(node, geoEntityView)
-    {
-      var nodeId = node.contentElId;
-      var geId = geoEntityView.getGeoEntityId();
-  
-      // overwrite any existing entries
-      this._nodeToGeoEntityMap[nodeId] = geId;
-      this._geoEntityViewCache[geId] = geoEntityView;
-  
-      // map the entity id to the node id
-      var nodeIds = this._geoEntityIdToNodeIdMap[geId];
-      if(Mojo.Util.isArray(nodeIds))
-      {
-        var match = false;
-        for(var i=0; i<nodeIds.length; i++)
-        {
-          if(nodeIds[i] === nodeId)
-          {
-            match = true;
-            break;
-          }
-        }
-  
-        if(!match)
-        {
-          nodeIds.push(nodeId);
-        }
-      }
-      else
-      {
-        nodeIds = [];
-        nodeIds.push(nodeId);
-        this._geoEntityIdToNodeIdMap[geId] = nodeIds;
-      }
-    },
-  
-    /**
-     * Gets the GeoEntity that maps to the given
-     * node.
-     */
-    _getGeoEntityView : function(node)
-    {
-      var nodeId = node instanceof YAHOO.widget.HTMLNode ? node.contentElId : node;
-      var geId = this._nodeToGeoEntityMap[nodeId];
-      return this._geoEntityViewCache[geId];
-    },
-  
-    /**
-     * Removes the node to GeoEntity mapping.
-     */
-    _removeMapping : function(node)
-    {
-      var nodeId = node instanceof YAHOO.widget.HTMLNode ? node.contentElId : node;
-      var geId = this._getGeoEntityView(nodeId).getGeoEntityId();
-  
-      delete this._nodeToGeoEntityMap[nodeId];
-  
-      var nodeIds = this._geoEntityIdToNodeIdMap[geId];
-      for(var i=0; i<nodeIds.length; i++)
-      {
-        if(nodeIds[i] === nodeId)
-        {
-          nodeIds.splice(i, 1);
-          break;
-        }
-      }
-  
-      if(nodeIds.length === 0)
-      {
-        // no more nodes pointing to the GeoEntity
-        delete this._geoEntityViewCache[geId];
-      }
     },
   
     _setGeoEntityAttributes : function(params, geoEntity)
@@ -256,19 +167,15 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         var div = this._createNodeDiv(view, true);
   
         // add the node to all parent nodes
-        var parentGeoEntityView = this._getGeoEntityView(this._selectedNode);
-        var nodeIds = this._geoEntityIdToNodeIdMap[parentGeoEntityView.getGeoEntityId()];
-        for(var i=0; i<nodeIds.length; i++)
-        {
-          var parentEl = document.getElementById(nodeIds[i]);
-          var parent = this._geoTree.getNodeByElement(parentEl);
-  
-          // don't expand the node if the parent's children haven't been loaded (it's wasteful)
-          if(parent.dynamicLoadComplete)
+        var parentGeoEntityView = this._selectedNode.data.geoEntityView;
+        var nodes = this._geoTree.getNodesByProperty('geoEntityId', parentGeoEntityView.getGeoEntityId());
+        
+        Mojo.Iter.forEach(nodes, function(parent){
+          if (parent.dynamicLoadComplete)
           {
-            var node = new YAHOO.widget.HTMLNode(div, parent);
-            this._setMapping(node, view);
-  
+            var data = {geoEntityView: view, geoEntityId: view.getGeoEntityId()};
+            var node = new YAHOO.widget.HTMLNode({html: div, data: data}, parent);
+        
             // only re-expand the selected node or the parent if its already expanded
             if(parent.getElId() === this._selectedNode.getElId() || parent.expanded === true)
             {
@@ -276,7 +183,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
               parent.refresh();
             }
           }
-        }
+          else if (parent === this._selectedNode)
+          {
+            parent.expand();
+          }
+        }, this);
       }
   
       this._selectedNode.expand();
@@ -291,6 +202,9 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     {
       var geConstructor = Mojo.Meta.findClass(type);
       var geoEntity = new geConstructor();
+      
+      var parentId = this._selectedNode.data.geoEntityId;
+      params['parentId'] = parentId;
   
       this._setGeoEntityAttributes(params, geoEntity);
   
@@ -301,7 +215,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
   
-      var parentGeoEntityView = this._getGeoEntityView(this._selectedNode);
+      var parentGeoEntityView = this._selectedNode.data.geoEntityView;
       geoEntity.applyWithParent(request, parentGeoEntityView.getGeoEntityId(), false, null);
     },
   
@@ -330,15 +244,13 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       div = div.replace(/(<div class=["']\w*["']>).*?(<\/div>)/, '$1'+span+'$2');
   
       // update selected node and all copies
-      var nodeIds = this._geoEntityIdToNodeIdMap[geoEntity.getId()];
-      for(var i=0; i<nodeIds.length; i++)
-      {
-        var id = nodeIds[i];
-        var el = document.getElementById(id);
-        el.innerHTML = div;
-      }
+      var nodes = this._geoTree.getNodesByProperty('geoEntityId', geoEntity.getId());
+      Mojo.Iter.forEach(nodes, function(node){
+        node.getContentEl().innerHTML = div;
+      },this);
   
-      this._setMapping(this._selectedNode, view);
+      this._selectedNode.data.geoEntityView = view;
+      this._selectedNode.data.geoEntityId = view.getGeoEntityId();
   
       this._updateActivatedOnNodes(ids, geoEntity.getActivated());
   
@@ -364,7 +276,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _updateNodeListener : function(params, actions)
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
   
       var that = this;
       var request = new MDSS.Request({
@@ -546,28 +458,19 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       var newId = view.getGeoEntityId();
   
       // update selected node and all copies
-      var nodeIds = this._geoEntityIdToNodeIdMap[oldId];
-      for(var i=0; i<nodeIds.length; i++)
-      {
-        var id = nodeIds[i];
-        var el = document.getElementById(id);
-        el.innerHTML = div;
-      }
-  
-      // delete the old cached object
-      delete this._geoEntityViewCache[oldId];
-  
+      var nodes = that._geoTree.getNodesByProperty('geoEntityId', oldId);
+      Mojo.Iter.forEach(nodes, function(node){
+        node.getContentEl().innerHTML = div;
+      },this);
+      
       // copy node mappings to new id
-      var nodeIds = this._geoEntityIdToNodeIdMap[oldId];
-      delete this._geoEntityIdToNodeIdMap[oldId];
-      this._geoEntityIdToNodeIdMap[newId] = nodeIds;
-      for(var i=0; i<nodeIds.length; i++)
-      {
-        var nodeId = nodeIds[i];
-        this._nodeToGeoEntityMap[nodeId] = newId;
-      }
+      var nodes = that._geoTree.getNodesByProperty('geoEntityId', parentId);
+      Mojo.Iter.forEach(nodes, function(node){
+        node.data.geoEntityId = newId;
+      },this);
   
-      this._setMapping(this._selectedNode, view);
+      this._selectedNode.data.geoEntityView = view;
+      this._selectedNode.data.geoEntityId = view.getGeoEntityId();
   
       this._destroyModal();  
     },
@@ -577,7 +480,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _changeType : function(e, type)
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
   
       var request = new MDSS.Request({
         onSuccess : function(view){
@@ -596,7 +499,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
   
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
       Mojo.$.dss.vector.solutions.MDSSUser.changeRootGeoEntity(request, geoEntityView.getGeoEntityId());
     },
   
@@ -657,7 +560,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
   
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.getCompatibleTypes(request, geoEntityView.getGeoEntityId());
     },
   
@@ -690,7 +593,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       });
   
       // add all labels
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
       var type = geoEntityView.getEntityType();
   
       var allowedTypes = [];
@@ -765,7 +668,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
           }
         });
   
-        var geoEntityView = this._getGeoEntityView(this._selectedNode);
+        var geoEntityView = this._selectedNode.data.geoEntityView;
         Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.unlock(request, geoEntityView.getGeoEntityId());
       }
     },
@@ -781,26 +684,18 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     {
       if(deleteAll)
       {
-         var geoEntityView = this._getGeoEntityView(this._selectedNode);
-         var nodeIds = this._geoEntityIdToNodeIdMap[geoEntityView.getGeoEntityId()];
-         for(var i=nodeIds.length-1; i>=0; i--)
-         {
-           var nodeId = nodeIds[i];
-           var nodeEl = document.getElementById(nodeId);
-           var node = this._geoTree.getNodeByElement(nodeEl);
-  
-           this._removeMapping(node);
-  
+         var geoEntityView = this._selectedNode.data.geoEntityView;
+         var nodes = this._geoTree.getNodesByProperty('geoEntityId', geoEntityView.getGeoEntityId());
+         
+         Mojo.Iter.forEach(nodes, function(node) {
            var parent = node.parent;
            this._geoTree.removeNode(node);
-  
+           
            parent.refresh();
-         }
+         }, this);
       }
       else
       {
-        this._removeMapping(this._selectedNode);
-  
         var parent = this._selectedNode.parent;
         this._geoTree.removeNode(this._selectedNode);
         parent.refresh();
@@ -848,7 +743,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
     {
       // get its immediate parent
       var parent = this._selectedNode.parent;
-      var parentGeoEntityView = this._getGeoEntityView(parent);
+      var parentGeoEntityView = parent.data.geoEntityView;
   
       var parentId = parentGeoEntityView != null ? parentGeoEntityView.getGeoEntityId() : null;
       var that = this;
@@ -937,7 +832,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _deleteNodeListener : function()
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
   
       var that = this;
       var request = new MDSS.Request({
@@ -955,7 +850,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _editNodeHandler : function()
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
       var typeToEdit = geoEntityView.getEntityType();
       this._setCurrentBrowser(typeToEdit);
   
@@ -1054,7 +949,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
      */
     _customSelectHandler : function()
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
   
       this._selectCallback(geoEntityView, this._selectedNode);
     },
@@ -1076,7 +971,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         // and check if it should be enabled via an Ajax request.
         if(this._selectCallback != null)
         {
-          var geoEntityView = this._getGeoEntityView(this._selectedNode);
+          var geoEntityView = this._selectedNode.data.geoEntityView;
           var geoId = geoEntityView.getGeoId();
         
           // IMPORTANT:
@@ -1132,7 +1027,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       else
       {
         pageNumber = 1;
-        parentId = this._getGeoEntityView(parentNode).getGeoEntityId();
+        parentId = parentNode.data.geoEntityId;
         isPageNode = false;
       }
     
@@ -1150,7 +1045,8 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
             var div = that._createNodeDiv(child);
   
             var node = new YAHOO.widget.HTMLNode(div);
-            that._setMapping(node, child);
+            node.data.geoEntityView = child;
+            node.data.geoEntityId = child.getGeoEntityId();
             
             // either begin the replacing process if we're loading a new child page
             // or append to the end of the parent node.
@@ -1259,8 +1155,9 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
             if(obj.clone)
             {
               // copy the mapping from the old node to the new one
-              var geoEntityView = that._getGeoEntityView(ddThis.node);
-              that._setMapping(childNode, geoEntityView);
+              var geoEntityView = ddThis.node.data.geoEntityView;
+              childNode.data.geoEntityView = geoEntityView;
+              childNode.data.geoEntityId = geoEntityView.getGeoEntityId();
             }
           }
   
@@ -1269,14 +1166,20 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
   
+      
+      var childEl = document.getElementById(obj.references.childId);
+      var childNode = this._geoTree.getNodeByElement(childEl);
+      
+      var parentEl = document.getElementById(obj.references.parentId);
+      var parentNode = this._geoTree.getNodeByElement(parentEl);
   
-      var childGeoEntityView = this._getGeoEntityView(obj.references.childId);
-      var parentGeoEntityView = this._getGeoEntityView(obj.references.parentId);
+      var childGeoEntityView = childNode.data.geoEntityView;
+      var parentGeoEntityView = parentNode.data.geoEntityView;
   
       var childId = childGeoEntityView.getGeoEntityId();
       var parentId = parentGeoEntityView.getGeoEntityId();
-  
-      var oldParentId = this._getGeoEntityView(obj.references.ddThis.node.parent).getGeoEntityId();
+      
+      var oldParentId = obj.references.ddThis.node.parent.data.geoEntityView.getGeoEntityId();
       
       Mojo.$.dss.vector.solutions.geo.generated.GeoEntity.applyWithParent(request, childId, parentId, obj.clone, oldParentId);
   
@@ -1340,13 +1243,11 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
         }
       });
   
-  
-      var childGeoEntityView = this._getGeoEntityView(source.id);
-  
       var childEl = document.getElementById(source.id);
-      var childNode =this._geoTree.getNodeByElement(childEl);
-      var parentGeoEntityView =this._getGeoEntityView(childNode.parent);
-  
+      var childNode = this._geoTree.getNodeByElement(childEl);
+      var childGeoEntityView = childNode.data.geoEntityView;
+      var parentGeoEntityView = childNode.parent.data.geoEntityView;
+    
       var childId = childGeoEntityView.getGeoEntityId();
       var parentId = parentGeoEntityView.getGeoEntityId();
   
@@ -1393,33 +1294,32 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       {
         var id = ids[i];
   
-        var nodeIds = this._geoEntityIdToNodeIdMap[id];
+        var nodes = that._geoTree.getNodesByProperty('geoEntityId', id);
         
-        if(nodeIds != null)
+        if(nodes != null)
         {
-          for(var j=0; j<nodeIds.length; j++)
+          Mojo.Iter.forEach(nodes, function(node){
+          var el = node.getContentEl();
+          var nodeDiv = new YAHOO.util.Element(el.firstChild);
+      
+          if(activated === true)
           {
-            var el = document.getElementById(nodeIds[j]);
-            var nodeDiv = new YAHOO.util.Element(el.firstChild);
-  
-            if(activated === true)
-            {
-              nodeDiv.removeClass('inactiveEntity');
-              nodeDiv.addClass('activeEntity');
-            }
-            else
-            {
-              nodeDiv.removeClass('activeEntity');
-              nodeDiv.addClass('inactiveEntity');
-            }
+            nodeDiv.removeClass('inactiveEntity');
+            nodeDiv.addClass('activeEntity');
           }
+          else
+          {
+            nodeDiv.removeClass('activeEntity');
+            nodeDiv.addClass('inactiveEntity');
+          }
+          }, this);
         }
       }
     },
     
     _exportEntitiesHandler : function()
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
       var id = geoEntityView.getGeoEntityId();
       this._waitForDownload();
       document.getElementById('exportIframe').src='dss.vector.solutions.geo.GeoEntityTreeController.export.mojo?parentId='+id+'&includeGeoData=true';
@@ -1427,7 +1327,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
   
     _exportEntitiesNoGISHandler : function()
     {
-      var geoEntityView = this._getGeoEntityView(this._selectedNode);
+      var geoEntityView = this._selectedNode.data.geoEntityView;
       var id = geoEntityView.getGeoEntityId();
       this._waitForDownload();
       document.getElementById('exportIframe').src='dss.vector.solutions.geo.GeoEntityTreeController.export.mojo?parentId='+id+'&includeGeoData=false';
@@ -1527,7 +1427,8 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       this._menu.subscribe("triggerContextMenu", Mojo.Util.bind(this, this._nodeMenuSelect));
   
       // map node to GeoEntity
-      this._setMapping(this._geoTree.getRoot().children[0], view);
+      this._geoTree.getRoot().children[0].data.geoEntityView = view;
+      this._geoTree.getRoot().children[0].data.geoEntityId = view.getGeoEntityId();
       
       YAHOO.util.Event.on('exportIframe', 'load', this._handleExport, null, this);
     },
