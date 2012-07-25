@@ -15,11 +15,15 @@
 %>
   YAHOO.util.Event.onDOMReady(function(){
 
-    MDSS.GeoHierarchyTree.initializeTree("treeView");
+	  var tree = new MDSS.GeoHierarchyTree("treeView", MDSS.DefaultRoot);
+	  tree.render();
+
+	  
+    //MDSS.GeoHierarchyTree.initializeTree("treeView");
 
     window.onbeforeunload = function(){
-      // start process of refreshing the allowed in tree, 
-      // and don't worry about errors or returns.
+       //start process of refreshing the allowed in tree, 
+       //and don't worry about errors or returns.
       var request = new MDSS.Request({
         onSuccess : function(){},
         onFailure : function(){},

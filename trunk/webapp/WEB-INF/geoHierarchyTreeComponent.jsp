@@ -31,7 +31,7 @@
     out.print(js);
   %>
   
-  MDSS.GeoHierarchyTreeRootId = '<%= rootId %>';
+  MDSS.DefaultRoot = '<%= rootId %>';
   
 </script>
 
