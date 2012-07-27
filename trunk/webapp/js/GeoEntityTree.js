@@ -687,12 +687,13 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
          var geoEntityView = this._selectedNode.data.geoEntityView;
          var nodes = this._geoTree.getNodesByProperty('geoEntityId', geoEntityView.getGeoEntityId());
          
-         Mojo.Iter.forEach(nodes, function(node) {
+         for(var i=nodes.length-1; i>=0; i--)
+         { 
            var parent = node.parent;
            this._geoTree.removeNode(node);
-           
+  
            parent.refresh();
-         }, this);
+         }
       }
       else
       {

@@ -332,14 +332,11 @@ Mojo.Meta.newClass('MDSS.GeoHierarchyTree', {
     _postDeleteCleanup : function(deleteAll, ids, geoHierarchyId)
     {
     	if(deleteAll)
-    	{
-         var geoHierarchyView = this._selectedNode.data.geoHierarchyView;
-   	     var nodes = this._hierarchyTree.getNodesByProperty('geoHierarchyId', geoHierarchyView.getGeoHierarchyId());
-   	     
+    	{  	     
     	   function deleteNodeFromTree(id, earth)
     	   {
     	     // remove the node from the DOM
-     	     var nodes = this._hierarchyTree.getNodesByProperty('geoHierarchyId', geoHierarchyView.getGeoHierarchyId());
+     	     var nodes = this._hierarchyTree.getNodesByProperty('geoHierarchyId', id);
      	     
      	     if(!nodes || nodes.length === 0)
      	     {
@@ -362,19 +359,18 @@ Mojo.Meta.newClass('MDSS.GeoHierarchyTree', {
                parent.refresh();
              }
      	     }, this);
-    	   }
+    	   }   	   
     	   
     	   // place the necessary children under Earth
-    	   if (nodes.length > 0)
-    	   {
-    	     var earth = this._hierarchyTree.getRoot().children[0];
-    	     
-    	     Mojo.Iter.forEach(nodes, function(node){
-    	       deleteNodeFromTree.call(this, node, earth);
-    	     }, this);
-    	     
-    	     earth.refresh();
-    	   }
+ 	 	   if(ids.length > 0)
+	  	   {
+	  	     var earth = this._hierarchyTree.getRoot().children[0];
+	  	     for(var i=0; i<ids.length; i++)
+	  	     {
+	  	       deleteNodeFromTree.call(this, ids[i], earth);
+	  	     }
+ 	 	     earth.refresh();
+	  	   }
     	   
     	   // remove the geo hierarchy from the tree
     	   deleteNodeFromTree.call(this, geoHierarchyId, null);
