@@ -689,6 +689,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
          
          for(var i=nodes.length-1; i>=0; i--)
          { 
+         	 var node = nodes[i];
            var parent = node.parent;
            this._geoTree.removeNode(node);
   
