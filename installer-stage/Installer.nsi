@@ -71,6 +71,8 @@ Var Params
 Var Master_Value
 Var FPath
 Var FVersion
+Var RunwayVersion           # Version of the runway metadata contained in the install.
+Var ManagerVersion          # Version of the manager contained in the install.
 Var PatchVersion
 Var TermsVersion
 Var RootsVersion
@@ -312,12 +314,14 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6828
+    StrCpy $PatchVersion 6957
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 6827
-    StrCpy $PermissionsVersion 6743
+    StrCpy $LocalizationVersion 6930
+    StrCpy $PermissionsVersion 6942
+	StrCpy $RunwayVersion 6899
+	StrCpy $ManagerVersion 6938
     
     LogEx::Init "$INSTDIR\installer-log.txt"
     StrCmp $Master_Value "true" +1 +2
@@ -402,7 +406,7 @@ Section -Main SEC0000
     !insertmacro MUI_HEADER_TEXT "Installing DDMS" "Installing Tomcat"
     LogEx::Write "Installing Tomcat"
     SetOutPath $INSTDIR\tomcat6
-    File /r /x .svn tomcat6\*
+    File /r /x .svn /x webapps\DDMS\ tomcat6\*
     SetOutPath $INSTDIR
         
     # Install Postgres
@@ -517,7 +521,8 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Menu $MenuVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Localization $LocalizationVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
-    WriteRegStr HKLM "${REGKEY}\Components" Manager 1
+    WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
     
     # Write some shortcuts
@@ -568,7 +573,6 @@ done${UNSECTION_ID}:
 Section /o -un.Main UNSEC0000
     CreateDirectory $DESKTOP\temp_uninstall_files
     CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
-    RmDir /r /REBOOTOK $INSTDIR
     DeleteRegValue HKLM "${REGKEY}\Components" Main
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
@@ -581,6 +585,8 @@ Section /o -un.Main UNSEC0000
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
     RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
+    RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+    RmDir /r /REBOOTOK $INSTDIR
 SectionEnd
 
 Section -un.post UNSEC0001
@@ -597,7 +603,8 @@ Section -un.post UNSEC0001
     DeleteRegKey HKLM "${REGKEY}"
     SetShellVarContext all
     RmDir /r /REBOOTOK $SMPROGRAMS\DDMS
-    RmDir /REBOOTOK $INSTDIR
+    RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+    UserMgr::DeleteAccount "ddmspostgres"
 SectionEnd
 
 # Installer functions
