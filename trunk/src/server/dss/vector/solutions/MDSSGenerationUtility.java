@@ -33,6 +33,14 @@ public class MDSSGenerationUtility implements Reloadable
     map.put("prefix", "mdss");
     
     writer.writeEmptyTag("<%@", "%>", "taglib", map);
+    
+    // Generated JSPs weren't setting pageEncoding to UTF-8
+    // this caused generated types with unicode characters
+    // in their names to be unusable in the front end
+    map = new HashMap<String, String>();
+    map.put("pageEncoding", "UTF-8");
+    
+    writer.writeEmptyTag("<%@", "%>", "page", map);
   }
 
   static void writeCommandLink(MarkupWriter writer, String commandLinkTag, String action, String name, String display)
