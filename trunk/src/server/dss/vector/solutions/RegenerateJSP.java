@@ -19,6 +19,14 @@ public class RegenerateJSP implements Reloadable
   @Request
   public static void main(String[] args)
   {
+    boolean onlyGenerated= false;
+    
+    if (args.length > 0)
+    {
+      if (args[0].equals("generated"))
+        onlyGenerated = true;
+    }
+    
     Collection<MdEntityDAOIF> mdEntities = new LinkedList<MdEntityDAOIF>();
 
     QueryFactory qFactory = new QueryFactory();
@@ -40,7 +48,8 @@ public class RegenerateJSP implements Reloadable
 
       if (mdEntity.hasMdController())
       {
-         new ProviderFactory().getProvider(mdEntity).generateContent();
+        if (!onlyGenerated || mdEntity.getPackage().contains("generated"))
+          new ProviderFactory().getProvider(mdEntity).generateContent();
       }
     }
   }
