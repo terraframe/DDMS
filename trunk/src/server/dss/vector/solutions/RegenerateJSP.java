@@ -52,5 +52,6 @@ public class RegenerateJSP implements Reloadable
           new ProviderFactory().getProvider(mdEntity).generateContent();
       }
     }
+    System.exit(0);
   }
 }
