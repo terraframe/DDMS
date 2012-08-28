@@ -25,7 +25,9 @@ public class Localizer
   {
     try
     {
-      return bundle.getString(key);
+      String value = bundle.getString(key);
+      String unicodeValue = new String(value.getBytes("ISO-8859-1"), "UTF-8");
+      return unicodeValue;
     }
     catch (Exception e)
     {
