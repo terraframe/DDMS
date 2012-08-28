@@ -15,7 +15,6 @@ import org.eclipse.swt.widgets.Display;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.manager.controller.IConfiguration;
 import com.runwaysdk.manager.controller.IModule;
-import com.runwaysdk.manager.general.Localizer;
 import com.runwaysdk.manager.general.MainWindow;
 
 import dss.vector.solutions.admin.controller.MasterConfiguration;
