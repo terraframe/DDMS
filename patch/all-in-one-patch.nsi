@@ -14,6 +14,8 @@ RequestExecutionLevel highest
 # MUI Symbol Definitions
 !define MUI_ICON "${NSISDIR}\Contrib\Graphics\Icons\modern-install-colorful.ico"
 !define MUI_FINISHPAGE_NOAUTOCLOSE
+!define MUI_UNICON "ivcc_roundel_1.ico"
+!define MUI_UNFINISHPAGE_NOAUTOCLOSE
 
 # Included files
 !include Sections.nsh
@@ -55,6 +57,9 @@ Var AppFile                 # Temp variable for looping through the contents of 
 !insertmacro MUI_PAGE_WELCOME
 !insertmacro MUI_PAGE_INSTFILES
 !insertmacro MUI_PAGE_FINISH
+!insertmacro MUI_UNPAGE_CONFIRM
+!insertmacro MUI_UNPAGE_INSTFILES
+!insertmacro MUI_UNPAGE_FINISH
 
 # Installer languages
 !insertmacro MUI_LANGUAGE English
@@ -73,52 +78,57 @@ VIAddVersionKey CompanyWebsite "${URL}"
 VIAddVersionKey FileVersion "${VERSION}"
 VIAddVersionKey FileDescription ""
 VIAddVersionKey LegalCopyright ""
+ShowUninstDetails show
 
 # Installer sections
 Section -Main SEC0000
-    SetOutPath $INSTDIR
-    SetOverwrite on
-	
-    # The version numbers are automatically replaced by all-in-one-patch.xml
-    StrCpy $RunwayVersion 6847
-    StrCpy $ManagerVersion 6846
-    StrCpy $PatchVersion 6849
-    StrCpy $TermsVersion 6644
-    StrCpy $RootsVersion 5432
-    StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 6843
-    StrCpy $PermissionsVersion 6829
+  SetOutPath $INSTDIR
+  SetOverwrite on
+  
+  # The version numbers are automatically replaced by all-in-one-patch.xml
+  StrCpy $RunwayVersion 6899
+  StrCpy $ManagerVersion 6968
+  StrCpy $PatchVersion 6963
+  StrCpy $TermsVersion 6644
+  StrCpy $RootsVersion 5432
+  StrCpy $MenuVersion 6655
+  StrCpy $LocalizationVersion 6930
+  StrCpy $PermissionsVersion 6942
     
-    # Set some constants
-    StrCpy $PatchDir "$INSTDIR\patch"
-    StrCpy $AgentDir "$PatchDir\output"
-    StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
-    StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe"
-	
-	# Extract the logging libs
-    !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
-    SetOutPath $PatchDir
-    File ..\ddms-runway-patcher\OutputAgent.jar
-    File ..\ddms-runway-patcher\7za.exe
-    File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
-	
-	#####################################################################
-	# First we must patch any runway metadata changes for all of the apps
-	#####################################################################
-	Call patchAllMetadata
+  # Set some constants
+  StrCpy $PatchDir "$INSTDIR\patch"
+  StrCpy $AgentDir "$PatchDir\output"
+  StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
+  StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe"
+  
+  # Extract the logging libs
+  !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
+  SetOutPath $PatchDir
+  File ..\ddms-runway-patcher\OutputAgent.jar
+  File ..\ddms-runway-patcher\7za.exe
+  File ..\ddms-runway-patcher\lib\runway-patcher-1.0.0.jar
+  
+  #####################################################################
+  # First we must patch any runway metadata changes for all of the apps
+  #####################################################################
+  Call patchAllMetadata
 
-	#####################################################################
-	# Next we must patch the manager jars and associated files
-	#####################################################################
-    Call patchManager
-	
-	#####################################################################
-	# Finally we can patch master applications
-	#####################################################################
-    Call patchApplications    
+  #####################################################################
+  # Next we must patch the manager jars and associated files
+  #####################################################################
+  Call patchManager
+  
+  #####################################################################
+  # Finally we can patch master applications
+  #####################################################################
+  Call patchApplications    
 
- 	# Clean-up the logging libs
-    Delete $PatchDir\*	
+  #  After all patching has finished we need to delete the tomcat cache
+  SetOutPath $INSTDIR
+  RMDir /r $INSTDIR\tomcat6\work\Catalina 
+  
+  # Clean-up the logging libs
+  Delete $PatchDir\*  
 SectionEnd
 
 Function checkIfMaster
@@ -185,10 +195,10 @@ Function patchApplication
     # Before we start, check the versions to make sure this is actually a patch.
     ReadRegStr $0 HKLM "${REGKEY}\Components\$AppName" App
     ${If} $PatchVersion > $0     
-
-      MessageBox MB_YESNO "Patch application $AppName?" IDYES true IDNO false	
-	  true:
-	  # Update the classpath to reference the particular application being patched
+      MessageBox MB_YESNO "Patch application $AppName?" IDYES true IDNO false  
+      true:
+	  
+      # Update the classpath to reference the particular application being patched
       StrCpy $Classpath "$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes;$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\lib\*"
 
       # Remove any old log files that may be laying around
@@ -293,12 +303,12 @@ Function patchApplication
       ${Else}
         DetailPrint "Skipping Permissions because they are already up to date"
       ${EndIf}
-    
+   
       # Switch back to the deploy environment
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
-	
-	  # Update the .css file with the correct pathing
+  
+      # Update the .css file with the correct pathing
       ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -itrue -p`
     
       # Copy the profile to the backup manager
@@ -311,16 +321,14 @@ Function patchApplication
     
       # We need to clear the old cache
       Delete $INSTDIR\tomcat6\$AppName.index
-      Delete $INSTDIR\tomcat6\$AppName.data	
-	  Goto next
-	  false:
-	  DetailPrint "Skipping patch of $AppName"
-	  next:	  
-
-	${Else}
-        DetailPrint "The application $AppName is already up to date."
-    ${EndIf}
-    
+      Delete $INSTDIR\tomcat6\$AppName.data  
+    Goto next
+    false:
+    DetailPrint "Skipping patch of $AppName"
+    next:    
+  ${Else}
+    DetailPrint "The application $AppName is already up to date."
+  ${EndIf}    
 FunctionEnd
 
 Function patchAllMetadata
@@ -390,7 +398,7 @@ Function patchManager
   ${If} $ManagerVersion > $0    
     SetOutPath $INSTDIR
     File ..\standalone\patch\manager.bat
-    File ..\standalone\patch\manager.ico	
+    File ..\standalone\patch\manager.ico  
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
     File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
@@ -402,7 +410,7 @@ Function patchManager
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
-    	
+      
     ################################################################################
     # Copy any updated runway properties to all of the backedup profile directories
     ################################################################################
@@ -428,26 +436,25 @@ Function patchManager
     appNameDone:
     ClearErrors
     FileClose $0    
-	
+  
     SetOutPath $INSTDIR
     
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion  
   ${Else}
-    DetailPrint "Manager is already up to date"	
-  ${EndIf}
-    
+    DetailPrint "Manager is already up to date"  
+  ${EndIf}    
 FunctionEnd
 
 
 Function JavaAbort
-    ${If} $JavaError == 1
-      ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\*.err $PatchDir\*.out $INSTDIR\logs`
-      DetailPrint "Patch failed."
-      DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
-      DetailPrint "this file to technical support staff for review."
-      DetailPrint "It is strongly recommended to restore from a backup to ensure that the app continues"
-      Abort "to function properly."
-    ${EndIf}
+  ${If} $JavaError == 1
+    ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\*.err $PatchDir\*.out $INSTDIR\logs`
+    DetailPrint "Patch failed."
+    DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
+    DetailPrint "this file to technical support staff for review."
+    DetailPrint "It is strongly recommended to restore from a backup to ensure that the app continues"
+    Abort "to function properly."
+  ${EndIf}
 FunctionEnd
 
 Function StrTrimNewLines
@@ -492,8 +499,71 @@ Function StrTrimNewLines
   Exch $R0
 FunctionEnd
 
+Section -post SEC0001
+    Delete $INSTDIR\uninstall.exe
+    WriteUninstaller $INSTDIR\uninstall.exe
+SectionEnd
+
 # Installer functions
 Function .onInit
     InitPluginsDir
+FunctionEnd
+
+# Macro for selecting uninstaller sections
+!macro SELECT_UNSECTION SECTION_NAME UNSECTION_ID
+    Push $R0
+    ReadRegStr $R0 HKLM "${REGKEY}\Components" "${SECTION_NAME}"
+    StrCmp $R0 1 0 next${UNSECTION_ID}
+    !insertmacro SelectSection "${UNSECTION_ID}"
+    GoTo done${UNSECTION_ID}
+next${UNSECTION_ID}:
+    !insertmacro UnselectSection "${UNSECTION_ID}"
+done${UNSECTION_ID}:
+    Pop $R0
+!macroend
+
+# Uninstaller sections
+Section /o -un.Main UNSEC0000
+    CreateDirectory $DESKTOP\temp_uninstall_files
+    CopyFiles $INSTDIR\PostgreSQL\9.1\uninstall*.exe $DESKTOP\temp_uninstall_files
+    DeleteRegValue HKLM "${REGKEY}\Components" Main
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" App
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Terms
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Roots
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Menu
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
+    DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
+    DeleteRegValue HKLM "${REGKEY}\Components" Manager
+    DeleteRegValue HKLM "${REGKEY}\Components" Runway
+    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
+    ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
+    RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
+    RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+    RmDir /r /REBOOTOK $INSTDIR
+    UserMgr::DeleteAccount "ddmspostgres"
+SectionEnd
+
+Section -un.post UNSEC0001
+    DeleteRegKey HKLM "SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\$(^Name)"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Open $AppName.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\BIRT.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Qcal.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Manager.lnk"
+    Delete /REBOOTOK "$SMPROGRAMS\DDMS\Uninstall $(^Name).lnk"
+    Delete /REBOOTOK $INSTDIR\uninstall.exe
+    DeleteRegValue HKLM "${REGKEY}" StartMenuGroup
+    DeleteRegValue HKLM "${REGKEY}" Path
+    DeleteRegKey HKLM "${REGKEY}\Components"
+    DeleteRegKey HKLM "${REGKEY}"
+    SetShellVarContext all
+    RmDir /r /REBOOTOK $SMPROGRAMS\DDMS
+    RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
+SectionEnd
+
+# Uninstaller functions
+Function un.onInit
+    ReadRegStr $INSTDIR HKLM "${REGKEY}" Path
+    !insertmacro SELECT_UNSECTION Main ${UNSEC0000}
+	SetRebootFlag true
 FunctionEnd
 
