@@ -24,10 +24,10 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebBreakDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebCommentDTO"%>
 <%@page import="com.runwaysdk.system.metadata.MdWebHeaderDTO"%>
+<%@page import="com.runwaysdk.system.metadata.MdWebFormDTO"%>
 
 
 <%@page import="com.runwaysdk.system.metadata.MdWebReferenceDTO"%>
-<jsp:include page="../../../../../../templates/header.jsp" />
 
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
@@ -37,6 +37,10 @@
 
 <%
 ClientRequestIF requestIF = (ClientRequestIF) request.getAttribute(ClientConstants.CLIENTREQUEST);
+MdWebFormDTO form = MdWebFormDTO.get(requestIF, request.getAttribute("surveyFormId").toString());
+String formDisplayLabel = form.getDisplayLabel().getValue();
+
+request.setAttribute("localized_page_title", formDisplayLabel);
 
 String[] types = new String[]{
 request.getAttribute("surveyClassType").toString(),
@@ -44,6 +48,7 @@ request.getAttribute("householdClassType").toString(),
 request.getAttribute("bedNetClassType").toString(),
 request.getAttribute("personClassType").toString(),
 FormObjectController.CLASS,
+MdWebFormDTO.CLASS,
     
 // WebNumber (excluding float)
 MdWebIntegerDTO.CLASS,
@@ -64,6 +69,8 @@ MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
 MdWebCommentDTO.CLASS
 };
+
+
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
 out.print(js);
@@ -88,7 +95,6 @@ YAHOO.util.Event.onDOMReady(function(){
 });
 </script>
 <div class="generatorContent" id="generatorContent">
-  <h2 class="pageTitle">${localized_page_title}</h2>
   <a href="#" id="surveyNewInstanceCommand">
     <mdss:localize key="New_Form_Survey" />
   </a>
@@ -104,6 +110,7 @@ YAHOO.util.Event.onDOMReady(function(){
   <a href="#" id="householdNewInstanceCommand">
     <mdss:localize key="New_Form_Household" />
   </a>
+  <br id="householdParentBreak" />
   <a href="#" id="householdViewParentCommand">
     <mdss:localize key="View_Form_Survey" />
   </a>
@@ -115,6 +122,7 @@ YAHOO.util.Event.onDOMReady(function(){
   <a href="#" id="bedNetNewInstanceCommand">
     <mdss:localize key="New_Form_Bed_Net" />
   </a>
+  <br id="bedNetParentBreak" />
   <a href="#" id="bedNetViewParentCommand">
     <mdss:localize key="View_Form_Household" />
   </a>
@@ -125,6 +133,7 @@ YAHOO.util.Event.onDOMReady(function(){
   <a href="#" id="personNewInstanceCommand">
     <mdss:localize key="New_Form_Person" />
   </a>
+  <br id="personParentBreak" />
   <a href="#" id="personViewParentCommand">
     <mdss:localize key="View_Form_Household" />
   </a>
@@ -145,4 +154,3 @@ YAHOO.util.Event.onDOMReady(function(){
 	</form>    
   </div>  
 </div>
-<jsp:include page="../../../../../../templates/footer.jsp"></jsp:include>
