@@ -231,7 +231,7 @@ public class MdssLocalizationImporter implements Reloadable
 
     try
     {
-      FileIO.write(childFile, data);
+      FileIO.encodedWrite(childFile, data, "UTF8");
     }
     catch (IOException e)
     {
@@ -370,7 +370,7 @@ public class MdssLocalizationImporter implements Reloadable
 
       try
       {
-        FileIO.write(file, data.toString());
+        FileIO.encodedWrite(file, data.toString(), "UTF8");
       }
       catch (IOException e)
       {
