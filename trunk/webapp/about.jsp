@@ -22,7 +22,6 @@
     <ul>
       <li> Colorado State University (<a href="http://www.colostate.edu">www.colostate.edu</a>) </li>
       <li> TerraFrame, Inc. (<a href="http://www.terraframe.com/pages/">www.terraframe.com/pages/</a>) </li>
-      <li> Medical Research Council of South Africa (<a href="http://www.mrc.ac.za">www.mrc.ac.za</a>) </li>
     </ul>
   </dd>
   <dt><mdss:localize key="funding_by"/>:</dt>
