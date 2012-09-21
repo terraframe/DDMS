@@ -1617,8 +1617,9 @@ public class QueryController extends QueryControllerBase implements com.runwaysd
       builder.addForm(MdFormUtilDTO.getForm(request, FormBedNetDTO.FORM_TYPE), "root");
 
       builder.populateRequest(req);
-
-      req.setAttribute("page_title", "Query_MERG_survey");
+      
+      MdWebFormDTO surveyForm = MdFormUtilDTO.getForm(this.getClientRequest(), FormSurveyDTO.FORM_TYPE);
+      req.setAttribute("localized_page_title", surveyForm.getDisplayLabel().getValue()); 
       
       req.getRequestDispatcher(QUERY_TYPE).forward(req, resp);
     }
