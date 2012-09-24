@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.StringReader;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -195,11 +196,12 @@ public class ReportGenerator implements Reloadable
 
       matcher.find();
 
-      String group = matcher.group(1).replaceAll("\"", "");
-      String[] selectables = group.split(",");
+      String group = matcher.group(1);
+      String[] selectables = new CSVReader(new StringReader(group)).readNext();
 
       for (String selectable : selectables)
       {
+        selectable = selectable.replaceAll("\"", "");
         if (!headers.contains(selectable.trim()))
         {
           throw new QueryConfigurationExceptionDTO(this.clientRequest, this.locale);
