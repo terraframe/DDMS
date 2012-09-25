@@ -30,6 +30,7 @@ import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableReference;
@@ -428,6 +429,8 @@ public abstract class AbstractQB implements Reloadable
 
         // due to inconsistent and overlapping interfaces, check what operation
         // to perform based on the underlying Selectable type.
+        // NOTE: #2717 fix uses the sel object as the underlying criteria Selectable
+        // instead of the aggregate because we want to "pre-filter" results.
         while (sel instanceof Function)
         {
           sel = ( (Function) sel ).getSelectable();
@@ -451,41 +454,33 @@ public abstract class AbstractQB implements Reloadable
               String range2 = range[1].trim();
               if (range1.length() > 0)
               {
-                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(range1) : ( (SelectableNumber) original ).GE(range1));
+                conditions.add(original instanceof AggregateFunction ? ( (SelectableNumber) sel ).GE(range1) : ( (SelectableNumber) original ).GE(range1));
               }
 
               if (range2.length() > 0)
               {
-                conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).LE(range2) : ( (SelectableNumber) original ).LE(range2));
+                conditions.add(original instanceof AggregateFunction ? ( (SelectableNumber) sel ).LE(range2) : ( (SelectableNumber) original ).LE(range2));
               }
             }
             else
             {
               String lowerBound = range[0].trim();
               // Just the GE criteria was specified (e.g., "7-")
-              conditions.add(original instanceof AggregateFunction ? ( (AggregateFunction) original ).GE(lowerBound) : ( (SelectableNumber) original ).GE(lowerBound));
+              conditions.add(original instanceof AggregateFunction ? ( (SelectableNumber) sel ).GE(lowerBound) : ( (SelectableNumber) original ).GE(lowerBound));
             }
           }
           else
           {
             // exact value
-            conditions.add((AttributeCondition) original.EQ(value));
+            conditions.add((AttributeCondition) (original instanceof AggregateFunction ? sel.EQ(value) : original.EQ(value)));
           }
         }
 
         if (conditions.size() > 0)
         {
           Condition cond = AND.get(conditions.toArray(new Condition[conditions.size()]));
-          if (original.isAggregateFunction())
-          {
-            valueQuery.HAVING(cond);
-          }
-          else
-          {
-            valueQuery.WHERE(cond);
-          }
+          valueQuery.WHERE(cond);
         }
-
       }
     }
   }
