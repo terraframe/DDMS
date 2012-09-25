@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = -65800386)
+@com.runwaysdk.business.ClassSignature(hash = 502865730)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public class LocalPropertyQueryDTO extends com.runwaysdk.business.BusinessQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -65800386;
+private static final long serialVersionUID = 502865730;
 
   protected LocalPropertyQueryDTO(String type)
   {

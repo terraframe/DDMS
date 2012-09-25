@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 1204999148)
+@com.runwaysdk.business.ClassSignature(hash = -719294252)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions;
 public  class LocalPropertyQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1204999148;
+private static final long serialVersionUID = -719294252;
 
   public LocalPropertyQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -77,40 +77,6 @@ private static final long serialVersionUID = 1204999148;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.LocalProperty.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.LocalProperty.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getDescription()
-  {
-    return getDescription(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDescription(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.LocalProperty.DESCRIPTION, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDescription(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.LocalProperty.DESCRIPTION, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getDisplayLabel()
-  {
-    return getDisplayLabel(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.LocalProperty.DISPLAYLABEL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.LocalProperty.DISPLAYLABEL, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getEditable()
@@ -271,6 +237,52 @@ private static final long serialVersionUID = 1204999148;
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.LocalProperty.OWNER);
 
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.LocalProperty.OWNER, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription()
+  {
+    return getPropertyDescription(null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION);
+
+    return (dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION);
+
+    return (dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel()
+  {
+    return getPropertyLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.LocalProperty.PROPERTYLABEL);
+
+    return (dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.LocalProperty.PROPERTYLABEL, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.LocalProperty.PROPERTYLABEL);
+
+    return (dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.LocalProperty.PROPERTYLABEL, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getPropertyName()
@@ -457,6 +469,25 @@ private static final long serialVersionUID = 1204999148;
     }
   }
 
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION)) 
+    {
+       return new dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.LocalProperty.PROPERTYLABEL)) 
+    {
+       return new dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -495,12 +526,6 @@ private static final long serialVersionUID = 1204999148;
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getDescription();
-    public com.runwaysdk.query.SelectableChar getDescription(String alias);
-    public com.runwaysdk.query.SelectableChar getDescription(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getDisplayLabel();
-    public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias);
-    public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableBoolean getEditable();
     public com.runwaysdk.query.SelectableBoolean getEditable(String alias);
     public com.runwaysdk.query.SelectableBoolean getEditable(String alias, String displayLabel);
@@ -525,6 +550,12 @@ private static final long serialVersionUID = 1204999148;
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription();
+    public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription(String alias);
+    public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription(String alias, String displayLabel);
+    public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel();
+    public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel(String alias);
+    public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getPropertyName();
     public com.runwaysdk.query.SelectableChar getPropertyName(String alias);
     public com.runwaysdk.query.SelectableChar getPropertyName(String alias, String displayLabel);
@@ -567,7 +598,7 @@ private static final long serialVersionUID = 1204999148;
  implements LocalPropertyQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1033898486;
+private static final long serialVersionUID = 352251638;
 
   public LocalPropertyQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -620,40 +651,6 @@ private static final long serialVersionUID = -1033898486;
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.LocalProperty.CREATEDBY,  alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getDescription()
-  {
-    return getDescription(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDescription(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.LocalProperty.DESCRIPTION, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDescription(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.LocalProperty.DESCRIPTION, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableChar getDisplayLabel()
-  {
-    return getDisplayLabel(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.LocalProperty.DISPLAYLABEL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getDisplayLabel(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.LocalProperty.DISPLAYLABEL, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableBoolean getEditable()
@@ -790,6 +787,40 @@ private static final long serialVersionUID = -1033898486;
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.LocalProperty.OWNER,  alias, displayLabel);
+
+  }
+  public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription()
+  {
+    return getPropertyDescription(null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription(String alias)
+  {
+    return (dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF)this.attributeFactory(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF getPropertyDescription(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStructIF)this.attributeFactory(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
+  public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel()
+  {
+    return getPropertyLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel(String alias)
+  {
+    return (dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.LocalProperty.PROPERTYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF getPropertyLabel(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.LocalProperty.PROPERTYLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getPropertyName()
@@ -968,6 +999,25 @@ private static final long serialVersionUID = -1033898486;
     else if (name.equals(dss.vector.solutions.LocalProperty.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.LocalProperty.PROPERTYDESCRIPTION)) 
+    {
+       return new dss.vector.solutions.LocalPropertyPropertyDescriptionQuery.LocalPropertyPropertyDescriptionQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.LocalProperty.PROPERTYLABEL)) 
+    {
+       return new dss.vector.solutions.LocalPropertyPropertyLabelQuery.LocalPropertyPropertyLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

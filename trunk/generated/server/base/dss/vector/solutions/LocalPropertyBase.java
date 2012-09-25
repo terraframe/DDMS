@@ -1,6 +1,6 @@
 package dss.vector.solutions;
 
-@com.runwaysdk.business.ClassSignature(hash = 312382645)
+@com.runwaysdk.business.ClassSignature(hash = 130774251)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,8 +13,6 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
   public final static String CLASS = "dss.vector.solutions.LocalProperty";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
-  public static java.lang.String DESCRIPTION = "description";
-  public static java.lang.String DISPLAYLABEL = "displayLabel";
   public static java.lang.String EDITABLE = "editable";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -23,6 +21,12 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String PROPERTYDESCRIPTION = "propertyDescription";
+  private com.runwaysdk.business.Struct propertyDescription = null;
+  
+  public static java.lang.String PROPERTYLABEL = "propertyLabel";
+  private com.runwaysdk.business.Struct propertyLabel = null;
+  
   public static java.lang.String PROPERTYNAME = "propertyName";
   public static java.lang.String PROPERTYPACKAGE = "propertyPackage";
   public static java.lang.String PROPERTYTYPE = "propertyType";
@@ -32,11 +36,13 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
   public static java.lang.String VALIDVALUES = "validValues";
-  private static final long serialVersionUID = 312382645;
+  private static final long serialVersionUID = 130774251;
   
   public LocalPropertyBase()
   {
     super();
+    propertyDescription = super.getStruct("propertyDescription");
+    propertyLabel = super.getStruct("propertyLabel");
   }
   
   public java.util.Date getCreateDate()
@@ -81,62 +87,6 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.LocalProperty.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
-  }
-  
-  public String getDescription()
-  {
-    return getValue(DESCRIPTION);
-  }
-  
-  public void validateDescription()
-  {
-    this.validateAttribute(DESCRIPTION);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDescriptionMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.LocalProperty.CLASS);
-    return mdClassIF.definesAttribute(DESCRIPTION);
-  }
-  
-  public void setDescription(String value)
-  {
-    if(value == null)
-    {
-      setValue(DESCRIPTION, "");
-    }
-    else
-    {
-      setValue(DESCRIPTION, value);
-    }
-  }
-  
-  public String getDisplayLabel()
-  {
-    return getValue(DISPLAYLABEL);
-  }
-  
-  public void validateDisplayLabel()
-  {
-    this.validateAttribute(DISPLAYLABEL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisplayLabelMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.LocalProperty.CLASS);
-    return mdClassIF.definesAttribute(DISPLAYLABEL);
-  }
-  
-  public void setDisplayLabel(String value)
-  {
-    if(value == null)
-    {
-      setValue(DISPLAYLABEL, "");
-    }
-    else
-    {
-      setValue(DISPLAYLABEL, value);
-    }
   }
   
   public Boolean getEditable()
@@ -361,6 +311,38 @@ public abstract class LocalPropertyBase extends com.runwaysdk.business.Business 
     {
       setValue(OWNER, value.getId());
     }
+  }
+  
+  public dss.vector.solutions.LocalPropertyPropertyDescription getPropertyDescription()
+  {
+    return (dss.vector.solutions.LocalPropertyPropertyDescription) propertyDescription;
+  }
+  
+  public void validatePropertyDescription()
+  {
+    this.validateAttribute(PROPERTYDESCRIPTION);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPropertyDescriptionMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.LocalProperty.CLASS);
+    return mdClassIF.definesAttribute(PROPERTYDESCRIPTION);
+  }
+  
+  public dss.vector.solutions.LocalPropertyPropertyLabel getPropertyLabel()
+  {
+    return (dss.vector.solutions.LocalPropertyPropertyLabel) propertyLabel;
+  }
+  
+  public void validatePropertyLabel()
+  {
+    this.validateAttribute(PROPERTYLABEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getPropertyLabelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.LocalProperty.CLASS);
+    return mdClassIF.definesAttribute(PROPERTYLABEL);
   }
   
   public String getPropertyName()

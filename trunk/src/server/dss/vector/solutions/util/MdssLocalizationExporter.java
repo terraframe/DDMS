@@ -61,6 +61,7 @@ import com.runwaysdk.system.metadata.Metadata;
 import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.InstallProperties;
+import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
@@ -71,6 +72,8 @@ public class MdssLocalizationExporter implements Reloadable
   public static final String    MDSS_PROPERTIES        = "UI Text";
 
   public static final String    DISPLAY_LABELS         = "Display Labels";
+
+  public static final String    LOCAL_PROPERTY_LABELS  = "Local Property Labels";
 
   public static final String    DESCRIPTIONS           = "Descriptions";
 
@@ -102,6 +105,8 @@ public class MdssLocalizationExporter implements Reloadable
   private HSSFSheet             exceptionSheet;
 
   private HSSFSheet             labelSheet;
+
+  private HSSFSheet             localPropertySheet;
 
   private HSSFSheet             termSheet;
 
@@ -203,6 +208,7 @@ public class MdssLocalizationExporter implements Reloadable
     termSheet = workbook.createSheet(TERM_LABELS);
     entityLabelSheet = workbook.createSheet(GEO_ENTITY_LABELS);
     labelSheet = workbook.createSheet(DISPLAY_LABELS);
+    localPropertySheet = workbook.createSheet(LOCAL_PROPERTY_LABELS);
     descriptionSheet = workbook.createSheet(DESCRIPTIONS);
     serverSheet = workbook.createSheet(SERVER_EXCEPTIONS);
     clientSheet = workbook.createSheet(CLIENT_EXCEPTIONS);
@@ -216,6 +222,7 @@ public class MdssLocalizationExporter implements Reloadable
 
     prepareExceptions();
     prepareDisplayLabels();
+    prepareLocalPropertyLabels();
     prepareTermLabels();
     prepareGeoEntityLabels();
     prepareDescriptions();
@@ -233,7 +240,7 @@ public class MdssLocalizationExporter implements Reloadable
 
   private void prepareHeaders()
   {
-    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, termSheet, entityLabelSheet, descriptionSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
+    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, localPropertySheet, termSheet, entityLabelSheet, descriptionSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
 
     for (HSSFSheet sheet : sheets)
     {
@@ -284,6 +291,8 @@ public class MdssLocalizationExporter implements Reloadable
     MdAttributeLocalQuery localQuery = new MdAttributeLocalQuery(qf);
     localQuery.WHERE(localQuery.getAttributeName().NE(Term.TERMDISPLAYLABEL));
     localQuery.WHERE(localQuery.getAttributeName().NE(GeoEntity.ENTITYLABEL));
+    localQuery.WHERE(localQuery.getAttributeName().NE(LocalProperty.PROPERTYLABEL));
+    localQuery.WHERE(localQuery.getAttributeName().NE(LocalProperty.PROPERTYDESCRIPTION));
     localQuery.WHERE(localQuery.getAttributeName().NE(MdLocalizableInfo.MESSAGE));
     localQuery.WHERE(localQuery.getAttributeName().NE(Metadata.DESCRIPTION));
     OIterator<? extends MdAttributeLocal> iterator = localQuery.getIterator();
@@ -321,6 +330,16 @@ public class MdssLocalizationExporter implements Reloadable
     MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(Term.getTermDisplayLabelMd());
     list.add(local);
     prepareAttributeList(termSheet, list);
+  }
+  
+  private void prepareLocalPropertyLabels()
+  {
+    List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
+    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyLabelMd());
+    MdAttributeLocal localDesc = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyDescriptionMd());
+    list.add(local);
+    list.add(localDesc);
+    prepareAttributeList(localPropertySheet, list);
   }
 
   private void prepareGeoEntityLabels()

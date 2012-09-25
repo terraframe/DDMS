@@ -1,5 +1,7 @@
 package dss.vector.solutions;
 
+import dss.vector.solutions.geo.generated.GeoEntityDTO;
+
 public class LocalPropertyDTO extends LocalPropertyDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{
   private static final long serialVersionUID = -1937234002;
