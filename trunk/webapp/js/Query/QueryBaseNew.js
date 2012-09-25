@@ -677,19 +677,19 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       // aggregate functions
       var aggFunc = null;
       var displayLabel = "("+func+") "+ attribute.getDisplayLabel();
-      if(func === MDSS.QueryXML.Functions.SUM)
+      if(func === MDSS.QueryXML.Functions.SUM.name)
       {
         aggFunc = new MDSS.QueryXML.SUM(selectable, key, displayLabel);
       }
-      else if(func === MDSS.QueryXML.Functions.MIN)
+      else if(func === MDSS.QueryXML.Functions.MIN.name)
       {
         aggFunc = new MDSS.QueryXML.MIN(selectable, key, displayLabel);
       }
-      else if(func === MDSS.QueryXML.Functions.MAX)
+      else if(func === MDSS.QueryXML.Functions.MAX.name)
       {
         aggFunc = new MDSS.QueryXML.MAX(selectable, key, displayLabel);
       }
-      else if(func === MDSS.QueryXML.Functions.AVG)
+      else if(func === MDSS.QueryXML.Functions.AVG.name)
       {
         aggFunc = new MDSS.QueryXML.AVG(selectable, key, displayLabel);
       }
@@ -788,25 +788,25 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM);
+          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.SUM.name);
         },
         min: function(entityAlias, attributeName, userAlias){
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN);
+          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MIN.name);
         },
         max: function(entityAlias, attributeName, userAlias){
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX);
+          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.MAX.name);
         },
         avg: function(entityAlias, attributeName, userAlias){
 
           var checked = thisRef._checkBox(userAlias);
           thisRef._setNumberCriteriaFromLoad(checked, userAlias);
-          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG);
+          thisRef._chooseOption(userAlias+'-'+MDSS.QueryXML.Functions.AVG.name);
         },
         count: function(entityAlias, attributeName, userAlias){
 
@@ -1057,22 +1057,23 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
           {
             var select = document.createElement('select');
             
-            var options = [''];
+            var options = [{name: '', label: '', toString: function(){ return this.name; }}];
+            
             options = options.concat(Mojo.Util.getValues(MDSS.QueryXML.Functions));
   
             for(var j=0; j<options.length; j++)
             {
               var option = options[j];
   
-              if(option !== '' && set != null && !set.contains(option))
+              if(option.toString() !== '' && set != null && !set.contains(option.toString()))
               {
                 continue;
               }
               
               var optionEl = document.createElement('option');
-              optionEl.id = attribute.getKey()+'-'+option;
-              optionEl.innerHTML = option;
-              YAHOO.util.Dom.setAttribute(optionEl, 'value', option);
+              optionEl.id = attribute.getKey()+'-'+option.name;
+              optionEl.innerHTML = option.label;
+              YAHOO.util.Dom.setAttribute(optionEl, 'value', option.name);
   
               YAHOO.util.Event.on(optionEl, 'click', this._visibleAggregateHandler, attribute, this);
   

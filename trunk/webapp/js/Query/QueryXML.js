@@ -14,10 +14,10 @@ MDSS.QueryXML = {
   },
 
   Functions : {
-  	SUM: 'SUM',
-  	MIN: 'MIN',
-  	MAX: 'MAX',
-  	AVG: 'AVG'
+  	SUM: {name: 'SUM', label: MDSS.localize('SUM'), toString: function(){ return this.name; }},
+  	MIN: {name: 'MIN', label: MDSS.localize('MIN'), toString: function(){ return this.name; }},
+  	MAX: {name: 'MAX', label: MDSS.localize('MAX'), toString: function(){ return this.name; }},
+  	AVG: {name: 'AVG', label: MDSS.localize('AVG'), toString: function(){ return this.name; }}
   },
   
   DateGroupOpts: {
