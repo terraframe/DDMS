@@ -1,0 +1,41 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+      <update>
+	     <object
+	      type="dss.vector.solutions.LocalProperty"
+	      key="SHORT_ID_OFFSET">
+		      	<attributeStruct
+		          name="propertyLabel">
+		          <attribute
+		            name="defaultLocale"
+		            value="Installation Identifier" />
+		        </attributeStruct>
+		        <attributeStruct
+		          name="propertyDescription">
+		          <attribute
+		            name="defaultLocale"
+		            value="The id address space offset or install number, MUST be unique for each server, 0-999" />
+		        </attributeStruct>
+	      </object>
+	     <object
+	      type="dss.vector.solutions.LocalProperty"
+	      key="SHORT_ID_COUNTER">
+		      	<attributeStruct
+		          name="propertyLabel">
+		          <attribute
+		            name="defaultLocale"
+		            value="Identifier Count" />
+		        </attributeStruct>
+		        <attributeStruct
+		          name="propertyDescription">
+		          <attribute
+		            name="defaultLocale"
+		            value="How many ids have we generated in this install's address space" />
+		        </attributeStruct>
+	      </object>	      
+      </update>
+  </doIt>
+  <undoIt>
+    <delete></delete>
+  </undoIt>
+</version>

@@ -12,12 +12,18 @@
 <mjl:table var="item" query="${local}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.PropertyController.viewPage.mojo" />
   <mjl:columns>
-    <mjl:attributeColumn attributeName="displayLabel">
+    <mjl:attributeColumn attributeName="propertyLabel">
       <mjl:header />
+      <mjl:row>
+        ${item.displayLabel}
+      </mjl:row>
     </mjl:attributeColumn>
 
-    <mjl:attributeColumn attributeName="description">
+    <mjl:attributeColumn attributeName="propertyDescription">
       <mjl:header />
+      <mjl:row>
+        ${item.description}
+      </mjl:row>
     </mjl:attributeColumn>
 
     <mjl:attributeColumn attributeName="propertyValue">

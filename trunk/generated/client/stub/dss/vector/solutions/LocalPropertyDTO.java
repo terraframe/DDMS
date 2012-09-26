@@ -1,6 +1,5 @@
 package dss.vector.solutions;
 
-import dss.vector.solutions.geo.generated.GeoEntityDTO;
 
 public class LocalPropertyDTO extends LocalPropertyDTOBase
  implements com.runwaysdk.generation.loader.Reloadable{
@@ -20,6 +19,16 @@ public class LocalPropertyDTO extends LocalPropertyDTOBase
   protected LocalPropertyDTO(com.runwaysdk.business.BusinessDTO businessDTO, com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
     super(businessDTO, clientRequest);
+  }
+  
+  public String getDisplayLabel()
+  {
+    return this.getPropertyLabel().getValue();
+  }
+  
+  public String getDescription()
+  {
+    return this.getPropertyDescription().getValue();
   }
   
 }
