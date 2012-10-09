@@ -1,8 +1,16 @@
 package dss.vector.solutions.util;
 
 import java.io.File;
+import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.DatagramSocket;
+import java.net.ServerSocket;
 import java.security.AccessController;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,9 +31,9 @@ import org.xml.sax.SAXException;
 
 import sun.security.action.GetPropertyAction;
 
+import com.runwaysdk.dataaccess.io.FileReadException;
+import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.util.FileIO;
-
-import dss.vector.solutions.query.MapUtil;
 
 /**
  * Called at the end of NSIS installation. Edits the user-supplied app name into
@@ -115,7 +123,8 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     FileIO.write(applications, appTxt);
     // And give common.properties a unique rmi.port
     logger.info("Setting a unique rmi port in common.properties");
-    editWebappProperty("rmi.port", Integer.toString(1099 - appCount), "common.properties");
+    //int port = P
+    this.updateRMI(appCount);
 
     // Update tomcat RAM, each app needs at least 768M inorder to compile the
     // system
@@ -123,6 +132,131 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     int totalMemory = Math.min(MAX_TOTAL_MEMORY, MEMORY_PER_APP * appCount);
     logger.info("Updating Tomcat RAM in startup.bat to use "+totalMemory+"M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
+  }
+  
+  /**
+   * This class ensures that an RMI port is not in use by another DDMS application
+   * and is available at the time of installation. Any changes to this code should
+   * also be made in the backup-manager project in PropertiesAgent.java
+   * @throws IOException
+   */
+  private void updateRMI(int appCount)
+  {
+    int port = 1099;
+    String managerDirectory = DEFAULT_MANAGER;
+    String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
+    File applications = new File(managerDirectory + "manager-1.0.0/classes/applications.txt");
+    String appTxt;
+    
+    try
+    {
+      appTxt = FileIO.readString(applications);
+    } catch (IOException e)
+    {
+      throw new FileWriteException("Couldn't read application list file", applications, e);
+    }
+    String[] apps = appTxt.split(lineSeparator);
+    
+    for (appCount = 0; appCount < apps.length; appCount++)
+    {
+      String app = apps[appCount];
+      if (app.equals(appName))
+      {
+        break;
+      }
+    }
+    
+    List<Integer> usedPorts = null;
+    usedPorts = getDDMSPorts();
+    
+    port -= appCount;
+
+    while (usedPorts.contains(port) || !isPortAvailable(port))
+    {
+      port--;
+    }
+
+    // And give common.properties a unique rmi.port
+    try
+    {
+      editWebappProperty("rmi.port", Integer.toString(port), "common.properties");
+    } catch (IOException e)
+    {
+      throw new FileWriteException("Couldn't write commons.properties file for " + appName, null, e);
+    }
+  }
+
+  public List<Integer> getDDMSPorts()
+  {
+    ArrayList<Integer> ports = new ArrayList<Integer>();
+
+    File webappDir = new File(DEFAULT_TOMCAT + "webapps");
+    FileFilter fileFilter = new FileFilter()
+    {
+      public boolean accept(File file)
+      {
+        if (!file.getName().equals(appName) && file.isDirectory())
+          return true;
+        return false;
+      }
+    };
+
+    for (File webapp : webappDir.listFiles(fileFilter))
+    {
+      String commonProp = webapp.getPath() + "\\WEB-INF\\classes\\common.properties";
+      Properties prop = new Properties();
+      if (new File(commonProp).exists())
+      {
+        try
+        {
+          prop.load(new FileInputStream(commonProp));
+        } catch (FileNotFoundException e)
+        {
+          throw new FileReadException("There exists no commons.properties file for " + appName, null, e);
+        } catch (IOException e)
+        {
+          throw new FileReadException("Couldn't read commons.properties file for " + appName, null, e);
+        }
+        ports.add(Integer.parseInt(prop.getProperty("rmi.port")));
+      }
+    }
+
+    return ports;
+  }
+
+  public static boolean isPortAvailable(int port)
+  {
+    ServerSocket ss = null;
+    DatagramSocket ds = null;
+    try
+    {
+      ss = new ServerSocket(port);
+      ss.setReuseAddress(true);
+      ds = new DatagramSocket(port);
+      ds.setReuseAddress(true);
+      return true;
+    } catch (IOException e)
+    {
+    } finally
+    {
+      if (ds != null)
+      {
+        ds.close();
+      }
+
+      if (ss != null)
+      {
+        try
+        {
+          ss.close();
+        } catch (IOException e)
+        {
+          /* should not be thrown */
+        }
+      }
+    }
+
+    return false;
   }
 
   private void updateJSPs() throws IOException
