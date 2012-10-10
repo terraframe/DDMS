@@ -400,6 +400,7 @@ Function patchManager
     File ..\standalone\patch\manager.bat
     File ..\standalone\patch\manager.ico  
     SetOutPath $INSTDIR\manager\backup-manager-1.0.0
+    File /r /x .svn ..\standalone\backup-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\ddms-initializer-1.0.0
     File /r /x .svn ..\standalone\ddms-initializer-1.0.0\*
     SetOutPath $INSTDIR\manager\geo-manager-1.0.0
