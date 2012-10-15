@@ -1,18 +1,19 @@
 package dss.vector.solutions.localization;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
+import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.Session;
-import java.util.Locale;
 
 import dss.vector.solutions.util.LocaleDimension;
 
-public class MultiBundle
+public class MultiBundle implements Reloadable
 {
   private Map<String, Bundle> bundles;
   
@@ -30,7 +31,7 @@ public class MultiBundle
    * Singleton is loaded on the first execution of MultiBundle.getInstance()
    * or the first access to Singleton.INSTANCE, not before.
    */
-  private static class Singleton
+  private static class Singleton implements Reloadable
   {
     public static final MultiBundle INSTANCE = new MultiBundle();
   }

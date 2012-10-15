@@ -39,16 +39,12 @@ public class WebIntegerBuilder extends WebPrimitiveBuilder implements Reloadable
     MdWebInteger mdWebInteger = this.getMdField();
 
     String start = mdWebInteger.getStartRange();
-    if (start != null && start.trim().length() != 0)
-    {
-      mdAttributeInteger.setStartRange(Integer.parseInt(start));
-    }
+    Integer startInt = start != null && start.trim().length() > 0 ? Integer.parseInt(start) : null;
+    mdAttributeInteger.setStartRange(startInt);
 
     String end = mdWebInteger.getEndRange();
-    if (end != null && end.trim().length() != 0)
-    {
-      mdAttributeInteger.setEndRange(Integer.parseInt(end));
-    }
+    Integer endInt = end != null && end.trim().length() > 0 ? Integer.parseInt(end) : null;
+    mdAttributeInteger.setEndRange(endInt);
 
     super.updateMdAttribute(mdAttributeInteger);
   }

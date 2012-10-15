@@ -5,6 +5,9 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,7 +56,33 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
   {
     super();
   }
-
+  
+  /**
+   * Creates a LinkedHashSet of the aliases to preserve order.
+   * @param config
+   * @return
+   */
+  private static LinkedHashSet<String> getAliases(String config)
+  {
+    JSONObject queryConfig;
+    try
+    {
+      queryConfig = new JSONObject(config);
+      JSONArray aliases = queryConfig.getJSONArray("sortOrder");
+      LinkedHashSet<String> set = new LinkedHashSet<String>();
+      for (int i = 0; i < aliases.length(); i++)
+      {
+        set.add(aliases.getString(i));
+      }
+      
+      return set;
+    }
+    catch (JSONException e1)
+    {
+      throw new ProgrammingErrorException(e1);
+    }
+  }
+  
   public static ValueQuery getValueQuery(String queryClass, String queryXML, String config, Layer layer)
   {
     Class<?> clazz = null;
@@ -96,25 +125,14 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     // Enforce a sort order if not mapping
     if (layer == null)
     {
-      JSONObject queryConfig;
-      try
+      for(String alias : getAliases(config))
       {
-        queryConfig = new JSONObject(config);
-        JSONArray sortOrder = queryConfig.getJSONArray("sortOrder");
-        for (int i = 0; i < sortOrder.length(); i++)
-        {
-          String alias = sortOrder.getString(i);
-          Selectable sel = valueQuery.getSelectableRef(alias);
+        Selectable sel = valueQuery.getSelectableRef(alias);
 
-          if (sel instanceof SelectablePrimitive)
-          {
-            valueQuery.ORDER_BY_ASC((SelectablePrimitive) sel);
-          }
+        if (sel instanceof SelectablePrimitive)
+        {
+          valueQuery.ORDER_BY_ASC((SelectablePrimitive) sel);
         }
-      }
-      catch (JSONException e1)
-      {
-        throw new ProgrammingErrorException(e1);
       }
     }
 
@@ -141,7 +159,7 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     return valueQuery;
   }
-
+  
   @Transaction
   public static InputStream exportQueryToExcel(String queryClass, String queryXML, String config, String savedSearchId)
   {
@@ -156,7 +174,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     ValueQuery query = getValueQuery(queryClass, queryXML, config, null);
 
-    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName());
+    Set<String> aliases = getAliases(config);
+    ValueQueryExcelExporter exporter = new ValueQueryExcelExporter(query, search.getQueryName(), aliases);
     return exporter.exportStream();
   }
 
@@ -174,7 +193,8 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
 
     DateFormat dateFormat = SimpleDateFormat.getDateInstance(DateFormat.SHORT, Session.getCurrentLocale());
 
-    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null);
+    Set<String> aliases = getAliases(config);
+    ValueQueryCSVExporter exporter = new ValueQueryCSVExporter(query, dateFormat, null, null, aliases);
     return exporter.exportStream();
   }
 

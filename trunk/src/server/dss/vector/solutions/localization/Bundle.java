@@ -4,9 +4,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+import com.runwaysdk.generation.loader.Reloadable;
+
 import dss.vector.solutions.util.LocaleDimension;
 
-public class Bundle
+public class Bundle implements Reloadable
 {
   private Map<String, String> properties;
   
