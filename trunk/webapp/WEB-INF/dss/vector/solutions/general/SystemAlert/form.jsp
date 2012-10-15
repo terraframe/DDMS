@@ -31,8 +31,8 @@
   <mjl:dt attribute="emailBccAddresses">
     <mjl:input param="emailBccAddresses" type="text" />
   </mjl:dt>
-  <mjl:dt attribute="emailSubject">
-    <mjl:input param="emailSubject" type="text" />
+  <mjl:dt attribute="emailSubjectText">
+    <mjl:input param="emailSubjectText" type="text" value="${item.emailSubjectText}"/>
   </mjl:dt>
   <mjl:dt attribute="emailBodyText">
     <mjl:textarea param="emailBodyText"  value="${item.emailBodyText}" rows="5" />
