@@ -213,6 +213,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     person.setLastName(lName);
     person.setDateOfBirth(dob);
     person.setSex(sex);
+    person.setPhysicianDelegate(physician);
     person.apply();
   }
   
@@ -331,6 +332,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     Physician physician = new Physician();
     physician.setPerson(person);
     physician.apply();
+    person.setPhysicianDelegate(physician);
     person.apply();
     return physician;
   }
