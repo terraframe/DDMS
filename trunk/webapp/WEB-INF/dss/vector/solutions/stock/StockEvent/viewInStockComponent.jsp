@@ -60,7 +60,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
   <mjl:commandLink  action="dss.vector.solutions.stock.StockEventController.search.mojo" name="search.link" >
     <mjl:property name="geoId" value="${entity.geoId}"/>
     <mjl:property name="itemId" value="${term.id}"/>
-    <mjl:property name="date" value="${date}"/>
+    <mjl:property name="date" value="${searchDate}"/>
     <mdss:localize key="Back_To_Search"/>
   </mjl:commandLink>
 </span>

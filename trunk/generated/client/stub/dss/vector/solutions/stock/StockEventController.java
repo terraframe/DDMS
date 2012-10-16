@@ -184,7 +184,13 @@ public class StockEventController extends StockEventControllerBase implements co
 
     this.req.setAttribute("entity", GeoEntityDTO.searchByGeoId(request, geoId));
     this.req.setAttribute("term", item);
-    this.req.setAttribute("date", new DefaultConverter(Date.class).format(date, req.getLocale()));
+    
+    // fix #2716 ... let JavaScript format the ${date} NOT here in Java.
+    // However, the link back to search expects a specific format which we put
+    // in ${searchDate}
+    this.req.setAttribute("date", date);
+    this.req.setAttribute("searchDate", new DefaultConverter(Date.class).format(date, req.getLocale()));
+    
     this.req.setAttribute(ITEM, view);
     this.req.setAttribute("grid", new StockEventGridBuilder(view, data).build());
     this.req.setAttribute("staff", Arrays.asList(staff));
