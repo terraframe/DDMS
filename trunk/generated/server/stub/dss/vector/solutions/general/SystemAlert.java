@@ -98,8 +98,8 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
     email.setCcAddresses(this.getEmailCcAddresses());
     email.setBccAddresses(this.getEmailBccAddresses());
     email.setFromAddress(this.getEmailFromAddress());
-    email.setSubject(this.processTemplate(this.getEmailSubject(), data));
-    email.setBody(this.processTemplate(this.getEmailBody(), data));
+    email.setSubject(this.processTemplate(this.getEmailSubjectText().getValue(), data));
+    email.setBody(this.processTemplate(this.getEmailBodyText().getValue(), data));
     email.apply();
 
     return email;
@@ -107,7 +107,7 @@ public class SystemAlert extends SystemAlertBase implements com.runwaysdk.genera
 
   public String getTemplate(Map<String, Object> data)
   {
-    String template = this.processTemplate(this.getEmailBody(), data);
+    String template = this.processTemplate(this.getEmailBodyText().getValue(), data);
 
     // IMPORTANT: We must remove any new lines from the message. When displaying
     // the message it is assumed that the newlines represent new messages.
