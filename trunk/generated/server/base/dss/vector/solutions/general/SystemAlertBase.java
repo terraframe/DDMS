@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 349708810)
+@com.runwaysdk.business.ClassSignature(hash = -1860029860)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,13 +16,14 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
-  public static java.lang.String EMAILBODY = "emailBody";
   public static java.lang.String EMAILBODYTEXT = "emailBodyText";
   private com.runwaysdk.business.Struct emailBodyText = null;
   
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
   public static java.lang.String EMAILFROMADDRESS = "emailFromAddress";
-  public static java.lang.String EMAILSUBJECT = "emailSubject";
+  public static java.lang.String EMAILSUBJECTTEXT = "emailSubjectText";
+  private com.runwaysdk.business.Struct emailSubjectText = null;
+  
   public static java.lang.String EMAILTOADDRESSES = "emailToAddresses";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -36,12 +37,13 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 349708810;
+  private static final long serialVersionUID = -1860029860;
   
   public SystemAlertBase()
   {
     super();
     emailBodyText = super.getStruct("emailBodyText");
+    emailSubjectText = super.getStruct("emailSubjectText");
   }
   
   @SuppressWarnings("unchecked")
@@ -194,34 +196,6 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     }
   }
   
-  public String getEmailBody()
-  {
-    return getValue(EMAILBODY);
-  }
-  
-  public void validateEmailBody()
-  {
-    this.validateAttribute(EMAILBODY);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailBodyMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILBODY);
-  }
-  
-  public void setEmailBody(String value)
-  {
-    if(value == null)
-    {
-      setValue(EMAILBODY, "");
-    }
-    else
-    {
-      setValue(EMAILBODY, value);
-    }
-  }
-  
   public dss.vector.solutions.general.SystemAlertEmailBodyText getEmailBodyText()
   {
     return (dss.vector.solutions.general.SystemAlertEmailBodyText) emailBodyText;
@@ -294,32 +268,20 @@ public abstract class SystemAlertBase extends com.runwaysdk.business.Business im
     }
   }
   
-  public String getEmailSubject()
+  public dss.vector.solutions.general.SystemAlertEmailSubjectText getEmailSubjectText()
   {
-    return getValue(EMAILSUBJECT);
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectText) emailSubjectText;
   }
   
-  public void validateEmailSubject()
+  public void validateEmailSubjectText()
   {
-    this.validateAttribute(EMAILSUBJECT);
+    this.validateAttribute(EMAILSUBJECTTEXT);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailSubjectMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getEmailSubjectTextMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.SystemAlert.CLASS);
-    return mdClassIF.definesAttribute(EMAILSUBJECT);
-  }
-  
-  public void setEmailSubject(String value)
-  {
-    if(value == null)
-    {
-      setValue(EMAILSUBJECT, "");
-    }
-    else
-    {
-      setValue(EMAILSUBJECT, value);
-    }
+    return mdClassIF.definesAttribute(EMAILSUBJECTTEXT);
   }
   
   public String getEmailToAddresses()

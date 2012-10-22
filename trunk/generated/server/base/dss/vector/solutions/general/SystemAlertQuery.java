@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -2062202879)
+@com.runwaysdk.business.ClassSignature(hash = 523023941)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  class SystemAlertQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -2062202879;
 
   public SystemAlertQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -142,23 +141,6 @@ private static final long serialVersionUID = -2062202879;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILBCCADDRESSES, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getEmailBody()
-  {
-    return getEmailBody(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getEmailBody(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILBODY, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getEmailBody(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILBODY, alias, displayLabel);
-
-  }
   public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText()
   {
     return getEmailBodyText(null);
@@ -216,21 +198,27 @@ private static final long serialVersionUID = -2062202879;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILFROMADDRESS, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getEmailSubject()
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText()
   {
-    return getEmailSubject(null);
+    return getEmailSubjectText(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEmailSubject(String alias)
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILSUBJECT, alias, null);
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT);
+
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT, mdAttributeIF, this, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEmailSubject(String alias, String displayLabel)
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.general.SystemAlert.EMAILSUBJECT, alias, displayLabel);
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT);
+
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT, mdAttributeIF, this, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getEmailToAddresses()
@@ -521,6 +509,10 @@ private static final long serialVersionUID = -2062202879;
     {
        return new dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
     else 
     {
       String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
@@ -590,9 +582,6 @@ private static final long serialVersionUID = -2062202879;
     public com.runwaysdk.query.SelectableChar getEmailBccAddresses();
     public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias);
     public com.runwaysdk.query.SelectableChar getEmailBccAddresses(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getEmailBody();
-    public com.runwaysdk.query.SelectableChar getEmailBody(String alias);
-    public com.runwaysdk.query.SelectableChar getEmailBody(String alias, String displayLabel);
     public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText();
     public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText(String alias);
     public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText(String alias, String displayLabel);
@@ -602,9 +591,9 @@ private static final long serialVersionUID = -2062202879;
     public com.runwaysdk.query.SelectableChar getEmailFromAddress();
     public com.runwaysdk.query.SelectableChar getEmailFromAddress(String alias);
     public com.runwaysdk.query.SelectableChar getEmailFromAddress(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableChar getEmailSubject();
-    public com.runwaysdk.query.SelectableChar getEmailSubject(String alias);
-    public com.runwaysdk.query.SelectableChar getEmailSubject(String alias, String displayLabel);
+    public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText();
+    public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias);
+    public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getEmailToAddresses();
     public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias);
     public com.runwaysdk.query.SelectableChar getEmailToAddresses(String alias, String displayLabel);
@@ -659,7 +648,6 @@ private static final long serialVersionUID = -2062202879;
  implements SystemAlertQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -481660001;
 
   public SystemAlertQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -765,23 +753,6 @@ private static final long serialVersionUID = -481660001;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILBCCADDRESSES, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getEmailBody()
-  {
-    return getEmailBody(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getEmailBody(String alias)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILBODY, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableChar getEmailBody(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILBODY, alias, displayLabel);
-
-  }
   public dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStructIF getEmailBodyText()
   {
     return getEmailBodyText(null);
@@ -833,21 +804,21 @@ private static final long serialVersionUID = -481660001;
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILFROMADDRESS, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableChar getEmailSubject()
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText()
   {
-    return getEmailSubject(null);
+    return getEmailSubjectText(null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEmailSubject(String alias)
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILSUBJECT, alias, null);
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableChar getEmailSubject(String alias, String displayLabel)
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF getEmailSubjectText(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.general.SystemAlert.EMAILSUBJECT, alias, displayLabel);
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStructIF)this.attributeFactory(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT, com.runwaysdk.system.metadata.MdAttributeLocalText.CLASS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getEmailToAddresses()
@@ -1113,6 +1084,10 @@ private static final long serialVersionUID = -481660001;
     if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILBODYTEXT)) 
     {
        return new dss.vector.solutions.general.SystemAlertEmailBodyTextQuery.SystemAlertEmailBodyTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else if (name.equals(dss.vector.solutions.general.SystemAlert.EMAILSUBJECTTEXT)) 
+    {
+       return new dss.vector.solutions.general.SystemAlertEmailSubjectTextQuery.SystemAlertEmailSubjectTextQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

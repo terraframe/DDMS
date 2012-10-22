@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 1468294026)
+@com.runwaysdk.business.ClassSignature(hash = -138305316)
 public abstract class SystemAlertDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.SystemAlert";
-  private static final long serialVersionUID = 1468294026;
+  private static final long serialVersionUID = -138305316;
   
   protected SystemAlertDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -32,11 +32,10 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String EMAILBCCADDRESSES = "emailBccAddresses";
-  public static java.lang.String EMAILBODY = "emailBody";
   public static java.lang.String EMAILBODYTEXT = "emailBodyText";
   public static java.lang.String EMAILCCADDRESSES = "emailCcAddresses";
   public static java.lang.String EMAILFROMADDRESS = "emailFromAddress";
-  public static java.lang.String EMAILSUBJECT = "emailSubject";
+  public static java.lang.String EMAILSUBJECTTEXT = "emailSubjectText";
   public static java.lang.String EMAILTOADDRESSES = "emailToAddresses";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String ID = "id";
@@ -244,43 +243,6 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(EMAILBCCADDRESSES).getAttributeMdDTO();
   }
   
-  public String getEmailBody()
-  {
-    return getValue(EMAILBODY);
-  }
-  
-  public void setEmailBody(String value)
-  {
-    if(value == null)
-    {
-      setValue(EMAILBODY, "");
-    }
-    else
-    {
-      setValue(EMAILBODY, value);
-    }
-  }
-  
-  public boolean isEmailBodyWritable()
-  {
-    return isWritable(EMAILBODY);
-  }
-  
-  public boolean isEmailBodyReadable()
-  {
-    return isReadable(EMAILBODY);
-  }
-  
-  public boolean isEmailBodyModified()
-  {
-    return isModified(EMAILBODY);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeTextMdDTO getEmailBodyMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeTextMdDTO) getAttributeDTO(EMAILBODY).getAttributeMdDTO();
-  }
-  
   public dss.vector.solutions.general.SystemAlertEmailBodyTextDTO getEmailBodyText()
   {
     return (dss.vector.solutions.general.SystemAlertEmailBodyTextDTO) this.getAttributeStructDTO(EMAILBODYTEXT).getStructDTO();
@@ -380,41 +342,29 @@ public abstract class SystemAlertDTOBase extends com.runwaysdk.business.Business
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(EMAILFROMADDRESS).getAttributeMdDTO();
   }
   
-  public String getEmailSubject()
+  public dss.vector.solutions.general.SystemAlertEmailSubjectTextDTO getEmailSubjectText()
   {
-    return getValue(EMAILSUBJECT);
+    return (dss.vector.solutions.general.SystemAlertEmailSubjectTextDTO) this.getAttributeStructDTO(EMAILSUBJECTTEXT).getStructDTO();
   }
   
-  public void setEmailSubject(String value)
+  public boolean isEmailSubjectTextWritable()
   {
-    if(value == null)
-    {
-      setValue(EMAILSUBJECT, "");
-    }
-    else
-    {
-      setValue(EMAILSUBJECT, value);
-    }
+    return isWritable(EMAILSUBJECTTEXT);
   }
   
-  public boolean isEmailSubjectWritable()
+  public boolean isEmailSubjectTextReadable()
   {
-    return isWritable(EMAILSUBJECT);
+    return isReadable(EMAILSUBJECTTEXT);
   }
   
-  public boolean isEmailSubjectReadable()
+  public boolean isEmailSubjectTextModified()
   {
-    return isReadable(EMAILSUBJECT);
+    return isModified(EMAILSUBJECTTEXT);
   }
   
-  public boolean isEmailSubjectModified()
+  public final com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO getEmailSubjectTextMd()
   {
-    return isModified(EMAILSUBJECT);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getEmailSubjectMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(EMAILSUBJECT).getAttributeMdDTO();
+    return (com.runwaysdk.transport.metadata.AttributeLocalTextMdDTO) getAttributeDTO(EMAILSUBJECTTEXT).getAttributeMdDTO();
   }
   
   public String getEmailToAddresses()
