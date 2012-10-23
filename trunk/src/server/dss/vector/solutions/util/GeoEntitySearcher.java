@@ -123,6 +123,17 @@ public class GeoEntitySearcher implements Reloadable
       // proceeding
       throw new ExcelReadException(e);
     }
+    catch (RuntimeException e)
+    {
+      if (e.getMessage().contains("Expected an EXTERNSHEET"))
+      {
+        throw new ExcelReadException(e);
+      }
+      else
+      {
+        throw e;
+      }
+    }
 
     // list of potential synonym matches, if any
     List<UnknownGeoEntity> unknownEntityList = new LinkedList<UnknownGeoEntity>();
@@ -511,7 +522,7 @@ public class GeoEntitySearcher implements Reloadable
 
       String parentGeoEntityName = parentGeoEntityMap.get(parentEntityType);
       MdBusiness parentMdBusiness = MdBusiness.getMdBusiness(parentEntityType);
-      
+
       AllPathsQuery allPathsQuery = new AllPathsQuery(qf);
       GeoSynonymQuery geoSynonymQuery = new GeoSynonymQuery(qf);
       GeoEntityQuery parentGeoEntityQuery = new GeoEntityQuery(qf);
