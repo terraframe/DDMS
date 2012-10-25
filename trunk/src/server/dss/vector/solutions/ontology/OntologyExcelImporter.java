@@ -40,7 +40,6 @@ public class OntologyExcelImporter
   private static Ontology ontology;
   private static OntologyRelationship ontologyRelationship;
 
-  @Request
   public static void main(String[] args) throws FileNotFoundException
   {
     long start = System.currentTimeMillis();
@@ -64,13 +63,25 @@ public class OntologyExcelImporter
       fileName = args[0];
       file = new File(fileName);
     }
-    OntologyExcelImporter importer = new OntologyExcelImporter();
-    importer.read(new BufferedInputStream(new FileInputStream(file)));
+
+    try
+    {
+    readRequest(file);
 
     long end = System.currentTimeMillis();
     System.out.println("Imported in " + (end-start)/1000.0 + " seconds");
-    
-    CacheShutdown.shutdown();
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+
+  @Request
+  public static void readRequest(File file) throws FileNotFoundException
+  {
+    OntologyExcelImporter importer = new OntologyExcelImporter();
+    importer.read(new BufferedInputStream(new FileInputStream(file)));
   }
 
   public OntologyExcelImporter()
