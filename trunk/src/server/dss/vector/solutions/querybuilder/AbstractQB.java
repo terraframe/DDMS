@@ -936,13 +936,18 @@ public abstract class AbstractQB implements Reloadable
    */
   protected void addCountSelectable(ValueQuery v)
   {
-    String windowCount = "count(*) over()";
-    SelectableSQLLong c = v.isGrouping() ? 
+    // some queries are nested or unioned. In that case the count selectable
+    // may have already been added, and if so, skip doing so again
+    if(!v.containsSelectableSQL())
+    {
+      String windowCount = "count(*) over()";
+      SelectableSQLLong c = v.isGrouping() ? 
         v.aSQLAggregateLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS) :
           v.aSQLLong(WINDOW_COUNT_ALIAS, windowCount, WINDOW_COUNT_ALIAS);
         
-    v.SELECT(c);
-    v.setCountSelectable(c);
+      v.SELECT(c);
+      v.setCountSelectable(c);
+    }
   }
 
   protected abstract ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, String xml, JSONObject queryConfig);
