@@ -4,6 +4,10 @@ import java.util.Date;
 
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.Selectable;
+import com.runwaysdk.query.SelectablePrimitive;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
@@ -21,7 +25,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
   {
     super();
   }
-  
+
   public void populateView(Person concrete)
   {
     this.setPersonId(concrete.getId());
@@ -54,10 +58,9 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     {
       this.setBirthEntity(concrete.getBirthEntity().getGeoId());
     }
-    
+
     this.setBirthLocation(concrete.getBirthLocation());
-    
-    
+
     // Set the person's delegate attributes
     MDSSUser user = concrete.getUserDelegate();
     if (user == null)
@@ -68,9 +71,9 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     {
       this.setIsMDSSUser(true);
       this.setUsername(user.getUsername());
-      
+
       UserSettings settings = UserSettings.getForUser(user);
-      if (settings!=null)
+      if (settings != null)
       {
         this.setDisease(settings.getDisease());
       }
@@ -143,7 +146,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       user.setUsername(this.getUsername());
       user.setPassword(this.getPassword());
       user.apply();
-      
+
       UserSettings settings = UserSettings.createIfNotExists(user);
       settings.lock();
       settings.setDisease(this.getDisease());
@@ -199,14 +202,14 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     }
 
     TeamMember member = person.getTeamMemberDelegate();
-    
+
     if (this.getIsSprayOperator() || this.getIsSprayLeader())
     {
       if (member == null)
       {
         member = new TeamMember();
       }
-      
+
       member.setPerson(person);
       member.setIsSprayLeader(this.getIsSprayLeader());
       member.setIsSprayOperator(this.getIsSprayOperator());
@@ -223,7 +226,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     }
 
     StockStaff staff = person.getStockStaffDelegate();
-    
+
     if (this.getIsStockStaff() != null && this.getIsStockStaff())
     {
       if (staff == null)
@@ -241,9 +244,9 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
         staff = null;
       }
     }
-    
+
     Supervisor supervisor = person.getSupervisorDelegate();
-    
+
     if (this.getIsSupervisor() != null && this.getIsSupervisor())
     {
       if (supervisor == null)
@@ -262,16 +265,15 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       }
     }
 
-    
     Physician physician = person.getPhysicianDelegate();
-    
+
     if (this.getIsPhysician() != null && this.getIsPhysician())
     {
       if (physician == null)
       {
         physician = new Physician();
       }
-      
+
       physician.setPerson(person);
       physician.apply();
     }
@@ -283,7 +285,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
         physician = null;
       }
     }
-    
+
     // Update the person delegates
     person = Person.lockPerson(person.getId());
     person.setUserDelegate(user);
@@ -330,7 +332,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     }
     return itnRecipient;
   }
-  
+
   private Physician applyPhysician(Person person)
   {
     Physician physician = person.getPhysicianDelegate();
@@ -340,7 +342,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
       {
         physician = new Physician();
       }
-      
+
       physician.setPerson(person);
       physician.apply();
     }
@@ -354,26 +356,26 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     }
     return physician;
   }
-  
+
   @Override
   @Transaction
   public void applyAsITNRecipient()
   {
     this.applyPerson();
-    
+
     this.applyITNRecipient(Person.get(this.getPersonId()));
   }
-  
+
   @Override
   @Transaction
   public PersonWithDelegatesView applyAsPhysician()
   {
     this.setIsPhysician(true);
-    
-    Person person = this.applyPerson();    
+
+    Person person = this.applyPerson();
 
     Physician physician = this.applyPhysician(person);
-    
+
     person.setPhysicianDelegate(physician);
     person.apply();
 
@@ -384,17 +386,16 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
   public void applyNonDelegates()
   {
     Person concrete = this.applyPerson();
-    
+
     this.populateView(concrete);
   }
-  
 
   private Person applyPerson()
   {
     // Update the person data
     Person person = new Person();
-    
-    if(this.hasConcrete())
+
+    if (this.hasConcrete())
     {
       person = Person.lock(this.getPersonId());
     }
@@ -405,7 +406,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
 
     // Applying the person with validate it's attributes
     person.apply();
-    
+
     return person;
   }
 
@@ -458,9 +459,8 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
 
     person.setWorkInformation(this.getWorkInformation());
 
-    
     String birthGeoId = this.getBirthEntity();
-    
+
     if (birthGeoId != null && !birthGeoId.equals(""))
     {
       person.setBirthEntity(GeoEntity.searchByGeoId(birthGeoId));
@@ -469,7 +469,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     {
       person.setBirthEntity(null);
     }
-    
+
     person.setBirthLocation(this.getBirthLocation());
   }
 
@@ -503,7 +503,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     String lastName = this.getLastName();
     Date dob = this.getDateOfBirth();
     Term sex = this.getSex();
-    
+
     if (firstName.length() > 0)
     {
       query.WHERE(query.getFirstName().EQi(firstName));
@@ -518,12 +518,35 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     {
       query.WHERE(query.getDateOfBirth().EQ(dob));
     }
-    
-    if(sex != null)
+
+    if (sex != null)
     {
       query.WHERE(query.getSex().EQ(sex));
     }
 
     return query;
   }
+
+  public static PersonWithDelegatesView getViewFromIdentifier(String identifier)
+  {
+    PersonWithDelegatesViewQuery query = new PersonWithDelegatesViewQuery(new QueryFactory());
+    query.WHERE(query.getIdentifier().EQ(identifier));
+
+    OIterator<? extends PersonWithDelegatesView> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+    return null;
+  }
+
 }

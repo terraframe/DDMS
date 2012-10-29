@@ -21,45 +21,67 @@ import dss.vector.solutions.util.HierarchyBuilder;
 public class PersonExcelView extends PersonExcelViewBase implements Reloadable
 {
   private static final long serialVersionUID = 1246241921437L;
-  
+
   public PersonExcelView()
   {
     super();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     GeoEntity residentialEntity = this.getResidentialGeoEntity();
     GeoEntity workEntity = this.getWorkGeoEntity();
-    
+
     PersonView personView = new PersonView();
-    
+
     personView.setFirstName(this.getFirstName());
     personView.setLastName(this.getLastName());
     personView.setDateOfBirth(this.getDateOfBirth());
-    personView.setIdentifier(this.getIdentifier()); 
+    personView.setIdentifier(this.getIdentifier());
     personView.setSex(Term.validateByDisplayLabel(this.getSex(), PersonView.getSexMd()));
-    
-    PersonWithDelegatesViewQuery query = personView.searchForDuplicates();
-    OIterator<? extends PersonWithDelegatesView> iterator = query.getIterator();
-    if (iterator.hasNext())
+
+    /*
+     * Ticket #2736: The check on name, birth date and geo residence should only happen if there is no person ID
+     */
+    if (this.getIdentifier() != null && this.getIdentifier().length() > 0)
     {
-      personView = iterator.next();
+      PersonWithDelegatesView existing = PersonView.getViewFromIdentifier(this.getIdentifier());
+
+      if (existing != null)
+      {
+        personView = existing;
+      }
     }
-    iterator.close();
-    
-    if(residentialEntity != null)
+    else
+    {
+      PersonWithDelegatesViewQuery query = personView.searchForDuplicates();
+      OIterator<? extends PersonWithDelegatesView> iterator = query.getIterator();
+
+      try
+      {
+        if (iterator.hasNext())
+        {
+          personView = iterator.next();
+        }
+      }
+      finally
+      {
+        iterator.close();
+      }
+    }
+
+    if (residentialEntity != null)
     {
       personView.setResidentialGeoId(residentialEntity.getGeoId());
     }
-    
-    if(workEntity != null)
+
+    if (workEntity != null)
     {
       personView.setWorkGeoId(workEntity.getGeoId());
     }
-    
+
     personView.setIsMDSSUser(this.getIsMDSSUser() != null && this.getIsMDSSUser());
     personView.setUsername(this.getUsername());
     personView.setPassword(this.getPassword());
@@ -72,21 +94,21 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     {
       personView.setDisease(Disease.getDengue());
     }
-    
+
     personView.setIsPatient(this.getIsPatient() != null && this.getIsPatient());
     personView.setIsIPTRecipient(this.getIsIPTRecipient() != null && this.getIsIPTRecipient());
     personView.setIsITNRecipient(this.getIsITNRecipient() != null && this.getIsITNRecipient());
-    
+
     personView.setIsSprayLeader(this.getIsSprayLeader() != null && this.getIsSprayLeader());
     personView.setIsSprayOperator(this.getIsSprayOperator() != null && this.getIsSprayOperator());
     personView.setMemberId(this.getMemberId());
-    
+
     personView.setIsStockStaff(this.getIsStockStaff() != null && this.getIsStockStaff());
     personView.setIsSupervisor(this.getIsSupervisor() != null && this.getIsSupervisor());
-        
+
     personView.apply();
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -108,8 +130,8 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     list.add(ISPATIENT);
     return list;
   }
-  
-  public static void setupExportListener(ExcelExporter exporter, String...params)
+
+  public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     exporter.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
     exporter.addListener(createExcelGeoListener(WORKGEOENTITY));
@@ -120,7 +142,7 @@ public class PersonExcelView extends PersonExcelViewBase implements Reloadable
     context.addListener(createExcelGeoListener(RESIDENTIALGEOENTITY));
     context.addListener(createExcelGeoListener(WORKGEOENTITY));
   }
-  
+
   private static DynamicGeoColumnListener createExcelGeoListener(String attributeName)
   {
     HierarchyBuilder builder = new HierarchyBuilder();

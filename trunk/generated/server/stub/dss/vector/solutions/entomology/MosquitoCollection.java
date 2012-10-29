@@ -102,19 +102,19 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
 
     // DELETE ALL BIOASSAYS
     DiagnosticAssayView[] diagnosticAssays = view.getDiagnosticAssays();
-    
+
     for (DiagnosticAssayView assay : diagnosticAssays)
     {
       assay.deleteConcrete();
     }
-    
+
     TimeResponseAssayView[] timeResponseAssays = view.getTimeResponseAssays();
-    
+
     for (TimeResponseAssayView assay : timeResponseAssays)
     {
       assay.deleteConcrete();
     }
-    
+
     super.delete();
   }
 
@@ -141,10 +141,11 @@ public class MosquitoCollection extends MosquitoCollectionBase implements com.ru
     this.populateLifeStageName();
     this.validateCollectionDate();
 
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
   }
 
