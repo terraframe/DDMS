@@ -47,6 +47,7 @@ import dss.vector.solutions.export.AggregatedPremiseExcelView;
 import dss.vector.solutions.export.CaseDiagnosisTypeExcelView;
 import dss.vector.solutions.export.CaseDiseaseManifestationExcelView;
 import dss.vector.solutions.export.CasePatientTypeExcelView;
+import dss.vector.solutions.export.ExcelReadException;
 import dss.vector.solutions.export.ExcelVersionException;
 import dss.vector.solutions.export.GeoExporter;
 import dss.vector.solutions.export.IndividualPremiseExcelView;
@@ -89,18 +90,15 @@ public abstract class Facade extends FacadeBase implements Reloadable
 
   public static Roles[] getMDSSRoles()
   {
-    return new Roles[]
-    {
-      Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY),
-      Roles.findRoleByName(MDSSRoleInfo.SYSTEM)
-    };
+    return new Roles[] { Roles.findRoleByName(MDSSRoleInfo.GUI_VISIBILITY), Roles.findRoleByName(MDSSRoleInfo.SYSTEM) };
   }
 
   /**
-   * Checks the geo entity hierarchy in the excel file and tries to find synonym matches.  Each geo universal column is checked
-   * in order of depth, starting from lowest to highest.
-   *
-   *
+   * Checks the geo entity hierarchy in the excel file and tries to find synonym
+   * matches. Each geo universal column is checked in order of depth, starting
+   * from lowest to highest.
+   * 
+   * 
    * @param inputStream
    * @param type
    * @return
@@ -119,9 +117,11 @@ public abstract class Facade extends FacadeBase implements Reloadable
   }
 
   /**
-   * Preprocesses the geo entity names to verify they are recognized.  If they are not recognized and no synonyms have been assigned,
-   * then synonyms are looked up and the user is prompeted with a list of possible synonym matches.
-   *
+   * Preprocesses the geo entity names to verify they are recognized. If they
+   * are not recognized and no synonyms have been assigned, then synonyms are
+   * looked up and the user is prompeted with a list of possible synonym
+   * matches.
+   * 
    * @param inputStream
    * @param type
    * @param listenerMethod
@@ -134,67 +134,77 @@ public abstract class Facade extends FacadeBase implements Reloadable
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
     EpiCache.start();
-    
-    // Assume we get an error.  Set to false only after we don't.
-    boolean error = true;
-    
-//    GeoSynonym.checkExcelGeoHierarchy(inputStream);
 
-    ExcelImporter importer = new ExcelImporter(inputStream);
-    for (ImportContext context : importer.getContexts())
+    try
     {
-      try
+      // GeoSynonym.checkExcelGeoHierarchy(inputStream);
+
+      ExcelImporter importer = new ExcelImporter(inputStream);
+      for (ImportContext context : importer.getContexts())
       {
-        String definesType = context.getMdClass().definesType();
-        // Load the type which is being exported
-        Class<?> c = LoaderDecorator.load(definesType);
-        
-        // Get the listener method
-        Method method = c.getMethod(listenerMethod, ImportContext.class, String[].class);
-        
-        // Invoke the method
-        method.invoke(null, context, (Object)params);
-        
-        // Success, no exceptions, set error = false
-        error = false;
-      }
-      catch (NoSuchMethodException e)
-      {
-        // If the method doesn't exist then do nothing
-      }
-      catch (InvocationTargetException e)
-      {
-        Throwable targetException = e.getTargetException();
-        if (targetException instanceof RunwayExceptionIF)
+        try
         {
-          throw (RuntimeException) targetException;
+          String definesType = context.getMdClass().definesType();
+          // Load the type which is being exported
+          Class<?> c = LoaderDecorator.load(definesType);
+
+          // Get the listener method
+          Method method = c.getMethod(listenerMethod, ImportContext.class, String[].class);
+
+          // Invoke the method
+          method.invoke(null, context, (Object) params);
         }
-        else
+        catch (NoSuchMethodException e)
+        {
+          // If the method doesn't exist then do nothing
+        }
+        catch (InvocationTargetException e)
+        {
+          Throwable targetException = e.getTargetException();
+          if (targetException instanceof RunwayExceptionIF)
+          {
+            throw (RuntimeException) targetException;
+          }
+          else
+          {
+            throw new ProgrammingErrorException(e);
+          }
+        }
+        catch (Exception e)
         {
           throw new ProgrammingErrorException(e);
         }
       }
-      catch (Exception e)
+
+      try
       {
-        throw new ProgrammingErrorException(e);
+        return new ByteArrayInputStream(importer.read());
       }
-      finally
+      catch (RuntimeException e)
       {
-        // We don't want to exit this block without stopping caching
-        if (error)
+        /*
+         * Ticket #2663:  Errors from reading external sheet should have a better error message.
+         * Unfortunately, the HSSF API doesn't throw a specific exception for external sheet errors,
+         * but throws a RuntimeException.  As such the only way to tell if the exception is an
+         * external sheet error is by reading the message.
+         */
+        Throwable cause = e.getCause();
+
+        if (cause.getMessage().startsWith("No external workbook with name"))
         {
-          TermRootCache.stop();
-          EpiCache.stop();
+          throw new ExcelReadException();
         }
+
+        throw e;
       }
     }
-    
-    ByteArrayInputStream stream = new ByteArrayInputStream(importer.read());
-    TermRootCache.stop();
-    EpiCache.stop();
-    return stream;
+    finally
+    {
+      TermRootCache.stop();
+      EpiCache.stop();
+    }
   }
-  
+
   public static InputStream exportAggregatedCases()
   {
     try
@@ -206,7 +216,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet referralSheet = workbook.getSheetAt(0);
       String referralSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       AggregatedCaseTreatmentsExcelView.setupExportListener(exporter);
       exporter.addTemplate(AggregatedCaseTreatmentsExcelView.CLASS);
@@ -214,7 +224,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet treatmentSheet = workbook.getSheetAt(0);
       String treatmentSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       CaseDiagnosisTypeExcelView.setupExportListener(exporter);
       exporter.addTemplate(CaseDiagnosisTypeExcelView.CLASS);
@@ -222,7 +232,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet diagnosisSheet = workbook.getSheetAt(0);
       String diagnosisSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       CaseDiseaseManifestationExcelView.setupExportListener(exporter);
       exporter.addTemplate(CaseDiseaseManifestationExcelView.CLASS);
@@ -230,7 +240,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet diseaseSheet = workbook.getSheetAt(0);
       String diseaseSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       CasePatientTypeExcelView.setupExportListener(exporter);
       exporter.addTemplate(CasePatientTypeExcelView.CLASS);
@@ -238,14 +248,14 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet patientSheet = workbook.getSheetAt(0);
       String patientSheetName = workbook.getSheetName(0);
-      
+
       workbook = new HSSFWorkbook();
       copySheetIntoWorkbook(workbook, referralSheet, referralSheetName);
       copySheetIntoWorkbook(workbook, treatmentSheet, treatmentSheetName);
       copySheetIntoWorkbook(workbook, diagnosisSheet, diagnosisSheetName);
       copySheetIntoWorkbook(workbook, diseaseSheet, diseaseSheetName);
       copySheetIntoWorkbook(workbook, patientSheet, patientSheetName);
-      
+
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       BufferedOutputStream buffer = new BufferedOutputStream(bytes);
       workbook.write(buffer);
@@ -262,7 +272,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       throw new SystemException(e);
     }
   }
-  
+
   public static InputStream exportControlIntervention()
   {
     try
@@ -274,7 +284,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       HSSFWorkbook workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet premiseSheet = workbook.getSheetAt(0);
       String premiseSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       IndividualPremiseExcelView.setupExportListener(exporter);
       exporter.addTemplate(IndividualPremiseExcelView.CLASS);
@@ -282,7 +292,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet individualSheet = workbook.getSheetAt(0);
       String individualSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       InsecticideInterventionExcelView.setupExportListener(exporter);
       exporter.addTemplate(InsecticideInterventionExcelView.CLASS);
@@ -290,7 +300,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet insecticideSheet = workbook.getSheetAt(0);
       String insecticideSheetName = workbook.getSheetName(0);
-      
+
       exporter = new ExcelExporter();
       PersonInterventionExcelView.setupExportListener(exporter);
       exporter.addTemplate(PersonInterventionExcelView.CLASS);
@@ -298,13 +308,13 @@ public abstract class Facade extends FacadeBase implements Reloadable
       workbook = new HSSFWorkbook(fileSystem);
       HSSFSheet personSheet = workbook.getSheetAt(0);
       String personSheetName = workbook.getSheetName(0);
-      
+
       workbook = new HSSFWorkbook();
       copySheetIntoWorkbook(workbook, premiseSheet, premiseSheetName);
       copySheetIntoWorkbook(workbook, individualSheet, individualSheetName);
       copySheetIntoWorkbook(workbook, insecticideSheet, insecticideSheetName);
       copySheetIntoWorkbook(workbook, personSheet, personSheetName);
-      
+
       ByteArrayOutputStream bytes = new ByteArrayOutputStream();
       BufferedOutputStream buffer = new BufferedOutputStream(bytes);
       workbook.write(buffer);
@@ -321,7 +331,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
       throw new SystemException(e);
     }
   }
-  
+
   @SuppressWarnings("unchecked")
   private static void copySheetIntoWorkbook(HSSFWorkbook workbook, HSSFSheet oldSheet, String name)
   {
@@ -332,14 +342,14 @@ public abstract class Facade extends FacadeBase implements Reloadable
       HSSFRow oldRow = rowIterator.next();
       int rowNum = oldRow.getRowNum();
       HSSFRow newRow = newSheet.createRow(rowNum);
-      
+
       Iterator<HSSFCell> cellIterator = oldRow.cellIterator();
       while (cellIterator.hasNext())
       {
         HSSFCell oldCell = cellIterator.next();
         int columnIndex = oldCell.getColumnIndex();
         HSSFCell newCell = newRow.createCell(columnIndex);
-        switch(oldCell.getCellType())
+        switch (oldCell.getCellType())
         {
           case HSSFCell.CELL_TYPE_BOOLEAN:
             newCell.setCellValue(oldCell.getBooleanCellValue());
@@ -358,29 +368,29 @@ public abstract class Facade extends FacadeBase implements Reloadable
             newCell.setCellValue(oldCell.getErrorCellValue());
             break;
         }
-        
-        if (rowNum==2)
+
+        if (rowNum == 2)
         {
           newSheet.setColumnWidth(columnIndex, oldSheet.getColumnWidth(columnIndex));
         }
       }
     }
   }
-  
+
   public static String getAttributeDisplayLabel(String className, String attributeName)
   {
     MdClassDAOIF mdClassDAO = MdClassDAO.getMdClassDAO(className);
     MdAttributeDAOIF mdAttributeDAO = mdClassDAO.definesAttribute(attributeName);
     MdAttribute mdAttribute = MdAttribute.get(mdAttributeDAO.getId());
-    
+
     return mdAttribute.getDisplayLabel().getValue();
   }
-  
+
   public static InputStream exportGeoChildren(String parentId, Boolean includeGeoData)
   {
     return GeoExporter.exportGeo(GeoEntity.get(parentId), includeGeoData);
   }
-  
+
   public static InputStream exportGeosByType(String hierarchyId, Boolean includeGeoData)
   {
     return GeoExporter.exportUniversal(GeoHierarchy.get(hierarchyId), includeGeoData);
