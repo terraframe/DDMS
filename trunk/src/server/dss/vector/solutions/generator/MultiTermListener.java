@@ -98,7 +98,7 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
           }
           else
           {
-            if (relationship != null)
+            if (relationship != null && !relationship.isNew())
             {
               relationship.delete();
             }
