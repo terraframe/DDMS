@@ -140,12 +140,26 @@ public class GridContext extends ImportContext implements Reloadable
     try
     {
       Class<? extends Mutable> clazz = instance.getClass();
-      String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(mdRelationship.getParentMethod());
-      Method method = clazz.getMethod(methodName, Term.class);
+      
+      String addMethodName = "add" + CommonGenerationUtil.upperFirstCharacter(mdRelationship.getParentMethod());
+      Method addMethod = clazz.getMethod(addMethodName, Term.class);
+      
+      String getMethodName = "get" + CommonGenerationUtil.upperFirstCharacter(mdRelationship.getParentMethod()) + "Rel";
+      Method getMethod = clazz.getMethod(getMethodName, Term.class);
+      
 
       for (Term term : roots)
       {
-        Relationship relationship = (Relationship) method.invoke(instance, term);
+        Relationship relationship = (Relationship) getMethod.invoke(instance, term);
+
+        if(relationship == null) 
+        {
+          relationship = (Relationship) addMethod.invoke(instance, term);
+        }
+        else
+        {
+          relationship.lock();
+        }
 
         List<ExcelColumn> columns = this.getColumns(term);
 

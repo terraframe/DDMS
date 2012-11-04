@@ -75,18 +75,33 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
     String methodName = "add" + CommonGenerationUtil.upperFirstCharacter(this.relationshipMethod);
     Method method = clazz.getMethod(methodName, Term.class);
 
+    String getMethodName = "get" + CommonGenerationUtil.upperFirstCharacter(this.relationshipMethod) + "Rel";
+    Method getMethod = clazz.getMethod(getMethodName, Term.class);
+
     try
     {
       for (Term term : roots)
       {
+        Relationship relationship = (Relationship) getMethod.invoke(instance, term);
+
         for (ExcelColumn column : extraColumns)
         {
           String attributeName = this.getAttributeName(fieldName, term);
 
           if (column.getAttributeName().equals(attributeName) && ExcelUtil.getBoolean(row.getCell(column.getIndex())))
           {
-            Relationship relationship = (Relationship) method.invoke(instance, term);
+            if (relationship == null)
+            {
+              relationship = (Relationship) method.invoke(instance, term);
+            }
             relationships.add(relationship);
+          }
+          else
+          {
+            if (relationship != null)
+            {
+              relationship.delete();
+            }
           }
         }
       }
@@ -148,7 +163,10 @@ public class MultiTermListener extends ExcelAdapter implements ExcelExportListen
   {
     for (Relationship relationship : relationships)
     {
-      relationship.apply();
+      if (relationship.isNew())
+      {
+        relationship.apply();
+      }
     }
 
     relationships.clear();
