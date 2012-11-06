@@ -45,7 +45,7 @@ public class FormImportContext extends ImportContext implements Reloadable
         if (it.hasNext())
         {
           Business mutable = it.next();
-          mutable.lock();
+          mutable.appLock();
 
           return mutable;
         }

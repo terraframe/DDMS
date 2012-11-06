@@ -28,6 +28,7 @@ public class FormHouseholdImportContext extends FormImportContext implements Rel
 
       if (household != null)
       {
+        household.appLock();
         return household;
       }
     }

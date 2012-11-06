@@ -29,6 +29,7 @@ public class FormBedNetImportContext extends FormImportContext implements Reload
 
       if (bedNet != null)
       {
+        bedNet.appLock();
         return bedNet;  
       }
     }

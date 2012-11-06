@@ -39,7 +39,7 @@ public class FormPersonImportContext extends FormImportContext implements Reload
         if (it.hasNext())
         {
           FormPerson person = it.next();
-          person.lock();
+          person.appLock();
 
           return person;
         }
