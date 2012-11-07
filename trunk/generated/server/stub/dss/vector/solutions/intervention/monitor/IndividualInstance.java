@@ -444,19 +444,20 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
   @Override
   protected String buildKey()
   {
-    Date admissionDate = this.getAdmissionDate();
-    Date facilityVisit = this.getFacilityVisit();
-    List<DiagnosisType> diagnosisType = this.getDiagnosisType();
-    Term labTest = this.getLabTest();
-    Term treatment = this.getTreatment();
-
-    if (admissionDate != null && facilityVisit != null && diagnosisType.size() > 0 && labTest != null && treatment != null)
-    {
-      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-      String diagnosisTypeName = diagnosisType.get(0).getEnumName();
-
-      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + diagnosisTypeName + "." + labTest.getName() + "." + treatment.getName();
-    }
+    // Temporarily disabled so Miguel can import data. FIXME
+//    Date admissionDate = this.getAdmissionDate();
+//    Date facilityVisit = this.getFacilityVisit();
+//    List<DiagnosisType> diagnosisType = this.getDiagnosisType();
+//    Term labTest = this.getLabTest();
+//    Term treatment = this.getTreatment();
+//
+//    if (admissionDate != null && facilityVisit != null && diagnosisType.size() > 0 && labTest != null && treatment != null)
+//    {
+//      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+//      String diagnosisTypeName = diagnosisType.get(0).getEnumName();
+//
+//      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + diagnosisTypeName + "." + labTest.getName() + "." + treatment.getName();
+//    }
     return this.getId();
   }
 }
