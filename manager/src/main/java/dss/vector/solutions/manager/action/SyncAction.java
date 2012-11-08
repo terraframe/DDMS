@@ -62,6 +62,7 @@ public class SyncAction extends Action implements UncaughtExceptionHandler
             java.createArg().setValue("-i" + context.getInstallProperties());
             java.createArg().setValue("-l" + Localizer.getLocale().toString());
             java.createArg().setValue("-a" + context.getApplication());
+            java.createArg().setValue("-v" + context.getOriginalVersion());
 
             java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
             java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());

@@ -122,4 +122,9 @@ public class ManagerContextBean
   {
     return ManagerContextBean.getApplicationWebInfPath(application) + "lib" + File.separator;
   }
+
+  public String getOriginalVersion()
+  {
+    return ManagerContextBean.getApplicationWebInfPath(application) + "originalVersion.jsp";
+  }
 }
