@@ -27,6 +27,7 @@ import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.admin.controller.IModuleController;
 import dss.vector.solutions.admin.controller.ModuleController;
+import dss.vector.solutions.admin.controller.VersionJspReader;
 
 public class MDSSModule implements IModule, IPropertyListener
 {
@@ -137,21 +138,25 @@ public class MDSSModule implements IModule, IPropertyListener
     }
   }
 
-  public static final String VERSION_PROPERTY = "ddms_manager_version";
+  public static final String  VERSION_PROPERTY         = "ddms_manager_version";
 
-  public static final String VERSION          = "1.02";
+  public static final String  INSTALL_VERSION_PROPERTY = "original_install_version";
 
-  public static String       DEFAULT_TOMCAT   = "C:/MDSS/tomcat6/";
+  public static final String  VERSION                  = "1.02";
 
-  private IModuleController  controller;
+  public static String        DEFAULT_TOMCAT           = "C:/MDSS/tomcat6/";
 
-  private IWindow            window;
+  private IModuleController   controller;
 
-  private String             appName;
+  private IWindow             window;
 
-  private String             tomcatRoot;
+  private String              appName;
 
-  private IConfiguration     configuration;
+  private String              tomcatRoot;
+
+  private IConfiguration      configuration;
+
+  private Map<String, String> properties;
 
   public MDSSModule(String appName)
   {
@@ -163,6 +168,7 @@ public class MDSSModule implements IModule, IPropertyListener
     this.tomcatRoot = tomcatRoot;
     this.appName = appName;
     this.controller = new ModuleController(this);
+    this.properties = new HashMap<String, String>();
 
     // Window is set in the init method which is called from the super class
     this.window = null;
@@ -245,8 +251,17 @@ public class MDSSModule implements IModule, IPropertyListener
     Map<String, String> map = new HashMap<String, String>();
 
     map.put(MDSSModule.VERSION_PROPERTY, MDSSModule.VERSION.toString());
+    map.put(MDSSModule.INSTALL_VERSION_PROPERTY, this.getOriginalVersion());
 
     return map;
+  }
+
+  public String getOriginalVersion()
+  {
+    String jspPath = this.tomcatRoot + "/webapps/" + this.appName + "/WEB-INF/originalVersion.jsp";
+    String propertyName = "original_version";
+
+    return new VersionJspReader(jspPath).getValue(propertyName);
   }
 
   @Override
@@ -261,9 +276,22 @@ public class MDSSModule implements IModule, IPropertyListener
   @Override
   public void handleProperty(String name, String value)
   {
-    if (name.equals(MDSSModule.VERSION_PROPERTY) && !value.equals(MDSSModule.VERSION))
+    this.properties.put(name, value);
+  }
+
+  @Override
+  public void handlePropertiesFinished()
+  {
+    if (!this.properties.containsKey(MDSSModule.VERSION_PROPERTY) || !this.properties.get(MDSSModule.VERSION_PROPERTY).equals(MDSSModule.VERSION))
     {
       String msg = Localizer.getMessage("MANAGER_VERSION_ERROR");
+
+      throw new RuntimeException(msg);
+    }
+
+    if (!this.properties.containsKey(MDSSModule.INSTALL_VERSION_PROPERTY) || !this.properties.get(MDSSModule.INSTALL_VERSION_PROPERTY).equals(this.getOriginalVersion()))
+    {
+      String msg = Localizer.getMessage("ORIGINAL_VERSION_ERROR");
 
       throw new RuntimeException(msg);
     }
