@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import com.runwaysdk.business.Business;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.session.Session;
+import com.terraframe.utf8.UTF8ResourceBundle;
 
 import dss.vector.solutions.localization.MultiBundle;
 
@@ -28,7 +29,7 @@ public class MDSSProperties
 
   public static Object getObject(String key)
   {
-    return ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER).getObject(key);
+    return UTF8ResourceBundle.getBundle(getBundleName(), Session.getCurrentLocale(), LOADER).getObject(key);
   }
 
   public static String getString(String key, Locale locale)
@@ -38,7 +39,7 @@ public class MDSSProperties
 
   public static Object getObject(String key, Locale locale)
   {
-    ResourceBundle other = ResourceBundle.getBundle(getBundleName(), locale, LOADER);
+    ResourceBundle other = UTF8ResourceBundle.getBundle(getBundleName(), locale, LOADER);
     return other.getObject(key);
   }
 

@@ -41,6 +41,7 @@ import com.runwaysdk.query.SelectableFloat;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.ValueQuery;
+import com.terraframe.utf8.UTF8ResourceBundle;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 
@@ -377,7 +378,7 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
     return filePath + "?a=" + random;
   }
 
-  private static final ResourceBundle bundle             = ResourceBundle.getBundle("GeoServer", Locale
+  private static final ResourceBundle bundle             = UTF8ResourceBundle.getBundle("GeoServer", Locale
                                                              .getDefault(), Business.class
                                                              .getClassLoader());
 
