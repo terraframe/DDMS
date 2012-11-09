@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Set;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
@@ -329,28 +330,35 @@ public class GeoEntitySearcher implements Reloadable
   private void readHeaders(Iterator<HSSFRow> rowIterator)
   {
     // Ignore type row
-    rowIterator.next();
-    HSSFRow nameRow = rowIterator.next();
-    // Ignore label row
-    rowIterator.next();
-
-    Iterator<HSSFCell> nameIterator = nameRow.cellIterator();
-
-    while (nameIterator.hasNext())
+    try
     {
-      HSSFCell nameCell = nameIterator.next();
+      rowIterator.next();
+      HSSFRow nameRow = rowIterator.next();
+      // Ignore label row
+      rowIterator.next();
 
-      String nameValue = ExcelUtil.getString(nameCell).trim();
-      if (nameValue.startsWith(DynamicGeoColumnListener.PREFIX))
+      Iterator<HSSFCell> nameIterator = nameRow.cellIterator();
+
+      while (nameIterator.hasNext())
       {
-        String[] nameComponents = nameValue.split(" ");
-        String attributeName = nameComponents[1];
-        String geoTypeName = nameComponents[2];
+        HSSFCell nameCell = nameIterator.next();
 
-        // Record information about this column header
-        GeoHeaderInfo geoHeaderInfo = new GeoHeaderInfo(nameValue, nameCell.getColumnIndex(), attributeName, this.geoUniversalPackage + "." + geoTypeName);
-        this.getGeoHeaderInfoList(attributeName).add(geoHeaderInfo);
+        String nameValue = ExcelUtil.getString(nameCell).trim();
+        if (nameValue.startsWith(DynamicGeoColumnListener.PREFIX))
+        {
+          String[] nameComponents = nameValue.split(" ");
+          String attributeName = nameComponents[1];
+          String geoTypeName = nameComponents[2];
+
+          // Record information about this column header
+          GeoHeaderInfo geoHeaderInfo = new GeoHeaderInfo(nameValue, nameCell.getColumnIndex(), attributeName, this.geoUniversalPackage + "." + geoTypeName);
+          this.getGeoHeaderInfoList(attributeName).add(geoHeaderInfo);
+        }
       }
+    }
+    catch (NoSuchElementException e)
+    {
+      throw new ExcelReadException(e);
     }
   }
 
