@@ -3,6 +3,8 @@ package dss.vector.solutions.manager;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import com.terraframe.utf8.UTF8ResourceBundle;
+
 public class Localizer
 {
   public static final String DEFAULT_LOCALE = "defaultLocale";
@@ -18,16 +20,14 @@ public class Localizer
 
   private Localizer(String name, Locale locale)
   {
-    this.bundle = ResourceBundle.getBundle(name, locale);
+    this.bundle = UTF8ResourceBundle.getBundle(name, locale);
   }
 
   private String get(String key)
   {
     try
     {
-      String value = bundle.getString(key);
-      String unicodeValue = new String(value.getBytes("ISO-8859-1"), "UTF-8");
-      return unicodeValue;
+      return bundle.getString(key);
     }
     catch (Exception e)
     {
