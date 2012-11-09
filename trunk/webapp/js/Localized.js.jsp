@@ -2,7 +2,6 @@
 <%@page import="java.text.DecimalFormat"%><%@page import="dss.vector.solutions.util.LocalizationFacadeDTO"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
-<%@page import="java.util.ResourceBundle"%>
 <%@page import="org.apache.taglibs.standard.tag.common.fmt.BundleSupport"%>
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.util.*"%>
