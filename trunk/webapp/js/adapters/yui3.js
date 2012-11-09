@@ -388,7 +388,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
   Implements : RUNWAY_UI.DataTableIF,
   Extends : YUI3WidgetBase,
   Instance : {
-    initialize : function(type, addedColumns){
+    initialize : function(type, preColumns, postColumns){
     
       this.$initialize();
       
@@ -423,7 +423,8 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
       this._dataTable.delegate('click', this._thClickHandler, 'th', this);
 
       // extra columns to add to the end of the table
-      this._addedColumns = addedColumns || [];
+      this._preColumns = preColumns || [];
+      this._postColumns = postColumns || [];
       
       this._typeFormatters = {};
     },
@@ -541,8 +542,9 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           }));
         }
         
-        cols = cols.concat(this._addedColumns);
-      
+        cols = this._preColumns.concat(cols);
+        cols = cols.concat(this._postColumns);
+        
         this._columnSet.addColumn(cols);
       }
       
