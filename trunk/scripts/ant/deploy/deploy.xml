@@ -34,7 +34,7 @@
 	<property name="model.dir" value="${local.root}/doc/model/" />
 
 	<property name="version.xsd" value="/version_gis.xsd" />
-	<property name="geodata.db" value="mrc_zambia" />
+	<property name="geodata.db" value="mrc_blank" />
 
 	<property name="gis.root" value="/home/jsmethie/workspace/MDSSGISI" />
 	<property name="gis.lib" value="${gis.root}/lib/server" />
@@ -467,6 +467,7 @@
 			<arg value="${deploy.profile}" />
 			<arg value="$$${deploy.appname}_tmp" />
 			<classpath>
+				<fileset file="${common.lib}/UTF8Resource.jar" />
 				<fileset file="${server.lib}/runwaysdk-server.jar" />
 				<fileset file="${client.lib}/runwaysdk-client.jar" />
 				<fileset file="${common.lib}/runwaysdk-common.jar" />
