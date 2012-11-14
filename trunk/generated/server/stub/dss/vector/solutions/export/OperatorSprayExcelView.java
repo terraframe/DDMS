@@ -59,48 +59,45 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     OperatorSprayView osv = OperatorSprayView.searchBySprayData(entity.getGeoId(), this.getSprayDate(), ExcelEnums.getSprayMethod(this.getSprayMethod()), InsecticideBrand.validateByName(this.getInsecticideTerm()), operatorId);
 
     // Only create values if one already exists do not update
-    if (osv.getConcreteId() == null || osv.getConcreteId().equals(""))
+    String leaderID = this.getLeaderId();
+
+    if (leaderID != null && !leaderID.equals(""))
     {
-      String leaderID = this.getLeaderId();
+      TeamMember leader = TeamMember.getMemberById(leaderID);
 
-      if (leaderID != null && !leaderID.equals(""))
+      if (leader != null)
       {
-        TeamMember leader = TeamMember.getMemberById(leaderID);
-
-        if (leader != null)
-        {
-          osv.setTeamLeader(leader);
-        }
-        else
-        {
-          String msg = "Unknown team member [" + leaderID + "]";
-          throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(TeamMember.CLASS));
-        }
+        osv.setTeamLeader(leader);
       }
-
-      osv.setTarget(this.getTarget());
-      osv.setReceived(this.getReceived());
-      osv.setRefills(this.getRefills());
-      osv.setReturned(this.getReturned());
-      osv.setUsed(this.getUsed());
-      osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
-      osv.setSprayOperator(operator);
-      
-      if(this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
-      {        
-        SprayTeam team = SprayTeam.getByTeamId(this.getSprayTeam());
-        
-        if(team == null)
-        {
-          String msg = "Unknown spray team [" + this.getSprayTeam() + "]";
-          throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(SprayTeam.CLASS));
-        }
-        
-        osv.setSprayTeam(team);
+      else
+      {
+        String msg = "Unknown team member [" + leaderID + "]";
+        throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(TeamMember.CLASS));
       }
-
-      osv.apply();
     }
+
+    osv.setTarget(this.getTarget());
+    osv.setReceived(this.getReceived());
+    osv.setRefills(this.getRefills());
+    osv.setReturned(this.getReturned());
+    osv.setUsed(this.getUsed());
+    osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
+    osv.setSprayOperator(operator);
+    
+    if(this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
+    {        
+      SprayTeam team = SprayTeam.getByTeamId(this.getSprayTeam());
+      
+      if(team == null)
+      {
+        String msg = "Unknown spray team [" + this.getSprayTeam() + "]";
+        throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(SprayTeam.CLASS));
+      }
+      
+      osv.setSprayTeam(team);
+    }
+
+    osv.apply();
     
     // Populate the Household Spray Status data
     if (this.getHouseholdId() != null && !this.getHouseholdId().equals(""))

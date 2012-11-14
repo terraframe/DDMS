@@ -26,13 +26,16 @@ public class OperatorSprayView extends OperatorSprayViewBase implements com.runw
   @Transaction
   public void apply()
   {
-    OperatorSpray concrete = new OperatorSpray();
-    
+    OperatorSpray concrete;
     if (this.hasConcrete())
     {
       concrete = OperatorSpray.get(this.getConcreteId());
-
+      concrete.appLock();
       validateSprayMethod(concrete.getSprayMethod());
+    }
+    else
+    {
+      concrete = new OperatorSpray();
     }
         
     this.populateMapping(concrete);
