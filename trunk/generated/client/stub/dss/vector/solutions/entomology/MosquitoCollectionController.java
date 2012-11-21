@@ -356,6 +356,9 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     MosquitoCollectionViewQueryDTO query = MosquitoCollectionViewDTO.searchCollections(request, dto, sortAttribute, isAscending, pageSize, pageNumber);
 
     this.setupReferences(dto);
+    List<String> entityUniversals = Arrays.asList(new String[] { CollectionSiteDTO.CLASS, SentinelSiteDTO.CLASS });
+
+    req.setAttribute("entityUniversals", entityUniversals);
     req.setAttribute("query", query);
     req.setAttribute("item", dto);
 
