@@ -63,6 +63,8 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   public static String     DEFAULT_TOMCAT  = ROOT_DIRECTORY+"/tomcat6/";
 
   public static String     DEFAULT_MANAGER = ROOT_DIRECTORY+"/manager/";
+
+  public static String     DEFAULT_BIRT = ROOT_DIRECTORY+"/birt/";
   
   private final static Logger logger = Logger.getLogger(PostInstallSetup.class.getName());
 
@@ -273,6 +275,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   {
     this.updateCSS();
     this.updateMaxPermSize();
+    this.updateBIRTJavaPath();
   }
 
   public void updateCSS() throws IOException
@@ -290,6 +293,19 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     logger.info("Setting MAX_PERM_SIZE to "+MAX_PERM_SIZE+"M");
     File startup = new File(PostInstallSetup.DEFAULT_TOMCAT + "/bin/startup.bat");
     this.readAndReplace(startup, "-XX:MaxPermSize=\\d*M", "-XX:MaxPermSize=" + MAX_PERM_SIZE + "M");
+  }
+  
+  /**
+   * The executable birt.bat originally pointed to JAVA_HOME to set the
+   * Java path, but that is incorrect because BIRT pays no attention to JAVA_HOME.
+   * Instead set a new PATH value with DDMS's Java bin path.
+   * @throws IOException 
+   */
+  private void updateBIRTJavaPath() throws IOException
+  {
+    logger.info("Updating birt.bat to use PATH instead of JAVA_HOME.");
+    File file = new File(PostInstallSetup.DEFAULT_BIRT+"birt.bat");
+    this.readAndReplace(file, "JAVA_HOME=(.*)", "PATH=$1\\\\bin;%PATH%");
   }
 
   private void updateProperties() throws IOException
