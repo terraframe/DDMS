@@ -58,7 +58,7 @@ public class IndividualIPTCase extends IndividualIPTCaseBase implements com.runw
     {
       Person person = this.getPatient().getPerson();
 
-      person.lockPerson();
+      person.appLock();
       person.setResidentialGeoEntity(this.getResidentialLocation());
       person.apply();
     }

@@ -362,10 +362,10 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 
     Date newCasePeriodCutoff = calendar.getTime();
 
-    IndividualCase individualCase = new IndividualCase();
     Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
 
+    
     if (patient != null)
     {
       IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
@@ -376,43 +376,45 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       query.ORDER_BY_DESC(query.getDiagnosisDate());
 
       OIterator<? extends IndividualCase> iterator = query.getIterator();
-      if (iterator.hasNext())
+      try
       {
-        individualCase = iterator.next();
+        if (iterator.hasNext())
+        {
+          // match found, return it
+          return iterator.next();
+        }
       }
-      iterator.close();
+      finally
+      {
+        iterator.close();
+      }
     }
-
-    if (individualCase.isNew())
+    
+    // no match found, so create a new instance and give it defaults from Person
+    IndividualCase individualCase = new IndividualCase();
+    if (individualCase.getResidence() == null)
     {
-      // If values don't exist on the case, give them defaults from the
-      // person
-      if (individualCase.getResidence() == null)
-      {
-        individualCase.setResidence(person.getResidentialGeoEntity());
-      }
-      if (individualCase.getResidenceText() == null)
-      {
-        individualCase.setResidenceText(person.getResidentialInformation());
-      }
-      if (individualCase.getWorkplace() == null)
-      {
-        individualCase.setWorkplace(person.getWorkGeoEntity());
-      }
-      if (individualCase.getWorkplaceText() == null)
-      {
-        individualCase.setWorkplaceText(person.getWorkInformation());
-      }
+      individualCase.setResidence(person.getResidentialGeoEntity());
     }
-
+    if (individualCase.getResidenceText() == null)
+    {
+      individualCase.setResidenceText(person.getResidentialInformation());
+    }
+    if (individualCase.getWorkplace() == null)
+    {
+      individualCase.setWorkplace(person.getWorkGeoEntity());
+    }
+    if (individualCase.getWorkplaceText() == null)
+    {
+      individualCase.setWorkplaceText(person.getWorkInformation());
+    }
+    
     return individualCase;
   }
-
-  @Override
+  
   @Transaction
-  public void applyWithPersonId(String personId, IndividualInstance instance, Term[] symptoms)
+  public void applyWithPersonId(Person person, IndividualInstance instance, Term[] symptoms)
   {
-    Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
     if (patient == null)
     {
@@ -420,7 +422,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       patient.setPerson(person);
       patient.apply();
 
-      person.lockPerson();
+      person.appLock();
       person.setPatientDelegate(patient);
       person.apply();
     }
@@ -430,6 +432,14 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
 
     instance.setIndividualCase(this);
     instance.applyAll(symptoms);
+  }
+
+  @Override
+  @Transaction
+  public void applyWithPersonId(String personId, IndividualInstance instance, Term[] symptoms)
+  {
+    Person person = Person.get(personId);
+    this.applyWithPersonId(person, instance, symptoms);
   }
 
   public IndividualInstanceQuery getInstances()

@@ -440,24 +440,50 @@ public class IndividualInstance extends IndividualInstanceBase implements com.ru
       it.close();
     }
   }
+  
+  /*
+   * NOTE: Removed for #2747. Fixed because the key is never used in any practical manner. Instead we rely
+   * on the default behavior which is return the auto-generated id.
+   */
+  /**
+   * Builds the key that would be used by an IndividualInstance if the parameters are valid. If the key cannot
+   * be built null is returned.
+   * 
+   * @param admissionDate
+   * @param facilityVisit
+   * @param diagnosisType
+   * @param labTest
+   * @param treatment
+   * @return
+  public static String buildKey(Date admissionDate, Date facilityVisit, DiagnosisType diagnosisType, Term labTest, Term treatment)
+  {
+    if (admissionDate != null && facilityVisit != null && diagnosisType != null && labTest != null && treatment != null)
+    {
+      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
+      String diagnosisTypeName = diagnosisType.getEnumName();
 
+      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + diagnosisTypeName + "." + labTest.getName() + "." + treatment.getName();
+    }
+    
+    return null;
+  }
+   */
+  
+  /**
+   * Builds the key for this IndividualInstance. This MUST delegate to the static buildKey() method
+   * for consistency.
   @Override
   protected String buildKey()
   {
-    // Temporarily disabled so Miguel can import data. FIXME
-//    Date admissionDate = this.getAdmissionDate();
-//    Date facilityVisit = this.getFacilityVisit();
-//    List<DiagnosisType> diagnosisType = this.getDiagnosisType();
-//    Term labTest = this.getLabTest();
-//    Term treatment = this.getTreatment();
-//
-//    if (admissionDate != null && facilityVisit != null && diagnosisType.size() > 0 && labTest != null && treatment != null)
-//    {
-//      DateFormat format = SimpleDateFormat.getDateInstance(SimpleDateFormat.SHORT);
-//      String diagnosisTypeName = diagnosisType.get(0).getEnumName();
-//
-//      return format.format(admissionDate) + "." + format.format(facilityVisit) + "." + diagnosisTypeName + "." + labTest.getName() + "." + treatment.getName();
-//    }
-    return this.getId();
+    Date admissionDate = this.getAdmissionDate();
+    Date facilityVisit = this.getFacilityVisit();
+    List<DiagnosisType> diagnosisTypeList = this.getDiagnosisType();
+    DiagnosisType diagnosisType = diagnosisTypeList.size() > 0 ? diagnosisTypeList.get(0) : null;
+    Term labTest = this.getLabTest();
+    Term treatment = this.getTreatment();
+
+    String key = buildKey(admissionDate, facilityVisit, diagnosisType, labTest, treatment);
+    return key != null ? key : this.getId();
   }
+  */
 }

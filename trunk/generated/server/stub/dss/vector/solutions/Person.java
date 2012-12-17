@@ -334,19 +334,9 @@ public class Person extends PersonBase implements com.runwaysdk.generation.loade
   public static Person lockPerson(String id)
   {
     Person person = Person.get(id);
-    person.lockPerson();
+    person.lock();
 
     return person;
-  }
-
-  public void lockPerson()
-  {
-    super.lock();
-  }
-
-  public void unlockPerson()
-  {
-    super.unlock();
   }
 
   public static ValueQuery searchForPerson(String value)
