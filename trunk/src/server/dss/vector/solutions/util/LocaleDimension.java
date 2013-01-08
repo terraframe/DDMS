@@ -9,6 +9,7 @@ import java.util.TreeMap;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.ProfileManager;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
+import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -126,10 +127,17 @@ public class LocaleDimension implements Reloadable
       // if (split.length!=2)
       // throw an error;
 
-      String key = split[0].trim();
-      String value = split[1].trim();
+      if (split.length == 2)
+      {
+        String key = split[0].trim();
+        String value = split[1].trim();
 
-      props.put(key, value);
+        props.put(key, value);
+      }
+      else
+      {
+        throw new ProgrammingErrorException("Unable to read line [" + line + "] from the property file [" + file.getAbsolutePath() + "]");
+      }
     }
     return props;
   }

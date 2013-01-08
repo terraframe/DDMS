@@ -3,6 +3,8 @@ package dss.vector.solutions.localization;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
@@ -17,13 +19,12 @@ import dss.vector.solutions.util.MdssLocalizationImporter;
 
 public class LocalizationMerger
 {
-  @Request
   public static void main(String[] args) throws Exception
   {
     long start = System.currentTimeMillis();
     File dir = new File("doc/localization/");
     File mergedFile = new File("doc/MergedLocalization.xls");
-    
+
     switch (args.length)
     {
       case 2:
@@ -37,16 +38,29 @@ public class LocalizationMerger
         System.out.println("  -dir: The directory of localization files to merge");
         System.out.println("  -outfile: The output file");
     }
-    
+
+    try
+    {
+      LocalizationMerger.run(start, dir, mergedFile);
+    }
+    finally
+    {
+      CacheShutdown.shutdown();
+    }
+  }
+
+  @Request
+  public static void run(long start, File dir, File mergedFile) throws FileNotFoundException, IOException
+  {
     File[] files = dir.listFiles(new FileFilter()
-    {     
+    {
       @Override
       public boolean accept(File pathname)
       {
         return pathname.getAbsolutePath().endsWith(".xls");
       }
     });
-    
+
     Comparator<File> c = new Comparator<File>()
     {
       @Override
@@ -55,10 +69,10 @@ public class LocalizationMerger
         return o1.getAbsoluteFile().compareTo(o2.getAbsoluteFile());
       }
     };
-    
+
     List<File> list = Arrays.asList(files);
     Collections.sort(list, c);
-    
+
     System.out.println("Importing files from " + dir.getAbsolutePath());
     for (File file : list)
     {
@@ -66,16 +80,13 @@ public class LocalizationMerger
       MdssLocalizationImporter mli = new MdssLocalizationImporter();
       mli.read(new FileInputStream(file));
     }
-    
+
     System.out.println("Exporting Merged file to " + mergedFile.getAbsolutePath());
     MdssLocalizationExporter exporter = new MdssLocalizationExporter();
     exporter.export();
     FileIO.write(mergedFile, exporter.write());
-    
+
     long stop = System.currentTimeMillis();
     System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
-    
-
-    CacheShutdown.shutdown();
   }
 }
