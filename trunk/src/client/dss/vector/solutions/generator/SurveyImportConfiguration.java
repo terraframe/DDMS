@@ -26,4 +26,10 @@ public class SurveyImportConfiguration implements ImportConfiguration, Reloadabl
     controller.surveyImportType();
   }
 
+  @Override
+  public String getFormUrl()
+  {
+    return "dss.vector.solutions.generator.ExcelController.surveyImportType.mojo";
+  }
+
 }

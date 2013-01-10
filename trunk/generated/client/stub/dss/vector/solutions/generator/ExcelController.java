@@ -160,6 +160,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
             }
             else if (unknownEntities != null && unknownEntities.length > 0)
             {
+              req.setAttribute("action", configuration.getFormUrl());
               req.setAttribute("excelType", excelType);
               req.setAttribute("unknownGeoEntitys", unknownEntities);
               req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, resp);

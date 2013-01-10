@@ -23,4 +23,10 @@ public class DefaultImportConfiguration implements Reloadable, ImportConfigurati
   {
     controller.importType(type);
   }
+
+  @Override
+  public String getFormUrl()
+  {
+    return "dss.vector.solutions.generator.ExcelController.importType.mojo";
+  }
 }

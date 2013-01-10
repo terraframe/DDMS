@@ -30,9 +30,9 @@ public class ExcelImportServlet extends HttpServlet
   /**
    *
    */
-  private static final long serialVersionUID = 0L;
+  private static final long  serialVersionUID = 0L;
 
-  public static final String TYPE = "excelType";
+  public static final String TYPE             = "excelType";
 
   @SuppressWarnings("unchecked")
   protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException
@@ -44,7 +44,7 @@ public class ExcelImportServlet extends HttpServlet
       return;
     }
 
-    ClientRequestIF clientRequest = (ClientRequestIF)req.getAttribute(ClientConstants.CLIENTREQUEST);
+    ClientRequestIF clientRequest = (ClientRequestIF) req.getAttribute(ClientConstants.CLIENTREQUEST);
 
     // Create a factory for disk-based file items
     FileItemFactory factory = new DiskFileItemFactory();
@@ -52,15 +52,16 @@ public class ExcelImportServlet extends HttpServlet
     // Create a new file upload handler
     ServletFileUpload upload = new ServletFileUpload(factory);
 
-    // Data structure that contains synonym matching information for geo entities that could not
+    // Data structure that contains synonym matching information for geo
+    // entities that could not
     // be identified.
     ViewDTO[] unknownGeoEntityDTOArray = null;
 
     // Parse the request
     boolean isGeoImport = false;
-    
+
     String excelType = null;
-    
+
     try
     {
       List<FileItem> items = upload.parseRequest(req);
@@ -82,9 +83,9 @@ public class ExcelImportServlet extends HttpServlet
           sourceStream = item.getInputStream();
         }
       }
-      
+
       // No file was uploaded
-      if (size==0)
+      if (size == 0)
       {
         req.setAttribute(ErrorUtility.ERROR_MESSAGE, LocalizationFacadeDTO.getFromBundles(clientRequest, "File_Upload_Blank"));
         req.setAttribute(TYPE, fields.get(TYPE));
@@ -99,13 +100,15 @@ public class ExcelImportServlet extends HttpServlet
 
       InputStream errorStream;
       excelType = fields.get(TYPE);
-      
-      // This referenced a constant, GeoEntityExcelViewDTO.CLASS, but was removed for now to eliminate the compile-time reference to a Reloadable class
+
+      // This referenced a constant, GeoEntityExcelViewDTO.CLASS, but was
+      // removed for now to eliminate the compile-time reference to a Reloadable
+      // class
       isGeoImport = excelType.equals("dss.vector.solutions.export.GeoEntityExcelView");
 
       if (isGeoImport)
       {
-        if(size == 0)
+        if (size == 0)
         {
           res.setContentType("text/html;charset=UTF-8");
           res.setCharacterEncoding("UTF-8");
@@ -116,8 +119,8 @@ public class ExcelImportServlet extends HttpServlet
         String[] params = new String[1];
         params[0] = fields.get("parentGeoEntityId");
         errorStream = importExcelFile(clientRequest, bytes, excelType, params);
-        
-        if (errorStream.available()>0)
+
+        if (errorStream.available() > 0)
         {
           res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
           ServletOutputStream outputStream = res.getOutputStream();
@@ -136,7 +139,7 @@ public class ExcelImportServlet extends HttpServlet
         {
           errorStream = importExcelFile(clientRequest, bytes, excelType, new String[0]);
 
-          if (errorStream.available()>0)
+          if (errorStream.available() > 0)
           {
             res.addHeader("Content-Disposition", "attachment;filename=\"errors.xls\"");
             ServletOutputStream outputStream = res.getOutputStream();
@@ -157,11 +160,12 @@ public class ExcelImportServlet extends HttpServlet
 
     if (unknownGeoEntityDTOArray != null && unknownGeoEntityDTOArray.length > 0)
     {
+      req.setAttribute("action", "excelimport");
       req.setAttribute("excelType", excelType);
       req.setAttribute("unknownGeoEntitys", unknownGeoEntityDTOArray);
       req.getRequestDispatcher("/WEB-INF/synonymFinder.jsp").forward(req, res);
     }
-    else if(isGeoImport)
+    else if (isGeoImport)
     {
       res.setContentType("text/html;charset=UTF-8");
       res.setCharacterEncoding("UTF-8");

@@ -16,4 +16,6 @@ public interface ImportConfiguration extends Reloadable
 
   public void redirectError(ExcelController controller, String type) throws IOException, ServletException;
 
+  public String getFormUrl();
+
 }
