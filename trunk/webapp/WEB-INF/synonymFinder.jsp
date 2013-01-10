@@ -121,7 +121,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
 <c:set var="back_to_import" scope="request"><mdss:localize key="back_to_import"/></c:set>
 
-<form id="${excelType}.import" name="${excelType}.import" action="excelimport" method="post">
+<form id="${excelType}.import" name="${excelType}.import" action="${action}" method="post">
   <input type="hidden" value="${excelType}" name="excelType"/>
   <input type="submit" class="submitButton" name="import.button" value="${back_to_import}"/> <mdss:localize key="post_synonym"/>
 </form>
