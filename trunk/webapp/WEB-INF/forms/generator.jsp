@@ -110,14 +110,14 @@ YAHOO.util.Event.onDOMReady(function(){
 	
   <div id="ExcelButtons">
 	<form action="dss.vector.solutions.generator.ExcelController.excelExport.mojo" method="post">
-	  <input type="hidden" value="${mdFormType}" name="type"/>
+	  <input type="hidden" value="${mdFormType}" name="excelType"/>
 	  <mdss:localize key="Excel_Export_Header" var="export_label"/>
 	  <input type="submit" class="submitButton" name="export.button" value="${export_label}"/>
 	</form>
 	
 	<form action="dss.vector.solutions.generator.ExcelController.importType.mojo" method="post">
 	  <mdss:localize key="Excel_Import_Header" var="import_label"/>
-	  <input type="hidden" value="${mdFormType}" name="type"/>
+	  <input type="hidden" value="${mdFormType}" name="excelType"/>
 	  <input type="submit" class="submitButton" name="import.button" value="${import_label}"/>
 	</form>
   </div>

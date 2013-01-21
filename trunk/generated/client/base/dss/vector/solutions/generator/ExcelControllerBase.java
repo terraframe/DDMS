@@ -1,6 +1,6 @@
 package dss.vector.solutions.generator;
 
-@com.runwaysdk.business.ClassSignature(hash = 258456909)
+@com.runwaysdk.business.ClassSignature(hash = -1108063861)
 public class ExcelControllerBase implements com.runwaysdk.generation.loader.Reloadable
 {
   public static final String CLASS = "dss.vector.solutions.generator.ExcelController";
@@ -9,8 +9,6 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
   protected java.lang.Boolean isAsynchronous;
   protected java.lang.String dir;
   protected java.lang.String layout;
-  
-  private static final long serialVersionUID = 258456909;
   
   public ExcelControllerBase(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -67,15 +65,15 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
     return (com.runwaysdk.ClientSession) req.getSession().getAttribute(com.runwaysdk.constants.ClientConstants.CLIENTSESSION);
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type", post=false)
-  public void excelExport(java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)
+  public void excelExport(java.lang.String excelType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.excelExport");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type", post=false)
-  public void failExcelExport(java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)
+  public void failExcelExport(java.lang.String excelType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelExport");
@@ -95,15 +93,15 @@ public class ExcelControllerBase implements com.runwaysdk.generation.loader.Relo
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failExcelImport");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type", post=false)
-  public void importType(java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)
+  public void importType(java.lang.String excelType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.importType");
   }
   
-  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:type", post=false)
-  public void failImportType(java.lang.String type) throws java.io.IOException, javax.servlet.ServletException
+  @com.runwaysdk.controller.ActionParameters(parameters="java.lang.String:excelType", post=false)
+  public void failImportType(java.lang.String excelType) throws java.io.IOException, javax.servlet.ServletException
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.generator.ExcelController.java";
     throw new com.runwaysdk.controller.UndefinedControllerActionException(msg, req.getLocale(), "dss.vector.solutions.generator.ExcelController.failImportType");

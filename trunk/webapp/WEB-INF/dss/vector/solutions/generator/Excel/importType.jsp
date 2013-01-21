@@ -6,7 +6,7 @@
 
 <form method="post" enctype="multipart/form-data" action="dss.vector.solutions.generator.ExcelController.excelImport.mojo">
   <mdss:localize key="xls_file" />:: <br />
-  <input type="hidden" name="type" value="${type}" />
+  <input type="hidden" name="excelType" value="${excelType}" />
   <input type="file" name="upfile"/> <br />
   <input class="submitButton" type="submit" value="Import" style="margin-left: 0px; top: 0px;" />
 </form>
