@@ -33,7 +33,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
 
   private static final long  serialVersionUID = 237694310;
 
-  public static final String TYPE             = "type";
+  public static final String TYPE             = "excelType";
 
   public ExcelController(javax.servlet.http.HttpServletRequest req, javax.servlet.http.HttpServletResponse resp, java.lang.Boolean isAsynchronous)
   {
@@ -41,25 +41,25 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
 
   @Override
-  public void excelExport(String type) throws IOException, ServletException
+  public void excelExport(String excelType) throws IOException, ServletException
   {
-    String[] split = type.split("\\.");
+    String[] split = excelType.split("\\.");
     String fileName = split[split.length - 1];
     try
     {
-      InputStream inputStream = MdFormUtilDTO.excelExport(this.getClientRequest(), type);
+      InputStream inputStream = MdFormUtilDTO.excelExport(this.getClientRequest(), excelType);
       FileDownloadUtil.writeXLS(resp, fileName, inputStream);
     }
     catch (Exception e)
     {
       ErrorUtility.prepareThrowable(e, req, resp, false);
 
-      this.failExcelExport(type);
+      this.failExcelExport(excelType);
     }
   }
 
   @Override
-  public void failExcelExport(String type) throws IOException, ServletException
+  public void failExcelExport(String excelType) throws IOException, ServletException
   {
     req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
@@ -209,7 +209,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
   }
 
   @Override
-  public void importType(String type) throws IOException, ServletException
+  public void importType(String excelType) throws IOException, ServletException
   {
     try
     {
@@ -217,7 +217,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
       RedirectUtility utility = new RedirectUtility(req, resp);
       utility.checkURL(this.getClass().getSimpleName(), "importType");
 
-      req.setAttribute("type", type);
+      req.setAttribute(TYPE, excelType);
 
       render("importType.jsp");
     }
@@ -227,13 +227,13 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
 
       if (!redirected)
       {
-        this.failImportType(type);
+        this.failImportType(excelType);
       }
     }
   }
 
   @Override
-  public void failImportType(String type) throws IOException, ServletException
+  public void failImportType(String excelType) throws IOException, ServletException
   {
     req.getRequestDispatcher("/index.jsp").forward(req, resp);
   }
@@ -247,7 +247,7 @@ public class ExcelController extends ExcelControllerBase implements com.runwaysd
       RedirectUtility utility = new RedirectUtility(req, resp);
       utility.checkURL(this.getClass().getSimpleName(), "surveyImportType");
 
-      this.req.setAttribute("type", FormSurveyDTO.CLASS);
+      this.req.setAttribute(TYPE, FormSurveyDTO.CLASS);
       this.render("importSurveyType.jsp");
     }
     catch (Throwable t)
