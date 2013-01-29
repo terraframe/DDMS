@@ -120,6 +120,8 @@ public class GeoEntitySearcher implements Reloadable
 
       for (int sheetNumber = 0; sheetNumber < numberOfSheets; sheetNumber++)
       {
+        this.geoColumnInfoMap.clear();
+
         HSSFSheet sheet = workbook.getSheetAt(sheetNumber);
 
         Iterator<HSSFRow> rowIterator = sheet.rowIterator();
