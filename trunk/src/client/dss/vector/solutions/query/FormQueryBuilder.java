@@ -176,7 +176,12 @@ public class FormQueryBuilder implements Reloadable
           String attributeLabel = compositeField.getDisplayLabel().getValue();
 
           TermOptionFactory factory = new TermOptionFactory(compositeField, compositeAttributeName, relType);
-          factory.setAttributeNamePrepend(fieldName + "_" + compositeAttributeName);
+          
+          // due to size restrictions only grab the first few letters of each part
+          String prependField = fieldName.length() > 6 ? fieldName.substring(0, 6) : fieldName;
+          String prependComposite = compositeAttributeName.length() > 6 ? compositeAttributeName.substring(0, 6) : compositeAttributeName;
+          
+          factory.setAttributeNamePrepend(prependField + "_" + prependComposite);
           factory.setLabel(attributeLabel + " - ");
 
           SelectableGroup selectableGroup = new SelectableGroup();
