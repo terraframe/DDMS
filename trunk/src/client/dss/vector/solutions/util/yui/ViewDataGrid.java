@@ -184,7 +184,7 @@ public class ViewDataGrid extends DataGrid implements Reloadable
           }
           else if (key.equals("termDisplayLabel"))
           {
-            String displayLabel = TermDTO.get(this.view.getRequest(), rel.getChildId()).toString();
+            String displayLabel = TermDTO.get(this.view.getRequest(), rel.getChildId()).getDisplayLabel();
             element.put(column.getColumnKey(), displayLabel);
           }
         }
