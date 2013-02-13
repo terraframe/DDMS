@@ -3,7 +3,9 @@ package dss.vector.solutions.util;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -291,7 +293,7 @@ public class MenuGenerator implements Reloadable
   private void generateConfigurableMenu()
   {
     Map<String, GuiMenuItem> guiMenuItems = new HashMap<String, GuiMenuItem>();
-    Map<String, String> children = new HashMap<String, String>();
+    Map<String, Set<String>> children = new HashMap<String, Set<String>>();
     guiMenuItems.put(this.disease.getMenuRoot().getId(), this.menu);
 
     ValueQuery query = this.getMenuQuery(this.disease);
@@ -320,7 +322,13 @@ public class MenuGenerator implements Reloadable
           GuiMenuItem guiMenuItem = new GuiMenuItem(ancestorTermId, ancestorLabel, url, !this.hasAccess(systemUrlId));
           guiMenuItems.put(ancestorId, guiMenuItem);
         }
-        children.put(ancestorId, ancestorParent);
+
+        if (!children.containsKey(ancestorId))
+        {
+          children.put(ancestorId, new TreeSet<String>());
+        }
+
+        children.get(ancestorId).add(ancestorParent);
       }
     }
     finally
@@ -328,17 +336,23 @@ public class MenuGenerator implements Reloadable
       i.close();
     }
 
-    for (Map.Entry<String, String> e : children.entrySet())
+    for (Map.Entry<String, Set<String>> e : children.entrySet())
     {
       GuiMenuItem child = guiMenuItems.get(e.getKey());
-      GuiMenuItem parent = guiMenuItems.get(e.getValue());
-      if (parent != null && child != null)
+      Set<String> parentIds = e.getValue();
+
+      for (String parentId : parentIds)
       {
-        parent.addChild(child);
-      }
-      else
-      {
-        // MdssLog.debug(e.getKey() + "->" + e.getValue());
+        GuiMenuItem parent = guiMenuItems.get(parentId);
+
+        if (parent != null && child != null)
+        {
+          parent.addChild(child);
+        }
+        else
+        {
+          // MdssLog.debug(e.getKey() + "->" + e.getValue());
+        }
       }
     }
   }
@@ -473,25 +487,39 @@ public class MenuGenerator implements Reloadable
   public String getJson()
   {
     JSONArray jsonArray = new JSONArray();
-    this.printMenu(jsonArray, this.menu);
+    Map<String, Integer> map = new HashMap<String, Integer>();
+
+    this.printMenu(map, jsonArray, this.menu);
+
     return jsonArray.toString();
   }
-  
-  private void printMenu(JSONArray jsonArray, GuiMenuItem guiMenuItem)
+
+  private void printMenu(Map<String, Integer> map, JSONArray jsonArray, GuiMenuItem guiMenuItem)
   {
     for (GuiMenuItem child : guiMenuItem.getChildren().values())
     {
-      jsonArray.put(printItem(child));
+      jsonArray.put(printItem(map, child));
     }
   }
-  
-  private JSONObject printItem(GuiMenuItem guiMenuItem)
+
+  private JSONObject printItem(Map<String, Integer> map, GuiMenuItem guiMenuItem)
   {
+    String id = guiMenuItem.getId();
+
+    if (!map.containsKey(id))
+    {
+      map.put(id, 0);
+    }
+    else
+    {
+      map.put(id, ( map.get(id) + 1 ));
+    }
+
     JSONObject json = new JSONObject();
     try
     {
       json.put("text", guiMenuItem.getLabel());
-      json.put("id", "_"+guiMenuItem.getId());
+      json.put("id", "_" + id + "_" + map.get(id));
       if (guiMenuItem.getChildren().size() == 0)
       {
         json.put("url", guiMenuItem.getUrl());
@@ -500,7 +528,7 @@ public class MenuGenerator implements Reloadable
           json.put("disabled", true);
         else
           json.put("disabled", false);
-        
+
         if (guiMenuItem.getUrl().equals("#"))
           json.put("checked", true);
         else
@@ -510,11 +538,11 @@ public class MenuGenerator implements Reloadable
       {
         if (guiMenuItem.isDisabled())
           json.put("classname", "grayed");
-        
+
         OrientationType orientation = LocalizationFacade.getSessionLocaleOrientation();
-        
+
         JSONObject submenu = new JSONObject();
-        submenu.put("id", "_"+guiMenuItem.getId()+"_Submenu");
+        submenu.put("id", "_" + id + "_" + map.get(id) + "_Submenu");
         if (orientation.equals(OrientationType.RTL))
         {
           JSONArray alignment = new JSONArray();
@@ -523,13 +551,12 @@ public class MenuGenerator implements Reloadable
           submenu.put("submenualignment", alignment);
         }
 
-        
         JSONArray menuItems = new JSONArray();
         for (GuiMenuItem child : guiMenuItem.getChildren().values())
         {
-          menuItems.put(printItem(child));
+          menuItems.put(printItem(map, child));
         }
-        
+
         submenu.put("itemdata", menuItems);
         json.put("submenu", submenu);
       }
@@ -539,7 +566,7 @@ public class MenuGenerator implements Reloadable
       // TODO Auto-generated catch block
       e.printStackTrace();
     }
-    
+
     return json;
   }
 

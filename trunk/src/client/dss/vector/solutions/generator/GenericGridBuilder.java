@@ -42,8 +42,7 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
 
   private MdRelationshipDTO      mdRel;
 
-  public GenericGridBuilder(WebFormObject formObject, WebSingleTermGrid grid, ClientRequestIF request,
-      boolean readOnly)
+  public GenericGridBuilder(WebFormObject formObject, WebSingleTermGrid grid, ClientRequestIF request, boolean readOnly)
   {
     this.formObject = formObject;
     this.grid = grid;
@@ -66,22 +65,22 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
     // create the columns based on the MdFields in the grid composite
     String[] keys = this.getKeys();
     Map<String, ColumnSetup> columns = getColumns(keys, 1, false);
-    
+
     ColumnSetup parentId = new ColumnSetup("parentId");
     columns.put("parentId", parentId);
-    
+
     ColumnSetup childId = new ColumnSetup("childId");
     columns.put("childId", childId);
-    
+
     ColumnSetup relId = new ColumnSetup("relId");
     columns.put("relId", relId);
-    
+
     ColumnSetup termDisplayLabel = new ColumnSetup("termDisplayLabel");
     termDisplayLabel.setHidden(false);
     termDisplayLabel.setLabel("");
     columns.put("termDisplayLabel", termDisplayLabel);
-    
-    if(this.readOnly)
+
+    if (this.readOnly)
     {
       for (String key : columns.keySet())
       {
@@ -90,11 +89,11 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
         column.setEditable(false);
       }
     }
-    
+
     // get all rows for the data object
     MutableDTO[] data = this.getData();
 
-    String tableId = "g_"+grid.getFieldMd().getId();
+    String tableId = "g_" + grid.getFieldMd().getId();
     return new ViewDataGrid(tableId, formObject.isReadable(), relForMetadata, columns, keys, data);
 
   }
@@ -104,10 +103,9 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
   {
     try
     {
-      String relType = this.mdRel.getPackageName() + "." + this.mdRel.getTypeName()+TypeGeneratorInfo.DTO_SUFFIX;
+      String relType = this.mdRel.getPackageName() + "." + this.mdRel.getTypeName() + TypeGeneratorInfo.DTO_SUFFIX;
       Class<? extends RelationshipDTO> clazz = (Class<? extends RelationshipDTO>) LoaderDecorator.load(relType);
-      return clazz.getConstructor(ClientRequestIF.class, String.class,
-          String.class).newInstance(this.request, parentId, childId);
+      return clazz.getConstructor(ClientRequestIF.class, String.class, String.class).newInstance(this.request, parentId, childId);
     }
     catch (Throwable t)
     {
@@ -120,9 +118,9 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
   {
     try
     {
-      String relGetter = "getAll" + mdRel.getChildMethod()+"Relationships";
+      String relGetter = "getAll" + mdRel.getChildMethod() + "Relationships";
 
-      String className = this.grid.getFieldMd().getDefiningClass()+TypeGeneratorInfo.DTO_SUFFIX;
+      String className = this.grid.getFieldMd().getDefiningClass() + TypeGeneratorInfo.DTO_SUFFIX;
       Class<?> clazz = LoaderDecorator.load(className);
 
       MutableDTO dto;
@@ -134,31 +132,29 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
       }
       else
       {
-        dto = (MutableDTO) clazz.getMethod("get", ClientRequestIF.class, String.class).invoke(null,
-            this.request, this.formObject.getDataId());
+        dto = (MutableDTO) clazz.getMethod("get", ClientRequestIF.class, String.class).invoke(null, this.request, this.formObject.getDataId());
         rels = (List<? extends RelationshipDTO>) clazz.getMethod(relGetter).invoke(dto);
       }
 
-      
       // mapping between the term id and relationship object
       Map<String, RelationshipDTO> existing = new HashMap<String, RelationshipDTO>();
-      for(RelationshipDTO rel : rels)
+      for (RelationshipDTO rel : rels)
       {
         existing.put(rel.getChildId(), rel);
       }
-      
-      // If a relationship does not exist for one of the terms then manually create a new
-      // relationship dto.
+
+      // If a relationship does not exist for one of the terms then manually
+      // create a new relationship dto.
       String busClass = this.grid.getFieldMd().getDefiningClass();
       String attribute = this.grid.getFieldMd().getDefiningAttribute();
-      
+
       Set<RelationshipDTO> data = new LinkedHashSet<RelationshipDTO>();
       List<TermDTO> terms = Arrays.asList(TermDTO.getAllTermsForField(this.request, busClass, attribute));
       Collections.sort(terms, new TermComparator());
-      
-      for(TermDTO t : terms)
+
+      for (TermDTO t : terms)
       {
-        if(existing.containsKey(t.getId()))
+        if (existing.containsKey(t.getId()))
         {
           data.add(existing.get(t.getId()));
         }
@@ -169,7 +165,7 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
           data.add(filler);
         }
       }
-      
+
       return data.toArray(new MutableDTO[data.size()]);
     }
     catch (Throwable t)
@@ -177,21 +173,21 @@ public class GenericGridBuilder extends GridBuilder implements Reloadable
       throw new ClientException(t);
     }
   }
-  
+
   private String[] getKeys()
   {
     // FIXME add hidden/editable/read
     MdWebPrimitiveDTO[] columnFields = MdFormUtilDTO.getCompositeFields(this.request, this.mdField.getId());
-    String[] keys = new String[columnFields.length+4];
+    String[] keys = new String[columnFields.length + 4];
 
     keys[0] = "parentId"; // Business Id
     keys[1] = "childId"; // Term Id
     keys[2] = "relId"; // Relationship Id
     keys[3] = "termDisplayLabel";
-    
+
     for (int i = 0; i < columnFields.length; i++)
     {
-      keys[i+4] = columnFields[i].getFieldName();
+      keys[i + 4] = columnFields[i].getFieldName();
     }
 
     return keys;
