@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
@@ -20,7 +22,6 @@ import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.RequiredAttributeProblemDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -145,7 +146,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
     if (serviceDate != null && !serviceDate.equals(""))
     {
-      instance.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
+      Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+      
+      instance.setServiceDate((Date) f.parse(serviceDate, req.getLocale()));
     }
 
     req.setAttribute("item", dto);
@@ -164,7 +167,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
     if (serviceDate != null && !serviceDate.equals(""))
     {
-      date = (Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale());
+      Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+      
+      date = f.parse(serviceDate, req.getLocale());
     }
 
     this.viewCasePage(null, null, null, null, date, patientId);
@@ -345,6 +350,8 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   @Override
   public void viewCasePage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, Date serviceDate, String patientId) throws IOException, ServletException
   {
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    
     try
     {
       validateParameters(serviceDate, patientId);
@@ -352,7 +359,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
       ClientRequestIF request = this.getClientRequest();
 
       IndividualIPTCaseViewDTO[] cases = IndividualIPTCaseViewDTO.searchCases(request, serviceDate, patientId);
-      String formatDate = new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+      String formatDate = f.format(serviceDate, req.getLocale());
 
       PersonViewDTO person = PersonDTO.getView(request, patientId);
 
@@ -371,7 +378,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
       if (!redirected)
       {
-        String date = ( serviceDate == null ) ? null : new DefaultConverter(Date.class).format(serviceDate, req.getLocale());
+        String date = f.format(serviceDate, req.getLocale());
 
         this.failViewCasePage(null, null, null, null, date, patientId);
       }

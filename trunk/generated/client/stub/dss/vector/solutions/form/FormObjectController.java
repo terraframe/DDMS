@@ -23,14 +23,12 @@ import com.runwaysdk.business.MutableDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.Constants;
-import com.runwaysdk.constants.MdAttributeBooleanUtil;
 import com.runwaysdk.constants.TypeGeneratorInfo;
 import com.runwaysdk.controller.BooleanParseProblemDTO;
 import com.runwaysdk.controller.CharacterParseProblemDTO;
 import com.runwaysdk.controller.DateParseProblemDTO;
 import com.runwaysdk.controller.DecimalParseProblemDTO;
 import com.runwaysdk.controller.IntegerParseExceptionDTO;
-import com.runwaysdk.controller.StringParseException;
 import com.runwaysdk.form.FormObject;
 import com.runwaysdk.form.field.FieldIF;
 import com.runwaysdk.form.web.JSONFormVisitor;
@@ -50,6 +48,9 @@ import com.runwaysdk.form.web.field.WebMultipleTerm;
 import com.runwaysdk.form.web.field.WebReference;
 import com.runwaysdk.form.web.field.WebSingleTermGrid;
 import com.runwaysdk.form.web.field.WebText;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.FormatFactory;
+import com.runwaysdk.format.ParseException;
 import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdClassDTO;
@@ -65,7 +66,6 @@ import dss.vector.solutions.generator.MdFormUtilDTO;
 import dss.vector.solutions.geo.GeoFieldDTO;
 import dss.vector.solutions.ontology.TermViewDTO;
 import dss.vector.solutions.ontology.TermViewQueryDTO;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.yui.DataGrid;
 
@@ -276,7 +276,7 @@ public class FormObjectController extends FormObjectControllerBase implements co
 
   private void convertToJSON(WebFormObject formObject, boolean editMode) throws IOException, JSONException
   {
-    JSONFormVisitor visitor = new JSONFormVisitor();
+    JSONFormVisitor visitor = new JSONFormVisitor(this.getRequest().getLocale());
     formObject.accept(visitor);
 
     JSONObject json = visitor.getJSON();
@@ -364,6 +364,8 @@ public class FormObjectController extends FormObjectControllerBase implements co
     Class<?> klass = dto.getClass();
     Locale locale = req.getLocale();
 
+    FormatFactory factory = AbstractFormatFactory.getFormatFactory();
+    
     for (FieldIF field : fields)
     {
       String setterAttr;
@@ -416,10 +418,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, Boolean.class);
-            o = MdAttributeBooleanUtil.getTypeSafeValue(value);
+            o = factory.getFormat(Boolean.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new BooleanParseProblemDTO(dto, attributeMdDTO, locale, value));
           }
@@ -430,9 +432,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, String.class);
-            m.invoke(dto, value);
+            o = factory.getFormat(String.class).parse(value, req.getLocale());
+            m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new CharacterParseProblemDTO(dto, attributeMdDTO, locale, value));
           }
@@ -443,10 +446,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, Date.class);
-            o = new DefaultConverter(Date.class).parse(value, req.getLocale());
+            o = factory.getFormat(Date.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new DateParseProblemDTO(dto, attributeMdDTO, locale, value, Constants.DATE_FORMAT));
           }
@@ -457,10 +460,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, Integer.class);
-            o = new DefaultConverter(Integer.class).parse(value, req.getLocale());
+            o = factory.getFormat(Integer.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new IntegerParseExceptionDTO(dto, attributeMdDTO, locale, value));
           }
@@ -471,10 +474,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, Long.class);
-            o = new DefaultConverter(Long.class).parse(value, req.getLocale());
+            o = factory.getFormat(Long.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new IntegerParseExceptionDTO(dto, attributeMdDTO, locale, value));
           }
@@ -485,10 +488,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, Float.class);
-            o = new DefaultConverter(Float.class).parse(value, req.getLocale());
+            o = factory.getFormat(Float.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new DecimalParseProblemDTO(dto, attributeMdDTO, locale, value));
           }
@@ -499,10 +502,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, Double.class);
-            o = new DefaultConverter(Double.class).parse(value, req.getLocale());
+            o = factory.getFormat(Double.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new DecimalParseProblemDTO(dto, attributeMdDTO, locale, value));
           }
@@ -513,10 +516,10 @@ public class FormObjectController extends FormObjectControllerBase implements co
           try
           {
             m = klass.getMethod(setter, BigDecimal.class);
-            o = new DefaultConverter(BigDecimal.class).parse(value, req.getLocale());
+            o = factory.getFormat(BigDecimal.class).parse(value, req.getLocale());
             m.invoke(dto, o);
           }
-          catch (StringParseException e)
+          catch (ParseException e)
           {
             problems.add(new DecimalParseProblemDTO(dto, attributeMdDTO, locale, value));
           }

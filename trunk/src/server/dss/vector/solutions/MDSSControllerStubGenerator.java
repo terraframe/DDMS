@@ -2,7 +2,6 @@ package dss.vector.solutions;
 
 import java.util.Arrays;
 
-import com.runwaysdk.business.generation.GenerationUtil;
 import com.runwaysdk.business.generation.facade.ControllerStubGenerator;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.MdAttributeReferenceInfo;
@@ -14,6 +13,7 @@ import com.runwaysdk.dataaccess.MdControllerDAOIF;
 import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.MdMethodDAOIF;
 import com.runwaysdk.dataaccess.cache.DataNotFoundException;
+import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.util.AttributeUtil;
@@ -34,7 +34,7 @@ public class MDSSControllerStubGenerator extends ControllerStubGenerator impleme
 
     if (mdEntity != null)
     {
-      String jsp = GenerationUtil.replacePackageDotsWithSlashes(mdEntity.definesType());
+      String jsp = CommonGenerationUtil.replacePackageDotsWithSlashes(mdEntity.definesType());
 
       getWriter().writeLine("public static final String JSP_DIR = \"WEB-INF/" + jsp + "\";");
       getWriter().writeLine("public static final String LAYOUT = \"/layout.jsp\";");

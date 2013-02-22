@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
 
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -271,15 +272,19 @@ public class ImmatureContainerController extends ImmatureContainerControllerBase
 
   private void setupDates(ImmatureCollectionViewDTO dto)
   {
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    
     if (dto.getStartDate() != null)
     {
-      String startDate = new DefaultConverter(Date.class).format(dto.getStartDate(), req.getLocale());
+      
+      
+      String startDate = f.format(dto.getStartDate(), req.getLocale());
       req.setAttribute("startDate", startDate);
     }
 
     if (dto.getEndDate() != null)
     {
-      String endDate = new DefaultConverter(Date.class).format(dto.getEndDate(), req.getLocale());
+      String endDate = f.format(dto.getEndDate(), req.getLocale());
       req.setAttribute("endDate", endDate);
     }
   }

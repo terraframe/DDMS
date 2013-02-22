@@ -12,12 +12,13 @@ import javax.servlet.ServletException;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 
 import dss.vector.solutions.entomology.RequiredEndDateProblemDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
 import dss.vector.solutions.geo.generated.StockDepotDTO;
 import dss.vector.solutions.ontology.TermDTO;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 
 public class StockEventController extends StockEventControllerBase implements com.runwaysdk.generation.loader.Reloadable
@@ -75,16 +76,18 @@ public class StockEventController extends StockEventControllerBase implements co
       }
     }
 
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    
     if (dateString != null && !dateString.equals(""))
     {
-      Object date = new DefaultConverter(Date.class).parse(dateString, req.getLocale());
+      Object date = f.parse(dateString, req.getLocale());
 
       req.setAttribute("date", date);
     }
 
     if (endDateString != null && !endDateString.equals(""))
     {
-      Object date = new DefaultConverter(Date.class).parse(endDateString, req.getLocale());
+      Object date = f.parse(endDateString, req.getLocale());
 
       req.setAttribute("endDate", date);
     }
@@ -123,7 +126,8 @@ public class StockEventController extends StockEventControllerBase implements co
 
       if (!redirected)
       {
-        String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
+        Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+        String failDate = f.format(date, req.getLocale());
 
         this.failSearchInStock(geoId, item, failDate);
       }
@@ -153,7 +157,8 @@ public class StockEventController extends StockEventControllerBase implements co
 
       if (!redirected)
       {
-        String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
+        Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+        String failDate = f.format(date, req.getLocale());
 
         this.failSearchInStock(geoId, item, failDate);
       }
@@ -189,7 +194,8 @@ public class StockEventController extends StockEventControllerBase implements co
     // However, the link back to search expects a specific format which we put
     // in ${searchDate}
     this.req.setAttribute("date", date);
-    this.req.setAttribute("searchDate", new DefaultConverter(Date.class).format(date, req.getLocale()));
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    this.req.setAttribute("searchDate", f.format(date, req.getLocale()));
     
     this.req.setAttribute(ITEM, view);
     this.req.setAttribute("grid", new StockEventGridBuilder(view, data).build());
@@ -278,8 +284,9 @@ public class StockEventController extends StockEventControllerBase implements co
 
       if (!redirected)
       {
-        String failDate = new DefaultConverter(Date.class).format(date, req.getLocale());
-        String failEndDate = new DefaultConverter(Date.class).format(endDate, req.getLocale());
+        Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+        String failDate = f.format(date, req.getLocale());
+        String failEndDate = f.format(endDate, req.getLocale());
 
         this.failSearchPage(geoId, item, failDate, failEndDate);
       }
@@ -315,10 +322,12 @@ public class StockEventController extends StockEventControllerBase implements co
 
   private void setupContext(String geoId, String item, Date date, Date endDate)
   {
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    
     req.setAttribute("geoId", geoId);
     req.setAttribute("item", item);
-    req.setAttribute("startDate", new DefaultConverter(Date.class).format(date, req.getLocale()));
-    req.setAttribute("endDate", new DefaultConverter(Date.class).format(endDate, req.getLocale()));
+    req.setAttribute("startDate", f.format(date, req.getLocale()));
+    req.setAttribute("endDate", f.format(endDate, req.getLocale()));
   }
 
   private void setupFailParameters(String geoId, TermDTO item, String date)

@@ -14,6 +14,8 @@ import com.runwaysdk.AttributeNotificationDTO;
 import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.business.ProblemDTOIF;
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
@@ -23,7 +25,6 @@ import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.ontology.TermDTO;
 import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
 import dss.vector.solutions.util.AttributeUtil;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
@@ -84,8 +85,10 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     {
       ErrorUtility.prepareThrowable(t, req, resp, this.isAsynchronous(), false);
 
-      String failDiagnosis = ( diagnosisDate != null ? new DefaultConverter(Date.class).format(diagnosisDate, req.getLocale()) : null );
-      String failCase = ( caseReportDate != null ? new DefaultConverter(Date.class).format(caseReportDate, req.getLocale()) : null );
+      Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+
+      String failDiagnosis = f.format(diagnosisDate, req.getLocale());
+      String failCase = f.format(caseReportDate, req.getLocale());
 
       this.failSearch(failDiagnosis, failCase, personId);
     }

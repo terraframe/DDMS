@@ -10,13 +10,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.session.AttributeReadPermissionExceptionDTO;
 
 import dss.vector.solutions.entomology.PupalCollectionViewDTO;
 import dss.vector.solutions.geo.GeoHierarchyDTO;
 import dss.vector.solutions.geo.GeoHierarchyViewDTO;
 import dss.vector.solutions.geo.generated.GeoEntityDTO;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
 import dss.vector.solutions.util.FileDownloadUtil;
@@ -173,15 +174,17 @@ public class ControlInterventionController extends ControlInterventionController
 
   private void setupDates(ControlInterventionViewDTO dto)
   {
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    
     if (dto.getStartDate() != null)
     {
-      String startDate = new DefaultConverter(Date.class).format(dto.getStartDate(), req.getLocale());
+      String startDate = f.format(dto.getStartDate(), req.getLocale());
       req.setAttribute("startDate", startDate);
     }
 
     if (dto.getEndDate() != null)
     {
-      String endDate = new DefaultConverter(Date.class).format(dto.getEndDate(), req.getLocale());
+      String endDate = f.format(dto.getEndDate(), req.getLocale());
       req.setAttribute("endDate", endDate);
     }
   }

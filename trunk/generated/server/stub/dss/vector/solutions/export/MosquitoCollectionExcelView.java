@@ -106,26 +106,32 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
     query.WHERE(query.getCollectionId().EQ(cid));
     OIterator<? extends MosquitoCollection> iterator = query.getIterator();
-    if (iterator.hasNext())
+    try
     {
-      view = iterator.next().getView();
-    }
-    else
-    {
-      if (cid.length()==0)
+      if (iterator.hasNext())
       {
-        RequiredAttributeProblem rap = new RequiredAttributeProblem();
-        rap.setAttributeName(COLLECTIONID);
-        rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getCollectionIdMd().getDisplayLabel(Session.getCurrentLocale()));
-        rap.throwIt();
+        view = iterator.next().getView();
       }
       else
       {
-        view.setCollectionId(cid);
+        if (cid.length()==0)
+        {
+          RequiredAttributeProblem rap = new RequiredAttributeProblem();
+          rap.setAttributeName(COLLECTIONID);
+          rap.setAttributeDisplayLabel(MosquitoCollectionExcelView.getCollectionIdMd().getDisplayLabel(Session.getCurrentLocale()));
+          rap.throwIt();
+        }
+        else
+        {
+          view.setCollectionId(cid);
+        }
       }
     }
-    iterator.close();
-    
+    finally
+    {
+      iterator.close();
+    }
+      
     Term colMethod = Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollectionView.getCollectionMethodMd());
     if (colMethod!=null)
     {

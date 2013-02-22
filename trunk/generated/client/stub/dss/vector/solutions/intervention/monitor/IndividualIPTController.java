@@ -8,12 +8,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonViewDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -113,7 +114,8 @@ public class IndividualIPTController extends IndividualIPTControllerBase impleme
 
       if (serviceDate != null && !serviceDate.equals(""))
       {
-        dto.setServiceDate((Date) new DefaultConverter(Date.class).parse(serviceDate, req.getLocale()));
+        Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+        dto.setServiceDate(f.parse(serviceDate, req.getLocale()));
       }
 
       req.setAttribute("item", dto);

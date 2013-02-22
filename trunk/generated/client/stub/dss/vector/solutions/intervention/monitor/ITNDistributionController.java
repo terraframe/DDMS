@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.constants.ClientRequestIF;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
 
 import dss.vector.solutions.PersonDTO;
@@ -18,7 +20,6 @@ import dss.vector.solutions.PersonWithDelegatesViewDTO;
 import dss.vector.solutions.PersonWithDelegatesViewQueryDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
-import dss.vector.solutions.util.DefaultConverter;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -214,7 +215,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
       if (!redirected)
       {
-        String failDistributionDate = ( distributionDate == null ) ? null : new DefaultConverter(Date.class).format(distributionDate, req.getLocale());
+        Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+        String failDistributionDate = f.format(distributionDate, req.getLocale());
 
         this.failNewInstance(person, facility, batchNumber, failDistributionDate);
       }
@@ -226,7 +228,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
   {
     ClientRequestIF request = this.getClientSession().getRequest();
 
-    Date date = (Date) new DefaultConverter(Date.class).parse(distributionDate, req.getLocale());
+    Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+    Date date = (Date) f.parse(distributionDate, req.getLocale());
     ITNDistributionViewDTO view = new ITNDistributionViewDTO(request);
     view.setValue(ITNDistributionViewDTO.PERSON, person);
     view.setValue(ITNDistributionViewDTO.FACILITY, facility);
@@ -388,7 +391,8 @@ public class ITNDistributionController extends ITNDistributionControllerBase imp
 
       if (date != null)
       {
-        req.setAttribute("distributionDate", new DefaultConverter(Date.class).format(date, req.getLocale()));
+        Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
+        req.setAttribute("distributionDate", f.format(date, req.getLocale()));
       }
 
       if (facility != null && !facility.equals(""))

@@ -153,31 +153,19 @@ public class MdssLocalizationExporter implements Reloadable
 
   private List<String>          typeExemptions;
 
-  private List<String>          attributeExemptions;
-
+  @Request
   public static void main(String[] args) throws Exception
   {
     long start = System.currentTimeMillis();
 
-    try
-    {
-      MdssLocalizationExporter.run();
-
-    }
-    finally
-    {
-      CacheShutdown.shutdown();
-    }
-
-    System.out.println("Execution time: " + ( System.currentTimeMillis() - start ) / 1000.0 + " seconds");
-  }
-
-  @Request
-  public static void run() throws IOException
-  {
     MdssLocalizationExporter exporter = new MdssLocalizationExporter();
     exporter.export();
     FileIO.write("localizer.xls", exporter.write());
+
+    long stop = System.currentTimeMillis();
+    System.out.println("Execution time: " + ( stop - start ) / 1000.0 + " seconds");
+
+    CacheShutdown.shutdown();
   }
 
   public MdssLocalizationExporter()
@@ -191,18 +179,6 @@ public class MdssLocalizationExporter implements Reloadable
     this.typeExemptions.add(MdIndex.CLASS);
     this.typeExemptions.add(MdMethod.CLASS);
     this.typeExemptions.add(MdAttributeDimension.CLASS);
-
-    this.attributeExemptions = new LinkedList<String>();
-    this.attributeExemptions.add(Metadata.ID);
-    this.attributeExemptions.add(Metadata.CREATEDBY);
-    this.attributeExemptions.add(Metadata.ENTITYDOMAIN);
-    this.attributeExemptions.add(Metadata.KEYNAME);
-    this.attributeExemptions.add(Metadata.LASTUPDATEDATE);
-    this.attributeExemptions.add(Metadata.LASTUPDATEDBY);
-    this.attributeExemptions.add(Metadata.LOCKEDBY);
-    this.attributeExemptions.add(Metadata.OWNER);
-    this.attributeExemptions.add(Metadata.SEQ);
-    this.attributeExemptions.add(Metadata.TYPE);
 
     this.addLocaleDimensions(MdAttributeLocalInfo.DEFAULT_LOCALE);
   }
@@ -299,6 +275,16 @@ public class MdssLocalizationExporter implements Reloadable
     }
   }
 
+  private void setExceptionMessage(Map<String, String> templates, HSSFRow row, int c, String localeString)
+  {
+    HSSFCell cell = row.createCell(c);
+    String message = templates.get(localeString);
+    if (message != null)
+    {
+      cell.setCellValue(new HSSFRichTextString(message));
+    }
+  }
+
   private void prepareDisplayLabels()
   {
     QueryFactory qf = new QueryFactory();
@@ -345,16 +331,14 @@ public class MdssLocalizationExporter implements Reloadable
     list.add(local);
     prepareAttributeList(termSheet, list);
   }
-
+  
   private void prepareLocalPropertyLabels()
   {
-    MdAttributeLocal propertyLabel = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyLabelMd());
-    MdAttributeLocal propertyDescription = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyDescriptionMd());
-
     List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
-    list.add(propertyLabel);
-    list.add(propertyDescription);
-
+    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyLabelMd());
+    MdAttributeLocal localDesc = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyDescriptionMd());
+    list.add(local);
+    list.add(localDesc);
     prepareAttributeList(localPropertySheet, list);
   }
 
@@ -399,8 +383,8 @@ public class MdssLocalizationExporter implements Reloadable
         {
           MdAttributeDAOIF mdAttribute = (MdAttributeDAOIF) entity;
           String definedAttribute = mdAttribute.getValue(MdAttributeConcrete.ATTRIBUTENAME);
-
-          if (this.attributeExemptions.contains(definedAttribute))
+          if (definedAttribute.equalsIgnoreCase(Metadata.ID) || definedAttribute.equalsIgnoreCase(Metadata.CREATEDBY) || definedAttribute.equalsIgnoreCase(Metadata.ENTITYDOMAIN) || definedAttribute.equalsIgnoreCase(Metadata.KEYNAME) || definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDATE) || definedAttribute.equalsIgnoreCase(Metadata.LASTUPDATEDBY) || definedAttribute.equalsIgnoreCase(Metadata.LOCKEDBY) || definedAttribute.equalsIgnoreCase(Metadata.OWNER)
+              || definedAttribute.equalsIgnoreCase(Metadata.SEQ) || definedAttribute.equalsIgnoreCase(Metadata.TYPE))
           {
             continue;
           }
@@ -499,7 +483,7 @@ public class MdssLocalizationExporter implements Reloadable
     }
     catch (Exception e)
     {
-      if (base != null && base.exists())
+      if (base != null)
       {
         throw new FileReadException(base, e);
       }
@@ -579,7 +563,7 @@ public class MdssLocalizationExporter implements Reloadable
 
   private boolean isAttributeSheet(HSSFSheet sheet)
   {
-    return sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(localPropertySheet) || sheet.equals(entityLabelSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet);
+    return sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet);
   }
 
   private boolean isIgnoreDimensions(HSSFSheet sheet)

@@ -1,14 +1,32 @@
 package dss.vector.solutions;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.derby.tools.sysinfo;
 
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.ComponentInfo;
+import com.runwaysdk.constants.MdAttributeBooleanInfo;
+import com.runwaysdk.constants.MdAttributeLocalInfo;
+import com.runwaysdk.constants.MdBusinessInfo;
+import com.runwaysdk.constants.MdTypeInfo;
 import com.runwaysdk.constants.RelationshipInfo;
+import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.cache.ObjectCache;
+import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
+import com.runwaysdk.dataaccess.database.ControllerDAOFactory;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
+import com.runwaysdk.dataaccess.metadata.MdLocalStructDAO;
+import com.runwaysdk.dataaccess.metadata.MdStructDAO;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
@@ -20,16 +38,10 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.RequestType;
 import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdType;
-import com.runwaysdk.system.metadata.MdTypeQuery;
-import com.runwaysdk.system.metadata.MdWebBoolean;
-import com.runwaysdk.system.metadata.MdWebCharacter;
-import com.runwaysdk.system.metadata.MdWebDate;
-import com.runwaysdk.system.metadata.MdWebDecimal;
-import com.runwaysdk.system.metadata.MdWebDouble;
-import com.runwaysdk.system.metadata.MdWebInteger;
-import com.runwaysdk.system.metadata.MdWebLong;
-import com.runwaysdk.system.metadata.MdWebText;
+import com.runwaysdk.system.metadata.MdBusinessQuery;
+import com.runwaysdk.system.metadata.MdController;
+import com.runwaysdk.system.metadata.MdLocalStruct;
+import com.runwaysdk.system.metadata.MdStruct;
 
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyViewQuery;
@@ -53,38 +65,183 @@ public class Sandbox
 
   private static int           feedbackMod           = 50;
 
+private static class A
+{
+  private String id;
+  private A(){
+    this.id = new String("foo");
+  }
+  private String getId(){ return this.id; }
+}
+
+  private static void access(A a)
+  {
+    synchronized(a.getId()){
+      System.out.println("ACCESS: ["+a.getId().hashCode()+"] : ["+Thread.currentThread()+"]");
+    }
+  }
+  
   @Request
   public static void main(String[] args) throws Exception
   {
-    QueryFactory f = new QueryFactory();
-    MdTypeQuery query = new MdTypeQuery(f);
-    String[] mdFieldIds = new String[] { MdBusiness.getMdBusiness(MdWebBoolean.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebCharacter.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebText.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebInteger.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebLong.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebDouble.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebDecimal.CLASS).getId(),
-        MdBusiness.getMdBusiness(MdWebDate.CLASS).getId() };
-
-    query.WHERE(query.getId().IN(mdFieldIds));
-    
-    OIterator<? extends MdType> iter = query.getIterator();
-    
     try
     {
-     while(iter.hasNext())
-     {
-       MdType t = iter.next();
-       String m = t.getId()+" - "+t.getDisplayLabel().getValue()+" - "+t.getDescription().getValue();
-       System.out.println(m);
-     }
+      int count = 30;
+      System.out.println(MdTypeDAO.getMdTypeDAO("com.test.Bus_"+count).definesType());
+      System.out.println(MdTypeDAO.getMdTypeDAO("com.test.Bus_"+count+"EmailBodyTextController").definesType());
+    
+      if(true) return;
     }
     finally
     {
-      iter.close();
+      System.out.println("SHUTTING DOWN CACHE");
+      CacheShutdown.shutdown();
+      System.out.println("FINISHED CACHE SHUTDOWN");
     }
-   
+    
+    System.out.println("MEM ONLY: "+ServerProperties.memoryOnlyCache());
+    System.out.println();
+    
+    printCache();
+    
+    try
+    {
+      MdBusinessQuery b = new MdBusinessQuery(new QueryFactory());
+      b.WHERE(b.getTypeName().LIKE("Test_%"));
+      
+      b.restrictRows(1, 1);
+      
+      b.ORDER_BY_DESC(b.getCreateDate());
+      
+      OIterator<? extends MdBusiness> iter = b.getIterator();
+      
+      int lastCreated;
+      
+      try
+      {
+        if(iter.hasNext())
+        {
+          MdBusiness md = iter.next();
+          System.out.println("TEMPLATE: "+md.getTypeName());
+          
+          Pattern p = Pattern.compile("Test_(\\d+)\\w+");
+          Matcher m = p.matcher(md.getTypeName());
+          m.matches();
+          
+          lastCreated = Integer.parseInt(m.group(1));
+        }
+        else
+        {
+          lastCreated = 0;
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+      
+      // print the previous run
+      
+      String name = "Test_"+lastCreated;
+
+      //create(name);
+
+      print(name);
+    }
+    finally
+    {
+      System.out.println("SHUTTING DOWN CACHE");
+      CacheShutdown.shutdown();
+      System.out.println("FINISHED CACHE SHUTDOWN");
+    }
+  }
+  
+  private static void printCache()
+  {
+    Iterator<String> iter = ObjectCache.getCollectionMapKeys();
+    
+    System.out.println("SUPPORTED: ");
+    
+    while(iter.hasNext())
+    {
+      String k = iter.next();
+      System.out.println("["+ObjectCache.getCachedEntityDAOs(k).size()+"] "+k);
+    }
+    
+//    System.out.println();
+//    System.out.println("OBJECTS: ");
+//    for(EntityDAOIF e : ObjectCache.getCachedEntityDAOs("Struct"))
+//    {
+//      System.out.println(e.getKey());
+//    }
+  }
+  
+  private static void print(String name)
+  {
+    System.out.println("--------- ["+name+"] -----------");
+    
+    System.out.println("Business: "
+        + ObjectCache.contains(MdBusiness.CLASS, "com.test." + name + "Business"));
+    System.out.println("GET: "+ObjectCache.getMdBusinessDAO("com.test." + name + "Business"));
+    System.out.println("Business Controller: "
+        + ObjectCache.contains(MdController.CLASS, "com.test." + name + "BusinessController"));
+    System.out.println("GET: "+ObjectCache.getMdControllerDAO("com.test." + name + "BusinessController"));
+    
+    System.out.println("Struct: "
+        + ObjectCache.contains(MdStruct.CLASS, "com.test." + name + "Struct"));
+    System.out.println("GET: "
+        + ObjectCache.getMdStructDAO("com.test." + name + "Struct"));
+    System.out.println("Struct Controller: "
+        + ObjectCache.contains(MdController.CLASS, "com.test." + name + "StructController"));
+    System.out.println("GET: "+ObjectCache.getMdControllerDAO("com.test." + name + "StructController"));
+    
+    System.out.println();
+    
+    System.out.println("LocalStruct: "
+        + ObjectCache.contains(MdLocalStruct.CLASS, "com.test." + name + "LocalStruct"));
+    System.out.println("GET: "
+        + ObjectCache.getMdStructDAO("com.test." + name + "LocalStruct"));
+    System.out.println("LocalStruct Controller: "
+        + ObjectCache.contains(MdController.CLASS, "com.test." + name + "LocalStructController"));
+    System.out.println("GET: "+ObjectCache.getMdControllerDAO("com.test." + name + "LocalStructController"));
+    
+  }
+  
+  @Transaction
+  private static void create(String name)
+  {
+     MdBusinessDAO md = MdBusinessDAO.newInstance();
+     md.getAttribute(MdBusinessInfo.DISPLAY_LABEL).setValue(name+" LABEL");
+     md.getAttribute(MdBusinessInfo.DESCRIPTION).setValue(name+" DESC");
+     md.getAttribute(MdBusinessInfo.NAME).setValue(name+"Business");
+     md.getAttribute(MdBusinessInfo.PACKAGE).setValue("com.test");
+     md.getAttribute(MdBusinessInfo.REMOVE).setValue(MdAttributeBooleanInfo.TRUE);
+     md.setGenerateMdController(true);
+     md.apply();
+
+    MdStructDAO struct1 = MdStructDAO.newInstance();
+    struct1.setValue(MdTypeInfo.NAME, name + "Struct");
+    struct1.setValue(MdTypeInfo.PACKAGE, "com.test");
+    struct1.setStructValue(MdTypeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE,
+        "Struct to hold Localized Phrases");
+    struct1.setGenerateMdController(true);
+    struct1.apply();
+
+    MdLocalStructDAO struct = MdLocalStructDAO.newInstance();
+    struct.setValue(MdTypeInfo.NAME, name + "LocalStruct");
+    struct.setValue(MdTypeInfo.PACKAGE, "com.test");
+    struct.setStructValue(MdTypeInfo.DISPLAY_LABEL, MdAttributeLocalInfo.DEFAULT_LOCALE,
+        "Struct to hold Localized Phrases");
+    struct.setGenerateMdController(true);
+    struct.apply();
+
+    // MdAttributeLocalTextDAO formal = MdAttributeLocalTextDAO.newInstance();
+    // formal.setValue(MdAttributeLocalTextInfo.NAME, "formal");
+    // formal.setStructValue(MdAttributeLocalTextInfo.DISPLAY_LABEL,
+    // MdAttributeLocalInfo.DEFAULT_LOCALE, "Formal Usage");
+    // formal.setValue(MdAttributeLocalTextInfo.DEFINING_MD_CLASS, md.getId());
+    // formal.setValue(MdAttributeLocalTextInfo.MD_STRUCT, struct.getId());
+    // formal.apply();
   }
 
   private static String concatenate(Selectable[] selectableArray)
