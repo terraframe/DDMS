@@ -840,11 +840,11 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
               // Numbers coming from the server are not localized, so just use the regular parseFloat
               var parsedValue = parseFloat(value);
                 
-              if(parsedValue !== Math.floor(parsedValue)) {
+//              if(parsedValue !== Math.floor(parsedValue)) {
                 var formattedNumber = MDSS.formatNumber(parsedValue);
                 
                 record.setData(field.key, formattedNumber);
-              }
+  //            }
             }
           }
         }

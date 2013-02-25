@@ -82,9 +82,19 @@ MDSS.Localized = <%= LocalizationFacadeDTO.getAllLocalizedText(clientRequest) %>
 
 MDSS.FLOAT_PRECISION = 2;
 
+
 MDSS.getParser = function() {
   try {
-    return new MDSS.DecimalParser('<%=format.getDecimalFormatSymbols().getDecimalSeparator()%>', '<%=format.getPositivePrefix()%>', '<%=format.getPositiveSuffix()%>', '<%=format.getNegativePrefix()%>', '<%=format.getNegativeSuffix()%>');
+
+    // initialize NumberFormat as the primary parser    
+    com.runwaysdk.NumberFormat.initializeInstance('<%=format.getDecimalFormatSymbols().getGroupingSeparator()%>', '<%=format.getDecimalFormatSymbols().getDecimalSeparator()%>',
+     '<%=format.getPositivePrefix()%>', '<%=format.getPositiveSuffix()%>', '<%=format.getNegativePrefix()%>', '<%=format.getNegativeSuffix()%>');
+    
+    var numberFormat = com.runwaysdk.NumberFormat.getInstance();
+    numberFormat.setMaxFractionDigits(MDSS.FLOAT_PRECISION);
+    numberFormat.setMinFractionDigits(MDSS.FLOAT_PRECISION);
+    
+    return numberFormat;
   }
   catch(exception) {
     return null;
@@ -109,10 +119,6 @@ MDSS.format = function(formatter, number) {
     return number.toFixed(MDSS.FLOAT_PRECISION);
   }
   
-  // Format the number to two decimal places.
-  formatter.setMaxFractionDigits(MDSS.FLOAT_PRECISION);
-  formatter.setMinFractionDigits(MDSS.FLOAT_PRECISION);
-
   var _number = formatter.format(number);
 
   return _number;

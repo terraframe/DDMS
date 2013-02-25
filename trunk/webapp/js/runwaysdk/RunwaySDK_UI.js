@@ -2690,8 +2690,12 @@ var DoubleCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'DoubleCond
       visitor.visitDoubleCondition(this);
     },
 		evaluate : function(changedValue){
-      var value = parseFloat(this.getValue());
-			changedValue = parseFloat(changedValue);
+		  
+      // make sure we are comparing numbers
+      var numberFormat = com.runwaysdk.NumberFormat.getInstance();
+      var value = numberFormat.parse(this.getValue());
+      changedValue = numberFormat.parse(changedValue);
+			
       var op = this.getOperation();
       var isTrue = false;
       switch (op) {
@@ -2732,8 +2736,12 @@ var LongCondition = Mojo.Meta.newClass(Mojo.FORM_PACKAGE.CONDITION+'LongConditio
       visitor.visitLongCondition(this);
     },
 	  evaluate : function(changedValue){
-      var value = parseInt(this.getValue());
-			changedValue = parseInt(changedValue);
+	    
+	    // make sure we are comparing numbers
+      var numberFormat = com.runwaysdk.NumberFormat.getInstance();
+      var value = numberFormat.parse(this.getValue());
+      changedValue = numberFormat.parse(changedValue);
+      
       var op = this.getOperation();
       var isTrue = false;
       switch (op) {

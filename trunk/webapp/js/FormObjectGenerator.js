@@ -1330,9 +1330,13 @@ var BooleanComponent = Mojo.Meta.newClass('dss.vector.solutions.BooleanComponent
     }
   }
 });
-var IntegerComponent = Mojo.Meta.newClass('dss.vector.solutions.IntegerComponent', {
-  Extends : FieldComponent,
-  Implements : ValueFieldIF,
+
+/**
+ * Formats the number according to the locale.
+ */
+var NumberComponent = Mojo.Meta.newClass('dss.vector.solutions.NumberComponent', {
+  Extends : FieldComponent,  
+  IsAbstract : true,
   Instance : {
     initialize : function(field){
       this.$initialize(field);
@@ -1340,77 +1344,63 @@ var IntegerComponent = Mojo.Meta.newClass('dss.vector.solutions.IntegerComponent
     monitorValueChange : function(node){
       node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
     },
+    /**
+     * Because the condition comparison is strictly within Runway,
+     * convert the input back to a normal number.
+     */
     dispatchValueChangeEvent : function(e){
       var value = e.getTarget().value;
       this.dispatchEvent(new ValueChangeEvent(value));
+    }
+  }
+});
+
+var IntegerComponent = Mojo.Meta.newClass('dss.vector.solutions.IntegerComponent', {
+  Extends : NumberComponent,
+  Implements : ValueFieldIF,
+  Instance : {
+    initialize : function(field){
+      this.$initialize(field);
     }
   }
 });
 
 var LongComponent = Mojo.Meta.newClass('dss.vector.solutions.LongComponent', {
-  Extends : FieldComponent,
+  Extends : NumberComponent,
   Implements : ValueFieldIF,
   Instance : {
     initialize : function(field){
       this.$initialize(field);
-    },
-    monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
-    },
-    dispatchValueChangeEvent : function(e){
-      var value = e.getTarget().value;
-      this.dispatchEvent(new ValueChangeEvent(value));
     }
   }
 });
 
 var DoubleComponent = Mojo.Meta.newClass('dss.vector.solutions.DoubleComponent', {
-  Extends : FieldComponent,
+  Extends : NumberComponent,
   Implements : ValueFieldIF,
   Instance : {
     initialize : function(field){
       this.$initialize(field);
-    },
-    monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
-    },
-    dispatchValueChangeEvent : function(e){
-      var value = e.getTarget().value;
-      this.dispatchEvent(new ValueChangeEvent(value));
     }
   }
 });
 
 var DecimalComponent = Mojo.Meta.newClass('dss.vector.solutions.DecimalComponent', {
-  Extends : FieldComponent,
+  Extends : NumberComponent,
   Implements : ValueFieldIF,
   Instance : {
     initialize : function(field){
       this.$initialize(field);
-    },
-    monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
-    },
-    dispatchValueChangeEvent : function(e){
-      var value = e.getTarget().value;
-      this.dispatchEvent(new ValueChangeEvent(value));
     }
   }
 });
 
 var FloatComponent = Mojo.Meta.newClass('dss.vector.solutions.FloatComponent', {
-  Extends : FieldComponent,
+  Extends : NumberComponent,
   Implements : ValueFieldIF,
   Instance : {
     initialize : function(field){
       this.$initialize(field);
-    },
-    monitorValueChange : function(node){
-      node.addEventListener('change', this.dispatchValueChangeEvent, null, this);
-    },
-    dispatchValueChangeEvent : function(e){
-      var value = e.getTarget().value;
-      this.dispatchEvent(new ValueChangeEvent(value));
     }
   }
 });
@@ -1569,7 +1559,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       });
       
       this._table = this.getFactory().newDataTable(this._mdClassType, [col]);
-      this._table.setTypeFormatter('com.runwaysdk.system.metadata.MdAttributeDate', Mojo.Util.bind(this, this.dateColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeDateDTO', Mojo.Util.bind(this, this.dateColumnFormatter));
+      this._table.setTypeFormatter('com.runwaysdk.transport.attributes.AttributeNumberDTO', Mojo.Util.bind(this, this.numberColumnFormatter));
       this._table.addEventListener(com.runwaysdk.ui.YUI3.PreLoadEvent, this.fireBeforeQueryEvent, null, this);
       
       this._Y = YUI().use('*'); // YUI3 reference
@@ -1722,6 +1713,15 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
      */
     dateColumnFormatter : function(o){
       return MDSS.Calendar.getLocalizedString(o.data[o.field]) || '';
+    },
+    numberColumnFormatter : function(o){
+      var value = o.data[o.field];
+      if(Mojo.Util.isNumber(value)){
+        return MDSS.formatNumber(value);
+      }
+      else {
+        return '';
+      }
     },
     /**
      * Formats the view column by creating a link that contains a Runway object id for

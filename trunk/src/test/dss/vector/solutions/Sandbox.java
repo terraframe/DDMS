@@ -81,79 +81,9 @@ private static class A
     }
   }
   
-  @Request
   public static void main(String[] args) throws Exception
   {
-    try
-    {
-      int count = 30;
-      System.out.println(MdTypeDAO.getMdTypeDAO("com.test.Bus_"+count).definesType());
-      System.out.println(MdTypeDAO.getMdTypeDAO("com.test.Bus_"+count+"EmailBodyTextController").definesType());
-    
-      if(true) return;
-    }
-    finally
-    {
-      System.out.println("SHUTTING DOWN CACHE");
-      CacheShutdown.shutdown();
-      System.out.println("FINISHED CACHE SHUTDOWN");
-    }
-    
-    System.out.println("MEM ONLY: "+ServerProperties.memoryOnlyCache());
-    System.out.println();
-    
-    printCache();
-    
-    try
-    {
-      MdBusinessQuery b = new MdBusinessQuery(new QueryFactory());
-      b.WHERE(b.getTypeName().LIKE("Test_%"));
-      
-      b.restrictRows(1, 1);
-      
-      b.ORDER_BY_DESC(b.getCreateDate());
-      
-      OIterator<? extends MdBusiness> iter = b.getIterator();
-      
-      int lastCreated;
-      
-      try
-      {
-        if(iter.hasNext())
-        {
-          MdBusiness md = iter.next();
-          System.out.println("TEMPLATE: "+md.getTypeName());
-          
-          Pattern p = Pattern.compile("Test_(\\d+)\\w+");
-          Matcher m = p.matcher(md.getTypeName());
-          m.matches();
-          
-          lastCreated = Integer.parseInt(m.group(1));
-        }
-        else
-        {
-          lastCreated = 0;
-        }
-      }
-      finally
-      {
-        iter.close();
-      }
-      
-      // print the previous run
-      
-      String name = "Test_"+lastCreated;
-
-      //create(name);
-
-      print(name);
-    }
-    finally
-    {
-      System.out.println("SHUTTING DOWN CACHE");
-      CacheShutdown.shutdown();
-      System.out.println("FINISHED CACHE SHUTDOWN");
-    }
+    System.out.println("1,30.078");
   }
   
   private static void printCache()

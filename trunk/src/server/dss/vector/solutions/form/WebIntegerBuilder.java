@@ -3,7 +3,12 @@
  */
 package dss.vector.solutions.form;
 
+import java.util.Locale;
+
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeInteger;
 import com.runwaysdk.system.metadata.MdWebInteger;
@@ -35,16 +40,17 @@ public class WebIntegerBuilder extends WebPrimitiveBuilder implements Reloadable
   @Override
   protected void updateMdAttribute(MdAttributeConcrete mdAttribute)
   {
+    Locale locale = Session.getCurrentLocale();
+    Format<Integer> f = AbstractFormatFactory.getFormatFactory().getFormat(Integer.class);
+    
     MdAttributeInteger mdAttributeInteger = (MdAttributeInteger) mdAttribute;
     MdWebInteger mdWebInteger = this.getMdField();
-
+    
     String start = mdWebInteger.getStartRange();
-    Integer startInt = start != null && start.trim().length() > 0 ? Integer.parseInt(start) : null;
-    mdAttributeInteger.setStartRange(startInt);
+    mdAttributeInteger.setStartRange(f.parse(start, locale));
 
     String end = mdWebInteger.getEndRange();
-    Integer endInt = end != null && end.trim().length() > 0 ? Integer.parseInt(end) : null;
-    mdAttributeInteger.setEndRange(endInt);
+    mdAttributeInteger.setEndRange(f.parse(end, locale));
 
     super.updateMdAttribute(mdAttributeInteger);
   }

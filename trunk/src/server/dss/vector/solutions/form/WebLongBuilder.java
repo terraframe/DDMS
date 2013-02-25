@@ -3,7 +3,12 @@
  */
 package dss.vector.solutions.form;
 
+import java.util.Locale;
+
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeLong;
 import com.runwaysdk.system.metadata.MdWebLong;
@@ -35,20 +40,17 @@ public class WebLongBuilder extends WebPrimitiveBuilder implements Reloadable
   @Override
   protected void updateMdAttribute(MdAttributeConcrete mdAttribute)
   {
+    Locale locale = Session.getCurrentLocale();
+    Format<Long> f = AbstractFormatFactory.getFormatFactory().getFormat(Long.class);
+    
     MdAttributeLong mdAttributeLong = (MdAttributeLong) mdAttribute;
     MdWebLong mdWebLong = this.getMdField();
 
     String start = mdWebLong.getStartRange();
-    if (start != null && start.trim().length() != 0)
-    {
-      mdAttributeLong.setStartRange(Long.parseLong(start));
-    }
+    mdAttributeLong.setStartRange(f.parse(start, locale));
 
     String end = mdWebLong.getEndRange();
-    if (end != null && end.trim().length() != 0)
-    {
-      mdAttributeLong.setEndRange(Long.parseLong(end));
-    }
+    mdAttributeLong.setEndRange(f.parse(end, locale));
 
     super.updateMdAttribute(mdAttributeLong);
   }

@@ -3,7 +3,12 @@
  */
 package dss.vector.solutions.form;
 
+import java.util.Locale;
+
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeFloat;
 import com.runwaysdk.system.metadata.MdWebFloat;
@@ -35,6 +40,9 @@ public class WebFloatBuilder extends WebPrimitiveBuilder implements Reloadable
   @Override
   protected void updateMdAttribute(MdAttributeConcrete mdAttribute)
   {
+    Locale locale = Session.getCurrentLocale();
+    Format<Float> f = AbstractFormatFactory.getFormatFactory().getFormat(Float.class);
+    
     MdAttributeFloat mdAttributeFloat = (MdAttributeFloat) mdAttribute;
 
     MdWebFloat mdWebFloat = this.getMdField();
@@ -43,16 +51,10 @@ public class WebFloatBuilder extends WebPrimitiveBuilder implements Reloadable
     mdAttributeFloat.setDatabaseDecimal(mdWebFloat.getDecScale());
 
     String start = mdWebFloat.getStartRange();
-    if (start != null && start.trim().length() != 0)
-    {
-      mdAttributeFloat.setStartRange(Float.parseFloat(start));
-    }
+    mdAttributeFloat.setStartRange(f.parse(start, locale));
 
     String end = mdWebFloat.getEndRange();
-    if (end != null && end.trim().length() != 0)
-    {
-      mdAttributeFloat.setEndRange(Float.parseFloat(end));
-    }
+    mdAttributeFloat.setEndRange(f.parse(end, locale));
 
     super.updateMdAttribute(mdAttributeFloat);
   }

@@ -255,7 +255,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           onSuccess : function(html)
           {
             var that = this.that;          
-            that._createModal(html, '', true);
+            that._createModal(html, '', false);
             
             // Use the UL#categoryList as a delegate for
             // all edit/delete events on individual categories
@@ -363,7 +363,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         that: this,
         onSuccess : function(html)
         {
-          this.that._createModalSec(html, MDSS.localize('Generate'), false, true);
+          this.that._createModalSec(html, MDSS.localize('Generate'), true, true);
         }
       });
       
@@ -524,7 +524,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           that: this,
           onSuccess : function(html)
           {
-            this.that._createModalSec(html, '');
+            this.that._createModalSec(html, '', true);
             this.that._toggleStylesAfterRender(true);
           }
         });
@@ -602,7 +602,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
           
           var that = this.that;
           
-          that._createModalSec(html, '');
+          that._createModalSec(html, '', true);
           that._toggleStylesAfterRender(true);
         }
       });
@@ -705,7 +705,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
         {
           var that = this.that;
         
-          that._createModal(html, '', true);
+          that._createModal(html, '', false);
           YAHOO.util.Event.on('attrGeoSelect', 'change', that._attachAttrGeoChangeListener, null, that);
           YAHOO.util.Event.on('savedSearchList', 'change', that._attachSearchChangeListener, null, that);
           
@@ -851,7 +851,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       html += '<input type="submit" value="'+MDSS.localize('Submit')+'" />';
       html += '</form>';
       
-      this._createModal(html, MDSS.localize('Add_Image'), false, true);
+      this._createModal(html, MDSS.localize('Add_Image'), true, true);
     },
     
     _showScale : function()
@@ -1343,7 +1343,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       }
       out += '</h2></div>';
       
-      this._createModal(out, MDSS.localize('Measure'), false, true);
+      this._createModal(out, MDSS.localize('Measure'), true, true);
     },
     
     _enableAnnotations : function()
@@ -1403,7 +1403,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       var request = new MDSS.Request({
         that : this,
         onSuccess : function(html){
-          this.that._createModal(html, MDSS.localize('Add_Text'), false, true);
+          this.that._createModal(html, MDSS.localize('Add_Text'), true, true);
         }
       });
       
@@ -1543,14 +1543,14 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._secondaryModal = null;
     },
     
-    _createModalInternal : function(html, title, useLarge, closeIt)
+    _createModalInternal : function(html, title, useContentModal, closeIt)
     {
       var executable = MDSS.util.extractScripts(html);
       var html = MDSS.util.removeScripts(html);
   
       var modal = new YAHOO.widget.Panel("modal_"+MDSS.MapPanel.zIndex, {
         width: "400px",
-        height: useLarge ? "530px" : "400px",
+        height: "400px",
         fixedcenter:true,
         close: closeIt || false,
         draggable:false,
@@ -1567,7 +1567,11 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       outer.appendChild(header);
   
       var contentDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(contentDiv, (useLarge ? 'innerContentModalLarge' : 'innerContentModal'));
+      
+      if(useContentModal){
+        YAHOO.util.Dom.addClass(contentDiv, 'innerContentModal');
+      }
+      
       contentDiv.innerHTML = html;
       outer.appendChild(contentDiv);
   
@@ -1581,9 +1585,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       return modal;
     },
     
-    _createModalSec : function(html, title, useLarge, closeIt)
+    _createModalSec : function(html, title, useContentModal, closeIt)
     {
-      this._secondaryModal = this._createModalInternal(html, title, useLarge, closeIt);
+      this._secondaryModal = this._createModalInternal(html, title, useContentModal, closeIt);
       var that = this;
       this._secondaryModal.subscribe('hide', function(){
         setTimeout(function(){
@@ -1596,9 +1600,9 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
      * Creates a modal with the given HTML as its body and the given title
      * as the modal title, wrapped in an H3.
      */
-    _createModal : function(html, title, useLarge, closeIt)
+    _createModal : function(html, title, useContentModal, closeIt)
     {
-      this._currentModal = this._createModalInternal(html, title, useLarge, closeIt);
+      this._currentModal = this._createModalInternal(html, title, useContentModal, closeIt);
       var that = this;
       this._currentModal.subscribe('hide', function(){
         setTimeout(function(){

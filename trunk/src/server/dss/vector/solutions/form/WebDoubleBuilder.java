@@ -3,7 +3,12 @@
  */
 package dss.vector.solutions.form;
 
+import java.util.Locale;
+
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdAttributeConcrete;
 import com.runwaysdk.system.metadata.MdAttributeDouble;
 import com.runwaysdk.system.metadata.MdWebDouble;
@@ -35,6 +40,9 @@ public class WebDoubleBuilder extends WebPrimitiveBuilder implements Reloadable
   @Override
   protected void updateMdAttribute(MdAttributeConcrete mdAttributeConcrete)
   {
+    Locale locale = Session.getCurrentLocale();
+    Format<Double> f = AbstractFormatFactory.getFormatFactory().getFormat(Double.class);
+    
     MdWebDouble mdWebDouble = this.getMdField();
     MdAttributeDouble mdAttributeDouble = (MdAttributeDouble) mdAttributeConcrete;
 
@@ -42,16 +50,10 @@ public class WebDoubleBuilder extends WebPrimitiveBuilder implements Reloadable
     mdAttributeDouble.setDatabaseDecimal(mdWebDouble.getDecScale());
 
     String start = mdWebDouble.getStartRange();
-    if (start != null && start.trim().length() != 0)
-    {
-      mdAttributeDouble.setStartRange(Double.parseDouble(start));
-    }
+    mdAttributeDouble.setStartRange(f.parse(start, locale));
 
     String end = mdWebDouble.getEndRange();
-    if (end != null && end.trim().length() != 0)
-    {
-      mdAttributeDouble.setEndRange(Double.parseDouble(end));
-    }
+    mdAttributeDouble.setEndRange(f.parse(end, locale));
 
     super.updateMdAttribute(mdAttributeDouble);
   }
