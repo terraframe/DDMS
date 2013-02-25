@@ -527,6 +527,8 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
         var attrs = e.attributes;
         var cols = [];
         
+        var formatters = Mojo.Util.getKeys(this._typeFormatters);
+        
         for(var i=0; i<attrs.length; i++)
         {
           var attr = attrs[i];
@@ -534,11 +536,23 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
           var label = attr.getAttributeMdDTO().getDisplayLabel();
           var key = attr.getName();
           
+          // find a match for a formatter based on inheritance. We
+          // only grab the first match because there is no protocol to
+          // chain formatters together.
+          var formatter = null;
+          for(var j=0; j<formatters.length; j++){
+            var type = formatters[j];
+            if(attr.getMetaClass().isSubClassOf(type)){
+              formatter = this._typeFormatters[type];
+              break;
+            }
+          }
+          
           cols.push(new Column({
             key : key,
             label : label,
             sortable : true,
-            formatter : (this._typeFormatters[attr.getType()] || null)
+            formatter : formatter
           }));
         }
         

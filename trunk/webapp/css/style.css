@@ -390,6 +390,15 @@ span.linkify:hover {
   margin-left: 5px;
 }
 
+div.modalForm {
+	height: 320px;
+	overflow: auto;
+}
+
+div.modalButtons {
+	margin-top: 10px;
+}
+
 ul#queryItemsList>li {
   background-color: white;
   border: 1px solid black;
