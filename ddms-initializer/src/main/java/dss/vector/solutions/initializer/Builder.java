@@ -35,7 +35,14 @@ public class Builder implements Reloadable
 
       try
       {
-        Builder.this.rebuild(monitor);
+        try
+        {
+          Builder.this.rebuild(monitor);
+        }
+        finally
+        {
+          CacheShutdown.shutdown();
+        }
       }
       finally
       {
@@ -73,53 +80,33 @@ public class Builder implements Reloadable
     {
       IRunnableWithProgress progress = new RebuildRunnable();
       dialog.run(true, false, progress);
-
     }
     catch (InvocationTargetException e)
     {
-      e.printStackTrace();
-
       MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), e.getCause().getLocalizedMessage());
     }
     catch (Exception e)
     {
-      e.printStackTrace();
-
       MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
     }
+
+    System.exit(0);
   }
 
   @Request
   private void rebuild(IProgressMonitor monitor)
   {
-    try
+    boolean hasAllPaths = this.hasAllPaths();
+
+    if (!hasAllPaths)
     {
-      boolean hasAllPaths = this.hasAllPaths();
+      monitor.beginTask(Localizer.getMessage("REBUILD_GEO_PATHS"), IProgressMonitor.UNKNOWN);
 
-      if (!hasAllPaths)
-      {
-        monitor.beginTask(Localizer.getMessage("REBUILD_GEO_PATHS"), IProgressMonitor.UNKNOWN);
+      this.rebuildGeoPaths();
 
-        this.rebuildGeoPaths();
+      monitor.beginTask(Localizer.getMessage("REBUILD_TERM_PATHS"), IProgressMonitor.UNKNOWN);
 
-        monitor.beginTask(Localizer.getMessage("REBUILD_TERM_PATHS"), IProgressMonitor.UNKNOWN);
-
-        this.rebuildTermPaths();
-      }
-    }
-    finally
-    {
-      try
-      {
-        CacheShutdown.shutdown();
-      }
-      catch (Exception e)
-      {
-        // The cache had an exception while trying to shutdown - therefore the
-        // the cache still has a live thread. As such, we need to force an exit,
-        // otherwise the builder will never exit.
-        System.exit(-1);
-      }
+      this.rebuildTermPaths();
     }
   }
 
