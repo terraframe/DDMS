@@ -16,31 +16,34 @@ import dss.vector.solutions.util.LocaleDimension;
 public class MultiBundle implements Reloadable
 {
   private Map<String, Bundle> bundles;
-  
-  private Set<String> masterKeySet;
-  
-  public static String BUNDLE_NAME = "MDSS";
-  
+
+  private Set<String>         masterKeySet;
+
+  private boolean             loadKeySet;
+
+  public static String        BUNDLE_NAME = "MDSS";
+
   private MultiBundle()
   {
-    bundles = new HashMap<String, Bundle>();
-    masterKeySet = new TreeSet<String>();
+    this.bundles = new HashMap<String, Bundle>();
+    this.masterKeySet = new TreeSet<String>();
+    this.loadKeySet = true;
   }
 
   /**
-   * Singleton is loaded on the first execution of MultiBundle.getInstance()
-   * or the first access to Singleton.INSTANCE, not before.
+   * Singleton is loaded on the first execution of MultiBundle.getInstance() or
+   * the first access to Singleton.INSTANCE, not before.
    */
   private static class Singleton implements Reloadable
   {
     public static final MultiBundle INSTANCE = new MultiBundle();
   }
-  
+
   public static String get(String key)
   {
     return get(key, Session.getCurrentLocale());
   }
-  
+
   public static String get(String key, Locale locale)
   {
     synchronized (Singleton.INSTANCE)
@@ -48,13 +51,14 @@ public class MultiBundle implements Reloadable
       String localeName = locale.toString();
       MdDimensionDAOIF dimension = Session.getCurrentDimension();
       LocaleDimension ld = new LocaleDimension(localeName, dimension);
-      
+
       return smartGet(key, localeName, dimension, ld);
     }
   }
 
   /**
-   * The heart of the MultiBundle, smartGet will traverse up the bundle hierarchy until it finds a value 
+   * The heart of the MultiBundle, smartGet will traverse up the bundle
+   * hierarchy until it finds a value
    * 
    * @param key
    * @param locale
@@ -66,46 +70,83 @@ public class MultiBundle implements Reloadable
   {
     while (ld != null)
     {
-//        Amazingly, containsKey doesn't appear to be working
+      // Amazingly, containsKey doesn't appear to be working
       String value = getExactly(key, ld);
-      if (value!=null)
+      if (value != null)
       {
         return value;
       }
-      
+
       // This moves us up the bundle chain
       ld = ld.getParent();
-      if (ld==null && dimension!=null)
+      if (ld == null && dimension != null)
       {
-        // If dimension-specific bundles fail, start the loop over with the generic bundles
+        // If dimension-specific bundles fail, start the loop over with the
+        // generic bundles
         ld = new LocaleDimension(locale);
-        dimension=null;
+        dimension = null;
       }
     }
     return "???_" + key + "_???";
   }
-  
+
   public static Map<String, String> getAll()
   {
     synchronized (Singleton.INSTANCE)
     {
+      MultiBundle.loadMasterKeySet();
+
       String locale = Session.getCurrentLocale().toString();
       MdDimensionDAOIF dimension = Session.getCurrentDimension();
       LocaleDimension ld = new LocaleDimension(locale, dimension);
-      
+
       Map<String, String> map = new TreeMap<String, String>();
       for (String key : Singleton.INSTANCE.masterKeySet)
       {
         String value = smartGet(key, locale, dimension, ld);
         map.put(key, value);
       }
-      
+
       return map;
     }
   }
 
+  private static void loadMasterKeySet()
+  {
+    synchronized (Singleton.INSTANCE)
+    {
+      if (Singleton.INSTANCE.loadKeySet)
+      {
+        String locale = Session.getCurrentLocale().toString();
+        MdDimensionDAOIF dimension = Session.getCurrentDimension();
+        LocaleDimension ld = new LocaleDimension(locale, dimension);
+
+        while (ld != null)
+        {
+          Bundle bundle = getBundle(ld);
+
+          Singleton.INSTANCE.masterKeySet.addAll(bundle.getKeySet());
+
+          // This moves us up the bundle chain
+          ld = ld.getParent();
+
+          if (ld == null && dimension != null)
+          {
+            // If dimension-specific bundles fail, start the loop over with the
+            // generic bundles
+            ld = new LocaleDimension(locale);
+            dimension = null;
+          }
+        }
+
+        Singleton.INSTANCE.loadKeySet = false;
+      }
+    }
+  }
+
   /**
-   * Returns the value for this key-LocaleDimension pair exactly, without traversing up the hierarchy of other bundles
+   * Returns the value for this key-LocaleDimension pair exactly, without
+   * traversing up the hierarchy of other bundles
    * 
    * @param key
    * @param ld
@@ -119,17 +160,24 @@ public class MultiBundle implements Reloadable
       String lds = ld.toString();
       if (!cache.containsKey(lds))
       {
-        Bundle newBundle = new Bundle(BUNDLE_NAME, ld);
+        Bundle newBundle = getBundle(ld);
         cache.put(lds, newBundle);
-        Singleton.INSTANCE.masterKeySet.addAll(newBundle.getKeySet());
       }
-      
+
       Bundle bundle = cache.get(lds);
       String value = bundle.getValue(key);
       return value;
     }
   }
-  
+
+  private static Bundle getBundle(LocaleDimension ld)
+  {
+    synchronized (Singleton.INSTANCE)
+    {
+      return new Bundle(BUNDLE_NAME, ld);
+    }
+  }
+
   public static void setBundle(String bundleName)
   {
     synchronized (Singleton.INSTANCE)
@@ -137,7 +185,7 @@ public class MultiBundle implements Reloadable
       MultiBundle.BUNDLE_NAME = bundleName;
     }
   }
-  
+
   public static void reload()
   {
     synchronized (Singleton.INSTANCE)
