@@ -659,7 +659,7 @@ Mojo.Meta.newClass('MDSS.GeoEntityTree', {
       listDiv.appendChild(ulRaw);
       outer.appendChild(listDiv);
 
-      this._createModal(outer, false);
+      this._createModal(outer, true);
     },
 
     /**
