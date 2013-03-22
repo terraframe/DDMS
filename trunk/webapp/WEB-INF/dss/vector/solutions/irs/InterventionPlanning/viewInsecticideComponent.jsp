@@ -34,7 +34,7 @@
     </label>
   </dt>
   <dd>
-    ${item.season.seasonName}
+    ${item.season.seasonLabel.value}
   </dd>
   <dt>
     <label> * <mdss:localize key="Insecticide"/> </label>

@@ -5,15 +5,7 @@
   <mjl:message />
 </mjl:messages>
 <mjl:form name="dss.vector.solutions.general.MalariaSeason.form.name" id="dss.vector.solutions.general.MalariaSeason.form.id" method="POST">
-  <mjl:component item="${item}" param="dto">
-    <dl>
-
-      <mjl:dt attribute="seasonName" type="text" />
-      <mjl:dt attribute="startDate" type="text" classes="DatePick" />
-      <mjl:dt attribute="endDate" type="text" classes="DatePick" />
-
-    </dl>
-  </mjl:component>
+  <%@include file="form.jsp" %>  
   <mdss:localize key="Create" var="Localized_Create" />
   <mjl:command value="${Localized_Create}" action="dss.vector.solutions.general.MalariaSeasonController.create.mojo" name="dss.vector.solutions.general.MalariaSeason.form.create.button" />
 </mjl:form>

@@ -33,7 +33,7 @@
     <dd>
       <mjl:select var="current" valueAttribute="id" items="${seasons}" param="season.componentId" >
         <mjl:option>
-          ${current.seasonName}, <fmt:formatDate pattern="${dateFormatPattern}"  value="${current.startDate}" /> - <fmt:formatDate pattern="${dateFormatPattern}"  value="${current.endDate}" />
+          ${current.seasonLabel.value}, <fmt:formatDate pattern="${dateFormatPattern}"  value="${current.startDate}" /> - <fmt:formatDate pattern="${dateFormatPattern}"  value="${current.endDate}" />
         </mjl:option>
       </mjl:select>
     </dd>

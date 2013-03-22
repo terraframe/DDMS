@@ -36,7 +36,7 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
     </label>
   </dt>
   <dd>
-      ${season.seasonName} <span class="formatDate"> ${season.startDate} </span> - <span class="formatDate"> ${season.endDate} </span>
+      ${season.seasonLabel.value} <span class="formatDate"> ${season.startDate} </span> - <span class="formatDate"> ${season.endDate} </span>
   </dd>
 </dl>
 <div id="ThresholdData"></div>

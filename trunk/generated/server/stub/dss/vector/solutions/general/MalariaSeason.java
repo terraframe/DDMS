@@ -20,24 +20,24 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    
+
     return this.buildKey();
   }
 
   @Override
   protected String buildKey()
   {
-    if (this.getSeasonName() != null)
+    if (this.getSeasonLabel().getValue() != null)
     {
-      return this.getSeasonName();
+      return this.getSeasonLabel().getValue();
     }
     return this.getId();
   }
@@ -49,30 +49,31 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     validateLength();
     validateOverlap();
 
-    if (this.isNew() && this.getDisease() == null) {
-    	this.setDisease(Disease.getCurrent());
+    if (this.isNew() && this.getDisease() == null)
+    {
+      this.setDisease(Disease.getCurrent());
     }
-    
+
     super.apply();
-    
+
     // Create the epi weeks which are defined by this season
-    for(EpiDate date : this.getEpiWeeks())
+    for (EpiDate date : this.getEpiWeeks())
     {
       // EpiWeek.getEpiWeek will create an epi week if one does not
       // alread exist
-      EpiCache.getWeek(date);      
+      EpiCache.getWeek(date);
     }
   }
 
+  @Transaction
+  public static MalariaSeasonQuery getAllInstancesForDisease(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber)
+  {
+    MalariaSeasonQuery query = new MalariaSeasonQuery(new com.runwaysdk.query.QueryFactory());
+    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
+    getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
+    return query;
+  }
 
-	@Transaction
-	public static MalariaSeasonQuery getAllInstancesForDisease(String sortAttribute, Boolean ascending, Integer pageSize, Integer pageNumber) {
-		MalariaSeasonQuery query = new MalariaSeasonQuery(new com.runwaysdk.query.QueryFactory());
-	    query.WHERE(query.getDisease().EQ(Disease.getCurrent()));
-	    getAllInstances(query, sortAttribute, ascending, pageSize, pageNumber);
-	    return query;
-	}
-	
   public EpiDate[] getEpiWeeks()
   {
     // Date epiStart =
@@ -84,13 +85,13 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     Integer seasonStartYear = cal.get(Calendar.YEAR);
 
     ArrayList<EpiDate> weeks = new ArrayList<EpiDate>();
-    
+
     for (Integer i = 0; i <= 106; i++)
     {
       EpiDate epiWeek = EpiDate.getInstanceByPeriod(PeriodType.WEEK, i, seasonStartYear);
-      
+
       long weekStart = epiWeek.getStartDate().getTime();
-      
+
       if (weekStart >= seasonStart && weekStart <= seasonEnd)
       {
         weeks.add(epiWeek);
@@ -98,30 +99,30 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
       }
     }
     EpiDate weeksArr[] = weeks.toArray(new EpiDate[weeks.size()]);
-    return  weeksArr;
+    return weeksArr;
   }
-  
+
   public EpiDate getEpiWeek(Date date)
   {
     EpiDate[] weeks = this.getEpiWeeks();
-    
-    for(EpiDate week : weeks)
+
+    for (EpiDate week : weeks)
     {
       Date weekStart = week.getStartDate();
       Date weekEnd = week.getEndDate();
 
-      if(date.equals(weekStart) || date.equals(weekEnd) || (date.after(weekStart) && date.before(weekEnd)))
+      if (date.equals(weekStart) || date.equals(weekEnd) || ( date.after(weekStart) && date.before(weekEnd) ))
       {
         return week;
       }
     }
-    
-    String msg = "Date [" + date + "] is not contained in the Malaira Season [" + this.getSeasonName() +"]";
+
+    String msg = "Date [" + date + "] is not contained in the Malaira Season [" + this.getSeasonLabel().getValue() + "]";
     MalariaSeasonDateException e = new MalariaSeasonDateException(msg);
-    e.setSeasonName(this.getSeasonName());
+    e.setSeasonName(this.getSeasonLabel().getValue());
     e.setWeekDate(date);
     e.apply();
-    
+
     throw e;
   }
 
@@ -142,7 +143,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
     {
       String msg = "This transmission season overlaps with an existing season";
       MalariaSeasonOverlapProblem e = new MalariaSeasonOverlapProblem(msg);
-      e.setOverlap(this.getOverlap().getSeasonName());
+      e.setOverlap(this.getOverlap().getSeasonLabel().getValue());
       e.apply();
       e.throwIt();
     }
@@ -188,19 +189,17 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
 
   public static MalariaSeason getSeasonByDate(Date date)
   {
-	  MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
-	  
-	  return getSeasonFromQueryByDate(query, date);
+    MalariaSeasonQuery query = MalariaSeason.getSeasonQueryByDate(date, new QueryFactory());
+
+    return getSeasonFromQueryByDate(query, date);
   }
-  
 
   public static MalariaSeason getNextSeasonByDate(Date date)
   {
-	  MalariaSeasonQuery query = MalariaSeason.getNextSeasonQueryByDate(date, new QueryFactory());
+    MalariaSeasonQuery query = MalariaSeason.getNextSeasonQueryByDate(date, new QueryFactory());
 
-	  return getSeasonFromQueryByDate(query, date);
+    return getSeasonFromQueryByDate(query, date);
   }
-  
 
   public static MalariaSeason getSeasonFromQueryByDate(MalariaSeasonQuery query, Date date)
   {
@@ -221,26 +220,24 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
 
     return null;
   }
-  
-  
+
   public static MalariaSeasonQuery getNextSeasonQueryByDate(Date date, QueryFactory factory)
-  {    
+  {
     MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
-    
+
     query.AND(query.getStartDate().GE(date));
     query.AND(query.getDisease().EQ(Disease.getCurrent()));
 
     return query;
   }
-  
+
   public static MalariaSeasonQuery getSeasonQueryByDate(Date date, QueryFactory factory)
-  {    
+  {
     MalariaSeasonQuery query = new MalariaSeasonQuery(factory);
-    
+
     query.AND(query.getStartDate().LE(date));
     query.AND(query.getEndDate().GE(date));
     query.AND(query.getDisease().EQ(Disease.getCurrent()));
-
 
     return query;
   }
@@ -283,7 +280,7 @@ public class MalariaSeason extends MalariaSeasonBase implements com.runwaysdk.ge
 
     return seasons.toArray(new MalariaSeason[seasons.size()]);
   }
-  
+
   /**
    * @return A list of all malaria seasons with the most recent one first
    */

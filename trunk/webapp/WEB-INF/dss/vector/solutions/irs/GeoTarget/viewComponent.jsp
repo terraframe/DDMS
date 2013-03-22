@@ -33,7 +33,7 @@
       </label>
     </dt>
     <dd>
-      ${item.season.seasonName}
+      ${item.season.seasonLabel.value}
     </dd>
   </dl>
 <br/>

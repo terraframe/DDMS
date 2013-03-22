@@ -10,8 +10,8 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.general.MalariaSeasonController.viewPage.mojo" />
   <mjl:columns>
-
-    <mjl:attributeColumn attributeName="seasonName">
+    <mjl:attributeColumn attributeName="seasonLabel">
+      <mjl:row>${item.seasonLabel.value}</mjl:row>      
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="startDate">
       <mjl:row>

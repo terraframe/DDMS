@@ -62,8 +62,9 @@ import com.runwaysdk.system.metadata.SupportedLocaleQuery;
 
 import dss.vector.solutions.Property;
 import dss.vector.solutions.PropertyInfo;
-import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.DiseaseQuery.DiseaseQueryReferenceIF;
+import dss.vector.solutions.general.MalariaSeason;
+import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
 import dss.vector.solutions.geo.GeoHierarchyQuery;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntityEntityLabel;
@@ -509,7 +510,7 @@ public class QueryUtil implements Reloadable
   {
     return getSingleAttribteGridSql(valueQuery, tableAlias, RelationshipDAOIF.PARENT_ID_COLUMN, RelationshipDAOIF.CHILD_ID_COLUMN);
   }
-  
+
   public static boolean getSingleAttribteGridSql(ValueQuery valueQuery, String tableAlias, String parentColumn, String childColumn)
   {
     boolean foundGrid = false;
@@ -1023,17 +1024,39 @@ public class QueryUtil implements Reloadable
       found.add(DATEGROUP_SEASON);
 
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
-      MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
-      String table = malariaSeasonMd.getTableName();
-      String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
-      String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
-      String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
-      String disease = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.DISEASE);
 
-      dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms " + " WHERE ms." + startDateCol + " <= " + da + " AND ms." + endDateCol + " >= " + da + " AND ms." + disease + " = " + diseaseSel.getDbQualifiedName());
+      String sql = QueryUtil.getSeasonNameSQL(diseaseSel, da, da);
+      dateGroup.setSQL(sql);
     }
 
     return setQueryDates(xml, valueQuery, target, da, found);
+  }
+
+  public static String getSeasonNameSQL(Selectable diseaseSel, String startDateColumnName, String endDateColumnName)
+  {
+    MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
+    String table = malariaSeasonMd.getTableName();
+    String seasonLabelCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONLABEL);
+    String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
+    String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
+    String disease = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.DISEASE);
+
+    MdEntityDAOIF seasonLabelMd = MdEntityDAO.getMdEntityDAO(MalariaSeasonSeasonLabel.CLASS);
+    String labelTable = seasonLabelMd.getTableName();
+    String seasonLabelIdCol = QueryUtil.getColumnName(seasonLabelMd, MalariaSeasonSeasonLabel.ID);
+
+    String TABLE_ALIAS = "ms";
+    String LABEL_ALIAS = "la";
+
+    StringBuffer buffer = new StringBuffer();
+    buffer.append("SELECT " + QueryUtil.getLocaleCoalesce(LABEL_ALIAS + "."));
+    buffer.append(" FROM " + table + " AS " + TABLE_ALIAS);
+    buffer.append(" INNER JOIN " + labelTable + " AS " + LABEL_ALIAS + " ON " + TABLE_ALIAS + "." + seasonLabelCol + " = " + LABEL_ALIAS + "." + seasonLabelIdCol + "\n");
+    buffer.append(" WHERE " + TABLE_ALIAS + "." + startDateCol + " <= " + startDateColumnName);
+    buffer.append(" AND " + TABLE_ALIAS + "." + endDateCol + " >= " + endDateColumnName);
+    buffer.append(" AND " + TABLE_ALIAS + "." + disease + " = " + diseaseSel.getDbQualifiedName());
+
+    return buffer.toString();
   }
 
   public static ValueQuery setQueryDates(String xml, ValueQuery valueQuery, GeneratedEntityQuery target, SelectableMoment daSel)
@@ -1148,16 +1171,10 @@ public class QueryUtil implements Reloadable
     {
       found.add(DATEGROUP_SEASON);
 
+      String sql = QueryUtil.getSeasonNameSQL(diseaseSel, sd, ed);
+
       SelectableSQLCharacter dateGroup = (SelectableSQLCharacter) valueQuery.getSelectableRef(DATEGROUP_SEASON);
-
-      MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
-      String table = malariaSeasonMd.getTableName();
-      String seasonNameCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.SEASONNAME);
-      String startDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.STARTDATE);
-      String endDateCol = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.ENDDATE);
-      String disease = QueryUtil.getColumnName(malariaSeasonMd, MalariaSeason.DISEASE);
-
-      dateGroup.setSQL("SELECT " + seasonNameCol + " FROM " + table + " AS ms" + " WHERE ms." + startDateCol + " <= " + sd + " AND ms." + endDateCol + " >= " + ed + " AND ms." + disease + " = " + diseaseSel.getDbQualifiedName());
+      dateGroup.setSQL(sql);
     }
 
     if (xml.indexOf(DATEGROUP_EPIWEEK) > 0)

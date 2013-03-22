@@ -35,7 +35,7 @@ public class ThresholdDataExcelView extends ThresholdDataExcelViewBase implement
     view.setGeoEntity(this.getGeoEntity().getGeoId());
     
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
-    query.WHERE(query.getSeasonName().EQ(this.getSeasonName()));
+    query.WHERE(query.getSeasonLabel().localize().EQ(this.getSeasonName()));
     
     OIterator<? extends MalariaSeason> iterator = query.getIterator();
     if (iterator.hasNext())

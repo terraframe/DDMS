@@ -62,6 +62,7 @@ import com.runwaysdk.util.FileIO;
 
 import dss.vector.solutions.InstallProperties;
 import dss.vector.solutions.LocalProperty;
+import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.ontology.Term;
 
@@ -74,6 +75,8 @@ public class MdssLocalizationExporter implements Reloadable
   public static final String    DISPLAY_LABELS         = "Display Labels";
 
   public static final String    LOCAL_PROPERTY_LABELS  = "Local Property Labels";
+
+  public static final String    MALARIA_SEASON_LABELS  = "Transmission Season Labels";
 
   public static final String    DESCRIPTIONS           = "Descriptions";
 
@@ -105,6 +108,8 @@ public class MdssLocalizationExporter implements Reloadable
   private HSSFSheet             exceptionSheet;
 
   private HSSFSheet             labelSheet;
+
+  private HSSFSheet             malariaSeasonSheet;
 
   private HSSFSheet             localPropertySheet;
 
@@ -209,6 +214,7 @@ public class MdssLocalizationExporter implements Reloadable
     entityLabelSheet = workbook.createSheet(GEO_ENTITY_LABELS);
     labelSheet = workbook.createSheet(DISPLAY_LABELS);
     localPropertySheet = workbook.createSheet(LOCAL_PROPERTY_LABELS);
+    malariaSeasonSheet = workbook.createSheet(MALARIA_SEASON_LABELS);
     descriptionSheet = workbook.createSheet(DESCRIPTIONS);
     serverSheet = workbook.createSheet(SERVER_EXCEPTIONS);
     clientSheet = workbook.createSheet(CLIENT_EXCEPTIONS);
@@ -223,6 +229,7 @@ public class MdssLocalizationExporter implements Reloadable
     prepareExceptions();
     prepareDisplayLabels();
     prepareLocalPropertyLabels();
+    prepareMalariaSeasonLabels();
     prepareTermLabels();
     prepareGeoEntityLabels();
     prepareDescriptions();
@@ -240,7 +247,7 @@ public class MdssLocalizationExporter implements Reloadable
 
   private void prepareHeaders()
   {
-    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, localPropertySheet, termSheet, entityLabelSheet, descriptionSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
+    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, localPropertySheet, malariaSeasonSheet, termSheet, entityLabelSheet, descriptionSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
 
     for (HSSFSheet sheet : sheets)
     {
@@ -293,6 +300,7 @@ public class MdssLocalizationExporter implements Reloadable
     localQuery.WHERE(localQuery.getAttributeName().NE(GeoEntity.ENTITYLABEL));
     localQuery.WHERE(localQuery.getAttributeName().NE(LocalProperty.PROPERTYLABEL));
     localQuery.WHERE(localQuery.getAttributeName().NE(LocalProperty.PROPERTYDESCRIPTION));
+    localQuery.WHERE(localQuery.getAttributeName().NE(MalariaSeason.SEASONLABEL));
     localQuery.WHERE(localQuery.getAttributeName().NE(MdLocalizableInfo.MESSAGE));
     localQuery.WHERE(localQuery.getAttributeName().NE(Metadata.DESCRIPTION));
     OIterator<? extends MdAttributeLocal> iterator = localQuery.getIterator();
@@ -331,15 +339,22 @@ public class MdssLocalizationExporter implements Reloadable
     list.add(local);
     prepareAttributeList(termSheet, list);
   }
-  
+
   private void prepareLocalPropertyLabels()
   {
     List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
-    MdAttributeLocal local = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyLabelMd());
-    MdAttributeLocal localDesc = (MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyDescriptionMd());
-    list.add(local);
-    list.add(localDesc);
+    list.add((MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyLabelMd()));
+    list.add((MdAttributeLocal) BusinessFacade.get(LocalProperty.getPropertyDescriptionMd()));
+
     prepareAttributeList(localPropertySheet, list);
+  }
+
+  private void prepareMalariaSeasonLabels()
+  {
+    List<MdAttributeLocal> list = new LinkedList<MdAttributeLocal>();
+    list.add((MdAttributeLocal) BusinessFacade.get(MalariaSeason.getSeasonLabelMd()));
+
+    prepareAttributeList(malariaSeasonSheet, list);
   }
 
   private void prepareGeoEntityLabels()

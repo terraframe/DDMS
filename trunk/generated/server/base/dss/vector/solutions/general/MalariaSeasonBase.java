@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 491625048)
+@com.runwaysdk.business.ClassSignature(hash = 2141783153)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,16 +22,20 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SEASONLABEL = "seasonLabel";
+  private com.runwaysdk.business.Struct seasonLabel = null;
+  
   public static java.lang.String SEASONNAME = "seasonName";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String STARTDATE = "startDate";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 491625048;
+  private static final long serialVersionUID = 2141783153;
   
   public MalariaSeasonBase()
   {
     super();
+    seasonLabel = super.getStruct("seasonLabel");
   }
   
   public java.util.Date getCreateDate()
@@ -62,6 +66,11 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -83,6 +92,11 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     {
       return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void validateDisease()
@@ -146,6 +160,11 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -243,6 +262,11 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -264,6 +288,11 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     {
       return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public void validateLockedBy()
@@ -289,6 +318,11 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void validateOwner()
   {
     this.validateAttribute(OWNER);
@@ -310,6 +344,22 @@ public abstract class MalariaSeasonBase extends com.runwaysdk.business.Business 
     {
       setValue(OWNER, value.getId());
     }
+  }
+  
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabel getSeasonLabel()
+  {
+    return (dss.vector.solutions.general.MalariaSeasonSeasonLabel) seasonLabel;
+  }
+  
+  public void validateSeasonLabel()
+  {
+    this.validateAttribute(SEASONLABEL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getSeasonLabelMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.general.MalariaSeason.CLASS);
+    return mdClassIF.definesAttribute(SEASONLABEL);
   }
   
   public String getSeasonName()

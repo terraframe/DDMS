@@ -58,6 +58,8 @@ public class MdssLocalizationImporter implements Reloadable
 
   private HSSFSheet  localPropertySheet;
 
+  private HSSFSheet  malariaSeasonSheet;
+
   private HSSFSheet  descriptionSheet;
 
   private HSSFSheet  clientSheet;
@@ -142,6 +144,7 @@ public class MdssLocalizationImporter implements Reloadable
     updateLocalAttribute(entityLabelSheet);
     updateLocalAttribute(labelSheet);
     updateLocalAttribute(localPropertySheet);
+    updateLocalAttribute(malariaSeasonSheet);
     updateLocalAttribute(descriptionSheet);
     updateProperties("MDSS", propertySheet);
     updateProperties("serverExceptions", serverSheet);
@@ -245,7 +248,7 @@ public class MdssLocalizationImporter implements Reloadable
   private void checkLocales()
   {
     Set<String> allLocales = new TreeSet<String>();
-    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, termSheet, entityLabelSheet, localPropertySheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
+    HSSFSheet[] sheets = new HSSFSheet[] { exceptionSheet, termSheet, entityLabelSheet, localPropertySheet, malariaSeasonSheet, descriptionSheet, serverSheet, clientSheet, commonSheet, labelSheet, propertySheet, managerSheet, synchSheet, geoSheet, initializerSheet, backupSheet };
     for (HSSFSheet sheet : sheets)
     {
       for (LocaleDimension ld : getColumnHeaders(sheet))
@@ -286,7 +289,7 @@ public class MdssLocalizationImporter implements Reloadable
     Iterator<HSSFCell> cellIterator = row.cellIterator();
     cellIterator.next();
 
-    if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(descriptionSheet) || sheet.equals(exceptionSheet) || sheet.equals(localPropertySheet))
+    if (sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(descriptionSheet) || sheet.equals(exceptionSheet) || sheet.equals(localPropertySheet) || sheet.equals(malariaSeasonSheet))
     {
       cellIterator.next();
       cellIterator.next();
@@ -501,7 +504,7 @@ public class MdssLocalizationImporter implements Reloadable
 
       // We need to apply the entity to ensure that the localization changes are
       // logged in the transaction record
-      if (ServerProperties.logTransactions() && (entity.getSiteMaster() != null && entity.getSiteMaster().length() > 0))
+      if (ServerProperties.logTransactions() && ( entity.getSiteMaster() != null && entity.getSiteMaster().length() > 0 ))
       {
         EntityDAOFactory.logTransactionItem(entity, ActionEnumDAO.UPDATE, true);
       }
@@ -525,6 +528,7 @@ public class MdssLocalizationImporter implements Reloadable
       termSheet = workbook.getSheet(MdssLocalizationExporter.TERM_LABELS);
       entityLabelSheet = workbook.getSheet(MdssLocalizationExporter.GEO_ENTITY_LABELS);
       localPropertySheet = workbook.getSheet(MdssLocalizationExporter.LOCAL_PROPERTY_LABELS);
+      malariaSeasonSheet = workbook.getSheet(MdssLocalizationExporter.MALARIA_SEASON_LABELS);
       descriptionSheet = workbook.getSheet(MdssLocalizationExporter.DESCRIPTIONS);
       clientSheet = workbook.getSheet(MdssLocalizationExporter.CLIENT_EXCEPTIONS);
       serverSheet = workbook.getSheet(MdssLocalizationExporter.SERVER_EXCEPTIONS);
@@ -567,6 +571,10 @@ public class MdssLocalizationImporter implements Reloadable
     else if (sheet.equals(localPropertySheet))
     {
       return MdssLocalizationExporter.LOCAL_PROPERTY_LABELS;
+    }
+    else if (sheet.equals(malariaSeasonSheet))
+    {
+      return MdssLocalizationExporter.MALARIA_SEASON_LABELS;
     }
     else if (sheet.equals(descriptionSheet))
     {

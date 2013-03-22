@@ -1,6 +1,6 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = -1264206321)
+@com.runwaysdk.business.ClassSignature(hash = 1287209384)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.general;
 public  class MalariaSeasonQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1264206321;
 
   public MalariaSeasonQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -262,6 +261,29 @@ private static final long serialVersionUID = -1264206321;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.MalariaSeason.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel()
+  {
+    return getSeasonLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel(String alias)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.MalariaSeason.SEASONLABEL);
+
+    return (dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.MalariaSeason.SEASONLABEL, mdAttributeIF, this, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel(String alias, String displayLabel)
+  {
+
+    com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.general.MalariaSeason.SEASONLABEL);
+
+    return (dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.general.MalariaSeason.SEASONLABEL, mdAttributeIF, this, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getSeasonName()
   {
     return getSeasonName(null);
@@ -382,6 +404,21 @@ private static final long serialVersionUID = -1264206321;
     }
   }
 
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.MalariaSeason.SEASONLABEL)) 
+    {
+       return new dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -447,6 +484,9 @@ private static final long serialVersionUID = -1264206321;
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel();
+    public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel(String alias);
+    public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getSeasonName();
     public com.runwaysdk.query.SelectableChar getSeasonName(String alias);
     public com.runwaysdk.query.SelectableChar getSeasonName(String alias, String displayLabel);
@@ -477,7 +517,6 @@ private static final long serialVersionUID = -1264206321;
  implements MalariaSeasonQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1551838931;
 
   public MalariaSeasonQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -685,6 +724,23 @@ private static final long serialVersionUID = -1551838931;
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.general.MalariaSeason.OWNER,  alias, displayLabel);
 
   }
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel()
+  {
+    return getSeasonLabel(null);
+
+  }
+ 
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel(String alias)
+  {
+    return (dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.general.MalariaSeason.SEASONLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, null);
+
+  }
+ 
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF getSeasonLabel(String alias, String displayLabel)
+  {
+    return (dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStructIF)this.attributeFactory(dss.vector.solutions.general.MalariaSeason.SEASONLABEL, com.runwaysdk.system.metadata.MdAttributeLocalCharacter.CLASS, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableChar getSeasonName()
   {
     return getSeasonName(null);
@@ -797,6 +853,21 @@ private static final long serialVersionUID = -1551838931;
     else if (name.equals(dss.vector.solutions.general.MalariaSeason.OWNER)) 
     {
        return new com.runwaysdk.system.ActorQuery.ActorQueryReference((com.runwaysdk.dataaccess.MdAttributeRefDAOIF)mdAttributeIF, attributeNamespace, definingTableName, definingTableAlias, referenceMdBusinessIF, referenceTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
+    }
+    else 
+    {
+      String error = "Attribute type ["+mdAttributeIF.getType()+"] is invalid.";
+      throw new com.runwaysdk.query.QueryException(error);
+    }
+  }
+
+  protected com.runwaysdk.query.AttributeLocal localFactory( com.runwaysdk.dataaccess.MdAttributeLocalDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdLocalStructDAOIF mdLocalStructIF, String structTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
+  {
+    String name = mdAttributeIF.definesAttribute();
+    
+    if (name.equals(dss.vector.solutions.general.MalariaSeason.SEASONLABEL)) 
+    {
+       return new dss.vector.solutions.general.MalariaSeasonSeasonLabelQuery.MalariaSeasonSeasonLabelQueryStruct((com.runwaysdk.dataaccess.MdAttributeLocalDAOIF)mdAttributeIF,  attributeNamespace, definingTableName, definingTableAlias, mdLocalStructIF, structTableAlias, rootQuery, tableJoinSet, userDefinedAlias, userDefinedDisplayLabel);
     }
     else 
     {

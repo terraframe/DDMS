@@ -39,7 +39,7 @@
     </label>
   </dt>
   <dd>
-    ${item.season.seasonName}
+    ${item.season.seasonLabel.value}
   </dd>
   <dt>
     * <mdss:localize key="Units_Per_Day"/>

@@ -1,10 +1,10 @@
 package dss.vector.solutions.general;
 
-@com.runwaysdk.business.ClassSignature(hash = 852114392)
+@com.runwaysdk.business.ClassSignature(hash = -297703951)
 public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.general.MalariaSeason";
-  private static final long serialVersionUID = 852114392;
+  private static final long serialVersionUID = -297703951;
   
   protected MalariaSeasonDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,7 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
   public static java.lang.String LASTUPDATEDBY = "lastUpdatedBy";
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String SEASONLABEL = "seasonLabel";
   public static java.lang.String SEASONNAME = "seasonName";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
@@ -80,6 +81,11 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -110,6 +116,11 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -191,6 +202,11 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -299,6 +315,11 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -329,6 +350,11 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -363,6 +389,11 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -393,6 +424,31 @@ public abstract class MalariaSeasonDTOBase extends com.runwaysdk.business.Busine
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getOwnerMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(OWNER).getAttributeMdDTO();
+  }
+  
+  public dss.vector.solutions.general.MalariaSeasonSeasonLabelDTO getSeasonLabel()
+  {
+    return (dss.vector.solutions.general.MalariaSeasonSeasonLabelDTO) this.getAttributeStructDTO(SEASONLABEL).getStructDTO();
+  }
+  
+  public boolean isSeasonLabelWritable()
+  {
+    return isWritable(SEASONLABEL);
+  }
+  
+  public boolean isSeasonLabelReadable()
+  {
+    return isReadable(SEASONLABEL);
+  }
+  
+  public boolean isSeasonLabelModified()
+  {
+    return isModified(SEASONLABEL);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO getSeasonLabelMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeLocalCharacterMdDTO) getAttributeDTO(SEASONLABEL).getAttributeMdDTO();
   }
   
   public String getSeasonName()

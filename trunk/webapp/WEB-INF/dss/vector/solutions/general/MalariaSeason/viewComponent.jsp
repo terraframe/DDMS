@@ -19,11 +19,11 @@
     </dd>
     <dt>
       <label>
-        ${item.seasonNameMd.displayLabel}
+        ${item.seasonLabelMd.displayLabel}
       </label>
     </dt>
     <dd>
-      ${item.seasonName}
+      ${item.seasonLabel.value}
     </dd>
     <dt>
       <label>

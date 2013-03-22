@@ -46,43 +46,43 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   /**
    * Max perm size in MB which should be given to tomcat.
    */
-  private static final int MAX_PERM_SIZE    = 256;
+  private static final int    MAX_PERM_SIZE    = 256;
 
   /**
    * Amount of memory in MB to allocate to tomcat per app.
    */
-  private static final int MEMORY_PER_APP   = 768;
+  private static final int    MEMORY_PER_APP   = 768;
 
   /**
    * Maximum amount of memory in MB to give to tomcat for all apps.
    */
-  private static int       MAX_TOTAL_MEMORY = 1350;
-  
-  public static String     ROOT_DIRECTORY = "C:/MDSS";
+  private static int          MAX_TOTAL_MEMORY = 1350;
 
-  public static String     DEFAULT_TOMCAT  = ROOT_DIRECTORY+"/tomcat6/";
+  public static String        ROOT_DIRECTORY   = "C:/MDSS";
 
-  public static String     DEFAULT_MANAGER = ROOT_DIRECTORY+"/manager/";
+  public static String        DEFAULT_TOMCAT   = ROOT_DIRECTORY + "/tomcat6/";
 
-  public static String     DEFAULT_BIRT = ROOT_DIRECTORY+"/birt/";
-  
-  private final static Logger logger = Logger.getLogger(PostInstallSetup.class.getName());
+  public static String        DEFAULT_MANAGER  = ROOT_DIRECTORY + "/manager/";
 
-  private File             appRoot;
+  public static String        DEFAULT_BIRT     = ROOT_DIRECTORY + "/birt/";
 
-  private File             classes;
+  private final static Logger logger           = Logger.getLogger(PostInstallSetup.class.getName());
 
-  private String           appName;
+  private File                appRoot;
 
-  private String           dbName;
+  private File                classes;
 
-  private String           installationNumber;
+  private String              appName;
 
-  private Boolean          isMaster;
+  private String              dbName;
 
-  private String           managerDirectory;
+  private String              installationNumber;
 
-  private String           tomcatDirectory;
+  private Boolean             isMaster;
+
+  private String              managerDirectory;
+
+  private String              tomcatDirectory;
 
   public PostInstallSetup(String appName, String installationNumber, Boolean isMaster)
   {
@@ -112,7 +112,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     this.updateJSPs();
 
     // Add this app to the list in applications.txt
-    logger.info("Adding "+appName+" to applications.txt");
+    logger.info("Adding " + appName + " to applications.txt");
     String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
 
     File applications = new File(this.managerDirectory + "manager-1.0.0/classes/applications.txt");
@@ -125,21 +125,23 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     FileIO.write(applications, appTxt);
     // And give common.properties a unique rmi.port
     logger.info("Setting a unique rmi port in common.properties");
-    //int port = P
+    // int port = P
     this.updateRMI(appCount);
 
     // Update tomcat RAM, each app needs at least 768M inorder to compile the
     // system
     File startup = new File(tomcatDirectory + "/bin/startup.bat");
     int totalMemory = Math.min(MAX_TOTAL_MEMORY, MEMORY_PER_APP * appCount);
-    logger.info("Updating Tomcat RAM in startup.bat to use "+totalMemory+"M");
+    logger.info("Updating Tomcat RAM in startup.bat to use " + totalMemory + "M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
   }
-  
+
   /**
-   * This class ensures that an RMI port is not in use by another DDMS application
-   * and is available at the time of installation. Any changes to this code should
-   * also be made in the backup-manager project in PropertiesAgent.java
+   * This class ensures that an RMI port is not in use by another DDMS
+   * application and is available at the time of installation. Any changes to
+   * this code should also be made in the backup-manager project in
+   * PropertiesAgent.java
+   * 
    * @throws IOException
    */
   private void updateRMI(int appCount)
@@ -149,16 +151,17 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     String lineSeparator = (String) AccessController.doPrivileged(new GetPropertyAction("line.separator"));
     File applications = new File(managerDirectory + "manager-1.0.0/classes/applications.txt");
     String appTxt;
-    
+
     try
     {
       appTxt = FileIO.readString(applications);
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       throw new FileWriteException("Couldn't read application list file", applications, e);
     }
     String[] apps = appTxt.split(lineSeparator);
-    
+
     for (appCount = 0; appCount < apps.length; appCount++)
     {
       String app = apps[appCount];
@@ -167,10 +170,10 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
         break;
       }
     }
-    
+
     List<Integer> usedPorts = null;
     usedPorts = getDDMSPorts();
-    
+
     port -= appCount;
 
     while (usedPorts.contains(port) || !isPortAvailable(port))
@@ -182,7 +185,8 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     try
     {
       editWebappProperty("rmi.port", Integer.toString(port), "common.properties");
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
       throw new FileWriteException("Couldn't write commons.properties file for " + appName, null, e);
     }
@@ -212,10 +216,12 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
         try
         {
           prop.load(new FileInputStream(commonProp));
-        } catch (FileNotFoundException e)
+        }
+        catch (FileNotFoundException e)
         {
           throw new FileReadException("There exists no commons.properties file for " + appName, null, e);
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
           throw new FileReadException("Couldn't read commons.properties file for " + appName, null, e);
         }
@@ -237,9 +243,11 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
       ds = new DatagramSocket(port);
       ds.setReuseAddress(true);
       return true;
-    } catch (IOException e)
+    }
+    catch (IOException e)
     {
-    } finally
+    }
+    finally
     {
       if (ds != null)
       {
@@ -251,7 +259,8 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
         try
         {
           ss.close();
-        } catch (IOException e)
+        }
+        catch (IOException e)
         {
           /* should not be thrown */
         }
@@ -263,7 +272,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
   private void updateJSPs() throws IOException
   {
-    logger.info("Modifying login.jsp to use "+appName+" path");
+    logger.info("Modifying login.jsp to use " + appName + " path");
     String template = "/DDMS/";
     String replacer = "/" + appName + "/";
 
@@ -280,7 +289,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
   public void updateCSS() throws IOException
   {
-    logger.info("Updating style.css paths to images to use "+appName+"/imgs");
+    logger.info("Updating style.css paths to images to use " + appName + "/imgs");
     String template = "/\\w+/imgs/";
     String replacer = "/" + appName + "/imgs/";
 
@@ -290,27 +299,28 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
   private void updateMaxPermSize() throws IOException
   {
-    logger.info("Setting MAX_PERM_SIZE to "+MAX_PERM_SIZE+"M");
+    logger.info("Setting MAX_PERM_SIZE to " + MAX_PERM_SIZE + "M");
     File startup = new File(PostInstallSetup.DEFAULT_TOMCAT + "/bin/startup.bat");
     this.readAndReplace(startup, "-XX:MaxPermSize=\\d*M", "-XX:MaxPermSize=" + MAX_PERM_SIZE + "M");
   }
-  
+
   /**
-   * The executable birt.bat originally pointed to JAVA_HOME to set the
-   * Java path, but that is incorrect because BIRT pays no attention to JAVA_HOME.
+   * The executable birt.bat originally pointed to JAVA_HOME to set the Java
+   * path, but that is incorrect because BIRT pays no attention to JAVA_HOME.
    * Instead set a new PATH value with DDMS's Java bin path.
-   * @throws IOException 
+   * 
+   * @throws IOException
    */
   private void updateBIRTJavaPath() throws IOException
   {
     logger.info("Updating birt.bat to use PATH instead of JAVA_HOME.");
-    File file = new File(PostInstallSetup.DEFAULT_BIRT+"birt.bat");
+    File file = new File(PostInstallSetup.DEFAULT_BIRT + "birt.bat");
     this.readAndReplace(file, "JAVA_HOME=(.*)", "PATH=$1\\\\bin;%PATH%");
   }
 
   private void updateProperties() throws IOException
   {
-    logger.info("Updating property files to use specified AppName ["+appName+"]");
+    logger.info("Updating property files to use specified AppName [" + appName + "]");
     String domain = installationNumber + ".mdss.ivcc.com";
 
     // Update property files
@@ -381,12 +391,12 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     try
     {
       // Set up logging
-      FileHandler logFile = new FileHandler(ROOT_DIRECTORY+"/PostInstallSetup.log");
+      FileHandler logFile = new FileHandler(ROOT_DIRECTORY + "/PostInstallSetup.log");
       SimpleFormatter formatter = new SimpleFormatter();
       logFile.setFormatter(formatter);
       logger.addHandler(logFile);
       logger.setLevel(Level.INFO);
-    
+
       CommandLineParser parser = new PosixParser();
       CommandLine cmd = parser.parse(options, args);
 
@@ -415,7 +425,7 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     {
       HelpFormatter formatter = new HelpFormatter();
       formatter.printHelp("setup", options);
-      
+
       logger.severe(exp.getLocalizedMessage());
       throw new RuntimeException(exp);
     }

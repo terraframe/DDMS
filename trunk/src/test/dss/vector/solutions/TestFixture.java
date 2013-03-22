@@ -366,6 +366,7 @@ public class TestFixture
 
     MalariaSeasonDTO season = new MalariaSeasonDTO(request);
     season.setSeasonName(TestConstants.SEASON_NAME);
+    season.getSeasonLabel().setValue(TestConstants.SEASON_NAME);
     season.setStartDate(startDate);
     season.setEndDate(endDate);
     season.apply();
