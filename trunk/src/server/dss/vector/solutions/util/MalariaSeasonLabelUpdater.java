@@ -2,6 +2,7 @@ package dss.vector.solutions.util;
 
 import java.io.FileNotFoundException;
 
+import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
@@ -15,13 +16,15 @@ import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
 
 public class MalariaSeasonLabelUpdater implements Reloadable, Runnable
-{
+{  
   public void run()
   {
     // Force the cache to boot so it's not included in our timing
     MetadataDAO.get(MdBusinessInfo.CLASS, MdBusinessInfo.CLASS);
 
     MalariaSeasonQuery query = new MalariaSeasonQuery(new QueryFactory());
+    query.WHERE(query.getSiteMaster().EQ(CommonProperties.getDomain()));
+    
     OIterator<? extends MalariaSeason> iterator = query.getIterator();
 
     try
@@ -29,7 +32,7 @@ public class MalariaSeasonLabelUpdater implements Reloadable, Runnable
       while (iterator.hasNext())
       {
         MalariaSeason season = iterator.next();
-
+        
         MalariaSeasonSeasonLabel seasonLabel = season.getSeasonLabel();
         String defaultValue = seasonLabel.getDefaultValue();
 
