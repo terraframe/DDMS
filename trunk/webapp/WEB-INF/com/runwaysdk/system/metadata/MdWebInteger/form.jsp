@@ -5,9 +5,9 @@
 <mjl:component param="mdField" item="${item}">
   <%@include file="../MdWebAttribute/form.jsp" %>
   <mjl:dt attribute="startRange">
-    <mjl:input param="startRange" type="text" />
+    <mjl:input param="startRange" type="text" value="${startRangeFormatted}" />
   </mjl:dt>
   <mjl:dt attribute="endRange">
-    <mjl:input param="endRange" type="text" />
+    <mjl:input param="endRange" type="text" value="${endRangeFormatted}" />
   </mjl:dt>
 </mjl:component>
