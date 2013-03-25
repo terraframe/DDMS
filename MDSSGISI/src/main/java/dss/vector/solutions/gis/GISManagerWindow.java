@@ -1,9 +1,14 @@
 package dss.vector.solutions.gis;
 
+import java.io.InvalidClassException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 
+import net.sf.ehcache.CacheException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.action.ActionContributionItem;
 import org.eclipse.jface.dialogs.MessageDialog;
@@ -34,6 +39,8 @@ import dss.vector.solutions.gis.shapefile.ImportShapefileAction;
 
 public class GISManagerWindow extends ApplicationWindow implements Reloadable
 {
+  private static Log log = LogFactory.getLog(GISManagerWindow.class);
+
   private final class ShutdownRunnable implements IRunnableWithProgress, Reloadable
   {
     @Override
@@ -98,11 +105,15 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
     }
     catch (Throwable e)
     {
-      MessageDialog.openError(this.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
+      this.error(e);
 
-      e.printStackTrace();
-
-      CacheShutdown.shutdown();
+      try
+      {
+        CacheShutdown.shutdown();
+      }
+      catch (Exception e2)
+      {
+      }
 
       System.exit(-1);
     }
@@ -115,6 +126,31 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
     parent.getShell().forceFocus();
 
     return parent;
+  }
+
+  public void error(Throwable throwable)
+  {
+    if (throwable instanceof InvocationTargetException)
+    {
+      throwable = throwable.getCause();
+    }
+
+    if (throwable instanceof CacheException)
+    {
+      if (throwable.getCause() instanceof InvalidClassException)
+      {
+        throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
+      }
+    }
+
+    if (throwable instanceof NoSuchMethodError)
+    {
+      throwable = new RuntimeException(Localizer.getMessage("RUNWAY_VERSION_MISMATCH"), throwable);
+    }
+
+    log.error(this, throwable);
+
+    MessageDialog.openError(this.getShell(), Localizer.getMessage("ERROR_TITLE"), throwable.getLocalizedMessage());
   }
 
   @Request
@@ -190,9 +226,9 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
       IRunnableWithProgress runnable = new ShutdownRunnable();
       dialog.run(true, false, runnable);
     }
-    catch (Exception e)
+    catch (Throwable e)
     {
-      MessageDialog.openError(this.getShell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
+      this.error(e);
 
       return false;
     }
