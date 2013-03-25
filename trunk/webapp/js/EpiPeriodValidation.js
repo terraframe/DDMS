@@ -215,8 +215,8 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
           }
         });
                   
-        var periodValue = parseInt(this._period.value);
-        var yearValue = parseInt(this._year.value);
+        var periodValue = MDSS.parseNumber(this._period.value, true);
+        var yearValue = MDSS.parseNumber(this._year.value, true);
         var selectedType = this._getSelectedEpiType();
 
         Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView.validateSearchCriteria(request, this._geoId.value, selectedType, periodValue, yearValue);    

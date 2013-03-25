@@ -5185,10 +5185,13 @@ var NumberFormat = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'NumberFormat', {
       this._negPrefix = negPrefix;
       this._negSuffix = negSuffix;
       
+      // Escape the separator in case it is a regex character (e.g., period as a wildcard).
+      // Not all regex characters are known, but it should be safe to escape them all
       this._groupingSeparator = groupingSeparator;
-      this._groupingRegex = new RegExp(this._groupingSeparator, 'g');
+      this._groupingRegex = new RegExp('\\'+this._groupingSeparator, 'g');
+      
       this._decimalSeparator = decimalSeparator;
-    
+      
       // Set default digit lengths
       this._minIntegerDigits = 1;
       this._maxIntegerDigits = 40;
@@ -5196,7 +5199,7 @@ var NumberFormat = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'NumberFormat', {
       this._maxFractionDigits = 2;
     },
     
-    parse : function(value) {
+    parse : function(value, integerOnly) {
       
       if(value == null)
       {
@@ -5224,15 +5227,24 @@ var NumberFormat = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'NumberFormat', {
         temp = temp.replace(this._negPrefix, "");
         temp = temp.replace(this._negSuffix, "");
       
-        // Convert the decimal point
-        temp = temp.replace(this._decimalSeparator, ".");
-      
-        // before doing the final parse make sure to remove the grouping
-        // separator so the number isn't truncated (e.g., parseFloat('1,234') === 1).
+        // make sure to remove the grouping separator so the 
+        // number isn't truncated (e.g., parseFloat('1,234') === 1).
         temp = temp.replace(this._groupingRegex, '');
         
-        var number = parseFloat(temp);
-      
+        // Convert the decimal point because javascript parsing
+        // expects an english-based format (e.g., 123.45).
+        temp = temp.replace(this._decimalSeparator, ".");
+        
+        var number;
+        if(integerOnly || temp.indexOf(".") == -1)
+        {
+          number = parseInt(temp);
+        }
+        else
+        {
+          number = parseFloat(temp);
+        }
+        
         if(isNegative) {
           number = number * -1;
         }
@@ -5247,18 +5259,34 @@ var NumberFormat = Mojo.Meta.newClass(Mojo.ROOT_PACKAGE+'NumberFormat', {
     },
     
     format : function(number) {
+      
+      if(Mojo.Util.isString())
+      {
+        // the number is already a string. Nothing to format.
+        return number;
+      }
+      
       var isNegative = (number < 0);
+      var isInteger = number % 1 === 0;
       
       var postiveNumber = (isNegative ? -1 * number : number);
       
-      var value = postiveNumber.toFixed(this._maxFractionDigits);
+      // if the number is an integer or even decimal to not show fractional digits
+      // FIXME this needs to be flagged in a better way because an application might
+      // want to show 123.00 instead of 123 because of significant digits.
+      var value = postiveNumber.toFixed((isInteger ? 0 : this._maxFractionDigits));
+      
+      
+      var core = value.replace(".", this._decimalSeparator);
       
       if(isNegative)
       {
-        return this._negPrefix + value.replace(".", this._decimalSeparator) + this._negSuffix;
+        return this._negPrefix + core + this._negSuffix;
       }
-      
-      return this._posPrefix + value.replace(".", this._decimalSeparator) + this._posSuffix;
+      else
+      {
+        return this._posPrefix + core + this._posSuffix;
+      }
     },
     
     getDecimalSeparator : function() {

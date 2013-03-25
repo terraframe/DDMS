@@ -131,7 +131,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
       var html = '';
       html += '<div style="border: 1px solid black; position: absolute; width: 800px; height: 600px; background-color: white">';
       html += '  <div id="'+this._mainDrag+'" style="cursor: move; height: 30px; width: 100%; border-bottom: 1px solid black;">';
-      html += '    <div id="'+this._mainDrag+'_label" style="float: left; margin: 3px 3px 3px 5px">JS Inspector (Super Ultra Mega Alpha Edition)</div>';
+      html += '    <div id="'+this._mainDrag+'_label" style="float: left; margin: 3px 3px 3px 5px">JS Inspector (Prototype Edition)</div>';
       html += '    <div id="'+this._mainExitId+'" style="cursor: pointer; float: right; width: 20px; height: 20px; border: 1px solid black; text-align: center; margin: 3px 3px">x</div>';
       html += '    <div id="'+this._mainMinId+'" style="cursor: pointer; float: right; width: 20px; height: 20px; border: 1px solid black; text-align: center; margin: 3px 3px">-</div>';
       html += '  </div>';
@@ -228,7 +228,7 @@ Mojo.Meta.newClass('com.runwaysdk.inspector.Inspector', {
     {
       function alertClose()
       {
-        alert("This cannot be closed, only minimized or maximized.\n This is why it's super ultra mega alpha edition.");
+        alert("This cannot be closed, only minimized or maximized.\n This software is in prototype phase.");
       }
     
       var manager = com.runwaysdk.inspector.EventManager.getInstance();

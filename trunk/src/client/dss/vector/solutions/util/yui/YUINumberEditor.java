@@ -4,7 +4,18 @@ import com.runwaysdk.generation.loader.Reloadable;
 
 public class YUINumberEditor extends YUITextEditor implements Reloadable
 {
-
+  private boolean isDecimal;
+  
+  public YUINumberEditor(boolean isDecimal)
+  {
+    this.isDecimal = isDecimal;
+  }
+  
+  public boolean isDecimal()
+  {
+    return isDecimal;
+  }
+  
   @Override
   public String getType()
   {

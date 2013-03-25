@@ -47,10 +47,17 @@ public class WebIntegerBuilder extends WebPrimitiveBuilder implements Reloadable
     MdWebInteger mdWebInteger = this.getMdField();
     
     String start = mdWebInteger.getStartRange();
-    mdAttributeInteger.setStartRange(f.parse(start, locale));
+    Integer startVal = f.parse(start, locale);
+    mdAttributeInteger.setStartRange(startVal);
 
+    
     String end = mdWebInteger.getEndRange();
-    mdAttributeInteger.setEndRange(f.parse(end, locale));
+    Integer endVal = f.parse(end, locale);
+    mdAttributeInteger.setEndRange(endVal);
+    
+    // reset the string values to store as English locale
+    mdWebInteger.setStartRange(f.format(startVal, Locale.ENGLISH));
+    mdWebInteger.setEndRange(f.format(endVal, Locale.ENGLISH));
 
     super.updateMdAttribute(mdAttributeInteger);
   }

@@ -45,6 +45,9 @@
 	    <c:when test="${isBool}">
 	      <mjl:boolean param="value" />
 	    </c:when>
+	    <c:when test="${isNumber}">
+	      <mjl:input type="text" param="value" value="${conditionValue}" id="${condition.id}_value" /> 
+	    </c:when>
 	    <c:otherwise>
 	      <mjl:input type="text" param="value" value="${condition.value}" id="${condition.id}_value" /> 
 	    </c:otherwise>

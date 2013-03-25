@@ -1,9 +1,11 @@
 package dss.vector.solutions.form;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +14,8 @@ import com.runwaysdk.business.BusinessDTO;
 import com.runwaysdk.business.ComponentDTOFacade;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.constants.TypeGeneratorInfo;
+import com.runwaysdk.format.AbstractFormatFactory;
+import com.runwaysdk.format.Format;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.CharacterConditionDTO;
 import com.runwaysdk.system.metadata.DateConditionDTO;
@@ -34,6 +38,7 @@ import com.runwaysdk.system.metadata.MdWebGeoDTO;
 import com.runwaysdk.system.metadata.MdWebIntegerDTO;
 import com.runwaysdk.system.metadata.MdWebLongDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
+import com.runwaysdk.system.metadata.MdWebNumberDTO;
 import com.runwaysdk.system.metadata.MdWebPrimitiveDTO;
 import com.runwaysdk.system.metadata.MdWebSingleTermDTO;
 import com.runwaysdk.system.metadata.MdWebTextDTO;
@@ -231,6 +236,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
         this.req.setAttribute("universals", universals);
         this.req.setAttribute("selected", new LinkedList<String>());
       }
+      else if(dto instanceof MdWebNumberDTO)
+      {
+        formatRanges((MdWebNumberDTO)dto);
+      }
 
       // forward to the namespaced jsp
       this.forwardToFieldPage(mdFieldType, "createComponent.jsp");
@@ -297,6 +306,45 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
       ErrorUtility.prepareAjaxThrowable(t, resp);
     }
   }
+  
+  private void formatRanges(MdWebNumberDTO mdField)
+  {
+    Class<? extends Number> clazz = null;
+    if(mdField instanceof MdWebIntegerDTO)
+    {
+      clazz = Integer.class;
+    }
+    else if(mdField instanceof MdWebLongDTO)
+    {
+      clazz = Long.class;
+    }
+    else if(mdField instanceof MdWebDoubleDTO)
+    {
+      clazz = Double.class;
+    }
+    else if(mdField instanceof MdWebDecimalDTO)
+    {
+      clazz = BigDecimal.class;
+    }
+    else if(mdField instanceof MdWebFloatDTO)
+    {
+      clazz = Float.class;
+    }
+    
+    Locale locale = req.getLocale();
+    Format<?> format = AbstractFormatFactory.getFormatFactory().getFormat(clazz);
+    
+    // first convert the range into the type-safe object then back into a formatted string.
+    // The ranges are stored in the English locale so convert from there before displaying
+    // to the user's locale.
+    String start = mdField.getStartRange();
+    Object parsed = format.parse(start, Locale.ENGLISH);
+    req.setAttribute("startRangeFormatted", format.display(parsed, locale));
+    
+    String end = mdField.getEndRange();
+    parsed = format.parse(end, Locale.ENGLISH);
+    req.setAttribute("endRangeFormatted", format.display(parsed, locale));
+  }
 
   @Override
   public void editMdField(String mdFieldId, Boolean isComposite) throws IOException, ServletException
@@ -332,6 +380,10 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
         this.req.setAttribute("geoField", geoField);
         this.req.setAttribute("universals", universals);
         this.req.setAttribute("selected", selected);
+      }
+      else if(dto instanceof MdWebNumberDTO)
+      {
+        formatRanges((MdWebNumberDTO)dto);
       }
 
       this.req.setAttribute("item", dto);
@@ -725,6 +777,32 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     MdFieldDTO mdField = MdFieldDTO.get(condition.getRequest(), condition.getValue(CharacterConditionDTO.DEFININGMDFIELD));
     prepareConditionView(req, condition, mdField);
   }
+  
+  /**
+   * Formats the value on the condition if it contains a number. Request parameters are set for use in EL.
+   * 
+   * @param cond
+   */
+  public static void formatNumberCondition(HttpServletRequest req, FieldConditionDTO condition)
+  {
+    boolean isNumber = false;
+    if(condition instanceof DoubleConditionDTO)
+    {
+      Double value = ((DoubleConditionDTO)condition).getValue();
+      String formatted = AbstractFormatFactory.getFormatFactory().getFormat(Double.class).format(value, req.getLocale());
+      req.setAttribute("conditionValue", formatted);
+      isNumber = true;
+    }
+    else if(condition instanceof LongConditionDTO)
+    {
+      Long value = ((LongConditionDTO)condition).getValue();
+      String formatted = AbstractFormatFactory.getFormatFactory().getFormat(Long.class).format(value, req.getLocale());
+      req.setAttribute("conditionValue", formatted);
+      isNumber = true;
+    }
+    
+    req.setAttribute("isNumber", isNumber);
+  }
 
   /**
    * Prepares the request with the proper condition information.
@@ -749,6 +827,8 @@ public class MdFormAdminController extends MdFormAdminControllerBase implements 
     req.setAttribute("definingMdFieldDisplay", mdField.toString());
     req.setAttribute("definingMdField", mdField.getId());
 
+    formatNumberCondition(req, condition);
+    
     boolean isBool = false;
     if (mdField instanceof MdWebBooleanDTO)
     {

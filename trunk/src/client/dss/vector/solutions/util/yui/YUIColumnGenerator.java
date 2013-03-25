@@ -89,11 +89,27 @@ public class YUIColumnGenerator implements Reloadable
 
   private String generateFormatter()
   {
-    if (column.getEditor() instanceof YUIDateEditor)
+    YUIEditor editor = column.getEditor();
+    
+    if (editor instanceof YUIDateEditor)
     {
       return "formatter:YAHOO.widget.DataTable.formatDate";
     }
-
+    // provide a formatter for the read-only view of numbers. Editable 
+    // columns already localize their numbers but we must do this manually
+    // with a formatter for viewing (non-editable) grids.
+    else if(!column.isEditable() && editor instanceof YUINumberEditor)
+    {
+      if(((YUINumberEditor)editor).isDecimal())
+      {
+        return "formatter: MDSS.NumberCellFormatter.formatDecimal";
+      }
+      else
+      {
+        return "formatter: MDSS.NumberCellFormatter.formatInteger";
+      }
+    }
+    
     return null;
   }
 

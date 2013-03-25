@@ -36,7 +36,7 @@ public class WebLongBuilder extends WebPrimitiveBuilder implements Reloadable
   {
     return (MdWebLong) super.getMdField();
   }
-
+  
   @Override
   protected void updateMdAttribute(MdAttributeConcrete mdAttribute)
   {
@@ -47,11 +47,18 @@ public class WebLongBuilder extends WebPrimitiveBuilder implements Reloadable
     MdWebLong mdWebLong = this.getMdField();
 
     String start = mdWebLong.getStartRange();
-    mdAttributeLong.setStartRange(f.parse(start, locale));
+    Long startVal = f.parse(start, locale);
+    
+    mdAttributeLong.setStartRange(startVal);
 
     String end = mdWebLong.getEndRange();
-    mdAttributeLong.setEndRange(f.parse(end, locale));
+    Long endVal = f.parse(end, locale);
+    mdAttributeLong.setEndRange(endVal);
 
+    // reset the string values to store as English locale
+    mdWebLong.setStartRange(f.format(startVal, Locale.ENGLISH));
+    mdWebLong.setEndRange(f.format(endVal, Locale.ENGLISH));
+    
     super.updateMdAttribute(mdAttributeLong);
   }
 }

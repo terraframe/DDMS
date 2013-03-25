@@ -50,10 +50,16 @@ public class WebDoubleBuilder extends WebPrimitiveBuilder implements Reloadable
     mdAttributeDouble.setDatabaseDecimal(mdWebDouble.getDecScale());
 
     String start = mdWebDouble.getStartRange();
-    mdAttributeDouble.setStartRange(f.parse(start, locale));
+    Double startVal = f.parse(start, locale);
+    mdAttributeDouble.setStartRange(startVal);
 
     String end = mdWebDouble.getEndRange();
-    mdAttributeDouble.setEndRange(f.parse(end, locale));
+    Double endVal = f.parse(end, locale);
+    mdAttributeDouble.setEndRange(endVal);
+    
+    // reset the string values to store as English locale
+    mdWebDouble.setStartRange(f.format(startVal, Locale.ENGLISH));
+    mdWebDouble.setEndRange(f.format(endVal, Locale.ENGLISH));
 
     super.updateMdAttribute(mdAttributeDouble);
   }

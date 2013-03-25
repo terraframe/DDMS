@@ -52,10 +52,16 @@ public class WebDecimalBuilder extends WebPrimitiveBuilder implements Reloadable
     mdAttributeDecimal.setDatabaseDecimal(mdWebDecimal.getDecScale());
 
     String start = mdWebDecimal.getStartRange();
-    mdAttributeDecimal.setStartRange(f.parse(start, locale));
+    BigDecimal startVal = f.parse(start, locale);
+    mdAttributeDecimal.setStartRange(startVal);
 
     String end = mdWebDecimal.getEndRange();
-    mdAttributeDecimal.setEndRange(f.parse(end, locale));
+    BigDecimal endVal = f.parse(end, locale);
+    mdAttributeDecimal.setEndRange(endVal);
+    
+    // reset the string values to store as English locale
+    mdWebDecimal.setStartRange(f.format(startVal, Locale.ENGLISH));
+    mdWebDecimal.setEndRange(f.format(endVal, Locale.ENGLISH));
 
     super.updateMdAttribute(mdAttribute);
   }

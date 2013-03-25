@@ -323,12 +323,13 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
     // FUNCTION FOR CALCULATING THE TOTAL OF A GIVEN ROW
     calculateTotal = function(record){
-      var females = parseInt(record.getData('Female'), 10) || 0;
-      var males = parseInt(record.getData('Male'), 10)  || 0;
-      var larvae = parseInt(record.getData('Larvae'), 10)  || 0;
-      var pupae = parseInt(record.getData('Pupae'), 10)  || 0;
-      var unknowns = parseInt(record.getData('Unknowns'), 10)  || 0;
-      var eggs = parseInt(record.getData('Eggs'), 10)  || 0;
+      
+      var females = MDSS.parseNumber(record.getData('Female'), true) || 0;
+      var males = MDSS.parseNumber(record.getData('Male'), true)  || 0;
+      var larvae = MDSS.parseNumber(record.getData('Larvae'), true)  || 0;
+      var pupae = MDSS.parseNumber(record.getData('Pupae'), true)  || 0;
+      var unknowns = MDSS.parseNumber(record.getData('Unknowns'), true)  || 0;
+      var eggs = MDSS.parseNumber(record.getData('Eggs'), true)  || 0;
       
       return males + females + larvae + pupae + unknowns + eggs;
     }

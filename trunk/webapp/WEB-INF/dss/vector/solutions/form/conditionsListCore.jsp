@@ -1,3 +1,6 @@
+<%@page import="com.runwaysdk.format.AbstractFormatFactory"%>
+<%@page import="com.runwaysdk.system.metadata.DoubleConditionDTO"%>
+<%@page import="com.runwaysdk.form.web.condition.DoubleCondition"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -18,7 +21,8 @@
 <%@page import="com.runwaysdk.system.metadata.MdWebMultipleTermDTO"%>
 
 <%@page import="com.runwaysdk.constants.MdWebSingleTermInfo"%>
-<%@page import="com.runwaysdk.system.metadata.MdWebGeoDTO"%><c:forEach items="${conditions}" var="condition">
+<%@page import="com.runwaysdk.system.metadata.MdWebGeoDTO"%>
+<c:forEach items="${conditions}" var="condition">
 <c:set value="${condition}" scope="request" var="condition"></c:set>
 <%
   try
@@ -53,6 +57,9 @@
       </c:when>
       <c:when test="${geoDisplayLabel != null}">
         <span id="${condition.id}_value">${geoDisplayLabel}</span>
+      </c:when>
+      <c:when test="${isNumber}">
+        <span id="${condition.id}_value">${conditionValue}</span>
       </c:when>
       <c:otherwise>
         <span id="${condition.id}_value">${condition.value}</span>

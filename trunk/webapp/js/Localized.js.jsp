@@ -101,25 +101,25 @@ MDSS.getParser = function() {
   }
 }
 
-MDSS.parse = function(parser, number) { 
+MDSS.parse = function(parser, number, intOnly) { 
   if(parser == null) {
     return parseFloat(number);
   }
   
   try {
-    return parser.parse(number); 
+    return parser.parse(number, intOnly); 
   }
   catch(exception) {
     return NaN;
   }
 }
 
-MDSS.format = function(formatter, number) { 
+MDSS.format = function(formatter, number, intOnly) { 
   if(formatter == null) {
     return number.toFixed(MDSS.FLOAT_PRECISION);
   }
   
-  var _number = formatter.format(number);
+  var _number = formatter.format(number, intOnly);
 
   return _number;
 }

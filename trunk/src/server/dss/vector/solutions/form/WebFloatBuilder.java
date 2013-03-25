@@ -51,10 +51,16 @@ public class WebFloatBuilder extends WebPrimitiveBuilder implements Reloadable
     mdAttributeFloat.setDatabaseDecimal(mdWebFloat.getDecScale());
 
     String start = mdWebFloat.getStartRange();
-    mdAttributeFloat.setStartRange(f.parse(start, locale));
+    Float startVal = f.parse(start, locale);
+    mdAttributeFloat.setStartRange(startVal);
 
     String end = mdWebFloat.getEndRange();
-    mdAttributeFloat.setEndRange(f.parse(end, locale));
+    Float endVal = f.parse(end, locale);
+    mdAttributeFloat.setEndRange(endVal);
+    
+    // reset the string values to store as English locale
+    mdWebFloat.setStartRange(f.format(startVal, Locale.ENGLISH));
+    mdWebFloat.setEndRange(f.format(endVal, Locale.ENGLISH));
 
     super.updateMdAttribute(mdAttributeFloat);
   }

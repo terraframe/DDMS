@@ -7,6 +7,7 @@ import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.transport.metadata.AttributeBooleanMdDTO;
 import com.runwaysdk.transport.metadata.AttributeDateMdDTO;
+import com.runwaysdk.transport.metadata.AttributeDecMdDTO;
 import com.runwaysdk.transport.metadata.AttributeEnumerationMdDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
 import com.runwaysdk.transport.metadata.AttributeNumberMdDTO;
@@ -50,7 +51,8 @@ public abstract class YUIEditor implements Reloadable
     }
     else if (attribute instanceof AttributeNumberMdDTO)
     {
-      return new YUINumberEditor();
+      boolean isDecimal = attribute instanceof AttributeDecMdDTO;
+      return new YUINumberEditor(isDecimal);
     }
     else if (attribute instanceof AttributeEnumerationMdDTO)
     {

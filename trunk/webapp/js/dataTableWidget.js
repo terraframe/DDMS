@@ -51,6 +51,29 @@ Mojo.Meta.newClass('MDSS.CellValidator', {
   }
 });
 
+Mojo.Meta.newClass('MDSS.NumberCellFormatter', {
+  Static: {
+    formatInteger : function(elLiner, oRecord, oColumn, oData){
+      if(Mojo.Util.isValid(oData))
+      {
+        // the value is coming in not-localized so use parseInt
+        var parsed = parseInt(oData);
+        var formatted = MDSS.formatNumber(parsed, true);
+        elLiner.innerHTML = formatted;
+      }
+    },
+    formatDecimal : function(elLiner, oRecord, oColumn, oData){
+      if(Mojo.Util.isValid(oData))
+      {
+        // the value is coming in not-localized so use parseFloat
+        var parsed = parseFloat(oData);
+        var formatted = MDSS.formatNumber(parsed);
+        elLiner.innerHTML = formatted;
+      }
+    }
+  }
+});
+
 
 Mojo.Meta.newClass('MDSS.ModelMetadata', {
   Instance : {
