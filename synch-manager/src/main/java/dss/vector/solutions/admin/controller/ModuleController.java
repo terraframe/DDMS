@@ -2,6 +2,7 @@ package dss.vector.solutions.admin.controller;
 
 import java.io.File;
 
+import com.runwaysdk.business.generation.LoaderDecoratorException;
 import com.runwaysdk.constants.LocalProperties;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.LoaderDecorator;
@@ -115,7 +116,7 @@ public class ModuleController implements IModuleController
   {
     IConfiguration configuration = this.module.getConfiguration();
 
-    if (configuration != null && configuration instanceof SlaveConfiguration)
+    if (configuration != null && configuration instanceof DependentConfiguration)
     {
       try
       {
@@ -167,5 +168,31 @@ public class ModuleController implements IModuleController
     }
 
     return false;
+  }
+
+  @Request
+  public void updateSeasonLabels()
+  {
+    try
+    {
+      Class<?> clazz = LoaderDecorator.load("dss.vector.solutions.util.MalariaSeasonLabelUpdater");
+
+      if (clazz != null)
+      {
+        Runnable runnable = (Runnable) clazz.newInstance();
+        runnable.run();
+      }
+    }
+    catch (LoaderDecoratorException e)
+    {
+      // Do nothing: The MalariaSeasonLabelUpdater class doesn't exist yet which
+      // means the dependent node has yet to synch with the metadata definition
+      // for the MalraiaSeason.seasonLabel attribute. As such there is nothing
+      // to update.
+    }
+    catch (Exception e)
+    {
+      module.asyncError(e);
+    }
   }
 }

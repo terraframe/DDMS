@@ -19,7 +19,7 @@ import com.runwaysdk.manager.general.MainWindow;
 
 import dss.vector.solutions.admin.controller.MasterConfiguration;
 import dss.vector.solutions.admin.controller.PropertyReader;
-import dss.vector.solutions.admin.controller.SlaveConfiguration;
+import dss.vector.solutions.admin.controller.DependentConfiguration;
 
 public class SynchronziationManagerLauncher
 {
@@ -111,7 +111,7 @@ public class SynchronziationManagerLauncher
       {
         String shellText = arguments.getAppName() + " " + Localizer.getMessage("APPLICATION_NAME");
 
-        IConfiguration configuration = new SlaveConfiguration(shellText);
+        IConfiguration configuration = new DependentConfiguration(shellText);
 
         if (isMaster(arguments.getProperties()))
         {

@@ -70,6 +70,8 @@ public class MDSSModule implements IModule, IPropertyListener
     {
       rebuildAllPathTables();
 
+      updateSeasonLabels();
+
       updateCSS();
     }
   }
@@ -324,6 +326,11 @@ public class MDSSModule implements IModule, IPropertyListener
     {
       this.error(e.getLocalizedMessage());
     }
+  }
+
+  private void updateSeasonLabels()
+  {
+    this.controller.updateSeasonLabels();
   }
 
 }

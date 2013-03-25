@@ -6,17 +6,16 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import com.runwaysdk.constants.DeployProperties;
-import com.runwaysdk.manager.controller.ConfigurationAdapter;
 
-public class SlaveConfiguration extends ConfigurationAdapter
+public class DependentConfiguration extends ErrorConfiguration
 {
   private String shellText;
 
-  public SlaveConfiguration(String shellText)
+  public DependentConfiguration(String shellText)
   {
     this.shellText = shellText;
   }
-  
+
   @Override
   public String getShellText()
   {
