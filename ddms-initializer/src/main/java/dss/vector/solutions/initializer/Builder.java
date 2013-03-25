@@ -113,6 +113,8 @@ public class Builder implements Reloadable
       log.error(this, throwable);
 
       MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), throwable.getLocalizedMessage());
+
+      System.exit(-1);
     }
   }
 
