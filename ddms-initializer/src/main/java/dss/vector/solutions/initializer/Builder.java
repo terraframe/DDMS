@@ -1,7 +1,12 @@
 package dss.vector.solutions.initializer;
 
+import java.io.InvalidClassException;
 import java.lang.reflect.InvocationTargetException;
 
+import net.sf.ehcache.CacheException;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.jface.dialogs.MessageDialog;
 import org.eclipse.jface.dialogs.ProgressMonitorDialog;
@@ -22,6 +27,8 @@ import dss.vector.solutions.ontology.AllPaths;
 
 public class Builder implements Reloadable
 {
+  private static Log log = LogFactory.getLog(Builder.class);
+
   private final class RebuildRunnable implements IRunnableWithProgress, Reloadable
   {
     @Override
@@ -81,16 +88,32 @@ public class Builder implements Reloadable
       IRunnableWithProgress progress = new RebuildRunnable();
       dialog.run(true, false, progress);
     }
-    catch (InvocationTargetException e)
-    {
-      MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), e.getCause().getLocalizedMessage());
-    }
     catch (Exception e)
     {
-      MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), e.getLocalizedMessage());
-    }
+      Throwable throwable = e;
 
-    System.exit(0);
+      if (throwable instanceof InvocationTargetException)
+      {
+        throwable = throwable.getCause();
+      }
+
+      if (throwable instanceof CacheException)
+      {
+        if (throwable.getCause() instanceof InvalidClassException)
+        {
+          throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
+        }
+      }
+
+      if (throwable instanceof NoSuchMethodError)
+      {
+        throwable = new RuntimeException(Localizer.getMessage("RUNWAY_VERSION_MISMATCH"), throwable);
+      }
+
+      log.error(this, throwable);
+
+      MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), throwable.getLocalizedMessage());
+    }
   }
 
   @Request
