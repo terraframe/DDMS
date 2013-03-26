@@ -90,6 +90,8 @@ public class Builder implements Reloadable
     }
     catch (Exception e)
     {
+      int errorCode = -1;
+
       Throwable throwable = e;
 
       if (throwable instanceof InvocationTargetException)
@@ -102,19 +104,21 @@ public class Builder implements Reloadable
         if (throwable.getCause() instanceof InvalidClassException)
         {
           throwable = new RuntimeException(Localizer.getMessage("CACHE_MISMATCH"), throwable);
+          errorCode = 0;
         }
       }
 
       if (throwable instanceof NoSuchMethodError)
       {
         throwable = new RuntimeException(Localizer.getMessage("RUNWAY_VERSION_MISMATCH"), throwable);
+        errorCode = 0;
       }
 
       log.error(this, throwable);
 
       MessageDialog.openError(new Shell(), Localizer.getMessage("ERROR_TITLE"), throwable.getLocalizedMessage());
 
-      System.exit(-1);
+      System.exit(errorCode);
     }
   }
 
