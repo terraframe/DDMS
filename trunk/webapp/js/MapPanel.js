@@ -639,6 +639,12 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
     {
       params['layer.savedSearch'] = params['layer.savedSearch'][0];
       params['layer.legendColor'] = params['layer.legendColor'][0];
+      
+      var opacityNum = parseFloat(params['layer.opacity']);
+      params['layer.opacity'] = MDSS.formatNumber(opacityNum);
+      
+      var goodness = parseFloat(params['styles.goodnessOfFit']);
+      params['styles.goodnessOfFit'] = MDSS.formatNumber(goodness);      
     },
     
     /**
@@ -666,7 +672,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       this._convertRefSelectParams(params);
       
       params['savedMapId'] = MDSS.MapPanel.getCurrentMap();
-    
+      
       var request = new MDSS.Request({
         isNew : (params['layer.isNew'] === 'true'),
         that : this,
@@ -1744,7 +1750,8 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
       bg=attribute+"SliderBG", thumb=attribute+"Thumb", 
       textfield=attribute+"Converted"
 
-      var value = config.getValue(document.getElementById(attribute).value);
+      var valueStr = document.getElementById(attribute).value;
+      var value = config.getValue(valueStr);
     
       var slider = YAHOO.widget.Slider.getHorizSlider(bg, 
                            thumb, config.start, config.end, config.increment);
