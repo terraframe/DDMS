@@ -105,6 +105,11 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
     }
     catch (Throwable e)
     {
+      /*
+       * Close the splash before showing the error
+       */
+      splash.close();
+
       this.error(e);
 
       try
@@ -119,7 +124,10 @@ public class GISManagerWindow extends ApplicationWindow implements Reloadable
     }
     finally
     {
-      splash.close();
+      if (!splash.isDisposed())
+      {
+        splash.close();
+      }
     }
 
     // Bring this shell to the front
