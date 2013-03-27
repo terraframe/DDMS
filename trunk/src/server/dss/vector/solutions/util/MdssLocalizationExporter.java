@@ -578,7 +578,7 @@ public class MdssLocalizationExporter implements Reloadable
 
   private boolean isAttributeSheet(HSSFSheet sheet)
   {
-    return sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet);
+    return sheet.equals(labelSheet) || sheet.equals(termSheet) || sheet.equals(entityLabelSheet) || sheet.equals(exceptionSheet) || sheet.equals(descriptionSheet) || sheet.equals(localPropertySheet) || sheet.equals(malariaSeasonSheet);
   }
 
   private boolean isIgnoreDimensions(HSSFSheet sheet)
