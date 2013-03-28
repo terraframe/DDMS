@@ -1,5 +1,6 @@
 package dss.vector.solutions.localization;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -9,6 +10,7 @@ import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.session.LocaleManager;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.util.LocaleDimension;
@@ -117,25 +119,30 @@ public class MultiBundle implements Reloadable
     {
       if (Singleton.INSTANCE.loadKeySet || Singleton.INSTANCE.masterKeySet.size() == 0)
       {
-        String locale = Session.getCurrentLocale().toString();
-        MdDimensionDAOIF dimension = Session.getCurrentDimension();
-        LocaleDimension ld = new LocaleDimension(locale, dimension);
+        Collection<Locale> locales = LocaleManager.getSupportedLocales();
 
-        while (ld != null)
+        for (Locale locale : locales)
         {
-          Bundle bundle = getBundle(ld);
+          MdDimensionDAOIF dimension = Session.getCurrentDimension();
+          LocaleDimension ld = new LocaleDimension(locale.toString(), dimension);
 
-          Singleton.INSTANCE.masterKeySet.addAll(bundle.getKeySet());
-
-          // This moves us up the bundle chain
-          ld = ld.getParent();
-
-          if (ld == null && dimension != null)
+          while (ld != null)
           {
-            // If dimension-specific bundles fail, start the loop over with the
-            // generic bundles
-            ld = new LocaleDimension(locale);
-            dimension = null;
+            Bundle bundle = getBundle(ld);
+
+            Singleton.INSTANCE.masterKeySet.addAll(bundle.getKeySet());
+
+            // This moves us up the bundle chain
+            ld = ld.getParent();
+
+            if (ld == null && dimension != null)
+            {
+              // If dimension-specific bundles fail, start the loop over with
+              // the
+              // generic bundles
+              ld = new LocaleDimension(locale.toString());
+              dimension = null;
+            }
           }
         }
 
