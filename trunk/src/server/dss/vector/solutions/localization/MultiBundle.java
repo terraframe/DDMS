@@ -1,8 +1,6 @@
 package dss.vector.solutions.localization;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -10,9 +8,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
-import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.session.LocaleManager;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.util.LocaleDimension;
@@ -21,17 +17,11 @@ public class MultiBundle implements Reloadable
 {
   private Map<String, Bundle> bundles;
 
-  private Set<String>         masterKeySet;
-
-  private boolean             loadKeySet;
-
   public static String        BUNDLE_NAME = "MDSS";
 
   private MultiBundle()
   {
     this.bundles = new HashMap<String, Bundle>();
-    this.masterKeySet = new TreeSet<String>();
-    this.loadKeySet = true;
   }
 
   /**
@@ -98,16 +88,18 @@ public class MultiBundle implements Reloadable
   {
     synchronized (Singleton.INSTANCE)
     {
-      MultiBundle.loadMasterKeySet();
+      Set<String> keySet = MultiBundle.getKeySet();
 
       String locale = Session.getCurrentLocale().toString();
       MdDimensionDAOIF dimension = Session.getCurrentDimension();
       LocaleDimension ld = new LocaleDimension(locale, dimension);
 
       Map<String, String> map = new TreeMap<String, String>();
-      for (String key : Singleton.INSTANCE.masterKeySet)
+      
+      for (String key : keySet)
       {
         String value = smartGet(key, locale, dimension, ld);
+        
         map.put(key, value);
       }
 
@@ -115,45 +107,35 @@ public class MultiBundle implements Reloadable
     }
   }
 
-  private static void loadMasterKeySet()
+  private static Set<String> getKeySet()
   {
     synchronized (Singleton.INSTANCE)
     {
-      if (Singleton.INSTANCE.loadKeySet || Singleton.INSTANCE.masterKeySet.size() == 0)
+      Set<String> keySet = new TreeSet<String>();
+
+      String locale = Session.getCurrentLocale().toString();
+      MdDimensionDAOIF dimension = Session.getCurrentDimension();
+      LocaleDimension ld = new LocaleDimension(locale, dimension);
+
+      while (ld != null)
       {
-        Collection<Locale> locales = LocaleManager.getSupportedLocales();
+        Bundle bundle = getBundle(ld);
 
-        for (Locale locale : locales)
+        keySet.addAll(bundle.getKeySet());
+
+        // This moves us up the bundle chain
+        ld = ld.getParent();
+
+        if (ld == null && dimension != null)
         {
-          List<MdDimensionDAOIF> dimensions = MdDimensionDAO.getAllMdDimensions();
-
-          for (MdDimensionDAOIF dimension : dimensions)
-          {
-            LocaleDimension ld = new LocaleDimension(locale.toString(), dimension);
-
-            while (ld != null)
-            {
-              Bundle bundle = getBundle(ld);
-
-              Singleton.INSTANCE.masterKeySet.addAll(bundle.getKeySet());
-
-              // This moves us up the bundle chain
-              ld = ld.getParent();
-
-              if (ld == null && dimension != null)
-              {
-                // If dimension-specific bundles fail, start the loop over with
-                // the
-                // generic bundles
-                ld = new LocaleDimension(locale.toString());
-                dimension = null;
-              }
-            }
-          }
+          // If dimension-specific bundles fail, start the loop over with the
+          // generic bundles
+          ld = new LocaleDimension(locale);
+          dimension = null;
         }
-
-        Singleton.INSTANCE.loadKeySet = false;
       }
+
+      return keySet;
     }
   }
 
@@ -204,8 +186,6 @@ public class MultiBundle implements Reloadable
     synchronized (Singleton.INSTANCE)
     {
       Singleton.INSTANCE.bundles.clear();
-      Singleton.INSTANCE.masterKeySet.clear();
-      Singleton.INSTANCE.loadKeySet = true;
     }
   }
 }
