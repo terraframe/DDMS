@@ -2,6 +2,7 @@ package dss.vector.solutions.localization;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
@@ -9,6 +10,7 @@ import java.util.TreeMap;
 import java.util.TreeSet;
 
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.session.LocaleManager;
 import com.runwaysdk.session.Session;
@@ -123,25 +125,29 @@ public class MultiBundle implements Reloadable
 
         for (Locale locale : locales)
         {
-          MdDimensionDAOIF dimension = Session.getCurrentDimension();
-          LocaleDimension ld = new LocaleDimension(locale.toString(), dimension);
+          List<MdDimensionDAOIF> dimensions = MdDimensionDAO.getAllMdDimensions();
 
-          while (ld != null)
+          for (MdDimensionDAOIF dimension : dimensions)
           {
-            Bundle bundle = getBundle(ld);
+            LocaleDimension ld = new LocaleDimension(locale.toString(), dimension);
 
-            Singleton.INSTANCE.masterKeySet.addAll(bundle.getKeySet());
-
-            // This moves us up the bundle chain
-            ld = ld.getParent();
-
-            if (ld == null && dimension != null)
+            while (ld != null)
             {
-              // If dimension-specific bundles fail, start the loop over with
-              // the
-              // generic bundles
-              ld = new LocaleDimension(locale.toString());
-              dimension = null;
+              Bundle bundle = getBundle(ld);
+
+              Singleton.INSTANCE.masterKeySet.addAll(bundle.getKeySet());
+
+              // This moves us up the bundle chain
+              ld = ld.getParent();
+
+              if (ld == null && dimension != null)
+              {
+                // If dimension-specific bundles fail, start the loop over with
+                // the
+                // generic bundles
+                ld = new LocaleDimension(locale.toString());
+                dimension = null;
+              }
             }
           }
         }
