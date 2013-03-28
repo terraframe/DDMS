@@ -115,7 +115,7 @@ public class MultiBundle implements Reloadable
   {
     synchronized (Singleton.INSTANCE)
     {
-      if (Singleton.INSTANCE.loadKeySet)
+      if (Singleton.INSTANCE.loadKeySet || Singleton.INSTANCE.masterKeySet.size() == 0)
       {
         String locale = Session.getCurrentLocale().toString();
         MdDimensionDAOIF dimension = Session.getCurrentDimension();
@@ -192,6 +192,7 @@ public class MultiBundle implements Reloadable
     {
       Singleton.INSTANCE.bundles.clear();
       Singleton.INSTANCE.masterKeySet.clear();
+      Singleton.INSTANCE.loadKeySet = true;
     }
   }
 }
