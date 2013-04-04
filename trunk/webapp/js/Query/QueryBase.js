@@ -19,6 +19,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
         executeQuery: this.executeQuery,
         saveQuery: this.saveQuery,
         saveQueryAs: this.saveQueryAs,
+        getDBViewName : this.getDBViewName,
         loadQuery: this.loadQuery,
         exportXLS : this.exportXLS,
         exportCSV : this.exportCSV,
@@ -1035,6 +1036,21 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       controller.newQuery(request);
     },
+    
+    getDBViewName : function()
+    {
+      var savedSearchView = this._queryPanel.getCurrentSavedSearch();
+      var savedSearchId = (savedSearchView != null ? savedSearchView.getSavedQueryId() : "");
+     
+      var that = this;
+      var request = new MDSS.Request({
+        onSuccess : function(viewName){
+          that._createModal(viewName, MDSS.localize('get_db_view_name'), 200, true);
+        }
+      });
+      
+      Mojo.$.dss.vector.solutions.query.SavedSearch.getDatabaseViewName(request, savedSearchId);
+    },
   
     /**
      * Saves the current state of the query.
@@ -1488,16 +1504,28 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
      * Creates a modal with the given HTML as its body and the given title
      * as the modal title, wrapped in an H3.
      */
-    _createModal : function(html, title, useLarge)
+    _createModal : function(html, title, useLarge, allowClose)
     {
       var executable = MDSS.util.extractScripts(html);
       var html = MDSS.util.removeScripts(html);
   
+      var custom = false;
+      var height = '400px';
+      if(Mojo.Util.isBoolean(useLarge))
+      {
+        height = '530px';
+      }
+      else if(Mojo.Util.isNumber(useLarge))
+      {
+        height = useLarge + 'px';
+        custom = true;
+      }
+      
       var modal = new YAHOO.widget.Panel("editQuery", {
         width:"400px",
-        height: useLarge ? "530px" : "400px",
+        height: height,
         fixedcenter:true,
-        close: false,
+        close: allowClose || false,
         draggable:false,
         zindex:4,
         modal:true,
@@ -1512,7 +1540,12 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
       outer.appendChild(header);
   
       var contentDiv = document.createElement('div');
-      YAHOO.util.Dom.addClass(contentDiv, (useLarge ? 'innerContentModalLarge' : 'innerContentModal'));
+      
+      if(!custom)
+      {
+        YAHOO.util.Dom.addClass(contentDiv, (useLarge ? 'innerContentModalLarge' : 'innerContentModal'));
+      }
+
       contentDiv.innerHTML = html;
       outer.appendChild(contentDiv);
   

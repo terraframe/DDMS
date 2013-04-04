@@ -7,6 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +16,8 @@ import org.json.JSONObject;
 import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
+import com.runwaysdk.dataaccess.database.Database;
+import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
@@ -45,6 +49,13 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
 {
   private static final long serialVersionUID = 1241158161320L;
 
+  /**
+   * The prefix for the database view names that represent saved searches (queries).
+   */
+  public static final String VIEW_PREFIX = "Q_";
+  
+  private static Log log = LogFactory.getLog(SavedSearch.class);
+  
   public SavedSearch()
   {
     super();
@@ -56,6 +67,14 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     // Ask Naifeh if this is a valid key
     // return this.getQueryType() + "-" + this.getQueryName();
     return this.getId();
+  }
+  
+  @Override
+  public void delete()
+  {
+    super.delete();
+    
+    this.deleteDatabaseViewIfExists();
   }
 
   /**
@@ -93,6 +112,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     super.apply();
+    
+    this.createOrReplaceDatabaseView();
   }
 
   /**
@@ -120,6 +141,131 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       UniqueSearchNameException ex = new UniqueSearchNameException(error);
       throw ex;
     }
+  }
+  
+  /**
+   * Generates the database view name for this SavedSearch, which
+   * follows a simple naming convention:
+   * 
+   * VIEW_PREFIX + query name [sanitized] + _ + disease
+   * 
+   * For example, a complete view name for a query called "my query"
+   * would be:
+   * 
+   * Q_my_query_malaria
+   * 
+   * There is no need to persist this as an attribute because
+   * it can be predictably generated as the query name is immutable.
+   * 
+   * @return
+   */
+  @AbortIfProblem
+  private String generateViewName()
+  {
+    if(this instanceof DefaultSavedSearch)
+    {
+      throw new ProgrammingErrorException("Cannot generate a database view for a DefaultSavedSearch.");
+    }
+    
+    String temp = this.getQueryName();
+    temp = GeoHierarchy.getSystemName(temp, "", false);
+    
+    // views can have 63 characters in the name, so given that the prefix, delimiters,
+    // and disease suffix will take about 15-18 characters, truncate the query name to
+    // 45 characters (which is plenty descriptive).
+    if(temp.length() > 45)
+    {
+      temp = temp.substring(0, 45);
+    }
+
+    temp = temp.toLowerCase();
+    
+    String disease = this.getDisease().getKeyName();
+    disease = disease.toLowerCase();
+    
+    String viewName = VIEW_PREFIX + temp + "_" + disease;
+    
+    return viewName;
+  }
+  
+  /**
+   * Returns the database view name for this query if one exists.
+   * 
+   * @param searchId
+   * @return
+   */
+  @Override
+  public String getDatabaseViewName()
+  {
+    if(this instanceof DefaultSavedSearch)
+    {
+      throw new NoDBViewForDefaultQueryException();
+    }
+    
+    String viewName = this.generateViewName();
+    if(Database.tableExists(viewName))
+    {
+      return viewName;
+    }
+    else
+    {
+      String msg = "The query ["+this.getQueryName()+"] does not have a database view.";
+      throw new DatabaseViewMissingException(msg);
+    }
+  }
+  
+  /**
+   * Creates the database view for this query or updates (replaces)
+   * it if one already exists. If the query is invalid because it has no
+   * columns then the database view is deleted, if one exists.
+   */
+  @AbortIfProblem
+  private void createOrReplaceDatabaseView()
+  {
+    if(this instanceof DefaultSavedSearch)
+    {
+      return;
+    }
+    
+    // remove the existing database view
+    this.deleteDatabaseViewIfExists();
+    
+    
+    String queryType = this.getQueryType();
+    String xml = this.getQueryXml();
+    String config = this.getConfig();
+    
+    String queryClass = QueryConstants.getQueryClass(queryType);
+    
+    try
+    {
+      ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
+    
+      // create the database view
+      String viewName = this.generateViewName();
+      String sql = "("+valueQuery.getSQL()+")";
+      Database.createView(viewName, sql);
+    }
+    catch(NoColumnsAddedException e)
+    {
+      // cannot create a database view because there are no columns.
+      // This is not an error in-and-of-itself, but make sure to log
+      // it just to be sure.
+      log.debug("Could not create a database view for the query ["+this.getQueryName()+"].", e);
+    }
+  }
+  
+  private void deleteDatabaseViewIfExists()
+  {
+    if(this instanceof DefaultSavedSearch)
+    {
+      return;
+    }
+    
+    List<String> batch = new LinkedList<String>();
+    String viewName = this.generateViewName();
+    batch.add("DROP VIEW IF EXISTS " + viewName + " CASCADE");
+    Database.executeBatch(batch);
   }
 
   /**
@@ -375,14 +521,26 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     UserDAOIF userDAO = Session.getCurrentSession().getUser();
     MDSSUser mdssUser = MDSSUser.get(userDAO.getId());
     UserSettings settings = UserSettings.createIfNotExists(mdssUser);
-    DefaultSavedSearch search = settings.getDefaultSearch();
-    if (search != null && search.getId().equals(searchId))
+    DefaultSavedSearch defaultSearch = settings.getDefaultSearch();
+    if (defaultSearch != null && defaultSearch.getId().equals(searchId))
     {
       NoSearchSpecifiedException ex = new NoSearchSpecifiedException();
       throw ex;
     }
+    
+    // To avoid a migration script, create the database view
+    // if one does not exist. This lazy-load approach will 
+    // also reduce overhead in trying to synchronize the state
+    // of the query with its database view representation.
+    SavedSearch search = SavedSearch.get(searchId);
+    String viewName = search.generateViewName();
 
-    return getAsView(searchId, true, true);
+    if(!Database.tableExists(viewName))
+    {
+      search.createOrReplaceDatabaseView();
+    }
+
+    return search.getAsView(true, true);
   }
 
   @Transaction

@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1532772632)
+@com.runwaysdk.business.ClassSignature(hash = 63467846)
 public abstract class SavedSearchDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.query.SavedSearch";
-  private static final long serialVersionUID = -1532772632;
+  private static final long serialVersionUID = 63467846;
   
   protected SavedSearchDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -721,6 +721,22 @@ public abstract class SavedSearchDTOBase extends com.runwaysdk.business.Business
     Object[] _parameters = new Object[]{id};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getAttributeGeoHierarchies", _declaredTypes);
     return (dss.vector.solutions.query.AttributeGeoHierarchyDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final java.lang.String getDatabaseViewName()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getDatabaseViewName", _declaredTypes);
+    return (java.lang.String) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final java.lang.String getDatabaseViewName(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.query.SavedSearchDTO.CLASS, "getDatabaseViewName", _declaredTypes);
+    return (java.lang.String) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final dss.vector.solutions.query.SavedSearchViewDTO[] getMappableSearches(com.runwaysdk.constants.ClientRequestIF clientRequest)

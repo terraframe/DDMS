@@ -867,6 +867,13 @@ MDSS.QueryPanel.prototype = {
     saveAsButton.set('id', "saveAsQueryButton");
     saveAsButton.addClass('queryButton');
     saveAsButton.on('click', this._saveQueryAs, {}, this);
+    
+    var getDBViewName = new YAHOO.util.Element(document.createElement('input'));
+    getDBViewName.set('type', 'button');
+    getDBViewName.set('value', MDSS.localize('get_db_view_name'));
+    getDBViewName.set('id', "getDBViewName");
+    getDBViewName.addClass('queryButton');
+    getDBViewName.on('click', this._getDBViewName, {}, this);
 
     var deleteButton = new YAHOO.util.Element(document.createElement('input'));
     deleteButton.set('type', 'button');
@@ -919,6 +926,7 @@ MDSS.QueryPanel.prototype = {
     
     leftDiv.appendChild(saveButton);
     leftDiv.appendChild(saveAsButton);
+    leftDiv.appendChild(getDBViewName);
     leftDiv.appendChild(deleteButton);
 
     var qBottom = new YAHOO.util.Element(this._qBottomUnit.body);
@@ -1346,6 +1354,14 @@ MDSS.QueryPanel.prototype = {
     if(Mojo.Util.isFunction(this._config.saveQueryAs))
     {
       this._config.saveQueryAs.call(this._queryClass);
+    }
+  },
+  
+  _getDBViewName : function()
+  {
+    if(Mojo.Util.isFunction(this._config.getDBViewName))
+    {
+      this._config.getDBViewName.call(this._queryClass);
     }
   },
 

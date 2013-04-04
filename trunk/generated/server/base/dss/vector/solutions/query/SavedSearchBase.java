@@ -1,6 +1,6 @@
 package dss.vector.solutions.query;
 
-@com.runwaysdk.business.ClassSignature(hash = -1976070040)
+@com.runwaysdk.business.ClassSignature(hash = -1425002554)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -31,7 +31,7 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String TEMPLATEFILE = "templateFile";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1976070040;
+  private static final long serialVersionUID = -1425002554;
   
   public SavedSearchBase()
   {
@@ -634,6 +634,18 @@ public abstract class SavedSearchBase extends com.runwaysdk.business.Business im
   {
     SavedSearch _instance = SavedSearch.get(id);
     return _instance.getAttributeGeoHierarchies();
+  }
+  
+  public java.lang.String getDatabaseViewName()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.query.SavedSearch.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final java.lang.String getDatabaseViewName(java.lang.String id)
+  {
+    SavedSearch _instance = SavedSearch.get(id);
+    return _instance.getDatabaseViewName();
   }
   
   public static dss.vector.solutions.query.SavedSearchView[] getMappableSearches()
