@@ -187,7 +187,7 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
     populateComponent : function() {
       var component = new Mojo.$.dss.vector.solutions.surveillance.AggregatedCaseView();
 
-      for each (el in this._attributes) {
+      for  (var el in this._attributes) {
         var key = el.id;
         var value = el.value;
         
@@ -213,7 +213,7 @@ Mojo.Meta.newClass('MDSS.AggregatedCaseForm', {
     },
 
     populateForm : function(component) {
-      for each (el in this._attributes) {   
+      for (var el in this._attributes) {   
         var key = el.id;
         var value = component.getAttributeDTO(key).getValue();
 
