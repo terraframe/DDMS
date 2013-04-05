@@ -46,7 +46,7 @@ Mojo.Meta.newClass('MDSS.AbstractPersonModal', {
     populateComponent : function() {
       var component = new Mojo.$.dss.vector.solutions.PersonView();
 
-      for each (el in this._attributes) {
+      for (var el in this._attributes) {
         var key = el.id;
         var value = el.value;
           

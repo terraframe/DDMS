@@ -242,14 +242,14 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       if(concreteId.value != '') {
         collection_id.value = concreteId.value;
                 
-        for each (el in buttons) {
+        for (var el in buttons) {
           el.disabled = false;
         }        
       }
       else {
         collection_id.vaule = '';
         
-        for each (el in buttons) {
+        for (var el in buttons) {
           el.disabled = true;
         }        
       }     
