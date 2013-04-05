@@ -222,7 +222,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   @AbortIfProblem
   private void createOrReplaceDatabaseView()
   {
-    if(this instanceof DefaultSavedSearch)
+    if(this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       return;
     }
