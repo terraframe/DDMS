@@ -197,7 +197,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   @Override
   public String getDatabaseViewName()
   {
-    if(this instanceof DefaultSavedSearch)
+    if(this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       throw new NoDBViewForDefaultQueryException();
     }
@@ -257,7 +257,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   
   private void deleteDatabaseViewIfExists()
   {
-    if(this instanceof DefaultSavedSearch)
+    if(this.getQueryType().equals(GeoHierarchy.getQueryType()) || this instanceof DefaultSavedSearch)
     {
       return;
     }
