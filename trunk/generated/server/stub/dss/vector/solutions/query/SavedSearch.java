@@ -203,7 +203,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
     
     String viewName = this.generateViewName();
-    if(Database.tableExists(viewName))
+    if(databaseViewExists(viewName))
     {
       return viewName;
     }
@@ -535,12 +535,39 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     SavedSearch search = SavedSearch.get(searchId);
     String viewName = search.generateViewName();
 
-    if(!Database.tableExists(viewName))
+    if(!databaseViewExists(viewName))
     {
       search.createOrReplaceDatabaseView();
     }
 
     return search.getAsView(true, true);
+  }
+  
+  /**
+   * Checks if the given view exists in the database. For some reason
+   * Database.tableExists(table) was not working consistently, so this
+   * is a different check that does a direct query.
+   * @param viewName
+   * @return
+   */
+  private static boolean databaseViewExists(String viewName)
+  {
+    ValueQuery v = new ValueQuery(new QueryFactory());
+    v.SELECT(v.aSQLBoolean("constantBool", "true"));
+    v.restrictRows(1, 1); // restrict the rows to simplify the query
+    
+    try
+    {
+      long count = v.getCount();
+      log.debug("The database view ["+viewName+"] exists.");
+      
+      return true;
+    }
+    catch(DatabaseException ex)
+    {
+      log.warn("The database view ["+viewName+"] does not exist.", ex);
+      return false;
+    }
   }
 
   @Transaction
