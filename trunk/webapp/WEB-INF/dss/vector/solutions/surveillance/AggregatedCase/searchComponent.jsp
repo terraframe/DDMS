@@ -124,6 +124,12 @@
       }
 
     }, null, this);
+    
+    // Localize the startDate and endDate field values
+    MDSS.Calendar.localizeDateElement(document.getElementById('startDate'));
+    MDSS.Calendar.localizeDateElement(document.getElementById('endDate'));
+    
+    validator.validate();    
   })
 })();  
 </script>
