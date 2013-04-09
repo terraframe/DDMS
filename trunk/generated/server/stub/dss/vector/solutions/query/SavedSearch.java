@@ -17,7 +17,6 @@ import com.runwaysdk.business.rbac.UserDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.database.Database;
-import com.runwaysdk.dataaccess.database.DatabaseException;
 import com.runwaysdk.dataaccess.transaction.AbortIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -54,7 +53,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    * The prefix for the database view names that represent saved searches
    * (queries).
    */
-  public static final String VIEW_PREFIX      = "Q_";
+  public static final String VIEW_PREFIX      = "q_";
 
   private static Log         log              = LogFactory.getLog(SavedSearch.class);
 
@@ -169,7 +168,17 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     String temp = this.getQueryName();
-    temp = GeoHierarchy.getSystemName(temp, "", false);
+    
+    // Use the disease key because it will not change unlike the display label, which
+    // the user can modify, thus invalidating a view name. We are treading readability for
+    // consistency here, but it doesn't matter because the user will most likely copy and paste
+    // the view name. It's not meant to be one-hundred percent user friendly.
+    String disease = this.getDisease().getKey();
+
+    // now convert all characters to a valid string using the same mechanism
+    // that converts universal and form labels into a database table/view
+    // identifier.
+    temp = GeoHierarchy.getSystemName(temp, "_"+disease, false);
 
     // views can have 63 characters in the name, so given that the prefix,
     // delimiters,
@@ -181,13 +190,11 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       temp = temp.substring(0, 45);
     }
 
-    temp = temp.toLowerCase();
-
-    String disease = this.getDisease().getKeyName();
-    disease = disease.toLowerCase();
-
     String viewName = VIEW_PREFIX + temp + "_" + disease;
 
+    // Postgres creates tables/views in lowercase, so enforce that convention
+    // here as well so we don't get into trouble with mixed casing.
+    viewName = viewName.toLowerCase();
     return viewName;
   }
 
@@ -555,9 +562,6 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    */
   private static boolean databaseViewExists(String viewName)
   {
-    // Postgres always lowercases the database view name, so
-    // make sure the given view name is lowercased as well.
-    viewName = viewName.toLowerCase();
     return Database.tableExists(viewName);
     
 //    ValueQuery v = new ValueQuery(new QueryFactory());
