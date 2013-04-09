@@ -555,24 +555,29 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
    */
   private static boolean databaseViewExists(String viewName)
   {
-    ValueQuery v = new ValueQuery(new QueryFactory());
-    v.SELECT(v.aSQLBoolean("constantBool", "true"));
-    v.FROM(viewName, viewName);
+    // Postgres always lowercases the database view name, so
+    // make sure the given view name is lowercased as well.
+    viewName = viewName.toLowerCase();
+    return Database.tableExists(viewName);
     
-    v.restrictRows(1, 1); // restrict the rows to simplify the query
-
-    try
-    {
-      v.getCount();
-      log.debug("The database view [" + viewName + "] exists.");
-
-      return true;
-    }
-    catch (DatabaseException ex)
-    {
-      log.warn("The database view [" + viewName + "] does not exist.", ex);
-      return false;
-    }
+//    ValueQuery v = new ValueQuery(new QueryFactory());
+//    v.SELECT(v.aSQLBoolean("constantBool", "true"));
+//    v.FROM(viewName, viewName);
+//    
+//    v.restrictRows(1, 1); // restrict the rows to simplify the query
+//
+//    try
+//    {
+//      v.getCount();
+//      log.debug("The database view [" + viewName + "] exists.");
+//
+//      return true;
+//    }
+//    catch (DatabaseException ex)
+//    {
+//      log.warn("The database view [" + viewName + "] does not exist.", ex);
+//      return false;
+//    }
   }
 
   @Transaction
