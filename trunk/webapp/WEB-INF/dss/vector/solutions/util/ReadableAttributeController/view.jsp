@@ -71,7 +71,8 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
     initialize : function() {
       this._buttons = YAHOO.util.Dom.getElementsByClassName("root.button");      
 
-      for each (el in this._buttons) {
+      for (var i=0, len=this._buttons.length; i<len; i++){
+        var el = this._buttons[i];
         YAHOO.util.Event.on(el, 'click', this.clickHandler, this, this);
       }
 
@@ -89,9 +90,10 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
       // hide all panels spawned by the search modal
       this._modal.subscribe('beforeHide', this._beforeHide, this, this);
 
-	 var inputs = document.getElementsByTagName("input");      
+	   var inputs = document.getElementsByTagName("input");      
 	
-	 for each (el in inputs) {
+     for (var i=0, len=inputs.length; i<len; i++){
+       var el = inputs[i];
 	     if (el.type=='checkbox' && !el.disabled) {
 	     	YAHOO.util.Event.on(el, 'click', this.checkboxHandler, this, this);
 	   	}
@@ -120,7 +122,8 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
     checkboxHandler : function(e) {
         var fieldName = e.target.name.split('.')[0]  + '.readPermission';
         var radioButtons = document.getElementsByName(fieldName);
-    	for each (rb in radioButtons) {
+        for (var j=0, len2=radioButtons.length; j<len2; j++){
+          var rb = radioButtons[j];
         	if (e.target.checked) {
 		    	if (rb.value=='true') {
 			    	rb.checked = true;
@@ -158,15 +161,18 @@ function checkHiddenMandatoryFields(that) {
 	var needToConfirm = false;
 	var inputs = document.getElementsByTagName("input");      
 	
-	for each (el in inputs) {
+	
+  for (var i=0, len=inputs.length; i<len; i++){
+    var el = inputs[i];
 	    if (el.type=='checkbox' && el.checked) {
 	        var fieldName = el.name.split('.')[0]  + '.readPermission';
 	        var radioButtons = document.getElementsByName(fieldName);
-	    	for each (rb in radioButtons) {
+	        for (var j=0, len2=radioButtons.length; j<len2; j++){
+	          var rb = radioButtons[j];
 	        	if (rb.value == 'false' && rb.checked) {
 			    	needToConfirm = true;
 			    	break;
-	        	}
+	        }
 	    	}
 	  	}
 	}

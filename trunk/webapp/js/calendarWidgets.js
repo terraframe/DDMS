@@ -335,24 +335,30 @@ MDSS.Calendar = {
       var el;
     	if(init_not_done)
     	{
-    		for each (el in Dom.getElementsByClassName("formatDate"))
-	        {
-	          el.innerHTML = var_to_localized_string(el.innerHTML);
-	        }
+    	  var els = Dom.getElementsByClassName("formatDate");
+    		for(var i=0, len=els.length; i<len; i++)
+	      {
+    		  var el = els[i];
+	        el.innerHTML = var_to_localized_string(el.innerHTML);
+	      }
     	}
 
     	if(init_not_done)
     	{
-    		for each (el in Dom.getElementsByClassName("NoFutureYear"))
-	        {
-    			Event.addListener(el, 'blur', validateYear);
-	        }
+        var els = Dom.getElementsByClassName("NoFutureYear");
+        for(var i=0, len=els.length; i<len; i++)
+        {
+          var el = els[i];
+  			  Event.addListener(el, 'blur', validateYear);
+        }
     	}
 
     	if(init_not_done)
     	{
-    		for each (el in Dom.getElementsByClassName("NumbersOnly"))
-    		{
+        var els = Dom.getElementsByClassName("NumbersOnly");
+        for(var i=0, len=els.length; i<len; i++)
+        {
+          var el = els[i];
     			Event.addListener(el, 'blur', validateNumber);
     		}
     	}
@@ -368,17 +374,19 @@ MDSS.Calendar = {
 
     		cal1 = new YAHOO.widget.Calendar("cal1","cal1Container",cfg);
 
-	        cal1.selectEvent.subscribe(getDate, cal1, true);
-	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
+	      cal1.selectEvent.subscribe(getDate, cal1, true);
+	      cal1.renderEvent.subscribe(setupListeners, cal1, true);
 
-	        for each (el in Dom.getElementsByClassName("DatePick"))
-	        {
+        var els = Dom.getElementsByClassName("DatePick");
+        for(var i=0, len=els.length; i<len; i++)
+        {
+            var el = els[i];
 	          Event.addListener(el.id, 'focus', showCal);
 	          Event.addListener(el.id, 'blur', hideCal);
 	          el.value = var_to_localized_string(el.value);
-	        }
-	        cal1.render();
-	        init_not_done = false;
+	      }
+	      cal1.render();
+	      init_not_done = false;
        }
        return cal1;
     }

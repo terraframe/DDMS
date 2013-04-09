@@ -204,7 +204,8 @@ Mojo.Meta.newClass('MDSS.EpiSearchValidator', {
           
             var problems = e.getProblems();
 
-            for each (p in problems) {
+            for (var i=0; i<problems.length; i++){
+              var p = problems[i];
               if(p.getType() == "dss.vector.solutions.FuturePeriodProblem") {
                 MDSS.Calendar.addError(this.that._year,p.getLocalizedMessage());
               }
