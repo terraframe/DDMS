@@ -557,6 +557,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   {
     ValueQuery v = new ValueQuery(new QueryFactory());
     v.SELECT(v.aSQLBoolean("constantBool", "true"));
+    v.FROM(viewName, viewName);
+    
     v.restrictRows(1, 1); // restrict the rows to simplify the query
 
     try
