@@ -137,13 +137,15 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
         formEl.submit();
       });    
         
-      for each (el in this._attributes) {
+      for(var i=0, len=this._attributes.length; i<len; i++){
+        var el = this._attributes[i];
         var key = el.id.split("_")[0];
       
         el.key = key;
       }
       
-      for each (el in this._mutables) {
+      for(var i=0, len=this._mutables.length; i<len; i++){
+        var el = this._mutables[i];
         YAHOO.util.Event.on(el, 'change', this.enableSave, this, this);   
       }
 
@@ -158,11 +160,13 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
     },
 
     saveImmutables : function() {
-      for each (el in this._immutables) {
+      for(var i=0, len=this._mutables.length; i<len; i++){
+        var el = this._mutables[i];
         this._populateMap(this._original, el.key, el);
       }
     
-      for each (el in this._refresh) {
+      for(var i=0, len=this._refresh.length; i<len; i++){
+        var el = this._refresh[i];
         this._populateMap(this._labels, el.id, el);
       }
     },
@@ -187,7 +191,8 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
     populateCollection : function() {
       var collection = new Mojo.$.dss.vector.solutions.entomology.PupalCollectionView();
 
-      for each (el in this._attributes) {
+      for(var i=0, len=this._attributes.length; i<len; i++){
+        var el = this._attributes[i];
         var key = el.key;
         var value = el.value;
 
@@ -195,7 +200,8 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
       }
 
       if(this.hasPremise()) {
-        for each (el in this._immutables) {
+        for(var i=0, len=this._immutables.length; i<len; i++){
+          var el = this._immutables[i];
           var key = el.key;
           var value = this._original[key];
 
@@ -234,7 +240,8 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
         this.saveImmutables();
       }
           
-      for each (el in this._mutables) {          
+      for(var i=0, len=this._mutables.length; i<len; i++){
+        var el = this._mutables[i];       
         var key = el.key;          
         var attribute = collection.getAttributeDTO(key);        	
         var value = attribute.getValue();
@@ -248,14 +255,16 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
       }
 
       // Reload immutables from the saved map
-      for each (el in this._immutables) {
+      for(var i=0, len=this._immutables.length; i<len; i++){
+        var el = this._immutables[i];
         var key = el.key;
         var value = this._original[key];
 
         el.value = value;
       }
         
-      for each (el in this._refresh) {
+      for(var i=0, len=this._refresh.length; i<len; i++){
+        var el = this._refresh[i];
         var key = el.id;
         var value = this._labels[key];
 

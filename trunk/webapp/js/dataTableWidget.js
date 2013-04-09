@@ -647,14 +647,14 @@ Mojo.Meta.newClass('MDSS.DataGrid', {
           }
         }      
         else if (editor && editor instanceof YAHOO.widget.DateCellEditor) {
-          var date = MDSS.Calendar.parseDate(record.getData(field.key));
-          this.getDataTable().updateCell(record, field.key, date);
+          var date = MDSS.Calendar.parseDate(record.getData(column.key));
+          this.getDataTable().updateCell(record, column.key, date);
         }
         else if (editor && editor instanceof YAHOO.widget.NumberCellEditor) {
           var parsedValue = MDSS.parseNumber(value);
             
           this._model.setData(row, col, parsedValue);
-          this.getDataTable().updateCell(record, field.key, value);
+          this.getDataTable().updateCell(record, column.key, value);
         }
         else {
           this.getDataTable().updateCell(record, col, value);
