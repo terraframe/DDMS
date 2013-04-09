@@ -335,7 +335,7 @@ MDSS.Calendar = {
       var el;
     	if(init_not_done)
     	{
-    		for (var el in Dom.getElementsByClassName("formatDate"))
+    		for each (el in Dom.getElementsByClassName("formatDate"))
 	        {
 	          el.innerHTML = var_to_localized_string(el.innerHTML);
 	        }
@@ -343,7 +343,7 @@ MDSS.Calendar = {
 
     	if(init_not_done)
     	{
-    		for (var el in Dom.getElementsByClassName("NoFutureYear"))
+    		for each (el in Dom.getElementsByClassName("NoFutureYear"))
 	        {
     			Event.addListener(el, 'blur', validateYear);
 	        }
@@ -351,7 +351,7 @@ MDSS.Calendar = {
 
     	if(init_not_done)
     	{
-    		for (var el in Dom.getElementsByClassName("NumbersOnly"))
+    		for each (el in Dom.getElementsByClassName("NumbersOnly"))
     		{
     			Event.addListener(el, 'blur', validateNumber);
     		}
@@ -371,7 +371,7 @@ MDSS.Calendar = {
 	        cal1.selectEvent.subscribe(getDate, cal1, true);
 	        cal1.renderEvent.subscribe(setupListeners, cal1, true);
 
-	        for (var el in Dom.getElementsByClassName("DatePick"))
+	        for each (el in Dom.getElementsByClassName("DatePick"))
 	        {
 	          Event.addListener(el.id, 'focus', showCal);
 	          Event.addListener(el.id, 'blur', hideCal);

@@ -154,7 +154,7 @@
     
     var mutables = YAHOO.util.Dom.getElementsByClassName("mutable");
      
-    for (var el in mutables) {
+    for each (el in mutables) {
       YAHOO.util.Event.on(el, 'change', valueChange);
     }
 

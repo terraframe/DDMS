@@ -71,7 +71,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
     initialize : function() {
       this._buttons = YAHOO.util.Dom.getElementsByClassName("root.button");      
 
-      for (var el in this._buttons) {
+      for each (el in this._buttons) {
         YAHOO.util.Event.on(el, 'click', this.clickHandler, this, this);
       }
 
@@ -91,7 +91,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
 
 	 var inputs = document.getElementsByTagName("input");      
 	
-	 for (var el in inputs) {
+	 for each (el in inputs) {
 	     if (el.type=='checkbox' && !el.disabled) {
 	     	YAHOO.util.Event.on(el, 'click', this.checkboxHandler, this, this);
 	   	}
@@ -120,7 +120,7 @@ Mojo.Meta.newClass('MDSS.ReadableAttributeForm', {
     checkboxHandler : function(e) {
         var fieldName = e.target.name.split('.')[0]  + '.readPermission';
         var radioButtons = document.getElementsByName(fieldName);
-    	for (var rb in radioButtons) {
+    	for each (rb in radioButtons) {
         	if (e.target.checked) {
 		    	if (rb.value=='true') {
 			    	rb.checked = true;
@@ -158,11 +158,11 @@ function checkHiddenMandatoryFields(that) {
 	var needToConfirm = false;
 	var inputs = document.getElementsByTagName("input");      
 	
-	for (var el in inputs) {
+	for each (el in inputs) {
 	    if (el.type=='checkbox' && el.checked) {
 	        var fieldName = el.name.split('.')[0]  + '.readPermission';
 	        var radioButtons = document.getElementsByName(fieldName);
-	    	for (var rb in radioButtons) {
+	    	for each (rb in radioButtons) {
 	        	if (rb.value == 'false' && rb.checked) {
 			    	needToConfirm = true;
 			    	break;

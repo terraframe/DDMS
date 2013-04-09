@@ -121,15 +121,15 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       this._dirtyIntervention = false;
       this._grid = null;
       
-      for (var el in this._attributes) {
+      for each (el in this._attributes) {
         el.key = el.id.split("_")[0];
       }
 
-      for (var el in this._immutables) {
+      for each (el in this._immutables) {
         YAHOO.util.Event.on(el, 'focus', this.focusHandler, this, this);                    
       }
 
-      for (var el in this._universals) {
+      for each (el in this._universals) {
         el.original = el.value;
         el.button = document.getElementById(el.key + '.button');
 
@@ -144,7 +144,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
         YAHOO.util.Event.on(el, 'change', this.buttonHandler, this, this);          
       }      
 
-      for (var el in this._editButtons) {
+      for each (el in this._editButtons) {
         if(el.id == 'personIntervention.button') {
           el.action = Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionController.getPersonInterventionMap;
         }
@@ -156,7 +156,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       }      
 
 
-      for (var el in this._mutables) {
+      for each (el in this._mutables) {
         YAHOO.util.Event.on(el, 'change', this.interventionChanged, this, this);
       }
 
@@ -199,7 +199,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
     populateComponent : function() {
       var component = new Mojo.$.dss.vector.solutions.intervention.monitor.ControlInterventionView();
 
-      for (var el in this._attributes) {
+      for each (el in this._attributes) {
         var key = el.key;
         var value = el.value;
         
@@ -225,7 +225,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
     },
 
     populateForm : function(component) {
-      for (var el in this._mutables) {   
+      for each (el in this._mutables) {   
         var key = el.key;
         var value = component.getAttributeDTO(key).getValue();
 
@@ -312,7 +312,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
       var action = e.originalTarget.action;
       var params = Mojo.Util.collectFormValues('ControlIntervention.form');
 
-      for (var el in this._universals) {
+      for each (el in this._universals) {
         this._unshiftUniversal(params, el.name);
       }
 
@@ -326,7 +326,7 @@ Mojo.Meta.newClass('MDSS.ControlInterventionForm', {
     },
       
     buttonHandler : function() {
-      for (var el in this._universals) {            
+      for each (el in this._universals) {            
         if(el.original != '' && el.original != el.value) {
           var x=window.confirm(MDSS.localize("Change_Aggregation"));
 

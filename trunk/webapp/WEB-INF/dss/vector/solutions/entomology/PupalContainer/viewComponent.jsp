@@ -137,13 +137,13 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
         formEl.submit();
       });    
         
-      for (var el in this._attributes) {
+      for each (el in this._attributes) {
         var key = el.id.split("_")[0];
       
         el.key = key;
       }
       
-      for (var el in this._mutables) {
+      for each (el in this._mutables) {
         YAHOO.util.Event.on(el, 'change', this.enableSave, this, this);   
       }
 
@@ -158,11 +158,11 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
     },
 
     saveImmutables : function() {
-      for (var el in this._immutables) {
+      for each (el in this._immutables) {
         this._populateMap(this._original, el.key, el);
       }
     
-      for (var el in this._refresh) {
+      for each (el in this._refresh) {
         this._populateMap(this._labels, el.id, el);
       }
     },
@@ -187,7 +187,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
     populateCollection : function() {
       var collection = new Mojo.$.dss.vector.solutions.entomology.PupalCollectionView();
 
-      for (var el in this._attributes) {
+      for each (el in this._attributes) {
         var key = el.key;
         var value = el.value;
 
@@ -195,7 +195,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
       }
 
       if(this.hasPremise()) {
-        for (var el in this._immutables) {
+        for each (el in this._immutables) {
           var key = el.key;
           var value = this._original[key];
 
@@ -234,7 +234,7 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
         this.saveImmutables();
       }
           
-      for (var el in this._mutables) {          
+      for each (el in this._mutables) {          
         var key = el.key;          
         var attribute = collection.getAttributeDTO(key);        	
         var value = attribute.getValue();
@@ -248,14 +248,14 @@ Mojo.Meta.newClass('MDSS.PupalForm', {
       }
 
       // Reload immutables from the saved map
-      for (var el in this._immutables) {
+      for each (el in this._immutables) {
         var key = el.key;
         var value = this._original[key];
 
         el.value = value;
       }
         
-      for (var el in this._refresh) {
+      for each (el in this._refresh) {
         var key = el.id;
         var value = this._labels[key];
 
