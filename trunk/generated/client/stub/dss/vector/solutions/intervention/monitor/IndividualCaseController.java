@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +28,7 @@ import dss.vector.solutions.surveillance.RequiredDiagnosisDateProblemDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.FacadeDTO;
+import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.LocalizationFacadeDTO;
 import dss.vector.solutions.util.RedirectUtility;
 
@@ -162,7 +164,10 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     individualCase.setResidenceText(AttributeUtil.getString(PersonViewDTO.RESIDENTIALINFORMATION, person));
     individualCase.setWorkplaceText(AttributeUtil.getString(PersonViewDTO.WORKINFORMATION, person));
 
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualCaseDTO.CLASS, this.getClientRequest());
+
     // Case stuff
+    req.setAttribute("hasPermission", permissions.contains(IndividualCaseDTO.PATIENT));
     req.setAttribute("person", person);
     req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
     req.setAttribute("individualCase", individualCase);
@@ -241,18 +246,26 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
     utility.put("id", individualCaseDTO.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualCaseDTO.CLASS, this.getClientRequest());
+    boolean hasPermissions = permissions.contains(IndividualCaseDTO.PATIENT);
+
     req.setAttribute("query", individualCaseDTO.getInstances());
     req.setAttribute("item", individualCaseDTO);
-    try
-    {
-      PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
+    req.setAttribute("hasPermission", hasPermissions);
 
-      req.setAttribute("person", person);
-      req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
-    }
-    catch (Exception e)
+    if (hasPermissions)
     {
+      try
+      {
+        PersonViewDTO person = individualCaseDTO.getPatient().getPerson().getView();
 
+        req.setAttribute("person", person);
+        req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
+      }
+      catch (Exception e)
+      {
+
+      }
     }
 
     render("viewComponent.jsp");
@@ -307,11 +320,20 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderEdit(IndividualCaseDTO dto) throws IOException, ServletException
   {
-    PersonViewDTO person = dto.getPatient().getPerson().getView();
 
-    req.setAttribute("person", person);
-    req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualCaseDTO.CLASS, this.getClientRequest());
+    boolean hasPermissions = permissions.contains(IndividualCaseDTO.PATIENT);
+
+    req.setAttribute("hasPermission", hasPermissions);
     req.setAttribute("individualCase", dto);
+
+    if (hasPermissions)
+    {
+      PersonViewDTO person = dto.getPatient().getPerson().getView();
+      req.setAttribute("person", person);
+      req.setAttribute("residential", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
+    }
+
     render("editComponent.jsp");
   }
 
