@@ -6,8 +6,7 @@ import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.query.SelectableChar;
 
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.intervention.monitor.IPTRecipient;
@@ -503,6 +502,7 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     String lastName = this.getLastName();
     Date dob = this.getDateOfBirth();
     Term sex = this.getSex();
+    String identifier = this.getIdentifier();
 
     if (firstName.length() > 0)
     {
@@ -522,6 +522,11 @@ public class PersonView extends PersonViewBase implements com.runwaysdk.generati
     if (sex != null)
     {
       query.WHERE(query.getSex().EQ(sex));
+    }
+
+    if (identifier == null || identifier.length() == 0)
+    {
+      query.WHERE(query.getIdentifier().EQ((String) null));
     }
 
     return query;
