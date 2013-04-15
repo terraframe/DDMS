@@ -197,6 +197,68 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     viewName = viewName.toLowerCase();
     return viewName;
   }
+  
+  /**
+   * Removes all database views for queries.
+   */
+  public static void cleanupDatabaseViews()
+  {
+    QueryFactory f = new QueryFactory();
+    SavedSearchQuery q = new SavedSearchQuery(f);
+    
+    OIterator<? extends SavedSearch> iter = q.getIterator();
+    try
+    {
+      while(iter.hasNext())
+      {
+        SavedSearch search = iter.next();
+        try
+        {
+          search.deleteDatabaseViewIfExists(); 
+        }
+        catch(Throwable t)
+        {
+          // continue if there's an error, which can happen under normal circumstances
+          log.error("Could not delete the database view for SavedSearch ["+search+"].", t);
+        }
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+  }
+  
+  /**
+   * Creates database views for queries.
+   */
+  public static void createDatabaseViews()
+  {
+    QueryFactory f = new QueryFactory();
+    SavedSearchQuery q = new SavedSearchQuery(f);
+    
+    OIterator<? extends SavedSearch> iter = q.getIterator();
+    try
+    {
+      while(iter.hasNext())
+      {
+        SavedSearch search = iter.next();
+        try
+        {
+          search.createOrReplaceDatabaseView(); 
+        }
+        catch(Throwable t)
+        {
+          // continue if there's an error, which can happen under normal circumstances
+          log.error("Could not create the database view for SavedSearch ["+search+"].", t);
+        }
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+  }
 
   /**
    * Returns the database view name for this query if one exists.

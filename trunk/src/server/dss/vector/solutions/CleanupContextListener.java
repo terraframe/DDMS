@@ -23,7 +23,6 @@ import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
-import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MdType;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
@@ -40,6 +39,7 @@ import dss.vector.solutions.irs.GeoTarget;
 import dss.vector.solutions.ontology.TermRelationship;
 import dss.vector.solutions.query.QueryConstants;
 import dss.vector.solutions.query.SavedMap;
+import dss.vector.solutions.query.SavedSearch;
 import dss.vector.solutions.querybuilder.MosquitoCollectionQB;
 import dss.vector.solutions.util.QueryUtil;
 
@@ -55,6 +55,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   private void doCleanup()
   {
     // Clean up all database map views
+    SavedSearch.cleanupDatabaseViews();
     SavedMap.cleanOldViews(System.currentTimeMillis());
     runSql(getDropSql());
   }
@@ -62,6 +63,7 @@ public class CleanupContextListener implements ServletContextListener, Reloadabl
   @Request
   public void contextInitialized(ServletContextEvent arg0)
   {
+    SavedSearch.cleanupDatabaseViews();
     SavedMap.cleanOldViews(System.currentTimeMillis());
     runSql(getDropSql());
     runSql(getIndexSql());
