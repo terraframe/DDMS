@@ -5,6 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
@@ -17,6 +20,7 @@ import dss.vector.solutions.Patient;
 import dss.vector.solutions.Person;
 import dss.vector.solutions.Property;
 import dss.vector.solutions.RelativeValueProblem;
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.general.EpiCache;
 import dss.vector.solutions.general.EpiDate;
@@ -82,7 +86,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     if (this.getAge() == null && this.getDiagnosisDate() != null && this.getPatient() != null)
     {
       Date dob = this.getPatient().getPerson().getDateOfBirth();
-      if (dob!=null)
+      if (dob != null)
       {
         long difference = this.getDiagnosisDate().getTime() - dob.getTime();
         // Divide by the number of milliseconds in a year
@@ -355,6 +359,17 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
       diagnosisDate = new Date();
     }
 
+    if (personId == null || personId.length() == 0)
+    {
+      MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(IndividualCase.CLASS);
+      MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(IndividualCase.PATIENT);
+
+      RequiredAttributeException exception = new RequiredAttributeException();
+      exception.setAttributeLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+
+      throw exception;
+    }
+
     int newCasePeriod = Property.getInt("dss.vector.solutions.intervention.monitor", "newCasePeriod");
     Calendar calendar = Calendar.getInstance();
     calendar.setTime(diagnosisDate);
@@ -365,7 +380,6 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     Person person = Person.get(personId);
     Patient patient = person.getPatientDelegate();
 
-    
     if (patient != null)
     {
       IndividualCaseQuery query = new IndividualCaseQuery(new QueryFactory());
@@ -389,7 +403,7 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
         iterator.close();
       }
     }
-    
+
     // no match found, so create a new instance and give it defaults from Person
     IndividualCase individualCase = new IndividualCase();
     if (individualCase.getResidence() == null)
@@ -408,10 +422,10 @@ public class IndividualCase extends IndividualCaseBase implements com.runwaysdk.
     {
       individualCase.setWorkplaceText(person.getWorkInformation());
     }
-    
+
     return individualCase;
   }
-  
+
   @Transaction
   public void applyWithPersonId(Person person, IndividualInstance instance, Term[] symptoms)
   {

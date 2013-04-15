@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -23,6 +24,7 @@ import dss.vector.solutions.RequiredAttributeProblemDTO;
 import dss.vector.solutions.geo.generated.HealthFacilityDTO;
 import dss.vector.solutions.util.AttributeUtil;
 import dss.vector.solutions.util.ErrorUtility;
+import dss.vector.solutions.util.Halp;
 import dss.vector.solutions.util.RedirectUtility;
 
 public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase implements Reloadable
@@ -95,13 +97,22 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
 
     ClientRequestIF request = this.getClientRequest();
 
-    PersonViewDTO person = view.getPatientView();
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualIPTCaseViewDTO.CLASS, this.getClientRequest());
+    boolean hasPermission = permissions.contains(IndividualCaseViewDTO.PATIENT);
 
-    req.setAttribute("residentialLocation", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
-    req.setAttribute("person", person);
+    req.setAttribute("hasPermission", hasPermission);
     req.setAttribute("serviceDate", req.getParameter("serviceDate"));
     req.setAttribute("query", IndividualIPTViewDTO.getCaseInstances(request, sortAttribute, isAscending, pageSize, pageNumber, view.getConcreteId()));
     req.setAttribute("item", view);
+
+    if (hasPermission)
+    {
+      PersonViewDTO person = view.getPatientView();
+
+      req.setAttribute("residentialLocation", AttributeUtil.getGeoEntityFromGeoId(PersonViewDTO.RESIDENTIALGEOID, person));
+      req.setAttribute("person", person);
+    }
+
     render("viewComponent.jsp");
   }
 
@@ -147,10 +158,13 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     if (serviceDate != null && !serviceDate.equals(""))
     {
       Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
-      
+
       instance.setServiceDate((Date) f.parse(serviceDate, req.getLocale()));
     }
 
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualIPTCaseViewDTO.CLASS, this.getClientRequest());
+
+    req.setAttribute("hasPermission", permissions.contains(IndividualCaseViewDTO.PATIENT));
     req.setAttribute("item", dto);
     req.setAttribute("instance", instance);
     req.setAttribute("person", view);
@@ -168,7 +182,7 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
     if (serviceDate != null && !serviceDate.equals(""))
     {
       Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
-      
+
       date = f.parse(serviceDate, req.getLocale());
     }
 
@@ -247,11 +261,19 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     String serviceDate = req.getParameter("serviceDate");
 
-    PersonViewDTO person = dto.getPatientView();
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualIPTCaseViewDTO.CLASS, this.getClientRequest());
+    boolean hasPermission = permissions.contains(IndividualCaseViewDTO.PATIENT);
 
-    req.setAttribute("person", person);
+    req.setAttribute("hasPermission", hasPermission);
     req.setAttribute("serviceDate", serviceDate);
     req.setAttribute("item", dto);
+
+    if (hasPermission)
+    {
+      PersonViewDTO person = dto.getPatientView();
+      req.setAttribute("person", person);
+    }
+
     render("editComponent.jsp");
   }
 
@@ -333,11 +355,13 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     if (!this.isAsynchronous())
     {
+      Set<String> permissions = Halp.getReadableAttributeNames(IndividualCaseDTO.CLASS, this.getClientRequest());
+
       req.setAttribute("item", new IndividualIPTCaseViewDTO(this.getClientRequest()));
       req.setAttribute("serviceDate", req.getParameter("serviceDate"));
       req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));
+      req.setAttribute("hasPermission", permissions.contains(IndividualCaseDTO.PATIENT));
 
-      // need this for labels
       render("searchComponent.jsp");
     }
   }
@@ -351,11 +375,9 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   public void viewCasePage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber, Date serviceDate, String patientId) throws IOException, ServletException
   {
     Format<Date> f = AbstractFormatFactory.getFormatFactory().getFormat(Date.class);
-    
+
     try
     {
-      validateParameters(serviceDate, patientId);
-
       ClientRequestIF request = this.getClientRequest();
 
       IndividualIPTCaseViewDTO[] cases = IndividualIPTCaseViewDTO.searchCases(request, serviceDate, patientId);
@@ -390,22 +412,4 @@ public class IndividualIPTCaseController extends IndividualIPTCaseControllerBase
   {
     this.search();
   }
-
-  private void validateParameters(Date serviceDate, String patientId)
-  {
-    List<ProblemDTOIF> problems = new LinkedList<ProblemDTOIF>();
-
-    if (patientId == null || patientId.equals(""))
-    {
-      ClientRequestIF clientRequest = super.getClientSession().getRequest();
-
-      problems.add(new RequiredAttributeProblemDTO(clientRequest, req.getLocale()));
-    }
-
-    if (problems.size() > 0)
-    {
-      throw new ProblemExceptionDTO("", problems);
-    }
-  }
-
 }

@@ -6,15 +6,20 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
+import com.runwaysdk.dataaccess.MdClassDAOIF;
+import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectablePrimitive;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonView;
+import dss.vector.solutions.RequiredAttributeException;
 import dss.vector.solutions.PersonQuery.PersonQueryReferenceIF;
 import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -203,6 +208,18 @@ public class IndividualIPTCaseView extends IndividualIPTCaseViewBase implements 
 
   public static IndividualIPTCaseView[] searchCases(Date serviceDate, String patientId)
   {
+    if (patientId == null || patientId.length() == 0)
+    {
+      MdClassDAOIF mdClass = MdClassDAO.getMdClassDAO(IndividualIPTCaseView.CLASS);
+      MdAttributeDAOIF mdAttribute = mdClass.definesAttribute(IndividualIPTCaseView.PATIENT).getMdAttributeConcrete();
+
+      RequiredAttributeException exception = new RequiredAttributeException();
+
+      exception.setAttributeLabel(mdAttribute.getDisplayLabel(Session.getCurrentLocale()));
+
+      throw exception;
+    }
+
     List<IndividualIPTCaseView> list = new LinkedList<IndividualIPTCaseView>();
 
     IndividualIPTCaseQuery query = new IndividualIPTCaseQuery(new QueryFactory());

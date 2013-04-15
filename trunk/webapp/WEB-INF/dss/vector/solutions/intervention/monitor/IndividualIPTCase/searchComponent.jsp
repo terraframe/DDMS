@@ -22,6 +22,8 @@
   <dd>
     <mjl:input type="text" param="serviceDate" classes="DatePick" id="serviceDate"/>
   </dd>
+  
+  <c:if test="${hasPermission}">
   <dt>
     <label> ${item.patientMd.displayLabel} </label>
   </dt>
@@ -58,6 +60,7 @@
       </tr>
      </table>
   </dd>
+  </c:if>
 
 <mdss:localize key="Search" var="Localized_Search" />
 

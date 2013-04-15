@@ -409,11 +409,12 @@ public class IndividualCaseController extends IndividualCaseControllerBase imple
 
   private void renderSearch(IndividualCaseViewDTO dto) throws IOException, ServletException
   {
+    Set<String> permissions = Halp.getReadableAttributeNames(IndividualCaseDTO.CLASS, this.getClientRequest());
+
     req.setAttribute("item", dto);
-    req.setAttribute("person", new PersonViewDTO(this.getClientRequest())); // need
-    // this
-    // for
-    // labels
+    req.setAttribute("person", new PersonViewDTO(this.getClientRequest()));
+    req.setAttribute("hasPermission", permissions.contains(IndividualCaseDTO.PATIENT));
+
     render("searchComponent.jsp");
   }
 

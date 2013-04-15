@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.intervention.monitor.IndividualIPTCaseViewDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -129,10 +130,25 @@ YAHOO.util.Event.onDOMReady(function(){
     var personColumns =  personAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:person, suffix:'_per', dropDownMaps:personMaps});
     MDSS.QueryBase.filterFunctions(personColumns, ['age'], MDSS.QueryXML.F_SET1);
     
-    var selectableGroups = [
-              {title:"IPT", values:iIPTColumns, group:"ipt", klass:individualIPT.CLASS},
-              {title:"Patient", values:personColumns, group:"ipt", klass:individualIPT.CLASS}
-    ];
+    var caseAttribs = ["<%= IndividualIPTCaseViewDTO.PATIENT %>"];
+    
+    <%
+    Halp.setReadableAttributes(request, "caseAttribs", IndividualIPTCaseViewDTO.CLASS, requestIF);
+    %>
+    var available = new MDSS.Set(<%= request.getAttribute("caseAttribs") %>);
+    caseAttribs = Mojo.Iter.filter(caseAttribs, function(attrib){
+      return this.contains(attrib);
+    }, available);
+
+    var hasPatient = available.contains('<%= IndividualIPTCaseViewDTO.PATIENT %>');
+    
+    var selectableGroups = [{title:"IPT", values:iIPTColumns, group:"ipt", klass:individualIPT.CLASS}];
+    
+    if(hasPatient)
+    {    
+      selectableGroups.push({title:"Recipient", values:personColumns, group:"ipt", klass:individualIPT.CLASS});
+    }
+
 
     var query = new MDSS.QueryIndividualIPT(selectableGroups, queryList);
     query.render();
