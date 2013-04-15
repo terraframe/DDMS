@@ -310,7 +310,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
   
       form.action = action;
   
-      xmlInput.innerHTML = xml;
+      xmlInput.textContent = xml; // use textContent to avoid unescaping XML escape characters
       config.value = this._config.getJSON();
       searchIdInput.value = savedSearchId;
 //      queryTypeInput.value = this._getReportQueryType();
