@@ -40,23 +40,23 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class FormQueryBuilder implements Reloadable
 {
-  public ClientRequestIF       request;
+  private ClientRequestIF       request;
 
-  public List<SelectableGroup> groups;
+  private List<SelectableGroup> groups;
 
-  public SerializableGroup     dateGroup;
+  private SerializableGroup     dateGroup;
 
-  public SerializableGroup     geoGroup;
+  private SerializableGroup     geoGroup;
 
-  public CompositeGeoField     geoField;
+  private CompositeGeoField     geoField;
 
-  public List<String>          typesToLoad;
+  private List<String>          typesToLoad;
 
-  public String                mainType;
+  private String                mainType;
 
-  public JSONObject            queryList;
+  private JSONObject            queryList;
 
-  public String                queryClass;
+  private String                queryClass;
 
   public FormQueryBuilder(ClientRequestIF request, String queryClass)
   {
