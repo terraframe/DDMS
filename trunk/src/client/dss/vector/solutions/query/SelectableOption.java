@@ -1,10 +1,10 @@
 package dss.vector.solutions.query;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.transport.conversion.ConversionExceptionDTO;
 import com.runwaysdk.web.view.html.EscapeUtil;
 
 public abstract class SelectableOption implements Reloadable
@@ -37,35 +37,29 @@ public abstract class SelectableOption implements Reloadable
     return key;
   }
 
-  protected Map<String, String> getSerializationMap()
+  protected JSONObject getSerializationMap() throws JSONException
   {
-    Map<String, String> map = new HashMap<String, String>();
-
-    map.put("attributeName", "'" + this.getAttributeName() + "'");
-    map.put("displayLabel", "'" + EscapeUtil.escapeHTMLAndJS(this.getDisplayLabel()) + "'");
-    map.put("dtoType", "'" + this.getDTOType() + "'");
-    map.put("key", "'" + this.getKey() + "'");
-    map.put("type", "'" + this.getType() + "'"); 
+    JSONObject map = new JSONObject();
+    
+    map.put("attributeName", this.getAttributeName());
+    map.put("displayLabel", EscapeUtil.escapeHTMLAndJS(this.getDisplayLabel()));
+    map.put("dtoType", this.getDTOType());
+    map.put("key",this.getKey());
+    map.put("type",this.getType()); 
 
     return map;
   }
 
-  public final String serialize()
+  public final JSONObject serialize()
   {
-    Map<String, String> map = this.getSerializationMap();
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("{");
-
-    Set<String> keys = map.keySet();
-
-    for (String key : keys)
+    try
     {
-      buffer.append("," + key + ":" + map.get(key));
+      return this.getSerializationMap();
     }
-
-    buffer.append("}");
-
-    return buffer.toString().replaceFirst(",", "");
+    catch (JSONException e)
+    {
+      throw new ConversionExceptionDTO("Error converting instance of ["+this.getClass().getName()+"] to JSON.", e);
+    }
   }
 
   public abstract String getDTOType();

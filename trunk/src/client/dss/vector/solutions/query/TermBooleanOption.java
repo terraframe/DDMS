@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
-import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 
@@ -31,10 +32,19 @@ public class TermBooleanOption extends SelectableOption implements Reloadable
   }
   
   @Override
-  protected Map<String, String> getSerializationMap()
+  protected JSONObject getSerializationMap() throws JSONException
   {
-    Map<String, String> map = super.getSerializationMap();
-    map.put("dropDownMap", "{'0':'" + positiveLabel + "','1':'" + negativeLabel + "'}");
+    JSONObject map = super.getSerializationMap();
+    
+    JSONObject ddMap = new JSONObject();
+    ddMap.put("true", positiveLabel);
+    ddMap.put("false", negativeLabel);
+    
+    map.put("dropDownMap", ddMap);
+    
+    // TODO this old code not only uses ints instead of booleans but the logic appears inverted.
+    // Has this always been broken?
+//    map.put("dropDownMap", "{'0':'" + positiveLabel + "','1':'" + negativeLabel + "'}");
 
     return map;
   }

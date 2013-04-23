@@ -3,7 +3,12 @@ package dss.vector.solutions.query;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.transport.conversion.ConversionExceptionDTO;
 
 public class SelectableGroup implements Reloadable
 {
@@ -60,21 +65,27 @@ public class SelectableGroup implements Reloadable
 
   public String serialize()
   {
-    StringBuffer array = new StringBuffer();
-
-    for (SelectableOption option : this.options)
+    try
     {
-      array.append("," + option.serialize());
+      JSONArray array = new JSONArray();
+
+      for (SelectableOption option : this.options)
+      {
+        array.put(option.serialize());
+      }
+
+      JSONObject map = new JSONObject();
+      map.put("title", this.label);
+      map.put("group", this.group);
+      map.put("klass", this.classType);
+      map.put("values", array);
+
+      return map.toString();
     }
-
-    StringBuffer buffer = new StringBuffer();
-    buffer.append("{");
-    buffer.append("title:'" + this.label + "'");
-    buffer.append(",group:'" + this.group + "'");
-    buffer.append(",klass:'" + this.classType + "'");
-    buffer.append(",values:[" + array.toString().replaceFirst(",", "") + "]");
-    buffer.append("}");
-
-    return buffer.toString();
+    catch (JSONException e)
+    {
+      throw new ConversionExceptionDTO("Error converting instance of [" + this.getClass().getName()
+          + "] to JSON.", e);
+    }
   }
 }

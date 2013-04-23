@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
-import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeBooleanDTO;
@@ -27,10 +28,17 @@ public class SelectableBooleanOption extends SelectableAttributeOption implement
   }
 
   @Override
-  protected Map<String, String> getSerializationMap()
+  protected JSONObject getSerializationMap() throws JSONException
   {
-    Map<String, String> map = super.getSerializationMap();
-    map.put("dropDownMap", "{'true':'" + positiveLabel + "','false':'" + negativeLabel + "'}");
+    JSONObject map = super.getSerializationMap();
+    
+    JSONObject ddMap = new JSONObject();
+    ddMap.put("true", positiveLabel);
+    ddMap.put("false", negativeLabel);
+    
+    map.put("dropDownMap", ddMap);
+    
+//    map.put("dropDownMap", "{'true':'" + positiveLabel + "','false':'" + negativeLabel + "'}");
 
     return map;
   }

@@ -1,6 +1,7 @@
 package dss.vector.solutions.query;
 
-import java.util.Map;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
@@ -27,10 +28,12 @@ public class SelectableGeoOption extends SelectableOption implements Reloadable
   }
 
   @Override
-  protected Map<String, String> getSerializationMap()
+  protected JSONObject getSerializationMap() throws JSONException
   {
-    Map<String, String> map = super.getSerializationMap();
-    map.put("isGeoEntity", "true");
+    JSONObject map = super.getSerializationMap();
+    
+    map.put("isGeoEntity", true);
+    
     return map;
   }
 }

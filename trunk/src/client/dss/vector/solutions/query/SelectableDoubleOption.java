@@ -1,7 +1,6 @@
 package dss.vector.solutions.query;
 
 import com.runwaysdk.generation.loader.Reloadable;
-import com.runwaysdk.system.metadata.MdAttributeConcreteDTO;
 import com.runwaysdk.system.metadata.MdAttributeDoubleDTO;
 import com.runwaysdk.transport.attributes.AttributeDoubleDTO;
 
