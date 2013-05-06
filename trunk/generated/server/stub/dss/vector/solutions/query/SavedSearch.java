@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -56,7 +57,17 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   public static final String VIEW_PREFIX      = "q_";
 
   private static Log         log              = LogFactory.getLog(SavedSearch.class);
+  
+  /**
+   * Regex to detect an invalid postgres identifier, which cannot start with a digit.
+   */
+  private static final Pattern INVALID_PREFIX = Pattern.compile("^\\d.*$");
 
+  /**
+   * An identifier with an invalid prefix can be fixed by adding an underscore.
+   */
+  private static final String VALID_PREFIX = "_";
+  
   public SavedSearch()
   {
     super();
@@ -311,10 +322,52 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     try
     {
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
-
+      
+      // wrap the query with outer SELECT that uses user-friendly column names
+      // based on the display labels.
+      ValueQuery outer = new ValueQuery(new QueryFactory());
+      outer.FROM("("+valueQuery.getSQL()+")", "original_query");
+      
+      for(Selectable s : valueQuery.getSelectableRefs())
+      {
+        // convert the user display label into something a user-friendly column.
+        // use SQL character because it's generic enough to handle all cases.
+        Selectable c = outer.aSQLCharacter(s._getAttributeName(), s.getColumnAlias());
+        
+        String newColumn;
+        String label = s.getUserDefinedDisplayLabel();
+        if(label != null && label.length() > 0)
+        {
+          newColumn = label;
+        }
+        else
+        {
+          newColumn = c.getColumnAlias();
+        }
+        
+        newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
+        
+        // Postgres identifiers are case-insensitive so
+        // lowercase everything to simplify the label
+        newColumn = newColumn.toLowerCase();
+        
+        // an identifier cannot start with a number so add
+        // an underscore if a digit is detected
+        
+        if(INVALID_PREFIX.matcher(newColumn).matches())
+        {
+          newColumn = VALID_PREFIX + newColumn;
+        }
+        
+        c.setColumnAlias(newColumn);
+        
+        outer.SELECT(c);
+      }
+      
+      
       // create the database view
       String viewName = this.generateViewName();
-      String sql = "(" + valueQuery.getSQL() + ")";
+      String sql = "(" + outer.getSQL() + ")";
       Database.createView(viewName, sql);
     }
     catch (NoColumnsAddedException e)

@@ -2113,8 +2113,16 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
   {
     return getSystemName(description, "Universal", true);
   }
-
-  public static String getSystemName(String description, String suffix, boolean isClassName)
+  
+  /**
+   * 
+   * @param description
+   * @param suffix
+   * @param isClassName
+   * @param partDelimiter The character used between the split segments (words) of the name.
+   * @return
+   */
+  public static String getSystemName(String description, String suffix, boolean isClassName, String partDelimiter)
   {
     String systemName = description;
     String name = description.replace("/", " Or ").replace("&", " And ");
@@ -2155,7 +2163,13 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
             sb.append(part.substring(0, 1).toUpperCase());
             sb.append(part.substring(1).toLowerCase());
           }
+          
+          if(i < parts.length-1)
+          {
+            sb.append(partDelimiter);
+          }
         }
+        
       }
       systemName = sb.toString();
 
@@ -2168,6 +2182,11 @@ public class GeoHierarchy extends GeoHierarchyBase implements com.runwaysdk.gene
         systemName = systemName.substring(0, 1).toLowerCase() + systemName.substring(1);
     }
     return systemName;
+  }
+
+  public static String getSystemName(String description, String suffix, boolean isClassName)
+  {
+    return getSystemName(description, suffix, isClassName, "");
   }
 
   private static String convertRomanToArabic(String part)
