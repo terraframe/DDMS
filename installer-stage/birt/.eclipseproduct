@@ -1,5 +1,5 @@
 #Eclipse Product File
-#Mon Sep 22 12:20:07 CST 2008
-version=2.3.1.v20080905
+#Tue Sep 13 18:28:28 CST 2011
+version=3.7.1.v20110905
 name=%ApplicationName
 id=org.eclipse.birt.report.designer.ui.rcp.BIRT

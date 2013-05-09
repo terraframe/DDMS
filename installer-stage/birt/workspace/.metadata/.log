@@ -1,0 +1,18 @@
+!SESSION 2012-08-15 10:09:20.863 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_29
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.update.configurator 4 0 2012-08-15 10:09:22.033
+!MESSAGE Unable to find feature.xml in directory: C:\cruisecontrol-bin-2.8.3\projects\mdss\installer-stage\birt\features\.svn
+!SESSION 2013-05-08 15:40:08.086 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.6.0_29
+java.vendor=Sun Microsystems Inc.
+BootLoader constants: OS=win32, ARCH=x86, WS=win32, NL=en_US
+Command-line arguments:  -os win32 -ws win32 -arch x86
+
+!ENTRY org.eclipse.ui 4 4 2013-05-08 15:40:29.633
+!MESSAGE Invalid preference page path: Web Browser
