@@ -33,7 +33,6 @@
             <virtual concrete="femalesFed" type="dss.vector.solutions.entomology.SubCollection" />
             <virtual concrete="femalesHalfGravid" type="dss.vector.solutions.entomology.SubCollection" />
             <virtual concrete="femalesGravid" type="dss.vector.solutions.entomology.SubCollection" />
-            <virtual concrete="femalesTotal" type="dss.vector.solutions.entomology.SubCollection" />
           </attributes>
         </create>
       </mdView>
