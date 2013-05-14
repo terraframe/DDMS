@@ -1,0 +1,70 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.entomology.SubCollection">
+        <attributes>
+          <integer name="female" rename="femalesUnknown" label="# fem - unknown" />
+        </attributes>
+        <create>
+          <attributes>
+            <integer name="femalesUnfed" label="# fem - unfed" />
+            <integer name="femalesFed" label="# fem - fed" />
+            <integer name="femalesHalfGravid" label="# fem - half gravid" />
+            <integer name="femalesGravid" label="# fem - gravid" />
+            <integer name="femalesTotal" label="Number females" />
+          </attributes>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.entomology.SubCollectionView">
+        <create>
+          <attributes>
+            <virtual concrete="femalesUnfed" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesFed" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesHalfGravid" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesGravid" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesTotal" type="dss.vector.solutions.entomology.SubCollection" />
+          </attributes>
+        </create>
+      </mdView>
+      <mdView name="dss.vector.solutions.export.MosquitoCollectionExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="femalesUnfed" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesFed" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesHalfGravid" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesGravid" type="dss.vector.solutions.entomology.SubCollection" />
+            <virtual concrete="femalesTotal" type="dss.vector.solutions.entomology.SubCollection" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+  </doIt>
+  <undoIt>
+    <update>
+      <mdView name="dss.vector.solutions.export.MosquitoCollectionExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="female" type="dss.vector.solutions.entomology.SubCollection" />
+          </attributes>
+        </create>
+      </mdView>
+    </update>
+    <delete>
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.femalesUnfed" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.femalesFed" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.femalesHalfGravid" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.femalesGravid" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.export.MosquitoCollectionExcelView.femalesTotal" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.femalesUnfed" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.femalesFed" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.femalesHalfGravid" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.femalesGravid" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollectionView.femalesTotal" type="com.runwaysdk.system.metadata.MdAttributeVirtual" />
+      <object key="dss.vector.solutions.entomology.SubCollection.femalesUnfed" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+      <object key="dss.vector.solutions.entomology.SubCollection.femalesFed" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+      <object key="dss.vector.solutions.entomology.SubCollection.femalesHalfGravid" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+      <object key="dss.vector.solutions.entomology.SubCollection.femalesGravid" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+      <object key="dss.vector.solutions.entomology.SubCollection.femalesTotal" type="com.runwaysdk.system.metadata.MdAttributeConcrete" />
+    </delete>
+  </undoIt>
+</version>
