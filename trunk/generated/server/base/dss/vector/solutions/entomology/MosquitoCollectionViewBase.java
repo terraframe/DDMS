@@ -123,6 +123,11 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     }
   }
   
+  public String getCollectionMethodId()
+  {
+    return getValue(COLLECTIONMETHOD);
+  }
+  
   public void validateCollectionMethod()
   {
     this.validateAttribute(COLLECTIONMETHOD);
@@ -184,6 +189,11 @@ public abstract class MosquitoCollectionViewBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()

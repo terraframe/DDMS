@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 876871058)
+@com.runwaysdk.business.ClassSignature(hash = 808119263)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology;
 public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 876871058;
 
   public SubCollectionQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -142,21 +141,106 @@ private static final long serialVersionUID = 876871058;
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.SubCollection.ENTITYDOMAIN, mdAttributeIF, this, alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getFemale()
+  public com.runwaysdk.query.SelectableInteger getFemalesFed()
   {
-    return getFemale(null);
+    return getFemalesFed(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale(String alias)
+  public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALE, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESFED, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALE, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESFED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid()
+  {
+    return getFemalesGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESGRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESGRAVID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid()
+  {
+    return getFemalesHalfGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESHALFGRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESHALFGRAVID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal()
+  {
+    return getFemalesTotal(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESTOTAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESTOTAL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed()
+  {
+    return getFemalesUnfed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESUNFED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESUNFED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown()
+  {
+    return getFemalesUnknown(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESUNKNOWN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.FEMALESUNKNOWN, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()
@@ -568,9 +652,24 @@ private static final long serialVersionUID = 876871058;
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain();
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias);
     public com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF getEntityDomain(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getFemale();
-    public com.runwaysdk.query.SelectableInteger getFemale(String alias);
-    public com.runwaysdk.query.SelectableInteger getFemale(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFemalesFed();
+    public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias);
+    public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFemalesGravid();
+    public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias);
+    public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid();
+    public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias);
+    public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFemalesTotal();
+    public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias);
+    public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFemalesUnfed();
+    public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias);
+    public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getFemalesUnknown();
+    public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias);
+    public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableChar getId();
     public com.runwaysdk.query.SelectableChar getId(String alias);
     public com.runwaysdk.query.SelectableChar getId(String alias, String displayLabel);
@@ -637,7 +736,6 @@ private static final long serialVersionUID = 876871058;
  implements SubCollectionQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1714630960;
 
   public SubCollectionQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -743,21 +841,106 @@ private static final long serialVersionUID = 1714630960;
     return (com.runwaysdk.system.metadata.MdDomainQuery.MdDomainQueryReferenceIF)this.get(dss.vector.solutions.entomology.SubCollection.ENTITYDOMAIN,  alias, displayLabel);
 
   }
-  public com.runwaysdk.query.SelectableInteger getFemale()
+  public com.runwaysdk.query.SelectableInteger getFemalesFed()
   {
-    return getFemale(null);
+    return getFemalesFed(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale(String alias)
+  public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALE, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESFED, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALE, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESFED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid()
+  {
+    return getFemalesGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESGRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESGRAVID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid()
+  {
+    return getFemalesHalfGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESHALFGRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESHALFGRAVID, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal()
+  {
+    return getFemalesTotal(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESTOTAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESTOTAL, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed()
+  {
+    return getFemalesUnfed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESUNFED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESUNFED, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown()
+  {
+    return getFemalesUnknown(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESUNKNOWN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.FEMALESUNKNOWN, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableChar getId()

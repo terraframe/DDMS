@@ -28,7 +28,7 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
   {
     this.populateTotal();
 
-    this.validateFemale();
+    this.validateFemalesTotal();
     this.validateMale();
     this.validatePupae();
     this.validateLarvae();
@@ -52,9 +52,9 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
   }
 
   @Override
-  public void validateFemale()
+  public void validateFemalesTotal()
   {
-    if (this.getCollection() != null && this.getFemale() != null)
+    if (this.getCollection() != null && this.getFemalesTotal() != null)
     {
       List<LifeStage> lifeStage = this.getCollection().getLifeStage();
 
@@ -63,7 +63,7 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
         String value = ResponseMaster.getValueForErrorMsg(lifeStage);
 
         NotApplicableProblem p = new NotApplicableProblem();
-        p.setNotification(this, FEMALE);
+        p.setNotification(this, FEMALESTOTAL);
         p.setInputAttribute(MosquitoCollection.getLifeStageMd().getDisplayLabel(Session.getCurrentLocale()));
         p.setInputValue(value);
         p.apply();
@@ -177,13 +177,41 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
     }
   }
 
-  private void populateTotal()
+  public void populateTotal()
   {
     int total = 0;
+    int totalFemale = 0;
 
-    if (this.getFemale() != null)
+    if (this.getFemalesFed() != null)
     {
-      total += this.getFemale();
+      totalFemale += this.getFemalesFed();
+    }
+
+    if (this.getFemalesGravid() != null)
+    {
+      totalFemale += this.getFemalesGravid();
+    }
+
+    if (this.getFemalesHalfGravid() != null)
+    {
+      totalFemale += this.getFemalesHalfGravid();
+    }
+
+    if (this.getFemalesUnfed() != null)
+    {
+      totalFemale += this.getFemalesUnfed();
+    }
+
+    if (this.getFemalesUnknown() != null)
+    {
+      totalFemale += this.getFemalesUnknown();
+    }
+
+    this.setFemalesTotal(totalFemale);
+
+    if (this.getFemalesTotal() != null)
+    {
+      total += this.getFemalesTotal();
     }
 
     if (this.getMale() != null)

@@ -28,12 +28,12 @@ import dss.vector.solutions.util.HierarchyBuilder;
 public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -9941268;
-  
+
   public MosquitoCollectionExcelView()
   {
     super();
   }
-  
+
   @Override
   public void apply()
   {
@@ -41,10 +41,10 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     String subId = this.getSubCollectionId();
     Term idMethod = Term.validateByDisplayLabel(this.getIdentMethod(), SubCollectionView.getIdentMethodMd());
     Term taxonTerm = Term.validateByDisplayLabel(this.getTaxon(), SubCollectionView.getTaxonMd());
-    
+
     SubCollectionQuery query = new SubCollectionQuery(new QueryFactory());
     query.WHERE(query.getCollection().getId().EQ(view.getConcreteId()));
-    if (subId==null || subId.length()==0)
+    if (subId == null || subId.length() == 0)
     {
       query.WHERE(query.getSubCollectionId().EQ(subId));
     }
@@ -52,8 +52,8 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     {
       query.WHERE(query.getSubCollectionId().EQ(subId));
     }
-    
-    if (idMethod==null)
+
+    if (idMethod == null)
     {
       query.WHERE(query.getIdentMethod().EQ(idMethod));
     }
@@ -61,8 +61,8 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     {
       query.WHERE(query.getIdentMethod().EQ(idMethod));
     }
-    
-    if (taxonTerm==null)
+
+    if (taxonTerm == null)
     {
       query.WHERE(query.getTaxon().EQ(taxonTerm));
     }
@@ -70,9 +70,9 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     {
       query.WHERE(query.getTaxon().EQ(taxonTerm));
     }
-    
+
     OIterator<? extends SubCollection> iterator = query.getIterator();
-    
+
     SubCollectionView sub;
     if (iterator.hasNext())
     {
@@ -87,22 +87,26 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       sub.setTaxon(taxonTerm);
     }
     iterator.close();
-    
+
     sub.setEggs(this.getEggs());
     sub.setMale(this.getMale());
-    sub.setFemale(this.getFemale());
     sub.setLarvae(this.getLarvae());
     sub.setPupae(this.getPupae());
     sub.setUnknowns(this.getUnknowns());
-    
-    view.applyAll(new SubCollectionView[]{sub});
+    sub.setFemalesFed(this.getFemalesFed());
+    sub.setFemalesGravid(this.getFemalesGravid());
+    sub.setFemalesHalfGravid(this.getFemalesHalfGravid());
+    sub.setFemalesUnfed(this.getFemalesUnfed());
+    sub.setFemalesUnknown(this.getFemalesUnknown());
+
+    view.applyAll(new SubCollectionView[] { sub });
   }
 
   private MosquitoCollectionView getCollection()
   {
     MosquitoCollectionView view = new MosquitoCollectionView();
     String cid = this.getCollectionId();
-    
+
     MosquitoCollectionQuery query = new MosquitoCollectionQuery(new QueryFactory());
     query.WHERE(query.getCollectionId().EQ(cid));
     OIterator<? extends MosquitoCollection> iterator = query.getIterator();
@@ -114,7 +118,7 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
       }
       else
       {
-        if (cid.length()==0)
+        if (cid.length() == 0)
         {
           RequiredAttributeProblem rap = new RequiredAttributeProblem();
           rap.setAttributeName(COLLECTIONID);
@@ -131,40 +135,40 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     {
       iterator.close();
     }
-      
+
     Term colMethod = Term.validateByDisplayLabel(this.getCollectionMethod(), MosquitoCollectionView.getCollectionMethodMd());
-    if (colMethod!=null)
+    if (colMethod != null)
     {
       view.setCollectionMethod(colMethod);
     }
-    
+
     Date colDate = this.getCollectionDate();
-    if (colDate!=null)
+    if (colDate != null)
     {
       view.setCollectionDate(colDate);
     }
-    
+
     GeoEntity geo = this.getGeoEntity();
-    if (geo!=null)
+    if (geo != null)
     {
       view.setGeoEntity(geo);
     }
-    
+
     Boolean abund = this.getAbundance();
-    if (abund!=null)
+    if (abund != null)
     {
       view.setAbundance(abund);
     }
-    
+
     LifeStage life = ExcelEnums.getLifeStage(this.getLifeStage());
-    if (life!=null)
+    if (life != null)
     {
       view.addLifeStage(life);
     }
-    
+
     return view;
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -179,7 +183,11 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     list.add(EGGS);
     list.add(LARVAE);
     list.add(PUPAE);
-    list.add(FEMALE);
+    list.add(FEMALESUNFED);
+    list.add(FEMALESFED);
+    list.add(FEMALESHALFGRAVID);
+    list.add(FEMALESGRAVID);
+    list.add(FEMALESUNKNOWN);
     list.add(MALE);
     list.add(UNKNOWNS);
     return list;

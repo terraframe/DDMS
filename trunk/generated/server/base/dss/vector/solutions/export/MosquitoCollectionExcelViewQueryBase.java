@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -533339993)
+@com.runwaysdk.business.ClassSignature(hash = 885717796)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -533339993;
 
   public MosquitoCollectionExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -116,21 +115,111 @@ private static final long serialVersionUID = -533339993;
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale()
+  public com.runwaysdk.query.SelectableInteger getFemalesFed()
   {
-    return getFemale(null);
+    return getFemalesFed(null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale(String alias)
+  public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALE, alias, null);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESFED, alias, null);
 
   }
  
-  public com.runwaysdk.query.SelectableInteger getFemale(String alias, String displayLabel)
+  public com.runwaysdk.query.SelectableInteger getFemalesFed(String alias, String displayLabel)
   {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALE, alias, displayLabel);
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESFED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid()
+  {
+    return getFemalesGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESGRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESGRAVID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid()
+  {
+    return getFemalesHalfGravid(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESHALFGRAVID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESHALFGRAVID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal()
+  {
+    return getFemalesTotal(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESTOTAL, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESTOTAL, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed()
+  {
+    return getFemalesUnfed(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESUNFED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnfed(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESUNFED, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown()
+  {
+    return getFemalesUnknown(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESUNKNOWN, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getFemalesUnknown(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESUNKNOWN, alias, displayLabel);
 
   }
  

@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology;
 public  abstract  class MosquitoCollectionViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -165018524;
 
   public MosquitoCollectionViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {

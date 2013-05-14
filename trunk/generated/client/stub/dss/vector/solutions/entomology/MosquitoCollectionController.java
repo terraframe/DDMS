@@ -170,7 +170,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     map.put("IdentMethod", new ColumnSetup(false, true));
     map.put("Taxon", new ColumnSetup(false, true));
     map.put("Male", new ColumnSetup(!adult, true));
-    map.put("Female", new ColumnSetup(!adult, true));
+    map.put("FemalesUnfed", new ColumnSetup(!adult, true));
+    map.put("FemalesFed", new ColumnSetup(!adult, true));
+    map.put("FemalesHalfGravid", new ColumnSetup(!adult, true));
+    map.put("FemalesGravid", new ColumnSetup(!adult, true));
+    map.put("FemalesUnknown", new ColumnSetup(!adult, true));
+    map.put("FemalesTotal", new ColumnSetup(!adult, false));
     map.put("Larvae", new ColumnSetup(!immature, true));
     map.put("Pupae", new ColumnSetup(!immature, true));
     map.put("Unknowns", new ColumnSetup( ( !immature && !adult ), true));
@@ -188,7 +193,12 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     list.add("SubCollectionId");
     list.add("IdentMethod");
     list.add("Taxon");
-    list.add("Female");
+    list.add("FemalesUnfed");
+    list.add("FemalesFed");
+    list.add("FemalesHalfGravid");
+    list.add("FemalesGravid");
+    list.add("FemalesUnknown");
+    list.add("FemalesTotal");
     list.add("Male");
     list.add("Larvae");
     list.add("Pupae");

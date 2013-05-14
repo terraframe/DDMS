@@ -148,6 +148,11 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     }
   }
   
+  public String getCollectionMethodId()
+  {
+    return getValue(COLLECTIONMETHOD);
+  }
+  
   public void setCollectionMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -227,6 +232,11 @@ public abstract class MosquitoCollectionViewDTOBase extends com.runwaysdk.busine
     {
       return dss.vector.solutions.geo.generated.GeoEntityDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.GeoEntityDTO value)

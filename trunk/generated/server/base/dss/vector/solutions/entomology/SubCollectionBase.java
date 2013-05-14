@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1588884379)
+@com.runwaysdk.business.ClassSignature(hash = -1045556362)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,7 +16,12 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
   public static java.lang.String CREATEDBY = "createdBy";
   public static java.lang.String EGGS = "eggs";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
-  public static java.lang.String FEMALE = "female";
+  public static java.lang.String FEMALESFED = "femalesFed";
+  public static java.lang.String FEMALESGRAVID = "femalesGravid";
+  public static java.lang.String FEMALESHALFGRAVID = "femalesHalfGravid";
+  public static java.lang.String FEMALESTOTAL = "femalesTotal";
+  public static java.lang.String FEMALESUNFED = "femalesUnfed";
+  public static java.lang.String FEMALESUNKNOWN = "femalesUnknown";
   public static java.lang.String ID = "id";
   public static java.lang.String IDENTMETHOD = "identMethod";
   public static java.lang.String KEYNAME = "keyName";
@@ -34,7 +39,7 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
   public static java.lang.String TOTAL = "total";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 1588884379;
+  private static final long serialVersionUID = -1045556362;
   
   public SubCollectionBase()
   {
@@ -51,6 +56,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     {
       return dss.vector.solutions.entomology.MosquitoCollection.get(getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void validateCollection()
@@ -104,6 +114,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -155,6 +170,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void validateEntityDomain()
   {
     this.validateAttribute(ENTITYDOMAIN);
@@ -178,31 +198,171 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     }
   }
   
-  public Integer getFemale()
+  public Integer getFemalesFed()
   {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALE));
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESFED));
   }
   
-  public void validateFemale()
+  public void validateFemalesFed()
   {
-    this.validateAttribute(FEMALE);
+    this.validateAttribute(FEMALESFED);
   }
   
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemaleMd()
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesFedMd()
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
-    return mdClassIF.definesAttribute(FEMALE);
+    return mdClassIF.definesAttribute(FEMALESFED);
   }
   
-  public void setFemale(Integer value)
+  public void setFemalesFed(Integer value)
   {
     if(value == null)
     {
-      setValue(FEMALE, "");
+      setValue(FEMALESFED, "");
     }
     else
     {
-      setValue(FEMALE, java.lang.Integer.toString(value));
+      setValue(FEMALESFED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getFemalesGravid()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESGRAVID));
+  }
+  
+  public void validateFemalesGravid()
+  {
+    this.validateAttribute(FEMALESGRAVID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesGravidMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(FEMALESGRAVID);
+  }
+  
+  public void setFemalesGravid(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FEMALESGRAVID, "");
+    }
+    else
+    {
+      setValue(FEMALESGRAVID, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getFemalesHalfGravid()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESHALFGRAVID));
+  }
+  
+  public void validateFemalesHalfGravid()
+  {
+    this.validateAttribute(FEMALESHALFGRAVID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesHalfGravidMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(FEMALESHALFGRAVID);
+  }
+  
+  public void setFemalesHalfGravid(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FEMALESHALFGRAVID, "");
+    }
+    else
+    {
+      setValue(FEMALESHALFGRAVID, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getFemalesTotal()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESTOTAL));
+  }
+  
+  public void validateFemalesTotal()
+  {
+    this.validateAttribute(FEMALESTOTAL);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesTotalMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(FEMALESTOTAL);
+  }
+  
+  public void setFemalesTotal(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FEMALESTOTAL, "");
+    }
+    else
+    {
+      setValue(FEMALESTOTAL, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getFemalesUnfed()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESUNFED));
+  }
+  
+  public void validateFemalesUnfed()
+  {
+    this.validateAttribute(FEMALESUNFED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesUnfedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(FEMALESUNFED);
+  }
+  
+  public void setFemalesUnfed(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FEMALESUNFED, "");
+    }
+    else
+    {
+      setValue(FEMALESUNFED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getFemalesUnknown()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESUNKNOWN));
+  }
+  
+  public void validateFemalesUnknown()
+  {
+    this.validateAttribute(FEMALESUNKNOWN);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesUnknownMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(FEMALESUNKNOWN);
+  }
+  
+  public void setFemalesUnknown(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(FEMALESUNKNOWN, "");
+    }
+    else
+    {
+      setValue(FEMALESUNKNOWN, java.lang.Integer.toString(value));
     }
   }
   
@@ -232,6 +392,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     {
       return dss.vector.solutions.ontology.Term.get(getValue(IDENTMETHOD));
     }
+  }
+  
+  public String getIdentMethodId()
+  {
+    return getValue(IDENTMETHOD);
   }
   
   public void validateIdentMethod()
@@ -341,6 +506,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -362,6 +532,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     {
       return com.runwaysdk.system.Users.get(getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public void validateLockedBy()
@@ -413,6 +588,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -536,6 +716,11 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     {
       return dss.vector.solutions.ontology.Term.get(getValue(TAXON));
     }
+  }
+  
+  public String getTaxonId()
+  {
+    return getValue(TAXON);
   }
   
   public void validateTaxon()
