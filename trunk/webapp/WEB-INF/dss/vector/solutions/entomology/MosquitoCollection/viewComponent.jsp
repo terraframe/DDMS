@@ -321,19 +321,27 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 
       collection.applyAll(request, parameters[0]);
     };
-
+    
+    calculateFemaleTotal = function(record) {
+      var unfed = MDSS.parseNumber(record.getData('FemalesUnfed'), true) || 0;
+      var fed = MDSS.parseNumber(record.getData('FemalesFed'), true) || 0;
+      var halfGravid = MDSS.parseNumber(record.getData('FemalesHalfGravid'), true) || 0;
+      var gravid = MDSS.parseNumber(record.getData('FemalesGravid'), true) || 0;
+      var unknown = MDSS.parseNumber(record.getData('FemalesUnknown'), true) || 0;
+      
+      return unfed + fed + halfGravid + gravid + unknown; 
+    }
 
     // FUNCTION FOR CALCULATING THE TOTAL OF A GIVEN ROW
     calculateTotal = function(record){
       
-      var females = MDSS.parseNumber(record.getData('Female'), true) || 0;
       var males = MDSS.parseNumber(record.getData('Male'), true)  || 0;
       var larvae = MDSS.parseNumber(record.getData('Larvae'), true)  || 0;
       var pupae = MDSS.parseNumber(record.getData('Pupae'), true)  || 0;
       var unknowns = MDSS.parseNumber(record.getData('Unknowns'), true)  || 0;
       var eggs = MDSS.parseNumber(record.getData('Eggs'), true)  || 0;
       
-      return males + females + larvae + pupae + unknowns + eggs;
+      return males + larvae + pupae + unknowns + eggs;
     }
 
     // SETUP THE SUB COLLECTIONS DATA GRID
@@ -350,11 +358,13 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       saveLabelKey : "Save_Collection",
       saveHandler : saveCollection,
       after_row_edit:function(record){
+    	var femaleTotal = calculateFemaleTotal(record);
         var total = calculateTotal(record);
 
         var dataTable = grid.getDataTable();
 
-        dataTable.updateCell(record, 'Total', total);
+        dataTable.updateCell(record, 'FemalesTotal', femaleTotal);
+        dataTable.updateCell(record, 'Total', total + femaleTotal);
       }
     };        
  
