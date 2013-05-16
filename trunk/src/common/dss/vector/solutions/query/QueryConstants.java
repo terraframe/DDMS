@@ -43,7 +43,7 @@ public class QueryConstants implements Reloadable
 
   public static final String  DOB_CRITERIA                            = "dobCriteria";
 
-  public static final String NAMESPACE_DELIM                         = ":";
+  public static final String  NAMESPACE_DELIM                         = ":";
 
   /*
    * Constant used to query IndividualPremiseVisit.REASONSFORNOTTREATED in the
@@ -139,29 +139,31 @@ public class QueryConstants implements Reloadable
     QUERY_UNIVERSAL,
 
     QUERY_FORM_SURVEY;
-    
+
     private String queryClass;
-    
+
     /**
-     * Constructor for the query types that have a different query class (the Java class
-     * that processes the XML/JSON for a query) than the domain class that is being queried.
+     * Constructor for the query types that have a different query class (the
+     * Java class that processes the XML/JSON for a query) than the domain class
+     * that is being queried.
+     * 
      * @param queryClass
      */
     private QueryType(String queryClass)
     {
       this();
-      
+
       this.queryClass = queryClass;
     }
-    
+
     private QueryType()
     {
-      this.queryClass = null; 
+      this.queryClass = null;
     }
-    
+
     public String getQueryClass()
     {
-      return this.queryClass;  
+      return this.queryClass;
     }
   }
 
@@ -185,21 +187,24 @@ public class QueryConstants implements Reloadable
   {
     return type + NAMESPACE_DELIM + typeName;
   }
-  
+
   /**
-   * Tests if a saved query is from the form generator.
+   * Tests if a saved query is from the form generator. Note both MERG surveys
+   * and normal form surveys are considered to be part of the form generator.
    * 
    * @param namespacedType
    * @return
    */
   public static boolean isFormGeneratorQuery(String namespacedType)
   {
-    return getQueryClass(namespacedType).equals(MDSSInfo.TYPE_QB);
+    String queryClass = getQueryClass(namespacedType);
+
+    return queryClass.equals(MDSSInfo.TYPE_QB) || queryClass.equals(MDSSInfo.FORM_SURVEY_QB);
   }
-  
+
   /**
-   * Returns the domain class of the namespaced query type. This should
-   * be called if QueryConstants.isFormGeneratorQuery(String) returns true.
+   * Returns the domain class of the namespaced query type. This should be
+   * called if QueryConstants.isFormGeneratorQuery(String) returns true.
    * 
    * @param namespacedType
    * @return
@@ -217,22 +222,31 @@ public class QueryConstants implements Reloadable
    */
   public static String getQueryClass(String namespacedType)
   {
-    if (namespacedType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
+    /* 
+     * IMPORTANT: We must check the Form Suvey class first because it signifies that it will
+     * have a different end point than nomral form query classes.  However, it has the same
+     * package as all other form classes.
+     */
+    if (namespacedType.startsWith(MDSSInfo.ROOT_FORM_SURVEY_CLASS))
+    {
+      return MDSSInfo.FORM_SURVEY_QB;
+    }
+    else if (namespacedType.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
     {
       return MDSSInfo.TYPE_QB;
     }
-    
+
     String[] parts = namespacedType.split(NAMESPACE_DELIM);
     QueryType queryType = QueryType.valueOf(parts[1]);
-    
+
     return queryType.getQueryClass() != null ? queryType.getQueryClass() : parts[0];
   }
 
-//  public static QueryType getQueryType(String namespacedType)
-//  {
-//    String name = namespacedType.split(NAMESPACE_DELIM)[1];
-//    return QueryType.valueOf(name);
-//  }
+  // public static QueryType getQueryType(String namespacedType)
+  // {
+  // String name = namespacedType.split(NAMESPACE_DELIM)[1];
+  // return QueryType.valueOf(name);
+  // }
 
   public static String createSLDName(String layerId)
   {
