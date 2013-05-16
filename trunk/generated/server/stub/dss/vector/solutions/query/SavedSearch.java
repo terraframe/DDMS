@@ -48,26 +48,27 @@ import dss.vector.solutions.report.UndefinedTemplateException;
 
 public class SavedSearch extends SavedSearchBase implements com.runwaysdk.generation.loader.Reloadable
 {
-  private static final long  serialVersionUID = 1241158161320L;
+  private static final long    serialVersionUID = 1241158161320L;
 
   /**
    * The prefix for the database view names that represent saved searches
    * (queries).
    */
-  public static final String VIEW_PREFIX      = "q_";
+  public static final String   VIEW_PREFIX      = "q_";
 
-  private static Log         log              = LogFactory.getLog(SavedSearch.class);
-  
+  private static Log           log              = LogFactory.getLog(SavedSearch.class);
+
   /**
-   * Regex to detect an invalid postgres identifier, which cannot start with a digit.
+   * Regex to detect an invalid postgres identifier, which cannot start with a
+   * digit.
    */
-  private static final Pattern INVALID_PREFIX = Pattern.compile("^\\d.*$");
+  private static final Pattern INVALID_PREFIX   = Pattern.compile("^\\d.*$");
 
   /**
    * An identifier with an invalid prefix can be fixed by adding an underscore.
    */
-  private static final String VALID_PREFIX = "_";
-  
+  private static final String  VALID_PREFIX     = "_";
+
   public SavedSearch()
   {
     super();
@@ -179,17 +180,20 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     }
 
     String temp = this.getQueryName();
-    
-    // Use the disease key because it will not change unlike the display label, which
-    // the user can modify, thus invalidating a view name. We are treading readability for
-    // consistency here, but it doesn't matter because the user will most likely copy and paste
+
+    // Use the disease key because it will not change unlike the display label,
+    // which
+    // the user can modify, thus invalidating a view name. We are treading
+    // readability for
+    // consistency here, but it doesn't matter because the user will most likely
+    // copy and paste
     // the view name. It's not meant to be one-hundred percent user friendly.
     String disease = this.getDisease().getKey();
 
     // now convert all characters to a valid string using the same mechanism
     // that converts universal and form labels into a database table/view
     // identifier.
-    temp = GeoHierarchy.getSystemName(temp, "_"+disease, false);
+    temp = GeoHierarchy.getSystemName(temp, "_" + disease, false);
 
     // views can have 63 characters in the name, so given that the prefix,
     // delimiters,
@@ -208,7 +212,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     viewName = viewName.toLowerCase();
     return viewName;
   }
-  
+
   /**
    * Removes all database views for queries.
    */
@@ -216,21 +220,22 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   {
     QueryFactory f = new QueryFactory();
     SavedSearchQuery q = new SavedSearchQuery(f);
-    
+
     OIterator<? extends SavedSearch> iter = q.getIterator();
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         SavedSearch search = iter.next();
         try
         {
-          search.deleteDatabaseViewIfExists(); 
+          search.deleteDatabaseViewIfExists();
         }
-        catch(Throwable t)
+        catch (Throwable t)
         {
-          // continue if there's an error, which can happen under normal circumstances
-          log.error("Could not delete the database view for SavedSearch ["+search+"].", t);
+          // continue if there's an error, which can happen under normal
+          // circumstances
+          log.error("Could not delete the database view for SavedSearch [" + search + "].", t);
         }
       }
     }
@@ -239,7 +244,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
       iter.close();
     }
   }
-  
+
   /**
    * Creates database views for queries.
    */
@@ -247,21 +252,22 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   {
     QueryFactory f = new QueryFactory();
     SavedSearchQuery q = new SavedSearchQuery(f);
-    
+
     OIterator<? extends SavedSearch> iter = q.getIterator();
     try
     {
-      while(iter.hasNext())
+      while (iter.hasNext())
       {
         SavedSearch search = iter.next();
         try
         {
-          search.createOrReplaceDatabaseView(); 
+          search.createOrReplaceDatabaseView();
         }
-        catch(Throwable t)
+        catch (Throwable t)
         {
-          // continue if there's an error, which can happen under normal circumstances
-          log.error("Could not create the database view for SavedSearch ["+search+"].", t);
+          // continue if there's an error, which can happen under normal
+          // circumstances
+          log.error("Could not create the database view for SavedSearch [" + search + "].", t);
         }
       }
     }
@@ -322,21 +328,21 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     try
     {
       ValueQuery valueQuery = QueryBuilder.getValueQuery(queryClass, xml, config, null);
-      
+
       // wrap the query with outer SELECT that uses user-friendly column names
       // based on the display labels.
       ValueQuery outer = new ValueQuery(new QueryFactory());
-      outer.FROM("("+valueQuery.getSQL()+")", "original_query");
-      
-      for(Selectable s : valueQuery.getSelectableRefs())
+      outer.FROM("(" + valueQuery.getSQL() + ")", "original_query");
+
+      for (Selectable s : valueQuery.getSelectableRefs())
       {
         // convert the user display label into something a user-friendly column.
         // use SQL character because it's generic enough to handle all cases.
-        Selectable c = outer.aSQLCharacter(s._getAttributeName(), s.getColumnAlias());
-        
+        Selectable c = outer.aSQLCharacter(s.getColumnAlias(), s.getColumnAlias());
+
         String newColumn;
         String label = s.getUserDefinedDisplayLabel();
-        if(label != null && label.length() > 0)
+        if (label != null && label.length() > 0)
         {
           newColumn = label;
         }
@@ -344,27 +350,26 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         {
           newColumn = c.getColumnAlias();
         }
-        
+
         newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
-        
+
         // Postgres identifiers are case-insensitive so
         // lowercase everything to simplify the label
         newColumn = newColumn.toLowerCase();
-        
+
         // an identifier cannot start with a number so add
         // an underscore if a digit is detected
-        
-        if(INVALID_PREFIX.matcher(newColumn).matches())
+
+        if (INVALID_PREFIX.matcher(newColumn).matches())
         {
           newColumn = VALID_PREFIX + newColumn;
         }
-        
+
         c.setColumnAlias(newColumn);
-        
+
         outer.SELECT(c);
       }
-      
-      
+
       // create the database view
       String viewName = this.generateViewName();
       String sql = "(" + outer.getSQL() + ")";
@@ -678,25 +683,25 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   private static boolean databaseViewExists(String viewName)
   {
     return Database.tableExists(viewName);
-    
-//    ValueQuery v = new ValueQuery(new QueryFactory());
-//    v.SELECT(v.aSQLBoolean("constantBool", "true"));
-//    v.FROM(viewName, viewName);
-//    
-//    v.restrictRows(1, 1); // restrict the rows to simplify the query
-//
-//    try
-//    {
-//      v.getCount();
-//      log.debug("The database view [" + viewName + "] exists.");
-//
-//      return true;
-//    }
-//    catch (DatabaseException ex)
-//    {
-//      log.warn("The database view [" + viewName + "] does not exist.", ex);
-//      return false;
-//    }
+
+    // ValueQuery v = new ValueQuery(new QueryFactory());
+    // v.SELECT(v.aSQLBoolean("constantBool", "true"));
+    // v.FROM(viewName, viewName);
+    //
+    // v.restrictRows(1, 1); // restrict the rows to simplify the query
+    //
+    // try
+    // {
+    // v.getCount();
+    // log.debug("The database view [" + viewName + "] exists.");
+    //
+    // return true;
+    // }
+    // catch (DatabaseException ex)
+    // {
+    // log.warn("The database view [" + viewName + "] does not exist.", ex);
+    // return false;
+    // }
   }
 
   @Transaction
