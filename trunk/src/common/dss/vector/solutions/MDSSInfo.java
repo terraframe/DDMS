@@ -19,4 +19,8 @@ public interface MDSSInfo
   public static final String GENERATED_FORM_TREE_PACKAGE     = GENERATED_FORM_PACKAGE + ".tree";
 
   public static final String TYPE_QB                         = ROOT_PACKAGE + ".querybuilder.TypeQB";
+
+  public static final String FORM_SURVEY_QB                  = ROOT_PACKAGE + ".querybuilder.FormSurveyQB";
+
+  public static final String ROOT_FORM_SURVEY_CLASS          = GENERATED_FORM_BUSINESS_PACKAGE + ".FormSurvey";
 }
