@@ -22,6 +22,9 @@
       <mjl:dt attribute="testDate">
         <span id="testDateSpan" class="formatDate">${item.testDate}</span>
       </mjl:dt>
+      <mjl:dt attribute="controlTestMortality">
+        ${item.controlTestMortality}
+      </mjl:dt>      
       <mjl:dt attribute="testMethod">
         <c:if test="${testMethod != null}">
           ${testMethod.displayLabel}

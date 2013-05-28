@@ -1,0 +1,42 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <update>
+      <mdBusiness name="dss.vector.solutions.entomology.assay.EfficacyAssay">
+        <create>
+          <attributes>
+            <float name="controlTestMortality" label="Control Test Mortality Rate" length="5" decimal="2" description="Mortality rate of the control test" required="false" />
+          </attributes>
+          <mdMethod name="checkControlTestMortality" label="Check control test mortality" returnType="java.lang.Boolean" static="true">
+            <mdParameter name="geoId" order="0" label="Geo Id" type="java.lang.String" />
+            <mdParameter name="testDate" order="1" label="Test Date" type="java.util.Date" />
+            <mdParameter name="controlTestMortality" order="2" label="Control test mortality" type="java.lang.Float" />
+          </mdMethod>
+        </create>
+      </mdBusiness>
+      <mdView name="dss.vector.solutions.entomology.assay.EfficacyAssayView" label="Efficacy Assay">
+        <create>
+          <attributes>
+            <virtual concrete="controlTestMortality" type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          </attributes>
+        </create>
+      </mdView>
+
+      <mdView name="dss.vector.solutions.export.EfficacyAssayExcelView">
+        <create>
+          <attributes>
+            <virtual concrete="controlTestMortality" type="dss.vector.solutions.entomology.assay.EfficacyAssay" />
+          </attributes>
+        </create>
+      </mdView>
+
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.export.EfficacyAssayExcelView.controlTestMortality" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.entomology.assay.EfficacyAssayView.controlTestMortality" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.entomology.assay.EfficacyAssay.controlTestMortality" type="com.runwaysdk.system.metadata.MdAttribute" />
+      <object key="dss.vector.solutions.entomology.assay.EfficacyAssay.checkControlTestMortality" type="com.runwaysdk.system.metadata.MdMethod" />
+    </delete>
+  </undoIt>
+</version>

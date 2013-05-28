@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -684533853)
+@com.runwaysdk.business.ClassSignature(hash = 1734693959)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   private com.runwaysdk.business.Struct ageRange = null;
   
   public static java.lang.String COLONYNAME = "colonyName";
+  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -30,7 +31,7 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = -684533853;
+  private static final long serialVersionUID = 1734693959;
   
   public EfficacyAssayBase()
   {
@@ -79,6 +80,34 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     else
     {
       setValue(COLONYNAME, value);
+    }
+  }
+  
+  public Float getControlTestMortality()
+  {
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+  }
+  
+  public void validateControlTestMortality()
+  {
+    this.validateAttribute(CONTROLTESTMORTALITY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssay.CLASS);
+    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+  }
+  
+  public void setControlTestMortality(Float value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTMORTALITY, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
     }
   }
   
@@ -148,6 +177,11 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     {
       return dss.vector.solutions.geo.generated.Surface.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()
@@ -239,6 +273,11 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     {
       return dss.vector.solutions.irs.InsecticideBrand.get(getValue(INSECTICIDEBRAND));
     }
+  }
+  
+  public String getInsecticideBrandId()
+  {
+    return getValue(INSECTICIDEBRAND);
   }
   
   public void validateInsecticideBrand()
@@ -388,6 +427,11 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
@@ -421,6 +465,11 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SURFACEPOSTION));
     }
+  }
+  
+  public String getSurfacePostionId()
+  {
+    return getValue(SURFACEPOSTION);
   }
   
   public void validateSurfacePostion()
@@ -458,6 +507,11 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     }
   }
   
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
+  }
+  
   public void validateSurfaceType()
   {
     this.validateAttribute(SURFACETYPE);
@@ -491,6 +545,11 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
     {
       return dss.vector.solutions.ontology.Term.get(getValue(TESTMETHOD));
     }
+  }
+  
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
   }
   
   public void validateTestMethod()
@@ -564,6 +623,12 @@ public abstract class EfficacyAssayBase extends dss.vector.solutions.entomology.
   public static EfficacyAssay getByKey(String key)
   {
     return (EfficacyAssay) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public static java.lang.Boolean checkControlTestMortality(java.lang.String geoId, java.util.Date testDate, java.lang.Float controlTestMortality)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.EfficacyAssay.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
   }
   
   public java.lang.Float getOverallMortalityRate()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1263237411)
+@com.runwaysdk.business.ClassSignature(hash = -1763171641)
 public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomology.assay.AbstractAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.EfficacyAssay";
-  private static final long serialVersionUID = 1263237411;
+  private static final long serialVersionUID = -1763171641;
   
   protected EfficacyAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -29,6 +29,7 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   
   public static java.lang.String AGERANGE = "ageRange";
   public static java.lang.String COLONYNAME = "colonyName";
+  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -104,6 +105,43 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getColonyNameMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(COLONYNAME).getAttributeMdDTO();
+  }
+  
+  public Float getControlTestMortality()
+  {
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+  }
+  
+  public void setControlTestMortality(Float value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTMORTALITY, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
+    }
+  }
+  
+  public boolean isControlTestMortalityWritable()
+  {
+    return isWritable(CONTROLTESTMORTALITY);
+  }
+  
+  public boolean isControlTestMortalityReadable()
+  {
+    return isReadable(CONTROLTESTMORTALITY);
+  }
+  
+  public boolean isControlTestMortalityModified()
+  {
+    return isModified(CONTROLTESTMORTALITY);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getControlTestMortalityMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(CONTROLTESTMORTALITY).getAttributeMdDTO();
   }
   
   public Integer getExposureTime()
@@ -190,6 +228,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     {
       return dss.vector.solutions.geo.generated.SurfaceDTO.get(getRequest(), getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void setGeoEntity(dss.vector.solutions.geo.generated.SurfaceDTO value)
@@ -308,6 +351,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     {
       return dss.vector.solutions.irs.InsecticideBrandDTO.get(getRequest(), getValue(INSECTICIDEBRAND));
     }
+  }
+  
+  public String getInsecticideBrandId()
+  {
+    return getValue(INSECTICIDEBRAND);
   }
   
   public void setInsecticideBrand(dss.vector.solutions.irs.InsecticideBrandDTO value)
@@ -502,6 +550,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -544,6 +597,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SURFACEPOSTION));
     }
+  }
+  
+  public String getSurfacePostionId()
+  {
+    return getValue(SURFACEPOSTION);
   }
   
   public void setSurfacePostion(dss.vector.solutions.ontology.TermDTO value)
@@ -590,6 +648,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     }
   }
   
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
+  }
+  
   public void setSurfaceType(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -632,6 +695,11 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(TESTMETHOD));
     }
+  }
+  
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
   }
   
   public void setTestMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -701,6 +769,14 @@ public abstract class EfficacyAssayDTOBase extends dss.vector.solutions.entomolo
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getTimeOnSurfaceMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(TIMEONSURFACE).getAttributeMdDTO();
+  }
+  
+  public static final java.lang.Boolean checkControlTestMortality(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String geoId, java.util.Date testDate, java.lang.Float controlTestMortality)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "java.util.Date", "java.lang.Float"};
+    Object[] _parameters = new Object[]{geoId, testDate, controlTestMortality};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.EfficacyAssayDTO.CLASS, "checkControlTestMortality", _declaredTypes);
+    return (java.lang.Boolean) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public final java.lang.Float getOverallMortalityRate()

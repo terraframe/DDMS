@@ -287,7 +287,6 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     this.actions = actions;
   }
 
-
   private Set<String> getExtraUniversals()
   {
     Set<String> set = new LinkedHashSet<String>();
@@ -402,17 +401,17 @@ public class GeoTagSupport extends SimpleTagSupport implements Reloadable
     out.write("    var selectSearch = new MDSS.SingleSelectSearch(" + this.getEnforceRoot() + ");\n");
 
     this.writeFilterScript(out);
-    
-    out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
 
     if (this.listener != null)
     {
-      out.write("    geoSearch.addListener(" + this.listener + ");\n");
+      out.write("    selectSearch.addListener(" + this.listener + ");\n");
     }
 
+    out.write("    var geoSearch = new MDSS.GeoSearch(geoInput, selectSearch);\n");
+
     this.writeFilterTags(out);
-    
-    for(ConditionalAction action : actions)
+
+    for (ConditionalAction action : actions)
     {
       out.write(action.getJavascript());
     }

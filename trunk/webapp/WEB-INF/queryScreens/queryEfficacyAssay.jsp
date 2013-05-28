@@ -125,6 +125,7 @@ YAHOO.util.Event.onDOMReady(function(){
                            "geoEntity", 
                            "surfaceType",
                            "testDate",
+                           "controlTestMortality",
                            "testMethod", 
                            "specie",
                            "colonyName",

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1549839526)
+@com.runwaysdk.business.ClassSignature(hash = -504011792)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  class EfficacyAssayQuery extends dss.vector.solutions.entomology.assay.AbstractAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1549839526;
 
   public EfficacyAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -77,6 +76,23 @@ private static final long serialVersionUID = -1549839526;
   public com.runwaysdk.query.SelectableChar getColonyName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.EfficacyAssay.COLONYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality()
+  {
+    return getControlTestMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.EfficacyAssay.CONTROLTESTMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.EfficacyAssay.CONTROLTESTMORTALITY, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getExposureTime()
@@ -456,6 +472,9 @@ private static final long serialVersionUID = -1549839526;
     public com.runwaysdk.query.SelectableChar getColonyName();
     public com.runwaysdk.query.SelectableChar getColonyName(String alias);
     public com.runwaysdk.query.SelectableChar getColonyName(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality();
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias);
+    public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getExposureTime();
     public com.runwaysdk.query.SelectableInteger getExposureTime(String alias);
     public com.runwaysdk.query.SelectableInteger getExposureTime(String alias, String displayLabel);
@@ -516,7 +535,6 @@ private static final long serialVersionUID = -1549839526;
  implements EfficacyAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 671258232;
 
   public EfficacyAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -569,6 +587,23 @@ private static final long serialVersionUID = 671258232;
   public com.runwaysdk.query.SelectableChar getColonyName(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.COLONYNAME, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality()
+  {
+    return getControlTestMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.CONTROLTESTMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.get(dss.vector.solutions.entomology.assay.EfficacyAssay.CONTROLTESTMORTALITY, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getExposureTime()

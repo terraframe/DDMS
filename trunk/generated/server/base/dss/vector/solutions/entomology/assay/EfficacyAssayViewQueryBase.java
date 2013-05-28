@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 465485166)
+@com.runwaysdk.business.ClassSignature(hash = -776588635)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  abstract  class EfficacyAssayViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 465485166;
 
   public EfficacyAssayViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -77,6 +76,24 @@ private static final long serialVersionUID = 465485166;
   public com.runwaysdk.query.SelectableChar getConcreteId(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONCRETEID, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality()
+  {
+    return getControlTestMortality(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONTROLTESTMORTALITY, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableFloat getControlTestMortality(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableFloat)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.CONTROLTESTMORTALITY, alias, displayLabel);
 
   }
  

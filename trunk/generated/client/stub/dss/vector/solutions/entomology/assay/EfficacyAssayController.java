@@ -23,7 +23,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1236363373105L;
+  public static final long   serialVersionUID = 1236363373105L;
 
   public EfficacyAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -280,8 +280,10 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
 
     EfficacyAssayViewDTO clone = new EfficacyAssayViewDTO(clientRequest);
     clone.setGeoId(dto.getGeoId());
+    clone.setSurfaceType(dto.getSurfaceType());
     clone.setTestDate(dto.getTestDate());
     clone.setTestMethod(dto.getTestMethod());
+    clone.setControlTestMortality(dto.getControlTestMortality());
     clone.setSpecie(dto.getSpecie());
     clone.setColonyName(dto.getColonyName());
     clone.setTimeOnSurface(dto.getTimeOnSurface());

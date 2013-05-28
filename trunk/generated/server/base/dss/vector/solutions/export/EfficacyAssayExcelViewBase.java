@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 594353085)
+@com.runwaysdk.business.ClassSignature(hash = -901275468)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
   private com.runwaysdk.business.Struct ageRange = null;
   
   public static java.lang.String COLONYNAME = "colonyName";
+  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -31,7 +32,7 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = 594353085;
+  private static final long serialVersionUID = -901275468;
   
   public EfficacyAssayExcelViewBase()
   {
@@ -80,6 +81,34 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(COLONYNAME, value);
+    }
+  }
+  
+  public Float getControlTestMortality()
+  {
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+  }
+  
+  public void validateControlTestMortality()
+  {
+    this.validateAttribute(CONTROLTESTMORTALITY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.EfficacyAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+  }
+  
+  public void setControlTestMortality(Float value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTMORTALITY, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
     }
   }
   
@@ -149,6 +178,11 @@ public abstract class EfficacyAssayExcelViewBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()

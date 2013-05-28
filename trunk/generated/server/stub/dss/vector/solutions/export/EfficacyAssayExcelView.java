@@ -18,18 +18,18 @@ import dss.vector.solutions.util.HierarchyBuilder;
 public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1246490694186L;
-  
+
   public EfficacyAssayExcelView()
   {
     super();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     EfficacyAssayView eav = new EfficacyAssayView();
-    
+
     eav.setGeoId(getGeoEntity().getGeoId());
 
     eav.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), EfficacyAssayView.getSurfaceTypeMd()));
@@ -37,12 +37,13 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     eav.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), EfficacyAssayView.getSpecieMd()));
     eav.setTestDate(this.getTestDate());
     eav.setColonyName(this.getColonyName());
-    
+
     AdultAgeRange excelAgeRange = this.getAgeRange();
     AdultAgeRange newAgeRange = eav.getAgeRange();
     newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
     newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
-    
+
+    eav.setControlTestMortality(this.getControlTestMortality());
     eav.setSex(Term.validateByDisplayLabel(this.getSex(), EfficacyAssayView.getSexMd()));
     eav.setGravid(this.getGravid());
     eav.setFed(this.getFed());
@@ -52,17 +53,18 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     eav.setHoldingTime(this.getHoldingTime());
     eav.setQuantityTested(this.getQuantityTested());
     eav.setQuantityDead(this.getQuantityDead());
-    
+
     eav.setInsecticideBrand(InsecticideBrand.validateByName(this.getInsecticideTerm()));
-    
+
     eav.apply();
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
     list.add(SURFACETYPE);
     list.add(TESTDATE);
+    list.add(CONTROLTESTMORTALITY);
     list.add(TESTMETHOD);
     list.add(SPECIE);
     list.add(COLONYNAME);
@@ -79,12 +81,12 @@ public class EfficacyAssayExcelView extends EfficacyAssayExcelViewBase implement
     list.add(QUANTITYDEAD);
     return list;
   }
-  
+
   public static void setupExportListener(ExcelExporter exporter, String... params)
   {
     exporter.addListener(createExcelGeoListener());
   }
-  
+
   public static void setupImportListener(ImportContext context, String... params)
   {
     context.addListener(createExcelGeoListener());

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -153001353)
+@com.runwaysdk.business.ClassSignature(hash = -470989842)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -16,6 +16,7 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
   
   public static java.lang.String COLONYNAME = "colonyName";
   public static java.lang.String CONCRETEID = "concreteId";
+  public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
   public static java.lang.String DISEASE = "disease";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
@@ -35,7 +36,7 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TIMEONSURFACE = "timeOnSurface";
-  private static final long serialVersionUID = -153001353;
+  private static final long serialVersionUID = -470989842;
   
   public EfficacyAssayViewBase()
   {
@@ -115,6 +116,34 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public Float getControlTestMortality()
+  {
+    return com.runwaysdk.constants.MdAttributeFloatUtil.getTypeSafeValue(getValue(CONTROLTESTMORTALITY));
+  }
+  
+  public void validateControlTestMortality()
+  {
+    this.validateAttribute(CONTROLTESTMORTALITY);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getControlTestMortalityMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.EfficacyAssayView.CLASS);
+    return mdClassIF.definesAttribute(CONTROLTESTMORTALITY);
+  }
+  
+  public void setControlTestMortality(Float value)
+  {
+    if(value == null)
+    {
+      setValue(CONTROLTESTMORTALITY, "");
+    }
+    else
+    {
+      setValue(CONTROLTESTMORTALITY, java.lang.Float.toString(value));
+    }
+  }
+  
   public dss.vector.solutions.general.Disease getDisease()
   {
     if (getValue(DISEASE).trim().equals(""))
@@ -125,6 +154,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void validateDisease()
@@ -318,6 +352,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getInsecticideBrandId()
+  {
+    return getValue(INSECTICIDEBRAND);
+  }
+  
   public void validateInsecticideBrand()
   {
     this.validateAttribute(INSECTICIDEBRAND);
@@ -465,6 +504,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
@@ -498,6 +542,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SPECIE));
     }
+  }
+  
+  public String getSpecieId()
+  {
+    return getValue(SPECIE);
   }
   
   public void validateSpecie()
@@ -535,6 +584,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     }
   }
   
+  public String getSurfacePostionId()
+  {
+    return getValue(SURFACEPOSTION);
+  }
+  
   public void validateSurfacePostion()
   {
     this.validateAttribute(SURFACEPOSTION);
@@ -568,6 +622,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SURFACETYPE));
     }
+  }
+  
+  public String getSurfaceTypeId()
+  {
+    return getValue(SURFACETYPE);
   }
   
   public void validateSurfaceType()
@@ -631,6 +690,11 @@ public abstract class EfficacyAssayViewBase extends com.runwaysdk.business.View 
     {
       return dss.vector.solutions.ontology.Term.get(getValue(TESTMETHOD));
     }
+  }
+  
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
   }
   
   public void validateTestMethod()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1162535508)
+@com.runwaysdk.business.ClassSignature(hash = 89774814)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology.assay;
 public class EfficacyAssayQueryDTO extends dss.vector.solutions.entomology.assay.AbstractAssayQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1162535508;
+private static final long serialVersionUID = 89774814;
 
   protected EfficacyAssayQueryDTO(String type)
   {
