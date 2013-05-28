@@ -207,7 +207,12 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
       totalFemale += this.getFemalesUnknown();
     }
 
-    this.setFemalesTotal(totalFemale);
+    List<LifeStage> lifeStage = this.getCollection().getLifeStage();
+
+    if (lifeStage.equals(LifeStage.ADULT))
+    {
+      this.setFemalesTotal(totalFemale);
+    }
 
     if (this.getFemalesTotal() != null)
     {
