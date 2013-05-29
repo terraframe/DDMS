@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 885717796)
+@com.runwaysdk.business.ClassSignature(hash = 1174161021)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -166,24 +166,6 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableInteger getFemalesHalfGravid(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESHALFGRAVID, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getFemalesTotal()
-  {
-    return getFemalesTotal(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESTOTAL, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getFemalesTotal(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.FEMALESTOTAL, alias, displayLabel);
 
   }
  

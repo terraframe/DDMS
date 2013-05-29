@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 737303085)
+@com.runwaysdk.business.ClassSignature(hash = -111331962)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,7 +19,6 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String FEMALESFED = "femalesFed";
   public static java.lang.String FEMALESGRAVID = "femalesGravid";
   public static java.lang.String FEMALESHALFGRAVID = "femalesHalfGravid";
-  public static java.lang.String FEMALESTOTAL = "femalesTotal";
   public static java.lang.String FEMALESUNFED = "femalesUnfed";
   public static java.lang.String FEMALESUNKNOWN = "femalesUnknown";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -32,7 +31,7 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = 737303085;
+  private static final long serialVersionUID = -111331962;
   
   public MosquitoCollectionExcelViewBase()
   {
@@ -260,34 +259,6 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(FEMALESHALFGRAVID, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getFemalesTotal()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESTOTAL));
-  }
-  
-  public void validateFemalesTotal()
-  {
-    this.validateAttribute(FEMALESTOTAL);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getFemalesTotalMd()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
-    return mdClassIF.definesAttribute(FEMALESTOTAL);
-  }
-  
-  public void setFemalesTotal(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(FEMALESTOTAL, "");
-    }
-    else
-    {
-      setValue(FEMALESTOTAL, java.lang.Integer.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 131496836)
+@com.runwaysdk.business.ClassSignature(hash = -1085492503)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,187 +11,13 @@ package dss.vector.solutions.entomology.assay;
 public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology.assay.AdultAssay implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.KnockDownAssay";
-  public static java.lang.String INTERVAL10 = "interval10";
-  public static java.lang.String INTERVAL20 = "interval20";
-  public static java.lang.String INTERVAL30 = "interval30";
-  public static java.lang.String INTERVAL40 = "interval40";
-  public static java.lang.String INTERVAL50 = "interval50";
-  public static java.lang.String INTERVAL60 = "interval60";
   public static java.lang.String KD50 = "kd50";
   public static java.lang.String KD95 = "kd95";
-  private static final long serialVersionUID = 131496836;
+  private static final long serialVersionUID = -1085492503;
   
   public KnockDownAssayBase()
   {
     super();
-  }
-  
-  public Integer getInterval10()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL10));
-  }
-  
-  public void validateInterval10()
-  {
-    this.validateAttribute(INTERVAL10);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterval10Md()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVAL10);
-  }
-  
-  public void setInterval10(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVAL10, "");
-    }
-    else
-    {
-      setValue(INTERVAL10, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInterval20()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL20));
-  }
-  
-  public void validateInterval20()
-  {
-    this.validateAttribute(INTERVAL20);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterval20Md()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVAL20);
-  }
-  
-  public void setInterval20(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVAL20, "");
-    }
-    else
-    {
-      setValue(INTERVAL20, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInterval30()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL30));
-  }
-  
-  public void validateInterval30()
-  {
-    this.validateAttribute(INTERVAL30);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterval30Md()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVAL30);
-  }
-  
-  public void setInterval30(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVAL30, "");
-    }
-    else
-    {
-      setValue(INTERVAL30, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInterval40()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL40));
-  }
-  
-  public void validateInterval40()
-  {
-    this.validateAttribute(INTERVAL40);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterval40Md()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVAL40);
-  }
-  
-  public void setInterval40(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVAL40, "");
-    }
-    else
-    {
-      setValue(INTERVAL40, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInterval50()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL50));
-  }
-  
-  public void validateInterval50()
-  {
-    this.validateAttribute(INTERVAL50);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterval50Md()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVAL50);
-  }
-  
-  public void setInterval50(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVAL50, "");
-    }
-    else
-    {
-      setValue(INTERVAL50, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public Integer getInterval60()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVAL60));
-  }
-  
-  public void validateInterval60()
-  {
-    this.validateAttribute(INTERVAL60);
-  }
-  
-  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getInterval60Md()
-  {
-    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
-    return mdClassIF.definesAttribute(INTERVAL60);
-  }
-  
-  public void setInterval60(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(INTERVAL60, "");
-    }
-    else
-    {
-      setValue(INTERVAL60, java.lang.Integer.toString(value));
-    }
   }
   
   public Double getKd50()
@@ -270,6 +96,30 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
   public static KnockDownAssay getByKey(String key)
   {
     return (KnockDownAssay) com.runwaysdk.business.Business.get(CLASS, key);
+  }
+  
+  public void applyAll(dss.vector.solutions.entomology.assay.KnockDownIntervalView[] intervals)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.KnockDownAssay.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void applyAll(java.lang.String id, dss.vector.solutions.entomology.assay.KnockDownIntervalView[] intervals)
+  {
+    KnockDownAssay _instance = KnockDownAssay.get(id);
+    _instance.applyAll(intervals);
+  }
+  
+  public dss.vector.solutions.entomology.assay.KnockDownIntervalView[] getIntervals()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.KnockDownAssay.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.assay.KnockDownIntervalView[] getIntervals(java.lang.String id)
+  {
+    KnockDownAssay _instance = KnockDownAssay.get(id);
+    return _instance.getIntervals();
   }
   
   public static KnockDownAssay lock(java.lang.String id)

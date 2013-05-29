@@ -14,18 +14,18 @@ import dss.vector.solutions.ontology.Term;
 public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1245998013289L;
-  
+
   public KnockDownAssayExcelView()
   {
     super();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
     KnockDownAssay kda = new KnockDownAssay();
-    
+
     kda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     kda.setTestDate(this.getTestDate());
     kda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), KnockDownAssay.getTestMethodMd()));
@@ -34,12 +34,12 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setSex(Term.validateByDisplayLabel(this.getSex(), KnockDownAssay.getSexMd()));
     kda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), KnockDownAssay.getSpecieMd()));
     kda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), KnockDownAssay.getIdentificationMethodMd()));
-    
+
     AdultAgeRange excelAgeRange = this.getAgeRange();
     AdultAgeRange newAgeRange = kda.getAgeRange();
     newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
     newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
-    
+
     kda.setFed(this.getFed());
     kda.setGravid(this.getGravid());
     kda.setExposureTime(this.getExposureTime());
@@ -47,16 +47,10 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     kda.setQuantityTested(this.getQuantityTested());
     kda.setKd50(this.getKd50());
     kda.setKd95(this.getKd95());
-    kda.setInterval10(this.getInterval10());
-    kda.setInterval20(this.getInterval20());
-    kda.setInterval30(this.getInterval30());
-    kda.setInterval40(this.getInterval40());
-    kda.setInterval50(this.getInterval50());
-    kda.setInterval60(this.getInterval60());
-    
+
     kda.apply();
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
@@ -78,12 +72,6 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     list.add(QUANTITYTESTED);
     list.add(KD50);
     list.add(KD95);
-    list.add(INTERVAL10);
-    list.add(INTERVAL20);
-    list.add(INTERVAL30);
-    list.add(INTERVAL40);
-    list.add(INTERVAL50);
-    list.add(INTERVAL60);
     return list;
   }
 }

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1655088211)
+@com.runwaysdk.business.ClassSignature(hash = 30453906)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  class KnockDownAssayQuery extends dss.vector.solutions.entomology.assay.AdultAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1655088211;
 
   public KnockDownAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -38,108 +37,6 @@ private static final long serialVersionUID = -1655088211;
   public String getClassType()
   {
     return dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS;
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval10()
-  {
-    return getInterval10(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval20()
-  {
-    return getInterval20(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval30()
-  {
-    return getInterval30(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval40()
-  {
-    return getInterval40(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval50()
-  {
-    return getInterval50(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval60()
-  {
-    return getInterval60(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, displayLabel);
-
   }
   public com.runwaysdk.query.SelectableDouble getKd50()
   {
@@ -207,24 +104,6 @@ private static final long serialVersionUID = -1655088211;
   public interface KnockDownAssayQueryReferenceIF extends com.runwaysdk.generation.loader.Reloadable, dss.vector.solutions.entomology.assay.AdultAssayQuery.AdultAssayQueryReferenceIF
   {
 
-    public com.runwaysdk.query.SelectableInteger getInterval10();
-    public com.runwaysdk.query.SelectableInteger getInterval10(String alias);
-    public com.runwaysdk.query.SelectableInteger getInterval10(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInterval20();
-    public com.runwaysdk.query.SelectableInteger getInterval20(String alias);
-    public com.runwaysdk.query.SelectableInteger getInterval20(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInterval30();
-    public com.runwaysdk.query.SelectableInteger getInterval30(String alias);
-    public com.runwaysdk.query.SelectableInteger getInterval30(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInterval40();
-    public com.runwaysdk.query.SelectableInteger getInterval40(String alias);
-    public com.runwaysdk.query.SelectableInteger getInterval40(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInterval50();
-    public com.runwaysdk.query.SelectableInteger getInterval50(String alias);
-    public com.runwaysdk.query.SelectableInteger getInterval50(String alias, String displayLabel);
-    public com.runwaysdk.query.SelectableInteger getInterval60();
-    public com.runwaysdk.query.SelectableInteger getInterval60(String alias);
-    public com.runwaysdk.query.SelectableInteger getInterval60(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableDouble getKd50();
     public com.runwaysdk.query.SelectableDouble getKd50(String alias);
     public com.runwaysdk.query.SelectableDouble getKd50(String alias, String displayLabel);
@@ -246,7 +125,6 @@ private static final long serialVersionUID = -1655088211;
  implements KnockDownAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 236803663;
 
   public KnockDownAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -267,108 +145,6 @@ private static final long serialVersionUID = 236803663;
       return this.NE(knockDownAssay.getId());
     }
 
-  public com.runwaysdk.query.SelectableInteger getInterval10()
-  {
-    return getInterval10(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL10, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval20()
-  {
-    return getInterval20(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL20, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval30()
-  {
-    return getInterval30(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL30, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval40()
-  {
-    return getInterval40(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL40, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval50()
-  {
-    return getInterval50(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL50, alias, displayLabel);
-
-  }
-  public com.runwaysdk.query.SelectableInteger getInterval60()
-  {
-    return getInterval60(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.INTERVAL60, alias, displayLabel);
-
-  }
   public com.runwaysdk.query.SelectableDouble getKd50()
   {
     return getKd50(null);

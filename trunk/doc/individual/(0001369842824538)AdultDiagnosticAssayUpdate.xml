@@ -1,0 +1,45 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+      <mdBusiness name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval" label="Adult diagnostic assay interveral">
+        <attributes>
+          <reference name="assay" label="Assay" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay" required="true" />
+          <integer name="intervalTime" label="Time" required="true" />
+          <integer name="amount" label="# Knocked down" required="true"/>
+        </attributes>
+      </mdBusiness>
+
+      <mdIndex type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval" active="true" label="Adult time response interveral index" unique="true">
+        <attribute name="assay" indexOrder="0"/>
+        <attribute name="intervalTime" indexOrder="1"/>
+      </mdIndex>
+      
+      <mdView name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView" label="Adult time response interveral">
+        <attributes>
+          <char name="concreteId" label="Concrete Id" size="255" required="true" />        
+          <virtual concrete="assay" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval"/>
+          <virtual concrete="intervalTime" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval"/>
+          <virtual concrete="amount" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval"/>
+        </attributes>      
+      </mdView>
+    </create>
+    <update>
+      <mdBusiness name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay">
+        <create>
+          <mdMethod name="applyAll" label="Apply all" returnType="void" static="false">
+            <mdParameter name="intervals" label="Intervals" order="0" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView[]"/>
+          </mdMethod>
+          <mdMethod name="getIntervals" label="Get Intervals" returnType="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView[]" static="false" />
+        </create>
+      </mdBusiness>
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.applyAll" type="com.runwaysdk.system.metadata.MdMethod" />    
+      <object key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.getIntervals" type="com.runwaysdk.system.metadata.MdMethod" />    
+      <object key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView" type="com.runwaysdk.system.metadata.MdView" />    
+      <object key="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval" type="com.runwaysdk.system.metadata.MdBusiness" />    
+    </delete>
+  </undoIt>
+</version>

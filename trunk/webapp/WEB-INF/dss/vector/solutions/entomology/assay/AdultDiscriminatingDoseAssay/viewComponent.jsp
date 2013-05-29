@@ -1,9 +1,16 @@
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 
 <c:set var="page_title" value="View_ADDA"  scope="request"/>
+
+<%
+
+DataGrid grid = (DataGrid) request.getAttribute("grid");
+
+%>
 
 <mjl:messages>
   <mjl:message />
@@ -94,14 +101,15 @@
       </mjl:dt>
       <mjl:dt attribute="kd95">
         <fmt:formatNumber minFractionDigits="2">${item.kd95}</fmt:formatNumber>
-      </mjl:dt>
-      
+      </mjl:dt>      
     </mjl:component>
-
-    <mdss:localize key="Edit" var="Localized_Edit" />
-
-    <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo"
-      name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
+    <dd>
+      <div id="intervals"></div>
+    </dd>
+    <dd>
+      <mdss:localize key="Edit" var="Localized_Edit" />
+      <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.form.edit.button" classes="submitButton" />
+    </dd>
   </dl>
 </mjl:form>
 
@@ -124,3 +132,13 @@
     </mjl:commandLink>
   </li>
 </ul>
+
+<script type="text/javascript">  
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){   
+
+    // SETUP THE INTERVAL GRID
+    <%=grid.getJavascript()%>        
+  })
+})();       
+</script>

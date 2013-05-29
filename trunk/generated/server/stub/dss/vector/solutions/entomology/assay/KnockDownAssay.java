@@ -1,6 +1,11 @@
 package dss.vector.solutions.entomology.assay;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Session;
 import com.runwaysdk.system.metadata.MdBusiness;
@@ -19,28 +24,27 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
   {
     super();
   }
-  
-  
+
   @Override
   public String toString()
-  {    
+  {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getCollection() != null && this.getInsecticide() != null)
+    else if (this.getCollection() != null && this.getInsecticide() != null)
     {
       return "(" + this.getCollection().getCollectionId() + ", " + this.getInsecticide().toString() + ")";
     }
-    
+
     return super.toString();
   }
-  
+
   @Override
   public void apply()
-  {    
+  {
     super.apply();
-    
+
     if (this.isResistant() && this.getInsecticide() != null && this.getCollection() != null)
     {
       Term activeIngredient = this.getInsecticide().getActiveIngredient();
@@ -54,34 +58,109 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
     }
   }
 
+  @Transaction
+  public void applyAll(KnockDownIntervalView[] intervals)
+  {
+    this.apply();
+
+    for (KnockDownIntervalView interval : intervals)
+    {
+      interval.setAssay(this);
+      interval.apply();
+    }
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    KnockDownIntervalQuery query = new KnockDownIntervalQuery(new QueryFactory());
+    query.WHERE(query.getAssay().EQ(this));
+    query.ORDER_BY(query.getIntervalTime(), SortOrder.ASC);
+
+    OIterator<? extends KnockDownInterval> iterator = query.getIterator();
+
+    try
+    {
+      List<? extends KnockDownInterval> intervals = iterator.getAll();
+
+      for (KnockDownInterval interval : intervals)
+      {
+        interval.delete();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+    
+    super.delete();
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public KnockDownIntervalView[] getIntervals()
+  {
+    KnockDownIntervalViewQuery query = new KnockDownIntervalViewQuery(new QueryFactory());
+    query.WHERE(query.getAssay().EQ(this));
+    query.ORDER_BY(query.getIntervalTime(), SortOrder.ASC);
+
+    OIterator<? extends KnockDownIntervalView> iterator = query.getIterator();
+
+    try
+    {
+      List<KnockDownIntervalView> list = (List<KnockDownIntervalView>) iterator.getAll();
+
+      if (list.size() == 0 && this.isNew())
+      {
+        /*
+         * Return the default intervals
+         */
+        list = new LinkedList<KnockDownIntervalView>();
+        list.add(KnockDownIntervalView.build(this, 10));
+        list.add(KnockDownIntervalView.build(this, 20));
+        list.add(KnockDownIntervalView.build(this, 30));
+        list.add(KnockDownIntervalView.build(this, 40));
+        list.add(KnockDownIntervalView.build(this, 50));
+        list.add(KnockDownIntervalView.build(this, 60));
+      }
+
+      return list.toArray(new KnockDownIntervalView[list.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
   protected boolean isResistant()
   {
     Insecticide _insecticide = this.getInsecticide();
     Double _kd50 = this.getKd50();
     Double _kd95 = this.getKd95();
-    
-    if(_insecticide != null && _kd50 != null && _kd95 != null)
+
+    if (_insecticide != null && _kd50 != null && _kd95 != null)
     {
       KnockDownTimePropertyQuery query = new KnockDownTimePropertyQuery(new QueryFactory());
 
       query.WHERE(query.getInsecticide().EQ(_insecticide));
       OIterator<? extends KnockDownTimeProperty> iterator = query.getIterator();
-      
+
       try
       {
-        if(iterator.hasNext())
+        if (iterator.hasNext())
         {
           KnockDownTimeProperty property = iterator.next();
           Integer lowerCutoff = property.getLowerTime();
           Integer upperCutoff = property.getUpperTime();
-          
-          return ((lowerCutoff <= _kd50) && (upperCutoff <= _kd95));
+
+          return ( ( lowerCutoff <= _kd50 ) && ( upperCutoff <= _kd95 ) );
         }
       }
       finally
       {
         iterator.close();
-      }      
+      }
     }
 
     return false;
@@ -102,14 +181,12 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
 
     String kd50 = QueryUtil.getColumnName(KnockDownAssay.getKd50Md());
     String kd95 = QueryUtil.getColumnName(KnockDownAssay.getKd95Md());
-    
+
     String insectidce = QueryUtil.getColumnName(KnockDownAssay.getInsecticideMd());
     String lowerTime = QueryUtil.getColumnName(KnockDownTimeProperty.getLowerTimeMd());
     String upperTime = QueryUtil.getColumnName(KnockDownTimeProperty.getUpperTimeMd());
 
-
     String select = "SELECT assay.id AS id,";
-
 
     select += "(CASE WHEN (assay." + kd50 + " >= " + lowerTime + " AND assay." + kd95 + " >= " + upperTime + ") THEN '" + resistantLabel + "' ";
     select += "WHEN (assay." + kd50 + " >= " + lowerTime + " OR assay." + kd95 + " >= " + upperTime + ")   THEN '" + potentialyResistantLabel + "' ";
@@ -118,7 +195,7 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
 
     String from = "FROM " + collectionAssayTable + " AS collectionAssay, " + assayTable + " AS assay, " + knockDownTimeTable + " AS cutoff ";
 
-    String where = "WHERE (collectionAssay."+insectidce+" = cutoff."+insectidce+" AND collectionAssay.id = assay.id) ";
+    String where = "WHERE (collectionAssay." + insectidce + " = cutoff." + insectidce + " AND collectionAssay.id = assay.id) ";
 
     return select + "\n" + from + "\n" + where;
   }

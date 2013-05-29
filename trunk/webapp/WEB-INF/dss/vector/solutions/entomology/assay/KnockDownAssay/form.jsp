@@ -1,3 +1,5 @@
+<%@page import="dss.vector.solutions.entomology.assay.KnockDownIntervalDTO"%>
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -13,50 +15,52 @@
 <%@page import="dss.vector.solutions.entomology.assay.AdultAssayDTO"%>
 <%@page import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 
+
+<mjl:input type="hidden" param="id" id="id" value="${item.id}" />
 <mjl:component item="${item}" param="dto">
   <mjl:dt attribute="collection">
     <mjl:input id="collectionInput" param="collectionInput" type="text" value="${collection != null ? collection.collectionId : ''}"/>
-    <mjl:input id="collectionId" param="collection" type="hidden" value="${collection != null ? collection.concreteId : ''}" />    
+    <mjl:input id="collection" param="collection" type="hidden" value="${collection != null ? collection.concreteId : ''}" classes="component" />    
   </mjl:dt>
   <mjl:dt attribute="testDate">
-    <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture" />
+    <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture component" />
   </mjl:dt>
   <mjl:dt attribute="testMethod">
-    <mdss:mo param="testMethod" value="${testMethod}"/>
+    <mdss:mo param="testMethod" id="testMethod" value="${testMethod}" classes="component"/>
   </mjl:dt>  
   <mjl:dt attribute="generation">
-    <mdss:mo param="generation" value="${generation}"/>
+    <mdss:mo param="generation" value="${generation}" id="generation" classes="component"/>
   </mjl:dt>  
   <mjl:dt attribute="isofemale">
-    <mjl:boolean param="isofemale" />
+    <mjl:boolean param="isofemale" id="isofemale" />
   </mjl:dt>
   <mjl:dt attribute="sex">
-    <mdss:mo param="sex" value="${sex}"/>
+    <mdss:mo param="sex" value="${sex}" id="sex"  classes="component"/>
   </mjl:dt>  
   <mjl:dt attribute="specie">
-    <mdss:mo param="specie" value="${specie}"/>
+    <mdss:mo param="specie" value="${specie}" id="specie"  classes="component"/>
   </mjl:dt>  
   <mjl:dt attribute="identificationMethod">
-    <mdss:mo param="identificationMethod" value="${identificationMethod}"/>
+    <mdss:mo param="identificationMethod" id="identificationMethod" value="${identificationMethod}"  classes="component"/>
   </mjl:dt>  
   <mjl:dt attribute="ageRange">
     <mjl:struct param="ageRange">
-      <mjl:dt attribute="startPoint" type="text"  />
-      <mjl:dt attribute="endPoint" type="text"  />
+      <mjl:dt attribute="startPoint" type="text" id="startPoint" classes="ageRange"  />
+      <mjl:dt attribute="endPoint" type="text" id="endPoint" classes="ageRange" />
     </mjl:struct>
   </mjl:dt>
   <mjl:dt attribute="fed">
-    <mjl:input type="text" param="fed" />
+    <mjl:input type="text" param="fed" id="fed" classes="component"/>
   </mjl:dt>
   <mjl:dt attribute="gravid">
-    <mjl:input type="text" param="gravid" />
+    <mjl:input type="text" param="gravid" id="gravid" classes="component"/>
   </mjl:dt>
   <mjl:dt attribute="exposureTime">
-    <mjl:input type="text" param="exposureTime" />
+    <mjl:input type="text" param="exposureTime" id="exposureTime"  classes="component" />
   </mjl:dt>
 
   <mjl:dt attribute="insecticide">
-    <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide">
+    <mjl:select var="current" valueAttribute="id" items="${insecticide}" param="insecticide"  classes="component" id="insecticide">
       <mjl:option>
         ${current.displayLabel}
       </mjl:option>
@@ -64,73 +68,31 @@
     <a href="dss.vector.solutions.general.InsecticideController.viewAll.mojo"><mdss:localize key="Manage_Insecticides" /></a>
   </mjl:dt>
   <mjl:dt attribute="quantityTested">
-    <mjl:input type="text" param="quantityTested" />
+    <mjl:input type="text" param="quantityTested" classes="component" id="quantityTested" />
   </mjl:dt>
 
   <mjl:dt attribute="kd50">
     <fmt:formatNumber minFractionDigits="2" var="formatKd50" value="${item.kd50}" />
-    <mjl:input type="text" param="kd50" value="${formatKd50}" />
+    <mjl:input type="text" param="kd50" value="${formatKd50}" classes="component" id="kd50"/>
   </mjl:dt>
 
   <mjl:dt attribute="kd95">
     <fmt:formatNumber minFractionDigits="2" var="formatKd95" value="${item.kd95}" />
-    <mjl:input type="text" param="kd95" value="${formatKd95}" />
+    <mjl:input type="text" param="kd95" value="${formatKd95}" classes="component" id="kd95" />
   </mjl:dt>
+  
 
-  <div id="intervalsDiv">
-    <table class="displayTable">
-      <tr>
-        <th><mdss:localize key="interval_time"/></th>
-        <th><mdss:localize key="knock_down"/></th>
-      </tr>
-      <c:if test="${item.interval10Readable}">
-        <tr class="oddRow" id="interval10">
-          <td>${item.interval10Md.displayLabel}</td>
-          <td><mjl:input type="text" param="interval10" /></td>
-        </tr>
-      </c:if>
-      <c:if test="${item.interval20Readable}">
-        <tr class="oddRow" id="interval20">
-          <td>${item.interval20Md.displayLabel}</td>
-          <td><mjl:input type="text" param="interval20" /></td>
-        </tr>
-      </c:if>
-      <c:if test="${item.interval30Readable}">
-        <tr class="oddRow" id="interval30">
-          <td>${item.interval30Md.displayLabel}</td>
-          <td><mjl:input type="text" param="interval30" /></td>
-        </tr>
-      </c:if>
-      <c:if test="${item.interval40Readable}">
-        <tr class="oddRow" id="interval40">
-          <td>${item.interval40Md.displayLabel}</td>
-          <td><mjl:input type="text" param="interval40" /></td>
-        </tr>
-      </c:if>
-      <c:if test="${item.interval50Readable}">
-        <tr class="oddRow" id="interval50">
-          <td>${item.interval50Md.displayLabel}</td>
-          <td><mjl:input type="text" param="interval50" /></td>
-        </tr>
-      </c:if>
-      <c:if test="${item.interval60Readable}">
-        <tr class="oddRow" id="interval60">
-          <td>${item.interval60Md.displayLabel}</td>
-          <td><mjl:input type="text" param="interval60" /></td>
-        </tr>
-      </c:if>
-    </table>    
-  </div>  
 </mjl:component>
-
+<dd>
+  <div id="intervals"></div>
+</dd>
 <%=Halp.loadTypes(Arrays.asList(new String[]{MosquitoCollectionViewDTO.CLASS, GeoEntityViewDTO.CLASS}))%>
 
 <script type="text/javascript">  
 (function(){
   YAHOO.util.Event.onDOMReady(function(){   
 
-    MDSS.collectionSearch({search:'collectionInput', concrete:'collectionId', type:'<%=MosquitoCollectionDTO.CLASS%>'});
+    MDSS.collectionSearch({search:'collectionInput', concrete:'collection', type:'<%=MosquitoCollectionDTO.CLASS%>'});
   })
-})();
-
+})();       
 </script>

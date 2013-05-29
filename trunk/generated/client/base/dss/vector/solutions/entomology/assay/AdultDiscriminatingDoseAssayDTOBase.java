@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -180821994)
+@com.runwaysdk.business.ClassSignature(hash = -1363348936)
 public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.solutions.entomology.assay.AdultAssayDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay";
-  private static final long serialVersionUID = -180821994;
+  private static final long serialVersionUID = -1363348936;
   
   protected AdultDiscriminatingDoseAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -293,6 +293,22 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(QUANTITYLIVE).getAttributeMdDTO();
   }
   
+  public final void applyAll(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[] intervals)
+  {
+    String[] _declaredTypes = new String[]{"[Ldss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView;"};
+    Object[] _parameters = new Object[]{intervals};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "applyAll", _declaredTypes);
+    getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final void applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id, dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[] intervals)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String", "[Ldss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView;"};
+    Object[] _parameters = new Object[]{id, intervals};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "applyAll", _declaredTypes);
+    clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
   public static final java.io.InputStream exportQueryToCSV(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
   {
     String[] _declaredTypes = new String[]{"java.lang.String", "java.lang.String", "java.lang.String"};
@@ -307,6 +323,22 @@ public abstract class AdultDiscriminatingDoseAssayDTOBase extends dss.vector.sol
     Object[] _parameters = new Object[]{queryXML, config, savedSearchId};
     com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "exportQueryToExcel", _declaredTypes);
     return (java.io.InputStream) clientRequest.invokeMethod(_metadata, null, _parameters);
+  }
+  
+  public final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[] getIntervals()
+  {
+    String[] _declaredTypes = new String[]{};
+    Object[] _parameters = new Object[]{};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getIntervals", _declaredTypes);
+    return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[]) getRequest().invokeMethod(_metadata, this, _parameters);
+  }
+  
+  public static final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[] getIntervals(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String id)
+  {
+    String[] _declaredTypes = new String[]{"java.lang.String"};
+    Object[] _parameters = new Object[]{id};
+    com.runwaysdk.business.MethodMetaData _metadata = new com.runwaysdk.business.MethodMetaData(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayDTO.CLASS, "getIntervals", _declaredTypes);
+    return (dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalViewDTO[]) clientRequest.invokeMethod(_metadata, null, _parameters);
   }
   
   public static final java.lang.String mapQuery(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId)

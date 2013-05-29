@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1706419283)
+@com.runwaysdk.business.ClassSignature(hash = -2058553594)
 public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MosquitoCollectionExcelView";
-  private static final long serialVersionUID = -1706419283;
+  private static final long serialVersionUID = -2058553594;
   
   protected MosquitoCollectionExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -24,7 +24,6 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.b
   public static java.lang.String FEMALESFED = "femalesFed";
   public static java.lang.String FEMALESGRAVID = "femalesGravid";
   public static java.lang.String FEMALESHALFGRAVID = "femalesHalfGravid";
-  public static java.lang.String FEMALESTOTAL = "femalesTotal";
   public static java.lang.String FEMALESUNFED = "femalesUnfed";
   public static java.lang.String FEMALESUNKNOWN = "femalesUnknown";
   public static java.lang.String GEOENTITY = "geoEntity";
@@ -331,43 +330,6 @@ public abstract class MosquitoCollectionExcelViewDTOBase extends com.runwaysdk.b
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFemalesHalfGravidMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FEMALESHALFGRAVID).getAttributeMdDTO();
-  }
-  
-  public Integer getFemalesTotal()
-  {
-    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(FEMALESTOTAL));
-  }
-  
-  public void setFemalesTotal(Integer value)
-  {
-    if(value == null)
-    {
-      setValue(FEMALESTOTAL, "");
-    }
-    else
-    {
-      setValue(FEMALESTOTAL, java.lang.Integer.toString(value));
-    }
-  }
-  
-  public boolean isFemalesTotalWritable()
-  {
-    return isWritable(FEMALESTOTAL);
-  }
-  
-  public boolean isFemalesTotalReadable()
-  {
-    return isReadable(FEMALESTOTAL);
-  }
-  
-  public boolean isFemalesTotalModified()
-  {
-    return isModified(FEMALESTOTAL);
-  }
-  
-  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getFemalesTotalMd()
-  {
-    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(FEMALESTOTAL).getAttributeMdDTO();
   }
   
   public Integer getFemalesUnfed()

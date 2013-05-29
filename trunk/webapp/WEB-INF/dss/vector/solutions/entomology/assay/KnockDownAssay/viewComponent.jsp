@@ -1,9 +1,16 @@
+<%@page import="dss.vector.solutions.util.yui.DataGrid"%>
 <%@ taglib uri="/WEB-INF/tlds/mdssLib.tld" prefix="mdss"%>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 
 <c:set var="page_title" value="View_Knockdown_Assay"  scope="request"/>
+
+<%
+
+DataGrid grid = (DataGrid) request.getAttribute("grid");
+
+%>
 
 <mjl:messages>
   <mjl:message />
@@ -79,55 +86,15 @@
       </mjl:dt>
       <mjl:dt attribute="kd95">
         <fmt:formatNumber minFractionDigits="2">${item.kd95}</fmt:formatNumber>
-      </mjl:dt>
-      
-      <div id="intervalsDiv">
-        <table class="displayTable">
-          <tr>
-            <th><mdss:localize key="interval_time"/></th>
-            <th><mdss:localize key="knock_down"/></th>
-          </tr>        
-          <c:if test="${item.interval10Readable}">
-            <tr class="oddRow" id="interval10">
-              <td>${item.interval10Md.displayLabel}</td>
-              <td style="text-align:right">${item.interval10}</td>
-            </tr>
-          </c:if>
-          <c:if test="${item.interval20Readable}">
-            <tr class="oddRow" id="interval20">
-              <td>${item.interval20Md.displayLabel}</td>
-              <td style="text-align:right">${item.interval20}</td>
-            </tr>
-          </c:if>
-          <c:if test="${item.interval30Readable}">
-            <tr class="oddRow" id="interval30">
-              <td>${item.interval30Md.displayLabel}</td>
-              <td style="text-align:right">${item.interval30}</td>
-            </tr>
-          </c:if>
-          <c:if test="${item.interval40Readable}">
-            <tr class="oddRow" id="interval40">
-              <td>${item.interval40Md.displayLabel}</td>
-              <td style="text-align:right">${item.interval40}</td>
-            </tr>
-          </c:if>
-          <c:if test="${item.interval50Readable}">
-            <tr class="oddRow" id="interval50">
-              <td>${item.interval50Md.displayLabel}</td>
-              <td style="text-align:right">${item.interval50}</td>
-            </tr>
-          </c:if>
-          <c:if test="${item.interval60Readable}">
-            <tr class="oddRow" id="interval60">
-              <td>${item.interval60Md.displayLabel}</td>
-              <td style="text-align:right;padding-left:30px">${item.interval60}</td>
-            </tr>
-          </c:if>
-        </table>    
-      </div>  
+      </mjl:dt>      
     </mjl:component>
-  <mdss:localize key="Edit" var="Localized_Edit" />
-  <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
+    <dd>
+      <div id="intervals"></div>
+    </dd>
+    <dd>
+      <mdss:localize key="Edit" var="Localized_Edit" />
+      <mjl:command value="${Localized_Edit}" action="dss.vector.solutions.entomology.assay.KnockDownAssayController.edit.mojo" name="dss.vector.solutions.entomology.assay.KnockDownAssay.form.edit.button" classes="submitButton" />
+    </dd>    
   </dl>
 </mjl:form>
 
@@ -150,3 +117,14 @@
     </mjl:commandLink>      
   </li>
 </ul>
+
+<script type="text/javascript">  
+(function(){
+  YAHOO.util.Event.onDOMReady(function(){   
+
+    // SETUP THE INTERVAL GRID
+    <%=grid.getJavascript()%>        
+  })
+})();       
+</script>
+    

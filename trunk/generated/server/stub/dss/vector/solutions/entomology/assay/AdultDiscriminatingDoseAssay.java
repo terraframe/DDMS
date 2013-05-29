@@ -1,6 +1,13 @@
 package dss.vector.solutions.entomology.assay;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
+import com.runwaysdk.query.OrderBy.SortOrder;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.PropertyInfo;
@@ -18,20 +25,95 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super();
   }
-  
+
   @Override
   public String toString()
   {
     if (this.isNew())
     {
-      return "New: "+ this.getClassDisplayLabel();
+      return "New: " + this.getClassDisplayLabel();
     }
-    else if(this.getCollection() != null && this.getInsecticide() != null)
+    else if (this.getCollection() != null && this.getInsecticide() != null)
     {
       return "(" + this.getCollection().getCollectionId() + ", " + this.getInsecticide().toString() + ")";
     }
-    
+
     return super.toString();
+  }
+
+  @Transaction
+  public void applyAll(AdultDiscriminatingDoseIntervalView[] intervals)
+  {
+    this.apply();
+
+    for (AdultDiscriminatingDoseIntervalView interval : intervals)
+    {
+      interval.setAssay(this);
+      interval.apply();
+    }
+  }
+
+  @Override
+  @Transaction
+  public void delete()
+  {
+    AdultDiscriminatingDoseIntervalQuery query = new AdultDiscriminatingDoseIntervalQuery(new QueryFactory());
+    query.WHERE(query.getAssay().EQ(this));
+    query.ORDER_BY(query.getIntervalTime(), SortOrder.ASC);
+
+    OIterator<? extends AdultDiscriminatingDoseInterval> iterator = query.getIterator();
+
+    try
+    {
+      List<? extends AdultDiscriminatingDoseInterval> intervals = iterator.getAll();
+
+      for (AdultDiscriminatingDoseInterval interval : intervals)
+      {
+        interval.delete();
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+
+    super.delete();
+  }
+  
+  @SuppressWarnings("unchecked")
+  @Override
+  public AdultDiscriminatingDoseIntervalView[] getIntervals()
+  {
+    AdultDiscriminatingDoseIntervalViewQuery query = new AdultDiscriminatingDoseIntervalViewQuery(new QueryFactory());
+    query.WHERE(query.getAssay().EQ(this));
+    query.ORDER_BY(query.getIntervalTime(), SortOrder.ASC);
+
+    OIterator<? extends AdultDiscriminatingDoseIntervalView> iterator = query.getIterator();
+
+    try
+    {
+      List<AdultDiscriminatingDoseIntervalView> list = (List<AdultDiscriminatingDoseIntervalView>) iterator.getAll();
+
+      if (list.size() == 0 && this.isNew())
+      {
+        /*
+         * Return the default intervals
+         */
+        list = new LinkedList<AdultDiscriminatingDoseIntervalView>();
+        list.add(AdultDiscriminatingDoseIntervalView.build(this, 10));
+        list.add(AdultDiscriminatingDoseIntervalView.build(this, 20));
+        list.add(AdultDiscriminatingDoseIntervalView.build(this, 30));
+        list.add(AdultDiscriminatingDoseIntervalView.build(this, 40));
+        list.add(AdultDiscriminatingDoseIntervalView.build(this, 50));
+        list.add(AdultDiscriminatingDoseIntervalView.build(this, 60));
+      }
+
+      return list.toArray(new AdultDiscriminatingDoseIntervalView[list.size()]);
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 
 
@@ -120,7 +202,7 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   protected boolean isSusceptible()
   {
     Integer susceptible = ResistanceProperty.getPropertyValue(PropertyInfo.ADULT_DDA_SUSCEPTIBILE);
-    
+
     return ( this.getMortality() > susceptible );
   }
 

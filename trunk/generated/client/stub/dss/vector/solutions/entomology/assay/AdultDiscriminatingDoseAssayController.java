@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.runwaysdk.constants.ClientRequestIF;
 
+import dss.vector.solutions.entomology.AdultDiscriminatingDoseIntervalGridBuilder;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.util.AttributeUtil;
@@ -20,7 +21,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1235419628808L;
+  public static final long   serialVersionUID = 1235419628808L;
 
   public AdultDiscriminatingDoseAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -90,14 +91,14 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   {
     // if this method is being accessed from create or edit, redirect so the url
     // will be correct and refresh will
-    // not create a new object   
-    ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);    
-    
+    // not create a new object
+    ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);
+
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupReferences(dto);
+    this.setupReferences(dto, true);
     req.setAttribute("item", dto);
 
     render("viewComponent.jsp");
@@ -201,7 +202,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   private void newInstance(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupReferences(dto);
+    this.setupReferences(dto, false);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -255,11 +256,11 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   private void edit(AdultDiscriminatingDoseAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupReferences(dto);
+    this.setupReferences(dto, false);
 
     req.setAttribute("item", dto);
 
-    render("editComponent.jsp");
+    render("createComponent.jsp");
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -267,7 +268,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     this.view(id);
   }
 
-  private void setupReferences(AdultDiscriminatingDoseAssayDTO dto)
+  private void setupReferences(AdultDiscriminatingDoseAssayDTO dto, boolean readOnly)
   {
     req.setAttribute("sex", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.SEX, dto));
     req.setAttribute("generation", AttributeUtil.getValue(AdultDiscriminatingDoseAssayDTO.GENERATION, dto));
@@ -281,6 +282,8 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
     {
       req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
     }
+
+    req.setAttribute("grid", new AdultDiscriminatingDoseIntervalGridBuilder(this.getClientRequest(), dto, readOnly).build());
   }
 
   private void setupRequest()
@@ -289,5 +292,4 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
 
     req.setAttribute("insecticide", InsecticideDTO.getAll(request));
   }
-
 }

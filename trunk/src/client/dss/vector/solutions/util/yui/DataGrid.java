@@ -22,6 +22,10 @@ public abstract class DataGrid implements Reloadable
 
   private boolean readable;
 
+  private boolean deletable;
+
+  private String  saveHandler;
+
   public DataGrid()
   {
     this("", true);
@@ -31,6 +35,7 @@ public abstract class DataGrid implements Reloadable
   {
     this.tableId = tableId;
     this.readable = readable;
+    this.deletable = false;
 
     this.excelButtons = false;
     this.addButton = false;
@@ -60,7 +65,7 @@ public abstract class DataGrid implements Reloadable
     return excelButtons;
   }
 
-  protected void setExcelButtons(boolean excelButtons)
+  public void setExcelButtons(boolean excelButtons)
   {
     this.excelButtons = excelButtons;
   }
@@ -70,7 +75,7 @@ public abstract class DataGrid implements Reloadable
     return addButton;
   }
 
-  protected void setAddButton(boolean addButton)
+  public void setAddButton(boolean addButton)
   {
     this.addButton = addButton;
   }
@@ -80,9 +85,29 @@ public abstract class DataGrid implements Reloadable
     return saveButton;
   }
 
-  protected void setSaveButton(boolean saveButton)
+  public void setSaveButton(boolean saveButton)
   {
     this.saveButton = saveButton;
+  }
+
+  public void setDeletable(boolean deletable)
+  {
+    this.deletable = deletable;
+  }
+
+  public boolean isDeletable()
+  {
+    return deletable;
+  }
+
+  public void setSaveHandler(String saveHandler)
+  {
+    this.saveHandler = saveHandler;
+  }
+
+  public String getSaveHandler()
+  {
+    return saveHandler;
   }
 
   public String getColumnSetupWithDelete()
@@ -120,37 +145,37 @@ public abstract class DataGrid implements Reloadable
   {
     return "{key:'delete', label:' ', className: 'delete-button', action:'delete', madeUp:true}";
   }
-  
+
   public String getTableId()
   {
     return this.tableId;
   }
-  
+
   public JSONObject getJSON() throws JSONException
   {
     List<String> cols = this.getColumns();
     JSONArray colsArr = new JSONArray();
-    for(String col : cols)
+    for (String col : cols)
     {
       colsArr.put(new JSONObject(col));
     }
-    
+
     JSONObject config = new JSONObject();
     config.put("columnDefs", colsArr);
-    config.put("defaults" ,  new JSONObject( this.getDefaultValues()));
-    config.put("div_id" , this.tableId);
-    config.put("excelButtons" , this.excelButtons);
-    config.put("addButton" , this.addButton);
-    config.put("saveButton" , this.saveButton);
-    
+    config.put("defaults", new JSONObject(this.getDefaultValues()));
+    config.put("div_id", this.tableId);
+    config.put("excelButtons", this.excelButtons);
+    config.put("addButton", this.addButton);
+    config.put("saveButton", this.saveButton);
+
     JSONObject json = new JSONObject();
     json.put("config", config);
-    json.put("metadata", new JSONArray( this.getMetadata()));
+    json.put("metadata", new JSONArray(this.getMetadata()));
     json.put("data", this.getData());
-    
+
     return json;
   }
-  
+
   public String getJavascript()
   {
     StringBuffer buffer = new StringBuffer();
@@ -164,9 +189,15 @@ public abstract class DataGrid implements Reloadable
       buffer.append("  excelButtons:" + this.excelButtons + ",\n");
       buffer.append("  addButton:" + this.addButton + ",\n");
       buffer.append("  saveButton:" + this.saveButton + "\n");
+
+      if (saveHandler != null)
+      {
+        buffer.append("  saveHandler:" + this.saveHandler + "\n");
+      }
+
       buffer.append("};\n");
       buffer.append("var " + this.tableId + "Grid = new MDSS.DataGrid(new MDSS.DataGridModel(new MDSS.ModelMetadata.init(" + this.getMetadata() + "), " + this.getData().toString() + ", null), " + this.tableId + "Data);\n");
-      buffer.append(this.tableId+"Grid;");
+      buffer.append(this.tableId + "Grid;");
     }
     else
     {

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1396617622)
+@com.runwaysdk.business.ClassSignature(hash = 1084752824)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,7 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
   public static java.lang.String MORTALITY = "mortality";
   public static java.lang.String QUANTITYDEAD = "quantityDead";
   public static java.lang.String QUANTITYLIVE = "quantityLive";
-  private static final long serialVersionUID = 1396617622;
+  private static final long serialVersionUID = 1084752824;
   
   public AdultDiscriminatingDoseAssayBase()
   {
@@ -243,6 +243,18 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
     return (AdultDiscriminatingDoseAssay) com.runwaysdk.business.Business.get(CLASS, key);
   }
   
+  public void applyAll(dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView[] intervals)
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final void applyAll(java.lang.String id, dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView[] intervals)
+  {
+    AdultDiscriminatingDoseAssay _instance = AdultDiscriminatingDoseAssay.get(id);
+    _instance.applyAll(intervals);
+  }
+  
   public static java.io.InputStream exportQueryToCSV(java.lang.String queryXML, java.lang.String config, java.lang.String savedSearchId)
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.java";
@@ -253,6 +265,18 @@ public abstract class AdultDiscriminatingDoseAssayBase extends dss.vector.soluti
   {
     String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.java";
     throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView[] getIntervals()
+  {
+    String msg = "This method should never be invoked.  It should be overwritten in dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay.java";
+    throw new com.runwaysdk.dataaccess.metadata.ForbiddenMethodException(msg);
+  }
+  
+  public static final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView[] getIntervals(java.lang.String id)
+  {
+    AdultDiscriminatingDoseAssay _instance = AdultDiscriminatingDoseAssay.get(id);
+    return _instance.getIntervals();
   }
   
   public static java.lang.String mapQuery(java.lang.String queryXML, java.lang.String config, java.lang.String[] universalLayers, java.lang.String savedSearchId)

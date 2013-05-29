@@ -4,7 +4,11 @@
 
 <%@page import="dss.vector.solutions.util.Halp"%>
 <%@page import="dss.vector.solutions.entomology.assay.KnockDownAssayDTO"%>
+<%
 
+DataGrid grid = (DataGrid) request.getAttribute("grid");
+
+%>
 <c:set var="page_title" value="Edit_Knockdown_Assay"  scope="request"/>
 
 <mjl:messages>

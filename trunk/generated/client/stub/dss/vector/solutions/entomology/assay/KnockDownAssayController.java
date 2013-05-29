@@ -10,6 +10,7 @@ import com.runwaysdk.ProblemExceptionDTO;
 import com.runwaysdk.constants.ClientRequestIF;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.entomology.KnockDownIntervalGridBuilder;
 import dss.vector.solutions.entomology.MosquitoCollectionDTO;
 import dss.vector.solutions.general.InsecticideDTO;
 import dss.vector.solutions.util.AttributeUtil;
@@ -22,7 +23,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1237230661615L;
+  public static final long   serialVersionUID = 1237230661615L;
 
   public KnockDownAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
@@ -115,10 +116,10 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   private void edit(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupReferences(dto);
+    this.setupReferences(dto, false);
     req.setAttribute("item", dto);
 
-    render("editComponent.jsp");
+    render("createComponent.jsp");
   }
 
   public void failEdit(String id) throws IOException, ServletException
@@ -190,7 +191,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   private void newInstance(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     this.setupRequest();
-    this.setupReferences(dto);
+    this.setupReferences(dto, false);
     req.setAttribute("item", dto);
 
     render("createComponent.jsp");
@@ -221,12 +222,12 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
   private void view(KnockDownAssayDTO dto) throws IOException, ServletException
   {
     ErrorUtility.prepareInformation(this.getClientRequest().getInformation(), req);
-    
+
     RedirectUtility utility = new RedirectUtility(req, resp);
     utility.put("id", dto.getId());
     utility.checkURL(this.getClass().getSimpleName(), "view");
 
-    this.setupReferences(dto);
+    this.setupReferences(dto, true);
 
     req.setAttribute("item", dto);
     render("viewComponent.jsp");
@@ -260,7 +261,7 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     this.edit(dto);
   }
 
-  private void setupReferences(KnockDownAssayDTO dto)
+  private void setupReferences(KnockDownAssayDTO dto, boolean readOnly)
   {
     req.setAttribute("sex", AttributeUtil.getValue(KnockDownAssayDTO.SEX, dto));
     req.setAttribute("generation", AttributeUtil.getValue(KnockDownAssayDTO.GENERATION, dto));
@@ -274,6 +275,8 @@ public class KnockDownAssayController extends KnockDownAssayControllerBase imple
     {
       req.setAttribute("collection", MosquitoCollectionDTO.getView(this.getClientRequest(), collectionId));
     }
+
+    req.setAttribute("grid", new KnockDownIntervalGridBuilder(this.getClientRequest(), dto, readOnly).build());
   }
 
   private void setupRequest()

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -79949141)
+@com.runwaysdk.business.ClassSignature(hash = 1963407989)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class KnockDownAssayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -79949141;
 
   public KnockDownAssayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -221,114 +220,6 @@ private static final long serialVersionUID = -79949141;
   public com.runwaysdk.query.SelectableChar getInsecticideUnits(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10()
-  {
-    return getInterval10(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL10, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval10(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL10, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20()
-  {
-    return getInterval20(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL20, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval20(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL20, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30()
-  {
-    return getInterval30(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL30, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval30(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL30, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40()
-  {
-    return getInterval40(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL40, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval40(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL40, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50()
-  {
-    return getInterval50(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL50, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval50(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL50, alias, displayLabel);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60()
-  {
-    return getInterval60(null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60(String alias)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL60, alias, null);
-
-  }
- 
-  public com.runwaysdk.query.SelectableInteger getInterval60(String alias, String displayLabel)
-  {
-    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVAL60, alias, displayLabel);
 
   }
  

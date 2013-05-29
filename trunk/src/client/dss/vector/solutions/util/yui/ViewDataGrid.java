@@ -114,6 +114,11 @@ public class ViewDataGrid extends DataGrid implements Reloadable
       columns.add("{" + buffer + "}");
     }
 
+    if (this.isDeletable())
+    {
+      columns.add(DataGrid.getDeleteColumn());
+    }
+
     return columns;
   }
 
