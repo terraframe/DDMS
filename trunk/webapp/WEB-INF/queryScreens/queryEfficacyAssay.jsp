@@ -158,6 +158,16 @@ YAHOO.util.Event.onDOMReady(function(){
     MDSS.QueryBase.filterFunctions(efficacyColumns, ['timeOnSurface_efficacy', 'holdingTime_efficacy'], MDSS.QueryXML.F_SET1);
     MDSS.QueryBase.filterFunctions(efficacyColumns, ['mortality_efficacy'], MDSS.QueryXML.F_SET2);
     
+    efficacyColumns.push({
+      key:'<%= QueryConstants.OVERALL_MORTALITY %>',
+      attributeName:'<%= QueryConstants.OVERALL_MORTALITY %>',
+      displayLabel:MDSS.localize('Overall_Mortality_for_surface'),
+      description:MDSS.localize('Overall_Mortality_for_surface'),
+      type:'sqldouble',
+      dtoType:'AttributeDoubleDTO',
+      includes:MDSS.QueryXML.F_SET2
+    });
+    
     if(available.contains('<%= EfficacyAssayDTO.AGERANGE %>'))
     {
       efficacyColumns.splice(6, 0,

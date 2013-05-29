@@ -13,6 +13,9 @@ import com.runwaysdk.query.Join;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
+import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDate;
+import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 
@@ -69,6 +72,37 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
 
       QueryUtil.joinEnumerationDisplayLabels(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
       QueryUtil.joinTermAllpaths(valueQuery, InsecticideBrand.CLASS, insecticideBrandQuery);
+    }
+    
+    if(valueQuery.hasSelectableRef(QueryConstants.OVERALL_MORTALITY))
+    {
+      Selectable sel = valueQuery.getSelectableRef(QueryConstants.OVERALL_MORTALITY);
+      SelectableSQLDouble overall;
+      if(sel.isAggregateFunction())
+      {
+        overall = (SelectableSQLDouble) ((AggregateFunction) sel).getSelectable();
+      }
+      else
+      {
+        overall = (SelectableSQLDouble) sel;
+      }
+      
+      String sql = "((qd / (qd + ql)::double precision * 100 - "+efficacyAssayQuery.getTableAlias()+".control_test_mortality)";
+      sql+= "/(100 - "+efficacyAssayQuery.getTableAlias()+".control_test_mortality) * 100)";
+      overall.setSQL(sql);
+      
+      String from = "(SELECT SUM(quantity_dead) AS qd, SUM(quantity_live) ql, e.geo_entity, a.test_date\n";
+      from += "FROM efficacy_assay AS e\n";
+      from += "INNER JOIN abstract_assay a ON a.id = e.id\n";
+      from += "GROUP BY e.geo_entity, a.test_date)\n";
+
+      valueQuery.FROM("("+from+")", "overall");
+      
+      SelectableSQLCharacter overallGeoEntity = valueQuery.aSQLCharacter("overall_geo_entity", "overall.geo_entity");
+      valueQuery.WHERE(efficacyAssayQuery.getGeoEntity().EQ(overallGeoEntity));    
+
+      SelectableSQLDate overallTestDate = valueQuery.aSQLDate("overall_test_date", "overall.test_date");
+      valueQuery.WHERE(efficacyAssayQuery.getTestDate().EQ(overallTestDate));    
     }
     
     boolean needsAgeRange = false;
