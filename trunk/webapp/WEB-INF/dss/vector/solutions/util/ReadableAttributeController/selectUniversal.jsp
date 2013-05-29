@@ -418,6 +418,17 @@
       </mjl:commandLink>    
     </dd>
     <dd>
+      <mdss:localize var="component" key="Adult_Diagnostic_Assay_Interval"/>
+      <mjl:commandLink
+        name="AdultDiscriminatingDoseAssay"
+        action="${action}">
+        <mjl:property name="universal" value="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalView" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>    
+    </dd>
+    <dd>
       <mdss:localize var="component" key="Larvae_Diagnostic_Assay"/>
       <mjl:commandLink
         name="LarvaeDiscriminatingDoseAssay"
@@ -434,6 +445,17 @@
         name="KnockDownAssay"
         action="${action}">
         <mjl:property name="universal" value="dss.vector.solutions.entomology.assay.KnockDownAssay" />
+        <mjl:property name="component" value="${component}"/>
+        <mjl:property name="actor" value="${actor}"/>        
+        ${component}
+      </mjl:commandLink>    
+    </dd>
+    <dd>
+      <mdss:localize var="component" key="Time_Response_Test_Interval"/>
+      <mjl:commandLink
+        name="KnockDownAssay"
+        action="${action}">
+        <mjl:property name="universal" value="dss.vector.solutions.entomology.assay.KnockDownIntervalView" />
         <mjl:property name="component" value="${component}"/>
         <mjl:property name="actor" value="${actor}"/>        
         ${component}
