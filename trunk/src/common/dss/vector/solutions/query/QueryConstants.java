@@ -64,6 +64,8 @@ public class QueryConstants implements Reloadable
   public static final String  SUM_AREA_TARGETS                        = "get_area_spray_target_by_id_and_tar";
 
   public static final String  ASSAY_TYPE                              = "assay_type";
+  
+  public static final String  OVERALL_MORTALITY                       = "overall_mortality";
 
   /*
    * BEGIN InterventionControl query builder constants.
