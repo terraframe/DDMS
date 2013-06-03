@@ -12,6 +12,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 
+import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 import dss.vector.solutions.irs.InsecticideBrandUse;
@@ -103,6 +104,7 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
   @Override
   public void apply()
   {
+    validateControlTestMortality();
     validateGeoEntity();
     validateQuantityDead();
     validateAgeRange();
@@ -320,6 +322,20 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
     finally
     {
       iterator.close();
+    }
+  }
+
+  @Override
+  public void validateControlTestMortality()
+  {
+    if (this.getControlTestMortality() != null && this.getControlTestMortality() > 20)
+    {
+      String msg = "The mortality rate of the control collection exceeds 20% invalidating this test";
+
+      ControlMortalityException e = new ControlMortalityException(msg);
+      e.apply();
+
+      throw e;
     }
   }
 
