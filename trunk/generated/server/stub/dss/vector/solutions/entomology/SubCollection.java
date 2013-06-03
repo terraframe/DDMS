@@ -209,7 +209,7 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
 
     List<LifeStage> lifeStage = this.getCollection().getLifeStage();
 
-    if (lifeStage.equals(LifeStage.ADULT))
+    if (lifeStage.contains(LifeStage.ADULT))
     {
       this.setFemalesTotal(totalFemale);
     }
