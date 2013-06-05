@@ -464,7 +464,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     String percentViewSQL = "SELECT taxonCountQuery.*,";
     // -- ((me+my_children)/sum(everyone_at_my_level+their children))
     percentViewSQL += "((abundance_sum + coalesce(total_of_children,0)) / \n ";
-    percentViewSQL += "(SELECT SUM(coalesce(ss.total_of_children,0) + ss.abundance_sum) FROM taxonCountQuery AS ss WHERE ss.parent = taxonCountQuery.parent" + joinMainQuery + "   ))  as my_share \n";
+    percentViewSQL += "NULLIF((SELECT SUM(coalesce(ss.total_of_children,0) + ss.abundance_sum) FROM taxonCountQuery AS ss WHERE ss.parent = taxonCountQuery.parent" + joinMainQuery + "   ), 0))  as my_share \n";
     percentViewSQL += "FROM taxonCountQuery \n";
     
     // This is a terrible hack but we've already broken out of the ValueQuery and done manual SQL building, so this GROUP BY

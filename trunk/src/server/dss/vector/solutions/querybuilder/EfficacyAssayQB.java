@@ -87,21 +87,28 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
         overall = (SelectableSQLDouble) sel;
       }
       
-      String sql = "((qd / (qd + ql)::double precision * 100 - "+efficacyAssayQuery.getTableAlias()+".control_test_mortality)";
-      sql+= "/(100 - "+efficacyAssayQuery.getTableAlias()+".control_test_mortality) * 100)";
+      String controlTestMortality = QueryUtil.getColumnName(EfficacyAssay.getControlTestMortalityMd());
+      String quantityDead = QueryUtil.getColumnName(EfficacyAssay.getQuantityDeadMd());
+      String quantityLive = QueryUtil.getColumnName(EfficacyAssay.getQuantityLiveMd());
+      String geoEntity = QueryUtil.getColumnName(EfficacyAssay.getGeoEntityMd());
+      String testDate = QueryUtil.getColumnName(EfficacyAssay.getTestDateMd());
+      String id = QueryUtil.getIdColumn();
+
+      String sql = "((qd / NULLIF((qd + ql),0)::double precision * 100 - "+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+")";
+      sql+= "/NULLIF((100 - "+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+"),0) * 100)";
       overall.setSQL(sql);
       
-      String from = "(SELECT SUM(quantity_dead) AS qd, SUM(quantity_live) ql, e.geo_entity, a.test_date\n";
-      from += "FROM efficacy_assay AS e\n";
-      from += "INNER JOIN abstract_assay a ON a.id = e.id\n";
-      from += "GROUP BY e.geo_entity, a.test_date)\n";
+      String from = "(SELECT SUM("+quantityDead+") AS qd, SUM("+quantityLive+") ql, e."+geoEntity+", a."+testDate+"\n";
+      from += "FROM "+efficacyAssayQuery.getMdClassIF().getTableName()+" AS e\n";
+      from += "INNER JOIN "+abstractAssayQuery.getMdClassIF().getTableName()+" a ON a."+id+" = e."+id+"\n";
+      from += "GROUP BY e."+geoEntity+", a."+testDate+")\n";
 
       valueQuery.FROM("("+from+")", "overall");
       
-      SelectableSQLCharacter overallGeoEntity = valueQuery.aSQLCharacter("overall_geo_entity", "overall.geo_entity");
+      SelectableSQLCharacter overallGeoEntity = valueQuery.aSQLCharacter("overall_geo_entity", "overall."+geoEntity);
       valueQuery.WHERE(efficacyAssayQuery.getGeoEntity().EQ(overallGeoEntity));    
 
-      SelectableSQLDate overallTestDate = valueQuery.aSQLDate("overall_test_date", "overall.test_date");
+      SelectableSQLDate overallTestDate = valueQuery.aSQLDate("overall_test_date", "overall."+testDate);
       valueQuery.WHERE(efficacyAssayQuery.getTestDate().EQ(overallTestDate));    
     }
     
