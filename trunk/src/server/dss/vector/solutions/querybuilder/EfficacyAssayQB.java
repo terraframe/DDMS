@@ -4,6 +4,7 @@ import java.util.Map;
 
 import org.json.JSONObject;
 
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.GeneratedEntityQuery;
@@ -92,6 +93,7 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       String quantityLive = QueryUtil.getColumnName(EfficacyAssay.getQuantityLiveMd());
       String geoEntity = QueryUtil.getColumnName(EfficacyAssay.getGeoEntityMd());
       String testDate = QueryUtil.getColumnName(EfficacyAssay.getTestDateMd());
+      String abstractAssayTable = MdEntityDAO.getMdEntityDAO(AbstractAssay.CLASS).getTableName();
       String id = QueryUtil.getIdColumn();
 
       String sql = "((qd / NULLIF((qd + ql),0)::double precision * 100 - "+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+")";
@@ -100,7 +102,7 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       
       String from = "(SELECT SUM("+quantityDead+") AS qd, SUM("+quantityLive+") ql, e."+geoEntity+", a."+testDate+"\n";
       from += "FROM "+efficacyAssayQuery.getMdClassIF().getTableName()+" AS e\n";
-      from += "INNER JOIN "+abstractAssayQuery.getMdClassIF().getTableName()+" a ON a."+id+" = e."+id+"\n";
+      from += "INNER JOIN "+abstractAssayTable+" a ON a."+id+" = e."+id+"\n";
       from += "GROUP BY e."+geoEntity+", a."+testDate+")\n";
 
       valueQuery.FROM("("+from+")", "overall");
