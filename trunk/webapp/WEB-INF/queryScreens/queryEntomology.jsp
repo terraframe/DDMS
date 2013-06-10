@@ -97,7 +97,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var infectionMaps = {<%=(String) request.getAttribute("infectionMaps")%>};
     var infectionAssay = new dss.vector.solutions.entomology.InfectionAssay;
-    var infectionAttribs = ["mosquitoId","species","identMethod","sex","parasite","testMethod","infected","numberTested","numberPositive"];
+    var infectionAttribs = ["uniqueAssayId", "mosquitoId","species","identMethod","sex","parasite","testMethod","infected","numberTested","numberPositive"];
     <%
       Halp.setReadableAttributes(request, "infectionAttribs", InfectionAssayViewDTO.CLASS, requestIF);
     %>
@@ -121,7 +121,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     var pooledInfectionMaps = {<%=(String) request.getAttribute("pooledInfectionMaps")%>};
     var pooledInfectionAssay = new dss.vector.solutions.entomology.PooledInfectionAssay;
-    var pooledInfectionAttribs = ["poolId","species","identMethod","sex","parasite","testMethod","infected","mosquitosTested","poolsTested","numberPositive"];
+    var pooledInfectionAttribs = ["uniqueAssayId", "poolId","species","identMethod","sex","parasite","testMethod","infected","mosquitosTested","poolsTested","numberPositive"];
     <%
       Halp.setReadableAttributes(request, "pooledInfectionAttribs", PooledInfectionAssayViewDTO.CLASS, requestIF);
     %>
@@ -148,7 +148,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     var biochemicalMaps = {<%=(String) request.getAttribute("biochemicalMaps")%>};
     var biochemicalAssay = new dss.vector.solutions.entomology.BiochemicalAssay;
-    var biochemicalAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","assay","numberTested","numberElevated"];
+    var biochemicalAttribs = ["uniqueAssayId", "mosquitoId","species","identMethod","sex","generation","isofemale","assay","numberTested","numberElevated"];
     <%
       Halp.setReadableAttributes(request, "biochemicalAttribs", BiochemicalAssayViewDTO.CLASS, requestIF);
     %>
@@ -173,7 +173,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var molecularMaps = {<%=(String) request.getAttribute("molecularMaps")%>};
     var molecularAssay = new dss.vector.solutions.entomology.MolecularAssay;
 
-    var molecularAttribs = ["mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS"];
+    var molecularAttribs = ["uniqueAssayId", "mosquitoId","species","identMethod","sex","generation","isofemale","assayMethod","target","numberRR","numberRS","numberSS"];
     <%
       Halp.setReadableAttributes(request, "molecularAttribs", MolecularAssayViewDTO.CLASS, requestIF);
     %>

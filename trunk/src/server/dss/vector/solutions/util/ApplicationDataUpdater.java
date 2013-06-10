@@ -2,6 +2,8 @@ package dss.vector.solutions.util;
 
 import java.io.FileNotFoundException;
 
+import com.runwaysdk.business.Business;
+import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
@@ -11,9 +13,21 @@ import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.session.Request;
 
+import dss.vector.solutions.entomology.BiochemicalAssay;
+import dss.vector.solutions.entomology.DiagnosticAssay;
+import dss.vector.solutions.entomology.InfectionAssay;
 import dss.vector.solutions.entomology.LifeStage;
+import dss.vector.solutions.entomology.MolecularAssay;
+import dss.vector.solutions.entomology.PooledInfectionAssay;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
+import dss.vector.solutions.entomology.TimeResponseAssay;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
+import dss.vector.solutions.entomology.assay.EfficacyAssay;
+import dss.vector.solutions.entomology.assay.KnockDownAssay;
+import dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay;
+import dss.vector.solutions.entomology.assay.UniqueAssay;
+import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.MalariaSeason;
 import dss.vector.solutions.general.MalariaSeasonQuery;
 import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
@@ -28,6 +42,52 @@ public class ApplicationDataUpdater implements Reloadable, Runnable
     this.updateMalariaSeasonLabels();
 
     this.updateSubCollections();
+    
+    this.updateAssayIds();
+  }
+  
+  private void updateAssayIds()
+  {
+    String[] types = new String[]{
+        EfficacyAssay.CLASS,
+        InfectionAssay.CLASS,
+        PooledInfectionAssay.CLASS,
+        MolecularAssay.CLASS,
+        BiochemicalAssay.CLASS,
+        KnockDownAssay.CLASS,
+        AdultDiscriminatingDoseAssay.CLASS,
+        LarvaeDiscriminatingDoseAssay.CLASS,
+        DiagnosticAssay.CLASS,
+        TimeResponseAssay.CLASS
+    };
+    
+    
+    for(String type : types)
+    {
+      QueryFactory f = new QueryFactory();
+      BusinessQuery q = f.businessQuery(type);
+      
+      q.WHERE(q.get(UniqueAssay.UNIQUE_ASSAY_ID).EQ(null));
+      
+      OIterator<Business> iter = q.getIterator();
+      
+      try
+      {
+        while(iter.hasNext())
+        {
+          Business b = iter.next();
+          
+          b.appLock();
+          UniqueAssayUtil.setUniqueAssayId((UniqueAssay) b);
+          b.apply();
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+    }
+
   }
 
   private void updateMalariaSeasonLabels()

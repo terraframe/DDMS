@@ -18,6 +18,9 @@
     <mjl:input id="collectionInput" param="collectionInput" type="text" value="${collection != null ? collection.collectionId : ''}"/>
     <mjl:input id="collectionId" param="collection" type="hidden" value="${collection != null ? collection.concreteId : ''}" />    
   </mjl:dt>
+  <mjl:dt attribute="uniqueAssayId">
+    <mjl:input type="text" param="uniqueAssayId" />
+  </mjl:dt>
   <mjl:dt attribute="testDate">
     <mjl:input type="text" param="testDate" classes="DatePick NoFuture" id="testDate" />
   </mjl:dt>

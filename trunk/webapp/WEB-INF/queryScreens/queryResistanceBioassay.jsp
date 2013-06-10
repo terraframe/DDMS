@@ -106,7 +106,7 @@ YAHOO.util.Event.onDOMReady(function(){
     }, available);    
     var collectionColumns = collectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_col', dropDownMaps:{}});
     
-    var diagnosticAssayAttribs = ["activeIngredient","species","lifeStage","synergist","outcome"];
+    var diagnosticAssayAttribs = ["uniqueAssayId", "activeIngredient","species","lifeStage","synergist","outcome"];
 
     var diagnosticAssay = new  dss.vector.solutions.entomology.DiagnosticAssay();
     <%
@@ -122,7 +122,7 @@ YAHOO.util.Event.onDOMReady(function(){
 
     
     var timeAssay = new  dss.vector.solutions.entomology.TimeResponseAssay();
-    var timeAttribs = ["assay","activeIngredient","species","lifeStage","synergist","testStrainResult","referenceStrainResult"]
+    var timeAttribs = ["uniqueAssayId", "assay","activeIngredient","species","lifeStage","synergist","testStrainResult","referenceStrainResult"]
     <%
     Halp.setReadableAttributes(request, "timeAttribs", TimeResponseAssayDTO.CLASS, requestIF);
     %>

@@ -122,6 +122,7 @@ YAHOO.util.Event.onDOMReady(function(){
     
     //public static java.lang.String GEOENTITY = "geoEntity";
     var efficacyAttribs = [
+                           "uniqueAssayId",
                            "geoEntity", 
                            "surfaceType",
                            "testDate",

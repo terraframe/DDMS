@@ -109,6 +109,9 @@ Mojo.Meta.newClass("MDSS.EfficacyAssayValidation", {
 
     <mjl:component item="${item}" param="dto">
       <mjl:input type="hidden" param="concreteId" value="${item.concreteId}"/>
+      <mjl:dt attribute="uniqueAssayId">
+        <mjl:input type="text" param="uniqueAssayId" />
+      </mjl:dt>
       <mjl:dt attribute="geoId">
         <mdss:geo param="geoId" value="${geoId}" concrete="false" filter="${surface}" id="geoId" classes="geoField" listener="MDSS.EfficacyAssayValidation.getInstance()"  />      
       </mjl:dt>

@@ -19,6 +19,11 @@
 <mjl:table var="item" query="${query}" classes="displayTable" even ="evenRow" odd="oddRow">
   <mjl:context action="dss.vector.solutions.entomology.assay.EfficacyAssayController.viewPage.mojo" />
   <mjl:columns>
+    <mjl:attributeColumn attributeName="uniqueAssayId">
+      <mjl:row>
+        ${item.uniqueAssayId}
+      </mjl:row>
+    </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="geoId">
         <mjl:row >
         ${item.geoId}

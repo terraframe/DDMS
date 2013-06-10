@@ -18,6 +18,12 @@
       </mjl:row>
     </mjl:attributeColumn>
 
+    <mjl:attributeColumn attributeName="uniqueAssayId">
+      <mjl:row>
+        ${item.uniqueAssayId}
+      </mjl:row>
+    </mjl:attributeColumn>
+
     <mjl:attributeColumn attributeName="testDate">
       <mjl:row>
         <fmt:formatDate value="${item.testDate}" pattern="${dateFormatPattern}"  />

@@ -11,6 +11,9 @@
   <dl>
     <mjl:input value="${item.concreteId}" type="hidden" param="id" />
     <mjl:component item="${item}" param="dto">
+      <mjl:dt attribute="uniqueAssayId">
+        ${item.uniqueAssayId}
+      </mjl:dt>
       <mjl:dt attribute="geoId">
         ${item.geoId}
       </mjl:dt>

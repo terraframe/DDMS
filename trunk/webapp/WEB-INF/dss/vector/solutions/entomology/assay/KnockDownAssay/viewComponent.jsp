@@ -25,6 +25,9 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
           ${collection.collectionId}
         </mjl:commandLink>
       </mjl:dt>
+      <mjl:dt attribute="uniqueAssayId">
+        ${item.uniqueAssayId}
+      </mjl:dt>
       <mjl:dt attribute="testDate">
         <span class="formatDate">${item.testDate}</span>
       </mjl:dt>
