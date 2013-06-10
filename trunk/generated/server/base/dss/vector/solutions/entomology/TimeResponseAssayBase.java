@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1206512811)
+@com.runwaysdk.business.ClassSignature(hash = -1546221496)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,8 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
   public static java.lang.String SYNERGIST = "synergist";
   public static java.lang.String TESTSTRAINRESULT = "testStrainResult";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = -1206512811;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = -1546221496;
   
   public TimeResponseAssayBase()
   {
@@ -49,6 +50,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.Term.get(getValue(ACTIVEINGREDIENT));
     }
+  }
+  
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
   }
   
   public void validateActiveIngredient()
@@ -86,6 +92,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getAssayId()
+  {
+    return getValue(ASSAY);
+  }
+  
   public void validateAssay()
   {
     this.validateAttribute(ASSAY);
@@ -119,6 +130,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.entomology.MosquitoCollection.get(getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void validateCollection()
@@ -172,6 +188,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -193,6 +214,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.general.Disease.get(getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void validateDisease()
@@ -228,6 +254,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -325,6 +356,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -346,6 +382,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     {
       return dss.vector.solutions.ontology.Term.get(getValue(LIFESTAGE));
     }
+  }
+  
+  public String getLifeStageId()
+  {
+    return getValue(LIFESTAGE);
   }
   
   public void validateLifeStage()
@@ -383,6 +424,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -404,6 +450,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -501,6 +552,11 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
     }
   }
   
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
+  }
+  
   public void validateSpecies()
   {
     this.validateAttribute(SPECIES);
@@ -594,6 +650,34 @@ public abstract class TimeResponseAssayBase extends com.runwaysdk.business.Busin
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.TimeResponseAssay.CLASS);
     return mdClassIF.definesAttribute(TYPE);
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.TimeResponseAssay.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
   }
   
   protected String getDeclaredType()

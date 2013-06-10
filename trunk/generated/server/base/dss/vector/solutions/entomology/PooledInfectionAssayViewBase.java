@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 30278858)
+@com.runwaysdk.business.ClassSignature(hash = 1759539552)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -25,7 +25,8 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 30278858;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = 1759539552;
   
   public PooledInfectionAssayViewBase()
   {
@@ -42,6 +43,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.entomology.MosquitoCollection.get(getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void validateCollection()
@@ -107,6 +113,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void validateDisease()
   {
     this.validateAttribute(DISEASE);
@@ -156,6 +167,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.ontology.Term.get(getValue(IDENTMETHOD));
     }
+  }
+  
+  public String getIdentMethodId()
+  {
+    return getValue(IDENTMETHOD);
   }
   
   public void validateIdentMethod()
@@ -277,6 +293,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getParasiteId()
+  {
+    return getValue(PARASITE);
+  }
+  
   public void validateParasite()
   {
     this.validateAttribute(PARASITE);
@@ -368,6 +389,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
@@ -401,6 +427,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SPECIES));
     }
+  }
+  
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
   }
   
   public void validateSpecies()
@@ -438,6 +469,11 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void validateTestMethod()
   {
     this.validateAttribute(TESTMETHOD);
@@ -458,6 +494,34 @@ public abstract class PooledInfectionAssayViewBase extends com.runwaysdk.busines
     else
     {
       setValue(TESTMETHOD, value.getId());
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.PooledInfectionAssayView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1129041559)
+@com.runwaysdk.business.ClassSignature(hash = -1490316033)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology;
 public  abstract  class TimeResponseAssayViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1129041559;
 
   public TimeResponseAssayViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -208,6 +207,24 @@ private static final long serialVersionUID = -1129041559;
   public com.runwaysdk.query.SelectableDecimal getTestStrainResult(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.entomology.TimeResponseAssayView.TESTSTRAINRESULT, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.TimeResponseAssayView.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.TimeResponseAssayView.UNIQUEASSAYID, alias, displayLabel);
 
   }
  

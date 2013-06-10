@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -917188556)
+@com.runwaysdk.business.ClassSignature(hash = -959952290)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -22,7 +22,8 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -917188556;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = -959952290;
   
   public KnockDownAssayViewBase()
   {
@@ -141,6 +142,11 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getIdentificationMethodId()
+  {
+    return getValue(IDENTIFICATIONMETHOD);
+  }
+  
   public void validateIdentificationMethod()
   {
     this.validateAttribute(IDENTIFICATIONMETHOD);
@@ -174,6 +180,11 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.general.Insecticide.get(getValue(INSECTICIDE));
     }
+  }
+  
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
   }
   
   public void validateInsecticide()
@@ -239,6 +250,11 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void validateSex()
   {
     this.validateAttribute(SEX);
@@ -272,6 +288,11 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SPECIE));
     }
+  }
+  
+  public String getSpecieId()
+  {
+    return getValue(SPECIE);
   }
   
   public void validateSpecie()
@@ -337,6 +358,11 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void validateTestMethod()
   {
     this.validateAttribute(TESTMETHOD);
@@ -357,6 +383,34 @@ public abstract class KnockDownAssayViewBase extends com.runwaysdk.business.View
     else
     {
       setValue(TESTMETHOD, value.getId());
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssayView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

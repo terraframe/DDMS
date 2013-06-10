@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1085492503)
+@com.runwaysdk.business.ClassSignature(hash = 564247004)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -13,7 +13,8 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
   public final static String CLASS = "dss.vector.solutions.entomology.assay.KnockDownAssay";
   public static java.lang.String KD50 = "kd50";
   public static java.lang.String KD95 = "kd95";
-  private static final long serialVersionUID = -1085492503;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = 564247004;
   
   public KnockDownAssayBase()
   {
@@ -73,6 +74,34 @@ public abstract class KnockDownAssayBase extends dss.vector.solutions.entomology
     else
     {
       setValue(KD95, java.lang.Double.toString(value));
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.KnockDownAssay.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

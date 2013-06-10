@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 160371203)
+@com.runwaysdk.business.ClassSignature(hash = -542424167)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -19,7 +19,8 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
   public static java.lang.String OUTCOME = "outcome";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String SYNERGIST = "synergist";
-  private static final long serialVersionUID = 160371203;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = -542424167;
   
   public DiagnosticAssayViewBase()
   {
@@ -36,6 +37,11 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
     {
       return dss.vector.solutions.ontology.Term.get(getValue(ACTIVEINGREDIENT));
     }
+  }
+  
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
   }
   
   public void validateActiveIngredient()
@@ -71,6 +77,11 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
     {
       return dss.vector.solutions.entomology.MosquitoCollection.get(getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void validateCollection()
@@ -152,6 +163,11 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getLifeStageId()
+  {
+    return getValue(LIFESTAGE);
+  }
+  
   public void validateLifeStage()
   {
     this.validateAttribute(LIFESTAGE);
@@ -187,6 +203,11 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
     }
   }
   
+  public String getOutcomeId()
+  {
+    return getValue(OUTCOME);
+  }
+  
   public void validateOutcome()
   {
     this.validateAttribute(OUTCOME);
@@ -220,6 +241,11 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
     {
       return dss.vector.solutions.ontology.Term.get(getValue(SPECIES));
     }
+  }
+  
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
   }
   
   public void validateSpecies()
@@ -270,6 +296,34 @@ public abstract class DiagnosticAssayViewBase extends com.runwaysdk.business.Vie
     else
     {
       setValue(SYNERGIST, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.DiagnosticAssayView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

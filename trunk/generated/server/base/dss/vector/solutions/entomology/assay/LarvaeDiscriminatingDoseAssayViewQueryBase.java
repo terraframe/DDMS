@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 581348413)
+@com.runwaysdk.business.ClassSignature(hash = -1925119021)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  abstract  class LarvaeDiscriminatingDoseAssayViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 581348413;
 
   public LarvaeDiscriminatingDoseAssayViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -210,6 +209,24 @@ private static final long serialVersionUID = 581348413;
     return (dss.vector.solutions.ontology.TermQuery.TermQueryReferenceIF)this.getSelectable(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView.TESTMETHOD, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView.UNIQUEASSAYID, alias, displayLabel);
+
+  }
+ 
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 

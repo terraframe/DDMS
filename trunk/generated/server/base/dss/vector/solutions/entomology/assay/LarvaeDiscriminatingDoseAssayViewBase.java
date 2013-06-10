@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -1490819194)
+@com.runwaysdk.business.ClassSignature(hash = -357047652)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -21,7 +21,8 @@ public abstract class LarvaeDiscriminatingDoseAssayViewBase extends com.runwaysd
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -1490819194;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = -357047652;
   
   public LarvaeDiscriminatingDoseAssayViewBase()
   {
@@ -140,6 +141,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewBase extends com.runwaysd
     }
   }
   
+  public String getIdentificationMethodId()
+  {
+    return getValue(IDENTIFICATIONMETHOD);
+  }
+  
   public void validateIdentificationMethod()
   {
     this.validateAttribute(IDENTIFICATIONMETHOD);
@@ -173,6 +179,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewBase extends com.runwaysd
     {
       return dss.vector.solutions.general.Insecticide.get(getValue(INSECTICIDE));
     }
+  }
+  
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
   }
   
   public void validateInsecticide()
@@ -238,6 +249,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewBase extends com.runwaysd
     }
   }
   
+  public String getSpecieId()
+  {
+    return getValue(SPECIE);
+  }
+  
   public void validateSpecie()
   {
     this.validateAttribute(SPECIE);
@@ -301,6 +317,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewBase extends com.runwaysd
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void validateTestMethod()
   {
     this.validateAttribute(TESTMETHOD);
@@ -321,6 +342,34 @@ public abstract class LarvaeDiscriminatingDoseAssayViewBase extends com.runwaysd
     else
     {
       setValue(TESTMETHOD, value.getId());
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

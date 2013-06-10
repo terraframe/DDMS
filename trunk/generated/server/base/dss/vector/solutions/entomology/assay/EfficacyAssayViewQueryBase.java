@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = -776588635)
+@com.runwaysdk.business.ClassSignature(hash = -1069266757)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -443,6 +443,24 @@ public  abstract  class EfficacyAssayViewQueryBase extends com.runwaysdk.query.G
   public com.runwaysdk.query.SelectableInteger getTimeOnSurface(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.TIMEONSURFACE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.entomology.assay.EfficacyAssayView.UNIQUEASSAYID, alias, displayLabel);
 
   }
  

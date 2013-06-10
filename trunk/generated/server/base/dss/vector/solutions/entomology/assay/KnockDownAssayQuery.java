@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 30453906)
+@com.runwaysdk.business.ClassSignature(hash = 768037509)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -72,6 +72,23 @@ public  class KnockDownAssayQuery extends dss.vector.solutions.entomology.assay.
     return (com.runwaysdk.query.SelectableDouble)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.KnockDownAssay.UNIQUEASSAYID, alias, displayLabel);
+
+  }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -110,6 +127,9 @@ public  class KnockDownAssayQuery extends dss.vector.solutions.entomology.assay.
     public com.runwaysdk.query.SelectableDouble getKd95();
     public com.runwaysdk.query.SelectableDouble getKd95(String alias);
     public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId();
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.assay.KnockDownAssay knockDownAssay);
 
@@ -177,6 +197,23 @@ public  class KnockDownAssayQuery extends dss.vector.solutions.entomology.assay.
   public com.runwaysdk.query.SelectableDouble getKd95(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableDouble)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.KD95, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.KnockDownAssay.UNIQUEASSAYID, alias, displayLabel);
 
   }
   }

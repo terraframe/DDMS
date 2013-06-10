@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1744535755)
+@com.runwaysdk.business.ClassSignature(hash = -1277241346)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.entomology.assay;
 public  class LarvaeDiscriminatingDoseAssayQuery extends dss.vector.solutions.entomology.assay.LarvaeAssayQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 1744535755;
 
   public LarvaeDiscriminatingDoseAssayQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -158,6 +157,23 @@ private static final long serialVersionUID = 1744535755;
     return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.QUANTITYLIVE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.UNIQUEASSAYID, alias, displayLabel);
+
+  }
   /**  
    * Returns an iterator of Business objects that match the query criteria specified
    * on this query object. 
@@ -211,6 +227,9 @@ private static final long serialVersionUID = 1744535755;
     public com.runwaysdk.query.SelectableInteger getQuantityLive();
     public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias);
     public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId();
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias);
+    public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay larvaeDiscriminatingDoseAssay);
 
@@ -226,7 +245,6 @@ private static final long serialVersionUID = 1744535755;
  implements LarvaeDiscriminatingDoseAssayQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = 1100090861;
 
   public LarvaeDiscriminatingDoseAssayQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -364,6 +382,23 @@ private static final long serialVersionUID = 1100090861;
   public com.runwaysdk.query.SelectableInteger getQuantityLive(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.QUANTITYLIVE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssay.UNIQUEASSAYID, alias, displayLabel);
 
   }
   }
