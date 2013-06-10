@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1799468148)
+@com.runwaysdk.business.ClassSignature(hash = 1775339550)
 public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayView";
-  private static final long serialVersionUID = 1799468148;
+  private static final long serialVersionUID = 1775339550;
   
   protected AdultDiscriminatingDoseAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public String getCollectionLabel()
   {
     return getValue(COLLECTIONLABEL);
@@ -150,6 +151,11 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
     }
   }
   
+  public String getIdentificationMethodId()
+  {
+    return getValue(IDENTIFICATIONMETHOD);
+  }
+  
   public void setIdentificationMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -192,6 +198,11 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
     {
       return dss.vector.solutions.general.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
     }
+  }
+  
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
   }
   
   public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
@@ -275,6 +286,11 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -317,6 +333,11 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SPECIE));
     }
+  }
+  
+  public String getSpecieId()
+  {
+    return getValue(SPECIE);
   }
   
   public void setSpecie(dss.vector.solutions.ontology.TermDTO value)
@@ -400,6 +421,11 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void setTestMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -430,6 +456,43 @@ public abstract class AdultDiscriminatingDoseAssayViewDTOBase extends com.runway
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssayViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)

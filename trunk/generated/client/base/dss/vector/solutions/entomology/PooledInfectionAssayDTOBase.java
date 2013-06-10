@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1715302866)
+@com.runwaysdk.business.ClassSignature(hash = 1799384987)
 public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.PooledInfectionAssay";
-  private static final long serialVersionUID = -1715302866;
+  private static final long serialVersionUID = 1799384987;
   
   protected PooledInfectionAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -51,6 +51,7 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public dss.vector.solutions.entomology.MosquitoCollectionDTO getCollection()
   {
     if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
@@ -61,6 +62,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     {
       return dss.vector.solutions.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollectionDTO value)
@@ -132,6 +138,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -162,6 +173,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -208,6 +224,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -250,6 +271,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(IDENTMETHOD));
     }
+  }
+  
+  public String getIdentMethodId()
+  {
+    return getValue(IDENTMETHOD);
   }
   
   public void setIdentMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -395,6 +421,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -425,6 +456,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -533,6 +569,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -575,6 +616,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(PARASITE));
     }
+  }
+  
+  public String getParasiteId()
+  {
+    return getValue(PARASITE);
   }
   
   public void setParasite(dss.vector.solutions.ontology.TermDTO value)
@@ -720,6 +766,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -789,6 +840,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
+  }
+  
   public void setSpecies(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -833,6 +889,11 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void setTestMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -863,6 +924,43 @@ public abstract class PooledInfectionAssayDTOBase extends com.runwaysdk.business
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.PooledInfectionAssayViewDTO getView()

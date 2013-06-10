@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1350598008)
+@com.runwaysdk.business.ClassSignature(hash = 1802600309)
 public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.BiochemicalAssay";
-  private static final long serialVersionUID = -1350598008;
+  private static final long serialVersionUID = 1802600309;
   
   protected BiochemicalAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -50,6 +50,7 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
   public static java.lang.String SITEMASTER = "siteMaster";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public dss.vector.solutions.ontology.TermDTO getAssay()
   {
     if(getValue(ASSAY) == null || getValue(ASSAY).trim().equals(""))
@@ -60,6 +61,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ASSAY));
     }
+  }
+  
+  public String getAssayId()
+  {
+    return getValue(ASSAY);
   }
   
   public void setAssay(dss.vector.solutions.ontology.TermDTO value)
@@ -104,6 +110,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollectionDTO value)
@@ -175,6 +186,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -205,6 +221,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -251,6 +272,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
+  }
+  
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
   {
     if(value == null)
@@ -295,6 +321,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getGenerationId()
+  {
+    return getValue(GENERATION);
+  }
+  
   public void setGeneration(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -337,6 +368,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(IDENTMETHOD));
     }
+  }
+  
+  public String getIdentMethodId()
+  {
+    return getValue(IDENTMETHOD);
   }
   
   public void setIdentMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -482,6 +518,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -512,6 +553,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     {
       return com.runwaysdk.system.UsersDTO.get(getRequest(), getValue(LOCKEDBY));
     }
+  }
+  
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
   }
   
   public boolean isLockedByWritable()
@@ -657,6 +703,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
+  }
+  
   public void setOwner(com.runwaysdk.system.ActorDTO value)
   {
     if(value == null)
@@ -724,6 +775,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SEX));
     }
+  }
+  
+  public String getSexId()
+  {
+    return getValue(SEX);
   }
   
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
@@ -795,6 +851,11 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
     }
   }
   
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
+  }
+  
   public void setSpecies(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -825,6 +886,43 @@ public abstract class BiochemicalAssayDTOBase extends com.runwaysdk.business.Bus
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getSpeciesMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.BiochemicalAssayViewDTO getView()

@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1067124998)
+@com.runwaysdk.business.ClassSignature(hash = -534100964)
 public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayView";
-  private static final long serialVersionUID = 1067124998;
+  private static final long serialVersionUID = -534100964;
   
   protected LarvaeDiscriminatingDoseAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -26,6 +26,7 @@ public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwa
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public String getCollectionLabel()
   {
     return getValue(COLLECTIONLABEL);
@@ -149,6 +150,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwa
     }
   }
   
+  public String getIdentificationMethodId()
+  {
+    return getValue(IDENTIFICATIONMETHOD);
+  }
+  
   public void setIdentificationMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -191,6 +197,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwa
     {
       return dss.vector.solutions.general.InsecticideDTO.get(getRequest(), getValue(INSECTICIDE));
     }
+  }
+  
+  public String getInsecticideId()
+  {
+    return getValue(INSECTICIDE);
   }
   
   public void setInsecticide(dss.vector.solutions.general.InsecticideDTO value)
@@ -274,6 +285,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwa
     }
   }
   
+  public String getSpecieId()
+  {
+    return getValue(SPECIE);
+  }
+  
   public void setSpecie(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -355,6 +371,11 @@ public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwa
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void setTestMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -385,6 +406,43 @@ public abstract class LarvaeDiscriminatingDoseAssayViewDTOBase extends com.runwa
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.assay.LarvaeDiscriminatingDoseAssayViewQueryDTO getPage(com.runwaysdk.constants.ClientRequestIF clientRequest, java.lang.String sortAttribute, java.lang.Boolean isAscending, java.lang.Integer pageSize, java.lang.Integer pageNumber)

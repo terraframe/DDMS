@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1094732267)
+@com.runwaysdk.business.ClassSignature(hash = -639014840)
 public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.DiagnosticAssay";
-  private static final long serialVersionUID = -1094732267;
+  private static final long serialVersionUID = -639014840;
   
   protected DiagnosticAssayDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -46,6 +46,7 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
   public static java.lang.String SPECIES = "species";
   public static java.lang.String SYNERGIST = "synergist";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public dss.vector.solutions.ontology.TermDTO getActiveIngredient()
   {
     if(getValue(ACTIVEINGREDIENT) == null || getValue(ACTIVEINGREDIENT).trim().equals(""))
@@ -56,6 +57,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ACTIVEINGREDIENT));
     }
+  }
+  
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
   }
   
   public void setActiveIngredient(dss.vector.solutions.ontology.TermDTO value)
@@ -100,6 +106,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollectionDTO value)
@@ -171,6 +182,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -201,6 +217,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.general.DiseaseDTO.get(getRequest(), getValue(DISEASE));
     }
+  }
+  
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
   }
   
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
@@ -245,6 +266,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -353,6 +379,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -383,6 +414,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(LIFESTAGE));
     }
+  }
+  
+  public String getLifeStageId()
+  {
+    return getValue(LIFESTAGE);
   }
   
   public void setLifeStage(dss.vector.solutions.ontology.TermDTO value)
@@ -429,6 +465,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -459,6 +500,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(OUTCOME));
     }
+  }
+  
+  public String getOutcomeId()
+  {
+    return getValue(OUTCOME);
   }
   
   public void setOutcome(dss.vector.solutions.ontology.TermDTO value)
@@ -503,6 +549,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -599,6 +650,11 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
     }
   }
   
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
+  }
+  
   public void setSpecies(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -666,6 +722,43 @@ public abstract class DiagnosticAssayDTOBase extends com.runwaysdk.business.Busi
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSynergistMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SYNERGIST).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.entomology.DiagnosticAssayViewDTO getView()

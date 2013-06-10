@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 2006012746)
+@com.runwaysdk.business.ClassSignature(hash = 1743814624)
 public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.PooledInfectionAssayView";
-  private static final long serialVersionUID = 2006012746;
+  private static final long serialVersionUID = 1743814624;
   
   protected PooledInfectionAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -30,6 +30,7 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public dss.vector.solutions.entomology.MosquitoCollectionDTO getCollection()
   {
     if(getValue(COLLECTION) == null || getValue(COLLECTION).trim().equals(""))
@@ -40,6 +41,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollectionDTO value)
@@ -123,6 +129,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getDiseaseId()
+  {
+    return getValue(DISEASE);
+  }
+  
   public void setDisease(dss.vector.solutions.general.DiseaseDTO value)
   {
     if(value == null)
@@ -165,6 +176,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(IDENTMETHOD));
     }
+  }
+  
+  public String getIdentMethodId()
+  {
+    return getValue(IDENTMETHOD);
   }
   
   public void setIdentMethod(dss.vector.solutions.ontology.TermDTO value)
@@ -322,6 +338,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getParasiteId()
+  {
+    return getValue(PARASITE);
+  }
+  
   public void setParasite(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -440,6 +461,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getSexId()
+  {
+    return getValue(SEX);
+  }
+  
   public void setSex(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -482,6 +508,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SPECIES));
     }
+  }
+  
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
   }
   
   public void setSpecies(dss.vector.solutions.ontology.TermDTO value)
@@ -528,6 +559,11 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
     }
   }
   
+  public String getTestMethodId()
+  {
+    return getValue(TESTMETHOD);
+  }
+  
   public void setTestMethod(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -558,6 +594,43 @@ public abstract class PooledInfectionAssayViewDTOBase extends com.runwaysdk.busi
   public final com.runwaysdk.transport.metadata.AttributeReferenceMdDTO getTestMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeReferenceMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.PooledInfectionAssayViewDTO[] views)

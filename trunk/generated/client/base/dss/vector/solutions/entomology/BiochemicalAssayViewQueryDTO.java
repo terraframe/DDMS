@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -854237045)
+@com.runwaysdk.business.ClassSignature(hash = 1334118561)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.entomology;
 public class BiochemicalAssayViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -854237045;
+private static final long serialVersionUID = 1334118561;
 
   protected BiochemicalAssayViewQueryDTO(String type)
   {

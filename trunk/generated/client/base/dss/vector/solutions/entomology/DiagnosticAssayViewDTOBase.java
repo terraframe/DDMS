@@ -1,10 +1,10 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 1065620355)
+@com.runwaysdk.business.ClassSignature(hash = 44795161)
 public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.entomology.DiagnosticAssayView";
-  private static final long serialVersionUID = 1065620355;
+  private static final long serialVersionUID = 44795161;
   
   protected DiagnosticAssayViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -24,6 +24,7 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
   public static java.lang.String OUTCOME = "outcome";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String SYNERGIST = "synergist";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public dss.vector.solutions.ontology.TermDTO getActiveIngredient()
   {
     if(getValue(ACTIVEINGREDIENT) == null || getValue(ACTIVEINGREDIENT).trim().equals(""))
@@ -34,6 +35,11 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(ACTIVEINGREDIENT));
     }
+  }
+  
+  public String getActiveIngredientId()
+  {
+    return getValue(ACTIVEINGREDIENT);
   }
   
   public void setActiveIngredient(dss.vector.solutions.ontology.TermDTO value)
@@ -78,6 +84,11 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.entomology.MosquitoCollectionDTO.get(getRequest(), getValue(COLLECTION));
     }
+  }
+  
+  public String getCollectionId()
+  {
+    return getValue(COLLECTION);
   }
   
   public void setCollection(dss.vector.solutions.entomology.MosquitoCollectionDTO value)
@@ -161,6 +172,11 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getLifeStageId()
+  {
+    return getValue(LIFESTAGE);
+  }
+  
   public void setLifeStage(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -205,6 +221,11 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
     }
   }
   
+  public String getOutcomeId()
+  {
+    return getValue(OUTCOME);
+  }
+  
   public void setOutcome(dss.vector.solutions.ontology.TermDTO value)
   {
     if(value == null)
@@ -247,6 +268,11 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.ontology.TermDTO.get(getRequest(), getValue(SPECIES));
     }
+  }
+  
+  public String getSpeciesId()
+  {
+    return getValue(SPECIES);
   }
   
   public void setSpecies(dss.vector.solutions.ontology.TermDTO value)
@@ -316,6 +342,43 @@ public abstract class DiagnosticAssayViewDTOBase extends com.runwaysdk.business.
   public final com.runwaysdk.transport.metadata.AttributeBooleanMdDTO getSynergistMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeBooleanMdDTO) getAttributeDTO(SYNERGIST).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static final dss.vector.solutions.entomology.DiagnosticAssayViewDTO[] applyAll(com.runwaysdk.constants.ClientRequestIF clientRequest, dss.vector.solutions.entomology.DiagnosticAssayViewDTO[] views)
