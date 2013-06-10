@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 673749695)
+@com.runwaysdk.business.ClassSignature(hash = 1811097705)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -35,7 +35,8 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = 673749695;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = 1811097705;
   
   public AdultDiscriminatingDoseAssayExcelViewBase()
   {
@@ -632,6 +633,34 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewBase extends com.runw
     else
     {
       setValue(TESTMETHOD, value);
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

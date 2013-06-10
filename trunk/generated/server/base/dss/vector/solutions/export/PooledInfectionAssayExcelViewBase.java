@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1069821682)
+@com.runwaysdk.business.ClassSignature(hash = -640110792)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -23,7 +23,8 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -1069821682;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = -640110792;
   
   public PooledInfectionAssayExcelViewBase()
   {
@@ -351,6 +352,34 @@ public abstract class PooledInfectionAssayExcelViewBase extends com.runwaysdk.bu
     else
     {
       setValue(TESTMETHOD, value);
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.PooledInfectionAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

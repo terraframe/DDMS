@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -37541442)
+@com.runwaysdk.business.ClassSignature(hash = 954806248)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -32,7 +32,8 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
-  private static final long serialVersionUID = -37541442;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = 954806248;
   
   public KnockDownAssayExcelViewBase()
   {
@@ -545,6 +546,34 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(TESTMETHOD, value);
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.KnockDownAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1963407989)
+@com.runwaysdk.business.ClassSignature(hash = 1022205215)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -364,6 +364,24 @@ public  abstract  class KnockDownAssayExcelViewQueryBase extends com.runwaysdk.q
   public com.runwaysdk.query.SelectableChar getTestMethod(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.TESTMETHOD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.UNIQUEASSAYID, alias, displayLabel);
 
   }
  

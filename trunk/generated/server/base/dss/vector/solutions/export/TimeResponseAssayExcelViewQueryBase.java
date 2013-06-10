@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1792642574)
+@com.runwaysdk.business.ClassSignature(hash = 1412300316)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class TimeResponseAssayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -1792642574;
 
   public TimeResponseAssayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -185,6 +184,24 @@ private static final long serialVersionUID = -1792642574;
   public com.runwaysdk.query.SelectableDecimal getTestStrainResult(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableDecimal)this.getSelectable(dss.vector.solutions.export.TimeResponseAssayExcelView.TESTSTRAINRESULT, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.TimeResponseAssayExcelView.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.TimeResponseAssayExcelView.UNIQUEASSAYID, alias, displayLabel);
 
   }
  

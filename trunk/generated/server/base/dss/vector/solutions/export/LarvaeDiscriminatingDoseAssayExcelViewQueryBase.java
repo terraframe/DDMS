@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 657922576)
+@com.runwaysdk.business.ClassSignature(hash = 1881245498)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.export;
 public  abstract  class LarvaeDiscriminatingDoseAssayExcelViewQueryBase extends com.runwaysdk.query.GeneratedViewQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 657922576;
 
   public LarvaeDiscriminatingDoseAssayExcelViewQueryBase(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -383,6 +382,24 @@ private static final long serialVersionUID = 657922576;
   public com.runwaysdk.query.SelectableChar getTestMethod(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.TESTMETHOD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId()
+  {
+    return getUniqueAssayId(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.UNIQUEASSAYID, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableChar getUniqueAssayId(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.LarvaeDiscriminatingDoseAssayExcelView.UNIQUEASSAYID, alias, displayLabel);
 
   }
  

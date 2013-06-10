@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 530972953)
+@com.runwaysdk.business.ClassSignature(hash = 1020408259)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -18,7 +18,8 @@ public abstract class DiagnosticAssayExcelViewBase extends com.runwaysdk.busines
   public static java.lang.String OUTCOME = "outcome";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String SYNERGIST = "synergist";
-  private static final long serialVersionUID = 530972953;
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
+  private static final long serialVersionUID = 1020408259;
   
   public DiagnosticAssayExcelViewBase()
   {
@@ -206,6 +207,34 @@ public abstract class DiagnosticAssayExcelViewBase extends com.runwaysdk.busines
     else
     {
       setValue(SYNERGIST, java.lang.Boolean.toString(value));
+    }
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void validateUniqueAssayId()
+  {
+    this.validateAttribute(UNIQUEASSAYID);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getUniqueAssayIdMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.DiagnosticAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
     }
   }
   
