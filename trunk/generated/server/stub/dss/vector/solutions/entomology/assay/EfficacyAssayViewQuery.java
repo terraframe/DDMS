@@ -44,6 +44,7 @@ private static final long serialVersionUID = 1242609508401L;
     {
       EfficacyAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(EfficacyAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(EfficacyAssayView.AGERANGE, query.getAgeRange());
       vQuery.map(EfficacyAssayView.COLONYNAME, query.getColonyName());
       vQuery.map(EfficacyAssayView.CONCRETEID, query.getId());

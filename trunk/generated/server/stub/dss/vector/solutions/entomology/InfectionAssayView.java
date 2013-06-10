@@ -3,6 +3,8 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
+
 public class InfectionAssayView extends InfectionAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -236995216;
@@ -14,6 +16,7 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
   
   public void populateView(InfectionAssay concrete)
   {
+    this.setUniqueAssayId(concrete.getUniqueAssayId());
     this.setConcreteId(concrete.getId());
     this.setCollection(concrete.getCollection());
     this.setIdentMethod(concrete.getIdentMethod());
@@ -30,16 +33,58 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
 
   private void populateConcrete(InfectionAssay concrete)
   {
-    concrete.setCollection(this.getCollection());
-    concrete.setIdentMethod(this.getIdentMethod());
-    concrete.setInfected(this.getInfected());
-    concrete.setMosquitoId(this.getMosquitoId());
-    concrete.setNumberPositive(this.getNumberPositive());
-    concrete.setNumberTested(this.getNumberTested());
-    concrete.setParasite(this.getParasite());
-    concrete.setSex(this.getSex());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setTestMethod(this.getTestMethod());
+    concrete.setUniqueAssayId(this.getUniqueAssayId());
+
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
+
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, IDENTMETHOD))
+    {
+      concrete.setIdentMethod(this.getIdentMethod());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, INFECTED))
+    {
+      concrete.setInfected(this.getInfected());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, MOSQUITOID))
+    {
+      concrete.setMosquitoId(this.getMosquitoId());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERPOSITIVE))
+    {
+      concrete.setNumberPositive(this.getNumberPositive());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERTESTED))
+    {
+      concrete.setNumberTested(this.getNumberTested());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, PARASITE))
+    {
+      concrete.setParasite(this.getParasite());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+      
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTMETHOD))
+    {
+      concrete.setTestMethod(this.getTestMethod());
+    }
+    
     if (this.isNew() && this.getDisease() != null) {
     	concrete.setDisease(this.getDisease());
     }
@@ -47,6 +92,7 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
 
   private void buildAttributeMap(InfectionAssay concrete)
   {
+    new AttributeNotificationMap(concrete, InfectionAssay.UNIQUEASSAYID, this, InfectionAssayView.UNIQUEASSAYID);
     new AttributeNotificationMap(concrete, InfectionAssay.ID, this, InfectionAssayView.CONCRETEID);
     new AttributeNotificationMap(concrete, InfectionAssay.COLLECTION, this, InfectionAssayView.COLLECTION);
     new AttributeNotificationMap(concrete, InfectionAssay.IDENTMETHOD, this, InfectionAssayView.IDENTMETHOD);
@@ -64,8 +110,12 @@ public class InfectionAssayView extends InfectionAssayViewBase implements com.ru
   @Override
   public void apply()
   {
-    InfectionAssay concrete = new InfectionAssay();
-
+    InfectionAssay concrete = UniqueAssayUtil.getOrCreateAssay(InfectionAssay.class, this.getUniqueAssayId());
+    if(!concrete.isNew())
+    {
+      concrete.appLock();
+    }
+    
     if (this.hasConcrete())
     {
       concrete = InfectionAssay.lock(this.getConcreteId());

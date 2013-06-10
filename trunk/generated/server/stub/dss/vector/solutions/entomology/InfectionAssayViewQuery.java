@@ -43,6 +43,7 @@ private static final long serialVersionUID = 1806444007;
     {
       InfectionAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(InfectionAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(InfectionAssayView.CONCRETEID, query.getId());
       vQuery.map(InfectionAssayView.COLLECTION, query.getCollection());
       vQuery.map(InfectionAssayView.IDENTMETHOD, query.getIdentMethod());

@@ -17,7 +17,8 @@ import dss.vector.solutions.general.Disease;
 import dss.vector.solutions.geo.generated.GeoEntity;
 import dss.vector.solutions.geo.generated.Surface;
 
-public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
+public class EfficacyAssayView extends EfficacyAssayViewBase implements
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1242609508153L;
 
@@ -32,30 +33,117 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
 
     if (entity == null || ! ( entity instanceof Surface ))
     {
-      throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId", (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+      throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId",
+          (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
     }
 
-    concrete.setGeoEntity((Surface) entity);
-    concrete.setTestDate(this.getTestDate());
-    concrete.setControlTestMortality(this.getControlTestMortality());
-    concrete.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
-    concrete.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
-    concrete.setColonyName(this.getColonyName());
-    concrete.setExposureTime(this.getExposureTime());
-    concrete.setFed(this.getFed());
-    concrete.setGravid(this.getGravid());
-    concrete.setHoldingTime(this.getHoldingTime());
-    concrete.setInsecticideBrand(this.getInsecticideBrand());
-    concrete.setMortality(this.getMortality());
-    concrete.setQuantityDead(this.getQuantityDead());
-    concrete.setQuantityLive(this.getQuantityLive());
-    concrete.setQuantityTested(this.getQuantityTested());
-    concrete.setSpecie(this.getSpecie());
-    concrete.setTestMethod(this.getTestMethod());
-    concrete.setTimeOnSurface(this.getTimeOnSurface());
-    concrete.setSex(this.getSex());
-    concrete.setSurfacePostion(this.getSurfacePostion());
-    concrete.setSurfaceType(this.getSurfaceType());
+    concrete.setUniqueAssayId(this.getUniqueAssayId());
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GEOID))
+    {
+      concrete.setGeoEntity((Surface) entity);
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTDATE))
+    {
+      concrete.setTestDate(this.getTestDate());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, CONTROLTESTMORTALITY))
+    {
+      concrete.setControlTestMortality(this.getControlTestMortality());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, AGERANGE))
+    {
+      concrete.getAgeRange().setEndPoint(this.getAgeRange().getEndPoint());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, AGERANGE))
+    {
+      concrete.getAgeRange().setStartPoint(this.getAgeRange().getStartPoint());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLONYNAME))
+    {
+      concrete.setColonyName(this.getColonyName());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, EXPOSURETIME))
+    {
+      concrete.setExposureTime(this.getExposureTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, FED))
+    {
+      concrete.setFed(this.getFed());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GRAVID))
+    {
+      concrete.setGravid(this.getGravid());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, HOLDINGTIME))
+    {
+      concrete.setHoldingTime(this.getHoldingTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, INSECTICIDEBRAND))
+    {
+      concrete.setInsecticideBrand(this.getInsecticideBrand());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, MORTALITY))
+    {
+      concrete.setMortality(this.getMortality());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, QUANTITYDEAD))
+    {
+      concrete.setQuantityDead(this.getQuantityDead());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, QUANTITYLIVE))
+    {
+      concrete.setQuantityLive(this.getQuantityLive());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, QUANTITYTESTED))
+    {
+      concrete.setQuantityTested(this.getQuantityTested());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIE))
+    {
+      concrete.setSpecie(this.getSpecie());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTMETHOD))
+    {
+      concrete.setTestMethod(this.getTestMethod());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, TIMEONSURFACE))
+    {
+      concrete.setTimeOnSurface(this.getTimeOnSurface());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SURFACEPOSTION))
+    {
+      concrete.setSurfacePostion(this.getSurfacePostion());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SURFACETYPE))
+    {
+      concrete.setSurfaceType(this.getSurfaceType());
+    }
+
     if (this.isNew() && this.getDisease() != null)
     {
       concrete.setDisease(this.getDisease());
@@ -64,6 +152,7 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
 
   public void populateView(EfficacyAssay assay)
   {
+    this.setUniqueAssayId(assay.getUniqueAssayId());
     this.setConcreteId(assay.getId());
     this.setGeoId(assay.getGeoEntity().getGeoId());
     this.setTestDate(assay.getTestDate());
@@ -93,7 +182,13 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
   @Transaction
   public void apply()
   {
-    EfficacyAssay concrete = new EfficacyAssay();
+    // EfficacyAssay concrete = new EfficacyAssay();
+    EfficacyAssay concrete = UniqueAssayUtil.getOrCreateAssay(EfficacyAssay.class,
+        this.getUniqueAssayId());
+    if (!concrete.isNew())
+    {
+      concrete.appLock();
+    }
 
     if (this.hasConcreteId())
     {
@@ -109,27 +204,41 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
 
   private void populateMapping(EfficacyAssay concrete)
   {
+    new AttributeNotificationMap(concrete, EfficacyAssay.UNIQUEASSAYID, this,
+        EfficacyAssayView.UNIQUEASSAYID);
     new AttributeNotificationMap(concrete, EfficacyAssay.GEOENTITY, this, EfficacyAssayView.GEOID);
     new AttributeNotificationMap(concrete, EfficacyAssay.TESTDATE, this, EfficacyAssayView.TESTDATE);
-    new AttributeNotificationMap(concrete, EfficacyAssay.CONTROLTESTMORTALITY, this, EfficacyAssayView.CONTROLTESTMORTALITY);
-    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.STARTPOINT, this, EfficacyAssayView.AGERANGE);
-    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.ENDPOINT, this, EfficacyAssayView.AGERANGE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.CONTROLTESTMORTALITY, this,
+        EfficacyAssayView.CONTROLTESTMORTALITY);
+    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.STARTPOINT, this,
+        EfficacyAssayView.AGERANGE);
+    new AttributeNotificationMap(concrete.getAgeRange(), AdultAgeRange.ENDPOINT, this,
+        EfficacyAssayView.AGERANGE);
     new AttributeNotificationMap(concrete, EfficacyAssay.COLONYNAME, this, EfficacyAssayView.COLONYNAME);
-    new AttributeNotificationMap(concrete, EfficacyAssay.EXPOSURETIME, this, EfficacyAssayView.EXPOSURETIME);
+    new AttributeNotificationMap(concrete, EfficacyAssay.EXPOSURETIME, this,
+        EfficacyAssayView.EXPOSURETIME);
     new AttributeNotificationMap(concrete, EfficacyAssay.FED, this, EfficacyAssayView.FED);
     new AttributeNotificationMap(concrete, EfficacyAssay.GRAVID, this, EfficacyAssayView.GRAVID);
-    new AttributeNotificationMap(concrete, EfficacyAssay.HOLDINGTIME, this, EfficacyAssayView.HOLDINGTIME);
-    new AttributeNotificationMap(concrete, EfficacyAssay.INSECTICIDEBRAND, this, EfficacyAssayView.INSECTICIDEBRAND);
+    new AttributeNotificationMap(concrete, EfficacyAssay.HOLDINGTIME, this,
+        EfficacyAssayView.HOLDINGTIME);
+    new AttributeNotificationMap(concrete, EfficacyAssay.INSECTICIDEBRAND, this,
+        EfficacyAssayView.INSECTICIDEBRAND);
     new AttributeNotificationMap(concrete, EfficacyAssay.MORTALITY, this, EfficacyAssayView.MORTALITY);
-    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYDEAD, this, EfficacyAssayView.QUANTITYDEAD);
-    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYLIVE, this, EfficacyAssayView.QUANTITYLIVE);
-    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYTESTED, this, EfficacyAssayView.QUANTITYTESTED);
+    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYDEAD, this,
+        EfficacyAssayView.QUANTITYDEAD);
+    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYLIVE, this,
+        EfficacyAssayView.QUANTITYLIVE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.QUANTITYTESTED, this,
+        EfficacyAssayView.QUANTITYTESTED);
     new AttributeNotificationMap(concrete, EfficacyAssay.SPECIE, this, EfficacyAssayView.SPECIE);
     new AttributeNotificationMap(concrete, EfficacyAssay.TESTMETHOD, this, EfficacyAssayView.TESTMETHOD);
-    new AttributeNotificationMap(concrete, EfficacyAssay.TIMEONSURFACE, this, EfficacyAssayView.TIMEONSURFACE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.TIMEONSURFACE, this,
+        EfficacyAssayView.TIMEONSURFACE);
     new AttributeNotificationMap(concrete, EfficacyAssay.SEX, this, EfficacyAssayView.SEX);
-    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACEPOSTION, this, EfficacyAssayView.SURFACEPOSTION);
-    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACETYPE, this, EfficacyAssayView.SURFACETYPE);
+    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACEPOSTION, this,
+        EfficacyAssayView.SURFACEPOSTION);
+    new AttributeNotificationMap(concrete, EfficacyAssay.SURFACETYPE, this,
+        EfficacyAssayView.SURFACETYPE);
     new AttributeNotificationMap(concrete, EfficacyAssay.DISEASE, this, EfficacyAssayView.DISEASE);
   }
 
@@ -186,7 +295,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
     }
   }
 
-  public static EfficacyAssayViewQuery getPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  public static EfficacyAssayViewQuery getPage(String sortAttribute, Boolean isAscending,
+      Integer pageSize, Integer pageNumber)
   {
     EfficacyAssayViewQuery query = new EfficacyAssayViewQuery(new QueryFactory());
 
@@ -226,7 +336,8 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements com.runw
     return query;
   }
 
-  public static EfficacyAssayViewQuery getPageForDisease(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber)
+  public static EfficacyAssayViewQuery getPageForDisease(String sortAttribute, Boolean isAscending,
+      Integer pageSize, Integer pageNumber)
   {
     EfficacyAssayViewQuery query = getPage(sortAttribute, isAscending, pageSize, pageNumber);
     query.WHERE(query.getDisease().EQ(Disease.getCurrent()));

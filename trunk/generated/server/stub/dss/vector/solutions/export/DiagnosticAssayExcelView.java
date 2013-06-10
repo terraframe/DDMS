@@ -54,6 +54,7 @@ public class DiagnosticAssayExcelView extends DiagnosticAssayExcelViewBase imple
     }
     iterator.close();
     
+    assay.setUniqueAssayId(this.getUniqueAssayId());
     assay.setSynergist(this.getSynergist());
     assay.setOutcome(Term.validateByDisplayLabel(this.getOutcome(), DiagnosticAssayView.getOutcomeMd()));
     assay.apply();
@@ -62,6 +63,7 @@ public class DiagnosticAssayExcelView extends DiagnosticAssayExcelViewBase imple
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
     list.add(ACTIVEINGREDIENT);
     list.add(SPECIES);

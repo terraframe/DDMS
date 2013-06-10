@@ -16,13 +16,19 @@ import dss.vector.solutions.general.KnockDownTimePropertyQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.QueryUtil;
 
-public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.generation.loader.Reloadable
+public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 1237230639050L;
 
   public KnockDownAssay()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getUniqueAssayId();
   }
 
   @Override
@@ -31,6 +37,10 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
     if (this.isNew())
     {
       return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getUniqueAssayId() != null)
+    {
+      return this.getUniqueAssayId();
     }
     else if (this.getCollection() != null && this.getInsecticide() != null)
     {
@@ -43,6 +53,8 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
   @Override
   public void apply()
   {
+    UniqueAssayUtil.setUniqueAssayId(this);
+    
     super.apply();
 
     if (this.isResistant() && this.getInsecticide() != null && this.getCollection() != null)

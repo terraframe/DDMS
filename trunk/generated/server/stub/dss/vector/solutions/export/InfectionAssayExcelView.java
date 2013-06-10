@@ -20,6 +20,8 @@ public class InfectionAssayExcelView extends InfectionAssayExcelViewBase impleme
   public void apply()
   {
     InfectionAssayView assay = new InfectionAssayView();
+    
+    assay.setUniqueAssayId(this.getUniqueAssayId());
     assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     assay.setMosquitoId(this.getMosquitoId());
     assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(), InfectionAssayView.getSpeciesMd()));
@@ -36,6 +38,7 @@ public class InfectionAssayExcelView extends InfectionAssayExcelViewBase impleme
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
     list.add(MOSQUITOID);
     list.add(SPECIES);

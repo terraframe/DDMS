@@ -43,6 +43,7 @@ private static final long serialVersionUID = -441276206;
     {
       BiochemicalAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(BiochemicalAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(BiochemicalAssayView.CONCRETEID, query.getId());
       vQuery.map(BiochemicalAssayView.COLLECTION, query.getCollection());
       vQuery.map(BiochemicalAssayView.IDENTMETHOD, query.getIdentMethod());

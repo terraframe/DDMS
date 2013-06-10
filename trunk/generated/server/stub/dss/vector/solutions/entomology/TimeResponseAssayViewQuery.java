@@ -42,6 +42,7 @@ private static final long serialVersionUID = -1961672020;
     {
       TimeResponseAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(TimeResponseAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(TimeResponseAssayView.CONCRETEID, query.getId());
       vQuery.map(TimeResponseAssayView.COLLECTION, query.getCollection());      
       vQuery.map(TimeResponseAssayView.ASSAY, query.getAssay());

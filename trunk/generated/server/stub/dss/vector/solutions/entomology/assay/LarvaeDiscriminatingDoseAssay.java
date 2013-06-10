@@ -8,13 +8,19 @@ import dss.vector.solutions.entomology.ControlMortalityException;
 import dss.vector.solutions.entomology.ResistanceProperty;
 import dss.vector.solutions.ontology.Term;
 
-public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.runwaysdk.generation.loader.Reloadable
+public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssayBase implements com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 1236962664268L;
 
   public LarvaeDiscriminatingDoseAssay()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getUniqueAssayId();
   }
     
   @Override
@@ -23,6 +29,10 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
     if (this.isNew())
     {
       return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getUniqueAssayId() != null)
+    {
+      return this.getUniqueAssayId();
     }
     else if(this.getCollection() != null && this.getInsecticide() != null)
     {
@@ -57,6 +67,8 @@ public class LarvaeDiscriminatingDoseAssay extends LarvaeDiscriminatingDoseAssay
   @Override
   public void apply()
   {
+    UniqueAssayUtil.setUniqueAssayId(this);
+    
     validateControlTestMortality();
     validateQuantityDead();
 

@@ -42,6 +42,7 @@ private static final long serialVersionUID = 1591373828;
     {
       LarvaeDiscriminatingDoseAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(LarvaeDiscriminatingDoseAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(LarvaeDiscriminatingDoseAssayView.CONCRETEID, query.getId());
       vQuery.map(LarvaeDiscriminatingDoseAssayView.COLLECTIONLABEL, query.getCollection().getCollectionId());
       vQuery.map(LarvaeDiscriminatingDoseAssayView.EXPOSURETIME, query.getExposureTime());

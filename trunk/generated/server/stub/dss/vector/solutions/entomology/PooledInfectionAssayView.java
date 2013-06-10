@@ -3,6 +3,8 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
+
 public class PooledInfectionAssayView extends PooledInfectionAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 416207252;
@@ -14,6 +16,7 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
  
   public void populateView(PooledInfectionAssay concrete)
   {
+    this.setUniqueAssayId(concrete.getUniqueAssayId());
     this.setConcreteId(concrete.getId());
     this.setCollection(concrete.getCollection());
     this.setIdentMethod(concrete.getIdentMethod());
@@ -31,17 +34,63 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
 
   private void populateConcrete(PooledInfectionAssay concrete)
   {
-    concrete.setCollection(this.getCollection());
-    concrete.setIdentMethod(this.getIdentMethod());
-    concrete.setInfected(this.getInfected());
-    concrete.setPoolId(this.getPoolId());
-    concrete.setNumberPositive(this.getNumberPositive());
-    concrete.setPoolsTested(this.getPoolsTested());
-    concrete.setMosquitosTested(this.getMosquitosTested());
-    concrete.setParasite(this.getParasite());
-    concrete.setSex(this.getSex());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setTestMethod(this.getTestMethod());
+    concrete.setUniqueAssayId(this.getUniqueAssayId());
+  
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, IDENTMETHOD))
+    {
+      concrete.setIdentMethod(this.getIdentMethod());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, INFECTED))
+    {
+      concrete.setInfected(this.getInfected());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, POOLID))
+    {
+      concrete.setPoolId(this.getPoolId());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, NUMBERPOSITIVE))
+    {
+      concrete.setNumberPositive(this.getNumberPositive());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, POOLSTESTED))
+    {
+      concrete.setPoolsTested(this.getPoolsTested());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, MOSQUITOSTESTED))
+    {
+      concrete.setMosquitosTested(this.getMosquitosTested());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, PARASITE))
+    {
+      concrete.setParasite(this.getParasite());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SEX))
+    {
+      concrete.setSex(this.getSex());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+    
+    if(UniqueAssayUtil.allowAttributeUpdate(this, concrete, TESTMETHOD))
+    {
+      concrete.setTestMethod(this.getTestMethod());
+    }
+    
     if (this.isNew() && this.getDisease() != null) {
     	concrete.setDisease(this.getDisease());
     }
@@ -49,6 +98,7 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
 
   private void buildAttributeMap(PooledInfectionAssay concrete)
   {
+    new AttributeNotificationMap(concrete, PooledInfectionAssay.UNIQUEASSAYID, this, PooledInfectionAssay.UNIQUEASSAYID);
     new AttributeNotificationMap(concrete, PooledInfectionAssay.ID, this, PooledInfectionAssayView.CONCRETEID);
     new AttributeNotificationMap(concrete, PooledInfectionAssay.COLLECTION, this, PooledInfectionAssayView.COLLECTION);
     new AttributeNotificationMap(concrete, PooledInfectionAssay.IDENTMETHOD, this, PooledInfectionAssayView.IDENTMETHOD);
@@ -67,8 +117,12 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
   @Override
   public void apply()
   {
-    PooledInfectionAssay concrete = new PooledInfectionAssay();
-
+    PooledInfectionAssay concrete = UniqueAssayUtil.getOrCreateAssay(PooledInfectionAssay.class, this.getUniqueAssayId());
+    if(!concrete.isNew())
+    {
+      concrete.appLock();
+    }
+    
     if (this.hasConcrete())
     {
       concrete = PooledInfectionAssay.lock(this.getConcreteId());

@@ -43,6 +43,7 @@ private static final long serialVersionUID = -224575762;
     {
       MolecularAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(MolecularAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(MolecularAssayView.CONCRETEID, query.getId());
       vQuery.map(MolecularAssayView.COLLECTION, query.getCollection());
       vQuery.map(MolecularAssayView.IDENTMETHOD, query.getIdentMethod());

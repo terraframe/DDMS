@@ -20,13 +20,19 @@ import dss.vector.solutions.irs.InvalidInsecticideBrandUseProblem;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.EfficacyAssayQB;
 
-public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.generation.loader.Reloadable
+public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 1236363373386L;
 
   public EfficacyAssay()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getUniqueAssayId();
   }
 
   @Override
@@ -35,6 +41,10 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
     if (this.isNew())
     {
       return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getUniqueAssayId() != null)
+    {
+      return this.getUniqueAssayId();
     }
     else if (this.getGeoEntity() != null && this.getInsecticideBrand() != null)
     {
@@ -104,6 +114,8 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
   @Override
   public void apply()
   {
+    UniqueAssayUtil.setUniqueAssayId(this);
+    
     validateControlTestMortality();
     validateGeoEntity();
     validateQuantityDead();

@@ -20,6 +20,8 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
   public void apply()
   {
     MolecularAssayView assay = new MolecularAssayView();
+    
+    assay.setUniqueAssayId(this.getUniqueAssayId());
     assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     assay.setMosquitoId(this.getMosquitoId());
     assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(), MolecularAssayView.getSpeciesMd()));
@@ -38,6 +40,7 @@ public class MolecularAssayExcelView extends MolecularAssayExcelViewBase impleme
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
     list.add(MOSQUITOID);
     list.add(SPECIES);

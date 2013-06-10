@@ -43,6 +43,7 @@ public class PooledInfectionAssayViewQuery extends dss.vector.solutions.entomolo
     {
       PooledInfectionAssayViewQuery vQuery = this.getViewQuery();
 
+      vQuery.map(PooledInfectionAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(PooledInfectionAssayView.CONCRETEID, query.getId());
       vQuery.map(PooledInfectionAssayView.COLLECTION, query.getCollection());
       vQuery.map(PooledInfectionAssayView.IDENTMETHOD, query.getIdentMethod());

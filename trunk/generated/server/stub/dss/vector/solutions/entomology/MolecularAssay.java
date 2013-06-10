@@ -4,15 +4,23 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 
 import dss.vector.solutions.LocalProperty;
 import dss.vector.solutions.MolecularSumProblem;
+import dss.vector.solutions.entomology.assay.UniqueAssay;
+import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Disease;
 
-public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.generation.loader.Reloadable
+public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 1142002498;
 
   public MolecularAssay()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getUniqueAssayId();
   }
     
   @Override
@@ -21,6 +29,10 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
     if (this.isNew())
     {
       return "New: "+ this.getClassDisplayLabel();
+    }
+    else if(this.getUniqueAssayId() != null)
+    {
+      return this.getUniqueAssayId();
     }
     else if(this.getMosquitoId() != null && !this.getMosquitoId().equals(""))
     {
@@ -35,14 +47,10 @@ public class MolecularAssay extends MolecularAssayBase implements com.runwaysdk.
   }
 
   @Override
-  protected String buildKey()
-  {
-    return this.getId();
-  }
-
-  @Override
   public void apply()
   {
+    UniqueAssayUtil.setUniqueAssayId(this);
+    
     validateMosquitoId();
     validateSum();
 

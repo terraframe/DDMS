@@ -42,6 +42,7 @@ private static final long serialVersionUID = -822139236;
     {
       KnockDownAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(KnockDownAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(KnockDownAssayView.CONCRETEID, query.getId());
       vQuery.map(KnockDownAssayView.COLLECTIONLABEL, query.getCollection().getCollectionId());
       vQuery.map(KnockDownAssayView.EXPOSURETIME, query.getExposureTime());

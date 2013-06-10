@@ -17,13 +17,19 @@ import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.query.Layer;
 import dss.vector.solutions.querybuilder.ResistanceQB;
 
-public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.runwaysdk.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBase implements com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 1234543769104L;
 
   public AdultDiscriminatingDoseAssay()
   {
     super();
+  }
+  
+  @Override
+  protected String buildKey()
+  {
+    return this.getUniqueAssayId();
   }
 
   @Override
@@ -32,6 +38,10 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
     if (this.isNew())
     {
       return "New: " + this.getClassDisplayLabel();
+    }
+    else if(this.getUniqueAssayId() != null)
+    {
+      return this.getUniqueAssayId();
     }
     else if (this.getCollection() != null && this.getInsecticide() != null)
     {
@@ -142,6 +152,8 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   @Override
   public void apply()
   {
+    UniqueAssayUtil.setUniqueAssayId(this);
+    
     validateControlTestMortality();
     validateQuantityDead();
 

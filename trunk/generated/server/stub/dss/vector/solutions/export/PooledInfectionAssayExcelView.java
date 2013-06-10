@@ -20,6 +20,8 @@ public class PooledInfectionAssayExcelView extends PooledInfectionAssayExcelView
   public void apply()
   {
     PooledInfectionAssayView assay = new PooledInfectionAssayView();
+    
+    assay.setUniqueAssayId(this.getUniqueAssayId());
     assay.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
     assay.setPoolId(this.getPoolId());
     assay.setSpecies(Term.validateByDisplayLabel(this.getSpecies(), PooledInfectionAssayView.getSpeciesMd()));
@@ -37,6 +39,7 @@ public class PooledInfectionAssayExcelView extends PooledInfectionAssayExcelView
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
     list.add(POOLID);
     list.add(SPECIES);

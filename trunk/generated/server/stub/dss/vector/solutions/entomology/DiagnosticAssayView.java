@@ -3,17 +3,21 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
-public class DiagnosticAssayView extends DiagnosticAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
+import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
+
+public class DiagnosticAssayView extends DiagnosticAssayViewBase implements
+    com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -1057045498;
-  
+
   public DiagnosticAssayView()
   {
     super();
   }
-  
+
   public void populateView(DiagnosticAssay concrete)
   {
+    this.setUniqueAssayId(concrete.getUniqueAssayId());
     this.setConcreteId(concrete.getId());
     this.setCollection(concrete.getCollection());
     this.setActiveIngredient(concrete.getActiveIngredient());
@@ -25,29 +29,65 @@ public class DiagnosticAssayView extends DiagnosticAssayViewBase implements com.
 
   private void populateConcrete(DiagnosticAssay concrete)
   {
-    concrete.setCollection(this.getCollection());
-    concrete.setActiveIngredient(this.getActiveIngredient());
-    concrete.setSpecies(this.getSpecies());
-    concrete.setLifeStage(this.getLifeStage());
-    concrete.setSynergist(this.getSynergist());
-    concrete.setOutcome(this.getOutcome());
+    concrete.setUniqueAssayId(this.getUniqueAssayId());
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, COLLECTION))
+    {
+      concrete.setCollection(this.getCollection());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, ACTIVEINGREDIENT))
+    {
+      concrete.setActiveIngredient(this.getActiveIngredient());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SPECIES))
+    {
+      concrete.setSpecies(this.getSpecies());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, LIFESTAGE))
+    {
+      concrete.setLifeStage(this.getLifeStage());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, SYNERGIST))
+    {
+      concrete.setSynergist(this.getSynergist());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, OUTCOME))
+    {
+      concrete.setOutcome(this.getOutcome());
+    }
   }
 
   private void buildAttributeMap(DiagnosticAssay concrete)
   {
+    new AttributeNotificationMap(concrete, DiagnosticAssay.UNIQUEASSAYID, this,
+        DiagnosticAssayView.UNIQUEASSAYID);
     new AttributeNotificationMap(concrete, DiagnosticAssay.ID, this, DiagnosticAssayView.CONCRETEID);
-    new AttributeNotificationMap(concrete, DiagnosticAssay.COLLECTION, this, DiagnosticAssayView.COLLECTION);
-    new AttributeNotificationMap(concrete, DiagnosticAssay.ACTIVEINGREDIENT, this, DiagnosticAssayView.ACTIVEINGREDIENT);
+    new AttributeNotificationMap(concrete, DiagnosticAssay.COLLECTION, this,
+        DiagnosticAssayView.COLLECTION);
+    new AttributeNotificationMap(concrete, DiagnosticAssay.ACTIVEINGREDIENT, this,
+        DiagnosticAssayView.ACTIVEINGREDIENT);
     new AttributeNotificationMap(concrete, DiagnosticAssay.SPECIES, this, DiagnosticAssayView.SPECIES);
-    new AttributeNotificationMap(concrete, DiagnosticAssay.LIFESTAGE, this, DiagnosticAssayView.LIFESTAGE);
-    new AttributeNotificationMap(concrete, DiagnosticAssay.SYNERGIST, this, DiagnosticAssayView.SYNERGIST);
+    new AttributeNotificationMap(concrete, DiagnosticAssay.LIFESTAGE, this,
+        DiagnosticAssayView.LIFESTAGE);
+    new AttributeNotificationMap(concrete, DiagnosticAssay.SYNERGIST, this,
+        DiagnosticAssayView.SYNERGIST);
     new AttributeNotificationMap(concrete, DiagnosticAssay.OUTCOME, this, DiagnosticAssayView.OUTCOME);
   }
 
   @Override
   public void apply()
   {
-    DiagnosticAssay concrete = new DiagnosticAssay();
+    DiagnosticAssay concrete = UniqueAssayUtil.getOrCreateAssay(DiagnosticAssay.class,
+        this.getUniqueAssayId());
+    if (!concrete.isNew())
+    {
+      concrete.appLock();
+    }
 
     if (this.hasConcrete())
     {
@@ -77,18 +117,17 @@ public class DiagnosticAssayView extends DiagnosticAssayViewBase implements com.
   private boolean hasConcrete()
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
-  } 
+  }
 
   @Transaction
   public static DiagnosticAssayView[] applyAll(DiagnosticAssayView[] views)
   {
-    for(DiagnosticAssayView view : views)
+    for (DiagnosticAssayView view : views)
     {
       view.apply();
     }
-    
+
     return views;
   }
 
-  
 }

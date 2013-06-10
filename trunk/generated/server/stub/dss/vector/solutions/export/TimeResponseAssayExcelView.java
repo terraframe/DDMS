@@ -25,6 +25,7 @@ public class TimeResponseAssayExcelView extends TimeResponseAssayExcelViewBase i
   public void apply()
   {
     TimeResponseAssayView assay = new TimeResponseAssayView();
+    
     MosquitoCollection collection = MosquitoCollection.getByCollectionId(this.getCollectionId());
     Term assayTerm = Term.validateByDisplayLabel(this.getAssay(), TimeResponseAssayView.getAssayMd());
     Term ingredient = Term.validateByDisplayLabel(this.getActiveIngredient(), TimeResponseAssayView.getActiveIngredientMd());
@@ -55,6 +56,7 @@ public class TimeResponseAssayExcelView extends TimeResponseAssayExcelViewBase i
     }
     iterator.close();
     
+    assay.setUniqueAssayId(this.getUniqueAssayId());
     assay.setSynergist(this.getSynergist());
     assay.setTestStrainResult(this.getTestStrainResult());
     assay.setReferenceStrainResult(this.getReferenceStrainResult());
@@ -64,6 +66,7 @@ public class TimeResponseAssayExcelView extends TimeResponseAssayExcelViewBase i
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
     list.add(ASSAY);
     list.add(ACTIVEINGREDIENT);

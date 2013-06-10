@@ -8,58 +8,141 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
+import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
 
-
-public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
+public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDoseAssayExcelViewBase
+    implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = 1244508626257L;
-  
+
   public AdultDiscriminatingDoseAssayExcelView()
   {
     super();
   }
-  
+
   @Override
   @Transaction
   public void apply()
   {
-    AdultDiscriminatingDoseAssay adda = new AdultDiscriminatingDoseAssay();
-    
-    adda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
-    adda.setTestDate(this.getTestDate());
-    adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(), AdultDiscriminatingDoseAssay.getTestMethodMd()));
-    adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(), AdultDiscriminatingDoseAssay.getGenerationMd()));
-    adda.setIsofemale(this.getIsofemale());
-    adda.setSex(Term.validateByDisplayLabel(this.getSex(), AdultDiscriminatingDoseAssay.getSexMd()));    
-    adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(), AdultDiscriminatingDoseAssay.getSpecieMd()));
-    adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(), AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
-    
-    AdultAgeRange excelAgeRange = this.getAgeRange();
-    AdultAgeRange newAgeRange = adda.getAgeRange();
-    newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
-    newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
-    
-    adda.setFed(this.getFed());
-    adda.setGravid(this.getGravid());
-    adda.setExposureTime(this.getExposureTime());
-    adda.setHoldingTime(this.getHoldingTime());
-    
-    adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(), this.getInsecticideUnits(), this.getInsecticideAmount()));
-    
-    adda.setQuantityTested(this.getQuantityTested());
-    adda.setQuantityDead(this.getQuantityDead());
-    adda.setControlTestMortality(this.getControlTestMortality());
-    adda.setKd50(this.getKd50());
-    adda.setKd95(this.getKd95());
-    
+    AdultDiscriminatingDoseAssay adda = UniqueAssayUtil.getOrCreateAssay(
+        AdultDiscriminatingDoseAssay.class, this.getUniqueAssayId());
+    if (!adda.isNew())
+    {
+      adda.appLock();
+    }
+
+    adda.setUniqueAssayId(this.getUniqueAssayId());
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, COLLECTIONID))
+    {
+      adda.setCollection(MosquitoCollection.getByCollectionId(this.getCollectionId()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, TESTDATE))
+    {
+      adda.setTestDate(this.getTestDate());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, TESTMETHOD))
+    {
+      adda.setTestMethod(Term.validateByDisplayLabel(this.getTestMethod(),
+          AdultDiscriminatingDoseAssay.getTestMethodMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, GENERATION))
+    {
+      adda.setGeneration(Term.validateByDisplayLabel(this.getGeneration(),
+          AdultDiscriminatingDoseAssay.getGenerationMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, ISOFEMALE))
+    {
+      adda.setIsofemale(this.getIsofemale());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, SEX))
+    {
+      adda.setSex(Term.validateByDisplayLabel(this.getSex(), AdultDiscriminatingDoseAssay.getSexMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, SPECIE))
+    {
+      adda.setSpecie(Term.validateByDisplayLabel(this.getSpecie(),
+          AdultDiscriminatingDoseAssay.getSpecieMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, IDENTIFICATIONMETHOD))
+    {
+      adda.setIdentificationMethod(Term.validateByDisplayLabel(this.getIdentificationMethod(),
+          AdultDiscriminatingDoseAssay.getIdentificationMethodMd()));
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, AGERANGE))
+    {
+      AdultAgeRange excelAgeRange = this.getAgeRange();
+      AdultAgeRange newAgeRange = adda.getAgeRange();
+      newAgeRange.setStartPoint(excelAgeRange.getStartPoint());
+      newAgeRange.setEndPoint(excelAgeRange.getEndPoint());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, FED))
+    {
+      adda.setFed(this.getFed());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, GRAVID))
+    {
+      adda.setGravid(this.getGravid());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, EXPOSURETIME))
+    {
+      adda.setExposureTime(this.getExposureTime());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, HOLDINGTIME))
+    {
+      adda.setHoldingTime(this.getHoldingTime());
+    }
+
+    // FIXME define updating strategy
+    adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
+        this.getInsecticideUnits(), this.getInsecticideAmount()));
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, QUANTITYTESTED))
+    {
+      adda.setQuantityTested(this.getQuantityTested());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, QUANTITYDEAD))
+    {
+      adda.setQuantityDead(this.getQuantityDead());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, CONTROLTESTMORTALITY))
+    {
+      adda.setControlTestMortality(this.getControlTestMortality());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, KD50))
+    {
+      adda.setKd50(this.getKd50());
+    }
+
+    if (UniqueAssayUtil.allowAttributeUpdate(this, adda, KD95))
+    {
+      adda.setKd95(this.getKd95());
+    }
+
     adda.apply();
   }
-  
+
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
+    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
     list.add(TESTDATE);
     list.add(TESTMETHOD);

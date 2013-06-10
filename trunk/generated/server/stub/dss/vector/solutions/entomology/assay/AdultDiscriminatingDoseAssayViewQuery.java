@@ -42,6 +42,7 @@ private static final long serialVersionUID = -134870692;
     {
       AdultDiscriminatingDoseAssayViewQuery vQuery = this.getViewQuery();
       
+      vQuery.map(AdultDiscriminatingDoseAssayView.UNIQUEASSAYID, query.getUniqueAssayId());
       vQuery.map(AdultDiscriminatingDoseAssayView.CONCRETEID, query.getId());
       vQuery.map(AdultDiscriminatingDoseAssayView.COLLECTIONLABEL, query.getCollection().getCollectionId());
       vQuery.map(AdultDiscriminatingDoseAssayView.EXPOSURETIME, query.getExposureTime());
