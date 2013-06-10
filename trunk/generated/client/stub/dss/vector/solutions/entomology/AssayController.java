@@ -178,7 +178,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getPooledKeys()
   {
-    String[] keys = new String[] { PooledInfectionAssayViewDTO.CONCRETEID, PooledInfectionAssayViewDTO.COLLECTION, PooledInfectionAssayViewDTO.POOLID, PooledInfectionAssayViewDTO.SPECIES, PooledInfectionAssayViewDTO.IDENTMETHOD, PooledInfectionAssayViewDTO.SEX, PooledInfectionAssayViewDTO.PARASITE, PooledInfectionAssayViewDTO.TESTMETHOD, PooledInfectionAssayViewDTO.INFECTED, PooledInfectionAssayViewDTO.MOSQUITOSTESTED, PooledInfectionAssayViewDTO.POOLSTESTED,
+    String[] keys = new String[] {PooledInfectionAssayViewDTO.CONCRETEID, PooledInfectionAssayViewDTO.COLLECTION, PooledInfectionAssayViewDTO.UNIQUEASSAYID, PooledInfectionAssayViewDTO.POOLID, PooledInfectionAssayViewDTO.SPECIES, PooledInfectionAssayViewDTO.IDENTMETHOD, PooledInfectionAssayViewDTO.SEX, PooledInfectionAssayViewDTO.PARASITE, PooledInfectionAssayViewDTO.TESTMETHOD, PooledInfectionAssayViewDTO.INFECTED, PooledInfectionAssayViewDTO.MOSQUITOSTESTED, PooledInfectionAssayViewDTO.POOLSTESTED,
         PooledInfectionAssayViewDTO.NUMBERPOSITIVE };
 
     this.upperFirstCharacter(keys);
@@ -202,7 +202,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getInfectionKeys()
   {
-    String[] keys = new String[] { InfectionAssayViewDTO.CONCRETEID, InfectionAssayViewDTO.COLLECTION, InfectionAssayViewDTO.MOSQUITOID, InfectionAssayViewDTO.SPECIES, InfectionAssayViewDTO.IDENTMETHOD, InfectionAssayViewDTO.SEX, InfectionAssayViewDTO.PARASITE, InfectionAssayViewDTO.TESTMETHOD, InfectionAssayViewDTO.INFECTED, InfectionAssayViewDTO.NUMBERTESTED, InfectionAssayViewDTO.NUMBERPOSITIVE };
+    String[] keys = new String[] {InfectionAssayViewDTO.CONCRETEID, InfectionAssayViewDTO.COLLECTION, InfectionAssayViewDTO.UNIQUEASSAYID, InfectionAssayViewDTO.MOSQUITOID, InfectionAssayViewDTO.SPECIES, InfectionAssayViewDTO.IDENTMETHOD, InfectionAssayViewDTO.SEX, InfectionAssayViewDTO.PARASITE, InfectionAssayViewDTO.TESTMETHOD, InfectionAssayViewDTO.INFECTED, InfectionAssayViewDTO.NUMBERTESTED, InfectionAssayViewDTO.NUMBERPOSITIVE };
 
     this.upperFirstCharacter(keys);
 
@@ -365,7 +365,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getBiochemicalKeys()
   {
-    String[] keys = new String[] { BiochemicalAssayViewDTO.CONCRETEID, BiochemicalAssayViewDTO.COLLECTION, BiochemicalAssayViewDTO.MOSQUITOID, BiochemicalAssayViewDTO.SPECIES, BiochemicalAssayViewDTO.IDENTMETHOD, BiochemicalAssayViewDTO.SEX, BiochemicalAssayViewDTO.GENERATION, BiochemicalAssayViewDTO.ISOFEMALE, BiochemicalAssayViewDTO.ASSAY, BiochemicalAssayViewDTO.NUMBERTESTED, BiochemicalAssayViewDTO.NUMBERELEVATED };
+    String[] keys = new String[] { BiochemicalAssayViewDTO.CONCRETEID, BiochemicalAssayViewDTO.COLLECTION, BiochemicalAssayViewDTO.UNIQUEASSAYID, BiochemicalAssayViewDTO.MOSQUITOID, BiochemicalAssayViewDTO.SPECIES, BiochemicalAssayViewDTO.IDENTMETHOD, BiochemicalAssayViewDTO.SEX, BiochemicalAssayViewDTO.GENERATION, BiochemicalAssayViewDTO.ISOFEMALE, BiochemicalAssayViewDTO.ASSAY, BiochemicalAssayViewDTO.NUMBERTESTED, BiochemicalAssayViewDTO.NUMBERELEVATED };
 
     this.upperFirstCharacter(keys);
 
@@ -387,7 +387,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getMolecularKeys()
   {
-    String[] keys = new String[] { MolecularAssayViewDTO.CONCRETEID, MolecularAssayViewDTO.COLLECTION, MolecularAssayViewDTO.MOSQUITOID, MolecularAssayViewDTO.SPECIES, MolecularAssayViewDTO.IDENTMETHOD, MolecularAssayViewDTO.SEX, MolecularAssayViewDTO.GENERATION, MolecularAssayViewDTO.ISOFEMALE, MolecularAssayViewDTO.ASSAYMETHOD, MolecularAssayViewDTO.TARGET, MolecularAssayViewDTO.NUMBERRR, MolecularAssayViewDTO.NUMBERRS, MolecularAssayViewDTO.NUMBERSS };
+    String[] keys = new String[] { MolecularAssayViewDTO.CONCRETEID, MolecularAssayViewDTO.COLLECTION, MolecularAssayViewDTO.UNIQUEASSAYID, MolecularAssayViewDTO.MOSQUITOID, MolecularAssayViewDTO.SPECIES, MolecularAssayViewDTO.IDENTMETHOD, MolecularAssayViewDTO.SEX, MolecularAssayViewDTO.GENERATION, MolecularAssayViewDTO.ISOFEMALE, MolecularAssayViewDTO.ASSAYMETHOD, MolecularAssayViewDTO.TARGET, MolecularAssayViewDTO.NUMBERRR, MolecularAssayViewDTO.NUMBERRS, MolecularAssayViewDTO.NUMBERSS };
 
     this.upperFirstCharacter(keys);
 
@@ -411,7 +411,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getDiagnosticKeys()
   {
-    String[] keys = new String[] { DiagnosticAssayViewDTO.CONCRETEID, DiagnosticAssayViewDTO.COLLECTION, DiagnosticAssayViewDTO.ACTIVEINGREDIENT, DiagnosticAssayViewDTO.SPECIES, DiagnosticAssayViewDTO.LIFESTAGE, DiagnosticAssayViewDTO.SYNERGIST, DiagnosticAssayViewDTO.OUTCOME };
+    String[] keys = new String[] { DiagnosticAssayViewDTO.CONCRETEID, DiagnosticAssayViewDTO.COLLECTION, DiagnosticAssayViewDTO.UNIQUEASSAYID, DiagnosticAssayViewDTO.ACTIVEINGREDIENT, DiagnosticAssayViewDTO.SPECIES, DiagnosticAssayViewDTO.LIFESTAGE, DiagnosticAssayViewDTO.SYNERGIST, DiagnosticAssayViewDTO.OUTCOME };
 
     this.upperFirstCharacter(keys);
 
@@ -433,7 +433,7 @@ public class AssayController extends AssayControllerBase implements Reloadable
 
   private String[] getTimeResponseKeys()
   {
-    String[] keys = new String[] { TimeResponseAssayViewDTO.CONCRETEID, TimeResponseAssayViewDTO.COLLECTION, TimeResponseAssayViewDTO.ASSAY, TimeResponseAssayViewDTO.ACTIVEINGREDIENT, TimeResponseAssayViewDTO.SPECIES, TimeResponseAssayViewDTO.LIFESTAGE, TimeResponseAssayViewDTO.SYNERGIST, TimeResponseAssayViewDTO.TESTSTRAINRESULT, TimeResponseAssayViewDTO.REFERENCESTRAINRESULT };
+    String[] keys = new String[] { TimeResponseAssayViewDTO.CONCRETEID, TimeResponseAssayViewDTO.COLLECTION, DiagnosticAssayViewDTO.UNIQUEASSAYID, TimeResponseAssayViewDTO.ASSAY, TimeResponseAssayViewDTO.ACTIVEINGREDIENT, TimeResponseAssayViewDTO.SPECIES, TimeResponseAssayViewDTO.LIFESTAGE, TimeResponseAssayViewDTO.SYNERGIST, TimeResponseAssayViewDTO.TESTSTRAINRESULT, TimeResponseAssayViewDTO.REFERENCESTRAINRESULT };
 
     this.upperFirstCharacter(keys);
 
