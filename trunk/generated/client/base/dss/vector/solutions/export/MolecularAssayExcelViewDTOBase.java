@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1828098805)
+@com.runwaysdk.business.ClassSignature(hash = 1580807349)
 public abstract class MolecularAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.MolecularAssayExcelView";
-  private static final long serialVersionUID = -1828098805;
+  private static final long serialVersionUID = 1580807349;
   
   protected MolecularAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -29,6 +29,7 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.runwaysdk.busin
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
   public static java.lang.String TARGET = "target";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public String getAssayMethod()
   {
     return getValue(ASSAYMETHOD);
@@ -471,6 +472,43 @@ public abstract class MolecularAssayExcelViewDTOBase extends com.runwaysdk.busin
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTargetMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TARGET).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static MolecularAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

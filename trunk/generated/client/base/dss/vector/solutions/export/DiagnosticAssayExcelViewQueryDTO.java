@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -665652510)
+@com.runwaysdk.business.ClassSignature(hash = 215058188)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,7 @@ package dss.vector.solutions.export;
 public class DiagnosticAssayExcelViewQueryDTO extends com.runwaysdk.business.ViewQueryDTO
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = -665652510;
+private static final long serialVersionUID = 215058188;
 
   protected DiagnosticAssayExcelViewQueryDTO(String type)
   {

@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -1387644810)
+@com.runwaysdk.business.ClassSignature(hash = -864640352)
 public abstract class BiochemicalAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.BiochemicalAssayExcelView";
-  private static final long serialVersionUID = -1387644810;
+  private static final long serialVersionUID = -864640352;
   
   protected BiochemicalAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -27,6 +27,7 @@ public abstract class BiochemicalAssayExcelViewDTOBase extends com.runwaysdk.bus
   public static java.lang.String NUMBERTESTED = "numberTested";
   public static java.lang.String SEX = "sex";
   public static java.lang.String SPECIES = "species";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public String getAssay()
   {
     return getValue(ASSAY);
@@ -395,6 +396,43 @@ public abstract class BiochemicalAssayExcelViewDTOBase extends com.runwaysdk.bus
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getSpeciesMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(SPECIES).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static BiochemicalAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

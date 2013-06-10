@@ -1,10 +1,10 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 2114292031)
+@com.runwaysdk.business.ClassSignature(hash = 726456041)
 public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView";
-  private static final long serialVersionUID = 2114292031;
+  private static final long serialVersionUID = 726456041;
   
   protected AdultDiscriminatingDoseAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -38,6 +38,7 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public static java.lang.String SPECIE = "specie";
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public dss.vector.solutions.entomology.assay.AdultAgeRangeDTO getAgeRange()
   {
     return (dss.vector.solutions.entomology.assay.AdultAgeRangeDTO) this.getAttributeStructDTO(AGERANGE).getStructDTO();
@@ -801,6 +802,43 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getTestMethodMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(TESTMETHOD).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static AdultDiscriminatingDoseAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)

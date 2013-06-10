@@ -1,10 +1,10 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1578461755)
+@com.runwaysdk.business.ClassSignature(hash = -1944053275)
 public abstract class TimeResponseAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.TimeResponseAssayExcelView";
-  private static final long serialVersionUID = 1578461755;
+  private static final long serialVersionUID = -1944053275;
   
   protected TimeResponseAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -25,6 +25,7 @@ public abstract class TimeResponseAssayExcelViewDTOBase extends com.runwaysdk.bu
   public static java.lang.String SPECIES = "species";
   public static java.lang.String SYNERGIST = "synergist";
   public static java.lang.String TESTSTRAINRESULT = "testStrainResult";
+  public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
   public String getActiveIngredient()
   {
     return getValue(ACTIVEINGREDIENT);
@@ -319,6 +320,43 @@ public abstract class TimeResponseAssayExcelViewDTOBase extends com.runwaysdk.bu
   public final com.runwaysdk.transport.metadata.AttributeDecMdDTO getTestStrainResultMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeDecMdDTO) getAttributeDTO(TESTSTRAINRESULT).getAttributeMdDTO();
+  }
+  
+  public String getUniqueAssayId()
+  {
+    return getValue(UNIQUEASSAYID);
+  }
+  
+  public void setUniqueAssayId(String value)
+  {
+    if(value == null)
+    {
+      setValue(UNIQUEASSAYID, "");
+    }
+    else
+    {
+      setValue(UNIQUEASSAYID, value);
+    }
+  }
+  
+  public boolean isUniqueAssayIdWritable()
+  {
+    return isWritable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdReadable()
+  {
+    return isReadable(UNIQUEASSAYID);
+  }
+  
+  public boolean isUniqueAssayIdModified()
+  {
+    return isModified(UNIQUEASSAYID);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getUniqueAssayIdMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(UNIQUEASSAYID).getAttributeMdDTO();
   }
   
   public static TimeResponseAssayExcelViewDTO get(com.runwaysdk.constants.ClientRequestIF clientRequest, String id)
