@@ -21,7 +21,7 @@
     <mjl:input id="collection" param="collection" type="hidden" value="${collection != null ? collection.concreteId : ''}"  classes="component" />    
   </mjl:dt>
   <mjl:dt attribute="uniqueAssayId">
-    <mjl:input type="text" param="uniqueAssayId" />
+    <mjl:input type="text" param="uniqueAssayId" classes="component" id="uniqueAssayId" />
   </mjl:dt>
   <mjl:dt attribute="testDate">
     <mjl:input type="text" param="testDate" id="testDate" classes="DatePick NoFuture component" />
