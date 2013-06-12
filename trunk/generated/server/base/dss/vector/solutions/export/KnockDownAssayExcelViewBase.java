@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 954806248)
+@com.runwaysdk.business.ClassSignature(hash = 1053221850)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
   public static java.lang.String AGERANGE = "ageRange";
   private com.runwaysdk.business.Struct ageRange = null;
   
+  public static java.lang.String AMOUNT = "amount";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String EXPOSURETIME = "exposureTime";
   public static java.lang.String FED = "fed";
@@ -24,6 +25,7 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
   public static java.lang.String INSECTICIDEACTIVEINGREDIENT = "insecticideActiveIngredient";
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
+  public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String KD50 = "kd50";
   public static java.lang.String KD95 = "kd95";
@@ -33,7 +35,7 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
   public static java.lang.String TESTDATE = "testDate";
   public static java.lang.String TESTMETHOD = "testMethod";
   public static java.lang.String UNIQUEASSAYID = "uniqueAssayId";
-  private static final long serialVersionUID = 954806248;
+  private static final long serialVersionUID = 1053221850;
   
   public KnockDownAssayExcelViewBase()
   {
@@ -55,6 +57,34 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.KnockDownAssayExcelView.CLASS);
     return mdClassIF.definesAttribute(AGERANGE);
+  }
+  
+  public Integer getAmount()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+  }
+  
+  public void validateAmount()
+  {
+    this.validateAttribute(AMOUNT);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getAmountMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.KnockDownAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(AMOUNT);
+  }
+  
+  public void setAmount(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(AMOUNT, "");
+    }
+    else
+    {
+      setValue(AMOUNT, java.lang.Integer.toString(value));
+    }
   }
   
   public String getCollectionId()
@@ -322,6 +352,34 @@ public abstract class KnockDownAssayExcelViewBase extends com.runwaysdk.business
     else
     {
       setValue(INSECTICIDEUNITS, value);
+    }
+  }
+  
+  public Integer getIntervalTime()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
+  }
+  
+  public void validateIntervalTime()
+  {
+    this.validateAttribute(INTERVALTIME);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getIntervalTimeMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.KnockDownAssayExcelView.CLASS);
+    return mdClassIF.definesAttribute(INTERVALTIME);
+  }
+  
+  public void setIntervalTime(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVALTIME, "");
+    }
+    else
+    {
+      setValue(INTERVALTIME, java.lang.Integer.toString(value));
     }
   }
   

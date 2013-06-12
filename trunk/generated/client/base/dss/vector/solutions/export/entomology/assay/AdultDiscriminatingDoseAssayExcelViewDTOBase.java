@@ -1,10 +1,10 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 726456041)
+@com.runwaysdk.business.ClassSignature(hash = 1634758235)
 public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.runwaysdk.business.ViewDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView";
-  private static final long serialVersionUID = 726456041;
+  private static final long serialVersionUID = 1634758235;
   
   protected AdultDiscriminatingDoseAssayExcelViewDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -17,6 +17,7 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   }
   
   public static java.lang.String AGERANGE = "ageRange";
+  public static java.lang.String AMOUNT = "amount";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String CONTROLTESTMORTALITY = "controlTestMortality";
   public static java.lang.String EXPOSURETIME = "exposureTime";
@@ -29,6 +30,7 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public static java.lang.String INSECTICIDEACTIVEINGREDIENT = "insecticideActiveIngredient";
   public static java.lang.String INSECTICIDEAMOUNT = "insecticideAmount";
   public static java.lang.String INSECTICIDEUNITS = "insecticideUnits";
+  public static java.lang.String INTERVALTIME = "intervalTime";
   public static java.lang.String ISOFEMALE = "isofemale";
   public static java.lang.String KD50 = "kd50";
   public static java.lang.String KD95 = "kd95";
@@ -62,6 +64,43 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public final com.runwaysdk.transport.metadata.AttributeStructMdDTO getAgeRangeMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeStructMdDTO) getAttributeDTO(AGERANGE).getAttributeMdDTO();
+  }
+  
+  public Integer getAmount()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(AMOUNT));
+  }
+  
+  public void setAmount(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(AMOUNT, "");
+    }
+    else
+    {
+      setValue(AMOUNT, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isAmountWritable()
+  {
+    return isWritable(AMOUNT);
+  }
+  
+  public boolean isAmountReadable()
+  {
+    return isReadable(AMOUNT);
+  }
+  
+  public boolean isAmountModified()
+  {
+    return isModified(AMOUNT);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getAmountMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(AMOUNT).getAttributeMdDTO();
   }
   
   public String getCollectionId()
@@ -469,6 +508,43 @@ public abstract class AdultDiscriminatingDoseAssayExcelViewDTOBase extends com.r
   public final com.runwaysdk.transport.metadata.AttributeCharacterMdDTO getInsecticideUnitsMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeCharacterMdDTO) getAttributeDTO(INSECTICIDEUNITS).getAttributeMdDTO();
+  }
+  
+  public Integer getIntervalTime()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(INTERVALTIME));
+  }
+  
+  public void setIntervalTime(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(INTERVALTIME, "");
+    }
+    else
+    {
+      setValue(INTERVALTIME, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isIntervalTimeWritable()
+  {
+    return isWritable(INTERVALTIME);
+  }
+  
+  public boolean isIntervalTimeReadable()
+  {
+    return isReadable(INTERVALTIME);
+  }
+  
+  public boolean isIntervalTimeModified()
+  {
+    return isModified(INTERVALTIME);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getIntervalTimeMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(INTERVALTIME).getAttributeMdDTO();
   }
   
   public Boolean getIsofemale()

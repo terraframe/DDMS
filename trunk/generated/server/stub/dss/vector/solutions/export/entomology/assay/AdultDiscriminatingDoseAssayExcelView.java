@@ -3,11 +3,16 @@ package dss.vector.solutions.export.entomology.assay;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseAssay;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval;
+import dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseIntervalQuery;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
@@ -28,6 +33,7 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
   {
     AdultDiscriminatingDoseAssay adda = UniqueAssayUtil.getOrCreateAssay(
         AdultDiscriminatingDoseAssay.class, this.getUniqueAssayId());
+
     if (!adda.isNew())
     {
       adda.appLock();
@@ -107,9 +113,15 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
       adda.setHoldingTime(this.getHoldingTime());
     }
 
-    // FIXME define updating strategy
-    adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
-        this.getInsecticideUnits(), this.getInsecticideAmount()));
+    // set the Insecticide if at least one value is set (three values are
+    // required, but
+    // we want validation to notify the user that values are missing).
+    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS)
+        || this.isModified(INSECTICIDEAMOUNT))
+    {
+      adda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
+          this.getInsecticideUnits(), this.getInsecticideAmount()));
+    }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, adda, QUANTITYTESTED))
     {
@@ -137,6 +149,65 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     }
 
     adda.apply();
+
+    // with the ADDA applied we can reference it for interval/amount values
+    applyIntervalAmounts(adda);
+  }
+
+  /**
+   * Apply any interval/amount grid data (assuming no prior problems, hence the
+   * annotation to protect against error propagation)
+   * 
+   * @param assay
+   */
+  @SkipIfProblem
+  private void applyIntervalAmounts(AdultDiscriminatingDoseAssay assay)
+  {
+    // see if there's any interval grid data.
+    if (this.getIntervalTime() != null && this.getAmount() != null)
+    {
+      Integer time = this.getIntervalTime();
+      Integer amount = this.getAmount();
+
+      QueryFactory f = new QueryFactory();
+
+      AdultDiscriminatingDoseIntervalQuery addiQ = new AdultDiscriminatingDoseIntervalQuery(f);
+
+      // look for a match on the assay and time
+      addiQ.WHERE(addiQ.getAssay().EQ(assay));
+      addiQ.AND(addiQ.getIntervalTime().EQ(time));
+
+      AdultDiscriminatingDoseInterval interval = null;
+
+      OIterator<? extends AdultDiscriminatingDoseInterval> iter = addiQ.getIterator();
+
+      try
+      {
+        // fetch the existing record or create a new one.
+        if (iter.hasNext())
+        {
+          interval = iter.next();
+        }
+        else
+        {
+          interval = new AdultDiscriminatingDoseInterval();
+          interval.setAssay(assay);
+          interval.setIntervalTime(time);
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+
+      if (!interval.isNew())
+      {
+        interval.appLock();
+      }
+
+      interval.setAmount(amount);
+      interval.apply();
+    }
   }
 
   public static List<String> customAttributeOrder()
@@ -164,6 +235,9 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
     list.add(CONTROLTESTMORTALITY);
     list.add(KD50);
     list.add(KD95);
+    list.add(INTERVALTIME);
+    list.add(AMOUNT);
     return list;
   }
+
 }

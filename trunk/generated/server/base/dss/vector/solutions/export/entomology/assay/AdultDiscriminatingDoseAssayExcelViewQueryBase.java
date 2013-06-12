@@ -1,6 +1,6 @@
 package dss.vector.solutions.export.entomology.assay;
 
-@com.runwaysdk.business.ClassSignature(hash = 1743294162)
+@com.runwaysdk.business.ClassSignature(hash = -1791304764)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -40,6 +40,24 @@ public  abstract  class AdultDiscriminatingDoseAssayExcelViewQueryBase extends c
   public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel)
   {
     return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.AGERANGE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getAmount()
+  {
+    return getAmount(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getAmount(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.AMOUNT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getAmount(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.AMOUNT, alias, displayLabel);
 
   }
  
@@ -256,6 +274,24 @@ public  abstract  class AdultDiscriminatingDoseAssayExcelViewQueryBase extends c
   public com.runwaysdk.query.SelectableChar getInsecticideUnits(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getIntervalTime()
+  {
+    return getIntervalTime(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getIntervalTime(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.INTERVALTIME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getIntervalTime(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.INTERVALTIME, alias, displayLabel);
 
   }
  

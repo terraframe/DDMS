@@ -3,9 +3,10 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.assay.UniqueAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 
-public class PooledInfectionAssayView extends PooledInfectionAssayViewBase implements com.runwaysdk.generation.loader.Reloadable
+public class PooledInfectionAssayView extends PooledInfectionAssayViewBase implements com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 416207252;
   
@@ -156,6 +157,8 @@ public class PooledInfectionAssayView extends PooledInfectionAssayViewBase imple
   @Transaction
   public static PooledInfectionAssayView[] applyAll(PooledInfectionAssayView[] views)
   {
+    UniqueAssayUtil.validateUniqueAssayIds(views);
+    
     for(PooledInfectionAssayView view : views)
     {
       view.apply();

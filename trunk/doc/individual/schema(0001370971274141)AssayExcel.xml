@@ -1,0 +1,41 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    
+
+    
+    </create>
+    <update>
+    
+      <mdView name="dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView">
+       <create>
+        <attributes>
+          <virtual concrete="intervalTime" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval" required="false"/>
+          <virtual concrete="amount" type="dss.vector.solutions.entomology.assay.AdultDiscriminatingDoseInterval" required="false"/>
+        </attributes>
+       </create>
+      </mdView>
+
+      <mdView name="dss.vector.solutions.export.KnockDownAssayExcelView">
+       <create>
+        <attributes>
+          <virtual concrete="intervalTime" type="dss.vector.solutions.entomology.assay.KnockDownInterval"/>
+          <virtual concrete="amount" type="dss.vector.solutions.entomology.assay.KnockDownInterval"/>
+        </attributes>
+       </create>
+      </mdView> 
+    
+    </update>
+  </doIt>
+  <undoIt>
+    <delete>
+    
+      <object key="dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.intervalTime" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.export.entomology.assay.AdultDiscriminatingDoseAssayExcelView.amount" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      
+      <object key="dss.vector.solutions.export.KnockDownAssayExcelView.intervalTime" type="com.runwaysdk.system.metadata.MdAttribute"/>
+      <object key="dss.vector.solutions.export.KnockDownAssayExcelView.amount" type="com.runwaysdk.system.metadata.MdAttribute"/>
+    
+    </delete>
+  </undoIt>
+</version>

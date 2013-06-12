@@ -3,10 +3,11 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.assay.UniqueAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 
 public class BiochemicalAssayView extends BiochemicalAssayViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = -1386315237;
 
@@ -153,6 +154,8 @@ public class BiochemicalAssayView extends BiochemicalAssayViewBase implements
   @Transaction
   public static BiochemicalAssayView[] applyAll(BiochemicalAssayView[] views)
   {
+    UniqueAssayUtil.validateUniqueAssayIds(views);
+    
     for (BiochemicalAssayView view : views)
     {
       view.apply();

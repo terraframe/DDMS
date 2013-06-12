@@ -1,12 +1,14 @@
 package dss.vector.solutions.entomology.assay;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessFacade;
 import com.runwaysdk.business.BusinessQuery;
-import com.runwaysdk.business.Component;
 import com.runwaysdk.business.View;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
@@ -24,7 +26,9 @@ public class UniqueAssayUtil implements Reloadable
   private static Log log = LogFactory.getLog(UniqueAssayUtil.class);
   
   /**
-   * Checks if the attribute on the given Business object has a value ready
+   * Checks if the attribute on the source View has a value that
+   * 
+   * 
    * @param bus
    * @param name
    * @return
@@ -47,7 +51,7 @@ public class UniqueAssayUtil implements Reloadable
   }
 
   /**
-   * Checks if the attribute on the given Business object has a value ready
+   * Checks if the attribute on the given View object has a value ready
    * @param bus
    * @param name
    * @return
@@ -61,6 +65,32 @@ public class UniqueAssayUtil implements Reloadable
     else
     {
       return false;
+    }
+  }
+  
+  /**
+   * Ensures that no duplicate assay ids exist in the given array of UniqueAssay objects.
+   * 
+   * @param assays
+   * @throws DuplicateAssayException Thrown if a duplicate assay id is found.
+   */
+  public static void validateUniqueAssayIds(UniqueAssay[] assays)
+  {
+    // make sure that two duplicate assay ids are rejected
+    Set<String> assayIds = new HashSet<String>();
+    for(UniqueAssay assay : assays)
+    {
+      String assayId = assay.getUniqueAssayId();
+      if(assayId != null && assayIds.contains(assayId))
+      {
+        DuplicateAssayException ex = new DuplicateAssayException();
+        ex.setAssayId(assayId);
+        throw ex;
+      }
+      else if(assayId != null)
+      {
+        assayIds.add(assayId);
+      }
     }
   }
   

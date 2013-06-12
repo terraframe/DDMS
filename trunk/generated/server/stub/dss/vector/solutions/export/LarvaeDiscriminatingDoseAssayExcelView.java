@@ -86,9 +86,15 @@ public class LarvaeDiscriminatingDoseAssayExcelView extends LarvaeDiscriminating
           LarvaeDiscriminatingDoseAssay.getEndPointMd()));
     }
 
-    // FIXME define update protocol
-    ldda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
-        this.getInsecticideUnits(), this.getInsecticideAmount()));
+    // set the Insecticide if at least one value is set (three values are
+    // required, but
+    // we want validation to notify the user that values are missing).
+    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS)
+        || this.isModified(INSECTICIDEAMOUNT))
+    {
+      ldda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
+          this.getInsecticideUnits(), this.getInsecticideAmount()));
+    }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, ldda, EXPOSURETIME))
     {

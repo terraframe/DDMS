@@ -3,11 +3,16 @@ package dss.vector.solutions.export;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.runwaysdk.dataaccess.transaction.SkipIfProblem;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.query.OIterator;
+import com.runwaysdk.query.QueryFactory;
 
 import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.assay.AdultAgeRange;
 import dss.vector.solutions.entomology.assay.KnockDownAssay;
+import dss.vector.solutions.entomology.assay.KnockDownInterval;
+import dss.vector.solutions.entomology.assay.KnockDownIntervalQuery;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 import dss.vector.solutions.general.Insecticide;
 import dss.vector.solutions.ontology.Term;
@@ -100,9 +105,15 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
       kda.setExposureTime(this.getExposureTime());
     }
 
-    // FIXME define the policy for updating Insecticide
-    kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
+    // set the Insecticide if at least one value is set (three values are
+    // required, but
+    // we want validation to notify the user that values are missing).
+    if (this.isModified(INSECTICIDEACTIVEINGREDIENT) || this.isModified(INSECTICIDEUNITS)
+        || this.isModified(INSECTICIDEAMOUNT))
+    {
+      kda.setInsecticide(Insecticide.get(this.getInsecticideActiveIngredient(),
           this.getInsecticideUnits(), this.getInsecticideAmount()));
+    }
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, kda, QUANTITYTESTED))
     {
@@ -120,6 +131,64 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     }
 
     kda.apply();
+
+    this.applyIntervalAmounts(kda);
+  }
+
+  /**
+   * Apply any interval/amount grid data (assuming no prior problems, hence the
+   * annotation to protect against error propagation)
+   * 
+   * @param assay
+   */
+  @SkipIfProblem
+  private void applyIntervalAmounts(KnockDownAssay assay)
+  {
+    // see if there's any interval grid data.
+    if (this.getIntervalTime() != null && this.getAmount() != null)
+    {
+      Integer time = this.getIntervalTime();
+      Integer amount = this.getAmount();
+
+      QueryFactory f = new QueryFactory();
+
+      KnockDownIntervalQuery addiQ = new KnockDownIntervalQuery(f);
+
+      // look for a match on the assay and time
+      addiQ.WHERE(addiQ.getAssay().EQ(assay));
+      addiQ.AND(addiQ.getIntervalTime().EQ(time));
+
+      KnockDownInterval interval = null;
+
+      OIterator<? extends KnockDownInterval> iter = addiQ.getIterator();
+
+      try
+      {
+        // fetch the existing record or create a new one.
+        if (iter.hasNext())
+        {
+          interval = iter.next();
+        }
+        else
+        {
+          interval = new KnockDownInterval();
+          interval.setAssay(assay);
+          interval.setIntervalTime(time);
+        }
+      }
+      finally
+      {
+        iter.close();
+      }
+
+      if (!interval.isNew())
+      {
+        interval.appLock();
+      }
+
+      interval.setAmount(amount);
+      interval.apply();
+    }
   }
 
   public static List<String> customAttributeOrder()
@@ -144,6 +213,8 @@ public class KnockDownAssayExcelView extends KnockDownAssayExcelViewBase impleme
     list.add(QUANTITYTESTED);
     list.add(KD50);
     list.add(KD95);
+    list.add(INTERVALTIME);
+    list.add(AMOUNT);
     return list;
   }
 }

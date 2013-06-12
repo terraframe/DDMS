@@ -1,0 +1,21 @@
+<version xsi:noNamespaceSchemaLocation="../../profiles/version_gis.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <doIt>
+    <create>
+    
+      <mdException name="dss.vector.solutions.entomology.assay.DuplicateAssayException"
+      message="The assay id [{assayId}] already exists." label="Duplicate Assay Exception">
+        <attributes>
+          <char name="assayId" label="Assay Id" required="true" size="255" />
+        </attributes>
+      </mdException>
+    
+    </create>
+    <update></update>
+  </doIt>
+  <undoIt>
+    <delete>
+      <object key="dss.vector.solutions.entomology.assay.DuplicateAssayException" 
+      type="com.runwaysdk.system.metadata.MdException"/>
+    </delete>
+  </undoIt>
+</version>

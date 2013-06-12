@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1022205215)
+@com.runwaysdk.business.ClassSignature(hash = 317672337)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -40,6 +40,24 @@ public  abstract  class KnockDownAssayExcelViewQueryBase extends com.runwaysdk.q
   public dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF getAgeRange(String alias, String displayLabel)
   {
     return (dss.vector.solutions.entomology.assay.AdultAgeRangeQuery.AdultAgeRangeQueryStructIF)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.AGERANGE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getAmount()
+  {
+    return getAmount(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getAmount(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.AMOUNT, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getAmount(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.AMOUNT, alias, displayLabel);
 
   }
  
@@ -220,6 +238,24 @@ public  abstract  class KnockDownAssayExcelViewQueryBase extends com.runwaysdk.q
   public com.runwaysdk.query.SelectableChar getInsecticideUnits(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INSECTICIDEUNITS, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getIntervalTime()
+  {
+    return getIntervalTime(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getIntervalTime(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVALTIME, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getIntervalTime(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.KnockDownAssayExcelView.INTERVALTIME, alias, displayLabel);
 
   }
  
