@@ -29,18 +29,18 @@ public class EfficacyAssayView extends EfficacyAssayViewBase implements
 
   private void populateConcrete(EfficacyAssay concrete)
   {
-    GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
-
-    if (entity == null || ! ( entity instanceof Surface ))
-    {
-      throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId",
-          (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
-    }
-
     concrete.setUniqueAssayId(this.getUniqueAssayId());
 
     if (UniqueAssayUtil.allowAttributeUpdate(this, concrete, GEOID))
     {
+      GeoEntity entity = GeoEntity.searchByGeoId(this.getGeoId());
+
+      if (entity == null || ! ( entity instanceof Surface ))
+      {
+        throw new InvalidReferenceException("[" + this.getGeoId() + "] is not a valid Surface GeoId",
+            (MdAttributeReferenceDAOIF) EfficacyAssay.getGeoEntityMd());
+      }
+      
       concrete.setGeoEntity((Surface) entity);
     }
 

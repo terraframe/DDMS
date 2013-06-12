@@ -3,10 +3,11 @@ package dss.vector.solutions.entomology;
 import com.runwaysdk.dataaccess.transaction.AttributeNotificationMap;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 
+import dss.vector.solutions.entomology.assay.UniqueAssay;
 import dss.vector.solutions.entomology.assay.UniqueAssayUtil;
 
 public class TimeResponseAssayView extends TimeResponseAssayViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+    com.runwaysdk.generation.loader.Reloadable, UniqueAssay
 {
   private static final long serialVersionUID = 482486261;
 
@@ -139,6 +140,8 @@ public class TimeResponseAssayView extends TimeResponseAssayViewBase implements
   @Transaction
   public static TimeResponseAssayView[] applyAll(TimeResponseAssayView[] views)
   {
+    UniqueAssayUtil.validateUniqueAssayIds(views);
+    
     for (TimeResponseAssayView view : views)
     {
       view.apply();

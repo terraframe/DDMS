@@ -213,8 +213,8 @@ public class AdultDiscriminatingDoseAssayExcelView extends AdultDiscriminatingDo
   public static List<String> customAttributeOrder()
   {
     LinkedList<String> list = new LinkedList<String>();
-    list.add(UNIQUEASSAYID);
     list.add(COLLECTIONID);
+    list.add(UNIQUEASSAYID);
     list.add(TESTDATE);
     list.add(TESTMETHOD);
     list.add(GENERATION);
