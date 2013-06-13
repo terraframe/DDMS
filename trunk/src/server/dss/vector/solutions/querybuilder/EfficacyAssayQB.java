@@ -95,6 +95,9 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       String testDate = QueryUtil.getColumnName(EfficacyAssay.getTestDateMd());
       String abstractAssayTable = MdEntityDAO.getMdEntityDAO(AbstractAssay.CLASS).getTableName();
       String id = QueryUtil.getIdColumn();
+      
+      // if CTM is null then treat it as zero because it's not required in the equation
+      controlTestMortality = "COALESCE("+controlTestMortality+", 0)";
 
       String sql = "((qd / NULLIF((qd + ql),0)::double precision * 100 - "+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+")";
       sql+= "/NULLIF((100 - "+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+"),0) * 100)";
