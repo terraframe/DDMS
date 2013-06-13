@@ -24,12 +24,6 @@ public class KnockDownAssay extends KnockDownAssayBase implements com.runwaysdk.
   {
     super();
   }
-  
-  @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
 
   @Override
   public String toString()

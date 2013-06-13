@@ -21,12 +21,6 @@ public class InfectionAssay extends InfectionAssayBase implements com.runwaysdk.
   }
   
   @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
-  
-  @Override
   public String toString()
   {
     if (this.isNew())

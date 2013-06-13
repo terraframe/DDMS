@@ -16,12 +16,6 @@ public class BiochemicalAssay extends BiochemicalAssayBase implements com.runway
   {
     super();
   }
-  
-  @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
     
   @Override
   public String toString()

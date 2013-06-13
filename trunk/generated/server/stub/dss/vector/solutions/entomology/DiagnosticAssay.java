@@ -15,12 +15,6 @@ public class DiagnosticAssay extends DiagnosticAssayBase implements
   }
 
   @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
-
-  @Override
   public void apply()
   {
     UniqueAssayUtil.setUniqueAssayId(this);

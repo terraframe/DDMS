@@ -18,12 +18,6 @@ public class PooledInfectionAssay extends PooledInfectionAssayBase implements co
   }
   
   @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
-  
-  @Override
   public String toString()
   {
     if (this.isNew())

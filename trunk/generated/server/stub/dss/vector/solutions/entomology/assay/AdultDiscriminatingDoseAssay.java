@@ -25,12 +25,6 @@ public class AdultDiscriminatingDoseAssay extends AdultDiscriminatingDoseAssayBa
   {
     super();
   }
-  
-  @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
 
   @Override
   public String toString()

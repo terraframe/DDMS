@@ -28,12 +28,6 @@ public class EfficacyAssay extends EfficacyAssayBase implements com.runwaysdk.ge
   {
     super();
   }
-  
-  @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
 
   @Override
   public String toString()

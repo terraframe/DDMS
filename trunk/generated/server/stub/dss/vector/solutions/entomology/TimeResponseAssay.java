@@ -17,12 +17,6 @@ public class TimeResponseAssay extends TimeResponseAssayBase implements
   {
     super();
   }
-  
-  @Override
-  protected String buildKey()
-  {
-    return this.getUniqueAssayId();
-  }
 
   @Override
   public void apply()
