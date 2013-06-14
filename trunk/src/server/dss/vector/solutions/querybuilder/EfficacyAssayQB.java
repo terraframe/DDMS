@@ -94,6 +94,13 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       String abstractAssayTable = MdEntityDAO.getMdEntityDAO(AbstractAssay.CLASS).getTableName();
       String id = QueryUtil.getIdColumn();
       
+      
+      if(abstractAssayQuery == null)
+      {
+        abstractAssayQuery = new AbstractAssayQuery(valueQuery);
+        valueQuery.WHERE(abstractAssayQuery.getId().EQ(efficacyAssayQuery.getId()));
+      }
+      
       // if CTM is null then treat it as zero because it's not required in the equation
       String controlTestMortalityCol = "COALESCE("+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+", 0)";
 
@@ -104,8 +111,8 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       sql += "FROM "+efficacyAssayQuery.getMdClassIF().getTableName()+" AS e\n";
       sql += "INNER JOIN "+abstractAssayTable+" a ON a."+id+" = e."+id+"\n";
       sql += "GROUP BY e."+geoEntity+", a."+testDate+") overall\n";
-      sql += "WHERE overall."+geoEntity+" = "+efficacyAssayQuery.getGeoEntity().getColumnAlias()+"\n";
-      sql += "AND overall."+testDate+" = "+efficacyAssayQuery.getTestDate().getColumnAlias();
+      sql += "WHERE overall."+geoEntity+" = "+efficacyAssayQuery.getTableAlias()+"."+efficacyAssayQuery.getGeoEntity().getDbColumnName()+"\n";
+      sql += "AND overall."+testDate+" = "+abstractAssayQuery.getTableAlias()+"."+abstractAssayQuery.getTestDate().getDbColumnName();
       
 
 //      valueQuery.FROM("("+from+")", "overall");
