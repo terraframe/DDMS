@@ -14,8 +14,6 @@ import com.runwaysdk.query.Join;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableMoment;
-import com.runwaysdk.query.SelectableSQLCharacter;
-import com.runwaysdk.query.SelectableSQLDate;
 import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
@@ -99,22 +97,26 @@ public class EfficacyAssayQB extends AbstractQB implements Reloadable
       // if CTM is null then treat it as zero because it's not required in the equation
       String controlTestMortalityCol = "COALESCE("+efficacyAssayQuery.getTableAlias()+"."+controlTestMortality+", 0)";
 
-      String sql = "((qd / NULLIF((qd + ql),0)::double precision * 100 - "+controlTestMortalityCol+")";
-      sql+= "/NULLIF((100 - "+controlTestMortalityCol+"),0) * 100)";
+      String sql = "SELECT ((qd / NULLIF((qd + ql),0)::double precision * 100 - "+controlTestMortalityCol+")";
+      sql+= "/NULLIF((100 - "+controlTestMortalityCol+"),0) * 100) ";
+      sql += "FROM\n";
+      sql += "(SELECT SUM("+quantityDead+") AS qd, SUM("+quantityLive+") ql, e."+geoEntity+", a."+testDate+"\n";
+      sql += "FROM "+efficacyAssayQuery.getMdClassIF().getTableName()+" AS e\n";
+      sql += "INNER JOIN "+abstractAssayTable+" a ON a."+id+" = e."+id+"\n";
+      sql += "GROUP BY e."+geoEntity+", a."+testDate+") overall\n";
+      sql += "WHERE overall."+geoEntity+" = "+efficacyAssayQuery.getGeoEntity().getColumnAlias()+"\n";
+      sql += "AND overall."+testDate+" = "+efficacyAssayQuery.getTestDate().getColumnAlias();
+      
+
+//      valueQuery.FROM("("+from+")", "overall");
+      
+//      SelectableSQLCharacter overallGeoEntity = valueQuery.aSQLCharacter("overall_geo_entity", "overall."+geoEntity);
+//      valueQuery.WHERE(efficacyAssayQuery.getGeoEntity().EQ(overallGeoEntity));    
+//
+//      SelectableSQLDate overallTestDate = valueQuery.aSQLDate("overall_test_date", "overall."+testDate);
+//      valueQuery.WHERE(efficacyAssayQuery.getTestDate().EQ(overallTestDate));    
+
       overall.setSQL(sql);
-      
-      String from = "(SELECT SUM("+quantityDead+") AS qd, SUM("+quantityLive+") ql, e."+geoEntity+", a."+testDate+"\n";
-      from += "FROM "+efficacyAssayQuery.getMdClassIF().getTableName()+" AS e\n";
-      from += "INNER JOIN "+abstractAssayTable+" a ON a."+id+" = e."+id+"\n";
-      from += "GROUP BY e."+geoEntity+", a."+testDate+")\n";
-
-      valueQuery.FROM("("+from+")", "overall");
-      
-      SelectableSQLCharacter overallGeoEntity = valueQuery.aSQLCharacter("overall_geo_entity", "overall."+geoEntity);
-      valueQuery.WHERE(efficacyAssayQuery.getGeoEntity().EQ(overallGeoEntity));    
-
-      SelectableSQLDate overallTestDate = valueQuery.aSQLDate("overall_test_date", "overall."+testDate);
-      valueQuery.WHERE(efficacyAssayQuery.getTestDate().EQ(overallTestDate));    
     }
     
     boolean needsAgeRange = false;
