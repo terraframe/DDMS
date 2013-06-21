@@ -21,7 +21,9 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
+import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.ColumnInfo;
 import com.runwaysdk.query.F;
@@ -31,6 +33,7 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.MdType;
 
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.ExcelReadException;
@@ -124,26 +127,15 @@ public class GeoEntitySearcher implements Reloadable
 
         HSSFSheet sheet = workbook.getSheetAt(sheetNumber);
 
-        Iterator<HSSFRow> rowIterator = sheet.rowIterator();
-
-        // Parse the header rows, which builds up our list of ColumnInfos
-        readHeaders(rowIterator);
-
-        // Iterate over the geo attributes
-        for (String attributeName : this.geoColumnInfoMap.keySet())
+        if (this.isValidSheet(sheet))
         {
-          // Errors occured on this column. Stop processing additional columns.
-          if (unknownEntityList.size() > 0)
-          {
-            break;
-          }
+          Iterator<HSSFRow> rowIterator = sheet.rowIterator();
 
-          List<GeoHeaderInfo> geoHeaderInfoList = this.geoColumnInfoMap.get(attributeName);
+          // Parse the header rows, which builds up our list of ColumnInfos
+          readHeaders(rowIterator);
 
-          GeoHeaderInfo[] geoHeaderInfoArray = new GeoHeaderInfo[geoHeaderInfoList.size()];
-          geoHeaderInfoList.toArray(geoHeaderInfoArray);
-
-          for (int i = 0; i < geoHeaderInfoArray.length; i++)
+          // Iterate over the geo attributes
+          for (String attributeName : this.geoColumnInfoMap.keySet())
           {
             // Errors occured on this column. Stop processing additional
             // columns.
@@ -152,86 +144,100 @@ public class GeoEntitySearcher implements Reloadable
               break;
             }
 
-            rowIterator = getRowIteratorAdvancedToContent(sheet);
-            while (rowIterator.hasNext())
+            List<GeoHeaderInfo> geoHeaderInfoList = this.geoColumnInfoMap.get(attributeName);
+
+            GeoHeaderInfo[] geoHeaderInfoArray = new GeoHeaderInfo[geoHeaderInfoList.size()];
+            geoHeaderInfoList.toArray(geoHeaderInfoArray);
+
+            for (int i = 0; i < geoHeaderInfoArray.length; i++)
             {
-              HSSFRow contentRow = rowIterator.next();
-
-              String endPointEntityName = "";
-              String endPointEntityType = "";
-              Map<String, String> parentGeoEntityMap = new LinkedHashMap<String, String>();
-
-              for (int j = 0; j <= i; j++)
+              // Errors occured on this column. Stop processing additional
+              // columns.
+              if (unknownEntityList.size() > 0)
               {
-                GeoHeaderInfo geoHeaderInfo = geoHeaderInfoArray[j];
+                break;
+              }
 
-                int columnIndex = geoHeaderInfo.getColumnIndex();
+              rowIterator = getRowIteratorAdvancedToContent(sheet);
+              while (rowIterator.hasNext())
+              {
+                HSSFRow contentRow = rowIterator.next();
 
-                HSSFCell cell = contentRow.getCell(columnIndex);
+                String endPointEntityName = "";
+                String endPointEntityType = "";
+                Map<String, String> parentGeoEntityMap = new LinkedHashMap<String, String>();
 
-                if (cell != null)
+                for (int j = 0; j <= i; j++)
                 {
-                  String geoEntityName = ExcelUtil.getString(cell);
+                  GeoHeaderInfo geoHeaderInfo = geoHeaderInfoArray[j];
 
-                  if (!geoEntityName.trim().equals(""))
+                  int columnIndex = geoHeaderInfo.getColumnIndex();
+
+                  HSSFCell cell = contentRow.getCell(columnIndex);
+
+                  if (cell != null)
                   {
-                    String geoType = geoHeaderInfo.getGeoType();
-                    if (j == i)
+                    String geoEntityName = ExcelUtil.getString(cell);
+
+                    if (!geoEntityName.trim().equals(""))
                     {
-                      endPointEntityType = geoType;
-                      endPointEntityName = geoEntityName;
-                    }
-                    else
-                    {
-                      parentGeoEntityMap.put(geoType, geoEntityName);
+                      String geoType = geoHeaderInfo.getGeoType();
+                      if (j == i)
+                      {
+                        endPointEntityType = geoType;
+                        endPointEntityName = geoEntityName;
+                      }
+                      else
+                      {
+                        parentGeoEntityMap.put(geoType, geoEntityName);
+                      }
                     }
                   }
-                }
-              } // for (int j=0; j<=i; j++)
+                } // for (int j=0; j<=i; j++)
 
-              List<GeoEntity> geoEntityList = null;
+                List<GeoEntity> geoEntityList = null;
 
-              if (!endPointEntityName.trim().equals(""))
-              {
-                geoEntityList = GeoEntitySearcher.search(false, parentGeoEntityMap, endPointEntityType, endPointEntityName);
-
-                if (geoEntityList.size() == 0)
+                if (!endPointEntityName.trim().equals(""))
                 {
-                  if (unknownGeoEntityNameSet.contains(endPointEntityName))
+                  geoEntityList = GeoEntitySearcher.search(false, parentGeoEntityMap, endPointEntityType, endPointEntityName);
+
+                  if (geoEntityList.size() == 0)
                   {
-                    continue;
+                    if (unknownGeoEntityNameSet.contains(endPointEntityName))
+                    {
+                      continue;
+                    }
+
+                    // Unable to find a match look up synonyms
+                    List<GeoEntity> synonymEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
+
+                    List<GeoEntity> siblingGeoEntityList = GeoEntitySearcher.searchChildren(parentGeoEntityMap, endPointEntityType, synonymEntityList);
+
+                    UnknownGeoEntity unknownGeoEntity = new UnknownGeoEntity();
+                    unknownGeoEntity.setEntityType(MdBusiness.getMdBusiness(endPointEntityType).getDisplayLabel().getValue());
+                    unknownGeoEntity.setEntityName(endPointEntityName);
+                    unknownGeoEntity.setSynonyms(this.getDelimitedList(synonymEntityList));
+                    unknownGeoEntity.setSiblings(this.getDelimitedList(siblingGeoEntityList));
+                    unknownGeoEntity.setKnownHierarchy(this.getDelimitedHierarchy(parentGeoEntityMap, endPointEntityType));
+                    unknownGeoEntity.applyNoPersist();
+
+                    unknownEntityList.add(unknownGeoEntity);
+                    unknownGeoEntityNameSet.add(endPointEntityName);
+
                   }
+                  else if (geoEntityList.size() == 1)
+                  {
+                    // do nothing. We found an exact match, which is what we
+                    // wanted
+                  }
+                } // if (!endPointEntityName.trim().equals(""))
 
-                  // Unable to find a match look up synonyms
-                  List<GeoEntity> synonymEntityList = GeoEntitySearcher.search(true, parentGeoEntityMap, endPointEntityType, endPointEntityName);
+              } // while (rowIterator.hasNext())
 
-                  List<GeoEntity> siblingGeoEntityList = GeoEntitySearcher.searchChildren(parentGeoEntityMap, endPointEntityType, synonymEntityList);
+            } // for (int i=0; i<geoHeaderInfoArray.length; i++)
 
-                  UnknownGeoEntity unknownGeoEntity = new UnknownGeoEntity();
-                  unknownGeoEntity.setEntityType(MdBusiness.getMdBusiness(endPointEntityType).getDisplayLabel().getValue());
-                  unknownGeoEntity.setEntityName(endPointEntityName);
-                  unknownGeoEntity.setSynonyms(this.getDelimitedList(synonymEntityList));
-                  unknownGeoEntity.setSiblings(this.getDelimitedList(siblingGeoEntityList));
-                  unknownGeoEntity.setKnownHierarchy(this.getDelimitedHierarchy(parentGeoEntityMap, endPointEntityType));
-                  unknownGeoEntity.applyNoPersist();
-
-                  unknownEntityList.add(unknownGeoEntity);
-                  unknownGeoEntityNameSet.add(endPointEntityName);
-
-                }
-                else if (geoEntityList.size() == 1)
-                {
-                  // do nothing. We found an exact match, which is what we
-                  // wanted
-                }
-              } // if (!endPointEntityName.trim().equals(""))
-
-            } // while (rowIterator.hasNext())
-
-          } // for (int i=0; i<geoHeaderInfoArray.length; i++)
-
-        } // for (String attributeName : this.geoColumnInfoMap.keySet())
-
+          } // for (String attributeName : this.geoColumnInfoMap.keySet())
+        }
       }
     }
     catch (OfficeXmlFileException e)
@@ -257,6 +263,28 @@ public class GeoEntitySearcher implements Reloadable
     }
 
     return unknownEntityList;
+  }
+
+  private boolean isValidSheet(HSSFSheet sheet)
+  {
+    try
+    {
+      HSSFRow row = sheet.getRow(0);
+
+      if (row != null)
+      {
+        HSSFCell cell = row.getCell(0);
+        String type = ExcelUtil.getString(cell);
+
+        return ( type != null && MdTypeDAO.getMdTypeDAO(type) != null );
+      }
+    }
+    catch (Exception e)
+    {
+      return false;
+    }
+
+    return false;
   }
 
   private String getDelimitedList(List<GeoEntity> entities)

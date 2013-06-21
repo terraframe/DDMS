@@ -8,6 +8,7 @@ import com.runwaysdk.constants.CommonProperties;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
+import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
@@ -34,6 +35,7 @@ import dss.vector.solutions.general.MalariaSeasonSeasonLabel;
 
 public class ApplicationDataUpdater implements Reloadable, Runnable
 {
+  @Transaction
   public void run()
   {
     // Force the cache to boot so it's not included in our timing
