@@ -34,11 +34,16 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
   private boolean isGenerationF0()
   {
     Term gen = this.getGeneration();
-    
-    List<String> ids = new LinkedList<String>();
-    ids.add("MIRO_343458349");
 
-    return ids.contains(gen.getTermId());
+    if (gen != null)
+    {
+      List<String> ids = new LinkedList<String>();
+      ids.add("MIRO_343458349");
+
+      return ids.contains(gen.getTermId());
+    }
+
+    return false;
   }
 
   @Override
@@ -72,7 +77,7 @@ public abstract class CollectionAssay extends CollectionAssayBase implements com
     super.apply();
   }
 
-  public static String getCollectionResistanceSQL(String assayTable,String mortality,String resistant, String susceptible, String[] labels)
+  public static String getCollectionResistanceSQL(String assayTable, String mortality, String resistant, String susceptible, String[] labels)
   {
 
     String resistance_result = "resistance_result";
