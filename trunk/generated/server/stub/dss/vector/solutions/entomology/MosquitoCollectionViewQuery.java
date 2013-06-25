@@ -9,6 +9,8 @@ import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.ViewQueryBuilder;
 
+import dss.vector.solutions.geo.AllPathsQuery;
+
 @com.runwaysdk.business.ClassSignature(hash = 1462504487)
 /**
  *
@@ -121,7 +123,10 @@ public class MosquitoCollectionViewQuery extends dss.vector.solutions.entomology
 
       if (view.getGeoEntity() != null)
       {
-        this.addCondition(vQuery.getGeoEntity().EQ(view.getGeoEntity()));
+        AllPathsQuery allPathsQuery = new AllPathsQuery(this.getQueryFactory());
+        allPathsQuery.WHERE(allPathsQuery.getParentGeoEntity().EQ(view.getGeoEntity()));
+
+        this.addCondition(vQuery.getGeoEntity().EQ(allPathsQuery.getChildGeoEntity()));
       }
 
       List<LifeStage> list = view.getLifeStage();
