@@ -83,45 +83,25 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     osv.setUsed(this.getUsed());
     osv.setSurfaceType(Term.validateByDisplayLabel(this.getSurfaceType(), OperatorSprayView.getSurfaceTypeMd()));
     osv.setSprayOperator(operator);
-    
-    if(this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
-    {        
+
+    if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
+    {
       SprayTeam team = SprayTeam.getByTeamId(this.getSprayTeam());
-      
-      if(team == null)
+
+      if (team == null)
       {
         String msg = "Unknown spray team [" + this.getSprayTeam() + "]";
         throw new DataNotFoundException(msg, MdTypeDAO.getMdTypeDAO(SprayTeam.CLASS));
       }
-      
+
       osv.setSprayTeam(team);
     }
 
     osv.apply();
-    
-    // Populate the Household Spray Status data
-    if (this.getHouseholdId() != null && !this.getHouseholdId().equals(""))
+
+    if (this.hasHouseholdSprayValues())
     {
-      HouseholdSprayStatusView view = new HouseholdSprayStatusView();
-      
-      // Check for existing records
-      HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
-      query.WHERE(query.getSpray().getId().EQ(osv.getConcreteId()));
-      query.WHERE(query.getHouseholdId().EQ(this.getHouseholdId()));
-      query.WHERE(query.getStructureId().EQ(this.getStructureId()));
-      OIterator<? extends HouseholdSprayStatus> iterator = query.getIterator();
-      if (iterator.hasNext())
-      {
-        view = iterator.next().getView();
-      }
-      else
-      {
-        view.setHouseholdId(this.getHouseholdId());
-        view.setStructureId(this.getStructureId());
-        view.setSpray(OperatorSpray.get(osv.getConcreteId()));
-      }
-      iterator.close();
-      
+      HouseholdSprayStatusView view = this.getHouseholdSprayStatusView(osv);
       view.setHouseholds(this.getHouseholds());
       view.setStructures(this.getStructures());
       view.setSprayedHouseholds(this.getSprayedHouseholds());
@@ -137,6 +117,54 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setOther(this.getOther());
       view.setRefused(this.getRefused());
       view.apply();
+    }
+  }
+
+  private boolean hasHouseholdSprayValues()
+  {
+    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, SPRAYEDROOMS, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, OTHER, REFUSED };
+
+    for (String attributeName : attributeNames)
+    {
+      String value = this.getValue(attributeName);
+
+      if (value != null && value.length() > 0)
+      {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public HouseholdSprayStatusView getHouseholdSprayStatusView(OperatorSprayView osv)
+  {
+    // Check for existing records
+    HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
+    query.WHERE(query.getSpray().getId().EQ(osv.getConcreteId()));
+    query.WHERE(query.getHouseholdId().EQ(this.getHouseholdId()));
+    query.WHERE(query.getStructureId().EQ(this.getStructureId()));
+    OIterator<? extends HouseholdSprayStatus> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next().getView();
+      }
+      else
+      {
+        HouseholdSprayStatusView view = new HouseholdSprayStatusView();
+        view.setHouseholdId(this.getHouseholdId());
+        view.setStructureId(this.getStructureId());
+        view.setSpray(OperatorSpray.get(osv.getConcreteId()));
+
+        return view;
+      }
+    }
+    finally
+    {
+      iterator.close();
     }
   }
 
