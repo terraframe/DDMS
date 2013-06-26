@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 1174161021)
+@com.runwaysdk.business.ClassSignature(hash = -1498095637)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -94,6 +94,24 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableChar getCollectionMethod(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.COLLECTIONMETHOD, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected()
+  {
+    return getDisected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.DISECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.DISECTED, alias, displayLabel);
 
   }
  
@@ -311,6 +329,24 @@ public  abstract  class MosquitoCollectionExcelViewQueryBase extends com.runways
   public com.runwaysdk.query.SelectableInteger getMale(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.MALE, alias, displayLabel);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous()
+  {
+    return getParous(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.PAROUS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getSelectable(dss.vector.solutions.export.MosquitoCollectionExcelView.PAROUS, alias, displayLabel);
 
   }
  

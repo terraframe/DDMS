@@ -60,6 +60,8 @@ public class SubCollectionViewQuery extends dss.vector.solutions.entomology.SubC
       vQuery.map(SubCollectionView.TAXON, query.getTaxon());
       vQuery.map(SubCollectionView.TOTAL, query.getTotal());
       vQuery.map(SubCollectionView.UNKNOWNS, query.getUnknowns());
+      vQuery.map(SubCollectionView.PAROUS, query.getParous());
+      vQuery.map(SubCollectionView.DISECTED, query.getDisected());
     }
 
     /**

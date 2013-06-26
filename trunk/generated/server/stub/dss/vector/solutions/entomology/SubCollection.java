@@ -6,6 +6,7 @@ import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.ResponseMaster;
+import dss.vector.solutions.ValueGreaterLimitProblem;
 import dss.vector.solutions.intervention.monitor.NotApplicableProblem;
 
 public class SubCollection extends SubCollectionBase implements com.runwaysdk.generation.loader.Reloadable
@@ -34,6 +35,7 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
     this.validateLarvae();
     this.validateUnknowns();
     this.validateEggs();
+    this.validateParous();
 
     super.apply();
   }
@@ -48,6 +50,20 @@ public class SubCollection extends SubCollectionBase implements com.runwaysdk.ge
     else
     {
       return this.getClassDisplayLabel();
+    }
+  }
+
+  @Override
+  public void validateParous()
+  {
+    if (this.getParous() != null && ( this.getDisected() == null || this.getParous() > this.getDisected() ))
+    {
+      ValueGreaterLimitProblem problem = new ValueGreaterLimitProblem();
+      problem.setValueAttributeLabel(SubCollection.getParousMd().getDisplayLabel(Session.getCurrentLocale()));
+      problem.setLimitAttributeLabel(SubCollection.getDisectedMd().getDisplayLabel(Session.getCurrentLocale()));
+      problem.apply();
+
+      problem.throwIt();
     }
   }
 

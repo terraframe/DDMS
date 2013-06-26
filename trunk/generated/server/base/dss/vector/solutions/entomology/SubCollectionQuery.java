@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = 808119263)
+@com.runwaysdk.business.ClassSignature(hash = -967459534)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -99,6 +99,23 @@ public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQu
     com.runwaysdk.dataaccess.MdAttributeDAOIF mdAttributeIF = this.getComponentQuery().getMdAttributeROfromMap(dss.vector.solutions.entomology.SubCollection.CREATEDBY);
 
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.SubCollection.CREATEDBY, mdAttributeIF, this, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getDisected()
+  {
+    return getDisected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.DISECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.DISECTED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getEggs()
@@ -420,6 +437,23 @@ public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQu
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.getComponentQuery().internalAttributeFactory(dss.vector.solutions.entomology.SubCollection.OWNER, mdAttributeIF, this, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getParous()
+  {
+    return getParous(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.PAROUS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.entomology.SubCollection.PAROUS, alias, displayLabel);
+
+  }
   public com.runwaysdk.query.SelectableInteger getPupae()
   {
     return getPupae(null);
@@ -646,6 +680,9 @@ public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy();
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias);
     public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getDisected();
+    public com.runwaysdk.query.SelectableInteger getDisected(String alias);
+    public com.runwaysdk.query.SelectableInteger getDisected(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getEggs();
     public com.runwaysdk.query.SelectableInteger getEggs(String alias);
     public com.runwaysdk.query.SelectableInteger getEggs(String alias, String displayLabel);
@@ -697,6 +734,9 @@ public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQu
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner();
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias);
     public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getParous();
+    public com.runwaysdk.query.SelectableInteger getParous(String alias);
+    public com.runwaysdk.query.SelectableInteger getParous(String alias, String displayLabel);
     public com.runwaysdk.query.SelectableInteger getPupae();
     public com.runwaysdk.query.SelectableInteger getPupae(String alias);
     public com.runwaysdk.query.SelectableInteger getPupae(String alias, String displayLabel);
@@ -805,6 +845,23 @@ public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF getCreatedBy(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.SingleActorQuery.SingleActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.SubCollection.CREATEDBY,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getDisected()
+  {
+    return getDisected(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.DISECTED, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getDisected(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.DISECTED, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getEggs()
@@ -1094,6 +1151,23 @@ public  class SubCollectionQuery extends com.runwaysdk.query.GeneratedBusinessQu
   public com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF getOwner(String alias, String displayLabel)
   {
     return (com.runwaysdk.system.ActorQuery.ActorQueryReferenceIF)this.get(dss.vector.solutions.entomology.SubCollection.OWNER,  alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getParous()
+  {
+    return getParous(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.PAROUS, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getParous(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.entomology.SubCollection.PAROUS, alias, displayLabel);
 
   }
   public com.runwaysdk.query.SelectableInteger getPupae()

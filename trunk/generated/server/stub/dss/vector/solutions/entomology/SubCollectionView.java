@@ -30,6 +30,8 @@ public class SubCollectionView extends SubCollectionViewBase implements com.runw
     this.setTotal(concrete.getTotal());
     this.setUnknowns(concrete.getUnknowns());
     this.setSubCollectionId(concrete.getSubCollectionId());
+    this.setParous(concrete.getParous());
+    this.setDisected(concrete.getDisected());
   }
 
   private void populateConcrete(SubCollection concrete)
@@ -50,6 +52,8 @@ public class SubCollectionView extends SubCollectionViewBase implements com.runw
     concrete.setTotal(this.getTotal());
     concrete.setUnknowns(this.getUnknowns());
     concrete.setSubCollectionId(this.getSubCollectionId());
+    concrete.setParous(this.getParous());
+    concrete.setDisected(this.getDisected());
   }
 
   private void buildAttributeMap(SubCollection concrete)
@@ -71,6 +75,8 @@ public class SubCollectionView extends SubCollectionViewBase implements com.runw
     new AttributeNotificationMap(concrete, SubCollection.TAXON, this, SubCollectionView.TAXON);
     new AttributeNotificationMap(concrete, SubCollection.TOTAL, this, SubCollectionView.TOTAL);
     new AttributeNotificationMap(concrete, SubCollection.UNKNOWNS, this, SubCollectionView.UNKNOWNS);
+    new AttributeNotificationMap(concrete, SubCollection.PAROUS, this, SubCollectionView.PAROUS);
+    new AttributeNotificationMap(concrete, SubCollection.DISECTED, this, SubCollectionView.DISECTED);
   }
 
   @Override

@@ -1,6 +1,6 @@
 package dss.vector.solutions.entomology;
 
-@com.runwaysdk.business.ClassSignature(hash = -1045556362)
+@com.runwaysdk.business.ClassSignature(hash = -1094697783)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -14,6 +14,7 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
   public static java.lang.String COLLECTION = "collection";
   public static java.lang.String CREATEDATE = "createDate";
   public static java.lang.String CREATEDBY = "createdBy";
+  public static java.lang.String DISECTED = "disected";
   public static java.lang.String EGGS = "eggs";
   public static java.lang.String ENTITYDOMAIN = "entityDomain";
   public static java.lang.String FEMALESFED = "femalesFed";
@@ -31,6 +32,7 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
   public static java.lang.String LOCKEDBY = "lockedBy";
   public static java.lang.String MALE = "male";
   public static java.lang.String OWNER = "owner";
+  public static java.lang.String PAROUS = "parous";
   public static java.lang.String PUPAE = "pupae";
   public static java.lang.String SEQ = "seq";
   public static java.lang.String SITEMASTER = "siteMaster";
@@ -39,7 +41,7 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
   public static java.lang.String TOTAL = "total";
   public static java.lang.String TYPE = "type";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = -1045556362;
+  private static final long serialVersionUID = -1094697783;
   
   public SubCollectionBase()
   {
@@ -128,6 +130,34 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
     return mdClassIF.definesAttribute(CREATEDBY);
+  }
+  
+  public Integer getDisected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISECTED));
+  }
+  
+  public void validateDisected()
+  {
+    this.validateAttribute(DISECTED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisectedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(DISECTED);
+  }
+  
+  public void setDisected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DISECTED, "");
+    }
+    else
+    {
+      setValue(DISECTED, java.lang.Integer.toString(value));
+    }
   }
   
   public Integer getEggs()
@@ -615,6 +645,34 @@ public abstract class SubCollectionBase extends com.runwaysdk.business.Business 
     else
     {
       setValue(OWNER, value.getId());
+    }
+  }
+  
+  public Integer getParous()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PAROUS));
+  }
+  
+  public void validateParous()
+  {
+    this.validateAttribute(PAROUS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParousMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.entomology.SubCollection.CLASS);
+    return mdClassIF.definesAttribute(PAROUS);
+  }
+  
+  public void setParous(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PAROUS, "");
+    }
+    else
+    {
+      setValue(PAROUS, java.lang.Integer.toString(value));
     }
   }
   

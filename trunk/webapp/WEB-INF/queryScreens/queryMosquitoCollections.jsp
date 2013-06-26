@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.query.QueryConstants"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
@@ -27,20 +28,17 @@
 <%@page import="dss.vector.solutions.general.EpiDateDTO"%>
 <%@page import="com.runwaysdk.constants.MdAttributeConcreteInfo"%>
 <%@page import="com.runwaysdk.constants.MdAttributeVirtualInfo"%>
-<%@page
-	import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
+<%@page import="com.runwaysdk.transport.metadata.AttributeReferenceMdDTO"%>
 <%@page import="java.util.Locale"%>
 <%@page import="java.util.ArrayList"%>
-<%@page
-	import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
+<%@page	import="dss.vector.solutions.entomology.MosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.entomology.SubCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.util.ReadableAttributeViewDTO"%>
 <%@page import="java.util.Set"%>
-<%@page
-	import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
+<%@page	import="dss.vector.solutions.entomology.SearchMosquitoCollectionViewDTO"%>
 <%@page import="dss.vector.solutions.geo.generated.CollectionSiteDTO"%>
-<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%><c:set
-	var="page_title" value="Query_Mosquito_Collections" scope="request" />
+<%@page import="dss.vector.solutions.ontology.NestedTermsWarningDTO"%>
+<c:set var="page_title" value="Query_Mosquito_Collections" scope="request" />
 
 <jsp:include page="../templates/header.jsp" />
 <jsp:include page="/WEB-INF/inlineError.jsp" />
@@ -98,7 +96,7 @@ YAHOO.util.Event.onDOMReady(function(){
 	    Halp.setReadableAttributes(request, "subCollectionAttribs", SubCollectionViewDTO.CLASS, requestIF);
     %>    
     var subCollection = new dss.vector.solutions.entomology.SubCollection();
-    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","eggs","larvae","pupae","femalesUnfed","femalesFed","femalesHalfGravid","femalesGravid","femalesUnknown","femalesTotal","male","unknowns","total"];
+    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","eggs","larvae","pupae","femalesUnfed","femalesFed","femalesHalfGravid","femalesGravid","femalesUnknown","femalesTotal","male","unknowns","total","parous","disected"];
     available = new MDSS.Set(<%= request.getAttribute("subCollectionAttribs") %>);
     subCollectionAttribs = Mojo.Iter.filter(subCollectionAttribs, function(attrib){
       return this.contains(attrib);
@@ -106,8 +104,17 @@ YAHOO.util.Event.onDOMReady(function(){
     
     
     subCollectionColumns =   subCollectionAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_subMc',dropDownMaps:{}});
-
-
+    
+    subCollectionColumns.push({
+        key:'<%= QueryConstants.PERCENT_PAROUS %>',
+        attributeName:'<%= QueryConstants.PERCENT_PAROUS %>',
+        displayLabel:MDSS.localize('percent_parous'),
+        description:MDSS.localize('percent_parous'),
+        type:'sqldouble',
+        dtoType:'AttributeDoubleDTO',
+        includes:MDSS.QueryXML.F_SET2
+      });
+    
   var abundanceColumns = ["collectionMethod"].map(MDSS.QueryBaseNew.mapAttribs, {obj:mosquitoCollection, suffix:'_ab',dropDownMaps:collectionMaps});
 
  //  abundanceColumns = abundanceColumns.concat( ["taxon"].map(MDSS.QueryBaseNew.mapAttribs, {obj:subCollection, suffix:'_ab',dropDownMaps:{}}));

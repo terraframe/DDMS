@@ -13,12 +13,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
+import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLDouble;
 import com.runwaysdk.query.SelectableSQLFloat;
 import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
@@ -28,6 +31,9 @@ import dss.vector.solutions.entomology.MosquitoCollection;
 import dss.vector.solutions.entomology.MosquitoCollectionQuery;
 import dss.vector.solutions.entomology.SubCollection;
 import dss.vector.solutions.entomology.SubCollectionQuery;
+import dss.vector.solutions.entomology.assay.AbstractAssay;
+import dss.vector.solutions.entomology.assay.AbstractAssayQuery;
+import dss.vector.solutions.entomology.assay.EfficacyAssay;
 import dss.vector.solutions.geo.AllPathsQuery;
 import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.generated.Country;
@@ -40,23 +46,23 @@ import dss.vector.solutions.util.QueryUtil;
 
 public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 {
-  private boolean hasAbundance;
+  private boolean             hasAbundance;
 
-  private boolean forceUniversal;
+  private boolean             forceUniversal;
 
-  private String  universalClass;
-  
-  public static final String GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
-  
-  private static final String ABUNDANCE_VIEW = "abundance_view";
-  
-  private Set<String> abundanceCols;
-  
-  private Selectable collectionMethod;
-  
-  private final String geoIdColumn;
-  
-  private static final String GEO_ID_COALESCE_ALIAS = "geo_id_coalesce_alias";
+  private String              universalClass;
+
+  public static final String  GET_NEXT_TAXON_FUNCTION = "get_next_taxon";
+
+  private static final String ABUNDANCE_VIEW          = "abundance_view";
+
+  private Set<String>         abundanceCols;
+
+  private Selectable          collectionMethod;
+
+  private final String        geoIdColumn;
+
+  private static final String GEO_ID_COALESCE_ALIAS   = "geo_id_coalesce_alias";
 
   public MosquitoCollectionQB(String xml, String config, Layer layer)
   {
@@ -67,7 +73,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.hasAbundance = this.hasAbundanceCalc(xml);
     this.abundanceCols = new HashSet<String>();
     this.collectionMethod = null;
-    
+
     this.geoIdColumn = QueryUtil.getColumnName(GeoEntity.getGeoIdMd());
   }
 
@@ -164,11 +170,11 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
   {
     // protect the user if they're doing abundance calcs without enough columns
     // (the collection method and species columns are not enough)
-    if(!this.hasAbundance && (valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_ab")))
+    if (!this.hasAbundance && ( valueQuery.hasSelectableRef("taxon") || valueQuery.hasSelectableRef("collectionMethod_ab") ))
     {
       throw new AbundanceColumnException("Abundance and/or aggregate calculations must be selected when in the Abundance section.");
     }
-    
+
     MosquitoCollectionQuery mosquitoCollectionQuery = (MosquitoCollectionQuery) queryMap.get(MosquitoCollection.CLASS);
     SubCollectionQuery subCollectionQuery = (SubCollectionQuery) queryMap.get(SubCollection.CLASS);
 
@@ -205,6 +211,27 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
       calc.setSQL("NULL::integer");
     }
 
+    if (valueQuery.hasSelectableRef(QueryConstants.PERCENT_PAROUS))
+    {
+      Selectable sel = valueQuery.getSelectableRef(QueryConstants.PERCENT_PAROUS);
+      SelectableSQLDouble overall;
+      if (sel.isAggregateFunction())
+      {
+        overall = (SelectableSQLDouble) ( (AggregateFunction) sel ).getSelectable();
+      }
+      else
+      {
+        overall = (SelectableSQLDouble) sel;
+      }
+
+      String parous = subCollectionQuery.getTableAlias() + "." + QueryUtil.getColumnName(SubCollection.getParousMd());
+      String disected = subCollectionQuery.getTableAlias() + "." + QueryUtil.getColumnName(SubCollection.getDisectedMd());
+
+      String sql = "(" + parous + " / NULLIF(" + disected + ",0)::double precision * 100)";
+
+      overall.setSQL(sql);
+    }
+
     if (this.hasAbundance)
     {
       setAbundance(valueQuery, 1, "1");
@@ -214,7 +241,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
 
       this.collectionMethod = mosquitoCollectionQuery.getCollectionMethod(MosquitoCollection.COLLECTIONMETHOD);
       valueQuery.SELECT(collectionMethod);
-      
+
       valueQuery.WHERE(mosquitoCollectionQuery.getAbundance().EQ(true));
 
       setWithQuerySQL(ABUNDANCE_VIEW, valueQuery);
@@ -286,7 +313,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
         {
           overrideQuery.SELECT(overrideQuery.aSQLDate(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
-        else if(!s.getUserDefinedAlias().equals(GEO_ID_COALESCE_ALIAS))
+        else if (!s.getUserDefinedAlias().equals(GEO_ID_COALESCE_ALIAS))
         {
           overrideQuery.SELECT(overrideQuery.aSQLText(columnAlias, columnName, s.getUserDefinedAlias(), s.getUserDefinedDisplayLabel()));
         }
@@ -318,50 +345,53 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     }
 
   }
-  
+
   @Override
-  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap,
-      QBInterceptor interceptor)
+  protected void setTermCriteria(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap, QBInterceptor interceptor)
   {
-    if(interceptor == null)
+    if (interceptor == null)
     {
       return;
     }
-    
-    if(this.hasAbundance)
+
+    if (this.hasAbundance)
     {
-      for(String entityAlias : queryMap.keySet())
+      for (String entityAlias : queryMap.keySet())
       {
         ClassAttributePair pair = this.extractClassAndAttributeFromAlias(entityAlias);
-        if(pair != null)
+        if (pair != null)
         {
-          if(pair.getAttribute().equals(MosquitoCollection.COLLECTIONMETHOD))
+          if (pair.getAttribute().equals(MosquitoCollection.COLLECTIONMETHOD))
           {
             ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
             dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
             termVQ.SELECT(termVQ.aSQLInteger("existsConstant", "1"));
-            termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW+"."+this.collectionMethod.getColumnAlias())));
-  
-            // There is no condition passthrough so we have to hack in the EXISTS
+            termVQ.AND(allpathsQ.getChildTerm().EQ(termVQ.aSQLCharacter(this.collectionMethod.getAttributeNameSpace(), ABUNDANCE_VIEW + "." + this.collectionMethod.getColumnAlias())));
+
+            // There is no condition passthrough so we have to hack in the
+            // EXISTS
             // operator
             valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", "EXISTS (" + termVQ.getSQL() + ") AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
           }
-          else if(pair.getAttribute().equals("taxon_displayLabel"))
+          else if (pair.getAttribute().equals("taxon_displayLabel"))
           {
-            // Filtering on species during abundance calculation has to be done at the end so it doesn't disrupt the results
-            // of the recursive rollup. Even though the conditions are on the ontology allpaths table, we strictly match on the 
+            // Filtering on species during abundance calculation has to be done
+            // at the end so it doesn't disrupt the results
+            // of the recursive rollup. Even though the conditions are on the
+            // ontology allpaths table, we strictly match on the
             // terms and do not include children.
-            
+
             ValueQuery termVQ = interceptor.getTermValueQuery(entityAlias);
             dss.vector.solutions.ontology.AllPathsQuery allpathsQ = (dss.vector.solutions.ontology.AllPathsQuery) queryMap.get(entityAlias);
-            
-            String taxonCol = ABUNDANCE_VIEW+"."+QueryUtil.getColumnName(SubCollection.getTaxonMd());
+
+            String taxonCol = ABUNDANCE_VIEW + "." + QueryUtil.getColumnName(SubCollection.getTaxonMd());
             SelectableSQLCharacter taxon = termVQ.aSQLCharacter("taxon_term_criteria", taxonCol);
-            
+
             termVQ.SELECT(allpathsQ.getParentTerm());
             termVQ.AND(allpathsQ.getChildTerm().EQ(taxon));
-  
-            // There is no condition passthrough so we have to hack in the EXISTS
+
+            // There is no condition passthrough so we have to hack in the
+            // EXISTS
             // operator
             valueQuery.AND(termVQ.aSQLCharacter("termExistsSQL", taxonCol + " IN ((" + termVQ.getSQL() + ")) AND true").EQ(termVQ.aSQLCharacter("termExistsSpoof", "true")));
           }
@@ -382,35 +412,34 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     String areaGroup = "";
 
     List<String> geoIdAliases = new LinkedList<String>();
-    
+
     for (Selectable s : valueQuery.getSelectableRefs())
     {
       this.abundanceCols.add(s.getColumnAlias());
-      
+
       if (s.getDbColumnName().startsWith("geoId_") || s.getDbColumnName().startsWith("collectionMethod") || s.getDbColumnName().startsWith("subCollectionId") || s.getDbColumnName().startsWith("DATEGROUP"))
       {
-        joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " AND ss."+GEO_ID_COALESCE_ALIAS+" = mainQuery."+GEO_ID_COALESCE_ALIAS;
+        joinMainQuery += "\n AND ss." + s.getColumnAlias() + " = mainQuery." + s.getColumnAlias() + " AND ss." + GEO_ID_COALESCE_ALIAS + " = mainQuery." + GEO_ID_COALESCE_ALIAS;
         areaGroup += "||  mainQuery." + s.getColumnAlias() + "  ";
       }
 
       String definedColumn = s.getMdAttributeIF().getColumnName();
-      if(this.geoIdColumn.equals(definedColumn) 
-          && s.getMdAttributeIF().getMdAttributeConcrete() != null
-          && GeoEntity.CLASS.equals(s.getMdAttributeIF().getMdAttributeConcrete().definedByClass().definesType()))
+      if (this.geoIdColumn.equals(definedColumn) && s.getMdAttributeIF().getMdAttributeConcrete() != null && GeoEntity.CLASS.equals(s.getMdAttributeIF().getMdAttributeConcrete().definedByClass().definesType()))
       {
-        geoIdAliases.add("(CASE WHEN "+s.getDbQualifiedName()+" IS NULL THEN '' ELSE "+s.getDbQualifiedName()+" END)");
+        geoIdAliases.add("(CASE WHEN " + s.getDbQualifiedName() + " IS NULL THEN '' ELSE " + s.getDbQualifiedName() + " END)");
       }
     }
-    
+
     areaGroup = areaGroup.substring(2);
 
-    // to ensure proper joining and avoiding cross-products, create a string of all geo ids that will be
+    // to ensure proper joining and avoiding cross-products, create a string of
+    // all geo ids that will be
     // used in the sub-selects.
     Selectable geoCoalesce = null;
-    if(geoIdAliases.size() > 0)
+    if (geoIdAliases.size() > 0)
     {
       String ids = StringUtils.join(geoIdAliases.toArray(new String[geoIdAliases.size()]), "||");
-      geoCoalesce = valueQuery.aSQLCharacter(GEO_ID_COALESCE_ALIAS, "("+ids+")::varchar", GEO_ID_COALESCE_ALIAS);
+      geoCoalesce = valueQuery.aSQLCharacter(GEO_ID_COALESCE_ALIAS, "(" + ids + ")::varchar", GEO_ID_COALESCE_ALIAS);
     }
     else
     {
@@ -418,8 +447,7 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     }
     this.abundanceCols.add(geoCoalesce.getColumnAlias());
     valueQuery.SELECT(geoCoalesce);
-    
-    
+
     String origQuery = valueQuery.getSQL();
 
     String collectionIdCol = QueryUtil.getColumnName(MosquitoCollection.getCollectionIdMd());
@@ -448,12 +476,17 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     // used to order the recursive decent
     taxonCountQuery += "(SELECT COUNT(*) FROM mainQuery as ss, allpaths_ontology ap WHERE ss." + taxonCol + " = " + parentTermCol + "  AND " + childTermCol + " = mainQuery." + taxonCol + " AND ss.taxon != mainQuery." + taxonCol + " " + joinMainQuery + " )as depth, ";
     // the parent specie of this row in this group, may skip levels
-//    taxonCountQuery += "(SELECT ss." + taxonCol + " as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss." + taxonCol + " = " + parentTermCol + "  AND " + childTermCol + " = mainQuery." + taxonCol + " AND ss." + taxonCol + " != mainQuery." + taxonCol + " " + joinMainQuery;
-//    taxonCountQuery += " GROUP BY ss." + taxonCol + " ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
+    // taxonCountQuery += "(SELECT ss." + taxonCol +
+    // " as depth FROM mainQuery as ss, allpaths_ontology ap WHERE ss." +
+    // taxonCol + " = " + parentTermCol + "  AND " + childTermCol +
+    // " = mainQuery." + taxonCol + " AND ss." + taxonCol + " != mainQuery." +
+    // taxonCol + " " + joinMainQuery;
+    // taxonCountQuery += " GROUP BY ss." + taxonCol +
+    // " ORDER BY COUNT(*) DESC LIMIT 1 )as parent,\n";
     // JN fix
-    taxonCountQuery +=  "(SELECT nt.parent FROM "+GET_NEXT_TAXON_FUNCTION+"(mainQuery.taxon) nt, mainQuery ss \n";
-    taxonCountQuery +=  " where nt.parent = ss.taxon AND mainQuery.taxon != nt.parent "+joinMainQuery+" \n";
-    taxonCountQuery +=  " ORDER BY nt.depth ASC LIMIT 1) as parent, \n";
+    taxonCountQuery += "(SELECT nt.parent FROM " + GET_NEXT_TAXON_FUNCTION + "(mainQuery.taxon) nt, mainQuery ss \n";
+    taxonCountQuery += " where nt.parent = ss.taxon AND mainQuery.taxon != nt.parent " + joinMainQuery + " \n";
+    taxonCountQuery += " ORDER BY nt.depth ASC LIMIT 1) as parent, \n";
 
     taxonCountQuery += areaGroup + " AS areaGroup\n";
     taxonCountQuery += " FROM mainQuery";
@@ -466,8 +499,9 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     percentViewSQL += "((abundance_sum + coalesce(total_of_children,0)) / \n ";
     percentViewSQL += "NULLIF((SELECT SUM(coalesce(ss.total_of_children,0) + ss.abundance_sum) FROM taxonCountQuery AS ss WHERE ss.parent = taxonCountQuery.parent" + joinMainQuery + "   ), 0))  as my_share \n";
     percentViewSQL += "FROM taxonCountQuery \n";
-    
-    // This is a terrible hack but we've already broken out of the ValueQuery and done manual SQL building, so this GROUP BY
+
+    // This is a terrible hack but we've already broken out of the ValueQuery
+    // and done manual SQL building, so this GROUP BY
     // must be done manually
     this.abundanceCols.add(taxonCol);
     this.abundanceCols.add("collectionIDs");
@@ -479,24 +513,24 @@ public class MosquitoCollectionQB extends AbstractQB implements Reloadable
     this.abundanceCols.add("depth");
     this.abundanceCols.add("parent");
     this.abundanceCols.add("areaGroup");
-    
+
     String pctGB = StringUtils.join(this.abundanceCols, ',');
-    
-    percentViewSQL += "GROUP BY "+pctGB+" \n";
-    
+
+    percentViewSQL += "GROUP BY " + pctGB + " \n";
+
     this.addWITHEntry(new WITHEntry("percent_view", percentViewSQL));
 
-    String rollupView = " SELECT "+GEO_ID_COALESCE_ALIAS+", areagroup, " + taxonCol + ", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
+    String rollupView = " SELECT " + GEO_ID_COALESCE_ALIAS + ", areagroup, " + taxonCol + ", parent, depth , my_share , abundance_sum + coalesce(total_of_children,0) as final_abundance\n";
     rollupView += "     FROM percent_view\n";
     rollupView += "     WHERE depth = 0\n";
     rollupView += " UNION\n";
-    rollupView += " SELECT child_v."+GEO_ID_COALESCE_ALIAS+", child_v.areagroup, child_v." + taxonCol + ", child_v.parent, child_v.depth ,child_v.my_share, \n";
+    rollupView += " SELECT child_v." + GEO_ID_COALESCE_ALIAS + ", child_v.areagroup, child_v." + taxonCol + ", child_v.parent, child_v.depth ,child_v.my_share, \n";
     rollupView += "  parent_v.final_abundance * child_v.my_share \n";
-    rollupView += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v."+GEO_ID_COALESCE_ALIAS+" = parent_v."+GEO_ID_COALESCE_ALIAS +" \n";
+    rollupView += " FROM rollup_view parent_v, percent_view child_v WHERE parent_v.taxon = child_v.parent AND parent_v.areagroup = child_v.areagroup AND child_v." + GEO_ID_COALESCE_ALIAS + " = parent_v." + GEO_ID_COALESCE_ALIAS + " \n";
     this.addWITHEntry(new WITHEntry("rollup_view", rollupView));
 
     String viewSQL = "SELECT pv.*, final_abundance\n";
-    viewSQL += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv." + taxonCol + " = pv." + taxonCol + " AND rv."+GEO_ID_COALESCE_ALIAS+" = pv."+GEO_ID_COALESCE_ALIAS +" \n";
+    viewSQL += "FROM percent_view pv join  rollup_view  rv on rv.areagroup = pv.areagroup AND  rv." + taxonCol + " = pv." + taxonCol + " AND rv." + GEO_ID_COALESCE_ALIAS + " = pv." + GEO_ID_COALESCE_ALIAS + " \n";
     this.addWITHEntry(new WITHEntry(viewName, viewSQL));
   }
 

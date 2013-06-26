@@ -98,6 +98,8 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     sub.setFemalesHalfGravid(this.getFemalesHalfGravid());
     sub.setFemalesUnfed(this.getFemalesUnfed());
     sub.setFemalesUnknown(this.getFemalesUnknown());
+    sub.setParous(this.getParous());
+    sub.setDisected(this.getDisected());
 
     view.applyAll(new SubCollectionView[] { sub });
   }
@@ -190,6 +192,8 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     list.add(FEMALESUNKNOWN);
     list.add(MALE);
     list.add(UNKNOWNS);
+    list.add(PAROUS);
+    list.add(DISECTED);
     return list;
   }
 

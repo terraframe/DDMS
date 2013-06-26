@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = -111331962)
+@com.runwaysdk.business.ClassSignature(hash = 2055196020)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -15,6 +15,7 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String COLLECTIONDATE = "collectionDate";
   public static java.lang.String COLLECTIONID = "collectionId";
   public static java.lang.String COLLECTIONMETHOD = "collectionMethod";
+  public static java.lang.String DISECTED = "disected";
   public static java.lang.String EGGS = "eggs";
   public static java.lang.String FEMALESFED = "femalesFed";
   public static java.lang.String FEMALESGRAVID = "femalesGravid";
@@ -27,11 +28,12 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
   public static java.lang.String LARVAE = "larvae";
   public static java.lang.String LIFESTAGE = "lifeStage";
   public static java.lang.String MALE = "male";
+  public static java.lang.String PAROUS = "parous";
   public static java.lang.String PUPAE = "pupae";
   public static java.lang.String SUBCOLLECTIONID = "subCollectionId";
   public static java.lang.String TAXON = "taxon";
   public static java.lang.String UNKNOWNS = "unknowns";
-  private static final long serialVersionUID = -111331962;
+  private static final long serialVersionUID = 2055196020;
   
   public MosquitoCollectionExcelViewBase()
   {
@@ -147,6 +149,34 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(COLLECTIONMETHOD, value);
+    }
+  }
+  
+  public Integer getDisected()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(DISECTED));
+  }
+  
+  public void validateDisected()
+  {
+    this.validateAttribute(DISECTED);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getDisectedMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(DISECTED);
+  }
+  
+  public void setDisected(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(DISECTED, "");
+    }
+    else
+    {
+      setValue(DISECTED, java.lang.Integer.toString(value));
     }
   }
   
@@ -483,6 +513,34 @@ public abstract class MosquitoCollectionExcelViewBase extends com.runwaysdk.busi
     else
     {
       setValue(MALE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getParous()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(PAROUS));
+  }
+  
+  public void validateParous()
+  {
+    this.validateAttribute(PAROUS);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getParousMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.MosquitoCollectionExcelView.CLASS);
+    return mdClassIF.definesAttribute(PAROUS);
+  }
+  
+  public void setParous(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(PAROUS, "");
+    }
+    else
+    {
+      setValue(PAROUS, java.lang.Integer.toString(value));
     }
   }
   
