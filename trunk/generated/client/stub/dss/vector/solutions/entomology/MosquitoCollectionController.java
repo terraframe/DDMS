@@ -181,8 +181,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     map.put("Unknowns", new ColumnSetup( ( !immature && !adult ), true));
     map.put("Eggs", new ColumnSetup(!egg, true));
     map.put("Total", new ColumnSetup(false, false));
-    map.put("Parous", new ColumnSetup(false, true));
     map.put("Disected", new ColumnSetup(false, true));
+    map.put("Parous", new ColumnSetup(false, true));
 
     return map;
   }
@@ -207,8 +207,8 @@ public class MosquitoCollectionController extends MosquitoCollectionControllerBa
     list.add("Unknowns");
     list.add("Eggs");
     list.add("Total");
-    list.add("Parous");
     list.add("Disected");
+    list.add("Parous");
 
     return list.toArray(new String[list.size()]);
   }

@@ -96,7 +96,7 @@ YAHOO.util.Event.onDOMReady(function(){
 	    Halp.setReadableAttributes(request, "subCollectionAttribs", SubCollectionViewDTO.CLASS, requestIF);
     %>    
     var subCollection = new dss.vector.solutions.entomology.SubCollection();
-    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","eggs","larvae","pupae","femalesUnfed","femalesFed","femalesHalfGravid","femalesGravid","femalesUnknown","femalesTotal","male","unknowns","total","parous","disected"];
+    var subCollectionAttribs = ["subCollectionId","identMethod","taxon","eggs","larvae","pupae","femalesUnfed","femalesFed","femalesHalfGravid","femalesGravid","femalesUnknown","femalesTotal","male","unknowns","total","disected","parous"];
     available = new MDSS.Set(<%= request.getAttribute("subCollectionAttribs") %>);
     subCollectionAttribs = Mojo.Iter.filter(subCollectionAttribs, function(attrib){
       return this.contains(attrib);

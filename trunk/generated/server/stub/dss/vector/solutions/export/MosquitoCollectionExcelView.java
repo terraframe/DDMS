@@ -192,8 +192,8 @@ public class MosquitoCollectionExcelView extends MosquitoCollectionExcelViewBase
     list.add(FEMALESUNKNOWN);
     list.add(MALE);
     list.add(UNKNOWNS);
-    list.add(PAROUS);
     list.add(DISECTED);
+    list.add(PAROUS);
     return list;
   }
 
