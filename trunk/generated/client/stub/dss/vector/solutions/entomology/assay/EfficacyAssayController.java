@@ -293,6 +293,7 @@ public class EfficacyAssayController extends EfficacyAssayControllerBase impleme
     clone.getAgeRange().setStartPoint(dto.getAgeRange().getStartPoint());
     clone.getAgeRange().setEndPoint(dto.getAgeRange().getEndPoint());
     clone.setSex(dto.getSex());
+    clone.setQuantityTested(dto.getQuantityTested());
 
     this.newInstance(clone);
   }
