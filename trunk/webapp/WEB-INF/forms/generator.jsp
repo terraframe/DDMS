@@ -40,6 +40,9 @@
 <%@page import="dss.vector.solutions.geo.GeoEntityTreeController"%>
 <%@page import="dss.vector.solutions.geo.generated.GeoEntityDTO"%>
 <%@page import="dss.vector.solutions.geo.GeoEntityViewDTO"%>
+
+<%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
+
 <jsp:include page="../templates/header.jsp" />
 
 <jwr:script src="/bundles/yui3Bundle.js" useRandomParam="false"/>
@@ -79,7 +82,9 @@ BrowserRootDTO.CLASS,
 
 GeoEntityTreeController.CLASS,
 GeoEntityDTO.CLASS,
-GeoEntityViewDTO.CLASS
+GeoEntityViewDTO.CLASS,
+
+QueryBuilderDTO.CLASS
 };
 
 String js = JSONController.importTypes(requestIF.getSessionId(), types, true);
@@ -96,6 +101,11 @@ YAHOO.util.Event.onDOMReady(function(){
 
 <div class="generatorContent" id="generatorContent">
   <h2 class="pageTitle">${localized_page_title}</h2>
+  <div id="searchContainer">
+    <h3><mdss:localize key="Search" /></h3>
+    <input type="text" id="searchInput" name="searchInput" />
+    <br /><br /><br />
+  </div>
   <a href="#" id="NewInstanceCommand">
     <mdss:localize key="New_Instance" />
   </a>

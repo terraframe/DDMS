@@ -5,7 +5,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
@@ -38,8 +37,10 @@ import com.runwaysdk.query.ValueQueryCSVExporter;
 import com.runwaysdk.query.ValueQueryExcelExporter;
 import com.runwaysdk.session.Session;
 
+import dss.vector.solutions.MDSSInfo;
 import dss.vector.solutions.MdssLog;
 import dss.vector.solutions.PersonQuery;
+import dss.vector.solutions.generator.MdFormUtil;
 import dss.vector.solutions.irs.TeamMember;
 import dss.vector.solutions.irs.TeamMemberQuery;
 import dss.vector.solutions.irs.TeamMemberView;
@@ -256,53 +257,84 @@ public class QueryBuilder extends QueryBuilderBase implements com.runwaysdk.gene
     }
     else
     {
-      // The attribute may be in the form of attribute1.attribute2.attribute3,
-      // etc to represent a chain of attribute dependencies. This needs to be
-      // dereferenced.
       MdEntityDAOIF md = MdEntityDAO.getMdEntityDAO(klass);
-      String searchAttribute = attribute;
-
-      if (attribute.contains("."))
+      
+      // check if we're searching on MdForm business artifacts or hard-coded class. This condition
+      // is a little hacky and might need to be split into different searches at some point,
+      // specificaly a separate method just for MdForms.
+      if(md.getPackage().equals(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE))
       {
-        String[] attrs = attribute.split("\\.");
-        for (int i = 0; i < attrs.length; i++)
+        if(attribute != null && attribute.equals(MdFormUtil.OID))
         {
-          searchAttribute = attrs[i];
+          MdAttributeDAOIF attr = md.definesAttribute(MdFormUtil.OID);
+          
+          Selectable runwayId = valueQuery.aSQLCharacter("runwayId", QueryUtil.getIdColumn());
+          SelectableSQLCharacter formId = valueQuery.aSQLCharacter("formId", attr.getColumnName());
+          
+          valueQuery.SELECT(runwayId, formId);
+          
+          String table = md.getTableName();
 
-          MdAttributeDAOIF attrMd = md.definesAttribute(searchAttribute);
-          if (attrMd instanceof MdAttributeReferenceDAOIF)
-          {
-            // This should only be valid for MdEntities so this downcast is
-            // valid.
-            md = (MdEntityDAOIF) ( (MdAttributeReferenceDAOIF) attrMd ).getReferenceMdBusinessDAO();
-          }
-          else if (i != attrs.length - 1)
-          {
-            String error = "The attribute [" + attribute + "] on type [" + klass + "] is not valid for chaining.";
-            throw new ProgrammingErrorException(error);
-          }
+          valueQuery.FROM(table, "auto_complete");
+
+          valueQuery.WHERE(formId.LIKEi(match + "%"));
+
+          valueQuery.ORDER_BY_ASC(formId);
+        }
+        else
+        {
+          throw new ProgrammingErrorException("Searches on MdForm attributes other than Form Id (oid) is not supported.");
         }
       }
+      else
+      {
+        // The attribute may be in the form of attribute1.attribute2.attribute3,
+        // etc to represent a chain of attribute dependencies. This needs to be
+        // dereferenced.
+        String searchAttribute = attribute;
 
-      String attrCol = QueryUtil.getColumnName(md.definesType(), searchAttribute);
-      SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attrCol);
+        if (attribute.contains("."))
+        {
+          String[] attrs = attribute.split("\\.");
+          for (int i = 0; i < attrs.length; i++)
+          {
+            searchAttribute = attrs[i];
 
-      COUNT count = F.COUNT(attribSelectable, "attributeCount");
+            MdAttributeDAOIF attrMd = md.definesAttribute(searchAttribute);
+            if (attrMd instanceof MdAttributeReferenceDAOIF)
+            {
+              // This should only be valid for MdEntities so this downcast is
+              // valid.
+              md = (MdEntityDAOIF) ( (MdAttributeReferenceDAOIF) attrMd ).getReferenceMdBusinessDAO();
+            }
+            else if (i != attrs.length - 1)
+            {
+              String error = "The attribute [" + attribute + "] on type [" + klass + "] is not valid for chaining.";
+              throw new ProgrammingErrorException(error);
+            }
+          }
+        }
 
-      valueQuery.SELECT(attribSelectable, count);
+        String attrCol = QueryUtil.getColumnName(md.definesType(), searchAttribute);
+        SelectableSQLCharacter attribSelectable = valueQuery.aSQLCharacter("attribute", attrCol);
 
-      String table = md.getTableName();
+        COUNT count = F.COUNT(attribSelectable, "attributeCount");
 
-      valueQuery.FROM(table, "auto_complete");
+        valueQuery.SELECT(attribSelectable, count);
 
-      valueQuery.WHERE(attribSelectable.LIKEi(match + "%"));
+        String table = md.getTableName();
 
-      valueQuery.ORDER_BY_DESC(count);
+        valueQuery.FROM(table, "auto_complete");
+
+        valueQuery.WHERE(attribSelectable.LIKEi(match + "%"));
+
+        valueQuery.ORDER_BY_DESC(count);
+      }
+      
+      valueQuery.restrictRows(20, 1);
+      
+      return valueQuery;
     }
-
-    valueQuery.restrictRows(20, 1);
-
-    return valueQuery;
   }
 
   public static void textLookup(ValueQuery valueQuery, QueryFactory qf, String[] tokenArray, SelectablePrimitive[] searchableArray, SelectablePrimitive[] selectableArray, Condition[] conditionArray)

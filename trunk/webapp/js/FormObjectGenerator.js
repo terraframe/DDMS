@@ -1529,12 +1529,49 @@ var ButtonComponent = Mojo.Meta.newClass('dss.vector.solutions.ButtonComponent',
 });
 
 /**
+ * Adds search functionality to the view all screen.
+ */
+var FormIdSearch = Mojo.Meta.newClass('dss.vector.solutions.FormIdSearch', {
+  Instance : {
+    initialize : function(formObjectGenerator, searchId){
+      this._formObjectGenerator = formObjectGenerator;
+      this._searchId = searchId;
+    },
+    listFunction : function(valueObject) {
+
+      return valueObject.getValue('formId') ;
+    },
+    displayFunction : function(valueObject) {
+
+      return valueObject.getValue('formId');
+    },
+    idFunction : function(valueObject) {
+
+      return valueObject.getValue('runwayId');
+    },
+    selectEventHandler : function(selected){
+      
+      this._formObjectGenerator.viewInstanceById(selected.id);
+    },
+    setup : function(){
+      var searchFunction = Mojo.$.dss.vector.solutions.query.QueryBuilder.getTextAttributeSugestions;
+
+      var boundSEH = Mojo.Util.bind(this, this.selectEventHandler);
+      var search = new MDSS.GenericSearch(this._searchId, null, this.listFunction, this.displayFunction, this.idFunction, searchFunction, boundSEH, {minLength:0});
+      search.addParameter(["dss.vector.solutions.form.business.Testform", "oid"]);
+    }
+  }
+});
+
+/**
  * Primary class to handle control flow in the UI.
  */
 Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
   Extends: UI.Component,
   Constants : {
     NEW_INSTANCE_COMMAND : 'NewInstanceCommand',
+    SEARCH_CONTAINER : 'searchContainer',
+    SEARCH_INPUT : 'searchInput',
     TABLE_CONTAINER : 'TableContainer',
     FORM_CONTAINER : 'FormContainer',
     VIEW_ALL_COMMAND : 'ViewAllCommand',
@@ -1573,6 +1610,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       {
         this._viewAllCommand.on('click', this.viewAllInstance, this);
       } 
+      
+      // div that holds all form id search components
+      this._search = this._Y.one('#' + prefix + this.constructor.SEARCH_CONTAINER);
             
       // this break lowers the header on the form create/edit,
       // so we're going to hide it sometimes
@@ -1601,6 +1641,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       // mapping between defining MdField and Condition objects
       this._conditions = new com.runwaysdk.structure.HashMap();
       this._fieldComponents = new com.runwaysdk.structure.HashMap();
+      
+      this._formIdSearch = new FormIdSearch(this, this.constructor.SEARCH_INPUT);
+      this._formIdSearch.setup();
     },
     clearConditions : function(){
       this._conditions.clear();
@@ -1938,8 +1981,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       var id = e.target.get('id');
       
+      this.viewInstanceById(id);
+    },
+    viewInstanceById : function(id){
       var event = new dss.vector.solutions.ViewEvent(id, this._mdFormId);
-      
       this.dispatchEvent(event);
     },
     viewParent : function(e){
@@ -1999,6 +2044,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._newInstanceCommand.hide();
       this._tableContainer.hide();
       
+      if(this._search != null)
+      {
+        this._search.hide();
+      }
+      
       if(this._break != null)
       {
         this._break.hide();
@@ -2008,6 +2058,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       {
         this._excelButtons.hide();
       }
+      
     },
     /**
      * Shows the datatable with all the instances of the current
@@ -2019,6 +2070,11 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
     renderViewAll : function(){
       this.clearFormContainer();
       this._tableContainer.show();
+      
+      if(this._search != null)
+      {
+        this._search.show();
+      }
       
       if(this._break != null)
       {
