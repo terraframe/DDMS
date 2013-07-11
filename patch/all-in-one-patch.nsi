@@ -23,6 +23,7 @@ RequestExecutionLevel highest
 !include nsDialogs.nsh
 !include LogicLib.nsh
 !include FileFunc.nsh
+!include x64.nsh
 
 # Define access to the StrTrimNewLines function
 !macro StrTrimNewLines ResultVar String
@@ -45,6 +46,9 @@ Var TargetLoc               # Location of the WEB-INF classes directory on the c
 Var Phase
 Var RunwayVersion           # Version of the runway metadata contained in the install.
 Var ManagerVersion          # Version of the manager contained in the install.
+Var JavaVersion             # Version of Java contained in the install.
+Var BirtVersion             # Version of Birt contained in the install.
+Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion            # Version of the patch contained in the install.
 Var TermsVersion            # Version of them terms contained in the install.
 Var RootsVersion            # Version of the roots contained in the install.
@@ -52,6 +56,10 @@ Var MenuVersion             # Version of the menu structure contained in the ins
 Var LocalizationVersion     # Version of the localization file contained in the install.
 Var PermissionsVersion      # Version of the permissions contained in the install.
 Var AppFile                 # Temp variable for looping through the contents of the application.txt file.
+Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
+Var Params                  # Variable for storing all of the params
+Var JavaHome                # Location of the Java JDK depending on the system OS version
+Var ReplacePath             # Temp variable which holds the file path used in the replace text function
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -82,24 +90,35 @@ ShowUninstDetails show
 
 # Installer sections
 Section -Main SEC0000
+
+  # Determine the location of java home.	
+  ${IfNot} ${RunningX64}
+    StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit	
+  ${Else}
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+  ${EndIf}
+
   SetOutPath $INSTDIR
   SetOverwrite on
   
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 6899
-  StrCpy $ManagerVersion 6968
-  StrCpy $PatchVersion 6963
+  StrCpy $ManagerVersion 7198
+  StrCpy $PatchVersion 7197
   StrCpy $TermsVersion 6644
   StrCpy $RootsVersion 5432
   StrCpy $MenuVersion 6655
-  StrCpy $LocalizationVersion 6930
-  StrCpy $PermissionsVersion 6942
+  StrCpy $LocalizationVersion 7192
+  StrCpy $PermissionsVersion 7180
+  StrCpy $BirtVersion 7149
+  StrCpy $WebappsVersion 7194
+  StrCpy $JavaVersion 7199  
     
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
   StrCpy $AgentDir "$PatchDir\output"
-  StrCpy $JavaOpts "-Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
-  StrCpy $Java "$INSTDIR\Java\jdk1.6.0_16\bin\javaw.exe"
+  StrCpy $JavaOpts "$ExtraOpts -Xmx1024m -javaagent:$PatchDir\OutputAgent.jar"
+  StrCpy $Java "$JavaHome\bin\javaw.exe"
   
   # Extract the logging libs
   !insertmacro MUI_HEADER_TEXT "Patching DDMS" "Copying patch files"
@@ -116,7 +135,12 @@ Section -Main SEC0000
   #####################################################################
   # Next we must patch the manager jars and associated files
   #####################################################################
-  Call patchManager
+  Call patchManager  
+  
+  #####################################################################
+  # Next we must patch default installer stage artifacts
+  #####################################################################
+  Call patchInstallerStage
   
   #####################################################################
   # Finally we can patch master applications
@@ -126,6 +150,25 @@ Section -Main SEC0000
   #  After all patching has finished we need to delete the tomcat cache
   SetOutPath $INSTDIR
   RMDir /r $INSTDIR\tomcat6\work\Catalina 
+  
+  # Update the pathing for java	
+  LogEx::Write "Updating java pathing"
+
+  # Update startup.bat
+  Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
+  Push $JavaHome                         # replace with
+  Push all                               # replace all occurrences
+  Push all                               # replace all occurrences
+  Push $INSTDIR\tomcat6\bin\startup.bat  # file to replace in
+  Call AdvReplaceInFile
+	
+  # Update manager.bat
+  Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
+  Push $JavaHome                         # replace with
+  Push all                               # replace all occurrences
+  Push all                               # replace all occurrences
+  Push $INSTDIR\manager\manager.bat      # file to replace in
+  Call AdvReplaceInFile
   
   # Clean-up the logging libs
   Delete $PatchDir\*  
@@ -204,13 +247,17 @@ Function patchApplication
       # Remove any old log files that may be laying around
       Delete $AgentDir\*.out
       Delete $AgentDir\*.err
-        
+	          
       # Copy web files
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating web files"
       SetOutPath $INSTDIR\tomcat6\webapps\$AppName
       File /r /x .svn ..\trunk\patches\webapp\*
       File /oname=$INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\version.xsd ..\trunk\profiles\version.xsd
-    
+
+      # We need to clear the old cache
+      Delete $INSTDIR\tomcat6\$AppName.index
+      Delete $INSTDIR\tomcat6\$AppName.data  	  
+	  
       # Import Most Recent
       !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Importing updated schema definitions"
       SetOutPath $PatchDir\schema
@@ -302,7 +349,15 @@ Function patchApplication
         WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
       ${Else}
         DetailPrint "Skipping Permissions because they are already up to date"
-      ${EndIf}
+      ${EndIf}	  
+	      
+      # Season labels and mosqito collections
+      !insertmacro MUI_HEADER_TEXT "Patching $AppName" "Updating application data"
+      SetOutPath $PatchDir\doc
+      StrCpy $Phase "Updating application data"
+      ExecWait `$Java $JavaOpts=$AgentDir\permissions -cp $Classpath dss.vector.solutions.util.ApplicationDataUpdater` $JavaError
+      Call JavaAbort
+	  	  	      
    
       # Switch back to the deploy environment
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-develop.properties
@@ -396,6 +451,14 @@ Function patchManager
   # Before we start, check the versions to make sure this is actually a patch.
   ReadRegStr $0 HKLM "${REGKEY}\Components" Manager
   ${If} $ManagerVersion > $0    
+  
+	# Delete the existing SWT jars, the SWT jar has been moved into the jre
+    Delete $INSTDIR\manager\backup-manager-1.0.0\lib\swt.jar	
+    Delete $INSTDIR\manager\ddms-initializer-1.0.0\lib\swt.jar	
+    Delete $INSTDIR\manager\geo-manager-1.0.0\lib\swt.jar	
+    Delete $INSTDIR\manager\manager-1.0.0\lib\swt.jar	
+    Delete $INSTDIR\manager\synch-manager-1.0.0\lib\swt.jar	
+	
     SetOutPath $INSTDIR
     File ..\standalone\patch\manager.bat
     File ..\standalone\patch\manager.ico  
@@ -411,7 +474,7 @@ Function patchManager
     File /r /x .svn ..\standalone\synch-manager-1.0.0\*
     SetOutPath $INSTDIR\manager\keystore
     File /r /x .svn ..\standalone\doc\keystore\*
-      
+		      
     ################################################################################
     # Copy any updated runway properties to all of the backedup profile directories
     ################################################################################
@@ -446,16 +509,186 @@ Function patchManager
   ${EndIf}    
 FunctionEnd
 
+Function patchInstallerStage
+  ################################################################################
+  # Copy over the jdk
+  ################################################################################
+
+  !insertmacro MUI_HEADER_TEXT "Patching Java" "Patching Java"
+  
+  # Before we start, check the versions to make sure this is actually a patch.  
+  ReadRegStr $0 HKLM "${REGKEY}\Components" Java
+  ${If} $JavaVersion > $0    
+	
+    # Remove the existing java install
+    RMDir /r $INSTDIR\Java
+	
+    # Copy over the new java install
+    SetOutPath $INSTDIR\Java
+    File /r /x .svn ..\installer-stage\Java\*
+	
+    WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion  
+
+  ${Else}
+    DetailPrint "Java is already up to date"  
+  ${EndIf}    
+  
+  ################################################################################
+  # Copy over the Birt
+  ################################################################################
+
+  !insertmacro MUI_HEADER_TEXT "Patching Birt" "Patching Birt"
+  
+  # Before we start, check the versions to make sure this is actually a patch.
+  ReadRegStr $0 HKLM "${REGKEY}\Components" Birt
+  ${If} $BirtVersion > $0    
+    # Copy over the new birt files, however do not delete the current birt because it will have some config files
+    SetOutPath $INSTDIR\birt
+    File /r /x .svn ..\installer-stage\birt\*  
+	
+    WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion  
+  ${Else}
+    DetailPrint "Birt is already up to date"  
+  ${EndIf}    
+  
+  ################################################################################
+  # Copy over the webapps changes
+  ################################################################################
+
+  !insertmacro MUI_HEADER_TEXT "Patching Tomcat webapps" "Patching Tomcat webapps"
+  
+  # Before we start, check the versions to make sure this is actually a patch.
+  ReadRegStr $0 HKLM "${REGKEY}\Components" Webapps
+  ${If} $WebappsVersion > $0    
+    # Copy over the new webapp files
+    SetOutPath $INSTDIR\tomcat6\webapps
+    File /r /x .svn /x .war ..\installer-stage\tomcat6\webapps\*  
+	
+    WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion  
+  ${Else}
+    DetailPrint "Webapps directory is already up to date"  
+  ${EndIf}      
+  
+FunctionEnd
+
 
 Function JavaAbort
   ${If} $JavaError == 1
-    ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\*.err $PatchDir\*.out $INSTDIR\logs`
+    ExecWait `"$PatchDir\7za.exe" a -t7z -mx9 $DESKTOP\PatchFailure.7z $PatchDir\output\*.err $PatchDir\output\*.out $INSTDIR\logs`
     DetailPrint "Patch failed."
     DetailPrint "A file called PatchFailure.7z has been created on your desktop. Please send"
     DetailPrint "this file to technical support staff for review."
     DetailPrint "It is strongly recommended to restore from a backup to ensure that the app continues"
     Abort "to function properly."
   ${EndIf}
+FunctionEnd
+
+Function AdvReplaceInFile
+Exch $0 ;file to replace in
+Exch
+Exch $1 ;number to replace after
+Exch
+Exch 2
+Exch $2 ;replace and onwards
+Exch 2
+Exch 3
+Exch $3 ;replace with
+Exch 3
+Exch 4
+Exch $4 ;to replace
+Exch 4
+Push $5 ;minus count
+Push $6 ;universal
+Push $7 ;end string
+Push $8 ;left string
+Push $9 ;right string
+Push $R0 ;file1
+Push $R1 ;file2
+Push $R2 ;read
+Push $R3 ;universal
+Push $R4 ;count (onwards)
+Push $R5 ;count (after)
+Push $R6 ;temp file name
+ 
+  GetTempFileName $R6
+  FileOpen $R1 $0 r ;file to search in
+  FileOpen $R0 $R6 w ;temp file
+   StrLen $R3 $4
+   StrCpy $R4 -1
+   StrCpy $R5 -1
+ 
+loop_read:
+ ClearErrors
+ FileRead $R1 $R2 ;read line
+ IfErrors exit
+ 
+   StrCpy $5 0
+   StrCpy $7 $R2
+ 
+loop_filter:
+   IntOp $5 $5 - 1
+   StrCpy $6 $7 $R3 $5 ;search
+   StrCmp $6 "" file_write1
+   StrCmp $6 $4 0 loop_filter
+ 
+StrCpy $8 $7 $5 ;left part
+IntOp $6 $5 + $R3
+IntCmp $6 0 is0 not0
+is0:
+StrCpy $9 ""
+Goto done
+not0:
+StrCpy $9 $7 "" $6 ;right part
+done:
+StrCpy $7 $8$3$9 ;re-join
+ 
+IntOp $R4 $R4 + 1
+StrCmp $2 all loop_filter
+StrCmp $R4 $2 0 file_write2
+IntOp $R4 $R4 - 1
+ 
+IntOp $R5 $R5 + 1
+StrCmp $1 all loop_filter
+StrCmp $R5 $1 0 file_write1
+IntOp $R5 $R5 - 1
+Goto file_write2
+ 
+file_write1:
+ FileWrite $R0 $7 ;write modified line
+Goto loop_read
+ 
+file_write2:
+ FileWrite $R0 $R2 ;write unmodified line
+Goto loop_read
+ 
+exit:
+  FileClose $R0
+  FileClose $R1
+ 
+   SetDetailsPrint none
+  Delete $0
+  Rename $R6 $0
+  Delete $R6
+   SetDetailsPrint both
+ 
+Pop $R6
+Pop $R5
+Pop $R4
+Pop $R3
+Pop $R2
+Pop $R1
+Pop $R0
+Pop $9
+Pop $8
+Pop $7
+Pop $6
+Pop $5
+;These values are stored in the stack in the reverse order they were pushed
+Pop $0
+Pop $1
+Pop $2
+Pop $3
+Pop $4
 FunctionEnd
 
 Function StrTrimNewLines
@@ -508,6 +741,20 @@ SectionEnd
 # Installer functions
 Function .onInit
     InitPluginsDir
+	
+    # Initialize the value of the text string
+    StrCpy $ExtraOpts ""
+    
+    # Read the command-line parameters
+    ${GetParameters} $Params
+    # Check for the presence of the -master flag
+    ${GetOptions} "$Params" "-opts=" $R0
+ 
+	IfErrors optsDone copyOpts
+    copyOpts:
+      StrCpy $ExtraOpts $R0
+    optsDone:
+      ClearErrors	
 FunctionEnd
 
 # Macro for selecting uninstaller sections
@@ -535,6 +782,9 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
     DeleteRegValue HKLM "${REGKEY}\Components" Manager
+    DeleteRegValue HKLM "${REGKEY}\Components" Java 
+    DeleteRegValue HKLM "${REGKEY}\Components" Birt 
+    DeleteRegValue HKLM "${REGKEY}\Components" Webapps
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`

@@ -18,9 +18,7 @@
 			</fileset>
 		</classpath>
 	</typedef>
-
-<!--	<target name="build"> -->
-	<target name="build">
+	<target name="build" depends="setup-files">
 	
 		<!-- Get revision info from svn -->
 		<svn svnkit="true" javahl="false" username="cruisecontrol@terraframe.com" password="Mr.Sparkle">
@@ -31,19 +29,27 @@
 			<info target="${doc.dir}/ontology/MOroots.xls" verbose="true" propPrefix="moroots.svn." />
 			<info target="${doc.dir}/menu/MenuItems.xls" verbose="true" propPrefix="menuitems.svn." />
 			<info target="${doc.dir}/localization" verbose="true" propPrefix="localization.svn." />
-			<info target="${doc.dir}/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />			
+			<info target="${doc.dir}/permissions/Permissions.xls" verbose="true" propPrefix="permissions.svn." />	
+			<info target="${project.dir}/installer-stage/birt" verbose="true" propPrefix="birt.svn." />	  
+			<info target="${project.dir}/installer-stage/tomcat6/webapps" verbose="true" propPrefix="webapps.svn." />	 			
+			<info target="${project.dir}/installer-stage/Java" verbose="true" propPrefix="java.svn." />	  	  				  
 		</svn>
 		
-		<!-- Write revision info into all-in-one-patch.nsi -->
-		<replaceregexp match="StrCpy /$ManagerVersion /d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy /$RunwayVersion /d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />	
-		<replaceregexp match="StrCpy /$PatchVersion /d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy /$TermsVersion /d*" replace="StrCpy $TermsVersion ${moterms.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy /$RootsVersion /d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy /$MenuVersion /d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy /$LocalizationVersion /d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />
-		<replaceregexp match="StrCpy /$PermissionsVersion /d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="all-in-one-patch.nsi" byline="true" />			
+		<echoproperties />
 		
+		<!-- Write revision info into all-in-one-patch.nsi -->
+		<replaceregexp match="StrCpy \$ManagerVersion \d*" replace="StrCpy $ManagerVersion ${manager.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$RunwayVersion \d*" replace="StrCpy $RunwayVersion ${runway-patch.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
+		<replaceregexp match="StrCpy \$PatchVersion \d*" replace="StrCpy $PatchVersion ${svn.info.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$TermsVersion \d*" replace="StrCpy $TermsVersion ${moterms.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$RootsVersion \d*" replace="StrCpy $RootsVersion ${moroots.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$MenuVersion \d*" replace="StrCpy $MenuVersion ${menuitems.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$LocalizationVersion \d*" replace="StrCpy $LocalizationVersion ${localization.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />
+		<replaceregexp match="StrCpy \$PermissionsVersion \d*" replace="StrCpy $PermissionsVersion ${permissions.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />			
+		<replaceregexp match="StrCpy \$BirtVersion \d*" replace="StrCpy $BirtVersion ${birt.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
+		<replaceregexp match="StrCpy \$WebappsVersion \d*" replace="StrCpy $WebappsVersion ${webapps.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
+		<replaceregexp match="StrCpy \$JavaVersion \d*" replace="StrCpy $JavaVersion ${java.svn.lastRev}" file="./all-in-one-patch.nsi" byline="true" />	
+
 		<!-- Copy over an updated serverExceptions.property file -->
 		<copy file="${project.dir}/trunk/profiles/serverExceptions.properties" todir="${manager.dir}/patch/profiles/" />
 
@@ -73,7 +79,7 @@
 			<property name="profile.name" value="patch" />
 			<property name="geodata.db" value="${geodata.db}" />
 		</ant>	
-
+		
 		<!-- Copy in the appropriate geo universals xls -->
 		<copy file="${doc.dir}/country/${geodata.db}-universals.xls" tofile="${patches.dir}/geo-universals.xls" />
 		
@@ -87,8 +93,16 @@
 		<delete file="${patches.dir}/webapp/WEB-INF/classes/database.properties" />
 		<delete file="${patches.dir}/webapp/WEB-INF/classes/common.properties" />
 		<delete file="${patches.dir}/webapp/login.jsp" />
+		<delete file="${patches.dir}/webapp/WEB-INF/originalVersion.jsp" />		
 		
 		<!-- Delete the flag, so that we don't overwrite it. That could be bad. -->
-		<delete file="${patches.dir}/webapp/imgs/flags/default" />		
+		<delete file="${patches.dir}/webapp/imgs/flags/current" />
+		
+		<!-- Delete the source and classes directory of the MERG survey form, so that we don't overwrite any custom fields. -->
+		<delete dir="${patches.dir}/webapp/WEB-INF/classes/dss/vector/solutions/form/business" />		
+		<delete dir="${patches.dir}/webapp/WEB-INF/source/server/stub/dss/vector/solutions/form/business" />
+		<delete dir="${patches.dir}/webapp/WEB-INF/source/server/base/dss/vector/solutions/form/business" />		
+		<delete dir="${patches.dir}/webapp/WEB-INF/source/client/stub/dss/vector/solutions/form/business" />		
+		<delete dir="${patches.dir}/webapp/WEB-INF/source/client/base/dss/vector/solutions/form/business" />		
 	</target>
 </project>
