@@ -26,6 +26,7 @@ Name DDMS
 !include nsDialogs.nsh
 !include LogicLib.nsh
 !include FileFunc.nsh
+!include x64.nsh
 
 # Define access to the RIndexOf function
 !macro RIndexOf Var Str Char
@@ -73,6 +74,9 @@ Var FPath
 Var FVersion
 Var RunwayVersion           # Version of the runway metadata contained in the install.
 Var ManagerVersion          # Version of the manager contained in the install.
+Var JavaVersion             # Version of Java contained in the install.
+Var BirtVersion             # Version of Birt contained in the install.
+Var WebappsVersion          # Version of webapps directory contained in the install.
 Var PatchVersion
 Var TermsVersion
 Var RootsVersion
@@ -81,6 +85,8 @@ Var LocalizationVersion
 Var PermissionsVersion
 Var AppName
 Var LowerAppName
+Var JavaHome               # Location of the Java JDK depending on the system OS version
+Var ReplacePath            # Temp variable which holds the file path used in the replace text function
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -311,17 +317,28 @@ FunctionEnd
 
 # Installer sections
 Section -Main SEC0000
+
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 6957
+    StrCpy $PatchVersion 7197
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 6930
-    StrCpy $PermissionsVersion 6942
+    StrCpy $LocalizationVersion 7192
+    StrCpy $PermissionsVersion 7180
 	StrCpy $RunwayVersion 6899
-	StrCpy $ManagerVersion 6938
+	StrCpy $ManagerVersion 7198
+	StrCpy $BirtVersion 7149
+	StrCpy $WebappsVersion 7194
+	StrCpy $JavaVersion 7146
+
+	# Determine the location of java home.	
+	${IfNot} ${RunningX64}
+	  StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit	
+    ${Else}
+	  StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+	${EndIf}
     
     LogEx::Init "$INSTDIR\installer-log.txt"
     StrCmp $Master_Value "true" +1 +2
@@ -490,7 +507,7 @@ Section -Main SEC0000
     # Update lots of things	
 	  ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    nsExec::Exec `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
+    nsExec::Exec `$JavaHome\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
 	delete $INSTDIR\PostInstallSetup.log
     IfErrors postInstallError skipErrorMsg
@@ -501,6 +518,26 @@ Section -Main SEC0000
 	ClearErrors
 	
 	skipErrorMsg:
+
+    # Update the pathing for java	
+    LogEx::Write "Updating java pathing"
+
+    # Update startup.bat
+	Push JAVA_HOME_VALUE                   # text to be replaced
+	Push $JavaHome                         # replace with
+	Push all                               # replace all occurrences
+	Push all                               # replace all occurrences
+	Push $INSTDIR\tomcat6\bin\startup.bat  # file to replace in
+	Call AdvReplaceInFile
+	
+	# Update manager.bat
+	Push JAVA_HOME_VALUE                   # text to be replaced
+	Push $JavaHome                         # replace with
+	Push all                               # replace all occurrences
+	Push all                               # replace all occurrences
+	Push $INSTDIR\manager\manager.bat      # file to replace in
+	Call AdvReplaceInFile
+
 	
     # Copy the profile to the backup manager
     LogEx::Write "Copying profile to backup manager"
@@ -523,6 +560,10 @@ Section -Main SEC0000
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" Permissions $PermissionsVersion
     WriteRegStr HKLM "${REGKEY}\Components\$AppName" RunwayVersion $RunwayVersion
     WriteRegStr HKLM "${REGKEY}\Components" Manager $ManagerVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Java $JavaVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Birt $BirtVersion
+    WriteRegStr HKLM "${REGKEY}\Components" Webapps $WebappsVersion
+
     WriteRegStr HKLM "${REGKEY}\Components" Runway 1
     
     # Write some shortcuts
@@ -581,12 +622,16 @@ Section /o -un.Main UNSEC0000
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Localization
     DeleteRegValue HKLM "${REGKEY}\Components\$AppName" Permissions
     DeleteRegValue HKLM "${REGKEY}\Components" Manager
+    DeleteRegValue HKLM "${REGKEY}\Components" Java
+    DeleteRegValue HKLM "${REGKEY}\Components" Birt
+    DeleteRegValue HKLM "${REGKEY}\Components" Webapps	
     DeleteRegValue HKLM "${REGKEY}\Components" Runway
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgis-pg91-1.5.3-2.exe" /S`
     ExecWait `"$DESKTOP\temp_uninstall_files\uninstall-postgresql.exe" --mode unattended`
     RmDir /r /REBOOTOK $DESKTOP\temp_uninstall_files
     RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
     RmDir /r /REBOOTOK $INSTDIR
+    UserMgr::DeleteAccount "ddmspostgres"
 SectionEnd
 
 Section -un.post UNSEC0001
@@ -604,7 +649,6 @@ Section -un.post UNSEC0001
     SetShellVarContext all
     RmDir /r /REBOOTOK $SMPROGRAMS\DDMS
     RmDir /r /REBOOTOK "$INSTDIR\PostgreSql"
-    UserMgr::DeleteAccount "ddmspostgres"
 SectionEnd
 
 # Installer functions
@@ -724,6 +768,114 @@ Pop $R3
 Pop $R2
 Pop $R1
 Exch $R0
+FunctionEnd
+
+Function AdvReplaceInFile
+Exch $0 ;file to replace in
+Exch
+Exch $1 ;number to replace after
+Exch
+Exch 2
+Exch $2 ;replace and onwards
+Exch 2
+Exch 3
+Exch $3 ;replace with
+Exch 3
+Exch 4
+Exch $4 ;to replace
+Exch 4
+Push $5 ;minus count
+Push $6 ;universal
+Push $7 ;end string
+Push $8 ;left string
+Push $9 ;right string
+Push $R0 ;file1
+Push $R1 ;file2
+Push $R2 ;read
+Push $R3 ;universal
+Push $R4 ;count (onwards)
+Push $R5 ;count (after)
+Push $R6 ;temp file name
+ 
+  GetTempFileName $R6
+  FileOpen $R1 $0 r ;file to search in
+  FileOpen $R0 $R6 w ;temp file
+   StrLen $R3 $4
+   StrCpy $R4 -1
+   StrCpy $R5 -1
+ 
+loop_read:
+ ClearErrors
+ FileRead $R1 $R2 ;read line
+ IfErrors exit
+ 
+   StrCpy $5 0
+   StrCpy $7 $R2
+ 
+loop_filter:
+   IntOp $5 $5 - 1
+   StrCpy $6 $7 $R3 $5 ;search
+   StrCmp $6 "" file_write1
+   StrCmp $6 $4 0 loop_filter
+ 
+StrCpy $8 $7 $5 ;left part
+IntOp $6 $5 + $R3
+IntCmp $6 0 is0 not0
+is0:
+StrCpy $9 ""
+Goto done
+not0:
+StrCpy $9 $7 "" $6 ;right part
+done:
+StrCpy $7 $8$3$9 ;re-join
+ 
+IntOp $R4 $R4 + 1
+StrCmp $2 all loop_filter
+StrCmp $R4 $2 0 file_write2
+IntOp $R4 $R4 - 1
+ 
+IntOp $R5 $R5 + 1
+StrCmp $1 all loop_filter
+StrCmp $R5 $1 0 file_write1
+IntOp $R5 $R5 - 1
+Goto file_write2
+ 
+file_write1:
+ FileWrite $R0 $7 ;write modified line
+Goto loop_read
+ 
+file_write2:
+ FileWrite $R0 $R2 ;write unmodified line
+Goto loop_read
+ 
+exit:
+  FileClose $R0
+  FileClose $R1
+ 
+   SetDetailsPrint none
+  Delete $0
+  Rename $R6 $0
+  Delete $R6
+   SetDetailsPrint both
+ 
+Pop $R6
+Pop $R5
+Pop $R4
+Pop $R3
+Pop $R2
+Pop $R1
+Pop $R0
+Pop $9
+Pop $8
+Pop $7
+Pop $6
+Pop $5
+;These values are stored in the stack in the reverse order they were pushed
+Pop $0
+Pop $1
+Pop $2
+Pop $3
+Pop $4
 FunctionEnd
 
 Function StrCase
