@@ -46,27 +46,37 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   /**
    * Max perm size in MB which should be given to tomcat.
    */
-  private static final int    MAX_PERM_SIZE    = 256;
+  private static final int    MAX_PERM_SIZE       = 256;
 
   /**
    * Amount of memory in MB to allocate to tomcat per app.
    */
-  private static final int    MEMORY_PER_APP   = 1024;
+  private static final int    MEMORY_PER_APP_64   = 1512;
 
   /**
    * Maximum amount of memory in MB to give to tomcat for all apps.
    */
-  private static int          MAX_TOTAL_MEMORY = 3512;
+  private static int          MAX_TOTAL_MEMORY_64 = 4096;
 
-  public static String        ROOT_DIRECTORY   = "C:/MDSS";
+  /**
+   * Amount of memory in MB to allocate to tomcat per app.
+   */
+  private static final int    MEMORY_PER_APP_32   = 1024;
 
-  public static String        DEFAULT_TOMCAT   = ROOT_DIRECTORY + "/tomcat6/";
+  /**
+   * Maximum amount of memory in MB to give to tomcat for all apps.
+   */
+  private static int          MAX_TOTAL_MEMORY_32 = 1512;
 
-  public static String        DEFAULT_MANAGER  = ROOT_DIRECTORY + "/manager/";
+  public static String        ROOT_DIRECTORY      = "C:/MDSS";
 
-  public static String        DEFAULT_BIRT     = ROOT_DIRECTORY + "/birt/";
+  public static String        DEFAULT_TOMCAT      = ROOT_DIRECTORY + "/tomcat6/";
 
-  private final static Logger logger           = Logger.getLogger(PostInstallSetup.class.getName());
+  public static String        DEFAULT_MANAGER     = ROOT_DIRECTORY + "/manager/";
+
+  public static String        DEFAULT_BIRT        = ROOT_DIRECTORY + "/birt/";
+
+  private final static Logger logger              = Logger.getLogger(PostInstallSetup.class.getName());
 
   private File                appRoot;
 
@@ -84,17 +94,20 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
 
   private String              tomcatDirectory;
 
-  public PostInstallSetup(String appName, String installationNumber, Boolean isMaster)
+  private Boolean             is32;
+
+  public PostInstallSetup(String appName, String installationNumber, Boolean isMaster, Boolean is32)
   {
-    this(appName, installationNumber, isMaster, DEFAULT_TOMCAT, DEFAULT_MANAGER);
+    this(appName, installationNumber, isMaster, is32, DEFAULT_TOMCAT, DEFAULT_MANAGER);
   }
 
-  public PostInstallSetup(String appName, String installationNumber, Boolean isMaster, String tomcatDirectory, String managerDirectory)
+  public PostInstallSetup(String appName, String installationNumber, Boolean isMaster, Boolean is32, String tomcatDirectory, String managerDirectory)
   {
     this.appName = appName;
     this.dbName = appName.toLowerCase();
     this.installationNumber = installationNumber;
     this.isMaster = isMaster;
+    this.is32 = is32;
     this.tomcatDirectory = tomcatDirectory;
     this.managerDirectory = managerDirectory;
 
@@ -131,9 +144,21 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     // Update tomcat RAM, each app needs at least 768M inorder to compile the
     // system
     File startup = new File(tomcatDirectory + "/bin/startup.bat");
-    int totalMemory = Math.min(MAX_TOTAL_MEMORY, MEMORY_PER_APP * appCount);
+    int totalMemory = getTotalMemory(appCount);
     logger.info("Updating Tomcat RAM in startup.bat to use " + totalMemory + "M");
     readAndReplace(startup, "-Xmx\\d*M", "-Xmx" + totalMemory + "M");
+  }
+
+  public int getTotalMemory(int appCount)
+  {
+    if (this.is32)
+    {
+      return Math.min(MAX_TOTAL_MEMORY_32, MEMORY_PER_APP_32 * appCount);
+    }
+    else
+    {
+      return Math.min(MAX_TOTAL_MEMORY_64, MEMORY_PER_APP_64 * appCount);
+    }
   }
 
   /**
@@ -379,10 +404,14 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
     Option isMasterOption = new Option("i", true, "Flag indicating if the install type is a master or dependent (required)");
     isMasterOption.setRequired(true);
 
+    Option is32Option = new Option("v", true, "Flag indicating if the jvm is 32-bit (required)");
+    is32Option.setRequired(true);
+
     Options options = new Options();
     options.addOption(appNameOption);
     options.addOption(installationNumberOption);
     options.addOption(isMasterOption);
+    options.addOption(is32Option);
     options.addOption(new Option("c", "css-only", false, "Setup will only update the css files"));
     options.addOption(new Option("p", "patch", false, "Post patch setup"));
     options.addOption(new Option("t", true, "Tomcat directory"));
@@ -403,10 +432,11 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
       String appName = cmd.getOptionValue("a").trim();
       String installationNumber = cmd.getOptionValue("n").trim();
       Boolean isMaster = Boolean.parseBoolean(cmd.getOptionValue("i").trim());
+      Boolean is32 = Boolean.parseBoolean(cmd.getOptionValue("v").trim());
       String tomcatDirectory = cmd.getOptionValue("t", DEFAULT_TOMCAT);
       String managerDirectory = cmd.getOptionValue("m", DEFAULT_MANAGER);
 
-      PostInstallSetup setup = new PostInstallSetup(appName, installationNumber, isMaster, tomcatDirectory, managerDirectory);
+      PostInstallSetup setup = new PostInstallSetup(appName, installationNumber, isMaster, is32, tomcatDirectory, managerDirectory);
 
       if (cmd.hasOption("p"))
       {
