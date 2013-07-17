@@ -59,14 +59,14 @@ public class PostInstallSetup implements com.runwaysdk.generation.loader.Reloada
   private static int          MAX_TOTAL_MEMORY_64 = 4096;
 
   /**
-   * Amount of memory in MB to allocate to tomcat per app.
+   * Amount of memory in MB to allocate to tomcat per app for 32 bit.
    */
-  private static final int    MEMORY_PER_APP_32   = 1024;
+  private static final int    MEMORY_PER_APP_32   = 768;
 
   /**
-   * Maximum amount of memory in MB to give to tomcat for all apps.
+   * Maximum amount of memory in MB to give to tomcat for all apps for 32 bit.
    */
-  private static int          MAX_TOTAL_MEMORY_32 = 1512;
+  private static int          MAX_TOTAL_MEMORY_32 = 1350;
 
   public static String        ROOT_DIRECTORY      = "C:/MDSS";
 
