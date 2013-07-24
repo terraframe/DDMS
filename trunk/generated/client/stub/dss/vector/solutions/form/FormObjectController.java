@@ -55,6 +55,8 @@ import com.runwaysdk.generation.CommonGenerationUtil;
 import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.system.metadata.MdClassDTO;
 import com.runwaysdk.system.metadata.MdFormDTO;
+import com.runwaysdk.system.metadata.MdWebFieldDTO;
+import com.runwaysdk.system.metadata.MdWebFormDTO;
 import com.runwaysdk.system.metadata.MdWebMultipleTermDTO;
 import com.runwaysdk.transport.attributes.AttributeDTO;
 import com.runwaysdk.transport.metadata.AttributeMdDTO;
@@ -101,6 +103,16 @@ public class FormObjectController extends FormObjectControllerBase implements co
       String formDisplayLabel = mdForm.getDisplayLabel().toString();
       this.req.setAttribute("localized_page_title", formDisplayLabel);
 
+      // keep a reference to the fields in proper order
+      MdWebFieldDTO[] fields = MdFormUtilDTO.getAllFields(this.getClientRequest(), (MdWebFormDTO) mdForm);
+      JSONArray fieldsArr = new JSONArray();
+      for(MdWebFieldDTO field : fields)
+      {
+        fieldsArr.put(field.getFieldName());
+      }
+      
+      this.req.setAttribute("fields", fieldsArr.toString());
+      
       this.req.getRequestDispatcher(FORM_GENERATOR).forward(req, resp);
     }
     catch (Throwable t)

@@ -802,28 +802,55 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns all fields in order for the MdWebForm.
+   * Returns all non-group fields in order for the MdWebForm. All groups
+   * are collapsed and their children are returned in relative order.
    * 
    * @param form
    * @return
    */
   public static MdWebField[] getAllFields(MdWebForm form)
   {
-    MdWebFieldQuery q = new MdWebFieldQuery(new QueryFactory());
+//    MdWebFieldQuery q = new MdWebFieldQuery(new QueryFactory());
+//    
+//    q.WHERE(q.getDefiningMdForm().EQ(form));
+//    q.ORDER_BY_ASC(q.getFieldOrder());
+//    
+//    OIterator<? extends MdWebField> iterator = q.getIterator();
+//    
+//    try
+//    {
+//      List<? extends MdWebField> fields = iterator.getAll();
+//      return fields.toArray(new MdWebField[fields.size()]);
+//    }
+//    finally
+//    {
+//      iterator.close();
+//    }
     
-    q.WHERE(q.getDefiningMdForm().EQ(form));
-    q.ORDER_BY_ASC(q.getFieldOrder());
+    List<MdWebField> ordered = new LinkedList<MdWebField>();
+    collectFields(ordered, MdFormUtil.getFields(form));
     
-    OIterator<? extends MdWebField> iterator = q.getIterator();
-    
-    try
+    return ordered.toArray(new MdWebField[]{});
+  }
+  
+  /**
+   * Recursive method to collect non-group fields in the given List.
+   * @param ordered
+   * @param fields
+   */
+  private static void collectFields(List<MdWebField> ordered, MdWebField[] fields)
+  {
+    for (MdWebField field : fields)
     {
-      List<? extends MdWebField> fields = iterator.getAll();
-      return fields.toArray(new MdWebField[fields.size()]);
-    }
-    finally
-    {
-      iterator.close();
+      if(field instanceof MdWebGroup)
+      {
+         MdWebField[] groupFields = MdFormUtil.getGroupFields(field.getId());
+         collectFields(ordered, groupFields);
+      }
+      else
+      {
+        ordered.add(field);
+      }
     }
   }
   

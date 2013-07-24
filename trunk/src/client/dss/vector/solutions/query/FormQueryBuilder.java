@@ -1,8 +1,7 @@
 package dss.vector.solutions.query;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -119,7 +118,7 @@ public class FormQueryBuilder implements Reloadable
     Map<MdWebFieldDTO, MdAttributeConcreteDTO> readableFieldMap = this.getReadableFieldMap(fields, readableAttributeNames);
     List<MdWebFieldDTO> readableFields = new LinkedList<MdWebFieldDTO>(readableFieldMap.keySet());
 
-    Collections.sort(readableFields, new FieldComparator());
+//    Collections.sort(readableFields, new FieldComparator());
 
     SelectableGroup group = new SelectableGroup();
     group.setClassType(classType);
@@ -216,7 +215,8 @@ public class FormQueryBuilder implements Reloadable
 
   private Map<MdWebFieldDTO, MdAttributeConcreteDTO> getReadableFieldMap(MdWebFieldDTO[] fields, Set<String> readableAttributeNames)
   {
-    Map<MdWebFieldDTO, MdAttributeConcreteDTO> map = new HashMap<MdWebFieldDTO, MdAttributeConcreteDTO>();
+    // use a linked hash map to ensure order is preserved. This is a little hacky. (maybe rework the data structures?)
+    Map<MdWebFieldDTO, MdAttributeConcreteDTO> map = new LinkedHashMap<MdWebFieldDTO, MdAttributeConcreteDTO>();
 
     for (MdWebFieldDTO field : fields)
     {

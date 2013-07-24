@@ -388,7 +388,7 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
   Implements : RUNWAY_UI.DataTableIF,
   Extends : YUI3WidgetBase,
   Instance : {
-    initialize : function(type, preColumns, postColumns){
+    initialize : function(type, config){
     
       this.$initialize();
       
@@ -423,10 +423,16 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
       this._dataTable.delegate('click', this._thClickHandler, 'th', this);
 
       // extra columns to add to the end of the table
-      this._preColumns = preColumns || [];
-      this._postColumns = postColumns || [];
+      this._preColumns = config.preColumns || [];
+      this._postColumns = config.postColumns || [];
       
       this._typeFormatters = {};
+      
+      /*
+       * this.columns is an optional array of column key names that 
+       * will be used to define the order of the columns in the table.
+       */
+      this._columns = config.columns || null;
     },
     _renderHandler : function(e){
       this._setRendered(true);
@@ -554,6 +560,28 @@ var DataTable = Mojo.Meta.newClass(Mojo.YUI3_PACKAGE+'DataTable', {
             sortable : true,
             formatter : formatter
           }));
+        }
+        
+        // order processing: make sure the columns are in order if specified
+        if(this._columns != null)
+        {
+          var ordered = [];
+          for(var i=0; i<this._columns.length; i++)
+          {
+            var oc = this._columns[i];
+            for(var j=0; j<cols.length; j++)
+            {
+              var col = cols[j];
+              if(col.getKey() === oc)
+              {
+                ordered.push(col);
+                break;
+              }
+            }
+            
+          }
+          
+          cols = ordered;
         }
         
         cols = this._preColumns.concat(cols);
