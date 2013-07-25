@@ -18,9 +18,5 @@
 <tomcat-users>
   <role rolename="admin"/>
   <user username="framework" password="P7ayU8Re" roles="admin,manager"/>
-<!--
-  <role rolename="role1"/>
-  <user username="both" password="tomcat" roles="tomcat,role1"/>
-  <user username="role1" password="tomcat" roles="role1"/>
--->
+  <user username="ddms" password="ddms" roles="admin,manager"/>  
 </tomcat-users>
