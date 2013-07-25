@@ -86,7 +86,7 @@ Var PermissionsVersion
 Var AppName
 Var LowerAppName
 Var JavaHome               # Location of the Java JDK depending on the system OS version
-Var ReplacePath            # Temp variable which holds the file path used in the replace text function
+Var JvmType                # Flag indicating if the jvm is 32-bit or not
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -321,23 +321,25 @@ Section -Main SEC0000
     SetOutPath $INSTDIR
     
     # These version numbers are automatically regexed by ant
-    StrCpy $PatchVersion 7197
+    StrCpy $PatchVersion 7208
     StrCpy $TermsVersion 6644
     StrCpy $RootsVersion 5432
     StrCpy $MenuVersion 6655
-    StrCpy $LocalizationVersion 7192
+    StrCpy $LocalizationVersion 7206
     StrCpy $PermissionsVersion 7180
 	StrCpy $RunwayVersion 6899
 	StrCpy $ManagerVersion 7198
 	StrCpy $BirtVersion 7149
 	StrCpy $WebappsVersion 7194
-	StrCpy $JavaVersion 7146
+	StrCpy $JavaVersion 7202
 
 	# Determine the location of java home.	
 	${IfNot} ${RunningX64}
-	  StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit	
+	  StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
+	  StrCpy $JvmType true
     ${Else}
 	  StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+	  StrCpy $JvmType false
 	${EndIf}
     
     LogEx::Init "$INSTDIR\installer-log.txt"
@@ -505,11 +507,11 @@ Section -Main SEC0000
     # icalcs C:\MDSS\PostgreSql /grant administrators:F /t
     
     # Update lots of things	
-	  ClearErrors
+	ClearErrors
     LogEx::Write "Executing Post Install Setup Java"
-    nsExec::Exec `$JavaHome\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value`
+    nsExec::Exec `$JavaHome\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n$InstallationNumber -i$Master_Value -v$JvmType`
 	LogEx::AddFile "   >" "$INSTDIR\PostInstallSetup.log"
-	delete $INSTDIR\PostInstallSetup.log
+	# delete $INSTDIR\PostInstallSetup.log
     IfErrors postInstallError skipErrorMsg
 	
 	postInstallError:
@@ -529,6 +531,14 @@ Section -Main SEC0000
 	Push all                               # replace all occurrences
 	Push $INSTDIR\tomcat6\bin\startup.bat  # file to replace in
 	Call AdvReplaceInFile
+	
+    # Update shutdown.bat
+	Push JAVA_HOME_VALUE                   # text to be replaced
+	Push $JavaHome                         # replace with
+	Push all                               # replace all occurrences
+	Push all                               # replace all occurrences
+	Push $INSTDIR\tomcat6\bin\shutdown.bat # file to replace in
+	Call AdvReplaceInFile	
 	
 	# Update manager.bat
 	Push JAVA_HOME_VALUE                   # text to be replaced
