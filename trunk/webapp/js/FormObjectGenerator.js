@@ -1645,8 +1645,10 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._conditions = new com.runwaysdk.structure.HashMap();
       this._fieldComponents = new com.runwaysdk.structure.HashMap();
       
-      this._formIdSearch = new FormIdSearch(this, this.constructor.SEARCH_INPUT);
-      this._formIdSearch.setup();
+      if(this._search){
+        this._formIdSearch = new FormIdSearch(this, this.constructor.SEARCH_INPUT);
+        this._formIdSearch.setup();
+      }
     },
     getMdClassType : function(){
       return this._mdClassType;

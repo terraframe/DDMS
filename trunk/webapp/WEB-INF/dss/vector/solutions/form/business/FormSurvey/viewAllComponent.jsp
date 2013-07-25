@@ -1,3 +1,4 @@
+<%@page import="dss.vector.solutions.query.QueryBuilderDTO"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://jawr.net/tags" prefix="jwr" %>
 <%@ taglib uri="/WEB-INF/tlds/runwayLib.tld" prefix="mjl"%>
@@ -67,7 +68,9 @@ MdWebReferenceDTO.CLASS,
 
 MdWebBreakDTO.CLASS,
 MdWebHeaderDTO.CLASS,
-MdWebCommentDTO.CLASS
+MdWebCommentDTO.CLASS,
+
+QueryBuilderDTO.CLASS
 };
 
 
