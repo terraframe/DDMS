@@ -101,9 +101,9 @@ YAHOO.util.Event.onDOMReady(function(){
 
 <div class="generatorContent" id="generatorContent">
   <h2 class="pageTitle">${localized_page_title}</h2>
-  <div id="searchContainer">
+  <div id="SearchContainer">
     <h2><mdss:localize key="Form_ID_Search" /></h2>
-    <input type="text" id="searchInput" name="searchInput" />
+    <input type="text" id="SearchInput" name="searchInput" />
     <br /><br /><br />
   </div>
   <a href="#" id="NewInstanceCommand">

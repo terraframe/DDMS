@@ -98,6 +98,11 @@ YAHOO.util.Event.onDOMReady(function(){
 });
 </script>
 <div class="generatorContent" id="generatorContent">
+  <div id="surveySearchContainer">
+    <h2><mdss:localize key="Form_Survey_Search" /></h2>
+    <input type="text" id="surveySearchInput" name="searchInput" />
+    <br /><br /><br />
+  </div>
   <a href="#" id="surveyNewInstanceCommand">
     <mdss:localize key="New_Form_Survey" />
   </a>
@@ -109,7 +114,12 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
   <div id="surveyFormContainer">
   </div>
-  
+
+  <div id="householdSearchContainer">
+    <h2><mdss:localize key="Form_Household_Search" /></h2>
+    <input type="text" id="householdSearchInput" name="searchInput" />
+    <br /><br /><br />
+  </div>  
   <a href="#" id="householdNewInstanceCommand">
     <mdss:localize key="New_Form_Household" />
   </a>
@@ -121,7 +131,12 @@ YAHOO.util.Event.onDOMReady(function(){
   </div>
   <div id="householdFormContainer">
   </div>
-  
+
+  <div id="bedNetSearchContainer">
+    <h2><mdss:localize key="Form_Bed_Net_Search" /></h2>
+    <input type="text" id="bedNetSearchInput" name="searchInput" />
+    <br /><br /><br />
+  </div>  
   <a href="#" id="bedNetNewInstanceCommand">
     <mdss:localize key="New_Form_Bed_Net" />
   </a>
@@ -132,6 +147,12 @@ YAHOO.util.Event.onDOMReady(function(){
   <div id="bedNetTableContainer" class="yui3-skin-sam">
   </div>
   <div id="bedNetFormContainer">
+  </div>
+  
+  <div id="personSearchContainer">
+    <h2><mdss:localize key="Form_Person_Search" /></h2>
+    <input type="text" id="personSearchInput" name="searchInput" />
+    <br /><br /><br />
   </div>
   <a href="#" id="personNewInstanceCommand">
     <mdss:localize key="New_Form_Person" />

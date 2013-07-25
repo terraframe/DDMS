@@ -1570,8 +1570,8 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
   Extends: UI.Component,
   Constants : {
     NEW_INSTANCE_COMMAND : 'NewInstanceCommand',
-    SEARCH_CONTAINER : 'searchContainer',
-    SEARCH_INPUT : 'searchInput',
+    SEARCH_CONTAINER : 'SearchContainer',
+    SEARCH_INPUT : 'SearchInput',
     TABLE_CONTAINER : 'TableContainer',
     FORM_CONTAINER : 'FormContainer',
     VIEW_ALL_COMMAND : 'ViewAllCommand',
@@ -1646,7 +1646,7 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       this._fieldComponents = new com.runwaysdk.structure.HashMap();
       
       if(this._search){
-        this._formIdSearch = new FormIdSearch(this, this.constructor.SEARCH_INPUT);
+        this._formIdSearch = new FormIdSearch(this, prefix + this.constructor.SEARCH_INPUT);
         this._formIdSearch.setup();
       }
     },
