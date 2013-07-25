@@ -59,7 +59,7 @@ Var AppFile                 # Temp variable for looping through the contents of 
 Var ExtraOpts               # Optional parameter value for extra JAVA options which should be used when running java commands during the patch process.
 Var Params                  # Variable for storing all of the params
 Var JavaHome                # Location of the Java JDK depending on the system OS version
-Var ReplacePath             # Temp variable which holds the file path used in the replace text function
+Var JvmType                 # Flag indicating if the jvm is 32-bit or not
 
 # Installer pages
 !insertmacro MUI_PAGE_WELCOME
@@ -93,9 +93,11 @@ Section -Main SEC0000
 
   # Determine the location of java home.	
   ${IfNot} ${RunningX64}
-    StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit	
+    StrCpy $JavaHome $INSTDIR\Java\jdk_32_bit
+	StrCpy $JvmType true
   ${Else}
-    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16	  
+    StrCpy $JavaHome $INSTDIR\Java\jdk1.6.0_16
+	StrCpy $JvmType false
   ${EndIf}
 
   SetOutPath $INSTDIR
@@ -104,15 +106,15 @@ Section -Main SEC0000
   # The version numbers are automatically replaced by all-in-one-patch.xml
   StrCpy $RunwayVersion 6899
   StrCpy $ManagerVersion 7198
-  StrCpy $PatchVersion 7197
+  StrCpy $PatchVersion 7208
   StrCpy $TermsVersion 6644
   StrCpy $RootsVersion 5432
   StrCpy $MenuVersion 6655
-  StrCpy $LocalizationVersion 7192
+  StrCpy $LocalizationVersion 7206
   StrCpy $PermissionsVersion 7180
   StrCpy $BirtVersion 7149
   StrCpy $WebappsVersion 7194
-  StrCpy $JavaVersion 7199  
+  StrCpy $JavaVersion 7202  
     
   # Set some constants
   StrCpy $PatchDir "$INSTDIR\patch"
@@ -160,6 +162,14 @@ Section -Main SEC0000
   Push all                               # replace all occurrences
   Push all                               # replace all occurrences
   Push $INSTDIR\tomcat6\bin\startup.bat  # file to replace in
+  Call AdvReplaceInFile
+    
+  # Update shutdown.bat
+  Push $INSTDIR\Java\jdk1.6.0_16         # text to be replaced
+  Push $JavaHome                         # replace with
+  Push all                               # replace all occurrences
+  Push all                               # replace all occurrences
+  Push $INSTDIR\tomcat6\bin\shutdown.bat # file to replace in
   Call AdvReplaceInFile
 	
   # Update manager.bat
@@ -364,7 +374,7 @@ Function patchApplication
       Rename $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local-deploy.properties $INSTDIR\tomcat6\webapps\$AppName\WEB-INF\classes\local.properties
   
       # Update the .css file with the correct pathing
-      ExecWait `$INSTDIR\Java\jdk1.6.0_16\bin\java.exe -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -itrue -p`
+      ExecWait `$Java -cp "C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\classes;C:\MDSS\tomcat6\webapps\$AppName\WEB-INF\lib\*" dss.vector.solutions.util.PostInstallSetup -a$AppName -n0 -v$JvmType -itrue -p`
     
       # Copy the profile to the backup manager
       CreateDirectory $INSTDIR\manager\backup-manager-1.0.0\profiles\$AppName
