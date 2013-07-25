@@ -92,7 +92,7 @@ out.print(js);
 %>
 
 YAHOO.util.Event.onDOMReady(function(){
-  var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}');
+  var generator = new dss.vector.solutions.FormObjectGenerator('','${mdFormId}', '${mdClassType}', ${fields});
   generator.render();
 });
 </script>
@@ -102,7 +102,7 @@ YAHOO.util.Event.onDOMReady(function(){
 <div class="generatorContent" id="generatorContent">
   <h2 class="pageTitle">${localized_page_title}</h2>
   <div id="searchContainer">
-    <h3><mdss:localize key="Search" /></h3>
+    <h2><mdss:localize key="Form_ID_Search" /></h2>
     <input type="text" id="searchInput" name="searchInput" />
     <br /><br /><br />
   </div>

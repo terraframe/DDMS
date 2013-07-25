@@ -1558,7 +1558,7 @@ var FormIdSearch = Mojo.Meta.newClass('dss.vector.solutions.FormIdSearch', {
 
       var boundSEH = Mojo.Util.bind(this, this.selectEventHandler);
       var search = new MDSS.GenericSearch(this._searchId, null, this.listFunction, this.displayFunction, this.idFunction, searchFunction, boundSEH, {minLength:0});
-      search.addParameter(["dss.vector.solutions.form.business.Testform", "oid"]);
+      search.addParameter([this._formObjectGenerator.getMdClassType(), "oid"]);
     }
   }
 });
@@ -1647,6 +1647,9 @@ Mojo.Meta.newClass('dss.vector.solutions.FormObjectGenerator', {
       
       this._formIdSearch = new FormIdSearch(this, this.constructor.SEARCH_INPUT);
       this._formIdSearch.setup();
+    },
+    getMdClassType : function(){
+      return this._mdClassType;
     },
     clearConditions : function(){
       this._conditions.clear();
