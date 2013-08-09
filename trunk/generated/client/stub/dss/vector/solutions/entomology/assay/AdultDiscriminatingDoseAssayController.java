@@ -161,7 +161,7 @@ public class AdultDiscriminatingDoseAssayController extends AdultDiscriminatingD
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
+    AdultDiscriminatingDoseAssayViewQueryDTO query = AdultDiscriminatingDoseAssayViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");

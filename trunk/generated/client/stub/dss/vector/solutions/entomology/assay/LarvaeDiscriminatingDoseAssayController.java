@@ -120,7 +120,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
   public void viewPage(String sortAttribute, Boolean isAscending, Integer pageSize, Integer pageNumber) throws IOException, ServletException
   {
     ClientRequestIF clientRequest = super.getClientRequest();
-    LarvaeDiscriminatingDoseAssayViewQueryDTO query = LarvaeDiscriminatingDoseAssayViewDTO.getPage(clientRequest, null, true, 20, 1);
+    LarvaeDiscriminatingDoseAssayViewQueryDTO query = LarvaeDiscriminatingDoseAssayViewDTO.getPage(clientRequest, sortAttribute, isAscending, pageSize, pageNumber);
     req.setAttribute("query", query);
 
     render("viewAllComponent.jsp");
