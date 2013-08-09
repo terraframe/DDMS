@@ -21,7 +21,7 @@ public class LarvaeDiscriminatingDoseAssayController extends LarvaeDiscriminatin
 
   public static final String LAYOUT           = "/layout.jsp";
 
-  private static final long  serialVersionUID = 1236962666744L;
+  public static final long  serialVersionUID = 1236962666744L;
 
   public LarvaeDiscriminatingDoseAssayController(HttpServletRequest req, HttpServletResponse resp, Boolean isAsynchronous)
   {
