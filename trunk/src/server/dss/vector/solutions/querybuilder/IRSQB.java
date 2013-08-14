@@ -30,7 +30,6 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
 import com.runwaysdk.system.EnumerationMaster;
-import com.runwaysdk.system.metadata.MdClass;
 import com.runwaysdk.system.metadata.MdEntity;
 import com.runwaysdk.system.metadata.MetadataDisplayLabel;
 
@@ -635,9 +634,30 @@ public class IRSQB extends AbstractQB implements Reloadable
    */
   private void swapOutAttributesForAggregates()
   {
-    String[] aliases = new String[] { Alias.RECEIVED.getAlias(), Alias.USED.getAlias(),
-        Alias.REFILLS.getAlias(), Alias.RETURNED.getAlias() };
+    String[] aliases = new String[] {
 
+      // insecticide usage
+      Alias.RECEIVED.getAlias(),
+      Alias.USED.getAlias(),
+      Alias.REFILLS.getAlias(),
+      Alias.RETURNED.getAlias(),
+
+      // spray details (attributes defined by HouseholdSprayStatus)
+      Alias.HOUSEHOLDS.getAlias(),
+      Alias.SPRAYED_HOUSEHOLDS.getAlias(),
+      Alias.STRUCTURES.getAlias(),
+      Alias.SPRAYED_STRUCTURES.getAlias(),
+      Alias.ROOMS.getAlias(),
+      Alias.SPRAYED_ROOMS.getAlias(),
+      Alias.LOCKED.getAlias(),
+      Alias.REFUSED.getAlias(),
+      Alias.OTHER.getAlias()
+      
+      // spray detail custom calculations
+    };
+
+    
+    
     QueryUtil.setAttributesAsAggregated(aliases, idCol, irsVQ, sprayViewAlias, true);
   }
 
@@ -726,7 +746,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       // brand table to be automatically
       // included in the main query. Join on the insecticide brand in the main
       // query with that of the insecticideVQ
-      // to make sure eveything matches correctly.
+      // to make sure everything matches correctly.
       irsVQ.FROM(outerInsecticideQuery.getMdClassIF().getTableName(), outerInsecticideQuery
           .getTableAlias());
       irsVQ
@@ -1168,8 +1188,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     {
       if (needsAreaPlanned)
       {
-        joins.add(new AreaJoin(true, needsAreaPlanned, true));
-        joins.add(new AreaJoin(true, needsAreaPlanned, false));
+        joins.add(new AreaJoin(true, needsAreaPlanned));
       }
 
       if (needsTeamsPlanned)

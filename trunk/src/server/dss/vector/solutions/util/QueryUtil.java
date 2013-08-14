@@ -2,7 +2,6 @@ package dss.vector.solutions.util;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +26,7 @@ import com.runwaysdk.dataaccess.metadata.MdEntityDAO;
 import com.runwaysdk.dataaccess.metadata.MetadataDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AVG;
+import com.runwaysdk.query.AggregateFunction;
 import com.runwaysdk.query.AttributeMoment;
 import com.runwaysdk.query.CONCAT;
 import com.runwaysdk.query.Coalesce;
@@ -41,6 +41,8 @@ import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.SUM;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
+import com.runwaysdk.query.SelectableInteger;
+import com.runwaysdk.query.SelectableLong;
 import com.runwaysdk.query.SelectableMoment;
 import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
@@ -148,77 +150,105 @@ public class QueryUtil implements Reloadable
 
   public static void setAttributesAsAggregated(String[] aliases, String id, ValueQuery valueQuery, String tableAlias, boolean allowNonAggregateDefault)
   {
-    Map<String, Selectable> override = new HashMap<String, Selectable>();
-
     for (String alias : aliases)
     {
       if (valueQuery.hasSelectableRef(alias))
       {
         Selectable sel = valueQuery.getSelectableRef(alias);
         String dislay = sel.getUserDefinedDisplayLabel();
+        
 
-        Selectable newSel;
-        if (sel instanceof SUM)
+        String sql = null;
+        boolean useDefault = false;
+        if(sel.isAggregateFunction())
         {
-          String sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
-          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
-        }
-        else if (sel instanceof AVG)
-        {
-          String sql = QueryUtil.avgColumnForId(tableAlias, id, null, alias);
-          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
-        }
-        else if (sel instanceof MIN)
-        {
-          String sql = QueryUtil.minColumnForId(tableAlias, id, null, alias);
-          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
-        }
-        else if (sel instanceof MAX)
-        {
-          String sql = QueryUtil.maxColumnForId(tableAlias, id, null, alias);
-          newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
+          if (sel instanceof SUM)
+          {
+            sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
+          }
+          else if (sel instanceof AVG)
+          {
+            sql = QueryUtil.avgColumnForId(tableAlias, id, null, alias);
+          }
+          else if (sel instanceof MIN)
+          {
+            sql = QueryUtil.minColumnForId(tableAlias, id, null, alias);
+          }
+          else if (sel instanceof MAX)
+          {
+            sql = QueryUtil.maxColumnForId(tableAlias, id, null, alias);
+          }
+          else
+          {
+            // aggregate function unknown. Could be something custom. We can't
+            // make any assumptions so use the default behavior
+            useDefault = true;
+          }
         }
         else
         {
+          // Selectable is not an aggregate function. Use default behavior
+          useDefault = true;
+        }
+        
+        // unwrap the Selectable to get the core type
+        while(sel.isAggregateFunction())
+        {
+          sel = sel.getAggregateFunction().getSelectable();
+        }
+        
+        SelectableSQL newSel;
+        
+        if(useDefault)
+        {
+          // The default behavior is to be used since no recognized 
+          // aggregate functions were found.
+          
           if (allowNonAggregateDefault)
           {
-            String sql = sel.getSQL();
-            newSel = valueQuery.aSQLFloat(alias, sql, alias, dislay);
+            sql = sel.getSQL();
+            
+            if(sel instanceof SelectableInteger || sel instanceof SelectableLong)
+            {
+              newSel = valueQuery.aSQLLong(alias, sql, alias, dislay);
+            }
+            else
+            {
+              newSel = valueQuery.aSQLDouble(alias, sql, alias, dislay);
+            }
           }
           else
           {
             // We have to SUM by default to avoid a cross-product
-            String sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
-            newSel = valueQuery.aSQLAggregateFloat(alias, sql, alias, dislay);
+            sql = QueryUtil.sumColumnForId(tableAlias, id, null, alias);
+            
+            if(sel instanceof SelectableInteger || sel instanceof SelectableLong)
+            {
+              newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
+            }
+            else
+            {
+              newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
+            }
           }
-        }
-
-        newSel.setColumnAlias(sel.getColumnAlias());
-
-        override.put(alias, newSel);
-      }
-    }
-
-    // Reset the ValueQuery selectables since it is not possible to reset only
-    // one at a time
-    if (override.size() > 0)
-    {
-      List<Selectable> all = valueQuery.getSelectableRefs();
-      List<Selectable> reAdd = new LinkedList<Selectable>();
-      for (Selectable sel : all)
-      {
-        if (override.containsKey(sel.getUserDefinedAlias()))
-        {
-          reAdd.add(override.get(sel.getUserDefinedAlias()));
         }
         else
         {
-          reAdd.add(sel);
+          // aggregate found. Wrap the SQL in new selectable depending on the type
+          if(sel instanceof SelectableInteger || sel instanceof SelectableLong)
+          {
+            newSel = valueQuery.aSQLAggregateLong(alias, sql, alias, dislay);
+          }
+          else
+          {
+            newSel = valueQuery.aSQLAggregateDouble(alias, sql, alias, dislay);
+          }
         }
+        
+        // swap out the old selectable with the new.
+        newSel.setColumnAlias(sel.getColumnAlias());
+        valueQuery.replaceSelectable(newSel);
       }
-
-      valueQuery.clearSelectClause();
-      valueQuery.SELECT(reAdd.toArray(new Selectable[reAdd.size()]));
     }
   }
 
