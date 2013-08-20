@@ -9,6 +9,7 @@ import org.apache.tools.ant.types.Path;
 import org.eclipse.swt.widgets.Display;
 
 import dss.vector.solutions.manager.server.IServer;
+import dss.vector.solutions.manager.server.ServerStatus;
 
 public class ServerInitializer implements Runnable
 {
@@ -53,40 +54,45 @@ public class ServerInitializer implements Runnable
 
         try
         {
-          for (String application : applications)
+          ServerStatus status = server.getServerStatus();
+
+          if (status.equals(ServerStatus.STOPPED))
           {
-            String baseDir = System.getProperty("user.dir");
-            
-            StringBuffer classpath = new StringBuffer();
-            classpath.append(ManagerProperties.getInitializerLib() + "*");
-            classpath.append(File.pathSeparator + ManagerProperties.getInitializerClasses());
-            classpath.append(File.pathSeparator + ManagerContextBean.getApplicationClassesPath(application));
-            classpath.append(File.pathSeparator + ManagerContextBean.getApplicationLibPath(application) + "*");
+            for (String application : applications)
+            {
+              String baseDir = System.getProperty("user.dir");
 
-            Project project = new Project();
-            project.setBaseDir(new File(baseDir));
-            project.init();
+              StringBuffer classpath = new StringBuffer();
+              classpath.append(ManagerProperties.getInitializerLib() + "*");
+              classpath.append(File.pathSeparator + ManagerProperties.getInitializerClasses());
+              classpath.append(File.pathSeparator + ManagerContextBean.getApplicationClassesPath(application));
+              classpath.append(File.pathSeparator + ManagerContextBean.getApplicationLibPath(application) + "*");
 
-            Java java = new Java();
-            java.setTaskName("initialize");
-            java.setProject(project);
-            java.setFork(true);
-            java.setFailonerror(true);
-            java.setClassname("dss.vector.solutions.initializer.BuilderLauncher");
-            java.setClasspath(new Path(project, classpath.toString()));
-            java.init();
+              Project project = new Project();
+              project.setBaseDir(new File(baseDir));
+              project.init();
 
-            java.createArg().setValue("-a" + application);
-            java.createArg().setValue("-l" + Localizer.getLocale().toString());
+              Java java = new Java();
+              java.setTaskName("initialize");
+              java.setProject(project);
+              java.setFork(true);
+              java.setFailonerror(true);
+              java.setClassname("dss.vector.solutions.initializer.BuilderLauncher");
+              java.setClasspath(new Path(project, classpath.toString()));
+              java.init();
 
-            java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
-            java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
-            java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
-            java.createJvmarg().setValue("-Dfile.encoding=UTF8");
+              java.createArg().setValue("-a" + application);
+              java.createArg().setValue("-l" + Localizer.getLocale().toString());
 
-            int results = java.executeJava();
+              java.createJvmarg().setValue("-Xms" + ManagerProperties.getProcessMemoryMin());
+              java.createJvmarg().setValue("-Xmx" + ManagerProperties.getProcessMemoryMax());
+              java.createJvmarg().setValue("-XX:PermSize=" + ManagerProperties.getProcessPermSize());
+              java.createJvmarg().setValue("-Dfile.encoding=UTF8");
 
-            isInitilized = isInitilized && ( results >= 0 );
+              int results = java.executeJava();
+
+              isInitilized = isInitilized && ( results >= 0 );
+            }
           }
 
           if (isInitilized)
