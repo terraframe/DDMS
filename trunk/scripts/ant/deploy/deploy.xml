@@ -463,7 +463,7 @@
 
 	<target name="copy_properties">
 		<!-- Flatten a profile and stick it on tomcat. -->
-		<java classname="com.runwaysdk.ant.ProfileFlattener" fork="false" failonerror="true">
+		<java classname="com.runwaysdk.profile.ProfileFlattener" fork="false" failonerror="true">
 			<arg value="${deploy.profile}" />
 			<arg value="$$${deploy.appname}_tmp" />
 			<classpath>
