@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import com.runwaysdk.configuration.ProfileManager;
 import com.runwaysdk.constants.MdAttributeLocalInfo;
-import com.runwaysdk.constants.ProfileManager;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.io.FileReadException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;

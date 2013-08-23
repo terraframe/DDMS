@@ -29,6 +29,12 @@ public class ImmatureContainerCollectionQB extends AbstractQB implements Reloada
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return ImmatureCollection.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,

@@ -24,23 +24,26 @@ import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.Function;
+import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
 import com.runwaysdk.query.Selectable;
-import com.runwaysdk.query.SelectableAggregate;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableReference;
+import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.SelectableSingle;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.ValueQueryParser;
 import com.runwaysdk.query.ValueQueryParser.ParseInterceptor;
+import com.runwaysdk.system.UsersQuery;
 import com.runwaysdk.system.metadata.MdAttribute;
 import com.runwaysdk.system.metadata.MdBusiness;
+import com.runwaysdk.system.metadata.Metadata;
 
 import dss.vector.solutions.geo.AllPaths;
 import dss.vector.solutions.geo.AllPathsQuery;
@@ -212,6 +215,8 @@ public abstract class AbstractQB implements Reloadable
     // to substitute it with a custom one.
     valueQuery = this.construct(factory, valueQuery, queryMap, this.xml, queryConfig);
 
+    this.processAuditSelectables(valueQuery, queryMap);
+    
     this.joinGeoDisplayLabels(valueQuery);
 
     QBInterceptor termInterceptor = this.getQBInterceptor(parser);
@@ -225,6 +230,39 @@ public abstract class AbstractQB implements Reloadable
     }
     
     return valueQuery;
+  }
+  
+  /**
+   * Returns the alias of the class in the query map from which the createdBy and lastUpdatedBy values
+   * will be pulled.
+   * 
+   * @return
+   */
+  protected abstract String getAuditClassAlias();
+  
+  protected void processAuditSelectables(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  {
+    GeneratedEntityQuery q = queryMap.get(this.getAuditClassAlias());
+    
+    // created by
+    if(valueQuery.hasSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS))
+    {
+      UsersQuery uq = new UsersQuery(valueQuery.getQueryFactory());
+      SelectableSQLCharacter cb = (SelectableSQLCharacter) valueQuery.getSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS);
+      cb.setSQL(uq.getUsername().getDbQualifiedName());
+      
+      valueQuery.WHERE(q.get(Metadata.CREATEDBY).LEFT_JOIN_EQ(uq));
+    }
+    
+    // last updated by
+    if(valueQuery.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS))
+    {
+      UsersQuery uq = new UsersQuery(valueQuery.getQueryFactory());
+      SelectableSQLCharacter cb = (SelectableSQLCharacter) valueQuery.getSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS);
+      cb.setSQL(uq.getUsername().getDbQualifiedName());
+
+      valueQuery.WHERE(q.get(Metadata.LASTUPDATEDBY).LEFT_JOIN_EQ(uq));
+    }
   }
 
   /**
@@ -259,7 +297,7 @@ public abstract class AbstractQB implements Reloadable
 
     valueQuery.setSqlPrefix(with);
   }
-
+  
   private void setGeoDisplayLabelSQL()
   {
     String sql = QueryUtil.getGeoDisplayLabelSQL(false);

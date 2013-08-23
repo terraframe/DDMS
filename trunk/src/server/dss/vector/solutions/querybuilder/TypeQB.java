@@ -18,9 +18,22 @@ import dss.vector.solutions.util.QueryUtil;
 public class TypeQB extends AbstractQB implements Reloadable
 {
 
+  private String auditClass;
+  
   public TypeQB(String xml, String config, Layer layer)
   {
     super(xml, config, layer);
+    auditClass = null;
+  }
+  
+  /**
+   * Not sure if there's a perfect answer for this, so pull the first key the query map
+   * @return
+   */
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return this.auditClass;
   }
 
   @Override
@@ -34,6 +47,8 @@ public class TypeQB extends AbstractQB implements Reloadable
 
       if (! ( query instanceof AllPathsQuery ))
       {
+        this.auditClass = query.getMdClassIF().definesType();
+        
         this.addGeoDisplayLabelQuery(query);
 
         this.setNumericRestrictions(valueQuery, queryConfig);

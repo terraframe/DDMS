@@ -128,7 +128,7 @@ public class WebGeoBuilder extends WebAttributeBuilder implements Reloadable
   {
     super.updateMdAttribute(mdAttribute);
 
-    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_BUSINESS, MdClass.getMdClass(GeoEntity.CLASS).getId());
+    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, MdClass.getMdClass(GeoEntity.CLASS).getId());
   }
 
   @Override

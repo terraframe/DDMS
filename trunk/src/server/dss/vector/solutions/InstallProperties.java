@@ -2,8 +2,8 @@ package dss.vector.solutions;
 
 import java.io.File;
 
-import com.runwaysdk.constants.ProfileManager;
-import com.runwaysdk.constants.ProfileReader;
+import com.runwaysdk.configuration.ProfileManager;
+import com.runwaysdk.configuration.ProfileReader;
 import com.runwaysdk.generation.loader.Reloadable;
 
 public class InstallProperties implements Reloadable

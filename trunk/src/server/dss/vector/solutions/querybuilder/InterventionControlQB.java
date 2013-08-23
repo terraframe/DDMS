@@ -52,6 +52,12 @@ public class InterventionControlQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return ControlIntervention.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,

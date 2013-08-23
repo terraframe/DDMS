@@ -54,6 +54,12 @@ public class AggregatedCaseQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return AggregatedCase.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,

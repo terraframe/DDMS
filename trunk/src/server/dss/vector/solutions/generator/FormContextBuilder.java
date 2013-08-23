@@ -54,7 +54,7 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
 
   protected List<? extends MdAttributeDAOIF> getAttributes(ImportContext currentContext)
   {
-    List<? extends MdFieldDAOIF> mdFields = this.mdForm.getSortedFields();
+    List<? extends MdFieldDAOIF> mdFields = this.mdForm.getOrderedMdFields();
     List<MdAttributeDAOIF> mdAttributes = new LinkedList<MdAttributeDAOIF>();
 
     for (MdFieldDAOIF mdField : mdFields)

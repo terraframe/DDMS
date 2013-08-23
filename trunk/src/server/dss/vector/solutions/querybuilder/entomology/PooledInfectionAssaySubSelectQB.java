@@ -25,6 +25,12 @@ public class PooledInfectionAssaySubSelectQB extends AbstractQB implements Reloa
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return MosquitoCollection.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,

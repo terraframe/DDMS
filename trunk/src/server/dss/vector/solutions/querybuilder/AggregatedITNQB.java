@@ -21,6 +21,12 @@ public class AggregatedITNQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return ITNData.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,

@@ -94,10 +94,14 @@ public class QueryConstants implements Reloadable
 
   public static final String  PERCENT_VISITED_TREATED                 = "percent_visited_treated";
 
-  public static String        TYPE_QB                                 = "dss.vector.solutions.querybuilder.TypeQB";
+  public static final String  TYPE_QB                                 = "dss.vector.solutions.querybuilder.TypeQB";
 
-  public static String        FORM_SURVEY_QB                          = "dss.vector.solutions.querybuilder.FormSurveyQB";
+  public static final String  FORM_SURVEY_QB                          = "dss.vector.solutions.querybuilder.FormSurveyQB";
 
+  public static final String AUDIT_CREATED_BY_ALIAS = "audit_createdBy";
+  
+  public static final String AUDIT_LAST_UPDATED_BY_ALIAS = "audit_lastUpdatedBy";
+  
   // END
 
   public enum QueryType implements Reloadable {

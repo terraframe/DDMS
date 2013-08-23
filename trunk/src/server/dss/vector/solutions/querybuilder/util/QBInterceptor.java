@@ -4,11 +4,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.runwaysdk.business.BusinessQuery;
+import com.runwaysdk.dataaccess.AttributeDoesNotExistException;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.Component;
 import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.query.Visitor;
 import com.runwaysdk.query.ValueQueryParser.InterceptorChain;
@@ -122,6 +124,13 @@ public class QBInterceptor extends Visitor implements ParseInterceptor, Reloadab
     }
     
     super.visit(attribute);
+  }
+
+  @Override
+  public void interceptSelectable(InterceptorChain chain, ValueQuery valueQuery, String entityAlias,
+      Selectable selectable, String attributeName, AttributeDoesNotExistException t)
+  {
+    chain.interceptSelectable(valueQuery, entityAlias, selectable, attributeName, t);
   }
 
 }

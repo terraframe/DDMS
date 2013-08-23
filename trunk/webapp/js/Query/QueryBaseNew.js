@@ -7,7 +7,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     initialize : function(selectableGroups, queryList, renderDateRange)
     {
       this.$initialize(queryList, renderDateRange);
-
+      
       // list of columns that have bee_visibleAttributeHandlern added before a call to render()
       this._preconfiguredColumns = [];
 
@@ -38,9 +38,38 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       // Map of criteria ids and associated ContextMenuItems.
       this._menuItems = {};
 
+      this._addAuditSection(selectableGroups);
       this._buildQueryItems(selectableGroups);
 
       this._buildColumns();
+    },
+    
+    /**
+     * Adds the audit section to all QBs.
+     */
+    _addAuditSection : function(selectableGroups)
+    {
+      var auditAttribs = ["createDate", "lastUpdateDate"];
+      
+      var objTemplate = Mojo.Meta.newInstance(this._mainQueryClass);
+      
+      var auditColumns = auditAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:objTemplate, suffix:'_audit', dropDownMaps:{}});
+      auditColumns.push({
+        key:"audit_createdBy",
+        type:"sqlcharacter",
+        attributeName:"audit_createdBy",
+        displayLabel:objTemplate.getCreatedByMd().getDisplayLabel()
+      });
+      
+      auditColumns.push({
+        key:"audit_lastUpdatedBy",
+        type:"sqlcharacter",
+        attributeName:"audit_lastUpdatedBy",
+        displayLabel:objTemplate.getLastUpdatedByMd().getDisplayLabel()
+      });
+      
+      selectableGroups.push({title:"Audit", values:auditColumns, group:"c", klass:this._mainQueryClass});
+
     },
     
     /**

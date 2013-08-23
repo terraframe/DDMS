@@ -66,7 +66,7 @@ public class WebSingleTermBuilder extends WebAttributeBuilder implements Reloada
   {
     super.updateMdAttribute(mdAttribute);
 
-    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_BUSINESS, MdClass.getMdClass(Term.CLASS).getId());
+    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, MdClass.getMdClass(Term.CLASS).getId());
   }
 
   @Override

@@ -102,7 +102,7 @@ public class WebSingleTermGridBuilder extends WebAttributeBuilder implements Rel
   {
     super.updateMdAttribute(mdAttribute);
 
-    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_BUSINESS, MdClass.getMdClass(Term.CLASS).getId());
+    mdAttribute.setValue(MdAttributeReferenceInfo.REF_MD_ENTITY, MdClass.getMdClass(Term.CLASS).getId());
   }
 
   @Override

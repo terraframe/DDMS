@@ -44,6 +44,12 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return IndividualCase.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
@@ -95,7 +101,7 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     // if size is zero then the inner valuequery has not been added to the
     // primary value query.
     Map<String, String> diagnosisAliases = new HashMap<String, String>();
-    ;
+    
 
     if (valueQuery.hasSelectableRef("cases"))
     {
@@ -148,9 +154,8 @@ public class IndividualCaseQB extends AbstractQB implements Reloadable
     valueQuery.AND(caseQuery.getDisease().EQ(disease));
 
     return valueQuery;
-
   }
-
+  
   private void calculateIncidence(ValueQuery valueQuery, IndividualCaseQuery caseQuery, IndividualInstanceQuery instanceQuery, JSONObject queryConfig, String xml, Integer multiplier, Map<String, String> diagnosisAliases)
   {
     SelectableSQLFloat calc;

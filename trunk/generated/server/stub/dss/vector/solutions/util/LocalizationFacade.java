@@ -11,7 +11,7 @@ import java.util.Map;
 import org.json.JSONObject;
 
 import com.runwaysdk.business.rbac.Authenticate;
-import com.runwaysdk.constants.ProfileManager;
+import com.runwaysdk.configuration.ProfileManager;
 import com.runwaysdk.dataaccess.MdDimensionDAOIF;
 import com.runwaysdk.dataaccess.io.FileWriteException;
 import com.runwaysdk.dataaccess.metadata.MdDimensionDAO;

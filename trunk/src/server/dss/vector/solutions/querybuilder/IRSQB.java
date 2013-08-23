@@ -484,6 +484,12 @@ public class IRSQB extends AbstractQB implements Reloadable
 
     return this.mainQueryMap;
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return AbstractSpray.CLASS;
+  }
 
   /**
    * Populates the ValueQuery with the necessary selects, joins, and criteria to

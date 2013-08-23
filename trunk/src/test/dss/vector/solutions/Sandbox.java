@@ -3,10 +3,11 @@ package dss.vector.solutions;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import org.apache.derby.tools.sysinfo;
+import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.BasicConfigurator;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.ComponentInfo;
@@ -15,18 +16,14 @@ import com.runwaysdk.constants.MdAttributeLocalInfo;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdTypeInfo;
 import com.runwaysdk.constants.RelationshipInfo;
-import com.runwaysdk.constants.ServerProperties;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
-import com.runwaysdk.dataaccess.MdTypeDAOIF;
 import com.runwaysdk.dataaccess.ValueObject;
 import com.runwaysdk.dataaccess.cache.ObjectCache;
-import com.runwaysdk.dataaccess.cache.globalcache.ehcache.CacheShutdown;
-import com.runwaysdk.dataaccess.database.ControllerDAOFactory;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.dataaccess.metadata.MdLocalStructDAO;
 import com.runwaysdk.dataaccess.metadata.MdStructDAO;
-import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.dataaccess.transaction.Transaction;
+import com.runwaysdk.logging.RunwayLog;
 import com.runwaysdk.query.AttributePrimitive;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.F;
@@ -38,11 +35,11 @@ import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.session.Request;
 import com.runwaysdk.session.RequestType;
 import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdBusinessQuery;
 import com.runwaysdk.system.metadata.MdController;
 import com.runwaysdk.system.metadata.MdLocalStruct;
 import com.runwaysdk.system.metadata.MdStruct;
 
+import dss.vector.solutions.geo.GeoEntityView;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.GeoHierarchyViewQuery;
 import dss.vector.solutions.geo.LocatedInQuery;
@@ -51,6 +48,11 @@ import dss.vector.solutions.geo.generated.GeoEntityQuery;
 
 public class Sandbox
 {
+  static
+  {
+    BasicConfigurator.configure();
+  }
+
   private static final String  NAME_ATTRIBUTE        = "EntityName";
 
   private static final String  ID_ATTRIBUTE          = "ID_ATT";
@@ -65,90 +67,128 @@ public class Sandbox
 
   private static int           feedbackMod           = 50;
 
-private static class A
-{
-  private String id;
-  private A(){
-    this.id = new String("foo");
+  private static class A
+  {
+    private String id;
+
+    private A()
+    {
+      this.id = new String("foo");
+    }
+
+    private String getId()
+    {
+      return this.id;
+    }
   }
-  private String getId(){ return this.id; }
-}
 
   private static void access(A a)
   {
-    synchronized(a.getId()){
-      System.out.println("ACCESS: ["+a.getId().hashCode()+"] : ["+Thread.currentThread()+"]");
+    synchronized (a.getId())
+    {
+      System.out.println("ACCESS: [" + a.getId().hashCode() + "] : [" + Thread.currentThread() + "]");
     }
   }
-  
-  @Request
+
   public static void main(String[] args) throws Exception
   {
-    System.out.println("1,30.078");
+    System.out.println(LogFactory.getLog(Sandbox.class) instanceof RunwayLog);
+    
+//    WebClientSession s = WebClientSession.createUserSession("ddms", "ddms", new Locale[]{Locale.ENGLISH});
+//    viewname(s.getSessionId());
   }
   
+
+  @Request(RequestType.SESSION)
+  private static void viewname(String sessionId)
+  {
+    GeoEntityView v = new GeoEntityView();
+    v.setEntityLabel("test");
+    v.setGeoEntityId("test123");
+    v.setEntityType("test_type");
+    v.setTypeDisplayLabel("type_label");
+    v.setGeoId("geo123");
+    v.apply();
+    
+    String id = v.getId();
+    GeoEntityView f = GeoEntityView.get(id);
+    System.out.println(f);
+  }
+
+  private static void json() throws JSONException
+  {
+    String working = "{title:'TestForm',group:'root',klass:'dss.vector.solutions.form.business.Testform',values:[{attributeName:'oid',dtoType:'com.runwaysdk.transport.attributes.AttributeCharacterDTO',displayLabel:'Form ID',type:'dss.vector.solutions.form.business.Testform',key:'oid_testform'},{attributeName:'anInt',dtoType:'com.runwaysdk.transport.attributes.AttributeIntegerDTO',displayLabel:'An Int',type:'dss.vector.solutions.form.business.Testform',key:'anInt_testform'},{attributeName:'aBool',dropDownMap:{'true':'true','false':'false'},dtoType:'com.runwaysdk.transport.attributes.AttributeBooleanDTO',displayLabel:'A Bool',type:'dss.vector.solutions.form.business.Testform',key:'aBool_testform'}]}";
+    String broken = "{\"title\":[\"TestForm\"],\"values\":[[{\"attributeName\":\"oid\",\"dtoType\":\"com.runwaysdk.transport.attributes.AttributeCharacterDTO\",\"displayLabel\":\"Form ID\",\"type\":\"dss.vector.solutions.form.business.Testform\",\"key\":\"oid_testform\"},{\"attributeName\":\"anInt\",\"dtoType\":\"com.runwaysdk.transport.attributes.AttributeIntegerDTO\",\"displayLabel\":\"An Int\",\"type\":\"dss.vector.solutions.form.business.Testform\",\"key\":\"anInt_testform\"},{\"attributeName\":\"aBool\",\"dropDownMap\":{\"false\":\"false\",\"true\":\"true\"},\"dtoType\":\"com.runwaysdk.transport.attributes.AttributeBooleanDTO\",\"displayLabel\":\"A Bool\",\"type\":\"dss.vector.solutions.form.business.Testform\",\"key\":\"aBool_testform\"}]],\"klass\":[\"dss.vector.solutions.form.business.Testform\"],\"group\":[\"root\"]}";
+
+    JSONObject workingObj = new JSONObject(working);
+    JSONObject brokenObj = new JSONObject(broken);
+
+    System.out.println(workingObj.toString(4));
+    System.out.println(brokenObj.toString(4));
+  }
+
   private static void printCache()
   {
     Iterator<String> iter = ObjectCache.getCollectionMapKeys();
-    
+
     System.out.println("SUPPORTED: ");
-    
-    while(iter.hasNext())
+
+    while (iter.hasNext())
     {
       String k = iter.next();
-      System.out.println("["+ObjectCache.getCachedEntityDAOs(k).size()+"] "+k);
+      System.out.println("[" + ObjectCache.getCachedEntityDAOs(k).size() + "] " + k);
     }
-    
-//    System.out.println();
-//    System.out.println("OBJECTS: ");
-//    for(EntityDAOIF e : ObjectCache.getCachedEntityDAOs("Struct"))
-//    {
-//      System.out.println(e.getKey());
-//    }
+
+    // System.out.println();
+    // System.out.println("OBJECTS: ");
+    // for(EntityDAOIF e : ObjectCache.getCachedEntityDAOs("Struct"))
+    // {
+    // System.out.println(e.getKey());
+    // }
   }
-  
+
   private static void print(String name)
   {
-    System.out.println("--------- ["+name+"] -----------");
-    
+    System.out.println("--------- [" + name + "] -----------");
+
     System.out.println("Business: "
         + ObjectCache.contains(MdBusiness.CLASS, "com.test." + name + "Business"));
-    System.out.println("GET: "+ObjectCache.getMdBusinessDAO("com.test." + name + "Business"));
+    System.out.println("GET: " + ObjectCache.getMdBusinessDAO("com.test." + name + "Business"));
     System.out.println("Business Controller: "
         + ObjectCache.contains(MdController.CLASS, "com.test." + name + "BusinessController"));
-    System.out.println("GET: "+ObjectCache.getMdControllerDAO("com.test." + name + "BusinessController"));
-    
-    System.out.println("Struct: "
-        + ObjectCache.contains(MdStruct.CLASS, "com.test." + name + "Struct"));
     System.out.println("GET: "
-        + ObjectCache.getMdStructDAO("com.test." + name + "Struct"));
+        + ObjectCache.getMdControllerDAO("com.test." + name + "BusinessController"));
+
+    System.out.println("Struct: " + ObjectCache.contains(MdStruct.CLASS, "com.test." + name + "Struct"));
+    System.out.println("GET: " + ObjectCache.getMdStructDAO("com.test." + name + "Struct"));
     System.out.println("Struct Controller: "
         + ObjectCache.contains(MdController.CLASS, "com.test." + name + "StructController"));
-    System.out.println("GET: "+ObjectCache.getMdControllerDAO("com.test." + name + "StructController"));
-    
+    System.out
+        .println("GET: " + ObjectCache.getMdControllerDAO("com.test." + name + "StructController"));
+
     System.out.println();
-    
+
     System.out.println("LocalStruct: "
         + ObjectCache.contains(MdLocalStruct.CLASS, "com.test." + name + "LocalStruct"));
-    System.out.println("GET: "
-        + ObjectCache.getMdStructDAO("com.test." + name + "LocalStruct"));
+    System.out.println("GET: " + ObjectCache.getMdStructDAO("com.test." + name + "LocalStruct"));
     System.out.println("LocalStruct Controller: "
         + ObjectCache.contains(MdController.CLASS, "com.test." + name + "LocalStructController"));
-    System.out.println("GET: "+ObjectCache.getMdControllerDAO("com.test." + name + "LocalStructController"));
-    
+    System.out.println("GET: "
+        + ObjectCache.getMdControllerDAO("com.test." + name + "LocalStructController"));
+
   }
-  
+
   @Transaction
   private static void create(String name)
   {
-     MdBusinessDAO md = MdBusinessDAO.newInstance();
-     md.getAttribute(MdBusinessInfo.DISPLAY_LABEL).setValue(name+" LABEL");
-     md.getAttribute(MdBusinessInfo.DESCRIPTION).setValue(name+" DESC");
-     md.getAttribute(MdBusinessInfo.NAME).setValue(name+"Business");
-     md.getAttribute(MdBusinessInfo.PACKAGE).setValue("com.test");
-     md.getAttribute(MdBusinessInfo.REMOVE).setValue(MdAttributeBooleanInfo.TRUE);
-     md.setGenerateMdController(true);
-     md.apply();
+    MdBusinessDAO md = MdBusinessDAO.newInstance();
+    md.getAttribute(MdBusinessInfo.DISPLAY_LABEL).setValue(name + " LABEL");
+    md.getAttribute(MdBusinessInfo.DESCRIPTION).setValue(name + " DESC");
+    md.getAttribute(MdBusinessInfo.NAME).setValue(name + "Business");
+    md.getAttribute(MdBusinessInfo.PACKAGE).setValue("com.test");
+    md.getAttribute(MdBusinessInfo.REMOVE).setValue(MdAttributeBooleanInfo.TRUE);
+    md.setGenerateMdController(true);
+    md.apply();
 
     MdStructDAO struct1 = MdStructDAO.newInstance();
     struct1.setValue(MdTypeInfo.NAME, name + "Struct");

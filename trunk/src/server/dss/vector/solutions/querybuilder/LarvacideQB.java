@@ -23,6 +23,12 @@ public class LarvacideQB extends AbstractQB implements Reloadable
   {
     super(xml, config, layer);
   }
+  
+  @Override
+  protected String getAuditClassAlias()
+  {
+    return Larvacide.CLASS;
+  }
 
   @Override
   protected ValueQuery construct(QueryFactory queryFactory, ValueQuery valueQuery,
