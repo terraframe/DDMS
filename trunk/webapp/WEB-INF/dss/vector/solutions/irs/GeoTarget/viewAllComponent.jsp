@@ -13,7 +13,6 @@
 
 <c:set var="now" value="<%=new java.util.Date()%>" scope="request"/>
 
-
 <mjl:form name="dss.vector.solutions.irs.GeoTargetController.view.mojo" method="POST" id ="searchMosquitoCollections">
   <dl>
     <dt>
@@ -37,3 +36,6 @@
   </dl>
 </mjl:form>
 
+<jsp:include page="/WEB-INF/excelButtons.jsp">
+  <jsp:param value="dss.vector.solutions.export.GeoTargetExcelView" name="excelType"/>
+</jsp:include>

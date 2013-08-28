@@ -7,12 +7,12 @@ import com.runwaysdk.session.Session;
 public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -451404549;
-  
+
   public TeamSprayStatus()
   {
     super();
-  }  
-  
+  }
+
   @Override
   public String toString()
   {
@@ -20,21 +20,21 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
     {
       return "New: " + this.getClassDisplayLabel();
     }
-    
+
     return this.getClassDisplayLabel();
   }
-  
+
   @Override
   protected String buildKey()
   {
-    if(this.getSpray() != null && this.getSprayTeam() != null)
+    if (this.getSpray() != null && this.getSprayTeam() != null)
     {
       return this.getSpray().getKey() + " - " + this.getSprayTeam().getKey();
     }
-    
+
     return this.getId();
   }
-  
+
   public TeamSprayStatusView unlockView()
   {
     this.unlock();
@@ -301,11 +301,16 @@ public class TeamSprayStatus extends TeamSprayStatusBase implements com.runwaysd
 
   protected SprayMethod getSprayMethod()
   {
-    List<SprayMethod> method = this.getSpray().getSprayMethod();
+    ZoneSpray spray = this.getSpray();
 
-    if (method.size() > 0)
+    if (spray != null)
     {
-      return method.get(0);
+      List<SprayMethod> method = spray.getSprayMethod();
+
+      if (method.size() > 0)
+      {
+        return method.get(0);
+      }
     }
 
     return null;
