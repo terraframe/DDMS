@@ -361,7 +361,7 @@ Mojo.Meta.newClass('MDSS.QueryBase', {
            var attr = column.getKey();
            var dto = result.getAttributeDTO(attr);
            var value = dto.getValue();
-           if(dto instanceof ATTR.AttributeDateDTO){
+           if(dto instanceof ATTR.AttributeDateDTO || dto instanceof ATTR.AttributeDateTimeDTO){
              value = MDSS.Calendar.getLocalizedString(value);
            }
            else if(dto instanceof ATTR.AttributeDecDTO){

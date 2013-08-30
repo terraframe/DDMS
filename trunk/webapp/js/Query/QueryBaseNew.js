@@ -68,7 +68,14 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         displayLabel:objTemplate.getLastUpdatedByMd().getDisplayLabel()
       });
       
-      selectableGroups.push({title:"Audit", values:auditColumns, group:"c", klass:this._mainQueryClass});
+      auditColumns.push({
+        key:"audit_imported",
+        type:"sqlcharacter",
+        attributeName:"audit_imported",
+        displayLabel:MDSS.localize("Imported")
+      });
+      
+      selectableGroups.push({title:"Audit", values:auditColumns, group:"", klass:this._mainQueryClass});
 
     },
     
@@ -536,7 +543,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var liTarget = YAHOO.util.Dom.getAncestorByTagName(check, "LI");
       if(check.checked)
       {
-        this._uncheckAllNotInGroup(check);
+        // NOTE: this should no longer be needed. The DependencyManager should manage toggling.
+        //this._uncheckAllNotInGroup(check);
         this._addVisibleAttribute(attribute);
         var select = check.nextSibling;
         select.selectedIndex = 0;
@@ -563,6 +571,8 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._dm.notifyAll(e);
     },
 
+    // NOTE: The DependencyManager should handle toggling
+    /*
     _uncheckAllNotInGroup : function(target)
     {
       //find all the exclusion classes the target is not a member of
@@ -594,6 +604,7 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
         return false;
       });
     },
+    */
 
     _toggleCount : function(e, attribute)
     {

@@ -101,6 +101,8 @@ public class QueryConstants implements Reloadable
   public static final String AUDIT_CREATED_BY_ALIAS = "audit_createdBy";
   
   public static final String AUDIT_LAST_UPDATED_BY_ALIAS = "audit_lastUpdatedBy";
+
+  public static final String AUDIT_IMPORTED_ALIAS = "audit_imported";
   
   // END
 

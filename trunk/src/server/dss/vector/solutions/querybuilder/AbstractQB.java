@@ -12,8 +12,10 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import com.runwaysdk.business.BusinessQuery;
 import com.runwaysdk.constants.RelationshipInfo;
 import com.runwaysdk.dataaccess.MdBusinessDAOIF;
+import com.runwaysdk.dataaccess.MdEntityDAOIF;
 import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -24,7 +26,6 @@ import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.Function;
-import com.runwaysdk.query.GeneratedBusinessQuery;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
@@ -34,6 +35,7 @@ import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableNumber;
 import com.runwaysdk.query.SelectableReference;
+import com.runwaysdk.query.SelectableSQL;
 import com.runwaysdk.query.SelectableSQLCharacter;
 import com.runwaysdk.query.SelectableSQLLong;
 import com.runwaysdk.query.SelectableSingle;
@@ -262,6 +264,27 @@ public abstract class AbstractQB implements Reloadable
       cb.setSQL(uq.getUsername().getDbQualifiedName());
 
       valueQuery.WHERE(q.get(Metadata.LASTUPDATEDBY).LEFT_JOIN_EQ(uq));
+    }
+    
+    // imported (loosely defines as true if other records have the same created by timestamp)
+    if(valueQuery.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
+    {
+      MdEntityDAOIF mdClass = q.getMdClassIF();
+
+      BusinessQuery p2 = valueQuery.getQueryFactory().businessQuery(mdClass.definesType());
+
+      String sql = "SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END FROM "+mdClass.getTableName()+" "+p2.getTableAlias()+" ";
+      sql += "WHERE "+p2.id().getDbQualifiedName()+" != "+q.id().getDbQualifiedName()+" AND ";
+      sql += p2.get(Metadata.CREATEDATE).getDbQualifiedName()+" = "+q.get(Metadata.CREATEDATE).getDbQualifiedName();
+      
+      SelectableSQL imported = (SelectableSQL) valueQuery.getSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS);
+      imported.setSQL(sql);
+      
+      //   (select case when count(*) > 0 then 1 else 0 end from person p2 where p1.id != p2.id 
+      //AND p1.create_date = p2.create_date) as imported
+
+      // is this needed? The main class should already be included in the query
+//      valueQuery.FROM(p.getMdClassIF().getTableName(), p.getTableAlias());
     }
   }
 
