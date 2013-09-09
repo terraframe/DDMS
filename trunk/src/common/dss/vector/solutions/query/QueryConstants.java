@@ -98,6 +98,10 @@ public class QueryConstants implements Reloadable
 
   public static final String  FORM_SURVEY_QB                          = "dss.vector.solutions.querybuilder.FormSurveyQB";
 
+  public static final String AUDIT_CREATE_DATE_ALIAS = "audit_createDate";
+
+  public static final String AUDIT_LAST_UPDATE_DATE_ALIAS = "audit_lastUpdateDate";
+
   public static final String AUDIT_CREATED_BY_ALIAS = "audit_createdBy";
   
   public static final String AUDIT_LAST_UPDATED_BY_ALIAS = "audit_lastUpdatedBy";

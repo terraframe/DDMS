@@ -54,32 +54,32 @@ public class MdssLog
     log.info(message);
   }
 
-  public boolean isDebugEnabled()
+  public static boolean isDebugEnabled()
   {
     return log.isDebugEnabled();
   }
 
-  public boolean isErrorEnabled()
+  public static boolean isErrorEnabled()
   {
     return log.isErrorEnabled();
   }
 
-  public boolean isFatalEnabled()
+  public static boolean isFatalEnabled()
   {
     return log.isFatalEnabled();
   }
 
-  public boolean isInfoEnabled()
+  public static boolean isInfoEnabled()
   {
     return log.isInfoEnabled();
   }
 
-  public boolean isTraceEnabled()
+  public static boolean isTraceEnabled()
   {
     return log.isTraceEnabled();
   }
 
-  public boolean isWarnEnabled()
+  public static boolean isWarnEnabled()
   {
     return log.isWarnEnabled();
   }

@@ -121,6 +121,26 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
 
     return caseSwap(alias);
   }
+  
+  public String setCreateDate(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+
+  public String setLastUpdateDate(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+
+  public String setCreatedBy(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
+
+  public String setLastUpdatedBy(Alias alias)
+  {
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
 
   public String setLocked(Alias alias)
   {

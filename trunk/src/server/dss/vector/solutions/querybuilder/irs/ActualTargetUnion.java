@@ -51,6 +51,26 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
 
     return setNULL(alias);
   }
+  
+  public String setCreateDate(Alias alias)
+  {
+    return setNULL(alias);
+  }
+
+  public String setLastUpdateDate(Alias alias)
+  {
+    return setNULL(alias);
+  }
+  
+  public String setCreatedBy(Alias alias)
+  {
+    return setNULL(alias);
+  }
+
+  public String setLastUpdatedBy(Alias alias)
+  {
+    return setNULL(alias);
+  }
 
   public String setLocked(Alias alias)
   {

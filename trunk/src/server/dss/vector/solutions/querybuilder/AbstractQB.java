@@ -21,16 +21,20 @@ import com.runwaysdk.dataaccess.metadata.MdBusinessDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.AND;
 import com.runwaysdk.query.AggregateFunction;
+import com.runwaysdk.query.Attribute;
 import com.runwaysdk.query.AttributeCondition;
 import com.runwaysdk.query.AttributeReference;
 import com.runwaysdk.query.COUNT;
 import com.runwaysdk.query.Condition;
+import com.runwaysdk.query.F;
 import com.runwaysdk.query.Function;
 import com.runwaysdk.query.GeneratedEntityQuery;
 import com.runwaysdk.query.GeneratedRelationshipQuery;
 import com.runwaysdk.query.InnerJoinEq;
+import com.runwaysdk.query.LeftJoin;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.query.RawLeftJoinEq;
 import com.runwaysdk.query.Selectable;
 import com.runwaysdk.query.SelectableChar;
 import com.runwaysdk.query.SelectableNumber;
@@ -64,6 +68,10 @@ import dss.vector.solutions.util.QueryUtil;
 public abstract class AbstractQB implements Reloadable
 {
   public static final String WINDOW_COUNT_ALIAS = "dss_vector_solutions__window_count";
+  
+  public static final String IMPORTED_DATETIME = "imported_datetime";
+  
+  public static final String IMPORTED_CREATE_DATE = "create_date";
   
   /**
    * Class to help with the structure of the join criteria for GeoEntity data
@@ -242,28 +250,46 @@ public abstract class AbstractQB implements Reloadable
    */
   protected abstract String getAuditClassAlias();
   
-  protected void processAuditSelectables(ValueQuery valueQuery, Map<String, GeneratedEntityQuery> queryMap)
+  protected void processAuditSelectables(ValueQuery v, Map<String, GeneratedEntityQuery> queryMap)
   {
     GeneratedEntityQuery q = queryMap.get(this.getAuditClassAlias());
+    QueryFactory f = valueQuery.getQueryFactory();
+    
+    // create date
+    if(v.hasSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS))
+    {
+      SelectableSQL sel = (SelectableSQL) v.getSelectableRef(QueryConstants.AUDIT_CREATE_DATE_ALIAS);
+      sel.setSQL(q.get(Metadata.CREATEDATE).getDbQualifiedName());
+    }
+    
+    if(v.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS))
+    {
+      SelectableSQL sel = (SelectableSQL) v.getSelectableRef(QueryConstants.AUDIT_LAST_UPDATE_DATE_ALIAS);
+      sel.setSQL(q.get(Metadata.LASTUPDATEDATE).getDbQualifiedName());
+    }
+    
+    // last update date
     
     // created by
-    if(valueQuery.hasSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS))
+    if(v.hasSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS))
     {
-      UsersQuery uq = new UsersQuery(valueQuery.getQueryFactory());
-      SelectableSQLCharacter cb = (SelectableSQLCharacter) valueQuery.getSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS);
+      UsersQuery uq = new UsersQuery(f);
+      SelectableSQLCharacter cb = (SelectableSQLCharacter) v.getSelectableRef(QueryConstants.AUDIT_CREATED_BY_ALIAS);
       cb.setSQL(uq.getUsername().getDbQualifiedName());
       
-      valueQuery.WHERE(q.get(Metadata.CREATEDBY).LEFT_JOIN_EQ(uq));
+      AttributeReference ref = (AttributeReference) q.get(Metadata.CREATEDBY);
+      v.WHERE(ref.EQ(uq));
     }
     
     // last updated by
-    if(valueQuery.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS))
+    if(v.hasSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS))
     {
-      UsersQuery uq = new UsersQuery(valueQuery.getQueryFactory());
-      SelectableSQLCharacter cb = (SelectableSQLCharacter) valueQuery.getSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS);
+      UsersQuery uq = new UsersQuery(f);
+      SelectableSQLCharacter cb = (SelectableSQLCharacter) v.getSelectableRef(QueryConstants.AUDIT_LAST_UPDATED_BY_ALIAS);
       cb.setSQL(uq.getUsername().getDbQualifiedName());
 
-      valueQuery.WHERE(q.get(Metadata.LASTUPDATEDBY).LEFT_JOIN_EQ(uq));
+      AttributeReference ref = (AttributeReference) q.get(Metadata.LASTUPDATEDBY);
+      v.WHERE(ref.EQ(uq));
     }
     
     // imported (loosely defines as true if other records have the same created by timestamp)
@@ -271,21 +297,54 @@ public abstract class AbstractQB implements Reloadable
     {
       MdEntityDAOIF mdClass = q.getMdClassIF();
 
-      BusinessQuery p2 = valueQuery.getQueryFactory().businessQuery(mdClass.definesType());
-
-      String sql = "SELECT CASE WHEN COUNT(*) > 0 THEN 1 ELSE 0 END FROM "+mdClass.getTableName()+" "+p2.getTableAlias()+" ";
-      sql += "WHERE "+p2.id().getDbQualifiedName()+" != "+q.id().getDbQualifiedName()+" AND ";
-      sql += p2.get(Metadata.CREATEDATE).getDbQualifiedName()+" = "+q.get(Metadata.CREATEDATE).getDbQualifiedName();
+      // START - WITH clause
+      // Add the SQL WITH clause that shows all dates with a count greater than one.
+      // Any date grouped with a count greater than one is a derived sign of an import.
+      BusinessQuery withQ = f.businessQuery(mdClass.definesType());
+      ValueQuery withV = new ValueQuery(f);
+      Attribute cd = withQ.get(Metadata.CREATEDATE);
+      cd.setColumnAlias(IMPORTED_CREATE_DATE);
       
-      SelectableSQL imported = (SelectableSQL) valueQuery.getSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS);
+      withV.SELECT(cd);
+      
+      withV.FROM(mdClass.getTableName(), withQ.getTableAlias());
+      
+      withV.GROUP_BY(cd);
+      withV.HAVING(F.COUNT(cd).GT(1));
+      
+      this.addWITHEntry(new WITHEntry(IMPORTED_DATETIME, withV.getSQL()));
+      // END - WITH clause
+
+      // fast solution, requires LEFT JOIN on a custom Selectable
+      String sql = "CASE WHEN "+IMPORTED_DATETIME+"."+IMPORTED_CREATE_DATE+" IS NOT NULL THEN 1 ELSE 0 END";
+      
+      // slow solution, requires sub-select
+      //String sql = "EXISTS (SELECT 1 FROM "+IMPORTED_DATETIME+" WHERE "+cd.getColumnAlias()+" = "+q.get(Metadata.CREATEDATE).getDbQualifiedName()+")::integer";
+      
+      SelectableSQL imported = (SelectableSQL) v.getSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS);
       imported.setSQL(sql);
       
-      //   (select case when count(*) > 0 then 1 else 0 end from person p2 where p1.id != p2.id 
-      //AND p1.create_date = p2.create_date) as imported
-
-      // is this needed? The main class should already be included in the query
-//      valueQuery.FROM(p.getMdClassIF().getTableName(), p.getTableAlias());
+      this.joinImported(q, f, v, cd);
     }
+  }
+
+  /**
+   * 
+   * @param q The main query class
+   * @param f The query factory used for the entire query
+   * @param v The primary ValueQuery
+   * @param importCreateDate the IMPORT_DATETIME's create date selectable
+   */
+  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v, Selectable importCreateDate)
+  {
+    // RawLeftJoinEq is a horrible hack, but there's no support in Runway for custom left joins
+    Selectable createDate = q.get(Metadata.CREATEDATE);
+    LeftJoin customJoin = new RawLeftJoinEq(createDate.getDbColumnName(),
+        createDate.getDefiningTableName(), createDate.getDefiningTableAlias(),
+        IMPORTED_CREATE_DATE, IMPORTED_DATETIME, IMPORTED_DATETIME);
+    
+    // join on the main query
+    v.WHERE(customJoin);
   }
 
   /**
@@ -460,7 +519,8 @@ public abstract class AbstractQB implements Reloadable
 
   protected void setNumericRestrictions(ValueQuery valueQuery, JSONObject queryConfig)
   {
-    for (Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
+    for (@SuppressWarnings("unchecked")
+    Iterator<String> iter = queryConfig.keys(); iter.hasNext();)
     {
       String key = (String) iter.next();
       Pattern pattern = Pattern.compile("^(\\w+)Criteria$");

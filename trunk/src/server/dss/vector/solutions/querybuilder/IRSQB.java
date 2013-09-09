@@ -731,6 +731,13 @@ public class IRSQB extends AbstractQB implements Reloadable
     // " \n";
     str.append("");
     str.append(leftTable + " " + leftAlias);
+    
+    if(irsVQ.hasSelectableRef(QueryConstants.AUDIT_IMPORTED_ALIAS))
+    {
+      str.append(" LEFT JOIN "+IMPORTED_DATETIME+" ON");
+      str.append(" "+IMPORTED_DATETIME+"."+IMPORTED_CREATE_DATE);
+      str.append(" = "+leftAlias+"."+Alias.CREATE_DATE.getAlias()+" ");
+    }
 
     if (insecticideQuery != null)
     {
@@ -797,6 +804,13 @@ public class IRSQB extends AbstractQB implements Reloadable
     str.append("\n");
 
     irsVQ.FROM(str.toString(), "");
+  }
+  
+  @Override
+  protected void joinImported(GeneratedEntityQuery q, QueryFactory f, ValueQuery v,
+      Selectable importCreateDate)
+  {
+    // do nothing. Custom join logic is in this.joinMainQueryTables()
   }
 
   private String createUnion(IRSUnionIF... unions)
@@ -945,7 +959,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     String sprayedStructures = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayedStructuresMd());
     String householdSprayStatus = MdEntity.getMdEntity(HouseholdSprayStatus.CLASS).getTableName();
     String operatorSpray = MdEntity.getMdEntity(OperatorSpray.CLASS).getTableName();
-    String spray = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayMd());
+//    String spray = QueryUtil.getColumnName(HouseholdSprayStatus.getSprayMd());
     
     String sql = "";
     sql += "SELECT \n";
@@ -1219,6 +1233,10 @@ public class IRSQB extends AbstractQB implements Reloadable
 
       sql += "SELECT \n";
       sql += join.setId(Alias.ID) + ", \n";
+      sql += join.setCreateDate(Alias.CREATE_DATE) + ", \n";
+      sql += join.setLastUpdateDate(Alias.LAST_UPDATE_DATE) + ", \n";
+      sql += join.setCreatedBy(Alias.CREATED_BY) + ", \n";
+      sql += join.setLastUpdatedBy(Alias.LAST_UPDATED_BY) + ", \n";
       sql += join.setAggregationLevel(Alias.AGGREGATION_LEVEL) + ", \n";
       sql += join.setSprayDate(Alias.SPRAY_DATE) + ", \n";
       sql += join.setPlannedDate(Alias.PLANNED_DATE) + ", \n";
@@ -1332,6 +1350,10 @@ public class IRSQB extends AbstractQB implements Reloadable
   {
     String sql = "SELECT \n";
     sql += union.setId(Alias.ID) + ", \n";
+    sql += union.setCreateDate(Alias.CREATE_DATE) + ", \n";
+    sql += union.setLastUpdateDate(Alias.LAST_UPDATE_DATE) + ", \n";
+    sql += union.setCreatedBy(Alias.CREATED_BY) + ", \n";
+    sql += union.setLastUpdatedBy(Alias.LAST_UPDATED_BY) + ", \n";
     sql += union.setAggregationLevel(Alias.AGGREGATION_LEVEL) + ", \n";
     sql += union.setSprayDate(Alias.SPRAY_DATE) + ", \n";
     sql += union.setTargetWeek(Alias.TARGET_WEEK) + ", \n";

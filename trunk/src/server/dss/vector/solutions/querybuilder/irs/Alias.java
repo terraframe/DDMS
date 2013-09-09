@@ -1,13 +1,20 @@
 package dss.vector.solutions.querybuilder.irs;
 
+import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.generation.loader.Reloadable;
+import com.runwaysdk.system.metadata.Metadata;
 
 import dss.vector.solutions.querybuilder.IRSQB;
+import dss.vector.solutions.util.QueryUtil;
 
 public enum Alias implements Reloadable
 {
   
   ID("id", IRSUnionIF.VARCHAR),
+  CREATE_DATE(Metadata.getCreateDateMd(), IRSUnionIF.DATETIME),
+  LAST_UPDATE_DATE(Metadata.getLastUpdateDateMd(), IRSUnionIF.DATETIME),
+  CREATED_BY(Metadata.getCreatedByMd(), IRSUnionIF.VARCHAR),
+  LAST_UPDATED_BY(Metadata.getLastUpdatedByMd(), IRSUnionIF.VARCHAR),
   SPRAY_DATE("spray_date", IRSUnionIF.DATE),
   PLANNED_DATE("planned_date", IRSUnionIF.DATE),
   TARGET_WEEK("target_week", IRSUnionIF.FLOAT),
@@ -63,6 +70,12 @@ public enum Alias implements Reloadable
   private Alias(String alias, String type)
   {
     this.alias = alias;
+    this.type = type;
+  }
+  
+  private Alias(MdAttributeDAOIF mdAttr, String type)
+  {
+    this.alias = QueryUtil.getColumnName(mdAttr);
     this.type = type;
   }
   

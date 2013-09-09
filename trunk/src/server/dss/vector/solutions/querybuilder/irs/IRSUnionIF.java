@@ -12,6 +12,7 @@ public interface IRSUnionIF extends Reloadable
   public static final String TEXT = "text";
   public static final String VARCHAR = "varchar";
   public static final String DATE = "date";
+  public static final String DATETIME = "timestamp without time zone";
   
   // get/set owning IRSQuery
   void setIRSQuery(IRSQB irsQuery);

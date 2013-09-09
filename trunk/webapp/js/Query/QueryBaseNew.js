@@ -44,28 +44,63 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       this._buildColumns();
     },
     
+    _getAuditInstance : function()
+    {
+      
+    },
+    
     /**
      * Adds the audit section to all QBs.
      */
     _addAuditSection : function(selectableGroups)
     {
-      var auditAttribs = ["createDate", "lastUpdateDate"];
+      //var auditAttribs = ["createDate", "lastUpdateDate"];
       
-      var objTemplate = Mojo.Meta.newInstance(this._mainQueryClass);
+      /*
+       * NOTE: We need an object that defines createDate and lastUpdateDate to get those
+       * display labels. But because we currently do not have static getters for these
+       * attributes an instance of that class must be created. The problem is that the primary
+       * query class (ie, this._mainQueryClass) could be abstract, meaning an instantiation would
+       * cause an error. Until static getters are generated, an instance of Term is used because
+       * all query builders import that class, hence it's safe (as far as I know) to get the
+       * display labels. Albeit a little hacky, this should work on all query builders.
+       */
+      var objTemplate = new Mojo.$.dss.vector.solutions.ontology.Term();
+      //var objTemplate = Mojo.Meta.newInstance(this._mainQueryClass);// NOT RELIABLE, COULD BE ABSTRACT CLASS
       
-      var auditColumns = auditAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:objTemplate, suffix:'_audit', dropDownMaps:{}});
+      //var auditColumns = auditAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:objTemplate, suffix:'_audit', dropDownMaps:{}});
+      var auditColumns = [];
+      
+      auditColumns.push({
+        key:"audit_createDate",
+        type:"sqldate",
+        attributeName:"audit_createDate",
+        displayLabel:objTemplate.getCreateDateMd().getDisplayLabel(),
+        description:objTemplate.getCreateDateMd().getDescription()
+      });
+      
+      auditColumns.push({
+        key:"audit_lastUpdateDate",
+        type:"sqldate",
+        attributeName:"audit_lastUpdateDate",
+        displayLabel:objTemplate.getLastUpdateDateMd().getDisplayLabel(),
+        description:objTemplate.getLastUpdateDateMd().getDescription()
+      });
+      
       auditColumns.push({
         key:"audit_createdBy",
         type:"sqlcharacter",
         attributeName:"audit_createdBy",
-        displayLabel:objTemplate.getCreatedByMd().getDisplayLabel()
+        displayLabel:objTemplate.getCreatedByMd().getDisplayLabel(),
+        description:objTemplate.getCreatedByMd().getDescription()
       });
       
       auditColumns.push({
         key:"audit_lastUpdatedBy",
         type:"sqlcharacter",
         attributeName:"audit_lastUpdatedBy",
-        displayLabel:objTemplate.getLastUpdatedByMd().getDisplayLabel()
+        displayLabel:objTemplate.getLastUpdatedByMd().getDisplayLabel(),
+        description:objTemplate.getLastUpdatedByMd().getDescription()
       });
       
       auditColumns.push({
