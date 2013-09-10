@@ -52,26 +52,6 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
     return setNULL(alias);
   }
   
-  public String setCreateDate(Alias alias)
-  {
-    return setNULL(alias);
-  }
-
-  public String setLastUpdateDate(Alias alias)
-  {
-    return setNULL(alias);
-  }
-  
-  public String setCreatedBy(Alias alias)
-  {
-    return setNULL(alias);
-  }
-
-  public String setLastUpdatedBy(Alias alias)
-  {
-    return setNULL(alias);
-  }
-
   public String setLocked(Alias alias)
   {
 
@@ -242,6 +222,26 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
   
   public abstract String setDisease(Alias alias);
   
+  
+  public final String setCreateDate(Alias alias)
+  {
+    return set(this.abstractSprayTable, this.createDateCol, alias);
+  }
+
+  public final String setLastUpdateDate(Alias alias)
+  {
+    return set(this.abstractSprayTable, this.lastUpdateDateCol, alias);
+  }
+  
+  public final String setCreatedBy(Alias alias)
+  {
+    return set(this.abstractSprayTable, this.createdByCol, alias);
+  }
+
+  public final String setLastUpdatedBy(Alias alias)
+  {
+    return set(this.abstractSprayTable, this.lastUpdatedByCol, alias);
+  }
   
   public final String setSprayDate(Alias alias)
   {

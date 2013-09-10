@@ -61,6 +61,14 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
 
   protected String           endDateCol;
   
+  protected String createDateCol;
+  
+  protected String lastUpdateDateCol;
+  
+  protected String createdByCol;
+  
+  protected String lastUpdatedByCol;
+  
   protected String targeter;
 
   /**
@@ -100,6 +108,10 @@ public abstract class AbstractTargetUnion implements IRSUnionIF, Reloadable
     this.sprayMethodCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.SPRAYMETHOD);
     this.surfaceTypeCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.SURFACETYPE);
     this.brandCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.BRAND);
+    this.createDateCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.CREATEDATE);
+    this.lastUpdateDateCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.LASTUPDATEDATE);
+    this.createdByCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.CREATEDBY);
+    this.lastUpdatedByCol = QueryUtil.getColumnName(abstractSprayMd, AbstractSpray.LASTUPDATEDBY);
 
     MdEntityDAOIF malariaSeasonMd = MdEntityDAO.getMdEntityDAO(MalariaSeason.CLASS);
     this.malariaSeasonTable = malariaSeasonMd.getTableName();
