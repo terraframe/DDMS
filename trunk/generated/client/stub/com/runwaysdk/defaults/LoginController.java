@@ -20,6 +20,7 @@ import com.runwaysdk.web.ServletUtility;
 import com.runwaysdk.web.WebClientSession;
 
 import dss.vector.solutions.MDSSUserDTO;
+import dss.vector.solutions.ServerContext;
 import dss.vector.solutions.general.DiseaseDTO;
 import dss.vector.solutions.util.ErrorUtility;
 import dss.vector.solutions.util.GlobalSessionListener;
@@ -42,6 +43,9 @@ public class LoginController extends LoginControllerBase implements Reloadable
   {
     try
     {
+      // Ensure the server context has been initialized
+      ServerContext.instance();
+
       Locale[] locales = ServletUtility.getLocales(req);
 
       WebClientSession clientSession = WebClientSession.createUserSession(username, password, locales);
@@ -63,7 +67,7 @@ public class LoginController extends LoginControllerBase implements Reloadable
 
       String diseaseName = mdss.getDiseaseName();
       String diseaseDisplay = DiseaseDTO.getCurrent(clientRequest).getDimension().getDisplayLabel().getValue();
-      
+
       req.getSession().setAttribute(MDSSUserDTO.DISEASENAME, diseaseName);
       req.getSession().setAttribute(MDSSUserDTO.DISEASELABEL, diseaseDisplay);
       Map<String, String> menus = new HashMap<String, String>();
