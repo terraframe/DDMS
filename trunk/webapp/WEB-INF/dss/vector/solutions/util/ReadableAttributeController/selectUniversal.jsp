@@ -539,6 +539,8 @@
   <!-- INTERVENTION PLANNING -->
   <dl>
     <dt><label><mdss:localize key="Configure_Application_Rate_Management"/></label></dt>
+<!-- 
+    Commented out because of ticket #2826, but left in this system incase the client decides to use nozzle configuration again.
     <dd>
       <mdss:localize var="component" key="Nozzle"/>
       <mjl:commandLink
@@ -561,6 +563,7 @@
         ${component}
       </mjl:commandLink>    
     </dd>
+ -->    
     <dd>
       <mdss:localize var="component" key="Area_Standards"/>
       <mjl:commandLink

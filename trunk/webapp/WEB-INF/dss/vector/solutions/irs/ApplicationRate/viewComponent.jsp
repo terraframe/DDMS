@@ -19,11 +19,15 @@
 
 <c:set var="page_title" value="Configure_Application_Rate"  scope="request"/>
 
-<h2><mdss:localize key="Nozzle"/></h2>
-<div id="Nozzle"></div>
+<!-- 
+  Remove because of ticket #2826
+  
+  <h2><mdss:localize key="Nozzle"/></h2>
+  <div id="Nozzle"></div>
 
-<h2><mdss:localize key="InsecticideNozzle"/></h2>
-<div id="InsecticideNozzle"></div>
+  <h2><mdss:localize key="InsecticideNozzle"/></h2>
+  <div id="InsecticideNozzle"></div>
+ -->
 
 
   <mjl:form name="standards.form.name" id="standards.form" method="POST">
@@ -74,70 +78,72 @@ DataGrid configurationGrid = (DataGrid) request.getAttribute("configurationGrid"
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-
-    var validateAmount = function(oData) {
-      var re = /^(100|[0-9]?[0-9])$/;
-      
-      // Validate
-      if(re.test(oData) || oData === "") {
-          return oData;
-      }
-      else {
-          alert(MDSS.localize("Value_Not_Between_0_and_100"));
-          return undefined;
-      }
-    }
-
-    var validateImmutable = function(oData) {
-      var editor = this.getCellEditor();
-      var key = editor.getColumn().getKey();        
-      var record = editor.getRecord();
-      var index = this.getRecordIndex(record);
-
-      var id = this.dataGrid.getData(index, 'InsecticideNozzleId');
-      var current = this.dataGrid.getData(index, key);
-
-      if(id == '' || current == null || current == '' || oData == current) {
-        return oData;
-      }
-      
-      return undefined;
-    }
-
-    var onSaveAndDelete = function(event) {
-      if(event.getType() == MDSS.Event.AFTER_SAVE || event.getType() == MDSS.Event.AFTER_DELETE) {
-         window.location.reload( false );
-      }
-    }
-
-    nozzleData = {
-      rows:<%=nozzleGrid.getData()%>,
-      columnDefs:<%=nozzleGrid.getColumnSetupWithDelete()%>,
-      defaults:<%=nozzleGrid.getDefaultValues()%>,
-      copy_from_above: [],
-      div_id: "Nozzle",
-      data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
-      saveFunction:"applyAll",
-      excelButtons:false
-    };
-
-    <%=configurationGrid.getDropDownMap()%>
-
-    insecticideNozzleData = {
-      rows:<%=configurationGrid.getData()%>,
-      columnDefs:<%=configurationGrid.getColumnSetupWithDelete()%>,
-      defaults:<%=configurationGrid.getDefaultValues()%>,
-      copy_from_above: [],
-      div_id: "InsecticideNozzle",
-      excelButtons:false,
-      data_type: "Mojo.$.<%=InsecticideNozzleViewDTO.CLASS%>",
-      saveFunction:"applyAll"
-    };
-
-    var nozzleGrid = MojoGrid.createDataTable(nozzleData);
-    var configurationGrid = MojoGrid.createDataTable(insecticideNozzleData);
-
-    nozzleGrid.addListener(onSaveAndDelete);        
+//    
+//    IMPORTANT: THIS WAS COMMENTED OUT FOR TICKET #2826.  HOWEVER THE CLIENT ASKED US
+//    TO LEAVE IN THE CODE IN CASE THEY DECIDE TO USE NOZZLE AND NOZZLE CONFIGURATION AGAIN.
+//
+//    var validateAmount = function(oData) {
+//      var re = /^(100|[0-9]?[0-9])$/;
+//      
+//      // Validate
+//      if(re.test(oData) || oData === "") {
+//          return oData;
+//      }
+//      else {
+//          alert(MDSS.localize("Value_Not_Between_0_and_100"));
+//          return undefined;
+//     }
+//    }
+//
+//    var validateImmutable = function(oData) {
+//      var editor = this.getCellEditor();
+//      var key = editor.getColumn().getKey();        
+//      var record = editor.getRecord();
+//      var index = this.getRecordIndex(record);
+//
+//      var id = this.dataGrid.getData(index, 'InsecticideNozzleId');
+//      var current = this.dataGrid.getData(index, key);
+//
+//      if(id == '' || current == null || current == '' || oData == current) {
+//        return oData;
+//      }
+//      
+//      return undefined;
+//    }
+//
+//    var onSaveAndDelete = function(event) {
+//      if(event.getType() == MDSS.Event.AFTER_SAVE || event.getType() == MDSS.Event.AFTER_DELETE) {
+//         window.location.reload( false );
+//      }
+//    }
+//
+//    nozzleData = {
+//      rows:<%=nozzleGrid.getData()%>,
+//      columnDefs:<%=nozzleGrid.getColumnSetupWithDelete()%>,
+//      defaults:<%=nozzleGrid.getDefaultValues()%>,
+//      copy_from_above: [],
+//      div_id: "Nozzle",
+//      data_type: "Mojo.$.<%=NozzleViewDTO.CLASS%>",
+//      saveFunction:"applyAll",
+//      excelButtons:false
+//    };
+//
+//    <%=configurationGrid.getDropDownMap()%>
+//
+//    insecticideNozzleData = {
+//      rows:<%=configurationGrid.getData()%>,
+//      columnDefs:<%=configurationGrid.getColumnSetupWithDelete()%>,
+//      defaults:<%=configurationGrid.getDefaultValues()%>,
+//      copy_from_above: [],
+//      div_id: "InsecticideNozzle",
+//      excelButtons:false,
+//      data_type: "Mojo.$.<%=InsecticideNozzleViewDTO.CLASS%>",
+//      saveFunction:"applyAll"
+//   };
+//    
+//    var nozzleGrid = MojoGrid.createDataTable(nozzleData);
+//    var configurationGrid = MojoGrid.createDataTable(insecticideNozzleData);'
+//    nozzleGrid.addListener(onSaveAndDelete);        
   });
 })();
 </script>
