@@ -134,7 +134,7 @@ public class OperatorSprayController extends OperatorSprayControllerBase impleme
 
     // If the order of these attributes are changed, you need to change the
     // javascript indexes at the bottom!
-    String[] keys = { "ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures", "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures", "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other" };
+    String[] keys = { "ConcreteId", "Spray", "HouseholdId", "StructureId", "Households", "Structures", "SprayedHouseholds", "SprayedStructures", "PrevSprayedHouseholds", "PrevSprayedStructures", "Rooms", "SprayedRooms", "People", "BedNets", "RoomsWithBedNets", "Locked", "Refused", "Other", "WrongSurface" };
 
     Map<String, ColumnSetup> map = new HashMap<String, ColumnSetup>();
     map.put("ConcreteId", new ColumnSetup(true, false));

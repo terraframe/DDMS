@@ -223,6 +223,7 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
     var indexLocked = 15;
     var indexRefused = 16;
     var indexOther = 17;
+    var indexWrongSurface = 18;
   
     var isMainSpray = <%= (view.getSprayMethod().contains(dss.vector.solutions.irs.SprayMethodDTO.MAIN_SPRAY)) ? 1 : 0 %>;
   
@@ -249,6 +250,7 @@ OperatorSprayViewDTO view = (OperatorSprayViewDTO) request.getAttribute("item");
       delete data.columnDefs[indexLocked].editor;
       delete data.columnDefs[indexRefused].editor;
       delete data.columnDefs[indexOther].editor;
+      delete data.columnDefs[indexWrongSurface].editor;
     }    
 
     var grid = MojoGrid.createDataTable(data);

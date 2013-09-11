@@ -116,13 +116,14 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
       view.setLocked(this.getLocked());
       view.setOther(this.getOther());
       view.setRefused(this.getRefused());
+      view.setWrongSurface(this.getWrongSurface());
       view.apply();
     }
   }
 
   private boolean hasHouseholdSprayValues()
   {
-    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, SPRAYEDROOMS, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, OTHER, REFUSED };
+    String[] attributeNames = new String[] { HOUSEHOLDID, STRUCTUREID, HOUSEHOLDS, STRUCTURES, SPRAYEDHOUSEHOLDS, SPRAYEDSTRUCTURES, PREVSPRAYEDHOUSEHOLDS, PREVSPRAYEDSTRUCTURES, ROOMS, SPRAYEDROOMS, PEOPLE, BEDNETS, ROOMSWITHBEDNETS, LOCKED, OTHER, REFUSED, WRONGSURFACE };
 
     for (String attributeName : attributeNames)
     {
@@ -199,6 +200,7 @@ public class OperatorSprayExcelView extends OperatorSprayExcelViewBase implement
     list.add(LOCKED);
     list.add(REFUSED);
     list.add(OTHER);
+    list.add(WRONGSURFACE);
     return list;
   }
 

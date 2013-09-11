@@ -35,6 +35,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     this.setBedNets(concrete.getBedNets());
     this.setRoomsWithBedNets(concrete.getRoomsWithBedNets());
     this.setLocked(concrete.getLocked());
+    this.setWrongSurface(concrete.getWrongSurface());
     this.setOther(concrete.getOther());
     this.setRefused(concrete.getRefused());
     this.setHouseholdId(concrete.getHouseholdId());
@@ -56,12 +57,13 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     concrete.setBedNets(this.getBedNets());
     concrete.setRoomsWithBedNets(this.getRoomsWithBedNets());
     concrete.setLocked(this.getLocked());
+    concrete.setWrongSurface(this.getWrongSurface());
     concrete.setOther(this.getOther());
     concrete.setRefused(this.getRefused());
     concrete.setHouseholdId(this.getHouseholdId());
     concrete.setStructureId(this.getStructureId());
   }
-  
+
   private void populateMapping(HouseholdSprayStatus concrete)
   {
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.SPRAY, this, HouseholdSprayStatusView.SPRAY);
@@ -77,6 +79,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.BEDNETS, this, HouseholdSprayStatusView.BEDNETS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.ROOMSWITHBEDNETS, this, HouseholdSprayStatusView.ROOMSWITHBEDNETS);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.LOCKED, this, HouseholdSprayStatusView.LOCKED);
+    new AttributeNotificationMap(concrete, HouseholdSprayStatus.WRONGSURFACE, this, HouseholdSprayStatusView.WRONGSURFACE);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.OTHER, this, HouseholdSprayStatusView.OTHER);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.REFUSED, this, HouseholdSprayStatusView.REFUSED);
     new AttributeNotificationMap(concrete, HouseholdSprayStatus.HOUSEHOLDID, this, HouseholdSprayStatusView.HOUSEHOLDID);
@@ -88,16 +91,16 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   public void apply()
   {
     HouseholdSprayStatus concrete = new HouseholdSprayStatus();
-    
+
     if (this.hasConcrete())
     {
       concrete = HouseholdSprayStatus.lock(this.getConcreteId());
     }
-        
+
     this.populateMapping(concrete);
 
     this.populateConcrete(concrete);
-        
+
     concrete.apply();
 
     this.populateView(concrete);
@@ -107,7 +110,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   {
     return this.getConcreteId() != null && !this.getConcreteId().equals("");
   }
-  
+
   public void deleteConcrete()
   {
     if (this.hasConcrete())
@@ -120,7 +123,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   {
     synchronized (HouseholdSprayStatusView.class)
     {
-      HouseholdSprayStatusView.applyAllSynchronized(views);      
+      HouseholdSprayStatusView.applyAllSynchronized(views);
     }
 
     return views;
@@ -133,7 +136,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
 
     for (HouseholdSprayStatusView view : views)
     {
-      if(uncountedHouseholdIds.contains(view.getHouseholdId()))
+      if (uncountedHouseholdIds.contains(view.getHouseholdId()))
       {
         view.setHouseholds(1);
         uncountedHouseholdIds.remove(view.getHouseholdId());
@@ -142,7 +145,7 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
       {
         view.setHouseholds(0);
       }
-      
+
       view.apply();
     }
   }
@@ -151,58 +154,57 @@ public class HouseholdSprayStatusView extends HouseholdSprayStatusViewBase imple
   {
     Set<String> householdIds = HouseholdSprayStatusView.getHouseholdIds(views);
     Set<String> concreteIds = HouseholdSprayStatusView.getConcreteIds(views);
-    
+
     Iterator<String> it = householdIds.iterator();
-    while(it.hasNext())
+    while (it.hasNext())
     {
       String householdId = it.next();
       HouseholdSprayStatusQuery query = new HouseholdSprayStatusQuery(new QueryFactory());
       query.WHERE(query.getHouseholdId().EQ(householdId));
       query.AND(query.getHouseholds().EQ(1));
-      
-      for(String conreteId : concreteIds)
+
+      for (String conreteId : concreteIds)
       {
         query.AND(query.getId().NE(conreteId));
       }
-      
-      if(query.getCount() > 0)
+
+      if (query.getCount() > 0)
       {
         it.remove();
       }
     }
-    
+
     return householdIds;
   }
-  
+
   private static Set<String> getConcreteIds(HouseholdSprayStatusView[] views)
   {
     Set<String> set = new TreeSet<String>();
-    
-    for(HouseholdSprayStatusView view : views)
+
+    for (HouseholdSprayStatusView view : views)
     {
       String concreteId = view.getConcreteId();
-      
-      if(concreteId != null && concreteId.length() > 0)
+
+      if (concreteId != null && concreteId.length() > 0)
       {
         set.add(concreteId);
       }
     }
-    
+
     return set;
   }
 
   private static Set<String> getHouseholdIds(HouseholdSprayStatusView[] views)
   {
     Set<String> set = new TreeSet<String>();
-    
-    for(HouseholdSprayStatusView view : views)
+
+    for (HouseholdSprayStatusView view : views)
     {
       set.add(view.getHouseholdId());
     }
-    
+
     return set;
   }
-
 
   public static String[] getGeneratedIds()
   {

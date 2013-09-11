@@ -376,6 +376,18 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
       p.throwIt();
     }
   }
+  
+  private void validateWrongSurface(SprayMethod method)
+  {
+    if (this.getWrongSurface() != null && method.equals(SprayMethod.MOP_UP))
+    {
+      String msg = "Wrong surface is not applicable on a mop-up spray";
+      ValueNotApplicableProblem p = new ValueNotApplicableProblem(msg);
+      p.setNotification(this, WRONGSURFACE);
+      p.apply();
+      p.throwIt();
+    }
+  }
 
   private void validateRoomsWithBedNets(SprayMethod method)
   {
@@ -439,6 +451,7 @@ public class HouseholdSprayStatus extends HouseholdSprayStatusBase implements co
     validatePeople(method);
     validateBedNets(method);
     validateRoomsWithBedNets(method);
+    validateWrongSurface(method);
     validateLocked(method);
     validateRefused(method);
     validateOther(method);
