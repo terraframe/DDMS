@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 131398458)
+@com.runwaysdk.business.ClassSignature(hash = -1898311377)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -11,7 +11,6 @@ package dss.vector.solutions.irs;
 public  class HouseholdSprayStatusQuery extends com.runwaysdk.query.GeneratedBusinessQuery
  implements com.runwaysdk.generation.loader.Reloadable
 {
-private static final long serialVersionUID = 131398458;
 
   public HouseholdSprayStatusQuery(com.runwaysdk.query.QueryFactory componentQueryFactory)
   {
@@ -568,6 +567,23 @@ private static final long serialVersionUID = 131398458;
     return (com.runwaysdk.query.SelectableChar)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
 
   }
+  public com.runwaysdk.query.SelectableInteger getWrongSurface()
+  {
+    return getWrongSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.WRONGSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.getComponentQuery().get(dss.vector.solutions.irs.HouseholdSprayStatus.WRONGSURFACE, alias, displayLabel);
+
+  }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)
   {
     String name = mdAttributeIF.definesAttribute();
@@ -722,6 +738,9 @@ private static final long serialVersionUID = 131398458;
     public com.runwaysdk.query.SelectableChar getType();
     public com.runwaysdk.query.SelectableChar getType(String alias);
     public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel);
+    public com.runwaysdk.query.SelectableInteger getWrongSurface();
+    public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias);
+    public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel);
 
     public com.runwaysdk.query.BasicCondition EQ(dss.vector.solutions.irs.HouseholdSprayStatus householdSprayStatus);
 
@@ -737,7 +756,6 @@ private static final long serialVersionUID = 131398458;
  implements HouseholdSprayStatusQueryReferenceIF
 , com.runwaysdk.generation.loader.Reloadable
   {
-private static final long serialVersionUID = -1480526760;
 
   public HouseholdSprayStatusQueryReference(com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias, com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String alias, String displayLabel)
   {
@@ -1249,6 +1267,23 @@ private static final long serialVersionUID = -1480526760;
   public com.runwaysdk.query.SelectableChar getType(String alias, String displayLabel)
   {
     return (com.runwaysdk.query.SelectableChar)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.TYPE, alias, displayLabel);
+
+  }
+  public com.runwaysdk.query.SelectableInteger getWrongSurface()
+  {
+    return getWrongSurface(null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.WRONGSURFACE, alias, null);
+
+  }
+ 
+  public com.runwaysdk.query.SelectableInteger getWrongSurface(String alias, String displayLabel)
+  {
+    return (com.runwaysdk.query.SelectableInteger)this.get(dss.vector.solutions.irs.HouseholdSprayStatus.WRONGSURFACE, alias, displayLabel);
 
   }
   protected com.runwaysdk.query.AttributeReference referenceFactory( com.runwaysdk.dataaccess.MdAttributeRefDAOIF mdAttributeIF, String attributeNamespace, String definingTableName, String definingTableAlias,  com.runwaysdk.dataaccess.MdBusinessDAOIF referenceMdBusinessIF, String referenceTableAlias, com.runwaysdk.query.ComponentQuery rootQuery, java.util.Set<com.runwaysdk.query.Join> tableJoinSet, String userDefinedAlias, String userDefinedDisplayLabel)

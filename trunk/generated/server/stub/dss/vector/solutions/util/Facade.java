@@ -5,8 +5,6 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 import java.util.List;
 
@@ -17,18 +15,14 @@ import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.poifs.filesystem.OfficeXmlFileException;
 import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
-import com.runwaysdk.RunwayExceptionIF;
 import com.runwaysdk.SystemException;
 import com.runwaysdk.constants.MdBusinessInfo;
 import com.runwaysdk.constants.MdViewInfo;
 import com.runwaysdk.dataaccess.MdAttributeDAOIF;
 import com.runwaysdk.dataaccess.MdClassDAOIF;
-import com.runwaysdk.dataaccess.ProgrammingErrorException;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.metadata.MdClassDAO;
-import com.runwaysdk.generation.loader.LoaderDecorator;
 import com.runwaysdk.generation.loader.Reloadable;
 import com.runwaysdk.query.Condition;
 import com.runwaysdk.query.OR;
@@ -54,6 +48,8 @@ import dss.vector.solutions.export.IndividualPremiseExcelView;
 import dss.vector.solutions.export.InsecticideInterventionExcelView;
 import dss.vector.solutions.export.PersonInterventionExcelView;
 import dss.vector.solutions.general.EpiCache;
+import dss.vector.solutions.generator.ContextBuilderFacade;
+import dss.vector.solutions.generator.DefaultContextBuilder;
 import dss.vector.solutions.geo.GeoHierarchy;
 import dss.vector.solutions.geo.UnknownGeoEntity;
 import dss.vector.solutions.geo.generated.GeoEntity;
@@ -137,44 +133,10 @@ public abstract class Facade extends FacadeBase implements Reloadable
 
     try
     {
-      // GeoSynonym.checkExcelGeoHierarchy(inputStream);
+      ContextBuilderFacade builder = new ContextBuilderFacade();
+      builder.add(type, new DefaultContextBuilder(listenerMethod, params));
 
-      ExcelImporter importer = new ExcelImporter(inputStream);
-      for (ImportContext context : importer.getContexts())
-      {
-        try
-        {
-          String definesType = context.getMdClass().definesType();
-          // Load the type which is being exported
-          Class<?> c = LoaderDecorator.load(definesType);
-
-          // Get the listener method
-          Method method = c.getMethod(listenerMethod, ImportContext.class, String[].class);
-
-          // Invoke the method
-          method.invoke(null, context, (Object) params);
-        }
-        catch (NoSuchMethodException e)
-        {
-          // If the method doesn't exist then do nothing
-        }
-        catch (InvocationTargetException e)
-        {
-          Throwable targetException = e.getTargetException();
-          if (targetException instanceof RunwayExceptionIF)
-          {
-            throw (RuntimeException) targetException;
-          }
-          else
-          {
-            throw new ProgrammingErrorException(e);
-          }
-        }
-        catch (Exception e)
-        {
-          throw new ProgrammingErrorException(e);
-        }
-      }
+      ExcelImporter importer = new ExcelImporter(inputStream, builder);
 
       try
       {

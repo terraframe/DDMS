@@ -789,6 +789,10 @@ public class ServerContext
       Method method = savedMap.getMethod("cleanOldViews", Long.TYPE);
       method.invoke(null, System.currentTimeMillis());
     }
+    catch (RuntimeException e)
+    {
+      throw e;
+    }    
     catch (Exception e)
     {
       throw new ProgrammingErrorException(e);
@@ -811,6 +815,10 @@ public class ServerContext
     {
       Class<?> clazz = LoaderDecorator.load(className);
       return clazz.getMethod(methodName).invoke(null);
+    }
+    catch (RuntimeException e)
+    {
+      throw e;
     }
     catch (Exception e)
     {

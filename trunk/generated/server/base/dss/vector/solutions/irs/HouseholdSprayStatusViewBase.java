@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = -1882413075)
+@com.runwaysdk.business.ClassSignature(hash = 1924770118)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -30,7 +30,8 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
   public static java.lang.String SPRAYEDSTRUCTURES = "sprayedStructures";
   public static java.lang.String STRUCTUREID = "structureId";
   public static java.lang.String STRUCTURES = "structures";
-  private static final long serialVersionUID = -1882413075;
+  public static java.lang.String WRONGSURFACE = "wrongSurface";
+  private static final long serialVersionUID = 1924770118;
   
   public HouseholdSprayStatusViewBase()
   {
@@ -401,6 +402,11 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     }
   }
   
+  public String getSprayId()
+  {
+    return getValue(SPRAY);
+  }
+  
   public void validateSpray()
   {
     this.validateAttribute(SPRAY);
@@ -561,6 +567,34 @@ public abstract class HouseholdSprayStatusViewBase extends com.runwaysdk.busines
     else
     {
       setValue(STRUCTURES, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getWrongSurface()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WRONGSURFACE));
+  }
+  
+  public void validateWrongSurface()
+  {
+    this.validateAttribute(WRONGSURFACE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWrongSurfaceMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatusView.CLASS);
+    return mdClassIF.definesAttribute(WRONGSURFACE);
+  }
+  
+  public void setWrongSurface(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(WRONGSURFACE, "");
+    }
+    else
+    {
+      setValue(WRONGSURFACE, java.lang.Integer.toString(value));
     }
   }
   

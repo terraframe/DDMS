@@ -36,7 +36,6 @@ import com.runwaysdk.dataaccess.cache.DataNotFoundException;
 import com.runwaysdk.dataaccess.io.ExcelExportListener;
 import com.runwaysdk.dataaccess.io.ExcelExporter;
 import com.runwaysdk.dataaccess.io.ExcelImporter;
-import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.io.FormExcelExporter;
 import com.runwaysdk.dataaccess.metadata.MdAttributeConcreteDAO;
 import com.runwaysdk.dataaccess.metadata.MdFormDAO;
@@ -802,39 +801,40 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   }
 
   /**
-   * Returns all non-group fields in order for the MdWebForm. All groups
-   * are collapsed and their children are returned in relative order.
+   * Returns all non-group fields in order for the MdWebForm. All groups are
+   * collapsed and their children are returned in relative order.
    * 
    * @param form
    * @return
    */
   public static MdWebField[] getAllFields(MdWebForm form)
   {
-//    MdWebFieldQuery q = new MdWebFieldQuery(new QueryFactory());
-//    
-//    q.WHERE(q.getDefiningMdForm().EQ(form));
-//    q.ORDER_BY_ASC(q.getFieldOrder());
-//    
-//    OIterator<? extends MdWebField> iterator = q.getIterator();
-//    
-//    try
-//    {
-//      List<? extends MdWebField> fields = iterator.getAll();
-//      return fields.toArray(new MdWebField[fields.size()]);
-//    }
-//    finally
-//    {
-//      iterator.close();
-//    }
-    
+    // MdWebFieldQuery q = new MdWebFieldQuery(new QueryFactory());
+    //
+    // q.WHERE(q.getDefiningMdForm().EQ(form));
+    // q.ORDER_BY_ASC(q.getFieldOrder());
+    //
+    // OIterator<? extends MdWebField> iterator = q.getIterator();
+    //
+    // try
+    // {
+    // List<? extends MdWebField> fields = iterator.getAll();
+    // return fields.toArray(new MdWebField[fields.size()]);
+    // }
+    // finally
+    // {
+    // iterator.close();
+    // }
+
     List<MdWebField> ordered = new LinkedList<MdWebField>();
     collectFields(ordered, MdFormUtil.getFields(form));
-    
-    return ordered.toArray(new MdWebField[]{});
+
+    return ordered.toArray(new MdWebField[] {});
   }
-  
+
   /**
    * Recursive method to collect non-group fields in the given List.
+   * 
    * @param ordered
    * @param fields
    */
@@ -842,10 +842,10 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
   {
     for (MdWebField field : fields)
     {
-      if(field instanceof MdWebGroup)
+      if (field instanceof MdWebGroup)
       {
-         MdWebField[] groupFields = MdFormUtil.getGroupFields(field.getId());
-         collectFields(ordered, groupFields);
+        MdWebField[] groupFields = MdFormUtil.getGroupFields(field.getId());
+        collectFields(ordered, groupFields);
       }
       else
       {
@@ -853,7 +853,7 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
       }
     }
   }
-  
+
   public static MdWebField[] getFieldsById(String id)
   {
     MdWebForm form = MdWebForm.get(id);
@@ -1250,9 +1250,6 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
 
   public static InputStream excelImport(InputStream stream, String type)
   {
-    MdWebFormDAOIF mdForm = (MdWebFormDAOIF) MdFormDAO.getMdTypeDAO(type);
-    String classType = mdForm.getFormMdClass().definesType();
-
     // Start caching Broswer Roots for this Thread.
     TermRootCache.start();
     EpiCache.start();
@@ -1260,32 +1257,8 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     try
     {
       ContextBuilderFacade builder = new ContextBuilderFacade();
-      builder.add(classType, new FormContextBuilder(mdForm, new FormImportFilter()));
-
-      MdFormUtil.addGridContexts(mdForm, builder);
 
       ExcelImporter importer = new ExcelImporter(stream, builder);
-      List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
-      List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
-
-      for (ImportContext context : importer.getContexts())
-      {
-        if (context.getMdClassType().equals(classType))
-        {
-          for (DynamicGeoColumnListener listener : geoListeners)
-          {
-            context.addListener(listener);
-          }
-
-          for (MultiTermListener listener : multiTermListeners)
-          {
-            context.addListener(listener);
-          }
-
-          // Add the context listener which sets the disease for a entity
-          context.addListener(new DiseaseAndValidationImportListener(mdForm));
-        }
-      }
 
       return new ByteArrayInputStream(importer.read());
     }
@@ -1501,5 +1474,42 @@ public class MdFormUtil extends MdFormUtilBase implements com.runwaysdk.generati
     Collections.sort(collection, new FieldComparator());
 
     return collection.toArray(new MdWebPrimitive[collection.size()]);
+  }
+
+  public static boolean isFormBusinessPackage(String type)
+  {
+    return type.startsWith(MDSSInfo.GENERATED_FORM_BUSINESS_PACKAGE);
+  }
+
+  public static boolean isFormRelationshipPackage(String type)
+  {
+    return type.startsWith(MDSSInfo.GENERATED_FORM_TREE_PACKAGE);
+  }
+
+  public static MdWebForm getMdFormFromBusinessType(String type)
+  {
+    int index = type.lastIndexOf(".");
+    String packageName = type.substring(0, index);
+    String typeName = type.substring(index + 1, type.length());
+
+    MdWebFormQuery query = new MdWebFormQuery(new QueryFactory());
+    query.WHERE(query.getFormMdClass().getPackageName().EQ(packageName));
+    query.AND(query.getFormMdClass().getTypeName().EQ(typeName));
+
+    OIterator<? extends MdWebForm> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next();
+      }
+
+      return null;
+    }
+    finally
+    {
+      iterator.close();
+    }
   }
 }

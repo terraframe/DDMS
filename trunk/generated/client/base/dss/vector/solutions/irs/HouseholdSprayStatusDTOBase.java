@@ -1,10 +1,10 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 352845315)
+@com.runwaysdk.business.ClassSignature(hash = -71626746)
 public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business.BusinessDTO implements com.runwaysdk.generation.loader.Reloadable
 {
   public final static String CLASS = "dss.vector.solutions.irs.HouseholdSprayStatus";
-  private static final long serialVersionUID = 352845315;
+  private static final long serialVersionUID = -71626746;
   
   protected HouseholdSprayStatusDTOBase(com.runwaysdk.constants.ClientRequestIF clientRequest)
   {
@@ -56,6 +56,7 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
   public static java.lang.String STRUCTUREID = "structureId";
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String TYPE = "type";
+  public static java.lang.String WRONGSURFACE = "wrongSurface";
   public Integer getBedNets()
   {
     return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(BEDNETS));
@@ -130,6 +131,11 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public boolean isCreatedByWritable()
   {
     return isWritable(CREATEDBY);
@@ -160,6 +166,11 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     {
       return com.runwaysdk.system.metadata.MdDomainDTO.get(getRequest(), getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void setEntityDomain(com.runwaysdk.system.metadata.MdDomainDTO value)
@@ -342,6 +353,11 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public boolean isLastUpdatedByWritable()
   {
     return isWritable(LASTUPDATEDBY);
@@ -411,6 +427,11 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public boolean isLockedByWritable()
   {
     return isWritable(LOCKEDBY);
@@ -478,6 +499,11 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     {
       return com.runwaysdk.system.ActorDTO.get(getRequest(), getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void setOwner(com.runwaysdk.system.ActorDTO value)
@@ -796,6 +822,11 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
     }
   }
   
+  public String getSprayId()
+  {
+    return getValue(SPRAY);
+  }
+  
   public void setSpray(dss.vector.solutions.irs.OperatorSprayDTO value)
   {
     if(value == null)
@@ -1011,6 +1042,43 @@ public abstract class HouseholdSprayStatusDTOBase extends com.runwaysdk.business
   public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getStructuresMd()
   {
     return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(STRUCTURES).getAttributeMdDTO();
+  }
+  
+  public Integer getWrongSurface()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WRONGSURFACE));
+  }
+  
+  public void setWrongSurface(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(WRONGSURFACE, "");
+    }
+    else
+    {
+      setValue(WRONGSURFACE, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public boolean isWrongSurfaceWritable()
+  {
+    return isWritable(WRONGSURFACE);
+  }
+  
+  public boolean isWrongSurfaceReadable()
+  {
+    return isReadable(WRONGSURFACE);
+  }
+  
+  public boolean isWrongSurfaceModified()
+  {
+    return isModified(WRONGSURFACE);
+  }
+  
+  public final com.runwaysdk.transport.metadata.AttributeNumberMdDTO getWrongSurfaceMd()
+  {
+    return (com.runwaysdk.transport.metadata.AttributeNumberMdDTO) getAttributeDTO(WRONGSURFACE).getAttributeMdDTO();
   }
   
   public final dss.vector.solutions.irs.HouseholdSprayStatusViewDTO getView()

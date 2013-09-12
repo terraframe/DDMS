@@ -23,6 +23,7 @@ import com.runwaysdk.dataaccess.metadata.MdClassDAO;
 import com.runwaysdk.dataaccess.metadata.MdViewDAO;
 import com.runwaysdk.generation.loader.Reloadable;
 
+import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.ontology.Term;
 
 public class FormContextBuilder extends ContextBuilder implements ContextBuilderIF, Reloadable
@@ -49,7 +50,25 @@ public class FormContextBuilder extends ContextBuilder implements ContextBuilder
 
     HSSFSheet error = errorWorkbook.createSheet(sheetName);
 
-    return new FormImportContext(sheet, sheetName, error, mdClass);
+    FormImportContext context = new FormImportContext(sheet, sheetName, error, mdClass);
+
+    List<DynamicGeoColumnListener> geoListeners = MdFormUtil.getGeoListeners(mdForm);
+    List<MultiTermListener> multiTermListeners = MdFormUtil.getMultiTermListeners(mdForm);
+
+    for (DynamicGeoColumnListener listener : geoListeners)
+    {
+      context.addListener(listener);
+    }
+
+    for (MultiTermListener listener : multiTermListeners)
+    {
+      context.addListener(listener);
+    }
+
+    // Add the context listener which sets the disease for a entity
+    context.addListener(new DiseaseAndValidationImportListener(mdForm));
+
+    return context;
   }
 
   protected List<? extends MdAttributeDAOIF> getAttributes(ImportContext currentContext)

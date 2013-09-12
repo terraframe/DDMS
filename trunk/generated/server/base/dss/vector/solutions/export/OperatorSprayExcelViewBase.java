@@ -1,6 +1,6 @@
 package dss.vector.solutions.export;
 
-@com.runwaysdk.business.ClassSignature(hash = 2116484588)
+@com.runwaysdk.business.ClassSignature(hash = -1299435597)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -41,7 +41,8 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
   public static java.lang.String SURFACETYPE = "surfaceType";
   public static java.lang.String TARGET = "target";
   public static java.lang.String USED = "used";
-  private static final long serialVersionUID = 2116484588;
+  public static java.lang.String WRONGSURFACE = "wrongSurface";
+  private static final long serialVersionUID = -1299435597;
   
   public OperatorSprayExcelViewBase()
   {
@@ -86,6 +87,11 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     {
       return dss.vector.solutions.geo.generated.GeoEntity.get(getValue(GEOENTITY));
     }
+  }
+  
+  public String getGeoEntityId()
+  {
+    return getValue(GEOENTITY);
   }
   
   public void validateGeoEntity()
@@ -880,6 +886,34 @@ public abstract class OperatorSprayExcelViewBase extends com.runwaysdk.business.
     else
     {
       setValue(USED, java.lang.Integer.toString(value));
+    }
+  }
+  
+  public Integer getWrongSurface()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WRONGSURFACE));
+  }
+  
+  public void validateWrongSurface()
+  {
+    this.validateAttribute(WRONGSURFACE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWrongSurfaceMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.export.OperatorSprayExcelView.CLASS);
+    return mdClassIF.definesAttribute(WRONGSURFACE);
+  }
+  
+  public void setWrongSurface(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(WRONGSURFACE, "");
+    }
+    else
+    {
+      setValue(WRONGSURFACE, java.lang.Integer.toString(value));
     }
   }
   

@@ -1,6 +1,6 @@
 package dss.vector.solutions.irs;
 
-@com.runwaysdk.business.ClassSignature(hash = 1411374211)
+@com.runwaysdk.business.ClassSignature(hash = 970473862)
 /**
  * This class is generated automatically.
  * DO NOT MAKE CHANGES TO IT - THEY WILL BE OVERWRITTEN
@@ -40,7 +40,8 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
   public static java.lang.String STRUCTUREID = "structureId";
   public static java.lang.String STRUCTURES = "structures";
   public static java.lang.String TYPE = "type";
-  private static final long serialVersionUID = 1411374211;
+  public static java.lang.String WRONGSURFACE = "wrongSurface";
+  private static final long serialVersionUID = 970473862;
   
   public HouseholdSprayStatusBase()
   {
@@ -103,6 +104,11 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getCreatedById()
+  {
+    return getValue(CREATEDBY);
+  }
+  
   public void validateCreatedBy()
   {
     this.validateAttribute(CREATEDBY);
@@ -124,6 +130,11 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     {
       return com.runwaysdk.system.metadata.MdDomain.get(getValue(ENTITYDOMAIN));
     }
+  }
+  
+  public String getEntityDomainId()
+  {
+    return getValue(ENTITYDOMAIN);
   }
   
   public void validateEntityDomain()
@@ -277,6 +288,11 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLastUpdatedById()
+  {
+    return getValue(LASTUPDATEDBY);
+  }
+  
   public void validateLastUpdatedBy()
   {
     this.validateAttribute(LASTUPDATEDBY);
@@ -328,6 +344,11 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getLockedById()
+  {
+    return getValue(LOCKEDBY);
+  }
+  
   public void validateLockedBy()
   {
     this.validateAttribute(LOCKEDBY);
@@ -377,6 +398,11 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     {
       return com.runwaysdk.system.Actor.get(getValue(OWNER));
     }
+  }
+  
+  public String getOwnerId()
+  {
+    return getValue(OWNER);
   }
   
   public void validateOwner()
@@ -614,6 +640,11 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
     }
   }
   
+  public String getSprayId()
+  {
+    return getValue(SPRAY);
+  }
+  
   public void validateSpray()
   {
     this.validateAttribute(SPRAY);
@@ -791,6 +822,34 @@ public abstract class HouseholdSprayStatusBase extends com.runwaysdk.business.Bu
   {
     com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatus.CLASS);
     return mdClassIF.definesAttribute(TYPE);
+  }
+  
+  public Integer getWrongSurface()
+  {
+    return com.runwaysdk.constants.MdAttributeIntegerUtil.getTypeSafeValue(getValue(WRONGSURFACE));
+  }
+  
+  public void validateWrongSurface()
+  {
+    this.validateAttribute(WRONGSURFACE);
+  }
+  
+  public static com.runwaysdk.dataaccess.MdAttributeDAOIF getWrongSurfaceMd()
+  {
+    com.runwaysdk.dataaccess.MdClassDAOIF mdClassIF = com.runwaysdk.dataaccess.metadata.MdClassDAO.getMdClassDAO(dss.vector.solutions.irs.HouseholdSprayStatus.CLASS);
+    return mdClassIF.definesAttribute(WRONGSURFACE);
+  }
+  
+  public void setWrongSurface(Integer value)
+  {
+    if(value == null)
+    {
+      setValue(WRONGSURFACE, "");
+    }
+    else
+    {
+      setValue(WRONGSURFACE, java.lang.Integer.toString(value));
+    }
   }
   
   protected String getDeclaredType()
