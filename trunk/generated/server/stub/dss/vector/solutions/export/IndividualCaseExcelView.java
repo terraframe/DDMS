@@ -15,7 +15,6 @@ import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
-import dss.vector.solutions.PersonQuery.PersonQueryReferenceIF;
 import dss.vector.solutions.PersonView;
 import dss.vector.solutions.Physician;
 import dss.vector.solutions.PhysicianQuery;
@@ -30,25 +29,24 @@ import dss.vector.solutions.intervention.monitor.IndividualInstanceQuery;
 import dss.vector.solutions.ontology.Term;
 import dss.vector.solutions.util.HierarchyBuilder;
 
-public class IndividualCaseExcelView extends IndividualCaseExcelViewBase implements
-    com.runwaysdk.generation.loader.Reloadable
+public class IndividualCaseExcelView extends IndividualCaseExcelViewBase implements com.runwaysdk.generation.loader.Reloadable
 {
   private static final long serialVersionUID = -969902661;
 
   private List<Term>        symptoms;
-  
+
   /**
    * Marks if the patient for this row matched to an existing instance.
    */
-  private boolean patientedExisted;
+  private boolean           patientedExisted;
 
   public IndividualCaseExcelView()
   {
     super();
-    symptoms = new LinkedList<Term>();
+    this.symptoms = new LinkedList<Term>();
     this.patientedExisted = false;
   }
-  
+
   public DiagnosisType convertDiagnosisType()
   {
     String diagnosisTypeString = this.getDiagnosisType();
@@ -59,26 +57,24 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
   @Transaction
   public void apply()
   {
-    syncAgeAndDateOfBirth();
+    this.syncAgeAndDateOfBirth();
 
-    Person person = getPerson();
+    Person person = this.getPerson();
 
-    // fetch or create 
-    IndividualCase individualCase = IndividualCase.searchForExistingCase(this.getDiagnosisDate(), person
-        .getId());
-    
-    if(!individualCase.isNew())
+    // fetch or create
+    IndividualCase individualCase = IndividualCase.searchForExistingCase(this.getDiagnosisDate(), person.getId());
+
+    if (!individualCase.isNew())
     {
       individualCase.appLock();
     }
-      
+
     individualCase.setCaseReportDate(this.getCaseReportDate());
     individualCase.setDiagnosisDate(this.getDiagnosisDate());
     individualCase.setAge(this.getAge());
     individualCase.setProbableSource(this.getProbableSource());
     individualCase.setOtherSettlements(this.getOtherSettlements());
-    individualCase
-        .setOrigin(Term.validateByDisplayLabel(this.getOrigin(), IndividualCase.getOriginMd()));
+    individualCase.setOrigin(Term.validateByDisplayLabel(this.getOrigin(), IndividualCase.getOriginMd()));
     individualCase.setPlasmaLeakageOnset(this.getPlasmaLeakageOnset());
     individualCase.setHemorrhagicOnset(this.getHemorrhagicOnset());
     individualCase.setSymptomOnset(this.getSymptomOnset());
@@ -105,19 +101,19 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
 
     // Search for an existing case if the patient exists
     IndividualInstance instance = null;
-    if(this.patientedExisted)
+    if (this.patientedExisted)
     {
       // 1. Attempt a match on facility visit date + facility name
       IndividualInstanceQuery iiQ = individualCase.getInstances();
-      
+
       iiQ.WHERE(iiQ.getFacilityVisit().EQ(this.getFacilityVisit()));
       iiQ.WHERE(iiQ.getHealthFacility().EQ(this.getHealthFacility()));
-      
+
       OIterator<? extends IndividualInstance> iter = iiQ.getIterator();
-      
+
       try
       {
-        if(iter.hasNext())
+        if (iter.hasNext())
         {
           // there should be at most one match
           instance = iter.next();
@@ -127,19 +123,19 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       {
         iter.close();
       }
-      
+
       // 2. Attempt a match on facility visit date (looser criteria)
-      if(instance == null)
+      if (instance == null)
       {
         iiQ = individualCase.getInstances();
-        
+
         iiQ.WHERE(iiQ.getFacilityVisit().EQ(this.getFacilityVisit()));
-        
+
         iter = iiQ.getIterator();
-        
+
         try
         {
-          if(iter.hasNext())
+          if (iter.hasNext())
           {
             // there should be at most one match
             instance = iter.next();
@@ -153,7 +149,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     }
 
     // Is the instance still null? If so create a new instance
-    if(instance == null)
+    if (instance == null)
     {
       instance = new IndividualInstance();
     }
@@ -161,23 +157,20 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     {
       instance.appLock();
     }
-    
-//    Date admissionDate = this.getAdmissionDate();
+
+    // Date admissionDate = this.getAdmissionDate();
     Date facilityVisit = this.getFacilityVisit();
     String diagnosisTypeString = this.getDiagnosisType();
     DiagnosisType diagType = ExcelEnums.getDiagnosisType(diagnosisTypeString);
-    Term labTest = Term
-        .validateByDisplayLabel(this.getLabTest(), IndividualInstance.getLabTestMd());
-    Term treatment = Term.validateByDisplayLabel(this.getTreatment(), IndividualInstance
-        .getTreatmentMd());
-    
+    Term labTest = Term.validateByDisplayLabel(this.getLabTest(), IndividualInstance.getLabTestMd());
+    Term treatment = Term.validateByDisplayLabel(this.getTreatment(), IndividualInstance.getTreatmentMd());
+
     instance.setFacilityVisit(facilityVisit);
     instance.setActivelyDetected(this.getActivelyDetected());
     instance.setCaseIdentifier(this.getCaseIdentifier());
     instance.setPhysician(getPhysician());
     instance.setHealthFacility(this.getHealthFacility());
-    instance.setDetectedBy(Term.validateByDisplayLabel(this.getDetectedBy(), IndividualInstance
-        .getDetectedByMd()));
+    instance.setDetectedBy(Term.validateByDisplayLabel(this.getDetectedBy(), IndividualInstance.getDetectedByMd()));
 
     if (diagType == null)
     {
@@ -190,8 +183,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       else
       {
         RequiredAttributeProblem requiredAttributeProblem = new RequiredAttributeProblem();
-        requiredAttributeProblem.setAttributeDisplayLabel(getDiagnosisTypeMd().getDisplayLabel(
-            Session.getCurrentLocale()));
+        requiredAttributeProblem.setAttributeDisplayLabel(getDiagnosisTypeMd().getDisplayLabel(Session.getCurrentLocale()));
         requiredAttributeProblem.throwIt();
       }
     }
@@ -200,14 +192,10 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       instance.addDiagnosisType(diagType);
     }
 
-
-    instance.setDiagnosis(Term.validateByDisplayLabel(this.getDiagnosis(), IndividualInstance
-        .getDiagnosisMd()));
-    instance.setConfirmedDiagnosis(Term.validateByDisplayLabel(this.getConfirmedDiagnosis(),
-        IndividualInstance.getConfirmedDiagnosisMd()));
+    instance.setDiagnosis(Term.validateByDisplayLabel(this.getDiagnosis(), IndividualInstance.getDiagnosisMd()));
+    instance.setConfirmedDiagnosis(Term.validateByDisplayLabel(this.getConfirmedDiagnosis(), IndividualInstance.getConfirmedDiagnosisMd()));
     instance.setConfirmedDiagnosisDate(this.getConfirmedDiagnosisDate());
-    instance.setPatientCategory(Term.validateByDisplayLabel(this.getPatientCategory(),
-        IndividualInstance.getPatientCategoryMd()));
+    instance.setPatientCategory(Term.validateByDisplayLabel(this.getPatientCategory(), IndividualInstance.getPatientCategoryMd()));
     instance.setAdmissionDate(this.getAdmissionDate());
     instance.setReleaseDate(this.getReleaseDate());
     instance.setAnaemiaPatient(this.getAnaemiaPatient());
@@ -217,28 +205,20 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     instance.setProperlyRelease(this.getProperlyRelease());
     instance.setReferredTo(this.getReferredTo());
     instance.setReferredFrom(this.getReferredFrom());
-    instance.setReferralReason(Term.validateByDisplayLabel(this.getReferralReason(), IndividualInstance
-        .getReferralReasonMd()));
-    instance.setClassification(Term.validateByDisplayLabel(this.getClassification(), IndividualInstance
-        .getClassificationMd()));
-    instance.setSampleType(Term.validateByDisplayLabel(this.getSampleType(), IndividualInstance
-        .getSampleTypeMd()));
+    instance.setReferralReason(Term.validateByDisplayLabel(this.getReferralReason(), IndividualInstance.getReferralReasonMd()));
+    instance.setClassification(Term.validateByDisplayLabel(this.getClassification(), IndividualInstance.getClassificationMd()));
+    instance.setSampleType(Term.validateByDisplayLabel(this.getSampleType(), IndividualInstance.getSampleTypeMd()));
     instance.setLabTest(labTest);
     instance.setTestSampleDate(this.getTestSampleDate());
     instance.setLabTestDate(this.getLabTestDate());
-    instance.setTestResult(Term.validateByDisplayLabel(this.getTestResult(), IndividualInstance
-        .getTestResultMd()));
-    instance.setMalariaType(Term.validateByDisplayLabel(this.getMalariaType(), IndividualInstance
-        .getMalariaTypeMd()));
-    instance.setPrimaryInfection(Term.validateByDisplayLabel(this.getPrimaryInfection(),
-        IndividualInstance.getPrimaryInfectionMd()));
-    instance.setTreatmentMethod(Term.validateByDisplayLabel(this.getTreatmentMethod(),
-        IndividualInstance.getTreatmentMethodMd()));
+    instance.setTestResult(Term.validateByDisplayLabel(this.getTestResult(), IndividualInstance.getTestResultMd()));
+    instance.setMalariaType(Term.validateByDisplayLabel(this.getMalariaType(), IndividualInstance.getMalariaTypeMd()));
+    instance.setPrimaryInfection(Term.validateByDisplayLabel(this.getPrimaryInfection(), IndividualInstance.getPrimaryInfectionMd()));
+    instance.setTreatmentMethod(Term.validateByDisplayLabel(this.getTreatmentMethod(), IndividualInstance.getTreatmentMethodMd()));
     instance.setTreatment(treatment);
     instance.setSymptomComments(this.getSymptomComments());
 
-    individualCase.applyWithPersonId(person.getId(), instance, symptoms
-        .toArray(new Term[symptoms.size()]));
+    individualCase.applyWithPersonId(person.getId(), instance, symptoms.toArray(new Term[symptoms.size()]));
   }
 
   /**
@@ -273,15 +253,36 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
   {
     Person person = physician.getPerson();
     person.appLock();
-    person.setIdentifier(ident);
-    person.setFirstName(fName);
-    person.setLastName(lName);
-    person.setDateOfBirth(dob);
-    person.setSex(sex);
+
+    if (ident.length() > 0)
+    {
+      person.setIdentifier(ident);
+    }
+
+    if (fName.length() > 0)
+    {
+      person.setFirstName(fName);
+    }
+
+    if (lName.length() > 0)
+    {
+      person.setLastName(lName);
+    }
+
+    if (dob != null)
+    {
+      person.setDateOfBirth(dob);
+    }
+
+    if (sex != null)
+    {
+      person.setSex(sex);
+    }
+
     person.setPhysicianDelegate(physician);
     person.apply();
   }
-  
+
   private Physician getPhysician()
   {
     String fName = this.getPhysicianFirstName();
@@ -290,105 +291,86 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     Term sexTerm = Term.validateByDisplayLabel(this.getPhysicianSex(), PersonView.getSexMd());
     String ident = this.getPhysicianIdentifier();
 
-    // First match on the identifier. Perform an update if one is found
-    if(ident != null && ident.trim().length() > 0)
+    if (ident.length() > 0 || fName.length() > 0 || lName.length() > 0 || dob != null || sexTerm != null)
     {
-      PhysicianQuery q = new PhysicianQuery(new QueryFactory());
-      q.WHERE(q.getPerson().getIdentifier().EQ(ident));
-      
-      OIterator<? extends Physician> iter = q.getIterator();
+
+      PhysicianQuery query = new PhysicianQuery(new QueryFactory());
+
+      // First match on the identifier. Perform an update if one is found
+      if (ident != null && ident.trim().length() > 0)
+      {
+        query.WHERE(query.getPerson().getIdentifier().EQ(ident));
+      }
+      else
+      {
+        if (fName.length() > 0)
+        {
+          query.WHERE(query.getPerson().getFirstName().EQ(fName));
+        }
+        if (lName.length() > 0)
+        {
+          query.WHERE(query.getPerson().getLastName().EQ(lName));
+        }
+
+        if (dob != null)
+        {
+          query.WHERE(query.getPerson().getDateOfBirth().EQ(dob));
+        }
+
+        if (sexTerm != null)
+        {
+          query.WHERE(query.getPerson().getSex().EQ(sexTerm));
+        }
+      }
+      // first check to see if a physician exists with the given itentity
+
+      OIterator<? extends Physician> iterator = query.getIterator();
+
       try
       {
-        if(iter.hasNext())
+        if (iterator.hasNext())
         {
-          Physician physician = iter.next();
-          
-          // update the person
+          // physician found, perform an update
+          Physician physician = iterator.next();
+
+          // do a check for another double
+          if (iterator.hasNext())
+          {
+            AmbiguousRecipientProblem problem = new AmbiguousRecipientProblem();
+            problem.setFirstName(fName);
+            problem.setLastName(lName);
+            problem.setDob(dob);
+            problem.setLocale(Session.getCurrentLocale());
+            problem.throwIt();
+          }
+
           updatePhysicianPerson(physician, ident, fName, lName, dob, sexTerm);
-          
+
+          return physician;
+        }
+        else
+        {
+          // no physician found, so create a new one
+          Person person = new Person();
+          person.setIdentifier(ident);
+          person.setFirstName(fName);
+          person.setLastName(lName);
+          person.setDateOfBirth(dob);
+          person.setSex(sexTerm);
+          person.apply();
+
+          Physician physician = addPhysicianDelegate(person);
+
           return physician;
         }
       }
       finally
       {
-        iter.close();
-      }
-    }
-    
-    // next match on first name, last name, sex, and dob. Perform an update if one is found.
-    PhysicianQuery query = new PhysicianQuery(new QueryFactory());
-    PersonQueryReferenceIF pQ = query.getPerson();
-
-    int conditions = 0;
-    if (fName.length() > 0)
-    {
-      query.WHERE(pQ.getFirstName().EQ(fName));
-      conditions++;
-    }
-    if (lName.length() > 0)
-    {
-      query.WHERE(pQ.getLastName().EQ(lName));
-      conditions++;
-    }
-    if (dob != null)
-    {
-      query.WHERE(pQ.getDateOfBirth().EQ(dob));
-      conditions++;
-    }
-    if (sexTerm != null)
-    {
-      query.WHERE(pQ.getSex().EQ(sexTerm));
-      conditions++;
-    }
-
-    // No physician data specified. Return null.
-    if (conditions == 0)
-    {
-      return null;
-    }
-    
-    // first check to see if a physician exists with the given itentity
-
-    OIterator<? extends Physician> iterator = query.getIterator();
-    try
-    {
-      if(iterator.hasNext())
-      {
-        // physician found, perform an update
-        Physician physician = iterator.next();
-        updatePhysicianPerson(physician, ident, fName, lName, dob, sexTerm);
-        return physician;
-      }
-      else
-      {
-        // no physician found, so create a new one
-        Person person = new Person();
-        person.setIdentifier(ident);
-        person.setFirstName(fName);
-        person.setLastName(lName);
-        person.setDateOfBirth(dob);
-        person.setSex(sexTerm);
-        person.apply();
-        
-        Physician physician = addPhysicianDelegate(person);
-        return physician;
-      }
-    }
-    finally
-    {
-      // do a check for another double
-      if (iterator.hasNext())
-      {
         iterator.close();
-        AmbiguousRecipientProblem problem = new AmbiguousRecipientProblem();
-        problem.setFirstName(fName);
-        problem.setLastName(lName);
-        problem.setDob(dob);
-        problem.throwIt();
       }
-      
-      iterator.close();
     }
+
+    return null;
   }
 
   private Physician addPhysicianDelegate(Person person)
@@ -427,10 +409,10 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
       query.WHERE(query.getLastName().EQ(lName));
       query.WHERE(query.getDateOfBirth().EQ(dob));
       query.WHERE(query.getSex().EQ(sexTerm));
-      
+
       // include the residence geo entity if it is specified
       GeoEntity residence = this.getResidence();
-      if(residence != null)
+      if (residence != null)
       {
         query.WHERE(query.getResidentialGeoEntity().EQ(residence));
       }
@@ -438,6 +420,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     else
     {
       Locale currentLocale = Session.getCurrentLocale();
+
       InsufficientPatientDataException ex = new InsufficientPatientDataException();
       ex.setTypeLabel(IndividualCase.getPatientMd().getDisplayLabel(currentLocale));
       ex.setIdentifierLabel(getIdentifierMd().getDisplayLabel(currentLocale));
@@ -451,24 +434,24 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
     OIterator<? extends Person> iterator = query.getIterator();
     try
     {
-      if(iterator.hasNext())
+      if (iterator.hasNext())
       {
         Person person = iterator.next();
         this.patientedExisted = true;
-        
+
         // we have found a Person that matches the patient.
         // Make sure this person is not ambiguous by checking
         // for another match
         if (iterator.hasNext())
         {
-          iterator.close();
           AmbiguousRecipientProblem problem = new AmbiguousRecipientProblem();
           problem.setFirstName(fName);
           problem.setLastName(lName);
           problem.setDob(dob);
+          problem.setLocale(Session.getCurrentLocale());
           problem.throwIt();
         }
-        
+
         return person;
       }
       else
@@ -476,7 +459,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
         // no match found. Create a new person from a
         // template.
         this.patientedExisted = false;
-        
+
         Person person = new Person();
         person.setIdentifier(ident);
         person.setFirstName(fName);
@@ -487,6 +470,7 @@ public class IndividualCaseExcelView extends IndividualCaseExcelViewBase impleme
         person.setWorkGeoEntity(this.getWorkplace());
         person.setBirthEntity(this.getBirthEntity());
         person.apply();
+
         return person;
       }
     }

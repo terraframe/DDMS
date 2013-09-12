@@ -9,6 +9,7 @@ import com.runwaysdk.dataaccess.io.ExcelImporter.ImportContext;
 import com.runwaysdk.dataaccess.transaction.Transaction;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.QueryFactory;
+import com.runwaysdk.session.Session;
 
 import dss.vector.solutions.Person;
 import dss.vector.solutions.PersonQuery;
@@ -124,6 +125,8 @@ public class ITNDistributionExcelView extends ITNDistributionExcelViewBase imple
       problem.setFirstName(firstName);
       problem.setLastName(lastName);
       problem.setDob(dob);
+      problem.setLocale(Session.getCurrentLocale());
+
       problem.throwIt();
       return null;
     }
