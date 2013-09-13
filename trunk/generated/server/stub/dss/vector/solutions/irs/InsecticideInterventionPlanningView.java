@@ -72,13 +72,19 @@ public class InsecticideInterventionPlanningView extends InsecticideIntervention
 
     for (GeoEntity child : entity.getSprayChildren())
     {
-      GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
-
       int totalTargets = 0;
 
-      if (target != null)
+      Integer[] targets = GeoTarget.getCalculatedTargets(child.getId(), season.getId());
+
+      if (targets != null)
       {
-        totalTargets = target.getTotal();
+        for (Integer target : targets)
+        {
+          if (target != null)
+          {
+            totalTargets += target;
+          }
+        }
       }
 
       InsecticideInterventionPlanningView view = new InsecticideInterventionPlanningView();
