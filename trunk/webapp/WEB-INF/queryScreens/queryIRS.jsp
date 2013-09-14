@@ -338,7 +338,7 @@ YAHOO.util.Event.onDOMReady(function(){
     available.addAll(<%= request.getAttribute("tss") %>);
 
     var sprayStatus = new Mojo.$.dss.vector.solutions.irs.HouseholdSprayStatus();
-    var sprayStatusAttribs = ["households","sprayedHouseholds","structures","sprayedStructures","rooms","sprayedRooms","locked","refused","other"];
+    var sprayStatusAttribs = ["households","sprayedHouseholds","structures","sprayedStructures","rooms","sprayedRooms","locked","refused","other","wrongSurface"];
     sprayStatusAttribs = Mojo.Iter.filter(sprayStatusAttribs, function(attrib){
       return this.contains(attrib);
     }, available); 

@@ -552,7 +552,8 @@ public class IRSQB extends AbstractQB implements Reloadable
     String unit_operational_coverage = "SUM(" + sprayedUnits + ")::float / nullif(SUM(" + avilableUnits
         + "),0)";
 
-    String unit_application_rate = "SUM(refills::FLOAT * " + shareOfCans
+    // #2868 - instead of -refills- we now sum on sachets -used-
+    String unit_application_rate = "SUM("+Alias.USED.getAlias()+"::FLOAT * " + shareOfCans
         + " * active_ingredient_per_can) / nullif(SUM(" + sprayedUnits + " * unitarea),0)";
     String unit_application_ratio = "((" + unit_application_rate + ") / AVG(standard_application_rate))";
 
@@ -1273,6 +1274,7 @@ public class IRSQB extends AbstractQB implements Reloadable
       sql += join.setLocked(Alias.LOCKED) + ", \n";
       sql += join.setRefused(Alias.REFUSED) + ", \n";
       sql += join.setOther(Alias.OTHER) + ", \n";
+      sql += join.setWrongSurface(Alias.WRONG_SURFACE) + ", \n";
       sql += join.setDisease(Alias.DISEASE) + ", \n";
       sql += join.setReceived(Alias.RECEIVED) + ", \n";
       sql += join.setUsed(Alias.USED) + ", \n";
@@ -1386,6 +1388,7 @@ public class IRSQB extends AbstractQB implements Reloadable
     sql += union.setLocked(Alias.LOCKED) + ", \n";
     sql += union.setRefused(Alias.REFUSED) + ", \n";
     sql += union.setOther(Alias.OTHER) + ", \n";
+    sql += union.setWrongSurface(Alias.WRONG_SURFACE) + ", \n";
     sql += union.setDisease(Alias.DISEASE) + ", \n";
     sql += union.setReceived(Alias.RECEIVED) + ", \n";
     sql += union.setUsed(Alias.USED) + ", \n";
@@ -1566,8 +1569,10 @@ public class IRSQB extends AbstractQB implements Reloadable
     // of sachets in can refill using nozzle 8002 (4) * Nozzle type ratio
     // (6)
     // select += "insecticidebrand.brandname,\n";
-    select += "" + unitQuantifierCol + "*" + unitsPerApplicationCol + "*ratio*("
-        + concentrationQuantifierCol + "/100.0) AS active_ingredient_per_can,\n";
+    
+    // removed unitsPerApplicationCol * ratio for ticket #2826
+    select += "" + unitQuantifierCol + "*"// + unitsPerApplicationCol + "*ratio*"
+        + "("+concentrationQuantifierCol + "/100.0) AS active_ingredient_per_can,\n";
     select += "" + nozzleTable + "." + ratioCol + " AS nozzle_ratio,\n";
     select += "" + nozzleTable + "." + nozzleDisLabelCol + " AS nozzle_defaultLocale,\n";
     select += "" + insectNozzleTable + "." + enabledCol + ",\n";

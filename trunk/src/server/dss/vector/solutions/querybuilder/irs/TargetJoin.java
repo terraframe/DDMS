@@ -165,6 +165,12 @@ public abstract class TargetJoin extends AbstractTargetUnion implements Reloadab
 
     return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
   }
+  
+  public String setWrongSurface(Alias alias)
+  {
+
+    return hasActual ? set(ACTUAL_ALIAS, alias, alias) : setNULL(alias);
+  }
 
   public String setPeople(Alias alias)
   {

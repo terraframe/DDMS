@@ -40,6 +40,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   private String refillsCol;
   private String returnCol;
   private String sprayOperatorCol;
+  private String wrongSurfaceCol;
   
   public ActualOperatorSprayTarget()
   {
@@ -77,6 +78,7 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
     this.lockedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.LOCKED);
     this.refusedCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.REFUSED);
     this.otherCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.OTHER);
+    this.wrongSurfaceCol = QueryUtil.getColumnName(householdSprayStatusMd, HouseholdSprayStatus.WRONGSURFACE);
   }
   
   public String setId(Alias alias)
@@ -241,6 +243,12 @@ public class ActualOperatorSprayTarget extends ActualTargetUnion implements Relo
   public String setOther(Alias alias)
   {
     return set(householdSprayStatusTable, otherCol, alias);
+  }
+  
+  @Override
+  public String setWrongSurface(Alias alias)
+  {
+    return set(wrongSurfaceCol, alias);
   }
   
   @Override

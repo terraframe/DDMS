@@ -69,6 +69,12 @@ public abstract class ActualTargetUnion extends AbstractTargetUnion implements R
 
     return setNULL(alias);
   }
+  
+  public String setWrongSurface(Alias alias)
+  {
+
+    return setNULL(alias);
+  }
 
   public String setPeople(Alias alias)
   {

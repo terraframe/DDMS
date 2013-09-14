@@ -51,6 +51,7 @@ public enum Alias implements Reloadable
   LOCKED("locked", IRSUnionIF.FLOAT),
   REFUSED("refused", IRSUnionIF.FLOAT),
   OTHER("other", IRSUnionIF.FLOAT),
+  WRONG_SURFACE("wrongSurface", IRSUnionIF.FLOAT),
   DISEASE("disease", IRSUnionIF.VARCHAR),    
   RECEIVED("received", IRSUnionIF.FLOAT),
   USED("used", IRSUnionIF.FLOAT),
