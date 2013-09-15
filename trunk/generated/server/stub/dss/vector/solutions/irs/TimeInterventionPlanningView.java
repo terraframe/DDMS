@@ -68,7 +68,7 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
   public static TimeInterventionPlanningView[] getViews(String geoId, MalariaSeason season)
   {
     GeoEntity entity = GeoEntity.searchByGeoId(geoId);
-    
+
     // Validate the Geo Entity: it must be part of the spray hierarchy
     GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromType(entity.getType());
 
@@ -88,13 +88,20 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
 
     for (GeoEntity child : entity.getSprayChildren())
     {
-      GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
-      int totalTargets = 0;
       int operators = TeamMember.getAvailableOperators(child);
 
-      if (target != null)
+      int totalTargets = 0;
+      Integer[] targets = GeoTarget.getCalculatedTargets(child.getId(), season.getId());
+
+      if (targets != null)
       {
-        totalTargets = target.getTotal();
+        for (Integer target : targets)
+        {
+          if (target != null)
+          {
+            totalTargets += target;
+          }
+        }
       }
 
       TimeInterventionPlanningView view = new TimeInterventionPlanningView();
@@ -133,7 +140,7 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
 
       UnitsPerDayException e = new UnitsPerDayException(msg);
       e.apply();
-      
+
       throw e;
     }
   }
@@ -147,7 +154,7 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
 
     return returnViews;
   }
-  
+
   public static InputStream exportToExcel(TimeInterventionPlanningView[] views)
   {
     List<String> attributes = new LinkedList<String>();
@@ -155,13 +162,12 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
     attributes.add(TARGETS);
     attributes.add(OPERATORS);
     attributes.add(REQUIREDDAYS);
-    
+
     MdViewDAOIF mdView = MdViewDAO.getMdViewDAO(CLASS);
-    
+
     ViewArrayExcelExporter exporter = new ViewArrayExcelExporter(views, attributes, mdView, mdView.getDisplayLabel(Session.getCurrentLocale()));
-    
+
     return exporter.exportStream();
   }
-
 
 }

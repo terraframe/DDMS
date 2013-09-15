@@ -23,12 +23,12 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
   {
     super();
   }
-  
+
   @Override
   public void apply()
   {
   }
-  
+
   public Integer calculate()
   {
     if (validateCalculation())
@@ -46,7 +46,7 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
   protected boolean validateCalculation()
   {
     boolean valid = super.validateCalculation();
-    
+
     if (this.getNumberofDays() == null || this.getNumberofDays() == 0)
     {
       String msg = "Number of days have not been populated";
@@ -80,7 +80,7 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
   public static OperatorInterventionPlanningView[] getViews(String geoId, MalariaSeason season)
   {
     GeoEntity entity = GeoEntity.searchByGeoId(geoId);
-    
+
     // Validate the Geo Entity: it must be part of the spray hierarchy
     GeoHierarchy geoHierarchy = GeoHierarchy.getGeoHierarchyFromType(entity.getType());
 
@@ -96,17 +96,23 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
       p.throwIt();
     }
 
-    
     List<OperatorInterventionPlanningView> list = new LinkedList<OperatorInterventionPlanningView>();
 
     for (GeoEntity child : entity.getSprayChildren())
     {
-      GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
       int totalTargets = 0;
+      
+      Integer[] targets = GeoTarget.getCalculatedTargets(child.getId(), season.getId());
 
-      if (target != null)
+      if (targets != null)
       {
-        totalTargets = target.getTotal();
+        for (Integer target : targets)
+        {
+          if (target != null)
+          {
+            totalTargets += target;
+          }
+        }
       }
 
       OperatorInterventionPlanningView view = new OperatorInterventionPlanningView();
@@ -133,20 +139,20 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
 
     return views;
   }
-  
+
   public static InputStream exportToExcel(OperatorInterventionPlanningView[] views)
   {
     List<String> attributes = new LinkedList<String>();
     attributes.add(ENTITYLABEL);
     attributes.add(TARGETS);
     attributes.add(NUMBEROFDAYS);
-    attributes.add(UNITSPERDAY);    
+    attributes.add(UNITSPERDAY);
     attributes.add(REQUIREDOPERATORS);
-    
+
     MdViewDAOIF mdView = MdViewDAO.getMdViewDAO(CLASS);
-    
+
     ViewArrayExcelExporter exporter = new ViewArrayExcelExporter(views, attributes, mdView, mdView.getDisplayLabel(Session.getCurrentLocale()));
-    
-    return exporter.exportStream();    
+
+    return exporter.exportStream();
   }
 }
