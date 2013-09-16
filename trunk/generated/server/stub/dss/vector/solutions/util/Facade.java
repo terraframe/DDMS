@@ -133,8 +133,7 @@ public abstract class Facade extends FacadeBase implements Reloadable
 
     try
     {
-      ContextBuilderFacade builder = new ContextBuilderFacade();
-      builder.add(type, new DefaultContextBuilder(listenerMethod, params));
+      ContextBuilderFacade builder = new ContextBuilderFacade(new DefaultContextBuilder(listenerMethod, params));
 
       ExcelImporter importer = new ExcelImporter(inputStream, builder);
 

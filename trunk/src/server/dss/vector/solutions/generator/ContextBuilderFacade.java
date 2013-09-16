@@ -24,9 +24,14 @@ public class ContextBuilderFacade implements ContextBuilderIF, Reloadable
   {
     this.map = new HashMap<String, ContextBuilderIF>();
     this.map.put(DEFAULT, new DefaultContextBuilder());
-
   }
 
+  public ContextBuilderFacade(ContextBuilderIF defaultBuilder)
+  {
+    this.map = new HashMap<String, ContextBuilderIF>();
+    this.map.put(DEFAULT, defaultBuilder);
+  }
+  
   public void add(String contextType, ContextBuilderIF builder)
   {
     this.map.put(contextType, builder);
@@ -50,6 +55,11 @@ public class ContextBuilderFacade implements ContextBuilderIF, Reloadable
 
   public ContextBuilderIF getBuilder(String type)
   {
+    if (this.map.containsKey(type))
+    {
+      return this.map.get(type);
+    }
+
     if (MdFormUtil.isFormBusinessPackage(type))
     {
       if (!this.map.containsKey(type))
