@@ -17,7 +17,7 @@
         ${item.activeIngredient.displayLabel}
       </mjl:dt>
       <mjl:dt attribute="concentrationQuantifier">
-        ${item.concentrationQuantifier}
+        <fmt:formatNumber minFractionDigits="2" value="${item.concentrationQuantifier}" />      
       </mjl:dt>
       <mjl:dt attribute="concentrationQualifier">
         <ul>
@@ -44,7 +44,7 @@
         ${item.unitsPerApplication}
       </mjl:dt>
       <mjl:dt attribute="unitQuantifier">
-        ${item.unitQuantifier}
+        <fmt:formatNumber minFractionDigits="2" value="${item.unitQuantifier}" />                    
       </mjl:dt>
       <mjl:dt attribute="unitQualifier">
         <ul>

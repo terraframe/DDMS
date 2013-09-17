@@ -10,7 +10,8 @@
     <mdss:mo param="activeIngredient" value="${activeIngredient}" />
   </mjl:dt>
   <mjl:dt attribute="concentrationQuantifier">
-    <mjl:input param="concentrationQuantifier" type="text" />
+    <fmt:formatNumber minFractionDigits="2" var="formatConcentrationQuantifier" value="${item.concentrationQuantifier}" />  
+    <mjl:input param="concentrationQuantifier" type="text" value="${formatConcentrationQuantifier}"/>
   </mjl:dt>
   <mjl:dt attribute="concentrationQualifier">
     <mjl:select param="concentrationQualifier" items="${_concentrationQualifier}" var="current" valueAttribute="enumName">
@@ -33,7 +34,8 @@
     <mjl:input param="unitsPerApplication" type="text" />
   </mjl:dt>
   <mjl:dt attribute="unitQuantifier">
-    <mjl:input param="unitQuantifier" type="text" />
+    <fmt:formatNumber minFractionDigits="2" var="formatUnitQuantifier" value="${item.unitQuantifier}" />    
+    <mjl:input param="unitQuantifier" type="text"  value="${formatUnitQuantifier}"/>
   </mjl:dt>
   <mjl:dt attribute="unitQualifier">
     <mjl:select param="unitQualifier" items="${_unitQualifier}" var="current" valueAttribute="enumName">

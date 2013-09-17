@@ -20,6 +20,9 @@
       </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="concentrationQuantifier">
+      <mjl:row>
+        <fmt:formatNumber minFractionDigits="2" value="${item.concentrationQuantifier}" />    
+      </mjl:row>
     </mjl:attributeColumn>
     <mjl:attributeColumn attributeName="concentrationQualifier">
       <mjl:row>
