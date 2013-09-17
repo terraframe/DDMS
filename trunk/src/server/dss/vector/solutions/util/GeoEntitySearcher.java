@@ -21,7 +21,6 @@ import org.apache.poi.poifs.filesystem.POIFSFileSystem;
 
 import com.runwaysdk.business.Business;
 import com.runwaysdk.business.BusinessQuery;
-import com.runwaysdk.dataaccess.cache.ObjectCache;
 import com.runwaysdk.dataaccess.io.excel.ExcelUtil;
 import com.runwaysdk.dataaccess.metadata.MdTypeDAO;
 import com.runwaysdk.generation.loader.Reloadable;
@@ -30,10 +29,9 @@ import com.runwaysdk.query.F;
 import com.runwaysdk.query.OIterator;
 import com.runwaysdk.query.OR;
 import com.runwaysdk.query.QueryFactory;
-import com.runwaysdk.query.SelectableSQLCharacter;
+import com.runwaysdk.query.SelectableSQLInteger;
 import com.runwaysdk.query.ValueQuery;
 import com.runwaysdk.system.metadata.MdBusiness;
-import com.runwaysdk.system.metadata.MdType;
 
 import dss.vector.solutions.export.DynamicGeoColumnListener;
 import dss.vector.solutions.export.ExcelReadException;
@@ -446,16 +444,15 @@ public class GeoEntitySearcher implements Reloadable
       GeoEntityEntityLabelQuery labelQuery = new GeoEntityEntityLabelQuery(qf);
       String qualifiedName = childGeoEntityQuery.getEntityLabel().localize().getDbQualifiedName();
 
-      // A sql pass through character for the metaphone of existing entity
-      // labels
-      SelectableSQLCharacter entityMetaphone = geoEntityIdQuery.aSQLCharacter("entityMetaphone", "metaphone(" + qualifiedName + ", 255)", "entityMetaphone");
+      Integer max = 4;
 
-      // A sql pass through character for the metaphone of unknown entity label
-      SelectableSQLCharacter unknownMetaphone = geoEntityIdQuery.aSQLCharacter("unknownMetaphone", "metaphone('" + childGeoEntityName + "', 255)", "unknownMetaphone");
+      /*
+       *  A sql pass through character for the levenshtein of existing entity labels
+       */
+      SelectableSQLInteger entityMetaphone = geoEntityIdQuery.aSQLInteger("entityMetaphone", "levenshtein_less_equal(" + qualifiedName + ", '" + childGeoEntityName + "', " + max + ")", "entityMetaphone");
 
-      // geoEntityIdQuery.FROM(entityMetaphone.EQ(unknownMetaphone));
       geoEntityIdQuery.WHERE(childGeoEntityQuery.getEntityLabel().getId().EQ(labelQuery.getId()));
-      geoEntityIdQuery.AND(entityMetaphone.EQ(unknownMetaphone));
+      geoEntityIdQuery.AND(entityMetaphone.LT(max));
     }
     else
     {
