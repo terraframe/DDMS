@@ -801,15 +801,25 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var key = userAlias + this._config.CRITERIA;
       var crit = this._config.getProperty(key);
       if(checked && crit){
-        this._queryPanel.addWhereCriteria(userAlias, crit, crit);
         if(crit.indexOf(' - ')>0)
         {
-          crit = crit.split(' - ');               
-          this._toggleRange(userAlias, true, crit[0],crit[1]);
+          crit = crit.split(' - ');
+          
+          var criteria1 =  MDSS.QueryBaseNew.buildNumberCriteriaFromString(crit[0]);
+          var criteria2 =  MDSS.QueryBaseNew.buildNumberCriteriaFromString(crit[1]);
+          
+          var value = (criteria1.value + '-' + criteria2.value);
+          var display = (criteria1.display + '-' + criteria2.display);
+          
+          this._queryPanel.addWhereCriteria(userAlias, value, display);
+          this._toggleRange(userAlias, true, criteria1.display, criteria2.display);
         }
         else
         {
-          this._toggleSingle(userAlias, true, crit);
+          var criteria =  MDSS.QueryBaseNew.buildNumberCriteriaFromString(crit);
+          
+          this._queryPanel.addWhereCriteria(userAlias, criteria.value, criteria.display);
+          this._toggleSingle(userAlias, true, criteria.display);
         }
       }
     },
@@ -1678,33 +1688,40 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     _setNumberCriteria : function(e, obj)
     {
       var attribute = obj.attribute;
-      var value;
+      var criteria = null;
+            
       if(obj.type === 'single')
       {
         var single = document.getElementById(attribute.getKey()+"-single");
-        value = single.value;
+        
+        criteria = MDSS.QueryBaseNew.buildNumberCriteriaFromInput(single);
       }
       else
       {
         var range1 = document.getElementById(attribute.getKey()+"-range1");
         var range2 = document.getElementById(attribute.getKey()+"-range2");
-        value = range1.value+' - '+range2.value; // Will be split up later
+        
+        criteria1 = MDSS.QueryBaseNew.buildNumberCriteriaFromInput(range1);
+        criteria2 = MDSS.QueryBaseNew.buildNumberCriteriaFromInput(range2);
+        
+        criteria = {value:criteria1.value + '-' + criteria2.value, display:criteria1.display + '-' + criteria2.display};
       }
       
       // DOB uses the json config because WHERE criteria is not easily passed
       // between a date and sql integer.
 
-      if(value === '' || value === ' - ')
+      if(criteria.value === '' || criteria.value === ' - ')
       {
-        value = null;
+        criteria.value = null;
+        criteria.display = null;
       }
     
       this._queryPanel.clearWhereCriteria(attribute.getKey());
       
-      if(value != null)
+      if(criteria.value != null)
       {
-        this._config.setNumberCriteria(attribute.getKey(), value);
-        this._queryPanel.addWhereCriteria(attribute.getKey(), value, value);
+        this._config.setNumberCriteria(attribute.getKey(), criteria.value);
+        this._queryPanel.addWhereCriteria(attribute.getKey(), criteria.value, criteria.display);
       }
       else
       {
@@ -1713,7 +1730,18 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
     }
   },
   Static : {
-      mapAttribs : function(attribName){
+     buildNumberCriteriaFromInput : function(element){
+       var value = MDSS.parseNumber(element.value);
+       value = (value != null && !isNaN(value) ? value : '');
+        
+       var display = (value != '' ? MDSS.formatNumber(value) : '');
+        
+       return {value:value.toString() , display:display};      
+     },
+     buildNumberCriteriaFromString : function(string){
+       return {value:string, display:(string != null && string != '' ? MDSS.formatNumber(parseFloat(string)) : '')};      
+     },
+     mapAttribs : function(attribName){
        var attrib = this.obj.attributeMap[attribName];
        var row = {};
        if(attrib)
