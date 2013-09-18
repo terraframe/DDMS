@@ -94,7 +94,8 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
       
       // this is a hack until username, password, and sld path are put in 
       // properties files.
-      String sldPath = geoserverPath.replace("geoserver", DeployProperties.getAppName())+"/";
+      String appName = CommonProperties.getDeployAppName();
+      String sldPath = geoserverPath.replace("geoserver", appName)+"/";
       
       mapData = new JSONObject();
       layersJSON = new JSONArray();
@@ -117,7 +118,7 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     {
       Layer layer = iter.next();
 
-      String namespacedView = CommonProperties.getDeployAppName() + ":" + layer.getViewName();
+      String namespacedView = appName + ":" + layer.getViewName();
       String sldFile = MapUtil.formatSLD(layer);
 
       JSONObject layerJSON = new JSONObject();
