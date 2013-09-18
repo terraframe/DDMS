@@ -91,11 +91,16 @@ public class SavedMap extends SavedMapBase implements com.runwaysdk.generation.l
     try
     {
       String geoserverPath = MapUtil.getGeoServerRemoteURL();
-
+      
+      // this is a hack until username, password, and sld path are put in 
+      // properties files.
+      String sldPath = geoserverPath.replace("geoserver", DeployProperties.getAppName())+"/";
+      
       mapData = new JSONObject();
       layersJSON = new JSONArray();
 
       mapData.put("geoserverURL", geoserverPath);
+      mapData.put("sldURL", sldPath);
       mapData.put("layers", layersJSON);
     }
     catch (JSONException e)

@@ -85,8 +85,31 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
   @Override
   public void delete()
   {
-    super.delete();
+    // remove the layers on all default maps that
+    // reference this query.
+    QueryFactory f = new QueryFactory();
+    DefaultSavedMapQuery m = new DefaultSavedMapQuery(f);
+    LayerQuery l = new LayerQuery(f);
+    
+    l.WHERE(l.getSavedSearch().EQ(this));
+    l.AND(l.map(m));
 
+    OIterator<? extends Layer> iter = l.getIterator();
+    
+    try
+    {
+      while(iter.hasNext())
+      {
+        iter.next().delete();
+      }
+    }
+    finally
+    {
+      iter.close();
+    }
+    
+    super.delete();
+    
     this.deleteDatabaseViewIfExists();
   }
 

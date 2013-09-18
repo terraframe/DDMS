@@ -391,6 +391,16 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   {
     return bundle.getString("geoserver.local.path");
   }
+  
+//  public static final String getGeoserverUsername()
+//  {
+//    return bundle.getString("geoserver.username");
+//  }
+//
+//  public static final String getGeoserverPassword()
+//  {
+//    return bundle.getString("geoserver.password");
+//  }
 
   /**
    * Returns the url to access GeoServer remotely.
@@ -401,6 +411,11 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
   {
     return bundle.getString("geoserver.remote.path");
   }
+  
+//  public static final String getSLD_URL()
+//  {
+//    return bundle.getString("geoserver.sld.path");
+//  }
 
   public static void reload(String sessionId, Map<Layer, ValueQuery> reloads)
   {
@@ -424,6 +439,8 @@ public class MapUtil extends MapUtilBase implements com.runwaysdk.generation.loa
         lock.unlock();
       }
       
+//      String username = getGeoserverUsername();
+//      String password = getGeoserverPassword();
       GeoServerRESTPublisher publisher = new GeoServerRESTPublisher(geoserverPath, "admin", "geoserver");
       
       // reload the catalog (this will force GeoServer to dump any cached

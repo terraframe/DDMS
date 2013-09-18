@@ -1260,7 +1260,7 @@ Mojo.Meta.newClass('MDSS.MapPanel', {
                   srs: 'EPSG:4326',
                   layers: layer.view,
                   styles: '',
-                  sld: Mojo.ClientSession.getBaseEndpoint()+layer.sld,
+                  sld: mapData.sldURL+layer.sld,
                   format: OpenLayers.Format.SVG,
                   transparent: (i !== 0), // base layer is false
                   isBaseLayer : (i === 0) // base layer is true
