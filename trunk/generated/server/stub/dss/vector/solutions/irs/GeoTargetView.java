@@ -100,6 +100,8 @@ public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.ge
   {
     int total = 0;
 
+    Integer[] targets = GeoTarget.getCalculatedTargets(this.getGeoEntityId(), this.getSeasonId());
+
     for (int i = 0; i < 53; i++)
     {
       String getterName = "getTarget_" + i;
@@ -110,9 +112,16 @@ public class GeoTargetView extends GeoTargetViewBase implements com.runwaysdk.ge
 
         Integer weekTarget = (Integer) getter.invoke(this);
 
+        /*
+         * If this has a direct target use it, otherwise use the rolled up target
+         */
         if (weekTarget != null)
         {
           total += weekTarget;
+        }
+        else if(targets[i] != null)
+        {
+          total += targets[i];
         }
       }
       catch (Exception e)

@@ -90,18 +90,13 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
     {
       int operators = TeamMember.getAvailableOperators(child);
 
-      int totalTargets = 0;
-      Integer[] targets = GeoTarget.getCalculatedTargets(child.getId(), season.getId());
+      GeoTargetView target = GeoTarget.findByGeoEntityIdAndSeason(child.getId(), season);
 
-      if (targets != null)
+      int totalTargets = 0;
+
+      if (target != null)
       {
-        for (Integer target : targets)
-        {
-          if (target != null)
-          {
-            totalTargets += target;
-          }
-        }
+        totalTargets = target.getTotal();
       }
 
       TimeInterventionPlanningView view = new TimeInterventionPlanningView();
