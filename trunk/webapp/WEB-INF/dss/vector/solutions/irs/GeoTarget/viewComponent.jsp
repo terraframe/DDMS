@@ -50,7 +50,8 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
 <script type="text/javascript">
 (function(){
   YAHOO.util.Event.onDOMReady(function(){ 
-    var calculatedTargets = <%=request.getAttribute("calculated")%>;
+
+	var calculatedTargets = <%=request.getAttribute("calculated")%>;
 
     var data = {
       rows:<%=grid.getData()%>,
@@ -80,8 +81,32 @@ DataGrid grid = (DataGrid) request.getAttribute("grid");
       }
     };
     
-    var grid = MojoGrid.createDataTable(data);
-
+    var dataListener = function(event) {
+      if(event.getType() == MDSS.Event.AFTER_SAVE) {
+        var records = grid.getDataTable().getRecordSet().getRecords();
+        var length = grid.getModel().length();
+        
+        for(var j = 0; j < records.length; j++) {
+          var record = records[j];
+          
+          if(record.getCount() < (length - 1)) {
+            var str = '<form method = "post"';
+            str += ' id="'+record.getData('GeoEntity')+'">';
+            str += '<input type="hidden" name="geoEntity.componentId" value="'+record.getData('GeoEntity')+'"/>';
+            str += '<input type="hidden" name="season.componentId" value="'+record.getData('Season')+'"/>';
+            str += '<input type="hidden" name="season.componentId" value="true"/>';
+            str += " <a href=\"javascript: document.getElementById('"+record.getData('GeoEntity')+"').submit();\">";
+            str += record.getData('EntityLabel')+'</a></form>';
+            
+            grid.getDataTable().updateCell(record, 'EntityLabel', str);
+          }      	
+        }        
+      }
+    };    
+    
+    var grid = MojoGrid.createDataTable(data);    
+    grid.addListener(dataListener);
+    
     var dt = grid.getDataTable();
 
     var setRowCaluatedValues = function(row) {
