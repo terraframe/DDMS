@@ -50,14 +50,14 @@ public class TimeInterventionPlanningView extends TimeInterventionPlanningViewBa
 
     if (this.getOperators() == null || this.getOperators() == 0)
     {
-      String msg = "Operators have not been populated";
-
-      RequiredOperatorsProblem p = new RequiredOperatorsProblem(msg);
-      p.setNotification(this, OPERATORS);
-      p.setEntityLabel(this.getEntityLabel());
-      p.apply();
-      p.throwIt();
-
+//      String msg = "Operators have not been populated";
+//
+//      RequiredOperatorsProblem p = new RequiredOperatorsProblem(msg);
+//      p.setNotification(this, OPERATORS);
+//      p.setEntityLabel(this.getEntityLabel());
+//      p.apply();
+//      p.throwIt();
+//
       valid = false;
     }
 

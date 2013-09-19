@@ -20,14 +20,14 @@ public abstract class InterventionPlanningView extends InterventionPlanningViewB
   {
     if (this.getTargets() == null || this.getTargets() == 0)
     {
-      String msg = "Targets have not been populated";
-
-      RequiredTargetsProblem p = new RequiredTargetsProblem(msg);
-      p.setNotification(this, TARGETS);
-      p.setEntityLabel(this.getEntityLabel());
-      p.apply();
-      p.throwIt();
-      
+//      String msg = "Targets have not been populated";
+//
+//      RequiredTargetsProblem p = new RequiredTargetsProblem(msg);
+//      p.setNotification(this, TARGETS);
+//      p.setEntityLabel(this.getEntityLabel());
+//      p.apply();
+//      p.throwIt();
+//      
       return false;
     }
     

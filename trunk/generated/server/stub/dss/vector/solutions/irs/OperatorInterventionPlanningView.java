@@ -47,30 +47,33 @@ public class OperatorInterventionPlanningView extends OperatorInterventionPlanni
   {
     boolean valid = super.validateCalculation();
 
-    if (this.getNumberofDays() == null || this.getNumberofDays() == 0)
+    if (valid)
     {
-      String msg = "Number of days have not been populated";
+      if (this.getNumberofDays() == null || this.getNumberofDays() == 0)
+      {
+        String msg = "Number of days have not been populated";
 
-      EmptyValueProblem p = new EmptyValueProblem(msg);
-      p.setNotification(this, NUMBEROFDAYS);
-      p.setEntityLabel(this.getEntityLabel());
-      p.apply();
-      p.throwIt();
+        EmptyValueProblem p = new EmptyValueProblem(msg);
+        p.setNotification(this, NUMBEROFDAYS);
+        p.setEntityLabel(this.getEntityLabel());
+        p.apply();
+        p.throwIt();
 
-      valid = false;
-    }
+        valid = false;
+      }
 
-    if (this.getUnitsPerDay() == null || this.getUnitsPerDay() == 0)
-    {
-      String msg = "Sprayed units per operator per day have not been populated";
+      if (this.getUnitsPerDay() == null || this.getUnitsPerDay() == 0)
+      {
+        String msg = "Sprayed units per operator per day have not been populated";
 
-      EmptyValueProblem p = new EmptyValueProblem(msg);
-      p.setNotification(this, UNITSPERDAY);
-      p.setEntityLabel(this.getEntityLabel());
-      p.apply();
-      p.throwIt();
+        EmptyValueProblem p = new EmptyValueProblem(msg);
+        p.setNotification(this, UNITSPERDAY);
+        p.setEntityLabel(this.getEntityLabel());
+        p.apply();
+        p.throwIt();
 
-      valid = false;
+        valid = false;
+      }
     }
 
     return valid;
