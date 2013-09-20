@@ -347,6 +347,7 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
     String config = this.getConfig();
 
     String queryClass = QueryConstants.getQueryClass(queryType);
+    Map<String, Integer> columnNameMap = new HashMap<String, Integer>();
 
     try
     {
@@ -374,6 +375,8 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
           newColumn = c.getColumnAlias();
         }
 
+        newColumn.replaceAll("%", "percent");
+
         newColumn = GeoHierarchy.getSystemName(newColumn, "", false, VALID_PREFIX);
 
         // Postgres identifiers are case-insensitive so
@@ -386,6 +389,18 @@ public class SavedSearch extends SavedSearchBase implements com.runwaysdk.genera
         if (INVALID_PREFIX.matcher(newColumn).matches())
         {
           newColumn = VALID_PREFIX + newColumn;
+        }
+
+        if (columnNameMap.containsKey(newColumn))
+        {
+          Integer count = columnNameMap.get(newColumn) + 1;
+          columnNameMap.put(newColumn, count);
+
+          newColumn += "_" + count;
+        }
+        else
+        {
+          columnNameMap.put(newColumn, new Integer(1));
         }
 
         c.setColumnAlias(newColumn);
