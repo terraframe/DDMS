@@ -801,9 +801,9 @@ Mojo.Meta.newClass('MDSS.QueryBaseNew', {
       var key = userAlias + this._config.CRITERIA;
       var crit = this._config.getProperty(key);
       if(checked && crit){
-        if(crit.indexOf(' - ')>0)
+        if(crit.indexOf('-')>0)
         {
-          crit = crit.split(' - ');
+          crit = crit.split('-');
           
           var criteria1 =  MDSS.QueryBaseNew.buildNumberCriteriaFromString(crit[0]);
           var criteria2 =  MDSS.QueryBaseNew.buildNumberCriteriaFromString(crit[1]);
