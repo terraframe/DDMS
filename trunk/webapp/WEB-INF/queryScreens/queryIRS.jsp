@@ -215,7 +215,7 @@ YAHOO.util.Event.onDOMReady(function(){
     var insecticideBrandMap = {<%=(String) request.getAttribute("insecticideBrandMap")%>};
     var Insecticide_Details = insectcideAttribs.map(MDSS.QueryBaseNew.mapAttribs, {obj:insectcide, suffix:'_spray', dropDownMaps:insecticideBrandMap, type:'dss.vector.solutions.irs.InsecticideBrand'});
     Insecticide_Details = Insecticide_Details.concat([
-
+/* removed for #2826
                                                       {
                                                          
                                                          key:"nozzle_defaultLocale",
@@ -228,6 +228,7 @@ YAHOO.util.Event.onDOMReady(function(){
                                                          type:"sqldouble",
                                                          attributeName:"nozzle_ratio",
                                                        },
+                                                       */
                                                        {
                                                          
                                                          key:"active_ingredient_per_can",
