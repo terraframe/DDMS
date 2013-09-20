@@ -60,24 +60,8 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
 
     if (this.getSprayTeam() != null && !this.getSprayTeam().equals(""))
     {
-      TeamSprayStatusView view = new TeamSprayStatusView();
-
-      // Check for existing records
-      TeamSprayStatusQuery query = new TeamSprayStatusQuery(new QueryFactory());
-      query.WHERE(query.getSpray().getId().EQ(zsv.getConcreteId()));
-      query.WHERE(query.getSprayTeam().getTeamId().EQ(this.getSprayTeam()));
-      OIterator<? extends TeamSprayStatus> iterator = query.getIterator();
-      if (iterator.hasNext())
-      {
-        view = iterator.next().lockView();
-      }
-      else
-      {
-        view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
-        view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));
-      }
-
-      view.setTeamLeader(TeamMember.getMemberById(this.getLeaderId()));
+      TeamSprayStatusView view = this.getSprayStatusView(zsv);
+      view.setTeamLeader(this.getTeamLeader());
       view.setTarget(this.getTeamTarget());
       view.setReceived(this.getTeamReceived());
       view.setRefills(this.getTeamRefills());
@@ -99,6 +83,46 @@ public class ZoneSprayExcelView extends ZoneSprayExcelViewBase implements com.ru
       view.setOther(this.getOther());
       view.apply();
     }
+  }
+
+  public TeamSprayStatusView getSprayStatusView(ZoneSprayView zsv)
+  {
+    // Check for existing records
+    TeamSprayStatusQuery query = new TeamSprayStatusQuery(new QueryFactory());
+    query.WHERE(query.getSpray().getId().EQ(zsv.getConcreteId()));
+    query.WHERE(query.getSprayTeam().getTeamId().EQ(this.getSprayTeam()));
+
+    OIterator<? extends TeamSprayStatus> iterator = query.getIterator();
+
+    try
+    {
+      if (iterator.hasNext())
+      {
+        return iterator.next().lockView();
+      }
+      else
+      {
+        TeamSprayStatusView view = new TeamSprayStatusView();
+        view.setSpray(ZoneSpray.get(zsv.getConcreteId()));
+        view.setSprayTeam(SprayTeam.getByTeamId(this.getSprayTeam()));
+
+        return view;
+      }
+    }
+    finally
+    {
+      iterator.close();
+    }
+  }
+
+  public TeamMember getTeamLeader()
+  {
+    if (this.getLeaderId() != null && this.getLeaderId().length() > 0)
+    {
+      return TeamMember.getMemberById(this.getLeaderId());
+    }
+
+    return null;
   }
 
   public static List<String> customAttributeOrder()
